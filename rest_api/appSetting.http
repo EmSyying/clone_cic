@@ -1,0 +1,25 @@
+
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiOTNhMjdlZGYxMDRjMzYzOTY3YzVhMmQzOGRjMTE2OTE1NzY2YWM2MzQ2ZDQ3MjMzODFmYTBhNjRiYjZhNDYwNTY1MDFhMDRiOWVlNDkxYTkiLCJpYXQiOjE2MzExNTcwOTguNDIzOTg4LCJuYmYiOjE2MzExNTcwOTguNDIzOTkyLCJleHAiOjE2NjI2OTMwOTguMzkxNDY0LCJzdWIiOiIxNTk5Iiwic2NvcGVzIjpbIioiXX0.hN8G7_wnaZVtIyGO-DpFGXAk1lbBw0Uuy_kS2487k3HzCJ6qr1PQ-VbLWUGQHFW8uUloMUblX42ZfI3UBwgy_1Scx3Yg78qAqJwDzJl46uNMFn8-fKU1JgJQZzhg5mDx9XpF3VbIMDhZnOuLHKvRLeG0VwhzwDRkyryqkelNdD7XsrUMkXcIpgJQ5d3wjOIhLVOf2Q3dXIUGFAxSCZnSUGXIY2FQIH19Q_N2CQyczBQqWfmZYtksDJstlpUVJEeUwiUPdvXEVMCycoprYawzWx-NRYOojPJpJ32JNOkdeu8NjWYBRvPac4AwXSQZqT8EQA_cijFuzG5LHX0wuhR6gLRLzQUE5T3geCRnqR1NrwzGgB8UiK6oxjbiYyG31J3FQ0d73e2Qo5uEo7oxMKst7c3qsEh7jNOQadRWT5XwsFyrIZ7PhF3H8XW1M_aXpgq_sVAQxrAomzHoBSvx2XT25EaXMN4rPTo6xAyVynODwnrxs7Qe_47m2FChuiiwgBiTRexerYeqpeV4rNKbGZLEr8NxbxJJB1P9gUmtwQFCDYlDSq8WhJczeTndYriSZUBBJSY-zOxlzLFeKqZPX614p3jrl3la41ef4RuqAxJErlt8XVyYulp0cw_D1aDn6pWv5uNubzAiB35VOyEs_qJsOwxeltA541tmr6Asb8pFbww
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85510305096",
+    "password" : "Chhany12"   
+}
+
+###
+GET {{baseUrl}}v3/app-setting
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/ui?name=APP&type=paragraph
+Accept: application/json
+Content-Type: application/json
+
+
+// menu-i

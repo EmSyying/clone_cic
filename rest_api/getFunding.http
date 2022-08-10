@@ -1,0 +1,173 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZjFkNzI4YTQzMzk4MDk0Y2JjZmFkYTExZjA4OTNkNTA3NjJkYWRkNTQ2MmY3MTI0MmU0YTg0MDk1MzJkZGFkYzI5YzE1NDkxMWVmZjM3MWEiLCJpYXQiOjE2NTc2MDIxMTcuMDEwMjIxLCJuYmYiOjE2NTc2MDIxMTcuMDEwMjI5LCJleHAiOjE2ODkxMzgxMTYuOTkzNDQ5LCJzdWIiOiIxMCIsInNjb3BlcyI6WyIqIl19.nsCxVlmcRqGFqUfjxilP9A4dV0l7KuBXdYEoOqJQ97AmK4x-KVavzyW3IJ4rTtUQbOrwByH7poK2gZbYEHGXAfUSia8JT3W3oSxH4q1dxYxD4ql2E8Siq9lH1n_MpmEdL2h5WlNU-TV5f0enCdi-YRRubKn_eZoESABeAsDbmUkGGQGZjYmo4dMamkvvNHxYbchpiXgdbu-bJskmr1QEL-lDgqfcXW1PUBl29P70hfmeY61g1TY5ouCmQ5hhnLLh2rMfpJDYYySvu1S9lXcBzgQL2JYr3NH5xHPmWiXGIhFuUDUYDRg2ydMBjmm_OeHXCm7NzHNklCRCqv0-ZFJDc_JMWE6bypwzXIcQaB7eiQpU9RN-m_7jiV6CxcRBlrk3G9W4FsZwZDhYYv0fu7AfQUa35tYTXgAXIzRHyHfVx20GOqS4xVla2yKOfrDJT7MMSLOUQki8p97f74-OzJh_w54mG2i23aQAmLSUZlPu_2FxfKx5GhHQgbxaVKELRow6C-60XzXi6gtbcX-ihQ_p-6aAPW5_c1Ji5H03W49dW1JcirdoWAw8zMOunQpBRehpnu9R_ATb7mpEjZSjs4VyCFMhOf-BUu-rfGwSWAXTI8N8N0xgqlEt6n12w1GtX4aYWU7p3cAUASyKzISTm8tJtjarBljyH92kgLDuhR-Iq7w
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85510305096",
+    "password" : "Admin@2022"   
+}
+###
+GET https://cicstaging.z1central.com/api/v2/option
+Accept: application/json
+Content-Type: application/json
+Authorization:Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/equity-investment/144
+Content-Type: application/json
+Accept: application/json
+Authorization:Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/option
+Content-Type: application/json
+Accept: application/json
+Authorization:Bearer {{token}}
+
+###
+PUT {{baseUrl}}v2/equity-investment/74
+Content-Type: application/json
+Accept: application/json
+Authorization:Bearer {{token}}
+
+{
+    "financial_amount": 1000,
+    "disbursement_date": "2021-07-30",
+    "use_of_fund": "Typing Here",
+    "company_name": "FS Company",
+    "full_address": "No. 20B, St. 612z, Sangkat Boeung Kak 1, Khan Toul Kork, Phnom Penh.",
+    "year_of_establishment": 2020,
+    "type_of_organization": 156,
+    "industry": 125,
+    "tax_identification_number": "000286438",
+    "number_of_staff": 100,
+    "owner_name": "Unknown",
+    "product_or_service": "ISP Provider",
+    "number_of_shareholders": 2000,
+    "number_of_board_members": 100,
+    "is_company_raise_fund": 1, // boolean
+    "raise_fund_use_for": "Business Injection",
+    "financial_project": 1, // boolean
+    "is_majority_shareholder": 1, // boolean
+    "company_patent_doc":[],
+    "company_licence_doc": [],
+    "company_MoC_certificate":[],
+    "business_plan" :[],
+    "article_of_incorporation" :[],
+    "income_statement" :[],
+    "balance_sheet" :[],
+    "cash_flow_statement":[],
+    "market_study_docs[]" :[],
+    "other_document":[]
+}
+
+
+//debt 
+###
+PUT {{baseUrl}}v/equity-investment/192
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+   "customer_name": "Unknown",
+  "customer_gender": 8, // Get From Option with key "gender"
+  "customer_date_of_birth": "2021-2-2",
+  "customer_email": "unknown.123@example.com",
+  "phone_number": "Your Phone Number",
+  "current_house_no": "No 297",
+  "current_street_no": "St 202",
+  "current_address": 24010202,
+  "residence_house_no": "No 29",
+  "residence_street_no": "St 972z",
+  "residence_address": 04030204,
+  "financial_amount": 2000,
+  "term": 12,
+  "financial_purpose": 53, // Get From Option with key "purpose"
+  "intended_date_of_disbursement": "2021-08-15",
+
+  "company_name": "ISP Provider Col.,ltd.",
+  "company_address": "No. 20B, St. 612z, Sangkat Boeung Kak 1, Khan Toul Kork, Phnom Penh.",
+  "year_of_establishment": 2015,
+  "type_of_organization": 138, // Get From Option with key "organization"
+  "tax_identification_number": "TIN-1090-29",
+  "industry": 140,   // Get From Option with key "industry"
+  "number_of_staff": 100,
+  "owner_name": "Owner Name here",  
+  "product_or_service": "ISP Provider",
+
+  "company_patent_doc[]": "Scanned /data/user/0/com.cambodianinvestorscorporation/cache/5559325d-3c2a-4b8c-a012-e73dc4d1e8d43882087693091919588.jpg", 
+  "company_licence_doc[]": "Scanned /data/user/0/com.cambodianinvestorscorporation/cache/5559325d-3c2a-4b8c-a012-e73dc4d1e8d43882087693091919588.jpg",
+  "company_MoC_certificate[]": "Scanned /data/user/0/com.cambodianinvestorscorporation/cache/5559325d-3c2a-4b8c-a012-e73dc4d1e8d43882087693091919588.jpg",
+  "business_plan[]": "Scanned /data/user/0/com.cambodianinvestorscorporation/cache/5559325d-3c2a-4b8c-a012-e73dc4d1e8d43882087693091919588.jpg",
+  "income_statement[]": "Scanned /data/user/0/com.cambodianinvestorscorporation/cache/5559325d-3c2a-4b8c-a012-e73dc4d1e8d43882087693091919588.jpg",
+  "balance_sheet[]": "Scanned /data/user/0/com.cambodianinvestorscorporation/cache/5559325d-3c2a-4b8c-a012-e73dc4d1e8d43882087693091919588.jpg",
+  "cash_flow_statement[]": "Select From Your Drive",
+  "other_document[]": "Select From Your Drive"
+}
+
+### debt application list
+GET {{baseUrl}}v3/debt-investment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### equity application list
+GET {{baseUrl}}v3/equity-investment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Equity Detail
+GET {{baseUrl}}v3/equity-investment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Debt Detail
+GET {{baseUrl}}v3/debt-investment/26
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###https://cicstaging.z1central.com/admin/delete-all-get-funding/{member_id}
+
+# Get Product Loan
+# product_type= loan or invest
+# option = boolean
+GET {{baseUrl}}v3/loan-product?option=1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}v3/loan-product?option=1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/call-center
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/setting/equity-setting
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Delete Save draft Equity
+DELETE  {{baseUrl}}v3/equity-investment/1635
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Delete Save draft Debt
+DELETE  {{baseUrl}}v3/debt-investment/39
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}

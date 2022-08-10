@@ -1,0 +1,23 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiODE5ODI0OTdlM2Q0ZWRlYTA5YjUxZDA3MmViMjYyYWQ5NjJkNTljNzliZDlhYzg5MTMzNGQyODVlNjc1ODAwNjc5MmE1ZGMyYmVhNDk4MTgiLCJpYXQiOjE2MzYwMDA2NjkuNjk0NDA0LCJuYmYiOjE2MzYwMDA2NjkuNjk0NDA5LCJleHAiOjE2Njc1MzY2NjkuNjc0OTc0LCJzdWIiOiIxNTMwIiwic2NvcGVzIjpbIioiXX0.KTRvUw80Quhd45qCejgeOcO2Yej_HGcCj9bNtWjaed4eV25UOYmKFPTq2BwkSysWB2cYY9EHGJUvE0WHnIOj7fCtk7Z7hiXW-m9f0TKyzRTZ3uDPyD16lfvnmY9G1Kuypam0AkFVr4vQDIW0qaucC3d9ITgoIgzAuxOA8VPZ_nbaVu9f9SaKMEK-YcNcT-DKqyew7Yvlu9-DNMrnowsiMRBYRTvM78BQqunLwbq1vY0TIva1ZDd_bGZgDdRF_8uOns8xYJ6gpZyhGbgzv7kt9GbS2bHVIytFQWDMW_3b_B15S-wlovW2HVzIyg-llLIqfnnm_XipA-cfacWIpoUASd8yVDkAGfwN7p04OvLw5SWuVXZKcJSQ59_MRvx6FjeSr6da_iuqZptNWzHzo-_hRYK62KYevpGViDB748zWHpTedMw40QLxcT1RK6esHeKvRP642KtJCRUv4hmcs2R96bNs3VHkbduD4lHj44J0irQMgOGHxLp8T1WWeaJJOIMgKg6eq1FCxh5NR7KqPXpCT28n6go2aLsUOvSwMFv2U2L17C5r7SJX-NFZG2TYS4AiWPxnBjQN7v8-mFMJITxQBIJI5P7FIPHkiSW7onxLym5HpyG4jJpRlGiSVOzZicWtLgbpf4_WBbliuc0iItp10jB8xoopk8bhN-ei7KqrabI
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+855962696176",
+    "password" : "Chenda12"   
+}
+
+
+###
+GET {{baseUrl}}v1/documentation-by-type?type=162
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v1/option
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}

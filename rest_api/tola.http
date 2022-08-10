@@ -1,0 +1,121 @@
+@baseUrl = https://cicstaging.z1central.com/api/v2/
+@mainUrl = https://cicstaging.z1central.com/api/
+
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMjNlOGJiNDBiMzg2MWQ5YTQzZjk5Y2UzODBiYzliYThkMGU2OTVhMDVlOTgyNzUwNTVlOWY3ZGE0MTI1NWEyY2I5OTM1ZjE2OGU4NDc5Y2YiLCJpYXQiOjE2MzAzOTYwMzEuNzU0MTY0LCJuYmYiOjE2MzAzOTYwMzEuNzU0MTY5LCJleHAiOjE2NjE5MzIwMzEuNzM1ODI3LCJzdWIiOiIxNTQzIiwic2NvcGVzIjpbIioiXX0.NpJ7amo5hany6Ep70SLNXP9O8Abc5XJj_EUwU6Je_a9qa0OwLs_HBHyQHd-eZAi5nTV0HKxaVhdtMIkSWBlQujRAYP5dUoeYZSF2c5aOnIf_CIhYyThO6NGcDRPt6ufjjMICTixExu5FFjrS3rNpUswpGMk5CwBzhFa6i1KIrGFDvYPxHKcvqkrFeYRDmcgxrTGMB7V4RnawIZWO0G9Sr9mSDmGhmLKdo2ItiTRyBxLRqSjuLt8HLUElRSML8UsDxNulbziR-HICmTfMFuZDA6kbWLtb7XK6KHaLh_T9KhenUvBfLFjKQtCQSty57-v3bGcv7Xr_GhxtsI8B5-1Op0Rj6uB2wv23mky-H_w3ZBib3RdTSfMvfh8E2ivgFEcOKumy5YeEmw8h7c7oHpgCwwZNtgk9RCHNDKRPZBiXBP9Uiqw8IpVGBhMhCC2wYtGFWpdPxgNHFg0NOafBwjpDPfZ_uFKWFUry56gBSnP3BFx1El5DHLtXMXCrYWXHx5Nd9w5jMNIHD3bHBPzf3K5ur8Sk_MWADLh73HvQRZ2LLyqBIVOkBH2eXxwE4OE6ofDMBY_UrM9SIzhlT3ACwK-gDaGckHHCjrYriIKgOdSDDutesh4-w3URp7mQqfhbqE34_tWtDI5IiwzyQ3Pk1JRPt6EDWfzHqJlSkv-Txhphs9M
+
+POST {{mainUrl}}login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "phone" : "+855975431111",
+    "password" : "1234"
+}
+###
+GET https://cicstaging.z1central.com/api/v3/debt-investment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}trading?type=all&member_id=378
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}event?member_id=378&posted=upcoming
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}user/notification
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}trading-setting
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}trading?type=single-trading&member_id=381&transaction_id=3685&market_id=0&operation=sell
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+POST {{mainUrl}}verify-otp
+Accept: application/json
+Content-Type: application/json
+
+{
+    "phone": "+61423003938",
+    "verify_code": "1234"
+}
+###
+POST {{mainUrl}}request-otp
+Accept: application/json
+Content-Type: application/json
+
+{
+    "phone" : "+61423003938"
+}
+###
+POST {{mainUrl}}user/set-password
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYjMwN2QwNDAzYzk5M2ZkMzg1NzJhZWQyODU0NTRjYTQ3OTZlM2QyYTlmZmViMWY1ZDI5MGQ4ZGYxZGE1MGJkMTJkMTAwOGRjMzAzYWNlNDAiLCJpYXQiOjE2Mjg0MDg0MTkuNjI1ODk0LCJuYmYiOjE2Mjg0MDg0MTkuNjI1OTAzLCJleHAiOjE2NTk5NDQ0MTkuNjIyNDQxLCJzdWIiOiIxNjEiLCJzY29wZXMiOltdfQ.lVP6GqsfDlAiWUd4N4i65UB9iBvwxhPSH8LvZwweJnv6TCTrwPQCSW3Wq148CcQzOjG53MMiANbWNPEwY36bKr1wkcbm7j78EHhwYFtDSELCq1NsEIhEann6AfWsct-4tGKnnq4jNqRAsgEDtwMjlb_RdGbSDSOzsqsU1sf7iUNeiCmAyOQUgWegSS4XVU5oGA2FbY96ziMKqw856EBwYyRrjlbWwz8Hqj8sc7FVyo_hIBRgR-k8GTrLHQ2UugL9pT4CxW7I-sN178kR115AevsYZceMjw---TAVQX9IfQf0CGHGRwkmetqVlMeQcZPfe_j6H78pm9OLQ_8vanAmdpjGuG6tELYoXAFKvNiqJ0rsFMcSRh27CtWoXgt6qUonYiUKNrF4jAIGLkRBTpjmmHpnY3Y79A11l7EvCQE31KuoGAunFOSUrF20OU61tDFV1jby50EJkLGf0N7KVM4QDGDMx59PSFmi7J0UPzrylRUPnziO5mrTvnOmlYafQnPl9h0jft1cFA7f67TO-FdTR9Dr5GsKeVMltL52tZkhbD9n4M6vczaVYO05dbOSHLBE6x_r7ooHb8ucsilEad9S6CKpNrjHN5BzqA_SKMPWLAQt_W49UnQagcSSgzdA3qYf3BkcTjtobT2dA_7pwNlQkwvPWmwJ9bJv4VQoSxNwaJk
+
+{
+    "password" : "CiCKSeng@2021"
+}
+
+###
+
+GET {{baseUrl}}member-profile?member_id=379
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET https://maps.googleapis.com/maps/api/directions/json?origin=11.571650122647663, 104.89711736819251&destination=11.573079583465509, 104.92475484976875&key=AIzaSyCxFsYMZ51BZXTf7G4e9n78FUYT8fQHQj8
+Accept: application/json
+Content-Type: application/json
+###
+POST {{baseUrl}}event/check-in
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "event_id" : 28,
+    "member_id" : 379
+}
+###
+GET https://cicstaging.z1central.com/api/v3/ui
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{mainUrl}}v3/service
+Accept: application/json
+Content-Type: application/json
+
+###
+GET {{mainUrl}}v1/service?partial=menu
+Accept: application/json
+Content-Type: application/json
+
+
+###
+GET https://cicstaging.z1central.com/api/v3/ui
+
+Accept: application/json
+Content-Type: application/json

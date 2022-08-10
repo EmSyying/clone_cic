@@ -1,0 +1,103 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZmM1MDcwNzA3YTk5ODU4MDJjNDRhYWFiNmY2OGQyMzNiN2I5OWZkNDAxYTJjOWEwYmE5YTU3NDlkNTkyYTlmMTNkOWU1ODY1MGM2MTlhYzUiLCJpYXQiOiIxNjI0MDM3OTQ4Ljc5NDg0MiIsIm5iZiI6IjE2MjQwMzc5NDguNzk0ODQ2IiwiZXhwIjoiMTY1NTU3Mzk0OC43ODY4MjAiLCJzdWIiOiIxNTQzIiwic2NvcGVzIjpbIioiXX0.CmQJ1dEQgsKB9J64H3ypWTAbouQI-9US2UU7tFKzE0cht1cMk9bbTmsHDWtueShOBEgxBzjvzEIcm2WM9Z3NWWswkD5YRY8HZ2AwqVTjFYIkNflpo1YWOEz0yiZb8UrrAZCifrALMdVn3kwl5RDcocrtCVGjHPqYTCfhgobe1CX6Y83kc9RS6KPeamRGU6RLTkqZY1bNZDidODM7ACp8HdB_cdy8XepC4CHGP7Z1OQTj4aiD_VwjVPJefia1EjuMn0iLNnqEBwHB3isdLJrXkW928miqAyvB6z5I_FCvsIRstmx86IczolLrtjQLjF6OogapM4IiGi_GmvARM_AxGVQtCvnv-1gb8riKAtPjegEUPCxrt__oxX_QeKlXoK9nlz2ewMzBB48TIHUCJcNecFjpfFDWUZqjvZY5ERgdgaFv82sYRWaMF5G3pB7JCRAC4fSnyC-6ouKbo4PTssW7Ad6Ieim2on896RCvX9m8H6Ht1XlWAj5vDKtpirjeoftGQ5bL8v2huP5JPqWxb-Kkw9HNBMIIQH9ZttUDd7ebiL6Y1B_cPrBNp389Ax1Au7NvApVv52h7QZ_DhKhJicXWBZ4E9itFbcALaUNoTV7_BxUOdadj_ZSu1Szw0GrhtRNujRXTa3dyhj3CDPzFRxjZ7qeNUA9Be2IlrXWY96S3c5Y
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+855975431111",
+    "password" : "1234"   
+}
+
+# learing slide
+GET {{baseUrl}}api/v2/slide?type=learning
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get channel by member id
+GET {{baseUrl}}channel?member_id=442
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+###
+# get recommended posts by member
+GET {{baseUrl}}post?member_id=395&recommended=true
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+###
+POST {{baseUrl}}save-post
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}} 
+
+{
+    "post_id" : 1,
+    "member_id" : 395   
+} 
+
+###
+# view channel detail
+GET {{baseUrl}}api/v2/channel/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get post(video) by module 
+GET {{baseUrl}}post?member_id=442&module=2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+###
+# view post(video) by detail 
+GET {{baseUrl}}api/v2/post/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get more post(video)
+
+// current  = current video
+GET {{baseUrl}}api/v2/post?member_id=442&more=true&current=2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET https://cicstaging.z1central.com/api/user
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}post?member_id=395&saved=true
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+
+
+###
+GET {{baseUrl}}trading-setting
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+POST https://cicstaging.z1central.com/api/user/verify-pin-code
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "pin_code" : "1236"
+}

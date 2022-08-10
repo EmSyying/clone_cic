@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "572517904400",
+    "project_id": "cic-app-7ca9d",
+    "storage_bucket": "cic-app-7ca9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572517904400:android:e8b19837aec27f2d1a1a95",
+        "android_client_info": {
+          "package_name": "com.cambodianinvestorscorporation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572517904400-lkn2a17irgsst9h4r7f1m6n9or9p9qln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cambodianinvestorscorporation",
+            "certificate_hash": "39dea04ac89375b3eaf1eb4e03d3a90be7a60a9f"
+          }
+        },
+        {
+          "client_id": "572517904400-g1sb5tiiqhact74ac1m535jj7gpp6rb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuR5bj-XLhGxY0V2H-7U2eD2U10Cidis4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572517904400-g1sb5tiiqhact74ac1m535jj7gpp6rb4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "572517904400-6k99p89n01gv2fev12noc6nshncmb3b8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cambodianinvestorscorporation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,9 @@
+{
+  "base_url": "https://cicstaging.z1central.com/",
+  "api_base_url": "https://cicstaging.z1central.com/api/v1/",
+  "main_api_url": "https://cicstaging.z1central.com/api/",
+  "base_urlv2": "https://cicstaging.z1central.com/",
+  "api_base_urlv2": "https://cicstaging.z1central.com/api/v2/",
+  "main_api_urlv2": "https://cicstaging.z1central.com/api/",
+  "api_base_urlv3": "https://cicstaging.z1central.com/api/v3/"
+}

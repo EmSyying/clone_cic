@@ -1,0 +1,22 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTdiZDY0ODI4MzAzODA0ZTFmMDZhY2M4YWRlM2NjNTNmYWE5OGM4ZmU3NDdkNTIxYmVkZWRmNzQzMWQwMzEzNjJkYmE5MjhhYTJiMDU4YWQiLCJpYXQiOiIxNjE3Njg4Nzg1LjI3MTA3NCIsIm5iZiI6IjE2MTc2ODg3ODUuMjcxMDc4IiwiZXhwIjoiMTY0OTIyNDc4NS4yNjU0NzMiLCJzdWIiOiIxMzA3Iiwic2NvcGVzIjpbIioiXX0.tZA1S3l5c2nI_1i1Ed8UExnbfCGQAK_mjICnbw0UfxpjXmhIK0IQmDinrDfQ0A_UbubpNj3MGrNmgfiYF5dyDZ4kFmS04bH7RVeVjLGum2wzYU-qaN3r_qPSfRN5-UHtsJdgtjrbJtz6i2xh8lOoinhB6NIJBFtISscrguOwRgOZNSMDmfk14sij9atq9hLDyPpdQQE70zme-ZeUOL4bQTupjjpjAXj5sxyq79yaMTe58siNQMylUX1zt3JD-8AvN75CMJO4KkjgxBuiU6anwPEo2etXTn4ICr_hFUS0BgIwfRPen7AY7ZhUsgMroB8HENdyZL0AhJT_5PMb8GMSeKl1ukC382ek0zlB-8ys4XzT4SvVl5GEEzKa5yZcXviTfhsJcpjtc_znHDbQEUFmz-3DH8mZFJB-TGgJUm-dtDabVWO_z6Yir_zYEJQ7GNdauN7pr9oQOQhs4fwDSw0A1oJhH4Q5SgqGepasOhbENge1NeprX8wzvTePpWM564c3l3kuVeNdjHTBiO8oys1qiAgQGPObrztgVQv0z1Sbd9F3HLDYP5ttfjfjUnrzT2RrXPanFC0stkpZ9bzXAVNpUqzdiHTUwxK0ft37q74vaEBDZVHYIsSg9zXDpOofm48YgTtQSPEQtwCxfSbn8izWWB_Vlvp9yfPLFWTVKJfuWEA
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+855975431111",
+    "password" : "Sruntola1"   
+}
+
+###
+
+GET  {{baseUrl}}v1/fetch-option-by-type?type=gender
+Content-Type: application/json
+Accept: application/json
+
+###
+
+GET  {{baseUrl}}v1/option
+Content-Type: application/json
+Accept: application/json

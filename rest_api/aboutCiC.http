@@ -1,0 +1,42 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+###
+
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZTIzMzdhYWQ5ZjI5NWQzNDA5YWYyNjRkNmE4ZjJmNTcxYWE1YTNkZjFiYTQ5NGJlN2QwMmM4YzRlZjkwNzg2YTQ0OTYxMDM3NGYxYTc0MGMiLCJpYXQiOjE2NTQ4NTE2NTMuODI0NDcyLCJuYmYiOjE2NTQ4NTE2NTMuODI0NDc1LCJleHAiOjE2ODYzODc2NTMuODE2NzMxLCJzdWIiOiIxMCIsInNjb3BlcyI6WyIqIl19.WKMX4g7Nsaggy5MqE9yRIeV3AQABluy7sOP75P81qMCasmuwdyg-YqV5U-37vpb76bsQVNZFlEuqV7NLZU73HCGAab1ZL4qsdWsirrsQMLDDR_UZHGIt9do9OIdDsGT67ShoHthtiUXY2rfO_BDeXFTWZxmW3VArjAtlIkq_IpRdT3USZ3ypShzTDCgENpfnH6MIM-o985BOWtaDow5FgkzM0a5cQq7Z8t3NJqzwVz-RBFBUIaCspjTgt59_myMxikgB0R6G4111G2Iy8cS4CsEDlgIlrF9MNDynhaU5w6nV11lPub66xILR8uOvhs7PQ8yKhWwNiRaUC8wWBoV0fxcHb7PlhEa9Ls24Q2fr25H1UnJmUKo6XNGW9-pVB-002694841ZISNb7FK2gwyo7-Ov2j5nnS3jQeZha6fl3GjBKZ-KqxZDGUf_8X1A5rHJH7DStnuVUGq8YRVRhechbDf8zePrDPEQXD2cXC7nhOQu8gleYSilpvhYo4o2KbGBf4EOANec_ldryb-iZ5yXHKCC0JAum8WexzvC7cu0y_XDbK4bKCtwqg0odCneSz4QIfjjrm841oTPC3HCyLoiSACBKkQYRxsMS5KHO0Ws3_FiHKbmcuwT2lvMiGYLTseGnQZWyKBYyFxEm4OdzV2MIFekfGFF3sXz88kjOM7gVa0
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85510305096",
+    "password" : "Admin@2022"   
+}
+
+###
+GET {{baseUrl}}v1/user/notification
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v1/app-setting
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/support
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/ui?name=APP&type=paragraph
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/ui?name=APP&type=paragraph
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}

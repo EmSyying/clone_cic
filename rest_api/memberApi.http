@@ -1,0 +1,325 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+###
+
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZGRkOGViYWIxYzQ0NmVmMjU3MDc0ZDkwMWQ3NjRmOTUxZDA4NzQ0MzU2ZGFmNjI2NmJmOTZlMDYyY2YyOTllYWQ2MThjMmE2OGM3MDdkZWUiLCJpYXQiOjE2NjAwMTg1NjYuNzA5Mzg0LCJuYmYiOjE2NjAwMTg1NjYuNzA5Mzg4LCJleHAiOjE2OTE1NTQ1NjYuNzAzMTEsInN1YiI6IjExIiwic2NvcGVzIjpbIioiXX0.EA1N5kb3uOynQvDE2VYqTSuXUodc4SHPbNc86YupAN_d0BNiK7uOXLnG7zqousXoWlKURnpv0fEqj9ktkBOSBHC_WJ5aTj30T-uP8g-AwL1LfCG9927EU9mUbl_N5u_za6LvyzEbB1aZquhcADnTEYt_DIdE0KtfML_kpYRVRX3enmxPATy_I_cYWaqMt-RZuq2tQuPMaFndJkIJBk7ErER-T54SPhzi4vuLk_wDhxTN9_YSUxYWgS09uzXRt6u33p0X2IC1WHrjdbmPLJ6cOaDktzdfZ3WaJFzoUVEIXLJ_lwClO30Hhk8zCeKfZUPIpiWNWszLPfu_AQNXsmWmzTsLUkRtAqODYo2f5_GUJ4N80lqd1_CpURbWRtno_yeWBb44n4MQ_BIMFMPccNtFvrRWalrw7GOfPTwHFYlnyvwSUuwGiwaAZQqGrdDFO09SNzZiUsE7Y2hSCDXFkBh9Wud-ur_D5X_pfFswhyiT-obKv99_YvK0KfZhnjNxBJ9_zKHnRjIWjyvsW6bC7kyaehAeAY9iJSQMTNWox1_skc9-BDGoTdhPAJ5Tswyj7Q2UNj5LDNnMgd73V0vH-ppQqoqQplTQTiJwa84mYFXwbI6t9DQhXMmfTV6EBdgeNVi31A58QBO-GgT8J_LEOKCaAy9sYKxrgbCZTu_FcVcMVa0
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85569722942",
+    "password" : "@Y1234567"   
+}
+
+###
+GET {{baseUrl}}user
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+//Get member company
+###
+GET {{baseUrl}}event?member_id=379&posted=past
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+//Get member Subscription
+###
+GET {{baseUrl}}v1/member-subscription?member_id=25
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+//Get member Experience
+###
+GET {{baseUrl}}v1/member-experience?member_id=364
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+//Get member Education
+###
+GET {{baseUrl}}v1/member-experience?member_id=364
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET  {{baseUrl}}v2/member-profile?member_id=21
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET  {{baseUrl}}v1/member-education?member_id=163
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+//Update Member Education not create controller yet
+###
+POST  {{baseUrl}}v1/member-education/update
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+   "member_id":364,
+   "params": "[{"grade":"I","degree":"346","school":"Setec Institute","field_of_study": "347","end_date": "2021-03-23","start_date": "2021-03-23","description":"High Level"}]"
+}
+
+//Update Member Education not create controller yet
+###
+GET {{baseUrl}}v1/customer?page=35
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id" : 364,
+    "position" : 92,
+    "khmer_name" : "ឈួន សុភ័ណ្ឌ",
+    "full_name" : "CHHUON SOPHORN",
+    "date_of_birth" : "12-10-1993",
+    "gender" : "Male",
+    "nationality" : 10,
+    "recommended" : "Test",
+    "expertise" : "Test",
+    "member_type" : "Qualified Member",
+    "year_joined" : "2020",
+    "profile_biography" : "Test",
+    "about" : "Test",
+    "other" : "Test",
+    "identity_type" : 85,
+    "identity_number" : "11111111",
+    "identity_date" : "2020-10-19",
+    "identity_expired_date" : "2020-10-19",
+    "current_address" : "0102",
+    "current_street_no" : "#100", 
+    "current_house_no" : "#A1",
+    "permanent_address" : "0102",
+    "permanent_street_no" : "#100", 
+    "permanent_house_no" : "#A1",
+    "email" : "dev@gmail.com",
+    "whatapp" : "Test",
+    "telegram" : "Test",
+    "messenger" : "Test",
+    "skype" : "Test",
+    "website" : "Test",
+    "facebook" : "Test",
+    "linkedin" : "Test",
+    "twitter" : "Test"
+}
+
+###
+
+GET {{baseUrl}}v1/member-subscription?member_id=163
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+###
+
+POST {{baseUrl}}v1/hidden-field
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id" : 364,
+    "page" : "profile",
+    "field" : "address",
+    "active" : 1
+}
+
+###
+
+GET {{baseUrl}}v1/customer
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+###
+
+POST {{baseUrl}}user/verify-pin-code
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "pin_code" : "1234" 
+}
+
+
+###
+
+POST {{baseUrl}}api/v1/member-education/update
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "id" : 163,
+    "school" : "Flutter",
+    "field_of_study" : 1,
+    "grade" : "A",
+    "degree" : 1,
+    "description" : "test",
+    "end_date" : "2021-02-20",
+    "start_date": "2021-02-20"
+}
+
+###
+
+POST {{baseUrl}}v1/member-education/update
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "id" : 100,
+    "school" : "test",
+    "field_of_study" : 1,
+    "grade" : "A",
+    "degree" : 1,
+    "description" : "test",
+    "end_date" : "2021-02-20",
+    "start_date": "2021-02-20"
+}
+
+###
+POST {{baseUrl}}v1/member-experience
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id" : 30,
+    "title" : "dev",
+    "employment_type" : 1,
+    "company_name" : "dev",
+    "grade" : "A",
+    "location" : "Kandal",
+    "description" : "test",
+    "end_date" : "2021-02-20",
+    "start_date": "2021-02-20"
+}
+
+###
+GET {{baseUrl}}v2/member-company?member_id=21
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+POST {{baseUrl}}v2/member-company
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "id" : 592,
+    "company_name" : "Test",
+    "khmer_name" : "Test",
+    "major_of_business" : 1,
+    "position" : "Flutter",
+    "legal_status" : 1,
+    "registered_business" : 1,
+    "company_size" : "200",
+    "number_of_branches" : "10",
+    "business_model" : 1,
+    "capital_investment" : "Test",
+    "year_founded" : "2001",
+    "is_primary" : 1,
+    "personal_interest" : "Test",
+    "company_profile" : "Test",
+    "company_product_and_service" : "Test",
+    "house_no" : "01",
+    "street_no" : "01",
+    "address" : "0101",
+    "phone_number" : "012601102",
+    "email" : "test@gmail.com",
+    "what_app" : "Test",
+    "telegram" : "Test",
+    "messenger" : "Test",
+    "skype" : "Test",
+    "we_chat" : "Test",
+    "website" : "Test",
+    "facebook" : "Test",
+    "linkedin" : "Test",
+    "twitter" : "Test"
+}
+
+###
+POST {{baseUrl}}v2/registration
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "event_id" : 1,
+    "invite_id" : [1,3],
+    "member_id" : 369,
+    "name" : "Mr Chhany",
+    "company_name" : "Z1 Flexible Solution",
+    "position" : "Flutter Developer",
+    "phone_number" : "+855 10305096",
+    "email" : "hornchhanny@gmail.com"
+}
+
+
+###
+
+GET {{baseUrl}}user-detail?customer_id=11
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}v1/investment-equity-fund
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}v1/price
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+###
+
+GET {{baseUrl}}/support
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET  {{baseUrl}}v1/member-profile?member_id=21
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+
+GET {{baseUrl}}user
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+###
+
+GET {{baseUrl}}v3/company
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}

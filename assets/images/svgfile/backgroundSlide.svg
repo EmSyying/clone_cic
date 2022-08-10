@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="667" viewBox="0 0 375 667">
+  <defs>
+    <clipPath id="clip-iPhone_6_7_8_23">
+      <rect width="375" height="667"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_6_7_8_23" data-name="iPhone 6/7/8 – 23" clip-path="url(#clip-iPhone_6_7_8_23)">
+    <rect width="375" height="667" fill="#f2f2f2"/>
+    <g id="Group_130" data-name="Group 130" transform="translate(0 0.306)">
+      <rect id="Rectangle_220" data-name="Rectangle 220" width="375" height="667" transform="translate(0 -0.306)" fill="#3d8fbc"/>
+      <path id="Path_120" data-name="Path 120" d="M0,630.863c191.514,29.289,262.768-137.772,374.583-89.655V790.935H0Z" transform="translate(0 -266.454)" fill="#4faad3" fill-rule="evenodd"/>
+      <path id="Path_121" data-name="Path 121" d="M0,938.594H374.583V547.025C246.908,520.225,194.856,684.161,0,687.278v86" transform="translate(0 -272.271)" fill="#68b6d8" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

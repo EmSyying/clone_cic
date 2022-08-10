@@ -1,0 +1,216 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiOTBlYzczZGZmNmNlNGNmMzBhYTJiYzhhMTdiNWI1ZjI2MTFkOTAxZGUxODQ2ODBlM2MyMDhhNGUwMjE3MGMwOTU5ZDVlODU2MGM0OGFjNTQiLCJpYXQiOjE2NTE2NTcxNzQuNDg2Njk1LCJuYmYiOjE2NTE2NTcxNzQuNDg2NzAxLCJleHAiOjE2ODMxOTMxNzQuNDc5MjUsInN1YiI6IjExIiwic2NvcGVzIjpbIioiXX0.hIaH7cJuALzecHZTZhZ11OrofY8RlqcYuetCOck_pUHNefJK50R2qW2xMn2I8wvjS-jdV2R9217rIFUtHMxVX5eRuemJG9bqlT8suz2vyOkzOkS9iRix1vOlvHFCpBsY9V94UWi0NpKpek9hLDDJoppUcvJNAgh_09fHElmjuCpl5qdptXZCxUcgdFV82_8VJkXoZ4TB02_spZaR4dE4Nne1gd2zQoFIIRHvDtmOJZsyeouPZ2aMI9bVo1v8dKVmSDb_-ffhRTDIqYcqtkPE9ClPK58OpKeQy4wgshRgaKvDqJ1i-mSpGJ5R9jo03Xy60d2UZ7UFWVNhKb2LZf6H4r2PDeUJYu2KBTL5zD6Bdu4nQahq6b2WyWoPzc_XZn1miBoS3D-9JaEgdLKPzFrbblOmiKJ0fBVFZ7t872XsG-OI1USoaGSR9qyLJdk_mWau0xG6t460-f-DqEud8vomFd08WBFRZlarNytJ_x6MATMRSRfS5B8D-pR0tVRvtKTOBsC7CTMgXu3MmRkH4quPf17Nptt6i3WzLr2xr-jR_EHpphbu9brMqqOza654ikb2xUTqaxFD-za3bmEWHgWEuGYQfXa5XIKkp-2g2_65JwYMR48ZWIJEYyop1CSzDKcaeNl1EfQV8pcVb2Jc-sJ3ORw6SI6efptHqIYW0mG7rR0
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85569722942",
+    "password" : "@1234567Y"   
+}
+###
+GET {{baseUrl}}v3/ui?name=APP&type=header
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v1/investment-equity-fund
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}user 
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}user/verify-pin-code 
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "pin_code" : "0000"
+}
+
+###
+
+GET {{baseUrl}}v1/user
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### FIF Application API
+
+###
+POST {{baseUrl}}v3/fif-application
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "product_id": 4,
+    "duration": 12,
+    "invest_amount": 1555000,
+    "investment_date": "5 Apr 2022",    
+    "first_payment_date": "5 May 2022",
+    "interest_receiving_account_type": "BANK",
+    "bank_id": 4,
+    "mma_account_id": ""
+}
+
+###
+
+###
+GET {{baseUrl}}v3/fif-application
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/fif-product
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/fif-return-payment-method
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### to get all
+GET {{baseUrl}}v3/fif-account?hide=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###to get only show
+GET {{baseUrl}}v3/fif-account/24
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Pending Detail
+GET  {{baseUrl}}v3/fif-application
+Accept: application/json
+Content-Type: application/
+Authorization: Bearer {{token}}
+
+ACTIVE ACCOUNT
+### FIF Application Pending
+GET {{baseUrl}}v3/fif-application/9?type=pending
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### FIF Application Pending List
+GET {{baseUrl}}v3/fif-application/62?type=pending
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### FIF Application confirmed
+GET {{baseUrl}}v3/fif-application?type=confirmed
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### FIF Application Delete
+DELETE {{baseUrl}}v3/fif-application/114
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Account Detail
+GET {{baseUrl}}v3/fif-account/68
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Update title FIF application 
+PUT {{baseUrl}}v3/fif-account/32
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "account_name": "Family Saving 1",
+    "investment_amount":"",
+}
+
+
+### FIF Application Detail
+GET {{baseUrl}}v3/fif-account?hide=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### FIF Application Pending detail
+GET {{baseUrl}}v3/fif-account?total_investment=1&hide=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### FIF Application Rename title
+PUT {{baseUrl}}api/v3/fif-application/117
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "account_name": "Family Saving 1"
+}
+
+
+### Total investment and hide/unhide
+GET {{baseUrl}}v3/fif-account?total_investment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+POST {{baseUrl}}v3/fif-account-hide-show
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "type": "show",
+    "id" : 31
+}
+
+
+###
+POST {{baseUrl}}api/v3/fif-account-hide-show
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "type": "show",
+    "id" : ""
+}
+###
+POST {{baseUrl}}v3/fif-account-hide-show
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "type": "hide",
+    "id" : 1
+}
+### Renew Account
+POST {{baseUrl}}fif-application/process?type=renew
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "account_id": 30,
+    "duration": 3
+}
+

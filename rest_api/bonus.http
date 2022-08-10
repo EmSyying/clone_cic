@@ -1,0 +1,243 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNzk4YzNjZTRiY2M0ZmM5ZTU2NjJlNjU2MDJjNDkwMTNiNjc1MGNmN2IyMmE2OTY2NGE5ZTI1YzQ3NDQ3Njg2ODk5YTVjNGUzZDBiODZlMDYiLCJpYXQiOjE2NDc4MzkyMjcuNTI2OTQ3LCJuYmYiOjE2NDc4MzkyMjcuNTI2OTUzLCJleHAiOjE2NzkzNzUyMjcuNTE5MzQ4LCJzdWIiOiIxMSIsInNjb3BlcyI6WyIqIl19.K244VngGqhWCKu-hed9u1ea8gMhg_OKU0DlHJX1dOimN3lRUFxGL6ej2aAuClXwsfWR0P9kDrj69LFgNbY6bFgh_MQuLyvN1kjmH8CMOSh_5FvW-HG79lZwJkvOkwqAclPymFNrKLB3Txn4EsRl-14gcOc5hlBP_MNOVDIqIqrGHaokJzBlWkZBvzshiEIRbIJT0nldYGdySM1EYE65LwFn5O4On3s8g2m5dv_81QVpiOhO45F02PM950xYFNQUXicjg8E1s-QYB_hvK0s2Da5sJhKQSlgU4-jE4joHj8eCUfWb8ylJ-lKD8k5f2kPbBW10HwWyY5iOsnSsPRA1kcXjCwjTBxMyFwhuSinkLu6y4gtd2XsdtWQmSq2Xv65JD5I5XQ1rXFZV0Q7205sQW8w-4xmuDbS0EwAJ9iLypUwjJyuFLELPq9k6n0-n1dQCUimMVe-bvNanqzeMIuLzeZfR_NIBir_nhWUFKJ7fywJYpDBB97wB1gtog7Cbq4ljsRICLbG1MyZHzJHRaaHH5nynzWIQpCsHpAOGqpRWvaiWfxmi0LYkOhyv6gmAVqNLuzd_cISm5p_YzfBSzluXKllXTZTgnpgsUkcKYGbOXkdMuJuoXnTvXodzJmHBQ0RuCenPCw8lpd6DwEZ5GRqUCZCRcDL2EtwP2vQJT8MEZ2xc
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85569722942",
+    "password" : "Y1234567"   
+}
+
+###
+GET {{baseUrl}}v3/return-on-investment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/wallet-available-balance
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+POST {{baseUrl}}v3/cash-out
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "amount" : 13000,
+    "bank_id":12
+}
+
+
+###
+GET {{baseUrl}}v3/history?type=income
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/history?type=expense
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/history?type=income
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/history?type=cash-out
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/history?type=cash-in
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/history?type=cash-in
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/history?type=subscription
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/history?type=cash-out-cash-in
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+get {{baseUrl}}v3/bank?member_id=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+get {{baseUrl}}v3/bank-type
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+get {{baseUrl}}v3/bank?type=UT-Subscription
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+POST {{baseUrl}}v3/create-bank-account
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+
+    "bank_name" : "ACLEDA Bank",
+    "account_name" : "Horn Chhany",
+    "account_number" : "002480960"
+}
+
+###
+POST {{baseUrl}}v3/subscription
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+{
+
+    "number_of_share": 560
+
+    "number_of_share": 2000
+}
+
+###
+get {{baseUrl}}v3/price
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+get {{baseUrl}}v3/ui
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/subscription
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/subscription-summary
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### 
+GET {{baseUrl}}v3/certificate
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### 
+GET {{baseUrl}}v3/pending-subscription-payment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/qr-subscription-member?q=Chhuon
+Accept: application/json
+Content-Type: application/json
+
+###
+POST {{baseUrl}}v3/qr-subscription
+Accept: application/json
+Content-Type: application/json
+
+{
+   "is_cic_member": 1,
+    "member_id": 374,
+    "name": "",
+    "number_of_share": 1000,
+    "phone": "",
+    "referal_id": ""
+}
+
+### 
+POST {{baseUrl}}v3/qr-subscription
+Accept: application/json
+Content-Type: application/json
+
+{
+   "is_cic_member": 0,
+    "member_id": "",
+    "name": "Brem Brey",
+    "number_of_share": 200,
+    "phone": "0962533337",
+    "referal_id": 374
+}
+
+###
+GET {{baseUrl}}v3/live-up-trading
+Accept: application/json
+Content-Type: application/json
+
+request-otp
+###
+POST {{baseUrl}}request-otp
+Accept: application/json
+Content-Type: application/json
+# Authorization: Bearer {{token}} 
+
+{
+    "phone":"+85581814157"
+}
+
+###
+GET {{baseUrl}}v3/user/notification
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/subscription-setting
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/bonus-setting
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+POST {{baseUrl}}api/v3/request-payment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "amount" : 300,
+    "referal_id" : 1
+}

@@ -1,0 +1,52 @@
+
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNGJjZTlkMmMxY2UzNjE3NmNiZTE0ZjZiMWU4YTQwMTc3MGQ3MzYwMDcwMzcxZGI1YWE5NjBjMjcxNzIzMDgyMmE5YWFjMjI4Nzk4MjM5NTAiLCJpYXQiOjE2NTAzMzcxNDkuMTkwMzExLCJuYmYiOjE2NTAzMzcxNDkuMTkwMzI0LCJleHAiOjE2ODE4NzMxNDkuMTgzNDUsInN1YiI6IjE3Iiwic2NvcGVzIjpbIioiXX0.jheW6mYjcMZte_P0yyKprHL8FX9Fsmb3CtfZUU9kZGQY9ztIVPDBFRHP-jRmcGMnNMmYJ4X2wlFzOGiOdBhlxpO9dcJ-ANAi5uW_fCHilxWOjs8UTcTkXPI8_x4ZJPSf5veE9IPtB683tKX1Jf6ZelvxkGziL3yBZh1lO-74xu_54ojBAsznEiWu7yTvuudMhadoNemm4uhdi9FIa5Br7wgj4aiiyDeOI9QA28q7RllQMSAK6xODyD87VrWrvqPZnuRPdd7a7Wd5j3w4VB3n2Y0v4D7py-Zei3tslSRQnOZNXD0BrnJ0QnN5967R_3oXubwmclOTLUNtc6NvtAvure7iDgmTHd-c9p2WIl6rdYcwycO3QwuUIU9DO5rF0etHvt3FwQOwTeEKXObiJxx7aMK0sBQtwKIWf1dhqAwDxNy38CBYRnpv3U92zhsbfYYMQnqnVy9lmItH7dB5sHSufzxnyCAHN6I42EdXfRwDKIS6P-KGLubvQiK9a4b1mFdj8tWfp4vyRSXnMotP7vDDAv3DD7Gi1ZAwiXyoJkKXeA4Ffvv-k40a0DtLmKF1mhnGBcvNNiIk0R8nX1Bgtd0wfSwa9E8n5UUWHGGONVrZ_RKcIFGITEK59iuqjf6bGl9qHdAHhHD8OpL5FP_IgMHbFhuPCkj2hJbWKcdm_WTYCyM
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85599663857",
+    "password" : "Rak05052002"   
+}
+
+###
+GET {{baseUrl}}v2/event?member_id=10&posted=upcoming&type=new
+Accept: application/json
+Content-Type: application/json
+Authorization:Bearer {{token}}
+
+###
+POST {{baseUrl}}api/v2/event/check-in
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "event_id" : 6,
+    "member_id" : 383
+}
+
+###
+POST {{baseUrl}}v2/event/uninterested/34
+Accept: application/json
+Content-Type: application/json
+Authorization:  Bearer {{token}}
+
+###
+POST {{baseUrl}}v2/event/interested/34
+Accept: application/json
+Content-Type: application/json
+Authorization:  Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/event/99
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/event?member_id=10&posted=past'
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}

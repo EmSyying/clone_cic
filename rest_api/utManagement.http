@@ -1,0 +1,473 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2RmYjgxNjhiYTBlM2RlMjA3MDgwODUyMGJkOTU5NTQzZDU1MGM2NGNkMWU1OTFiNzFiODBlZTZkNjkxNTI1N2FlNmU0ZjE2NjU1ZjExMzAiLCJpYXQiOjE2NTAyNjU0MjguNzEzNDU1LCJuYmYiOjE2NTAyNjU0MjguNzEzNDYsImV4cCI6MTY4MTgwMTQyOC42OTk4NTQsInN1YiI6IjE3Iiwic2NvcGVzIjpbIioiXX0.AwVmgmj6Df3jWXbh77x5-xaTq0ok3j9AfHH8umymC8UStb0vkTNMSqiEN7_fvs_Gf7rKFu5HS6fPrYOPj5FJd9nctE53A6txeXwl25bZZwfEd_OyAq8xXgm0Xi1zWlqf2AYMnuOwxZZ2wC1qog2g6h-7yjFqbmX1DFRWgmnIiUSgx_9KVuvUBJi852yPmzz5dx731m3OHlOihKYzSxLxWjpMOZaaLGHodnXNQAdVx1hxzqSpwg7WJMno_WpoBMcGBn61TrZh-Gpjwtk_QJ12EEZ1jQZa8Wzu_9nQizZIICZybdr-yVZXDnhkdY2DxmPwW3b3pldUSAGmOCvv4klT1Mw_6nNuA2jGmi-PDU8lNYSyRBd37g4zQuCK8LIqsQ77b6sGQYKaEJRpbaYSwx_aRDa4MpS_Zw5xLAewsm8wYB8LbwuKYpat4oAixVaKbaIMKVLnG4StI1EoIOwN-lZLcoTleqWkf4c8fEBmAUbrAdsm-a4WGMuI7nrC1eCw6cm4nNVPy9cG15YvpWKB2NbgF3_P7fPfNtryFrU0U7Nl4vUj3FXZMqVq5ipMPoAgZoIfaMM2CbjqSLp0ZZjH1WfSJsMp3qA4-NErBh_HivJEIeWP4XNQV2jwrVGkDgW3S3aduQ50WP2IAvGvmhWTALeXuLifSa5jvGQ33qwTQTdeoU4
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85599663857",
+    "password" : "Rak05052002"   
+}
+
+###
+GET {{baseUrl}}user/notification
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/event?member_id=446&posted=upcoming&search=trading
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}v2/trading
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+"description": "test",
+        "request_by": 466,
+        "transaction": "sell",
+        "quantity": "250",
+        "price": "10"
+        "plat-"
+}
+
+
+###
+GET  {{baseUrl}}user
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{baseUrl}}v2/trading?type=new&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=new&operation=buy&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=success&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=all&operation=buy&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=upsuccess&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading-setting
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{baseUrl}}v2/market
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+POST {{baseUrl}}v2/trading
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "market_id" : 9,
+    "member_id" : 193,
+    "operation" : "buy",
+    "price" : 2,
+    "number_of_share" : 112,
+    "description" : "description"
+}
+
+###
+PUT {{baseUrl}}api/v2/trading/39
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "market_id" : 9,
+    "member_id" : 193,
+    "operation" : "buy",
+    "price" : 2,
+    "number_of_share" : 111,
+    "description" : "description"
+}
+
+###
+DELETE {{baseUrl}}v2/trading/39
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=success&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{baseUrl}}v2/trading-setting
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### 
+GET {{baseUrl}}v2/trading?type=all&member_id=466
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{baseUrl}}v2/trading-instruction
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+########Updated#################
+
+
+###
+GET {{baseUrl}}v2/trading?type=success&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=new&operation=sell&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=upsuccess&member_id=718
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=upsuccess&operation=buy&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=new&operation=sell&member_id=369
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=new&operation=buy&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+###
+GET {{baseUrl}}v2/trading?type=success&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{baseUrl}}v2/trading-video
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=all&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v1/support
+Accept: application/json
+Content-Type: application/json
+# Authorization: Bearer {{token}}
+
+
+###
+# cic platform
+POST {{baseUrl}}v2/trading
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "market_id" : 79,
+    "member_id" : 466,
+    "operation" : "sell",
+    "price" : 7,
+    "number_of_share" : 100,
+    "description" : "description",
+    "trading_with" : "cic-platform"
+}
+
+###
+# specific member
+POST {{baseUrl}}api/v2/trading
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id" : 16,
+    "operation" : "sell",
+    "price" : 2,
+    "number_of_share" : 1000,
+    "description" : "description",
+    "trading_with" : "specific-member",
+    "target_member" : 14
+}
+
+###
+
+POST {{baseUrl}}v2/trading
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id" : 446,
+    "operation" : "buy",
+    "price" : 2,
+    "number_of_share" : 105,
+    "description" : "description",
+    "trading_with" : "specific-member",
+    "target_member" : 378
+}
+
+###
+# cic platform
+PUT {{baseUrl}}api/v2/trading/446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "market_id" : 20,
+    "member_id" : 718,
+    "operation" : "buy",
+    "price" : 1.5,
+    "number_of_share" : 101,
+    "description" : "description",
+    "trading_with" : "specific-member"
+}
+
+###
+# specific member
+PUT {{baseUrl}}api/v2/trading/39
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id" : 718,
+    "operation" : "buy",
+    "price" : 1.5,
+    "number_of_share" : 5000,
+    "description" : "description",
+    "trading_with" : "specific-member"
+}
+
+#Event
+
+
+###
+POST {{baseUrl}}v2/registration
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{"event_id":"10","invite_id":"[3, 4, 5]","member_id":" 446","name":"Horn Chhany","company_name":"","position":"Flutter Developer","phone_number":"+85510305096","email":""}
+
+###
+GET {{baseUrl}}v2/event?member_id=193&posted=upcoming&type=featured
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/event?member_id=446&posted=upcoming&type=new
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/event?member_id=442&posted=past
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}api/v2/event?member_id=442&posted=upcoming&search=test
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/event?member_id=446&posted=past&search=test
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}api/v2/event/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+# learing slide
+GET {{baseUrl}}v2/slide?type=learning
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get channel by member id
+GET {{baseUrl}}api/v2/channel?member_id=442
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+###
+# get recommended posts by member
+GET {{baseUrl}}api/v2/post?member_id=442&recommended=true
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+###
+# view channel detail
+GET {{baseUrl}}api/v2/channel/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get post(video) by module 
+GET {{baseUrl}}api/v2/post?member_id=395&module=2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+###
+# view post(video) by detail 
+GET {{baseUrl}}api/v2/post/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get more post(video)
+GET {{baseUrl}}api/v2/post?member_id=442&more=true&current=2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get recommended posts by member
+GET {{baseUrl}}v2/post?member_id=193&recommended=true
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+###
+GET {{baseUrl}}api/v2/post?member_id=352&saved=true
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{baseUrl}}v2/registration?event_id=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/investment-equity-fund
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/trading?type=unpaid-submitted&member_id=446
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v2/investment-available-fund
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+GET {{baseUrl}}v3/loan-product?product_type=invest&option=0
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/trading-last-session
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### last trading option
+GET {{baseUrl}}v3/trading-last-session
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Last trading detail
+GET {{baseUrl}}v3/trading-last-session-info/113
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Notification
+GET {{baseUrl}}user/notification
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# get year capital gain and dividend
+GET {{baseUrl}}v3/return-on-investment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
