@@ -362,7 +362,8 @@ class PriceController extends GetxController {
       fetchInvestmentAccount();
       update();
     }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       debugPrint('onShowHide Error : ${error.statusCode}');
     });
   }
@@ -413,6 +414,8 @@ class PriceController extends GetxController {
       },
     ).onError(
       (ErrorModel error, stackTrace) {
+        FirebaseCrashlytics.instance.log(
+            "${error.bodyString.toString()} ${error.statusCode.toString()}");
         debugPrint("Error ====> ${error.statusCode}");
       },
     );
@@ -452,6 +455,8 @@ class PriceController extends GetxController {
       },
     ).onError(
       (ErrorModel error, stackTrace) {
+        FirebaseCrashlytics.instance.log(
+            "${error.bodyString.toString()} ${error.statusCode.toString()}");
         debugPrint("Error ====> ${error.statusCode}");
       },
     );
@@ -485,6 +490,8 @@ class PriceController extends GetxController {
         fifApplicationLoading.value = false;
       }).onError((ErrorModel error, stackTrace) {
         fifApplicationLoading.value = false;
+        FirebaseCrashlytics.instance.log(
+            "${error.bodyString.toString()} ${error.statusCode.toString()}");
       });
     } catch (e) {
       fifApplicationLoading.value = false;
@@ -507,7 +514,10 @@ class PriceController extends GetxController {
         responseJson["data"].map((e) {
           fifChartList.add(FIFApplicationListModel.fromJson(e));
         }).toList();
-      }).onError((ErrorModel error, stackTrace) {});
+      }).onError((ErrorModel error, stackTrace) {
+        FirebaseCrashlytics.instance.log(
+            "${error.bodyString.toString()} ${error.statusCode.toString()}");
+      });
     } catch (e) {
       debugPrint('Chart Fuction Error $e');
     }
@@ -537,6 +547,8 @@ class PriceController extends GetxController {
 
       isLoadingPending(false);
     }).onError((ErrorModel error, stackTrace) {
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       isLoadingPending(false);
     });
     return fifAppPendingList;
@@ -595,6 +607,8 @@ class PriceController extends GetxController {
       }).toList();
       isViewAgreement(false);
     }).onError((ErrorModel error, stackTrace) {
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       debugPrint("Error: ${error.bodyString}");
       isViewAgreement(false);
     });
@@ -677,6 +691,9 @@ class PriceController extends GetxController {
 
       isLoadingPendingDetail(false);
       update();
+    }).onError((ErrorModel errorModel, stackTrace) {
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
     });
     return fiFApplicationDetailPending.value;
   }
@@ -718,6 +735,8 @@ class PriceController extends GetxController {
             style: TextStyle(color: Colors.white),
           ),
           snackStyle: SnackStyle.FLOATING);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
     });
   }
 
@@ -783,6 +802,8 @@ class PriceController extends GetxController {
       isLoadingPostFiF(false);
       update();
     }).onError((ErrorModel error, stackTrace) {
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       debugPrint("Status Code failed : ${error.statusCode}");
       debugPrint("Body failed : ${error.bodyString}");
     });
@@ -835,7 +856,8 @@ class PriceController extends GetxController {
       isLoadingPayment(false);
       debugPrint("Status Code : ${error.statusCode}");
       debugPrint("Body : ${error.bodyString}");
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
     });
 
     return paymentDataList;
@@ -868,7 +890,8 @@ class PriceController extends GetxController {
       update();
       isLoadingDelete(false);
     }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       debugPrint(
           "ON Cancel Error:${error.bodyString} Status Code:${error.statusCode}");
     });
@@ -989,7 +1012,8 @@ class PriceController extends GetxController {
       isPreviewLoading(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isPreviewLoading(false);
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       debugPrint("something error:${errorModel.statusCode}");
     });
   }
@@ -1054,7 +1078,8 @@ class PriceController extends GetxController {
       isPreviewWidthdrawLoading(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isPreviewWidthdrawLoading(false);
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       debugPrint("something error:${errorModel.statusCode}");
     });
   }
@@ -1108,7 +1133,8 @@ class PriceController extends GetxController {
       isHideFeatureLoading(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isHideFeatureLoading(false);
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       debugPrint("something error:${errorModel.statusCode}");
     });
   }
@@ -1136,7 +1162,8 @@ class PriceController extends GetxController {
 
       isLoadingFirstDate(false);
     }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
     });
     return firstDateList;
   }
@@ -1157,7 +1184,8 @@ class PriceController extends GetxController {
       debugPrint('get response:++++++++$responseJson');
       isLoadingAccDetail(false);
     }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       debugPrint("Error: ${error.bodyString}");
       isLoadingAccDetail(false);
     });
@@ -1187,7 +1215,8 @@ class PriceController extends GetxController {
 
       isLoadingConfirm(false);
     }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       isLoadingConfirm(false);
     });
     return fifAppConfirmList;
@@ -1213,6 +1242,9 @@ class PriceController extends GetxController {
         debugPrint(
             "======Fif confirm detail:${fiFApplicationDetailModel.value.accountName}");
         isLoadingDetailAcc(false);
+      }).onError((ErrorModel errorModel, stackTrace) {
+        FirebaseCrashlytics.instance.log(
+            "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       });
     } catch (e) {
       isLoadingDetailAcc(false);
@@ -1255,7 +1287,8 @@ class PriceController extends GetxController {
       isLoadingInvestment(false);
     }).onError((ErrorModel error, stackTrace) {
       isLoadingInvestment(false);
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
     });
   }
 
@@ -1302,7 +1335,8 @@ class PriceController extends GetxController {
       isLoadingRenew(false);
       update();
     }).onError((ErrorModel errorModel, stackTrace) {
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       // debugPrint('Fix me Error...12345${errorModel.statusCode}');
       debugPrint(
           'Fix me Error...errorModel.statusCode....${errorModel.statusCode}');
@@ -1409,7 +1443,8 @@ class PriceController extends GetxController {
         }
       }
     }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       isLoadingPincode(false);
       deepLink = null;
       debugPrint('Pincode Error ${error.statusCode}');
@@ -1461,7 +1496,8 @@ class PriceController extends GetxController {
         ),
       );
     }).onError((ErrorModel errorModel, stackTrace) {
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       debugPrint('Fix me error...! ${errorModel.bodyString}');
       debugPrint('Fix me error...!12345678 ${errorModel.statusCode}');
     });
@@ -1499,6 +1535,9 @@ class PriceController extends GetxController {
             // bankId.value = bankMemberDataList.lastIndexOf(e.id);
           }).toList();
         }
+      }).onError((ErrorModel errorModel, stackTrace) {
+        FirebaseCrashlytics.instance.log(
+            "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       });
     } finally {
       isLoadingWithdraw(false);
@@ -1531,7 +1570,8 @@ class PriceController extends GetxController {
       update();
     }).onError((ErrorModel errorModel, stackTrace) {
       isLoadingContractHistory(false);
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
     });
     return contractHistoryList;
   }
@@ -1556,7 +1596,8 @@ class PriceController extends GetxController {
         isLoadingPrincipalHistory(false);
       }).toList();
     }).onError((ErrorModel errorModel, stackTrace) {
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
     });
     return principalHistoryList;
   }
@@ -1576,7 +1617,8 @@ class PriceController extends GetxController {
 
       isLoadingRenewPeriod(false);
     }).onError((ErrorModel errorModel, stackTrace) {
-      FirebaseCrashlytics.instance.log(errorModel.bodyString);
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       debugPrint('Fix me error renew period:${errorModel.statusCode}');
       debugPrint('Fix me error renew period:${errorModel.bodyString}');
     });

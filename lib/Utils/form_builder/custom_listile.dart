@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,6 +9,7 @@ class UserListile extends StatelessWidget {
   final Widget? trailing;
   final Color? labelColor;
   final Color? iconColor;
+  final bool? isMainColor;
   const UserListile(
       {Key? key,
       this.icon,
@@ -15,7 +17,8 @@ class UserListile extends StatelessWidget {
       this.onTap,
       this.trailing,
       this.labelColor,
-      this.iconColor})
+      this.iconColor,
+      this.isMainColor = false})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,12 @@ class UserListile extends StatelessWidget {
               ),
             Text(
               label!,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: isMainColor == true
+                  ? Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: AppColor.mainColor)
+                  : Theme.of(context).textTheme.bodyText2,
             ),
             const Spacer(),
             if (trailing != null)

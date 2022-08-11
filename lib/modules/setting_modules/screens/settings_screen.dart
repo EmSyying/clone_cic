@@ -953,6 +953,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           height: 10,
                         ),
                         UserListile(
+                          isMainColor: true,
                           icon: "assets/images/svgfile/log-out.svg",
                           labelColor: Colors.red,
                           label: S.of(context).logoutButton,
