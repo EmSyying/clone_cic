@@ -185,7 +185,6 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                 context: context,
                 builder: (context) {
                   return CupertinoActionSheet(
-                    title: const Text('Profile Photo'),
                     actions: [
                       CupertinoActionSheetAction(
                         onPressed: () async {

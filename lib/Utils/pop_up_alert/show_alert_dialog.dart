@@ -11,6 +11,8 @@ showSaveDraftDialog({
   bool? isDisableSaveDraft = false,
   VoidCallback? onSave,
   VoidCallback? onDiscard,
+  String? selectRemove,
+  String? selectCancel,
 }) {
   return showDialog(
     barrierDismissible: false,
@@ -80,7 +82,10 @@ showSaveDraftDialog({
                         horizontal: padding, vertical: padding),
                     child: Center(
                       child: Text(
-                        isCancel == true ? onSaveTitle ?? 'Save Draft' : 'Save',
+                        selectCancel ??
+                            (isCancel == true
+                                ? onSaveTitle ?? 'Save Draft'
+                                : 'Save'),
                         style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -107,7 +112,8 @@ showSaveDraftDialog({
                       horizontal: padding, vertical: padding),
                   child: Center(
                     child: Text(
-                      isCancel == true ? 'Leave This Page' : 'Discard',
+                      selectRemove ??
+                          (isCancel == true ? 'Leave This Page' : 'Discard'),
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,

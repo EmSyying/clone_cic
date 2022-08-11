@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import '../../../../utils/helper/firebase_analytics.dart';
 import '../../../../widgets/new_perional_profile/simmer_profile.dart';
 import '../../controllers/member_controller.dart';
+import 'edit_profile_screen.dart';
 
 class NewPeronalProfile extends StatefulWidget {
   final String? userName;
@@ -67,18 +68,93 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
           actions: [
             GestureDetector(
                 onTap: () {
-                  showCupertinoModalPopup(
-                      context: context,
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
                       builder: (context) {
-                        return CupertinoActionSheet(
-                          title: const Text('heloo'),
-                          actions: [
-                            CupertinoActionSheetAction(
-                                onPressed: () {},
-                                child: const Text('helloo123'))
-                          ],
-                        );
-                      });
+                        return const EditProfileScreen();
+                      },
+                    ),
+                  );
+                  // showCupertinoModalPopup(
+                  //   context: context,
+                  //   builder: (context) {
+                  //     return CupertinoActionSheet(
+                  //       cancelButton: CupertinoActionSheetAction(
+                  //         onPressed: () {
+                  //           Navigator.pop(context);
+                  //         },
+                  //         child: Text(
+                  //           S.of(context).cancelButton,
+                  //           // style: Theme.of(context).textTheme.headline5
+                  //         ),
+                  //       ),
+                  //       actions: [
+                  //         CupertinoActionSheetAction(
+                  //           onPressed: () {},
+                  //           child: Text(
+                  //             'View',
+                  //             style: Theme.of(context)
+                  //                 .textTheme
+                  //                 .headline5!
+                  //                 .copyWith(
+                  //                     fontSize: 18,
+                  //                     fontWeight: FontWeight.w400,
+                  //                     color: Colors.blue),
+                  //           ),
+                  //         ),
+                  //         CupertinoActionSheetAction(
+                  //           onPressed: () {
+                  //             Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                 builder: (context) {
+                  //                   return const EditProfileScreen();
+                  //                 },
+                  //               ),
+                  //             );
+                  //           },
+                  //           child: Text(
+                  //             'Edit',
+                  //             style: Theme.of(context)
+                  //                 .textTheme
+                  //                 .headline5!
+                  //                 .copyWith(
+                  //                     fontSize: 18,
+                  //                     fontWeight: FontWeight.w400,
+                  //                     color: Colors.blue),
+                  //           ),
+                  //         ),
+                  //         CupertinoActionSheetAction(
+                  //           onPressed: () {
+                  //             showSaveDraftDialog(
+                  //                 onSave: () {
+                  //                   Navigator.pop(context);
+                  //                 },
+                  //                 selectCancel: 'Cancel',
+                  //                 context: context,
+                  //                 title: 'hello',
+                  //                 content: 'hiii',
+                  //                 selectRemove: 'remove',
+                  //                 onDiscard: () {
+                  //                   Navigator.pop(context);
+                  //                 });
+                  //           },
+                  //           child: Text(
+                  //             'Remove',
+                  //             style: Theme.of(context)
+                  //                 .textTheme
+                  //                 .headline5!
+                  //                 .copyWith(
+                  //                     fontSize: 18,
+                  //                     fontWeight: FontWeight.w400,
+                  //                     color: Colors.red),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     );
+                  //   },
+                  // );
                 },
                 child:
                     SvgPicture.asset('assets/images/svgfile/edit_profile.svg')),
@@ -96,6 +172,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                 },
                 child: SvgPicture.asset(
                   'assets/images/svgfile/setting_new.svg',
+                  color: Colors.white,
                 ),
               ),
             ),
