@@ -9,6 +9,7 @@ import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/screens/learning_home.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/directory.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/member_detail.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_screen.dart';
 import 'package:cicgreenloan/modules/report_module/screens/report.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/trading_model.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/trading_platform.dart';
@@ -103,6 +104,10 @@ Route<dynamic> routeSetting(RouteSettings settings) {
       // final argument = settings.arguments as BonusArgument;
       return MaterialPageRoute(
           builder: (context) => const BonusScreen(),
+          settings: const RouteSettings());
+    case RouteName.PRIVILEGE:
+      return MaterialPageRoute(
+          builder: (context) => const PrivilegeScreen(),
           settings: const RouteSettings());
     default:
       return MaterialPageRoute(

@@ -55,7 +55,7 @@ class SettingController extends GetxController {
     update();
 
     if (selectedIndex == 1) {
-      onHideBottomNavigationBar(true);
+      onHideBottomNavigationBar(false);
     } else {
       onHideBottomNavigationBar(false);
     }

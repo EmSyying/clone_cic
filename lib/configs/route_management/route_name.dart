@@ -19,4 +19,5 @@ class RouteName {
   static const String GOOGLEMAPPAGE = '/google_map';
   static const String MEMBERDETAIL = '/profileDetail';
   static const String BONUS = '/bonus';
+  static const String PRIVILEGE = '/privilege';
 }

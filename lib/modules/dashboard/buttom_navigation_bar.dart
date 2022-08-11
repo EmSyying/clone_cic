@@ -23,8 +23,8 @@ import '../../Utils/helper/color.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../generated/l10n.dart';
-import '../qr_code/qr_code.dart';
 import '../../Utils/helper/app_pin_code.dart' as appPinCode;
+import '../event_module/screen/event.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
@@ -232,14 +232,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                             'assets/images/svgfile/menu/HomeActiveIcon.svg'),
                       ),
                       BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/qrcodeInactive.svg',
-                        ),
-                        activeIcon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/qrCodeActive.svg',
-                        ),
-                        label: S.of(context).qrCode,
-                      ),
+                          icon: SvgPicture.asset(
+                            'assets/images/svgfile/menu/qrcodeInactive.svg',
+                          ),
+                          activeIcon: SvgPicture.asset(
+                            'assets/images/svgfile/menu/qrCodeActive.svg',
+                          ),
+                          // label: S.of(context).qrCode,
+                          label: "Event"),
                       // BottomNavigationBarItem(
                       //   icon: Icon(Icons.book),
                       //   activeIcon: Icon(Icons.book),
@@ -283,10 +283,10 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
               // Dashboard(),
               const MainDashboard(),
 
-              const QrCodeScreen(),
+              // const QrCodeScreen(),
               // LearningHome(),
               // SearchScreen(),
-              // EventScreen()
+              const EventScreen(),
               //  Report(),
               //  BuySell(),
               // HomePage(),
