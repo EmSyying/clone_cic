@@ -7,7 +7,6 @@ import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.d
 
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
-import 'package:cicgreenloan/configs/route_management/route_setting.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/Utils/app_settings/models/settings.dart';
@@ -32,6 +31,7 @@ import 'Utils/function/notification_helper.dart';
 import 'Utils/helper/color.dart';
 import 'Utils/helper/local_storage.dart';
 import 'Utils/option_controller/option_controller.dart';
+import 'configs/auto_route/auto_route.gr.dart';
 import 'generated/l10n.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/helper/app_pin_code.dart' as appPinCode;
@@ -514,13 +514,9 @@ class MyApp extends StatelessWidget {
     isUserLogin = await LocalData.isUserLogin('userLogin');
   }
 
+  final appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
-    // _showLockScreen();
-
-    // handleTimeout();
-    // checkUserLogin();
-
     DynamicLinkService.initDynamicLinks();
 
     getToken();
@@ -555,12 +551,10 @@ class MyApp extends StatelessWidget {
                 }
               }
             },
-            child: GetMaterialApp(
-              // routerDelegate: BeamLocationList.routerDelegate,
-              // backButtonDispatcher: BeamerBackButtonDispatcher(
-              //     delegate: BeamLocationList.routerDelegate),
-              // routeInformationParser: BeamerParser(),
-              onGenerateRoute: routeSetting,
+            child: GetMaterialApp.router(
+              routerDelegate: appRouter.delegate(),
+              routeInformationParser: appRouter.defaultRouteParser(),
+
               localizationsDelegates: const [
                 S.delegate,
                 CountryLocalizations.delegate,

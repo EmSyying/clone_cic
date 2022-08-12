@@ -74,11 +74,8 @@ class OnMessageOpenApp {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => PreviewEquity(
-            applicationDetail:
-                ApplicationData(id: int.tryParse(event.data['application_id'])),
-            fromPage: "submitted",
-          ),
+          builder: (context) =>
+              PreviewEquity(id: int.tryParse(event.data['application_id'])),
         ),
       );
     } else if (event.data['type'] == 'Debt') {

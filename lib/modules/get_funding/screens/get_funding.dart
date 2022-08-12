@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/local_storage.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/generated/l10n.dart';
@@ -26,7 +27,7 @@ import '../../../Utils/helper/firebase_analytics.dart';
 class HomePage extends StatefulWidget {
   final bool? isNavigator;
 
-  const HomePage({Key? key, this.isNavigator}) : super(key: key);
+  const HomePage({Key? key, @queryParam this.isNavigator}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }

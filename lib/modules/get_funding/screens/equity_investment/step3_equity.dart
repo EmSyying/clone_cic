@@ -172,12 +172,7 @@ class _Step3EquityState extends State<Step3Equity> {
               context,
               MaterialPageRoute(
                 builder: (context) => PreviewEquity(
-                  applicationDetail: ApplicationData(
-                      step:
-                          equityController.applicationData.value.step!.toInt(),
-                      status: equityController.applicationData.value.status,
-                      id: equityController.applicationData.value.id),
-                ),
+                    id: equityController.applicationData.value.id),
               ),
             )
           : Navigator.push(context,

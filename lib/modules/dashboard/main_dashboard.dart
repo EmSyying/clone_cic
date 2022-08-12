@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
@@ -914,19 +915,17 @@ class _MainDashboardState extends State<MainDashboard> {
                                           FirebaseAnalyticsHelper
                                               .setCurrentScreenName(
                                                   e.value.label!);
-                                          // Beamer.of(context)
-                                          //     .beamToNamed(
-                                          //         '/${value.route}');
-                                          Navigator.pushNamed(
-                                              context, '/${e.value.route!}');
+                                          context.router
+                                              .pushNamed("/${e.value.route}");
+                                          // Navigator.pushNamed(
+                                          //     context, '/${e.value.route!}');
                                         }
                                       : () {
-                                          // Beamer.of(context)
-                                          //     .beamToNamed(
-                                          //         '/${value.route}');
-                                          Navigator.pushNamed(
-                                              context, '/${e.value.route!}',
-                                              arguments: 'equity_investment');
+                                          context.router
+                                              .pushNamed("/${e.value.route}");
+                                          // Navigator.pushNamed(
+                                          //     context, '/${e.value.route!}',
+                                          //     arguments: 'equity_investment');
                                         },
                           title: e.value.label,
                           imageSvg: e.value.icon,
@@ -983,28 +982,13 @@ class _MainDashboardState extends State<MainDashboard> {
                                                     },
                                                   );
                                                 }
-                                              : value.route != 'get_funding'
-                                                  ? () {
-                                                      FirebaseAnalyticsHelper
-                                                          .setCurrentScreenName(
-                                                              value.label!);
-                                                      // Beamer.of(context)
-                                                      //     .beamToNamed(
-                                                      //         '/${value.route}');
-                                                      Navigator.pushNamed(
-                                                          context,
-                                                          '/${value.route!}');
-                                                    }
-                                                  : () {
-                                                      // Beamer.of(context)
-                                                      //     .beamToNamed(
-                                                      //         '/${value.route}');
-                                                      Navigator.pushNamed(
-                                                          context,
-                                                          '/${value.route!}',
-                                                          arguments:
-                                                              'equity_investment');
-                                                    },
+                                              : () {
+                                                  FirebaseAnalyticsHelper
+                                                      .setCurrentScreenName(
+                                                          value.label!);
+                                                  context.router.pushNamed(
+                                                      "/${value.route}");
+                                                },
                                       icon: value.icon,
                                     );
                                   }).toList()),

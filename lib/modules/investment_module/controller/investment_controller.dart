@@ -160,25 +160,9 @@ class PriceController extends GetxController {
   Future<Price> onFetchPrice() async {
     isLoading(true);
 
-    // String url = '${GlobalConfiguration().get('api_base_url')}price';
-    // try {
-    //   await http.get(Uri.parse(url), headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //     'Authorization': 'Bearer ${tokenKey.value}'
-    //   }).then((response) {
-    //     if (response.statusCode == 200) {
-    //       var responseJson = json.decode(response.body)['data'];
-    //       price.value = Price.fromJson(responseJson);
-    //     }
-    //   });
-    // } finally {
-    //   isLoading(false);
-    // }
-
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'fif-account',
+      url: 'price',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -187,7 +171,8 @@ class PriceController extends GetxController {
       price.value = Price.fromJson(responseJson);
       isLoading(false);
     }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString);
+      FirebaseCrashlytics.instance
+          .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
       isLoading(false);
     });
     return price.value;

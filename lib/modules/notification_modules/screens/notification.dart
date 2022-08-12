@@ -500,8 +500,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                   context,
                                                                                                   MaterialPageRoute(
                                                                                                     builder: (context) => PreviewEquity(
-                                                                                                      applicationDetail: ApplicationData(id: _con.notificationList[index].data!.applicationId),
-                                                                                                      fromPage: "submitted",
+                                                                                                      id: _con.notificationList[index].data!.applicationId,
                                                                                                     ),
                                                                                                   ),
                                                                                                 );
