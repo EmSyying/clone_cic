@@ -110,10 +110,12 @@ bool isAuthenticated = false;
 ///call this function to show passcode screen
 bool isSuccess = false;
 Future<bool> showLockScreen(
-    {String? routeName, bool enableCancel = false}) async {
+    {String? routeName,
+    bool enableCancel = false,
+    BuildContext? context}) async {
   timer.cancel();
   isSuccess = await Navigator.push(
-    Get.context!,
+    context!,
     PageRouteBuilder(
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) {
@@ -137,7 +139,9 @@ Future<bool> showLockScreen(
 
                           _verificationNotifier.add(isValid);
                           isSuccess = await setPINCodeController.submitPINCode(
-                              pinCode: enteredPasscode, routeName: null);
+                              context: context,
+                              pinCode: enteredPasscode,
+                              routeName: null);
                         },
                         deleteButton: const Text(
                           'Delete',

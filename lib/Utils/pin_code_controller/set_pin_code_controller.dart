@@ -34,7 +34,8 @@ class SetPINCodeController extends GetxController {
   final notifcationCon = Get.put(NotificationController());
   // final pinCode = ''.obs;
 
-  Future<bool> submitPINCode({String? pinCode, String? routeName}) async {
+  Future<bool> submitPINCode(
+      {String? pinCode, String? routeName, BuildContext? context}) async {
     bool isSuccess = false;
     tokenKey = await LocalData.getCurrentUser();
     isLoading(true);
@@ -64,10 +65,10 @@ class SetPINCodeController extends GetxController {
 
             // update();
             if (routeName == null) {
-              Navigator.pop(Get.context!, true);
+              Navigator.pop(context!, true);
             } else {
-              Navigator.pop(Get.context!, true);
-              Navigator.pushNamed(Get.context!, '/$routeName');
+              Navigator.pop(context!, true);
+              Navigator.pushNamed(context, '/$routeName');
             }
             debugPrint("Submit PIN Code three");
             if (notifcationCon.notificationAnouncementList.first.readAt ==
@@ -79,7 +80,7 @@ class SetPINCodeController extends GetxController {
                     false) {
               return showDialog(
                 barrierDismissible: false,
-                context: Get.context!,
+                context: context,
                 builder: (context) => PopUpAnnouncement(
                   notificationModel:
                       notifcationCon.notificationAnouncementList.first,
@@ -94,7 +95,7 @@ class SetPINCodeController extends GetxController {
                     'Requested') {
               return showDialog(
                 barrierDismissible: false,
-                context: Get.context!,
+                context: context,
                 builder: (context) => AcceptNotificationPopup(
                   notificationModel:
                       notifcationCon.notificationAnouncementList.first,
@@ -106,7 +107,7 @@ class SetPINCodeController extends GetxController {
               if (deepLink!.path.contains(RouteName.EVENTDETAIL)) {
                 var param = deepLink!.queryParameters['eventID'];
                 final argument = EventDetailArgument(id: int.parse(param!));
-                Navigator.pushNamed(Get.context!, RouteName.EVENTDETAIL,
+                Navigator.pushNamed(context, RouteName.EVENTDETAIL,
                     arguments: argument);
                 deepLink = null;
               }
@@ -114,7 +115,7 @@ class SetPINCodeController extends GetxController {
                 var param = deepLink!.queryParameters['memberID'];
                 final agument = MemberDetailAgrument(
                     id: int.parse(param!), pageName: 'memberList');
-                Navigator.pushNamed(Get.context!, RouteName.MEMBERDETAIL,
+                Navigator.pushNamed(context, RouteName.MEMBERDETAIL,
                     arguments: agument);
                 deepLink = null;
               }
