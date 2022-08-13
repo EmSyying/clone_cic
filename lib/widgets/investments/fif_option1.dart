@@ -13,9 +13,9 @@ import '../../Utils/chart/custom_circle_chart_1_3.dart';
 import '../../Utils/helper/app_pin_code.dart' as apppincode;
 import '../../Utils/pop_up_alert/show_alert_dialog.dart';
 
-import '../../configs/auto_route/auto_route.gr.dart';
 import '../../modules/bonus/screens/cash_out/custom_change_account_bank.dart';
 import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
+import '../../modules/investment_module/screen/bullet_payment_detail.dart';
 import '../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../utils/form_builder/dropdow_item.dart';
 import '../../utils/function/convert_to_double.dart';
@@ -101,127 +101,127 @@ class _FIFOption1State extends State<FIFOption1> {
       if (fifController.productCode.value == "MPC-0001" ||
           fifController.productCode.value == "MPI-0004" ||
           fifController.productCode.value == "MBP-0003") {
-        context?.router.push(
-          ReviewApplicationRouter(
-            isAnnullyRate: true,
-            oncallBack: () async {
-              FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                  'Submit create fif application');
+        // context?.router.push(
+        //   ReviewApplicationRouter(
+        //     isAnnullyRate: true,
+        //     oncallBack: () async {
+        //       FirebaseAnalyticsHelper.sendAnalyticsEvent(
+        //           'Submit create fif application');
 
-              apppincode
-                  .showLockScreen(enableCancel: true, context: context)
-                  .then((value) async {
-                if (value) {
-                  await fifController.onCreateFiF(id: widget.id);
-                }
-              });
-            },
-            fromPage: widget.id != null ? 'from edit' : 'from submit',
-            titles: 'Fixed Income Fund',
-            productName: fifController.productNameType.value,
-            // annually: fifController.annuallyInterestRate.value,
-            isNoUSD: true,
-            investAmount: fifController.textAmount.value.toString(),
-            investDate: fifController.textInvestDate.toString(),
-            investDuration: fifController.textDuration.value,
-            firstPayDate: fifController.displayFirstPaymentDate.toString(),
-          ),
-        );
-        // Navigator.push(
-        //   context!,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return BulletPaymentDetail(
-        //         isAnnullyRate: true,
-        //         oncallBack: () async {
-        //           FirebaseAnalyticsHelper.sendAnalyticsEvent(
-        //               'Submit create fif application');
-
-        //           apppincode
-        //               .showLockScreen(enableCancel: true)
-        //               .then((value) async {
-        //             if (value) {
-        //               await fifController.onCreateFiF(id: widget.id);
-        //             }
-        //           });
-        //         },
-        //         fromPage: widget.id != null ? 'from edit' : 'from submit',
-        //         titles: 'Fixed Income Fund',
-        //         productName: fifController.productNameType.value,
-        //         // annually: fifController.annuallyInterestRate.value,
-        //         isNoUSD: true,
-        //         investAmount: fifController.textAmount.value.toString(),
-        //         investDate: fifController.textInvestDate.toString(),
-        //         investDuration: fifController.textDuration.value,
-        //         firstPayDate: fifController.displayFirstPaymentDate.toString(),
-        //       );
+        //       apppincode
+        //           .showLockScreen(enableCancel: true, context: context)
+        //           .then((value) async {
+        //         if (value) {
+        //           await fifController.onCreateFiF(id: widget.id);
+        //         }
+        //       });
         //     },
+        //     fromPage: widget.id != null ? 'from edit' : 'from submit',
+        //     titles: 'Fixed Income Fund',
+        //     productName: fifController.productNameType.value,
+        //     // annually: fifController.annuallyInterestRate.value,
+        //     isNoUSD: true,
+        //     investAmount: fifController.textAmount.value.toString(),
+        //     investDate: fifController.textInvestDate.toString(),
+        //     investDuration: fifController.textDuration.value,
+        //     firstPayDate: fifController.displayFirstPaymentDate.toString(),
         //   ),
         // );
+        Navigator.push(
+          context!,
+          MaterialPageRoute(
+            builder: (context) {
+              return BulletPaymentDetail(
+                isAnnullyRate: true,
+                oncallBack: () async {
+                  FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                      'Submit create fif application');
+
+                  apppincode
+                      .showLockScreen(enableCancel: true)
+                      .then((value) async {
+                    if (value) {
+                      await fifController.onCreateFiF(id: widget.id);
+                    }
+                  });
+                },
+                fromPage: widget.id != null ? 'from edit' : 'from submit',
+                titles: 'Fixed Income Fund',
+                productName: fifController.productNameType.value,
+                // annually: fifController.annuallyInterestRate.value,
+                isNoUSD: true,
+                investAmount: fifController.textAmount.value.toString(),
+                investDate: fifController.textInvestDate.toString(),
+                investDuration: fifController.textDuration.value,
+                firstPayDate: fifController.displayFirstPaymentDate.toString(),
+              );
+            },
+          ),
+        );
       } else {
         if (fifController.isValidateDeductionAmount.value == true &&
             fifController.isvalidateMethod.value == true) {
-          context!.router.push(
-            ReviewApplicationRouter(
-              isAnnullyRate: true,
-              oncallBack: () async {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                    'submit edit fif application');
-                apppincode
-                    .showLockScreen(
-                  enableCancel: true,
-                  context: context,
-                )
-                    .then((value) async {
-                  if (value) {
-                    await fifController.onCreateFiF(id: widget.id);
-                  }
-                });
-                // await Future.delayed(const Duration(seconds: 0));
-                // await fifController.onCreateFiF(id: widget.id);
-              },
-              fromPage: widget.id != null ? 'from edit' : 'from submit',
-              id: widget.id,
-              titles: 'Fixed Income Fund',
-              annually: fifController.annuallyInterestRate.value,
-              productName: fifController.productNameType.value,
-              investAmount: fifController.textAmount.value.toString(),
-              investDate: fifController.textInvestDate.toString(),
-              investDuration: fifController.textDuration.value,
-            ),
-          );
-
-          // Navigator.push(
-          //   context!,
-          //   MaterialPageRoute(
-          //     builder: (context) {
-          //       return BulletPaymentDetail(
-          //         isAnnullyRate: true,
-          //         oncallBack: () async {
-          //           FirebaseAnalyticsHelper.sendAnalyticsEvent(
-          //               'submit edit fif application');
-          //           apppincode
-          //               .showLockScreen(enableCancel: true)
-          //               .then((value) async {
-          //             if (value) {
-          //               await fifController.onCreateFiF(id: widget.id);
-          //             }
-          //           });
-          //           // await Future.delayed(const Duration(seconds: 0));
-          //           // await fifController.onCreateFiF(id: widget.id);
-          //         },
-          //         fromPage: widget.id != null ? 'from edit' : 'from submit',
-          //         id: widget.id,
-          //         titles: 'Fixed Income Fund',
-          //         annually: fifController.annuallyInterestRate.value,
-          //         productName: fifController.productNameType.value,
-          //         investAmount: fifController.textAmount.value.toString(),
-          //         investDate: fifController.textInvestDate.toString(),
-          //         investDuration: fifController.textDuration.value,
-          //       );
+          // context!.router.push(
+          //   ReviewApplicationRouter(
+          //     isAnnullyRate: true,
+          //     oncallBack: () async {
+          //       FirebaseAnalyticsHelper.sendAnalyticsEvent(
+          //           'submit edit fif application');
+          //       apppincode
+          //           .showLockScreen(
+          //         enableCancel: true,
+          //         context: context,
+          //       )
+          //           .then((value) async {
+          //         if (value) {
+          //           await fifController.onCreateFiF(id: widget.id);
+          //         }
+          //       });
+          //       // await Future.delayed(const Duration(seconds: 0));
+          //       // await fifController.onCreateFiF(id: widget.id);
           //     },
+          //     fromPage: widget.id != null ? 'from edit' : 'from submit',
+          //     id: widget.id,
+          //     titles: 'Fixed Income Fund',
+          //     annually: fifController.annuallyInterestRate.value,
+          //     productName: fifController.productNameType.value,
+          //     investAmount: fifController.textAmount.value.toString(),
+          //     investDate: fifController.textInvestDate.toString(),
+          //     investDuration: fifController.textDuration.value,
           //   ),
           // );
+
+          Navigator.push(
+            context!,
+            MaterialPageRoute(
+              builder: (context) {
+                return BulletPaymentDetail(
+                  isAnnullyRate: true,
+                  oncallBack: () async {
+                    FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                        'submit edit fif application');
+                    apppincode
+                        .showLockScreen(enableCancel: true)
+                        .then((value) async {
+                      if (value) {
+                        await fifController.onCreateFiF(id: widget.id);
+                      }
+                    });
+                    // await Future.delayed(const Duration(seconds: 0));
+                    // await fifController.onCreateFiF(id: widget.id);
+                  },
+                  fromPage: widget.id != null ? 'from edit' : 'from submit',
+                  id: widget.id,
+                  titles: 'Fixed Income Fund',
+                  annually: fifController.annuallyInterestRate.value,
+                  productName: fifController.productNameType.value,
+                  investAmount: fifController.textAmount.value.toString(),
+                  investDate: fifController.textInvestDate.toString(),
+                  investDuration: fifController.textDuration.value,
+                );
+              },
+            ),
+          );
         } else {
           debugPrint("Deduction Don't go");
         }
