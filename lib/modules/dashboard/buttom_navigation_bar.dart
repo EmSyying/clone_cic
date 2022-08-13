@@ -119,7 +119,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
             // _showLockScreen();
             // onShowFingerPrint();
-            appPinCode.showLockScreen();
+            appPinCode.showLockScreen(context: context);
           }
         }
       }
