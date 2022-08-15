@@ -65,6 +65,7 @@ class _MainDashboardState extends State<MainDashboard> {
   final _notificationCon = Get.put(NotificationController());
   final setPINCodeController = Get.put(SetPINCodeController());
   final controller = Get.put(ApprovePaymentController());
+
   // final onMessageOpenApp = OnMessageOpenApp();
 
   int currentIndex = 0;
@@ -439,6 +440,8 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   void initState() {
     _notificationCon.countNotification();
+    _settingCon.fetchAppSetting();
+
     DynamicLinkService.initDynamicLinks();
     fifCon.onHideFeatureByUser(cusController.customer.value.id);
     // final newVersion = NewVersion(
@@ -459,9 +462,10 @@ class _MainDashboardState extends State<MainDashboard> {
 
     _notificationCon.onGetReason();
     actionKey = GlobalKey();
+    debugPrint("App Setting Data List${_settingCon.appSettingDataList.length}");
     LocalData.showAppTou('appTour').then((value) {
       if (!value) {
-        Future.delayed(const Duration(seconds: 1), () {
+        Future.delayed(const Duration(seconds: 2), () {
           initialObjectFinding();
 
           overlayBackground = showOverlay();
@@ -502,7 +506,7 @@ class _MainDashboardState extends State<MainDashboard> {
           if (e.value.readAt == null && e.value.data!.type == 'fif-reminder') {
             _notificationCon.onReadNotification(e.value.id!);
             return showReminderDailog(
-              context: Get.context!,
+              context: context,
               title: e.value.data!.title,
               content: e.value.data!.message,
               cancelTitle: 'Remind me later',
@@ -531,7 +535,7 @@ class _MainDashboardState extends State<MainDashboard> {
               e.value.data!.status == 'Requested') {
             return showDialog(
               barrierDismissible: false,
-              context: Get.context!,
+              context: context,
               builder: (context) => AcceptNotificationPopup(
                 notificationModel: e.value,
               ),
@@ -916,16 +920,11 @@ class _MainDashboardState extends State<MainDashboard> {
                                               .setCurrentScreenName(
                                                   e.value.label!);
                                           context.router
-                                              .pushNamed("/${e.value.route}");
-                                          // Navigator.pushNamed(
-                                          //     context, '/${e.value.route!}');
+                                              .pushNamed("/${e.value.route!}");
                                         }
                                       : () {
                                           context.router
-                                              .pushNamed("/${e.value.route}");
-                                          // Navigator.pushNamed(
-                                          //     context, '/${e.value.route!}',
-                                          //     arguments: 'equity_investment');
+                                              .pushNamed("/${e.value.route!}");
                                         },
                           title: e.value.label,
                           imageSvg: e.value.icon,
@@ -960,7 +959,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                   children: _settingCon.appSettingDataList
                                       .map((value) {
                                     return DashBoardMenu(
-                                      key: value.key,
+                                      key: value.key = GlobalKey(),
                                       title: value.label,
                                       onTap: isFirstLaunch
                                           ? () {}
@@ -987,7 +986,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                       .setCurrentScreenName(
                                                           value.label!);
                                                   context.router.pushNamed(
-                                                      "/${value.route}");
+                                                      "/${value.route!}");
                                                 },
                                       icon: value.icon,
                                     );
