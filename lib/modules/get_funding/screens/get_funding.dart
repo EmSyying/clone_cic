@@ -189,7 +189,6 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
   String? fromPage;
   @override
   Widget build(BuildContext context) {
-    String? pageName;
     storeDeviceToken();
     return Column(
       children: [
@@ -259,7 +258,8 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                           ? const Icon(Icons.arrow_back)
                           : const Icon(Icons.arrow_back_ios),
                   onPressed: () {
-                    Navigator.pop(context);
+                    debugPrint("Context router pop");
+                    context.navigateBack();
                   },
                 )
               : null,
