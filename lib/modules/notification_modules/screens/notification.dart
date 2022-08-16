@@ -25,7 +25,6 @@ import '../../../widgets/ut_tradding/notification_detail_popup.dart';
 import '../../bonus/screens/bonus_screen.dart';
 import '../../event_module/models/event_detail_argument.dart';
 import '../../event_module/screen/event_detail.dart';
-import '../../get_funding/models/appliication_card_model.dart';
 import '../../get_funding/screens/debt_investment/preview_debt_form.dart';
 import '../../get_funding/screens/equity_investment/preview_equity.dart';
 import '../../investment_module/screen/bullet_payment_detail.dart';
@@ -516,10 +515,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                     await Navigator.push(
                                                                                                       context,
                                                                                                       MaterialPageRoute(
-                                                                                                        builder: (context) => PreviewDebtForm(
-                                                                                                          applicationDetail: ApplicationData(id: _con.notificationList[index].data!.applicationId),
-                                                                                                          fromPage: "submitted",
-                                                                                                        ),
+                                                                                                        builder: (context) => PreviewDebtForm(id: _con.notificationList[index].data!.applicationId),
                                                                                                       ),
                                                                                                     );
                                                                                                   }

@@ -89,7 +89,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
   void initState() {
     super.initState();
 
-    if (widget.id == null) {
+    if (widget.id == 0 || widget.id == null) {
       // inistialdata();
       // initialDataToString();
     } else {
@@ -440,7 +440,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
                 : Scaffold(
                     appBar: equityController.isSubmitLoading.value == true
                         ? AppBar()
-                        : widget.id == null
+                        : widget.id == 0 || widget.id == null
                             ? CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Submitted Application',
@@ -457,7 +457,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
                             : CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Preview Form',
-                                subtitle: '',
+                                subtitle: equityController.status.value,
                                 action: [
                                     const CustomCallCenter(),
                                     const SizedBox(
@@ -483,7 +483,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        if (widget.id != null)
+                                        if (widget.id != 0 || widget.id != null)
                                           if (equityController.applicationData
                                                   .value.status ==
                                               'Rejected')
@@ -499,10 +499,12 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                             ),
                                         CustomFinancingInfo(
                                           isEditable: equityController
-                                                      .applicationData
-                                                      .value
-                                                      .status ==
-                                                  "Draft"
+                                                          .applicationData
+                                                          .value
+                                                          .status ==
+                                                      "Draft" ||
+                                                  widget.id == 0 ||
+                                                  widget.id == null
                                               ? true
                                               : isEdit,
                                           financingAmount: equityController
@@ -528,10 +530,12 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                         ),
                                         CustomReviewCompanyInfocard(
                                           isEditable: equityController
-                                                      .applicationData
-                                                      .value
-                                                      .status ==
-                                                  "Draft"
+                                                          .applicationData
+                                                          .value
+                                                          .status ==
+                                                      "Draft" ||
+                                                  widget.id == 0 ||
+                                                  widget.id == null
                                               ? true
                                               : isEdit,
                                           onTap: () {
@@ -575,10 +579,12 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                         ),
                                         CustomReviewRequiredCard(
                                           isEditable: equityController
-                                                      .applicationData
-                                                      .value
-                                                      .status ==
-                                                  "Draft"
+                                                          .applicationData
+                                                          .value
+                                                          .status ==
+                                                      "Draft" ||
+                                                  widget.id == 0 ||
+                                                  widget.id == null
                                               ? true
                                               : isEdit,
                                           //Part 1
@@ -642,8 +648,10 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                   ),
                                 ),
                                 if (equityController
-                                        .applicationData.value.status ==
-                                    "Draft")
+                                            .applicationData.value.status ==
+                                        "Draft" ||
+                                    widget.id == 0 ||
+                                    widget.id == null)
                                   Container(
                                     margin: const EdgeInsets.only(
                                         left: 0, right: 0, bottom: 30),
@@ -690,13 +698,13 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                 child: CustomButton(
                                                     isDisable: false,
                                                     isOutline: true,
-                                                    onPressed: widget.id !=
-                                                                null &&
-                                                            equityController
-                                                                    .applicationData
-                                                                    .value
-                                                                    .step ==
-                                                                3
+                                                    onPressed: widget.id != 0 ||
+                                                            widget.id != null &&
+                                                                equityController
+                                                                        .applicationData
+                                                                        .value
+                                                                        .step ==
+                                                                    3
                                                         ? () {
                                                             Navigator.pop(
                                                                 context);
@@ -720,12 +728,14 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                   isOutline: false,
                                                   onPressed: equityController
                                                           .isAgree.value
-                                                      ? widget.id != null &&
-                                                              equityController
-                                                                      .applicationData
-                                                                      .value
-                                                                      .status ==
-                                                                  "Draft"
+                                                      ? widget.id != 0 ||
+                                                              widget.id !=
+                                                                      null &&
+                                                                  equityController
+                                                                          .applicationData
+                                                                          .value
+                                                                          .status ==
+                                                                      "Draft"
                                                           ? () async {
                                                               FirebaseAnalyticsHelper
                                                                   .sendAnalyticsEvent(
@@ -772,13 +782,15 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                               .status ==
                                                           "Rejected"
                                                       ? 'Re-Submit'
-                                                      : widget.id != null &&
-                                                              equityController
-                                                                      .applicationData
-                                                                      .value
-                                                                      .status!
-                                                                      .toLowerCase() ==
-                                                                  'new'
+                                                      : widget.id != 0 ||
+                                                              widget.id !=
+                                                                      null &&
+                                                                  equityController
+                                                                          .applicationData
+                                                                          .value
+                                                                          .status!
+                                                                          .toLowerCase() ==
+                                                                      'new'
                                                           ? 'Update'
                                                           : 'Submit',
                                                 ),

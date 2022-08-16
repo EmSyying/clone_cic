@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/equity_investment/step1_equity.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
@@ -318,8 +319,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
             onPressed: () {
               equityController.resetData();
 
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Step1Equiry()));
+              context.router.pushNamed("step1equity");
             },
             title: 'Get Equity Invesment',
           ),

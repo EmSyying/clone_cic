@@ -60,130 +60,47 @@ class ApplicationList extends StatelessWidget {
                             equityController.resetData();
                             debtController.onResetData();
                             if (getFundingModel.status != "Draft") {
-                              context.router.pushNamed(
-                                  "preview-equity/${getFundingModel.id}");
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => isEquity!
-                              //         ? getFundingModel.step == 1
-                              //             ? Step1Equiry(
-                              //                 id: getFundingModel.id,
-                              //                 step: getFundingModel.step,
-                              //               )
-                              //             : getFundingModel.step == 2
-                              //                 ? Step2Equity(
-                              //                     id: getFundingModel.id,
-                              //                     step: getFundingModel.step,
-                              //                   )
-                              //                 : getFundingModel.step == 3
-                              //                     ? Step3Equity(
-                              //                         id: getFundingModel.id,
-                              //                         step:
-                              //                             getFundingModel.step,
-                              //                       )
-                              //                     : PreviewEquity(
-                              //                         id: getFundingModel.id,
-                              //                       )
-                              //         : getFundingModel.step == 1
-                              //             ? Step1Debt(
-                              //                 applicationDetail:
-                              //                     getFundingModel,
-                              //                 isDraft: "true",
-                              //               )
-                              //             : getFundingModel.step == 2
-                              //                 ? Step2Debt(
-                              //                     applicationDetail:
-                              //                         getFundingModel,
-                              //                     isDraft: "true",
-                              //                   )
-                              //                 : getFundingModel.step == 3
-                              //                     ? Step3Debt(
-                              //                         applicationDetail:
-                              //                             getFundingModel,
-                              //                         isDraft: "true",
-                              //                       )
-                              //                     : getFundingModel.step == 4
-                              //                         ? RequiredDocument(
-                              //                             applicationDetail:
-                              //                                 getFundingModel,
-                              //                             isDraft: "true",
-                              //                           )
-                              //                         : PreviewDebtForm(
-                              //                             applicationDetail:
-                              //                                 getFundingModel,
-                              //                             fromPage: 'submitted',
-                              //                             isDraft: "true",
-                              //                           ),
-                              //   ),
-                              // );
+                              isEquity!
+                                  ? context.router.pushNamed(
+                                      "preview-equity/${getFundingModel.id}")
+                                  : context.router.pushNamed(
+                                      "preview-debt/${getFundingModel.id}");
                             } else {
                               null;
                             }
                           },
-                          //Code Edit and Deleted Draft Application list====
+                          //Code Edit and Deleted Draft Application list
                           child: ApplicationCard(
                             onTapEdit: () {
                               equityController.resetData();
                               debtController.onResetData();
                               Navigator.pop(context);
-                              context.router.pushNamed(
-                                  "preview-equity/:${getFundingModel.id}");
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => isEquity!
-                              //         ? getFundingModel.step == 1
-                              //             ? Step1Equiry(
-                              //                 id: getFundingModel.id,
-                              //                 step: getFundingModel.step,
-                              //               )
-                              //             : getFundingModel.step == 2
-                              //                 ? Step2Equity(
-                              //                     id: getFundingModel.id,
-                              //                     step: getFundingModel.step,
-                              //                   )
-                              //                 : getFundingModel.step == 3
-                              //                     ? Step3Equity(
-                              //                         id: getFundingModel.id,
-                              //                         step:
-                              //                             getFundingModel.step,
-                              //                       )
-                              //                     : PreviewEquity(
-                              //                         id: getFundingModel.id,
-                              //                       )
-                              //         : getFundingModel.step == 1
-                              //             ? Step1Debt(
-                              //                 applicationDetail:
-                              //                     getFundingModel,
-                              //                 isDraft: "true",
-                              //               )
-                              //             : getFundingModel.step == 2
-                              //                 ? Step2Debt(
-                              //                     applicationDetail:
-                              //                         getFundingModel,
-                              //                     isDraft: "true",
-                              //                   )
-                              //                 : getFundingModel.step == 3
-                              //                     ? Step3Debt(
-                              //                         applicationDetail:
-                              //                             getFundingModel,
-                              //                         isDraft: "true",
-                              //                       )
-                              //                     : getFundingModel.step == 4
-                              //                         ? RequiredDocument(
-                              //                             applicationDetail:
-                              //                                 getFundingModel,
-                              //                             isDraft: "true",
-                              //                           )
-                              //                         : PreviewDebtForm(
-                              //                             applicationDetail:
-                              //                                 getFundingModel,
-                              //                             fromPage: 'submitted',
-                              //                             isDraft: "true",
-                              //                           ),
-                              //   ),
-                              // );
+                              isEquity!
+                                  ? getFundingModel.step == 1
+                                      ? context.router.pushNamed(
+                                          "step1equity/${getFundingModel.id}/${getFundingModel.step}")
+                                      : getFundingModel.step == 2
+                                          ? context.router.pushNamed(
+                                              "step2equity/${getFundingModel.id}/${getFundingModel.step}")
+                                          : getFundingModel.step == 3
+                                              ? context.router.pushNamed(
+                                                  "step3equity/${getFundingModel.id}/${getFundingModel.step}")
+                                              : context.router.pushNamed(
+                                                  "preview-equity/${getFundingModel.id}")
+                                  : getFundingModel.step == 1
+                                      ? context.router.pushNamed(
+                                          "step1debt/${getFundingModel.id}/${getFundingModel.step}")
+                                      : getFundingModel.step == 2
+                                          ? context.router.pushNamed(
+                                              "step2debt/${getFundingModel.id}/${getFundingModel.step}")
+                                          : getFundingModel.step == 3
+                                              ? context.router.pushNamed(
+                                                  "step3debt/${getFundingModel.id}/${getFundingModel.step}")
+                                              : getFundingModel.step == 4
+                                                  ? context.router.pushNamed(
+                                                      "step4debt/${getFundingModel.id}/${getFundingModel.step}")
+                                                  : context.router.pushNamed(
+                                                      "preview-debt/${getFundingModel.id}");
                             },
                             onTapDelete: () {
                               if (isEquity == true) {

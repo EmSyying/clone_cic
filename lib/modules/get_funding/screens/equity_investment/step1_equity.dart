@@ -1,9 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_drop_down.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/show_alert_dialog.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/models/application_detail.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_form_card.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
@@ -20,12 +20,13 @@ import '../../../../Utils/helper/numerice_format.dart';
 import '../../../../utils/chart/custom_circle_chart_1_3.dart';
 import '../../../../utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
-import 'step2_equity.dart';
 
 class Step1Equiry extends StatefulWidget {
   final int? id;
   final int? step;
-  const Step1Equiry({Key? key, this.id = 0, this.step}) : super(key: key);
+  const Step1Equiry(
+      {Key? key, @PathParam('id') this.id = 0, @PathParam('step') this.step})
+      : super(key: key);
   @override
   State<Step1Equiry> createState() => _Step1EquiryState();
 }
@@ -38,7 +39,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
     if (widget.id != 0) {
       inistialdata();
     } else {
-      equityController.applicationData.value = ApplicationDataDetail();
+      // equityController.applicationData.value = ApplicationDataDetail();
     }
     super.initState();
   }
@@ -69,7 +70,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
         equityController.applicationData.value.useofFund!;
   }
 
-  void _onpress(context) {
+  void _onpress(BuildContext context) {
     if (equityController.financingAmoung.value <
             equityController.equitySetting.value.minEquityAmount! ||
         equityController.financingAmoung.value >
@@ -94,16 +95,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
             equityController.equitySetting.value.maxEquityAmount! &&
         equityController.useOfFund.value != '' &&
         equityController.intendedDate.value != '') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Step2Equity(
-            id: widget.id,
-            isnotfetchdata: true,
-            fromPage: 1,
-          ),
-        ),
-      );
+      context.router.pushNamed("step2equity/${widget.id}/2");
     }
   }
 
@@ -141,8 +133,10 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                   .value
                                                   .intendedDateDisbursement
                                       ? () {
+                                          debugPrint("Pop 1");
                                           FocusScope.of(context).unfocus();
-                                          Navigator.pop(context);
+
+                                          context.router.pop();
                                         }
                                       : equityController
                                                       .financingAmoung.value ==
@@ -154,42 +148,26 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                       .useOfFund.value ==
                                                   ''
                                           ? () {
+                                              debugPrint("Pop 2");
+                                              context.router.pop();
                                               FocusScope.of(context).unfocus();
-                                              Navigator.pop(context);
+                                              context.router.pop();
                                             }
                                           : () {
                                               FocusScope.of(context).unfocus();
                                               showSaveDraftDialog(
-                                                  context: context,
-                                                  onSaveTitle: widget.id != 0
-                                                      ? "Update Draft"
-                                                      : "Save Draft",
-                                                  content:
-                                                      'Changes made to this page haven’t been saved yet.',
-                                                  title:
-                                                      'Are you sure you want to leave this page?',
-                                                  onSave: () async {
-                                                    Navigator.pop(context);
-                                                    if (widget.id == 0) {
-                                                      await equityController
-                                                          .onSubmitEquityInvestment(
-                                                              context: context,
-                                                              type: "1");
-                                                    } else {
-                                                      equityController
-                                                          .onEditEquityInvestment(
-                                                              context: context,
-                                                              id: widget.id!,
-                                                              pagenumber: "1");
-                                                    }
-                                                  },
-                                                  isCancel: true,
-                                                  onDiscard: () {
-                                                    equityController
-                                                        .resetData();
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                  });
+                                                step: 1,
+                                                isCancel: true,
+                                                isEquity: true,
+                                                context: context,
+                                                onSaveTitle: widget.id != 0
+                                                    ? "Update Draft"
+                                                    : "Save Draft",
+                                                content:
+                                                    'Changes made to this page haven’t been saved yet.',
+                                                title:
+                                                    'Are you sure you want to leave this page?',
+                                              );
                                             },
                                   icon: const Icon(
                                     Icons.clear,

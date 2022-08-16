@@ -506,8 +506,6 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 Navigator.pop(context);
                                                 await debtCon
                                                     .onEditDebtInvestment(
-                                                        updateType:
-                                                            'draft_to_draft',
                                                         id: widget
                                                             .applicationDetail!
                                                             .id,
@@ -1606,8 +1604,6 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 ? await debtCon
                                                     .onEditDebtInvestment(
                                                         showDebtSnackbar: false,
-                                                        updateType:
-                                                            'draft_to_draft',
                                                         id: widget
                                                             .applicationDetail!
                                                             .id,

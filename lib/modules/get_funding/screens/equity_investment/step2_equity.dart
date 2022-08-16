@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
 import 'package:cicgreenloan/Utils/helper/numerice_format.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -27,19 +28,13 @@ import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../widgets/get_funding/custom_add_other_label.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
 import '../../../../widgets/get_funding/custom_select_2_getfunding.dart';
-import 'step3_equity.dart';
 
 class Step2Equity extends StatefulWidget {
   final int? id;
-  final bool? isnotfetchdata;
-  final int? fromPage;
+
   final int? step;
   const Step2Equity(
-      {Key? key,
-      this.id = 0,
-      this.fromPage,
-      this.isnotfetchdata = false,
-      this.step})
+      {Key? key, @PathParam('id') this.id, @PathParam('step') this.step})
       : super(key: key);
   @override
   State<Step2Equity> createState() => _Step2EquityState();
@@ -122,22 +117,14 @@ class _Step2EquityState extends State<Step2Equity> {
         equityController.purposeOfFund.value =
             optionController.optionData.value.riaseuseoffund![0].id!;
       }
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Step3Equity(
-            id: widget.id,
-            isnotfetchdata: true,
-          ),
-        ),
-      );
+      context.router.pushNamed("step3equity/${widget.id}/3");
     }
   }
 
   @override
   void initState() {
     memberController.fetchCompanyMember();
-    if (widget.id != 0 && widget.isnotfetchdata == false) {
+    if (widget.id != 0) {
       inistialdata();
     }
 
@@ -148,7 +135,7 @@ class _Step2EquityState extends State<Step2Equity> {
   }
 
   inistialdata() async {
-    if (widget.fromPage != 1) {
+    if (widget.id != null) {
       await equityController.fetchAppDetails(widget.id!);
     }
 
@@ -367,11 +354,12 @@ class _Step2EquityState extends State<Step2Equity> {
                             leading: !equityController.isLoadingData.value
                                 ? Obx(
                                     () => IconButton(
-                                      onPressed: widget.id != 0 &&
-                                              checkdisablesavedraf()
+                                      onPressed: widget.id != 0 ||
+                                              widget.id != null &&
+                                                  checkdisablesavedraf()
                                           ? () {
                                               FocusScope.of(context).unfocus();
-                                              Navigator.pop(context);
+                                              context.navigateBack();
                                             }
                                           : equityController.companyName.value == "" &&
                                                   equityController.address.value ==
@@ -404,71 +392,22 @@ class _Step2EquityState extends State<Step2Equity> {
                                               ? () {
                                                   FocusScope.of(context)
                                                       .unfocus();
-                                                  Navigator.pop(context);
+                                                  context.navigateBack();
                                                 }
                                               : () {
                                                   FocusScope.of(context)
                                                       .unfocus();
                                                   showSaveDraftDialog(
-                                                      context: context,
-                                                      onSaveTitle:
-                                                          widget.id != 0
-                                                              ? "Update Draft"
-                                                              : "Save Draft",
-                                                      content:
-                                                          'Changes made to this page haven’t been saved yet.',
-                                                      title:
-                                                          'Are you sure you want to leave this page?',
-                                                      onSave: widget.id != 0
-                                                          ? () async {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              await equityController
-                                                                  .onEditEquityInvestment(
-                                                                      context:
-                                                                          context,
-                                                                      id: widget
-                                                                          .id!,
-                                                                      pagenumber:
-                                                                          "2");
-                                                            }
-                                                          : () async {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              await equityController
-                                                                  .onSubmitEquityInvestment(
-                                                                      context:
-                                                                          context,
-                                                                      type:
-                                                                          "2");
-                                                            },
-                                                      isCancel: true,
-                                                      onDiscard: () {
-                                                        if (widget.step == 1 &&
-                                                            widget.id != 0) {
-                                                          Navigator.pop(
-                                                              context);
-                                                          Navigator.pop(
-                                                              context);
-                                                          Navigator.pop(
-                                                              context);
-                                                        } else if (widget
-                                                                    .step ==
-                                                                2 &&
-                                                            widget.id != 0) {
-                                                          Navigator.pop(
-                                                              context);
-                                                          Navigator.pop(
-                                                              context);
-                                                        } else {
-                                                          Navigator.pop(
-                                                              context);
-                                                          Navigator.pop(
-                                                              context);
-                                                          Navigator.pop(
-                                                              context);
-                                                        }
-                                                      });
+                                                    isEquity: true,
+                                                    context: context,
+                                                    onSaveTitle: widget.id != 0
+                                                        ? "Update Draft"
+                                                        : "Save Draft",
+                                                    content:
+                                                        'Changes made to this page haven’t been saved yet.',
+                                                    title:
+                                                        'Are you sure you want to leave this page?',
+                                                  );
                                                 },
                                       icon: Icon(
                                         kIsWeb

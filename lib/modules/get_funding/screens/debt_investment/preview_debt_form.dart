@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/required_doc.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/company_info.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/financing_info.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/personal_info.dart';
@@ -34,12 +34,8 @@ import '../../../../widgets/get_funding/custom_review_required_doc_debt.dart';
 
 //===
 class PreviewDebtForm extends StatefulWidget {
-  final ApplicationData? applicationDetail;
-  final String? fromPage;
-  final String? isDraft;
-  const PreviewDebtForm(
-      {this.applicationDetail, this.fromPage, this.isDraft, Key? key})
-      : super(key: key);
+  final int? id;
+  const PreviewDebtForm({Key? key, @PathParam('id') this.id}) : super(key: key);
 
   @override
   State<PreviewDebtForm> createState() => _PreviewDebtFormState();
@@ -52,12 +48,8 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
 
   @override
   void initState() {
-    debugPrint("presed:${widget.isDraft} from Page:${widget.fromPage}");
-    if (widget.applicationDetail != null) {
+    if (widget.id != 0 || widget.id != null) {
       onGetData();
-      debugPrint(
-          "====pressed from notification===:${widget.applicationDetail!.id}");
-      // checkNotEqual();
     } else {
       debtCon.isAgree.value = false;
     }
@@ -263,8 +255,8 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
   }
 
   void onGetData() async {
-    if (widget.isDraft == "true" || widget.fromPage == "submitted") {
-      await debtCon.fetchAppDetails(widget.applicationDetail!.id!);
+    if (widget.id != 0 || widget.id != null) {
+      await debtCon.fetchAppDetails(widget.id!);
 
       if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
           null) {
@@ -513,7 +505,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                 : Scaffold(
                     appBar: debtCon.isLoadingSubmit.value == true
                         ? AppBar()
-                        : widget.fromPage == "submitted"
+                        : widget.id != 0 || widget.id != null
                             ? CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Submitted Application',
@@ -530,7 +522,8 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                             : CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Preview Form',
-                                subtitle: '',
+                                subtitle:
+                                    debtCon.applicationDetail.value.status,
                                 action: [
                                     const CustomCallCenter(),
                                     const SizedBox(
@@ -556,7 +549,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        if (widget.applicationDetail != null)
+                                        if (widget.id != 0 || widget.id != null)
                                           if (debtCon.applicationDetail.value
                                                   .reason !=
                                               null)
@@ -575,13 +568,12 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                               ),
                                         CustomReviewProfileCard(
                                           onTap: () {
-                                           
                                             _onShowEditPersonalInfo(context);
                                           },
-                                          isEdit: widget.applicationDetail ==
-                                                      null ||
-                                                  widget.applicationDetail!
-                                                          .status ==
+                                          isEdit: widget.id == 0 ||
+                                                  widget.id == null ||
+                                                  debtCon.applicationDetail
+                                                          .value.status ==
                                                       "Draft"
                                               ? true
                                               : false,
@@ -670,10 +662,10 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                       3
                                                   ? "${debtCon.fullResidentAddress.value.addressList![3].name}"
                                                   : "",
-                                          isEdit: widget.applicationDetail ==
-                                                      null ||
-                                                  widget.applicationDetail!
-                                                          .status ==
+                                          isEdit: widget.id == 0 ||
+                                                  widget.id == null ||
+                                                  debtCon.applicationDetail
+                                                          .value.status ==
                                                       "Draft"
                                               ? true
                                               : false,
@@ -682,10 +674,10 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                           },
                                         ),
                                         CustomReviewFinancingCard(
-                                          isEdit: widget.applicationDetail ==
-                                                      null ||
-                                                  widget.applicationDetail!
-                                                          .status ==
+                                          isEdit: widget.id == 0 ||
+                                                  widget.id == null ||
+                                                  debtCon.applicationDetail
+                                                          .value.status ==
                                                       "Draft"
                                               ? true
                                               : false,
@@ -716,14 +708,13 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                         ),
                                         CustomReviewCompanyInfocard(
                                           title: 'Company Information*',
-                                          isEditable:
-                                              widget.applicationDetail ==
-                                                          null ||
-                                                      widget.applicationDetail!
-                                                              .status ==
-                                                          "Draft"
-                                                  ? true
-                                                  : false,
+                                          isEditable: widget.id == 0 ||
+                                                  widget.id == null ||
+                                                  debtCon.applicationDetail
+                                                          .value.status ==
+                                                      "Draft"
+                                              ? true
+                                              : false,
                                           onTap: () {
                                             ontapCompanyInfo(context);
                                           },
@@ -759,10 +750,10 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                               debtCon.memorandumDoc.value,
                                         ),
                                         CustomRiviewRequiredDocInDebt(
-                                          isEdit: widget.applicationDetail ==
-                                                      null ||
-                                                  widget.applicationDetail!
-                                                          .status ==
+                                          isEdit: widget.id == 0 ||
+                                                  widget.id == null ||
+                                                  debtCon.applicationDetail
+                                                          .value.status ==
                                                       "Draft"
                                               ? true
                                               : false,
@@ -774,8 +765,10 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                     ),
                                   ),
                                 ),
-                                if (widget.applicationDetail == null ||
-                                    widget.applicationDetail!.status == "Draft")
+                                if (widget.id == 0 ||
+                                    widget.id == null ||
+                                    debtCon.applicationDetail.value.status ==
+                                        "Draft")
                                   Container(
                                     margin: const EdgeInsets.only(
                                         left: 0, right: 0, bottom: 30),
@@ -789,20 +782,19 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                 bottom: 10, top: 10),
                                             child: CustomSelect2GetFunding(
                                               isFromCreateOrUpdated:
-                                                  widget.applicationDetail ==
-                                                          null ||
+                                                  widget.id == 0 ||
+                                                      widget.id == null ||
                                                       checkNotEqual(),
                                               islongLabel: true,
                                               title:
                                                   'I hereby declare that the informations provided above are correct and true.',
-                                              isSelect:
-                                                  widget.applicationDetail !=
-                                                              null &&
+                                              isSelect: widget.id != 0 ||
+                                                      widget.id != null &&
                                                           !checkNotEqual()
-                                                      ? false
-                                                      : debtCon.isAgree.value,
-                                              ontap: widget.applicationDetail !=
-                                                      null
+                                                  ? false
+                                                  : debtCon.isAgree.value,
+                                              ontap: widget.id != 0 ||
+                                                      widget.id != null
                                                   ? () {
                                                       if (debtCon
                                                               .fullCurrentAddress
@@ -869,132 +861,116 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                         Navigator.pop(context);
                                                       }
                                                     },
-                                                    title:
-                                                        widget.applicationDetail !=
-                                                                null
-                                                            ? "Close"
-                                                            : "Close",
+                                                    title: "Close",
                                                   ),
                                                 ),
                                                 const SizedBox(width: 20),
                                                 Expanded(
-                                                  child: widget.fromPage ==
-                                                              "submit" &&
-                                                          widget.applicationDetail ==
-                                                              null
-                                                      ? CustomButton(
-                                                          isDisable: debtCon
-                                                                  .isAgree.value
-                                                              ? false
-                                                              : true,
-                                                          isOutline: false,
-                                                          onPressed: () async {
-                                                            FirebaseAnalyticsHelper
-                                                                .sendAnalyticsEvent(
-                                                                    "Submit Debt Investment");
-                                                            await debtCon
-                                                                .onSubmitDebtInvestment(
-                                                                    context:
-                                                                        context);
-                                                          },
-                                                          title: 'Submit',
-                                                        )
-                                                      : CustomButton(
-                                                          isDisable: !checkNotEqual()
-                                                              ? true
-                                                              : false ||
-                                                                  debtCon.isAgree
-                                                                          .value ==
-                                                                      false,
-                                                          isOutline: false,
-                                                          onPressed: widget
-                                                                      .applicationDetail!
-                                                                      .status ==
-                                                                  "Draft"
-                                                              ? () async {
-                                                                  FirebaseAnalyticsHelper
-                                                                      .sendAnalyticsEvent(
-                                                                          "Debt Update Draft to Submit");
-                                                                  // Draft to new
-                                                                  debugPrint(
-                                                                      "Draft to new");
-                                                                  await debtCon.onEditDebtInvestment(
-                                                                      step: 5,
-                                                                      context:
-                                                                          context,
-                                                                      id: widget
-                                                                          .applicationDetail!
-                                                                          .id!,
-                                                                      frompage: debtCon
+                                                  child:
+                                                      widget.id == 0 ||
+                                                              widget.id == null
+                                                          ? CustomButton(
+                                                              isDisable: debtCon
+                                                                      .isAgree
+                                                                      .value
+                                                                  ? false
+                                                                  : true,
+                                                              isOutline: false,
+                                                              onPressed:
+                                                                  () async {
+                                                                FirebaseAnalyticsHelper
+                                                                    .sendAnalyticsEvent(
+                                                                        "Submit Debt Investment");
+                                                                await debtCon
+                                                                    .onSubmitDebtInvestment(
+                                                                        context:
+                                                                            context);
+                                                              },
+                                                              title: 'Submit',
+                                                            )
+                                                          : CustomButton(
+                                                              isDisable: !checkNotEqual()
+                                                                  ? true
+                                                                  : false ||
+                                                                      debtCon.isAgree
+                                                                              .value ==
+                                                                          false,
+                                                              isOutline: false,
+                                                              onPressed: debtCon
                                                                           .applicationDetail
                                                                           .value
-                                                                          .step!
-                                                                          .toInt(),
-                                                                      updateType:
-                                                                          "draft_to_new");
-                                                                }
-                                                              : widget.applicationDetail!
                                                                           .status ==
-                                                                      "Rejected"
+                                                                      "Draft"
                                                                   ? () async {
-                                                                      // New to New
+                                                                      FirebaseAnalyticsHelper
+                                                                          .sendAnalyticsEvent(
+                                                                              "Debt Update Draft to Submit");
+                                                                      // Draft to new
+                                                                      debugPrint(
+                                                                          "Draft to new");
                                                                       await debtCon
                                                                           .onEditDebtInvestment(
+                                                                        step: 5,
                                                                         context:
                                                                             context,
-                                                                        step: 5,
                                                                         id: widget
-                                                                            .applicationDetail!
-                                                                            .id!,
+                                                                            .id,
                                                                         frompage: debtCon
                                                                             .applicationDetail
                                                                             .value
                                                                             .step!
                                                                             .toInt(),
-                                                                        updateType:
-                                                                            "rejected_to_new",
                                                                       );
                                                                     }
-                                                                  : widget.applicationDetail!
+                                                                  : debtCon.applicationDetail.value
                                                                               .status ==
-                                                                          "New"
+                                                                          "Rejected"
                                                                       ? () async {
                                                                           // New to New
-
                                                                           await debtCon
                                                                               .onEditDebtInvestment(
-                                                                            step:
-                                                                                5,
                                                                             context:
                                                                                 context,
-                                                                            id: widget.applicationDetail!.id!,
-                                                                            updateType:
-                                                                                "new_to_new",
+                                                                            step:
+                                                                                5,
+                                                                            id: widget.id,
                                                                             frompage:
                                                                                 debtCon.applicationDetail.value.step!.toInt(),
                                                                           );
                                                                         }
-                                                                      : () async {
-                                                                          await debtCon.onSubmitDebtInvestment(
-                                                                              //frompage: debtCon.applicationDetail.value.step!.toInt(),
-                                                                              context: context,
-                                                                              step: widget.applicationDetail != null && widget.applicationDetail!.status == "Rejected" ? null : 5);
-                                                                        },
-                                                          title: widget
-                                                                      .applicationDetail!
-                                                                      .status ==
-                                                                  "Rejected"
-                                                              ? "Re-Submit"
-                                                              : widget.applicationDetail!
+                                                                      : debtCon.applicationDetail.value.status ==
+                                                                              "New"
+                                                                          ? () async {
+                                                                              // New to New
+
+                                                                              await debtCon.onEditDebtInvestment(
+                                                                                step: 5,
+                                                                                context: context,
+                                                                                id: widget.id,
+                                                                                frompage: debtCon.applicationDetail.value.step!.toInt(),
+                                                                              );
+                                                                            }
+                                                                          : () async {
+                                                                              await debtCon.onSubmitDebtInvestment(
+                                                                                  //frompage: debtCon.applicationDetail.value.step!.toInt(),
+                                                                                  context: context,
+                                                                                  step: widget.id != 0 || widget.id != null && debtCon.applicationDetail.value.status == "Rejected" ? null : 5);
+                                                                            },
+                                                              title: debtCon
+                                                                          .applicationDetail
+                                                                          .value
                                                                           .status ==
-                                                                      "New"
-                                                                  ? "Update"
-                                                                  : widget.applicationDetail!
+                                                                      "Rejected"
+                                                                  ? "Re-Submit"
+                                                                  : debtCon.applicationDetail.value
                                                                               .status ==
-                                                                          "Draft"
-                                                                      ? "Submit"
-                                                                      : "Close",
-                                                        ),
+                                                                          "New"
+                                                                      ? "Update"
+                                                                      : debtCon.applicationDetail.value.status ==
+                                                                              "Draft"
+                                                                          ? "Submit"
+                                                                          : "Close",
+                                                            ),
                                                 ),
                                               ],
                                             ),

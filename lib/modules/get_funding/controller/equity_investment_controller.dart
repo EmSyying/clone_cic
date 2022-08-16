@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/configs/route_management/route_name.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/models/application_detail.dart';
@@ -121,6 +122,7 @@ class EquityInvestmentController extends GetxController {
   }
 
   resetData() {
+    applicationData.value.status = "";
     whenOnchangeDate.value = "";
     isValidateProductType.value = true;
     isValidateFinancingAmount.value = true;
@@ -295,11 +297,6 @@ class EquityInvestmentController extends GetxController {
 
       http.Response.fromStream(streamedResponse).then((response) {
         if (response.statusCode == 200) {
-          debugPrint("incomestatement:${incomeStatement.value}");
-          debugPrint("Balance sheet:${balanceSheet.value}");
-          debugPrint("have financial:${havefinancial.value}");
-          debugPrint("cash flow:${cashFlowStatement.value}");
-          // if (type == null) {
           showSnackbar
               ? Get.snackbar("",
                   "Your equity investment application request has been submitted",
@@ -336,9 +333,11 @@ class EquityInvestmentController extends GetxController {
                 nums = 4;
               }
               int count = 0;
-              Navigator.of(context).popUntil((_) => count++ >= nums);
-              Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-                  arguments: "equity_investment");
+              context.router.popUntil((route) => count++ >= nums);
+              context.router.replaceNamed('/get-funding');
+              // Navigator.of(context).popUntil((_) => count++ >= nums);
+              // Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
+              //     arguments: "equity_investment");
               // ignore: unnecessary_null_comparison
             } else if (frompage! > 2) {
               int nums = 4 - frompage.toInt();
@@ -348,15 +347,11 @@ class EquityInvestmentController extends GetxController {
               Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
                   arguments: "equity_investment");
             } else {
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-                  arguments: "equity_investment");
+              context.router.navigateBack();
+              context.router.replaceNamed('/get-funding');
             }
           });
         } else {
-          debugPrint('debug stateus=========${response.statusCode}');
-          debugPrint('debug body========${response.body}');
-
           Get.snackbar(
               "", "Your equity investment application request has been failed",
               borderRadius: 8,

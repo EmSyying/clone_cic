@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.dart';
@@ -43,10 +44,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PreviewDebtForm(
-          applicationDetail: widget.applicationDetail,
-          fromPage: "submit",
-        ),
+        builder: (context) => const PreviewDebtForm(),
       ),
     );
   }
@@ -318,7 +316,6 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                             frompage: debtCon
                                                 .applicationDetail.value.step!
                                                 .toInt(),
-                                            updateType: 'draft_to_draft',
                                             id: widget.applicationDetail!.id,
                                             context: context,
                                             step: 4,
@@ -331,27 +328,27 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                         },
                                   onDiscard: () {
                                     if (widget.numberOfStep == 1) {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      context.navigateBack();
+                                      context.navigateBack();
+                                      context.navigateBack();
+                                      context.navigateBack();
+                                      context.navigateBack();
                                     } else if (widget.applicationDetail !=
                                             null &&
                                         widget.numberOfStep == 2) {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      context.navigateBack();
+                                      context.navigateBack();
+                                      context.navigateBack();
+                                      context.navigateBack();
                                     } else if (widget.applicationDetail !=
                                             null &&
                                         widget.numberOfStep == 3) {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      context.navigateBack();
+                                      context.navigateBack();
+                                      context.navigateBack();
                                     } else {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      context.navigateBack();
+                                      context.navigateBack();
                                     }
                                   },
                                 );
@@ -695,8 +692,6 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                             .value
                                                             .step!
                                                             .toInt(),
-                                                        updateType:
-                                                            'draft_to_draft',
                                                         id: widget
                                                             .applicationDetail!
                                                             .id,

@@ -410,30 +410,18 @@ class DebtInvestmentController extends GetxController {
       required int? id,
       int? step,
       String? submitRequest,
-      String? updateType,
       bool showDebtSnackbar = true,
       int? frompage}) async {
     token = await LocalData.getCurrentUser();
     String? url;
-    if (updateType == "draft_to_draft") {
+    if (step == 1 || step == 2 || step == 3 || step == 4) {
       debugPrint("Draft To Draft");
       url =
           '${GlobalConfiguration().get('api_base_urlv3')}debt-investment/$id?_method=PUT&draft=true&step=$step';
-    }
-    if (updateType == "draft_to_new") {
+    } else {
       debugPrint("Draft To New");
       url =
           '${GlobalConfiguration().get('api_base_urlv3')}debt-investment/$id?_method=PUT&draft=true&final_step=true';
-    }
-    if (updateType == "rejected_to_new") {
-      debugPrint("Rejected To New");
-      url =
-          '${GlobalConfiguration().get('api_base_urlv3')}debt-investment/$id?_method=PUT&rejected=true&final_step=true';
-    }
-    if (updateType == "new_to_new") {
-      debugPrint("New To New");
-      url =
-          '${GlobalConfiguration().get('api_base_urlv3')}debt-investment/$id?_method=PUT';
     }
 
     if (fullCurrentAddress.value.addressList != null) {
@@ -500,7 +488,7 @@ class DebtInvestmentController extends GetxController {
     debugPrint('Resident Address Code: ${currentAddressCode.value}');
     try {
       isLoadingSubmit(true);
-      var request = http.MultipartRequest('POST', Uri.parse(url!));
+      var request = http.MultipartRequest('POST', Uri.parse(url));
       var headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -568,11 +556,11 @@ class DebtInvestmentController extends GetxController {
                   context: context,
                   color: Colors.green,
                   imgUrl: 'assets/images/svgfile/successIcon.svg',
-                  label: updateType == "draft_to_new"
+                  label: step != 1 || step != 2 || step != 3 || step != 4
                       ? "Your debt investment application request has been submitted"
                       : "Your debt investment application request has been updated",
                   titleText: "Debt Investment",
-                  messageText: updateType == "draft_to_new"
+                  messageText: step != 1 || step != 2 || step != 3 || step != 4
                       ? "Your debt investment application request has been submitted"
                       : "Your debt investment application request has been updated",
                 )

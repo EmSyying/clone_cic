@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
@@ -6,7 +7,6 @@ import 'package:cicgreenloan/modules/get_funding/models/equatable_debt_model.dar
 import 'package:cicgreenloan/Utils/helper/option_model/gender.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/step2_debt.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member_personal_profile.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
@@ -32,9 +32,10 @@ import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
 
 class Step1Debt extends StatefulWidget {
-  final String? isDraft;
-  final ApplicationData? applicationDetail;
-  const Step1Debt({Key? key, this.applicationDetail, this.isDraft})
+  final int? id;
+  final int? step;
+  const Step1Debt(
+      {Key? key, @PathParam('id') this.id = 0, @PathParam('step') this.step})
       : super(key: key);
 
   @override
@@ -126,10 +127,7 @@ class _Step1DebtState extends State<Step1Debt> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Step2Debt(
-            applicationDetail: widget.applicationDetail,
-            numerOfStep: 1,
-          ),
+          builder: (context) => const Step2Debt(),
         ),
       );
     }
@@ -184,6 +182,7 @@ class _Step1DebtState extends State<Step1Debt> {
     reqCon.getPurposeList();
 
     debtCon.selectAddIndex.value = reqCon.selectedAddressOption.value;
+
     _memberCon.fetchMemberPersonProfile(cusCon.customer.value.customerId!).then(
       (customer) {
         // reqCon.purpose.value = Purpose();
@@ -205,7 +204,9 @@ class _Step1DebtState extends State<Step1Debt> {
           }
         }
         if (customer.email! != '') debtCon.email.value = customer.email!;
-        if (customer.phone! != '') debtCon.phoneNumber.value = customer.phone!;
+        if (customer.phone! != '') {
+          debtCon.phoneNumber.value = customer.phone!;
+        }
         if (_memberCon.personalProfile.value.currentAddress != null) {
           debtCon.fullCurrentAddress.value = FullAddress(
             houseNo: _memberCon.personalProfile.value.houseNo ?? "",
@@ -321,7 +322,7 @@ class _Step1DebtState extends State<Step1Debt> {
                               ),
                               const SizedBox(height: padding),
                               Text(
-                                widget.isDraft == "true"
+                                widget.id != null || widget.id != 0
                                     ? "Updating Draft..."
                                     : "Saving Draft...",
                                 style: const TextStyle(color: Colors.white),
@@ -338,7 +339,7 @@ class _Step1DebtState extends State<Step1Debt> {
                         leading: IconButton(
                           onPressed: tempData == defualtData
                               ? () {
-                                  Navigator.pop(context);
+                                  context.navigateBack();
                                 }
                               : () {
                                   FocusScope.of(context).unfocus();
@@ -353,7 +354,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                   showSaveDraftDialog(
                                     context: context,
                                     onSaveTitle:
-                                        widget.applicationDetail != null
+                                        widget.id != null || widget.id != 0
                                             ? "Update Draft"
                                             : "Save Draft",
                                     content:
@@ -361,13 +362,12 @@ class _Step1DebtState extends State<Step1Debt> {
                                     title:
                                         'Are you sure you want to leave this page?',
                                     onSave: () async {
-                                      Navigator.pop(context);
-                                      widget.applicationDetail != null
+                                      context.navigateBack();
+                                      widget.id != null || widget.id != 0
                                           ? await debtCon.onEditDebtInvestment(
                                               context: context,
-                                              id: widget.applicationDetail!.id,
+                                              id: widget.id,
                                               step: 1,
-                                              updateType: 'draft_to_draft',
                                             )
                                           : await debtCon
                                               .onSubmitDebtInvestment(
@@ -376,13 +376,13 @@ class _Step1DebtState extends State<Step1Debt> {
                                       onResetValidate();
                                       Future.delayed(Duration.zero).then((_) {
                                         FocusScope.of(context).unfocus();
-                                        Navigator.of(context).pop();
+                                        context.navigateBack();
                                       });
                                     },
                                     isCancel: true,
                                     onDiscard: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      context.navigateBack();
+                                      context.navigateBack();
                                     },
                                   );
                                 },
@@ -1521,8 +1521,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                 : false,
                                             isOutline: true,
                                             onPressed: () async {
-                                              if (widget.applicationDetail !=
-                                                  null) {
+                                              if (widget.id != null ||
+                                                  widget.id != 0) {
                                                 FirebaseAnalyticsHelper
                                                     .sendAnalyticsEvent(
                                                         "Debt Update Draft Step1");
@@ -1531,16 +1531,13 @@ class _Step1DebtState extends State<Step1Debt> {
                                                     .sendAnalyticsEvent(
                                                         "Debt Save Draft Step1");
                                               }
-                                              widget.applicationDetail != null
+                                              widget.id != null ||
+                                                      widget.id != 0
                                                   ? await debtCon
                                                       .onEditDebtInvestment(
                                                       context: context,
-                                                      id: widget
-                                                          .applicationDetail!
-                                                          .id,
+                                                      id: widget.id,
                                                       step: 1,
-                                                      updateType:
-                                                          'draft_to_draft',
                                                     )
                                                   : await debtCon
                                                       .onSubmitDebtInvestment(
@@ -1567,7 +1564,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                 Navigator.of(context).pop();
                                               });
                                             },
-                                            title: widget.isDraft == "true"
+                                            title: widget.id != null ||
+                                                    widget.id != 0
                                                 ? "Update Draft"
                                                 : "Save Draft",
                                           ),

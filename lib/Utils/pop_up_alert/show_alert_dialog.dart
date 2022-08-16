@@ -1,6 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../modules/get_funding/controller/debt_investment_controller.dart';
+import '../../modules/get_funding/controller/equity_investment_controller.dart';
 import '../helper/container_partern.dart';
+
+final equityController = Get.put(EquityInvestmentController());
+final debtCon = Get.put(DebtInvestmentController());
 
 showSaveDraftDialog({
   BuildContext? context,
@@ -8,6 +15,9 @@ showSaveDraftDialog({
   String? content,
   String? onSaveTitle,
   bool? isCancel,
+  bool? isEquity = false,
+  int? step,
+  int? id,
   bool? isDisableSaveDraft = false,
   VoidCallback? onSave,
   VoidCallback? onDiscard,
@@ -73,7 +83,32 @@ showSaveDraftDialog({
             ),
             if (!isDisableSaveDraft)
               GestureDetector(
-                onTap: onSave,
+                onTap: () async {
+                  context.router.pop();
+                  if (isEquity == true) {
+                    if (id == 0 || id == null) {
+                      await equityController.onSubmitEquityInvestment(
+                          context: context, type: step.toString());
+                    } else {
+                      equityController.onEditEquityInvestment(
+                          context: context,
+                          id: id,
+                          pagenumber: step.toString());
+                    }
+                  } else {
+                    if (id == 0 || id == null) {
+                      await debtCon.onSubmitDebtInvestment(
+                          context: context, step: step);
+                    } else {
+                      await debtCon.onEditDebtInvestment(
+                        frompage: step,
+                        id: id,
+                        context: context,
+                        step: step,
+                      );
+                    }
+                  }
+                },
                 child: Container(
                   color: Colors.transparent,
                   width: MediaQuery.of(context).size.width,
@@ -103,7 +138,45 @@ showSaveDraftDialog({
               color: Colors.grey,
             ),
             GestureDetector(
-              onTap: onDiscard,
+              onTap: () {
+                if (isEquity == true) {
+                  if (step == 1) {
+                    equityController.resetData();
+                    context.router.pop();
+                    context.navigateBack();
+                    debugPrint("is Step 1 true");
+                  } else if (step == 2) {
+                    equityController.resetData();
+                    context.router.pop();
+                    context.router.pop();
+                  } else {
+                    equityController.resetData();
+                    context.router.pop();
+                    context.router.pop();
+                    context.router.pop();
+                  }
+                } else {
+                  if (step == 1) {
+                    debtCon.onResetData();
+                    context.router.pop();
+                  } else if (step == 2) {
+                    debtCon.onResetData();
+                    context.router.pop();
+                    context.router.pop();
+                  } else if (step == 3) {
+                    debtCon.onResetData();
+                    context.router.pop();
+                    context.router.pop();
+                    context.router.pop();
+                  } else {
+                    debtCon.onResetData();
+                    context.router.pop();
+                    context.router.pop();
+                    context.router.pop();
+                    context.router.pop();
+                  }
+                }
+              },
               child: Container(
                 color: Colors.transparent,
                 width: MediaQuery.of(context).size.width,

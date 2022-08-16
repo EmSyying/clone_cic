@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../modules/bonus/screens/bonus_screen.dart';
 import '../../modules/event_module/models/event_detail_argument.dart';
 import '../../modules/event_module/screen/event_detail.dart';
-import '../../modules/get_funding/models/appliication_card_model.dart';
 import '../../modules/get_funding/screens/debt_investment/preview_debt_form.dart';
 import '../../modules/get_funding/screens/equity_investment/preview_equity.dart';
 import '../../modules/investment_module/screen/bullet_payment_detail.dart';
@@ -83,11 +82,8 @@ class OnMessageOpenApp {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => PreviewDebtForm(
-            applicationDetail:
-                ApplicationData(id: int.tryParse(event.data['application_id'])),
-            fromPage: "submitted",
-          ),
+          builder: (context) =>
+              PreviewDebtForm(id: int.tryParse(event.data['application_id'])),
         ),
       );
     } else if (event.data['type'] == 'bonus' ||

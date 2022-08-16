@@ -1,12 +1,11 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/Utils/helper/numerice_format.dart';
 import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/show_alert_dialog.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.dart';
-import 'package:cicgreenloan/modules/get_funding/screens/equity_investment/preview_equity.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_select_2_getfunding.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_select_getfunding.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_text_getfunding.dart';
@@ -30,15 +29,11 @@ import '../../../../widgets/get_funding/custom_call_center.dart';
 
 class Step3Equity extends StatefulWidget {
   final int? id;
-  final bool? isnotfetchdata;
+
   final int? step;
-  final ApplicationData? applicationDetail;
+
   const Step3Equity(
-      {Key? key,
-      this.id = 0,
-      this.isnotfetchdata = false,
-      this.step,
-      this.applicationDetail})
+      {Key? key, @PathParam('id') this.id, @PathParam('step') this.step})
       : super(key: key);
   @override
   State<Step3Equity> createState() => _Step3EquityState();
@@ -50,7 +45,7 @@ class _Step3EquityState extends State<Step3Equity> {
   final optionController = Get.put(DocumentCategory());
   @override
   void initState() {
-    if (widget.id != 0 && widget.isnotfetchdata == false) inistialdata();
+    if (widget.id != 0) inistialdata();
     super.initState();
   }
 
@@ -167,16 +162,9 @@ class _Step3EquityState extends State<Step3Equity> {
 
     if (equityController.numberOfBoardMembers.value != 0 &&
         equityController.numberOfShareHolders.value != 0) {
-      equityController.applicationData.value.step != null
-          ? Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PreviewEquity(
-                    id: equityController.applicationData.value.id),
-              ),
-            )
-          : Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const PreviewEquity()));
+      widget.step != null
+          ? context.router.pushNamed("preview-equity/${widget.id}")
+          : context.router.pushNamed("preview-equity");
     }
   }
 
@@ -269,7 +257,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                         checkDisableSavedraft()
                                     ? () {
                                         FocusScope.of(context).unfocus();
-                                        Navigator.pop(context);
+                                        context.navigateBack();
                                       }
                                     : equityController.numberOfShareHolders.value == 0 &&
                                             equityController
@@ -297,7 +285,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 0
                                         ? () {
                                             FocusScope.of(context).unfocus();
-                                            Navigator.pop(context);
+                                            context.navigateBack();
                                           }
                                         : () {
                                             FocusScope.of(context).unfocus();
@@ -314,7 +302,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                                   // Navigator.pop(context);
 
                                                   if (widget.id == 0) {
-                                                    Navigator.pop(context);
+                                                    context.navigateBack();
                                                     await equityController
                                                         .onSubmitEquityInvestment(
                                                             context: context,
@@ -329,28 +317,25 @@ class _Step3EquityState extends State<Step3Equity> {
                                                             context: context,
                                                             id: widget.id!,
                                                             pagenumber: "3");
-                                                    Navigator.pop(context);
+                                                    context.navigateBack();
                                                   }
                                                 },
                                                 isCancel: true,
                                                 onDiscard: () {
                                                   if (widget.step == 3 &&
                                                       widget.id != 0) {
-                                                    debugPrint("====pop1====");
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
+                                                    context.navigateBack();
+                                                    context.navigateBack();
                                                   } else if (widget.step == 2 &&
                                                       widget.id != 0) {
-                                                    debugPrint("====pop2====");
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
+                                                    context.navigateBack();
+                                                    context.navigateBack();
+                                                    context.navigateBack();
                                                   } else {
-                                                    debugPrint("====pop3====");
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
+                                                    context.navigateBack();
+                                                    context.navigateBack();
+                                                    context.navigateBack();
+                                                    context.navigateBack();
                                                   }
                                                 });
                                           },

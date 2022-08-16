@@ -263,9 +263,9 @@ class SettingController extends GetxController {
 
   Future<List<AppSettingData>> fetchAppSetting() async {
     var token = await LocalData.getCurrentUser();
+    isLoading(true);
     String url =
         '${GlobalConfiguration().get('api_base_urlv3')}service?partial=menu';
-    isLoading(true);
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -279,6 +279,8 @@ class SettingController extends GetxController {
             var settingData = AppSettingData.fromJson(data);
             appSettingDataList.add(settingData);
           }).toList();
+          debugPrint(
+              "App Setting Data for Funtion:${appSettingDataList.length}");
         } else {}
       });
     } finally {
