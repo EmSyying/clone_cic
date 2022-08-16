@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -11,13 +12,13 @@ class CustomSucessScreen extends StatelessWidget {
   final GestureTapCallback? onPressedButton;
   const CustomSucessScreen({
     Key? key,
-    this.title,
-    this.description,
-    this.icon,
-    this.onPressedButton,
-    this.buttonTitle,
-    this.backgroundColor,
-    this.descriptionPadding,
+    @queryParam this.title,
+    @queryParam this.description,
+    @queryParam this.icon,
+    @queryParam this.onPressedButton,
+    @queryParam this.buttonTitle,
+    @queryParam this.backgroundColor,
+    @queryParam this.descriptionPadding,
   }) : super(key: key);
 
   @override

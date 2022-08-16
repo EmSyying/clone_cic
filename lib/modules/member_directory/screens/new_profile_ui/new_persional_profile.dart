@@ -28,7 +28,7 @@ class NewPeronalProfile extends StatefulWidget {
 
 class _NewPeronalProfileState extends State<NewPeronalProfile> {
   final memberCon = Get.put(MemberController());
-  bool? isInnerBox;
+  bool? isInnerBox = false;
   List<Widget> widgets = [
     const PersonalProfileTap(),
     const CompanyProfileTab(),
@@ -76,85 +76,6 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                       },
                     ),
                   );
-                  // showCupertinoModalPopup(
-                  //   context: context,
-                  //   builder: (context) {
-                  //     return CupertinoActionSheet(
-                  //       cancelButton: CupertinoActionSheetAction(
-                  //         onPressed: () {
-                  //           Navigator.pop(context);
-                  //         },
-                  //         child: Text(
-                  //           S.of(context).cancelButton,
-                  //           // style: Theme.of(context).textTheme.headline5
-                  //         ),
-                  //       ),
-                  //       actions: [
-                  //         CupertinoActionSheetAction(
-                  //           onPressed: () {},
-                  //           child: Text(
-                  //             'View',
-                  //             style: Theme.of(context)
-                  //                 .textTheme
-                  //                 .headline5!
-                  //                 .copyWith(
-                  //                     fontSize: 18,
-                  //                     fontWeight: FontWeight.w400,
-                  //                     color: Colors.blue),
-                  //           ),
-                  //         ),
-                  //         CupertinoActionSheetAction(
-                  //           onPressed: () {
-                  //             Navigator.push(
-                  //               context,
-                  //               MaterialPageRoute(
-                  //                 builder: (context) {
-                  //                   return const EditProfileScreen();
-                  //                 },
-                  //               ),
-                  //             );
-                  //           },
-                  //           child: Text(
-                  //             'Edit',
-                  //             style: Theme.of(context)
-                  //                 .textTheme
-                  //                 .headline5!
-                  //                 .copyWith(
-                  //                     fontSize: 18,
-                  //                     fontWeight: FontWeight.w400,
-                  //                     color: Colors.blue),
-                  //           ),
-                  //         ),
-                  //         CupertinoActionSheetAction(
-                  //           onPressed: () {
-                  //             showSaveDraftDialog(
-                  //                 onSave: () {
-                  //                   Navigator.pop(context);
-                  //                 },
-                  //                 selectCancel: 'Cancel',
-                  //                 context: context,
-                  //                 title: 'hello',
-                  //                 content: 'hiii',
-                  //                 selectRemove: 'remove',
-                  //                 onDiscard: () {
-                  //                   Navigator.pop(context);
-                  //                 });
-                  //           },
-                  //           child: Text(
-                  //             'Remove',
-                  //             style: Theme.of(context)
-                  //                 .textTheme
-                  //                 .headline5!
-                  //                 .copyWith(
-                  //                     fontSize: 18,
-                  //                     fontWeight: FontWeight.w400,
-                  //                     color: Colors.red),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     );
-                  //   },
-                  // );
                 },
                 child:
                     SvgPicture.asset('assets/images/svgfile/edit_profile.svg')),
@@ -182,7 +103,6 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
           floatHeaderSlivers: true,
           headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
             isInnerBox = innerBoxIsScrolled;
-
             return [
               SliverOverlapAbsorber(
                 handle:

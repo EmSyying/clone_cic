@@ -139,6 +139,7 @@ showSaveDraftDialog({
             ),
             GestureDetector(
               onTap: () {
+                onDiscard!();
                 if (isEquity == true) {
                   if (step == 1) {
                     equityController.resetData();

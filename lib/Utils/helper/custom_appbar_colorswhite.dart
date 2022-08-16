@@ -11,14 +11,16 @@ CustomAppBarWhiteColor({
   List<Widget>? action,
   String? title,
   String? subtitle,
+  Color? backgroundColor,
+  double? elevation,
 }) {
   return AppBar(
       centerTitle: true,
       automaticallyImplyLeading: false,
       shadowColor: Colors.grey,
-      elevation: 1.0,
+      elevation: elevation ?? 1.0,
       actions: action,
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor ?? Colors.white,
       leading: leading ??
           IconButton(
               icon: kIsWeb

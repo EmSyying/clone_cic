@@ -1,21 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 
 import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/deposit_screen.dart';
 import 'package:cicgreenloan/widgets/investments/custom_fif_saving_card.dart';
-import 'package:cicgreenloan/widgets/investments/view_agreement_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Utils/function/convert_fromhex_color.dart';
+import '../../configs/auto_route/auto_route.gr.dart';
 import '../../modules/investment_module/controller/investment_controller.dart';
 import '../../modules/investment_module/model/first_date/first_date.dart';
-import '../../modules/investment_module/screen/bullet_payment_detail.dart';
-import '../../modules/investment_module/screen/fif_deduc_selection.dart';
-import '../../modules/investment_module/screen/saving_detail_screen.dart';
 
 import '../../utils/helper/firebase_analytics.dart';
-import '../../utils/web_view/web_view.dart';
 import '../get_funding/custom_add_other_label.dart';
 
 import '../../Utils/helper/app_pin_code.dart' as apppincode;
@@ -67,20 +63,12 @@ class CustomSavingCardList extends StatelessWidget {
                       fifController.onViewAgreement(e.value.id!.toInt()).then(
                         (value) {
                           value.isNotEmpty && value.length == 1
-                              ? Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ViewWebsite(
-                                        title: value[0].title ?? '',
-                                        url: value[0].url),
-                                  ),
-                                )
-                              : Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ViewAgreementList(
-                                      listAgreeMent: value,
-                                    ),
+                              ? context.router.push(ViewAgreementRouter(
+                                  title: value[0].title ?? '',
+                                  url: value[0].url))
+                              : context.router.push(
+                                  ViewAgreementListRouter(
+                                    listAgreeMent: value,
                                   ),
                                 );
                         },
@@ -108,21 +96,33 @@ class CustomSavingCardList extends StatelessWidget {
                           'account fif detail');
                       fifController.investmentId.value = e.value.id!.toInt();
                       fifController.onclearWithdraw();
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SavingDetailScreen(
-                            paddings: const EdgeInsets.only(
-                                top: 50, left: 10, right: 0),
-                            index: e.key,
-                            hide: !e.value.hide!,
-                            id: e.value.id,
-                            code: e.value.code,
-                            accountName: e.value.accountName,
-                            // investAmonut: e.value.investmentAmount,
-                          ),
+                      context.router.push(
+                        SavingDetailScreenRouter(
+                          paddings: const EdgeInsets.only(
+                              top: 50, left: 10, right: 0),
+                          index: e.key,
+                          hide: !e.value.hide!,
+                          id: e.value.id,
+                          code: e.value.code,
+                          accountName: e.value.accountName,
+                          // investAmonut: e.value.investmentAmount,
                         ),
                       );
+                      // await Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => SavingDetailScreen(
+                      //       paddings: const EdgeInsets.only(
+                      //           top: 50, left: 10, right: 0),
+                      //       index: e.key,
+                      //       hide: !e.value.hide!,
+                      //       id: e.value.id,
+                      //       code: e.value.code,
+                      //       accountName: e.value.accountName,
+                      //       // investAmonut: e.value.investmentAmount,
+                      //     ),
+                      //   ),
+                      // );
                     },
                     ontapHide: () async {
                       FirebaseAnalyticsHelper.sendAnalyticsEvent(
@@ -200,7 +200,7 @@ class CustomSavingCardList extends StatelessWidget {
                                       Expanded(
                                         child: CustomButton(
                                           onPressed: () {
-                                            navigator!.pop(context);
+                                            Navigator.pop(context);
                                           },
                                           title: 'Cencel',
                                           isDisable: false,
@@ -286,14 +286,9 @@ class CustomSavingCardList extends StatelessWidget {
                         fifController.selected.value = "";
                         // fifController.fetchConfirmDetail(e.value.id);
 
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return DepositeScreen(
-                                id: e.value.id!.toInt(),
-                              );
-                            },
+                        await context.router.push(
+                          ConfirmDetailRouter(
+                            id: e.value.id!.toInt(),
                           ),
                         );
                       },
@@ -391,11 +386,12 @@ class CustomSavingCardList extends StatelessWidget {
                                                         FirebaseAnalyticsHelper
                                                             .sendAnalyticsEvent(
                                                                 'submit cancel fif');
-                                                        Navigator.of(context)
-                                                            .pop();
+                                                        Navigator.pop(context);
+
                                                         fifController
                                                             .onCanceled(
-                                                                e.value.id);
+                                                                e.value.id,
+                                                                context);
                                                       },
                                               ),
                                             ),
@@ -410,13 +406,9 @@ class CustomSavingCardList extends StatelessWidget {
                             FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                 'edit fif application');
                             Navigator.pop(context);
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return FIFDeucSelection(
-                                      id: e.value.id!.toInt());
-                                },
+                            await context.router.push(
+                              FIFDeucSelectionRouter(
+                                id: e.value.id!.toInt(),
                               ),
                             );
                           },
@@ -428,20 +420,15 @@ class CustomSavingCardList extends StatelessWidget {
                           onTapCard: () async {
                             FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                 'pending fif detail');
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return BulletPaymentDetail(
-                                    isAnnullyRate: true,
-                                    titles: 'Detail Summary',
-                                    status: e.value.status,
-                                    isStatusPending: true,
-                                    isNoUSD: false,
-                                    // investAmount: e.value.investmentAmount,
-                                    id: e.value.id,
-                                  );
-                                },
+                            await context.router.push(
+                              PendingDetailRouter(
+                                isAnnullyRate: true,
+                                titles: 'Detail Summary',
+                                status: e.value.status,
+                                isStatusPending: true,
+                                isNoUSD: false,
+                                // investAmount: e.value.investmentAmount,
+                                id: e.value.id,
                               ),
                             );
                           },

@@ -16,19 +16,24 @@ import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../modules/member_directory/models/user.dart';
+import '../../modules/member_directory/screens/new_profile_ui/view_image_profile_screen.dart';
 import '../../utils/function/get_sharepreference_data.dart';
 
 class CustomUserProfile extends StatefulWidget {
   final String? fullName;
   final String? position;
   final String? description;
+  final User? userModel;
 
   const CustomUserProfile({
     Key? key,
     this.fullName,
     this.position,
     this.description,
+    this.userModel,
   }) : super(key: key);
 
   @override
@@ -40,6 +45,11 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
   final memberCon = Get.put(MemberController());
   final _pickerImage = ImagePicker();
   File? imageFile;
+  Future<void> onRemove() async {
+    User? userModel;
+    userModel!.profile = '';
+  }
+
   Future<void> _onChooseImage() async {
     final pickerFile = await _pickerImage.pickImage(
       source: ImageSource.gallery,
@@ -187,13 +197,43 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                   return CupertinoActionSheet(
                     actions: [
                       CupertinoActionSheetAction(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            showMaterialModalBottomSheet(
+                                enableDrag: false,
+                                backgroundColor: Colors.black,
+                                context: context,
+                                builder: (context) {
+                                  return const ViewImageProfle();
+                                });
+                            // Navigator.push(context,
+                            //     MaterialPageRoute(builder: (context) {
+                            //   return const ViewImageProfle();
+                            // }));
+                          });
+                        },
+                        child: Text(
+                          S.of(context).viewImageProfile,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(
+                                  fontSize: 18, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      CupertinoActionSheetAction(
                         onPressed: () async {
                           await _onOpenCamera()
                               .then((value) => Navigator.pop(context));
                         },
                         child: Text(
                           S.of(context).takePhoto,
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(
+                                  fontSize: 18, fontWeight: FontWeight.w400),
                         ),
                       ),
                       CupertinoActionSheetAction(
@@ -203,16 +243,43 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                 .then((value) => Navigator.pop(context));
                           });
                         },
-                        child: Text(S.of(context).openGallery,
-                            style: Theme.of(context).textTheme.headline5),
+                        child: Text(
+                          S.of(context).editImage,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(
+                                  fontSize: 18, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      CupertinoActionSheetAction(
+                        onPressed: () {
+                          setState(() {
+                            Navigator.pop(context);
+                            onRemove();
+                          });
+                        },
+                        child: Text(
+                          S.of(context).removeImage,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.red),
+                        ),
                       ),
                     ],
                     cancelButton: CupertinoActionSheetAction(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(S.of(context).cancelButton,
-                          style: Theme.of(context).textTheme.headline5),
+                      child: Text(
+                        S.of(context).cancelButton,
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.w400),
+                      ),
                     ),
                   );
                 });

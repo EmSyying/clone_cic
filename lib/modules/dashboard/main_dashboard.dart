@@ -497,7 +497,7 @@ class _MainDashboardState extends State<MainDashboard> {
               !e.value.data!.expired!) {
             return showDialog(
               barrierDismissible: false,
-              context: Get.context!,
+              context: context,
               builder: (context) => PopUpAnnouncement(
                 notificationModel: e.value,
               ),

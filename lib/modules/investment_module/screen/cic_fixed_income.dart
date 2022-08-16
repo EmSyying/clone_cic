@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/app_pin_code.dart' as apppincode;
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/fif_deduc_selection.dart';
 import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,8 +11,8 @@ import 'package:intl/intl.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
+import '../../../configs/auto_route/auto_route.gr.dart';
 import '../../../utils/helper/firebase_analytics.dart';
-import '../../../utils/web_view/web_view.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
 import '../../../widgets/investments/custom_shimmer_fif_saving_card.dart';
@@ -321,14 +321,11 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 title: 'About FIF',
                 onPressed: () {
                   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ViewWebsite(
-                          title: "About FIF",
-                          url: priceController.investmentModel.value.aboutFif ??
-                              "https://cic-association.com/"),
-                    ),
+                  context.router.push(
+                    AboutFiFRouter(
+                        title: "About FIF",
+                        url: priceController.investmentModel.value.aboutFif ??
+                            "https://cic-association.com/"),
                   );
                 },
               ),
@@ -349,14 +346,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   priceController.isNewBank.value = true;
                   priceController.textReceivingAccount.value = "";
                   priceController.clearDeducSelection();
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const FIFDeucSelection();
-                      },
-                    ),
-                  );
+                  context.router.push(FIFDeucSelectionRouter());
                 },
               ),
             ),

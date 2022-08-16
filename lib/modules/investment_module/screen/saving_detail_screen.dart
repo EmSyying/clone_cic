@@ -1,8 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
+import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_application/schedule/schedule.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/contract_withdraw.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/renewal_screen.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class SavingDetailScreen extends StatefulWidget {
   final String? investAmonut;
   final String? code;
   final String? currentPrincipal;
-  final EdgeInsets paddings;
+  final EdgeInsets? paddings;
   final String? accountName;
 
   // final FiFApplicationDetailModel? fiFApplicationDetailModel;
@@ -33,15 +33,15 @@ class SavingDetailScreen extends StatefulWidget {
 
   const SavingDetailScreen(
       {Key? key,
-      this.accountName,
-      required this.paddings,
-      this.code,
-      this.id,
-      this.scheduleModelList,
-      this.hide,
-      this.index,
-      this.investAmonut,
-      this.currentPrincipal})
+      @queryParam this.accountName,
+      @queryParam this.paddings,
+      @queryParam this.code,
+      @queryParam this.id,
+      @queryParam this.scheduleModelList,
+      @queryParam this.hide,
+      @queryParam this.index,
+      @queryParam this.investAmonut,
+      @queryParam this.currentPrincipal})
       : super(key: key);
 
   @override
@@ -166,9 +166,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                     FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                         'renew contract');
                                     Navigator.pop(context);
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return RenewalScreen(
+                                    context.router.push(
+                                      RenewalScreenRouter(
                                         id: widget.id,
                                         annually: fifCon.fifAccountDetailModel
                                             .value.annuallyInterestRate,
@@ -178,8 +177,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                             .investmentAmount,
                                         accountName: widget.accountName,
                                         contractCode: widget.code,
-                                      );
-                                    }));
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     color: Colors.transparent,
@@ -220,9 +219,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           .sendAnalyticsEvent(
                                               'withdraw pricipal');
                                       Navigator.pop(context);
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return ContractWithdrawScreen(
+                                      context.router.push(
+                                        ContractWithdrawScreenRouter(
                                           investAmount: fifCon
                                               .fifAccountDetailModel
                                               .value
@@ -234,8 +232,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           id: widget.id,
                                           contractCode: widget.code,
                                           accountName: widget.accountName,
-                                        );
-                                      }));
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       height: 49,
@@ -917,7 +915,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
           //                           ),
           //                         ),
           //                       ),
-          //                     ),
+          //                     ),x
           //                   const PopupMenuDivider(height: 0),
           //                   PopupMenuItem(
           //                     padding: const EdgeInsets.only(

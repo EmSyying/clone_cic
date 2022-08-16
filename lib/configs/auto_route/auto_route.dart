@@ -13,15 +13,132 @@ import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privileg
 import 'package:cicgreenloan/modules/report_module/screens/report.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/trading_platform.dart';
 
+import '../../Utils/helper/custom_success_screen.dart';
+import '../../Utils/web_view/web_view.dart';
 import '../../modules/dashboard/dashboard.dart';
 import '../../modules/get_funding/screens/debt_investment/step2_debt.dart';
 import '../../modules/get_funding/screens/debt_investment/step3_debt.dart';
+import '../../modules/investment_module/screen/bullet_payment_detail.dart';
+import '../../modules/investment_module/screen/contract_withdraw.dart';
+import '../../modules/investment_module/screen/deposit_screen.dart';
+import '../../modules/investment_module/screen/fif_deduc_selection.dart';
+import '../../modules/investment_module/screen/renewal_screen.dart';
+import '../../modules/investment_module/screen/saving_detail_screen.dart';
+import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
+import '../../widgets/investments/fif_option1.dart';
+import '../../widgets/investments/view_agreement_list.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(page: Splashscreen, initial: true),
-    AutoRoute(page: Dashboard, path: '/investment'),
+    AutoRoute(
+      page: EmptyRouterPage,
+      path: '/investment',
+      name: 'MyInvestmentRouter',
+      children: [
+        AutoRoute(
+          page: Dashboard,
+          path: '',
+        ),
+        //renewal screen
+        AutoRoute(
+          page: SavingDetailScreen,
+          path: 'investment/saving-detail',
+          name: 'SavingDetailScreenRouter',
+        ),
+        AutoRoute(
+          page: RenewalScreen,
+          path: 'investment/saving-detail/renew-contract',
+          name: 'RenewalScreenRouter',
+        ),
+        AutoRoute(
+          page: BulletPaymentDetail,
+          path: 'investment/saving-detail/renew-contract/renew-review',
+          name: 'RenewReviewRouter',
+        ),
+        AutoRoute(
+          page: CustomSucessScreen,
+          path: 'investment/saving-detail/renew-contract/renew-review/success',
+          name: 'RenewSuccessRouter',
+        ),
+        //contract withdraw screen
+        AutoRoute(
+          page: ContractWithdrawScreen,
+          path: 'investment/saving-detail/redemption',
+          name: 'ContractWithdrawScreenRouter',
+        ),
+        AutoRoute(
+          page: BulletPaymentDetail,
+          path: 'investment/saving-detail/redemption/redemption-review',
+          name: 'ReviewWithdrawRouter',
+        ),
+        AutoRoute(
+          page: CustomSucessScreen,
+          path: 'investment/saving-detail/redemption/redemption-review/success',
+          name: 'RedemptionSuccessRouter',
+        ),
+        AutoRoute(
+          page: ViewWebsite,
+          path: 'investment/about-fif',
+          name: 'AboutFiFRouter',
+        ),
+        //craete application
+        AutoRoute(
+          page: FIFDeucSelection,
+          name: 'FIFDeucSelectionRouter',
+          path: 'investment/fif-select-product',
+        ),
+        AutoRoute(
+          page: ViewWebsite,
+          name: 'ExploreMoreRouter',
+          path: 'investment/fif-select-product/explore-more',
+        ),
+        AutoRoute(
+          page: FIFOption1,
+          name: 'FIFOption1Router',
+          path: 'investment/fif-select-product/fif-Application',
+        ),
+        AutoRoute(
+          page: BulletPaymentDetail,
+          name: 'ReviewApplicationRouter',
+          path: 'investment/fif-select-product/fif-Application/review',
+        ),
+        AutoRoute(
+          page: CustomSucessScreen,
+          name: 'CustomSucessScreenRouter',
+          path: 'investment/fif-select-product/fif-Application/review/success',
+        ),
+        //confirm application
+        AutoRoute(
+          page: DepositeScreen,
+          path: 'investment/confirm-detail',
+          name: 'ConfirmDetailRouter',
+        ),
+        //pending application
+        AutoRoute(
+          page: BulletPaymentDetail,
+          path: 'investment/pending-detail',
+          name: 'PendingDetailRouter',
+        ),
+        AutoRoute(
+          page: ContractTerm,
+          path: 'investment/service-agreement',
+          name: 'ServiceAgreementRouter',
+        ),
+        //view agreement
+        AutoRoute(
+          page: ViewWebsite,
+          path: 'investment/view-agreement',
+          name: 'ViewAgreementRouter',
+        ),
+        AutoRoute(
+          page: ViewAgreementList,
+          path: 'investment/view-agreement-list',
+          name: 'ViewAgreementListRouter',
+        ),
+      ],
+    ),
     AutoRoute(page: BonusScreen, path: '/bonus'),
     AutoRoute(
         path: '/get-funding',

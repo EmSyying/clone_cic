@@ -10,55 +10,78 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i17;
-import 'package:flutter/material.dart' as _i18;
+import 'package:auto_route/auto_route.dart' as _i2;
+import 'package:flutter/cupertino.dart' as _i30;
+import 'package:flutter/material.dart' as _i29;
 
 import '../../core/walk_through/splash_screen.dart' as _i1;
 import '../../modules/bonus/screens/bonus_screen.dart' as _i3;
-import '../../modules/dashboard/dashboard.dart' as _i2;
-import '../../modules/get_funding/models/appliication_card_model.dart' as _i19;
+import '../../modules/dashboard/dashboard.dart' as _i9;
+import '../../modules/get_funding/models/appliication_card_model.dart' as _i36;
 import '../../modules/get_funding/screens/debt_investment/preview_debt_form.dart'
-    as _i16;
+    as _i28;
 import '../../modules/get_funding/screens/debt_investment/step1_debt.dart'
-    as _i13;
+    as _i25;
 import '../../modules/get_funding/screens/debt_investment/step2_debt.dart'
-    as _i14;
+    as _i26;
 import '../../modules/get_funding/screens/debt_investment/step3_debt.dart'
-    as _i15;
+    as _i27;
 import '../../modules/get_funding/screens/equity_investment/preview_equity.dart'
-    as _i12;
+    as _i24;
 import '../../modules/get_funding/screens/equity_investment/step1_equity.dart'
-    as _i9;
+    as _i21;
 import '../../modules/get_funding/screens/equity_investment/step2_equity.dart'
-    as _i10;
+    as _i22;
 import '../../modules/get_funding/screens/equity_investment/step3_equity.dart'
-    as _i11;
+    as _i23;
 import '../../modules/get_funding/screens/get_funding.dart' as _i4;
+import '../../modules/investment_module/controller/investment_controller.dart'
+    as _i33;
+import '../../modules/investment_module/model/fif_application/fif_application.dart'
+    as _i32;
+import '../../modules/investment_module/model/fif_application/schedule/schedule.dart'
+    as _i31;
+import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart'
+    as _i34;
+import '../../modules/investment_module/model/view_agreement/view_agreement.dart'
+    as _i35;
+import '../../modules/investment_module/screen/bullet_payment_detail.dart'
+    as _i12;
+import '../../modules/investment_module/screen/contract_withdraw.dart' as _i14;
+import '../../modules/investment_module/screen/deposit_screen.dart' as _i18;
+import '../../modules/investment_module/screen/fif_deduc_selection.dart'
+    as _i16;
+import '../../modules/investment_module/screen/renewal_screen.dart' as _i11;
+import '../../modules/investment_module/screen/saving_detail_screen.dart'
+    as _i10;
 import '../../modules/member_directory/screens/directory.dart' as _i6;
 import '../../modules/privilege_program/screen/privilege/privilege_screen.dart'
     as _i8;
 import '../../modules/report_module/screens/report.dart' as _i7;
+import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart'
+    as _i19;
 import '../../modules/ut_trading/screens/trading_platform.dart' as _i5;
+import '../../Utils/helper/custom_success_screen.dart' as _i13;
+import '../../Utils/web_view/web_view.dart' as _i15;
+import '../../widgets/investments/fif_option1.dart' as _i17;
+import '../../widgets/investments/view_agreement_list.dart' as _i20;
 
-class AppRouter extends _i17.RootStackRouter {
-  AppRouter([_i18.GlobalKey<_i18.NavigatorState>? navigatorKey])
+class AppRouter extends _i2.RootStackRouter {
+  AppRouter([_i29.GlobalKey<_i29.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i17.PageFactory> pagesMap = {
+  final Map<String, _i2.PageFactory> pagesMap = {
     Splashscreen.name: (routeData) {
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.Splashscreen());
     },
-    Dashboard.name: (routeData) {
-      final args =
-          routeData.argsAs<DashboardArgs>(orElse: () => const DashboardArgs());
-      return _i17.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i2.Dashboard(key: args.key, isNavigator: args.isNavigator));
+    MyInvestmentRouter.name: (routeData) {
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i2.EmptyRouterPage());
     },
     BonusScreen.name: (routeData) {
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i3.BonusScreen());
     },
     HomePageRouter.name: (routeData) {
@@ -66,18 +89,18 @@ class AppRouter extends _i17.RootStackRouter {
       final args = routeData.argsAs<HomePageRouterArgs>(
           orElse: () => HomePageRouterArgs(
               isNavigator: queryParams.optBool('isNavigator')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i4.HomePage(key: args.key, isNavigator: args.isNavigator));
     },
     UTtrading.name: (routeData) {
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i5.UTtrading());
     },
     Directory.name: (routeData) {
       final args =
           routeData.argsAs<DirectoryArgs>(orElse: () => const DirectoryArgs());
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i6.Directory(
               key: args.key,
@@ -89,76 +112,571 @@ class AppRouter extends _i17.RootStackRouter {
     Report.name: (routeData) {
       final args =
           routeData.argsAs<ReportArgs>(orElse: () => const ReportArgs());
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i7.Report(key: args.key, isNavigator: args.isNavigator));
     },
     PrivilegeScreen.name: (routeData) {
       final args = routeData.argsAs<PrivilegeScreenArgs>(
           orElse: () => const PrivilegeScreenArgs());
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i8.PrivilegeScreen(key: args.key, index: args.index));
+    },
+    Dashboard.name: (routeData) {
+      final args =
+          routeData.argsAs<DashboardArgs>(orElse: () => const DashboardArgs());
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i9.Dashboard(key: args.key, isNavigator: args.isNavigator));
+    },
+    SavingDetailScreenRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<SavingDetailScreenRouterArgs>(
+          orElse: () => SavingDetailScreenRouterArgs(
+              accountName: queryParams.optString('accountName'),
+              paddings: queryParams.get('paddings'),
+              code: queryParams.optString('code'),
+              id: queryParams.optNum('id'),
+              scheduleModelList: queryParams.get('scheduleModelList'),
+              hide: queryParams.optBool('hide'),
+              index: queryParams.optInt('index'),
+              investAmonut: queryParams.optString('investAmonut'),
+              currentPrincipal: queryParams.optString('currentPrincipal')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i10.SavingDetailScreen(
+              key: args.key,
+              accountName: args.accountName,
+              paddings: args.paddings,
+              code: args.code,
+              id: args.id,
+              scheduleModelList: args.scheduleModelList,
+              hide: args.hide,
+              index: args.index,
+              investAmonut: args.investAmonut,
+              currentPrincipal: args.currentPrincipal));
+    },
+    RenewalScreenRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<RenewalScreenRouterArgs>(
+          orElse: () => RenewalScreenRouterArgs(
+              investAmount: queryParams.optString('investAmount'),
+              fiFApplicationModel: queryParams.get('fiFApplicationModel'),
+              id: queryParams.optNum('id'),
+              interestEarned: queryParams.optString('interestEarned'),
+              annually: queryParams.optString('annually'),
+              accountName: queryParams.optString('accountName'),
+              contractCode: queryParams.optString('contractCode')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i11.RenewalScreen(
+              key: args.key,
+              investAmount: args.investAmount,
+              fiFApplicationModel: args.fiFApplicationModel,
+              id: args.id,
+              interestEarned: args.interestEarned,
+              annually: args.annually,
+              accountName: args.accountName,
+              contractCode: args.contractCode));
+    },
+    RenewReviewRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<RenewReviewRouterArgs>(
+          orElse: () => RenewReviewRouterArgs(
+              isAnnullyRate: queryParams.optBool('isAnnullyRate', false),
+              productName: queryParams.optString('productName'),
+              isRenewal: queryParams.optBool('isRenewal', false),
+              renewBy: queryParams.optString('renewBy'),
+              renewDate: queryParams.optString('renewDate'),
+              renewPeriod: queryParams.optString('renewPeriod'),
+              oldDate: queryParams.optString('oldDate'),
+              newDate: queryParams.optString('newDate'),
+              investDate: queryParams.optString('investDate'),
+              investDuration: queryParams.optNum('investDuration'),
+              firstPayDate: queryParams.optString('firstPayDate'),
+              maturityDate: queryParams.optString('maturityDate'),
+              investAmount: queryParams.optString('investAmount'),
+              withdrawer: queryParams.optString('withdrawer'),
+              withdrawAmount: queryParams.optString('withdrawAmount'),
+              noticeDate: queryParams.optString('noticeDate'),
+              disbursementDate: queryParams.optString('disbursementDate'),
+              contractStatus: queryParams.optString('contractStatus'),
+              isWithdraw: queryParams.optBool('isWithdraw', false),
+              isStatusPending: queryParams.optBool('isStatusPending', false),
+              id: queryParams.optNum('id'),
+              fiFApplicationDetailModel:
+                  queryParams.get('fiFApplicationDetailModel'),
+              isNoUSD: queryParams.getBool('isNoUSD', false),
+              status: queryParams.optString('status'),
+              titles: queryParams.optString('titles'),
+              annually: queryParams.optString('annually'),
+              fromPage: queryParams.optString('fromPage')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i12.BulletPaymentDetail(
+              key: args.key,
+              isAnnullyRate: args.isAnnullyRate,
+              productName: args.productName,
+              isRenewal: args.isRenewal,
+              renewBy: args.renewBy,
+              renewDate: args.renewDate,
+              renewPeriod: args.renewPeriod,
+              oldDate: args.oldDate,
+              newDate: args.newDate,
+              investDate: args.investDate,
+              investDuration: args.investDuration,
+              firstPayDate: args.firstPayDate,
+              maturityDate: args.maturityDate,
+              investAmount: args.investAmount,
+              withdrawer: args.withdrawer,
+              withdrawAmount: args.withdrawAmount,
+              noticeDate: args.noticeDate,
+              disbursementDate: args.disbursementDate,
+              contractStatus: args.contractStatus,
+              isWithdraw: args.isWithdraw,
+              isStatusPending: args.isStatusPending,
+              id: args.id,
+              fiFApplicationDetailModel: args.fiFApplicationDetailModel,
+              isNoUSD: args.isNoUSD,
+              status: args.status,
+              titles: args.titles,
+              oncallBack: args.oncallBack,
+              annually: args.annually,
+              fromPage: args.fromPage));
+    },
+    RenewSuccessRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<RenewSuccessRouterArgs>(
+          orElse: () => RenewSuccessRouterArgs(
+              title: queryParams.optString('title'),
+              description: queryParams.optString('description'),
+              icon: queryParams.get('icon'),
+              buttonTitle: queryParams.optString('buttonTitle'),
+              backgroundColor: queryParams.get('backgroundColor'),
+              descriptionPadding: queryParams.get('descriptionPadding')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i13.CustomSucessScreen(
+              key: args.key,
+              title: args.title,
+              description: args.description,
+              icon: args.icon,
+              onPressedButton: args.onPressedButton,
+              buttonTitle: args.buttonTitle,
+              backgroundColor: args.backgroundColor,
+              descriptionPadding: args.descriptionPadding));
+    },
+    ContractWithdrawScreenRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<ContractWithdrawScreenRouterArgs>(
+          orElse: () => ContractWithdrawScreenRouterArgs(
+              investAmount: queryParams.optString('investAmount'),
+              interestEarned: queryParams.optString('interestEarned'),
+              id: queryParams.optNum('id'),
+              productName: queryParams.optString('productName'),
+              contractCode: queryParams.optString('contractCode'),
+              accountName: queryParams.optString('accountName')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i14.ContractWithdrawScreen(
+              key: args.key,
+              investAmount: args.investAmount,
+              interestEarned: args.interestEarned,
+              id: args.id,
+              productName: args.productName,
+              contractCode: args.contractCode,
+              accountName: args.accountName));
+    },
+    ReviewWithdrawRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<ReviewWithdrawRouterArgs>(
+          orElse: () => ReviewWithdrawRouterArgs(
+              isAnnullyRate: queryParams.optBool('isAnnullyRate', false),
+              productName: queryParams.optString('productName'),
+              isRenewal: queryParams.optBool('isRenewal', false),
+              renewBy: queryParams.optString('renewBy'),
+              renewDate: queryParams.optString('renewDate'),
+              renewPeriod: queryParams.optString('renewPeriod'),
+              oldDate: queryParams.optString('oldDate'),
+              newDate: queryParams.optString('newDate'),
+              investDate: queryParams.optString('investDate'),
+              investDuration: queryParams.optNum('investDuration'),
+              firstPayDate: queryParams.optString('firstPayDate'),
+              maturityDate: queryParams.optString('maturityDate'),
+              investAmount: queryParams.optString('investAmount'),
+              withdrawer: queryParams.optString('withdrawer'),
+              withdrawAmount: queryParams.optString('withdrawAmount'),
+              noticeDate: queryParams.optString('noticeDate'),
+              disbursementDate: queryParams.optString('disbursementDate'),
+              contractStatus: queryParams.optString('contractStatus'),
+              isWithdraw: queryParams.optBool('isWithdraw', false),
+              isStatusPending: queryParams.optBool('isStatusPending', false),
+              id: queryParams.optNum('id'),
+              fiFApplicationDetailModel:
+                  queryParams.get('fiFApplicationDetailModel'),
+              isNoUSD: queryParams.getBool('isNoUSD', false),
+              status: queryParams.optString('status'),
+              titles: queryParams.optString('titles'),
+              annually: queryParams.optString('annually'),
+              fromPage: queryParams.optString('fromPage')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i12.BulletPaymentDetail(
+              key: args.key,
+              isAnnullyRate: args.isAnnullyRate,
+              productName: args.productName,
+              isRenewal: args.isRenewal,
+              renewBy: args.renewBy,
+              renewDate: args.renewDate,
+              renewPeriod: args.renewPeriod,
+              oldDate: args.oldDate,
+              newDate: args.newDate,
+              investDate: args.investDate,
+              investDuration: args.investDuration,
+              firstPayDate: args.firstPayDate,
+              maturityDate: args.maturityDate,
+              investAmount: args.investAmount,
+              withdrawer: args.withdrawer,
+              withdrawAmount: args.withdrawAmount,
+              noticeDate: args.noticeDate,
+              disbursementDate: args.disbursementDate,
+              contractStatus: args.contractStatus,
+              isWithdraw: args.isWithdraw,
+              isStatusPending: args.isStatusPending,
+              id: args.id,
+              fiFApplicationDetailModel: args.fiFApplicationDetailModel,
+              isNoUSD: args.isNoUSD,
+              status: args.status,
+              titles: args.titles,
+              oncallBack: args.oncallBack,
+              annually: args.annually,
+              fromPage: args.fromPage));
+    },
+    RedemptionSuccessRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<RedemptionSuccessRouterArgs>(
+          orElse: () => RedemptionSuccessRouterArgs(
+              title: queryParams.optString('title'),
+              description: queryParams.optString('description'),
+              icon: queryParams.get('icon'),
+              buttonTitle: queryParams.optString('buttonTitle'),
+              backgroundColor: queryParams.get('backgroundColor'),
+              descriptionPadding: queryParams.get('descriptionPadding')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i13.CustomSucessScreen(
+              key: args.key,
+              title: args.title,
+              description: args.description,
+              icon: args.icon,
+              onPressedButton: args.onPressedButton,
+              buttonTitle: args.buttonTitle,
+              backgroundColor: args.backgroundColor,
+              descriptionPadding: args.descriptionPadding));
+    },
+    AboutFiFRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<AboutFiFRouterArgs>(
+          orElse: () => AboutFiFRouterArgs(
+              url: queryParams.optString('url'),
+              title: queryParams.optString('title'),
+              isfromReport: queryParams.optBool('isfromReport', false)));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i15.ViewWebsite(
+              key: args.key,
+              url: args.url,
+              title: args.title,
+              isfromReport: args.isfromReport));
+    },
+    FIFDeucSelectionRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<FIFDeucSelectionRouterArgs>(
+          orElse: () =>
+              FIFDeucSelectionRouterArgs(id: queryParams.optInt('id')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i16.FIFDeucSelection(key: args.key, id: args.id));
+    },
+    ExploreMoreRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<ExploreMoreRouterArgs>(
+          orElse: () => ExploreMoreRouterArgs(
+              url: queryParams.optString('url'),
+              title: queryParams.optString('title'),
+              isfromReport: queryParams.optBool('isfromReport', false)));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i15.ViewWebsite(
+              key: args.key,
+              url: args.url,
+              title: args.title,
+              isfromReport: args.isfromReport));
+    },
+    FIFOption1Router.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<FIFOption1RouterArgs>(
+          orElse: () => FIFOption1RouterArgs(
+              paymentDate: queryParams.get('paymentDate'),
+              id: queryParams.optInt('id', 0),
+              options: queryParams.get('options')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i17.FIFOption1(
+              key: args.key,
+              paymentDate: args.paymentDate,
+              id: args.id,
+              options: args.options));
+    },
+    ReviewApplicationRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<ReviewApplicationRouterArgs>(
+          orElse: () => ReviewApplicationRouterArgs(
+              isAnnullyRate: queryParams.optBool('isAnnullyRate', false),
+              productName: queryParams.optString('productName'),
+              isRenewal: queryParams.optBool('isRenewal', false),
+              renewBy: queryParams.optString('renewBy'),
+              renewDate: queryParams.optString('renewDate'),
+              renewPeriod: queryParams.optString('renewPeriod'),
+              oldDate: queryParams.optString('oldDate'),
+              newDate: queryParams.optString('newDate'),
+              investDate: queryParams.optString('investDate'),
+              investDuration: queryParams.optNum('investDuration'),
+              firstPayDate: queryParams.optString('firstPayDate'),
+              maturityDate: queryParams.optString('maturityDate'),
+              investAmount: queryParams.optString('investAmount'),
+              withdrawer: queryParams.optString('withdrawer'),
+              withdrawAmount: queryParams.optString('withdrawAmount'),
+              noticeDate: queryParams.optString('noticeDate'),
+              disbursementDate: queryParams.optString('disbursementDate'),
+              contractStatus: queryParams.optString('contractStatus'),
+              isWithdraw: queryParams.optBool('isWithdraw', false),
+              isStatusPending: queryParams.optBool('isStatusPending', false),
+              id: queryParams.optNum('id'),
+              fiFApplicationDetailModel:
+                  queryParams.get('fiFApplicationDetailModel'),
+              isNoUSD: queryParams.getBool('isNoUSD', false),
+              status: queryParams.optString('status'),
+              titles: queryParams.optString('titles'),
+              annually: queryParams.optString('annually'),
+              fromPage: queryParams.optString('fromPage')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i12.BulletPaymentDetail(
+              key: args.key,
+              isAnnullyRate: args.isAnnullyRate,
+              productName: args.productName,
+              isRenewal: args.isRenewal,
+              renewBy: args.renewBy,
+              renewDate: args.renewDate,
+              renewPeriod: args.renewPeriod,
+              oldDate: args.oldDate,
+              newDate: args.newDate,
+              investDate: args.investDate,
+              investDuration: args.investDuration,
+              firstPayDate: args.firstPayDate,
+              maturityDate: args.maturityDate,
+              investAmount: args.investAmount,
+              withdrawer: args.withdrawer,
+              withdrawAmount: args.withdrawAmount,
+              noticeDate: args.noticeDate,
+              disbursementDate: args.disbursementDate,
+              contractStatus: args.contractStatus,
+              isWithdraw: args.isWithdraw,
+              isStatusPending: args.isStatusPending,
+              id: args.id,
+              fiFApplicationDetailModel: args.fiFApplicationDetailModel,
+              isNoUSD: args.isNoUSD,
+              status: args.status,
+              titles: args.titles,
+              oncallBack: args.oncallBack,
+              annually: args.annually,
+              fromPage: args.fromPage));
+    },
+    CustomSucessScreenRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<CustomSucessScreenRouterArgs>(
+          orElse: () => CustomSucessScreenRouterArgs(
+              title: queryParams.optString('title'),
+              description: queryParams.optString('description'),
+              icon: queryParams.get('icon'),
+              buttonTitle: queryParams.optString('buttonTitle'),
+              backgroundColor: queryParams.get('backgroundColor'),
+              descriptionPadding: queryParams.get('descriptionPadding')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i13.CustomSucessScreen(
+              key: args.key,
+              title: args.title,
+              description: args.description,
+              icon: args.icon,
+              onPressedButton: args.onPressedButton,
+              buttonTitle: args.buttonTitle,
+              backgroundColor: args.backgroundColor,
+              descriptionPadding: args.descriptionPadding));
+    },
+    ConfirmDetailRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<ConfirmDetailRouterArgs>(
+          orElse: () => ConfirmDetailRouterArgs(id: queryParams.optInt('id')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i18.DepositeScreen(key: args.key, id: args.id));
+    },
+    PendingDetailRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<PendingDetailRouterArgs>(
+          orElse: () => PendingDetailRouterArgs(
+              isAnnullyRate: queryParams.optBool('isAnnullyRate', false),
+              productName: queryParams.optString('productName'),
+              isRenewal: queryParams.optBool('isRenewal', false),
+              renewBy: queryParams.optString('renewBy'),
+              renewDate: queryParams.optString('renewDate'),
+              renewPeriod: queryParams.optString('renewPeriod'),
+              oldDate: queryParams.optString('oldDate'),
+              newDate: queryParams.optString('newDate'),
+              investDate: queryParams.optString('investDate'),
+              investDuration: queryParams.optNum('investDuration'),
+              firstPayDate: queryParams.optString('firstPayDate'),
+              maturityDate: queryParams.optString('maturityDate'),
+              investAmount: queryParams.optString('investAmount'),
+              withdrawer: queryParams.optString('withdrawer'),
+              withdrawAmount: queryParams.optString('withdrawAmount'),
+              noticeDate: queryParams.optString('noticeDate'),
+              disbursementDate: queryParams.optString('disbursementDate'),
+              contractStatus: queryParams.optString('contractStatus'),
+              isWithdraw: queryParams.optBool('isWithdraw', false),
+              isStatusPending: queryParams.optBool('isStatusPending', false),
+              id: queryParams.optNum('id'),
+              fiFApplicationDetailModel:
+                  queryParams.get('fiFApplicationDetailModel'),
+              isNoUSD: queryParams.getBool('isNoUSD', false),
+              status: queryParams.optString('status'),
+              titles: queryParams.optString('titles'),
+              annually: queryParams.optString('annually'),
+              fromPage: queryParams.optString('fromPage')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i12.BulletPaymentDetail(
+              key: args.key,
+              isAnnullyRate: args.isAnnullyRate,
+              productName: args.productName,
+              isRenewal: args.isRenewal,
+              renewBy: args.renewBy,
+              renewDate: args.renewDate,
+              renewPeriod: args.renewPeriod,
+              oldDate: args.oldDate,
+              newDate: args.newDate,
+              investDate: args.investDate,
+              investDuration: args.investDuration,
+              firstPayDate: args.firstPayDate,
+              maturityDate: args.maturityDate,
+              investAmount: args.investAmount,
+              withdrawer: args.withdrawer,
+              withdrawAmount: args.withdrawAmount,
+              noticeDate: args.noticeDate,
+              disbursementDate: args.disbursementDate,
+              contractStatus: args.contractStatus,
+              isWithdraw: args.isWithdraw,
+              isStatusPending: args.isStatusPending,
+              id: args.id,
+              fiFApplicationDetailModel: args.fiFApplicationDetailModel,
+              isNoUSD: args.isNoUSD,
+              status: args.status,
+              titles: args.titles,
+              oncallBack: args.oncallBack,
+              annually: args.annually,
+              fromPage: args.fromPage));
+    },
+    ServiceAgreementRouter.name: (routeData) {
+      final args = routeData.argsAs<ServiceAgreementRouterArgs>(
+          orElse: () => const ServiceAgreementRouterArgs());
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i19.ContractTerm(key: args.key, fromPage: args.fromPage));
+    },
+    ViewAgreementRouter.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<ViewAgreementRouterArgs>(
+          orElse: () => ViewAgreementRouterArgs(
+              url: queryParams.optString('url'),
+              title: queryParams.optString('title'),
+              isfromReport: queryParams.optBool('isfromReport', false)));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i15.ViewWebsite(
+              key: args.key,
+              url: args.url,
+              title: args.title,
+              isfromReport: args.isfromReport));
+    },
+    ViewAgreementListRouter.name: (routeData) {
+      final args = routeData.argsAs<ViewAgreementListRouterArgs>();
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i20.ViewAgreementList(
+              key: args.key, listAgreeMent: args.listAgreeMent));
     },
     Step1EquityRouter.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<Step1EquityRouterArgs>(
           orElse: () => Step1EquityRouterArgs(
               id: pathParams.optInt('id', 0), step: pathParams.optInt('step')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i9.Step1Equiry(key: args.key, id: args.id, step: args.step));
+          child: _i21.Step1Equiry(key: args.key, id: args.id, step: args.step));
     },
     Step2EquityRouter.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<Step2EquityRouterArgs>(
           orElse: () => Step2EquityRouterArgs(
               id: pathParams.optInt('id'), step: pathParams.optInt('step')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i10.Step2Equity(key: args.key, id: args.id, step: args.step));
+          child: _i22.Step2Equity(key: args.key, id: args.id, step: args.step));
     },
     Step3EquityRouter.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<Step3EquityRouterArgs>(
           orElse: () => Step3EquityRouterArgs(
               id: pathParams.optInt('id'), step: pathParams.optInt('step')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i11.Step3Equity(key: args.key, id: args.id, step: args.step));
+          child: _i23.Step3Equity(key: args.key, id: args.id, step: args.step));
     },
     PreviewEquityRouter.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<PreviewEquityRouterArgs>(
           orElse: () => PreviewEquityRouterArgs(id: pathParams.optInt('id')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i12.PreviewEquity(key: args.key, id: args.id));
+          child: _i24.PreviewEquity(key: args.key, id: args.id));
     },
     Step1DebtRouter.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<Step1DebtRouterArgs>(
           orElse: () => Step1DebtRouterArgs(
               id: pathParams.optInt('id', 0), step: pathParams.optInt('step')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i13.Step1Debt(key: args.key, id: args.id, step: args.step));
+          child: _i25.Step1Debt(key: args.key, id: args.id, step: args.step));
     },
     Step2DebtRouter.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<Step2DebtRouterArgs>(
           orElse: () => Step2DebtRouterArgs(
               id: pathParams.optInt('id', 0), step: pathParams.optInt('step')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i14.Step2Debt(key: args.key, id: args.id, step: args.step));
+          child: _i26.Step2Debt(key: args.key, id: args.id, step: args.step));
     },
     Step3DebtRouter.name: (routeData) {
       final args = routeData.argsAs<Step3DebtRouterArgs>(
           orElse: () => const Step3DebtRouterArgs());
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i15.Step3Debt(
+          child: _i27.Step3Debt(
               key: args.key,
               numberOfStep: args.numberOfStep,
               applicationDetail: args.applicationDetail,
@@ -167,9 +685,9 @@ class AppRouter extends _i17.RootStackRouter {
     Step4DebtRouter.name: (routeData) {
       final args = routeData.argsAs<Step4DebtRouterArgs>(
           orElse: () => const Step4DebtRouterArgs());
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i15.Step3Debt(
+          child: _i27.Step3Debt(
               key: args.key,
               numberOfStep: args.numberOfStep,
               applicationDetail: args.applicationDetail,
@@ -179,79 +697,127 @@ class AppRouter extends _i17.RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<PreviewDebtRouterArgs>(
           orElse: () => PreviewDebtRouterArgs(id: pathParams.optInt('id')));
-      return _i17.MaterialPageX<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i16.PreviewDebtForm(key: args.key, id: args.id));
+          child: _i28.PreviewDebtForm(key: args.key, id: args.id));
     }
   };
 
   @override
-  List<_i17.RouteConfig> get routes => [
-        _i17.RouteConfig(Splashscreen.name, path: '/'),
-        _i17.RouteConfig(Dashboard.name, path: '/investment'),
-        _i17.RouteConfig(BonusScreen.name, path: '/bonus'),
-        _i17.RouteConfig(HomePageRouter.name, path: '/get-funding', children: [
-          _i17.RouteConfig(Step1EquityRouter.name,
+  List<_i2.RouteConfig> get routes => [
+        _i2.RouteConfig(Splashscreen.name, path: '/'),
+        _i2.RouteConfig(MyInvestmentRouter.name,
+            path: '/investment',
+            children: [
+              _i2.RouteConfig(Dashboard.name,
+                  path: '', parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(SavingDetailScreenRouter.name,
+                  path: 'investment/saving-detail',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(RenewalScreenRouter.name,
+                  path: 'investment/saving-detail/renew-contract',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(RenewReviewRouter.name,
+                  path: 'investment/saving-detail/renew-contract/renew-review',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(RenewSuccessRouter.name,
+                  path:
+                      'investment/saving-detail/renew-contract/renew-review/success',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ContractWithdrawScreenRouter.name,
+                  path: 'investment/saving-detail/redemption',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ReviewWithdrawRouter.name,
+                  path: 'investment/saving-detail/redemption/redemption-review',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(RedemptionSuccessRouter.name,
+                  path:
+                      'investment/saving-detail/redemption/redemption-review/success',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(AboutFiFRouter.name,
+                  path: 'investment/about-fif',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(FIFDeucSelectionRouter.name,
+                  path: 'investment/fif-select-product',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ExploreMoreRouter.name,
+                  path: 'investment/fif-select-product/explore-more',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(FIFOption1Router.name,
+                  path: 'investment/fif-select-product/fif-Application',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ReviewApplicationRouter.name,
+                  path: 'investment/fif-select-product/fif-Application/review',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(CustomSucessScreenRouter.name,
+                  path:
+                      'investment/fif-select-product/fif-Application/review/success',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ConfirmDetailRouter.name,
+                  path: 'investment/confirm-detail',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(PendingDetailRouter.name,
+                  path: 'investment/pending-detail',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ServiceAgreementRouter.name,
+                  path: 'investment/service-agreement',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ViewAgreementRouter.name,
+                  path: 'investment/view-agreement',
+                  parent: MyInvestmentRouter.name),
+              _i2.RouteConfig(ViewAgreementListRouter.name,
+                  path: 'investment/view-agreement-list',
+                  parent: MyInvestmentRouter.name)
+            ]),
+        _i2.RouteConfig(BonusScreen.name, path: '/bonus'),
+        _i2.RouteConfig(HomePageRouter.name, path: '/get-funding', children: [
+          _i2.RouteConfig(Step1EquityRouter.name,
               path: 'step1equity/:id/:step', parent: HomePageRouter.name),
-          _i17.RouteConfig(Step2EquityRouter.name,
+          _i2.RouteConfig(Step2EquityRouter.name,
               path: 'step2equity/:id/:step', parent: HomePageRouter.name),
-          _i17.RouteConfig(Step3EquityRouter.name,
+          _i2.RouteConfig(Step3EquityRouter.name,
               path: 'step3equity/:id/:step', parent: HomePageRouter.name),
-          _i17.RouteConfig(PreviewEquityRouter.name,
+          _i2.RouteConfig(PreviewEquityRouter.name,
               path: 'preview-equity/:id', parent: HomePageRouter.name),
-          _i17.RouteConfig(Step1DebtRouter.name,
+          _i2.RouteConfig(Step1DebtRouter.name,
               path: 'step1debt/:id/:step', parent: HomePageRouter.name),
-          _i17.RouteConfig(Step2DebtRouter.name,
+          _i2.RouteConfig(Step2DebtRouter.name,
               path: 'step2debt/:id/:step', parent: HomePageRouter.name),
-          _i17.RouteConfig(Step3DebtRouter.name,
+          _i2.RouteConfig(Step3DebtRouter.name,
               path: 'step3debt/:id/:step', parent: HomePageRouter.name),
-          _i17.RouteConfig(Step4DebtRouter.name,
+          _i2.RouteConfig(Step4DebtRouter.name,
               path: 'step4debt/:id/:step', parent: HomePageRouter.name),
-          _i17.RouteConfig(PreviewDebtRouter.name,
+          _i2.RouteConfig(PreviewDebtRouter.name,
               path: 'preview-debt/:id', parent: HomePageRouter.name)
         ]),
-        _i17.RouteConfig(UTtrading.name, path: '/ut-trading'),
-        _i17.RouteConfig(Directory.name, path: '/directory'),
-        _i17.RouteConfig(Report.name, path: '/report'),
-        _i17.RouteConfig(PrivilegeScreen.name, path: '/privilege')
+        _i2.RouteConfig(UTtrading.name, path: '/ut-trading'),
+        _i2.RouteConfig(Directory.name, path: '/directory'),
+        _i2.RouteConfig(Report.name, path: '/report'),
+        _i2.RouteConfig(PrivilegeScreen.name, path: '/privilege')
       ];
 }
 
 /// generated route for
 /// [_i1.Splashscreen]
-class Splashscreen extends _i17.PageRouteInfo<void> {
+class Splashscreen extends _i2.PageRouteInfo<void> {
   const Splashscreen() : super(Splashscreen.name, path: '/');
 
   static const String name = 'Splashscreen';
 }
 
 /// generated route for
-/// [_i2.Dashboard]
-class Dashboard extends _i17.PageRouteInfo<DashboardArgs> {
-  Dashboard({_i18.Key? key, bool? isNavigator})
-      : super(Dashboard.name,
-            path: '/investment',
-            args: DashboardArgs(key: key, isNavigator: isNavigator));
+/// [_i2.EmptyRouterPage]
+class MyInvestmentRouter extends _i2.PageRouteInfo<void> {
+  const MyInvestmentRouter({List<_i2.PageRouteInfo>? children})
+      : super(MyInvestmentRouter.name,
+            path: '/investment', initialChildren: children);
 
-  static const String name = 'Dashboard';
-}
-
-class DashboardArgs {
-  const DashboardArgs({this.key, this.isNavigator});
-
-  final _i18.Key? key;
-
-  final bool? isNavigator;
-
-  @override
-  String toString() {
-    return 'DashboardArgs{key: $key, isNavigator: $isNavigator}';
-  }
+  static const String name = 'MyInvestmentRouter';
 }
 
 /// generated route for
 /// [_i3.BonusScreen]
-class BonusScreen extends _i17.PageRouteInfo<void> {
+class BonusScreen extends _i2.PageRouteInfo<void> {
   const BonusScreen() : super(BonusScreen.name, path: '/bonus');
 
   static const String name = 'BonusScreen';
@@ -259,9 +825,9 @@ class BonusScreen extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.HomePage]
-class HomePageRouter extends _i17.PageRouteInfo<HomePageRouterArgs> {
+class HomePageRouter extends _i2.PageRouteInfo<HomePageRouterArgs> {
   HomePageRouter(
-      {_i18.Key? key, bool? isNavigator, List<_i17.PageRouteInfo>? children})
+      {_i30.Key? key, bool? isNavigator, List<_i2.PageRouteInfo>? children})
       : super(HomePageRouter.name,
             path: '/get-funding',
             args: HomePageRouterArgs(key: key, isNavigator: isNavigator),
@@ -274,7 +840,7 @@ class HomePageRouter extends _i17.PageRouteInfo<HomePageRouterArgs> {
 class HomePageRouterArgs {
   const HomePageRouterArgs({this.key, this.isNavigator});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final bool? isNavigator;
 
@@ -286,7 +852,7 @@ class HomePageRouterArgs {
 
 /// generated route for
 /// [_i5.UTtrading]
-class UTtrading extends _i17.PageRouteInfo<void> {
+class UTtrading extends _i2.PageRouteInfo<void> {
   const UTtrading() : super(UTtrading.name, path: '/ut-trading');
 
   static const String name = 'UTtrading';
@@ -294,9 +860,9 @@ class UTtrading extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.Directory]
-class Directory extends _i17.PageRouteInfo<DirectoryArgs> {
+class Directory extends _i2.PageRouteInfo<DirectoryArgs> {
   Directory(
-      {_i18.Key? key,
+      {_i30.Key? key,
       bool? isNavigator,
       String? fromPage,
       Function? onTap,
@@ -321,7 +887,7 @@ class DirectoryArgs {
       this.onTap,
       this.isShowCiCTeam});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final bool? isNavigator;
 
@@ -339,8 +905,8 @@ class DirectoryArgs {
 
 /// generated route for
 /// [_i7.Report]
-class Report extends _i17.PageRouteInfo<ReportArgs> {
-  Report({_i18.Key? key, bool? isNavigator})
+class Report extends _i2.PageRouteInfo<ReportArgs> {
+  Report({_i30.Key? key, bool? isNavigator})
       : super(Report.name,
             path: '/report',
             args: ReportArgs(key: key, isNavigator: isNavigator));
@@ -351,7 +917,7 @@ class Report extends _i17.PageRouteInfo<ReportArgs> {
 class ReportArgs {
   const ReportArgs({this.key, this.isNavigator});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final bool? isNavigator;
 
@@ -363,8 +929,8 @@ class ReportArgs {
 
 /// generated route for
 /// [_i8.PrivilegeScreen]
-class PrivilegeScreen extends _i17.PageRouteInfo<PrivilegeScreenArgs> {
-  PrivilegeScreen({_i18.Key? key, int? index})
+class PrivilegeScreen extends _i2.PageRouteInfo<PrivilegeScreenArgs> {
+  PrivilegeScreen({_i30.Key? key, int? index})
       : super(PrivilegeScreen.name,
             path: '/privilege',
             args: PrivilegeScreenArgs(key: key, index: index));
@@ -375,7 +941,7 @@ class PrivilegeScreen extends _i17.PageRouteInfo<PrivilegeScreenArgs> {
 class PrivilegeScreenArgs {
   const PrivilegeScreenArgs({this.key, this.index});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? index;
 
@@ -386,9 +952,1483 @@ class PrivilegeScreenArgs {
 }
 
 /// generated route for
-/// [_i9.Step1Equiry]
-class Step1EquityRouter extends _i17.PageRouteInfo<Step1EquityRouterArgs> {
-  Step1EquityRouter({_i18.Key? key, int? id = 0, int? step})
+/// [_i9.Dashboard]
+class Dashboard extends _i2.PageRouteInfo<DashboardArgs> {
+  Dashboard({_i30.Key? key, bool? isNavigator})
+      : super(Dashboard.name,
+            path: '', args: DashboardArgs(key: key, isNavigator: isNavigator));
+
+  static const String name = 'Dashboard';
+}
+
+class DashboardArgs {
+  const DashboardArgs({this.key, this.isNavigator});
+
+  final _i30.Key? key;
+
+  final bool? isNavigator;
+
+  @override
+  String toString() {
+    return 'DashboardArgs{key: $key, isNavigator: $isNavigator}';
+  }
+}
+
+/// generated route for
+/// [_i10.SavingDetailScreen]
+class SavingDetailScreenRouter
+    extends _i2.PageRouteInfo<SavingDetailScreenRouterArgs> {
+  SavingDetailScreenRouter(
+      {_i30.Key? key,
+      String? accountName,
+      _i30.EdgeInsets? paddings,
+      String? code,
+      num? id,
+      List<_i31.ScheduleModelList>? scheduleModelList,
+      bool? hide,
+      int? index,
+      String? investAmonut,
+      String? currentPrincipal})
+      : super(SavingDetailScreenRouter.name,
+            path: 'investment/saving-detail',
+            args: SavingDetailScreenRouterArgs(
+                key: key,
+                accountName: accountName,
+                paddings: paddings,
+                code: code,
+                id: id,
+                scheduleModelList: scheduleModelList,
+                hide: hide,
+                index: index,
+                investAmonut: investAmonut,
+                currentPrincipal: currentPrincipal),
+            rawQueryParams: {
+              'accountName': accountName,
+              'paddings': paddings,
+              'code': code,
+              'id': id,
+              'scheduleModelList': scheduleModelList,
+              'hide': hide,
+              'index': index,
+              'investAmonut': investAmonut,
+              'currentPrincipal': currentPrincipal
+            });
+
+  static const String name = 'SavingDetailScreenRouter';
+}
+
+class SavingDetailScreenRouterArgs {
+  const SavingDetailScreenRouterArgs(
+      {this.key,
+      this.accountName,
+      this.paddings,
+      this.code,
+      this.id,
+      this.scheduleModelList,
+      this.hide,
+      this.index,
+      this.investAmonut,
+      this.currentPrincipal});
+
+  final _i30.Key? key;
+
+  final String? accountName;
+
+  final _i30.EdgeInsets? paddings;
+
+  final String? code;
+
+  final num? id;
+
+  final List<_i31.ScheduleModelList>? scheduleModelList;
+
+  final bool? hide;
+
+  final int? index;
+
+  final String? investAmonut;
+
+  final String? currentPrincipal;
+
+  @override
+  String toString() {
+    return 'SavingDetailScreenRouterArgs{key: $key, accountName: $accountName, paddings: $paddings, code: $code, id: $id, scheduleModelList: $scheduleModelList, hide: $hide, index: $index, investAmonut: $investAmonut, currentPrincipal: $currentPrincipal}';
+  }
+}
+
+/// generated route for
+/// [_i11.RenewalScreen]
+class RenewalScreenRouter extends _i2.PageRouteInfo<RenewalScreenRouterArgs> {
+  RenewalScreenRouter(
+      {_i30.Key? key,
+      String? investAmount,
+      _i32.FiFApplicationDetailModel? fiFApplicationModel,
+      num? id,
+      String? interestEarned,
+      String? annually,
+      String? accountName,
+      String? contractCode})
+      : super(RenewalScreenRouter.name,
+            path: 'investment/saving-detail/renew-contract',
+            args: RenewalScreenRouterArgs(
+                key: key,
+                investAmount: investAmount,
+                fiFApplicationModel: fiFApplicationModel,
+                id: id,
+                interestEarned: interestEarned,
+                annually: annually,
+                accountName: accountName,
+                contractCode: contractCode),
+            rawQueryParams: {
+              'investAmount': investAmount,
+              'fiFApplicationModel': fiFApplicationModel,
+              'id': id,
+              'interestEarned': interestEarned,
+              'annually': annually,
+              'accountName': accountName,
+              'contractCode': contractCode
+            });
+
+  static const String name = 'RenewalScreenRouter';
+}
+
+class RenewalScreenRouterArgs {
+  const RenewalScreenRouterArgs(
+      {this.key,
+      this.investAmount,
+      this.fiFApplicationModel,
+      this.id,
+      this.interestEarned,
+      this.annually,
+      this.accountName,
+      this.contractCode});
+
+  final _i30.Key? key;
+
+  final String? investAmount;
+
+  final _i32.FiFApplicationDetailModel? fiFApplicationModel;
+
+  final num? id;
+
+  final String? interestEarned;
+
+  final String? annually;
+
+  final String? accountName;
+
+  final String? contractCode;
+
+  @override
+  String toString() {
+    return 'RenewalScreenRouterArgs{key: $key, investAmount: $investAmount, fiFApplicationModel: $fiFApplicationModel, id: $id, interestEarned: $interestEarned, annually: $annually, accountName: $accountName, contractCode: $contractCode}';
+  }
+}
+
+/// generated route for
+/// [_i12.BulletPaymentDetail]
+class RenewReviewRouter extends _i2.PageRouteInfo<RenewReviewRouterArgs> {
+  RenewReviewRouter(
+      {_i30.Key? key,
+      bool? isAnnullyRate = false,
+      String? productName,
+      bool? isRenewal = false,
+      String? renewBy,
+      String? renewDate,
+      String? renewPeriod,
+      String? oldDate,
+      String? newDate,
+      String? investDate,
+      num? investDuration,
+      String? firstPayDate,
+      String? maturityDate,
+      String? investAmount,
+      String? withdrawer,
+      String? withdrawAmount,
+      String? noticeDate,
+      String? disbursementDate,
+      String? contractStatus,
+      bool? isWithdraw = false,
+      bool? isStatusPending = false,
+      num? id,
+      _i32.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
+      void Function()? oncallBack,
+      String? annually,
+      String? fromPage})
+      : super(RenewReviewRouter.name,
+            path: 'investment/saving-detail/renew-contract/renew-review',
+            args: RenewReviewRouterArgs(
+                key: key,
+                isAnnullyRate: isAnnullyRate,
+                productName: productName,
+                isRenewal: isRenewal,
+                renewBy: renewBy,
+                renewDate: renewDate,
+                renewPeriod: renewPeriod,
+                oldDate: oldDate,
+                newDate: newDate,
+                investDate: investDate,
+                investDuration: investDuration,
+                firstPayDate: firstPayDate,
+                maturityDate: maturityDate,
+                investAmount: investAmount,
+                withdrawer: withdrawer,
+                withdrawAmount: withdrawAmount,
+                noticeDate: noticeDate,
+                disbursementDate: disbursementDate,
+                contractStatus: contractStatus,
+                isWithdraw: isWithdraw,
+                isStatusPending: isStatusPending,
+                id: id,
+                fiFApplicationDetailModel: fiFApplicationDetailModel,
+                isNoUSD: isNoUSD,
+                status: status,
+                titles: titles,
+                oncallBack: oncallBack,
+                annually: annually,
+                fromPage: fromPage),
+            rawQueryParams: {
+              'isAnnullyRate': isAnnullyRate,
+              'productName': productName,
+              'isRenewal': isRenewal,
+              'renewBy': renewBy,
+              'renewDate': renewDate,
+              'renewPeriod': renewPeriod,
+              'oldDate': oldDate,
+              'newDate': newDate,
+              'investDate': investDate,
+              'investDuration': investDuration,
+              'firstPayDate': firstPayDate,
+              'maturityDate': maturityDate,
+              'investAmount': investAmount,
+              'withdrawer': withdrawer,
+              'withdrawAmount': withdrawAmount,
+              'noticeDate': noticeDate,
+              'disbursementDate': disbursementDate,
+              'contractStatus': contractStatus,
+              'isWithdraw': isWithdraw,
+              'isStatusPending': isStatusPending,
+              'id': id,
+              'fiFApplicationDetailModel': fiFApplicationDetailModel,
+              'isNoUSD': isNoUSD,
+              'status': status,
+              'titles': titles,
+              'annually': annually,
+              'fromPage': fromPage
+            });
+
+  static const String name = 'RenewReviewRouter';
+}
+
+class RenewReviewRouterArgs {
+  const RenewReviewRouterArgs(
+      {this.key,
+      this.isAnnullyRate = false,
+      this.productName,
+      this.isRenewal = false,
+      this.renewBy,
+      this.renewDate,
+      this.renewPeriod,
+      this.oldDate,
+      this.newDate,
+      this.investDate,
+      this.investDuration,
+      this.firstPayDate,
+      this.maturityDate,
+      this.investAmount,
+      this.withdrawer,
+      this.withdrawAmount,
+      this.noticeDate,
+      this.disbursementDate,
+      this.contractStatus,
+      this.isWithdraw = false,
+      this.isStatusPending = false,
+      this.id,
+      this.fiFApplicationDetailModel,
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
+      this.oncallBack,
+      this.annually,
+      this.fromPage});
+
+  final _i30.Key? key;
+
+  final bool? isAnnullyRate;
+
+  final String? productName;
+
+  final bool? isRenewal;
+
+  final String? renewBy;
+
+  final String? renewDate;
+
+  final String? renewPeriod;
+
+  final String? oldDate;
+
+  final String? newDate;
+
+  final String? investDate;
+
+  final num? investDuration;
+
+  final String? firstPayDate;
+
+  final String? maturityDate;
+
+  final String? investAmount;
+
+  final String? withdrawer;
+
+  final String? withdrawAmount;
+
+  final String? noticeDate;
+
+  final String? disbursementDate;
+
+  final String? contractStatus;
+
+  final bool? isWithdraw;
+
+  final bool? isStatusPending;
+
+  final num? id;
+
+  final _i32.FiFApplicationDetailModel? fiFApplicationDetailModel;
+
+  final bool isNoUSD;
+
+  final String? status;
+
+  final String? titles;
+
+  final void Function()? oncallBack;
+
+  final String? annually;
+
+  final String? fromPage;
+
+  @override
+  String toString() {
+    return 'RenewReviewRouterArgs{key: $key, isAnnullyRate: $isAnnullyRate, productName: $productName, isRenewal: $isRenewal, renewBy: $renewBy, renewDate: $renewDate, renewPeriod: $renewPeriod, oldDate: $oldDate, newDate: $newDate, investDate: $investDate, investDuration: $investDuration, firstPayDate: $firstPayDate, maturityDate: $maturityDate, investAmount: $investAmount, withdrawer: $withdrawer, withdrawAmount: $withdrawAmount, noticeDate: $noticeDate, disbursementDate: $disbursementDate, contractStatus: $contractStatus, isWithdraw: $isWithdraw, isStatusPending: $isStatusPending, id: $id, fiFApplicationDetailModel: $fiFApplicationDetailModel, isNoUSD: $isNoUSD, status: $status, titles: $titles, oncallBack: $oncallBack, annually: $annually, fromPage: $fromPage}';
+  }
+}
+
+/// generated route for
+/// [_i13.CustomSucessScreen]
+class RenewSuccessRouter extends _i2.PageRouteInfo<RenewSuccessRouterArgs> {
+  RenewSuccessRouter(
+      {_i30.Key? key,
+      String? title,
+      String? description,
+      _i30.Widget? icon,
+      void Function()? onPressedButton,
+      String? buttonTitle,
+      _i30.Color? backgroundColor,
+      _i30.EdgeInsetsGeometry? descriptionPadding})
+      : super(RenewSuccessRouter.name,
+            path:
+                'investment/saving-detail/renew-contract/renew-review/success',
+            args: RenewSuccessRouterArgs(
+                key: key,
+                title: title,
+                description: description,
+                icon: icon,
+                onPressedButton: onPressedButton,
+                buttonTitle: buttonTitle,
+                backgroundColor: backgroundColor,
+                descriptionPadding: descriptionPadding),
+            rawQueryParams: {
+              'title': title,
+              'description': description,
+              'icon': icon,
+              'buttonTitle': buttonTitle,
+              'backgroundColor': backgroundColor,
+              'descriptionPadding': descriptionPadding
+            });
+
+  static const String name = 'RenewSuccessRouter';
+}
+
+class RenewSuccessRouterArgs {
+  const RenewSuccessRouterArgs(
+      {this.key,
+      this.title,
+      this.description,
+      this.icon,
+      this.onPressedButton,
+      this.buttonTitle,
+      this.backgroundColor,
+      this.descriptionPadding});
+
+  final _i30.Key? key;
+
+  final String? title;
+
+  final String? description;
+
+  final _i30.Widget? icon;
+
+  final void Function()? onPressedButton;
+
+  final String? buttonTitle;
+
+  final _i30.Color? backgroundColor;
+
+  final _i30.EdgeInsetsGeometry? descriptionPadding;
+
+  @override
+  String toString() {
+    return 'RenewSuccessRouterArgs{key: $key, title: $title, description: $description, icon: $icon, onPressedButton: $onPressedButton, buttonTitle: $buttonTitle, backgroundColor: $backgroundColor, descriptionPadding: $descriptionPadding}';
+  }
+}
+
+/// generated route for
+/// [_i14.ContractWithdrawScreen]
+class ContractWithdrawScreenRouter
+    extends _i2.PageRouteInfo<ContractWithdrawScreenRouterArgs> {
+  ContractWithdrawScreenRouter(
+      {_i30.Key? key,
+      String? investAmount,
+      String? interestEarned,
+      num? id,
+      String? productName,
+      String? contractCode,
+      String? accountName})
+      : super(ContractWithdrawScreenRouter.name,
+            path: 'investment/saving-detail/redemption',
+            args: ContractWithdrawScreenRouterArgs(
+                key: key,
+                investAmount: investAmount,
+                interestEarned: interestEarned,
+                id: id,
+                productName: productName,
+                contractCode: contractCode,
+                accountName: accountName),
+            rawQueryParams: {
+              'investAmount': investAmount,
+              'interestEarned': interestEarned,
+              'id': id,
+              'productName': productName,
+              'contractCode': contractCode,
+              'accountName': accountName
+            });
+
+  static const String name = 'ContractWithdrawScreenRouter';
+}
+
+class ContractWithdrawScreenRouterArgs {
+  const ContractWithdrawScreenRouterArgs(
+      {this.key,
+      this.investAmount,
+      this.interestEarned,
+      this.id,
+      this.productName,
+      this.contractCode,
+      this.accountName});
+
+  final _i30.Key? key;
+
+  final String? investAmount;
+
+  final String? interestEarned;
+
+  final num? id;
+
+  final String? productName;
+
+  final String? contractCode;
+
+  final String? accountName;
+
+  @override
+  String toString() {
+    return 'ContractWithdrawScreenRouterArgs{key: $key, investAmount: $investAmount, interestEarned: $interestEarned, id: $id, productName: $productName, contractCode: $contractCode, accountName: $accountName}';
+  }
+}
+
+/// generated route for
+/// [_i12.BulletPaymentDetail]
+class ReviewWithdrawRouter extends _i2.PageRouteInfo<ReviewWithdrawRouterArgs> {
+  ReviewWithdrawRouter(
+      {_i30.Key? key,
+      bool? isAnnullyRate = false,
+      String? productName,
+      bool? isRenewal = false,
+      String? renewBy,
+      String? renewDate,
+      String? renewPeriod,
+      String? oldDate,
+      String? newDate,
+      String? investDate,
+      num? investDuration,
+      String? firstPayDate,
+      String? maturityDate,
+      String? investAmount,
+      String? withdrawer,
+      String? withdrawAmount,
+      String? noticeDate,
+      String? disbursementDate,
+      String? contractStatus,
+      bool? isWithdraw = false,
+      bool? isStatusPending = false,
+      num? id,
+      _i32.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
+      void Function()? oncallBack,
+      String? annually,
+      String? fromPage})
+      : super(ReviewWithdrawRouter.name,
+            path: 'investment/saving-detail/redemption/redemption-review',
+            args: ReviewWithdrawRouterArgs(
+                key: key,
+                isAnnullyRate: isAnnullyRate,
+                productName: productName,
+                isRenewal: isRenewal,
+                renewBy: renewBy,
+                renewDate: renewDate,
+                renewPeriod: renewPeriod,
+                oldDate: oldDate,
+                newDate: newDate,
+                investDate: investDate,
+                investDuration: investDuration,
+                firstPayDate: firstPayDate,
+                maturityDate: maturityDate,
+                investAmount: investAmount,
+                withdrawer: withdrawer,
+                withdrawAmount: withdrawAmount,
+                noticeDate: noticeDate,
+                disbursementDate: disbursementDate,
+                contractStatus: contractStatus,
+                isWithdraw: isWithdraw,
+                isStatusPending: isStatusPending,
+                id: id,
+                fiFApplicationDetailModel: fiFApplicationDetailModel,
+                isNoUSD: isNoUSD,
+                status: status,
+                titles: titles,
+                oncallBack: oncallBack,
+                annually: annually,
+                fromPage: fromPage),
+            rawQueryParams: {
+              'isAnnullyRate': isAnnullyRate,
+              'productName': productName,
+              'isRenewal': isRenewal,
+              'renewBy': renewBy,
+              'renewDate': renewDate,
+              'renewPeriod': renewPeriod,
+              'oldDate': oldDate,
+              'newDate': newDate,
+              'investDate': investDate,
+              'investDuration': investDuration,
+              'firstPayDate': firstPayDate,
+              'maturityDate': maturityDate,
+              'investAmount': investAmount,
+              'withdrawer': withdrawer,
+              'withdrawAmount': withdrawAmount,
+              'noticeDate': noticeDate,
+              'disbursementDate': disbursementDate,
+              'contractStatus': contractStatus,
+              'isWithdraw': isWithdraw,
+              'isStatusPending': isStatusPending,
+              'id': id,
+              'fiFApplicationDetailModel': fiFApplicationDetailModel,
+              'isNoUSD': isNoUSD,
+              'status': status,
+              'titles': titles,
+              'annually': annually,
+              'fromPage': fromPage
+            });
+
+  static const String name = 'ReviewWithdrawRouter';
+}
+
+class ReviewWithdrawRouterArgs {
+  const ReviewWithdrawRouterArgs(
+      {this.key,
+      this.isAnnullyRate = false,
+      this.productName,
+      this.isRenewal = false,
+      this.renewBy,
+      this.renewDate,
+      this.renewPeriod,
+      this.oldDate,
+      this.newDate,
+      this.investDate,
+      this.investDuration,
+      this.firstPayDate,
+      this.maturityDate,
+      this.investAmount,
+      this.withdrawer,
+      this.withdrawAmount,
+      this.noticeDate,
+      this.disbursementDate,
+      this.contractStatus,
+      this.isWithdraw = false,
+      this.isStatusPending = false,
+      this.id,
+      this.fiFApplicationDetailModel,
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
+      this.oncallBack,
+      this.annually,
+      this.fromPage});
+
+  final _i30.Key? key;
+
+  final bool? isAnnullyRate;
+
+  final String? productName;
+
+  final bool? isRenewal;
+
+  final String? renewBy;
+
+  final String? renewDate;
+
+  final String? renewPeriod;
+
+  final String? oldDate;
+
+  final String? newDate;
+
+  final String? investDate;
+
+  final num? investDuration;
+
+  final String? firstPayDate;
+
+  final String? maturityDate;
+
+  final String? investAmount;
+
+  final String? withdrawer;
+
+  final String? withdrawAmount;
+
+  final String? noticeDate;
+
+  final String? disbursementDate;
+
+  final String? contractStatus;
+
+  final bool? isWithdraw;
+
+  final bool? isStatusPending;
+
+  final num? id;
+
+  final _i32.FiFApplicationDetailModel? fiFApplicationDetailModel;
+
+  final bool isNoUSD;
+
+  final String? status;
+
+  final String? titles;
+
+  final void Function()? oncallBack;
+
+  final String? annually;
+
+  final String? fromPage;
+
+  @override
+  String toString() {
+    return 'ReviewWithdrawRouterArgs{key: $key, isAnnullyRate: $isAnnullyRate, productName: $productName, isRenewal: $isRenewal, renewBy: $renewBy, renewDate: $renewDate, renewPeriod: $renewPeriod, oldDate: $oldDate, newDate: $newDate, investDate: $investDate, investDuration: $investDuration, firstPayDate: $firstPayDate, maturityDate: $maturityDate, investAmount: $investAmount, withdrawer: $withdrawer, withdrawAmount: $withdrawAmount, noticeDate: $noticeDate, disbursementDate: $disbursementDate, contractStatus: $contractStatus, isWithdraw: $isWithdraw, isStatusPending: $isStatusPending, id: $id, fiFApplicationDetailModel: $fiFApplicationDetailModel, isNoUSD: $isNoUSD, status: $status, titles: $titles, oncallBack: $oncallBack, annually: $annually, fromPage: $fromPage}';
+  }
+}
+
+/// generated route for
+/// [_i13.CustomSucessScreen]
+class RedemptionSuccessRouter
+    extends _i2.PageRouteInfo<RedemptionSuccessRouterArgs> {
+  RedemptionSuccessRouter(
+      {_i30.Key? key,
+      String? title,
+      String? description,
+      _i30.Widget? icon,
+      void Function()? onPressedButton,
+      String? buttonTitle,
+      _i30.Color? backgroundColor,
+      _i30.EdgeInsetsGeometry? descriptionPadding})
+      : super(RedemptionSuccessRouter.name,
+            path:
+                'investment/saving-detail/redemption/redemption-review/success',
+            args: RedemptionSuccessRouterArgs(
+                key: key,
+                title: title,
+                description: description,
+                icon: icon,
+                onPressedButton: onPressedButton,
+                buttonTitle: buttonTitle,
+                backgroundColor: backgroundColor,
+                descriptionPadding: descriptionPadding),
+            rawQueryParams: {
+              'title': title,
+              'description': description,
+              'icon': icon,
+              'buttonTitle': buttonTitle,
+              'backgroundColor': backgroundColor,
+              'descriptionPadding': descriptionPadding
+            });
+
+  static const String name = 'RedemptionSuccessRouter';
+}
+
+class RedemptionSuccessRouterArgs {
+  const RedemptionSuccessRouterArgs(
+      {this.key,
+      this.title,
+      this.description,
+      this.icon,
+      this.onPressedButton,
+      this.buttonTitle,
+      this.backgroundColor,
+      this.descriptionPadding});
+
+  final _i30.Key? key;
+
+  final String? title;
+
+  final String? description;
+
+  final _i30.Widget? icon;
+
+  final void Function()? onPressedButton;
+
+  final String? buttonTitle;
+
+  final _i30.Color? backgroundColor;
+
+  final _i30.EdgeInsetsGeometry? descriptionPadding;
+
+  @override
+  String toString() {
+    return 'RedemptionSuccessRouterArgs{key: $key, title: $title, description: $description, icon: $icon, onPressedButton: $onPressedButton, buttonTitle: $buttonTitle, backgroundColor: $backgroundColor, descriptionPadding: $descriptionPadding}';
+  }
+}
+
+/// generated route for
+/// [_i15.ViewWebsite]
+class AboutFiFRouter extends _i2.PageRouteInfo<AboutFiFRouterArgs> {
+  AboutFiFRouter(
+      {_i30.Key? key, String? url, String? title, bool? isfromReport = false})
+      : super(AboutFiFRouter.name,
+            path: 'investment/about-fif',
+            args: AboutFiFRouterArgs(
+                key: key, url: url, title: title, isfromReport: isfromReport),
+            rawQueryParams: {
+              'url': url,
+              'title': title,
+              'isfromReport': isfromReport
+            });
+
+  static const String name = 'AboutFiFRouter';
+}
+
+class AboutFiFRouterArgs {
+  const AboutFiFRouterArgs(
+      {this.key, this.url, this.title, this.isfromReport = false});
+
+  final _i30.Key? key;
+
+  final String? url;
+
+  final String? title;
+
+  final bool? isfromReport;
+
+  @override
+  String toString() {
+    return 'AboutFiFRouterArgs{key: $key, url: $url, title: $title, isfromReport: $isfromReport}';
+  }
+}
+
+/// generated route for
+/// [_i16.FIFDeucSelection]
+class FIFDeucSelectionRouter
+    extends _i2.PageRouteInfo<FIFDeucSelectionRouterArgs> {
+  FIFDeucSelectionRouter({_i30.Key? key, int? id})
+      : super(FIFDeucSelectionRouter.name,
+            path: 'investment/fif-select-product',
+            args: FIFDeucSelectionRouterArgs(key: key, id: id),
+            rawQueryParams: {'id': id});
+
+  static const String name = 'FIFDeucSelectionRouter';
+}
+
+class FIFDeucSelectionRouterArgs {
+  const FIFDeucSelectionRouterArgs({this.key, this.id});
+
+  final _i30.Key? key;
+
+  final int? id;
+
+  @override
+  String toString() {
+    return 'FIFDeucSelectionRouterArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
+/// [_i15.ViewWebsite]
+class ExploreMoreRouter extends _i2.PageRouteInfo<ExploreMoreRouterArgs> {
+  ExploreMoreRouter(
+      {_i30.Key? key, String? url, String? title, bool? isfromReport = false})
+      : super(ExploreMoreRouter.name,
+            path: 'investment/fif-select-product/explore-more',
+            args: ExploreMoreRouterArgs(
+                key: key, url: url, title: title, isfromReport: isfromReport),
+            rawQueryParams: {
+              'url': url,
+              'title': title,
+              'isfromReport': isfromReport
+            });
+
+  static const String name = 'ExploreMoreRouter';
+}
+
+class ExploreMoreRouterArgs {
+  const ExploreMoreRouterArgs(
+      {this.key, this.url, this.title, this.isfromReport = false});
+
+  final _i30.Key? key;
+
+  final String? url;
+
+  final String? title;
+
+  final bool? isfromReport;
+
+  @override
+  String toString() {
+    return 'ExploreMoreRouterArgs{key: $key, url: $url, title: $title, isfromReport: $isfromReport}';
+  }
+}
+
+/// generated route for
+/// [_i17.FIFOption1]
+class FIFOption1Router extends _i2.PageRouteInfo<FIFOption1RouterArgs> {
+  FIFOption1Router(
+      {_i30.Key? key,
+      _i33.PaymentDate? paymentDate,
+      int? id = 0,
+      List<_i34.FIFoptionModel>? options})
+      : super(FIFOption1Router.name,
+            path: 'investment/fif-select-product/fif-Application',
+            args: FIFOption1RouterArgs(
+                key: key, paymentDate: paymentDate, id: id, options: options),
+            rawQueryParams: {
+              'paymentDate': paymentDate,
+              'id': id,
+              'options': options
+            });
+
+  static const String name = 'FIFOption1Router';
+}
+
+class FIFOption1RouterArgs {
+  const FIFOption1RouterArgs(
+      {this.key, this.paymentDate, this.id = 0, this.options});
+
+  final _i30.Key? key;
+
+  final _i33.PaymentDate? paymentDate;
+
+  final int? id;
+
+  final List<_i34.FIFoptionModel>? options;
+
+  @override
+  String toString() {
+    return 'FIFOption1RouterArgs{key: $key, paymentDate: $paymentDate, id: $id, options: $options}';
+  }
+}
+
+/// generated route for
+/// [_i12.BulletPaymentDetail]
+class ReviewApplicationRouter
+    extends _i2.PageRouteInfo<ReviewApplicationRouterArgs> {
+  ReviewApplicationRouter(
+      {_i30.Key? key,
+      bool? isAnnullyRate = false,
+      String? productName,
+      bool? isRenewal = false,
+      String? renewBy,
+      String? renewDate,
+      String? renewPeriod,
+      String? oldDate,
+      String? newDate,
+      String? investDate,
+      num? investDuration,
+      String? firstPayDate,
+      String? maturityDate,
+      String? investAmount,
+      String? withdrawer,
+      String? withdrawAmount,
+      String? noticeDate,
+      String? disbursementDate,
+      String? contractStatus,
+      bool? isWithdraw = false,
+      bool? isStatusPending = false,
+      num? id,
+      _i32.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
+      void Function()? oncallBack,
+      String? annually,
+      String? fromPage})
+      : super(ReviewApplicationRouter.name,
+            path: 'investment/fif-select-product/fif-Application/review',
+            args: ReviewApplicationRouterArgs(
+                key: key,
+                isAnnullyRate: isAnnullyRate,
+                productName: productName,
+                isRenewal: isRenewal,
+                renewBy: renewBy,
+                renewDate: renewDate,
+                renewPeriod: renewPeriod,
+                oldDate: oldDate,
+                newDate: newDate,
+                investDate: investDate,
+                investDuration: investDuration,
+                firstPayDate: firstPayDate,
+                maturityDate: maturityDate,
+                investAmount: investAmount,
+                withdrawer: withdrawer,
+                withdrawAmount: withdrawAmount,
+                noticeDate: noticeDate,
+                disbursementDate: disbursementDate,
+                contractStatus: contractStatus,
+                isWithdraw: isWithdraw,
+                isStatusPending: isStatusPending,
+                id: id,
+                fiFApplicationDetailModel: fiFApplicationDetailModel,
+                isNoUSD: isNoUSD,
+                status: status,
+                titles: titles,
+                oncallBack: oncallBack,
+                annually: annually,
+                fromPage: fromPage),
+            rawQueryParams: {
+              'isAnnullyRate': isAnnullyRate,
+              'productName': productName,
+              'isRenewal': isRenewal,
+              'renewBy': renewBy,
+              'renewDate': renewDate,
+              'renewPeriod': renewPeriod,
+              'oldDate': oldDate,
+              'newDate': newDate,
+              'investDate': investDate,
+              'investDuration': investDuration,
+              'firstPayDate': firstPayDate,
+              'maturityDate': maturityDate,
+              'investAmount': investAmount,
+              'withdrawer': withdrawer,
+              'withdrawAmount': withdrawAmount,
+              'noticeDate': noticeDate,
+              'disbursementDate': disbursementDate,
+              'contractStatus': contractStatus,
+              'isWithdraw': isWithdraw,
+              'isStatusPending': isStatusPending,
+              'id': id,
+              'fiFApplicationDetailModel': fiFApplicationDetailModel,
+              'isNoUSD': isNoUSD,
+              'status': status,
+              'titles': titles,
+              'annually': annually,
+              'fromPage': fromPage
+            });
+
+  static const String name = 'ReviewApplicationRouter';
+}
+
+class ReviewApplicationRouterArgs {
+  const ReviewApplicationRouterArgs(
+      {this.key,
+      this.isAnnullyRate = false,
+      this.productName,
+      this.isRenewal = false,
+      this.renewBy,
+      this.renewDate,
+      this.renewPeriod,
+      this.oldDate,
+      this.newDate,
+      this.investDate,
+      this.investDuration,
+      this.firstPayDate,
+      this.maturityDate,
+      this.investAmount,
+      this.withdrawer,
+      this.withdrawAmount,
+      this.noticeDate,
+      this.disbursementDate,
+      this.contractStatus,
+      this.isWithdraw = false,
+      this.isStatusPending = false,
+      this.id,
+      this.fiFApplicationDetailModel,
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
+      this.oncallBack,
+      this.annually,
+      this.fromPage});
+
+  final _i30.Key? key;
+
+  final bool? isAnnullyRate;
+
+  final String? productName;
+
+  final bool? isRenewal;
+
+  final String? renewBy;
+
+  final String? renewDate;
+
+  final String? renewPeriod;
+
+  final String? oldDate;
+
+  final String? newDate;
+
+  final String? investDate;
+
+  final num? investDuration;
+
+  final String? firstPayDate;
+
+  final String? maturityDate;
+
+  final String? investAmount;
+
+  final String? withdrawer;
+
+  final String? withdrawAmount;
+
+  final String? noticeDate;
+
+  final String? disbursementDate;
+
+  final String? contractStatus;
+
+  final bool? isWithdraw;
+
+  final bool? isStatusPending;
+
+  final num? id;
+
+  final _i32.FiFApplicationDetailModel? fiFApplicationDetailModel;
+
+  final bool isNoUSD;
+
+  final String? status;
+
+  final String? titles;
+
+  final void Function()? oncallBack;
+
+  final String? annually;
+
+  final String? fromPage;
+
+  @override
+  String toString() {
+    return 'ReviewApplicationRouterArgs{key: $key, isAnnullyRate: $isAnnullyRate, productName: $productName, isRenewal: $isRenewal, renewBy: $renewBy, renewDate: $renewDate, renewPeriod: $renewPeriod, oldDate: $oldDate, newDate: $newDate, investDate: $investDate, investDuration: $investDuration, firstPayDate: $firstPayDate, maturityDate: $maturityDate, investAmount: $investAmount, withdrawer: $withdrawer, withdrawAmount: $withdrawAmount, noticeDate: $noticeDate, disbursementDate: $disbursementDate, contractStatus: $contractStatus, isWithdraw: $isWithdraw, isStatusPending: $isStatusPending, id: $id, fiFApplicationDetailModel: $fiFApplicationDetailModel, isNoUSD: $isNoUSD, status: $status, titles: $titles, oncallBack: $oncallBack, annually: $annually, fromPage: $fromPage}';
+  }
+}
+
+/// generated route for
+/// [_i13.CustomSucessScreen]
+class CustomSucessScreenRouter
+    extends _i2.PageRouteInfo<CustomSucessScreenRouterArgs> {
+  CustomSucessScreenRouter(
+      {_i30.Key? key,
+      String? title,
+      String? description,
+      _i30.Widget? icon,
+      void Function()? onPressedButton,
+      String? buttonTitle,
+      _i30.Color? backgroundColor,
+      _i30.EdgeInsetsGeometry? descriptionPadding})
+      : super(CustomSucessScreenRouter.name,
+            path:
+                'investment/fif-select-product/fif-Application/review/success',
+            args: CustomSucessScreenRouterArgs(
+                key: key,
+                title: title,
+                description: description,
+                icon: icon,
+                onPressedButton: onPressedButton,
+                buttonTitle: buttonTitle,
+                backgroundColor: backgroundColor,
+                descriptionPadding: descriptionPadding),
+            rawQueryParams: {
+              'title': title,
+              'description': description,
+              'icon': icon,
+              'buttonTitle': buttonTitle,
+              'backgroundColor': backgroundColor,
+              'descriptionPadding': descriptionPadding
+            });
+
+  static const String name = 'CustomSucessScreenRouter';
+}
+
+class CustomSucessScreenRouterArgs {
+  const CustomSucessScreenRouterArgs(
+      {this.key,
+      this.title,
+      this.description,
+      this.icon,
+      this.onPressedButton,
+      this.buttonTitle,
+      this.backgroundColor,
+      this.descriptionPadding});
+
+  final _i30.Key? key;
+
+  final String? title;
+
+  final String? description;
+
+  final _i30.Widget? icon;
+
+  final void Function()? onPressedButton;
+
+  final String? buttonTitle;
+
+  final _i30.Color? backgroundColor;
+
+  final _i30.EdgeInsetsGeometry? descriptionPadding;
+
+  @override
+  String toString() {
+    return 'CustomSucessScreenRouterArgs{key: $key, title: $title, description: $description, icon: $icon, onPressedButton: $onPressedButton, buttonTitle: $buttonTitle, backgroundColor: $backgroundColor, descriptionPadding: $descriptionPadding}';
+  }
+}
+
+/// generated route for
+/// [_i18.DepositeScreen]
+class ConfirmDetailRouter extends _i2.PageRouteInfo<ConfirmDetailRouterArgs> {
+  ConfirmDetailRouter({_i30.Key? key, int? id})
+      : super(ConfirmDetailRouter.name,
+            path: 'investment/confirm-detail',
+            args: ConfirmDetailRouterArgs(key: key, id: id),
+            rawQueryParams: {'id': id});
+
+  static const String name = 'ConfirmDetailRouter';
+}
+
+class ConfirmDetailRouterArgs {
+  const ConfirmDetailRouterArgs({this.key, this.id});
+
+  final _i30.Key? key;
+
+  final int? id;
+
+  @override
+  String toString() {
+    return 'ConfirmDetailRouterArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
+/// [_i12.BulletPaymentDetail]
+class PendingDetailRouter extends _i2.PageRouteInfo<PendingDetailRouterArgs> {
+  PendingDetailRouter(
+      {_i30.Key? key,
+      bool? isAnnullyRate = false,
+      String? productName,
+      bool? isRenewal = false,
+      String? renewBy,
+      String? renewDate,
+      String? renewPeriod,
+      String? oldDate,
+      String? newDate,
+      String? investDate,
+      num? investDuration,
+      String? firstPayDate,
+      String? maturityDate,
+      String? investAmount,
+      String? withdrawer,
+      String? withdrawAmount,
+      String? noticeDate,
+      String? disbursementDate,
+      String? contractStatus,
+      bool? isWithdraw = false,
+      bool? isStatusPending = false,
+      num? id,
+      _i32.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
+      void Function()? oncallBack,
+      String? annually,
+      String? fromPage})
+      : super(PendingDetailRouter.name,
+            path: 'investment/pending-detail',
+            args: PendingDetailRouterArgs(
+                key: key,
+                isAnnullyRate: isAnnullyRate,
+                productName: productName,
+                isRenewal: isRenewal,
+                renewBy: renewBy,
+                renewDate: renewDate,
+                renewPeriod: renewPeriod,
+                oldDate: oldDate,
+                newDate: newDate,
+                investDate: investDate,
+                investDuration: investDuration,
+                firstPayDate: firstPayDate,
+                maturityDate: maturityDate,
+                investAmount: investAmount,
+                withdrawer: withdrawer,
+                withdrawAmount: withdrawAmount,
+                noticeDate: noticeDate,
+                disbursementDate: disbursementDate,
+                contractStatus: contractStatus,
+                isWithdraw: isWithdraw,
+                isStatusPending: isStatusPending,
+                id: id,
+                fiFApplicationDetailModel: fiFApplicationDetailModel,
+                isNoUSD: isNoUSD,
+                status: status,
+                titles: titles,
+                oncallBack: oncallBack,
+                annually: annually,
+                fromPage: fromPage),
+            rawQueryParams: {
+              'isAnnullyRate': isAnnullyRate,
+              'productName': productName,
+              'isRenewal': isRenewal,
+              'renewBy': renewBy,
+              'renewDate': renewDate,
+              'renewPeriod': renewPeriod,
+              'oldDate': oldDate,
+              'newDate': newDate,
+              'investDate': investDate,
+              'investDuration': investDuration,
+              'firstPayDate': firstPayDate,
+              'maturityDate': maturityDate,
+              'investAmount': investAmount,
+              'withdrawer': withdrawer,
+              'withdrawAmount': withdrawAmount,
+              'noticeDate': noticeDate,
+              'disbursementDate': disbursementDate,
+              'contractStatus': contractStatus,
+              'isWithdraw': isWithdraw,
+              'isStatusPending': isStatusPending,
+              'id': id,
+              'fiFApplicationDetailModel': fiFApplicationDetailModel,
+              'isNoUSD': isNoUSD,
+              'status': status,
+              'titles': titles,
+              'annually': annually,
+              'fromPage': fromPage
+            });
+
+  static const String name = 'PendingDetailRouter';
+}
+
+class PendingDetailRouterArgs {
+  const PendingDetailRouterArgs(
+      {this.key,
+      this.isAnnullyRate = false,
+      this.productName,
+      this.isRenewal = false,
+      this.renewBy,
+      this.renewDate,
+      this.renewPeriod,
+      this.oldDate,
+      this.newDate,
+      this.investDate,
+      this.investDuration,
+      this.firstPayDate,
+      this.maturityDate,
+      this.investAmount,
+      this.withdrawer,
+      this.withdrawAmount,
+      this.noticeDate,
+      this.disbursementDate,
+      this.contractStatus,
+      this.isWithdraw = false,
+      this.isStatusPending = false,
+      this.id,
+      this.fiFApplicationDetailModel,
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
+      this.oncallBack,
+      this.annually,
+      this.fromPage});
+
+  final _i30.Key? key;
+
+  final bool? isAnnullyRate;
+
+  final String? productName;
+
+  final bool? isRenewal;
+
+  final String? renewBy;
+
+  final String? renewDate;
+
+  final String? renewPeriod;
+
+  final String? oldDate;
+
+  final String? newDate;
+
+  final String? investDate;
+
+  final num? investDuration;
+
+  final String? firstPayDate;
+
+  final String? maturityDate;
+
+  final String? investAmount;
+
+  final String? withdrawer;
+
+  final String? withdrawAmount;
+
+  final String? noticeDate;
+
+  final String? disbursementDate;
+
+  final String? contractStatus;
+
+  final bool? isWithdraw;
+
+  final bool? isStatusPending;
+
+  final num? id;
+
+  final _i32.FiFApplicationDetailModel? fiFApplicationDetailModel;
+
+  final bool isNoUSD;
+
+  final String? status;
+
+  final String? titles;
+
+  final void Function()? oncallBack;
+
+  final String? annually;
+
+  final String? fromPage;
+
+  @override
+  String toString() {
+    return 'PendingDetailRouterArgs{key: $key, isAnnullyRate: $isAnnullyRate, productName: $productName, isRenewal: $isRenewal, renewBy: $renewBy, renewDate: $renewDate, renewPeriod: $renewPeriod, oldDate: $oldDate, newDate: $newDate, investDate: $investDate, investDuration: $investDuration, firstPayDate: $firstPayDate, maturityDate: $maturityDate, investAmount: $investAmount, withdrawer: $withdrawer, withdrawAmount: $withdrawAmount, noticeDate: $noticeDate, disbursementDate: $disbursementDate, contractStatus: $contractStatus, isWithdraw: $isWithdraw, isStatusPending: $isStatusPending, id: $id, fiFApplicationDetailModel: $fiFApplicationDetailModel, isNoUSD: $isNoUSD, status: $status, titles: $titles, oncallBack: $oncallBack, annually: $annually, fromPage: $fromPage}';
+  }
+}
+
+/// generated route for
+/// [_i19.ContractTerm]
+class ServiceAgreementRouter
+    extends _i2.PageRouteInfo<ServiceAgreementRouterArgs> {
+  ServiceAgreementRouter({_i30.Key? key, String? fromPage})
+      : super(ServiceAgreementRouter.name,
+            path: 'investment/service-agreement',
+            args: ServiceAgreementRouterArgs(key: key, fromPage: fromPage));
+
+  static const String name = 'ServiceAgreementRouter';
+}
+
+class ServiceAgreementRouterArgs {
+  const ServiceAgreementRouterArgs({this.key, this.fromPage});
+
+  final _i30.Key? key;
+
+  final String? fromPage;
+
+  @override
+  String toString() {
+    return 'ServiceAgreementRouterArgs{key: $key, fromPage: $fromPage}';
+  }
+}
+
+/// generated route for
+/// [_i15.ViewWebsite]
+class ViewAgreementRouter extends _i2.PageRouteInfo<ViewAgreementRouterArgs> {
+  ViewAgreementRouter(
+      {_i30.Key? key, String? url, String? title, bool? isfromReport = false})
+      : super(ViewAgreementRouter.name,
+            path: 'investment/view-agreement',
+            args: ViewAgreementRouterArgs(
+                key: key, url: url, title: title, isfromReport: isfromReport),
+            rawQueryParams: {
+              'url': url,
+              'title': title,
+              'isfromReport': isfromReport
+            });
+
+  static const String name = 'ViewAgreementRouter';
+}
+
+class ViewAgreementRouterArgs {
+  const ViewAgreementRouterArgs(
+      {this.key, this.url, this.title, this.isfromReport = false});
+
+  final _i30.Key? key;
+
+  final String? url;
+
+  final String? title;
+
+  final bool? isfromReport;
+
+  @override
+  String toString() {
+    return 'ViewAgreementRouterArgs{key: $key, url: $url, title: $title, isfromReport: $isfromReport}';
+  }
+}
+
+/// generated route for
+/// [_i20.ViewAgreementList]
+class ViewAgreementListRouter
+    extends _i2.PageRouteInfo<ViewAgreementListRouterArgs> {
+  ViewAgreementListRouter(
+      {_i30.Key? key, required List<_i35.ViewAgreement> listAgreeMent})
+      : super(ViewAgreementListRouter.name,
+            path: 'investment/view-agreement-list',
+            args: ViewAgreementListRouterArgs(
+                key: key, listAgreeMent: listAgreeMent));
+
+  static const String name = 'ViewAgreementListRouter';
+}
+
+class ViewAgreementListRouterArgs {
+  const ViewAgreementListRouterArgs({this.key, required this.listAgreeMent});
+
+  final _i30.Key? key;
+
+  final List<_i35.ViewAgreement> listAgreeMent;
+
+  @override
+  String toString() {
+    return 'ViewAgreementListRouterArgs{key: $key, listAgreeMent: $listAgreeMent}';
+  }
+}
+
+/// generated route for
+/// [_i21.Step1Equiry]
+class Step1EquityRouter extends _i2.PageRouteInfo<Step1EquityRouterArgs> {
+  Step1EquityRouter({_i30.Key? key, int? id = 0, int? step})
       : super(Step1EquityRouter.name,
             path: 'step1equity/:id/:step',
             args: Step1EquityRouterArgs(key: key, id: id, step: step),
@@ -400,7 +2440,7 @@ class Step1EquityRouter extends _i17.PageRouteInfo<Step1EquityRouterArgs> {
 class Step1EquityRouterArgs {
   const Step1EquityRouterArgs({this.key, this.id = 0, this.step});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? id;
 
@@ -413,9 +2453,9 @@ class Step1EquityRouterArgs {
 }
 
 /// generated route for
-/// [_i10.Step2Equity]
-class Step2EquityRouter extends _i17.PageRouteInfo<Step2EquityRouterArgs> {
-  Step2EquityRouter({_i18.Key? key, int? id, int? step})
+/// [_i22.Step2Equity]
+class Step2EquityRouter extends _i2.PageRouteInfo<Step2EquityRouterArgs> {
+  Step2EquityRouter({_i30.Key? key, int? id, int? step})
       : super(Step2EquityRouter.name,
             path: 'step2equity/:id/:step',
             args: Step2EquityRouterArgs(key: key, id: id, step: step),
@@ -427,7 +2467,7 @@ class Step2EquityRouter extends _i17.PageRouteInfo<Step2EquityRouterArgs> {
 class Step2EquityRouterArgs {
   const Step2EquityRouterArgs({this.key, this.id, this.step});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? id;
 
@@ -440,9 +2480,9 @@ class Step2EquityRouterArgs {
 }
 
 /// generated route for
-/// [_i11.Step3Equity]
-class Step3EquityRouter extends _i17.PageRouteInfo<Step3EquityRouterArgs> {
-  Step3EquityRouter({_i18.Key? key, int? id, int? step})
+/// [_i23.Step3Equity]
+class Step3EquityRouter extends _i2.PageRouteInfo<Step3EquityRouterArgs> {
+  Step3EquityRouter({_i30.Key? key, int? id, int? step})
       : super(Step3EquityRouter.name,
             path: 'step3equity/:id/:step',
             args: Step3EquityRouterArgs(key: key, id: id, step: step),
@@ -454,7 +2494,7 @@ class Step3EquityRouter extends _i17.PageRouteInfo<Step3EquityRouterArgs> {
 class Step3EquityRouterArgs {
   const Step3EquityRouterArgs({this.key, this.id, this.step});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? id;
 
@@ -467,9 +2507,9 @@ class Step3EquityRouterArgs {
 }
 
 /// generated route for
-/// [_i12.PreviewEquity]
-class PreviewEquityRouter extends _i17.PageRouteInfo<PreviewEquityRouterArgs> {
-  PreviewEquityRouter({_i18.Key? key, int? id})
+/// [_i24.PreviewEquity]
+class PreviewEquityRouter extends _i2.PageRouteInfo<PreviewEquityRouterArgs> {
+  PreviewEquityRouter({_i30.Key? key, int? id})
       : super(PreviewEquityRouter.name,
             path: 'preview-equity/:id',
             args: PreviewEquityRouterArgs(key: key, id: id),
@@ -481,7 +2521,7 @@ class PreviewEquityRouter extends _i17.PageRouteInfo<PreviewEquityRouterArgs> {
 class PreviewEquityRouterArgs {
   const PreviewEquityRouterArgs({this.key, this.id});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? id;
 
@@ -492,9 +2532,9 @@ class PreviewEquityRouterArgs {
 }
 
 /// generated route for
-/// [_i13.Step1Debt]
-class Step1DebtRouter extends _i17.PageRouteInfo<Step1DebtRouterArgs> {
-  Step1DebtRouter({_i18.Key? key, int? id = 0, int? step})
+/// [_i25.Step1Debt]
+class Step1DebtRouter extends _i2.PageRouteInfo<Step1DebtRouterArgs> {
+  Step1DebtRouter({_i30.Key? key, int? id = 0, int? step})
       : super(Step1DebtRouter.name,
             path: 'step1debt/:id/:step',
             args: Step1DebtRouterArgs(key: key, id: id, step: step),
@@ -506,7 +2546,7 @@ class Step1DebtRouter extends _i17.PageRouteInfo<Step1DebtRouterArgs> {
 class Step1DebtRouterArgs {
   const Step1DebtRouterArgs({this.key, this.id = 0, this.step});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? id;
 
@@ -519,9 +2559,9 @@ class Step1DebtRouterArgs {
 }
 
 /// generated route for
-/// [_i14.Step2Debt]
-class Step2DebtRouter extends _i17.PageRouteInfo<Step2DebtRouterArgs> {
-  Step2DebtRouter({_i18.Key? key, int? id = 0, int? step})
+/// [_i26.Step2Debt]
+class Step2DebtRouter extends _i2.PageRouteInfo<Step2DebtRouterArgs> {
+  Step2DebtRouter({_i30.Key? key, int? id = 0, int? step})
       : super(Step2DebtRouter.name,
             path: 'step2debt/:id/:step',
             args: Step2DebtRouterArgs(key: key, id: id, step: step),
@@ -533,7 +2573,7 @@ class Step2DebtRouter extends _i17.PageRouteInfo<Step2DebtRouterArgs> {
 class Step2DebtRouterArgs {
   const Step2DebtRouterArgs({this.key, this.id = 0, this.step});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? id;
 
@@ -546,12 +2586,12 @@ class Step2DebtRouterArgs {
 }
 
 /// generated route for
-/// [_i15.Step3Debt]
-class Step3DebtRouter extends _i17.PageRouteInfo<Step3DebtRouterArgs> {
+/// [_i27.Step3Debt]
+class Step3DebtRouter extends _i2.PageRouteInfo<Step3DebtRouterArgs> {
   Step3DebtRouter(
-      {_i18.Key? key,
+      {_i30.Key? key,
       int? numberOfStep,
-      _i19.ApplicationData? applicationDetail,
+      _i36.ApplicationData? applicationDetail,
       String? isDraft})
       : super(Step3DebtRouter.name,
             path: 'step3debt/:id/:step',
@@ -568,11 +2608,11 @@ class Step3DebtRouterArgs {
   const Step3DebtRouterArgs(
       {this.key, this.numberOfStep, this.applicationDetail, this.isDraft});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? numberOfStep;
 
-  final _i19.ApplicationData? applicationDetail;
+  final _i36.ApplicationData? applicationDetail;
 
   final String? isDraft;
 
@@ -583,12 +2623,12 @@ class Step3DebtRouterArgs {
 }
 
 /// generated route for
-/// [_i15.Step3Debt]
-class Step4DebtRouter extends _i17.PageRouteInfo<Step4DebtRouterArgs> {
+/// [_i27.Step3Debt]
+class Step4DebtRouter extends _i2.PageRouteInfo<Step4DebtRouterArgs> {
   Step4DebtRouter(
-      {_i18.Key? key,
+      {_i30.Key? key,
       int? numberOfStep,
-      _i19.ApplicationData? applicationDetail,
+      _i36.ApplicationData? applicationDetail,
       String? isDraft})
       : super(Step4DebtRouter.name,
             path: 'step4debt/:id/:step',
@@ -605,11 +2645,11 @@ class Step4DebtRouterArgs {
   const Step4DebtRouterArgs(
       {this.key, this.numberOfStep, this.applicationDetail, this.isDraft});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? numberOfStep;
 
-  final _i19.ApplicationData? applicationDetail;
+  final _i36.ApplicationData? applicationDetail;
 
   final String? isDraft;
 
@@ -620,9 +2660,9 @@ class Step4DebtRouterArgs {
 }
 
 /// generated route for
-/// [_i16.PreviewDebtForm]
-class PreviewDebtRouter extends _i17.PageRouteInfo<PreviewDebtRouterArgs> {
-  PreviewDebtRouter({_i18.Key? key, int? id})
+/// [_i28.PreviewDebtForm]
+class PreviewDebtRouter extends _i2.PageRouteInfo<PreviewDebtRouterArgs> {
+  PreviewDebtRouter({_i30.Key? key, int? id})
       : super(PreviewDebtRouter.name,
             path: 'preview-debt/:id',
             args: PreviewDebtRouterArgs(key: key, id: id),
@@ -634,7 +2674,7 @@ class PreviewDebtRouter extends _i17.PageRouteInfo<PreviewDebtRouterArgs> {
 class PreviewDebtRouterArgs {
   const PreviewDebtRouterArgs({this.key, this.id});
 
-  final _i18.Key? key;
+  final _i30.Key? key;
 
   final int? id;
 

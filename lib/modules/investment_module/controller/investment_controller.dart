@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
+import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:cicgreenloan/modules/investment_module/model/contract_history/contract_history.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
 import 'package:cicgreenloan/modules/investment_module/model/investment_amount/investment_data.dart';
 import 'package:cicgreenloan/modules/investment_module/model/principal_history/principal_history.dart';
 import 'package:cicgreenloan/modules/investment_module/model/renew_peroid_month/renew_period_month.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/bullet_payment_detail.dart';
 import 'package:cicgreenloan/utils/function/format_date_time.dart';
 
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
@@ -23,7 +24,6 @@ import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Utils/helper/custom_success_screen.dart';
 import '../../../Utils/helper/screen_agrument/member_screen_argument.dart';
 import '../../../Utils/popupannouncement/popup_announcement.dart';
 import '../../../configs/route_management/route_name.dart';
@@ -31,7 +31,6 @@ import '../../../utils/helper/custom_snackbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../utils/helper/format_number.dart';
 import '../../../widgets/investments/custom_principle_de_schedule_form.dart';
-import '../../../widgets/investments/fif_option1.dart';
 import '../../../widgets/notification/accept_notification_pop_up.dart';
 import '../../event_module/models/event_detail_argument.dart';
 import '../../member_directory/controllers/customer_controller.dart';
@@ -283,14 +282,7 @@ class PriceController extends GetxController {
       <DeductScheduleFormModel>[DeductScheduleFormModel()].obs;
 
   validateDeductionForm(BuildContext context, {int? id}) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return FIFOption1(id: id);
-        },
-      ),
-    );
+    context.router.push(FIFOption1Router(id: id));
 
     update();
   }
@@ -738,7 +730,7 @@ class PriceController extends GetxController {
   final accountName = "".obs;
   final bankinfoId = 0.obs;
 
-  Future<void> onCreateFiF({num? id}) async {
+  Future<void> onCreateFiF({num? id, BuildContext? context}) async {
     debugPrint("Account Name:$accounName:Bank Id:${bankId.value}");
 
     isLoadingPostFiF(true);
@@ -759,27 +751,21 @@ class PriceController extends GetxController {
           "bank_id": bankId.value,
           "mma_account_id": "${mmaAccountId.value}"
         }).then((response) {
-      debugPrint("========After submited success==========$response");
-
-      Navigator.push(
-        Get.context!,
-        MaterialPageRoute(
-          builder: (context) {
-            return CustomSucessScreen(
-              title: 'Success',
-              description: 'Your FIF application is submitted successfully. ',
-              buttonTitle: 'Done',
-              onPressedButton: () {
-                onClearFIF();
-                clearDeducSelection();
-                int count = 0;
-                Navigator.of(context).popUntil((_) => count++ >= 4);
-                Future.delayed(const Duration(seconds: 1), () {
-                  getFIFApplication(!totalInvestmentButton.value);
-                  fetchFIFPending();
-                });
-              },
+      context!.navigateTo(
+        CustomSucessScreenRouter(
+          title: 'Success',
+          description: 'Your FIF application is submitted successfully. ',
+          buttonTitle: 'Done',
+          onPressedButton: () {
+            onClearFIF();
+            clearDeducSelection();
+            context.navigateTo(
+              const MyInvestmentRouter(),
             );
+            Future.delayed(const Duration(seconds: 1), () {
+              getFIFApplication(!totalInvestmentButton.value);
+              fetchFIFPending();
+            });
           },
         ),
       );
@@ -806,7 +792,6 @@ class PriceController extends GetxController {
   final isNewBank = false.obs;
 
   Future<List<PaymentData>> fetchPayment() async {
-    debugPrint("fetch Payment method 1");
     isNewBank.refresh();
     isLoadingPayment(true);
 
@@ -827,10 +812,6 @@ class PriceController extends GetxController {
           debugPrint("fetch Payment method 4");
           textReceivingAccount.value = paymentDataList.last.type!;
           textReceivingAccountTitle.value = paymentDataList.last.bankName!;
-          debugPrint(
-              " paymentDataList.last.productName:${paymentDataList.last.bankName}");
-          debugPrint("textReceivingAccount:${textReceivingAccount.value}");
-          debugPrint("fetch Payment method 5");
           update();
         }
       }).toList();
@@ -851,7 +832,7 @@ class PriceController extends GetxController {
   //fuction delete fif card
   final isLoadingDelete = false.obs;
   final reasonDescription = "".obs;
-  Future<void> onCanceled(num? id) async {
+  Future<void> onCanceled(num? id, BuildContext? context) async {
     isLoadingDelete(true);
 
     await apiBaseHelper.onNetworkRequesting(
@@ -860,7 +841,7 @@ class PriceController extends GetxController {
         isAuthorize: true,
         body: {"reason": reasonDescription.value}).then((response) {
       customSnackbar(
-          context: Get.context!,
+          context: context,
           color: Colors.green,
           imgUrl: 'assets/images/svgfile/successIcon.svg',
           titleText: "Your FIF Application was cancel.",
@@ -944,9 +925,7 @@ class PriceController extends GetxController {
   //  Submit Preview renew
   final investmentId = 0.obs;
   final isPreviewLoading = false.obs;
-  Future<void> onPreviewRenewSubmit() async {
-    debugPrint("Investment id:${investmentId.value}");
-    debugPrint("Renew peroid:${textRenewPeriod.value}");
+  Future<void> onPreviewRenewSubmit(BuildContext? context) async {
     isPreviewLoading(true);
 
     await apiBaseHelper.onNetworkRequesting(
@@ -959,39 +938,65 @@ class PriceController extends GetxController {
         }).then((response) {
       var newmaturityDateJson = response['mew_maturity_date'];
       newMaturityDate.value = newmaturityDateJson;
-      Navigator.push(
-        Get.context!,
-        MaterialPageRoute(
-          builder: (context) {
-            return BulletPaymentDetail(
-              // id: widget.id,
-              annually: fifAccountDetailModel.value.annuallyInterestRate,
-              productName: fifAccountDetailModel.value.productName,
-              titles: 'Renewal Summary',
-              fromPage: 'from renewal',
-              investAmount:
-                  fifAccountDetailModel.value.originalCurrentPrincipal,
-              isRenewal: true,
-              renewBy: fifAccountDetailModel.value.investorName,
-              renewDate: FormatDate.investmentDateDisplay(
-                  FormatDate.today().toString()),
-              renewPeriod: textRenewPeriod.value,
-              oldDate: FormatDate.investmentDateDisplay(
-                  fifAccountDetailModel.value.maturityDate!),
-              newDate: newMaturityDate.value,
-              oncallBack: () async {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                    'submit renew contract');
+      context!.router.push(
+        RenewReviewRouter(
+          // id: widget.id,
+          annually: fifAccountDetailModel.value.annuallyInterestRate,
+          productName: fifAccountDetailModel.value.productName,
+          titles: 'Renewal Summary',
+          fromPage: 'from renewal',
+          investAmount: fifAccountDetailModel.value.originalCurrentPrincipal,
+          isRenewal: true,
+          renewBy: fifAccountDetailModel.value.investorName,
+          renewDate:
+              FormatDate.investmentDateDisplay(FormatDate.today().toString()),
+          renewPeriod: textRenewPeriod.value,
+          oldDate: FormatDate.investmentDateDisplay(
+              fifAccountDetailModel.value.maturityDate!),
+          newDate: newMaturityDate.value,
+          oncallBack: () async {
+            FirebaseAnalyticsHelper.sendAnalyticsEvent('submit renew contract');
 
-                await Future.delayed(
-                  const Duration(seconds: 0),
-                );
-                await onPostRenew(investmentId.value);
-              },
+            await Future.delayed(
+              const Duration(seconds: 0),
             );
+            await onPostRenew(investmentId.value, context);
           },
         ),
       );
+      // Navigator.push(
+      //   context!,
+      //   MaterialPageRoute(
+      //     builder: (context) {
+      //       return BulletPaymentDetail(
+      //         // id: widget.id,
+      //         annually: fifAccountDetailModel.value.annuallyInterestRate,
+      //         productName: fifAccountDetailModel.value.productName,
+      //         titles: 'Renewal Summary',
+      //         fromPage: 'from renewal',
+      //         investAmount:
+      //             fifAccountDetailModel.value.originalCurrentPrincipal,
+      //         isRenewal: true,
+      //         renewBy: fifAccountDetailModel.value.investorName,
+      //         renewDate: FormatDate.investmentDateDisplay(
+      //             FormatDate.today().toString()),
+      //         renewPeriod: textRenewPeriod.value,
+      //         oldDate: FormatDate.investmentDateDisplay(
+      //             fifAccountDetailModel.value.maturityDate!),
+      //         newDate: newMaturityDate.value,
+      //         oncallBack: () async {
+      //           FirebaseAnalyticsHelper.sendAnalyticsEvent(
+      //               'submit renew contract');
+
+      //           await Future.delayed(
+      //             const Duration(seconds: 0),
+      //           );
+      //           await onPostRenew(investmentId.value, context);
+      //         },
+      //       );
+      //     },
+      //   ),
+      // );
       debugPrint("Perview Renew:$newMaturityDate");
       update();
       isPreviewLoading(false);
@@ -1005,7 +1010,7 @@ class PriceController extends GetxController {
 
   // Submit Preview Width
   final isPreviewWidthdrawLoading = false.obs;
-  Future<void> onPreviewWidthdrawSubmit() async {
+  Future<void> onPreviewWidthdrawSubmit(BuildContext? context) async {
     debugPrint("Investment id:${investmentId.value}");
     debugPrint("Renew peroid:${textRenewPeriod.value}");
     isPreviewWidthdrawLoading(true);
@@ -1020,42 +1025,34 @@ class PriceController extends GetxController {
           "disbursement_date": textdisbursementDate.toString(),
         }).then((response) {
       var disbursmentDateJson = response['disbursement_date'];
-      debugPrint("Withdraw Amount:$response");
       var withdrawAmountJson = response['withdraw_amount'];
-      debugPrint("withdraw Amount after Json:$withdrawAmountJson");
 
-      Navigator.push(
-        Get.context!,
-        MaterialPageRoute(
-          builder: (context) {
-            return BulletPaymentDetail(
-              fromPage: 'widthdraw',
-              productName: fifAccountDetailModel.value.productName,
-              titles: 'Withdraw Summary',
-              investAmount:
-                  fifAccountDetailModel.value.originalCurrentPrincipal,
-              isWithdraw: true,
-              withdrawer: fifAccountDetailModel.value.investorName,
-              withdrawAmount: withdrawAmountJson,
-              noticeDate: FormatDate.investmentDateDisplay(
-                  FormatDate.today().toString()),
-              disbursementDate: disbursmentDateJson,
-              contractStatus: textWithdrawAmount.value ==
-                      fifAccountDetailModel.value.originalAmount!.toInt()
-                  ? 'Passive'
-                  : 'Active',
-              id: investmentId.value,
-              oncallBack: () async {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                    'submit withdraw contract');
+      context!.router.push(
+        ReviewWithdrawRouter(
+          fromPage: 'widthdraw',
+          productName: fifAccountDetailModel.value.productName,
+          titles: 'Withdraw Summary',
+          investAmount: fifAccountDetailModel.value.originalCurrentPrincipal,
+          isWithdraw: true,
+          withdrawer: fifAccountDetailModel.value.investorName,
+          withdrawAmount: withdrawAmountJson,
+          noticeDate:
+              FormatDate.investmentDateDisplay(FormatDate.today().toString()),
+          disbursementDate: disbursmentDateJson,
+          contractStatus: textWithdrawAmount.value ==
+                  fifAccountDetailModel.value.originalAmount!.toInt()
+              ? 'Passive'
+              : 'Active',
+          id: investmentId.value,
+          oncallBack: () async {
+            FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                'submit withdraw contract');
 
-                await Future.delayed(const Duration(seconds: 1));
-                await onCreateWithdraw(investmentId.value);
-                onclearWithdraw();
-              },
-              annually: fifAccountDetailModel.value.annuallyInterestRate,
-            );
+            await Future.delayed(const Duration(seconds: 1));
+            await onCreateWithdraw(investmentId.value, context);
+            onclearWithdraw();
           },
+          annually: fifAccountDetailModel.value.annuallyInterestRate,
         ),
       );
       debugPrint("Perview Widthdraw:$disbursmentDateJson");
@@ -1283,10 +1280,8 @@ class PriceController extends GetxController {
   }
 
   final isLoadingRenew = false.obs;
-  Future<void> onPostRenew(num? id) async {
+  Future<void> onPostRenew(num? id, BuildContext? context) async {
     isLoadingRenew(true);
-    debugPrint('Fix me Error...12345$id');
-    debugPrint('Fix me Error...12345+++++${textRenewPeriod.value}');
     await apiBaseHelper.onNetworkRequesting(
         url: 'fif-application/process?type=renew',
         methode: METHODE.post,
@@ -1295,20 +1290,18 @@ class PriceController extends GetxController {
           "investment_id": id,
           "renew_period": textRenewPeriod.value,
         }).then((response) {
-      debugPrint('Fix me Error...12345**********');
-      Get.to(
-        CustomSucessScreen(
+      context!.router.push(
+        RenewSuccessRouter(
           title: 'Success',
           description: 'Your request for renewal has been submitted.',
           buttonTitle: 'Done',
           onPressedButton: () {
-            onClearFIF();
-            clearDeducSelection();
-            Get.back();
-            Get.back();
-            Get.back();
-            Get.back();
             Future.delayed(const Duration(seconds: 1), () {
+              onClearFIF();
+              clearDeducSelection();
+              context.navigateTo(
+                const MyInvestmentRouter(),
+              );
               getFIFApplication(!totalInvestmentButton.value);
               fetchFirstDate();
               fetchFIFPending();
@@ -1316,6 +1309,7 @@ class PriceController extends GetxController {
           },
         ),
       );
+
       debugPrint('Fix me Error...+++++++++');
       isLoadingRenew(false);
       update();
@@ -1352,7 +1346,8 @@ class PriceController extends GetxController {
   final notifcationCon = Get.put(NotificationController());
   // final pinCode = ''.obs;
 
-  submitPINCode({String? pinCode, Function? onSuccess}) async {
+  submitPINCode(
+      {String? pinCode, Function? onSuccess, BuildContext? context}) async {
     isLoadingPincode(true);
     await apiBaseHelper.onNetworkRequesting(
       url: '',
@@ -1380,7 +1375,7 @@ class PriceController extends GetxController {
               !e.value.data!.expired!) {
             return showDialog(
               barrierDismissible: false,
-              context: Get.context!,
+              context: context!,
               builder: (context) => PopUpAnnouncement(
                 notificationModel: e.value,
               ),
@@ -1391,7 +1386,7 @@ class PriceController extends GetxController {
               e.value.data!.status == 'Requested') {
             return showDialog(
               barrierDismissible: false,
-              context: Get.context!,
+              context: context!,
               builder: (context) => AcceptNotificationPopup(
                 notificationModel: e.value,
               ),
@@ -1446,7 +1441,7 @@ class PriceController extends GetxController {
   final withdrawId = 0.obs;
   final isLoadingWithdraw = false.obs;
 
-  Future<void> onCreateWithdraw(withdrawId) async {
+  Future<void> onCreateWithdraw(withdrawId, BuildContext? context) async {
     isLoadingWithdraw(true);
     await apiBaseHelper.onNetworkRequesting(
         url: 'fif-application/process?type=withdraw',
@@ -1457,34 +1452,26 @@ class PriceController extends GetxController {
           "disbursement_date": textdisbursementDateSubmit.value,
           "amount": textWithdrawAmount.value
         }).then((e) async {
-      await Navigator.push(
-        Get.context!,
-        MaterialPageRoute(
-          builder: (context) {
-            return CustomSucessScreen(
-              title: 'Success',
-              description: 'Your request for withdraw has been submitted.',
-              buttonTitle: 'Done',
-              onPressedButton: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Future.delayed(const Duration(seconds: 0), () {
-                  getFIFApplication(!totalInvestmentButton.value);
-                  fetchFirstDate();
-                  fetchFIFPending();
-                });
-              },
-            );
+      await context!.router.push(
+        RedemptionSuccessRouter(
+          title: 'Success',
+          description: 'Your request for withdraw has been submitted.',
+          buttonTitle: 'Done',
+          onPressedButton: () {
+            Future.delayed(const Duration(seconds: 0), () {
+              context.navigateTo(
+                const MyInvestmentRouter(),
+              );
+              getFIFApplication(!totalInvestmentButton.value);
+              fetchFirstDate();
+              fetchFIFPending();
+            });
           },
         ),
       );
     }).onError((ErrorModel errorModel, stackTrace) {
       FirebaseCrashlytics.instance.log(
           "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
-      debugPrint('Fix me error...! ${errorModel.bodyString}');
-      debugPrint('Fix me error...!12345678 ${errorModel.statusCode}');
     });
   }
 

@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../modules/member_directory/models/user.dart';
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -14,7 +15,7 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  final userModel = User();
   static S? _current;
 
   static S get current {
@@ -245,6 +246,38 @@ class S {
     return Intl.message(
       'Open Gallery',
       name: 'openGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  //view image profile
+  String get viewImageProfile {
+    return Intl.message(
+      'View',
+      name: 'viewImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  //edit image
+  String get editImage {
+    return Intl.message(
+      userModel.profile != '' || userModel.profile != null
+          ? 'Change Photo'
+          : 'Upload Photo',
+      name: 'editImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  //remove image
+  String get removeImage {
+    return Intl.message(
+      'Remove',
+      name: 'removeImage',
       desc: '',
       args: [],
     );
