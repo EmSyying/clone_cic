@@ -17,16 +17,19 @@ class FIFSavingCard extends StatelessWidget {
   final String? id;
   final String? amount;
 
+  ///actionbutton
+
   ///amount Color
   final Color? amountColor;
 
-  ///small sheet Color on the left side
+  ///Left sheet color
   final Color? sheetColor;
 
   ///card background Color
   final Color? backgroundColor;
 
   ///
+
   final GestureTapCallback? onTapCard;
   final GestureTapCallback? ontapHide;
   final GestureTapCallback? onTapEdit;
@@ -53,7 +56,8 @@ class FIFSavingCard extends StatelessWidget {
     this.showPopUp = true,
     this.pendingStyle = false,
     this.onTapCard,
-  }) : super(key: key);
+  })  : assert(id != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +209,19 @@ class FIFSavingCard extends StatelessWidget {
                                               // ),
                                             ],
                                 )
-                              : const SizedBox(),
+                              : GestureDetector(
+                                  onTap: ontapHide,
+                                  child: Text(
+                                    'Unhide',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                            color: AppColor.mainColor,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16),
+                                  ),
+                                ),
                         ],
                       ),
                       SizedBox(
