@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/history_appbar.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -137,33 +134,33 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 offlineWidget: Column(
                   children: [
                     AppBar(
-                      leading: IconButton(
-                        icon: kIsWeb
-                            ? Icon(
-                                Icons.arrow_back,
-                                color: Get.theme.brightness == Brightness.light
-                                    ? Colors.white
-                                    : Theme.of(context).primaryColor,
-                              )
-                            : Platform.isAndroid
-                                ? Icon(
-                                    Icons.arrow_back,
-                                    color:
-                                        Get.theme.brightness == Brightness.light
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor,
-                                  )
-                                : Icon(
-                                    Icons.arrow_back_ios,
-                                    color:
-                                        Get.theme.brightness == Brightness.light
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor,
-                                  ),
-                        onPressed: () {
-                          context.navigateBack();
-                        },
-                      ),
+                      // leading: IconButton(
+                      //   icon: kIsWeb
+                      //       ? Icon(
+                      //           Icons.arrow_back,
+                      //           color: Get.theme.brightness == Brightness.light
+                      //               ? Colors.white
+                      //               : Theme.of(context).primaryColor,
+                      //         )
+                      //       : Platform.isAndroid
+                      //           ? Icon(
+                      //               Icons.arrow_back,
+                      //               color:
+                      //                   Get.theme.brightness == Brightness.light
+                      //                       ? Colors.white
+                      //                       : Theme.of(context).primaryColor,
+                      //             )
+                      //           : Icon(
+                      //               Icons.arrow_back_ios,
+                      //               color:
+                      //                   Get.theme.brightness == Brightness.light
+                      //                       ? Colors.white
+                      //                       : Theme.of(context).primaryColor,
+                      //             ),
+                      //   onPressed: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
                       backgroundColor: Theme.of(context).primaryColor,
                       automaticallyImplyLeading:
                           widget.isNavigator != null && widget.isNavigator!
@@ -260,34 +257,34 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           isLeading: true,
                           isLogo: false,
                           context: context,
-                          leading: IconButton(
-                            icon: kIsWeb
-                                ? Icon(
-                                    Icons.arrow_back,
-                                    color:
-                                        Get.theme.brightness == Brightness.light
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor,
-                                  )
-                                : Platform.isAndroid
-                                    ? Icon(
-                                        Icons.arrow_back,
-                                        color: Get.theme.brightness ==
-                                                Brightness.light
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor,
-                                      )
-                                    : Icon(
-                                        Icons.arrow_back_ios,
-                                        color: Get.theme.brightness ==
-                                                Brightness.light
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor,
-                                      ),
-                            onPressed: () {
-                              context.navigateBack();
-                            },
-                          ),
+                          // leading: IconButton(
+                          //   icon: kIsWeb
+                          //       ? Icon(
+                          //           Icons.arrow_back,
+                          //           color:
+                          //               Get.theme.brightness == Brightness.light
+                          //                   ? Colors.white
+                          //                   : Theme.of(context).primaryColor,
+                          //         )
+                          //       : Platform.isAndroid
+                          //           ? Icon(
+                          //               Icons.arrow_back,
+                          //               color: Get.theme.brightness ==
+                          //                       Brightness.light
+                          //                   ? Colors.white
+                          //                   : Theme.of(context).primaryColor,
+                          //             )
+                          //           : Icon(
+                          //               Icons.arrow_back_ios,
+                          //               color: Get.theme.brightness ==
+                          //                       Brightness.light
+                          //                   ? Colors.white
+                          //                   : Theme.of(context).primaryColor,
+                          //             ),
+                          //   onPressed: () {
+                          //     Navigator.pop(context);
+                          //   },
+                          // ),
                           // automaticallyImplyLeading:
                           //     widget.isNavigator != null && widget.isNavigator
                           //         ? true
