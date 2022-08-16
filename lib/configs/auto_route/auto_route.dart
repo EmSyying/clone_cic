@@ -24,6 +24,9 @@ import '../../modules/investment_module/screen/deposit_screen.dart';
 import '../../modules/investment_module/screen/fif_deduc_selection.dart';
 import '../../modules/investment_module/screen/renewal_screen.dart';
 import '../../modules/investment_module/screen/saving_detail_screen.dart';
+import '../../modules/privilege_program/screen/privilege/privilege_filters.dart';
+import '../../modules/privilege_program/screen/privilege/search_screen.dart';
+import '../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
@@ -187,7 +190,18 @@ import '../../widgets/investments/view_agreement_list.dart';
     AutoRoute(page: UTtrading, path: '/ut-trading'),
     AutoRoute(page: Directory, path: '/directory'),
     AutoRoute(page: Report, path: '/report'),
-    AutoRoute(page: PrivilegeScreen, path: '/privilege')
+    // AutoRoute(page: PrivilegeScreen, path: '/privilege')
+    AutoRoute(
+      path: '/privilege',
+      name: 'PrivilegeRouter',
+      page: EmptyRouterPage,
+      children: [
+        AutoRoute(path: '', page: PrivilegeScreen),
+        AutoRoute(path: 'privilege/:id', page: PrivilegeDetailScreen),
+        AutoRoute(path: 'privilege-search', page: SearchScreen),
+        AutoRoute(path: 'privilege-filters', page: PrivilegeFilters),
+      ],
+    ),
   ],
 )
 class $AppRouter {}

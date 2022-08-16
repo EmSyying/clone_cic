@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +11,7 @@ import 'package:get/get.dart';
 
 import '../../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../../Utils/custom_indicatior.dart';
+import '../../../../configs/auto_route/auto_route.gr.dart';
 import '../../../../widgets/privilege/custom_row_filter.dart';
 import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
 import '../../../../widgets/privilege/privilege/custom_all_store_list.dart';
@@ -21,7 +20,10 @@ import '../../controller/privilege_controller.dart';
 
 class PrivilegeScreen extends StatefulWidget {
   final int? index;
-  const PrivilegeScreen({Key? key, this.index}) : super(key: key);
+  const PrivilegeScreen({
+    Key? key,
+    this.index,
+  }) : super(key: key);
 
   @override
   State<PrivilegeScreen> createState() => _PrivilegeScreenState();
@@ -43,7 +45,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
         title: 'Privilege Program',
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              context.router.pop();
+              //  Navigator.pop(context);
             },
             icon: kIsWeb
                 ? const Icon(Icons.arrow_back)
@@ -116,12 +119,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SearchScreen(),
-                          ),
-                        );
+                        context.router.push(const SearchScreen());
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const SearchScreen(),
+                        //   ),
+                        // );
                       },
                       child: Container(
                         height: 38,
@@ -237,12 +241,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     padding: const EdgeInsets.only(top: 20.0, bottom: 8),
                     child: CustomNumberStoresFilter(
                       onTapFilter: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PrivilegeFilters(),
-                          ),
-                        );
+                        context.router.pushNamed("privilege-filters");
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const PrivilegeFilters(),
+                        //   ),
+                        // );
                       },
                       titleStores: segmentedControlValue == 0
                           ? '${preController.listAllStores.length} Stores'

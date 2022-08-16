@@ -7,9 +7,12 @@ import '../../../modules/privilege_program/model/stores_model/model_pre.dart';
 import '../../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 
 class CustomAllStoreList extends StatefulWidget {
-  const CustomAllStoreList({Key? key, required this.storeList})
-      : super(key: key);
   final List<StoreModel> storeList;
+
+  const CustomAllStoreList({
+    Key? key,
+    required this.storeList,
+  }) : super(key: key);
 
   @override
   State<CustomAllStoreList> createState() => _CustomAllStoreListState();
@@ -21,6 +24,7 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
     final previlageCon = Get.put(PrivilegeController());
     return Column(
       children: [
+        //==========
         // Padding(
         //   padding: const EdgeInsets.only(
         //     top: 20.0,
@@ -45,6 +49,10 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
               .map(
                 (e) => GestureDetector(
                   onTap: () {
+                    // context.router.push(PrivilegeDetailScreen(
+                    //   index: e.key,
+                    //   storeDetail: e.value,
+                    // ));
                     Navigator.push(
                       context,
                       MaterialPageRoute(

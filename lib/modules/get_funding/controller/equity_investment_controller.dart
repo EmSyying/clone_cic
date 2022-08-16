@@ -553,6 +553,8 @@ class EquityInvestmentController extends GetxController {
   final equityApplication = ApplicationData().obs;
   final equityApplicationList = <ApplicationData>[].obs;
   final equityApplicationDraftList = <ApplicationData>[].obs;
+  final equityApplicationRejectedtList = <ApplicationData>[].obs;
+  final equityApplicationReviewList = <ApplicationData>[].obs;
   final isequityLoading = false.obs;
   final isfetchequtydata = false.obs;
 
@@ -584,6 +586,12 @@ class EquityInvestmentController extends GetxController {
             equityApplication.value = ApplicationData.fromJson(json);
             if (equityApplication.value.status!.toLowerCase() == "draft") {
               equityApplicationDraftList.add(equityApplication.value);
+            } else if (equityApplication.value.status!.toLowerCase() ==
+                "rejected") {
+              equityApplicationRejectedtList.add(equityApplication.value);
+            } else if (equityApplication.value.status!.toLowerCase() ==
+                "review") {
+              equityApplicationReviewList.add(equityApplication.value);
             } else {
               equityApplicationList.add(equityApplication.value);
             }

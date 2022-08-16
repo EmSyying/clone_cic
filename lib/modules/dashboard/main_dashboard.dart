@@ -44,7 +44,6 @@ import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../investment_module/screen/deposit_screen.dart';
-import '../privilege_program/screen/privilege/privilege_screen.dart';
 
 class MainDashboard extends StatefulWidget {
   final String? fromPage;
@@ -675,12 +674,13 @@ class _MainDashboardState extends State<MainDashboard> {
               title: GestureDetector(
                 ///add this widget to test privilege screen don't forget remore====================
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PrivilegeScreen(),
-                    ),
-                  );
+                  context.router.pushNamed("/privilege");
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const PrivilegeScreen(),
+                  //   ),
+                  // );
                 },
                 child: Row(
                   children: [

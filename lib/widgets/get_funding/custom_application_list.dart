@@ -33,16 +33,15 @@ class ApplicationList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Text(
-              listTitle ?? "No Title",
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2!
-                  .copyWith(color: listTitleColor, fontFamily: 'DMSans-Medium'),
+          if (listTitle != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Text(
+                listTitle ?? "No Title",
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    color: listTitleColor, fontFamily: 'DMSans-Medium'),
+              ),
             ),
-          ),
           isGrid != true
               ? Column(
                   children: [
