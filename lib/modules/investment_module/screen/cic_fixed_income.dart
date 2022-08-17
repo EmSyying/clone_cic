@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cicgreenloan/Utils/helper/app_pin_code.dart' as apppincode;
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
 import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
@@ -28,30 +26,26 @@ class CiCFixedIncome extends StatefulWidget {
 }
 
 class _CiCFixedIncomeState extends State<CiCFixedIncome> {
-  var f = NumberFormat('#,###.00', 'en_US');
-  var n = NumberFormat('#,###', 'en_US');
   List<Evolution> reversList = [];
   bool isExpandInvestmentReturn = false;
   final equityCon = Get.put(EquityInvestmentController());
   final priceController = Get.put(PriceController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
+
   Future<void> onRefresh() async {
-    priceController.fetchInvestmentAccount();
-    priceController.getFIFApplication(false);
-    priceController.fetchFIFPending();
-    priceController.fetchFIFConfirm();
+    priceController.totalInvestmentButton(false); //make button always close
     priceController.getAllChartList();
+    priceController.fetchInvestmentAccount();
+    priceController.fetchFIFConfirm();
+    priceController.getHiddentContract();
+    priceController.getFIFApplication();
+    priceController.fetchFIFPending();
+    equityCon.fetchCallCenter(type: "FIF");
   }
 
   @override
   void initState() {
-    priceController.totalInvestmentButton(true); //make button always close
-    priceController.fetchInvestmentAccount();
-    priceController.getFIFApplication(false);
-    priceController.getAllChartList();
-    priceController.fetchFIFPending();
-    priceController.fetchFIFConfirm();
-    equityCon.fetchCallCenter(type: "FIF");
+    onRefresh();
     super.initState();
   }
 
@@ -63,7 +57,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
       child: Obx(() => priceController.fifApplicationLoading.value == false &&
                   priceController.isLoadingPending.value == false &&
                   priceController.isLoadingConfirm.value == false &&
-                  priceController.isLoadingInvestment.value == false
+                  priceController.isLoadingInvestment.value == false &&
+                  priceController.getHiddentContractLoading.value == false
               ?
 
               ///when all fetch function done it work here
@@ -118,50 +113,12 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                                         .totalInvestment ==
                                     '0'
                             ? TotalInvestmentCard(
-                                buttonValue:
-                                    priceController.totalInvestmentButton.value,
                                 amount: priceController.investmentModel.value
                                             .totalInvestment !=
                                         null
                                     ? priceController
                                         .investmentModel.value.totalInvestment!
                                     : "0.00",
-                                showButton: priceController
-                                            .investmentModel.value.hide !=
-                                        null
-                                    ? priceController
-                                        .investmentModel.value.hide!
-                                    : true,
-                                buttonChange: () async {
-                                  apppincode.timer.cancel();
-                                  await apppincode
-                                      .showLockScreen(enableCancel: true)
-                                      .then((value) {
-                                    if (value) {
-                                      priceController
-                                              .totalInvestmentButton.value =
-                                          !priceController
-                                              .totalInvestmentButton.value;
-                                      priceController.fetchInvestmentAccount();
-                                      priceController.getFIFApplication(
-                                          !priceController
-                                              .totalInvestmentButton.value);
-                                    }
-                                  });
-                                  // showLockScreen(
-                                  //   onSuccess: () {
-                                  //     Navigator.pop(context);
-                                  //     priceController
-                                  //             .totalInvestmentButton.value =
-                                  //         !priceController
-                                  //             .totalInvestmentButton.value;
-                                  //     priceController.fetchInvestmentAccount();
-                                  //     priceController.getFIFApplication(
-                                  //         !priceController
-                                  //             .totalInvestmentButton.value);
-                                  //   },
-                                  // );
-                                },
                                 chartData: [
                                   FIFApplicationListModel(
                                     investmentAmount: "\$1,11100",
@@ -173,45 +130,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
 
                             ///BDBDBD
                             : TotalInvestmentCard(
-                                showButton: priceController
-                                            .investmentModel.value.hide !=
-                                        null
-                                    ? priceController
-                                        .investmentModel.value.hide!
-                                    : true,
                                 chartData: priceController.fifChartList,
-                                buttonValue:
-                                    priceController.totalInvestmentButton.value,
-                                buttonChange: () async {
-                                  apppincode.timer.cancel();
-                                  await apppincode
-                                      .showLockScreen(enableCancel: true)
-                                      .then((value) {
-                                    if (value) {
-                                      priceController
-                                              .totalInvestmentButton.value =
-                                          !priceController
-                                              .totalInvestmentButton.value;
-                                      priceController.fetchInvestmentAccount();
-                                      priceController.getFIFApplication(
-                                          !priceController
-                                              .totalInvestmentButton.value);
-                                    }
-                                  });
-                                  // showLockScreen(
-                                  //   onSuccess: () {
-                                  //     Navigator.pop(context);
-                                  //     priceController
-                                  //             .totalInvestmentButton.value =
-                                  //         !priceController
-                                  //             .totalInvestmentButton.value;
-                                  //     priceController.fetchInvestmentAccount();
-                                  //     priceController.getFIFApplication(
-                                  //         !priceController
-                                  //             .totalInvestmentButton.value);
-                                  //   },
-                                  // );
-                                },
                                 amount: priceController
                                     .investmentModel.value.totalInvestment,
                               ),
@@ -221,7 +140,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 },
                 body: (priceController.fifAppPendingList.isEmpty &&
                         priceController.fifApplicationList.isEmpty &&
-                        priceController.fifAppConfirmList.isEmpty)
+                        priceController.fifAppConfirmList.isEmpty &&
+                        priceController.hiddenContractList.isEmpty)
                     ? showEmptyState()
                     : Column(
                         children: [
@@ -256,6 +176,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                                     child: CustomSavingCardList(
                                       buttonShow: priceController
                                           .totalInvestmentButton.value,
+                                      fifhiddenList:
+                                          priceController.hiddenContractList,
                                       fifAccountList:
                                           priceController.fifApplicationList,
                                       fifConfirmList:

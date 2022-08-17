@@ -7,6 +7,7 @@ import 'package:cicgreenloan/widgets/investments/custom_fif_saving_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Utils/function/convert_fromhex_color.dart';
+import '../../Utils/helper/color.dart';
 import '../../configs/auto_route/auto_route.gr.dart';
 import '../../modules/investment_module/controller/investment_controller.dart';
 import '../../modules/investment_module/model/first_date/first_date.dart';
@@ -21,6 +22,7 @@ class CustomSavingCardList extends StatelessWidget {
   final List<FIFApplicationListModel>? fifAccountList;
   final List<FIFApplicationListModel>? fifConfirmList;
   final List<FIFApplicationListModel>? fifPendingList;
+  final List<FIFApplicationListModel>? fifhiddenList;
   final fifController = Get.put(PriceController());
   final FIFApplicationListModel? fifApplicationListModel;
   bool onValidate(BuildContext? context) {
@@ -40,6 +42,7 @@ class CustomSavingCardList extends StatelessWidget {
     this.fifAccountList,
     this.fifConfirmList,
     this.fifPendingList,
+    this.fifhiddenList,
   }) : super(key: key);
 
   @override
@@ -128,7 +131,9 @@ class CustomSavingCardList extends StatelessWidget {
                       FirebaseAnalyticsHelper.sendAnalyticsEvent(
                           'Hide contract FIF');
                       apppincode.timer.cancel();
-                      await apppincode.showLockScreen(enableCancel: true).then(
+                      await apppincode
+                          .showLockScreen(enableCancel: true, context: context)
+                          .then(
                         (promise) {
                           if (promise) {
                             fifController.onShowHideInvestmentAccount(
@@ -437,7 +442,81 @@ class CustomSavingCardList extends StatelessWidget {
                       .toList(),
                 ),
               ],
-            )
+            ),
+          if (fifhiddenList!.isNotEmpty)
+            GestureDetector(
+              onTap: () async {
+                debugPrint('work');
+                if (fifController.totalInvestmentButton.value == false) {
+                  await apppincode
+                      .showLockScreen(enableCancel: true, context: context)
+                      .then(
+                    (promise) {
+                      if (promise) {
+                        fifController.totalInvestmentButton.value = true;
+                      }
+                    },
+                  );
+                } else {
+                  fifController.totalInvestmentButton.value = false;
+                }
+              },
+              child: Container(
+                margin: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                color: Colors.transparent,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Hidden Contracts',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2!
+                          .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+                    ),
+                    const Spacer(),
+                    Icon(
+                      fifController.totalInvestmentButton.value
+                          ? Icons.arrow_drop_up_rounded
+                          : Icons.arrow_drop_down_rounded,
+                      size: 30,
+                      color: AppColor.chartLabelColor,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          if (fifController.totalInvestmentButton.value)
+            Column(
+              children: fifhiddenList!
+                  .map(
+                    (e) => FIFSavingCard(
+                      ontapHide: () async {
+                        await apppincode
+                            .showLockScreen(
+                                enableCancel: true, context: context)
+                            .then(
+                          (promise) {
+                            if (promise) {
+                              fifController.onShowHideInvestmentAccount(
+                                id: e.id,
+                                hide: false, //false = hide application
+                              );
+                            }
+                          },
+                        );
+                      },
+                      showPopUp: false,
+                      status: true,
+                      title: e.accountName,
+                      id: e.code,
+                      amount: e.investmentAmount,
+                      sheetColor: fromHex(e.color!),
+                    ),
+                  )
+                  .toList(),
+            ),
         ],
       ),
     );

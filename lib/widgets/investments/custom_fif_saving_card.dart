@@ -9,6 +9,9 @@ class FIFSavingCard extends StatelessWidget {
   ///Show/hide button popupmenu
   final bool showPopUp;
 
+  ///Show Hide Textbutton
+  final bool showHidebutton;
+
   ///Pending popupmenu style
   final bool pendingStyle;
 
@@ -39,6 +42,7 @@ class FIFSavingCard extends StatelessWidget {
 
   final bool? istitle;
   const FIFSavingCard({
+    this.showHidebutton = false,
     Key? key,
     this.istitle = false,
     this.title,
@@ -56,8 +60,15 @@ class FIFSavingCard extends StatelessWidget {
     this.showPopUp = true,
     this.pendingStyle = false,
     this.onTapCard,
-  })  : assert(id != null),
-        super(key: key);
+  }) : super(key: key);
+
+  bool checkVariable() {
+    if (showPopUp == true) {
+      assert(showHidebutton == false);
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {

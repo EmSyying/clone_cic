@@ -9,21 +9,16 @@ import 'custom_card.dart';
 
 class TotalInvestmentCard extends StatelessWidget {
   final List<FIFApplicationListModel>? chartData;
-  final GestureTapCallback? buttonChange;
-  final bool? buttonValue;
+
   final String? title;
   final String? amount;
-  final bool showButton;
 
-  const TotalInvestmentCard(
-      {Key? key,
-      required this.chartData,
-      this.buttonChange,
-      this.title,
-      this.amount,
-      this.buttonValue,
-      this.showButton = true})
-      : super(key: key);
+  const TotalInvestmentCard({
+    Key? key,
+    required this.chartData,
+    this.title,
+    this.amount,
+  }) : super(key: key);
 
   getresponsive() {}
 
@@ -146,106 +141,9 @@ class TotalInvestmentCard extends StatelessWidget {
               ),
             ),
           ),
-          showButton
-              ? Positioned(
-                  top: isBigScreen ? 20 : 10,
-                  right: isBigScreen ? 40 : 30,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: Material(
-                      color: Theme.of(context).primaryColor.withOpacity(0.1),
-                      child: InkWell(
-                        onTap: () {
-                          buttonChange != null ? buttonChange!() : null;
-                        },
-                        child: Ink(
-                          height: 25,
-                          width: 25,
-                          decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: buttonValue!
-                                ? SvgPicture.asset(
-                                    'assets/images/visible_on.svg',
-                                  )
-                                : SvgPicture.asset(
-                                    'assets/images/visible_off.svg',
-                                  ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                  // CustomSliderButton(
-                  //   value: buttonValue,
-                  //   onchange: buttonChange!,
-                  //   width: 50,
-                  //   heigh: 25,
-                  //   thumbPadding: 5,
-                  //   thumbColor: Colors.white,
-                  //   widget: SvgPicture.asset('assets/images/visible_off.svg'),
-                  //   radius: 28,
-                  // ),
-                  )
-              : Container(),
         ],
       ),
     );
-    // Stack(
-    //   children: [
-
-    //     showButton
-    //         ? Positioned(
-    //             top: 15,
-    //             right: 40,
-    //             child: ClipRRect(
-    //               borderRadius: BorderRadius.circular(25),
-    //               child: Material(
-    //                 color: Theme.of(context).primaryColor.withOpacity(0.1),
-    //                 child: InkWell(
-    //                   onTap: () {
-    //                     buttonChange != null ? buttonChange!() : null;
-    //                   },
-    //                   child: Ink(
-    //                     height: 30,
-    //                     width: 30,
-    //                     decoration: BoxDecoration(
-    //                       color:
-    //                           Theme.of(context).primaryColor.withOpacity(0.1),
-    //                       borderRadius: BorderRadius.circular(25),
-    //                     ),
-    //                     child: Padding(
-    //                       padding: const EdgeInsets.all(5),
-    //                       child: buttonValue!
-    //                           ? SvgPicture.asset(
-    //                               'assets/images/visible_on.svg',
-    //                             )
-    //                           : SvgPicture.asset(
-    //                               'assets/images/visible_off.svg',
-    //                             ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ),
-    //             )
-    //             // CustomSliderButton(
-    //             //   value: buttonValue,
-    //             //   onchange: buttonChange!,
-    //             //   width: 50,
-    //             //   heigh: 25,
-    //             //   thumbPadding: 5,
-    //             //   thumbColor: Colors.white,
-    //             //   widget: SvgPicture.asset('assets/images/visible_off.svg'),
-    //             //   radius: 28,
-    //             // ),
-    //             )
-    //         : Container(),
-    //   ],
-    // );
   }
 
   formatNum(data) {

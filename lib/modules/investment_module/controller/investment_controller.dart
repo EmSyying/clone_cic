@@ -335,8 +335,9 @@ class PriceController extends GetxController {
         .then((value) {
       ///
       debugPrint('button is ${totalInvestmentButton.value ? 'on' : 'off'}');
-      getFIFApplication(!totalInvestmentButton.value);
+      getFIFApplication();
       fetchInvestmentAccount();
+      getHiddentContract();
       update();
     }).onError((ErrorModel error, stackTrace) {
       FirebaseCrashlytics.instance
@@ -440,19 +441,44 @@ class PriceController extends GetxController {
     return fifProductTypeValidate.value;
   }
 
+  ///hidden contract
+  final hiddenContractList = <FIFApplicationListModel>[].obs;
+
+  final getHiddentContractLoading = false.obs;
+  Future<List<FIFApplicationListModel>> getHiddentContract() async {
+    debugPrint('Hidden Work');
+    getHiddentContractLoading(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+            url: 'fif-account?hide=1', methode: METHODE.get, isAuthorize: true)
+        .then((response) {
+      debugPrint('work $response');
+      hiddenContractList.clear();
+      response['data'].map((v) {
+        hiddenContractList.add(FIFApplicationListModel.fromJson(v));
+      }).toList();
+      getHiddentContractLoading(false);
+    }).onError((ErrorModel error, stackTrace) {
+      getHiddentContractLoading(false);
+      debugPrint('Error ${error.statusCode}');
+    });
+    debugPrint('Hidden List = $hiddenContractList');
+    return hiddenContractList;
+  }
+
   ///Get fif Application type account
   final fifAppModel = FIFApplicationListModel().obs;
   final fifApplicationList = <FIFApplicationListModel>[].obs;
   final fifChartList = <FIFApplicationListModel>[].obs;
 
   final fifApplicationLoading = true.obs;
-  Future<List<FIFApplicationListModel>> getFIFApplication(bool showall) async {
+  Future<List<FIFApplicationListModel>> getFIFApplication() async {
     fifApplicationLoading.value = true;
-    String filter = showall ? '?hide=1' : '';
+
     try {
       await apiBaseHelper
           .onNetworkRequesting(
-              url: "fif-account$filter",
+              url: "fif-account?hide=0",
               methode: METHODE.get,
               isAuthorize: true)
           .then((value) {
@@ -481,14 +507,13 @@ class PriceController extends GetxController {
     try {
       await apiBaseHelper
           .onNetworkRequesting(
-              url: "fif-account?hide=1",
-              methode: METHODE.get,
-              isAuthorize: true)
+              url: "fif-account", methode: METHODE.get, isAuthorize: true)
           .then((value) {
         var responseJson = value;
 
         fifChartList.clear();
         responseJson["data"].map((e) {
+          debugPrint('work');
           fifChartList.add(FIFApplicationListModel.fromJson(e));
         }).toList();
       }).onError((ErrorModel error, stackTrace) {
@@ -687,7 +712,7 @@ class PriceController extends GetxController {
         methode: METHODE.update,
         isAuthorize: true,
         body: {"account_name": textRenameTitle.value}).then((response) {
-      getFIFApplication(!totalInvestmentButton.value);
+      getFIFApplication();
       fetchFIFPending();
 
       update();
@@ -763,7 +788,7 @@ class PriceController extends GetxController {
               const MyInvestmentRouter(),
             );
             Future.delayed(const Duration(seconds: 1), () {
-              getFIFApplication(!totalInvestmentButton.value);
+              getFIFApplication();
               fetchFIFPending();
             });
           },
@@ -849,7 +874,7 @@ class PriceController extends GetxController {
           label: "");
 
       Future.delayed(const Duration(seconds: 1), () {
-        getFIFApplication(!totalInvestmentButton.value);
+        getFIFApplication();
         fetchFIFPending();
       });
 
@@ -1302,7 +1327,7 @@ class PriceController extends GetxController {
               context.navigateTo(
                 const MyInvestmentRouter(),
               );
-              getFIFApplication(!totalInvestmentButton.value);
+              getFIFApplication();
               fetchFirstDate();
               fetchFIFPending();
             });
@@ -1462,7 +1487,7 @@ class PriceController extends GetxController {
               context.navigateTo(
                 const MyInvestmentRouter(),
               );
-              getFIFApplication(!totalInvestmentButton.value);
+              getFIFApplication();
               fetchFirstDate();
               fetchFIFPending();
             });
