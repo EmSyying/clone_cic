@@ -1210,6 +1210,7 @@ class MemberController extends GetxController {
   final personalProfile = PersonalProfileModel().obs;
   final personalProfilemember = User().obs;
   final educationMemberData = <EducationData>[].obs;
+
   // final educationModel = EducationModel().obs;
   // final educationMemberDataList = <EducationData>[].obs;
 
@@ -1263,6 +1264,9 @@ class MemberController extends GetxController {
   final recommand = ''.obs;
   final profileBiorgraphy = ''.obs;
   final isSelectTap = false.obs;
+  final position = ''.obs;
+  final comapnyName = ''.obs;
+  final aboutAs = ''.obs;
   // Education Key
   final dateTime = DateFormat('yyyy-MM-dd');
   final school = ''.obs;

@@ -1,10 +1,10 @@
+import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../modules/member_directory/controllers/new_personal_profile/new_profile_controller.dart';
-import '../../utils/helper/color.dart';
 
 class CustomCompanyTap extends StatelessWidget {
   final String? companyName;
@@ -16,6 +16,8 @@ class CustomCompanyTap extends StatelessWidget {
   final String? email;
   final String? address;
   final String? website;
+  final String? editCompany;
+  final GestureTapCallback? onTapEdit;
   final GestureTapCallback? onTapPhone;
   final GestureTapCallback? onTapEmail;
   final GestureTapCallback? onTapAddress;
@@ -41,7 +43,9 @@ class CustomCompanyTap extends StatelessWidget {
       this.onTapPhone,
       this.onTapEmail,
       this.onTapAddress,
-      this.onTapAssociate})
+      this.onTapAssociate,
+      this.editCompany,
+      this.onTapEdit})
       : super(key: key);
 
   @override
@@ -52,6 +56,7 @@ class CustomCompanyTap extends StatelessWidget {
     final companyCon = Get.put(NewProfileController());
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20),
@@ -198,6 +203,7 @@ class CustomCompanyTap extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const PopupMenuDivider(height: 0),
                   PopupMenuItem(
                     padding: const EdgeInsets.only(right: 10, left: 10),
                     child: GestureDetector(
@@ -227,6 +233,41 @@ class CustomCompanyTap extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const PopupMenuDivider(height: 0),
+                  PopupMenuItem(
+                    padding: const EdgeInsets.only(right: 10, left: 10),
+                    child: GestureDetector(
+                      onTap: onTapEdit,
+                      child: Container(
+                        color: Colors.transparent,
+                        height: 49,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 18.0),
+                            SvgPicture.asset(
+                              'assets/images/svgfile/edit_profile.svg',
+                              color: AppColor.mainColor,
+                              width: 18,
+                              height: 18,
+                            ),
+                            const SizedBox(width: 15.0),
+                            Expanded(
+                              child: Text(
+                                "$editCompany",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.mainColor,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -237,24 +278,12 @@ class CustomCompanyTap extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'About',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2!
-                    .copyWith(fontWeight: FontWeight.w700),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: GestureDetector(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                        'assets/images/svgfile/editedIcon.svg')),
-              ),
-            ],
+          child: Text(
+            'About',
+            style: Theme.of(context)
+                .textTheme
+                .headline2!
+                .copyWith(fontWeight: FontWeight.w700),
           ),
         ),
         Padding(

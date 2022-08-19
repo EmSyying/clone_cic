@@ -77,6 +77,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                         email: e.value.email ?? '',
                         address: e.value.address ?? '',
                         website: e.value.website ?? '',
+                        editCompany: 'Edit company info',
                       );
                     }).toList(),
                   ),

@@ -72,7 +72,9 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const EditProfileScreen();
+                        return EditProfileScreen(
+                          id: widget.id,
+                        );
                       },
                     ),
                   );

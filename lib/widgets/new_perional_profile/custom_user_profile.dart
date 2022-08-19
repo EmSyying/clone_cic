@@ -45,10 +45,6 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
   final memberCon = Get.put(MemberController());
   final _pickerImage = ImagePicker();
   File? imageFile;
-  Future<void> onRemove() async {
-    User? userModel;
-    userModel!.profile = '';
-  }
 
   Future<void> _onChooseImage() async {
     final pickerFile = await _pickerImage.pickImage(
@@ -256,7 +252,6 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                         onPressed: () {
                           setState(() {
                             Navigator.pop(context);
-                            onRemove();
                           });
                         },
                         child: Text(
