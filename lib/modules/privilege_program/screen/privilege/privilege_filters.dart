@@ -43,7 +43,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: priCon.listAllCategories
+                  children: priCon.categoriesModelList
                       .asMap()
                       .entries
                       .map((cardListCat) => Padding(
