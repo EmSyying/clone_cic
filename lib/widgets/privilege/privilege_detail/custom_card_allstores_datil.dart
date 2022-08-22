@@ -1,12 +1,20 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
-import '../../../modules/privilege_program/model/stores_model/model_pre.dart';
-
 class CustomCardPrivilegeDetail extends StatelessWidget {
-  final StoreModel? detailCardPri;
-  const CustomCardPrivilegeDetail({Key? key, t, this.detailCardPri})
-      : super(key: key);
+  final String? logo;
+  final String? status;
+  final String? titile;
+  final String? slogan;
+  final String? discount;
+  const CustomCardPrivilegeDetail({
+    Key? key,
+    this.logo,
+    this.status,
+    this.titile,
+    this.slogan,
+    this.discount,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +59,11 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(detailCardPri!.logoCard ?? ''),
+                    image: NetworkImage(
+                      logo!,
+                    ),
                   )),
             ),
-            // Image.asset(
-            //   imageCard ?? '',
-            //   fit: BoxFit.cover,
-            //   width: 90,
-            // ),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.only(left: 6),
@@ -69,11 +74,10 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                     GestureDetector(
                       onTap: () {},
                       child: Text(
-                        detailCardPri!.steusTitle ?? '',
+                        status!,
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               fontSize: 10,
-                              color: detailCardPri!.steusTitle!.toLowerCase() ==
-                                      'closed'
+                              color: status != "Open"
                                   ? AppColor.statusColor['late']
                                   : AppColor.statusColor['green'],
                             ),
@@ -83,7 +87,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      detailCardPri!.titleStores ?? '',
+                      titile!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
@@ -95,7 +99,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      detailCardPri!.description ?? '',
+                      slogan!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
@@ -112,7 +116,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: Text(
-                '${detailCardPri!.numberPercentage ?? ''}%',
+                discount!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,

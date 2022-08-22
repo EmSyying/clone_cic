@@ -6,8 +6,9 @@ part 'model_categories.g.dart';
 @freezed
 class ModelsCategories with _$ModelsCategories {
   factory ModelsCategories({
-    String? title,
-    String? svgPicture,
+    int? id,
+    String? name,
+    String? image,
   }) = _ModelsCategories;
 
   factory ModelsCategories.fromJson(Map<String, dynamic> json) =>

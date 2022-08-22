@@ -1,0 +1,56 @@
+@baseUrl = https://cicstaging.z1central.com/api/
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZjFkNzI4YTQzMzk4MDk0Y2JjZmFkYTExZjA4OTNkNTA3NjJkYWRkNTQ2MmY3MTI0MmU0YTg0MDk1MzJkZGFkYzI5YzE1NDkxMWVmZjM3MWEiLCJpYXQiOjE2NTc2MDIxMTcuMDEwMjIxLCJuYmYiOjE2NTc2MDIxMTcuMDEwMjI5LCJleHAiOjE2ODkxMzgxMTYuOTkzNDQ5LCJzdWIiOiIxMCIsInNjb3BlcyI6WyIqIl19.nsCxVlmcRqGFqUfjxilP9A4dV0l7KuBXdYEoOqJQ97AmK4x-KVavzyW3IJ4rTtUQbOrwByH7poK2gZbYEHGXAfUSia8JT3W3oSxH4q1dxYxD4ql2E8Siq9lH1n_MpmEdL2h5WlNU-TV5f0enCdi-YRRubKn_eZoESABeAsDbmUkGGQGZjYmo4dMamkvvNHxYbchpiXgdbu-bJskmr1QEL-lDgqfcXW1PUBl29P70hfmeY61g1TY5ouCmQ5hhnLLh2rMfpJDYYySvu1S9lXcBzgQL2JYr3NH5xHPmWiXGIhFuUDUYDRg2ydMBjmm_OeHXCm7NzHNklCRCqv0-ZFJDc_JMWE6bypwzXIcQaB7eiQpU9RN-m_7jiV6CxcRBlrk3G9W4FsZwZDhYYv0fu7AfQUa35tYTXgAXIzRHyHfVx20GOqS4xVla2yKOfrDJT7MMSLOUQki8p97f74-OzJh_w54mG2i23aQAmLSUZlPu_2FxfKx5GhHQgbxaVKELRow6C-60XzXi6gtbcX-ihQ_p-6aAPW5_c1Ji5H03W49dW1JcirdoWAw8zMOunQpBRehpnu9R_ATb7mpEjZSjs4VyCFMhOf-BUu-rfGwSWAXTI8N8N0xgqlEt6n12w1GtX4aYWU7p3cAUASyKzISTm8tJtjarBljyH92kgLDuhR-Iq7w
+POST {{baseUrl}}login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "phone" : "+85510305096",
+    "password" : "Admin@2022"   
+}
+
+### List all province code to filter shop
+### Or v3/privilege/address/code?type=province
+GET {{baseUrl}}v3/privilege/address/code
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### search global shop
+GET {{baseUrl}}v3/privilege/global/search?name=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Favorite or unfavorite
+PUT {{baseUrl}}v3/privilege/shop/2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Filter
+GET {{baseUrl}}v3/privilege/filer?location=12&category=2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Category List
+GET {{baseUrl}}v3/privilege/category
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+API Privilege:
+
+### List All Active Shops
+GET {{baseUrl}}v3/privilege/shop
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Shop Detail
+GET {{baseUrl}}v3/privilege/shop/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}

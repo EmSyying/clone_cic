@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_connect.dart';
 import 'package:global_configuration/global_configuration.dart';
 
@@ -37,6 +38,7 @@ class ApiBaseHelper extends GetConnect {
       'Accept': 'application/json',
       'Authorization': isAuthorize ? 'Bearer $token' : ''
     };
+    debugPrint('');
     try {
       switch (methode) {
         case METHODE.get:

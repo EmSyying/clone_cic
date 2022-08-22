@@ -13,7 +13,7 @@ class CustomCardFavoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final preController = Get.put(PrivilegeController());
     return CustomAllStoreList(
-      storeList: preController.favoritesList,
+      shopList: preController.shopModelList,
     );
   }
 }

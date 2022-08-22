@@ -53,12 +53,12 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                             ),
                             child: ComponentCardCategory(
                               isOnClickCard: priCon.selectedCategFil.value ==
-                                  cardListCat.value.title,
+                                  cardListCat.value.name,
                               modelCardCategory: cardListCat.value,
                               onTapCatego: () {
                                 setState(() {
                                   priCon.selectedCategFil.value =
-                                      cardListCat.value.title!;
+                                      cardListCat.value.name!;
                                 });
                               },
                             ),

@@ -633,7 +633,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           .onSwitchNotificationSetting();
                                       await customerController.getUser();
                                     },
-                                    value: isOnNotification!,
+                                    value: isOnNotification ?? false,
                                   ),
                       ),
                     ],

@@ -1,3 +1,6 @@
+import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
+import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/helper/option_model/option_form.dart';
@@ -10,7 +13,94 @@ class PrivilegeController extends GetxController {
   final isSelectFilter = false.obs;
   final selectedCategFil = ''.obs;
 
-  //final filterByTypeList = <OptionFormFilter>[].obs;
+  ////function getListShop======
+  ApiBaseHelper apiBaseHelper = ApiBaseHelper();
+  final shopModel = PrivilegeShopModel().obs;
+  final shopModelList = <PrivilegeShopModel>[].obs;
+  final isFavorites = 0.obs;
+  final isLoadingShopList = false.obs;
+  Future<List<PrivilegeShopModel>> onFetchListShop() async {
+    isLoadingShopList(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/shop',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      var responseJson = response['data'];
+      shopModelList.clear();
+
+      responseJson.map((e) {
+        shopModelList.add(PrivilegeShopModel.fromJson(e));
+      }).toList();
+      isLoadingShopList(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingShopList(false);
+    });
+
+    return shopModelList;
+  }
+
+  ////function onFetchShopDetail======
+  final shopDetailModel = PrivilegeShopModel().obs;
+  final isLoadingShopDetail = false.obs;
+  Future<PrivilegeShopModel> onFetchShopDetail(num? id) async {
+    debugPrint("Privilege 1");
+    isLoadingShopDetail(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/shop/$id',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      // debugPrint("Resonse body json privilege:$response");
+
+      var responseJson = response['data'];
+      shopDetailModel.value = PrivilegeShopModel.fromJson(responseJson);
+      // debugPrint(
+      //     "Privilege Data:${shopDetailModel.value.openingDays![0].dayName}");
+
+      isLoadingShopDetail(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingShopDetail(false);
+    });
+    return shopDetailModel.value;
+  }
+
+  ////function onFetchCategories======
+  //final categoriesModel = ModelsCategories().obs;
+  final categoriesModelList = <ModelsCategories>[].obs;
+  final isLoadingCategories = false.obs;
+  Future<List<ModelsCategories>> onFetchCategories() async {
+    isLoadingCategories(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/category',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      debugPrint('Categories========200===');
+      var responseJson = response['data'];
+      categoriesModelList.clear();
+      debugPrint('Categories data:===${responseJson!}');
+      responseJson.map((e) {
+        categoriesModelList.add(
+          ModelsCategories.fromJson(e),
+        );
+        debugPrint('Categories=====name:${categoriesModelList[0].name}');
+      }).toList();
+
+      isLoadingCategories(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      debugPrint('categories error=======${errorModel.bodyString}}');
+      isLoadingCategories(false);
+    });
+
+    return categoriesModelList;
+  }
 
   final filterOption = <OptionForm>[
     OptionForm(id: 1, display: "Sihanouk VIlle"),
@@ -26,16 +116,16 @@ class PrivilegeController extends GetxController {
 
   final listAllCategories = <ModelsCategories>[
     ModelsCategories(
-      title: 'Education Training',
-      svgPicture: 'assets/images/privilege/education.png',
+      name: 'Education Training',
+      image: 'assets/images/privilege/education.png',
     ),
     ModelsCategories(
-      title: 'Retail Baby Product',
-      svgPicture: 'assets/images/privilege/product.png',
+      name: 'Retail Baby Product',
+      image: 'assets/images/privilege/product.png',
     ),
     ModelsCategories(
-      title: 'Construction Architect',
-      svgPicture: 'assets/images/privilege/construction.png',
+      name: 'Construction Architect',
+      image: 'assets/images/privilege/construction.png',
     ),
   ].obs;
 

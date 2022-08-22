@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,8 +32,8 @@ class _SearchScreenState extends State<SearchScreen> {
             size: 22,
           ),
           onPressed: () {
-            context.router.pop();
-            // Navigator.pop(context);
+            //context.router.pop();
+            Navigator.pop(context);
           },
         ),
         title: Container(
@@ -109,7 +108,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: CustomAllStoreList(
-                  storeList: preCont.listAllStores,
+                  shopList: preCont.shopModelList,
                 ),
               ),
               //Favoritess====12==============

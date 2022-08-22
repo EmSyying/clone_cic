@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/configs/route_management/route_name.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/models/application_detail.dart';
@@ -17,6 +16,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../Utils/helper/custom_snackbar.dart';
 import '../../../utils/helper/api_base_helper.dart';
+import 'debt_investment_controller.dart';
 
 class EquityInvestmentController extends GetxController {
   String? tokenKey;
@@ -122,7 +122,6 @@ class EquityInvestmentController extends GetxController {
   }
 
   resetData() {
-    applicationData.value.status = "";
     whenOnchangeDate.value = "";
     isValidateProductType.value = true;
     isValidateFinancingAmount.value = true;
@@ -297,6 +296,11 @@ class EquityInvestmentController extends GetxController {
 
       http.Response.fromStream(streamedResponse).then((response) {
         if (response.statusCode == 200) {
+          debugPrint("incomestatement:${incomeStatement.value}");
+          debugPrint("Balance sheet:${balanceSheet.value}");
+          debugPrint("have financial:${havefinancial.value}");
+          debugPrint("cash flow:${cashFlowStatement.value}");
+          // if (type == null) {
           showSnackbar
               ? Get.snackbar("",
                   "Your equity investment application request has been submitted",
@@ -333,11 +337,9 @@ class EquityInvestmentController extends GetxController {
                 nums = 4;
               }
               int count = 0;
-              context.router.popUntil((route) => count++ >= nums);
-              context.router.replaceNamed('/get-funding');
-              // Navigator.of(context).popUntil((_) => count++ >= nums);
-              // Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-              //     arguments: "equity_investment");
+              Navigator.of(context).popUntil((_) => count++ >= nums);
+              Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
+                  arguments: "equity_investment");
               // ignore: unnecessary_null_comparison
             } else if (frompage! > 2) {
               int nums = 4 - frompage.toInt();
@@ -347,11 +349,15 @@ class EquityInvestmentController extends GetxController {
               Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
                   arguments: "equity_investment");
             } else {
-              context.router.navigateBack();
-              context.router.replaceNamed('/get-funding');
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
+                  arguments: "equity_investment");
             }
           });
         } else {
+          debugPrint('debug stateus=========${response.statusCode}');
+          debugPrint('debug body========${response.body}');
+
           Get.snackbar(
               "", "Your equity investment application request has been failed",
               borderRadius: 8,
@@ -553,8 +559,9 @@ class EquityInvestmentController extends GetxController {
   final equityApplication = ApplicationData().obs;
   final equityApplicationList = <ApplicationData>[].obs;
   final equityApplicationDraftList = <ApplicationData>[].obs;
-  final equityApplicationRejectedtList = <ApplicationData>[].obs;
+
   final equityApplicationReviewList = <ApplicationData>[].obs;
+
   final isequityLoading = false.obs;
   final isfetchequtydata = false.obs;
 
@@ -580,18 +587,13 @@ class EquityInvestmentController extends GetxController {
           if (page == 1) {
             equityApplicationList.clear();
             equityApplicationDraftList.clear();
+            //  equityApplicationRejectedtList.clear();
           }
 
           responseJson.map((json) {
             equityApplication.value = ApplicationData.fromJson(json);
             if (equityApplication.value.status!.toLowerCase() == "draft") {
               equityApplicationDraftList.add(equityApplication.value);
-            } else if (equityApplication.value.status!.toLowerCase() ==
-                "rejected") {
-              equityApplicationRejectedtList.add(equityApplication.value);
-            } else if (equityApplication.value.status!.toLowerCase() ==
-                "review") {
-              equityApplicationReviewList.add(equityApplication.value);
             } else {
               equityApplicationList.add(equityApplication.value);
             }
@@ -607,6 +609,39 @@ class EquityInvestmentController extends GetxController {
       isfetchequtydata(false);
     }
     return equityApplicationList;
+  }
+
+  ///function Reject&Cancelled EquityAndDebt investment====
+  final equityRejectedModel = ApplicationData().obs;
+  final equityApplicationRejectedtList = <ApplicationData>[].obs;
+  final isLoadingStatus = false.obs;
+  final debtCon = Get.put(DebtInvestmentController());
+  Future<List<ApplicationData>> getEquityAndDebtRejectedAndCancelled(
+    String? status,
+  ) async {
+    isLoadingStatus(true);
+    String route = debtCon.tapcurrentIndex.value == 0
+        ? 'equity-investment'
+        : 'debt-investment';
+    await apiBaseHelper
+        .onNetworkRequesting(
+            url: '$route?status=$status',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((response) {
+      equityApplicationRejectedtList.clear();
+      response['data'].map((json) {
+        equityRejectedModel.value = ApplicationData.fromJson(json);
+        equityApplicationRejectedtList.add(equityRejectedModel.value);
+      }).toList();
+
+      isLoadingStatus(false);
+    }).onError((ErrorModel error, stackTrace) {
+      debugPrint(" not get ================>");
+    });
+    isLoadingStatus(false);
+
+    return equityApplicationRejectedtList;
   }
 
   final optionData = OptionType().obs;

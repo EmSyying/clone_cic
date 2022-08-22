@@ -1,24 +1,23 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
-import '../../../modules/privilege_program/model/stores_model/model_pre.dart';
+import '../../../modules/privilege_program/model/stores_model/privilege_shop_model.dart';
 import '../custom_fovarite.dart';
 
 class CustomCardAllStores extends StatelessWidget {
-  final StoreModel? storeModel;
-  final bool? isFav;
+  final PrivilegeShopModel? privilegeShopList;
+  final num? isFav;
   final GestureTapCallback? onTapFav;
 
   const CustomCardAllStores({
     Key? key,
-    this.isFav,
+    this.isFav = 0,
     this.onTapFav,
-    this.storeModel,
+    this.privilegeShopList,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final preController = Get.put(PrivilegeController());
     return Stack(
       children: [
         Container(
@@ -58,43 +57,35 @@ class CustomCardAllStores extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                        storeModel!.imageStores!,
+                        privilegeShopList!.shopLogo ?? '',
                       ),
                     )),
-                // child: Image.network(
-                //   imageStores!,
-                //   fit: BoxFit.cover,
-                // ),
               ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(left: 12),
                   child: Column(
-                    // mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
                         onTap: () {},
                         child: Text(
-                          storeModel!.steusTitle!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(
-                                fontSize: 10,
-                                color: storeModel!.steusTitle!.toLowerCase() ==
-                                        'closed'
-                                    ? AppColor.statusColor['late']
-                                    : AppColor.statusColor['green'],
-                              ),
+                          privilegeShopList!.status ?? '',
+                          style:
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    fontSize: 10,
+                                    color: privilegeShopList!.status == "Closed"
+                                        ? AppColor.statusColor['late']
+                                        : AppColor.statusColor['green'],
+                                  ),
                         ),
                       ),
                       const SizedBox(
                         height: 2.0,
                       ),
                       Text(
-                        storeModel!.titleStores!,
+                        privilegeShopList!.shopNameInEnglish ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
@@ -106,7 +97,7 @@ class CustomCardAllStores extends StatelessWidget {
                         height: 2.0,
                       ),
                       Text(
-                        storeModel!.description!,
+                        privilegeShopList!.slogan ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
@@ -129,7 +120,7 @@ class CustomCardAllStores extends StatelessWidget {
                           ),
                           Expanded(
                             child: Text(
-                              storeModel!.location!,
+                              privilegeShopList!.fullAddress ?? '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
@@ -156,7 +147,7 @@ class CustomCardAllStores extends StatelessWidget {
                 color: AppColor.statusColor['pending'],
                 child: Center(
                   child: Text(
-                    '${storeModel!.numberPercentage} %',
+                    privilegeShopList!.discountRate ?? '',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,

@@ -20,8 +20,9 @@ ModelsCategories _$ModelsCategoriesFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ModelsCategories {
-  String? get title => throw _privateConstructorUsedError;
-  String? get svgPicture => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $ModelsCategoriesCopyWith<$Res> {
   factory $ModelsCategoriesCopyWith(
           ModelsCategories value, $Res Function(ModelsCategories) then) =
       _$ModelsCategoriesCopyWithImpl<$Res>;
-  $Res call({String? title, String? svgPicture});
+  $Res call({int? id, String? name, String? image});
 }
 
 /// @nodoc
@@ -48,17 +49,22 @@ class _$ModelsCategoriesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? title = freezed,
-    Object? svgPicture = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      svgPicture: svgPicture == freezed
-          ? _value.svgPicture
-          : svgPicture // ignore: cast_nullable_to_non_nullable
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -71,7 +77,7 @@ abstract class _$$_ModelsCategoriesCopyWith<$Res>
           _$_ModelsCategories value, $Res Function(_$_ModelsCategories) then) =
       __$$_ModelsCategoriesCopyWithImpl<$Res>;
   @override
-  $Res call({String? title, String? svgPicture});
+  $Res call({int? id, String? name, String? image});
 }
 
 /// @nodoc
@@ -87,17 +93,22 @@ class __$$_ModelsCategoriesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? title = freezed,
-    Object? svgPicture = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? image = freezed,
   }) {
     return _then(_$_ModelsCategories(
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      svgPicture: svgPicture == freezed
-          ? _value.svgPicture
-          : svgPicture // ignore: cast_nullable_to_non_nullable
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -106,19 +117,21 @@ class __$$_ModelsCategoriesCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ModelsCategories implements _ModelsCategories {
-  _$_ModelsCategories({this.title, this.svgPicture});
+  _$_ModelsCategories({this.id, this.name, this.image});
 
   factory _$_ModelsCategories.fromJson(Map<String, dynamic> json) =>
       _$$_ModelsCategoriesFromJson(json);
 
   @override
-  final String? title;
+  final int? id;
   @override
-  final String? svgPicture;
+  final String? name;
+  @override
+  final String? image;
 
   @override
   String toString() {
-    return 'ModelsCategories(title: $title, svgPicture: $svgPicture)';
+    return 'ModelsCategories(id: $id, name: $name, image: $image)';
   }
 
   @override
@@ -126,17 +139,18 @@ class _$_ModelsCategories implements _ModelsCategories {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ModelsCategories &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.svgPicture, svgPicture));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.image, image));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(svgPicture));
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(image));
 
   @JsonKey(ignore: true)
   @override
@@ -150,16 +164,20 @@ class _$_ModelsCategories implements _ModelsCategories {
 }
 
 abstract class _ModelsCategories implements ModelsCategories {
-  factory _ModelsCategories({final String? title, final String? svgPicture}) =
-      _$_ModelsCategories;
+  factory _ModelsCategories(
+      {final int? id,
+      final String? name,
+      final String? image}) = _$_ModelsCategories;
 
   factory _ModelsCategories.fromJson(Map<String, dynamic> json) =
       _$_ModelsCategories.fromJson;
 
   @override
-  String? get title => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @override
-  String? get svgPicture => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  @override
+  String? get image => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ModelsCategoriesCopyWith<_$_ModelsCategories> get copyWith =>

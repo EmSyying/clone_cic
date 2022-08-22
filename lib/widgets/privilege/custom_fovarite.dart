@@ -10,7 +10,7 @@ class CustomFovarite extends StatelessWidget {
   final Function()? onPressed;
   final int? index;
   final bool? isPrivilege;
-  final bool? isFav;
+  final num? isFav;
   const CustomFovarite({
     Key? key,
     this.isBoxIsScroll = false,
@@ -18,7 +18,7 @@ class CustomFovarite extends StatelessWidget {
     this.onPressed,
     this.index,
     this.isPrivilege = false,
-    this.isFav = false,
+    this.isFav = 0,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class CustomFovarite extends StatelessWidget {
             ),
             width: 22,
             height: 22,
-            child: isFav!
+            child: preController.isFavorites.value != isFav
                 ? SvgPicture.asset(
                     'assets/images/privilege/favorite.svg',
                   )
@@ -59,7 +59,7 @@ class CustomFovarite extends StatelessWidget {
               child: IconButton(
                 icon: icon == null
                     ? Obx(
-                        () => preController.listAllStores[index!].isFav
+                        () => preController.isFavorites.value != isFav
                             ? SvgPicture.asset(
                                 'assets/images/privilege/favorite.svg',
                                 height: 20,
