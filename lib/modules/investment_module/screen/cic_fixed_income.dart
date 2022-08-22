@@ -1,15 +1,14 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
 import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
-import '../../../configs/auto_route/auto_route.gr.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
@@ -243,12 +242,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 title: 'About FIF',
                 onPressed: () {
                   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
-                  context.router.push(
-                    AboutFiFRouter(
-                        title: "About FIF",
-                        url: priceController.investmentModel.value.aboutFif ??
-                            "https://cic-association.com/"),
-                  );
+                  context.push(
+                      '/investment/cic-fixed-fund/about-fif?title=About FIF&url=${priceController.investmentModel.value.aboutFif}');
                 },
               ),
             ),
@@ -268,7 +263,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   priceController.isNewBank.value = true;
                   priceController.textReceivingAccount.value = "";
                   priceController.clearDeducSelection();
-                  context.router.push(FIFDeucSelectionRouter());
+                  context.push('/investment/cic-fixed-fund/invest-more');
+                  // context.router.push(FIFDeucSelectionRouter());
                 },
               ),
             ),

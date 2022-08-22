@@ -32,12 +32,14 @@ import 'Utils/helper/color.dart';
 import 'Utils/helper/local_storage.dart';
 import 'Utils/option_controller/option_controller.dart';
 import 'configs/auto_route/auto_route.gr.dart';
+import 'configs/route_configuration/route.dart';
 import 'generated/l10n.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/helper/app_pin_code.dart' as appPinCode;
 
 final optionCon = Get.put(DocumentCategory());
 final settingCon = Get.put(SettingController());
+ValueNotifier<bool> isLogin = ValueNotifier(false);
 
 Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -61,13 +63,23 @@ Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await LocalStorage.init();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
     await Firebase.initializeApp();
     await GlobalConfiguration().loadFromAsset("app_settings");
     setPathUrlStrategy();
+    await settingCon.fetchAppSetting();
     await NotificationHelper.initial();
-    settingCon.fetchAppSetting();
     optionCon.fetchAllOptions();
+    await LocalData.getCurrentUser().then((value) {
+      if (value != null) {
+        isLogin.value = true;
+        isLogin.notifyListeners();
+      } else {
+        isLogin.value = false;
+        isLogin.notifyListeners();
+      }
+    });
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(
@@ -552,9 +564,9 @@ class MyApp extends StatelessWidget {
               }
             },
             child: GetMaterialApp.router(
-              routerDelegate: appRouter.delegate(),
-              routeInformationParser: appRouter.defaultRouteParser(),
-
+              routerDelegate: router.routerDelegate,
+              routeInformationParser: router.routeInformationParser,
+              routeInformationProvider: router.routeInformationProvider,
               localizationsDelegates: const [
                 S.delegate,
                 CountryLocalizations.delegate,

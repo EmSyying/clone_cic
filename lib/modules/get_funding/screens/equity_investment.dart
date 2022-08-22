@@ -319,7 +319,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
             onPressed: () {
               equityController.resetData();
 
-              context.router.pushNamed("step1equity");
+              context.router.pushNamed("equity-step1");
             },
             title: 'Get Equity Invesment',
           ),

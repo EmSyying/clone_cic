@@ -1,18 +1,20 @@
 import 'package:cicgreenloan/modules/report_module/controllers/documentation_controller.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
-import 'package:cicgreenloan/modules/report_module/screens/view_report.dart';
 import 'package:cicgreenloan/widgets/report/no_report_found.dart';
 import 'package:cicgreenloan/widgets/report/custom_document_card.dart';
 import 'package:cicgreenloan/widgets/report/report_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/firebase_analytics.dart';
 
 class InvestorPage extends StatefulWidget {
   final String? tabLabel;
+  final int? currentIndex;
 
-  const InvestorPage({Key? key, this.tabLabel}) : super(key: key);
+  const InvestorPage({Key? key, this.tabLabel, this.currentIndex})
+      : super(key: key);
   @override
   State<InvestorPage> createState() => _InvestorPageState();
 }
@@ -67,14 +69,8 @@ class _InvestorPageState extends State<InvestorPage> {
                                 onTap: () {
                                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                       'View Report ${items[index].title}');
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ViewReport(
-                                        documentationModel: items[index],
-                                      ),
-                                    ),
-                                  );
+                                  context.push(
+                                      '/report/${widget.currentIndex}/view-report?attachedFile=${items[index].attachedFile}&title=${items[index].title}&url=${items[index].url}');
                                 },
                                 child: CustomDocumentCard(
                                   documentationModel: items[index],

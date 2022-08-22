@@ -1,6 +1,8 @@
+import 'package:cicgreenloan/configs/route_configuration/route_argument/bullet_payment_detail_arg.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../modules/bonus/screens/bonus_screen.dart';
 import '../../modules/event_module/models/event_detail_argument.dart';
@@ -9,7 +11,6 @@ import '../../modules/get_funding/screens/debt_investment/preview_debt_form.dart
 import '../../modules/get_funding/screens/equity_investment/preview_equity.dart';
 import '../../modules/investment_module/screen/bullet_payment_detail.dart';
 import '../../modules/investment_module/screen/deposit_screen.dart';
-import '../../modules/investment_module/screen/saving_detail_screen.dart';
 import '../../modules/notification_modules/controllers/notification_controller.dart';
 import '../../modules/notification_modules/screens/notification.dart';
 
@@ -46,27 +47,24 @@ class OnMessageOpenApp {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return BulletPaymentDetail(
-                titles: 'Detail Summary',
-                status: event.data['operation'],
-                isStatusPending: true,
-                isNoUSD: false,
-                id: num.tryParse(event.data['application_id']),
-              );
+              return const BulletPaymentDetail(
+                  // titles: 'Detail Summary',
+                  // status: event.data['operation'],
+                  // isStatusPending: true,
+                  // isNoUSD: false,
+                  // id: num.tryParse(event.data['application_id']),
+                  );
             },
           ),
         );
       } else {
         _notificationCon.onReadNotification(event.data['id']);
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SavingDetailScreen(
-              paddings: const EdgeInsets.only(top: 50, left: 10, right: 0),
-              id: num.tryParse(event.data['application_id']),
-            ),
-          ),
+
+        final savingAccount = BulletPaymentDetailArg(
+          paddings: const EdgeInsets.only(top: 50, left: 10, right: 0),
+          id: num.tryParse(event.data['application_id']),
         );
+        context.go('/notification/saving-detail', extra: savingAccount);
       }
     } else if (event.data['type'] == 'Equity') {
       _notificationCon.onReadNotification(event.data['id']);

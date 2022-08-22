@@ -11,13 +11,13 @@ import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controlle
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/report_module/controllers/documentation_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/screens/notification.dart';
-import 'package:cicgreenloan/modules/report_module/screens/view_report.dart';
 import 'package:cicgreenloan/modules/ut_trading/controllers/trading_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/controllers/notification_controller.dart';
 import 'package:cicgreenloan/widgets/dashboard/custom_associate_member.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:go_router/go_router.dart';
 import 'package:upgrader/upgrader.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
@@ -674,7 +674,6 @@ class _MainDashboardState extends State<MainDashboard> {
               title: GestureDetector(
                 ///add this widget to test privilege screen don't forget remore====================
                 onTap: () {
-                  context.router.pushNamed("/privilege");
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
@@ -707,17 +706,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     GestureDetector(
                       key: actionKey,
                       onTap: () async {
-                        // await notificationPlugin!.showNotification(
-                        //     'Test Notification', 'Test Desc', 'Pay Load');
-
-                        // _showNotification('Test', 'Test Detail');
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const NotificationScreen(),
-                          ),
-                        );
+                        context.go('/notification');
                       },
                       child: Stack(
                         alignment: Alignment.center,
@@ -985,8 +974,8 @@ class _MainDashboardState extends State<MainDashboard> {
                                                   FirebaseAnalyticsHelper
                                                       .setCurrentScreenName(
                                                           value.label!);
-                                                  context.router.pushNamed(
-                                                      "/${value.route!}");
+                                                  context
+                                                      .go("/${value.route!}");
                                                 },
                                       icon: value.icon,
                                     );
@@ -1069,12 +1058,12 @@ class _MainDashboardState extends State<MainDashboard> {
                         var item = snapshot.data![index];
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ViewReport(
-                                          documentationModel: item,
-                                        )));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => ViewReport(
+                            //               documentationModel: item,
+                            //             )));
                           },
                           child: Container(
                             margin: const EdgeInsets.only(right: 20),

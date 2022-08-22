@@ -6,6 +6,7 @@ import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import '../../../utils/chart/custom_circle_chart_1_3.dart';
 import '../../../widgets/get_funding/custom_call_center.dart';
 import '../../../widgets/investments/custom_card_deduc_selection.dart';
@@ -13,7 +14,7 @@ import '../controller/investment_controller.dart';
 
 class FIFDeucSelection extends StatefulWidget {
   final int? id;
-  const FIFDeucSelection({Key? key, @queryParam this.id}) : super(key: key);
+  const FIFDeucSelection({Key? key, this.id}) : super(key: key);
 
   @override
   State<FIFDeucSelection> createState() => _FIFDeucSelectionState();
@@ -40,7 +41,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Product Code detail:${deducCon.productCode.value}");
+    final router = GoRouter.of(context);
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
           context: context,
@@ -234,14 +235,15 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                               )
                             : CustomButton(
                                 onPressed: () {
-                                  context.router.push(
-                                    FIFOption1Router(
-                                      id: widget.id,
-                                      options: deducCon
+                                  context.push(
+                                    '/investment/cic-fixed-fund/invest-more/fif-step',
+                                    extra: {
+                                      "id": widget.id,
+                                      "options": deducCon
                                           .fifProductTypeList[
                                               deducCon.selectedProIndex.value]
                                           .options,
-                                    ),
+                                    },
                                   );
                                 },
                                 isDisable: false,

@@ -60,7 +60,7 @@ Route<dynamic> routeSetting(RouteSettings settings) {
       );
     case RouteName.REPORTS:
       return MaterialPageRoute(
-        builder: (context) => const Report(isNavigator: true),
+        builder: (context) => Report(isNavigator: true),
       );
     case RouteName.ABOUTCIC:
       return MaterialPageRoute(

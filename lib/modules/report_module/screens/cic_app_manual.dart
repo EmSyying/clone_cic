@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/modules/report_module/screens/view_report.dart';
 import 'package:cicgreenloan/utils/helper/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -75,16 +74,16 @@ class _CiCAppManualState extends State<CiCAppManual> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ViewReport(
-                                                  documentationModel:
-                                                      items[index],
-                                                ),
-                                              ),
-                                            );
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (context) =>
+                                            //         ViewReport(
+                                            //       documentationModel:
+                                            //           items[index],
+                                            //     ),
+                                            //   ),
+                                            // );
                                           },
                                           child: CustomDocumentCard(
                                             documentationModel: items[index],

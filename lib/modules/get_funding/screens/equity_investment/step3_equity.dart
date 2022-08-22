@@ -32,8 +32,7 @@ class Step3Equity extends StatefulWidget {
 
   final int? step;
 
-  const Step3Equity(
-      {Key? key, @PathParam('id') this.id, @PathParam('step') this.step})
+  const Step3Equity({Key? key, @queryParam this.id, @queryParam this.step})
       : super(key: key);
   @override
   State<Step3Equity> createState() => _Step3EquityState();

@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/models/certificate_model.dart';
-import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +15,28 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/web_view/web_view.dart';
 
 class ViewReport extends StatefulWidget {
-  final DocumentationModel? documentationModel;
+  // final int? id;
+  // final String? type;
+  // final String? category;
+  final String? title;
+  // final String? shortDescription;
+  // final String? publishedAt;
+  // final String? cover;
+  final String? attachedFile;
+  final String? url;
   final CertificateModel? certificateModel;
-  const ViewReport({Key? key, this.documentationModel, this.certificateModel})
+  const ViewReport(
+      {Key? key,
+      this.certificateModel,
+      // this.id,
+      // this.type,
+      // this.category,
+      this.title,
+      // this.shortDescription,
+      // this.publishedAt,
+      // this.cover,
+      this.attachedFile,
+      this.url})
       : super(key: key);
 
   @override
@@ -125,13 +143,12 @@ class _ViewReportState extends State<ViewReport> {
               isLeading: true,
               context: context,
               elevation: 1.0,
-              title: widget.documentationModel!.title!),
-      body: widget.documentationModel!.attachedFile != null &&
-              widget.documentationModel!.attachedFile!.isNotEmpty
+              title: widget.title!),
+      body: widget.attachedFile != null && widget.attachedFile!.isNotEmpty
           ? Stack(
               children: [
                 SfPdfViewer.network(
-                  widget.documentationModel!.attachedFile!,
+                  widget.attachedFile!,
                   onDocumentLoadFailed: (e) {
                     onShowDialog(context);
                   },
@@ -180,8 +197,8 @@ class _ViewReportState extends State<ViewReport> {
             )
           : ViewWebsite(
               isfromReport: true,
-              title: widget.documentationModel!.title,
-              url: widget.documentationModel!.url,
+              title: widget.title,
+              url: widget.url,
             ),
     );
   }

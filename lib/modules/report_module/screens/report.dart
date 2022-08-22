@@ -19,7 +19,9 @@ import '../../../Utils/helper/firebase_analytics.dart';
 
 class Report extends StatefulWidget {
   final bool? isNavigator;
-  const Report({Key? key, this.isNavigator}) : super(key: key);
+  int? currentTabIndex;
+  Report({Key? key, this.isNavigator, this.currentTabIndex = 0})
+      : super(key: key);
   @override
   State<Report> createState() => _ReportState();
 }
@@ -32,7 +34,6 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
   Future? documentList;
   String? currentUser;
   int selectIndex = 0;
-  int currentTabIndex = 0;
   bool isTabSelected = false;
 
   @override
@@ -42,11 +43,11 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
         vsync: this,
         length:
             docTypeCon.reportList.isNotEmpty ? docTypeCon.reportList.length : 0,
-        initialIndex: currentTabIndex);
+        initialIndex: widget.currentTabIndex!);
     tabController!.addListener(() {
       setState(() {
         isTabSelected = true;
-        currentTabIndex = tabController!.index;
+        widget.currentTabIndex = tabController!.index;
         selectIndex = 0;
       });
     });
@@ -157,7 +158,8 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                     padding: const EdgeInsets.only(left: 20),
                                     child: Row(
                                       children: docTypeCon
-                                          .documentTypeList[currentTabIndex]
+                                          .documentTypeList[
+                                              widget.currentTabIndex!]
                                           .children!
                                           .asMap()
                                           .entries
@@ -198,19 +200,19 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                             .map(
                                               (element) => InvestorPage(
                                                 tabLabel: docTypeCon
-                                                        .documentTypeList[
-                                                            currentTabIndex]
+                                                        .documentTypeList[widget
+                                                            .currentTabIndex!]
                                                         .children!
                                                         .isNotEmpty
                                                     ? docTypeCon
-                                                        .documentTypeList[
-                                                            currentTabIndex]
+                                                        .documentTypeList[widget
+                                                            .currentTabIndex!]
                                                         .children![selectIndex]
                                                         .id
                                                         .toString()
                                                     : docTypeCon
-                                                        .documentTypeList[
-                                                            currentTabIndex]
+                                                        .documentTypeList[widget
+                                                            .currentTabIndex!]
                                                         .id
                                                         .toString(),
                                               ),

@@ -24,8 +24,7 @@ import '../../../../widgets/get_funding/custom_call_center.dart';
 class Step1Equiry extends StatefulWidget {
   final int? id;
   final int? step;
-  const Step1Equiry(
-      {Key? key, @PathParam('id') this.id = 0, @PathParam('step') this.step})
+  const Step1Equiry({Key? key, @queryParam this.id = 0, @queryParam this.step})
       : super(key: key);
   @override
   State<Step1Equiry> createState() => _Step1EquiryState();
@@ -95,7 +94,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
             equityController.equitySetting.value.maxEquityAmount! &&
         equityController.useOfFund.value != '' &&
         equityController.intendedDate.value != '') {
-      context.router.pushNamed("step2equity/${widget.id}/2");
+      context.router.pushNamed("equity-step2?id=${widget.id}&step=2");
     }
   }
 
@@ -136,7 +135,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                           debugPrint("Pop 1");
                                           FocusScope.of(context).unfocus();
 
-                                          context.router.pop();
+                                          Navigator.pop(context);
                                         }
                                       : equityController
                                                       .financingAmoung.value ==
@@ -148,10 +147,9 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                       .useOfFund.value ==
                                                   ''
                                           ? () {
-                                              debugPrint("Pop 2");
-                                              context.router.pop();
+                                              Navigator.pop(context);
+
                                               FocusScope.of(context).unfocus();
-                                              context.router.pop();
                                             }
                                           : () {
                                               FocusScope.of(context).unfocus();

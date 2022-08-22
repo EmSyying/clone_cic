@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/firebase_analytics.dart';
@@ -27,21 +28,23 @@ class SavingDetailScreen extends StatefulWidget {
   final String? currentPrincipal;
   final EdgeInsets? paddings;
   final String? accountName;
+  final String? fromPage;
 
   // final FiFApplicationDetailModel? fiFApplicationDetailModel;
   final List<ScheduleModelList>? scheduleModelList;
 
   const SavingDetailScreen(
       {Key? key,
-      @queryParam this.accountName,
-      @queryParam this.paddings,
-      @queryParam this.code,
-      @queryParam this.id,
-      @queryParam this.scheduleModelList,
-      @queryParam this.hide,
-      @queryParam this.index,
-      @queryParam this.investAmonut,
-      @queryParam this.currentPrincipal})
+      this.accountName,
+      this.paddings,
+      this.code,
+      this.id,
+      this.scheduleModelList,
+      this.hide = false,
+      this.index,
+      this.investAmonut,
+      this.currentPrincipal,
+      this.fromPage})
       : super(key: key);
 
   @override
@@ -166,19 +169,50 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                     FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                         'renew contract');
                                     Navigator.pop(context);
-                                    context.router.push(
-                                      RenewalScreenRouter(
-                                        id: widget.id,
-                                        annually: fifCon.fifAccountDetailModel
-                                            .value.annuallyInterestRate,
-                                        investAmount: fifCon
-                                            .fifAccountDetailModel
-                                            .value
-                                            .investmentAmount,
-                                        accountName: widget.accountName,
-                                        contractCode: widget.code,
-                                      ),
-                                    );
+                                    if (widget.fromPage == null) {
+                                      context.push(
+                                          '/investment/cic-fixed-fund/saving-detail/renew-contract',
+                                          extra: {
+                                            "paddings": const EdgeInsets.only(
+                                                top: 50, left: 10, right: 0),
+                                            "index": widget.index,
+                                            "hide": !widget.hide!,
+                                            "id": widget.id,
+                                            "code": widget.code,
+                                            "accountName": widget.accountName,
+                                            "annually": fifCon
+                                                .fifAccountDetailModel
+                                                .value
+                                                .annuallyInterestRate,
+                                            "investAmount": fifCon
+                                                .fifAccountDetailModel
+                                                .value
+                                                .investmentAmount,
+                                            "contractCode": widget.code
+                                          });
+                                    } else {
+                                      context.push(
+                                        '/notification/saving-detail/renew-contract',
+                                        extra: {
+                                          "paddings": const EdgeInsets.only(
+                                              top: 50, left: 10, right: 0),
+                                          "index": widget.index,
+                                          "hide": !widget.hide!,
+                                          "id": widget.id,
+                                          "code": widget.code,
+                                          "accountName": widget.accountName,
+                                          "annually": fifCon
+                                              .fifAccountDetailModel
+                                              .value
+                                              .annuallyInterestRate,
+                                          "investAmount": fifCon
+                                              .fifAccountDetailModel
+                                              .value
+                                              .investmentAmount,
+                                          "contractCode": widget.code
+                                        },
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     color: Colors.transparent,

@@ -1,14 +1,14 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 
 import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.dart';
+import 'package:cicgreenloan/configs/route_configuration/route_argument/bullet_payment_detail_arg.dart';
 import 'package:cicgreenloan/widgets/investments/custom_fif_saving_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import '../../Utils/function/convert_fromhex_color.dart';
 import '../../Utils/helper/color.dart';
-import '../../configs/auto_route/auto_route.gr.dart';
 import '../../modules/investment_module/controller/investment_controller.dart';
 import '../../modules/investment_module/model/first_date/first_date.dart';
 
@@ -66,14 +66,12 @@ class CustomSavingCardList extends StatelessWidget {
                       fifController.onViewAgreement(e.value.id!.toInt()).then(
                         (value) {
                           value.isNotEmpty && value.length == 1
-                              ? context.router.push(ViewAgreementRouter(
-                                  title: value[0].title ?? '',
-                                  url: value[0].url))
-                              : context.router.push(
-                                  ViewAgreementListRouter(
-                                    listAgreeMent: value,
-                                  ),
-                                );
+                              ? context.push(
+                                  '/investment/cic-fixed-fund/view-agreement?title=${value[0].title ?? ''}&title=${value[0].url}',
+                                )
+                              : context.push(
+                                  '/investment/cic-fixed-fund/view-agreement-list',
+                                  extra: value);
                         },
                       );
                       Navigator.pop(context);
@@ -98,34 +96,27 @@ class CustomSavingCardList extends StatelessWidget {
                       FirebaseAnalyticsHelper.sendAnalyticsEvent(
                           'account fif detail');
                       fifController.investmentId.value = e.value.id!.toInt();
-                      fifController.onclearWithdraw();
-                      context.router.push(
-                        SavingDetailScreenRouter(
-                          paddings: const EdgeInsets.only(
-                              top: 50, left: 10, right: 0),
-                          index: e.key,
-                          hide: !e.value.hide!,
-                          id: e.value.id,
-                          code: e.value.code,
-                          accountName: e.value.accountName,
-                          // investAmonut: e.value.investmentAmount,
-                        ),
+
+                      final savingDetail = BulletPaymentDetailArg(
+                        paddings:
+                            const EdgeInsets.only(top: 50, left: 10, right: 0),
+                        index: e.key,
+                        hide: !e.value.hide!,
+                        id: e.value.id,
+                        code: e.value.code,
+                        accountName: e.value.accountName,
                       );
-                      // await Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => SavingDetailScreen(
-                      //       paddings: const EdgeInsets.only(
-                      //           top: 50, left: 10, right: 0),
-                      //       index: e.key,
-                      //       hide: !e.value.hide!,
-                      //       id: e.value.id,
-                      //       code: e.value.code,
-                      //       accountName: e.value.accountName,
-                      //       // investAmonut: e.value.investmentAmount,
-                      //     ),
-                      //   ),
-                      // );
+                      context.push('/investment/cic-fixed-fund/saving-detail',
+                          extra: {
+                            "paddings": const EdgeInsets.only(
+                                top: 50, left: 10, right: 0),
+                            "index": e.key,
+                            "hide": !e.value.hide!,
+                            "id": e.value.id,
+                            "code": e.value.code,
+                            "accountName": e.value.accountName
+                          });
+                      fifController.onclearWithdraw();
                     },
                     ontapHide: () async {
                       FirebaseAnalyticsHelper.sendAnalyticsEvent(
@@ -290,12 +281,8 @@ class CustomSavingCardList extends StatelessWidget {
                             'confirm fif detail');
                         fifController.selected.value = "";
                         // fifController.fetchConfirmDetail(e.value.id);
-
-                        await context.router.push(
-                          ConfirmDetailRouter(
-                            id: e.value.id!.toInt(),
-                          ),
-                        );
+                        context.push(
+                            '/investment/cic-fixed-fund/deposite-screen/${e.value.id!.toInt()}');
                       },
                     );
                   }).toList(),
@@ -411,11 +398,8 @@ class CustomSavingCardList extends StatelessWidget {
                             FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                 'edit fif application');
                             Navigator.pop(context);
-                            await context.router.push(
-                              FIFDeucSelectionRouter(
-                                id: e.value.id!.toInt(),
-                              ),
-                            );
+                            context.push(
+                                '/investment/cic-fixed-fund/edit-application/${e.value.id}');
                           },
                           pendingStyle: true,
                           sheetColor: Colors.transparent,
@@ -425,17 +409,28 @@ class CustomSavingCardList extends StatelessWidget {
                           onTapCard: () async {
                             FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                 'pending fif detail');
-                            await context.router.push(
-                              PendingDetailRouter(
-                                isAnnullyRate: true,
-                                titles: 'Detail Summary',
-                                status: e.value.status,
-                                isStatusPending: true,
-                                isNoUSD: false,
-                                // investAmount: e.value.investmentAmount,
-                                id: e.value.id,
-                              ),
-                            );
+
+                            context.push(
+                                '/investment/cic-fixed-fund/bullet-payment-detail',
+                                extra: {
+                                  "isAnnullyRate": true,
+                                  "titles": "Detail Summary",
+                                  "status": e.value.status,
+                                  "isStatusPending": true,
+                                  "isNoUSD": false,
+                                  "id": e.value.id
+                                });
+                            // await context.router.push(
+                            //   PendingDetailRouter(
+                            //     isAnnullyRate: true,
+                            //     titles: 'Detail Summary',
+                            //     status: e.value.status,
+                            //     isStatusPending: true,
+                            //     isNoUSD: false,
+                            //     // investAmount: e.value.investmentAmount,
+                            //     id: e.value.id,
+                            //   ),
+                            // );
                           },
                         ),
                       )

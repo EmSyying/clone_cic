@@ -1,17 +1,16 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
-import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_application/fif_application.dart';
 import 'package:cicgreenloan/widgets/investments/custom_bullet_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../utils/function/format_to_k.dart';
 import '../../../widgets/investments/custom_product_type_detail.dart';
@@ -21,34 +20,34 @@ import '../../../widgets/investments/slide_button.dart';
 class BulletPaymentDetail extends StatelessWidget {
   const BulletPaymentDetail({
     Key? key,
-    @queryParam this.isAnnullyRate = false,
-    @queryParam this.productName,
-    @queryParam this.isRenewal = false,
-    @queryParam this.renewBy,
-    @queryParam this.renewDate,
-    @queryParam this.renewPeriod,
-    @queryParam this.oldDate,
-    @queryParam this.newDate,
-    @queryParam this.investDate,
-    @queryParam this.investDuration,
-    @queryParam this.firstPayDate,
-    @queryParam this.maturityDate,
-    @queryParam this.investAmount,
-    @queryParam this.withdrawer,
-    @queryParam this.withdrawAmount,
-    @queryParam this.noticeDate,
-    @queryParam this.disbursementDate,
-    @queryParam this.contractStatus,
-    @queryParam this.isWithdraw = false,
-    @queryParam this.isStatusPending = false,
-    @queryParam this.id,
-    @queryParam this.fiFApplicationDetailModel,
-    @queryParam this.isNoUSD = false,
-    @queryParam this.status,
-    @queryParam this.titles,
-    @queryParam this.oncallBack,
-    @queryParam this.annually,
-    @queryParam this.fromPage,
+    this.isAnnullyRate = false,
+    this.productName,
+    this.isRenewal = false,
+    this.renewBy,
+    this.renewDate,
+    this.renewPeriod,
+    this.oldDate,
+    this.newDate,
+    this.investDate,
+    this.investDuration,
+    this.firstPayDate,
+    this.maturityDate,
+    this.investAmount,
+    this.withdrawer,
+    this.withdrawAmount,
+    this.noticeDate,
+    this.disbursementDate,
+    this.contractStatus,
+    this.isWithdraw = false,
+    this.isStatusPending = false,
+    this.id = 0,
+    this.fiFApplicationDetailModel,
+    this.isNoUSD,
+    this.status = '',
+    this.titles = '',
+    this.oncallBack,
+    this.annually,
+    this.fromPage,
   }) : super(key: key);
 
   //Renewal
@@ -79,20 +78,20 @@ class BulletPaymentDetail extends StatelessWidget {
   final bool? isStatusPending;
   final String? status;
   final num? id;
-  final bool isNoUSD;
+  final bool? isNoUSD;
   final String? titles;
   final String? productName;
   final FiFApplicationDetailModel? fiFApplicationDetailModel;
   final GestureTapCallback? oncallBack;
-  final bool? isAnnullyRate;
+  final bool isAnnullyRate;
   @override
   Widget build(BuildContext context) {
-    debugPrint("is Renew:$isRenewal");
+    debugPrint("is Renew:$isStatusPending");
     final bulletCon = Get.put(PriceController());
 
     debugPrint("Hello id:$id hello from page:$fromPage");
 
-    if (id != null && fromPage == null) {
+    if (fromPage == null) {
       debugPrint("id:$id");
       bulletCon.fetchFIFPendingDetail(id);
     }
@@ -227,8 +226,7 @@ class BulletPaymentDetail extends StatelessWidget {
                                             children: [
                                               ProductTypeDetailText(
                                                 label: 'Investment Date',
-                                                value: id != null &&
-                                                        fromPage == null
+                                                value: fromPage == null
                                                     ? FormatDate
                                                         .investmentDateDisplay(
                                                             bulletCon
@@ -250,8 +248,7 @@ class BulletPaymentDetail extends StatelessWidget {
                                               ProductTypeDetailText(
                                                 isAmount: true,
                                                 label: "Deduction Amount",
-                                                value: id != null &&
-                                                        fromPage == null
+                                                value: fromPage == null
                                                     ? "${FormatToK.digitNumber(num.parse(bulletCon.deductionAmount.value.toString()))} ${bulletCon.fiFApplicationDetailPending.value.currencyCode ?? ''}"
                                                     : "${FormatToK.digitNumber(num.parse(bulletCon.deductionAmount.value.toString()))} USD",
                                               ),
@@ -261,8 +258,7 @@ class BulletPaymentDetail extends StatelessWidget {
                                             children: [
                                               ProductTypeDetailText(
                                                 label: 'Investment Date',
-                                                value: id != null &&
-                                                        fromPage == null
+                                                value: fromPage == null
                                                     ? FormatDate
                                                         .investmentDateDisplay(
                                                             bulletCon
@@ -276,8 +272,7 @@ class BulletPaymentDetail extends StatelessWidget {
                                               const SizedBox(height: 15),
                                               ProductTypeDetailText(
                                                 label: 'Investment Duration',
-                                                value: id != null &&
-                                                        fromPage == null
+                                                value: fromPage == null
                                                     ? bulletCon
                                                             .fiFApplicationDetailPending
                                                             .value
@@ -363,9 +358,8 @@ class BulletPaymentDetail extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.router.push(ServiceAgreementRouter(
-                        fromPage: 'FIF',
-                      ));
+                      context.push(
+                          '/investment/cic-fixed-fund/view-contract-term?fromPage=FIF');
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5.0),

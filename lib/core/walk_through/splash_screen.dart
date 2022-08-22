@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/google_map_module/controllers/google_map_controller.dart';
 import 'package:cicgreenloan/core/walk_through/start_slide.dart';
-import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,12 +38,7 @@ class _SplashscreenState extends State<Splashscreen>
             isLoading = false;
           });
           // Beamer.of(context).beamToNamed('/home');
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const PaymentSchedule(),
-            ),
-          );
+          context.replaceRoute(HomePageRouter());
         });
       } else {
         Future.delayed(const Duration(seconds: 3), () {

@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:passcode_screen/passcode_screen.dart';
@@ -24,7 +25,8 @@ import '../member_directory/controllers/customer_controller.dart';
 
 class Dashboard extends StatefulWidget {
   final bool? isNavigator;
-  const Dashboard({Key? key, this.isNavigator}) : super(key: key);
+  final String? tabName;
+  const Dashboard({Key? key, this.isNavigator, this.tabName}) : super(key: key);
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -62,20 +64,22 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   void initState() {
     priceController.tapcurrentIndex(0);
 
-    cusController.getUser();
-    priceController.onFetchPrice();
-    priceController.getSharePrice();
-    debugPrint("is Hide Feature:${priceController.isHideFeatureByUser.value}");
     priceController.tabController = TabController(
-        length: priceController.isHideFeatureByUser.value == true ? 2 : 1,
+        length: priceController.isHideFeatureByUser.value == false ? 2 : 1,
         vsync: this,
-        initialIndex: priceController.tapcurrentIndex.value);
+        initialIndex: 0);
     priceController.tabController.addListener(() {
       setState(() {
         priceController.tapcurrentIndex.value =
             priceController.tabController.index;
       });
     });
+
+    cusController.getUser();
+    priceController.onFetchPrice();
+    priceController.getSharePrice();
+    debugPrint("is Hide Feature:${priceController.isHideFeatureByUser.value}");
+
     super.initState();
   }
 
@@ -118,6 +122,18 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
             passwordDigits: 6,
           ),
         ));
+  }
+
+  @override
+  void didChangeDependencies() {
+    final router = GoRouter.of(context);
+    if (router.location.contains('cic-equity-fund')) {
+      priceController.tabController.index = 0;
+    } else {
+      priceController.tabController.index = 1;
+    }
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -192,23 +208,24 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    if (priceController.isHideFeatureByUser.value == true)
+                    if (priceController.isHideFeatureByUser.value == false)
                       Positioned(
                         top: 90,
                         left: 0,
                         right: 0,
                         child: TabBar(
                           onTap: (e) {
-                            setState(() {
-                              if (priceController.tabController.index == 0) {
-                                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                    'tab bar CiC EQUITY FUND');
-                              } else {
-                                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                    'tab bar CiC FIXED INCOME FUND');
-                              }
-                              priceController.tabController;
-                            });
+                            debugPrint(e.toString());
+                            // setState(() {
+                            //   if (priceController.tabController.index == 0) {
+                            //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                            //         'tab bar CiC EQUITY FUND');
+                            //   } else {
+                            //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                            //         'tab bar CiC FIXED INCOME FUND');
+                            //   }
+                            //   priceController.tabController;
+                            // });
                           },
                           padding: const EdgeInsets.only(left: 10.0),
                           controller: priceController.tabController,
@@ -230,7 +247,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
-                    priceController.isHideFeatureByUser.value == true
+                    priceController.isHideFeatureByUser.value == false
                         ? Positioned(
                             top: 160.0,
                             left: 0.0,

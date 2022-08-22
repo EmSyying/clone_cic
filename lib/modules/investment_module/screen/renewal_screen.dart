@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +20,13 @@ import '../model/fif_application/fif_application.dart';
 class RenewalScreen extends StatefulWidget {
   const RenewalScreen({
     Key? key,
-    @queryParam this.investAmount,
-    @queryParam this.fiFApplicationModel,
-    @queryParam this.id,
-    @queryParam this.interestEarned,
-    @queryParam this.annually,
-    @queryParam this.accountName,
-    @queryParam this.contractCode,
+    this.investAmount,
+    this.fiFApplicationModel,
+    this.id,
+    this.interestEarned,
+    this.annually,
+    this.accountName,
+    this.contractCode,
   }) : super(key: key);
 
   final String? annually;

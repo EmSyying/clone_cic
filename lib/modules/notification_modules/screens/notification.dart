@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
+import 'package:cicgreenloan/configs/route_configuration/route_argument/bullet_payment_detail_arg.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/approve_payment_detail_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/controllers/notification_controller.dart';
 import 'package:cicgreenloan/generated/l10n.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
@@ -27,9 +29,7 @@ import '../../event_module/models/event_detail_argument.dart';
 import '../../event_module/screen/event_detail.dart';
 import '../../get_funding/screens/debt_investment/preview_debt_form.dart';
 import '../../get_funding/screens/equity_investment/preview_equity.dart';
-import '../../investment_module/screen/bullet_payment_detail.dart';
 import '../../investment_module/screen/deposit_screen.dart';
-import '../../investment_module/screen/saving_detail_screen.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -548,32 +548,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                                 ),
                                                                                                               );
                                                                                                             } else if (_con.notificationList[index].data!.operation == "reviewing" || _con.notificationList[index].data!.operation == "rejected") {
-                                                                                                              await Navigator.push(
-                                                                                                                context,
-                                                                                                                MaterialPageRoute(
-                                                                                                                  builder: (context) {
-                                                                                                                    return BulletPaymentDetail(
-                                                                                                                        titles: 'Detail Summary',
-                                                                                                                        status: _con.notificationList[index].data!.operation,
-                                                                                                                        isStatusPending: true,
-                                                                                                                        isNoUSD: false,
-                                                                                                                        // investAmount: e.value.investmentAmount,
-                                                                                                                        id: _con.notificationList[index].data!.applicationId);
-                                                                                                                  },
-                                                                                                                ),
-                                                                                                              );
-                                                                                                            } else {
-                                                                                                              await Navigator.push(
-                                                                                                                context,
-                                                                                                                MaterialPageRoute(
-                                                                                                                  builder: (context) => SavingDetailScreen(
-                                                                                                                    paddings: const EdgeInsets.only(top: 50, left: 10, right: 0),
-                                                                                                                    id: _con.notificationList[index].data!.applicationId,
+                                                                                                              final bulletPaymentDetailArg = BulletPaymentDetailArg(
+                                                                                                                  titles: 'Detail Summary',
+                                                                                                                  status: _con.notificationList[index].data!.operation,
+                                                                                                                  isStatusPending: true,
+                                                                                                                  isNoUSD: false,
+                                                                                                                  // investAmount: e.value.investmentAmount,
+                                                                                                                  id: _con.notificationList[index].data!.applicationId);
 
-                                                                                                                    // investAmonut: e.value.investmentAmount,
-                                                                                                                  ),
-                                                                                                                ),
-                                                                                                              );
+                                                                                                              context.go('/notification/bullet-payment-detail', extra: bulletPaymentDetailArg);
+                                                                                                            } else {
+                                                                                                              debugPrint("ID: ${_con.notificationList[index].data!.applicationId}");
+                                                                                                              // final savingDetailArg = BulletPaymentDetailArg(paddings: const EdgeInsets.only(top: 50, left: 10, right: 0), id: _con.notificationList[index].data!.applicationId);
+                                                                                                              context.go('/notification/saving-detail', extra: {
+                                                                                                                "id": _con.notificationList[index].data!.applicationId as num,
+                                                                                                                "paddings": const EdgeInsets.only(top: 50, left: 10, right: 0),
+                                                                                                                "fromPage": "Notification",
+                                                                                                              });
                                                                                                             }
                                                                                                           }
                                                                                                         : () async {
