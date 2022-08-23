@@ -154,7 +154,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 //Store/Shop
                 Obx(
                   () => privilegController.isSearchLoading.value
-                      ? const CustomShimmerAllShop()
+                      ? const Padding(
+                          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: CustomShimmerAllShop(),
+                        )
                       : SingleChildScrollView(
                           child: Padding(
                             padding:

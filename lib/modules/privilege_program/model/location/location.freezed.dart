@@ -25,6 +25,7 @@ mixin _$PrivilageLocation {
   String? get nameKh => throw _privateConstructorUsedError;
   @JsonKey(name: 'name_en')
   String? get nameEn => throw _privateConstructorUsedError;
+  bool? get isSelected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +41,8 @@ abstract class $PrivilageLocationCopyWith<$Res> {
   $Res call(
       {String? code,
       @JsonKey(name: 'name_kh') String? nameKh,
-      @JsonKey(name: 'name_en') String? nameEn});
+      @JsonKey(name: 'name_en') String? nameEn,
+      bool? isSelected});
 }
 
 /// @nodoc
@@ -57,6 +59,7 @@ class _$PrivilageLocationCopyWithImpl<$Res>
     Object? code = freezed,
     Object? nameKh = freezed,
     Object? nameEn = freezed,
+    Object? isSelected = freezed,
   }) {
     return _then(_value.copyWith(
       code: code == freezed
@@ -71,6 +74,10 @@ class _$PrivilageLocationCopyWithImpl<$Res>
           ? _value.nameEn
           : nameEn // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSelected: isSelected == freezed
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -85,7 +92,8 @@ abstract class _$$_PrivilageLocationCopyWith<$Res>
   $Res call(
       {String? code,
       @JsonKey(name: 'name_kh') String? nameKh,
-      @JsonKey(name: 'name_en') String? nameEn});
+      @JsonKey(name: 'name_en') String? nameEn,
+      bool? isSelected});
 }
 
 /// @nodoc
@@ -104,6 +112,7 @@ class __$$_PrivilageLocationCopyWithImpl<$Res>
     Object? code = freezed,
     Object? nameKh = freezed,
     Object? nameEn = freezed,
+    Object? isSelected = freezed,
   }) {
     return _then(_$_PrivilageLocation(
       code: code == freezed
@@ -118,6 +127,10 @@ class __$$_PrivilageLocationCopyWithImpl<$Res>
           ? _value.nameEn
           : nameEn // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSelected: isSelected == freezed
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -128,7 +141,8 @@ class _$_PrivilageLocation implements _PrivilageLocation {
   _$_PrivilageLocation(
       {this.code,
       @JsonKey(name: 'name_kh') this.nameKh,
-      @JsonKey(name: 'name_en') this.nameEn});
+      @JsonKey(name: 'name_en') this.nameEn,
+      this.isSelected = false});
 
   factory _$_PrivilageLocation.fromJson(Map<String, dynamic> json) =>
       _$$_PrivilageLocationFromJson(json);
@@ -141,10 +155,13 @@ class _$_PrivilageLocation implements _PrivilageLocation {
   @override
   @JsonKey(name: 'name_en')
   final String? nameEn;
+  @override
+  @JsonKey()
+  final bool? isSelected;
 
   @override
   String toString() {
-    return 'PrivilageLocation(code: $code, nameKh: $nameKh, nameEn: $nameEn)';
+    return 'PrivilageLocation(code: $code, nameKh: $nameKh, nameEn: $nameEn, isSelected: $isSelected)';
   }
 
   @override
@@ -154,7 +171,9 @@ class _$_PrivilageLocation implements _PrivilageLocation {
             other is _$_PrivilageLocation &&
             const DeepCollectionEquality().equals(other.code, code) &&
             const DeepCollectionEquality().equals(other.nameKh, nameKh) &&
-            const DeepCollectionEquality().equals(other.nameEn, nameEn));
+            const DeepCollectionEquality().equals(other.nameEn, nameEn) &&
+            const DeepCollectionEquality()
+                .equals(other.isSelected, isSelected));
   }
 
   @JsonKey(ignore: true)
@@ -163,7 +182,8 @@ class _$_PrivilageLocation implements _PrivilageLocation {
       runtimeType,
       const DeepCollectionEquality().hash(code),
       const DeepCollectionEquality().hash(nameKh),
-      const DeepCollectionEquality().hash(nameEn));
+      const DeepCollectionEquality().hash(nameEn),
+      const DeepCollectionEquality().hash(isSelected));
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +201,8 @@ abstract class _PrivilageLocation implements PrivilageLocation {
   factory _PrivilageLocation(
       {final String? code,
       @JsonKey(name: 'name_kh') final String? nameKh,
-      @JsonKey(name: 'name_en') final String? nameEn}) = _$_PrivilageLocation;
+      @JsonKey(name: 'name_en') final String? nameEn,
+      final bool? isSelected}) = _$_PrivilageLocation;
 
   factory _PrivilageLocation.fromJson(Map<String, dynamic> json) =
       _$_PrivilageLocation.fromJson;
@@ -194,6 +215,8 @@ abstract class _PrivilageLocation implements PrivilageLocation {
   @override
   @JsonKey(name: 'name_en')
   String? get nameEn => throw _privateConstructorUsedError;
+  @override
+  bool? get isSelected => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_PrivilageLocationCopyWith<_$_PrivilageLocation> get copyWith =>

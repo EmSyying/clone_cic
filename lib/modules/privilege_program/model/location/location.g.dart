@@ -11,6 +11,7 @@ _$_PrivilageLocation _$$_PrivilageLocationFromJson(Map<String, dynamic> json) =>
       code: json['code'] as String?,
       nameKh: json['name_kh'] as String?,
       nameEn: json['name_en'] as String?,
+      isSelected: json['isSelected'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_PrivilageLocationToJson(
@@ -19,4 +20,5 @@ Map<String, dynamic> _$$_PrivilageLocationToJson(
       'code': instance.code,
       'name_kh': instance.nameKh,
       'name_en': instance.nameEn,
+      'isSelected': instance.isSelected,
     };

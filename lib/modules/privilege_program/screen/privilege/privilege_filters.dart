@@ -19,10 +19,10 @@ class PrivilegeFilters extends StatefulWidget {
 }
 
 class _PrivilegeFiltersState extends State<PrivilegeFilters> {
-  final priCon = Get.put(PrivilegeController());
+  final privilegeController = Get.put(PrivilegeController());
   @override
   void initState() {
-    priCon.onFetchStoreLocation();
+    privilegeController.onFetchStoreLocation();
     super.initState();
   }
 
@@ -48,7 +48,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: priCon.categoriesModelList
+                  children: privilegeController.categoriesModelList
                       .asMap()
                       .entries
                       .map((cardListCat) => Padding(
@@ -57,12 +57,13 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                               bottom: 4.0,
                             ),
                             child: ComponentCardCategory(
-                              isOnClickCard: priCon.selectedCategFil.value ==
-                                  cardListCat.value.name,
+                              isOnClickCard:
+                                  privilegeController.selectedCategFil.value ==
+                                      cardListCat.value.name,
                               modelCardCategory: cardListCat.value,
                               onTapCatego: () {
                                 setState(() {
-                                  priCon.selectedCategFil.value =
+                                  privilegeController.selectedCategFil.value =
                                       cardListCat.value.name!;
                                 });
                               },
@@ -77,21 +78,24 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
             ),
             Obx(
               () => (Column(
-                children: priCon.locationPrivilageList.asMap().entries.map((e) {
+                children: privilegeController.locationPrivilageList
+                    .asMap()
+                    .entries
+                    .map((e) {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        // priCon.locationPrivilageList[e.key].isSeleOpt =
-                        //     !priCon.locationPrivilageList[element.key].isSeleOpt!;
-                        // priCon.locationPrivilageList.refresh();
-                        // if (priCon.filterOption[element.key].isSeleOpt ==
-                        //     true) {
-                        //   priCon.optionSelecList
-                        //       .add(priCon.filterOption[element.key]);
-                        // } else {
-                        //   priCon.optionSelecList
-                        //       .remove(priCon.filterOption[element.key]);
-                        // }
+                        if (privilegeController
+                                .locationPrivilageList[e.key].isSelected ==
+                            false) {
+                          privilegeController.locationPrivilageList[e.key] =
+                              privilegeController.locationPrivilageList[e.key]
+                                  .copyWith(isSelected: true);
+                        } else {
+                          privilegeController.locationPrivilageList[e.key] =
+                              privilegeController.locationPrivilageList[e.key]
+                                  .copyWith(isSelected: false);
+                        }
                       });
                     },
                     child: Padding(
@@ -100,7 +104,8 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                         left: 10.0,
                       ),
                       child: FilterByType(
-                        // isSelect: element.value.isSeleOpt,
+                        isSelect: privilegeController
+                            .locationPrivilageList[e.key].isSelected,
                         display: e.value.nameEn,
                       ),
                     ),
