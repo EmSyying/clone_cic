@@ -2,14 +2,14 @@ import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
 class CustomCardPrivilegeDetail extends StatelessWidget {
-  final String? logo;
+  final String? sloganLogo;
   final String? status;
   final String? titile;
   final String? slogan;
   final String? discount;
   const CustomCardPrivilegeDetail({
     Key? key,
-    this.logo,
+    this.sloganLogo,
     this.status,
     this.titile,
     this.slogan,
@@ -51,19 +51,35 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 80,
-              height: 80,
-              padding: const EdgeInsets.all(0.0),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      logo!,
+            sloganLogo != null && sloganLogo != ''
+                ? Container(
+                    width: 80,
+                    height: 80,
+                    padding: const EdgeInsets.all(0.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          sloganLogo!,
+                        ),
+                      ),
                     ),
-                  )),
-            ),
+                  )
+                : Container(
+                    width: 80,
+                    height: 80,
+                    padding: const EdgeInsets.all(0.0),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          'https://img.favpng.com/16/20/5/pizza-hut-restaurant-pizza-delivery-png-favpng-RPXLKCSNJtcAuNvC7bY2pivKz.jpg',
+                        ),
+                      ),
+                    ),
+                  ),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.only(left: 6),
@@ -74,20 +90,25 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                     GestureDetector(
                       onTap: () {},
                       child: Text(
-                        status!,
+                        status?? '',
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               fontSize: 10,
-                              color: status != "Open"
+                              color: status == "Closed"
                                   ? AppColor.statusColor['late']
-                                  : AppColor.statusColor['green'],
+                                  : status == "Permanently Closed"
+                                      ? AppColor.statusColor['warning']
+                                      : AppColor.statusColor['green'],
                             ),
+                        // color: status == "Open Now"
+                        //     ? AppColor.statusColor['green']
+                        //     : AppColor.statusColor['late']),
                       ),
                     ),
                     const SizedBox(
                       height: 6,
                     ),
                     Text(
-                      titile!,
+                      titile?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
@@ -99,7 +120,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      slogan!,
+                      slogan?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,

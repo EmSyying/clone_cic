@@ -34,17 +34,20 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final priCon = Get.put(PrivilegeController());
   @override
   void initState() {
-    priCon.onFetchListShop();
+    priCon.onFetchAllStore();
     priCon.onFetchCategories();
 
     super.initState();
   }
 
+  final storePages = [
+    const CustomAllStoreList(),
+    const CustomCardFavoriesList(),
+  ];
+
   int segmentedControlValue = 0;
-  PageController controller = PageController();
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
-
   final _settingCon = Get.put(SettingController());
 
   @override
@@ -185,7 +188,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               ),
               ////Card List Categories===============================
               SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                // padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 scrollDirection: Axis.horizontal,
                 child: preController.isLoadingCategories.value
                     ? const CustomShimmerCategories()
@@ -246,12 +249,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           ),
                         },
                         onValueChanged: (int? value) {
-                          setState(() {
-                            segmentedControlValue = value!;
-                            controller.animateToPage(segmentedControlValue,
-                                duration: const Duration(milliseconds: 200),
-                                curve: Curves.fastLinearToSlowEaseIn);
-                          });
+                          segmentedControlValue = value!;
+                          setState(() {});
                         },
                       ),
                     ),
@@ -270,29 +269,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         },
                         titleStores: segmentedControlValue == 0
                             ? '${preController.shopModelList.length} Stores'
-                            : '${preController.favoritesList.length} Stores',
+                            : '${preController.favshopModelList.length} Stores',
                       ),
                     ),
 
+                    storePages[segmentedControlValue],
+
                     ///end Tabs Bar================
-                    SizedBox(
-                      height: 520,
-                      child: PageView(
-                        controller: controller,
-                        onPageChanged: (value) {
-                          segmentedControlValue = value;
-                          setState(() {});
-                        },
-                        children: [
-                          //===All Stores=============
-                          CustomAllStoreList(
-                            shopList: preController.shopModelList,
-                          ),
-                          //Favoritess====12==============
-                          const CustomCardFavoriesList(),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -322,16 +305,16 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                 ),
           ),
         ),
-        GestureDetector(
-          onTap: onTapSeeAll,
-          child: Text(
-            seeall ?? '',
-            style: Theme.of(context).textTheme.headline3!.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: onTapSeeAll,
+        //   child: Text(
+        //     seeall ?? '',
+        //     style: Theme.of(context).textTheme.headline3!.copyWith(
+        //           fontSize: 12,
+        //           fontWeight: FontWeight.w500,
+        //         ),
+        //   ),
+        // ),
       ],
     );
   }

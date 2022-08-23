@@ -20,7 +20,7 @@ class PrivilegeController extends GetxController {
   final shopModelList = <PrivilegeShopModel>[].obs;
   final isFavorites = false.obs;
   final isLoadingShopList = false.obs;
-  Future<List<PrivilegeShopModel>> onFetchListShop() async {
+  Future<List<PrivilegeShopModel>> onFetchAllStore() async {
     isLoadingShopList(true);
     await apiBaseHelper
         .onNetworkRequesting(
@@ -32,8 +32,8 @@ class PrivilegeController extends GetxController {
       var responseJson = response['data'];
       shopModelList.clear();
       responseJson.map((e) {
-        debugPrint('heloooo12345:$response');
         shopModel.value = PrivilegeShopModel.fromJson(e);
+        debugPrint('heloooo12345:${shopModel.value.isFavorite}');
         shopModelList.add(shopModel.value);
       }).toList();
       isLoadingShopList(false);
@@ -42,6 +42,49 @@ class PrivilegeController extends GetxController {
     });
 
     return shopModelList;
+  }
+
+  ///Fetch Favourite Store
+  final isLoadingFav = false.obs;
+  final favshopModelList = <PrivilegeShopModel>[].obs;
+
+  Future<List<PrivilegeShopModel>> onFetchFavouriteStore() async {
+    isLoadingFav(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/shop?favorite=1',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      var responseJson = response['data'];
+      favshopModelList.clear();
+      responseJson.map((e) {
+        favshopModelList.add(PrivilegeShopModel.fromJson(e));
+      }).toList();
+      isLoadingFav(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingFav(false);
+    });
+
+    return favshopModelList;
+  }
+
+  ///Set Favourite Store
+  Future setFavouriteStore({required num id, required bool fav}) async {
+    apiBaseHelper
+        .onNetworkRequesting(
+          url: 'privilege/shop/$id',
+          methode: METHODE.update,
+          isAuthorize: true,
+          body: {"is_favorite": fav ? 0 : 1},
+        )
+        .then(
+          (value) {},
+        )
+        .onError((ErrorModel error, stackTrace) {
+          debugPrint('setFavouriteStore : ${error.statusCode}');
+        });
   }
 
   ////function onFetchShopDetail======
@@ -204,7 +247,7 @@ class PrivilegeController extends GetxController {
   @override
   void onInit() {
     fetchglobalFilter();
-    // TODO: implement onInit
+    onFetchFavouriteStore();
     super.onInit();
   }
 

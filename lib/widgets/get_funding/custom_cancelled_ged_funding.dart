@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../modules/get_funding/controller/equity_investment_controller.dart';
 import '../bonus/custom_empty_state.dart';
 import 'custom_application_list.dart';
+import 'custom_shimmer_card_get_funding.dart';
 
 class CustomCancelledGetFunding extends StatelessWidget {
   const CustomCancelledGetFunding({Key? key}) : super(key: key);
@@ -11,14 +12,29 @@ class CustomCancelledGetFunding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final equityCon = Get.put(EquityInvestmentController());
-    return equityCon.equityApplicationReviewList.isNotEmpty
-        ? ApplicationList(
-            applicationList: equityCon.equityApplicationReviewList,
-          )
-        : const CustomEmptyState(
-            title: 'No Cancelled',
-            description: 'It seems you have no cancelled yet',
-          );
+    equityCon.getEquityAndDebtRejectedAndCancelled('cancelled');
+    return Obx(
+      () => equityCon.isLoadingStatus.value
+          ? () {
+              return const Padding(
+                padding: EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: CustomShimmerCardGetFunding(),
+              );
+            }()
+          : equityCon.equityApplicationRejectedtList.isNotEmpty
+              ? SingleChildScrollView(
+                  child: ApplicationList(
+                    applicationList: equityCon.equityApplicationRejectedtList,
+                  ),
+                )
+              : const CustomEmptyState(
+                  title: 'No Cancelled',
+                  description: 'It seems you have no cancelled yet',
+                ),
+    );
+
     // final contro = Get.put(DebtInvestmentController());
     // return contro.applicationCardList.isEmpty
     //     ? SingleChildScrollView(

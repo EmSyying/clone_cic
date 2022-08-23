@@ -1,12 +1,13 @@
+import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../modules/privilege_program/model/stores_model/privilege_shop_model.dart';
-import '../custom_fovarite.dart';
 
 class CustomCardAllStores extends StatelessWidget {
   final PrivilegeShopModel? privilegeShopList;
-  final bool? isFav;
+  final bool isFav;
   final GestureTapCallback? onTapFav;
 
   const CustomCardAllStores({
@@ -77,7 +78,10 @@ class CustomCardAllStores extends StatelessWidget {
                                     fontSize: 10,
                                     color: privilegeShopList!.status == "Closed"
                                         ? AppColor.statusColor['late']
-                                        : AppColor.statusColor['green'],
+                                        : privilegeShopList!.status ==
+                                                "Permanently Closed"
+                                            ? AppColor.statusColor['warning']
+                                            : AppColor.statusColor['green'],
                                   ),
                         ),
                       ),
@@ -144,7 +148,7 @@ class CustomCardAllStores extends StatelessWidget {
                 alignment: Alignment.center,
                 width: 50,
                 height: 22,
-                color: AppColor.statusColor['pending'],
+                color: fromHex(privilegeShopList!.discountBgColor ?? ''),
                 child: Center(
                   child: Text(
                     privilegeShopList!.discountRate ?? '',
@@ -163,9 +167,23 @@ class CustomCardAllStores extends StatelessWidget {
           top: 28,
           child: GestureDetector(
             onTap: onTapFav,
-            child: CustomFovarite(
-              isFav: isFav,
-              isPrivilege: true,
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                shape: BoxShape.circle,
+              ),
+              width: 22,
+              height: 22,
+              child: isFav
+                  ? SvgPicture.asset(
+                      'assets/images/privilege/favorite.svg',
+                    )
+                  : SvgPicture.asset(
+                      'assets/images/privilege/heart.svg',
+                      color: Colors.red,
+                      height: 12,
+                    ),
             ),
           ),
         ),
