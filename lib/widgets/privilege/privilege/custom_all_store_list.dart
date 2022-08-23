@@ -49,20 +49,24 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                       isFav: e.value.isFavorite,
                       privilegeShopList: e.value,
                       onTapFav: () {
+                        setState(() {
+                          widget.shopList[e.key].isFavorite;
+                          preCont.shopModelList.refresh();
+                          preCont.isFavorites.value =
+                              !preCont.isFavorites.value;
+                          // if (widget.shopList[e.key].isFavorite == true) {
+                          //   preCont.shopModelList.add(widget.shopList[e.key]);
+                          // } else {
+                          //   preCont.shopModelList
+                          //       .remove(widget.shopList[e.key]);
+                          // }
+                        });
                         // setState(() {
-                        //   widget.storeList[e.key].isFav =
-                        //       !widget.storeList[e.key].isFav;
-                        //   previlageCon.favoritesList.refresh();
-
-                        //   if (widget.storeList[e.key].isFav == true) {
-                        //     previlageCon.favoritesList
-                        //         .add(widget.storeList[e.key]);
-                        //   } else {
-                        //     previlageCon.favoritesList
-                        //         .remove(widget.storeList[e.key]);
-                        //   }
+                        //   preCont.isFavorites.value =
+                        //       !preCont.isFavorites.value;
+                        //   //  widget.shopList[e.key].isFavorite= ! widget.shopList[e.key].isFavorite!;
+                        //   preCont.shopModelList[e.key].isFavorite;
                         // });
-                        setState(() {});
                       },
                     ),
                   ),

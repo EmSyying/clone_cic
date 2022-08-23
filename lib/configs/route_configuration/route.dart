@@ -33,6 +33,7 @@ final router = GoRouter(routes: [
         GoRoute(
           path: 'investment/:tabName',
           name: 'Investment',
+          redirect: (_) => 'investment/cic-equity-fund',
           builder: (context, state) => Dashboard(
             tabName: state.params['tabName'],
           ),

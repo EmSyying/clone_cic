@@ -11,8 +11,8 @@ _$_PrivilegeShopModel _$$_PrivilegeShopModelFromJson(
     _$_PrivilegeShopModel(
       id: json['id'] as num?,
       status: json['status'] as String?,
-      isOpen: json['is_open'] as num?,
-      isFavorite: json['is_favorite'] as num?,
+      isOpen: json['is_open'] as String?,
+      isFavorite: json['is_favorite'] as bool?,
       slogan: json['slogan'] as String?,
       discountBgColor: json['discount_bg_color'] as String?,
       shopNameInKhmer: json['shop_name_in_khmer'] as String?,

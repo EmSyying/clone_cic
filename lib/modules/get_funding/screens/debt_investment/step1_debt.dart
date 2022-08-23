@@ -183,7 +183,9 @@ class _Step1DebtState extends State<Step1Debt> {
 
     debtCon.selectAddIndex.value = reqCon.selectedAddressOption.value;
 
-    _memberCon.fetchMemberPersonProfile(cusCon.customer.value.customerId!).then(
+    _memberCon
+        .fetchMemberPersonProfile(id: cusCon.customer.value.customerId!)
+        .then(
       (customer) {
         // reqCon.purpose.value = Purpose();
 

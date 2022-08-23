@@ -36,6 +36,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   void initState() {
     priCon.onFetchListShop();
     priCon.onFetchCategories();
+
     super.initState();
   }
 
@@ -184,7 +185,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               ),
               ////Card List Categories===============================
               SingleChildScrollView(
-                // padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 scrollDirection: Axis.horizontal,
                 child: preController.isLoadingCategories.value
                     ? const CustomShimmerCategories()
@@ -258,7 +259,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       padding: const EdgeInsets.only(top: 20.0, bottom: 8),
                       child: CustomNumberStoresFilter(
                         onTapFilter: () {
-                         // context.router.pushNamed("privilege-filters");
+                          // context.router.pushNamed("privilege-filters");
 
                           Navigator.push(
                             context,

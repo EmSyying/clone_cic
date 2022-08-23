@@ -23,9 +23,9 @@ mixin _$PrivilegeShopModel {
   num? get id => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_open')
-  num? get isOpen => throw _privateConstructorUsedError;
+  String? get isOpen => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_favorite')
-  num? get isFavorite => throw _privateConstructorUsedError;
+  bool? get isFavorite => throw _privateConstructorUsedError;
   String? get slogan => throw _privateConstructorUsedError;
   @JsonKey(name: 'discount_bg_color')
   String? get discountBgColor => throw _privateConstructorUsedError;
@@ -90,9 +90,9 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
       {num? id,
       String? status,
       @JsonKey(name: 'is_open')
-          num? isOpen,
+          String? isOpen,
       @JsonKey(name: 'is_favorite')
-          num? isFavorite,
+          bool? isFavorite,
       String? slogan,
       @JsonKey(name: 'discount_bg_color')
           String? discountBgColor,
@@ -199,11 +199,11 @@ class _$PrivilegeShopModelCopyWithImpl<$Res>
       isOpen: isOpen == freezed
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as String?,
       isFavorite: isFavorite == freezed
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as bool?,
       slogan: slogan == freezed
           ? _value.slogan
           : slogan // ignore: cast_nullable_to_non_nullable
@@ -331,9 +331,9 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
       {num? id,
       String? status,
       @JsonKey(name: 'is_open')
-          num? isOpen,
+          String? isOpen,
       @JsonKey(name: 'is_favorite')
-          num? isFavorite,
+          bool? isFavorite,
       String? slogan,
       @JsonKey(name: 'discount_bg_color')
           String? discountBgColor,
@@ -442,11 +442,11 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
       isOpen: isOpen == freezed
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as String?,
       isFavorite: isFavorite == freezed
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as bool?,
       slogan: slogan == freezed
           ? _value.slogan
           : slogan // ignore: cast_nullable_to_non_nullable
@@ -633,10 +633,10 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   final String? status;
   @override
   @JsonKey(name: 'is_open')
-  final num? isOpen;
+  final String? isOpen;
   @override
   @JsonKey(name: 'is_favorite')
-  final num? isFavorite;
+  final bool? isFavorite;
   @override
   final String? slogan;
   @override
@@ -847,9 +847,9 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
       {final num? id,
       final String? status,
       @JsonKey(name: 'is_open')
-          final num? isOpen,
+          final String? isOpen,
       @JsonKey(name: 'is_favorite')
-          final num? isFavorite,
+          final bool? isFavorite,
       final String? slogan,
       @JsonKey(name: 'discount_bg_color')
           final String? discountBgColor,
@@ -908,10 +908,10 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
   String? get status => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'is_open')
-  num? get isOpen => throw _privateConstructorUsedError;
+  String? get isOpen => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'is_favorite')
-  num? get isFavorite => throw _privateConstructorUsedError;
+  bool? get isFavorite => throw _privateConstructorUsedError;
   @override
   String? get slogan => throw _privateConstructorUsedError;
   @override

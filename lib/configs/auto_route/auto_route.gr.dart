@@ -11,7 +11,7 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:flutter/cupertino.dart' as _i33;
+import 'package:flutter/foundation.dart' as _i33;
 import 'package:flutter/material.dart' as _i32;
 
 import '../../core/walk_through/splash_screen.dart' as _i1;
@@ -879,7 +879,7 @@ class SavingDetailScreenRouter
   SavingDetailScreenRouter(
       {_i33.Key? key,
       String? accountName,
-      _i33.EdgeInsets? paddings,
+      _i32.EdgeInsets? paddings,
       String? code,
       num? id,
       List<_i34.ScheduleModelList>? scheduleModelList,
@@ -924,7 +924,7 @@ class SavingDetailScreenRouterArgs {
 
   final String? accountName;
 
-  final _i33.EdgeInsets? paddings;
+  final _i32.EdgeInsets? paddings;
 
   final String? code;
 
@@ -1180,11 +1180,11 @@ class RenewSuccessRouter extends _i2.PageRouteInfo<RenewSuccessRouterArgs> {
       {_i33.Key? key,
       String? title,
       String? description,
-      _i33.Widget? icon,
+      _i32.Widget? icon,
       void Function()? onPressedButton,
       String? buttonTitle,
-      _i33.Color? backgroundColor,
-      _i33.EdgeInsetsGeometry? descriptionPadding})
+      _i32.Color? backgroundColor,
+      _i32.EdgeInsetsGeometry? descriptionPadding})
       : super(RenewSuccessRouter.name,
             path:
                 'investment/saving-detail/renew-contract/renew-review/success',
@@ -1226,15 +1226,15 @@ class RenewSuccessRouterArgs {
 
   final String? description;
 
-  final _i33.Widget? icon;
+  final _i32.Widget? icon;
 
   final void Function()? onPressedButton;
 
   final String? buttonTitle;
 
-  final _i33.Color? backgroundColor;
+  final _i32.Color? backgroundColor;
 
-  final _i33.EdgeInsetsGeometry? descriptionPadding;
+  final _i32.EdgeInsetsGeometry? descriptionPadding;
 
   @override
   String toString() {
@@ -1479,11 +1479,11 @@ class RedemptionSuccessRouter
       {_i33.Key? key,
       String? title,
       String? description,
-      _i33.Widget? icon,
+      _i32.Widget? icon,
       void Function()? onPressedButton,
       String? buttonTitle,
-      _i33.Color? backgroundColor,
-      _i33.EdgeInsetsGeometry? descriptionPadding})
+      _i32.Color? backgroundColor,
+      _i32.EdgeInsetsGeometry? descriptionPadding})
       : super(RedemptionSuccessRouter.name,
             path:
                 'investment/saving-detail/redemption/redemption-review/success',
@@ -1525,15 +1525,15 @@ class RedemptionSuccessRouterArgs {
 
   final String? description;
 
-  final _i33.Widget? icon;
+  final _i32.Widget? icon;
 
   final void Function()? onPressedButton;
 
   final String? buttonTitle;
 
-  final _i33.Color? backgroundColor;
+  final _i32.Color? backgroundColor;
 
-  final _i33.EdgeInsetsGeometry? descriptionPadding;
+  final _i32.EdgeInsetsGeometry? descriptionPadding;
 
   @override
   String toString() {
@@ -1846,11 +1846,11 @@ class CustomSucessScreenRouter
       {_i33.Key? key,
       String? title,
       String? description,
-      _i33.Widget? icon,
+      _i32.Widget? icon,
       void Function()? onPressedButton,
       String? buttonTitle,
-      _i33.Color? backgroundColor,
-      _i33.EdgeInsetsGeometry? descriptionPadding})
+      _i32.Color? backgroundColor,
+      _i32.EdgeInsetsGeometry? descriptionPadding})
       : super(CustomSucessScreenRouter.name,
             path:
                 'investment/fif-select-product/fif-Application/review/success',
@@ -1892,15 +1892,15 @@ class CustomSucessScreenRouterArgs {
 
   final String? description;
 
-  final _i33.Widget? icon;
+  final _i32.Widget? icon;
 
   final void Function()? onPressedButton;
 
   final String? buttonTitle;
 
-  final _i33.Color? backgroundColor;
+  final _i32.Color? backgroundColor;
 
-  final _i33.EdgeInsetsGeometry? descriptionPadding;
+  final _i32.EdgeInsetsGeometry? descriptionPadding;
 
   @override
   String toString() {

@@ -324,7 +324,7 @@ import '../modules/member_directory/screens/new_profile_ui/view_image_profile_sc
 
 final customerCon = Get.put(CustomerController());
 final memberCon = Get.put(MemberController());
-ImagePicker? pickerImage;
+ImagePicker? pickerImage = ImagePicker();
 File? imageFile;
 
 startUpload() async {
@@ -411,8 +411,9 @@ uploadImage(BuildContext? context) {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      await _onChooseImage()
-                          .then((value) => Navigator.pop(context));
+                      debugPrint("Upload Image");
+                      // await _onChooseImage()
+                      //     .then((value) => Navigator.pop(context));
                     },
                     child: Container(
                       color: Colors.white,
@@ -542,8 +543,9 @@ uploadImage(BuildContext? context) {
                       ),
                     ),
                     CupertinoActionSheetAction(
-                      onPressed: () {
-                        _onChooseImage()
+                      onPressed: () async {
+                        debugPrint("Upload Image");
+                        await _onChooseImage()
                             .then((value) => Navigator.pop(context));
                       },
                       child: Text(

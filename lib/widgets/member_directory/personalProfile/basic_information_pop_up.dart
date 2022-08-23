@@ -37,7 +37,7 @@ class _BasicInformationPopUPState extends State<BasicInformationPopUP> {
   Future<void> onRefresh() async {
     await _userProfile.getUser();
     if (widget.id != null) {
-      await _memberCon.fetchMemberPersonProfile(widget.id!);
+      await _memberCon.fetchMemberPersonProfile(id: widget.id!);
     }
   }
 
@@ -273,7 +273,8 @@ class _BasicInformationPopUPState extends State<BasicInformationPopUP> {
                               setState(() {
                                 _memberCon.updatePersonalProfile(context);
                                 formkey.currentState!.save();
-                                _memberCon.fetchMemberPersonProfile(widget.id!);
+                                _memberCon.fetchMemberPersonProfile(
+                                    id: widget.id!);
                               });
 
                               onRefresh();

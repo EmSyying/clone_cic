@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../Utils/helper/option_model/option_form.dart';
 import '../model/category_model/model_categories.dart';
+import '../model/location/location.dart';
 import '../model/stores_model/model_pre.dart';
 
 class PrivilegeController extends GetxController {
@@ -17,7 +18,7 @@ class PrivilegeController extends GetxController {
   ApiBaseHelper apiBaseHelper = ApiBaseHelper();
   final shopModel = PrivilegeShopModel().obs;
   final shopModelList = <PrivilegeShopModel>[].obs;
-  final isFavorites = 0.obs;
+  final isFavorites = false.obs;
   final isLoadingShopList = false.obs;
   Future<List<PrivilegeShopModel>> onFetchListShop() async {
     isLoadingShopList(true);
@@ -30,9 +31,10 @@ class PrivilegeController extends GetxController {
         .then((response) {
       var responseJson = response['data'];
       shopModelList.clear();
-
       responseJson.map((e) {
-        shopModelList.add(PrivilegeShopModel.fromJson(e));
+        debugPrint('heloooo12345:$response');
+        shopModel.value = PrivilegeShopModel.fromJson(e);
+        shopModelList.add(shopModel.value);
       }).toList();
       isLoadingShopList(false);
     }).onError((ErrorModel errorModel, stackTrace) {
@@ -102,32 +104,109 @@ class PrivilegeController extends GetxController {
     return categoriesModelList;
   }
 
-  final filterOption = <OptionForm>[
-    OptionForm(id: 1, display: "Sihanouk VIlle"),
-    OptionForm(id: 2, display: "Phnom Penh"),
-    OptionForm(id: 3, display: "Siem Reap"),
-    OptionForm(id: 4, display: "Ratanakiri"),
-    OptionForm(id: 5, display: "Krong Kep"),
-    OptionForm(id: 6, display: "Oddar Maenchey"),
-    OptionForm(id: 7, display: "Banteay Meanchey"),
-    OptionForm(id: 8, display: "Preah VIhear"),
-    OptionForm(id: 9, display: "Kampong Spue"),
-  ].obs;
+  // final listAllCategories = <ModelsCategories>[
+  //   ModelsCategories(
+  //     name: 'Education Training',
+  //     image: 'assets/images/privilege/education.png',
+  //   ),
+  //   ModelsCategories(
+  //     name: 'Retail Baby Product',
+  //     image: 'assets/images/privilege/product.png',
+  //   ),
+  //   ModelsCategories(
+  //     name: 'Construction Architect',
+  //     image: 'assets/images/privilege/construction.png',
+  //   ),
+  // ].obs;
+// global filter search
+  final isLoadingGlobalFilter = false.obs;
+  final globalFilterModel = PrivilegeShopModel().obs;
+  final globalFilterList = <PrivilegeShopModel>[].obs;
+  Future<List<PrivilegeShopModel>> fetchglobalFilter() async {
+    isLoadingGlobalFilter(true);
+    apiBaseHelper
+        .onNetworkRequesting(
+            url: 'privilege/global/search?name=1',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((response) {
+      globalFilterList.clear();
+      var responeJson = response['data'];
 
-  final listAllCategories = <ModelsCategories>[
-    ModelsCategories(
-      name: 'Education Training',
-      image: 'assets/images/privilege/education.png',
-    ),
-    ModelsCategories(
-      name: 'Retail Baby Product',
-      image: 'assets/images/privilege/product.png',
-    ),
-    ModelsCategories(
-      name: 'Construction Architect',
-      image: 'assets/images/privilege/construction.png',
-    ),
-  ].obs;
+      responeJson.map((e) {
+        debugPrint('helooooo123++++:$response');
+        globalFilterModel.value = PrivilegeShopModel.fromJson(e);
+        globalFilterList.add(globalFilterModel.value);
+        isLoadingGlobalFilter(false);
+      }).toList();
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingGlobalFilter(false);
+    });
+
+    return globalFilterList;
+  }
+
+  // category & location filter
+
+  final isLoadingCategoryFilter = false.obs;
+  final categoryFilterModel = PrivilegeShopModel().obs;
+  final categoryFilterList = <PrivilegeShopModel>[].obs;
+  Future<List<PrivilegeShopModel>> fetchCategoriesFilter(
+      int? locationId, int? categoryId) async {
+    isLoadingCategoryFilter(true);
+    apiBaseHelper
+        .onNetworkRequesting(
+            url: 'privilege/filer?location=$locationId&category=$categoryId',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((response) {
+      categoryFilterList.clear();
+      var responeJson = response['data'];
+
+      responeJson.map((e) {
+        debugPrint('helooooo123++++:$response');
+        categoryFilterModel.value = PrivilegeShopModel.fromJson(e);
+        categoryFilterList.add(categoryFilterModel.value);
+        isLoadingCategoryFilter(false);
+      }).toList();
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingCategoryFilter(false);
+    });
+
+    return categoryFilterList;
+  }
+
+  //get location
+  final isLoadingPriLocation = false.obs;
+  final locationPrivilageModel = PrivilageLocation().obs;
+  final locationPrivilageList = <PrivilageLocation>[].obs;
+  Future<List<PrivilageLocation>> fetchLocationPrivilage() async {
+    isLoadingPriLocation(true);
+    apiBaseHelper
+        .onNetworkRequesting(
+            url: 'privilege/address', methode: METHODE.get, isAuthorize: true)
+        .then((response) {
+      globalFilterList.clear();
+      var responeJson = response['data'];
+
+      responeJson.map((e) {
+        locationPrivilageModel.value = PrivilageLocation.fromJson(e);
+        locationPrivilageList.add(locationPrivilageModel.value);
+        isLoadingPriLocation(false);
+      }).toList();
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingPriLocation(false);
+    });
+
+    return locationPrivilageList;
+  }
+
+  @override
+  void onInit() {
+    fetchglobalFilter();
+    // TODO: implement onInit
+    super.onInit();
+  }
 
   final listAllStores = <StoreModel>[
     StoreModel(

@@ -19,10 +19,15 @@ class PrivilegeFilters extends StatefulWidget {
 }
 
 class _PrivilegeFiltersState extends State<PrivilegeFilters> {
+  final priCon = Get.put(PrivilegeController());
+  @override
+  void initState() {
+    priCon.fetchLocationPrivilage();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final priCon = Get.put(PrivilegeController());
-
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
@@ -72,13 +77,13 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
             ),
             Obx(
               () => (Column(
-                children: priCon.filterOption.asMap().entries.map((element) {
+                children: priCon.locationPrivilageList.asMap().entries.map((e) {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        priCon.filterOption[element.key].isSeleOpt =
-                            !priCon.filterOption[element.key].isSeleOpt!;
-                        priCon.filterOption.refresh();
+                        // priCon.locationPrivilageList[e.key].isSeleOpt =
+                        //     !priCon.locationPrivilageList[element.key].isSeleOpt!;
+                        // priCon.locationPrivilageList.refresh();
                         // if (priCon.filterOption[element.key].isSeleOpt ==
                         //     true) {
                         //   priCon.optionSelecList
@@ -95,8 +100,8 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                         left: 10.0,
                       ),
                       child: FilterByType(
-                        isSelect: element.value.isSeleOpt,
-                        display: element.value.display,
+                        // isSelect: element.value.isSeleOpt,
+                        display: e.value.nameEn,
                       ),
                     ),
                   );

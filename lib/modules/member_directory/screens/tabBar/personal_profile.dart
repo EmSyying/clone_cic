@@ -72,7 +72,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
   @override
   void initState() {
     _optionForm.fetchDocumentCategory();
-    _memberCon.fetchMemberPersonProfile(widget.id!);
+    _memberCon.fetchMemberPersonProfile(id: widget.id!);
 
     // if (_memberCon.personalProfilemember.value.hiddenFields!.length != 0) {
     //   _memberCon.member.value.hiddenFields!.map((e) {
@@ -101,7 +101,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
   Future<void> onRefresh() async {
     await _userProfile.getUser();
     if (widget.id != null) {
-      await _memberCon.fetchMemberPersonProfile(widget.id!);
+      await _memberCon.fetchMemberPersonProfile(id: widget.id!);
     }
   }
 

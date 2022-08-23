@@ -42,7 +42,7 @@ class _ContectInfoPopUpState extends State<ContectInfoPopUp> {
   Future<void> onRefresh() async {
     await _userProfile.getUser();
     if (widget.id != null) {
-      await _memberCon.fetchMemberPersonProfile(widget.id!);
+      await _memberCon.fetchMemberPersonProfile(id: widget.id!);
     }
   }
 
@@ -817,8 +817,8 @@ class _ContectInfoPopUpState extends State<ContectInfoPopUp> {
                                 setState(() {
                                   _memberCon.updatePersonalProfile(context);
                                   formkey.currentState!.save();
-                                  _memberCon
-                                      .fetchMemberPersonProfile(widget.id!);
+                                  _memberCon.fetchMemberPersonProfile(
+                                      id: widget.id!);
                                   _userProfile.getUser();
                                 });
 

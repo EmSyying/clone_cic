@@ -1329,6 +1329,7 @@ class MemberController extends GetxController {
   //   update();
   // }
 
+  ApiBaseHelper apiBaseHelpers = ApiBaseHelper();
   onSelected({int? index, Member? member}) {
     // isTicked.value = !isTicked.value;
 
@@ -1643,147 +1644,152 @@ class MemberController extends GetxController {
     }
   }
 
-  Future<void> updatePersonalProfile(BuildContext context) async {
-    String url =
-        '${GlobalConfiguration().get('api_base_url')}member-profile/update';
-    tokenKey = await LocalData.getCurrentUser();
+  final isLaodingUpdateProfile = false.obs;
+  final cusController = Get.put(CustomerController());
+  Future<void> updatePersonalProfile(BuildContext? context) async {
+    isLaodingUpdateProfile(true);
+    await apiBaseHelpers.onNetworkRequesting(
+        url: 'member-profile/update',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'member_id': _customerController.customer.value.customerId,
+          // 'position': '92',
+          'khmer_name': khmerName.value != ''
+              ? khmerName.value
+              : personalProfile.value.customerName,
+          'full_name': fullName.value != ''
+              ? fullName.value
+              : '${personalProfile.value.customerLatinName}',
+          'date_of_birth': customerDateOfBirth.value != ''
+              ? customerDateOfBirth.value
+              : '${personalProfile.value.customerDateOfBirth}',
+          'gender': gender.value.display != null
+              ? '${gender.value.id}'
+              : personalProfile.value.customerGender!.id,
+          'nationality': nationality.id != null
+              ? "${nationality.id}"
+              : personalProfile.value.customerNationality!.id,
 
-    var data = json.encode({
-      'member_id': _customerController.customer.value.customerId,
-      // 'position': '92',
-      'khmer_name': khmerName.value != ''
-          ? khmerName.value
-          : personalProfile.value.customerName,
-      'full_name': fullName.value != ''
-          ? fullName.value
-          : '${personalProfile.value.customerLatinName}',
-      'date_of_birth': customerDateOfBirth.value != ''
-          ? customerDateOfBirth.value
-          : '${personalProfile.value.customerDateOfBirth}',
-      'gender': gender.value.display != null
-          ? '${gender.value.id}'
-          : personalProfile.value.customerGender!.id,
-      'nationality': nationality.id != null
-          ? "${nationality.id}"
-          : personalProfile.value.customerNationality!.id,
-
-      'identity_type': identityTypeCode.value != ''
-          ? identityTypeCode.value
-          : personalProfile.value.customerIdentityType!.id,
-      'identity_number': identityNumber.value != ''
-          ? identityNumber.value
-          : personalProfile.value.customerIdentityNumber,
-      'identity_date': identityDate.value != ''
-          ? identityDate.value
-          : personalProfile.value.customerIdentityDate,
-      'identity_expired_date': identityExpireDate.value != ''
-          ? identityExpireDate.value
-          : personalProfile.value.customerIdentityExpiredDate,
-      'current_address': currentAddress.value != ''
-          ? '$currentAddress'
-          : personalProfile.value.currentAddress!.village!.code != ''
-              ? personalProfile.value.currentAddress!.village!.code
-              : '',
-      'current_street_no': currentStreet.value != ''
-          ? '$currentStreet'
-          : personalProfile.value.streetNo,
-      'current_house_no': currentHours.value != ''
-          ? '#$currentHours'
-          : personalProfile.value.houseNo,
-      'permanent_address': permanentAddress.value != ''
-          ? '$permanentAddress'
-          : personalProfile.value.permanentAddress!.village!.code != ''
-              ? personalProfile.value.permanentAddress!.village!.code
-              : '',
-      'permanent_street_no': permanentStreet.value != ''
-          ? '$permanentStreet'
-          : personalProfile.value.permanentStreetNo,
-      'permanent_house_no': permanetHours.value != ''
-          ? '$permanetHours'
-          : personalProfile.value.permanentHouseNo,
-      'phone': _customerController.customer.value.phone != ''
-          ? _customerController.customer.value.phone
-          : personalProfile.value.phone,
-      'email': gmail.value != '' ? gmail.value : personalProfile.value.email,
-      'whatapp':
-          whatApp.value != '' ? whatApp.value : personalProfile.value.whatapp,
-      'telegram': telegram.value != ''
-          ? telegram.value
-          : personalProfile.value.telegram,
-      'messenger': messenger.value != ''
-          ? messenger.value
-          : personalProfile.value.messenger,
-      'skype': skype.value != '' ? skype.value : personalProfile.value.skype,
-      'website':
-          webSite.value != '' ? webSite.value : personalProfile.value.website,
-      'facebook': facebook.value != ''
-          ? facebook.value
-          : personalProfile.value.facebook,
-      'linkedin':
-          linkIn.value != '' ? linkIn.value : personalProfile.value.linkedin,
-      'twitter':
-          tweeter.value != '' ? tweeter.value : personalProfile.value.twitter,
+          'identity_type': identityTypeCode.value != ''
+              ? identityTypeCode.value
+              : personalProfile.value.customerIdentityType!.id,
+          'identity_number': identityNumber.value != ''
+              ? identityNumber.value
+              : personalProfile.value.customerIdentityNumber,
+          'identity_date': identityDate.value != ''
+              ? identityDate.value
+              : personalProfile.value.customerIdentityDate,
+          'identity_expired_date': identityExpireDate.value != ''
+              ? identityExpireDate.value
+              : personalProfile.value.customerIdentityExpiredDate,
+          'current_address': currentAddress.value != ''
+              ? '$currentAddress'
+              : personalProfile.value.currentAddress!.village!.code != ''
+                  ? personalProfile.value.currentAddress!.village!.code
+                  : '',
+          'current_street_no': currentStreet.value != ''
+              ? '$currentStreet'
+              : personalProfile.value.streetNo,
+          'current_house_no': currentHours.value != ''
+              ? '#$currentHours'
+              : personalProfile.value.houseNo,
+          'permanent_address': permanentAddress.value != ''
+              ? '$permanentAddress'
+              : personalProfile.value.permanentAddress!.village!.code != ''
+                  ? personalProfile.value.permanentAddress!.village!.code
+                  : '',
+          'permanent_street_no': permanentStreet.value != ''
+              ? '$permanentStreet'
+              : personalProfile.value.permanentStreetNo,
+          'permanent_house_no': permanetHours.value != ''
+              ? '$permanetHours'
+              : personalProfile.value.permanentHouseNo,
+          'phone': _customerController.customer.value.phone != ''
+              ? _customerController.customer.value.phone
+              : personalProfile.value.phone,
+          'email':
+              gmail.value != '' ? gmail.value : personalProfile.value.email,
+          'whatapp': whatApp.value != ''
+              ? whatApp.value
+              : personalProfile.value.whatapp,
+          'telegram': telegram.value != ''
+              ? telegram.value
+              : personalProfile.value.telegram,
+          'messenger': messenger.value != ''
+              ? messenger.value
+              : personalProfile.value.messenger,
+          'skype':
+              skype.value != '' ? skype.value : personalProfile.value.skype,
+          'website': webSite.value != ''
+              ? webSite.value
+              : personalProfile.value.website,
+          'facebook': facebook.value != ''
+              ? facebook.value
+              : personalProfile.value.facebook,
+          'linkedin': linkIn.value != ''
+              ? linkIn.value
+              : personalProfile.value.linkedin,
+          'twitter': tweeter.value != ''
+              ? tweeter.value
+              : personalProfile.value.twitter,
+        }).then((response) {
+      isLaodingUpdateProfile(false);
+      fetchMemberPersonProfile(id: cusController.customer.value.customerId);
+      update();
+      ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
+        content: Text('Personal Profile Updated Successful...!'),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.green,
+        padding: EdgeInsets.all(20),
+      ));
+    }).onError((ErrorModel errorModel, stackTrace) {
+      ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
+        content: Text('Personal Profile Updated Failed...!'),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+        padding: EdgeInsets.all(20),
+      ));
+      isLaodingUpdateProfile(false);
     });
-
-    try {
-      isLoading(true);
-      var response = await http.post(Uri.parse(url),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $tokenKey'
-          },
-          body: data);
-      if (response.statusCode == 200) {
-        Get.snackbar("", "Personal Profile Updated Successful...!",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: const Color(0xff60AD00),
-            colorText: Colors.white,
-            icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Updated Personal Personal',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Personal Profile Updated Successful...!',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
-
-        Future.delayed(Duration.zero).then((_) {
-          Navigator.of(context).pop();
-        });
-      } else {
-        Get.snackbar("", "Personal Profile Updated Failed...!",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-            icon: const Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Updated Personal Personal',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Personal Profile Updated Failed...!',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
-      }
-    } finally {
-      isLoading(false);
-    }
   }
+
+  // Future<void> updatePersonalProfile(BuildContext? context) async {
+  //   String url =
+  //       '${GlobalConfiguration().get('api_base_url')}member-profile/update';
+  //   tokenKey = await LocalData.getCurrentUser();
+
+  //   var data = json.encode({});
+
+  //   try {
+  //     isLaodingUpdateProfile(true);
+  //     var response = await http.post(Uri.parse(url),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Accept': 'application/json',
+  //           'Authorization': 'Bearer $tokenKey'
+  //         },
+  //         body: data);
+  //     if (response.statusCode == 200) {
+  //       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
+  //         content: Text('Personal Profile Updated Successful...!'),
+  //         behavior: SnackBarBehavior.floating,
+  //         backgroundColor: Colors.green,
+  //         padding: EdgeInsets.all(20),
+  //       ));
+  //       fetchMemberPersonProfile();
+  //     } else {
+  //       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
+  //         content: Text('Personal Profile Updated Failed...!'),
+  //         behavior: SnackBarBehavior.floating,
+  //         backgroundColor: Colors.red,
+  //         padding: EdgeInsets.all(20),
+  //       ));
+  //     }
+  //   } finally {
+  //     isLaodingUpdateProfile(false);
+  //   }
+  // }
 
   Future<void> onUpdateEducation() async {
     String url =
@@ -1984,7 +1990,7 @@ class MemberController extends GetxController {
     return personalProfilemember.value;
   }
 
-  Future<PersonalProfileModel> fetchMemberPersonProfile(int id) async {
+  Future<PersonalProfileModel> fetchMemberPersonProfile({int? id}) async {
     isLoadingProfile(true);
     tokenKey = await LocalData.getCurrentUser();
 
@@ -2326,7 +2332,7 @@ class MemberController extends GetxController {
 
   @override
   void onReady() {
-    fetchMemberPersonProfile(customerController.customer.value.customerId!);
+    fetchMemberPersonProfile(id: customerController.customer.value.customerId!);
     fetchCompanyMember();
     super.onReady();
   }

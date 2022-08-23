@@ -27,6 +27,7 @@ class CustomUserProfile extends StatefulWidget {
   final String? position;
   final String? description;
   final User? userModel;
+  final int? id;
 
   const CustomUserProfile({
     Key? key,
@@ -34,6 +35,7 @@ class CustomUserProfile extends StatefulWidget {
     this.position,
     this.description,
     this.userModel,
+    this.id,
   }) : super(key: key);
 
   @override
@@ -317,195 +319,198 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          stops: [0.4, 0.8],
-          begin: Alignment.topCenter,
-          end: Alignment.center,
-          colors: [AppColor.mainColor, Colors.white24],
+    return Obx(
+      () => Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            stops: [0.4, 0.8],
+            begin: Alignment.topCenter,
+            end: Alignment.center,
+            colors: [AppColor.mainColor, Colors.white24],
+          ),
         ),
-      ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(),
-        child: Stack(
-          children: [
-            Container(
-              // color: AppColor.mainColor,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  stops: [0.6, 0.9],
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
-                  colors: [AppColor.mainColor, Colors.white],
+        child: BackdropFilter(
+          filter: ImageFilter.blur(),
+          child: Stack(
+            children: [
+              Container(
+                // color: AppColor.mainColor,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    stops: [0.6, 0.9],
+                    begin: Alignment.topCenter,
+                    end: Alignment.center,
+                    colors: [AppColor.mainColor, Colors.white],
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 60),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25),
-                        ),
-                        color: Colors.white.withOpacity(0.5)),
-                    child: Column(
-                      children: [
-                        Text(
-                          '${widget.fullName}',
-                          style:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20,
-                                  ),
-                        ),
-                        if (widget.position != null && widget.position != '')
-                          const SizedBox(
-                            height: 10,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 60),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),
                           ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (widget.position != null &&
-                                widget.position != '')
-                              SvgPicture.asset(
-                                  'assets/images/svgfile/shield_done.svg'),
+                          color: Colors.white.withOpacity(0.5)),
+                      child: Column(
+                        children: [
+                          Text(
+                            '${widget.fullName}',
+                            style:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20,
+                                    ),
+                          ),
+                          if (widget.position != null && widget.position != '')
                             const SizedBox(
-                              width: 10,
+                              height: 10,
                             ),
-                            Text(
-                              '${widget.position}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
-                                    fontSize: 14,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        if (widget.position != null && widget.position != '')
-                          const SizedBox(
-                            height: 10,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (widget.position != null &&
+                                  widget.position != '')
+                                SvgPicture.asset(
+                                    'assets/images/svgfile/shield_done.svg'),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '${widget.position}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5!
+                                    .copyWith(
+                                      fontSize: 14,
+                                    ),
+                              ),
+                            ],
                           ),
-                        Text(
-                          '${widget.description}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const [
-                            CustomOptionProfile(
-                              title: 'Call',
-                              imageSvg: 'assets/images/svgfile/Call.svg',
+                          if (widget.position != null && widget.position != '')
+                            const SizedBox(
+                              height: 10,
                             ),
-                            CustomOptionProfile(
-                              title: 'Email',
-                              imageSvg: 'assets/images/svgfile/message.svg',
-                            ),
-                            CustomOptionProfile(
-                              title: 'Telegram',
-                              imageSvg: 'assets/images/svgfile/send.svg',
-                            ),
-                            CustomOptionProfile(
-                              title: 'Website',
-                              imageSvg: 'assets/images/svgfile/website.svg',
-                            ),
-                          ],
-                        ),
-                      ],
+                          Text(
+                            '${widget.description}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w400),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: const [
+                              CustomOptionProfile(
+                                title: 'Call',
+                                imageSvg: 'assets/images/svgfile/Call.svg',
+                              ),
+                              CustomOptionProfile(
+                                title: 'Email',
+                                imageSvg: 'assets/images/svgfile/message.svg',
+                              ),
+                              CustomOptionProfile(
+                                title: 'Telegram',
+                                imageSvg: 'assets/images/svgfile/send.svg',
+                              ),
+                              CustomOptionProfile(
+                                title: 'Website',
+                                imageSvg: 'assets/images/svgfile/website.svg',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 90,
-                      height: 90,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
+              Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 90,
+                        height: 90,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                    ),
-                    // memberCon.isLoadingQRCode.value
-                    //     ? Shimmer.fromColors(
-                    //         highlightColor: Colors.white,
-                    //         baseColor: Colors.grey[300]!,
-                    //         child: Container(
-                    //           height: 90,
-                    //           width: 90,
-                    //           decoration: BoxDecoration(
-                    //             shape: BoxShape.circle,
-                    //             color: Colors.grey[100],
-                    //           ),
-                    //         ),
-                    //       )
-                    //     :
-                    memberCon.personalProfilemember.value.profile != null &&
-                            memberCon.personalProfilemember.value.profile != ''
-                        ? Container(
-                            height: 85,
-                            width: 85,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  width: 3.5, color: AppColor.mainColor),
-                              image: DecorationImage(
-                                  image: NetworkImage(memberCon
-                                      .personalProfilemember.value.profile!),
-                                  fit: BoxFit.cover),
+                      // memberCon.isLoadingQRCode.value
+                      //     ? Shimmer.fromColors(
+                      //         highlightColor: Colors.white,
+                      //         baseColor: Colors.grey[300]!,
+                      //         child: Container(
+                      //           height: 90,
+                      //           width: 90,
+                      //           decoration: BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             color: Colors.grey[100],
+                      //           ),
+                      //         ),
+                      //       )
+                      //     :
+                      memberCon.personalProfilemember.value.profile != null &&
+                              memberCon.personalProfilemember.value.profile !=
+                                  ''
+                          ? Container(
+                              height: 85,
+                              width: 85,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    width: 3.5, color: AppColor.mainColor),
+                                image: DecorationImage(
+                                    image: NetworkImage(memberCon
+                                        .personalProfilemember.value.profile!),
+                                    fit: BoxFit.cover),
+                              ),
+                            )
+                          : Container(
+                              height: 85,
+                              width: 85,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'),
+                                    fit: BoxFit.cover),
+                              ),
                             ),
-                          )
-                        : Container(
-                            height: 85,
-                            width: 85,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                  ],
-                )),
-            Positioned(
-              top: 30,
-              right: 0,
-              left: 80,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    uploadImage(context);
-                  });
-                },
-                child: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: Colors.white,
-                  child:
-                      SvgPicture.asset('assets/images/svgfile/camera_new.svg'),
+                    ],
+                  )),
+              Positioned(
+                top: 30,
+                right: 0,
+                left: 80,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      uploadImage(context);
+                    });
+                  },
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Colors.white,
+                    child: SvgPicture.asset(
+                        'assets/images/svgfile/camera_new.svg'),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

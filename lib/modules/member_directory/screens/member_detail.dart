@@ -43,7 +43,7 @@ class _MemberDetailState extends State<MemberDetail> {
 
   @override
   void initState() {
-    _memberCon.fetchMemberPersonProfile(widget.memberDetailAgrument!.id!);
+    _memberCon.fetchMemberPersonProfile(id: widget.memberDetailAgrument!.id!);
     _memberCon.getUserDetail(widget.memberDetailAgrument!.id!);
     //customerCon.getUser();
 

@@ -6,12 +6,12 @@ import '../custom_fovarite.dart';
 
 class CustomCardAllStores extends StatelessWidget {
   final PrivilegeShopModel? privilegeShopList;
-  final num? isFav;
+  final bool? isFav;
   final GestureTapCallback? onTapFav;
 
   const CustomCardAllStores({
     Key? key,
-    this.isFav = 0,
+    this.isFav = false,
     this.onTapFav,
     this.privilegeShopList,
   }) : super(key: key);

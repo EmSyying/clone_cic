@@ -8,9 +8,9 @@ part 'privilege_shop_model.g.dart';
 class PrivilegeShopModel with _$PrivilegeShopModel {
   factory PrivilegeShopModel({
     num? id,
-     String? status,
-    @JsonKey(name: 'is_open') num? isOpen,
-    @JsonKey(name: 'is_favorite') num? isFavorite,
+    String? status,
+    @JsonKey(name: 'is_open') String? isOpen,
+    @JsonKey(name: 'is_favorite') bool? isFavorite,
     String? slogan,
     @JsonKey(name: 'discount_bg_color') String? discountBgColor,
     @JsonKey(name: 'shop_name_in_khmer') String? shopNameInKhmer,

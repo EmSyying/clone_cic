@@ -36,8 +36,12 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
   @override
   void initState() {
     widgets = [
-      PersonalProfileTap(
-        description: memberCon.personalProfile.value.about ?? '',
+      Obx(
+        () => memberCon.isLoadingProfile.value
+            ? const Center(child: CircularProgressIndicator())
+            : PersonalProfileTap(
+                description: memberCon.personalProfile.value.about ?? '',
+              ),
       ),
       CompanyProfileTab(
         id: widget.id,
@@ -120,9 +124,11 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
                     background: Obx(
-                      () => memberCon.isLoadingQRCode.value
+                      () => memberCon.isLoadingQRCode.value ||
+                              memberCon.isLaodingUpdateProfile.value
                           ? const SimmmerProfile()
                           : CustomUserProfile(
+                              id: widget.id,
                               fullName: memberCon
                                       .personalProfilemember.value.fullName ??
                                   '',
