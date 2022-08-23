@@ -20,8 +20,7 @@ import '../../../Utils/helper/firebase_analytics.dart';
 class Report extends StatefulWidget {
   final bool? isNavigator;
   int? currentTabIndex;
-  Report({Key? key, this.isNavigator, this.currentTabIndex = 0})
-      : super(key: key);
+  Report({Key? key, this.isNavigator}) : super(key: key);
   @override
   State<Report> createState() => _ReportState();
 }

@@ -44,6 +44,34 @@ class PrivilegeController extends GetxController {
     return shopModelList;
   }
 
+  // Search Shop/Store
+  final searchShop = PrivilegeShopModel().obs;
+  final searchShopList = <PrivilegeShopModel>[].obs;
+  final isSearchLoading = false.obs;
+  Future<List<PrivilegeShopModel>> onSearchStores({String? keySearch}) async {
+    isSearchLoading(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/global/search?name=$keySearch',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      var responseJson = response['data'];
+      shopModelList.clear();
+      responseJson.map((e) {
+        searchShop.value = PrivilegeShopModel.fromJson(e);
+
+        searchShopList.add(searchShop.value);
+      }).toList();
+      isSearchLoading(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isSearchLoading(false);
+    });
+
+    return searchShopList;
+  }
+
   ///Fetch Favourite Store
   final isLoadingFav = false.obs;
   final favshopModelList = <PrivilegeShopModel>[].obs;
@@ -114,8 +142,8 @@ class PrivilegeController extends GetxController {
     return shopDetailModel.value;
   }
 
-  ////function onFetchCategories======
-  //final categoriesModel = ModelsCategories().obs;
+  ////function onFetchCategories
+
   final categoriesModelList = <ModelsCategories>[].obs;
   final isLoadingCategories = false.obs;
   Future<List<ModelsCategories>> onFetchCategories() async {
@@ -145,48 +173,6 @@ class PrivilegeController extends GetxController {
     });
 
     return categoriesModelList;
-  }
-
-  // final listAllCategories = <ModelsCategories>[
-  //   ModelsCategories(
-  //     name: 'Education Training',
-  //     image: 'assets/images/privilege/education.png',
-  //   ),
-  //   ModelsCategories(
-  //     name: 'Retail Baby Product',
-  //     image: 'assets/images/privilege/product.png',
-  //   ),
-  //   ModelsCategories(
-  //     name: 'Construction Architect',
-  //     image: 'assets/images/privilege/construction.png',
-  //   ),
-  // ].obs;
-// global filter search
-  final isLoadingGlobalFilter = false.obs;
-  final globalFilterModel = PrivilegeShopModel().obs;
-  final globalFilterList = <PrivilegeShopModel>[].obs;
-  Future<List<PrivilegeShopModel>> fetchglobalFilter() async {
-    isLoadingGlobalFilter(true);
-    apiBaseHelper
-        .onNetworkRequesting(
-            url: 'privilege/global/search?name=1',
-            methode: METHODE.get,
-            isAuthorize: true)
-        .then((response) {
-      globalFilterList.clear();
-      var responeJson = response['data'];
-
-      responeJson.map((e) {
-        debugPrint('helooooo123++++:$response');
-        globalFilterModel.value = PrivilegeShopModel.fromJson(e);
-        globalFilterList.add(globalFilterModel.value);
-        isLoadingGlobalFilter(false);
-      }).toList();
-    }).onError((ErrorModel errorModel, stackTrace) {
-      isLoadingGlobalFilter(false);
-    });
-
-    return globalFilterList;
   }
 
   // category & location filter
@@ -223,13 +209,12 @@ class PrivilegeController extends GetxController {
   final isLoadingPriLocation = false.obs;
   final locationPrivilageModel = PrivilageLocation().obs;
   final locationPrivilageList = <PrivilageLocation>[].obs;
-  Future<List<PrivilageLocation>> fetchLocationPrivilage() async {
+  Future<List<PrivilageLocation>> onFetchStoreLocation() async {
     isLoadingPriLocation(true);
     apiBaseHelper
         .onNetworkRequesting(
             url: 'privilege/address', methode: METHODE.get, isAuthorize: true)
         .then((response) {
-      globalFilterList.clear();
       var responeJson = response['data'];
 
       responeJson.map((e) {
@@ -242,13 +227,6 @@ class PrivilegeController extends GetxController {
     });
 
     return locationPrivilageList;
-  }
-
-  @override
-  void onInit() {
-    fetchglobalFilter();
-    onFetchFavouriteStore();
-    super.onInit();
   }
 
   final listAllStores = <StoreModel>[

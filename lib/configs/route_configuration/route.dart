@@ -351,7 +351,7 @@ final router = GoRouter(routes: [
             path: 'report/:id',
             name: 'Report',
             builder: (context, state) => Report(
-                  currentTabIndex: int.tryParse(state.params['id']!),
+                  // currentTabIndex: int.tryParse(state.params['id']!),
                 ),
             routes: [
               GoRoute(

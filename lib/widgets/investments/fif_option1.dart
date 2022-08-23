@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_drop_down.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
-import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
+
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 
@@ -16,6 +16,7 @@ import '../../Utils/chart/custom_circle_chart_1_3.dart';
 import '../../Utils/helper/firebase_analytics.dart';
 import '../../Utils/pop_up_alert/show_alert_dialog.dart';
 
+import '../../configs/auto_route/auto_route.gr.dart';
 import '../../modules/bonus/screens/cash_out/custom_change_account_bank.dart';
 import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
 import '../../utils/form_builder/custom_material_modal_sheet.dart';

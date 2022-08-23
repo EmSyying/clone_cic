@@ -22,7 +22,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
   final priCon = Get.put(PrivilegeController());
   @override
   void initState() {
-    priCon.fetchLocationPrivilage();
+    priCon.onFetchStoreLocation();
     super.initState();
   }
 
