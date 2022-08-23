@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/widgets/get_funding/custom_application_list.dart';
+import 'package:cicgreenloan/widgets/get_funding/custom_shimmer_card_get_funding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,13 +18,27 @@ class CustomRejectedGetFunding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final equityCon = Get.put(EquityInvestmentController());
-    return equityCon.equityApplicationRejectedtList.isNotEmpty
-        ? ApplicationList(
-            applicationList: equityCon.equityApplicationRejectedtList,
-          )
-        : const CustomEmptyState(
-            title: 'No Rejected',
-            description: 'It seems you have no rejected yet',
-          );
+    equityCon.getEquityAndDebtRejectedAndCancelled('rejected');
+    return Obx(
+      () => equityCon.isLoadingStatus.value
+          ? () {
+              return const Padding(
+                padding: EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: CustomShimmerCardGetFunding(),
+              );
+            }()
+          : equityCon.equityApplicationRejectedtList.isNotEmpty
+              ? SingleChildScrollView(
+                  child: ApplicationList(
+                    applicationList: equityCon.equityApplicationRejectedtList,
+                  ),
+                )
+              : const CustomEmptyState(
+                  title: 'No Rejected',
+                  description: 'It seems you have no rejected yet',
+                ),
+    );
   }
 }

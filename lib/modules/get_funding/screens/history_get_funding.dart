@@ -18,6 +18,7 @@ class _HistoryGetFundingState extends State<HistoryGetFunding> {
     const CustomCancelledGetFunding(),
   ];
   int? getFundingController = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,22 +27,23 @@ class _HistoryGetFundingState extends State<HistoryGetFunding> {
         Expanded(
           child: Container(
             width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            decoration: BoxDecoration(
+              //color: Colors.white,
+              color: Colors.white.withOpacity(0.1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Divider(
-                  thickness: 1.2,
-                  color: Colors.grey[200],
-                ),
+                // Divider(
+                //   thickness: 1.2,
+                //   color: Colors.grey[200],
+                // ),
                 SingleChildScrollView(
                   child: Container(
                     margin: const EdgeInsets.only(
                       left: 20.0,
                       right: 20.0,
-                      top: 10.0,
+                      top: 20.0,
                     ),
                     width: double.infinity,
                     child: CupertinoSlidingSegmentedControl(

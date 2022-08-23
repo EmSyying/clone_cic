@@ -631,6 +631,7 @@ class EquityInvestmentController extends GetxController {
         .then((response) {
       equityApplicationRejectedtList.clear();
       response['data'].map((json) {
+        debugPrint('History=====$response');
         equityRejectedModel.value = ApplicationData.fromJson(json);
         equityApplicationRejectedtList.add(equityRejectedModel.value);
       }).toList();

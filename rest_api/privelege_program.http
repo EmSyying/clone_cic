@@ -54,3 +54,9 @@ GET {{baseUrl}}v3/privilege/shop/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### List only favorite shop
+GET {{baseUrl}}v3/privilege/shop?favorite=0
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
