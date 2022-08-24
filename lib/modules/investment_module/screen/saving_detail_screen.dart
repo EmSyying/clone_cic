@@ -27,6 +27,7 @@ class SavingDetailScreen extends StatefulWidget {
   final String? currentPrincipal;
   final EdgeInsets paddings;
   final String? accountName;
+  final String? fromPage;
 
   // final FiFApplicationDetailModel? fiFApplicationDetailModel;
   final List<ScheduleModelList>? scheduleModelList;
@@ -41,7 +42,7 @@ class SavingDetailScreen extends StatefulWidget {
       this.hide,
       this.index,
       this.investAmonut,
-      this.currentPrincipal})
+      this.currentPrincipal, this.fromPage})
       : super(key: key);
 
   @override

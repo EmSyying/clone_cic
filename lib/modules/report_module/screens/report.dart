@@ -19,7 +19,9 @@ import '../../../Utils/helper/firebase_analytics.dart';
 
 class Report extends StatefulWidget {
   final bool? isNavigator;
-  const Report({Key? key, this.isNavigator}) : super(key: key);
+  int? currentTabIndex;
+  Report({Key? key, this.isNavigator, this.currentTabIndex = 0})
+      : super(key: key);
   @override
   State<Report> createState() => _ReportState();
 }
@@ -32,7 +34,6 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
   Future? documentList;
   String? currentUser;
   int selectIndex = 0;
-  int currentTabIndex = 0;
   bool isTabSelected = false;
 
   @override
@@ -42,11 +43,14 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
         vsync: this,
         length:
             docTypeCon.reportList.isNotEmpty ? docTypeCon.reportList.length : 0,
-        initialIndex: currentTabIndex);
+        initialIndex:
+            docTypeCon.reportList.length - 1 >= (widget.currentTabIndex ?? 0)
+                ? widget.currentTabIndex!
+                : 0);
     tabController!.addListener(() {
       setState(() {
         isTabSelected = true;
-        currentTabIndex = tabController!.index;
+        widget.currentTabIndex = tabController!.index;
         selectIndex = 0;
       });
     });
@@ -97,7 +101,6 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                 ),
                                 padding: const EdgeInsets.only(left: 0),
                                 child: TabBar(
-                                  // padding: const EdgeInsets.only(left: 20),
                                   controller: tabController,
                                   dragStartBehavior: DragStartBehavior.start,
                                   onTap: (value) {
@@ -109,9 +112,7 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                   },
                                   indicatorSize: TabBarIndicatorSize.label,
                                   isScrollable: true,
-                                  // docTypeCon.reportList.length > 3
-                                  //     ? true
-                                  //     : false,
+
                                   labelStyle: TextStyle(
                                       fontFamily: 'DMSans',
                                       fontWeight: FontWeight.bold,
@@ -125,9 +126,16 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                       Get.theme.brightness == Brightness.light
                                           ? Colors.grey[500]
                                           : Colors.white,
+
+                                  //                      ? Colors.white
+                                  //                      : Color(0xffDEE8E9).withOpacity(0.1),
+
                                   tabs: docTypeCon.reportList.map((e) {
-                                    return Tab(
-                                      text: e.display,
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Tab(
+                                        text: e.display,
+                                      ),
                                     );
                                   }).toList(),
                                 ),
@@ -153,13 +161,13 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                     padding: const EdgeInsets.only(left: 20),
                                     child: Row(
                                       children: docTypeCon
-                                          .documentTypeList[currentTabIndex]
+                                          .documentTypeList[
+                                              widget.currentTabIndex!]
                                           .children!
                                           .asMap()
                                           .entries
-                                          .map(
-                                        (e) {
-                                          return GestureDetector(
+                                          .map((e) {
+                                        return GestureDetector(
                                             onTap: () {
                                               setState(() {
                                                 isTabSelected = false;
@@ -181,15 +189,12 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                               selectIndex: isTabSelected
                                                   ? 0
                                                   : selectIndex,
-                                            ),
-                                          );
-                                        },
-                                      ).toList(),
+                                            ));
+                                      }).toList(),
                                     ),
                                   ),
                                 ),
                               ),
-
                               docTypeCon.documentTypeList.isNotEmpty
                                   ? Expanded(
                                       child: TabBarView(
@@ -198,19 +203,19 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                             .map(
                                               (element) => InvestorPage(
                                                 tabLabel: docTypeCon
-                                                        .documentTypeList[
-                                                            currentTabIndex]
+                                                        .documentTypeList[widget
+                                                            .currentTabIndex!]
                                                         .children!
                                                         .isNotEmpty
                                                     ? docTypeCon
-                                                        .documentTypeList[
-                                                            currentTabIndex]
+                                                        .documentTypeList[widget
+                                                            .currentTabIndex!]
                                                         .children![selectIndex]
                                                         .id
                                                         .toString()
                                                     : docTypeCon
-                                                        .documentTypeList[
-                                                            currentTabIndex]
+                                                        .documentTypeList[widget
+                                                            .currentTabIndex!]
                                                         .id
                                                         .toString(),
                                               ),
@@ -218,14 +223,10 @@ class _ReportState extends State<Report> with TickerProviderStateMixin {
                                             .toList(),
                                       ),
                                     )
-                                  : const Center(
-                                      child: NoReportFound(),
-                                    )
+                                  : const SizedBox()
                             ],
                           )
-                        : const Center(
-                            child: NoReportFound(),
-                          ),
+                        : const Center(child: NoReportFound()),
                   ))
               : Scaffold(
                   appBar: CustomAppBar(

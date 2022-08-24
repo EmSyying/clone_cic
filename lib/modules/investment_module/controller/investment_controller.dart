@@ -160,42 +160,51 @@ class PriceController extends GetxController {
   Future<Price> onFetchPrice() async {
     isLoading(true);
 
-    // String url = '${GlobalConfiguration().get('api_base_url')}price';
-    // try {
-    //   await http.get(Uri.parse(url), headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //     'Authorization': 'Bearer ${tokenKey.value}'
-    //   }).then((response) {
-    //     if (response.statusCode == 200) {
-    //       var responseJson = json.decode(response.body)['data'];
-    //       price.value = Price.fromJson(responseJson);
-    //     }
-    //   });
-    // } finally {
-    //   isLoading(false);
-    // }
+    String url = '${GlobalConfiguration().get('api_base_url')}price';
+    try {
+      await http.get(Uri.parse(url), headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${tokenKey.value}'
+      }).then((response) {
+        if (response.statusCode == 200) {
+          var responseJson = json.decode(response.body)['data'];
+          debugPrint('Price List $responseJson');
 
-    await apiBaseHelper
-        .onNetworkRequesting(
-      url: 'fif-account',
-      methode: METHODE.get,
-      isAuthorize: true,
-    )
-        .then((response) {
-      var responseJson = response["data"];
-      price.value = Price.fromJson(responseJson);
+          price.value = Price.fromJson(responseJson);
+        } else {
+          debugPrint("Error Price list:${response.statusCode}");
+          debugPrint("Error Price list1:${response.body}");
+        }
+      });
+    } finally {
       isLoading(false);
-    }).onError((ErrorModel error, stackTrace) {
-      FirebaseCrashlytics.instance.log(error.bodyString.toString());
-      isLoading(false);
-    });
+    }
+
+    // await apiBaseHelper
+    //     .onNetworkRequesting(
+    //   url: 'fif-account',
+    //   methode: METHODE.get,
+    //   isAuthorize: true,
+    // )
+    //     .then((response) {
+    //   var responseJson = response["data"];
+
+    //   debugPrint('Price List $responseJson');
+    //   responseJson.map((value) {}).toList();
+    //   price.value = Price.fromJson(responseJson);
+
+    //   isLoading(false);
+    // }).onError((ErrorModel error, stackTrace) {
+    //   FirebaseCrashlytics.instance.log(error.bodyString.toString());
+    //   isLoading(false);
+    // });
     return price.value;
   }
 
   Future<SharePriceData>? getSharePrice() async {
     isLoading(true);
-    tokenKey.value = await getCurrentLang();
+
     String url = '${GlobalConfiguration().get('api_base_url')}dashboard';
     try {
       await http.get(Uri.parse(url), headers: {
@@ -258,7 +267,7 @@ class PriceController extends GetxController {
 
   Future<ShareSubcriptionHistoriesData> getShareSubHistories() async {
     isLoading(true);
-    tokenKey.value = await getCurrentLang();
+
     String url =
         '${GlobalConfiguration().get('api_base_url')}investment-equity-fund';
     try {
@@ -335,6 +344,9 @@ class PriceController extends GetxController {
   @override
   void onInit() {
     getfifOption();
+    getCurrentLang().then((value) {
+      tokenKey.value = value;
+    });
     super.onInit();
   }
 

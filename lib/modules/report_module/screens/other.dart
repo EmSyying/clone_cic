@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/report_module/controllers/documentation_controller.dart';
-import 'package:cicgreenloan/modules/report_module/screens/view_report.dart';
 import 'package:cicgreenloan/widgets/report/document_list.dart';
 import 'package:cicgreenloan/widgets/report/report_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +43,12 @@ class _OtherPageState extends State<OtherPage> {
 
                         return GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ViewReport(
-                                            documentationModel: item,
-                                          )));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => ViewReport(
+                              //               documentationModel: item,
+                              //             )));
                             },
                             child: DocumentList(
                               documentationModel: item,

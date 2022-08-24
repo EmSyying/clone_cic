@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
+import 'package:go_router/go_router.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
 import 'package:cicgreenloan/Utils/helper/local_storage.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
@@ -285,7 +286,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                                   : const Icon(Icons.arrow_back_ios),
                           onPressed: () {
                             debugPrint("Context router pop");
-                            context.navigateBack();
+                            context.pop();
                           },
                         )
                       : null,

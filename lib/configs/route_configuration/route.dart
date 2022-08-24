@@ -33,7 +33,13 @@ final router = GoRouter(routes: [
         GoRoute(
           path: 'investment/:tabName',
           name: 'Investment',
-          redirect: (_) => 'investment/cic-equity-fund',
+          // redirect: (_) {
+          //   if (_.params['tabName'] != null && _.params['tabName'] != '') {
+          //     return 'investment/0';
+          //   } else {
+          //     return '';
+          //   }
+          // },
           builder: (context, state) => Dashboard(
             tabName: state.params['tabName'],
           ),
@@ -278,7 +284,7 @@ final router = GoRouter(routes: [
                     builder: (context, state) {
                       final param = state.extra as Map<String, Object?>;
                       return FIFOption1(
-                        id: num.tryParse(param['id'].toString()),
+                        id: int.tryParse(param['id'].toString()),
                         key: state.pageKey,
                         options: param['options'] as List<FIFoptionModel>,
                         paymentDate: param['paymentDate'] as PaymentDate?,
@@ -351,7 +357,7 @@ final router = GoRouter(routes: [
             path: 'report/:id',
             name: 'Report',
             builder: (context, state) => Report(
-                  // currentTabIndex: int.tryParse(state.params['id']!),
+                  currentTabIndex: int.tryParse(state.params['id']!),
                 ),
             routes: [
               GoRoute(

@@ -35,7 +35,7 @@ import 'configs/auto_route/auto_route.gr.dart';
 import 'configs/route_configuration/route.dart';
 import 'generated/l10n.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
-import '../../Utils/helper/app_pin_code.dart' as appPinCode;
+import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 
 final optionCon = Get.put(DocumentCategory());
 final settingCon = Get.put(SettingController());
@@ -555,8 +555,8 @@ class MyApp extends StatelessWidget {
                   LocalData.showAppTou('appTour').then(
                     (value) {
                       if (value) {
-                        appPinCode.timer.cancel();
-                        appPinCode.timer = appPinCode.startTimeout();
+                        app_pin_code.timer.cancel();
+                        app_pin_code.timer = app_pin_code.startTimeout();
                       }
                     },
                   );

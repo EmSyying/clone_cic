@@ -13,7 +13,7 @@ class CustomDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          _buildRowData(isTitle: true),
+          _buildRowData(context, isTitle: true),
           const Divider(height: 0),
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
@@ -23,6 +23,7 @@ class CustomDataTable extends StatelessWidget {
             itemBuilder: (_, __) => ColoredBox(
               color: Colors.transparent,
               child: _buildRowData(
+                context,
                 date: dataTable![__].date,
                 ut: FormatNumber.formatNumberDefualt(
                   int.parse(dataTable![__].utAmount!),
@@ -38,19 +39,20 @@ class CustomDataTable extends StatelessWidget {
         ],
       );
 
-  Widget _buildRowData({
+  Widget _buildRowData(
+    BuildContext context, {
     String? date,
     String? ut,
     String? price,
     String? total,
     bool isTitle = false,
   }) {
-    TextStyle titleStyle = Theme.of(Get.context!)
+    TextStyle titleStyle = Theme.of(context)
         .textTheme
         .bodyText2!
         .copyWith(fontWeight: FontWeight.w700);
     TextStyle normalStyle =
-        Theme.of(Get.context!).textTheme.subtitle2!.copyWith(fontSize: 12);
+        Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 12);
     return Container(
       // color: Colors.red,
       padding: const EdgeInsets.symmetric(vertical: 20),

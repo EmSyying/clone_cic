@@ -23,7 +23,7 @@ import '../../Utils/helper/color.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../generated/l10n.dart';
-import '../../Utils/helper/app_pin_code.dart' as appPinCode;
+import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 import '../event_module/screen/event.dart';
 
 class PaymentSchedule extends StatefulWidget {
@@ -112,14 +112,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       if (appSettingCon.cicAppSetting.enablePinCode!) {
         if (value) {
           if (_userController.customer.value.screenLock!.temporary!) {
-            appPinCode.showLockScreen();
+            app_pin_code.showLockScreen();
           } else if (widget.fromPage != 'loginPage') {
             setPINCodeController.isLogin(false);
             setPINCodeController.update();
 
             // _showLockScreen();
             // onShowFingerPrint();
-            appPinCode.showLockScreen(context: context);
+            app_pin_code.showLockScreen(context: context);
           }
         }
       }

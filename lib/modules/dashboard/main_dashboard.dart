@@ -975,8 +975,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                   FirebaseAnalyticsHelper
                                                       .setCurrentScreenName(
                                                           value.label!);
-                                                  context
-                                                      .go("/${value.route!}");
+                                                  context.go("/${value.route}");
                                                 },
                                       icon: value.icon,
                                     );

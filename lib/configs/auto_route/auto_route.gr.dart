@@ -119,7 +119,10 @@ class AppRouter extends _i2.RootStackRouter {
           routeData.argsAs<ReportArgs>(orElse: () => const ReportArgs());
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i7.Report(key: args.key, isNavigator: args.isNavigator));
+          child: _i7.Report(
+              key: args.key,
+              isNavigator: args.isNavigator,
+              currentTabIndex: args.currentTabIndex));
     },
     PrivilegeRouter.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
@@ -136,8 +139,7 @@ class AppRouter extends _i2.RootStackRouter {
               tabName: args.tabName));
     },
     SavingDetailScreenRouter.name: (routeData) {
-      final args = routeData.argsAs<SavingDetailScreenRouterArgs>(
-          orElse: () => const SavingDetailScreenRouterArgs());
+      final args = routeData.argsAs<SavingDetailScreenRouterArgs>();
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i9.SavingDetailScreen(
@@ -227,15 +229,8 @@ class AppRouter extends _i2.RootStackRouter {
               descriptionPadding: args.descriptionPadding));
     },
     ContractWithdrawScreenRouter.name: (routeData) {
-      final queryParams = routeData.queryParams;
       final args = routeData.argsAs<ContractWithdrawScreenRouterArgs>(
-          orElse: () => ContractWithdrawScreenRouterArgs(
-              investAmount: queryParams.optString('investAmount'),
-              interestEarned: queryParams.optString('interestEarned'),
-              id: queryParams.optNum('id'),
-              productName: queryParams.optString('productName'),
-              contractCode: queryParams.optString('contractCode'),
-              accountName: queryParams.optString('accountName')));
+          orElse: () => const ContractWithdrawScreenRouterArgs());
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i13.ContractWithdrawScreen(
@@ -349,8 +344,8 @@ class AppRouter extends _i2.RootStackRouter {
           routeData: routeData,
           child: _i16.FIFOption1(
               key: args.key,
-              id: args.id,
               paymentDate: args.paymentDate,
+              id: args.id,
               options: args.options));
     },
     ReviewApplicationRouter.name: (routeData) {
@@ -412,9 +407,8 @@ class AppRouter extends _i2.RootStackRouter {
               descriptionPadding: args.descriptionPadding));
     },
     ConfirmDetailRouter.name: (routeData) {
-      final queryParams = routeData.queryParams;
       final args = routeData.argsAs<ConfirmDetailRouterArgs>(
-          orElse: () => ConfirmDetailRouterArgs(id: queryParams.optInt('id')));
+          orElse: () => const ConfirmDetailRouterArgs());
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i17.DepositeScreen(key: args.key, id: args.id));
@@ -805,24 +799,29 @@ class DirectoryArgs {
 /// generated route for
 /// [_i7.Report]
 class Report extends _i2.PageRouteInfo<ReportArgs> {
-  Report({_i32.Key? key, bool? isNavigator})
+  Report({_i32.Key? key, bool? isNavigator, int? currentTabIndex})
       : super(Report.name,
             path: '/report',
-            args: ReportArgs(key: key, isNavigator: isNavigator));
+            args: ReportArgs(
+                key: key,
+                isNavigator: isNavigator,
+                currentTabIndex: currentTabIndex));
 
   static const String name = 'Report';
 }
 
 class ReportArgs {
-  const ReportArgs({this.key, this.isNavigator});
+  const ReportArgs({this.key, this.isNavigator, this.currentTabIndex});
 
   final _i32.Key? key;
 
   final bool? isNavigator;
 
+  final int? currentTabIndex;
+
   @override
   String toString() {
-    return 'ReportArgs{key: $key, isNavigator: $isNavigator}';
+    return 'ReportArgs{key: $key, isNavigator: $isNavigator, currentTabIndex: $currentTabIndex}';
   }
 }
 
@@ -870,11 +869,11 @@ class SavingDetailScreenRouter
   SavingDetailScreenRouter(
       {_i32.Key? key,
       String? accountName,
-      _i32.EdgeInsets? paddings,
+      required _i32.EdgeInsets paddings,
       String? code,
       num? id,
       List<_i33.ScheduleModelList>? scheduleModelList,
-      bool? hide = false,
+      bool? hide,
       int? index,
       String? investAmonut,
       String? currentPrincipal,
@@ -901,11 +900,11 @@ class SavingDetailScreenRouterArgs {
   const SavingDetailScreenRouterArgs(
       {this.key,
       this.accountName,
-      this.paddings,
+      required this.paddings,
       this.code,
       this.id,
       this.scheduleModelList,
-      this.hide = false,
+      this.hide,
       this.index,
       this.investAmonut,
       this.currentPrincipal,
@@ -915,7 +914,7 @@ class SavingDetailScreenRouterArgs {
 
   final String? accountName;
 
-  final _i32.EdgeInsets? paddings;
+  final _i32.EdgeInsets paddings;
 
   final String? code;
 
@@ -1004,7 +1003,7 @@ class RenewalScreenRouterArgs {
 class RenewReviewRouter extends _i2.PageRouteInfo<RenewReviewRouterArgs> {
   RenewReviewRouter(
       {_i32.Key? key,
-      bool isAnnullyRate = false,
+      bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
       String? renewBy,
@@ -1024,11 +1023,11 @@ class RenewReviewRouter extends _i2.PageRouteInfo<RenewReviewRouterArgs> {
       String? contractStatus,
       bool? isWithdraw = false,
       bool? isStatusPending = false,
-      num? id = 0,
+      num? id,
       _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
-      bool? isNoUSD,
-      String? status = '',
-      String? titles = '',
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
       void Function()? oncallBack,
       String? annually,
       String? fromPage})
@@ -1091,18 +1090,18 @@ class RenewReviewRouterArgs {
       this.contractStatus,
       this.isWithdraw = false,
       this.isStatusPending = false,
-      this.id = 0,
+      this.id,
       this.fiFApplicationDetailModel,
-      this.isNoUSD,
-      this.status = '',
-      this.titles = '',
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
       this.oncallBack,
       this.annually,
       this.fromPage});
 
   final _i32.Key? key;
 
-  final bool isAnnullyRate;
+  final bool? isAnnullyRate;
 
   final String? productName;
 
@@ -1146,7 +1145,7 @@ class RenewReviewRouterArgs {
 
   final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
-  final bool? isNoUSD;
+  final bool isNoUSD;
 
   final String? status;
 
@@ -1254,15 +1253,7 @@ class ContractWithdrawScreenRouter
                 id: id,
                 productName: productName,
                 contractCode: contractCode,
-                accountName: accountName),
-            rawQueryParams: {
-              'investAmount': investAmount,
-              'interestEarned': interestEarned,
-              'id': id,
-              'productName': productName,
-              'contractCode': contractCode,
-              'accountName': accountName
-            });
+                accountName: accountName));
 
   static const String name = 'ContractWithdrawScreenRouter';
 }
@@ -1302,7 +1293,7 @@ class ContractWithdrawScreenRouterArgs {
 class ReviewWithdrawRouter extends _i2.PageRouteInfo<ReviewWithdrawRouterArgs> {
   ReviewWithdrawRouter(
       {_i32.Key? key,
-      bool isAnnullyRate = false,
+      bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
       String? renewBy,
@@ -1322,11 +1313,11 @@ class ReviewWithdrawRouter extends _i2.PageRouteInfo<ReviewWithdrawRouterArgs> {
       String? contractStatus,
       bool? isWithdraw = false,
       bool? isStatusPending = false,
-      num? id = 0,
+      num? id,
       _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
-      bool? isNoUSD,
-      String? status = '',
-      String? titles = '',
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
       void Function()? oncallBack,
       String? annually,
       String? fromPage})
@@ -1389,18 +1380,18 @@ class ReviewWithdrawRouterArgs {
       this.contractStatus,
       this.isWithdraw = false,
       this.isStatusPending = false,
-      this.id = 0,
+      this.id,
       this.fiFApplicationDetailModel,
-      this.isNoUSD,
-      this.status = '',
-      this.titles = '',
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
       this.oncallBack,
       this.annually,
       this.fromPage});
 
   final _i32.Key? key;
 
-  final bool isAnnullyRate;
+  final bool? isAnnullyRate;
 
   final String? productName;
 
@@ -1444,7 +1435,7 @@ class ReviewWithdrawRouterArgs {
 
   final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
-  final bool? isNoUSD;
+  final bool isNoUSD;
 
   final String? status;
 
@@ -1634,32 +1625,32 @@ class ExploreMoreRouterArgs {
 class FIFOption1Router extends _i2.PageRouteInfo<FIFOption1RouterArgs> {
   FIFOption1Router(
       {_i32.Key? key,
-      num? id,
       _i35.PaymentDate? paymentDate,
+      int? id = 0,
       List<_i36.FIFoptionModel>? options})
       : super(FIFOption1Router.name,
             path: 'investment/fif-select-product/fif-Application',
             args: FIFOption1RouterArgs(
-                key: key, id: id, paymentDate: paymentDate, options: options));
+                key: key, paymentDate: paymentDate, id: id, options: options));
 
   static const String name = 'FIFOption1Router';
 }
 
 class FIFOption1RouterArgs {
   const FIFOption1RouterArgs(
-      {this.key, this.id, this.paymentDate, this.options});
+      {this.key, this.paymentDate, this.id = 0, this.options});
 
   final _i32.Key? key;
 
-  final num? id;
-
   final _i35.PaymentDate? paymentDate;
+
+  final int? id;
 
   final List<_i36.FIFoptionModel>? options;
 
   @override
   String toString() {
-    return 'FIFOption1RouterArgs{key: $key, id: $id, paymentDate: $paymentDate, options: $options}';
+    return 'FIFOption1RouterArgs{key: $key, paymentDate: $paymentDate, id: $id, options: $options}';
   }
 }
 
@@ -1669,7 +1660,7 @@ class ReviewApplicationRouter
     extends _i2.PageRouteInfo<ReviewApplicationRouterArgs> {
   ReviewApplicationRouter(
       {_i32.Key? key,
-      bool isAnnullyRate = false,
+      bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
       String? renewBy,
@@ -1689,11 +1680,11 @@ class ReviewApplicationRouter
       String? contractStatus,
       bool? isWithdraw = false,
       bool? isStatusPending = false,
-      num? id = 0,
+      num? id,
       _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
-      bool? isNoUSD,
-      String? status = '',
-      String? titles = '',
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
       void Function()? oncallBack,
       String? annually,
       String? fromPage})
@@ -1756,18 +1747,18 @@ class ReviewApplicationRouterArgs {
       this.contractStatus,
       this.isWithdraw = false,
       this.isStatusPending = false,
-      this.id = 0,
+      this.id,
       this.fiFApplicationDetailModel,
-      this.isNoUSD,
-      this.status = '',
-      this.titles = '',
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
       this.oncallBack,
       this.annually,
       this.fromPage});
 
   final _i32.Key? key;
 
-  final bool isAnnullyRate;
+  final bool? isAnnullyRate;
 
   final String? productName;
 
@@ -1811,7 +1802,7 @@ class ReviewApplicationRouterArgs {
 
   final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
-  final bool? isNoUSD;
+  final bool isNoUSD;
 
   final String? status;
 
@@ -1905,8 +1896,7 @@ class ConfirmDetailRouter extends _i2.PageRouteInfo<ConfirmDetailRouterArgs> {
   ConfirmDetailRouter({_i32.Key? key, int? id})
       : super(ConfirmDetailRouter.name,
             path: 'investment/confirm-detail',
-            args: ConfirmDetailRouterArgs(key: key, id: id),
-            rawQueryParams: {'id': id});
+            args: ConfirmDetailRouterArgs(key: key, id: id));
 
   static const String name = 'ConfirmDetailRouter';
 }
@@ -1929,7 +1919,7 @@ class ConfirmDetailRouterArgs {
 class PendingDetailRouter extends _i2.PageRouteInfo<PendingDetailRouterArgs> {
   PendingDetailRouter(
       {_i32.Key? key,
-      bool isAnnullyRate = false,
+      bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
       String? renewBy,
@@ -1949,11 +1939,11 @@ class PendingDetailRouter extends _i2.PageRouteInfo<PendingDetailRouterArgs> {
       String? contractStatus,
       bool? isWithdraw = false,
       bool? isStatusPending = false,
-      num? id = 0,
+      num? id,
       _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
-      bool? isNoUSD,
-      String? status = '',
-      String? titles = '',
+      bool isNoUSD = false,
+      String? status,
+      String? titles,
       void Function()? oncallBack,
       String? annually,
       String? fromPage})
@@ -2016,18 +2006,18 @@ class PendingDetailRouterArgs {
       this.contractStatus,
       this.isWithdraw = false,
       this.isStatusPending = false,
-      this.id = 0,
+      this.id,
       this.fiFApplicationDetailModel,
-      this.isNoUSD,
-      this.status = '',
-      this.titles = '',
+      this.isNoUSD = false,
+      this.status,
+      this.titles,
       this.oncallBack,
       this.annually,
       this.fromPage});
 
   final _i32.Key? key;
 
-  final bool isAnnullyRate;
+  final bool? isAnnullyRate;
 
   final String? productName;
 
@@ -2071,7 +2061,7 @@ class PendingDetailRouterArgs {
 
   final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
-  final bool? isNoUSD;
+  final bool isNoUSD;
 
   final String? status;
 
