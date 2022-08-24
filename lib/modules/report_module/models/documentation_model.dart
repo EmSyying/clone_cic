@@ -5,6 +5,7 @@ class DocumentationModel {
   String? title;
   String? shortDescription;
   String? publishedAt;
+  String? color;
   String? cover;
   String? attachedFile;
   String? url;
@@ -16,6 +17,7 @@ class DocumentationModel {
       this.title,
       this.shortDescription,
       this.publishedAt,
+      this.color,
       this.cover,
       this.attachedFile,
       this.url});
@@ -27,6 +29,7 @@ class DocumentationModel {
     title = json['title'];
     shortDescription = json['short_description'];
     publishedAt = json['published_at'];
+    color = json['color'];
     cover = json['cover'];
     attachedFile = json['attached_file'];
     url = json['url'];
@@ -40,6 +43,7 @@ class DocumentationModel {
     data['title'] = title;
     data['short_description'] = shortDescription;
     data['published_at'] = publishedAt;
+    data['color'] = color;
     data['cover'] = cover;
     data['attached_file'] = attachedFile;
     data['url'] = url;

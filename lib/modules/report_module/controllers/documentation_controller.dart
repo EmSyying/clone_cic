@@ -19,7 +19,7 @@ class DocumentationController extends GetxController {
     try {
       isLoading(true);
       final String url =
-          '${GlobalConfiguration().get('api_base_url')}documentation-by-type?type=$docType';
+          '${GlobalConfiguration().get('api_base_urlv3')}documentation-by-type?type=$docType';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
