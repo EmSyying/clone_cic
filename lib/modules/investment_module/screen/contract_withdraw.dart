@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
@@ -23,12 +22,12 @@ import '../../../widgets/investments/withdraw_notice_card.dart';
 class ContractWithdrawScreen extends StatefulWidget {
   const ContractWithdrawScreen({
     Key? key,
-    @queryParam this.investAmount,
-    @queryParam this.interestEarned,
-    @queryParam this.id,
-    @queryParam this.productName,
-    @queryParam this.contractCode,
-    @queryParam this.accountName,
+    this.investAmount,
+    this.interestEarned,
+    this.id,
+    this.productName,
+    this.contractCode,
+    this.accountName,
   }) : super(key: key);
   final String? investAmount;
   final String? interestEarned;
@@ -66,7 +65,7 @@ class _ContractWithdrawScreenState extends State<ContractWithdrawScreen> {
         contractCon.textWithdrawAmount.value >=
             contractCon.fifAccountDetailModel.value.minimumWithdrawal!) {
       // Funtion Here
-      contractCon.onPreviewWidthdrawSubmit(context);
+      contractCon.onPreviewWidthdrawSubmit();
     }
 
     return false;

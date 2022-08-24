@@ -1,15 +1,14 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/show_alert_dialog.dart';
-import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import '../../../utils/chart/custom_circle_chart_1_3.dart';
+import '../../../utils/web_view/web_view.dart';
 import '../../../widgets/get_funding/custom_call_center.dart';
 import '../../../widgets/investments/custom_card_deduc_selection.dart';
+import '../../../widgets/investments/fif_option1.dart';
 import '../controller/investment_controller.dart';
 
 class FIFDeucSelection extends StatefulWidget {
@@ -41,7 +40,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
+    debugPrint("Product Code detail:${deducCon.productCode.value}");
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
           context: context,
@@ -93,10 +92,13 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                                   title: e.value.productName,
                                   description: e.value.description,
                                   onExploreMore: () {
-                                    context.router.push(
-                                      ExploreMoreRouter(
-                                          title: e.value.productName,
-                                          url: "${e.value.urlWebview}"),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ViewWebsite(
+                                            title: e.value.productName,
+                                            url: "${e.value.urlWebview}"),
+                                      ),
                                     );
                                   },
                                   onPressed: () {
@@ -213,6 +215,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                               isCancel: true,
                               onDiscard: () {
                                 Navigator.pop(context);
+                                Navigator.pop(context);
                                 deducCon.clearDeducSelection();
                               },
                             );
@@ -235,15 +238,23 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                               )
                             : CustomButton(
                                 onPressed: () {
-                                  context.push(
-                                    '/investment/cic-fixed-fund/invest-more/fif-step',
-                                    extra: {
-                                      "id": widget.id,
-                                      "options": deducCon
-                                          .fifProductTypeList[
-                                              deducCon.selectedProIndex.value]
-                                          .options,
-                                    },
+                                  debugPrint(
+                                      "Index: ===== ${deducCon.selectedProIndex.value}");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        debugPrint(
+                                            'productCode =====> ${deducCon.productCode.value}');
+                                        return FIFOption1(
+                                          id: widget.id,
+                                          options: deducCon
+                                              .fifProductTypeList[deducCon
+                                                  .selectedProIndex.value]
+                                              .options,
+                                        );
+                                      },
+                                    ),
                                   );
                                 },
                                 isDisable: false,

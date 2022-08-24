@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
 
 import 'package:flutter/material.dart';
@@ -11,7 +8,7 @@ import '../../../widgets/investments/deposit_card.dart';
 import '../controller/investment_controller.dart';
 
 class DepositeScreen extends StatefulWidget {
-  const DepositeScreen({Key? key, @queryParam this.id}) : super(key: key);
+  const DepositeScreen({Key? key, this.id}) : super(key: key);
 
   final int? id;
 
@@ -40,17 +37,13 @@ class _DepositeScreenState extends State<DepositeScreen> {
             context: context,
             title: fifController.fiFApplicationDetailModel.value.accountName,
             leading: IconButton(
-              icon: Platform.isIOS
-                  ? const Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.black,
-                    )
-                  : const Icon(
-                      Icons.arrow_back,
-                    ),
               onPressed: () {
                 Navigator.pop(context);
               },
+              icon: const Icon(
+                Icons.close,
+                color: Colors.black,
+              ),
             ),
           ),
           body: fifController.isLoadingDetailAcc.value

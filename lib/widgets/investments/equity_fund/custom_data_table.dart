@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/utils/helper/format_Number.dart';
 import 'package:cicgreenloan/widgets/investments/equity_fund/chart_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomDataTable extends StatelessWidget {
   final List<TableModel>? dataTable;
@@ -12,7 +13,7 @@ class CustomDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          _buildRowData(context, isTitle: true),
+          _buildRowData(isTitle: true),
           const Divider(height: 0),
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
@@ -22,7 +23,6 @@ class CustomDataTable extends StatelessWidget {
             itemBuilder: (_, __) => ColoredBox(
               color: Colors.transparent,
               child: _buildRowData(
-                context,
                 date: dataTable![__].date,
                 ut: FormatNumber.formatNumberDefualt(
                   int.parse(dataTable![__].utAmount!),
@@ -38,20 +38,19 @@ class CustomDataTable extends StatelessWidget {
         ],
       );
 
-  Widget _buildRowData(
-    BuildContext context, {
+  Widget _buildRowData({
     String? date,
     String? ut,
     String? price,
     String? total,
     bool isTitle = false,
   }) {
-    TextStyle titleStyle = Theme.of(context)
+    TextStyle titleStyle = Theme.of(Get.context!)
         .textTheme
         .bodyText2!
         .copyWith(fontWeight: FontWeight.w700);
     TextStyle normalStyle =
-        Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 12);
+        Theme.of(Get.context!).textTheme.subtitle2!.copyWith(fontSize: 12);
     return Container(
       // color: Colors.red,
       padding: const EdgeInsets.symmetric(vertical: 20),

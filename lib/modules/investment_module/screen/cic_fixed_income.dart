@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
-import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
+import 'package:cicgreenloan/modules/investment_module/screen/fif_deduc_selection.dart';
 import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
 import '../../../utils/helper/firebase_analytics.dart';
+import '../../../utils/web_view/web_view.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
 import '../../../widgets/investments/custom_shimmer_fif_saving_card.dart';
@@ -25,20 +25,17 @@ class CiCFixedIncome extends StatefulWidget {
 }
 
 class _CiCFixedIncomeState extends State<CiCFixedIncome> {
-  List<Evolution> reversList = [];
-  bool isExpandInvestmentReturn = false;
   final equityCon = Get.put(EquityInvestmentController());
   final priceController = Get.put(PriceController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
 
   Future<void> onRefresh() async {
-    priceController.totalInvestmentButton(false); //make button always close
-    priceController.getAllChartList();
     priceController.fetchInvestmentAccount();
-    priceController.fetchFIFConfirm();
-    priceController.getHiddentContract();
     priceController.getFIFApplication();
     priceController.fetchFIFPending();
+    priceController.fetchFIFConfirm();
+    priceController.getAllChartList();
+    priceController.getHiddentContract();
     equityCon.fetchCallCenter(type: "FIF");
   }
 
@@ -102,15 +99,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                           StretchMode.zoomBackground
                         ],
                         // collapseMode: CollapseMode.parallax,
-                        background: priceController.investmentModel.value
-                                        .totalInvestment ==
-                                    "0.00" ||
-                                priceController.investmentModel.value
-                                        .totalInvestment ==
-                                    null ||
-                                priceController.investmentModel.value
-                                        .totalInvestment ==
-                                    '0'
+                        background: priceController.fifChartList.isEmpty
                             ? TotalInvestmentCard(
                                 amount: priceController.investmentModel.value
                                             .totalInvestment !=
@@ -242,8 +231,15 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 title: 'About FIF',
                 onPressed: () {
                   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
-                  context.push(
-                      '/investment/cic-fixed-fund/about-fif?title=About FIF&url=${priceController.investmentModel.value.aboutFif}');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ViewWebsite(
+                          title: "About FIF",
+                          url: priceController.investmentModel.value.aboutFif ??
+                              "https://cic-association.com/"),
+                    ),
+                  );
                 },
               ),
             ),
@@ -263,8 +259,14 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   priceController.isNewBank.value = true;
                   priceController.textReceivingAccount.value = "";
                   priceController.clearDeducSelection();
-                  context.push('/investment/cic-fixed-fund/invest-more');
-                  // context.router.push(FIFDeucSelectionRouter());
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const FIFDeucSelection();
+                      },
+                    ),
+                  );
                 },
               ),
             ),
