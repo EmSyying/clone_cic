@@ -30,7 +30,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Filter
-GET {{baseUrl}}v3/privilege/filer?location=12&category=2
+GET {{baseUrl}}v3/privilege/filer?location=10,11,16,14&category
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

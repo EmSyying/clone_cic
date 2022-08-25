@@ -52,7 +52,7 @@ class PrivilegeController extends GetxController {
     isSearchLoading(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/global/search?name=$keySearch',
+      url: 'privilege/global/quiries?name=$keySearch',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -180,29 +180,79 @@ class PrivilegeController extends GetxController {
   final isLoadingCategoryFilter = false.obs;
   final categoryFilterModel = PrivilegeShopModel().obs;
   final categoryFilterList = <PrivilegeShopModel>[].obs;
-  Future<List<PrivilegeShopModel>> fetchCategoriesFilter(
-      int? locationId, int? categoryId) async {
+
+  Future<List<PrivilegeShopModel>> onFilterByCategoriesByLocation(
+      {String? location, int? categoryId}) async {
+    debugPrint("Filter is working");
     isLoadingCategoryFilter(true);
     apiBaseHelper
         .onNetworkRequesting(
-            url: 'privilege/filer?location=$locationId&category=$categoryId',
+            url: 'privilege/filer?location=$location&category=$categoryId',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
+      var responseJson = response['data'];
+      shopModelList.clear();
       categoryFilterList.clear();
-      var responeJson = response['data'];
+      responseJson.map((e) {
+        shopModel.value = PrivilegeShopModel.fromJson(e);
 
-      responeJson.map((e) {
-        debugPrint('helooooo123++++:$response');
-        categoryFilterModel.value = PrivilegeShopModel.fromJson(e);
-        categoryFilterList.add(categoryFilterModel.value);
-        isLoadingCategoryFilter(false);
+        categoryFilterList.add(shopModel.value);
+        shopModelList.add(shopModel.value);
       }).toList();
+      debugPrint("categoryFilterList:${categoryFilterList.length}");
+      isLoadingCategoryFilter(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isLoadingCategoryFilter(false);
     });
 
-    return categoryFilterList;
+    return shopModelList;
+  }
+
+  // On Select Filter
+  final sectedLicationList = <PrivilageLocation>[].obs;
+  final locationCodeList = <dynamic>[].obs;
+
+  onSelected(
+      {int? index, PrivilageLocation? location, String? unSelectedItem}) {
+    // Assign value check or not(true/fale)
+    if (locationPrivilageList[index!].isSelected == false) {
+      locationPrivilageList[index] =
+          locationPrivilageList[index].copyWith(isSelected: true);
+    } else {
+      locationPrivilageList[index] =
+          locationPrivilageList[index].copyWith(isSelected: false);
+    }
+    if (locationPrivilageList[index].isSelected == true) {
+      // Add items to selected list
+      sectedLicationList.add(location!);
+      locationCodeList.clear();
+      sectedLicationList.map((element) {
+        // Add location code to list
+        locationCodeList.add(element.code);
+      }).toList();
+    } else {
+      locationCodeList.removeWhere((element) => element == unSelectedItem);
+    }
+
+    String right =
+        locationCodeList.toString().trim().trimRight().replaceAll(']', "");
+    String locationCode =
+        right.toString().trim().trimRight().replaceAll('[', "");
+
+    onFilterByCategoriesByLocation(location: locationCode);
+    update();
+  }
+
+  onClearSelected() {
+    locationPrivilageList.asMap().entries.map((e) {
+      locationPrivilageList[e.key] = e.value.copyWith(isSelected: false);
+    }).toList();
+
+    locationCodeList.clear();
+    locationCodeList.refresh();
+
+    update();
   }
 
   //get location
@@ -213,10 +263,12 @@ class PrivilegeController extends GetxController {
     isLoadingPriLocation(true);
     apiBaseHelper
         .onNetworkRequesting(
-            url: 'privilege/address', methode: METHODE.get, isAuthorize: true)
+            url: 'privilege/address?page=2',
+            methode: METHODE.get,
+            isAuthorize: true)
         .then((response) {
       var responeJson = response['data'];
-
+      locationPrivilageList.clear();
       responeJson.map((e) {
         locationPrivilageModel.value = PrivilageLocation.fromJson(e);
         locationPrivilageList.add(locationPrivilageModel.value);

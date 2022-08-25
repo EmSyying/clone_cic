@@ -49,6 +49,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
   final _settingCon = Get.put(SettingController());
+  onNavToFilter() async {
+    var result = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PrivilegeFilters(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -259,13 +267,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       child: CustomNumberStoresFilter(
                         onTapFilter: () {
                           // context.router.pushNamed("privilege-filters");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PrivilegeFilters(),
-                            ),
-                          );
+                          onNavToFilter();
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const PrivilegeFilters(),
+                          //   ),
+                          // );
                         },
                         titleStores: segmentedControlValue == 0
                             ? '${preController.shopModelList.length} Stores'

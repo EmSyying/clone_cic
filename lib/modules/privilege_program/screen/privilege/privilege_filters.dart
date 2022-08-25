@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
+import '../../../../Utils/helper/custom_loading_button.dart';
 import '../../../../widgets/dirctory/filter_option.dart';
 import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
 import '../../controller/privilege_controller.dart';
@@ -84,19 +85,10 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                     .map((e) {
                   return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        if (privilegeController
-                                .locationPrivilageList[e.key].isSelected ==
-                            false) {
-                          privilegeController.locationPrivilageList[e.key] =
-                              privilegeController.locationPrivilageList[e.key]
-                                  .copyWith(isSelected: true);
-                        } else {
-                          privilegeController.locationPrivilageList[e.key] =
-                              privilegeController.locationPrivilageList[e.key]
-                                  .copyWith(isSelected: false);
-                        }
-                      });
+                      privilegeController.onSelected(
+                          index: e.key,
+                          location: e.value,
+                          unSelectedItem: e.value.code);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(
@@ -140,24 +132,38 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                   title: "Clear All",
                   isOutline: true,
                   isDisable: false,
-                  onPressed: () {},
+                  onPressed: () {
+                    privilegeController.onClearSelected();
+                  },
                 )),
               ),
             ),
             const SizedBox(width: 10.0),
             Expanded(
-              child: Container(
-                height: 50.0,
-                width: double.infinity,
-                margin:
-                    const EdgeInsets.only(right: 15.0, top: 20.0, bottom: 25.0),
-                child: (CustomButton(
-                  title: "Show Result",
-                  // "Show Result ${priCon.optionSelecList.isNotEmpty ? "(${priCon.optionSelecList.length.toString()})" : ""}",
-                  isOutline: false,
-                  isDisable: false,
-                  onPressed: () {},
-                )),
+              child: Obx(
+                () => privilegeController.isLoadingCategoryFilter.value
+                    ? const Padding(
+                        padding: EdgeInsets.only(
+                            left: 15.0, right: 20.0, bottom: 25.0, top: 20.0),
+                        child: CustomLoadingButton(),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, right: 20.0, bottom: 25.0, top: 20.0),
+                        child: CustomButton(
+                          title:
+                              'Show Result ${privilegeController.categoryFilterList.length}',
+                          isDisable: privilegeController
+                                      .isLoadingCategoryFilter.value ==
+                                  false
+                              ? false
+                              : true,
+                          isOutline: false,
+                          onPressed: () {
+                            Navigator.pop(context, false);
+                          },
+                        ),
+                      ),
               ),
             ),
           ],
