@@ -131,7 +131,9 @@ class CustomSavingCardList extends StatelessWidget {
                       FirebaseAnalyticsHelper.sendAnalyticsEvent(
                           'Hide contract FIF');
                       apppincode.timer.cancel();
-                      await apppincode.showLockScreen(enableCancel: true).then(
+                      await apppincode
+                          .showLockScreen(enableCancel: true, context: context)
+                          .then(
                         (promise) {
                           if (promise) {
                             fifController.onShowHideInvestmentAccount(
