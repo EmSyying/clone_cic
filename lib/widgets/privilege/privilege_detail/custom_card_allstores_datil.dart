@@ -75,7 +75,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          'https://img.favpng.com/16/20/5/pizza-hut-restaurant-pizza-delivery-png-favpng-RPXLKCSNJtcAuNvC7bY2pivKz.jpg',
+                          'https://cic.fra1.cdn.digitaloceanspaces.com//cicstaging//uploads//files//original////5f61e2b4912c67f1f5700ab533b606d0.jpg',
                         ),
                       ),
                     ),
@@ -90,7 +90,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                     GestureDetector(
                       onTap: () {},
                       child: Text(
-                        status?? '',
+                        status ?? '',
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               fontSize: 10,
                               color: status == "Closed"
@@ -108,7 +108,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      titile?? '',
+                      titile ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
@@ -120,7 +120,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      slogan?? '',
+                      slogan ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,

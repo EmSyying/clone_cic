@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/modules/privilege_program/model/stores_model/contact_model.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/opening_days_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -39,6 +40,7 @@ class PrivilegeShopModel with _$PrivilegeShopModel {
     String? logo,
     String? thumbnail,
     String? cover,
+    List<Contacts>? contacts,
     List<String>? galleries,
   }) = _PrivilegeShopModel;
 

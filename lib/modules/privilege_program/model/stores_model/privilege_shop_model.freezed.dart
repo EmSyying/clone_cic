@@ -73,6 +73,7 @@ mixin _$PrivilegeShopModel {
   String? get logo => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
   String? get cover => throw _privateConstructorUsedError;
+  List<Contacts>? get contacts => throw _privateConstructorUsedError;
   List<String>? get galleries => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -140,6 +141,7 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
       String? logo,
       String? thumbnail,
       String? cover,
+      List<Contacts>? contacts,
       List<String>? galleries});
 }
 
@@ -185,6 +187,7 @@ class _$PrivilegeShopModelCopyWithImpl<$Res>
     Object? logo = freezed,
     Object? thumbnail = freezed,
     Object? cover = freezed,
+    Object? contacts = freezed,
     Object? galleries = freezed,
   }) {
     return _then(_value.copyWith(
@@ -312,6 +315,10 @@ class _$PrivilegeShopModelCopyWithImpl<$Res>
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
               as String?,
+      contacts: contacts == freezed
+          ? _value.contacts
+          : contacts // ignore: cast_nullable_to_non_nullable
+              as List<Contacts>?,
       galleries: galleries == freezed
           ? _value.galleries
           : galleries // ignore: cast_nullable_to_non_nullable
@@ -381,6 +388,7 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
       String? logo,
       String? thumbnail,
       String? cover,
+      List<Contacts>? contacts,
       List<String>? galleries});
 }
 
@@ -428,6 +436,7 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
     Object? logo = freezed,
     Object? thumbnail = freezed,
     Object? cover = freezed,
+    Object? contacts = freezed,
     Object? galleries = freezed,
   }) {
     return _then(_$_PrivilegeShopModel(
@@ -555,6 +564,10 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
               as String?,
+      contacts: contacts == freezed
+          ? _value._contacts
+          : contacts // ignore: cast_nullable_to_non_nullable
+              as List<Contacts>?,
       galleries: galleries == freezed
           ? _value._galleries
           : galleries // ignore: cast_nullable_to_non_nullable
@@ -620,8 +633,10 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
       this.logo,
       this.thumbnail,
       this.cover,
+      final List<Contacts>? contacts,
       final List<String>? galleries})
       : _openingDays = openingDays,
+        _contacts = contacts,
         _galleries = galleries;
 
   factory _$_PrivilegeShopModel.fromJson(Map<String, dynamic> json) =>
@@ -718,6 +733,15 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   final String? thumbnail;
   @override
   final String? cover;
+  final List<Contacts>? _contacts;
+  @override
+  List<Contacts>? get contacts {
+    final value = _contacts;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _galleries;
   @override
   List<String>? get galleries {
@@ -729,7 +753,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
 
   @override
   String toString() {
-    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, logo: $logo, thumbnail: $thumbnail, cover: $cover, galleries: $galleries)';
+    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, logo: $logo, thumbnail: $thumbnail, cover: $cover, contacts: $contacts, galleries: $galleries)';
   }
 
   @override
@@ -788,6 +812,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
             const DeepCollectionEquality().equals(other.logo, logo) &&
             const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
             const DeepCollectionEquality().equals(other.cover, cover) &&
+            const DeepCollectionEquality().equals(other._contacts, _contacts) &&
             const DeepCollectionEquality()
                 .equals(other._galleries, _galleries));
   }
@@ -827,6 +852,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
         const DeepCollectionEquality().hash(logo),
         const DeepCollectionEquality().hash(thumbnail),
         const DeepCollectionEquality().hash(cover),
+        const DeepCollectionEquality().hash(_contacts),
         const DeepCollectionEquality().hash(_galleries)
       ]);
 
@@ -897,6 +923,7 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
       final String? logo,
       final String? thumbnail,
       final String? cover,
+      final List<Contacts>? contacts,
       final List<String>? galleries}) = _$_PrivilegeShopModel;
 
   factory _PrivilegeShopModel.fromJson(Map<String, dynamic> json) =
@@ -986,6 +1013,8 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
   String? get thumbnail => throw _privateConstructorUsedError;
   @override
   String? get cover => throw _privateConstructorUsedError;
+  @override
+  List<Contacts>? get contacts => throw _privateConstructorUsedError;
   @override
   List<String>? get galleries => throw _privateConstructorUsedError;
   @override

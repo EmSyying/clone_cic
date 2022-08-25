@@ -157,79 +157,84 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                         flexibleSpace: FlexibleSpaceBar(
                           background: Container(
                             width: double.infinity,
-                            // color: Theme.of(context).cardColor,
                             color: Colors.grey[50],
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: double.infinity,
-                                      color: Colors.transparent,
-                                      child: Image.network(
-                                        preController
-                                                .shopDetailModel.value.cover ??
-                                            '',
-                                        fit: BoxFit.cover,
-                                        height: 250,
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 10.0,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: double.infinity,
+                                        color: Colors.transparent,
+                                        child: Image.network(
+                                          preController.shopDetailModel.value
+                                                  .cover ??
+                                              '',
+                                          fit: BoxFit.cover,
+                                          height: 250,
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: 20.0,
-                                        left: 20.0,
-                                        bottom: 14.0,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.room,
-                                            size: 21,
-                                            color: Colors.grey,
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              preController.shopDetailModel
-                                                  .value.fullAddress!,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline5!
-                                                  .copyWith(
-                                                    fontWeight: FontWeight.w200,
-                                                    color:
-                                                        const Color(0xff464646),
-                                                    letterSpacing: 0.2,
-                                                    fontSize: 14,
-                                                  ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 18.0,
+                                          right: 18.0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.room,
+                                              size: 21,
+                                              color: Colors.grey,
                                             ),
-                                          )
-                                        ],
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                preController.shopDetailModel
+                                                    .value.fullAddress!,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline5!
+                                                    .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w200,
+                                                      color: const Color(
+                                                          0xff464646),
+                                                      letterSpacing: 0.2,
+                                                      fontSize: 14,
+                                                    ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 Positioned(
-                                    left: 15,
-                                    right: 15,
-                                    bottom: 60,
-                                    child: CustomCardPrivilegeDetail(
-                                      titile: preController.shopDetailModel
-                                          .value.shopNameInEnglish,
-                                      slogan: preController
-                                          .shopDetailModel.value.slogan,
-                                      discount: preController
-                                          .shopDetailModel.value.discountRate,
-                                      sloganLogo: preController
-                                          .shopDetailModel.value.logo,
-                                      status: preController
-                                          .shopDetailModel.value.status,
-                                    )),
+                                  left: 15,
+                                  right: 15,
+                                  bottom: 60,
+                                  child: CustomCardPrivilegeDetail(
+                                    sloganLogo: preController
+                                        .shopDetailModel.value.shopLogo,
+                                    status: preController
+                                        .shopDetailModel.value.status,
+                                    titile: preController.shopDetailModel.value
+                                        .shopNameInEnglish,
+                                    slogan: preController
+                                        .shopDetailModel.value.slogan,
+                                    discount: preController
+                                        .shopDetailModel.value.discountRate,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -257,7 +262,9 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                     child: Column(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(
+                            bottom: 20.0,
+                          ),
                           width: double.infinity,
                           child: CupertinoSlidingSegmentedControl(
                               groupValue: segmentedControlValue,
@@ -355,7 +362,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   onPressed: () async {
                                     await launchUrl(
                                       Uri.parse(
-                                          'https://goo.gl/maps/vnvBs8BDyjb7dYeb9'),
+                                          'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
                                       mode: LaunchMode.platformDefault,
                                     );
                                   },
@@ -370,27 +377,25 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                         context: context,
                                         builder: (BuildContext context) =>
                                             CupertinoActionSheet(
-                                          actions: <Widget>[
-                                            CupertinoActionSheetAction(
-                                              child: const Text(
-                                                '+855 17 600 050',
-                                              ),
-                                              onPressed: () {},
-                                            ),
-                                            CupertinoActionSheetAction(
-                                              //isDestructiveAction: true,
-                                              onPressed: () {},
-                                              //  preController.shopDetailModel
-                                              //           .value.contactPhone ??
-                                              //       '',
-                                              child: const Text(
-                                                '+855 96 886 1168',
-                                              ),
-                                            )
-                                          ],
+                                          actions: preController
+                                              .shopDetailModel.value.contacts!
+                                              .asMap()
+                                              .entries
+                                              .map(
+                                                (e) => cupertinoActionSheet(
+                                                  phone: e.value.phone,
+                                                  mobile: e.value.mobile,
+                                                ),
+                                              )
+                                              .toList(),
                                           cancelButton:
                                               CupertinoActionSheetAction(
-                                            child: const Text('Cancel'),
+                                            child: const Text(
+                                              'Cancel',
+                                              style: TextStyle(
+                                                color: AppColor.mainColor,
+                                              ),
+                                            ),
                                             onPressed: () {
                                               Navigator.pop(context, 'Cancel');
                                             },
@@ -405,7 +410,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   color: AppColor.mainColor,
                                   onPressed: () async {
                                     await launchUrl(
-                                      Uri.parse('https://t.me/+855964776129'),
+                                      Uri.parse(
+                                        preController.shopDetailModel.value
+                                                .telegramLink ??
+                                            '',
+                                      ),
                                       mode: LaunchMode.platformDefault,
                                     );
                                   },
@@ -423,24 +432,50 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
     );
   }
 
+  Widget cupertinoActionSheet({String? phone, String? mobile}) {
+    return CupertinoActionSheetAction(
+      child: Column(
+        verticalDirection: VerticalDirection.up,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            phone ?? '',
+            style: Theme.of(context).textTheme.headline3!.copyWith(
+                  fontWeight: FontWeight.w200,
+                  fontSize: 20.0,
+                ),
+          ),
+          Text(
+            mobile ?? '',
+            style: Theme.of(context).textTheme.headline3!.copyWith(
+                  fontWeight: FontWeight.w200,
+                  fontSize: 20.0,
+                ),
+          ),
+        ],
+      ),
+      onPressed: () {},
+    );
+  }
+
   Widget buildService() => SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Description',
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2!
-                  .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+              style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
             ),
             const SizedBox(height: 10),
             HtmlWidget(
               preController.shopDetailModel.value.description ?? '',
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .subtitle2!
-                  .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+              textStyle: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  ),
             ),
             const SizedBox(height: 10),
             Text(
@@ -453,10 +488,10 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             const SizedBox(height: 10),
             HtmlWidget(
               preController.shopDetailModel.value.productOrService ?? '',
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .subtitle2!
-                  .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+              textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.2,
+                  ),
             ),
           ],
         ),
@@ -472,9 +507,10 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                     .entries
                     .map(
                       (e) => openingDays(
-                          titleDay: e.value.dayName,
-                          timeMorning: e.value.shiftAHours,
-                          timeEvening: e.value.shiftBHours),
+                        titleDay: e.value.dayName,
+                        timeMorning: e.value.shiftAHours,
+                        timeEvening: e.value.shiftBHours,
+                      ),
                     )
                     .toList(),
               ),
@@ -488,20 +524,20 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
           crossAxisCount: 2,
           mainAxisSpacing: 14,
           crossAxisSpacing: 14,
-          //childAspectRatio: 1 / 2,
         ),
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () async {
               await onPreviewImage(
-                  isNoIconDownload: false,
-                  heroTag: 'view',
-                  context: context,
-                  imageUrl:
-                      preController.shopDetailModel.value.galleries![index]);
+                isNoIconDownload: false,
+                heroTag: 'view',
+                context: context,
+                imageUrl: preController.shopDetailModel.value.galleries![index],
+              );
             },
             child: imageGalleries(
-                preController.shopDetailModel.value.galleries![index]),
+              preController.shopDetailModel.value.galleries![index],
+            ),
           );
         },
       );

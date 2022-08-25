@@ -43,6 +43,9 @@ _$_PrivilegeShopModel _$$_PrivilegeShopModelFromJson(
       logo: json['logo'] as String?,
       thumbnail: json['thumbnail'] as String?,
       cover: json['cover'] as String?,
+      contacts: (json['contacts'] as List<dynamic>?)
+          ?.map((e) => Contacts.fromJson(e as Map<String, dynamic>))
+          .toList(),
       galleries: (json['galleries'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -82,5 +85,6 @@ Map<String, dynamic> _$$_PrivilegeShopModelToJson(
       'logo': instance.logo,
       'thumbnail': instance.thumbnail,
       'cover': instance.cover,
+      'contacts': instance.contacts,
       'galleries': instance.galleries,
     };
