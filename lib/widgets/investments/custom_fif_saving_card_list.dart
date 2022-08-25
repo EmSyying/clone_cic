@@ -460,9 +460,7 @@ class CustomSavingCardList extends StatelessWidget {
                 debugPrint('work');
                 if (fifController.totalInvestmentButton.value == false) {
                   await apppincode
-                      .showLockScreen(
-                    enableCancel: true,
-                  )
+                      .showLockScreen(enableCancel: true, context: context)
                       .then(
                     (promise) {
                       if (promise) {
@@ -508,8 +506,7 @@ class CustomSavingCardList extends StatelessWidget {
                       ontapHide: () async {
                         await apppincode
                             .showLockScreen(
-                          enableCancel: true,
-                        )
+                                enableCancel: true, context: context)
                             .then(
                           (promise) {
                             if (promise) {
