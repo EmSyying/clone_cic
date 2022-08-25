@@ -52,7 +52,7 @@ class PrivilegeController extends GetxController {
     isSearchLoading(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/global/quiries?name=$keySearch',
+      url: 'privilege/global/search?queries=$keySearch',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -115,7 +115,7 @@ class PrivilegeController extends GetxController {
         });
   }
 
-  ////function onFetchShopDetail======
+  ////function onFetchShopDetail
   final shopDetailModel = PrivilegeShopModel().obs;
   final isLoadingShopDetail = false.obs;
   Future<PrivilegeShopModel> onFetchShopDetail(num? id) async {
@@ -212,6 +212,7 @@ class PrivilegeController extends GetxController {
   // On Select Filter
   final sectedLicationList = <PrivilageLocation>[].obs;
   final locationCodeList = <dynamic>[].obs;
+  final categoriesId = 0.obs;
 
   onSelected(
       {int? index, PrivilageLocation? location, String? unSelectedItem}) {
@@ -239,8 +240,9 @@ class PrivilegeController extends GetxController {
         locationCodeList.toString().trim().trimRight().replaceAll(']', "");
     String locationCode =
         right.toString().trim().trimRight().replaceAll('[', "");
-
-    onFilterByCategoriesByLocation(location: locationCode);
+// Filter by Location and Categories
+    onFilterByCategoriesByLocation(
+        location: locationCode, categoryId: categoriesId.value);
     update();
   }
 
@@ -251,6 +253,7 @@ class PrivilegeController extends GetxController {
 
     locationCodeList.clear();
     locationCodeList.refresh();
+    categoryFilterList.clear();
 
     update();
   }

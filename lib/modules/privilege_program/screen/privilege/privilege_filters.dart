@@ -67,6 +67,11 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                                   privilegeController.selectedCategFil.value =
                                       cardListCat.value.name!;
                                 });
+                                privilegeController.categoriesId.value =
+                                    cardListCat.value.id!;
+                                privilegeController
+                                    .onFilterByCategoriesByLocation(
+                                        categoryId: cardListCat.value.id);
                               },
                             ),
                           ))

@@ -70,7 +70,7 @@ class _SearchScreenState extends State<SearchScreen> {
             size: 22,
           ),
           onPressed: () {
-            //context.router.pop();
+            privilegController.onFetchAllStore();
             Navigator.pop(context);
           },
         ),
