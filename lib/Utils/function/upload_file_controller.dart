@@ -25,7 +25,7 @@ class UploadFileController extends GetxController {
 
   final isLoading = false.obs;
 
-  uploadImage(BuildContext context, {String? url}) {
+  uploadImage(BuildContext context, {String? url, Map<String, dynamic>? body}) {
     return kIsWeb
         ? showModalBottomSheet(
             context: context,
@@ -37,7 +37,7 @@ class UploadFileController extends GetxController {
                     GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
-                        await onOpenCamera();
+                        await onOpenCamera(url: url, body: body);
                       },
                       child: Container(
                         color: Colors.white,
@@ -53,7 +53,7 @@ class UploadFileController extends GetxController {
                     GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
-                        await onChooseImage();
+                        await onChooseImage(url: url, body: body);
                       },
                       child: Container(
                         color: Colors.white,
@@ -96,7 +96,7 @@ class UploadFileController extends GetxController {
                         GestureDetector(
                           onTap: () async {
                             Navigator.pop(context);
-                            await onOpenCamera();
+                            await onOpenCamera(url: url, body: body);
                           },
                           child: Container(
                             color: Colors.white,
@@ -112,7 +112,7 @@ class UploadFileController extends GetxController {
                         GestureDetector(
                           onTap: () async {
                             Navigator.pop(context);
-                            await onChooseImage();
+                            await onChooseImage(url: url, body: body);
                           },
                           child: Container(
                             color: Colors.white,
@@ -177,7 +177,7 @@ class UploadFileController extends GetxController {
                       CupertinoActionSheetAction(
                         onPressed: () async {
                           Navigator.pop(context);
-                          await onOpenCamera();
+                          await onOpenCamera(url: url, body: body);
                         },
                         child: Text(
                           S.of(context).takePhoto,
@@ -191,7 +191,7 @@ class UploadFileController extends GetxController {
                       CupertinoActionSheetAction(
                         onPressed: () async {
                           Navigator.pop(context);
-                          await onChooseImage();
+                          await onChooseImage(url: url, body: body);
                         },
                         child: Text(
                           S.of(context).editImage,
@@ -233,11 +233,12 @@ class UploadFileController extends GetxController {
               );
   }
 
-  startUpload() async {
+  startUpload({String? baseUrl, Map<String, dynamic>? body}) async {
     isLoading(true);
     var tokenKey = await LocalData.getCurrentUser();
-    String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/change-profile';
+    String url = body != null && baseUrl != null
+        ? '${GlobalConfiguration().getValue('api_base_urlv3')}$baseUrl'
+        : '${GlobalConfiguration().getValue('main_api_url')}user/change-profile';
     // ignore: unnecessary_null_comparison
     if (imageFile.value == null) {
       return;
@@ -262,9 +263,10 @@ class UploadFileController extends GetxController {
           'Content-type': 'application/json',
         },
         body: json.encode(
-          {
-            'profile': 'data:image/png;base64,$base64Image',
-          },
+          body ??
+              {
+                'profile': 'data:image/png;base64,$base64Image',
+              },
         ),
       )
           .then((response) {
@@ -278,7 +280,7 @@ class UploadFileController extends GetxController {
     }
   }
 
-  Future<void> onChooseImage() async {
+  Future<void> onChooseImage({String? url, Map<String, dynamic>? body}) async {
     final pickerFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
@@ -286,16 +288,16 @@ class UploadFileController extends GetxController {
     if (pickerFile != null) {
       imageFile.value = File(pickerFile.path);
     }
-    startUpload();
+    startUpload(baseUrl: url, body: body);
   }
 
-  Future<void> onOpenCamera() async {
+  Future<void> onOpenCamera({String? url, Map<String, dynamic>? body}) async {
     final pickerFile = await imagePicker.pickImage(source: ImageSource.camera);
 
     if (pickerFile != null) {
       imageFile.value = File(pickerFile.path);
     }
 
-    startUpload();
+    startUpload(baseUrl: url, body: body);
   }
 }
