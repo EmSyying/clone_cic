@@ -2127,7 +2127,6 @@ class MemberController extends GetxController {
         'Authorization': 'Bearer $tokenKey'
       }).then((response) {
         if (response.statusCode == 200) {
-          debugPrint('helooooooooooooo1234567:${response.body}');
           companyDataList.clear();
           var responseJson = json.decode(response.body)['data'];
 

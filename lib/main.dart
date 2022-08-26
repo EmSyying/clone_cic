@@ -31,7 +31,7 @@ import 'Utils/function/notification_helper.dart';
 import 'Utils/helper/color.dart';
 import 'Utils/helper/local_storage.dart';
 import 'Utils/option_controller/option_controller.dart';
-import 'configs/auto_route/auto_route.gr.dart';
+// import 'configs/auto_route/auto_route.gr.dart';
 import 'configs/route_configuration/route.dart';
 import 'generated/l10n.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
@@ -526,7 +526,7 @@ class MyApp extends StatelessWidget {
     isUserLogin = await LocalData.isUserLogin('userLogin');
   }
 
-  final appRouter = AppRouter();
+  // final appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
     DynamicLinkService.initDynamicLinks();

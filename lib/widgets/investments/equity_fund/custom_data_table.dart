@@ -1,7 +1,6 @@
 import 'package:cicgreenloan/utils/helper/format_Number.dart';
 import 'package:cicgreenloan/widgets/investments/equity_fund/chart_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomDataTable extends StatelessWidget {
   final List<TableModel>? dataTable;

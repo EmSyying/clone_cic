@@ -169,13 +169,8 @@ class PriceController extends GetxController {
       }).then((response) {
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['data'];
-          debugPrint('Price List $responseJson');
-
           price.value = Price.fromJson(responseJson);
-        } else {
-          debugPrint("Error Price list:${response.statusCode}");
-          debugPrint("Error Price list1:${response.body}");
-        }
+        } else {}
       });
     } finally {
       isLoading(false);
@@ -375,7 +370,7 @@ class PriceController extends GetxController {
       getHiddentContractLoading(false);
       debugPrint('Error ${error.statusCode}');
     });
-    debugPrint('Hidden List = $hiddenContractList');
+   
     return hiddenContractList;
   }
 

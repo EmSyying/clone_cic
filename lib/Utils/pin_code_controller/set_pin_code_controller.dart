@@ -36,7 +36,7 @@ class SetPINCodeController extends GetxController {
 
   Future<bool> submitPINCode(
       {String? pinCode, String? routeName, BuildContext? context}) async {
-    bool isSuccess = false;
+    // bool isSuccess = false;
     tokenKey = await LocalData.getCurrentUser();
     isLoading(true);
 

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../../../widgets/privilege/custom_shimmer_allshop.dart';
 import '../../../../widgets/privilege/privilege/costom_all_stores.dart';
 import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
-import '../../../../widgets/privilege/privilege/custom_location card.dart';
+import '../../../../widgets/privilege/privilege/custom_location_card.dart';
 import '../../controller/privilege_controller.dart';
 import '../privilege_detail/privilege_detail_screen.dart';
 
