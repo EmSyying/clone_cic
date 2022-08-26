@@ -238,6 +238,7 @@ class UploadFileController extends GetxController {
     var tokenKey = await LocalData.getCurrentUser();
     String url =
         '${GlobalConfiguration().getValue('main_api_url')}user/change-profile';
+    // ignore: unnecessary_null_comparison
     if (imageFile.value == null) {
       return;
     }
@@ -252,7 +253,8 @@ class UploadFileController extends GetxController {
 
     String base64Image = base64Encode(salarySlipResult);
     try {
-      await http.post(
+      await http
+          .post(
         Uri.parse(url),
         headers: {
           'Accept': 'application/json',
@@ -264,8 +266,11 @@ class UploadFileController extends GetxController {
             'profile': 'data:image/png;base64,$base64Image',
           },
         ),
-      );
-      await memberCon.getUserDetail(customerCon.customer.value.customerId!);
+      )
+          .then((response) {
+        customerCon.getUser();
+        debugPrint("is uploaded image work");
+      });
     } catch (ex) {
       debugPrint("Errorr: $ex");
     } finally {
@@ -291,6 +296,6 @@ class UploadFileController extends GetxController {
       imageFile.value = File(pickerFile.path);
     }
 
-    // startUpload();
+    startUpload();
   }
 }

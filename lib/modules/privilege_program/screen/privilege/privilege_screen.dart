@@ -58,6 +58,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     );
   }
 
+  File? nationalBack;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,6 +263,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         },
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0, bottom: 8),
                       child: CustomNumberStoresFilter(

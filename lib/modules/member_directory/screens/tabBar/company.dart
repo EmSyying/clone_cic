@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
-import '../../../../widgets/member_directory/companyProfile/company_contectinfo_pop_up.dart';
+import '../../../../widgets/member_directory/companyProfile/company_contactinfo_pop_up.dart';
 import '../../../../widgets/member_directory/companyProfile/company_location_pop_up.dart';
 import '../../../../widgets/member_directory/companyProfile/company_product_service_card.dart';
 import '../../../../widgets/member_directory/companyProfile/company_product_service_pop_up.dart';

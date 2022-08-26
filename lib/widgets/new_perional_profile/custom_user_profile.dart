@@ -18,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../Utils/function/upload_file_controller.dart';
 import '../../modules/member_directory/models/user.dart';
 import '../../modules/member_directory/screens/new_profile_ui/view_image_profile_screen.dart';
 import '../../utils/function/get_sharepreference_data.dart';
@@ -45,6 +46,7 @@ class CustomUserProfile extends StatefulWidget {
 class _CustomUserProfileState extends State<CustomUserProfile> {
   final customerCon = Get.put(CustomerController());
   final memberCon = Get.put(MemberController());
+  final uploadImageCon = Get.put(UploadFileController());
   final _pickerImage = ImagePicker();
   File? imageFile;
 
@@ -359,7 +361,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                       child: Column(
                         children: [
                           Text(
-                            '${widget.fullName}',
+                            '${customerCon.customer.value.fullName}',
                             style:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.w700,
@@ -381,7 +383,8 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                 width: 10,
                               ),
                               Text(
-                                '${widget.position}',
+                                memberCon
+                                    .personalProfile.value.position!.display!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline5!
@@ -440,31 +443,27 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Container(
-                        width: 90,
-                        height: 90,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      // memberCon.isLoadingQRCode.value
-                      //     ? Shimmer.fromColors(
-                      //         highlightColor: Colors.white,
-                      //         baseColor: Colors.grey[300]!,
-                      //         child: Container(
-                      //           height: 90,
-                      //           width: 90,
-                      //           decoration: BoxDecoration(
-                      //             shape: BoxShape.circle,
-                      //             color: Colors.grey[100],
-                      //           ),
-                      //         ),
-                      //       )
-                      //     :
-                      memberCon.personalProfilemember.value.profile != null &&
-                              memberCon.personalProfilemember.value.profile !=
-                                  ''
+                      uploadImageCon.isLoading.value
+                          ? Container(
+                              width: 88.0,
+                              height: 88.0,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
+                              child: const CircularProgressIndicator(
+                                strokeWidth: 4,
+                                color: AppColor.mainColor,
+                              ),
+                            )
+                          : Container(
+                              width: 90,
+                              height: 90,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                      customerCon.customer.value.profile != null &&
+                              customerCon.customer.value.profile != ''
                           ? Container(
                               height: 85,
                               width: 85,
@@ -473,8 +472,8 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                 border: Border.all(
                                     width: 3.5, color: AppColor.mainColor),
                                 image: DecorationImage(
-                                    image: NetworkImage(memberCon
-                                        .personalProfilemember.value.profile!),
+                                    image: NetworkImage(
+                                        customerCon.customer.value.profile!),
                                     fit: BoxFit.cover),
                               ),
                             )
@@ -497,9 +496,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                 left: 80,
                 child: GestureDetector(
                   onTap: () {
-                    setState(() {
-                      uploadImage(context);
-                    });
+                    uploadImageCon.uploadImage(context);
                   },
                   child: CircleAvatar(
                     radius: 18,

@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:cicgreenloan/modules/dashboard/main_dashboard.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
+import 'package:cicgreenloan/modules/qr_code/qr_code.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/helper/store_utils.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
@@ -24,7 +25,6 @@ import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
-import '../event_module/screen/event.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
@@ -232,14 +232,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                             'assets/images/svgfile/menu/HomeActiveIcon.svg'),
                       ),
                       BottomNavigationBarItem(
-                          icon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/qrcodeInactive.svg',
-                          ),
-                          activeIcon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/qrCodeActive.svg',
-                          ),
-                          // label: S.of(context).qrCode,
-                          label: "Event"),
+                        icon: SvgPicture.asset(
+                          'assets/images/svgfile/menu/qrcodeInactive.svg',
+                        ),
+                        activeIcon: SvgPicture.asset(
+                          'assets/images/svgfile/menu/qrCodeActive.svg',
+                        ),
+                        label: S.of(context).qrCode,
+                      ),
                       // BottomNavigationBarItem(
                       //   icon: Icon(Icons.book),
                       //   activeIcon: Icon(Icons.book),
@@ -283,10 +283,10 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
               // Dashboard(),
               const MainDashboard(),
 
-              // const QrCodeScreen(),
+              const QrCodeScreen(),
               // LearningHome(),
               // SearchScreen(),
-              const EventScreen(),
+              // const EventScreen(),
               //  Report(),
               //  BuySell(),
               // HomePage(),

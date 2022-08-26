@@ -417,6 +417,37 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                   title: 'View Profile Detail',
                                 ),
                               ),
+
+                            //privilege shop
+                            if (resultQR != null && resultQR!.contains('shop'))
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5),
+                                child: CustomButton(
+                                  isDisable: false,
+                                  isOutline: false,
+                                  onPressed: () async {
+                                    int userId = int.parse(
+                                        resultQR!.replaceAll('shop', ''));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MemberDetail(
+                                          memberDetailAgrument:
+                                              MemberDetailAgrument(
+                                            isNavigator: true,
+                                            id: userId,
+                                            // customer: _memberCon
+                                            // .personalProfilemember.value,
+                                            pageName: 'memberList',
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  title: 'View Profile Detail',
+                                ),
+                              ),
                           ],
                         ),
                       ),

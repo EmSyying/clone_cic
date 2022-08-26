@@ -1,11 +1,11 @@
+import 'package:cicgreenloan/modules/privilege_program/model/search_loation_list/search_location_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../Utils/helper/color.dart';
-import '../../../modules/privilege_program/model/stores_model/model_pre.dart';
 
 class CustomLocationCard extends StatelessWidget {
-  final StoreModel? locatModel;
+  final SearchLocationListModel? locatModel;
   const CustomLocationCard({Key? key, this.locatModel}) : super(key: key);
 
   @override
@@ -35,18 +35,19 @@ class CustomLocationCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  locatModel!.location ?? '',
+                  locatModel!.province ?? '',
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
                       ),
                 ),
                 Text(
-                  locatModel!.descLocation ?? '',
+                  locatModel!.fullAdress ?? '',
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontWeight: FontWeight.w400,
                         letterSpacing: 0.2,
                       ),
+                  maxLines: 2,
                 ),
               ],
             ),

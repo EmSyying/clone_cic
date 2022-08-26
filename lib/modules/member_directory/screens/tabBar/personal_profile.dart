@@ -11,7 +11,6 @@ import 'package:cicgreenloan/widgets/member_directory/contact_information_card.d
 import 'package:cicgreenloan/widgets/member_directory/information_shimmer.dart';
 import 'package:cicgreenloan/widgets/member_directory/member_displayinfo.dart';
 import 'package:cicgreenloan/widgets/member_directory/personalProfile/basic_information_pop_up.dart';
-import 'package:cicgreenloan/widgets/member_directory/personalProfile/contectinfor_pop_up.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:expandable_text/expandable_text.dart';
@@ -21,6 +20,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../../widgets/member_directory/personalProfile/contactinfor_pop_up.dart';
 
 class PersonalProfile extends StatefulWidget {
   final int? id;

@@ -35,6 +35,8 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
   ];
   @override
   void initState() {
+    memberCon.fetchMemberPersonProfile(id: widget.id);
+
     widgets = [
       Obx(
         () => memberCon.isLoadingProfile.value
@@ -45,15 +47,9 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
       ),
       CompanyProfileTab(
         id: widget.id,
-        // description:
-        //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Gravida sit tortor nisl fringilla porttitor viverra scelerisque. Turpis nisl et facilisis aliquam ultricies interdum lectus eget facilisis aliquam.',
-        // companyName: memberCon.company.value.companyName ?? '',
-        // title: 'Beyond Investment Opportunity',
       ),
     ];
-    if (widget.id != null) {
-      memberCon.getUserDetail(widget.id!);
-    }
+
     super.initState();
   }
 
@@ -124,14 +120,10 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
                     background: Obx(
-                      () => memberCon.isLoadingQRCode.value ||
-                              memberCon.isLaodingUpdateProfile.value
+                      () => memberCon.isLoadingProfile.value
                           ? const SimmmerProfile()
                           : CustomUserProfile(
                               id: widget.id,
-                              fullName: memberCon
-                                      .personalProfilemember.value.fullName ??
-                                  '',
                               position: 'Flutter dev',
                               description: 'Z1 Flexible',
                             ),

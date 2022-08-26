@@ -11,12 +11,13 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i2;
+import 'package:flutter/cupertino.dart' as _i33;
 import 'package:flutter/material.dart' as _i32;
 
 import '../../core/walk_through/splash_screen.dart' as _i1;
 import '../../modules/bonus/screens/bonus_screen.dart' as _i3;
 import '../../modules/dashboard/dashboard.dart' as _i8;
-import '../../modules/get_funding/models/appliication_card_model.dart' as _i38;
+import '../../modules/get_funding/models/appliication_card_model.dart' as _i39;
 import '../../modules/get_funding/screens/debt_investment/preview_debt_form.dart'
     as _i27;
 import '../../modules/get_funding/screens/debt_investment/step1_debt.dart'
@@ -35,15 +36,15 @@ import '../../modules/get_funding/screens/equity_investment/step3_equity.dart'
     as _i22;
 import '../../modules/get_funding/screens/get_funding.dart' as _i4;
 import '../../modules/investment_module/controller/investment_controller.dart'
-    as _i35;
-import '../../modules/investment_module/model/fif_application/fif_application.dart'
-    as _i34;
-import '../../modules/investment_module/model/fif_application/schedule/schedule.dart'
-    as _i33;
-import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart'
     as _i36;
-import '../../modules/investment_module/model/view_agreement/view_agreement.dart'
+import '../../modules/investment_module/model/fif_application/fif_application.dart'
+    as _i35;
+import '../../modules/investment_module/model/fif_application/schedule/schedule.dart'
+    as _i34;
+import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart'
     as _i37;
+import '../../modules/investment_module/model/view_agreement/view_agreement.dart'
+    as _i38;
 import '../../modules/investment_module/screen/bullet_payment_detail.dart'
     as _i11;
 import '../../modules/investment_module/screen/contract_withdraw.dart' as _i13;
@@ -720,7 +721,7 @@ class BonusScreen extends _i2.PageRouteInfo<void> {
 /// [_i4.HomePage]
 class HomePageRouter extends _i2.PageRouteInfo<HomePageRouterArgs> {
   HomePageRouter(
-      {_i32.Key? key, bool? isNavigator, List<_i2.PageRouteInfo>? children})
+      {_i33.Key? key, bool? isNavigator, List<_i2.PageRouteInfo>? children})
       : super(HomePageRouter.name,
             path: '/get-funding',
             args: HomePageRouterArgs(key: key, isNavigator: isNavigator),
@@ -733,7 +734,7 @@ class HomePageRouter extends _i2.PageRouteInfo<HomePageRouterArgs> {
 class HomePageRouterArgs {
   const HomePageRouterArgs({this.key, this.isNavigator});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isNavigator;
 
@@ -755,7 +756,7 @@ class UTtrading extends _i2.PageRouteInfo<void> {
 /// [_i6.Directory]
 class Directory extends _i2.PageRouteInfo<DirectoryArgs> {
   Directory(
-      {_i32.Key? key,
+      {_i33.Key? key,
       bool? isNavigator,
       String? fromPage,
       Function? onTap,
@@ -780,7 +781,7 @@ class DirectoryArgs {
       this.onTap,
       this.isShowCiCTeam});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isNavigator;
 
@@ -799,7 +800,7 @@ class DirectoryArgs {
 /// generated route for
 /// [_i7.Report]
 class Report extends _i2.PageRouteInfo<ReportArgs> {
-  Report({_i32.Key? key, bool? isNavigator, int? currentTabIndex})
+  Report({_i33.Key? key, bool? isNavigator, int? currentTabIndex = 0})
       : super(Report.name,
             path: '/report',
             args: ReportArgs(
@@ -811,9 +812,9 @@ class Report extends _i2.PageRouteInfo<ReportArgs> {
 }
 
 class ReportArgs {
-  const ReportArgs({this.key, this.isNavigator, this.currentTabIndex});
+  const ReportArgs({this.key, this.isNavigator, this.currentTabIndex = 0});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isNavigator;
 
@@ -838,7 +839,7 @@ class PrivilegeRouter extends _i2.PageRouteInfo<void> {
 /// generated route for
 /// [_i8.Dashboard]
 class Dashboard extends _i2.PageRouteInfo<DashboardArgs> {
-  Dashboard({_i32.Key? key, bool? isNavigator, String? tabName})
+  Dashboard({_i33.Key? key, bool? isNavigator, String? tabName})
       : super(Dashboard.name,
             path: '',
             args: DashboardArgs(
@@ -850,7 +851,7 @@ class Dashboard extends _i2.PageRouteInfo<DashboardArgs> {
 class DashboardArgs {
   const DashboardArgs({this.key, this.isNavigator, this.tabName});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isNavigator;
 
@@ -867,12 +868,12 @@ class DashboardArgs {
 class SavingDetailScreenRouter
     extends _i2.PageRouteInfo<SavingDetailScreenRouterArgs> {
   SavingDetailScreenRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       String? accountName,
-      required _i32.EdgeInsets paddings,
+      required _i33.EdgeInsets paddings,
       String? code,
       num? id,
-      List<_i33.ScheduleModelList>? scheduleModelList,
+      List<_i34.ScheduleModelList>? scheduleModelList,
       bool? hide,
       int? index,
       String? investAmonut,
@@ -910,17 +911,17 @@ class SavingDetailScreenRouterArgs {
       this.currentPrincipal,
       this.fromPage});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? accountName;
 
-  final _i32.EdgeInsets paddings;
+  final _i33.EdgeInsets paddings;
 
   final String? code;
 
   final num? id;
 
-  final List<_i33.ScheduleModelList>? scheduleModelList;
+  final List<_i34.ScheduleModelList>? scheduleModelList;
 
   final bool? hide;
 
@@ -942,9 +943,9 @@ class SavingDetailScreenRouterArgs {
 /// [_i10.RenewalScreen]
 class RenewalScreenRouter extends _i2.PageRouteInfo<RenewalScreenRouterArgs> {
   RenewalScreenRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       String? investAmount,
-      _i34.FiFApplicationDetailModel? fiFApplicationModel,
+      _i35.FiFApplicationDetailModel? fiFApplicationModel,
       num? id,
       String? interestEarned,
       String? annually,
@@ -976,11 +977,11 @@ class RenewalScreenRouterArgs {
       this.accountName,
       this.contractCode});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? investAmount;
 
-  final _i34.FiFApplicationDetailModel? fiFApplicationModel;
+  final _i35.FiFApplicationDetailModel? fiFApplicationModel;
 
   final num? id;
 
@@ -1002,7 +1003,7 @@ class RenewalScreenRouterArgs {
 /// [_i11.BulletPaymentDetail]
 class RenewReviewRouter extends _i2.PageRouteInfo<RenewReviewRouterArgs> {
   RenewReviewRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
@@ -1024,7 +1025,7 @@ class RenewReviewRouter extends _i2.PageRouteInfo<RenewReviewRouterArgs> {
       bool? isWithdraw = false,
       bool? isStatusPending = false,
       num? id,
-      _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      _i35.FiFApplicationDetailModel? fiFApplicationDetailModel,
       bool isNoUSD = false,
       String? status,
       String? titles,
@@ -1099,7 +1100,7 @@ class RenewReviewRouterArgs {
       this.annually,
       this.fromPage});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isAnnullyRate;
 
@@ -1143,7 +1144,7 @@ class RenewReviewRouterArgs {
 
   final num? id;
 
-  final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
+  final _i35.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
   final bool isNoUSD;
 
@@ -1167,14 +1168,14 @@ class RenewReviewRouterArgs {
 /// [_i12.CustomSucessScreen]
 class RenewSuccessRouter extends _i2.PageRouteInfo<RenewSuccessRouterArgs> {
   RenewSuccessRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       String? title,
       String? description,
-      _i32.Widget? icon,
+      _i33.Widget? icon,
       void Function()? onPressedButton,
       String? buttonTitle,
-      _i32.Color? backgroundColor,
-      _i32.EdgeInsetsGeometry? descriptionPadding})
+      _i33.Color? backgroundColor,
+      _i33.EdgeInsetsGeometry? descriptionPadding})
       : super(RenewSuccessRouter.name,
             path:
                 'investment/saving-detail/renew-contract/renew-review/success',
@@ -1210,21 +1211,21 @@ class RenewSuccessRouterArgs {
       this.backgroundColor,
       this.descriptionPadding});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? title;
 
   final String? description;
 
-  final _i32.Widget? icon;
+  final _i33.Widget? icon;
 
   final void Function()? onPressedButton;
 
   final String? buttonTitle;
 
-  final _i32.Color? backgroundColor;
+  final _i33.Color? backgroundColor;
 
-  final _i32.EdgeInsetsGeometry? descriptionPadding;
+  final _i33.EdgeInsetsGeometry? descriptionPadding;
 
   @override
   String toString() {
@@ -1237,7 +1238,7 @@ class RenewSuccessRouterArgs {
 class ContractWithdrawScreenRouter
     extends _i2.PageRouteInfo<ContractWithdrawScreenRouterArgs> {
   ContractWithdrawScreenRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       String? investAmount,
       String? interestEarned,
       num? id,
@@ -1268,7 +1269,7 @@ class ContractWithdrawScreenRouterArgs {
       this.contractCode,
       this.accountName});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? investAmount;
 
@@ -1292,7 +1293,7 @@ class ContractWithdrawScreenRouterArgs {
 /// [_i11.BulletPaymentDetail]
 class ReviewWithdrawRouter extends _i2.PageRouteInfo<ReviewWithdrawRouterArgs> {
   ReviewWithdrawRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
@@ -1314,7 +1315,7 @@ class ReviewWithdrawRouter extends _i2.PageRouteInfo<ReviewWithdrawRouterArgs> {
       bool? isWithdraw = false,
       bool? isStatusPending = false,
       num? id,
-      _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      _i35.FiFApplicationDetailModel? fiFApplicationDetailModel,
       bool isNoUSD = false,
       String? status,
       String? titles,
@@ -1389,7 +1390,7 @@ class ReviewWithdrawRouterArgs {
       this.annually,
       this.fromPage});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isAnnullyRate;
 
@@ -1433,7 +1434,7 @@ class ReviewWithdrawRouterArgs {
 
   final num? id;
 
-  final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
+  final _i35.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
   final bool isNoUSD;
 
@@ -1458,14 +1459,14 @@ class ReviewWithdrawRouterArgs {
 class RedemptionSuccessRouter
     extends _i2.PageRouteInfo<RedemptionSuccessRouterArgs> {
   RedemptionSuccessRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       String? title,
       String? description,
-      _i32.Widget? icon,
+      _i33.Widget? icon,
       void Function()? onPressedButton,
       String? buttonTitle,
-      _i32.Color? backgroundColor,
-      _i32.EdgeInsetsGeometry? descriptionPadding})
+      _i33.Color? backgroundColor,
+      _i33.EdgeInsetsGeometry? descriptionPadding})
       : super(RedemptionSuccessRouter.name,
             path:
                 'investment/saving-detail/redemption/redemption-review/success',
@@ -1501,21 +1502,21 @@ class RedemptionSuccessRouterArgs {
       this.backgroundColor,
       this.descriptionPadding});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? title;
 
   final String? description;
 
-  final _i32.Widget? icon;
+  final _i33.Widget? icon;
 
   final void Function()? onPressedButton;
 
   final String? buttonTitle;
 
-  final _i32.Color? backgroundColor;
+  final _i33.Color? backgroundColor;
 
-  final _i32.EdgeInsetsGeometry? descriptionPadding;
+  final _i33.EdgeInsetsGeometry? descriptionPadding;
 
   @override
   String toString() {
@@ -1527,7 +1528,7 @@ class RedemptionSuccessRouterArgs {
 /// [_i14.ViewWebsite]
 class AboutFiFRouter extends _i2.PageRouteInfo<AboutFiFRouterArgs> {
   AboutFiFRouter(
-      {_i32.Key? key, String? url, String? title, bool? isfromReport = false})
+      {_i33.Key? key, String? url, String? title, bool? isfromReport = false})
       : super(AboutFiFRouter.name,
             path: 'investment/about-fif',
             args: AboutFiFRouterArgs(
@@ -1545,7 +1546,7 @@ class AboutFiFRouterArgs {
   const AboutFiFRouterArgs(
       {this.key, this.url, this.title, this.isfromReport = false});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? url;
 
@@ -1563,7 +1564,7 @@ class AboutFiFRouterArgs {
 /// [_i15.FIFDeucSelection]
 class FIFDeucSelectionRouter
     extends _i2.PageRouteInfo<FIFDeucSelectionRouterArgs> {
-  FIFDeucSelectionRouter({_i32.Key? key, int? id})
+  FIFDeucSelectionRouter({_i33.Key? key, int? id})
       : super(FIFDeucSelectionRouter.name,
             path: 'investment/fif-select-product',
             args: FIFDeucSelectionRouterArgs(key: key, id: id));
@@ -1574,7 +1575,7 @@ class FIFDeucSelectionRouter
 class FIFDeucSelectionRouterArgs {
   const FIFDeucSelectionRouterArgs({this.key, this.id});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -1588,7 +1589,7 @@ class FIFDeucSelectionRouterArgs {
 /// [_i14.ViewWebsite]
 class ExploreMoreRouter extends _i2.PageRouteInfo<ExploreMoreRouterArgs> {
   ExploreMoreRouter(
-      {_i32.Key? key, String? url, String? title, bool? isfromReport = false})
+      {_i33.Key? key, String? url, String? title, bool? isfromReport = false})
       : super(ExploreMoreRouter.name,
             path: 'investment/fif-select-product/explore-more',
             args: ExploreMoreRouterArgs(
@@ -1606,7 +1607,7 @@ class ExploreMoreRouterArgs {
   const ExploreMoreRouterArgs(
       {this.key, this.url, this.title, this.isfromReport = false});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? url;
 
@@ -1624,10 +1625,10 @@ class ExploreMoreRouterArgs {
 /// [_i16.FIFOption1]
 class FIFOption1Router extends _i2.PageRouteInfo<FIFOption1RouterArgs> {
   FIFOption1Router(
-      {_i32.Key? key,
-      _i35.PaymentDate? paymentDate,
+      {_i33.Key? key,
+      _i36.PaymentDate? paymentDate,
       int? id = 0,
-      List<_i36.FIFoptionModel>? options})
+      List<_i37.FIFoptionModel>? options})
       : super(FIFOption1Router.name,
             path: 'investment/fif-select-product/fif-Application',
             args: FIFOption1RouterArgs(
@@ -1640,13 +1641,13 @@ class FIFOption1RouterArgs {
   const FIFOption1RouterArgs(
       {this.key, this.paymentDate, this.id = 0, this.options});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
-  final _i35.PaymentDate? paymentDate;
+  final _i36.PaymentDate? paymentDate;
 
   final int? id;
 
-  final List<_i36.FIFoptionModel>? options;
+  final List<_i37.FIFoptionModel>? options;
 
   @override
   String toString() {
@@ -1659,7 +1660,7 @@ class FIFOption1RouterArgs {
 class ReviewApplicationRouter
     extends _i2.PageRouteInfo<ReviewApplicationRouterArgs> {
   ReviewApplicationRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
@@ -1681,7 +1682,7 @@ class ReviewApplicationRouter
       bool? isWithdraw = false,
       bool? isStatusPending = false,
       num? id,
-      _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      _i35.FiFApplicationDetailModel? fiFApplicationDetailModel,
       bool isNoUSD = false,
       String? status,
       String? titles,
@@ -1756,7 +1757,7 @@ class ReviewApplicationRouterArgs {
       this.annually,
       this.fromPage});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isAnnullyRate;
 
@@ -1800,7 +1801,7 @@ class ReviewApplicationRouterArgs {
 
   final num? id;
 
-  final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
+  final _i35.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
   final bool isNoUSD;
 
@@ -1825,14 +1826,14 @@ class ReviewApplicationRouterArgs {
 class CustomSucessScreenRouter
     extends _i2.PageRouteInfo<CustomSucessScreenRouterArgs> {
   CustomSucessScreenRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       String? title,
       String? description,
-      _i32.Widget? icon,
+      _i33.Widget? icon,
       void Function()? onPressedButton,
       String? buttonTitle,
-      _i32.Color? backgroundColor,
-      _i32.EdgeInsetsGeometry? descriptionPadding})
+      _i33.Color? backgroundColor,
+      _i33.EdgeInsetsGeometry? descriptionPadding})
       : super(CustomSucessScreenRouter.name,
             path:
                 'investment/fif-select-product/fif-Application/review/success',
@@ -1868,21 +1869,21 @@ class CustomSucessScreenRouterArgs {
       this.backgroundColor,
       this.descriptionPadding});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? title;
 
   final String? description;
 
-  final _i32.Widget? icon;
+  final _i33.Widget? icon;
 
   final void Function()? onPressedButton;
 
   final String? buttonTitle;
 
-  final _i32.Color? backgroundColor;
+  final _i33.Color? backgroundColor;
 
-  final _i32.EdgeInsetsGeometry? descriptionPadding;
+  final _i33.EdgeInsetsGeometry? descriptionPadding;
 
   @override
   String toString() {
@@ -1893,7 +1894,7 @@ class CustomSucessScreenRouterArgs {
 /// generated route for
 /// [_i17.DepositeScreen]
 class ConfirmDetailRouter extends _i2.PageRouteInfo<ConfirmDetailRouterArgs> {
-  ConfirmDetailRouter({_i32.Key? key, int? id})
+  ConfirmDetailRouter({_i33.Key? key, int? id})
       : super(ConfirmDetailRouter.name,
             path: 'investment/confirm-detail',
             args: ConfirmDetailRouterArgs(key: key, id: id));
@@ -1904,7 +1905,7 @@ class ConfirmDetailRouter extends _i2.PageRouteInfo<ConfirmDetailRouterArgs> {
 class ConfirmDetailRouterArgs {
   const ConfirmDetailRouterArgs({this.key, this.id});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -1918,7 +1919,7 @@ class ConfirmDetailRouterArgs {
 /// [_i11.BulletPaymentDetail]
 class PendingDetailRouter extends _i2.PageRouteInfo<PendingDetailRouterArgs> {
   PendingDetailRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       bool? isAnnullyRate = false,
       String? productName,
       bool? isRenewal = false,
@@ -1940,7 +1941,7 @@ class PendingDetailRouter extends _i2.PageRouteInfo<PendingDetailRouterArgs> {
       bool? isWithdraw = false,
       bool? isStatusPending = false,
       num? id,
-      _i34.FiFApplicationDetailModel? fiFApplicationDetailModel,
+      _i35.FiFApplicationDetailModel? fiFApplicationDetailModel,
       bool isNoUSD = false,
       String? status,
       String? titles,
@@ -2015,7 +2016,7 @@ class PendingDetailRouterArgs {
       this.annually,
       this.fromPage});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isAnnullyRate;
 
@@ -2059,7 +2060,7 @@ class PendingDetailRouterArgs {
 
   final num? id;
 
-  final _i34.FiFApplicationDetailModel? fiFApplicationDetailModel;
+  final _i35.FiFApplicationDetailModel? fiFApplicationDetailModel;
 
   final bool isNoUSD;
 
@@ -2083,7 +2084,7 @@ class PendingDetailRouterArgs {
 /// [_i18.ContractTerm]
 class ServiceAgreementRouter
     extends _i2.PageRouteInfo<ServiceAgreementRouterArgs> {
-  ServiceAgreementRouter({_i32.Key? key, String? fromPage})
+  ServiceAgreementRouter({_i33.Key? key, String? fromPage})
       : super(ServiceAgreementRouter.name,
             path: 'investment/service-agreement',
             args: ServiceAgreementRouterArgs(key: key, fromPage: fromPage));
@@ -2094,7 +2095,7 @@ class ServiceAgreementRouter
 class ServiceAgreementRouterArgs {
   const ServiceAgreementRouterArgs({this.key, this.fromPage});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? fromPage;
 
@@ -2108,7 +2109,7 @@ class ServiceAgreementRouterArgs {
 /// [_i14.ViewWebsite]
 class ViewAgreementRouter extends _i2.PageRouteInfo<ViewAgreementRouterArgs> {
   ViewAgreementRouter(
-      {_i32.Key? key, String? url, String? title, bool? isfromReport = false})
+      {_i33.Key? key, String? url, String? title, bool? isfromReport = false})
       : super(ViewAgreementRouter.name,
             path: 'investment/view-agreement',
             args: ViewAgreementRouterArgs(
@@ -2126,7 +2127,7 @@ class ViewAgreementRouterArgs {
   const ViewAgreementRouterArgs(
       {this.key, this.url, this.title, this.isfromReport = false});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String? url;
 
@@ -2145,7 +2146,7 @@ class ViewAgreementRouterArgs {
 class ViewAgreementListRouter
     extends _i2.PageRouteInfo<ViewAgreementListRouterArgs> {
   ViewAgreementListRouter(
-      {_i32.Key? key, required List<_i37.ViewAgreement> listAgreeMent})
+      {_i33.Key? key, required List<_i38.ViewAgreement> listAgreeMent})
       : super(ViewAgreementListRouter.name,
             path: 'investment/view-agreement-list',
             args: ViewAgreementListRouterArgs(
@@ -2157,9 +2158,9 @@ class ViewAgreementListRouter
 class ViewAgreementListRouterArgs {
   const ViewAgreementListRouterArgs({this.key, required this.listAgreeMent});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
-  final List<_i37.ViewAgreement> listAgreeMent;
+  final List<_i38.ViewAgreement> listAgreeMent;
 
   @override
   String toString() {
@@ -2170,7 +2171,7 @@ class ViewAgreementListRouterArgs {
 /// generated route for
 /// [_i20.Step1Equiry]
 class Step1EquityRouter extends _i2.PageRouteInfo<Step1EquityRouterArgs> {
-  Step1EquityRouter({_i32.Key? key, int? id = 0, int? step})
+  Step1EquityRouter({_i33.Key? key, int? id = 0, int? step})
       : super(Step1EquityRouter.name,
             path: 'step1equity/:id/:step',
             args: Step1EquityRouterArgs(key: key, id: id, step: step),
@@ -2182,7 +2183,7 @@ class Step1EquityRouter extends _i2.PageRouteInfo<Step1EquityRouterArgs> {
 class Step1EquityRouterArgs {
   const Step1EquityRouterArgs({this.key, this.id = 0, this.step});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -2197,7 +2198,7 @@ class Step1EquityRouterArgs {
 /// generated route for
 /// [_i21.Step2Equity]
 class Step2EquityRouter extends _i2.PageRouteInfo<Step2EquityRouterArgs> {
-  Step2EquityRouter({_i32.Key? key, int? id, int? step})
+  Step2EquityRouter({_i33.Key? key, int? id, int? step})
       : super(Step2EquityRouter.name,
             path: 'step2equity/:id/:step',
             args: Step2EquityRouterArgs(key: key, id: id, step: step),
@@ -2209,7 +2210,7 @@ class Step2EquityRouter extends _i2.PageRouteInfo<Step2EquityRouterArgs> {
 class Step2EquityRouterArgs {
   const Step2EquityRouterArgs({this.key, this.id, this.step});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -2224,7 +2225,7 @@ class Step2EquityRouterArgs {
 /// generated route for
 /// [_i22.Step3Equity]
 class Step3EquityRouter extends _i2.PageRouteInfo<Step3EquityRouterArgs> {
-  Step3EquityRouter({_i32.Key? key, int? id, int? step})
+  Step3EquityRouter({_i33.Key? key, int? id, int? step})
       : super(Step3EquityRouter.name,
             path: 'step3equity/:id/:step',
             args: Step3EquityRouterArgs(key: key, id: id, step: step),
@@ -2236,7 +2237,7 @@ class Step3EquityRouter extends _i2.PageRouteInfo<Step3EquityRouterArgs> {
 class Step3EquityRouterArgs {
   const Step3EquityRouterArgs({this.key, this.id, this.step});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -2251,7 +2252,7 @@ class Step3EquityRouterArgs {
 /// generated route for
 /// [_i23.PreviewEquity]
 class PreviewEquityRouter extends _i2.PageRouteInfo<PreviewEquityRouterArgs> {
-  PreviewEquityRouter({_i32.Key? key, int? id})
+  PreviewEquityRouter({_i33.Key? key, int? id})
       : super(PreviewEquityRouter.name,
             path: 'preview-equity/:id',
             args: PreviewEquityRouterArgs(key: key, id: id),
@@ -2263,7 +2264,7 @@ class PreviewEquityRouter extends _i2.PageRouteInfo<PreviewEquityRouterArgs> {
 class PreviewEquityRouterArgs {
   const PreviewEquityRouterArgs({this.key, this.id});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -2276,7 +2277,7 @@ class PreviewEquityRouterArgs {
 /// generated route for
 /// [_i24.Step1Debt]
 class Step1DebtRouter extends _i2.PageRouteInfo<Step1DebtRouterArgs> {
-  Step1DebtRouter({_i32.Key? key, int? id = 0, int? step})
+  Step1DebtRouter({_i33.Key? key, int? id = 0, int? step})
       : super(Step1DebtRouter.name,
             path: 'step1debt/:id/:step',
             args: Step1DebtRouterArgs(key: key, id: id, step: step),
@@ -2288,7 +2289,7 @@ class Step1DebtRouter extends _i2.PageRouteInfo<Step1DebtRouterArgs> {
 class Step1DebtRouterArgs {
   const Step1DebtRouterArgs({this.key, this.id = 0, this.step});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -2303,7 +2304,7 @@ class Step1DebtRouterArgs {
 /// generated route for
 /// [_i25.Step2Debt]
 class Step2DebtRouter extends _i2.PageRouteInfo<Step2DebtRouterArgs> {
-  Step2DebtRouter({_i32.Key? key, int? id = 0, int? step})
+  Step2DebtRouter({_i33.Key? key, int? id = 0, int? step})
       : super(Step2DebtRouter.name,
             path: 'step2debt/:id/:step',
             args: Step2DebtRouterArgs(key: key, id: id, step: step),
@@ -2315,7 +2316,7 @@ class Step2DebtRouter extends _i2.PageRouteInfo<Step2DebtRouterArgs> {
 class Step2DebtRouterArgs {
   const Step2DebtRouterArgs({this.key, this.id = 0, this.step});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -2331,9 +2332,9 @@ class Step2DebtRouterArgs {
 /// [_i26.Step3Debt]
 class Step3DebtRouter extends _i2.PageRouteInfo<Step3DebtRouterArgs> {
   Step3DebtRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       int? numberOfStep,
-      _i38.ApplicationData? applicationDetail,
+      _i39.ApplicationData? applicationDetail,
       String? isDraft})
       : super(Step3DebtRouter.name,
             path: 'step3debt/:id/:step',
@@ -2350,11 +2351,11 @@ class Step3DebtRouterArgs {
   const Step3DebtRouterArgs(
       {this.key, this.numberOfStep, this.applicationDetail, this.isDraft});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? numberOfStep;
 
-  final _i38.ApplicationData? applicationDetail;
+  final _i39.ApplicationData? applicationDetail;
 
   final String? isDraft;
 
@@ -2368,9 +2369,9 @@ class Step3DebtRouterArgs {
 /// [_i26.Step3Debt]
 class Step4DebtRouter extends _i2.PageRouteInfo<Step4DebtRouterArgs> {
   Step4DebtRouter(
-      {_i32.Key? key,
+      {_i33.Key? key,
       int? numberOfStep,
-      _i38.ApplicationData? applicationDetail,
+      _i39.ApplicationData? applicationDetail,
       String? isDraft})
       : super(Step4DebtRouter.name,
             path: 'step4debt/:id/:step',
@@ -2387,11 +2388,11 @@ class Step4DebtRouterArgs {
   const Step4DebtRouterArgs(
       {this.key, this.numberOfStep, this.applicationDetail, this.isDraft});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? numberOfStep;
 
-  final _i38.ApplicationData? applicationDetail;
+  final _i39.ApplicationData? applicationDetail;
 
   final String? isDraft;
 
@@ -2404,7 +2405,7 @@ class Step4DebtRouterArgs {
 /// generated route for
 /// [_i27.PreviewDebtForm]
 class PreviewDebtRouter extends _i2.PageRouteInfo<PreviewDebtRouterArgs> {
-  PreviewDebtRouter({_i32.Key? key, int? id})
+  PreviewDebtRouter({_i33.Key? key, int? id})
       : super(PreviewDebtRouter.name,
             path: 'preview-debt/:id',
             args: PreviewDebtRouterArgs(key: key, id: id),
@@ -2416,7 +2417,7 @@ class PreviewDebtRouter extends _i2.PageRouteInfo<PreviewDebtRouterArgs> {
 class PreviewDebtRouterArgs {
   const PreviewDebtRouterArgs({this.key, this.id});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? id;
 
@@ -2438,7 +2439,7 @@ class PrivilegeScreen extends _i2.PageRouteInfo<void> {
 /// [_i29.PrivilegeDetailScreen]
 class PrivilegeDetailScreen
     extends _i2.PageRouteInfo<PrivilegeDetailScreenArgs> {
-  PrivilegeDetailScreen({_i32.Key? key, bool? isColorsHours = false, num? id})
+  PrivilegeDetailScreen({_i33.Key? key, bool? isColorsHours = false, num? id})
       : super(PrivilegeDetailScreen.name,
             path: 'privilege/:id',
             args: PrivilegeDetailScreenArgs(
@@ -2451,7 +2452,7 @@ class PrivilegeDetailScreenArgs {
   const PrivilegeDetailScreenArgs(
       {this.key, this.isColorsHours = false, this.id});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final bool? isColorsHours;
 
@@ -2474,7 +2475,7 @@ class SearchScreen extends _i2.PageRouteInfo<void> {
 /// generated route for
 /// [_i31.PrivilegeFilters]
 class PrivilegeFilters extends _i2.PageRouteInfo<PrivilegeFiltersArgs> {
-  PrivilegeFilters({_i32.Key? key, int? index})
+  PrivilegeFilters({_i33.Key? key, int? index})
       : super(PrivilegeFilters.name,
             path: 'privilege-filters',
             args: PrivilegeFiltersArgs(key: key, index: index));
@@ -2485,7 +2486,7 @@ class PrivilegeFilters extends _i2.PageRouteInfo<PrivilegeFiltersArgs> {
 class PrivilegeFiltersArgs {
   const PrivilegeFiltersArgs({this.key, this.index});
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final int? index;
 

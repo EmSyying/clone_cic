@@ -1734,15 +1734,12 @@ class MemberController extends GetxController {
               ? tweeter.value
               : personalProfile.value.twitter,
         }).then((response) {
-      isLaodingUpdateProfile(false);
       fetchMemberPersonProfile(id: cusController.customer.value.customerId);
+
+      cusController.getUser();
+      isLaodingUpdateProfile(false);
+      Navigator.pop(context!);
       update();
-      ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
-        content: Text('Personal Profile Updated Successful...!'),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.green,
-        padding: EdgeInsets.all(20),
-      ));
     }).onError((ErrorModel errorModel, stackTrace) {
       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
         content: Text('Personal Profile Updated Failed...!'),
