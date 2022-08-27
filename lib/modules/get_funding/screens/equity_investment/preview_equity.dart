@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
 import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/equat_equity_model.dart';
@@ -36,7 +35,7 @@ class PreviewEquity extends StatefulWidget {
 
   const PreviewEquity({
     Key? key,
-    @PathParam('id') this.id,
+    this.id,
   }) : super(key: key);
 
   @override

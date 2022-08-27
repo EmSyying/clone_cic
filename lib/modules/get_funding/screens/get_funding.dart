@@ -31,8 +31,10 @@ import '../../../Utils/helper/firebase_analytics.dart';
 
 class HomePage extends StatefulWidget {
   final bool? isNavigator;
+  final String? tabName;
 
-  const HomePage({Key? key, @queryParam this.isNavigator}) : super(key: key);
+  const HomePage({Key? key, @queryParam this.isNavigator, this.tabName})
+      : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -82,7 +84,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
   User? userInfo;
   int? userID;
   String? deviceType = "";
-  String? pageName = 'equity_investment';
+  String? pageName = 'equity-investment';
   final debtCon = Get.put(DebtInvestmentController());
   final equityController = Get.put(EquityInvestmentController());
   final equityCon = Get.put(EquityInvestmentController());
@@ -128,6 +130,18 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
     });
     equityCon.fetchCallCenter();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    final router = GoRouter.of(context);
+    if (router.location.contains('equity-investment')) {
+      debtCon.tapcurrentIndex.value = 0;
+    } else {
+      debtCon.tapcurrentIndex.value = 1;
+    }
+
+    super.didChangeDependencies();
   }
 
   storeDeviceToken() async {
@@ -305,13 +319,13 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                     onTap: (i) {
                       if (i == 0) {
                         setState(() {
-                          pageName = 'equity_investment';
+                          pageName = 'equity-investment';
                           FirebaseAnalyticsHelper.sendAnalyticsEvent(
                               "Equity Investment");
                         });
                       } else {
                         setState(() {
-                          pageName = 'debt_investment';
+                          pageName = 'debt-investment';
                           FirebaseAnalyticsHelper.sendAnalyticsEvent(
                               "Debt Investment");
                         });

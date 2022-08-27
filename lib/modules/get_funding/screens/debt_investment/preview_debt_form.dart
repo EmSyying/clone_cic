@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/required_doc.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
@@ -35,7 +34,7 @@ import '../../../../widgets/get_funding/custom_review_required_doc_debt.dart';
 //===
 class PreviewDebtForm extends StatefulWidget {
   final int? id;
-  const PreviewDebtForm({Key? key, @PathParam('id') this.id}) : super(key: key);
+  const PreviewDebtForm({Key? key,this.id}) : super(key: key);
 
   @override
   State<PreviewDebtForm> createState() => _PreviewDebtFormState();

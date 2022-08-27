@@ -2,6 +2,7 @@ import 'package:cicgreenloan/Utils/helper/switch_splash_screen/switch_splash_scr
 import 'package:cicgreenloan/modules/bonus/screens/bonus_screen.dart';
 import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:cicgreenloan/modules/dashboard/dashboard.dart';
+import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/preview_debt_form.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/view_agreement/view_agreement.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/certificate.dart';
@@ -18,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../Utils/web_view/web_view.dart';
+import '../../modules/get_funding/screens/equity_investment/preview_equity.dart';
 import '../../modules/get_funding/screens/get_funding.dart';
 import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
 import '../../modules/investment_module/screen/bullet_payment_detail.dart';
@@ -34,17 +36,9 @@ final router = GoRouter(routes: [
         GoRoute(
           path: 'investment/:tabName',
           name: 'Investment',
-          // redirect: (_) {
-          //   if (_.params['tabName'] != null && _.params['tabName'] != '') {
-          //     return 'investment/0';
-          //   } else {
-          //     return '';
-          //   }
-          // },
           builder: (context, state) => Dashboard(
             tabName: state.params['tabName'],
           ),
-
           routes: [
             GoRoute(
               path: 'certificate',
@@ -344,9 +338,27 @@ final router = GoRouter(routes: [
             name: 'Bonus',
             builder: (context, state) => const BonusScreen()),
         GoRoute(
-            path: 'get-funding',
+            path: 'get-funding/:tabName',
             name: 'GetFunding',
-            builder: (context, state) => const HomePage()),
+            builder: (context, state) => HomePage(
+                  tabName: state.params['tabName'],
+                ),
+            routes: [
+              GoRoute(
+                path: 'preview-equity/:id',
+                name: 'PreviewEquity',
+                builder: (context, state) => PreviewEquity(
+                  id: int.tryParse(state.params['id']!),
+                ),
+              ),
+              GoRoute(
+                path: 'preview-debt/:id',
+                name: 'PreviewDebt',
+                builder: (context, state) => PreviewDebtForm(
+                  id: int.tryParse(state.params['id']!),
+                ),
+              ),
+            ]),
         GoRoute(
             path: 'ut-trading',
             name: 'UT-Trading',

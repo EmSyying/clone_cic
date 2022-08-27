@@ -5,6 +5,7 @@ import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.
 import 'package:cicgreenloan/widgets/get_funding/application_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../Utils/helper/container_partern.dart';
 
@@ -60,10 +61,10 @@ class ApplicationList extends StatelessWidget {
                             debtController.onResetData();
                             if (getFundingModel.status != "Draft") {
                               isEquity!
-                                  ? context.router.pushNamed(
-                                      "preview-equity/${getFundingModel.id}")
-                                  : context.router.pushNamed(
-                                      "preview-debt/${getFundingModel.id}");
+                                  ? context.go(
+                                      "/get-funding/equity-investment/preview-equity/${getFundingModel.id}")
+                                  : context.go(
+                                      "/get-funding/debt-investment/preview-debt/${getFundingModel.id}");
                             } else {
                               null;
                             }
