@@ -4,7 +4,6 @@ import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/notify_share_pop_up.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/ut_trading/controllers/trading_controller.dart';
-import 'package:cicgreenloan/modules/ut_trading/models/trading_model.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
@@ -19,10 +18,40 @@ import 'package:get/get.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
+import '../models/detail_model.dart';
 
 class AddInquiry extends StatefulWidget {
-  final InquiryModel? inquiryModel;
-  const AddInquiry({Key? key, this.inquiryModel}) : super(key: key);
+  final int? id;
+  final int? memberId;
+  final int? marketId;
+  final num? numberOfShare;
+  final num? price;
+  final String? operation;
+  final String? type;
+  final String? date;
+  final String? description;
+  final String? tradingWith;
+  final num? targetMember;
+  final String? time;
+  final bool? payment;
+  final Details? details;
+  const AddInquiry(
+      {Key? key,
+      this.id,
+      this.memberId,
+      this.marketId,
+      this.numberOfShare,
+      this.price,
+      this.operation,
+      this.type,
+      this.date,
+      this.description,
+      this.tradingWith,
+      this.targetMember,
+      this.time,
+      this.payment,
+      this.details})
+      : super(key: key);
   @override
   State<AddInquiry> createState() => _AddInquiryState();
 }
@@ -67,24 +96,22 @@ class _AddInquiryState extends State<AddInquiry> {
 
   @override
   void initState() {
+    debugPrint(
+        "Customer ID from Add Inquiry: ${cusController.customer.value.customerId}");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final addTrading =
-        ModalRoute.of(context)!.settings.arguments as InquiryModel;
-
     inquirycontroller.demandInfo.value =
-        addTrading.description != null ? addTrading.description! : "";
-    inquirycontroller.qtyShare.value = addTrading.numberOfShare != null
-        ? addTrading.numberOfShare!.toDouble()
-        : 0.0;
+        widget.description != null ? widget.description! : "";
+    inquirycontroller.qtyShare.value =
+        widget.numberOfShare != null ? widget.numberOfShare!.toDouble() : 0.0;
     inquirycontroller.priceShare.value =
-        addTrading.price != null ? addTrading.price!.toDouble() : 0.0;
+        widget.price != null ? widget.price!.toDouble() : 0.0;
 
     inquirycontroller.getTradingSetting();
-    if (addTrading.operation == 'sell') {
+    if (widget.operation == 'sell') {
       setState(() {
         operationType = 'Sell';
       });
@@ -112,9 +139,9 @@ class _AddInquiryState extends State<AddInquiry> {
                       ? Icons.arrow_back
                       : Icons.arrow_back_ios),
             ),
-            title: addTrading.price == null && addTrading.numberOfShare == null
+            title: widget.price == null && widget.numberOfShare == null
                 ? 'Create $operationType Request'
-                : 'Update ${addTrading.operation!.capitalize} Request'),
+                : 'Update ${widget.operation!.capitalize} Request'),
         body: ConnectivityWidgetWrapper(
           stacked: false,
           alignment: Alignment.bottomCenter,
@@ -329,15 +356,15 @@ class _AddInquiryState extends State<AddInquiry> {
                     child: CustomButton(
                       isOutline: false,
                       isDisable: false,
-                      onPressed: addTrading.price == null &&
-                              addTrading.numberOfShare == null
+                      onPressed: widget.price == null &&
+                              widget.numberOfShare == null
                           ? () async {
                               _formKey.currentState!.save();
                               FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                   "Submit Trade $operationType Request");
 
                               if (isValidate()) {
-                                if (addTrading.operation == 'sell' &&
+                                if (widget.operation == 'sell' &&
                                     inquirycontroller.qtyShare.value >
                                         inquirycontroller.tradingSettingData
                                             .data!.availableUt!) {
@@ -367,13 +394,13 @@ class _AddInquiryState extends State<AddInquiry> {
                                         description:
                                             'You can input the price between ${inquirycontroller.tradingSettingData.data!.market!.minBasePrice!} to ${inquirycontroller.tradingSettingData.data!.market!.maxBasePrice!} !');
                                   });
-                                } else if (addTrading.operation == 'sell' &&
+                                } else if (widget.operation == 'sell' &&
                                         inquirycontroller.qtyShare.value <
                                             inquirycontroller
                                                 .tradingSettingData
                                                 .data!
                                                 .minNumberOfShareForSelling! ||
-                                    addTrading.operation == 'buy' &&
+                                    widget.operation == 'buy' &&
                                         inquirycontroller.qtyShare.value <
                                             inquirycontroller
                                                 .tradingSettingData
@@ -384,15 +411,14 @@ class _AddInquiryState extends State<AddInquiry> {
                                         context: context,
                                         imgUrl:
                                             'assets/images/svgfile/marketIsnotAvalable.svg',
-                                        description: addTrading.operation ==
-                                                'sell'
+                                        description: widget.operation == 'sell'
                                             ? 'You have to input number of share greater then or equal to ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForSelling!} !'
                                             : 'You have to input number of share greater then or equal to ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForBuying!} !');
                                   });
                                 } else if (inquirycontroller
                                             .selectTrade.value ==
                                         1 &&
-                                    addTrading.operation == 'sell' &&
+                                    widget.operation == 'sell' &&
                                     inquirycontroller.qtyShare.value >
                                         inquirycontroller
                                             .tradingSettingData
@@ -403,17 +429,19 @@ class _AddInquiryState extends State<AddInquiry> {
                                         context: context,
                                         imgUrl:
                                             'assets/images/svgfile/marketIsnotAvalable.svg',
-                                        description: addTrading.operation ==
-                                                'sell'
+                                        description: widget.operation == 'sell'
                                             ? 'You Can Sell The UT Between ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForSelling!}  to ${inquirycontroller.tradingSettingData.data!.maxNumberOfShareForSelling!}'
                                             : 'You Can Buy The UT Between ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForBuying!} ! to ${inquirycontroller.tradingSettingData.data!.maxNumberOfShareForBuying!}');
                                   });
                                 } else {
                                   //  Submit function
+                                  // *: hello
+                                  debugPrint(
+                                      "Submit Function${cusController.customer.value.id}");
 
                                   await inquirycontroller.onSubmitInquiry(
                                       context,
-                                      addTrading.operation!,
+                                      widget.operation!,
                                       inquirycontroller.qtyShare.value,
                                       inquirycontroller.priceShare.value,
                                       inquirycontroller.demandInfo.value,
@@ -429,7 +457,7 @@ class _AddInquiryState extends State<AddInquiry> {
                               FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                   "Submit Trade $operationType Request");
                               if (isValidate()) {
-                                if (addTrading.tradingWith == 'cic-platform' &&
+                                if (widget.tradingWith == 'cic-platform' &&
                                     inquirycontroller.priceShare.value <
                                         inquirycontroller.tradingSettingData
                                             .data!.market!.minBasePrice! &&
@@ -442,7 +470,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                           'assets/images/svgfile/marketIsnotAvalable.svg',
                                       description:
                                           'You can input the price between ${inquirycontroller.tradingSettingData.data!.market!.minBasePrice!} to ${inquirycontroller.tradingSettingData.data!.market!.maxBasePrice!} !');
-                                } else if (addTrading.operation == 'sell' &&
+                                } else if (widget.operation == 'sell' &&
                                         inquirycontroller.qtyShare.value >
                                             inquirycontroller
                                                 .tradingSettingData
@@ -453,7 +481,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                                 .tradingSettingData
                                                 .data!
                                                 .minNumberOfShareForSelling! &&
-                                        addTrading.operation == 'buy' &&
+                                        widget.operation == 'buy' &&
                                         inquirycontroller.qtyShare.value >
                                             inquirycontroller
                                                 .tradingSettingData
@@ -467,12 +495,11 @@ class _AddInquiryState extends State<AddInquiry> {
                                         context: context,
                                         imgUrl:
                                             'assets/images/svgfile/marketIsnotAvalable.svg',
-                                        description: addTrading.operation ==
-                                                'sell'
+                                        description: widget.operation == 'sell'
                                             ? 'You Can Sell The UT Between ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForSelling!}  to ${inquirycontroller.tradingSettingData.data!.maxNumberOfShareForSelling!}'
                                             : 'You Can Buy The UT Between ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForBuying!} ! to ${inquirycontroller.tradingSettingData.data!.maxNumberOfShareForBuying!}');
                                   });
-                                } else if (addTrading.operation == 'sell' &&
+                                } else if (widget.operation == 'sell' &&
                                     inquirycontroller.qtyShare.value >
                                         inquirycontroller.tradingSettingData
                                             .data!.availableUt!) {
@@ -485,33 +512,33 @@ class _AddInquiryState extends State<AddInquiry> {
                                             'Your share is not sufficient to sell !');
                                   });
                                 } else {
-                                  addTrading.tradingWith == 'specific-platform'
+                                  widget.tradingWith == 'specific-platform'
                                       ? inquirycontroller.specificMember.value
-                                          .id = addTrading.targetMember!.toInt()
-                                      : addTrading.tradingWith!;
+                                          .id = widget.targetMember!.toInt()
+                                      : widget.tradingWith!;
 
                                   await inquirycontroller.onUpdate(
                                       context,
-                                      addTrading.operation!,
+                                      widget.operation!,
                                       inquirycontroller.qtyShare.value,
                                       inquirycontroller.priceShare.value,
                                       inquirycontroller.demandInfo.value,
                                       cusController.customer.value.customerId!,
-                                      addTrading.id!,
+                                      widget.id!,
                                       inquirycontroller
                                           .tradingSettingData.data!.market!.id
                                           .toString(),
-                                      addTrading.tradingWith!,
-                                      addTrading.targetMember);
+                                      widget.tradingWith!,
+                                      widget.targetMember);
                                 }
                               }
                             },
-                      title: addTrading.price == null &&
-                              addTrading.numberOfShare == null
-                          ? addTrading.operation! == 'sell'
-                              ? "Submit Sell Request"
-                              : "Submit Buy Request"
-                          : "Update",
+                      title:
+                          widget.price == null && widget.numberOfShare == null
+                              ? widget.operation! == 'sell'
+                                  ? "Submit Sell Request"
+                                  : "Submit Buy Request"
+                              : "Update",
                     ),
                   ),
                 ),

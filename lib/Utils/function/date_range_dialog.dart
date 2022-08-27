@@ -56,7 +56,7 @@ dateRangDialog({
                         .entries
                         .map((e) => GestureDetector(
                             onTap: () async {
-                              Get.back();
+                              Navigator.pop(context);
                               // inquityCon.isLoadingCard.value = true;
                               await inquityCon.fetchLastTradingDetail(
                                   id: e.value.id);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 
 import '../../Utils/helper/color.dart';
@@ -129,7 +128,7 @@ showPopUpBuyRequest({
                     if (description != '') const Spacer(),
                     CustomButton(
                         isDisable: false,
-                        onPressed: () => Get.back(),
+                        onPressed: () => Navigator.pop(context),
                         isOutline: true,
                         title: 'Close')
                   ],

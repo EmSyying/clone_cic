@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/helper/color.dart';
+import '../../configs/route_configuration/route.dart';
 import '../bonus/custom_empty_state.dart';
 
 enum BorderType {
@@ -53,7 +54,7 @@ customAlertLastTradingInfo({
             children: [
               IconButton(
                   onPressed: () {
-                    Get.back();
+                    Navigator.of(context).pop();
                   },
                   icon: Icon(icon),
                   iconSize: 24),
@@ -92,7 +93,7 @@ customAlertLastTradingInfo({
                             GestureDetector(
                               onTap: () {
                                 dateRangDialog(
-                                  context: Get.context,
+                                  context: router.navigator!.context,
                                   contents: 'Date Range Presets',
                                   tradingOptionList:
                                       lastTradingCon.lastTradingOptionModelList,

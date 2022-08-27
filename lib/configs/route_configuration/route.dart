@@ -25,6 +25,8 @@ import '../../modules/investment_module/model/fif_contract_option/fif_contract_o
 import '../../modules/investment_module/screen/bullet_payment_detail.dart';
 import '../../modules/investment_module/screen/deposit_screen.dart';
 import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
+import '../../modules/ut_trading/screens/add_inquiry.dart';
+import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../widgets/investments/fif_option1.dart';
 
 final router = GoRouter(routes: [
@@ -362,7 +364,70 @@ final router = GoRouter(routes: [
         GoRoute(
             path: 'ut-trading',
             name: 'UT-Trading',
-            builder: (context, state) => const UTtrading()),
+            builder: (context, state) => UTtrading(
+                  tradeId: int.tryParse(
+                    state.queryParams['tradeId'].toString(),
+                  ),
+                ),
+            routes: [
+              GoRoute(
+                  path: 'trading-inquiry/:operation',
+                  name: 'Trading',
+                  builder: (context, state) => Trading(
+                        operation: state.params['operation'],
+                        date: state.queryParams['date'],
+                        description: state.queryParams['description'],
+                        id: int.tryParse(state.queryParams['id'].toString()),
+                        key: state.pageKey,
+                        marketId: int.tryParse(
+                            state.queryParams['marketId'].toString()),
+                        memberId: int.tryParse(
+                            state.queryParams['memberId'].toString()),
+                        numberOfShare: num.tryParse(
+                            state.queryParams['numberOfShare'].toString()),
+                        payment: state.queryParams['payment']
+                                .toString()
+                                .toLowerCase() ==
+                            'true',
+                        price:
+                            num.tryParse(state.queryParams['price'].toString()),
+                        targetMember: num.tryParse(
+                            state.queryParams['targetMember'].toString()),
+                        time: state.queryParams['time'],
+                        tradingWith: state.queryParams['tradingWith'],
+                        type: state.queryParams['type'],
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'inquiry-form',
+                      name: 'AddInquiry',
+                      builder: (context, state) => AddInquiry(
+                        operation: state.params['operation'],
+                        date: state.queryParams['date'],
+                        description: state.queryParams['description'],
+                        id: int.tryParse(state.queryParams['id'].toString()),
+                        key: state.pageKey,
+                        marketId: int.tryParse(
+                            state.queryParams['marketId'].toString()),
+                        memberId: int.tryParse(
+                            state.queryParams['memberId'].toString()),
+                        numberOfShare: num.tryParse(
+                            state.queryParams['numberOfShare'].toString()),
+                        payment: state.queryParams['payment']
+                                .toString()
+                                .toLowerCase() ==
+                            'true',
+                        price:
+                            num.tryParse(state.queryParams['price'].toString()),
+                        targetMember: num.tryParse(
+                            state.queryParams['targetMember'].toString()),
+                        time: state.queryParams['time'],
+                        tradingWith: state.queryParams['tradingWith'],
+                        type: state.queryParams['type'],
+                      ),
+                    )
+                  ]),
+            ]),
         GoRoute(
             path: 'directory',
             name: 'Directory',

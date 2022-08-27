@@ -18,6 +18,8 @@ import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../configs/route_configuration/route.dart';
+
 class InquiryController extends GetxController {
   final isSubmitting = false.obs;
   final isLoadingPrice = false.obs;
@@ -125,28 +127,43 @@ class InquiryController extends GetxController {
             selectTrade.value == 2 ? '${specificMember.value.id!}' : '',
       }).then((response) {
         if (response.statusCode == 200) {
-          Get.snackbar("${operationType.value} Request",
-              "Your ${operationType.value} request submitted successfully.",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
+          ScaffoldMessenger.of(
+                  router.routerDelegate.navigatorKey.currentState!.context)
+              .showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${operationType.value} Request",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                            "Your ${operationType.value} request submitted successfully."),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.done,
+                    color: Colors.white,
+                  )
+                ],
+              ),
               backgroundColor: const Color(0xff60AD00),
-              colorText: Colors.white,
-              icon: const Icon(
-                Icons.done,
-                color: Colors.white,
-              ),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: Text(
-                '${operationType.value} Request',
-                style: const TextStyle(color: Colors.white),
-              ),
-              messageText: Text(
-                'Your ${operationType.value} request submitted successfully.',
-                style: const TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+              behavior: SnackBarBehavior.floating,
+              dismissDirection: DismissDirection.up,
+              duration: const Duration(seconds: 2),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+            ),
+          );
           Future.delayed(const Duration(seconds: 3), () {
             Navigator.pop(context);
             Navigator.pop(context, true);
@@ -154,52 +171,82 @@ class InquiryController extends GetxController {
           onRefresh();
           update();
         } else if (response.statusCode == 422) {
-          Get.snackbar("${operationType.value} Request", "",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
+          ScaffoldMessenger.of(
+                  router.routerDelegate.navigatorKey.currentState!.context)
+              .showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${operationType.value} Request",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text("Your ${operationType.value} request failed."),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  )
+                ],
+              ),
               backgroundColor: Colors.red,
-              colorText: Colors.white,
-              icon: const Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Submit Trading Failed',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'The given data was invalid.',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+              behavior: SnackBarBehavior.floating,
+              dismissDirection: DismissDirection.up,
+              duration: const Duration(seconds: 2),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+            ),
+          );
 
           update();
         } else {
-          Get.snackbar("${operationType.value} Request",
-              'The mininum UT to trade is ${tradingSettingData.data!.minNumberOfShareForSelling!} UT.',
-              borderRadius: 8,
-              duration: const Duration(seconds: 5),
+          ScaffoldMessenger.of(
+                  router.routerDelegate.navigatorKey.currentState!.context)
+              .showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${operationType.value} Request",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                            'The mininum UT to trade is ${tradingSettingData.data!.minNumberOfShareForSelling!} UT.'),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  )
+                ],
+              ),
               backgroundColor: Colors.red,
-              colorText: Colors.white,
-              icon: const Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: Text(
-                '${operationType.value} Request',
-                style: const TextStyle(color: Colors.white),
-              ),
-              messageText: Text(
-                'The mininum UT to trade is ${tradingSettingData.data!.minNumberOfShareForSelling!} UT.',
-                style: const TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+              behavior: SnackBarBehavior.floating,
+              dismissDirection: DismissDirection.up,
+              duration: const Duration(seconds: 2),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+            ),
+          );
         }
       });
     } finally {
@@ -218,51 +265,82 @@ class InquiryController extends GetxController {
         'Authorization': 'Bearer $tokenKey'
       }).then((response) {
         if (response.statusCode == 200) {
-          Get.snackbar("", "Your Trade was cancel Successful...!",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
+          ScaffoldMessenger.of(
+                  router.routerDelegate.navigatorKey.currentState!.context)
+              .showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Text(
+                          "Canceled Trading",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text("Your Trade was cancel Successful...!"),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.done,
+                    color: Colors.white,
+                  )
+                ],
+              ),
               backgroundColor: const Color(0xff60AD00),
-              colorText: Colors.white,
-              icon: const Icon(
-                Icons.done,
-                color: Colors.white,
-              ),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Canceled Trading',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'Your Trade was cancel Successful...!',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+              behavior: SnackBarBehavior.floating,
+              dismissDirection: DismissDirection.up,
+              duration: const Duration(seconds: 2),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+            ),
+          );
+
           onRefresh();
           update();
         } else {
-          Get.snackbar("", "Trading Deleted Failed...!",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
+          ScaffoldMessenger.of(
+                  router.routerDelegate.navigatorKey.currentState!.context)
+              .showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Text(
+                          "Canceled Trading",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text("Trading Deleted Failed...!"),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  )
+                ],
+              ),
               backgroundColor: Colors.red,
-              colorText: Colors.white,
-              icon: const Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Delete Trading',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'Trading Deleted Failed...!',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+              behavior: SnackBarBehavior.floating,
+              dismissDirection: DismissDirection.up,
+              duration: const Duration(seconds: 2),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+            ),
+          );
         }
       });
     } finally {
@@ -304,54 +382,86 @@ class InquiryController extends GetxController {
       }).then(
         (response) {
           if (response.statusCode == 200) {
-            Get.snackbar("", "Trading Updated Successful...!",
-                borderRadius: 8,
+            ScaffoldMessenger.of(
+                    router.routerDelegate.navigatorKey.currentState!.context)
+                .showSnackBar(
+              SnackBar(
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            'Update Trading',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                              'Your ${operation.capitalize} request updated successfully.'),
+                        ],
+                      ),
+                    ),
+                    const Icon(
+                      Icons.done,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+                backgroundColor: const Color(0xff60AD00),
+                behavior: SnackBarBehavior.floating,
+                dismissDirection: DismissDirection.up,
                 duration: const Duration(seconds: 2),
-                backgroundColor: Colors.green,
-                colorText: Colors.white,
-                icon: const Icon(
-                  Icons.done,
-                  color: Colors.white,
-                ),
-                snackPosition: SnackPosition.TOP,
-                margin: const EdgeInsets.all(10),
-                overlayBlur: 3.0,
-                titleText: Text(
-                  '${operation.capitalize} Request',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                messageText: Text(
-                  'Your ${operation.capitalize} request updated successfully.',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                snackStyle: SnackStyle.FLOATING);
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+            );
+
             Future.delayed(const Duration(seconds: 3), () {
               Navigator.pop(context, true);
             });
             onRefresh();
             update();
           } else {
-            Get.snackbar("", "Trading Updated Failed...!",
-                borderRadius: 8,
-                duration: const Duration(seconds: 2),
+            ScaffoldMessenger.of(
+                    router.routerDelegate.navigatorKey.currentState!.context)
+                .showSnackBar(
+              SnackBar(
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            'Update Trading',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text('Your ${operation.capitalize} request failed.'),
+                        ],
+                      ),
+                    ),
+                    const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
                 backgroundColor: Colors.red,
-                colorText: Colors.white,
-                icon: const Icon(
-                  Icons.close,
-                  color: Colors.white,
-                ),
-                snackPosition: SnackPosition.TOP,
-                margin: const EdgeInsets.all(10),
-                overlayBlur: 3.0,
-                titleText: const Text(
-                  'Updted Trading',
-                  style: TextStyle(color: Colors.white),
-                ),
-                messageText: const Text(
-                  'Trading Updated Failed...!',
-                  style: TextStyle(color: Colors.white),
-                ),
-                snackStyle: SnackStyle.FLOATING);
+                behavior: SnackBarBehavior.floating,
+                dismissDirection: DismissDirection.up,
+                duration: const Duration(seconds: 2),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+            );
           }
         },
       );
@@ -436,8 +546,8 @@ class InquiryController extends GetxController {
   Future<List<InquiryModel>> getInquiryListAll(String memberID) async {
     isLoadingInquiry(true);
     tokenKey = await LocalData.getCurrentUser();
-    InquiryModel _inquiryModel = InquiryModel();
-    List<InquiryModel> _inquiryList = <InquiryModel>[];
+    InquiryModel inquiryModel = InquiryModel();
+    List<InquiryModel> inquiryList = <InquiryModel>[];
     listinquiryData.clear();
     try {
       final String url =
@@ -451,9 +561,9 @@ class InquiryController extends GetxController {
           listInquiryallData.clear();
           var responseJson = json.decode(response.body)['data'];
           responseJson.map((e) {
-            _inquiryModel = InquiryModel.fromJson(e);
-            _inquiryList.add(_inquiryModel);
-            listInquiryallData = _inquiryList;
+            inquiryModel = InquiryModel.fromJson(e);
+            inquiryList.add(inquiryModel);
+            listInquiryallData = inquiryList;
           }).toList();
         } else {}
       });
@@ -479,8 +589,8 @@ class InquiryController extends GetxController {
       isLoadingInquiryCancel(true);
     }
     tokenKey = await LocalData.getCurrentUser();
-    InquiryModel _inquiryModel = InquiryModel();
-    List<InquiryModel> _inquiryList = <InquiryModel>[];
+    InquiryModel inquiryModel = InquiryModel();
+    List<InquiryModel> inquiryList = <InquiryModel>[];
     listinquiryData.clear();
     try {
       final String url = type != '' && operation != ''
@@ -497,10 +607,10 @@ class InquiryController extends GetxController {
           var responseJson = json.decode(response.body)['data'];
 
           responseJson.map((e) {
-            _inquiryModel = InquiryModel.fromJson(e);
-            _inquiryList.add(_inquiryModel);
+            inquiryModel = InquiryModel.fromJson(e);
+            inquiryList.add(inquiryModel);
 
-            listinquiryData = _inquiryList;
+            listinquiryData = inquiryList;
           }).toList();
         } else {}
       });

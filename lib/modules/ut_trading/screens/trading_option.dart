@@ -1,9 +1,7 @@
-import 'package:cicgreenloan/configs/route_management/route_name.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/ut_trading/controllers/trading_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
-import 'package:cicgreenloan/modules/ut_trading/models/trading_model.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:cicgreenloan/widgets/ut_tradding/custom_botton_selected.dart';
@@ -12,13 +10,45 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
+import '../models/detail_model.dart';
 
 class Trading extends StatefulWidget {
-  const Trading({Key? key}) : super(key: key);
+  final int? id;
+  final int? memberId;
+  final int? marketId;
+  final num? numberOfShare;
+  final num? price;
+  final String? operation;
+  final String? type;
+  final String? date;
+  final String? description;
+  final String? tradingWith;
+  final num? targetMember;
+  final String? time;
+  final bool? payment;
+  final Details? details;
+  const Trading(
+      {Key? key,
+      this.id,
+      this.memberId,
+      this.marketId,
+      this.numberOfShare,
+      this.price,
+      this.operation,
+      this.type,
+      this.date,
+      this.description,
+      this.tradingWith,
+      this.targetMember,
+      this.time,
+      this.payment,
+      this.details})
+      : super(key: key);
 
   @override
   State<Trading> createState() => _TradingState();
@@ -30,9 +60,15 @@ class _TradingState extends State<Trading> {
   final cusController = Get.put(CustomerController());
 
   bool? isValidateMember;
+  onFetchUser() async {
+    await cusController.getUser();
+    debugPrint(
+        "CusID ..................${cusController.customer.value.customerId}");
+  }
 
   @override
   void initState() {
+    onFetchUser();
     // inquiryController.getTradingSetting();
     inquiryController.tradingSettingData.data!.market!.open!
         ? inquiryController.selectTrade.value = 1
@@ -51,8 +87,6 @@ class _TradingState extends State<Trading> {
 
   @override
   Widget build(BuildContext context) {
-    final trading = ModalRoute.of(context)!.settings.arguments as InquiryModel;
-
     return DefaultSizeWeb(
       child: CupertinoScaffold(
         body: Builder(
@@ -194,16 +228,16 @@ class _TradingState extends State<Trading> {
                                 inquiryController
                                     .tradingSettingData.data!.market!.open! &&
                                 inquiryController.tradingSettingData.data!
-                                        .allowBuyRequest! !=
+                                        .allowBuyRequest !=
                                     false &&
-                                trading.operation == 'buy' ||
+                                widget.operation == 'buy' ||
                             inquiryController.selectTrade.value == 1 &&
                                 inquiryController
                                     .tradingSettingData.data!.market!.open! &&
                                 inquiryController.tradingSettingData.data!
-                                        .allowSellRequest! !=
+                                        .allowSellRequest !=
                                     false &&
-                                trading.operation == 'sell'
+                                widget.operation == 'sell'
                         ? false
                         : inquiryController.selectTrade.value == 2
                             ? false
@@ -212,32 +246,24 @@ class _TradingState extends State<Trading> {
                                 inquiryController
                                     .tradingSettingData.data!.market!.open! &&
                                 inquiryController.tradingSettingData.data!
-                                        .allowBuyRequest! !=
+                                        .allowBuyRequest !=
                                     false &&
-                                trading.operation == 'buy' ||
+                                widget.operation == 'buy' ||
                             inquiryController.selectTrade.value == 1 &&
                                 inquiryController
                                     .tradingSettingData.data!.market!.open! &&
                                 inquiryController.tradingSettingData.data!
-                                        .allowSellRequest! !=
+                                        .allowSellRequest !=
                                     false &&
-                                trading.operation == 'sell'
-                        ? () => Navigator.pushNamed(
-                              context,
-                              RouteName.ADDINQUIRY,
-                              arguments:
-                                  InquiryModel(operation: trading.operation),
-                            )
+                                widget.operation == 'sell'
+                        ? () => context.go(
+                            "/ut-trading/trading-inquiry/${widget.operation}/inquiry-form")
                         : inquiryController.selectTrade.value == 2
                             ? () {
                                 if (memberController.selectedMember.value.id !=
                                     null) {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RouteName.ADDINQUIRY,
-                                    arguments: InquiryModel(
-                                        operation: trading.operation),
-                                  );
+                                  context.go(
+                                      "/ut-trading/trading-inquiry/${widget.operation}/inquiry-form");
                                 } else {
                                   setState(() {
                                     isValidateMember = false;
