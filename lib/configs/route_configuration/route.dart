@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/switch_splash_screen/switch_splash_screen.dart';
 import 'package:cicgreenloan/modules/bonus/screens/bonus_screen.dart';
 import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:cicgreenloan/modules/dashboard/dashboard.dart';
@@ -43,6 +44,7 @@ final router = GoRouter(routes: [
           builder: (context, state) => Dashboard(
             tabName: state.params['tabName'],
           ),
+
           routes: [
             GoRoute(
               path: 'certificate',
@@ -370,6 +372,18 @@ final router = GoRouter(routes: [
                         url: state.queryParams['url'],
                       ))
             ]),
+        GoRoute(
+          path: 'switch-splash-screen',
+          name: 'SwitchSplashScreen',
+          pageBuilder: (context, state) => CustomTransitionPage(
+              child: SwitchSplashScreen(
+                offset: state.extra! as Offset,
+              ),
+              key: state.pageKey,
+              opaque: false,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) => child),
+        ),
         GoRoute(
             path: 'notification',
             name: 'Notification',

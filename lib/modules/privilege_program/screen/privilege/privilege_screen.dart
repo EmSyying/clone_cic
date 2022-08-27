@@ -270,12 +270,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         onTapFilter: () {
                           // context.router.pushNamed("privilege-filters");
                           onNavToFilter();
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const PrivilegeFilters(),
-                          //   ),
-                          // );
                         },
                         titleStores: segmentedControlValue == 0
                             ? '${preController.shopModelList.length} Stores'

@@ -261,7 +261,9 @@ class SettingController extends GetxController {
     return appSettingVersion.value;
   }
 
-  Future<List<AppSettingData>> fetchAppSetting() async {
+  late AnimationController animationController;
+  Future<List<AppSettingData>> fetchAppSetting(
+      {BuildContext? context, bool? isSwitchSplashScreen}) async {
     var token = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
@@ -285,6 +287,13 @@ class SettingController extends GetxController {
       });
     } finally {
       isLoading(false);
+      if (isSwitchSplashScreen == true) {
+        Future.delayed(const Duration(seconds: 1), () {
+          animationController
+              .reverse()
+              .then((value) => Navigator.pop(context!));
+        });
+      }
     }
     return appSettingDataList;
   }

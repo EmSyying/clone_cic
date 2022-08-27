@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -90,6 +91,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                     .map((e) {
                   return GestureDetector(
                     onTap: () {
+                      privilegeController.locationName.value = e.value.nameEn!;
                       privilegeController.onSelected(
                           index: e.key,
                           location: e.value,
@@ -165,7 +167,15 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                               : true,
                           isOutline: false,
                           onPressed: () {
-                            Navigator.pop(context, false);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchScreen(
+                                  locationName:
+                                      privilegeController.locationName.value,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),

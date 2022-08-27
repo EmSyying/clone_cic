@@ -445,7 +445,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                       ),
                                     );
                                   },
-                                  title: 'View Profile Detail',
+                                  title: 'Enter Amount',
                                 ),
                               ),
                           ],

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cicgreenloan/Utils/helper/find_widget_position.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
@@ -73,6 +74,7 @@ class _MainDashboardState extends State<MainDashboard> {
   String deviceType = "";
   int appTourIndex = 0;
   final refreshKey = GlobalKey<RefreshIndicatorState>();
+  final widgetKey = GlobalKey();
   OverlayEntry? overlayEntry;
   OverlayState? overlayState;
   Future<void> onShowOverLay(BuildContext context) async {
@@ -749,6 +751,7 @@ class _MainDashboardState extends State<MainDashboard> {
                       width: 10,
                     ),
                     FlutterSwitch(
+                        key: widgetKey,
                         padding: 3,
                         width: 50,
                         height: 30,
@@ -765,19 +768,17 @@ class _MainDashboardState extends State<MainDashboard> {
                         onToggle: (e) {
                           setState(() {
                             switchIcon = e;
+                            if (e == true) {
+                              Offset offset = getWidgetInfo(widgetKey);
+                              context.go('/switch-splash-screen',
+                                  extra: offset);
+                            } else {
+                              Offset offset = getWidgetInfo(widgetKey);
+                              context.go('/switch-splash-screen',
+                                  extra: offset);
+                            }
                           });
                         }),
-                    // CupertinoSwitch(
-                    //   activeColor: const Color(0xff0685CF),
-                    //   trackColor: Colors.grey.withOpacity(0.6),
-                    //   value: switchIcon!,
-                    //   onChanged: (e) {
-                    //     setState(() {
-                    //       debugPrint('helooooo:$switchIcon');
-                    //       switchIcon = e;
-                    //     });
-                    //   },
-                    // ),
                     const SizedBox(
                       width: 10,
                     ),
