@@ -1,5 +1,6 @@
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/payment_done_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -298,5 +299,34 @@ class PrivilegeController extends GetxController {
     });
 
     return locationPrivilageList;
+  }
+
+  ///Function Payment=====privilege===
+  final isPaymentLoading = false.obs;
+  final shopId = 0.obs;
+  final privilegeAmount = 0.0.obs;
+  Future<void> onPaymentPrivilege({BuildContext? context}) async {
+    isPaymentLoading(true);
+    await apiBaseHelper.onNetworkRequesting(
+        url: 'privilege/payment',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          "shop_id": shopId.value,
+          "amount": privilegeAmount.value,
+        }).then((response) {
+      Navigator.push(
+        context!,
+        MaterialPageRoute(
+          builder: (context) => const PaymentDoneScreen(),
+        ),
+      );
+
+      isPaymentLoading(false);
+    }).onError(
+      (ErrorModel errorModel, stackTrace) {
+        isPaymentLoading(false);
+      },
+    );
   }
 }

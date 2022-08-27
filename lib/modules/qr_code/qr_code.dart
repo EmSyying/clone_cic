@@ -29,6 +29,7 @@ import '../event_module/screen/event_detail.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../member_directory/controllers/member_controller.dart';
 import '../member_directory/screens/member_detail.dart';
+import '../privilege_program/screen/privilege/privilege_payment.dart';
 
 class QrCodeScreen extends StatefulWidget {
   final String? pageName;
@@ -151,7 +152,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                           var rawVal = barcode.rawValue;
                                           resultQR = rawVal;
                                           if (!resultQR!.contains('event') &&
-                                              !resultQR!.contains('member')) {
+                                              !resultQR!.contains('member') &&
+                                              !resultQR!.contains('shop')) {
                                             isInvalid = true;
                                             cameraController.stop();
                                           } else {
@@ -427,26 +429,43 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                   isDisable: false,
                                   isOutline: false,
                                   onPressed: () async {
-                                    int userId = int.parse(
+                                    int shopId = int.parse(
                                         resultQR!.replaceAll('shop', ''));
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => MemberDetail(
-                                          memberDetailAgrument:
-                                              MemberDetailAgrument(
-                                            isNavigator: true,
-                                            id: userId,
-                                            // customer: _memberCon
-                                            // .personalProfilemember.value,
-                                            pageName: 'memberList',
-                                          ),
+                                        builder: (context) => PrivilegePayment(
+                                          id: shopId,
                                         ),
                                       ),
                                     );
                                   },
                                   title: 'Enter Amount',
                                 ),
+                                // CustomButton(
+                                //   isDisable: false,
+                                //   isOutline: false,
+                                //   onPressed: () async {
+                                //     int userId = int.parse(
+                                //         resultQR!.replaceAll('shop', ''));
+                                //     Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //         builder: (context) => MemberDetail(
+                                //           memberDetailAgrument:
+                                //               MemberDetailAgrument(
+                                //             isNavigator: true,
+                                //             id: userId,
+                                //             // customer: _memberCon
+                                //             // .personalProfilemember.value,
+                                //             pageName: 'memberList',
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     );
+                                //   },
+                                //   title: 'Enter Amount',
+                                // ),
                               ),
                           ],
                         ),

@@ -553,7 +553,10 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
       children: [
         Container(
           height: 68,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(
+            top: 16,
+            bottom: 16,
+          ),
           decoration: BoxDecoration(
             color: istoday ? Colors.grey[100] : Colors.white,
             borderRadius: BorderRadius.circular(10.0),

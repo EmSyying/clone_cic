@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_payment.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -192,7 +193,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                 child: customCategTitle(
                   categoriesTil: 'Categories',
                   seeall: 'See All',
-                  onTapSeeAll: () {},
+                  onTapSeeAll: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PrivilegePayment(),
+                      ),
+                    );
+                  },
                 ),
               ),
               ////Card List Categories===============================
@@ -309,16 +317,16 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                 ),
           ),
         ),
-        // GestureDetector(
-        //   onTap: onTapSeeAll,
-        //   child: Text(
-        //     seeall ?? '',
-        //     style: Theme.of(context).textTheme.headline3!.copyWith(
-        //           fontSize: 12,
-        //           fontWeight: FontWeight.w500,
-        //         ),
-        //   ),
-        // ),
+        GestureDetector(
+          onTap: onTapSeeAll,
+          child: Text(
+            seeall ?? '',
+            style: Theme.of(context).textTheme.headline3!.copyWith(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
+        ),
       ],
     );
   }
