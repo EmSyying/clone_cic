@@ -26,7 +26,8 @@ import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 
 class BonusScreen extends StatefulWidget {
-  const BonusScreen({Key? key}) : super(key: key);
+  final String? tapName;
+  const BonusScreen({Key? key, this.tapName}) : super(key: key);
 
   @override
   State<BonusScreen> createState() => _BonusScreenState();
@@ -55,6 +56,36 @@ class _BonusScreenState extends State<BonusScreen>
     return DefaultSizeWeb(
       child: CupertinoScaffold(
         body: Builder(builder: (context) {
+          if (widget.tapName != null) {
+            if (widget.tapName == 'invest-fif') {
+              //
+            }
+            if (widget.tapName == 'subscribe') {
+              debugPrint("Tab Name: ${widget.tapName}");
+              if (!bonusCon.isLoadingHistory.value) {
+                Future.delayed(const Duration(seconds: 1), () async {
+                  await onShowCustomCupertinoModalSheet(
+                      isLeading: true,
+                      context: context,
+                      child: const SubscribeBonusScreen(),
+                      title: 'UT Subscription',
+                      icon: const Icon(Icons.close));
+                });
+              }
+            }
+            if (widget.tapName == 'cash-out') {
+              Future.delayed(const Duration(seconds: 1), () async {
+                await onShowCustomCupertinoModalSheet(
+                  context: context,
+                  child: const CashOutScreen(),
+                  title: 'Cash Out',
+                  icon: const Icon(Icons.close),
+                  isLeading: true,
+                );
+              });
+            }
+          }
+
           return CupertinoPageScaffold(
             child: Scaffold(
               resizeToAvoidBottomInset: true,

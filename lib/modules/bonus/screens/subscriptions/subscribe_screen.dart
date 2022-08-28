@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
-import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_new_subscription.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_subscribe_history.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +16,9 @@ class SubscribeBonusScreen extends StatefulWidget {
 class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
     with SingleTickerProviderStateMixin {
   final subscribeCon = Get.put(BonusController());
-  final _settingCon = Get.put(SettingController());
 
   @override
   void initState() {
-    _settingCon.onFetchUIData();
     subscribeCon.tabControllerSubscribe = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -65,7 +62,7 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
           child: TabBarView(
               controller: subscribeCon.tabControllerSubscribe,
               children: [
-                CustomNewSubscription(),
+                const CustomNewSubscription(),
                 CustomSubscribeHistory(),
               ]),
         )

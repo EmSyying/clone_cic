@@ -338,7 +338,9 @@ final router = GoRouter(routes: [
         GoRoute(
             path: 'bonus',
             name: 'Bonus',
-            builder: (context, state) => const BonusScreen()),
+            builder: (context, state) => BonusScreen(
+                  tapName: state.queryParams['tapName'],
+                )),
         GoRoute(
             path: 'get-funding/:tabName',
             name: 'GetFunding',

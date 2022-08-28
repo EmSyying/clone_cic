@@ -22,11 +22,20 @@ import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/format_number.dart';
 import '../../../../utils/helper/firebase_analytics.dart';
 
-class CustomNewSubscription extends StatelessWidget {
-  CustomNewSubscription({Key? key}) : super(key: key);
+class CustomNewSubscription extends StatefulWidget {
+  const CustomNewSubscription({Key? key}) : super(key: key);
+
+  @override
+  State<CustomNewSubscription> createState() => _CustomNewSubscriptionState();
+}
+
+class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
   final subscribeCon = Get.put(BonusController());
+
   final priceController = Get.put(PriceController());
+
   final userCon = Get.put(CustomerController());
+
   bool isValidate() {
     if (subscribeCon.subscriptionAmount.value <
             subscribeCon.bonusSetting.value.minUtSubscription! &&
@@ -42,15 +51,20 @@ class CustomNewSubscription extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     priceController.onFetchPrice();
     subscribeCon.fetchUTScription();
     subscribeCon.fetchPaymentSummary();
     subscribeCon.fetchbonusSetting();
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () async {
       subscribeCon.utPrice.value = priceController.price.value.price!;
       subscribeCon.utPriceController.text = priceController.price.value.price!;
     });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return CupertinoScaffold(
       body: Builder(builder: (context) {
         return CupertinoPageScaffold(
