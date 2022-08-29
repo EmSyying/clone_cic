@@ -19,6 +19,7 @@ class NotificationData {
   int? applicationId;
   bool? expired;
   String? url;
+  List<Button>? button;
 
   NotificationData(
       {this.title,
@@ -63,6 +64,12 @@ class NotificationData {
     applicationId = json['application_id'];
     expired = json['expired'];
     url = json['url'];
+    if (json['button'] != null) {
+      button = <Button>[];
+      json['button'].forEach((v) {
+        button!.add(Button.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +93,29 @@ class NotificationData {
     data['notification_id'] = notificationId;
     data['application_id'] = applicationId;
     data['expired'] = expired;
+    if (button != null) {
+      data['button'] = button!.map((v) => v.toJson()).toList();
+    }
+    data['expired'] = expired;
+    return data;
+  }
+}
+
+class Button {
+  String? title;
+  String? target;
+
+  Button({this.title, this.target});
+
+  Button.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    target = json['target'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['target'] = target;
     return data;
   }
 }

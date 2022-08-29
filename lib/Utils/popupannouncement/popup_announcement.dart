@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/notification_modules/controllers/notification_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/models/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../utils/helper/color.dart';
 
 class PopUpAnnouncement extends StatelessWidget {
   final NotificationModel? notificationModel;
@@ -115,28 +116,51 @@ class PopUpAnnouncement extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (notificationModel!.data!.url != null)
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                          launch(notificationModel!.data!.url!);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 10),
-                          child: Text(
-                            'Update Now',
-                            style: TextStyle(
-                              fontFamily: 'DMSans',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.mainColor,
+                  // children: [
+                  //   if (notificationModel!.data!.url != null)
+                  //     InkWell(
+                  //       onTap: () {
+                  //         Navigator.pop(context);
+                  //         launch(notificationModel!.data!.url!);
+                  //       },
+                  //       child: const Padding(
+                  //         padding: EdgeInsets.symmetric(
+                  //             horizontal: 40, vertical: 10),
+                  //         child: Text(
+                  //           'Update Now',
+                  //           style: TextStyle(
+                  //             fontFamily: 'DMSans',
+                  //             fontSize: 16,
+                  //             fontWeight: FontWeight.bold,
+                  //             color: AppColor.mainColor,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     )
+                  // ],
+                  children: notificationModel!.data!.button!
+                      .map((data) => InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                              launchUrl(Uri.parse(data.target!),
+                                  mode:
+                                      LaunchMode.externalNonBrowserApplication);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 10),
+                              child: Text(
+                                data.title!,
+                                style: const TextStyle(
+                                  fontFamily: 'DMSans',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.mainColor,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      )
-                  ],
+                          ))
+                      .toList(),
                 ),
               ],
             ),
