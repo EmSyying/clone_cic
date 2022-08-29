@@ -781,15 +781,13 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                               .status ==
                                                           "Rejected"
                                                       ? 'Re-Submit'
-                                                      : widget.id != 0 ||
-                                                              widget.id !=
-                                                                      null &&
-                                                                  equityController
-                                                                          .applicationData
-                                                                          .value
-                                                                          .status!
-                                                                          .toLowerCase() ==
-                                                                      'new'
+                                                      : widget.id != 0 &&
+                                                              equityController
+                                                                      .applicationData
+                                                                      .value
+                                                                      .status!
+                                                                      .toLowerCase() ==
+                                                                  'new'
                                                           ? 'Update'
                                                           : 'Submit',
                                                 ),

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_drop_down.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -24,8 +24,7 @@ import '../../../../widgets/get_funding/custom_call_center.dart';
 class Step1Equiry extends StatefulWidget {
   final int? id;
   final int? step;
-  const Step1Equiry({Key? key, @queryParam this.id = 0, @queryParam this.step})
-      : super(key: key);
+  const Step1Equiry({Key? key, this.id = 0, this.step}) : super(key: key);
   @override
   State<Step1Equiry> createState() => _Step1EquiryState();
 }
@@ -94,7 +93,8 @@ class _Step1EquiryState extends State<Step1Equiry> {
             equityController.equitySetting.value.maxEquityAmount! &&
         equityController.useOfFund.value != '' &&
         equityController.intendedDate.value != '') {
-      context.router.pushNamed("equity-step2?id=${widget.id}&step=2");
+      context.go(
+          "/get-funding/equity-investment/equity-step2/${widget.id}/${widget.step}");
     }
   }
 

@@ -92,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onSaved: (e) {},
             onChanged: (v) {
               if (v == '') {
-                privilegController.searchShopList.value = [];
+                privilegController.searchShopList.clear();
                 privilegController.update();
               } else {
                 onChangeHandler(v);

@@ -18,6 +18,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/color.dart';
@@ -161,9 +162,7 @@ class _Step3EquityState extends State<Step3Equity> {
 
     if (equityController.numberOfBoardMembers.value != 0 &&
         equityController.numberOfShareHolders.value != 0) {
-      widget.step != null
-          ? context.router.pushNamed("preview-equity/${widget.id}")
-          : context.router.pushNamed("preview-equity");
+      context.go("/get-funding/equity-investment/preview-equity/${widget.id}");
     }
   }
 

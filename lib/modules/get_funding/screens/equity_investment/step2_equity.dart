@@ -18,6 +18,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/form_builder/custom_drop_down.dart';
 import '../../../../Utils/helper/container_partern.dart';
@@ -117,7 +118,8 @@ class _Step2EquityState extends State<Step2Equity> {
         equityController.purposeOfFund.value =
             optionController.optionData.value.riaseuseoffund![0].id!;
       }
-      context.router.pushNamed("step3equity/${widget.id}/3");
+      context.go(
+          "/get-funding/equity-investment/equity-step3/${widget.id}/${widget.step}");
     }
   }
 
@@ -354,12 +356,11 @@ class _Step2EquityState extends State<Step2Equity> {
                             leading: !equityController.isLoadingData.value
                                 ? Obx(
                                     () => IconButton(
-                                      onPressed: widget.id != 0 ||
-                                              widget.id != null &&
-                                                  checkdisablesavedraf()
+                                      onPressed: widget.id != 0 &&
+                                              checkdisablesavedraf()
                                           ? () {
                                               FocusScope.of(context).unfocus();
-                                              context.navigateBack();
+                                              Navigator.pop(context);
                                             }
                                           : equityController.companyName.value == "" &&
                                                   equityController.address.value ==

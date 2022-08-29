@@ -1,12 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/screens/equity_investment/step1_equity.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_application_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Utils/helper/container_partern.dart';
@@ -180,11 +179,9 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                       child: CustomButton(
                                         onPressed: () {
                                           equityController.resetData();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const Step1Equiry()));
+                                          debugPrint("Go to step 1");
+                                          context.go(
+                                              "/get-funding/equity-investment/equity-step1");
                                         },
                                         isDisable: false,
                                         isOutline: false,
@@ -319,7 +316,8 @@ class _EquityInvestmentState extends State<EquityInvestment> {
             onPressed: () {
               equityController.resetData();
 
-              context.router.pushNamed("equity-step1");
+              context.go("/get-funding/equity-investment/equity-step1");
+              debugPrint("Go to step equity step1");
             },
             title: 'Get Equity Invesment',
           ),

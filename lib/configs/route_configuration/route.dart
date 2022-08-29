@@ -2,7 +2,6 @@ import 'package:cicgreenloan/Utils/helper/switch_splash_screen/switch_splash_scr
 import 'package:cicgreenloan/modules/bonus/screens/bonus_screen.dart';
 import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:cicgreenloan/modules/dashboard/dashboard.dart';
-import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/preview_debt_form.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/view_agreement/view_agreement.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/certificate.dart';
@@ -20,6 +19,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../Utils/web_view/web_view.dart';
 import '../../modules/get_funding/screens/equity_investment/preview_equity.dart';
+import '../../modules/get_funding/screens/equity_investment/step1_equity.dart';
+import '../../modules/get_funding/screens/equity_investment/step2_equity.dart';
+import '../../modules/get_funding/screens/equity_investment/step3_equity.dart';
 import '../../modules/get_funding/screens/get_funding.dart';
 import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
 import '../../modules/investment_module/screen/bullet_payment_detail.dart';
@@ -348,6 +350,7 @@ final router = GoRouter(routes: [
                   tabName: state.params['tabName'],
                 ),
             routes: [
+              // Equity Investment
               GoRoute(
                 path: 'preview-equity/:id',
                 name: 'PreviewEquity',
@@ -355,10 +358,36 @@ final router = GoRouter(routes: [
                   id: int.tryParse(state.params['id']!),
                 ),
               ),
+
               GoRoute(
-                path: 'preview-debt/:id',
+                path: 'equity-step1',
+                name: 'EquityStep1',
+                builder: (context, state) => Step1Equiry(
+                  id: int.tryParse(state.params['id']!),
+                  step: int.tryParse(state.params['step']!),
+                ),
+              ),
+              GoRoute(
+                path: 'equity-step2/:id/:step',
+                name: 'EquityStep2',
+                builder: (context, state) => Step2Equity(
+                  id: int.tryParse(state.params['id']!),
+                  step: int.tryParse(state.params['step']!),
+                ),
+              ),
+              GoRoute(
+                path: 'equity-step3/:id/:step',
+                name: 'EquityStep3',
+                builder: (context, state) => Step3Equity(
+                  id: int.tryParse(state.params['id']!),
+                  step: int.tryParse(state.params['step']!),
+                ),
+              ),
+              // Debt Investment
+              GoRoute(
+                path: 'preview-equity/:id',
                 name: 'PreviewDebt',
-                builder: (context, state) => PreviewDebtForm(
+                builder: (context, state) => PreviewEquity(
                   id: int.tryParse(state.params['id']!),
                 ),
               ),

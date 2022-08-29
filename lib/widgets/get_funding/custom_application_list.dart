@@ -77,16 +77,16 @@ class ApplicationList extends StatelessWidget {
                               Navigator.pop(context);
                               isEquity!
                                   ? getFundingModel.step == 1
-                                      ? context.router.pushNamed(
-                                          "step1equity/${getFundingModel.id}/${getFundingModel.step}")
+                                      ? context.go(
+                                          "/get-funding/equity-investment/equity-step1/${getFundingModel.id}/${getFundingModel.step}")
                                       : getFundingModel.step == 2
-                                          ? context.router.pushNamed(
-                                              "step2equity/${getFundingModel.id}/${getFundingModel.step}")
+                                          ? context.go(
+                                              "/get-funding/equity-investment/equity-step2/${getFundingModel.id}/${getFundingModel.step}")
                                           : getFundingModel.step == 3
-                                              ? context.router.pushNamed(
-                                                  "step3equity/${getFundingModel.id}/${getFundingModel.step}")
-                                              : context.router.pushNamed(
-                                                  "preview-equity/${getFundingModel.id}")
+                                              ? context.go(
+                                                  "/get-funding/equity-investment/equity-step3/${getFundingModel.id}/${getFundingModel.step}")
+                                              : context.go(
+                                                  "/get-funding/equity-investment/preview-equity/${getFundingModel.id}")
                                   : getFundingModel.step == 1
                                       ? context.router.pushNamed(
                                           "step1debt/${getFundingModel.id}/${getFundingModel.step}")
