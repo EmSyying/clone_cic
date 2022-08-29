@@ -2,13 +2,13 @@ import 'package:cicgreenloan/modules/investment_module/controller/investment_con
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
 
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/certificate.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Utils/chart/line_chart.dart';
@@ -151,16 +151,19 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PDFViewer(
-                                    title: "Something",
-                                    urlAttachment:
-                                        priceController.certificate.value.data),
-                              ),
-                            );
+                          onTap: () {
+                            context.push(
+                                '/investment/cic-equity-fund/certificate??title=Something&urlAttachment=https://www.tutorialspoint.com/flutter/flutter_tutorial.pdf');
+
+                            // await Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => PDFViewer(
+                            //         title: "Something",
+                            //         urlAttachment:
+                            //             priceController.certificate.value.data),
+                            //   ),
+                            // );
                           },
                           child: Container(
                             alignment: Alignment.center,

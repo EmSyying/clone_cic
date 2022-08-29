@@ -56,7 +56,7 @@ class _RenewalScreenState extends State<RenewalScreen> {
       renewCon.isRenewAmount.value = true;
     }
     if (renewCon.textRenewPeriod.value != '') {
-      await renewCon.onPreviewRenewSubmit();
+      await renewCon.onPreviewRenewSubmit(context);
     }
     return false;
   }

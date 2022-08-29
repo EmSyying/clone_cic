@@ -1,13 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
+import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_application/schedule/schedule.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/contract_withdraw.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/renewal_screen.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/firebase_analytics.dart';
@@ -25,7 +26,7 @@ class SavingDetailScreen extends StatefulWidget {
   final String? investAmonut;
   final String? code;
   final String? currentPrincipal;
-  final EdgeInsets paddings;
+  final EdgeInsets? paddings;
   final String? accountName;
   final String? fromPage;
 
@@ -35,14 +36,15 @@ class SavingDetailScreen extends StatefulWidget {
   const SavingDetailScreen(
       {Key? key,
       this.accountName,
-      required this.paddings,
+      this.paddings,
       this.code,
       this.id,
       this.scheduleModelList,
-      this.hide,
+      this.hide = false,
       this.index,
       this.investAmonut,
-      this.currentPrincipal, this.fromPage})
+      this.currentPrincipal,
+      this.fromPage})
       : super(key: key);
 
   @override
@@ -167,20 +169,50 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                     FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                         'renew contract');
                                     Navigator.pop(context);
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return RenewalScreen(
-                                        id: widget.id,
-                                        annually: fifCon.fifAccountDetailModel
-                                            .value.annuallyInterestRate,
-                                        investAmount: fifCon
-                                            .fifAccountDetailModel
-                                            .value
-                                            .investmentAmount,
-                                        accountName: widget.accountName,
-                                        contractCode: widget.code,
+                                    if (widget.fromPage == null) {
+                                      context.push(
+                                          '/investment/cic-fixed-fund/saving-detail/renew-contract',
+                                          extra: {
+                                            "paddings": const EdgeInsets.only(
+                                                top: 50, left: 10, right: 0),
+                                            "index": widget.index,
+                                            "hide": !widget.hide!,
+                                            "id": widget.id,
+                                            "code": widget.code,
+                                            "accountName": widget.accountName,
+                                            "annually": fifCon
+                                                .fifAccountDetailModel
+                                                .value
+                                                .annuallyInterestRate,
+                                            "investAmount": fifCon
+                                                .fifAccountDetailModel
+                                                .value
+                                                .investmentAmount,
+                                            "contractCode": widget.code
+                                          });
+                                    } else {
+                                      context.push(
+                                        '/notification/saving-detail/renew-contract',
+                                        extra: {
+                                          "paddings": const EdgeInsets.only(
+                                              top: 50, left: 10, right: 0),
+                                          "index": widget.index,
+                                          "hide": !widget.hide!,
+                                          "id": widget.id,
+                                          "code": widget.code,
+                                          "accountName": widget.accountName,
+                                          "annually": fifCon
+                                              .fifAccountDetailModel
+                                              .value
+                                              .annuallyInterestRate,
+                                          "investAmount": fifCon
+                                              .fifAccountDetailModel
+                                              .value
+                                              .investmentAmount,
+                                          "contractCode": widget.code
+                                        },
                                       );
-                                    }));
+                                    }
                                   },
                                   child: Container(
                                     color: Colors.transparent,
@@ -221,9 +253,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           .sendAnalyticsEvent(
                                               'withdraw pricipal');
                                       Navigator.pop(context);
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return ContractWithdrawScreen(
+                                      context.router.push(
+                                        ContractWithdrawScreenRouter(
                                           investAmount: fifCon
                                               .fifAccountDetailModel
                                               .value
@@ -235,8 +266,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           id: widget.id,
                                           contractCode: widget.code,
                                           accountName: widget.accountName,
-                                        );
-                                      }));
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       height: 49,
@@ -918,7 +949,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
           //                           ),
           //                         ),
           //                       ),
-          //                     ),
+          //                     ),x
           //                   const PopupMenuDivider(height: 0),
           //                   PopupMenuItem(
           //                     padding: const EdgeInsets.only(
