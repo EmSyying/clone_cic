@@ -16,11 +16,12 @@ import 'package:get/get.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
-import '../../../Utils/helper/screen_agrument/member_screen_argument.dart';
 import '../../../widgets/member_directory/member_card.dart';
 import '../../../widgets/member_directory/member_shimmer.dart';
+import '../controllers/customer_controller.dart';
+import 'new_profile_ui/new_persional_profile.dart';
 
-import 'member_detail.dart';
+// import 'member_detail.dart';
 
 class Directory extends StatefulWidget {
   final bool? isNavigator;
@@ -41,6 +42,7 @@ class Directory extends StatefulWidget {
 class _DirectoryState extends State<Directory> {
   final memberController = Get.put(MemberController());
   final filterCategories = Get.put(DocumentCategory());
+  final cusController = Get.put(CustomerController());
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   Future<List<Member>>? memberListFuture;
@@ -344,17 +346,22 @@ class _DirectoryState extends State<Directory> {
                                                             context,
                                                             MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  MemberDetail(
-                                                                memberDetailAgrument:
-                                                                    MemberDetailAgrument(
-                                                                  pageName:
-                                                                      'memberList',
-                                                                  isNavigator:
-                                                                      true,
-                                                                  id: e
-                                                                      .value.id,
-                                                                ),
+                                                                  NewPeronalProfile(
+                                                                isDirectory:
+                                                                    true,
+                                                                id: e.value.id,
                                                               ),
+                                                              //   MemberDetail(
+                                                              // memberDetailAgrument:
+                                                              //     MemberDetailAgrument(
+                                                              //   pageName:
+                                                              //       'memberList',
+                                                              //   isNavigator:
+                                                              //       true,
+                                                              //   id: e
+                                                              //       .value.id,
+                                                              // ),
+                                                              // ),
                                                             ),
                                                           );
                                                         },

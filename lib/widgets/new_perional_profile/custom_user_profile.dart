@@ -7,6 +7,7 @@ import 'package:cicgreenloan/widgets/new_perional_profile/custom_option_profile.
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Utils/function/upload_file_controller.dart';
 import '../../modules/member_directory/models/user.dart';
@@ -127,20 +128,27 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
+                            children: [
                               CustomOptionProfile(
+                                onPress: () async {
+                                  await launchUrl(
+                                    Uri.parse(
+                                        '${memberCon.personalProfile.value.phone}'),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                },
                                 title: 'Call',
                                 imageSvg: 'assets/images/svgfile/Call.svg',
                               ),
-                              CustomOptionProfile(
+                              const CustomOptionProfile(
                                 title: 'Email',
                                 imageSvg: 'assets/images/svgfile/message.svg',
                               ),
-                              CustomOptionProfile(
+                              const CustomOptionProfile(
                                 title: 'Telegram',
                                 imageSvg: 'assets/images/svgfile/send.svg',
                               ),
-                              CustomOptionProfile(
+                              const CustomOptionProfile(
                                 title: 'Website',
                                 imageSvg: 'assets/images/svgfile/website.svg',
                               ),

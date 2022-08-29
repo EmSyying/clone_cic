@@ -18,7 +18,10 @@ import 'edit_profile_screen.dart';
 class NewPeronalProfile extends StatefulWidget {
   final int? id;
   final User? user;
-  const NewPeronalProfile({Key? key, this.id, this.user}) : super(key: key);
+  final bool? isDirectory;
+  const NewPeronalProfile(
+      {Key? key, this.id, this.user, this.isDirectory = false})
+      : super(key: key);
 
   @override
   State<NewPeronalProfile> createState() => _NewPeronalProfileState();
@@ -63,49 +66,60 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          leading: const Text(''),
+          leading: widget.isDirectory == true
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close))
+              : const Text(''),
           backgroundColor: AppColor.mainColor,
           elevation: 0,
           actions: [
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return EditProfileScreen(
-                          id: widget.id,
-                          onTapDone: () {
-                            setState(() {
-                              memberCon.updatePersonalProfile(context);
-                              memberCon.fetchMemberPersonProfile(id: widget.id);
-                            });
+            widget.isDirectory == false
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return EditProfileScreen(
+                              id: widget.id,
+                              onTapDone: () {
+                                setState(() {
+                                  memberCon.updatePersonalProfile(context);
+                                  memberCon.fetchMemberPersonProfile(
+                                      id: widget.id);
+                                });
+                              },
+                            );
                           },
-                        );
-                      },
-                    ),
-                  );
-                },
-                child:
-                    SvgPicture.asset('assets/images/svgfile/edit_profile.svg')),
+                        ),
+                      );
+                    },
+                    child: SvgPicture.asset(
+                        'assets/images/svgfile/edit_profile.svg'))
+                : Container(),
             const SizedBox(
               width: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SettingsScreen()));
-                },
-                child: SvgPicture.asset(
-                  'assets/images/svgfile/setting_new.svg',
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            widget.isDirectory == false
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SettingsScreen()));
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/svgfile/setting_new.svg',
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
         body: NestedScrollView(
@@ -131,10 +145,16 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                           ? const SimmmerProfile()
                           : CustomUserProfile(
                               id: customerUser.customer.value.customerId,
-                              fullName: customerUser.customer.value.fullName,
-                              position: customerUser
-                                      .customer.value.position!.display ??
-                                  '',
+                              fullName: widget.isDirectory == true
+                                  ? memberCon
+                                      .personalProfile.value.customerLatinName
+                                  : customerUser.customer.value.fullName,
+                              position: widget.isDirectory == true
+                                  ? memberCon
+                                      .personalProfile.value.position!.display
+                                  : customerUser
+                                          .customer.value.position!.display ??
+                                      '',
                               description: 'Z1 Flexible',
                             ),
                     ),
