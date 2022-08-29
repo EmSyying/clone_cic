@@ -3,7 +3,7 @@ import 'package:cicgreenloan/modules/notification_modules/controllers/notificati
 import 'package:cicgreenloan/modules/notification_modules/models/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/link.dart';
 
 import '../../utils/helper/color.dart';
 
@@ -116,35 +116,17 @@ class PopUpAnnouncement extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  // children: [
-                  //   if (notificationModel!.data!.url != null)
-                  //     InkWell(
-                  //       onTap: () {
-                  //         Navigator.pop(context);
-                  //         launch(notificationModel!.data!.url!);
-                  //       },
-                  //       child: const Padding(
-                  //         padding: EdgeInsets.symmetric(
-                  //             horizontal: 40, vertical: 10),
-                  //         child: Text(
-                  //           'Update Now',
-                  //           style: TextStyle(
-                  //             fontFamily: 'DMSans',
-                  //             fontSize: 16,
-                  //             fontWeight: FontWeight.bold,
-                  //             color: AppColor.mainColor,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     )
-                  // ],
                   children: notificationModel!.data!.button!
-                      .map((data) => InkWell(
+                      .map(
+                        (data) => Link(
+                          target: LinkTarget.self,
+                          uri: Uri.parse(data.target!),
+                          builder: (context, followLink) => InkWell(
                             onTap: () {
                               Navigator.pop(context);
-                              launchUrl(Uri.parse(data.target!),
-                                  mode:
-                                      LaunchMode.externalNonBrowserApplication);
+                              notificationCon
+                                  .onReadNotification(notificationModel!.id!);
+                              followLink!();
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -159,7 +141,9 @@ class PopUpAnnouncement extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ))
+                          ),
+                        ),
+                      )
                       .toList(),
                 ),
               ],
