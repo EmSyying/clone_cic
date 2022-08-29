@@ -74,6 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           onPressed: () {
             privilegController.onFetchAllStore();
+            privilegController.onClearSearch();
             Navigator.pop(context);
           },
         ),

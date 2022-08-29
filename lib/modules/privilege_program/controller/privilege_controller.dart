@@ -47,6 +47,11 @@ class PrivilegeController extends GetxController {
   }
 
   // Search Shop/Store
+  onClearSearch() {
+    searchLocationList.clear();
+    searchShopList.clear();
+  }
+
   final searchShop = PrivilegeShopModel().obs;
   final searchShopList = <PrivilegeShopModel>[].obs;
   final searLocationModel = SearchLocationListModel().obs;
