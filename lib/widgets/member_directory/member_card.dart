@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
+import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
 class MemberCard extends StatelessWidget {
@@ -11,16 +13,19 @@ class MemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.transparent,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      // margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+      height: 90,
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          member!.photo != ""
+          member!.photo != null && member!.photo != ""
               ? CircleAvatar(
-                  backgroundImage: NetworkImage(member!.photo!, scale: 1.0),
+                  backgroundImage: CachedNetworkImageProvider(member!.photo!,
+                      errorListener: () {
+                    debugPrint('Error');
+                  }),
                   radius: 25,
                 )
               : CircleAvatar(
@@ -37,29 +42,27 @@ class MemberCard extends StatelessWidget {
           ),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  member!.name != null ? member!.name! : '',
-                  style: Theme.of(context).textTheme.headline2,
+                  member!.name ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline2!
+                      .copyWith(fontWeight: FontWeight.w700),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                member!.position != ''
-                    ? const SizedBox(
-                        height: 5,
-                      )
-                    : Container(),
                 Row(
                   children: [
                     Expanded(
                       child: Text(
                         member!.position!,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[500],
-                            fontFamily: 'DMSans'),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(color: AppColor.darkColor),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -75,61 +78,21 @@ class MemberCard extends StatelessWidget {
                         : Container(),
                   ],
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                if (member!.phone != "")
-                  Text(
-                    member!.phone!,
-                    style: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'DMSans',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold),
-                  )
+                Text(
+                  member!.company!.isNotEmpty
+                      ? member!.company!
+                      : 'Here is Company name',
+                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: AppColor.chartLabelColor,
+                      ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                )
               ],
             ),
           ),
-          // Row(
-          //   children: [
-          //     PopupMenuButton(
-          //       icon: Icon(Icons.more_vert),
-          //       itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-          //         const PopupMenuItem(
-          //           child: ListTile(
-          //             leading: Icon(Icons.sort),
-          //             title: Text(
-          //               'Sort',
-          //               style: TextStyle(color: Colors.black),
-          //             ),
-          //           ),
-          //         ),
-          //         const PopupMenuItem(
-          //           child: ListTile(
-          //             leading: Icon(Icons.delete),
-          //             title: Text(
-          //               'Delete',
-          //               style: TextStyle(color: Colors.black),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //     IconButton(
-          //         icon: Icon(
-          //           Icons.send,
-          //         ),
-          //         onPressed: () {})
-          //   ],
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(vertical: 10),
-          //   child: Icon(
-          //     Icons.arrow_forward_ios,
-          //     size: 18,
-          //     color: Colors.grey[500],
-          //   ),
-          // ),
         ],
       ),
     );

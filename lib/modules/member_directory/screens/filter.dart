@@ -39,7 +39,7 @@ class _FilterState extends State<Filter> {
   @override
   void initState() {
     loadDataFilter();
-    _memberCon.memberList.clear();
+    // _memberCon.memberList.clear();
     // _filterOption.filterMember();
     super.initState();
   }

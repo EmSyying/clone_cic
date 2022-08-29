@@ -274,7 +274,7 @@ Authorization: Bearer {{token}}
 
 ###
 
-GET {{baseUrl}}user-detail?customer_id=11
+GET {{baseUrl}}user-detail?customer_id=10
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

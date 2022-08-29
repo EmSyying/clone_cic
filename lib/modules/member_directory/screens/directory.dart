@@ -5,6 +5,7 @@ import 'package:cicgreenloan/modules/member_directory/controllers/member_control
 import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/filter.dart';
+import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
@@ -18,6 +19,7 @@ import '../../../Utils/helper/firebase_analytics.dart';
 import '../../../Utils/helper/screen_agrument/member_screen_argument.dart';
 import '../../../widgets/member_directory/member_card.dart';
 import '../../../widgets/member_directory/member_shimmer.dart';
+
 import 'member_detail.dart';
 
 class Directory extends StatefulWidget {
@@ -194,178 +196,198 @@ class _DirectoryState extends State<Directory> {
     }
   }
 
+  final simpleListFilter = <String>[
+    'UX/UI',
+    'Information Technology',
+    'Flutter',
+    'Z1 Flexible',
+    'CIC Member'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return DefaultSizeWeb(
-      child: WillPopScope(
-        onWillPop: () async =>
-            widget.isNavigator != null && widget.isNavigator! ? true : false,
-        child: Scaffold(
-          body: ConnectivityWidgetWrapper(
-            stacked: false,
-            alignment: Alignment.bottomCenter,
-            offlineWidget: Column(
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        appBar: showAppbar(),
+        body: ConnectivityWidgetWrapper(
+          stacked: false,
+          alignment: Alignment.bottomCenter,
+          offlineWidget: Column(
+            children: [
+              CustomAppBar(
+                  isLeading: true,
+                  context: context,
+                  backgroundColor: Theme.of(context).backgroundColor,
+                  elevation: 0.0,
+                  title: 'Directory'),
+              const Expanded(child: OfflineWidget()),
+            ],
+          ),
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomAppBar(
-                    isLeading: true,
-                    context: context,
-                    backgroundColor: Theme.of(context).backgroundColor,
-                    elevation: 0.0,
-                    title: 'Directory'),
-                const Expanded(child: OfflineWidget()),
-              ],
-            ),
-            child: Obx(
-              () => Stack(
-                children: [
-                  const SizedBox(
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-
-                  ///
-                  showSearchFromDirectory(),
-                  showSearchFromTradeScreen(),
-
-                  ///show left filter icon
-                  widget.fromPage != 'tradeScreen'
-                      ? Positioned(
-                          top: 89,
-                          left: 15,
-                          child: SizedBox(
-                            height: 50.0,
-                            child: SvgPicture.asset(
-                              'assets/images/svgfile/filterIcon.svg',
-                              height: 25,
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
-
-                  ///show filter
-                  showFilter(),
-
-                  Positioned(
-                    top: widget.fromPage != 'tradeScreen' ? 155 : 80,
-                    right: 0,
-                    left: 0,
-                    bottom: 0,
-                    child: SizedBox(
-                      height: double.infinity,
-                      width: double.infinity,
-                      child: RefreshIndicator(
-                        key: _refreshKey,
-                        onRefresh: onRefreshFetchMember,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: memberController
-                                      .fetchAllMemberLoading.value
-                                  ? showShimmer()
-                                  : memberController.listAllMember.isEmpty
-                                      ? showEmptyState()
-                                      : NotificationListener<
-                                          ScrollEndNotification>(
-                                          onNotification: (notification) {
-                                            if (notification.metrics.pixels ==
-                                                notification
-                                                    .metrics.maxScrollExtent) {
-                                              debugPrint(
-                                                  'IS next ${memberController.next.value}');
-                                              memberController.next.value
-                                                  ? onGetMoreData()
-                                                  : null;
-                                              return true;
-                                            }
-                                            return false;
-                                          },
-                                          child: ListView(
-                                            padding: EdgeInsets.only(
-                                                bottom: 20,
-                                                top: widget.fromPage ==
-                                                        'tradeScreen'
-                                                    ? 0
-                                                    : 5),
-                                            children: memberController
-                                                .listAllMember
-                                                .asMap()
-                                                .entries
-                                                .map(
-                                              (e) {
-                                                return Column(
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: widget.fromPage ==
-                                                              'tradeScreen'
-                                                          ? () {
-                                                              FirebaseAnalyticsHelper
-                                                                  .sendAnalyticsEvent(
-                                                                      'Trading ${e.value.name!}');
-                                                              widget.onTap!(
-                                                                  e.value);
-                                                              Navigator.pop(
-                                                                  context);
-
-                                                              // print(item![index].name);
-                                                            }
-                                                          : () {
-                                                              FirebaseAnalyticsHelper
-                                                                  .sendAnalyticsEvent(
-                                                                      'Directory Profile ${e.value.name!}');
-
-                                                              Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          MemberDetail(
-                                                                    memberDetailAgrument:
-                                                                        MemberDetailAgrument(
-                                                                      pageName:
-                                                                          'memberList',
-                                                                      isNavigator:
-                                                                          true,
-                                                                      id: e
-                                                                          .value
-                                                                          .id,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                      child: MemberCard(
-                                                        // isSelected: false,
-                                                        member: e.value,
-                                                      ),
-                                                    ),
-
-                                                    ///Divider
-                                                    e.key !=
-                                                            memberController
-                                                                    .listAllMember
-                                                                    .length -
-                                                                1
-                                                        ? const Divider(
-                                                            height: 0,
-                                                            thickness: 1,
-                                                          )
-                                                        : const SizedBox()
-                                                  ],
-                                                );
-                                              },
-                                            ).toList(),
-                                          ),
-                                        ),
-                            ),
-                            showLoadingMore()
-                          ],
-                        ),
+                _showSearchFromDirectory(),
+                if (simpleListFilter.isNotEmpty)
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, top: 20, right: 20),
+                    child: Wrap(
+                      runSpacing: 10,
+                      spacing: 10,
+                      children: List.generate(
+                        simpleListFilter.length + 1,
+                        (index) => index == simpleListFilter.length
+                            ? GestureDetector(
+                                onTap: () {
+                                  simpleListFilter.clear();
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  width: 55,
+                                  height: 36,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Clear All',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColor.newRedStatus),
+                                  ),
+                                ),
+                              )
+                            : _buildFilterChip(
+                                onTap: () {
+                                  simpleListFilter.removeAt(index);
+                                  setState(() {});
+                                },
+                                text: simpleListFilter[index],
+                              ),
                       ),
                     ),
                   ),
-                  showAppbar(),
-                ],
-              ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Text(
+                    simpleListFilter.isNotEmpty
+                        ? '${simpleListFilter.length} Results'
+                        : 'All Directory',
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.chartLabelColor),
+                  ),
+                ),
+                Expanded(
+                  child: RefreshIndicator(
+                    key: _refreshKey,
+                    onRefresh: onRefreshFetchMember,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: memberController.fetchAllMemberLoading.value
+                              ? _showShimmer()
+                              : memberController.listAllMember.isEmpty
+                                  ? _showEmptyState()
+                                  : NotificationListener<ScrollEndNotification>(
+                                      onNotification: (notification) {
+                                        if (notification.metrics.pixels ==
+                                            notification
+                                                .metrics.maxScrollExtent) {
+                                          debugPrint(
+                                              'IS next ${memberController.next.value}');
+                                          memberController.next.value
+                                              ? onGetMoreData()
+                                              : null;
+                                          return true;
+                                        }
+                                        return false;
+                                      },
+                                      child: ListView(
+                                        padding: EdgeInsets.only(
+                                            bottom: 20,
+                                            top:
+                                                widget.fromPage == 'tradeScreen'
+                                                    ? 0
+                                                    : 5),
+                                        children: memberController.listAllMember
+                                            .asMap()
+                                            .entries
+                                            .map(
+                                          (e) {
+                                            return Column(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: widget.fromPage ==
+                                                          'tradeScreen'
+                                                      ? () {
+                                                          FirebaseAnalyticsHelper
+                                                              .sendAnalyticsEvent(
+                                                                  'Trading ${e.value.name!}');
+                                                          widget
+                                                              .onTap!(e.value);
+                                                          Navigator.pop(
+                                                              context);
+
+                                                          // print(item![index].name);
+                                                        }
+                                                      : () {
+                                                          FirebaseAnalyticsHelper
+                                                              .sendAnalyticsEvent(
+                                                                  'Directory Profile ${e.value.name!}');
+
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  MemberDetail(
+                                                                memberDetailAgrument:
+                                                                    MemberDetailAgrument(
+                                                                  pageName:
+                                                                      'memberList',
+                                                                  isNavigator:
+                                                                      true,
+                                                                  id: e
+                                                                      .value.id,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                  child: MemberCard(
+                                                    // isSelected: false,
+                                                    member: e.value,
+                                                  ),
+                                                ),
+
+                                                ///Divider
+                                                e.key !=
+                                                        memberController
+                                                                .listAllMember
+                                                                .length -
+                                                            1
+                                                    ? const Divider(
+                                                        height: 0,
+                                                        thickness: 1,
+                                                      )
+                                                    : const SizedBox()
+                                              ],
+                                            );
+                                          },
+                                        ).toList(),
+                                      ),
+                                    ),
+                        ),
+                        showLoadingMore()
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -373,139 +395,108 @@ class _DirectoryState extends State<Directory> {
     );
   }
 
-  Widget showFilter() {
+  Widget _buildFilterChip({String? text, GestureTapCallback? onTap}) =>
+      GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          decoration: BoxDecoration(
+              color: AppColor.mainColor.withOpacity(0.14),
+              borderRadius: BorderRadius.circular(8)),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                text ?? 'Information Technology',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2!
+                    .copyWith(fontSize: 12, color: AppColor.mainColor),
+              ),
+              const SizedBox(width: 5),
+              SvgPicture.asset('assets/images/svgfile/wrong.svg')
+            ],
+          ),
+        ),
+      );
+
+  Widget _showFilter() {
+    return GestureDetector(
+      onTap: () {
+        FirebaseAnalyticsHelper.sendAnalyticsEvent('Directory Filter');
+        memberController.mapList.clear();
+        onNavigatorToFilter();
+      },
+      child: SvgPicture.asset(
+        'assets/images/svgfile/new_filter.svg',
+      ),
+    );
+  }
+
+  showAppbar() {
     return widget.fromPage != 'tradeScreen'
-        ? Positioned(
-            top: 89,
-            right: 15,
-            child: GestureDetector(
-              onTap: () {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent('Directory Filter');
-                memberController.mapList.clear();
-                onNavigatorToFilter();
-              },
-              child: SizedBox(
-                height: 50.0,
-                child: SvgPicture.asset(
-                  'assets/images/svgfile/Icon-Filter.svg',
-                  height: 35,
+        ? CustomAppBar(
+            isLogo: false,
+            isLeading: true,
+            context: context,
+            backgroundColor: AppColor.mainColor,
+            elevation: 0.0,
+            title: 'Directory')
+        : null;
+  }
+
+  Widget _showSearchFromDirectory() => Container(
+        width: double.infinity,
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.only(top: 20),
+        child: TextFormField(
+          controller: memberController.searchTextFieldController.value,
+          onChanged: _onChangeHandler,
+          decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: SvgPicture.asset(
+                'assets/images/svgfile/directory_search.svg',
+              ),
+            ),
+            prefixIconConstraints: const BoxConstraints(minWidth: 35),
+            suffixIconConstraints: const BoxConstraints(minWidth: 46),
+            suffixIcon: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 20,
+                  width: 1,
+                  color: const Color(0xffafafaf).withOpacity(0.25),
                 ),
-              ),
+                _showFilter(),
+              ],
             ),
-          )
-        : const SizedBox.shrink();
-  }
 
-  Widget showAppbar() {
-    return widget.fromPage != 'tradeScreen'
-        ? Positioned(
-            top: 0.0,
-            right: 0.0,
-            left: 0.0,
-            child: CustomAppBar(
-                isLogo: false,
-                isLeading: true,
-                context: context,
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                title: 'Directory'),
-          )
-        : const SizedBox();
-  }
-
-  Widget showSearchFromTradeScreen() {
-    return widget.fromPage == 'tradeScreen'
-        ? Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  color: const Color(0xffAFAFAF).withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/images/searchicon.svg',
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                      controller:
-                          memberController.searchTextFieldController.value,
-                      onChanged: _onChangeHandler,
-                      decoration: InputDecoration(
-                          hintText: 'Search By First Name , Last Name, . . . ',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          border: InputBorder.none,
-                          fillColor: Colors.grey[300],
-                          contentPadding: const EdgeInsets.all(10)),
-                    ),
-                  ),
-                ],
-              ),
+            hintText: 'Search By First Name , Last Name, . . . ',
+            hintStyle: const TextStyle(color: AppColor.chartLabelColor),
+            border: InputBorder.none,
+            fillColor: const Color(0xffAFAFAF).withOpacity(0.25),
+            filled: true,
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(10),
             ),
-          )
-        : const SizedBox();
-  }
-
-  Widget showSearchFromDirectory() {
-    return widget.fromPage != 'tradeScreen'
-        ? Positioned(
-            top: 0.0,
-            left: 0.0,
-            right: 0.0,
-            child: Container(
-              height: 155,
-              width: double.infinity,
-              color: context.theme.backgroundColor,
-              child: Container(
-                margin: const EdgeInsets.only(left: 55, right: 55, top: 30),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 62,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.white12,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/svgfile/search.svg',
-                            height: 20,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              controller: memberController
-                                  .searchTextFieldController.value,
-                              onChanged: _onChangeHandler,
-                              decoration: InputDecoration(
-                                  hintText:
-                                      'Search By First Name , Last Name, . . . ',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white54),
-                                  border: InputBorder.none,
-                                  fillColor: Colors.grey[300],
-                                  contentPadding: const EdgeInsets.all(10)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(10),
             ),
-          )
-        : const SizedBox();
-  }
+            // contentPadding: const EdgeInsets.all(10),
+          ),
+        ),
+      );
 
-  Widget showShimmer() {
+  Widget _showShimmer() {
     return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 0),
@@ -560,7 +551,7 @@ class _DirectoryState extends State<Directory> {
         : Container();
   }
 
-  Widget showEmptyState() {
+  Widget _showEmptyState() {
     return Center(
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
