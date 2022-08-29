@@ -296,9 +296,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
               // NotificationScreen(),
 
               NewPeronalProfile(
-                description: 'Z1 Flexibal',
-                position: 'Flutter Dev',
-                userName: 'Syying',
                 id: cusController.customer.value.customerId,
               )
               // MemberDetail(
