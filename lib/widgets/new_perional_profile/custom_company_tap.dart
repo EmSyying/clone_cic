@@ -54,7 +54,6 @@ class CustomCompanyTap extends StatelessWidget {
     final pageController = SwiperController();
     //  final memberCon = Get.put(MemberController());
     final companyCon = Get.put(NewProfileController());
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -114,160 +113,165 @@ class CustomCompanyTap extends StatelessWidget {
                   color: Colors.black,
                 ),
                 itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                  PopupMenuItem(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: GestureDetector(
-                      onTap: onTapPhone,
-                      child: Container(
-                        color: Colors.transparent,
-                        height: 49,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 18.0),
-                            SvgPicture.asset(
-                                'assets/images/svgfile/phone_border.svg'),
-                            const SizedBox(width: 15.0),
-                            Expanded(
-                              child: Text(
-                                "$phone",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.darkColor),
+                  if (phone != null && phone != '')
+                    PopupMenuItem(
+                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      child: GestureDetector(
+                        onTap: onTapPhone,
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 49,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 18.0),
+                              SvgPicture.asset(
+                                  'assets/images/svgfile/phone_border.svg'),
+                              const SizedBox(width: 15.0),
+                              Expanded(
+                                child: Text(
+                                  "$phone",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.darkColor),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   const PopupMenuDivider(height: 0),
-                  PopupMenuItem(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: GestureDetector(
-                      onTap: onTapEmail,
-                      child: Container(
-                        height: 49,
-                        color: Colors.transparent,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 18.0),
-                            SvgPicture.asset(
-                                'assets/images/svgfile/message_border.svg'),
-                            const SizedBox(width: 15.0),
-                            Expanded(
-                              child: Text(
-                                "$email",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.darkColor),
-                              ),
-                            )
-                          ],
+                  if (email != null && email != '')
+                    PopupMenuItem(
+                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      child: GestureDetector(
+                        onTap: onTapEmail,
+                        child: Container(
+                          height: 49,
+                          color: Colors.transparent,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 18.0),
+                              SvgPicture.asset(
+                                  'assets/images/svgfile/message_border.svg'),
+                              const SizedBox(width: 15.0),
+                              Expanded(
+                                child: Text(
+                                  "$email",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.darkColor),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   const PopupMenuDivider(height: 0),
-                  PopupMenuItem(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: GestureDetector(
-                      onTap: onTapAddress,
-                      child: Container(
-                        color: Colors.transparent,
-                        height: 49,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 18.0),
-                            SvgPicture.asset(
-                                'assets/images/svgfile/location_border.svg'),
-                            const SizedBox(width: 15.0),
-                            Expanded(
-                              child: Text(
-                                "$address",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.darkColor),
+                  if (address != null && address != '')
+                    PopupMenuItem(
+                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      child: GestureDetector(
+                        onTap: onTapAddress,
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 49,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 18.0),
+                              SvgPicture.asset(
+                                  'assets/images/svgfile/location_border.svg'),
+                              const SizedBox(width: 15.0),
+                              Expanded(
+                                child: Text(
+                                  "$address",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.darkColor),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   const PopupMenuDivider(height: 0),
-                  PopupMenuItem(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: GestureDetector(
-                      onTap: onTapAssociate,
-                      child: Container(
-                        color: Colors.transparent,
-                        height: 49,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 18.0),
-                            SvgPicture.asset(
-                                'assets/images/svgfile/web_border.svg'),
-                            const SizedBox(width: 15.0),
-                            Expanded(
-                              child: Text(
-                                "$website",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.darkColor),
+                  if (website != null && website != '')
+                    PopupMenuItem(
+                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      child: GestureDetector(
+                        onTap: onTapAssociate,
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 49,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 18.0),
+                              SvgPicture.asset(
+                                  'assets/images/svgfile/web_border.svg'),
+                              const SizedBox(width: 15.0),
+                              Expanded(
+                                child: Text(
+                                  "$website",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.darkColor),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   const PopupMenuDivider(height: 0),
-                  PopupMenuItem(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: GestureDetector(
-                      onTap: onTapEdit,
-                      child: Container(
-                        color: Colors.transparent,
-                        height: 49,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 18.0),
-                            SvgPicture.asset(
-                              'assets/images/svgfile/edit_profile.svg',
-                              color: AppColor.mainColor,
-                              width: 18,
-                              height: 18,
-                            ),
-                            const SizedBox(width: 15.0),
-                            Expanded(
-                              child: Text(
-                                "$editCompany",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColor.mainColor,
-                                    ),
+                  if (editCompany != null && editCompany != '')
+                    PopupMenuItem(
+                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      child: GestureDetector(
+                        onTap: onTapEdit,
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 49,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 18.0),
+                              SvgPicture.asset(
+                                'assets/images/svgfile/edit_profile.svg',
+                                color: AppColor.mainColor,
+                                width: 18,
+                                height: 18,
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: 15.0),
+                              Expanded(
+                                child: Text(
+                                  "$editCompany",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.mainColor,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ],

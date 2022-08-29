@@ -4,6 +4,8 @@ import 'package:cicgreenloan/widgets/new_perional_profile/custom_company_tap.dar
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'edit_profile_screen.dart';
+
 class CompanyProfileTab extends StatefulWidget {
   final int? id;
   const CompanyProfileTab({Key? key, this.id}) : super(key: key);
@@ -13,6 +15,14 @@ class CompanyProfileTab extends StatefulWidget {
 }
 
 class _CompanyProfileTabState extends State<CompanyProfileTab> {
+  @override
+  void initState() {
+    memberCon.fetchCompanyMember(id: widget.id);
+    memberCon.update();
+
+    super.initState();
+  }
+
   final memberCon = Get.put(MemberController());
   // final companyCon = Get.put(NewProfileController());
   bool isHideAddress = false;
@@ -51,39 +61,49 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.id != null) {
-      memberCon.fetchCompanyMember(id: widget.id);
-    }
+    return Obx(
+      () => memberCon.isLoadingCompanyProfile.value
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: memberCon.companyDataList.isEmpty
+                  ? const CustomEmptyState()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          memberCon.companyDataList.asMap().entries.map((e) {
+                        return CustomCompanyTap(
+                          imageProfile: e.value.companyLogo,
+                          companyName: e.value.companyName,
+                          title: 'heloo',
+                          description:
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Gravida sit tortor nisl fringilla porttitor viverra scelerisque. Turpis nisl et facilisis aliquam ultricies interdum lectus eget facilisis aliquam.',
+                          image:
+                              'https://www.khmertimeskh.com/wp-content/uploads/2019/11/Youk-Chamroeunrith-Chairman-of-Forte-Life-Assurance-Cambodia-L-and-Kuy-Vat-Siv-Channa-1.jpg',
+                          phone: e.value.phoneNumber ?? '',
+                          email: e.value.email ?? '',
+                          address: e.value.address ?? '',
+                          website: e.value.website ?? '',
+                          editCompany: 'Edit company info',
+                          onTapEdit: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return EditProfileScreen(
+                                isEditCompany: true,
+                                companyData: e.value,
+                                onTapDone: () {
+                                  memberCon.onUpdateCompany(
+                                      context, memberCon.company.value.id!);
+                                },
+                              );
+                            }));
+                          },
+                        );
+                      }).toList(),
+                    ),
 
-    return GetBuilder(
-        init: MemberController(),
-        builder: (controller) {
-          return SingleChildScrollView(
-            child: memberCon.companyDataList.isEmpty
-                ? const CustomEmptyState()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        memberCon.companyDataList.asMap().entries.map((e) {
-                      return CustomCompanyTap(
-                        imageProfile: e.value.companyLogo,
-                        companyName: e.value.companyName,
-                        title: 'heloo',
-                        description:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Gravida sit tortor nisl fringilla porttitor viverra scelerisque. Turpis nisl et facilisis aliquam ultricies interdum lectus eget facilisis aliquam.',
-                        image:
-                            'https://www.khmertimeskh.com/wp-content/uploads/2019/11/Youk-Chamroeunrith-Chairman-of-Forte-Life-Assurance-Cambodia-L-and-Kuy-Vat-Siv-Channa-1.jpg',
-                        phone: e.value.phoneNumber ?? '',
-                        email: e.value.email ?? '',
-                        address: e.value.address ?? '',
-                        website: e.value.website ?? '',
-                        editCompany: 'Edit company info',
-                      );
-                    }).toList(),
-                  ),
-            //   ),
-            // ),
-          );
-        });
+              //   ),
+              // ),
+            ),
+    );
   }
 }

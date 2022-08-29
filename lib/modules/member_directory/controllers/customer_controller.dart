@@ -9,7 +9,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 
 class CustomerController extends GetxController {
-  final customer = User().obs;
   final isloading = false.obs;
   final isLoginSuccess = false.obs;
 
@@ -21,25 +20,24 @@ class CustomerController extends GetxController {
   final loanType = ''.obs;
   final shortenUrl = ''.obs;
   final dynamicParth = ''.obs;
-
+  final customer = User().obs;
   Future<User> getUser() async {
     isloading(true);
     dynamic responseJson;
-    final _customer = User().obs;
-    var _token = await LocalData.getCurrentUser();
+    var token = await LocalData.getCurrentUser();
 
     String userUrl = '${GlobalConfiguration().getValue('main_api_url')}user';
     try {
       await http.get(Uri.parse(userUrl), headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $_token'
+        'Authorization': 'Bearer $token'
       }).then((response) async {
         if (response.statusCode == 200) {
           isLoginSuccess(true);
           responseJson = json.decode(response.body);
-          _customer.value = User.fromJson(responseJson);
-          customer.value = _customer.value;
+          customer.value = User.fromJson(responseJson);
+          customer.value = customer.value;
           var storePINCode = json.decode(response.body)['pin_code'];
 
           LocalData.setPINCode("setPIN", storePINCode);

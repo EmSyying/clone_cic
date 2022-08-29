@@ -10,23 +10,22 @@ import 'package:get/get.dart';
 
 import '../../../../utils/helper/firebase_analytics.dart';
 import '../../../../widgets/new_perional_profile/simmer_profile.dart';
+import '../../controllers/customer_controller.dart';
 import '../../controllers/member_controller.dart';
+import '../../models/user.dart';
 import 'edit_profile_screen.dart';
 
 class NewPeronalProfile extends StatefulWidget {
-  final String? userName;
-  final String? position;
-  final String? description;
   final int? id;
-  const NewPeronalProfile(
-      {Key? key, this.userName, this.position, this.description, this.id})
-      : super(key: key);
+  final User? user;
+  const NewPeronalProfile({Key? key, this.id, this.user}) : super(key: key);
 
   @override
   State<NewPeronalProfile> createState() => _NewPeronalProfileState();
 }
 
 class _NewPeronalProfileState extends State<NewPeronalProfile> {
+  final customerUser = Get.put(CustomerController());
   final memberCon = Get.put(MemberController());
   bool? isInnerBox = false;
   List<Widget> widgets = [
@@ -36,7 +35,6 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
   @override
   void initState() {
     memberCon.fetchMemberPersonProfile(id: widget.id);
-
     widgets = [
       Obx(
         () => memberCon.isLoadingProfile.value
@@ -47,9 +45,12 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
       ),
       CompanyProfileTab(
         id: widget.id,
+        // description:
+        //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Gravida sit tortor nisl fringilla porttitor viverra scelerisque. Turpis nisl et facilisis aliquam ultricies interdum lectus eget facilisis aliquam.',
+        // companyName: memberCon.company.value.companyName ?? '',
+        // title: 'Beyond Investment Opportunity',
       ),
     ];
-
     super.initState();
   }
 
@@ -74,6 +75,12 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                       builder: (context) {
                         return EditProfileScreen(
                           id: widget.id,
+                          onTapDone: () {
+                            setState(() {
+                              memberCon.updatePersonalProfile(context);
+                              memberCon.fetchMemberPersonProfile(id: widget.id);
+                            });
+                          },
                         );
                       },
                     ),
@@ -120,11 +127,14 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
                     background: Obx(
-                      () => memberCon.isLoadingProfile.value
+                      () => customerUser.isloading.value
                           ? const SimmmerProfile()
                           : CustomUserProfile(
-                              id: widget.id,
-                              position: 'Flutter dev',
+                              id: customerUser.customer.value.customerId,
+                              fullName: customerUser.customer.value.fullName,
+                              position: customerUser
+                                      .customer.value.position!.display ??
+                                  '',
                               description: 'Z1 Flexible',
                             ),
                     ),
@@ -168,6 +178,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   child: PageView(
                     controller: _pageViewController,
                     onPageChanged: (value) {
+                      debugPrint('heloo${_pageViewController.initialPage}');
                       if (_pageViewController.page == 0) {
                         FirebaseAnalyticsHelper.sendAnalyticsEvent(
                             'Personal Profile');

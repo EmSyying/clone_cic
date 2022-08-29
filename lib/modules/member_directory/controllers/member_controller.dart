@@ -1207,8 +1207,7 @@ class MemberController extends GetxController {
   final currentPage = 0.obs;
   final isEmty = false.obs;
   final mapList = <String, List<int>>{}.obs;
-  final personalProfile = PersonalProfileModel().obs;
-  final personalProfilemember = User().obs;
+
   final educationMemberData = <EducationData>[].obs;
 
   // final educationModel = EducationModel().obs;
@@ -1322,6 +1321,8 @@ class MemberController extends GetxController {
   File? comCompanyLogo;
   final memberIdList = <dynamic>[].obs;
   final profilePage = 1.obs;
+  final comAboutUs = ''.obs;
+  final comProduct = ''.obs;
   // List<dynamic>? invitedList=memberIdList;
   int? eventId;
   // onInviteMember({Member? member}) {
@@ -1429,9 +1430,11 @@ class MemberController extends GetxController {
     }
   }
 
+  final isLoadingUpdateComapny = false.obs;
+
   Future<void> onUpdateCompany(BuildContext context, int id) async {
     String url =
-        '${GlobalConfiguration().get('api_base_url')}member-company/update';
+        '${GlobalConfiguration().get('api_base_urlv3')}member-company/update';
     if (comCompanyLogo != null) {
       final byte = comCompanyLogo!.readAsBytesSync();
       final companyLogos = await FlutterImageCompress.compressWithList(
@@ -1474,7 +1477,7 @@ class MemberController extends GetxController {
     });
 
     try {
-      isLoading(true);
+      isLoadingUpdateComapny(true);
       await http
           .post(Uri.parse(url),
               headers: {
@@ -1485,59 +1488,58 @@ class MemberController extends GetxController {
               body: data)
           .then((response) {
         if (response.statusCode == 200) {
-          Get.snackbar("", "Company Updated Successful...!",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
-              backgroundColor: const Color(0xff60AD00),
-              colorText: Colors.white,
-              icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Updated Company',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                ' Company Updated Successful...!',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text("Company Updated Successful...!"),
+              backgroundColor: Colors.green,
+              padding: EdgeInsets.all(20),
+            ),
+          );
 
-          Timer(const Duration(seconds: 1), () {
-            Navigator.pop(context);
-          });
+          // Timer(const Duration(seconds: 1), () {
+          //   Navigator.pop(context);
+          // });
         } else {
           debugPrint('Status Code = ${response.body}');
-          Get.snackbar("", "Company Updated Failed...!",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text("Company Updated Failed...!"),
               backgroundColor: Colors.red,
-              colorText: Colors.white,
-              icon: const Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Updated Company',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'Company Updated Failed...!',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+              padding: EdgeInsets.all(20),
+            ),
+          );
+          // Get.snackbar("", "Company Updated Failed...!",
+          //     borderRadius: 8,
+          //     duration: const Duration(seconds: 2),
+          //     backgroundColor: Colors.red,
+          //     colorText: Colors.white,
+          //     icon: const Icon(
+          //       Icons.close,
+          //       color: Colors.white,
+          //     ),
+          //     snackPosition: SnackPosition.TOP,
+          //     margin: const EdgeInsets.all(10),
+          //     overlayBlur: 3.0,
+          //     titleText: const Text(
+          //       'Updated Company',
+          //       style: TextStyle(color: Colors.white),
+          //     ),
+          //     messageText: const Text(
+          //       'Company Updated Failed...!',
+          //       style: TextStyle(color: Colors.white),
+          //     ),
+          //     snackStyle: SnackStyle.FLOATING);
         }
       });
     } finally {
       base64Image = '';
-      isLoading(false);
+      isLoadingUpdateComapny(false);
     }
   }
 
+  final isLoadingSubmitCompany = false.obs;
   Future<void> onSubmitCompany(BuildContext context) async {
     String url = '${GlobalConfiguration().get('api_base_url')}member-company';
     tokenKey = await LocalData.getCurrentUser();
@@ -1581,7 +1583,7 @@ class MemberController extends GetxController {
     });
 
     try {
-      isLoading(true);
+      isLoadingSubmitCompany(true);
       var response = await http.post(Uri.parse(url),
           headers: {
             'Content-Type': 'application/json',
@@ -1640,7 +1642,7 @@ class MemberController extends GetxController {
     } finally {
       //  isSelectTap.value = false;
       base64Image = '';
-      isLoading(false);
+      isLoadingSubmitCompany(false);
     }
   }
 
@@ -1961,11 +1963,11 @@ class MemberController extends GetxController {
     return subscriptionList;
   }
 
-  final isLoadingProfile = false.obs;
   final isLoadingQRCode = false.obs;
-  Future<User> getUserDetail(int id) async {
+  final personalProfilemember = User().obs;
+  Future<User> getUserDetail(int? id) async {
     isLoadingQRCode(true);
-    dynamic responseJson;
+    // dynamic responseJson;
     var token = await LocalData.getCurrentUser();
 
     String userUrl =
@@ -1977,7 +1979,8 @@ class MemberController extends GetxController {
         'Authorization': 'Bearer $token'
       }).then((response) async {
         if (response.statusCode == 200) {
-          responseJson = json.decode(response.body);
+          var responseJson = json.decode(response.body);
+
           personalProfilemember.value = User.fromJson(responseJson);
         } else {}
       });
@@ -1987,19 +1990,26 @@ class MemberController extends GetxController {
     return personalProfilemember.value;
   }
 
+  // @override
+  // void onInit() {
+  //   fetchMemberPersonProfile(id: 21);
+
+  //   super.onInit();
+  // }
+
+  final isLoadingProfile = false.obs;
+  final personalProfile = PersonalProfileModel().obs;
   Future<PersonalProfileModel> fetchMemberPersonProfile({int? id}) async {
     isLoadingProfile(true);
     tokenKey = await LocalData.getCurrentUser();
-
+    String url =
+        '${GlobalConfiguration().get('api_base_urlv3')}member-profile?member_id=$id';
     try {
-      String url =
-          '${GlobalConfiguration().get('api_base_url')}member-profile?member_id=$id';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer $tokenKey'
       }).then((response) {
-        // print('=============S Member=============: ${response.body}');
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['data'];
 
@@ -2046,7 +2056,7 @@ class MemberController extends GetxController {
     String? field,
     int? active,
   }) async {
-    String url = '${GlobalConfiguration().get('api_base_url')}hidden-field';
+    String url = '${GlobalConfiguration().get('api_base_urlv3')}hidden-field';
     tokenKey = await LocalData.getCurrentUser();
 
     var data = json.encode({
@@ -2108,21 +2118,21 @@ class MemberController extends GetxController {
   Future<List<CompanyData>> fetchCompanyMember({int? id}) async {
     tokenKey = await LocalData.getCurrentUser();
     try {
-      companyDataList.clear();
       isLoadingCompanyProfile(true);
-      String? url;
-      if (id != null) {
-        url =
-            '${GlobalConfiguration().get('api_base_urlv3')}member-company?member_id=$id';
-      } else {
-        url = '${GlobalConfiguration().get('api_base_urlv3')}company';
-      }
+
+      // if (id != null) {
+      String url =
+          '${GlobalConfiguration().get('api_base_urlv3')}member-company?member_id=$id';
+      // } else {
+      //   url = '${GlobalConfiguration().get('api_base_urlv3')}company';
+      // }
 
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer $tokenKey'
       }).then((response) {
+        companyDataList.clear();
         if (response.statusCode == 200) {
           companyDataList.clear();
           var responseJson = json.decode(response.body)['data'];

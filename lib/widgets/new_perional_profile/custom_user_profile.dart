@@ -1,27 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:cicgreenloan/Utils/helper/color.dart';
-import 'package:cicgreenloan/generated/l10n.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/widgets/new_perional_profile/custom_option_profile.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../Utils/function/upload_file_controller.dart';
 import '../../modules/member_directory/models/user.dart';
-import '../../modules/member_directory/screens/new_profile_ui/view_image_profile_screen.dart';
-import '../../utils/function/get_sharepreference_data.dart';
 
 class CustomUserProfile extends StatefulWidget {
   final String? fullName;
@@ -47,277 +35,6 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
   final customerCon = Get.put(CustomerController());
   final memberCon = Get.put(MemberController());
   final uploadImageCon = Get.put(UploadFileController());
-  final _pickerImage = ImagePicker();
-  File? imageFile;
-
-  Future<void> _onChooseImage() async {
-    final pickerFile = await _pickerImage.pickImage(
-      source: ImageSource.gallery,
-    );
-    setState(() {
-      if (pickerFile != null) {
-        imageFile = File(pickerFile.path);
-      }
-    });
-    startUpload();
-  }
-
-  Future<void> _onOpenCamera() async {
-    final pickerFile = await _pickerImage.pickImage(source: ImageSource.camera);
-    setState(() {
-      if (pickerFile != null) {
-        imageFile = File(pickerFile.path);
-      }
-    });
-    startUpload();
-  }
-
-  uploadImage(BuildContext context) {
-    return kIsWeb
-        ? showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return SizedBox(
-                height: 170.0,
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await _onOpenCamera()
-                            .then((value) => Navigator.pop(context));
-                      },
-                      child: Container(
-                        color: Colors.white,
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 100.0, vertical: 15),
-                        child: Center(
-                          child: Text(S.of(context).takePhoto,
-                              style: Theme.of(context).textTheme.headline5),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        await _onChooseImage()
-                            .then((value) => Navigator.pop(context));
-                      },
-                      child: Container(
-                        color: Colors.white,
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 100.0, vertical: 15),
-                        child: Center(
-                          child: Text(S.of(context).openGallery,
-                              style: Theme.of(context).textTheme.headline5),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        color: Colors.white,
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 100.0, vertical: 15),
-                        child: Center(
-                          child: Text(S.of(context).cancelButton,
-                              style: Theme.of(context).textTheme.headline5),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            })
-        : Platform.isAndroid
-            ? showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return SizedBox(
-                    height: 170.0,
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            await _onOpenCamera()
-                                .then((value) => Navigator.pop(context));
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 100.0, vertical: 15),
-                            child: Center(
-                              child: Text(S.of(context).takePhoto,
-                                  style: Theme.of(context).textTheme.headline5),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            await _onChooseImage()
-                                .then((value) => Navigator.pop(context));
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 100.0, vertical: 15),
-                            child: Center(
-                              child: Text(S.of(context).openGallery,
-                                  style: Theme.of(context).textTheme.headline5),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 100.0, vertical: 15),
-                            child: Center(
-                              child: Text(S.of(context).cancelButton,
-                                  style: Theme.of(context).textTheme.headline5),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                })
-            : showCupertinoModalPopup(
-                context: context,
-                builder: (context) {
-                  return CupertinoActionSheet(
-                    actions: [
-                      CupertinoActionSheetAction(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          setState(() {
-                            showMaterialModalBottomSheet(
-                                enableDrag: false,
-                                backgroundColor: Colors.black,
-                                context: context,
-                                builder: (context) {
-                                  return const ViewImageProfle();
-                                });
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context) {
-                            //   return const ViewImageProfle();
-                            // }));
-                          });
-                        },
-                        child: Text(
-                          S.of(context).viewImageProfile,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 18, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      CupertinoActionSheetAction(
-                        onPressed: () async {
-                          await _onOpenCamera()
-                              .then((value) => Navigator.pop(context));
-                        },
-                        child: Text(
-                          S.of(context).takePhoto,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 18, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      CupertinoActionSheetAction(
-                        onPressed: () {
-                          setState(() {
-                            _onChooseImage()
-                                .then((value) => Navigator.pop(context));
-                          });
-                        },
-                        child: Text(
-                          S.of(context).editImage,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 18, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      CupertinoActionSheetAction(
-                        onPressed: () {
-                          setState(() {
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: Text(
-                          S.of(context).removeImage,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.red),
-                        ),
-                      ),
-                    ],
-                    cancelButton: CupertinoActionSheetAction(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        S.of(context).cancelButton,
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontSize: 18, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                  );
-                });
-  }
-
-  startUpload() async {
-    var tokenKey = await LocalData.getCurrentUser();
-    String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/change-profile';
-    if (imageFile == null) {
-      return;
-    }
-    final byte = imageFile!.readAsBytesSync();
-    final salarySlipResult = await FlutterImageCompress.compressWithList(
-      byte.buffer.asUint8List(),
-      minWidth: 800,
-      minHeight: 800,
-      quality: 70,
-      rotate: 0,
-    );
-
-    String base64Image = base64Encode(salarySlipResult);
-
-    await http
-        .post(Uri.parse(url),
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer $tokenKey',
-              'Content-type': 'application/json',
-            },
-            body: json.encode({
-              'profile': 'data:image/png;base64,$base64Image',
-            }))
-        .then((value) {
-      if (value.statusCode == 200) {
-        customerCon.getUser();
-      } else {}
-    }).catchError((onError) {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +78,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                       child: Column(
                         children: [
                           Text(
-                            '${customerCon.customer.value.fullName}',
+                            '${widget.fullName}',
                             style:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.w700,
@@ -383,8 +100,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                 width: 10,
                               ),
                               Text(
-                                memberCon
-                                    .personalProfile.value.position!.display!,
+                                '${widget.position}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline5!

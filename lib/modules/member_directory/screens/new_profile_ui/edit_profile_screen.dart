@@ -6,10 +6,27 @@ import 'package:get/get.dart';
 import '../../../../Utils/function/upload_file_controller.dart';
 import '../../controllers/customer_controller.dart';
 import '../../controllers/member_controller.dart';
+import '../../models/company_data.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final int? id;
-  const EditProfileScreen({Key? key, this.id}) : super(key: key);
+  final bool? isEditCompany;
+  final CompanyData? companyData;
+  final bool? isCreateCompany;
+  final GestureTapCallback? onTapProfile;
+  final GestureTapCallback? onTapDone;
+  final GestureTapCallback? onTapPhotoProfile;
+
+  const EditProfileScreen(
+      {Key? key,
+      this.id,
+      this.onTapPhotoProfile,
+      this.isEditCompany = false,
+      this.companyData,
+      this.isCreateCompany = false,
+      this.onTapProfile,
+      this.onTapDone})
+      : super(key: key);
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -20,10 +37,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final memberCon = Get.put(MemberController());
   final customerCon = Get.put(CustomerController());
   final uploadImageCon = Get.put(UploadFileController());
-  // memberCon.fetchMemberPersonProfile(id!);
 
   @override
   Widget build(BuildContext context) {
+    // memberCon.fetchMemberPersonProfile();
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
@@ -36,21 +53,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             color: Colors.black,
           ),
         ),
-        title: 'Edit Profile',
+        title: widget.isEditCompany!
+            ? 'Edit Company'
+            : widget.isCreateCompany!
+                ? 'Add Company'
+                : 'Edit Profile',
         action: [
-          TextButton(
-            onPressed: () {
-              memberCon.updatePersonalProfile(context);
+          !widget.isCreateCompany!
+              ? TextButton(
+                  onPressed: () {
+                    widget.onTapDone!();
+                    Navigator.pop(context);
+                  },
 
-              debugPrint(
-                  'Member Personal Name:${memberCon.personalProfilemember.value.fullName}');
-            },
-            child: memberCon.isLaodingUpdateProfile.value
-                ? const CircularProgressIndicator(
-                    strokeWidth: 4,
-                    color: AppColor.mainColor,
-                  )
-                : Text(
+                  // widget.isEditCompany == true
+                  //     ? setState(() {
+                  //         memberCon.update();
+                  //         // formkey.currentState!.save();
+                  //         memberCon.onUpdateCompany(context, widget.id!);
+                  //         memberCon.fetchCompanyMember(
+                  //             id: customerCon.customer.value.id);
+                  //         // debugPrint(
+                  //         //     'helooo name:${memberCon.personalProfilemember.value.fullName}');
+                  //       })
+                  //     : setState(() {
+                  //         memberCon.update();
+                  //         // formkey.currentState!.save();
+                  //         memberCon.updatePersonalProfile(context);
+                  //         memberCon.fetchMemberPersonProfile(
+                  //             id: customerCon.customer.value.id);
+
+                  //         debugPrint(
+                  //             'helooo name:${memberCon.personalProfilemember.value.fullName}');
+                  //       });
+
+                  child: Text(
                     'Done',
                     style: Theme.of(context).textTheme.headline5!.copyWith(
                           fontSize: 18,
@@ -58,7 +95,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           color: AppColor.mainColor,
                         ),
                   ),
-          ),
+                )
+              : Container(),
         ],
       ),
       body: Obx(
@@ -118,9 +156,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ],
               ),
               TextButton(
-                onPressed: () {
-                  uploadImageCon.uploadImage(context);
-                },
+                onPressed: widget.onTapPhotoProfile,
                 child: Text(
                   'Change Profile Photo',
                   style: Theme.of(context)
@@ -134,124 +170,221 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 30),
-                    child: Column(
-                      children: [
-                        CustomTextFieldNew(
-                          hintText: 'Name',
-                          onChange: (name) {
-                            if (name == '') {
-                              memberCon.fullName.value;
-                            } else {
-                              memberCon.fullName.value = name;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'Name',
-                          initialValue: memberCon
-                                  .personalProfile.value.customerLatinName ??
-                              '',
+                  child: !widget.isEditCompany!
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 30),
+                          child: Column(
+                            children: [
+                              CustomTextFieldNew(
+                                hintText: 'Name',
+                                onChange: (name) {
+                                  if (name == '') {
+                                    memberCon.fullName.value;
+                                  } else {
+                                    memberCon.fullName.value = name;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Name',
+                                initialValue: memberCon.personalProfile.value
+                                        .customerLatinName ??
+                                    '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Title',
+                                onChange: (title) {
+                                  if (title == '') {
+                                    memberCon.position.value;
+                                  } else {
+                                    memberCon.position.value = title;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Title',
+                                initialValue: '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Phone Number',
+                                onChange: (phone) {
+                                  if (phone == '') {
+                                    memberCon.phone.value;
+                                  } else {
+                                    memberCon.phone.value = phone;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Phone Number',
+                                initialValue:
+                                    memberCon.personalProfile.value.phone ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Email',
+                                onChange: (email) {
+                                  if (email == '') {
+                                    memberCon.gmail.value;
+                                  } else {
+                                    memberCon.gmail.value = email;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Email',
+                                initialValue:
+                                    memberCon.personalProfile.value.email ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Telegram',
+                                onChange: (telegram) {
+                                  if (telegram == '') {
+                                    memberCon.telegram.value;
+                                  } else {
+                                    memberCon.telegram.value = telegram;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Telegram',
+                                initialValue:
+                                    memberCon.personalProfile.value.telegram ??
+                                        '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Website',
+                                onChange: (website) {
+                                  if (website == '') {
+                                    memberCon.webSite.value;
+                                  } else {
+                                    memberCon.webSite.value = website;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Website',
+                                initialValue:
+                                    memberCon.personalProfile.value.website ??
+                                        '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'About Us',
+                                onChange: (aboutAs) {
+                                  if (aboutAs == '') {
+                                    memberCon.aboutAs.value;
+                                  } else {
+                                    memberCon.aboutAs.value = aboutAs;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'About Us',
+                                maxLine: 7,
+                                initialValue:
+                                    memberCon.personalProfile.value.about ?? '',
+                              ),
+                            ],
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 30),
+                          child: Column(
+                            children: [
+                              // Text(
+                              //     'heloo:${memberCon.companyDataList[0].companyName}'),
+                              CustomTextFieldNew(
+                                hintText: 'Company Name',
+                                onChange: (companyName) {
+                                  if (companyName == '') {
+                                    memberCon.comCompanyName.value;
+                                  } else {
+                                    memberCon.comCompanyName.value =
+                                        companyName;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Company Name',
+                                initialValue:
+                                    widget.companyData!.companyName ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Phone Number',
+                                onChange: (phoneNum) {
+                                  if (phoneNum == '') {
+                                    memberCon.comphonenumber.value;
+                                  } else {
+                                    memberCon.comphonenumber.value = phoneNum;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Phone Number',
+                                initialValue:
+                                    widget.companyData!.phoneNumber ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Email',
+                                onChange: (companyEmail) {
+                                  if (companyEmail == '') {
+                                    memberCon.comEmail.value;
+                                  } else {
+                                    memberCon.comEmail.value = companyEmail;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Email',
+                                initialValue: widget.companyData!.email ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Location',
+                                onChange: (companyLocation) {
+                                  if (companyLocation == '') {
+                                    memberCon.comaddress.value;
+                                  } else {
+                                    memberCon.comaddress.value =
+                                        companyLocation;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Location',
+                                initialValue: widget.companyData!.address ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Website',
+                                onChange: (companyWebsite) {
+                                  if (companyWebsite == '') {
+                                    memberCon.comWebsite.value;
+                                  } else {
+                                    memberCon.comWebsite.value = companyWebsite;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Website',
+                                initialValue: widget.companyData!.website ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'About Us',
+                                onChange: (comAboutAs) {
+                                  if (comAboutAs == '') {
+                                    memberCon.comAboutUs.value;
+                                  } else {
+                                    memberCon.comAboutUs.value = comAboutAs;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'About Us',
+                                maxLine: 7,
+                                initialValue: '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Product & Service',
+                                onChange: (companyProduct) {
+                                  if (companyProduct == '') {
+                                    memberCon.comProduct.value;
+                                  } else {
+                                    memberCon.comProduct.value = companyProduct;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Product & Service',
+                                maxLine: 7,
+                                initialValue: '',
+                              ),
+                            ],
+                          ),
                         ),
-                        CustomTextFieldNew(
-                          hintText: 'Title',
-                          onChange: (title) {
-                            if (title == '') {
-                              memberCon.position.value;
-                            } else {
-                              memberCon.position.value = title;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'Title',
-                          initialValue: '',
-                        ),
-                        CustomTextFieldNew(
-                          hintText: 'Company Name',
-                          onChange: (company) {
-                            if (company == '') {
-                              memberCon.companyName.value;
-                            } else {
-                              memberCon.position.value = company;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'Company Name',
-                          initialValue: '',
-                        ),
-                        CustomTextFieldNew(
-                          hintText: 'Phone Number',
-                          onChange: (phone) {
-                            if (phone == '') {
-                              memberCon.phone.value;
-                            } else {
-                              memberCon.phone.value = phone;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'Phone Number',
-                          initialValue:
-                              memberCon.personalProfile.value.phone ?? '',
-                        ),
-                        CustomTextFieldNew(
-                          hintText: 'Email',
-                          onChange: (email) {
-                            if (email == '') {
-                              memberCon.gmail.value;
-                            } else {
-                              memberCon.gmail.value = email;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'Email',
-                          initialValue:
-                              memberCon.personalProfile.value.email ?? '',
-                        ),
-                        CustomTextFieldNew(
-                          hintText: 'Telegram',
-                          onChange: (telegram) {
-                            if (telegram == '') {
-                              memberCon.telegram.value;
-                            } else {
-                              memberCon.telegram.value = telegram;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'Telegram',
-                          initialValue:
-                              memberCon.personalProfile.value.telegram ?? '',
-                        ),
-                        CustomTextFieldNew(
-                          hintText: 'Website',
-                          onChange: (website) {
-                            if (website == '') {
-                              memberCon.webSite.value;
-                            } else {
-                              memberCon.webSite.value = website;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'Website',
-                          initialValue:
-                              memberCon.personalProfile.value.website ?? '',
-                        ),
-                        CustomTextFieldNew(
-                          hintText: 'About Us',
-                          onChange: (aboutAs) {
-                            if (aboutAs == '') {
-                              memberCon.aboutAs.value;
-                            } else {
-                              memberCon.aboutAs.value = aboutAs;
-                            }
-                          },
-                          isValidate: true,
-                          labelText: 'About Us',
-                          maxLine: 7,
-                          initialValue: '',
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
             ],

@@ -24,7 +24,7 @@ class ApiBaseHelper extends GetConnect {
   final String? baseurl = "${GlobalConfiguration().get('api_base_urlv3')}";
 
   Future<dynamic> onNetworkRequesting(
-      {required String url,
+      {String? url,
       String? urlFull,
       Map<String, String>? header,
       Map<String, dynamic>? body,
@@ -32,7 +32,7 @@ class ApiBaseHelper extends GetConnect {
       required bool isAuthorize,
       bool isConvertToByte = false}) async {
     final token = await LocalData.getCurrentUser();
-    final fullUrl = urlFull ?? baseurl! + url;
+    final fullUrl = urlFull ?? baseurl! + url!;
     Map<String, String> defaultHeader = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

@@ -84,7 +84,7 @@ showSaveDraftDialog({
             if (!isDisableSaveDraft)
               GestureDetector(
                 onTap: () async {
-                  context.router.pop();
+                  Navigator.pop(context);
                   if (isEquity == true) {
                     if (id == 0 || id == null) {
                       await equityController.onSubmitEquityInvestment(
@@ -143,38 +143,38 @@ showSaveDraftDialog({
                 if (isEquity == true) {
                   if (step == 1) {
                     equityController.resetData();
-                    context.router.pop();
+                    Navigator.pop(context);
                     context.navigateBack();
                     debugPrint("is Step 1 true");
                   } else if (step == 2) {
                     equityController.resetData();
-                    context.router.pop();
-                    context.router.pop();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   } else {
                     equityController.resetData();
-                    context.router.pop();
-                    context.router.pop();
-                    context.router.pop();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }
                 } else {
                   if (step == 1) {
                     debtCon.onResetData();
-                    context.router.pop();
+                    Navigator.pop(context);
                   } else if (step == 2) {
                     debtCon.onResetData();
-                    context.router.pop();
-                    context.router.pop();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   } else if (step == 3) {
                     debtCon.onResetData();
-                    context.router.pop();
-                    context.router.pop();
-                    context.router.pop();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   } else {
                     debtCon.onResetData();
-                    context.router.pop();
-                    context.router.pop();
-                    context.router.pop();
-                    context.router.pop();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }
                 }
               },

@@ -8,11 +8,17 @@ import 'package:flutter_svg/svg.dart';
 class CustomButton extends StatefulWidget {
   final String? title;
   final GestureTapCallback? onPressed;
+  @required
   final bool? isDisable;
+  @required
   final bool? isOutline;
   final String? iconUrl;
+  final Color? backgroundColor;
+  final Color? colorText;
   const CustomButton(
       {Key? key,
+      this.colorText,
+      this.backgroundColor,
       this.title,
       this.onPressed,
       this.isDisable,
@@ -173,7 +179,7 @@ class _CustomButtonState extends State<CustomButton> {
                     child: !widget.isDisable! && !widget.isOutline!
                         ? CupertinoButton(
                             padding: const EdgeInsets.symmetric(horizontal: 0),
-                            color: AppColor.mainColor,
+                            color: widget.backgroundColor ?? AppColor.mainColor,
                             onPressed: widget.onPressed,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -186,10 +192,19 @@ class _CustomButtonState extends State<CustomButton> {
                                   const SizedBox(
                                     width: 15,
                                   ),
-                                Text(
-                                  widget.title!,
-                                  style: Theme.of(context).textTheme.button,
-                                ),
+                                widget.colorText != null
+                                    ? Text(
+                                        widget.title!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .button!
+                                            .copyWith(color: widget.colorText),
+                                      )
+                                    : Text(
+                                        widget.title!,
+                                        style:
+                                            Theme.of(context).textTheme.button,
+                                      ),
                               ],
                             ),
                           )
