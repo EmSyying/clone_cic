@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/helper/color.dart';
+import '../../configs/route_configuration/route.dart';
 import '../../modules/bonus/models/history_model.dart';
 import '../../utils/helper/firebase_analytics.dart';
 
@@ -301,9 +302,9 @@ class CustomTransactionCard extends StatelessWidget {
                                                 : IconButton(
                                                     onPressed: () {
                                                       // Navigator.pop(context);
-                                                      debugPrint(
-                                                          "work get back");
-                                                      Get.back();
+
+                                                      Navigator.pop(router
+                                                          .navigator!.context);
                                                     },
                                                     icon:
                                                         const Icon(Icons.close),

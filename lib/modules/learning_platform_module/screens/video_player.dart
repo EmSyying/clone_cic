@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/controllers/learning_controller.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/models/post_data.dart';
@@ -117,7 +118,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
                             controller: _controller!,
                             onReady: () {},
                             onEnded: (value) {
-                              Get.back();
+                              Navigator.pop(router.navigator!.context);
                               customPlayerBottomSheet(
                                   context: context,
                                   video: _learningCon.moreVideo.value.data![0]);
@@ -132,9 +133,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                 LocalData.userLogin('userLogin', true);
                                 if (widget.pageName != null &&
                                     widget.pageName == 'modulePage') {
-                                  Get.back();
+                                  Navigator.pop(router.navigator!.context);
                                 } else {
-                                  Get.back();
+                                  Navigator.pop(router.navigator!.context);
                                 }
                               },
                               child: Container(
@@ -187,7 +188,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                                 videoList: _learningCon
                                                     .moreVideo.value.data!,
                                                 onTap: (VideoPost value) async {
-                                                  Get.back();
+                                                  Navigator.pop(router
+                                                      .navigator!.context);
                                                   customPlayerBottomSheet(
                                                       context: context,
                                                       video: value);
@@ -212,7 +214,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                                     .value
                                                     .data!,
                                                 onTap: (VideoPost value) async {
-                                                  Get.back();
+                                                  Navigator.pop(router
+                                                      .navigator!.context);
                                                   customPlayerBottomSheet(
                                                       context: context,
                                                       video: value);

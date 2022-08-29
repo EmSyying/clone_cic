@@ -23,6 +23,7 @@ import 'dart:io';
 import '../../Utils/helper/color.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
+import '../../configs/route_configuration/route.dart';
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 
@@ -76,7 +77,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         );
         if (authenticated) {
           setPinCon.isLogin(true);
-          Get.back();
+          Navigator.pop(router.navigator!.context);
         }
 
         _settingCon.isAuthenticating.value = false;

@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/utils/helper/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/option_controller/option_controller.dart';
 import '../../../widgets/report/custom_document_card.dart';
@@ -74,16 +75,10 @@ class _CiCAppManualState extends State<CiCAppManual> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                           onTap: () {
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         ViewReport(
-                                            //       documentationModel:
-                                            //           items[index],
-                                            //     ),
-                                            //   ),
-                                            // );
+                                            debugPrint(
+                                                "Url: ${items[index].attachedFile}");
+                                            context.push(
+                                                '/setting/cic-app-manual/view-report?attachedFile=${items[index].attachedFile}&url=${items[index].attachedFile}&title=CiC App Manual');
                                           },
                                           child: CustomDocumentCard(
                                             documentationModel: items[index],

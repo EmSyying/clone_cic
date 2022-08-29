@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -115,7 +116,7 @@ Future<bool> showLockScreen(
     BuildContext? context}) async {
   timer.cancel();
   isSuccess = await Navigator.push(
-    context!,
+    router.navigator!.context,
     PageRouteBuilder(
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) {

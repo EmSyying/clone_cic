@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/modules/investment_module/model/contract_history/contract_history.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
 import 'package:cicgreenloan/modules/investment_module/model/investment_amount/investment_data.dart';
@@ -370,7 +371,7 @@ class PriceController extends GetxController {
       getHiddentContractLoading(false);
       debugPrint('Error ${error.statusCode}');
     });
-   
+
     return hiddenContractList;
   }
 
@@ -802,7 +803,7 @@ class PriceController extends GetxController {
       debugPrint("========After submited success==========$response");
 
       Navigator.push(
-        Get.context!,
+        router.navigator!.context,
         MaterialPageRoute(
           builder: (context) {
             return CustomSucessScreen(
@@ -813,7 +814,8 @@ class PriceController extends GetxController {
                 onClearFIF();
                 clearDeducSelection();
                 int count = 0;
-                Navigator.of(context).popUntil((_) => count++ >= 4);
+                Navigator.of(router.navigator!.context)
+                    .popUntil((_) => count++ >= 4);
                 Future.delayed(const Duration(seconds: 1), () {
                   getFIFApplication();
                   fetchFIFPending();

@@ -364,7 +364,7 @@ class _CustomLastTradingTapState extends State<CustomLastTradingTap>
                   children: [
                     IconButton(
                         onPressed: () {
-                          Get.back();
+                          Navigator.pop(router.navigator!.context);
                         },
                         icon: Icon(widget.icon),
                         iconSize: 24),

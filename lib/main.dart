@@ -503,7 +503,7 @@ class MyApp extends StatelessWidget {
       );
       if (authenticated) {
         setPinCon.isLogin(true);
-        Get.back();
+        Navigator.pop(router.navigator!.context);
       }
 
       _con.isAuthenticating.value = false;
