@@ -1,5 +1,7 @@
+import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import '../../Utils/helper/numerice_format.dart';
 
@@ -20,6 +22,7 @@ class CustomPaymentPrivilege extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final privilageController = Get.put(PrivilegeController());
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -48,6 +51,7 @@ class CustomPaymentPrivilege extends StatelessWidget {
             textAlign: TextAlign.center,
             onChanged: onChanged,
             onSaved: onSaved,
+            controller: controller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               hintText: hintText ?? '0.00',
@@ -61,6 +65,9 @@ class CustomPaymentPrivilege extends StatelessWidget {
             ),
           ),
         ),
+        Obx(() => privilageController.validationPayment.value
+            ? const Text('Please Enter amounts')
+            : const SizedBox.shrink()),
       ],
     );
   }

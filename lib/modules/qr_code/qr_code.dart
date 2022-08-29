@@ -430,7 +430,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                   isOutline: false,
                                   onPressed: () async {
                                     int shopId = int.parse(
-                                        resultQR!.replaceAll('shop', ''));
+                                      resultQR!.replaceAll('shop', ''),
+                                    );
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

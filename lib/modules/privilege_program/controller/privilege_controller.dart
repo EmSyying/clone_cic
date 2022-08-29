@@ -1,6 +1,5 @@
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/payment_done_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +8,7 @@ import '../model/category_model/model_categories.dart';
 import '../model/location/location.dart';
 import '../model/search_loation_list/search_location_list.dart';
 import '../model/stores_model/model_pre.dart';
+import '../screen/privilege/payment_done_screen.dart';
 
 class PrivilegeController extends GetxController {
   final favoritesList = <StoreModel>[].obs;
@@ -22,6 +22,7 @@ class PrivilegeController extends GetxController {
   final shopModelList = <PrivilegeShopModel>[].obs;
   final isFavorites = false.obs;
   final isLoadingShopList = false.obs;
+  // final isfetcheAllStoredata = false.obs;
   Future<List<PrivilegeShopModel>> onFetchAllStore() async {
     isLoadingShopList(true);
     await apiBaseHelper
@@ -31,6 +32,7 @@ class PrivilegeController extends GetxController {
       isAuthorize: true,
     )
         .then((response) {
+     
       var responseJson = response['data'];
       shopModelList.clear();
       responseJson.map((e) {
@@ -41,6 +43,7 @@ class PrivilegeController extends GetxController {
       isLoadingShopList(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isLoadingShopList(false);
+      return null;
     });
 
     return shopModelList;
@@ -307,10 +310,32 @@ class PrivilegeController extends GetxController {
   }
 
   ///Function Payment=====privilege===
+  final amountcontroller = TextEditingController().obs;
   final isPaymentLoading = false.obs;
   final shopId = 0.obs;
-  final privilegeAmount = 0.0.obs;
-  Future<void> onPaymentPrivilege({BuildContext? context}) async {
+  final privilegeAmount = ''.obs;
+  final validationPayment = false.obs;
+
+  void validatePayment(String onchangeValue) {
+    if (onchangeValue.isEmpty) {
+      validationPayment(true);
+    } else {
+      validationPayment(false);
+    }
+  }
+
+  void clearPaymentSetting() {
+    validationPayment.value = false;
+    privilegeAmount.value = '';
+    amountcontroller.value.text = '';
+  }
+
+  final fourDigitsCode = "".obs;
+  final descountRate = "".obs;
+  final messagePayment = "".obs;
+  Future<void> onPaymentPrivilege({
+    BuildContext? context,
+  }) async {
     isPaymentLoading(true);
     await apiBaseHelper.onNetworkRequesting(
         url: 'privilege/payment',
@@ -320,6 +345,7 @@ class PrivilegeController extends GetxController {
           "shop_id": shopId.value,
           "amount": privilegeAmount.value,
         }).then((response) {
+      debugPrint("4 Digits code:${fourDigitsCode.value}");
       Navigator.push(
         context!,
         MaterialPageRoute(
@@ -327,6 +353,17 @@ class PrivilegeController extends GetxController {
         ),
       );
 
+      try {
+        debugPrint('payment body::=====$response');
+        var responseJson = response;
+        fourDigitsCode.value = responseJson['code'];
+        descountRate.value = responseJson['descount_rate'];
+        messagePayment.value = responseJson['message'];
+      } catch (e) {
+        debugPrint('Error $e');
+      }
+
+      clearPaymentSetting();
       isPaymentLoading(false);
     }).onError(
       (ErrorModel errorModel, stackTrace) {

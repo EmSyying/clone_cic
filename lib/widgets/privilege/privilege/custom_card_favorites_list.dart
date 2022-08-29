@@ -6,7 +6,11 @@ import '../custom_shimmer_allshop.dart';
 import 'costom_all_stores.dart';
 
 class CustomCardFavoriesList extends StatefulWidget {
-  const CustomCardFavoriesList({Key? key}) : super(key: key);
+  final int? id;
+  const CustomCardFavoriesList({
+    Key? key,
+    this.id,
+  }) : super(key: key);
 
   @override
   State<CustomCardFavoriesList> createState() => _CustomCardFavoriesListState();

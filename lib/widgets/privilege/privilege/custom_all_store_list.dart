@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 import '../../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 
 class CustomAllStoreList extends StatefulWidget {
+  final int? id;
   const CustomAllStoreList({
     Key? key,
+    this.id,
   }) : super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                   .map(
                     (e) => GestureDetector(
                       onTap: () {
+                        // context.go('/allstores/family/${widget.id}');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -50,9 +53,8 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                         onTapFav: () {
                           preCont
                               .setFavouriteStore(
-                            id: preCont.shopModelList[e.key].id!,
-                             fav: preCont.shopModelList[e.key].isFavorite!
-                          )
+                                  id: preCont.shopModelList[e.key].id!,
+                                  fav: preCont.shopModelList[e.key].isFavorite!)
                               .then((value) {
                             if (preCont.shopModelList[e.key].isFavorite!) {
                               preCont.shopModelList[e.key] = preCont

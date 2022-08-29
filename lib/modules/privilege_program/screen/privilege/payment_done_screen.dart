@@ -1,5 +1,8 @@
+import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
+import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../Utils/helper/color.dart';
@@ -18,6 +21,7 @@ class PaymentDoneScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final priCont = Get.put(PrivilegeController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -29,116 +33,118 @@ class PaymentDoneScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 20.0,
-            ),
-            child: LottieBuilder.asset(
-              "assets/images/animation/lf30_editor_g4pvkudk.json",
-              height: 240,
-              repeat: false,
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-              frameRate: FrameRate(100),
-            ),
-          ),
-          const Spacer(),
-          Text(
-            "Success",
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                  color: Colors.black,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Text(
-              "Congratulations! You just received a discount of",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    color: Colors.black,
-                    height: 1.5,
-                    fontWeight: FontWeight.w400,
-                  ),
-            ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            numberRated ?? '40%',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  color: AppColor.statusColor['pending'],
-                  fontWeight: FontWeight.w700,
-                  fontSize: 37,
-                ),
-          ),
-          const CustomDasheLine(),
-          Text(
-            '4 digits code',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          GestureDetector(
-            onTap: () {
-              Clipboard.setData(
-                const ClipboardData(text: 'APGQ'),
-              );
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: 88,
-              height: 31,
-              decoration: BoxDecoration(
-                color: AppColor.statusColor['pending']!.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(6.0),
-              ),
-              child: Text(
-                digiteCode ?? 'APGQ',
-                style: Theme.of(context).textTheme.headline2!.copyWith(
-                      color: AppColor.statusColor['pending'],
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                    ),
-              ),
-            ),
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 30.0),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColor.mainColor),
-                alignment: Alignment.center,
-                child: Text(
-                  "Done",
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
+      body: Obx(
+        () => Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 20.0,
                       ),
+                      child: LottieBuilder.asset(
+                        "assets/images/animation/lf30_editor_g4pvkudk.json",
+                        height: 220,
+                        repeat: false,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                        frameRate: FrameRate(100),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Success",
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            color: Colors.black,
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Text(
+                        priCont.messagePayment.value,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                              color: Colors.black,
+                              height: 1.5,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      priCont.descountRate.value,
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            color: AppColor.statusColor['pending'],
+                            fontWeight: FontWeight.w700,
+                            fontSize: 37,
+                          ),
+                    ),
+                    const CustomDasheLine(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      '4 digits code',
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: 18.0,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Clipboard.setData(
+                          ClipboardData(text: priCont.fourDigitsCode.value),
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 88,
+                        height: 31,
+                        decoration: BoxDecoration(
+                          color:
+                              AppColor.statusColor['pending']!.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        child: Text(
+                          priCont.fourDigitsCode.value,
+                          style:
+                              Theme.of(context).textTheme.headline2!.copyWith(
+                                    color: AppColor.statusColor['pending'],
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18,
+                                  ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          )
-        ],
+            SafeArea(
+              top: false,
+              minimum: const EdgeInsets.all(20),
+              child: CustomButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                title: 'Done',
+                isDisable: false,
+                isOutline: false,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_payment.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../../Utils/custom_indicatior.dart';
@@ -22,8 +21,10 @@ import '../../controller/privilege_controller.dart';
 
 class PrivilegeScreen extends StatefulWidget {
   //final int? index;
+  final String? tabPrivName;
   const PrivilegeScreen({
     Key? key,
+    this.tabPrivName,
     // this.index,
   }) : super(key: key);
 
@@ -33,6 +34,18 @@ class PrivilegeScreen extends StatefulWidget {
 
 class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final priCon = Get.put(PrivilegeController());
+  //final refreshKey = GlobalKey<RefreshIndicatorState>();
+  // int page = 1;
+  // Future<void> onRefresh() async {
+  //   page = 1;
+  //   priCon.onFetchAllStore();
+  // }
+
+  // getData() {
+  //   page += 1;
+  //   priCon.onFetchAllStore();
+  // }
+
   @override
   void initState() {
     priCon.onFetchAllStore();
@@ -51,12 +64,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final preController = Get.put(PrivilegeController());
   final _settingCon = Get.put(SettingController());
   onNavToFilter() async {
-    var result = await Navigator.push<bool>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const PrivilegeFilters(),
-      ),
-    );
+    context.pushNamed('filter');
+    // var result = await Navigator.push<bool>(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const PrivilegeFilters(),
+    //   ),
+    // );
   }
 
   File? nationalBack;
@@ -84,7 +98,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                padding:
+                    const EdgeInsets.only(top: 20, left: 20, right: 20),
                 child: AspectRatio(
                   aspectRatio: 5 / 2.3,
                   child: Swiper(
@@ -92,11 +107,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       index: currentIndex,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        if (_settingCon.slideList![index].status == 'Active') {
+                        if (_settingCon.slideList![index].status ==
+                            'Active') {
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: CachedNetworkImage(
-                              imageUrl: _settingCon.slideList![index].image!,
+                              imageUrl:
+                                  _settingCon.slideList![index].image!,
                               fit: BoxFit.cover,
                             ),
                           );
@@ -143,13 +160,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          //context.router.push(const SearchScreen());
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SearchScreen(),
-                            ),
-                          );
+                          context.pushNamed('search');
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const SearchScreen(),
+                          //   ),
+                          // );
                         },
                         child: Container(
                           height: 38,
@@ -197,7 +214,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const PrivilegePayment(),
+                        builder: (context) => PrivilegePayment(
+                          id: priCon.shopId.value,
+                        ),
                       ),
                     );
                   },
@@ -205,7 +224,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               ),
               ////Card List Categories===============================
               SingleChildScrollView(
-                // padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 scrollDirection: Axis.horizontal,
                 child: preController.isLoadingCategories.value
                     ? const CustomShimmerCategories()
@@ -276,7 +295,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       padding: const EdgeInsets.only(top: 20.0, bottom: 8),
                       child: CustomNumberStoresFilter(
                         onTapFilter: () {
-                          // context.router.pushNamed("privilege-filters");
                           onNavToFilter();
                         },
                         titleStores: segmentedControlValue == 0

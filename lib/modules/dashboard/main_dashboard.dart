@@ -6,7 +6,6 @@ import 'package:cicgreenloan/Utils/helper/find_widget_position.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_screen.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
@@ -677,12 +676,13 @@ class _MainDashboardState extends State<MainDashboard> {
               title: GestureDetector(
                 ///add this widget to test privilege screen don't forget remore====================
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PrivilegeScreen(),
-                    ),
-                  );
+                  context.push('/privilege');
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const PrivilegeScreen(),
+                  //   ),
+                  // );
                 },
                 child: Row(
                   children: [
