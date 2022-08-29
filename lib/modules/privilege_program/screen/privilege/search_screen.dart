@@ -290,6 +290,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       index = value!;
                       debugPrint("Page View index:$value");
                       segmentedControlValue = value;
+                      if (value == 0) {
+                        privilegController.onSearchStores(keySearch: keySearch);
+                      } else {
+                        privilegController.onSearchStores(
+                            keySearch: keySearch, isLocation: true);
+                      }
                       controller.animateToPage(segmentedControlValue,
                           duration: const Duration(milliseconds: 200),
                           curve: Curves.fastLinearToSlowEaseIn);
@@ -302,6 +308,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   controller: controller,
                   onPageChanged: (value) {
                     segmentedControlValue = value;
+
                     setState(() {});
                   },
                   children: [

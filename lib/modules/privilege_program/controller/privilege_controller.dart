@@ -74,7 +74,7 @@ class PrivilegeController extends GetxController {
           searchLocationList.add(searLocationModel.value);
         }).toList();
       } else {
-        shopModelList.clear();
+        searchShopList.clear();
         responseJson.map((e) {
           searchShop.value = PrivilegeShopModel.fromJson(e);
 
