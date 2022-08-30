@@ -255,6 +255,47 @@ Authorization: Bearer {{token}}
 }
 
 ###
+
+POST {{baseUrl}}v3/member-profile/update
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id":21,
+    "company_name" : "Test",
+    "khmer_name" : "Test",
+    "major_of_business" : 1,
+    "position" : "Flutter",
+    "legal_status" : 1,
+    "registered_business" : 1,
+    "company_size" : "200",
+    "number_of_branches" : "10",
+    "business_model" : 1,
+    "capital_investment" : "Test",
+    "year_founded" : "2001",
+    "is_primary" : 1,
+    "personal_interest" : "Test",
+    "company_profile" : "Test",
+    "company_product_and_service" : "Test",
+    "house_no" : "01",
+    "street_no" : "01",
+    "address" : "0101",
+    "phone" : "069722942",
+    "email" : "syyingem@gmail.com",
+    "what_app" : "Test",
+    "telegram" : "https://t.me/YI_NG_BEE",
+    "messenger" : "Test",
+    "skype" : "Test",
+    "we_chat" : "Test",
+    "website" : "www.youtube.com",
+    "facebook" : "Test",
+    "linkedin" : "Test",
+    "twitter" : "Test"
+}
+
+
+###
 POST {{baseUrl}}v2/registration
 Accept: application/json
 Content-Type: application/json
@@ -303,7 +344,7 @@ Authorization: Bearer {{token}}
 
 
 ###
-GET  {{baseUrl}}v1/member-profile?member_id=21
+GET  {{baseUrl}}v3/member-profile?member_id=21
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

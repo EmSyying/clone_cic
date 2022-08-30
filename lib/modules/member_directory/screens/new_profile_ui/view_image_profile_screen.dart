@@ -1,14 +1,13 @@
+import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../controllers/member_controller.dart';
 
 class ViewImageProfle extends StatelessWidget {
   const ViewImageProfle({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final memberCon = Get.put(MemberController());
+    final customerCon = Get.put(CustomerController());
     return Column(
       children: [
         AppBar(
@@ -38,7 +37,7 @@ class ViewImageProfle extends StatelessWidget {
                 // color: Colors.green,
                 // padding: const EdgeInsets.only(bottom: 150, top: 65),
                 child: Image.network(
-                  memberCon.personalProfilemember.value.profile!,
+                  customerCon.customer.value.profile!,
                   fit: BoxFit.cover,
                 ),
               ),

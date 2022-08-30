@@ -37,6 +37,34 @@ class UploadFileController extends GetxController {
                     GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
+                        showMaterialModalBottomSheet(
+                            enableDrag: false,
+                            backgroundColor: Colors.black,
+                            context: context,
+                            builder: (context) {
+                              return const ViewImageProfle();
+                            });
+                      },
+                      child: Container(
+                        color: Colors.white,
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 100.0, vertical: 15),
+                        child: Center(
+                          child: Text(
+                            S.of(context).viewImageProfile,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        Navigator.pop(context);
                         await onOpenCamera(url: url, body: body);
                       },
                       child: Container(
@@ -45,8 +73,14 @@ class UploadFileController extends GetxController {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 100.0, vertical: 15),
                         child: Center(
-                          child: Text(S.of(context).takePhoto,
-                              style: Theme.of(context).textTheme.headline5),
+                          child: Text(
+                            S.of(context).takePhoto,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
                         ),
                       ),
                     ),
@@ -61,8 +95,36 @@ class UploadFileController extends GetxController {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 100.0, vertical: 15),
                         child: Center(
-                          child: Text(S.of(context).openGallery,
-                              style: Theme.of(context).textTheme.headline5),
+                          child: Text(
+                            S.of(context).editImage,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        color: Colors.white,
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 100.0, vertical: 15),
+                        child: Center(
+                          child: Text(
+                            S.of(context).removeImage,
+                            style:
+                                Theme.of(context).textTheme.headline3!.copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.red,
+                                    ),
+                          ),
                         ),
                       ),
                     ),
@@ -76,8 +138,14 @@ class UploadFileController extends GetxController {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 100.0, vertical: 15),
                         child: Center(
-                          child: Text(S.of(context).cancelButton,
-                              style: Theme.of(context).textTheme.headline5),
+                          child: Text(
+                            S.of(context).cancelButton,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
                         ),
                       ),
                     ),
@@ -86,13 +154,43 @@ class UploadFileController extends GetxController {
               );
             })
         : Platform.isAndroid
-            ? showModalBottomSheet(
+            ? showMaterialModalBottomSheet(
+                backgroundColor: Colors.white,
                 context: context,
                 builder: (context) {
                   return SizedBox(
-                    height: 170.0,
+                    height: MediaQuery.of(context).size.height * 0.38,
                     child: Column(
                       children: [
+                        GestureDetector(
+                          onTap: () async {
+                            Navigator.pop(context);
+                            showMaterialModalBottomSheet(
+                                enableDrag: false,
+                                backgroundColor: Colors.black,
+                                context: context,
+                                builder: (context) {
+                                  return const ViewImageProfle();
+                                });
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 100.0, vertical: 15),
+                            child: Center(
+                              child: Text(
+                                S.of(context).viewImageProfile,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ),
+                        ),
                         GestureDetector(
                           onTap: () async {
                             Navigator.pop(context);
@@ -104,8 +202,15 @@ class UploadFileController extends GetxController {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
-                              child: Text(S.of(context).takePhoto,
-                                  style: Theme.of(context).textTheme.headline5),
+                              child: Text(
+                                S.of(context).takePhoto,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400),
+                              ),
                             ),
                           ),
                         ),
@@ -120,8 +225,39 @@ class UploadFileController extends GetxController {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
-                              child: Text(S.of(context).openGallery,
-                                  style: Theme.of(context).textTheme.headline5),
+                              child: Text(
+                                S.of(context).editImage,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 100.0, vertical: 15),
+                            child: Center(
+                              child: Text(
+                                S.of(context).removeImage,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.red,
+                                    ),
+                              ),
                             ),
                           ),
                         ),
@@ -135,8 +271,15 @@ class UploadFileController extends GetxController {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
-                              child: Text(S.of(context).cancelButton,
-                                  style: Theme.of(context).textTheme.headline5),
+                              child: Text(
+                                S.of(context).cancelButton,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400),
+                              ),
                             ),
                           ),
                         ),

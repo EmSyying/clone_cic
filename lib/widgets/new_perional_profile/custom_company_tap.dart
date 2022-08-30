@@ -117,7 +117,10 @@ class CustomCompanyTap extends StatelessWidget {
                     PopupMenuItem(
                       padding: const EdgeInsets.only(right: 10, left: 10),
                       child: GestureDetector(
-                        onTap: onTapPhone,
+                        onTap: () {
+                          Navigator.pop(context);
+                          onTapPhone!();
+                        },
                         child: Container(
                           color: Colors.transparent,
                           height: 49,
@@ -148,7 +151,10 @@ class CustomCompanyTap extends StatelessWidget {
                     PopupMenuItem(
                       padding: const EdgeInsets.only(right: 10, left: 10),
                       child: GestureDetector(
-                        onTap: onTapEmail,
+                        onTap: () {
+                          Navigator.pop(context);
+                          onTapEmail!();
+                        },
                         child: Container(
                           height: 49,
                           color: Colors.transparent,
@@ -179,7 +185,10 @@ class CustomCompanyTap extends StatelessWidget {
                     PopupMenuItem(
                       padding: const EdgeInsets.only(right: 10, left: 10),
                       child: GestureDetector(
-                        onTap: onTapAddress,
+                        onTap: () {
+                          Navigator.pop(context);
+                          onTapAddress!();
+                        },
                         child: Container(
                           color: Colors.transparent,
                           height: 49,
@@ -210,7 +219,10 @@ class CustomCompanyTap extends StatelessWidget {
                     PopupMenuItem(
                       padding: const EdgeInsets.only(right: 10, left: 10),
                       child: GestureDetector(
-                        onTap: onTapAssociate,
+                        onTap: () {
+                          Navigator.pop(context);
+                          onTapAssociate!();
+                        },
                         child: Container(
                           color: Colors.transparent,
                           height: 49,
@@ -241,7 +253,10 @@ class CustomCompanyTap extends StatelessWidget {
                     PopupMenuItem(
                       padding: const EdgeInsets.only(right: 10, left: 10),
                       child: GestureDetector(
-                        onTap: onTapEdit,
+                        onTap: () {
+                          Navigator.pop(context);
+                          onTapEdit!();
+                        },
                         child: Container(
                           color: Colors.transparent,
                           height: 49,

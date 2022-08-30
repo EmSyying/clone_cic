@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../Utils/function/upload_file_controller.dart';
 import '../../modules/member_directory/models/user.dart';
 
@@ -36,6 +35,14 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
   final customerCon = Get.put(CustomerController());
   final memberCon = Get.put(MemberController());
   final uploadImageCon = Get.put(UploadFileController());
+  Future<void> launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,24 +138,50 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                             children: [
                               CustomOptionProfile(
                                 onPress: () async {
-                                  await launchUrl(
-                                    Uri.parse(
-                                        '${memberCon.personalProfile.value.phone}'),
-                                    mode: LaunchMode.externalApplication,
+                                  final Uri launchUri = Uri(
+                                    scheme: 'tel',
+                                    path:
+                                        '${memberCon.personalProfile.value.phone}',
                                   );
+                                  await launchUrl(launchUri);
                                 },
                                 title: 'Call',
                                 imageSvg: 'assets/images/svgfile/Call.svg',
                               ),
-                              const CustomOptionProfile(
+                              CustomOptionProfile(
+                                onPress: () async {
+                                  final Uri launchEmail = Uri(
+                                    scheme: 'mailto',
+                                    path:
+                                        '${memberCon.personalProfile.value.email}',
+                                  );
+                                  await launchUrl(launchEmail);
+                                },
                                 title: 'Email',
                                 imageSvg: 'assets/images/svgfile/message.svg',
                               ),
-                              const CustomOptionProfile(
+                              CustomOptionProfile(
+                                onPress: () async {
+                                  await launchUrl(
+                                    Uri.parse(
+                                        '${memberCon.personalProfile.value.telegram}'),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                },
                                 title: 'Telegram',
                                 imageSvg: 'assets/images/svgfile/send.svg',
                               ),
-                              const CustomOptionProfile(
+                              CustomOptionProfile(
+                                onPress: () {
+                                  launchInBrowser(
+                                    Uri(
+                                        scheme: 'https',
+                                        host:
+                                            '${memberCon.personalProfile.value.website}',
+                                        path:
+                                            '${memberCon.personalProfile.value.website}'),
+                                  );
+                                },
                                 title: 'Website',
                                 imageSvg: 'assets/images/svgfile/website.svg',
                               ),

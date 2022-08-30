@@ -57,29 +57,39 @@ class _CustomButtonState extends State<CustomButton> {
                 width: double.infinity,
                 child: !widget.isDisable! && !widget.isOutline!
                     // ignore: deprecated_member_use
-                    ? RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
-                        color: AppColor.mainColor,
-                        onPressed: widget.onPressed,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            widget.iconUrl != null
-                                ? SvgPicture.asset(widget.iconUrl!)
-                                : Container(),
-                            if (widget.iconUrl != null)
-                              const SizedBox(
-                                width: 15,
-                              ),
-                            Text(
-                              widget.title!,
-                              style: Theme.of(context).textTheme.button,
-                            ),
-                          ],
+                    ? GestureDetector(
+                        onTap: widget.onPressed,
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color:
+                                  widget.backgroundColor ?? AppColor.mainColor,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              widget.iconUrl != null
+                                  ? SvgPicture.asset(widget.iconUrl!)
+                                  : Container(),
+                              if (widget.iconUrl != null)
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                              widget.colorText != null
+                                  ? Text(
+                                      widget.title!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .button!
+                                          .copyWith(color: widget.colorText),
+                                    )
+                                  : Text(
+                                      widget.title!,
+                                      style: Theme.of(context).textTheme.button,
+                                    ),
+                            ],
+                          ),
                         ),
                       )
                     : widget.isOutline! && !widget.isDisable!

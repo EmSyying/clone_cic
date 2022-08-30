@@ -3,6 +3,7 @@ import 'package:cicgreenloan/widgets/bonus/custom_empty_state.dart';
 import 'package:cicgreenloan/widgets/new_perional_profile/custom_company_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'edit_profile_screen.dart';
 
@@ -83,6 +84,34 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                           email: e.value.email ?? '',
                           address: e.value.address ?? '',
                           website: e.value.website ?? '',
+                          onTapPhone: () async {
+                            final Uri launchUri = Uri(
+                              scheme: 'tel',
+                              path: '${e.value.phoneNumber}',
+                            );
+                            await launchUrl(launchUri);
+                          },
+                          onTapEmail: () async {
+                            final Uri launchUri = Uri(
+                              scheme: 'mailto',
+                              path: '${e.value.email}',
+                            );
+                            await launchUrl(launchUri);
+                          },
+                          onTapAddress: () async {
+                            await launchUrl(
+                              Uri.parse('https://g.page/PassApp?share'),
+                              // 'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
+                              mode: LaunchMode.platformDefault,
+                            );
+                          },
+                          onTapAssociate: () async {
+                            final Uri launchUri = Uri(
+                              scheme: 'https',
+                              path: '${e.value.website}',
+                            );
+                            await launchUrl(launchUri);
+                          },
                           editCompany: 'Edit company info',
                           onTapEdit: () {
                             Navigator.push(context,
