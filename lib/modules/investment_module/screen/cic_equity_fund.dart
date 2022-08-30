@@ -31,30 +31,159 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
   var n = NumberFormat('#,###', 'en_US');
   bool isExpandShareSubscribe = false;
   bool isExpandInvestmentReturn = false;
+  // OverlayState? overlayState;
+  // OverlayEntry? overlayEntry;
+
+  // onShowOverlay(BuildContext context) async {
+  //   overlayState = Overlay.of(context);
+  //   OverlayEntry overlayEntry = OverlayEntry(
+  //       builder: (context) => Positioned(
+  //             top: 150,
+  //             left: 20,
+  //             right: 20,
+  //             child: Material(
+  //               child: Container(
+  //                 color: Theme.of(context).primaryColor,
+  //                 width: 100,
+  //                 height: 100,
+  //                 child: const Text('Hello'),
+  //               ),
+  //             ),
+  //           ));
+  //   overlayState!.insert(overlayEntry);
+
+  //   await Future.delayed(const Duration(seconds: 2), () {
+  //     overlayEntry.remove();
+  //   });
+  // }
+
+  ///
   OverlayState? overlayState;
   OverlayEntry? overlayEntry;
-
-  onShowOverlay(BuildContext context) async {
+  final key1 = GlobalKey();
+  void showOverlay(
+    BuildContext context,
+    GlobalKey key, {
+    double padding = 10,
+  }) async {
     overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(
-        builder: (context) => Positioned(
-              top: 150,
-              left: 20,
-              right: 20,
-              child: Material(
-                child: Container(
-                  color: Theme.of(context).primaryColor,
-                  width: 100,
-                  height: 100,
-                  child: const Text('Hello'),
-                ),
-              ),
-            ));
-    overlayState!.insert(overlayEntry);
+    var renderBox = key.currentContext!.findRenderObject() as RenderBox;
+    var size = renderBox.size;
+    var offset = renderBox.localToGlobal(Offset.zero);
+    debugPrint(offset.toString());
 
-    await Future.delayed(const Duration(seconds: 2), () {
-      overlayEntry.remove();
-    });
+    ///handle textposition
+    Offset textOffset = Offset.zero;
+    if (offset.dy < MediaQuery.of(context).size.height / 2) {
+      textOffset =
+          Offset(0, offset.dy + (padding / 2) + size.height + padding + 10);
+      debugPrint('if');
+    } else {
+      textOffset = Offset(0, offset.dy - padding - 50);
+      debugPrint('else');
+    }
+
+    overlayEntry = OverlayEntry(
+      builder: (context) {
+        return AnimatedScale(
+          scale: 1,
+          duration: const Duration(seconds: 1),
+          child: GestureDetector(
+            onTap: () {
+              overlayEntry!.remove();
+            },
+            child: Stack(
+              children: [
+                ColorFiltered(
+                  colorFilter: const ColorFilter.mode(
+                    /// Mask layer color
+                    Colors.black54,
+                    BlendMode.srcOut,
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: const BoxDecoration(
+                          /// Any color
+                          color: Colors.white,
+                          backgroundBlendMode: BlendMode.dstOut,
+                        ),
+                      ),
+                      Positioned(
+                        top: offset.dy - padding / 2,
+                        left: offset.dx - padding / 2,
+                        child: Container(
+                          width: size.width + padding,
+                          height: size.height + padding,
+
+                          /// Any color
+
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 20,
+                  top: textOffset.dy,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 40,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 13, horizontal: 15),
+                    decoration: BoxDecoration(
+                        color: AppColor.mainColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Certificate',
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'Click here to see your certificate and download it. ',
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                  ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              overlayEntry!.remove();
+                            },
+                            child: const Text('Done'),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    overlayState!.insert(overlayEntry!);
   }
 
   List<Evolution> reversList = [];
@@ -69,6 +198,11 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
     priceController.getSharePrice();
     priceController.getShareSubHistories();
     priceController.getAllChartList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 1), () {
+        showOverlay(context, key1, padding: 0);
+      });
+    });
     // priceController.fetchCertificate();
     super.initState();
   }
@@ -166,6 +300,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                             // );
                           },
                           child: Container(
+                            key: key1,
                             alignment: Alignment.center,
                             height: 40.0,
                             width: 40.0,

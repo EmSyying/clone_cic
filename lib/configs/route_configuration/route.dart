@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../Utils/web_view/web_view.dart';
+import '../../core/walk_through/splash_screen.dart';
 import '../../modules/get_funding/screens/equity_investment/preview_equity.dart';
 import '../../modules/get_funding/screens/equity_investment/step1_equity.dart';
 import '../../modules/get_funding/screens/equity_investment/step2_equity.dart';
@@ -38,7 +39,7 @@ import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/privilege/privilege/custom_all_store_list.dart';
 import '../../widgets/privilege/privilege/custom_card_favorites_list.dart';
 
-final router = GoRouter(routes: [
+final router = GoRouter(initialLocation: '/splashscreen', routes: [
   GoRoute(
     path: '/',
     name: 'HomePage',
@@ -670,5 +671,10 @@ final router = GoRouter(routes: [
       ),
       //end route privilege=========
     ],
-  )
+  ),
+  GoRoute(
+      path: '/splashscreen',
+      builder: (_, __) {
+        return const Splashscreen();
+      }),
 ]);

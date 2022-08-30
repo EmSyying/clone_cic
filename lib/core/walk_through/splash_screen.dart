@@ -1,15 +1,13 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
-import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/google_map_module/controllers/google_map_controller.dart';
 import 'package:cicgreenloan/core/walk_through/start_slide.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key}) : super(key: key);
@@ -25,20 +23,20 @@ class _SplashscreenState extends State<Splashscreen>
   bool isLoading = true;
   final _googleMapCon = Get.put(GoogleMapsController());
 
-  final _userController = Get.put(CustomerController());
+  // final _userController = Get.put(CustomerController());
   final fifCon = Get.put(PriceController());
 
   onNavigator() async {
     await LocalData.getCurrentUser().then((value) {
       if (value != null) {
-        _userController.getUser();
+        // _userController.getUser();
 
         Future.delayed(const Duration(seconds: 3), () {
           setState(() {
             isLoading = false;
           });
           // Beamer.of(context).beamToNamed('/home');
-          context.replaceRoute(HomePageRouter());
+          context.go('/');
         });
       } else {
         Future.delayed(const Duration(seconds: 3), () {
@@ -69,9 +67,8 @@ class _SplashscreenState extends State<Splashscreen>
 
   @override
   void initState() {
-    super.initState();
-
     onNavigator();
+    super.initState();
   }
 
   @override
