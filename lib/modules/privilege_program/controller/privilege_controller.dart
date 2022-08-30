@@ -22,25 +22,36 @@ class PrivilegeController extends GetxController {
   final shopModelList = <PrivilegeShopModel>[].obs;
   final isFavorites = false.obs;
   final isLoadingShopList = false.obs;
-  // final isfetcheAllStoredata = false.obs;
-  Future<List<PrivilegeShopModel>> onFetchAllStore() async {
-    isLoadingShopList(true);
+  final isfetcheAllStoredata = false.obs;
+  Future<List<PrivilegeShopModel>> onFetchAllStore(int page) async {
+    // isLoadingShopList(true);
+    try {
+      if (page == 1) {
+        isLoadingShopList(true);
+      } else {
+        isfetcheAllStoredata(true);
+      }
+    } finally {}
+
+    // isLoadingShopList(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/shop',
+      url: 'privilege/shop?page=$page',
       methode: METHODE.get,
       isAuthorize: true,
     )
         .then((response) {
-     
       var responseJson = response['data'];
-      shopModelList.clear();
+      if (page == 1) {
+        shopModelList.clear();
+      }
       responseJson.map((e) {
         shopModel.value = PrivilegeShopModel.fromJson(e);
         debugPrint('heloooo12345:${shopModel.value.isFavorite}');
         shopModelList.add(shopModel.value);
       }).toList();
       isLoadingShopList(false);
+      isfetcheAllStoredata(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isLoadingShopList(false);
       return null;
@@ -123,21 +134,22 @@ class PrivilegeController extends GetxController {
     return favshopModelList;
   }
 
-  ///Set Favourite Store
-  Future setFavouriteStore({required num id, required bool fav}) async {
-    apiBaseHelper
+  ///function Put Set Favourite Store=====
+  Future setFavouriteStore({required num id, required bool boolFav}) async {
+    await apiBaseHelper
         .onNetworkRequesting(
-          url: 'privilege/shop/$id',
-          methode: METHODE.update,
-          isAuthorize: true,
-          body: {"is_favorite": fav ? 0 : 1},
-        )
+      url: 'privilege/shop/$id?is_favorite=${!boolFav}',
+      methode: METHODE.update,
+      body: {},
+      isAuthorize: true,
+    )
         .then(
-          (value) {},
-        )
-        .onError((ErrorModel error, stackTrace) {
-          debugPrint('setFavouriteStore : ${error.statusCode}');
-        });
+      (value) {
+        debugPrint('bool favorite==:$boolFav');
+      },
+    ).onError((ErrorModel error, stackTrace) {
+      debugPrint('setFavouriteStore : ${error.statusCode}');
+    });
   }
 
   ////function onFetchShopDetail
@@ -309,7 +321,7 @@ class PrivilegeController extends GetxController {
     return locationPrivilageList;
   }
 
-  ///Function Payment=====privilege===
+  ///Function Payment privilege=========
   final amountcontroller = TextEditingController().obs;
   final isPaymentLoading = false.obs;
   final shopId = 0.obs;
@@ -325,7 +337,7 @@ class PrivilegeController extends GetxController {
   }
 
   void clearPaymentSetting() {
-    validationPayment.value = false;
+    //validationPayment.value = false;
     privilegeAmount.value = '';
     amountcontroller.value.text = '';
   }
@@ -336,6 +348,8 @@ class PrivilegeController extends GetxController {
   Future<void> onPaymentPrivilege({
     BuildContext? context,
   }) async {
+    debugPrint("Shop Id====:${shopId.value}");
+    debugPrint("Amount====:${privilegeAmount.value}");
     isPaymentLoading(true);
     await apiBaseHelper.onNetworkRequesting(
         url: 'privilege/payment',

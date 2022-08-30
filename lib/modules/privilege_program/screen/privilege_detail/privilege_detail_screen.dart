@@ -80,7 +80,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   preController
                                       .setFavouriteStore(
                                           id: widget.id!,
-                                          fav: preController.shopDetailModel
+                                          boolFav: preController.shopDetailModel
                                               .value.isFavorite!)
                                       .then((value) {
                                     if (preController
@@ -93,7 +93,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                           preController.shopDetailModel.value
                                               .copyWith(isFavorite: true);
                                     }
-                                    preController.onFetchAllStore();
+                                    preController.onFetchAllStore(1);
                                     preController.onFetchFavouriteStore();
 
                                     preController.update();

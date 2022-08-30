@@ -73,7 +73,7 @@ class _SearchScreenState extends State<SearchScreen> {
             size: 22,
           ),
           onPressed: () {
-            privilegController.onFetchAllStore();
+            privilegController.onFetchAllStore(1);
             privilegController.onClearSearch();
             Navigator.pop(context);
           },
@@ -216,12 +216,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                         onTapFav: () {
                                           privilegController
                                               .setFavouriteStore(
-                                                  id: privilegController
-                                                      .searchShopList[e.key]
-                                                      .id!,
-                                                  fav: privilegController
-                                                      .searchShopList[e.key]
-                                                      .isFavorite!)
+                                            id: privilegController
+                                                .searchShopList[e.key].id!,
+                                            boolFav: privilegController
+                                                .searchShopList[e.key]
+                                                .isFavorite!,
+                                          )
                                               .then((value) {
                                             if (privilegController
                                                 .searchShopList[e.key]
@@ -350,9 +350,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       id: privilegController
                                                           .searchShopList[e.key]
                                                           .id!,
-                                                      fav: privilegController
-                                                          .searchShopList[e.key]
-                                                          .isFavorite!)
+                                                      boolFav:
+                                                          privilegController
+                                                              .searchShopList[
+                                                                  e.key]
+                                                              .isFavorite!)
                                                   .then((value) {
                                                 if (privilegController
                                                     .searchShopList[e.key]

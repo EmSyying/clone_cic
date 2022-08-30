@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
+import '../../../../Utils/function/convert_to_double.dart';
 import '../../../../Utils/helper/custom_loading_button.dart';
 import '../../../../widgets/privilege/custom_payment_priv.dart';
 
@@ -44,13 +45,15 @@ class PrivilegePayment extends StatelessWidget {
           children: [
             Expanded(
               child: CustomPaymentPrivilege(
+                
                 title: 'Enter Amount',
                 hintText: '0.00',
                 controller: priCon.amountcontroller.value,
                 onChanged: (value) {
                   priCon.validatePayment(value);
 
-                  priCon.privilegeAmount.value = value;
+                  priCon.privilegeAmount.value =
+                      onConvertToDouble(value).toString();
                 },
                 onSaved: (z) {},
               ),
@@ -70,7 +73,9 @@ class PrivilegePayment extends StatelessWidget {
                           title: "Cancel",
                           isOutline: true,
                           isDisable: false,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         )),
                       ),
                     ),
@@ -80,7 +85,9 @@ class PrivilegePayment extends StatelessWidget {
                           ? const CustomLoadingButton()
                           : CustomButton(
                               title: 'Submit',
-                              isDisable: false,
+                              isDisable: priCon.privilegeAmount.value != ''
+                                  ? false
+                                  : true,
                               isOutline: false,
                               onPressed: () {
                                 if (priCon.privilegeAmount.value.isEmpty) {

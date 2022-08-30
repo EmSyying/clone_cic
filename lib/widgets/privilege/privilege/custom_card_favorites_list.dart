@@ -52,7 +52,7 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
                           privillageCon
                               .setFavouriteStore(
                             id: privillageCon.favshopModelList[e.key].id!,
-                            fav: privillageCon
+                            boolFav: privillageCon
                                 .favshopModelList[e.key].isFavorite!,
                           )
                               .then((value) {

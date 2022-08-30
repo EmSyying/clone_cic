@@ -36,7 +36,7 @@ class CustomPaymentPrivilege extends StatelessWidget {
           width: double.infinity,
           child: TextFormField(
             inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
+              //FilteringTextInputFormatter.digitsOnly,
               NumericTextFormatter(),
               FilteringTextInputFormatter.deny(RegExp(r'^0+')),
             ],
@@ -45,14 +45,13 @@ class CustomPaymentPrivilege extends StatelessWidget {
                   letterSpacing: 0.6,
                   fontSize: 46,
                 ),
-            cursorHeight: 40,
-            cursorColor: Colors.transparent,
             showCursor: false,
+            autofocus: true,
             textAlign: TextAlign.center,
             onChanged: onChanged,
             onSaved: onSaved,
             controller: controller,
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
               hintText: hintText ?? '0.00',
               hintStyle: Theme.of(context).textTheme.headline5!.copyWith(

@@ -19,9 +19,10 @@ class CustomAllStoreList extends StatefulWidget {
 
 class _CustomAllStoreListState extends State<CustomAllStoreList> {
   final preCont = Get.put(PrivilegeController());
+
   @override
   void initState() {
-    preCont.onFetchAllStore();
+    preCont.onFetchAllStore(1);
     super.initState();
   }
 
@@ -53,8 +54,9 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                         onTapFav: () {
                           preCont
                               .setFavouriteStore(
-                                  id: preCont.shopModelList[e.key].id!,
-                                  fav: preCont.shopModelList[e.key].isFavorite!)
+                            id: preCont.shopModelList[e.key].id!,
+                            boolFav: preCont.shopModelList[e.key].isFavorite!,
+                          )
                               .then((value) {
                             if (preCont.shopModelList[e.key].isFavorite!) {
                               preCont.shopModelList[e.key] = preCont
