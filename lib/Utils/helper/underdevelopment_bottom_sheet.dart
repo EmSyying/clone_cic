@@ -64,9 +64,10 @@ class _CustomPopupButtonSheetState extends State<CustomPopupButtonSheet>
 
   @override
   void dispose() {
-    super.dispose();
     _animationController!.dispose();
     _controller!.dispose();
+    super.dispose();
+
     // _controller.dispose();
   }
 

@@ -1,45 +1,56 @@
-import 'package:cicgreenloan/Utils/helper/switch_splash_screen/switch_splash_screen.dart';
-import 'package:cicgreenloan/modules/bonus/screens/bonus_screen.dart';
-import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
-import 'package:cicgreenloan/modules/dashboard/dashboard.dart';
-import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
-import 'package:cicgreenloan/modules/investment_module/model/view_agreement/view_agreement.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/certificate.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/fif_deduc_selection.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/renewal_screen.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/saving_detail_screen.dart';
-import 'package:cicgreenloan/modules/member_directory/screens/directory.dart';
-import 'package:cicgreenloan/modules/notification_modules/screens/notification.dart';
-import 'package:cicgreenloan/modules/report_module/screens/report.dart';
-import 'package:cicgreenloan/modules/report_module/screens/view_report.dart';
-import 'package:cicgreenloan/modules/ut_trading/screens/trading_platform.dart';
-import 'package:cicgreenloan/widgets/investments/view_agreement_list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../Utils/helper/switch_splash_screen/switch_splash_screen.dart';
 import '../../Utils/web_view/web_view.dart';
 import '../../core/walk_through/splash_screen.dart';
+import '../../core/walk_through/start_slide.dart';
+import '../../modules/bonus/screens/bonus_screen.dart';
+import '../../modules/dashboard/buttom_navigation_bar.dart';
+import '../../modules/dashboard/dashboard.dart';
 import '../../modules/get_funding/screens/equity_investment/preview_equity.dart';
 import '../../modules/get_funding/screens/equity_investment/step1_equity.dart';
 import '../../modules/get_funding/screens/equity_investment/step2_equity.dart';
 import '../../modules/get_funding/screens/equity_investment/step3_equity.dart';
 import '../../modules/get_funding/screens/get_funding.dart';
+import '../../modules/investment_module/controller/investment_controller.dart';
 import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
+import '../../modules/investment_module/model/view_agreement/view_agreement.dart';
 import '../../modules/investment_module/screen/bullet_payment_detail.dart';
+import '../../modules/investment_module/screen/certificate.dart';
 import '../../modules/investment_module/screen/deposit_screen.dart';
+import '../../modules/investment_module/screen/fif_deduc_selection.dart';
+import '../../modules/investment_module/screen/renewal_screen.dart';
+import '../../modules/investment_module/screen/saving_detail_screen.dart';
+import '../../modules/member_directory/screens/directory.dart';
+import '../../modules/notification_modules/screens/notification.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_filters.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_screen.dart';
 import '../../modules/privilege_program/screen/privilege/search_screen.dart';
 import '../../modules/report_module/screens/cic_app_manual.dart';
+import '../../modules/report_module/screens/report.dart';
+import '../../modules/report_module/screens/view_report.dart';
 import '../../modules/setting_modules/screens/settings_screen.dart';
 import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
+import '../../modules/ut_trading/screens/trading_platform.dart';
 import '../../widgets/investments/fif_option1.dart';
+import '../../widgets/investments/view_agreement_list.dart';
 import '../../widgets/privilege/privilege/custom_all_store_list.dart';
 import '../../widgets/privilege/privilege/custom_card_favorites_list.dart';
 
 final router = GoRouter(initialLocation: '/splashscreen', routes: [
+  GoRoute(
+    path: '/splas-screen',
+    name: 'SplashScreen',
+    builder: (context, state) => const Splashscreen(),
+  ),
+  GoRoute(
+    path: '/start-slide',
+    name: 'StartSlide',
+    builder: (context, state) => const StartupSlide(),
+  ),
   GoRoute(
     path: '/',
     name: 'HomePage',
@@ -673,8 +684,9 @@ final router = GoRouter(initialLocation: '/splashscreen', routes: [
     ],
   ),
   GoRoute(
-      path: '/splashscreen',
-      builder: (_, __) {
-        return const Splashscreen();
-      }),
+    path: '/splashscreen',
+    builder: (_, __) {
+      return const Splashscreen();
+    },
+  ),
 ]);

@@ -71,15 +71,17 @@ Future<void> main() async {
     await settingCon.fetchAppSetting();
     await NotificationHelper.initial();
     optionCon.fetchAllOptions();
-    await LocalData.getCurrentUser().then((value) {
-      if (value != null) {
-        isLogin.value = true;
-        isLogin.notifyListeners();
-      } else {
-        isLogin.value = false;
-        isLogin.notifyListeners();
-      }
-    });
+    await LocalData.getCurrentUser().then(
+      (value) {
+        if (value != null) {
+          isLogin.value = true;
+          isLogin.notifyListeners();
+        } else {
+          isLogin.value = false;
+          isLogin.notifyListeners();
+        }
+      },
+    );
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(
