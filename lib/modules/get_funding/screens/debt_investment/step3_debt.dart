@@ -113,7 +113,7 @@ class _Step3DebtState extends State<Step3Debt> {
         debtCon.productSevice.value != "") {
       FocusScope.of(context).unfocus();
       context.push(
-          "/get-funding/debt-investment/debt-step1/debt-step2/debt-step3/debt-step4");
+          "/get-funding/debt-investment/debt-step4?id=${widget.id}&&step=${widget.step}");
     }
   }
 
@@ -476,54 +476,41 @@ class _Step3DebtState extends State<Step3Debt> {
                                     }
                                   : () {
                                       showSaveDraftDialog(
-                                        onSaveTitle: widget.id != null
-                                            ? "Update Draft"
-                                            : "Save Draft",
-                                        context: context,
-                                        isCancel: true,
-                                        content:
-                                            'Changes made to this page haven’t been saved yet.',
-                                        title:
-                                            'Are you sure you want to leave this page?',
-                                        onSave: widget.id != null
-                                            ? () async {
-                                                Navigator.pop(context);
-                                                await debtCon
-                                                    .onEditDebtInvestment(
-                                                        id: widget.id,
-                                                        context: context,
-                                                        frompage: debtCon
-                                                            .applicationDetail
-                                                            .value
-                                                            .step!
-                                                            .toInt(),
-                                                        step: 3);
-                                              }
-                                            : () async {
-                                                Navigator.pop(context);
-                                                await debtCon
-                                                    .onSubmitDebtInvestment(
-                                                        context: context,
-                                                        step: 3);
-                                              },
-                                        onDiscard: () {
-                                          setValidate();
-
-                                          if (widget.step == 1) {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          } else if (widget.step == 2) {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          } else {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          }
-                                        },
-                                      );
+                                          onSaveTitle: widget.id != null
+                                              ? "Update Draft"
+                                              : "Save Draft",
+                                          context: context,
+                                          isCancel: true,
+                                          content:
+                                              'Changes made to this page haven’t been saved yet.',
+                                          title:
+                                              'Are you sure you want to leave this page?',
+                                          onSave: widget.id != null
+                                              ? () async {
+                                                  Navigator.pop(context);
+                                                  await debtCon
+                                                      .onEditDebtInvestment(
+                                                          id: widget.id,
+                                                          context: context,
+                                                          frompage: debtCon
+                                                              .applicationDetail
+                                                              .value
+                                                              .step!
+                                                              .toInt(),
+                                                          step: 3);
+                                                }
+                                              : () async {
+                                                  Navigator.pop(context);
+                                                  await debtCon
+                                                      .onSubmitDebtInvestment(
+                                                          context: context,
+                                                          step: 3);
+                                                },
+                                          onDiscard: () {
+                                            setValidate();
+                                            context.go(
+                                                "/get-funding/debt-investment");
+                                          });
                                     },
                               icon: Icon(
                                 kIsWeb
@@ -1111,10 +1098,14 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 },
                                                 label: 'Type Of Organization',
                                                 defaultValue: debtCon
-                                                            .typeOfOrganization
-                                                            .value
-                                                            .display !=
-                                                        null
+                                                                .typeOfOrganization
+                                                                .value
+                                                                .display !=
+                                                            null &&
+                                                        debtCon.typeOfOrganization
+                                                                .value.display!
+                                                                .toLowerCase() !=
+                                                            'null'
                                                     ? {
                                                         "Name": debtCon
                                                             .typeOfOrganization
@@ -1238,9 +1229,15 @@ class _Step3DebtState extends State<Step3Debt> {
                                                       true;
                                                 },
                                                 label: 'Industry',
-                                                defaultValue: debtCon.industry
-                                                            .value.display !=
-                                                        null
+                                                defaultValue: debtCon
+                                                                .industry
+                                                                .value
+                                                                .display !=
+                                                            null &&
+                                                        debtCon.industry.value
+                                                                .display!
+                                                                .toLowerCase() !=
+                                                            'null'
                                                     ? {
                                                         "Name": debtCon.industry
                                                             .value.display,

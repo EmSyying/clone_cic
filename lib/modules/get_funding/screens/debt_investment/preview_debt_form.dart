@@ -34,7 +34,7 @@ import '../../../../widgets/get_funding/custom_review_required_doc_debt.dart';
 //===
 class PreviewDebtForm extends StatefulWidget {
   final int? id;
-  const PreviewDebtForm({Key? key,this.id}) : super(key: key);
+  const PreviewDebtForm({Key? key, this.id}) : super(key: key);
 
   @override
   State<PreviewDebtForm> createState() => _PreviewDebtFormState();
@@ -47,7 +47,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
 
   @override
   void initState() {
-    if (widget.id != 0 || widget.id != null) {
+    if (widget.id != null) {
       onGetData();
     } else {
       debtCon.isAgree.value = false;
@@ -254,7 +254,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
   }
 
   void onGetData() async {
-    if (widget.id != 0 || widget.id != null) {
+    if (widget.id != null) {
       await debtCon.fetchAppDetails(widget.id!);
 
       if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
@@ -504,7 +504,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                 : Scaffold(
                     appBar: debtCon.isLoadingSubmit.value == true
                         ? AppBar()
-                        : widget.id != 0 || widget.id != null
+                        :  widget.id != null
                             ? CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Submitted Application',
@@ -548,7 +548,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        if (widget.id != 0 || widget.id != null)
+                                        if ( widget.id != null)
                                           if (debtCon.applicationDetail.value
                                                   .reason !=
                                               null)
@@ -569,7 +569,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                           onTap: () {
                                             _onShowEditPersonalInfo(context);
                                           },
-                                          isEdit: widget.id == 0 ||
+                                          isEdit: 
                                                   widget.id == null ||
                                                   debtCon.applicationDetail
                                                           .value.status ==
@@ -661,7 +661,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                       3
                                                   ? "${debtCon.fullResidentAddress.value.addressList![3].name}"
                                                   : "",
-                                          isEdit: widget.id == 0 ||
+                                          isEdit:
                                                   widget.id == null ||
                                                   debtCon.applicationDetail
                                                           .value.status ==
@@ -673,7 +673,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                           },
                                         ),
                                         CustomReviewFinancingCard(
-                                          isEdit: widget.id == 0 ||
+                                          isEdit:
                                                   widget.id == null ||
                                                   debtCon.applicationDetail
                                                           .value.status ==
@@ -707,7 +707,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                         ),
                                         CustomReviewCompanyInfocard(
                                           title: 'Company Information*',
-                                          isEditable: widget.id == 0 ||
+                                          isEditable: 
                                                   widget.id == null ||
                                                   debtCon.applicationDetail
                                                           .value.status ==
@@ -749,7 +749,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                               debtCon.memorandumDoc.value,
                                         ),
                                         CustomRiviewRequiredDocInDebt(
-                                          isEdit: widget.id == 0 ||
+                                          isEdit:
                                                   widget.id == null ||
                                                   debtCon.applicationDetail
                                                           .value.status ==
@@ -764,7 +764,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                     ),
                                   ),
                                 ),
-                                if (widget.id == 0 ||
+                                if (
                                     widget.id == null ||
                                     debtCon.applicationDetail.value.status ==
                                         "Draft")
@@ -781,18 +781,18 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                 bottom: 10, top: 10),
                                             child: CustomSelect2GetFunding(
                                               isFromCreateOrUpdated:
-                                                  widget.id == 0 ||
+                                                
                                                       widget.id == null ||
                                                       checkNotEqual(),
                                               islongLabel: true,
                                               title:
                                                   'I hereby declare that the informations provided above are correct and true.',
-                                              isSelect: widget.id != 0 ||
+                                              isSelect:
                                                       widget.id != null &&
                                                           !checkNotEqual()
                                                   ? false
                                                   : debtCon.isAgree.value,
-                                              ontap: widget.id != 0 ||
+                                              ontap:
                                                       widget.id != null
                                                   ? () {
                                                       if (debtCon
@@ -866,7 +866,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                 const SizedBox(width: 20),
                                                 Expanded(
                                                   child:
-                                                      widget.id == 0 ||
+                                                     
                                                               widget.id == null
                                                           ? CustomButton(
                                                               isDisable: debtCon
@@ -953,7 +953,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                                               await debtCon.onSubmitDebtInvestment(
                                                                                   //frompage: debtCon.applicationDetail.value.step!.toInt(),
                                                                                   context: context,
-                                                                                  step: widget.id != 0 || widget.id != null && debtCon.applicationDetail.value.status == "Rejected" ? null : 5);
+                                                                                  step: widget.id != null && debtCon.applicationDetail.value.status == "Rejected" ? null : 5);
                                                                             },
                                                               title: debtCon
                                                                           .applicationDetail

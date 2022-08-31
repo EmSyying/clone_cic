@@ -182,8 +182,8 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                   onDiscard: () {
                                                     equityController
                                                         .resetData();
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
+                                                    context.go(
+                                                        "/get-funding/equity-investment");
                                                   });
                                             },
                                   icon: const Icon(

@@ -296,60 +296,10 @@ class EquityInvestmentController extends GetxController {
 
       http.Response.fromStream(streamedResponse).then((response) {
         if (response.statusCode == 200) {
-          showSnackbar
-              ? Get.snackbar("",
-                  "Your equity investment application request has been submitted",
-                  borderRadius: 8,
-                  duration: const Duration(seconds: 1),
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  icon:
-                      SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-                  snackPosition: SnackPosition.TOP,
-                  margin: const EdgeInsets.all(10),
-                  overlayBlur: 3.0,
-                  titleText: const Text(
-                    'Equity Investment',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  messageText: const Text(
-                    'Your equity investment application request has been submitted',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  snackStyle: SnackStyle.FLOATING)
-              : null;
-          context.go("/get-funding");
-          //  }
-          // Future.delayed(const Duration(seconds: 1), () {
-          //   if (frompage == 0) {
-          //     int nums;
-          //     if (type != null) {
-          //       if (type == "save") {
-          //         nums = 4;
-          //       } else {
-          //         nums = int.parse(type);
-          //       }
-          //     } else {
-          //       nums = 4;
-          //     }
-          //     int count = 0;
-          //     Navigator.of(context).popUntil((_) => count++ >= nums);
-          //     Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-          //         arguments: "equity_investment");
-          //     // ignore: unnecessary_null_comparison
-          //   } else if (frompage! > 2) {
-          //     int nums = 4 - frompage.toInt();
-
-          //     int count = 0;
-          //     Navigator.of(context).popUntil((_) => count++ >= nums);
-          //     Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-          //         arguments: "equity_investment");
-          //   } else {
-          //     Navigator.pop(context);
-          //     Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-          //         arguments: "equity_investment");
-          //   }
-          // });
+          context.go("/get-funding/equity-investment");
+          Future.delayed(const Duration(milliseconds: 985), () {
+            fetchOnEquityApplicationList(1);
+          });
         } else {
           debugPrint('debug stateus=========${response.statusCode}');
           debugPrint('debug body========${response.body}');
@@ -486,38 +436,9 @@ class EquityInvestmentController extends GetxController {
                   snackStyle: SnackStyle.FLOATING)
               : null;
           context.go("/get-funding/equity-investment");
-          // }
-          // Future.delayed(const Duration(seconds: 1), () {
-          //   int? page;
-          //   int? numb;
-          //   if (frompage.toString() != pagenumber) {
-          //     if (pagenumber == "update draft" || pagenumber == null) {
-          //       if (pagenumber == null) {
-          //         page = 1;
-          //       } else {
-          //         page = 5;
-          //       }
-
-          //       numb = page - frompage!;
-          //     } else {
-          //       page = int.parse(pagenumber);
-          //       numb = page - frompage!;
-          //       if (frompage == 1) numb = page;
-          //       if (frompage == 2) numb = page - frompage + 1;
-          //     }
-
-          //     int count = 0;
-          //     Navigator.of(context).popUntil((_) => count++ >= numb!);
-          //     Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-          //         arguments: "equity_investment");
-          //     debugPrint("is wrok updated to new");
-          //   } else {
-          //     debugPrint("is wrok updated to new 111");
-          //     Navigator.pop(context);
-          //     Navigator.pushReplacementNamed(context, RouteName.GETFUNDING,
-          //         arguments: "equity_investment");
-          //   }
-          // });
+          Future.delayed(const Duration(milliseconds: 985), () {
+            fetchOnEquityApplicationList(1);
+          });
         } else {
           var responseJson =
               json.decode(response.body)['errors']['financial_amount'][0];
@@ -563,6 +484,7 @@ class EquityInvestmentController extends GetxController {
   final isfetchequtydata = false.obs;
 
   Future<List<ApplicationData>> fetchOnEquityApplicationList(int page) async {
+    debugPrint("After Submited");
     final tokenKey = await LocalData.getCurrentUser();
 
     String url =

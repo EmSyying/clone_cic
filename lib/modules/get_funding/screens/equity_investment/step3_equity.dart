@@ -321,20 +321,9 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 },
                                                 isCancel: true,
                                                 onDiscard: () {
-                                                  if (widget.step == 3 &&
-                                                      widget.id != null) {
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                  } else if (widget.step == 2 &&
-                                                      widget.id != null) {
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                  } else {
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
-                                                  }
+                                                  equityController.resetData();
+                                                  context.go(
+                                                      '/get-funding/equity-investment');
                                                 });
                                           },
                                 icon: Icon(

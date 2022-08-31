@@ -121,7 +121,8 @@ class _Step1DebtState extends State<Step1Debt> {
         debtCon.isValidatePermenantAddress.value == true &&
         debtCon.isValidateFullAddress.value == true) {
       FocusScope.of(context).unfocus();
-      context.push("/get-funding/debt-investment/debt-step1/debt-step2");
+      context.push(
+          "/get-funding/debt-investment/debt-step2?id=${widget.id}&&step=${widget.step}");
     }
   }
 
@@ -316,7 +317,7 @@ class _Step1DebtState extends State<Step1Debt> {
                               ),
                               const SizedBox(height: padding),
                               Text(
-                                widget.id != null || widget.id != 0
+                                widget.id != null
                                     ? "Updating Draft..."
                                     : "Saving Draft...",
                                 style: const TextStyle(color: Colors.white),
@@ -374,8 +375,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                     },
                                     isCancel: true,
                                     onDiscard: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      context
+                                          .push("/get-funding/debt-investment");
                                     },
                                   );
                                 },

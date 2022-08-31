@@ -40,8 +40,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
   final DebtInvestmentController debtCon = Get.put(DebtInvestmentController());
 
   void _onValidate() {
-    context.go(
-        "/get-funding/debt-investment/debt-step1/debt-step2/debt-step3/debt-step4/preview-debt");
+    context.push("/get-funding/debt-investment/preview-debt?id=${widget.id}");
   }
 
   @override
@@ -237,11 +236,6 @@ class _RequiredDocumentState extends State<RequiredDocument> {
     super.initState();
   }
 
-  onResetValidate() {
-    debtCon.isValIncomeStatement.value = true;
-    debtCon.isValBalanceSheet.value = false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return CupertinoScaffold(
@@ -314,12 +308,8 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                               context: context, step: 4);
                                         },
                                   onDiscard: () {
-                                    if (widget.step == 1) {
-                                    } else if (widget.id != null &&
-                                        widget.step == 2) {
-                                    } else if (widget.id != null &&
-                                        widget.step == 3) {
-                                    } else {}
+                                    debtCon.onResetData();
+                                    context.go("/get-funding/debt-investment");
                                   },
                                 );
                               },

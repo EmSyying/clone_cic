@@ -392,18 +392,18 @@ class _MainDashboardState extends State<MainDashboard> {
     }).toList();
   }
 
-  initialObjectFinding() {
-    _settingCon.appSettingDataList.asMap().entries.map((value) {
-      RenderBox? renderBox4 =
-          value.value.key.currentContext.findRenderObject() as RenderBox?;
-      value.value.width = renderBox4!.size.width;
-      value.value.height = renderBox4.size.height;
+  // initialObjectFinding() {
+  //   _settingCon.appSettingDataList.asMap().entries.map((value) {
+  //     RenderBox? renderBox4 =
+  //         value.value.key.currentContext.findRenderObject() as RenderBox?;
+  //     value.value.width = renderBox4!.size.width;
+  //     value.value.height = renderBox4.size.height;
 
-      Offset offset4 = renderBox4.localToGlobal(Offset.zero);
-      value.value.xPosition = offset4.dx;
-      value.value.yPosition = offset4.dy;
-    }).toList();
-  }
+  //     Offset offset4 = renderBox4.localToGlobal(Offset.zero);
+  //     value.value.xPosition = offset4.dx;
+  //     value.value.yPosition = offset4.dy;
+  //   }).toList();
+  // }
 
   OverlayEntry? overlayBackground;
   NotificationAppLaunchDetails? notificationAppLaunchDetails;
@@ -464,30 +464,30 @@ class _MainDashboardState extends State<MainDashboard> {
     _notificationCon.onGetReason();
     actionKey = GlobalKey();
     debugPrint("App Setting Data List${_settingCon.appSettingDataList.length}");
-    LocalData.showAppTou('appTour').then((value) {
-      if (!value) {
-        Future.delayed(const Duration(seconds: 2), () {
-          initialObjectFinding();
+    // LocalData.showAppTou('appTour').then((value) {
+    //   if (!value) {
+    //     Future.delayed(const Duration(seconds: 2), () {
+    //       // initialObjectFinding();
 
-          overlayBackground = showOverlay();
-          Overlay.of(context)!.insert(overlayBackground!);
-          onShowAllAppTour(context);
-          _settingCon.appSettingDataList[0].overlayState!
-              .insert(_settingCon.appSettingDataList[0].overlayEntry!);
+    //       overlayBackground = showOverlay();
+    //       Overlay.of(context)!.insert(overlayBackground!);
+    //       onShowAllAppTour(context);
+    //       _settingCon.appSettingDataList[0].overlayState!
+    //           .insert(_settingCon.appSettingDataList[0].overlayEntry!);
 
-          // WidgetsBinding.instance.addPostFrameCallback(
-          //     (_) => Overlay.of(context).insert(overlayMyInvestment));
-          // findAboutCiC();
-        });
-        setState(() {
-          isFirstLaunch = true;
-        });
-      } else {
-        setState(() {
-          isFirstLaunch = false;
-        });
-      }
-    });
+    //       // WidgetsBinding.instance.addPostFrameCallback(
+    //       //     (_) => Overlay.of(context).insert(overlayMyInvestment));
+    //       // findAboutCiC();
+    //     });
+    //     setState(() {
+    //       isFirstLaunch = true;
+    //     });
+    //   } else {
+    //     setState(() {
+    //       isFirstLaunch = false;
+    //     });
+    //   }
+    // });
 
     futureList = documentCon.getallDocument();
     _notificationCon.getNotification().then((notifictionList) {
@@ -886,37 +886,33 @@ class _MainDashboardState extends State<MainDashboard> {
                           .entries
                           .map((e) {
                         return CustomAssocieateMember(
-                          onTap: isFirstLaunch
-                              ? () {}
-                              : !e.value.active!
-                                  ? () async {
-                                      await showModalBottomSheet(
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        builder: (context) {
-                                          return const CustomPopupButtonSheet(
-                                            assetImage:
-                                                'assets/images/svgfile/underDevelopment.svg',
-                                            description:
-                                                'This feature is under development at the moment',
-                                            title:
-                                                'This feature not available yet',
-                                          );
-                                        },
+                          onTap: !e.value.active!
+                              ? () async {
+                                  await showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) {
+                                      return const CustomPopupButtonSheet(
+                                        assetImage:
+                                            'assets/images/svgfile/underDevelopment.svg',
+                                        description:
+                                            'This feature is under development at the moment',
+                                        title: 'This feature not available yet',
                                       );
+                                    },
+                                  );
+                                }
+                              : e.value.route != 'get_funding'
+                                  ? () {
+                                      FirebaseAnalyticsHelper
+                                          .setCurrentScreenName(e.value.label!);
+                                      context.router
+                                          .pushNamed("/${e.value.route!}");
                                     }
-                                  : e.value.route != 'get_funding'
-                                      ? () {
-                                          FirebaseAnalyticsHelper
-                                              .setCurrentScreenName(
-                                                  e.value.label!);
-                                          context.router
-                                              .pushNamed("/${e.value.route!}");
-                                        }
-                                      : () {
-                                          context.router
-                                              .pushNamed("/${e.value.route!}");
-                                        },
+                                  : () {
+                                      context.router
+                                          .pushNamed("/${e.value.route!}");
+                                    },
                           title: e.value.label,
                           imageSvg: e.value.icon,
                         );
@@ -952,34 +948,32 @@ class _MainDashboardState extends State<MainDashboard> {
                                     return DashBoardMenu(
                                       key: value.key = GlobalKey(),
                                       title: value.label,
-                                      onTap: isFirstLaunch
-                                          ? () {}
-                                          : !value.active!
-                                              ? () async {
-                                                  await showModalBottomSheet(
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return const CustomPopupButtonSheet(
-                                                        assetImage:
-                                                            'assets/images/svgfile/underDevelopment.svg',
-                                                        description:
-                                                            'This feature is under development at the moment',
-                                                        title:
-                                                            'This feature not available yet',
-                                                      );
-                                                    },
+                                      onTap: !value.active!
+                                          ? () async {
+                                              await showModalBottomSheet(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                context: context,
+                                                builder: (context) {
+                                                  return const CustomPopupButtonSheet(
+                                                    assetImage:
+                                                        'assets/images/svgfile/underDevelopment.svg',
+                                                    description:
+                                                        'This feature is under development at the moment',
+                                                    title:
+                                                        'This feature not available yet',
                                                   );
-                                                }
-                                              : () {
-                                                  FirebaseAnalyticsHelper
-                                                      .setCurrentScreenName(
-                                                          value.label!);
-                                                  debugPrint(
-                                                      "routed:${value.route!}");
-                                                  context.go("/${value.route}");
                                                 },
+                                              );
+                                            }
+                                          : () {
+                                              FirebaseAnalyticsHelper
+                                                  .setCurrentScreenName(
+                                                      value.label!);
+                                              debugPrint(
+                                                  "routed:${value.route!}");
+                                              context.go("/${value.route}");
+                                            },
                                       icon: value.icon,
                                     );
                                   }).toList()),

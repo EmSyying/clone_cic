@@ -434,8 +434,8 @@ class _Step2EquityState extends State<Step2Equity> {
                                                       onDiscard: () {
                                                         equityController
                                                             .resetData();
-                                                        Navigator.pop(context);
-                                                        Navigator.pop(context);
+                                                        context.go(
+                                                            '/get-funding/equity-investment');
                                                       });
                                                 },
                                       icon: Icon(

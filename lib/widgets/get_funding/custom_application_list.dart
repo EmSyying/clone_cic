@@ -63,7 +63,7 @@ class ApplicationList extends StatelessWidget {
                                   ? context.go(
                                       "/get-funding/equity-investment/preview-equity?id=${getFundingModel.id}")
                                   : context.go(
-                                      "/get-funding/debt-investment/preview-debt/${getFundingModel.id}");
+                                      "/get-funding/debt-investment/preview-debt?id=${getFundingModel.id}");
                             } else {
                               null;
                             }

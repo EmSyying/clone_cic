@@ -433,56 +433,44 @@ final router = GoRouter(
                         step: int.tryParse(
                           state.queryParams['step'].toString(),
                         )),
-                    routes: [
-                      GoRoute(
-                        path: 'debt-step2',
-                        name: 'DebtStep2',
-                        builder: (context, state) => Step2Debt(
-                          id: int.tryParse(state.queryParams['id'].toString()),
-                          step: int.tryParse(
-                            state.queryParams['step'].toString(),
-                          ),
-                        ),
-                        routes: [
-                          GoRoute(
-                              path: 'debt-step3',
-                              name: 'DebtStep3',
-                              builder: (context, state) => Step3Debt(
-                                    id: int.tryParse(
-                                        state.queryParams['id'].toString()),
-                                    step: int.tryParse(
-                                      state.queryParams['step'].toString(),
-                                    ),
-                                  ),
-                              routes: [
-                                GoRoute(
-                                    path: 'debt-step4',
-                                    name: 'RequiredDocument',
-                                    builder: (context, state) =>
-                                        RequiredDocument(
-                                          id: int.tryParse(state
-                                              .queryParams['id']
-                                              .toString()),
-                                          step: int.tryParse(
-                                            state.queryParams['step']
-                                                .toString(),
-                                          ),
-                                        ),
-                                    routes: [
-                                      GoRoute(
-                                        path: 'preview-debt',
-                                        name: 'PreviewDebt',
-                                        builder: (context, state) =>
-                                            PreviewDebtForm(
-                                                id: int.tryParse(state
-                                                    .queryParams['id']
-                                                    .toString())),
-                                      ),
-                                    ]),
-                              ]),
-                        ],
-                      ),
-                    ]),
+                   ),
+                GoRoute(
+                  path: 'debt-step2',
+                  name: 'DebtStep2',
+                  builder: (context, state) => Step2Debt(
+                    id: int.tryParse(state.queryParams['id'].toString()),
+                    step: int.tryParse(
+                      state.queryParams['step'].toString(),
+                    ),
+                  ),
+                ),
+                GoRoute(
+                  path: 'debt-step3',
+                  name: 'DebtStep3',
+                  builder: (context, state) => Step3Debt(
+                    id: int.tryParse(state.queryParams['id'].toString()),
+                    step: int.tryParse(
+                      state.queryParams['step'].toString(),
+                    ),
+                  ),
+                ),
+                GoRoute(
+                  path: 'debt-step4',
+                  name: 'RequiredDocument',
+                  builder: (context, state) => RequiredDocument(
+                    id: int.tryParse(state.queryParams['id'].toString()),
+                    step: int.tryParse(
+                      state.queryParams['step'].toString(),
+                    ),
+                  ),
+                ),
+                GoRoute(
+                  path: 'preview-debt',
+                  name: 'PreviewDebt',
+                  builder: (context, state) => PreviewDebtForm(
+                      id: int.tryParse(state.queryParams['id'].toString())),
+                ),
+                
               ]),
           GoRoute(
               path: 'ut-trading',

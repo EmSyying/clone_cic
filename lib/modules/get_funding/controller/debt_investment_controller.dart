@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cicgreenloan/configs/route_management/route_name.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/models/application_detail.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/helper/api_base_helper.dart';
@@ -297,65 +297,9 @@ class DebtInvestmentController extends GetxController {
         //08030205 080302 0803 08
 
         if (response.statusCode == 200) {
-          showDebtSnackbar
-              ? Get.snackbar(
-                  "",
-                  // step != null
-                  //     ? "Your Debt Investment Has Been Saved."
-                  //     :
-                  "Your debt investment application request has been submitted",
-                  borderRadius: 8,
-                  duration: const Duration(seconds: 1),
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  icon:
-                      SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-                  snackPosition: SnackPosition.TOP,
-                  margin: const EdgeInsets.all(10),
-                  overlayBlur: 3.0,
-                  titleText: const Text(
-                    'Debt Investment',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  messageText: const Text(
-                    // step != null
-                    //     ? "Your Debt Investment Has Been Saved."
-                    //     :
-                    "Your debt investment application request has been submitted",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  snackStyle: SnackStyle.FLOATING)
-              : null;
-
-          isAgree.value = false;
-          isAgree.refresh();
-          Future.delayed(const Duration(seconds: 3), () {
-            if (frompage == 0) {
-              int nums;
-              if (step != null) {
-                nums = step;
-              } else {
-                nums = 5;
-              }
-
-              int count = 0;
-              Navigator.of(Get.context!).popUntil((_) => count++ >= nums);
-              Navigator.pushReplacementNamed(Get.context!, RouteName.GETFUNDING,
-                  arguments: "equity_investment");
-              // ignore: unnecessary_null_comparison
-            } else if (frompage! > 1 && frompage != 5) {
-              int nums = 5 - frompage.toInt();
-
-              int count = 0;
-
-              Navigator.of(Get.context!).popUntil((_) => count++ >= nums);
-              Navigator.pushReplacementNamed(Get.context!, RouteName.GETFUNDING,
-                  arguments: "equity_investment");
-            } else {
-              Navigator.pop(Get.context!);
-              Navigator.pushReplacementNamed(Get.context!, RouteName.GETFUNDING,
-                  arguments: "equity_investment");
-            }
+          context!.go("/get-funding/debt-investment");
+          Future.delayed(const Duration(milliseconds: 985), () {
+            fetchApplicationCard(page: 1);
           });
         } else {
           debugPrint('Stateus code========:${response.statusCode}');
@@ -551,60 +495,26 @@ class DebtInvestmentController extends GetxController {
       http.StreamedResponse streamedResponse = await request.send();
       http.Response.fromStream(streamedResponse).then((response) {
         if (response.statusCode == 200) {
-          showDebtSnackbar
-              ? customSnackbar(
-                  context: context,
-                  color: Colors.green,
-                  imgUrl: 'assets/images/svgfile/successIcon.svg',
-                  label: step != 1 || step != 2 || step != 3 || step != 4
-                      ? "Your debt investment application request has been submitted"
-                      : "Your debt investment application request has been updated",
-                  titleText: "Debt Investment",
-                  messageText: step != 1 || step != 2 || step != 3 || step != 4
-                      ? "Your debt investment application request has been submitted"
-                      : "Your debt investment application request has been updated",
-                )
-              : null;
-          // }
+          // showDebtSnackbar
+          //     ? customSnackbar(
+          //         context: context,
+          //         color: Colors.green,
+          //         imgUrl: 'assets/images/svgfile/successIcon.svg',
+          //         label: step != 1 || step != 2 || step != 3 || step != 4
+          //             ? "Your debt investment application request has been submitted"
+          //             : "Your debt investment application request has been updated",
+          //         titleText: "Debt Investment",
+          //         messageText: step != 1 || step != 2 || step != 3 || step != 4
+          //             ? "Your debt investment application request has been submitted"
+          //             : "Your debt investment application request has been updated",
+          //       )
+          //     : null;
+
           isAgree.value = false;
           isAgree.refresh();
-
-          Future.delayed(const Duration(seconds: 0), () {
-            int? page;
-            int? numb;
-
-            debugPrint('numb = $numb , frompage $frompage update');
-            if (frompage.toString() != step.toString() &&
-                frompage.toString() != "0") {
-              if (step == null) {
-                debugPrint('true');
-
-                page = 1;
-
-                debugPrint('page $frompage');
-                numb = page - frompage!;
-              } else {
-                debugPrint('false');
-                page = step;
-                numb = page - frompage!;
-                if (frompage == 1) numb = page;
-                if (frompage == 2 || frompage == 3 || frompage == 4) {
-                  numb = page - frompage + 1;
-                }
-              }
-              debugPrint('done');
-              debugPrint('page $page , numb = $numb , frompage $frompage');
-              int count = 0;
-              Navigator.of(Get.context!).popUntil((_) => count++ >= numb!);
-              Navigator.pushReplacementNamed(Get.context!, RouteName.GETFUNDING,
-                  arguments: "equity_investment");
-            } else {
-              debugPrint("here");
-              //   Navigator.pop(Get.context!);
-              Navigator.pop(Get.context!);
-              Navigator.pushReplacementNamed(Get.context!, RouteName.GETFUNDING,
-                  arguments: "equity_investment");
-            }
+          context!.go("/get-funding/debt-investment");
+          Future.delayed(const Duration(milliseconds: 985), () {
+            fetchApplicationCard(page: 1);
           });
         } else {
           debugPrint("Financial amount:${financingAmount.value}");
@@ -788,6 +698,8 @@ class DebtInvestmentController extends GetxController {
     isCertificate.value = false;
     isLicense.value = false;
     isMemorandum.value = false;
+    isValIncomeStatement.value = true;
+    isValBalanceSheet.value = false;
   }
 
   /// Fetch Loan Option

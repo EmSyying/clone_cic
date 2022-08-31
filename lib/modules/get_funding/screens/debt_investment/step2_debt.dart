@@ -103,7 +103,7 @@ class _Step2DebtState extends State<Step2Debt> {
           debtCon.isValidateTermAmount.value == false) {
         FocusScope.of(context).unfocus();
         context.push(
-            "/get-funding/debt-investment/debt-step1/debt-step2/debt-step3");
+            "/get-funding/debt-investment/debt-step3?id=${widget.id}&&step=${widget.step}");
       }
     }
   }
@@ -375,7 +375,7 @@ class _Step2DebtState extends State<Step2Debt> {
                                             'Are you sure you want to leave this page?',
                                         onSave: () async {
                                           Navigator.pop(context);
-                                          widget.id != null || widget.id != 0
+                                          widget.id != null
                                               ? await debtCon
                                                   .onEditDebtInvestment(
                                                       id: widget.id,
@@ -393,14 +393,8 @@ class _Step2DebtState extends State<Step2Debt> {
                                         },
                                         onDiscard: () {
                                           setValidate();
-                                          if (widget.step == 1) {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          } else {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          }
+                                          context.go(
+                                              "/get-funding/debt-investment");
                                         },
                                       );
                                     },
