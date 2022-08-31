@@ -1,8 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/show_alert_dialog.dart';
-import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -93,11 +92,9 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                                   title: e.value.productName,
                                   description: e.value.description,
                                   onExploreMore: () {
-                                    context.router.push(
-                                      ExploreMoreRouter(
-                                          title: e.value.productName,
-                                          url: "${e.value.urlWebview}"),
-                                    );
+                                    // ExploreMoreRouter(
+                                    //       title: e.value.productName,
+                                    //       url: "${e.value.urlWebview}")
                                   },
                                   onPressed: () {
                                     if (widget.id != null) {

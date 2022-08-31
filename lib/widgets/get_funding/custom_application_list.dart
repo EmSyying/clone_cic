@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.dart';
@@ -62,7 +61,7 @@ class ApplicationList extends StatelessWidget {
                             if (getFundingModel.status != "Draft") {
                               isEquity!
                                   ? context.go(
-                                      "/get-funding/equity-investment/preview-equity/${getFundingModel.id}")
+                                      "/get-funding/equity-investment/preview-equity?id=${getFundingModel.id}")
                                   : context.go(
                                       "/get-funding/debt-investment/preview-debt/${getFundingModel.id}");
                             } else {
@@ -72,35 +71,36 @@ class ApplicationList extends StatelessWidget {
                           //Code Edit and Deleted Draft Application list
                           child: ApplicationCard(
                             onTapEdit: () {
+                              debugPrint("Equity Step:${getFundingModel.step}");
                               equityController.resetData();
                               debtController.onResetData();
                               Navigator.pop(context);
                               isEquity!
                                   ? getFundingModel.step == 1
                                       ? context.go(
-                                          "/get-funding/equity-investment/equity-step1/${getFundingModel.id}/${getFundingModel.step}")
+                                          "/get-funding/equity-investment/equity-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                       : getFundingModel.step == 2
                                           ? context.go(
-                                              "/get-funding/equity-investment/equity-step2/${getFundingModel.id}/${getFundingModel.step}")
+                                              "/get-funding/equity-investment/equity-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                           : getFundingModel.step == 3
                                               ? context.go(
-                                                  "/get-funding/equity-investment/equity-step3/${getFundingModel.id}/${getFundingModel.step}")
+                                                  "/get-funding/equity-investment/equity-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                               : context.go(
-                                                  "/get-funding/equity-investment/preview-equity/${getFundingModel.id}")
+                                                  "/get-funding/equity-investment/preview-equity?id=${getFundingModel.id}")
                                   : getFundingModel.step == 1
-                                      ? context.router.pushNamed(
-                                          "step1debt/${getFundingModel.id}/${getFundingModel.step}")
+                                      ? context.go(
+                                          "/get-funding/debt-investment/debt-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                       : getFundingModel.step == 2
-                                          ? context.router.pushNamed(
-                                              "step2debt/${getFundingModel.id}/${getFundingModel.step}")
+                                          ? context.go(
+                                              "/get-funding/debt-investment/debt-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                           : getFundingModel.step == 3
-                                              ? context.router.pushNamed(
-                                                  "step3debt/${getFundingModel.id}/${getFundingModel.step}")
+                                              ? context.go(
+                                                  "/get-funding/debt-investment/debt-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                               : getFundingModel.step == 4
-                                                  ? context.router.pushNamed(
-                                                      "step4debt/${getFundingModel.id}/${getFundingModel.step}")
-                                                  : context.router.pushNamed(
-                                                      "preview-debt/${getFundingModel.id}");
+                                                  ? context.go(
+                                                      "/get-funding/debt-investment/debt-step4?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                  : context.go(
+                                                      "/get-funding/debt-investment/preview-debt?id=${getFundingModel.id}");
                             },
                             onTapDelete: () {
                               if (isEquity == true) {

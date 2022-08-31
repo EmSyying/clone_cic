@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/step1_debt.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 
 import 'package:cicgreenloan/widgets/get_funding/custom_application_list.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Utils/helper/container_partern.dart';
@@ -169,13 +169,8 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                             isOutline: false,
                                             onPressed: () {
                                               debtCon.onResetData();
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const Step1Debt(),
-                                                ),
-                                              );
+                                              context.push(
+                                                  "/get-funding/debt-investment/debt-step1");
                                             },
                                             title: 'Get Debt Invesment',
                                           ),
@@ -280,13 +275,8 @@ class _DebtInvestmentState extends State<DebtInvestment> {
 
                                                 debtCon.applicationDetail.value
                                                     .status = "";
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const Step1Debt(),
-                                                  ),
-                                                );
+                                                context.push(
+                                                    "/get-funding/debt-investment/debt-step1");
                                               },
                                               isDisable: false,
                                               isOutline: false,

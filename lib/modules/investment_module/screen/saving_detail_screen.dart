@@ -1,7 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
-import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_application/schedule/schedule.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
@@ -253,21 +251,21 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           .sendAnalyticsEvent(
                                               'withdraw pricipal');
                                       Navigator.pop(context);
-                                      context.router.push(
-                                        ContractWithdrawScreenRouter(
-                                          investAmount: fifCon
-                                              .fifAccountDetailModel
-                                              .value
-                                              .investmentAmount,
-                                          productName: fifCon
-                                              .fifAccountDetailModel
-                                              .value
-                                              .productName,
-                                          id: widget.id,
-                                          contractCode: widget.code,
-                                          accountName: widget.accountName,
-                                        ),
-                                      );
+                                      // context.push(
+                                      //   ContractWithdrawScreenRouter(
+                                      //     investAmount: fifCon
+                                      //         .fifAccountDetailModel
+                                      //         .value
+                                      //         .investmentAmount,
+                                      //     productName: fifCon
+                                      //         .fifAccountDetailModel
+                                      //         .value
+                                      //         .productName,
+                                      //     id: widget.id,
+                                      //     contractCode: widget.code,
+                                      //     accountName: widget.accountName,
+                                      //   ),
+                                      // );
                                     },
                                     child: Container(
                                       height: 49,

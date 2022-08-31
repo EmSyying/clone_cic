@@ -1,12 +1,10 @@
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
 import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/equatable_debt_model.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/loan_option.dart';
-import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/step3_debt.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_drop_down.dart';
@@ -21,6 +19,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -38,8 +37,8 @@ class Step2Debt extends StatefulWidget {
   final int? step;
   const Step2Debt({
     Key? key,
-    @PathParam('id') this.id = 0,
-    @PathParam('step') this.step,
+    this.id,
+    this.step,
   }) : super(key: key);
 
   @override
@@ -103,12 +102,8 @@ class _Step2DebtState extends State<Step2Debt> {
           debtCon.intendedDate.value != "" &&
           debtCon.isValidateTermAmount.value == false) {
         FocusScope.of(context).unfocus();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Step3Debt(),
-          ),
-        );
+        context.push(
+            "/get-funding/debt-investment/debt-step1/debt-step2/debt-step3");
       }
     }
   }
@@ -121,9 +116,9 @@ class _Step2DebtState extends State<Step2Debt> {
     debtCon.fetchLoanOption();
     debtCon.fetchOptionData(id: 1);
     debtCon.productType.value.id = 1;
-    if (widget.id != null || widget.id != 0) {
+    if (widget.id != null) {
       isEnable = true;
-      if (widget.id != null || widget.id != 0) {
+      if (widget.id != null) {
         debtCon.fetchAppDetails(widget.id!).then((value) {
           debtCon.fetchOptionData(id: value.productType!.id!.toInt());
 
@@ -343,7 +338,7 @@ class _Step2DebtState extends State<Step2Debt> {
                             ),
                             const SizedBox(height: padding),
                             Text(
-                              widget.id != null || widget.id != 0
+                              widget.id != null
                                   ? "Updating Draft..."
                                   : "Saving Draft...",
                               style: const TextStyle(color: Colors.white),
@@ -371,16 +366,15 @@ class _Step2DebtState extends State<Step2Debt> {
                                       showSaveDraftDialog(
                                         context: context,
                                         isCancel: true,
-                                        onSaveTitle:
-                                            widget.id != null || widget.id != 0
-                                                ? "Update Draft"
-                                                : "Save Draft",
+                                        onSaveTitle: widget.id != null
+                                            ? "Update Draft"
+                                            : "Save Draft",
                                         content:
                                             'Changes made to this page haven’t been saved yet.',
                                         title:
                                             'Are you sure you want to leave this page?',
                                         onSave: () async {
-                                          context.navigateBack();
+                                          Navigator.pop(context);
                                           widget.id != null || widget.id != 0
                                               ? await debtCon
                                                   .onEditDebtInvestment(
@@ -400,12 +394,12 @@ class _Step2DebtState extends State<Step2Debt> {
                                         onDiscard: () {
                                           setValidate();
                                           if (widget.step == 1) {
-                                            context.navigateBack();
-                                            context.navigateBack();
-                                            context.navigateBack();
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
                                           } else {
-                                            context.navigateBack();
-                                            context.navigateBack();
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
                                           }
                                         },
                                       );
@@ -724,22 +718,21 @@ class _Step2DebtState extends State<Step2Debt> {
                                             ),
                                           CICDropdown(
                                             // isEnable: !isEnable,
-                                            currentDate: widget.id != null ||
-                                                    widget.id != 0 &&
-                                                        dt1.isAfter(
-                                                          debtCon.intendedDate
-                                                                      .value ==
-                                                                  ""
-                                                              ? DateTime(
-                                                                  dt1.year,
-                                                                  dt1.month,
-                                                                  dt1.day)
-                                                              : DateFormat(
-                                                                      "dd-MM-yyyy")
-                                                                  .parse(debtCon
-                                                                      .intendedDate
-                                                                      .value),
-                                                        )
+                                            currentDate: widget.id != null &&
+                                                    dt1.isAfter(
+                                                      debtCon.intendedDate
+                                                                  .value ==
+                                                              ""
+                                                          ? DateTime(
+                                                              dt1.year,
+                                                              dt1.month,
+                                                              dt1.day)
+                                                          : DateFormat(
+                                                                  "dd-MM-yyyy")
+                                                              .parse(debtCon
+                                                                  .intendedDate
+                                                                  .value),
+                                                    )
                                                 ? DateFormat("dd-MM-yyyy")
                                                     .parse(debtCon
                                                         .intendedDate.value)
@@ -812,8 +805,7 @@ class _Step2DebtState extends State<Step2Debt> {
                                           onPressed: () async {
                                             setValidate();
                                             FocusScope.of(context).unfocus();
-                                            if (widget.id != null ||
-                                                widget.id != 0) {
+                                            if (widget.id != null) {
                                               FirebaseAnalyticsHelper
                                                   .sendAnalyticsEvent(
                                                       "Debt Update Draft Step2");
@@ -822,7 +814,7 @@ class _Step2DebtState extends State<Step2Debt> {
                                                   .sendAnalyticsEvent(
                                                       "Debt Save Draft Step2");
                                             }
-                                            widget.id != null || widget.id != 0
+                                            widget.id != null
                                                 ? await debtCon
                                                     .onEditDebtInvestment(
                                                         showDebtSnackbar: false,
@@ -840,8 +832,7 @@ class _Step2DebtState extends State<Step2Debt> {
                                                         context: context,
                                                         step: 2);
                                           },
-                                          title: widget.id != null ||
-                                                  widget.id != 0
+                                          title: widget.id != null
                                               ? "Update Draft"
                                               : "Save Draft",
                                         ),

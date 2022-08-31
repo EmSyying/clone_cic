@@ -1,13 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../modules/get_funding/controller/debt_investment_controller.dart';
-import '../../modules/get_funding/controller/equity_investment_controller.dart';
 import '../helper/container_partern.dart';
-
-final equityController = Get.put(EquityInvestmentController());
-final debtCon = Get.put(DebtInvestmentController());
 
 showSaveDraftDialog({
   BuildContext? context,
@@ -15,14 +8,9 @@ showSaveDraftDialog({
   String? content,
   String? onSaveTitle,
   bool? isCancel,
-  bool? isEquity = false,
-  int? step,
-  int? id,
   bool? isDisableSaveDraft = false,
   VoidCallback? onSave,
   VoidCallback? onDiscard,
-  String? selectRemove,
-  String? selectCancel,
 }) {
   return showDialog(
     barrierDismissible: false,
@@ -83,32 +71,7 @@ showSaveDraftDialog({
             ),
             if (!isDisableSaveDraft)
               GestureDetector(
-                onTap: () async {
-                  Navigator.pop(context);
-                  if (isEquity == true) {
-                    if (id == 0 || id == null) {
-                      await equityController.onSubmitEquityInvestment(
-                          context: context, type: step.toString());
-                    } else {
-                      equityController.onEditEquityInvestment(
-                          context: context,
-                          id: id,
-                          pagenumber: step.toString());
-                    }
-                  } else {
-                    if (id == 0 || id == null) {
-                      await debtCon.onSubmitDebtInvestment(
-                          context: context, step: step);
-                    } else {
-                      await debtCon.onEditDebtInvestment(
-                        frompage: step,
-                        id: id,
-                        context: context,
-                        step: step,
-                      );
-                    }
-                  }
-                },
+                onTap: onSave,
                 child: Container(
                   color: Colors.transparent,
                   width: MediaQuery.of(context).size.width,
@@ -117,10 +80,7 @@ showSaveDraftDialog({
                         horizontal: padding, vertical: padding),
                     child: Center(
                       child: Text(
-                        selectCancel ??
-                            (isCancel == true
-                                ? onSaveTitle ?? 'Save Draft'
-                                : 'Save'),
+                        isCancel == true ? onSaveTitle ?? 'Save Draft' : 'Save',
                         style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -138,46 +98,7 @@ showSaveDraftDialog({
               color: Colors.grey,
             ),
             GestureDetector(
-              onTap: () {
-                onDiscard!();
-                if (isEquity == true) {
-                  if (step == 1) {
-                    equityController.resetData();
-                    Navigator.pop(context);
-                    context.navigateBack();
-                    debugPrint("is Step 1 true");
-                  } else if (step == 2) {
-                    equityController.resetData();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  } else {
-                    equityController.resetData();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  }
-                } else {
-                  if (step == 1) {
-                    debtCon.onResetData();
-                    Navigator.pop(context);
-                  } else if (step == 2) {
-                    debtCon.onResetData();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  } else if (step == 3) {
-                    debtCon.onResetData();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  } else {
-                    debtCon.onResetData();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  }
-                }
-              },
+              onTap: onDiscard,
               child: Container(
                 color: Colors.transparent,
                 width: MediaQuery.of(context).size.width,
@@ -186,8 +107,7 @@ showSaveDraftDialog({
                       horizontal: padding, vertical: padding),
                   child: Center(
                     child: Text(
-                      selectRemove ??
-                          (isCancel == true ? 'Leave This Page' : 'Discard'),
+                      isCancel == true ? 'Leave This Page' : 'Discard',
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,

@@ -24,7 +24,7 @@ import '../../../../widgets/get_funding/custom_call_center.dart';
 class Step1Equiry extends StatefulWidget {
   final int? id;
   final int? step;
-  const Step1Equiry({Key? key, this.id = 0, this.step}) : super(key: key);
+  const Step1Equiry({Key? key, this.id, this.step}) : super(key: key);
   @override
   State<Step1Equiry> createState() => _Step1EquiryState();
 }
@@ -33,8 +33,9 @@ class _Step1EquiryState extends State<Step1Equiry> {
   final equityController = Get.put(EquityInvestmentController());
   @override
   void initState() {
+    debugPrint("step 1 id:${widget.id}");
     equityController.fetchEquitySetting();
-    if (widget.id != 0) {
+    if (widget.id != null) {
       inistialdata();
     } else {
       // equityController.applicationData.value = ApplicationDataDetail();
@@ -93,8 +94,8 @@ class _Step1EquiryState extends State<Step1Equiry> {
             equityController.equitySetting.value.maxEquityAmount! &&
         equityController.useOfFund.value != '' &&
         equityController.intendedDate.value != '') {
-      context.go(
-          "/get-funding/equity-investment/equity-step2/${widget.id}/${widget.step}");
+      context.push(
+          "/get-funding/equity-investment/equity-step2?id=${widget.id}&&step=${widget.step}");
     }
   }
 
@@ -154,18 +155,36 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                           : () {
                                               FocusScope.of(context).unfocus();
                                               showSaveDraftDialog(
-                                                step: 1,
-                                                isCancel: true,
-                                                isEquity: true,
-                                                context: context,
-                                                onSaveTitle: widget.id != 0
-                                                    ? "Update Draft"
-                                                    : "Save Draft",
-                                                content:
-                                                    'Changes made to this page haven’t been saved yet.',
-                                                title:
-                                                    'Are you sure you want to leave this page?',
-                                              );
+                                                  context: context,
+                                                  onSaveTitle: widget.id != null
+                                                      ? "Update Draft"
+                                                      : "Save Draft",
+                                                  content:
+                                                      'Changes made to this page haven’t been saved yet.',
+                                                  title:
+                                                      'Are you sure you want to leave this page?',
+                                                  onSave: () async {
+                                                    Navigator.pop(context);
+                                                    if (widget.id == null) {
+                                                      await equityController
+                                                          .onSubmitEquityInvestment(
+                                                              context: context,
+                                                              type: "1");
+                                                    } else {
+                                                      equityController
+                                                          .onEditEquityInvestment(
+                                                              context: context,
+                                                              id: widget.id!,
+                                                              pagenumber: "1");
+                                                    }
+                                                  },
+                                                  isCancel: true,
+                                                  onDiscard: () {
+                                                    equityController
+                                                        .resetData();
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
+                                                  });
                                             },
                                   icon: const Icon(
                                     Icons.clear,
@@ -279,7 +298,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                   .toString(),
                                         ),
                                         CICDropdown(
-                                          currentDate: widget.id != 0 &&
+                                          currentDate: widget.id != null &&
                                                   dt1.isAfter(
                                                     equityController
                                                                 .intendedDate
@@ -318,7 +337,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                   ''
                                               ? null
                                               : {
-                                                  'Name': widget.id != 0 &&
+                                                  'Name': widget.id != null &&
                                                           equityController
                                                                   .whenOnchangeDate
                                                                   .value ==
@@ -438,7 +457,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                           .value
                                                           .intendedDateDisbursement
                                               ? null
-                                              : widget.id != 0
+                                              : widget.id != null
                                                   ? () async {
                                                       FirebaseAnalyticsHelper
                                                           .sendAnalyticsEvent(
@@ -468,7 +487,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                               context: context,
                                                               type: "1");
                                                     },
-                                          title: widget.id == 0
+                                          title: widget.id == null
                                               ? 'Save Draft'
                                               : "Update Draft",
                                         ),
@@ -531,7 +550,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
               ),
               const SizedBox(height: padding),
               Text(
-                widget.id != 0 ? "Updating..." : "Submitting...",
+                widget.id != null ? "Updating..." : "Submitting...",
                 style: const TextStyle(color: Colors.white),
               ),
             ],

@@ -179,7 +179,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                       child: CustomButton(
                                         onPressed: () {
                                           equityController.resetData();
-                                          debugPrint("Go to step 1");
+                                          debugPrint("Go to step 1 by create");
                                           context.go(
                                               "/get-funding/equity-investment/equity-step1");
                                         },
@@ -317,7 +317,6 @@ class _EquityInvestmentState extends State<EquityInvestment> {
               equityController.resetData();
 
               context.go("/get-funding/equity-investment/equity-step1");
-              debugPrint("Go to step equity step1");
             },
             title: 'Get Equity Invesment',
           ),

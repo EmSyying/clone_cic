@@ -119,14 +119,15 @@ class _Step2EquityState extends State<Step2Equity> {
             optionController.optionData.value.riaseuseoffund![0].id!;
       }
       context.go(
-          "/get-funding/equity-investment/equity-step3/${widget.id}/${widget.step}");
+          "/get-funding/equity-investment/equity-step3?id=${widget.id}&&step=${widget.step}");
     }
   }
 
   @override
   void initState() {
-    memberController.fetchCompanyMember();
-    if (widget.id != 0) {
+    memberController.fetchCompanyMember(
+        id: customerController.customer.value.customerId);
+    if (widget.id != null) {
       inistialdata();
     }
 
@@ -338,7 +339,9 @@ class _Step2EquityState extends State<Step2Equity> {
                             ),
                             const SizedBox(height: padding),
                             Text(
-                              widget.id != 0 ? 'Updating...' : 'Submitting...',
+                              widget.id != null
+                                  ? 'Updating...'
+                                  : 'Submitting...',
                               style: const TextStyle(color: Colors.white),
                             ),
                           ],
@@ -356,7 +359,7 @@ class _Step2EquityState extends State<Step2Equity> {
                             leading: !equityController.isLoadingData.value
                                 ? Obx(
                                     () => IconButton(
-                                      onPressed: widget.id != 0 &&
+                                      onPressed: widget.id != null &&
                                               checkdisablesavedraf()
                                           ? () {
                                               FocusScope.of(context).unfocus();
@@ -393,22 +396,47 @@ class _Step2EquityState extends State<Step2Equity> {
                                               ? () {
                                                   FocusScope.of(context)
                                                       .unfocus();
-                                                  context.navigateBack();
+                                                  Navigator.pop(context);
                                                 }
                                               : () {
                                                   FocusScope.of(context)
                                                       .unfocus();
                                                   showSaveDraftDialog(
-                                                    isEquity: true,
-                                                    context: context,
-                                                    onSaveTitle: widget.id != 0
-                                                        ? "Update Draft"
-                                                        : "Save Draft",
-                                                    content:
-                                                        'Changes made to this page haven’t been saved yet.',
-                                                    title:
-                                                        'Are you sure you want to leave this page?',
-                                                  );
+                                                      context: context,
+                                                      onSaveTitle:
+                                                          widget.id != null
+                                                              ? "Update Draft"
+                                                              : "Save Draft",
+                                                      content:
+                                                          'Changes made to this page haven’t been saved yet.',
+                                                      title:
+                                                          'Are you sure you want to leave this page?',
+                                                      onSave: () async {
+                                                        Navigator.pop(context);
+                                                        if (widget.id == null) {
+                                                          await equityController
+                                                              .onSubmitEquityInvestment(
+                                                                  context:
+                                                                      context,
+                                                                  type: "1");
+                                                        } else {
+                                                          equityController
+                                                              .onEditEquityInvestment(
+                                                                  context:
+                                                                      context,
+                                                                  id: widget
+                                                                      .id!,
+                                                                  pagenumber:
+                                                                      "1");
+                                                        }
+                                                      },
+                                                      isCancel: true,
+                                                      onDiscard: () {
+                                                        equityController
+                                                            .resetData();
+                                                        Navigator.pop(context);
+                                                        Navigator.pop(context);
+                                                      });
                                                 },
                                       icon: Icon(
                                         kIsWeb
@@ -1355,12 +1383,11 @@ class _Step2EquityState extends State<Step2Equity> {
                                     children: [
                                       Expanded(
                                         child: CustomButton(
-                                          isDisable: widget.id != 0
+                                          isDisable: widget.id != null
                                               ? equityController.companyName.value == "" &&
                                                       equityController.address.value ==
                                                           "" &&
-                                                      equityController
-                                                              .yearOfEstablishment
+                                                      equityController.yearOfEstablishment
                                                               .value ==
                                                           "" &&
                                                       equityController
@@ -1375,32 +1402,39 @@ class _Step2EquityState extends State<Step2Equity> {
                                                       equityController.industry
                                                               .value.display ==
                                                           null &&
-                                                      equityController.numberOfStaff.value ==
-                                                          "" &&
-                                                      equityController.ownerName.value ==
+                                                      equityController
+                                                              .numberOfStaff
+                                                              .value ==
                                                           "" &&
                                                       equityController
-                                                              .productSevice
-                                                              .value ==
+                                                              .ownerName.value ==
+                                                          "" &&
+                                                      equityController
+                                                              .productSevice.value ==
                                                           "" &&
                                                       !equityController
                                                           .isPatentDoc.value &&
                                                       !equityController
-                                                          .isCertificate
-                                                          .value &&
+                                                          .isCertificate.value &&
                                                       !equityController
                                                           .isLicense.value &&
-                                                      !equityController
-                                                          .isMemorandum.value
+                                                      !equityController.isMemorandum
+                                                          .value
                                                   ? true
-                                                  : checkdisablesavedraf() &&
+                                                  : widget
+                                                                  .id !=
+                                                              null &&
+                                                          checkdisablesavedraf() &&
                                                           addNewOtherIndustry.text ==
                                                               "" &&
-                                                          addNewOtherType.text ==
+                                                          addNewOtherType
+                                                                  .text ==
                                                               ""
                                                       ? true
                                                       : false
-                                              : equityController.companyName.value == "" &&
+                                              : equityController
+                                                              .companyName.value ==
+                                                          "" &&
                                                       equityController.address.value ==
                                                           "" &&
                                                       equityController
@@ -1433,7 +1467,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                                   ? true
                                                   : false,
                                           isOutline: true,
-                                          onPressed: widget.id != 0
+                                          onPressed: widget.id != null
                                               ? () {
                                                   FirebaseAnalyticsHelper
                                                       .sendAnalyticsEvent(
@@ -1461,7 +1495,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                                           context: context,
                                                           type: "2");
                                                 },
-                                          title: widget.id != 0
+                                          title: widget.id != null
                                               ? 'Update Draft'
                                               : 'Save Draft',
                                         ),
@@ -1482,7 +1516,8 @@ class _Step2EquityState extends State<Step2Equity> {
                                 )
                               ],
                             ),
-                    )),
+                    ),
+                  ),
           ),
         ),
       ),

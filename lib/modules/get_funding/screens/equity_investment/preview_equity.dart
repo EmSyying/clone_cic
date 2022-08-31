@@ -88,7 +88,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
   void initState() {
     super.initState();
 
-    if (widget.id == 0 || widget.id == null) {
+    if (widget.id == null) {
       // inistialdata();
       // initialDataToString();
     } else {
@@ -439,7 +439,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
                 : Scaffold(
                     appBar: equityController.isSubmitLoading.value == true
                         ? AppBar()
-                        : widget.id == 0 || widget.id == null
+                        : widget.id == null
                             ? CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Submitted Application',
@@ -482,7 +482,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        if (widget.id != 0 || widget.id != null)
+                                        if (widget.id != null)
                                           if (equityController.applicationData
                                                   .value.status ==
                                               'Rejected')
@@ -502,7 +502,6 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                           .value
                                                           .status ==
                                                       "Draft" ||
-                                                  widget.id == 0 ||
                                                   widget.id == null
                                               ? true
                                               : isEdit,
@@ -533,7 +532,6 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                           .value
                                                           .status ==
                                                       "Draft" ||
-                                                  widget.id == 0 ||
                                                   widget.id == null
                                               ? true
                                               : isEdit,
@@ -582,7 +580,6 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                           .value
                                                           .status ==
                                                       "Draft" ||
-                                                  widget.id == 0 ||
                                                   widget.id == null
                                               ? true
                                               : isEdit,
@@ -649,7 +646,6 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                 if (equityController
                                             .applicationData.value.status ==
                                         "Draft" ||
-                                    widget.id == 0 ||
                                     widget.id == null)
                                   Container(
                                     margin: const EdgeInsets.only(
@@ -697,13 +693,13 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                 child: CustomButton(
                                                     isDisable: false,
                                                     isOutline: true,
-                                                    onPressed: widget.id != 0 ||
-                                                            widget.id != null &&
-                                                                equityController
-                                                                        .applicationData
-                                                                        .value
-                                                                        .step ==
-                                                                    3
+                                                    onPressed: widget.id !=
+                                                                null &&
+                                                            equityController
+                                                                    .applicationData
+                                                                    .value
+                                                                    .step ==
+                                                                3
                                                         ? () {
                                                             Navigator.pop(
                                                                 context);
@@ -727,14 +723,12 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                   isOutline: false,
                                                   onPressed: equityController
                                                           .isAgree.value
-                                                      ? widget.id != 0 ||
-                                                              widget.id !=
-                                                                      null &&
-                                                                  equityController
-                                                                          .applicationData
-                                                                          .value
-                                                                          .status ==
-                                                                      "Draft"
+                                                      ? widget.id != null &&
+                                                              equityController
+                                                                      .applicationData
+                                                                      .value
+                                                                      .status ==
+                                                                  "Draft"
                                                           ? () async {
                                                               FirebaseAnalyticsHelper
                                                                   .sendAnalyticsEvent(
@@ -781,7 +775,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                                               .status ==
                                                           "Rejected"
                                                       ? 'Re-Submit'
-                                                      : widget.id != 0 &&
+                                                      : widget.id != null &&
                                                               equityController
                                                                       .applicationData
                                                                       .value

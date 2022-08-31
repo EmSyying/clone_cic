@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
-import 'package:cicgreenloan/configs/auto_route/auto_route.gr.dart';
+
 import 'package:cicgreenloan/modules/investment_module/model/contract_history/contract_history.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
 import 'package:cicgreenloan/modules/investment_module/model/investment_amount/investment_data.dart';
@@ -283,7 +282,7 @@ class PriceController extends GetxController {
       <DeductScheduleFormModel>[DeductScheduleFormModel()].obs;
 
   validateDeductionForm(BuildContext context, {int? id}) {
-    context.router.push(FIFOption1Router());
+    // context.router.push(FIFOption1Router());
 
     update();
   }
@@ -777,24 +776,24 @@ class PriceController extends GetxController {
           "bank_id": bankId.value,
           "mma_account_id": "${mmaAccountId.value}"
         }).then((response) {
-      context!.navigateTo(
-        CustomSucessScreenRouter(
-          title: 'Success',
-          description: 'Your FIF application is submitted successfully. ',
-          buttonTitle: 'Done',
-          onPressedButton: () {
-            onClearFIF();
-            clearDeducSelection();
-            context.navigateTo(
-              const MyInvestmentRouter(),
-            );
-            Future.delayed(const Duration(seconds: 1), () {
-              getFIFApplication();
-              fetchFIFPending();
-            });
-          },
-        ),
-      );
+      // context!.navigateTo(
+      //   CustomSucessScreenRouter(
+      //     title: 'Success',
+      //     description: 'Your FIF application is submitted successfully. ',
+      //     buttonTitle: 'Done',
+      //     onPressedButton: () {
+      //       onClearFIF();
+      //       clearDeducSelection();
+      //       context.navigateTo(
+      //         const MyInvestmentRouter(),
+      //       );
+      //       Future.delayed(const Duration(seconds: 1), () {
+      //         getFIFApplication();
+      //         fetchFIFPending();
+      //       });
+      //     },
+      //   ),
+      // );
 
       isLoadingPostFiF(false);
       update();
@@ -1033,34 +1032,6 @@ class PriceController extends GetxController {
       var disbursmentDateJson = response['disbursement_date'];
       var withdrawAmountJson = response['withdraw_amount'];
 
-      context!.router.push(
-        ReviewWithdrawRouter(
-            // fromPage: 'widthdraw',
-            // productName: fifAccountDetailModel.value.productName,
-            // titles: 'Withdraw Summary',
-            // investAmount: fifAccountDetailModel.value.originalCurrentPrincipal,
-            // isWithdraw: true,
-            // withdrawer: fifAccountDetailModel.value.investorName,
-            // withdrawAmount: withdrawAmountJson,
-            // noticeDate:
-            //     FormatDate.investmentDateDisplay(FormatDate.today().toString()),
-            // disbursementDate: disbursmentDateJson,
-            // contractStatus: textWithdrawAmount.value ==
-            //         fifAccountDetailModel.value.originalAmount!.toInt()
-            //     ? 'Passive'
-            //     : 'Active',
-            // id: investmentId.value,
-            // oncallBack: () async {
-            //   FirebaseAnalyticsHelper.sendAnalyticsEvent(
-            //       'submit withdraw contract');
-
-            //   await Future.delayed(const Duration(seconds: 1));
-            //   await onCreateWithdraw(investmentId.value, context);
-            //   onclearWithdraw();
-            // },
-            // annually: fifAccountDetailModel.value.annuallyInterestRate,
-            ),
-      );
       debugPrint("Perview Widthdraw:$disbursmentDateJson");
       update();
       isPreviewWidthdrawLoading(false);
@@ -1296,26 +1267,6 @@ class PriceController extends GetxController {
           "investment_id": id,
           "renew_period": textRenewPeriod.value,
         }).then((response) {
-      context!.router.push(
-        RenewSuccessRouter(
-          title: 'Success',
-          description: 'Your request for renewal has been submitted.',
-          buttonTitle: 'Done',
-          onPressedButton: () {
-            Future.delayed(const Duration(seconds: 1), () {
-              onClearFIF();
-              clearDeducSelection();
-              context.navigateTo(
-                const MyInvestmentRouter(),
-              );
-              getFIFApplication();
-              fetchFirstDate();
-              fetchFIFPending();
-            });
-          },
-        ),
-      );
-
       debugPrint('Fix me Error...+++++++++');
       isLoadingRenew(false);
       update();
@@ -1449,36 +1400,21 @@ class PriceController extends GetxController {
 
   Future<void> onCreateWithdraw(withdrawId, BuildContext? context) async {
     isLoadingWithdraw(true);
-    await apiBaseHelper.onNetworkRequesting(
-        url: 'fif-application/process?type=withdraw',
-        methode: METHODE.post,
-        isAuthorize: true,
-        body: {
-          "investment_id": withdrawId,
-          "disbursement_date": textdisbursementDateSubmit.value,
-          "amount": textWithdrawAmount.value
-        }).then((e) async {
-      await context!.router.push(
-        RedemptionSuccessRouter(
-          title: 'Success',
-          description: 'Your request for withdraw has been submitted.',
-          buttonTitle: 'Done',
-          onPressedButton: () {
-            Future.delayed(const Duration(seconds: 0), () {
-              context.navigateTo(
-                const MyInvestmentRouter(),
-              );
-              getFIFApplication();
-              fetchFirstDate();
-              fetchFIFPending();
-            });
-          },
-        ),
-      );
-    }).onError((ErrorModel errorModel, stackTrace) {
-      FirebaseCrashlytics.instance.log(
-          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
-    });
+    await apiBaseHelper
+        .onNetworkRequesting(
+            url: 'fif-application/process?type=withdraw',
+            methode: METHODE.post,
+            isAuthorize: true,
+            body: {
+              "investment_id": withdrawId,
+              "disbursement_date": textdisbursementDateSubmit.value,
+              "amount": textWithdrawAmount.value
+            })
+        .then((e) async {})
+        .onError((ErrorModel errorModel, stackTrace) {
+          FirebaseCrashlytics.instance.log(
+              "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
+        });
   }
 
   final isLoadingWithdrawBank = false.obs;

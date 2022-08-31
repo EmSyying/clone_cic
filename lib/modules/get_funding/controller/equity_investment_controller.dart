@@ -318,7 +318,7 @@ class EquityInvestmentController extends GetxController {
                   ),
                   snackStyle: SnackStyle.FLOATING)
               : null;
-          context.go("/get-funding/equity-investment");
+          context.go("/get-funding");
           //  }
           // Future.delayed(const Duration(seconds: 1), () {
           //   if (frompage == 0) {

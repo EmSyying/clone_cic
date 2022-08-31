@@ -45,7 +45,7 @@ class _Step3EquityState extends State<Step3Equity> {
   final optionController = Get.put(DocumentCategory());
   @override
   void initState() {
-    if (widget.id != 0) inistialdata();
+    if (widget.id != null) inistialdata();
     super.initState();
   }
 
@@ -162,7 +162,8 @@ class _Step3EquityState extends State<Step3Equity> {
 
     if (equityController.numberOfBoardMembers.value != 0 &&
         equityController.numberOfShareHolders.value != 0) {
-      context.go("/get-funding/equity-investment/preview-equity/${widget.id}");
+      context
+          .go("/get-funding/equity-investment/preview-equity?id=${widget.id}");
     }
   }
 
@@ -233,7 +234,7 @@ class _Step3EquityState extends State<Step3Equity> {
                               ),
                               const SizedBox(height: padding),
                               Text(
-                                widget.id != 0
+                                widget.id != null
                                     ? 'Updating...'
                                     : 'Submitting...',
                                 style: const TextStyle(color: Colors.white),
@@ -251,11 +252,11 @@ class _Step3EquityState extends State<Step3Equity> {
                               context: context,
                               title: 'Equity Investment',
                               leading: IconButton(
-                                onPressed: widget.id != 0 &&
+                                onPressed: widget.id != null &&
                                         checkDisableSavedraft()
                                     ? () {
                                         FocusScope.of(context).unfocus();
-                                        context.navigateBack();
+                                        Navigator.pop(context);
                                       }
                                     : equityController.numberOfShareHolders.value == 0 &&
                                             equityController
@@ -283,13 +284,13 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 0
                                         ? () {
                                             FocusScope.of(context).unfocus();
-                                            context.navigateBack();
+                                            Navigator.pop(context);
                                           }
                                         : () {
                                             FocusScope.of(context).unfocus();
                                             showSaveDraftDialog(
                                                 context: context,
-                                                onSaveTitle: widget.id != 0
+                                                onSaveTitle: widget.id != null
                                                     ? "Update Draft"
                                                     : "Save Draft",
                                                 content:
@@ -299,8 +300,8 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 onSave: () async {
                                                   // Navigator.pop(context);
 
-                                                  if (widget.id == 0) {
-                                                    context.navigateBack();
+                                                  if (widget.id == null) {
+                                                    Navigator.pop(context);
                                                     await equityController
                                                         .onSubmitEquityInvestment(
                                                             context: context,
@@ -315,25 +316,24 @@ class _Step3EquityState extends State<Step3Equity> {
                                                             context: context,
                                                             id: widget.id!,
                                                             pagenumber: "3");
-                                                    context.navigateBack();
+                                                    Navigator.pop(context);
                                                   }
                                                 },
                                                 isCancel: true,
                                                 onDiscard: () {
                                                   if (widget.step == 3 &&
-                                                      widget.id != 0) {
-                                                    context.navigateBack();
-                                                    context.navigateBack();
+                                                      widget.id != null) {
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
                                                   } else if (widget.step == 2 &&
-                                                      widget.id != 0) {
-                                                    context.navigateBack();
-                                                    context.navigateBack();
-                                                    context.navigateBack();
+                                                      widget.id != null) {
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
                                                   } else {
-                                                    context.navigateBack();
-                                                    context.navigateBack();
-                                                    context.navigateBack();
-                                                    context.navigateBack();
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
                                                   }
                                                 });
                                           },
@@ -1152,7 +1152,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ? true
                                                     : false,
                                             isOutline: true,
-                                            onPressed: widget.id != 0
+                                            onPressed: widget.id != null
                                                 ? () async {
                                                     FirebaseAnalyticsHelper
                                                         .sendAnalyticsEvent(
@@ -1180,7 +1180,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                                             context: context,
                                                             type: "3");
                                                   },
-                                            title: widget.id != 0
+                                            title: widget.id != null
                                                 ? 'Update Draft'
                                                 : 'Save Draft',
                                           ),

@@ -1,10 +1,7 @@
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.dart';
 import 'package:cicgreenloan/modules/get_funding/models/loan_option.dart';
-import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/preview_debt_form.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_form_card.dart';
@@ -15,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/container_partern.dart';
@@ -26,12 +24,13 @@ import '../../../../widgets/get_funding/custom_select_getfunding.dart';
 import '../../../../widgets/get_funding/custom_text_getfunding.dart';
 
 class RequiredDocument extends StatefulWidget {
-  final ApplicationData? applicationDetail;
-  final int? numberOfStep;
-  final String? isDraft;
-  const RequiredDocument(
-      {Key? key, this.numberOfStep, this.isDraft, this.applicationDetail})
-      : super(key: key);
+  final int? id;
+  final int? step;
+  const RequiredDocument({
+    Key? key,
+    this.id,
+    this.step,
+  }) : super(key: key);
 
   @override
   State<RequiredDocument> createState() => _RequiredDocumentState();
@@ -41,210 +40,198 @@ class _RequiredDocumentState extends State<RequiredDocument> {
   final DebtInvestmentController debtCon = Get.put(DebtInvestmentController());
 
   void _onValidate() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const PreviewDebtForm(),
-      ),
-    );
+    context.go(
+        "/get-funding/debt-investment/debt-step1/debt-step2/debt-step3/debt-step4/preview-debt");
   }
 
   @override
   void initState() {
-    if (widget.applicationDetail != null) {
-      if (widget.isDraft == "true") {
-        debtCon.fetchAppDetails(widget.applicationDetail!.id!).then((value) {
-          // ============initial step1 =============
-          if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
-              null) {
-            debtCon.gender.value.display = debtCon
-                .applicationDetail.value.customerInfo!.customerGender!.display;
-            debtCon.gender.value.id = debtCon
-                .applicationDetail.value.customerInfo!.customerGender!.id;
-          }
+    if (widget.id != null) {
+      debtCon.fetchAppDetails(widget.id!).then((value) {
+        // ============initial step1 =============
+        if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
+            null) {
+          debtCon.gender.value.display = debtCon
+              .applicationDetail.value.customerInfo!.customerGender!.display;
+          debtCon.gender.value.id =
+              debtCon.applicationDetail.value.customerInfo!.customerGender!.id;
+        }
 
-          if (debtCon.applicationDetail.value.customerInfo!.customerName !=
-              "") {
-            debtCon.fullName.value =
-                debtCon.applicationDetail.value.customerInfo!.customerName!;
-          }
+        if (debtCon.applicationDetail.value.customerInfo!.customerName != "") {
+          debtCon.fullName.value =
+              debtCon.applicationDetail.value.customerInfo!.customerName!;
+        }
 
-          if (debtCon.applicationDetail.value.customerInfo!.customerEmail !=
-              "") {
-            debtCon.email.value =
-                debtCon.applicationDetail.value.customerInfo!.customerEmail!;
-          }
-          if (debtCon
-                  .applicationDetail.value.customerInfo!.customerDateOfBirth !=
-              "") {
-            debtCon.dateOfBirth.value = debtCon
-                .applicationDetail.value.customerInfo!.customerDateOfBirth!;
-          }
-          // Address
-          if (debtCon.applicationDetail.value.customerInfo!.currentHouseNo !=
-              null) {
-            debtCon.fullCurrentAddress.value.houseNo =
-                debtCon.applicationDetail.value.customerInfo!.currentHouseNo;
-          }
-          if (debtCon.applicationDetail.value.customerInfo!.currentStreetNo !=
-              null) {
-            debtCon.fullCurrentAddress.value.streetNo =
-                debtCon.applicationDetail.value.customerInfo!.currentStreetNo;
-          }
+        if (debtCon.applicationDetail.value.customerInfo!.customerEmail != "") {
+          debtCon.email.value =
+              debtCon.applicationDetail.value.customerInfo!.customerEmail!;
+        }
+        if (debtCon.applicationDetail.value.customerInfo!.customerDateOfBirth !=
+            "") {
+          debtCon.dateOfBirth.value = debtCon
+              .applicationDetail.value.customerInfo!.customerDateOfBirth!;
+        }
+        // Address
+        if (debtCon.applicationDetail.value.customerInfo!.currentHouseNo !=
+            null) {
+          debtCon.fullCurrentAddress.value.houseNo =
+              debtCon.applicationDetail.value.customerInfo!.currentHouseNo;
+        }
+        if (debtCon.applicationDetail.value.customerInfo!.currentStreetNo !=
+            null) {
+          debtCon.fullCurrentAddress.value.streetNo =
+              debtCon.applicationDetail.value.customerInfo!.currentStreetNo;
+        }
 
-          if (debtCon.applicationDetail.value.customerInfo!.currentAddress !=
-              null) {
-            debtCon.fullCurrentAddress.value = FullAddress(
-              houseNo: debtCon
-                      .applicationDetail.value.customerInfo!.currentHouseNo ??
-                  "",
-              streetNo: debtCon
-                      .applicationDetail.value.customerInfo!.currentStreetNo ??
-                  "",
-              addressList: [
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.city!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.city!.name,
-                ),
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.district!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.district!.name,
-                ),
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.commune!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.commune!.name,
-                ),
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.village!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.village!.name,
-                ),
-              ],
-            );
-          }
-          if (debtCon.applicationDetail.value.customerInfo!.residenceAddress !=
-              null) {
-            debtCon.fullResidentAddress.value = FullAddress(
-              houseNo: debtCon
-                      .applicationDetail.value.customerInfo!.residenceHouseNo ??
-                  "",
-              streetNo: debtCon.applicationDetail.value.customerInfo!
-                      .residenceStreetNo ??
-                  "",
-              addressList: [
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.city!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.city!.name,
-                ),
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.district!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.district!.name,
-                ),
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.commune!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.commune!.name,
-                ),
-                Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.village!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.village!.name,
-                ),
-              ],
-            );
-          }
+        if (debtCon.applicationDetail.value.customerInfo!.currentAddress !=
+            null) {
+          debtCon.fullCurrentAddress.value = FullAddress(
+            houseNo:
+                debtCon.applicationDetail.value.customerInfo!.currentHouseNo ??
+                    "",
+            streetNo:
+                debtCon.applicationDetail.value.customerInfo!.currentStreetNo ??
+                    "",
+            addressList: [
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.city!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.city!.name,
+              ),
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.district!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.district!.name,
+              ),
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.commune!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.commune!.name,
+              ),
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.village!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .currentAddress!.village!.name,
+              ),
+            ],
+          );
+        }
+        if (debtCon.applicationDetail.value.customerInfo!.residenceAddress !=
+            null) {
+          debtCon.fullResidentAddress.value = FullAddress(
+            houseNo: debtCon
+                    .applicationDetail.value.customerInfo!.residenceHouseNo ??
+                "",
+            streetNo: debtCon
+                    .applicationDetail.value.customerInfo!.residenceStreetNo ??
+                "",
+            addressList: [
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.city!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.city!.name,
+              ),
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.district!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.district!.name,
+              ),
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.commune!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.commune!.name,
+              ),
+              Address(
+                code: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.village!.code,
+                name: debtCon.applicationDetail.value.customerInfo!
+                    .residenceAddress!.village!.name,
+              ),
+            ],
+          );
+        }
 
-          // =============End initial step1 =============
-          debtCon.productType.value = Option(
-              id: value.productType!.id!.toInt(),
-              productName: value.productType!.name);
+        // =============End initial step1 =============
+        debtCon.productType.value = Option(
+            id: value.productType!.id!.toInt(),
+            productName: value.productType!.name);
 
-          debtCon.financingPurpose.value = Optionmodel(
-              id: value.financialPurpose!.id,
-              display: value.financialPurpose!.display);
-          debtCon.financingAmount.value = value.financialAmount!.toDouble();
-          debtCon.term.value = value.duration!.toInt();
-          debtCon.intendedDate.value =
-              value.intendedDateDisbursement.toString();
-          debtCon.financingAmountcontroller.text =
-              debtCon.applicationDetail.value.financialAmount!.toString() == "0"
-                  ? ""
-                  : debtCon.applicationDetail.value.financialAmount!.toString();
-          debtCon.financingAmount.value =
-              debtCon.applicationDetail.value.financialAmount != null
-                  ? debtCon.financingAmount.value
-                  : 0;
-          debtCon.termController.text =
-              debtCon.applicationDetail.value.duration.toString() == ""
-                  ? ""
-                  : debtCon.applicationDetail.value.duration.toString();
-          debtCon.term.value = debtCon.applicationDetail.value.duration != null
-              ? debtCon.term.value
-              : 0;
-          // =================End initial step 2================
+        debtCon.financingPurpose.value = Optionmodel(
+            id: value.financialPurpose!.id,
+            display: value.financialPurpose!.display);
+        debtCon.financingAmount.value = value.financialAmount!.toDouble();
+        debtCon.term.value = value.duration!.toInt();
+        debtCon.intendedDate.value = value.intendedDateDisbursement.toString();
+        debtCon.financingAmountcontroller.text =
+            debtCon.applicationDetail.value.financialAmount!.toString() == "0"
+                ? ""
+                : debtCon.applicationDetail.value.financialAmount!.toString();
+        debtCon.financingAmount.value =
+            debtCon.applicationDetail.value.financialAmount != null
+                ? debtCon.financingAmount.value
+                : 0;
+        debtCon.termController.text =
+            debtCon.applicationDetail.value.duration.toString() == ""
+                ? ""
+                : debtCon.applicationDetail.value.duration.toString();
+        debtCon.term.value = debtCon.applicationDetail.value.duration != null
+            ? debtCon.term.value
+            : 0;
+        // =================End initial step 2================
 
-          debtCon.companyName.value = value.company!.companyName!;
+        debtCon.companyName.value = value.company!.companyName!;
 
-          debtCon.address.value = value.company!.address!;
-          debtCon.addresscontroller.text = value.company!.address!;
-          debtCon.yearOfEstablishment.value =
-              value.company!.yearFounded!.toString();
-          debtCon.yearofestablistmentController.text =
-              value.company!.yearFounded!.toString();
-          debtCon.typeOfOrganization.value =
-              value.company!.typeOfOrganization != null
-                  ? Optionmodel(
-                      id: value.company!.typeOfOrganization!.id!,
-                      display: value.company!.typeOfOrganization!.display!)
-                  : Optionmodel(id: 0, display: "");
+        debtCon.address.value = value.company!.address!;
+        debtCon.addresscontroller.text = value.company!.address!;
+        debtCon.yearOfEstablishment.value =
+            value.company!.yearFounded!.toString();
+        debtCon.yearofestablistmentController.text =
+            value.company!.yearFounded!.toString();
+        debtCon.typeOfOrganization.value =
+            value.company!.typeOfOrganization != null
+                ? Optionmodel(
+                    id: value.company!.typeOfOrganization!.id!,
+                    display: value.company!.typeOfOrganization!.display!)
+                : Optionmodel(id: 0, display: "");
 
-          debtCon.taxIdentificationNumber.value =
-              value.company!.taxIdentificationNumber!;
-          debtCon.taxindentificationController.text =
-              value.company!.taxIdentificationNumber!;
-          debtCon.industry.value = value.company!.industry != null
-              ? Optionmodel(
-                  id: value.company!.industry!.id!,
-                  display: value.company!.industry!.display!)
-              : Optionmodel(id: 0, display: "");
-          debtCon.numberofStaffController.text =
-              value.company!.numberOfStaff!.toString();
-          debtCon.numberOfStaff.value =
-              value.company!.numberOfStaff!.toString();
-          debtCon.ownernameController.text = value.company!.ownerName!;
-          debtCon.ownerName.value = value.company!.ownerName!;
-          debtCon.productSevice.value =
-              value.company!.companyProductAndService!;
-          debtCon.productController.text =
-              value.company!.companyProductAndService!;
+        debtCon.taxIdentificationNumber.value =
+            value.company!.taxIdentificationNumber!;
+        debtCon.taxindentificationController.text =
+            value.company!.taxIdentificationNumber!;
+        debtCon.industry.value = value.company!.industry != null
+            ? Optionmodel(
+                id: value.company!.industry!.id!,
+                display: value.company!.industry!.display!)
+            : Optionmodel(id: 0, display: "");
+        debtCon.numberofStaffController.text =
+            value.company!.numberOfStaff!.toString();
+        debtCon.numberOfStaff.value = value.company!.numberOfStaff!.toString();
+        debtCon.ownernameController.text = value.company!.ownerName!;
+        debtCon.ownerName.value = value.company!.ownerName!;
+        debtCon.productSevice.value = value.company!.companyProductAndService!;
+        debtCon.productController.text =
+            value.company!.companyProductAndService!;
 
-          debtCon.patentDocument.value = value.companyPatentDoc!;
-          debtCon.certificatioDoc.value = value.companyMoCCertificate!;
-          debtCon.licenseDoc.value = value.companyLicenceDoc!;
-          debtCon.memorandumDoc.value = value.companyMAA!;
-          debtCon.businessPlan.value = value.businessPlan!.toInt();
-          debtCon.incomeStatement.value = value.incomeStatement!.toInt();
-          debtCon.balanceSheet.value = value.balanceSheet!.toInt();
-          debtCon.cashFlowStatement.value = value.cashFlowStatement!.toInt();
+        debtCon.patentDocument.value = value.companyPatentDoc!;
+        debtCon.certificatioDoc.value = value.companyMoCCertificate!;
+        debtCon.licenseDoc.value = value.companyLicenceDoc!;
+        debtCon.memorandumDoc.value = value.companyMAA!;
+        debtCon.businessPlan.value = value.businessPlan!.toInt();
+        debtCon.incomeStatement.value = value.incomeStatement!.toInt();
+        debtCon.balanceSheet.value = value.balanceSheet!.toInt();
+        debtCon.cashFlowStatement.value = value.cashFlowStatement!.toInt();
 
-          debtCon.otherDocuments.value = value.otherDocument!.toInt();
+        debtCon.otherDocuments.value = value.otherDocument!.toInt();
 
-          debtCon.patentDoc.clear();
-        });
-      }
+        debtCon.patentDoc.clear();
+      });
     }
 
     super.initState();
@@ -283,7 +270,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                             ),
                             const SizedBox(height: padding),
                             Text(
-                              widget.applicationDetail != null
+                              widget.id != null
                                   ? "Updating Draft..."
                                   : "Saving Draft...",
                               style: const TextStyle(color: Colors.white),
@@ -300,7 +287,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                             leading: IconButton(
                               onPressed: () {
                                 showSaveDraftDialog(
-                                  onSaveTitle: widget.applicationDetail != null
+                                  onSaveTitle: widget.id != null
                                       ? "Update Draft"
                                       : "Save Draft",
                                   context: context,
@@ -309,14 +296,14 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                       'Changes made to this page haven’t been saved yet.',
                                   title:
                                       'Are you sure you want to leave this page?',
-                                  onSave: widget.applicationDetail != null
+                                  onSave: widget.id != null
                                       ? () async {
                                           //Navigator.pop(context);
                                           await debtCon.onEditDebtInvestment(
                                             frompage: debtCon
                                                 .applicationDetail.value.step!
                                                 .toInt(),
-                                            id: widget.applicationDetail!.id,
+                                            id: widget.id,
                                             context: context,
                                             step: 4,
                                           );
@@ -327,29 +314,12 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                               context: context, step: 4);
                                         },
                                   onDiscard: () {
-                                    if (widget.numberOfStep == 1) {
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                    } else if (widget.applicationDetail !=
-                                            null &&
-                                        widget.numberOfStep == 2) {
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                    } else if (widget.applicationDetail !=
-                                            null &&
-                                        widget.numberOfStep == 3) {
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                    } else {
-                                      context.navigateBack();
-                                      context.navigateBack();
-                                    }
+                                    if (widget.step == 1) {
+                                    } else if (widget.id != null &&
+                                        widget.step == 2) {
+                                    } else if (widget.id != null &&
+                                        widget.step == 3) {
+                                    } else {}
                                   },
                                 );
                               },
@@ -673,8 +643,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                             isDisable: false,
                                             isOutline: true,
                                             onPressed: () async {
-                                              if (widget.applicationDetail !=
-                                                  null) {
+                                              if (widget.id != null) {
                                                 FirebaseAnalyticsHelper
                                                     .sendAnalyticsEvent(
                                                         "Debt Update Draft Step4");
@@ -683,7 +652,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                     .sendAnalyticsEvent(
                                                         "Debt Save Draft Step4");
                                               }
-                                              widget.applicationDetail != null
+                                              widget.id != null
                                                   ? await debtCon
                                                       .onEditDebtInvestment(
                                                         showDebtSnackbar: false,
@@ -692,9 +661,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                             .value
                                                             .step!
                                                             .toInt(),
-                                                        id: widget
-                                                            .applicationDetail!
-                                                            .id,
+                                                        id: widget.id,
                                                         context: context,
                                                         step: 4,
                                                       )
@@ -710,10 +677,9 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                           .onResetData());
                                               // Navigator.pop(context);
                                             },
-                                            title:
-                                                widget.applicationDetail != null
-                                                    ? "Update Draft"
-                                                    : "Save Draft",
+                                            title: widget.id != null
+                                                ? "Update Draft"
+                                                : "Save Draft",
                                           ),
                                         ),
                                         const SizedBox(
