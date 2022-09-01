@@ -246,12 +246,11 @@ class PrivilegeController extends GetxController {
   }
 
   // On Select Filter
-  final sectedLicationList = <PrivilageLocation>[].obs;
+
   final locationCodeList = <dynamic>[].obs;
   final categoriesId = 0.obs;
 
-  onSelected(
-      {int? index, PrivilageLocation? location, String? unSelectedItem}) {
+  void onSelected({int? index, String? selectedItemCode}) {
     // Assign value check or not(true/fale)
     if (locationPrivilageList[index!].isSelected == false) {
       locationPrivilageList[index] =
@@ -260,36 +259,35 @@ class PrivilegeController extends GetxController {
       locationPrivilageList[index] =
           locationPrivilageList[index].copyWith(isSelected: false);
     }
-    if (locationPrivilageList[index].isSelected == true) {
-      // Add items to selected list
-      sectedLicationList.add(location!);
-      locationCodeList.clear();
-      sectedLicationList.map((element) {
-        // Add location code to list
-        locationCodeList.add(element.code);
-      }).toList();
-    } else {
-      locationCodeList.removeWhere((element) => element == unSelectedItem);
-    }
 
-    String right =
-        locationCodeList.toString().trim().trimRight().replaceAll(']', "");
-    String locationCode =
-        right.toString().trim().trimRight().replaceAll('[', "");
+    ///
+    if (locationPrivilageList[index].isSelected == true) {
+      locationCodeList.add(selectedItemCode);
+    } else {
+      locationCodeList.removeWhere((element) => element == selectedItemCode);
+    }
+    debugPrint('Location Req = $locationCodeList');
+    String allLocation = locationCodeList
+        .toString()
+        .trim()
+        .trimRight()
+        .replaceAll('[', "")
+        .replaceAll(']', "");
+    debugPrint('Location Req = $allLocation');
+
 // Filter by Location and Categories
     onFilterByCategoriesByLocation(
-        location: locationCode, categoryId: categoriesId.value);
+        location: allLocation, categoryId: categoriesId.value);
     update();
   }
 
-  onClearSelected() {
+  void onClearSelected() {
+    locationCodeList.clear();
+    categoryFilterList.clear();
+    selectedCategFil('');
     locationPrivilageList.asMap().entries.map((e) {
       locationPrivilageList[e.key] = e.value.copyWith(isSelected: false);
     }).toList();
-
-    locationCodeList.clear();
-    locationCodeList.refresh();
-    categoryFilterList.clear();
 
     update();
   }
@@ -358,6 +356,7 @@ class PrivilegeController extends GetxController {
     amountcontroller.value.text = '';
   }
 
+  ///OnPaymentPrivilege=====================
   final fourDigitsCode = "".obs;
   final descountRate = "".obs;
   final messagePayment = "".obs;
@@ -375,7 +374,7 @@ class PrivilegeController extends GetxController {
           "shop_id": shopId.value,
           "amount": privilegeAmount.value,
         }).then((response) {
-      debugPrint("4 Digits code:${fourDigitsCode.value}");
+      debugPrint("4 Digits code:$response");
       Navigator.push(
         context!,
         MaterialPageRoute(

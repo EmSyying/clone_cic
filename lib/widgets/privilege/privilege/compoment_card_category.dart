@@ -5,12 +5,12 @@ import '../../../modules/privilege_program/model/category_model/model_categories
 
 class ComponentCardCategory extends StatelessWidget {
   final ModelsCategories? modelCardCategory;
-  final bool? isOnClickCard;
+  final bool selected;
   final GestureTapCallback? onTapCatego;
   const ComponentCardCategory({
     Key? key,
     this.modelCardCategory,
-    this.isOnClickCard = false,
+    this.selected = false,
     this.onTapCatego,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class ComponentCardCategory extends StatelessWidget {
             margin: const EdgeInsets.only(right: 14),
             decoration: BoxDecoration(
               border: Border.all(
-                color: isOnClickCard! ? AppColor.mainColor : Colors.white,
+                color: selected ? AppColor.mainColor : Colors.white,
                 width: 1.0,
               ),
               color: AppColor.arrowforwardColor['dark'],

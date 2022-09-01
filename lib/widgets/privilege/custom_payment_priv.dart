@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,7 +66,13 @@ class CustomPaymentPrivilege extends StatelessWidget {
           ),
         ),
         Obx(() => privilageController.validationPayment.value
-            ? const Text('Please Enter amounts')
+            ? Text(
+                'Please Enter amounts',
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.primaryColor,
+                    ),
+              )
             : const SizedBox.shrink()),
       ],
     );

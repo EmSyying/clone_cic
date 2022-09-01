@@ -33,6 +33,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
   @override
   void dispose() {
     privilegeController.page.value = 1;
+    privilegeController.onClearSelected();
     super.dispose();
   }
 
@@ -68,10 +69,6 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                                 bottom: 4.0,
                               ),
                               child: ComponentCardCategory(
-                                isOnClickCard: privilegeController
-                                        .selectedCategFil.value ==
-                                    cardListCat.value.name,
-                                modelCardCategory: cardListCat.value,
                                 onTapCatego: () {
                                   setState(() {
                                     privilegeController.selectedCategFil.value =
@@ -83,6 +80,10 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                                       .onFilterByCategoriesByLocation(
                                           categoryId: cardListCat.value.id);
                                 },
+                                selected: privilegeController
+                                        .selectedCategFil.value ==
+                                    cardListCat.value.name,
+                                modelCardCategory: cardListCat.value,
                               ),
                             ))
                         .toList(),
@@ -101,9 +102,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                     onTap: () {
                       privilegeController.locationName.value = e.value.nameEn!;
                       privilegeController.onSelected(
-                          index: e.key,
-                          location: e.value,
-                          unSelectedItem: e.value.code);
+                          index: e.key, selectedItemCode: e.value.code);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(
@@ -190,12 +189,16 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                             left: 15.0, right: 20.0, bottom: 25.0, top: 20.0),
                         child: CustomButton(
                           title:
-                              'Show Result ${privilegeController.sectedLicationList.isNotEmpty || privilegeController.locationCodeList.isNotEmpty ? "(${privilegeController.categoryFilterList.length})" : ''}',
-                          isDisable: privilegeController
-                                      .isLoadingCategoryFilter.value ==
-                                  false
-                              ? false
-                              : true,
+                              'Show Result ${privilegeController.selectedCategFil.isNotEmpty || privilegeController.locationCodeList.isNotEmpty ? "(${privilegeController.categoryFilterList.length})" : ''}',
+                          isDisable:
+                              // privilegeController
+                              //             .isLoadingCategoryFilter.value ==
+                              //         false
+                              privilegeController.selectedCategFil.isEmpty &&
+                                      privilegeController
+                                          .locationCodeList.isEmpty
+                                  ? true
+                                  : false,
                           isOutline: false,
                           onPressed: () {
                             Navigator.push(

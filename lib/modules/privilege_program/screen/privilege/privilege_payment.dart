@@ -45,7 +45,6 @@ class PrivilegePayment extends StatelessWidget {
           children: [
             Expanded(
               child: CustomPaymentPrivilege(
-                
                 title: 'Enter Amount',
                 hintText: '0.00',
                 controller: priCon.amountcontroller.value,
@@ -85,7 +84,8 @@ class PrivilegePayment extends StatelessWidget {
                           ? const CustomLoadingButton()
                           : CustomButton(
                               title: 'Submit',
-                              isDisable: priCon.privilegeAmount.value != ''
+                              isDisable: priCon.privilegeAmount.value != '' &&
+                                      priCon.validationPayment.value == false
                                   ? false
                                   : true,
                               isOutline: false,
