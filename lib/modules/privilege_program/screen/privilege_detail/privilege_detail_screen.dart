@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../Utils/image_view/image_view_file.dart';
+import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/custom_fovarite.dart';
 import '../../../../widgets/privilege/privilege_detail/custom_card_allstores_datil.dart';
 import '../../../event_module/controller/event_controller.dart';
@@ -67,7 +68,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                         ),
                         pinned: true,
                         floating: true,
-                        expandedHeight: 310.0,
+                        expandedHeight: 320.0,
                         elevation: 0.0,
                         actions: [
                           Row(
@@ -161,67 +162,62 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 10.0,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        color: Colors.transparent,
-                                        child: Image.network(
-                                          preController.shopDetailModel.value
-                                                  .cover ??
-                                              '',
-                                          fit: BoxFit.cover,
-                                          height: 250,
-                                        ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      color: Colors.transparent,
+                                      child: Image.network(
+                                        preController
+                                                .shopDetailModel.value.cover ??
+                                            '',
+                                        fit: BoxFit.cover,
+                                        height: 250,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 18.0,
-                                          right: 18.0,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.room,
-                                              size: 21,
-                                              color: Colors.grey,
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                preController.shopDetailModel
-                                                    .value.fullAddress!,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                      color: const Color(
-                                                          0xff464646),
-                                                      letterSpacing: 0.2,
-                                                      fontSize: 14,
-                                                    ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 18.0,
+                                        right: 18.0,
+                                        bottom: 8.0,
                                       ),
-                                    ],
-                                  ),
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.room,
+                                            size: 21,
+                                            color: Colors.grey,
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              preController.shopDetailModel
+                                                  .value.fullAddress!,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5!
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w200,
+                                                    color:
+                                                        const Color(0xff464646),
+                                                    letterSpacing: 0.2,
+                                                    fontSize: 14,
+                                                  ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Positioned(
                                   left: 15,
                                   right: 15,
-                                  bottom: 60,
+                                  bottom: 70,
                                   child: CustomCardPrivilegeDetail(
                                     sloganLogo: preController
                                         .shopDetailModel.value.shopLogo,
@@ -498,7 +494,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
       );
 
   Widget buildSchedule() =>
-      preController.shopDetailModel.value.openingDays != null
+      preController.shopDetailModel.value.openingDays!.isNotEmpty
           ? SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -515,7 +511,12 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                     .toList(),
               ),
             )
-          : const SizedBox.shrink();
+          : const SingleChildScrollView(
+              child: CustomEmptyState(
+                title: 'No Opending Days',
+                description: 'It seems you have no opending days yet',
+              ),
+            );
 
   Widget buildGridImage() => GridView.builder(
         padding: const EdgeInsets.only(top: 30.0),

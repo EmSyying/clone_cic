@@ -61,6 +61,7 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
                               privillageCon.favshopModelList[e.key] =
                                   privillageCon.favshopModelList[e.key]
                                       .copyWith(isFavorite: false);
+                              privillageCon.favshopModelList.removeAt(e.key);
                             } else {
                               privillageCon.favshopModelList[e.key] =
                                   privillageCon.favshopModelList[e.key]

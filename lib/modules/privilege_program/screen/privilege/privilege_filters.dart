@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,10 +23,17 @@ class PrivilegeFilters extends StatefulWidget {
 
 class _PrivilegeFiltersState extends State<PrivilegeFilters> {
   final privilegeController = Get.put(PrivilegeController());
+
   @override
   void initState() {
-    privilegeController.onFetchStoreLocation();
+    privilegeController.onFetchStoreLocation(1);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    privilegeController.page.value = 1;
+    super.dispose();
   }
 
   @override
@@ -36,55 +44,55 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
         title: 'Filters',
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 20.0,
+        child: Obx(
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                  vertical: 20.0,
+                ),
+                child: customTitleText(titleText: 'Categories'),
               ),
-              child: customTitleText(titleText: 'Categories'),
-            ),
-            SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: privilegeController.categoriesModelList
-                      .asMap()
-                      .entries
-                      .map((cardListCat) => Padding(
-                            padding: const EdgeInsets.only(
-                              top: 4.0,
-                              bottom: 4.0,
-                            ),
-                            child: ComponentCardCategory(
-                              isOnClickCard:
-                                  privilegeController.selectedCategFil.value ==
-                                      cardListCat.value.name,
-                              modelCardCategory: cardListCat.value,
-                              onTapCatego: () {
-                                setState(() {
-                                  privilegeController.selectedCategFil.value =
-                                      cardListCat.value.name!;
-                                });
-                                privilegeController.categoriesId.value =
-                                    cardListCat.value.id!;
-                                privilegeController
-                                    .onFilterByCategoriesByLocation(
-                                        categoryId: cardListCat.value.id);
-                              },
-                            ),
-                          ))
-                      .toList(),
-                )),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 20.0, top: 20.0, bottom: 6.0),
-              child: customTitleText(titleText: 'Locations'),
-            ),
-            Obx(
-              () => (Column(
+              SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: privilegeController.categoriesModelList
+                        .asMap()
+                        .entries
+                        .map((cardListCat) => Padding(
+                              padding: const EdgeInsets.only(
+                                top: 4.0,
+                                bottom: 4.0,
+                              ),
+                              child: ComponentCardCategory(
+                                isOnClickCard: privilegeController
+                                        .selectedCategFil.value ==
+                                    cardListCat.value.name,
+                                modelCardCategory: cardListCat.value,
+                                onTapCatego: () {
+                                  setState(() {
+                                    privilegeController.selectedCategFil.value =
+                                        cardListCat.value.name!;
+                                  });
+                                  privilegeController.categoriesId.value =
+                                      cardListCat.value.id!;
+                                  privilegeController
+                                      .onFilterByCategoriesByLocation(
+                                          categoryId: cardListCat.value.id);
+                                },
+                              ),
+                            ))
+                        .toList(),
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0, top: 20.0, bottom: 6.0),
+                child: customTitleText(titleText: 'Locations'),
+              ),
+              Column(
                 children: privilegeController.locationPrivilageList
                     .asMap()
                     .entries
@@ -110,19 +118,42 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                     ),
                   );
                 }).toList(),
-              )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                'See More',
-                style: Theme.of(context).textTheme.headline3!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                    ),
               ),
-            ),
-          ],
+              Container(
+                padding: const EdgeInsets.only(
+                  right: 20.0,
+                  left: 20.0,
+                  top: 10.0,
+                ),
+                alignment: Alignment.topLeft,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    privilegeController.isLoadingPriLocation.value
+                        ? const CupertinoActivityIndicator()
+                        : const SizedBox.shrink(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        privilegeController.seeMore();
+                      },
+                      child: Text(
+                        privilegeController.isShowMore.value
+                            ? 'See More'
+                            : 'See Less',
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.underline,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
@@ -159,7 +190,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                             left: 15.0, right: 20.0, bottom: 25.0, top: 20.0),
                         child: CustomButton(
                           title:
-                              'Show Result ${privilegeController.categoryFilterList.length}',
+                              'Show Result ${privilegeController.sectedLicationList.isNotEmpty || privilegeController.locationCodeList.isNotEmpty ? "(${privilegeController.categoryFilterList.length})" : ''}',
                           isDisable: privilegeController
                                       .isLoadingCategoryFilter.value ==
                                   false

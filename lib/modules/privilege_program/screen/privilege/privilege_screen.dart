@@ -20,12 +20,10 @@ import '../../../../widgets/privilege/privilege/custom_card_favorites_list.dart'
 import '../../controller/privilege_controller.dart';
 
 class PrivilegeScreen extends StatefulWidget {
-  //final int? index;
   final String? tabPrivName;
   const PrivilegeScreen({
     Key? key,
     this.tabPrivName,
-    // this.index,
   }) : super(key: key);
 
   @override
@@ -49,7 +47,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
 
   @override
   void initState() {
-    priCon.onFetchAllStore(page);
+    priCon.onFetchAllStore(1);
     priCon.onFetchCategories();
 
     super.initState();

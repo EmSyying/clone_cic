@@ -11,7 +11,7 @@ Accept: application/json
 
 ### List all province code to filter shop
 ### Or v3/privilege/address/code?type=province
-GET {{baseUrl}}v3/privilege/address/code
+GET {{baseUrl}}v3/privilege/address?page=3
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -44,13 +44,13 @@ Authorization: Bearer {{token}}
 API Privilege:
 
 ### List All Active Shops
-GET {{baseUrl}}v3/privilege/shop
+GET {{baseUrl}}v3/privilege/shop?page=1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Shop Detail
-GET {{baseUrl}}v3/privilege/shop/1
+GET {{baseUrl}}v3/privilege/shop/8
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -60,3 +60,39 @@ GET {{baseUrl}}v3/privilege/shop?favorite=0
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+
+### Privilege submit payment
+POST {{baseUrl}}v3/privilege/payment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "shop_id" : 2,
+    "amount" : "1000"
+}
+
+### Privilege submit payment
+GET {{baseUrl}}v3/privilege/payment
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### favorite or unfavorite. is_favorite is boolean
+PUT {{baseUrl}}v3/privilege/shop/4
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "is_favorite": 0
+}
+
+### favorite or unfavorite
+PUT {{baseUrl}}v3/privilege/shop/4?is_favorite=false
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+

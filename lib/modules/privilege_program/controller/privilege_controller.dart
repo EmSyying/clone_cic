@@ -25,15 +25,12 @@ class PrivilegeController extends GetxController {
   final isfetcheAllStoredata = false.obs;
   Future<List<PrivilegeShopModel>> onFetchAllStore(int page) async {
     // isLoadingShopList(true);
-    try {
-      if (page == 1) {
-        isLoadingShopList(true);
-      } else {
-        isfetcheAllStoredata(true);
-      }
-    } finally {}
+    if (page == 1) {
+      isLoadingShopList(true);
+    } else {
+      isfetcheAllStoredata(true);
+    }
 
-    // isLoadingShopList(true);
     await apiBaseHelper
         .onNetworkRequesting(
       url: 'privilege/shop?page=$page',
@@ -42,12 +39,13 @@ class PrivilegeController extends GetxController {
     )
         .then((response) {
       var responseJson = response['data'];
+
       if (page == 1) {
         shopModelList.clear();
       }
       responseJson.map((e) {
         shopModel.value = PrivilegeShopModel.fromJson(e);
-        debugPrint('heloooo12345:${shopModel.value.isFavorite}');
+        // debugPrint('heloooo12345:${shopModel.value.isFavorite}');
         shopModelList.add(shopModel.value);
       }).toList();
       isLoadingShopList(false);
@@ -60,7 +58,7 @@ class PrivilegeController extends GetxController {
     return shopModelList;
   }
 
-  // Search Shop/Store
+  // Search Shop/Store======
   onClearSearch() {
     searchLocationList.clear();
     searchShopList.clear();
@@ -123,6 +121,7 @@ class PrivilegeController extends GetxController {
         .then((response) {
       var responseJson = response['data'];
       favshopModelList.clear();
+
       responseJson.map((e) {
         favshopModelList.add(PrivilegeShopModel.fromJson(e));
       }).toList();
@@ -299,16 +298,22 @@ class PrivilegeController extends GetxController {
   final isLoadingPriLocation = false.obs;
   final locationPrivilageModel = PrivilageLocation().obs;
   final locationPrivilageList = <PrivilageLocation>[].obs;
-  Future<List<PrivilageLocation>> onFetchStoreLocation() async {
+  final isShowMore = true.obs;
+  Future<List<PrivilageLocation>> onFetchStoreLocation(int page) async {
     isLoadingPriLocation(true);
     apiBaseHelper
         .onNetworkRequesting(
-            url: 'privilege/address?page=2',
+            url: 'privilege/address?page=$page',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
+      isShowMore.value =
+          response['meta']['current_page'] != response['meta']['last_page'];
       var responeJson = response['data'];
-      locationPrivilageList.clear();
+      // locationPrivilageList.clear();
+      if (page == 1) {
+        locationPrivilageList.clear();
+      }
       responeJson.map((e) {
         locationPrivilageModel.value = PrivilageLocation.fromJson(e);
         locationPrivilageList.add(locationPrivilageModel.value);
@@ -319,6 +324,17 @@ class PrivilegeController extends GetxController {
     });
 
     return locationPrivilageList;
+  }
+
+  final page = 1.obs;
+  seeMore() {
+    if (isShowMore.value) {
+      page.value += 1;
+      onFetchStoreLocation(page.value);
+    } else {
+      page.value = 1;
+      onFetchStoreLocation(1);
+    }
   }
 
   ///Function Payment privilege=========
