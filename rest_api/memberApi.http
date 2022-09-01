@@ -216,13 +216,14 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-POST {{baseUrl}}v2/member-company
+###
+POST {{baseUrl}}v3/member-company/update
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "id" : 592,
+    "id" : 1583,
     "company_name" : "Test",
     "khmer_name" : "Test",
     "major_of_business" : 1,

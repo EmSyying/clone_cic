@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../Utils/function/upload_file_controller.dart';
 import '../../../../utils/helper/firebase_analytics.dart';
 import '../../../../widgets/new_perional_profile/simmer_profile.dart';
 import '../../controllers/customer_controller.dart';
@@ -31,6 +32,7 @@ class NewPeronalProfile extends StatefulWidget {
 class _NewPeronalProfileState extends State<NewPeronalProfile> {
   final customerUser = Get.put(CustomerController());
   final memberCon = Get.put(MemberController());
+  final uploadImageCon = Get.put(UploadFileController());
   bool? isInnerBox = false;
   List<Widget> widgets = [
     const PersonalProfileTap(),
@@ -71,6 +73,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
               ? IconButton(
                   onPressed: () {
                     Navigator.pop(context);
+                    memberCon.onClearCompany();
                   },
                   icon: const Icon(Icons.close))
               : const Text(''),
@@ -85,13 +88,18 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                         MaterialPageRoute(
                           builder: (context) {
                             return EditProfileScreen(
+                              onTapPhotoProfile: () {
+                                uploadImageCon.uploadImage(context);
+                              },
                               id: widget.id,
                               onTapDone: () {
-                                setState(() {
-                                  memberCon.updatePersonalProfile(context);
-                                  memberCon.fetchMemberPersonProfile(
-                                      id: widget.id);
-                                });
+                                setState(
+                                  () {
+                                    memberCon.updatePersonalProfile(context);
+                                    memberCon.fetchMemberPersonProfile(
+                                        id: widget.id);
+                                  },
+                                );
                               },
                             );
                           },
@@ -225,8 +233,16 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                           context,
                           MaterialPageRoute(builder: (context) {
                             return EditProfileScreen(
+                              onTapDone: () {
+                                memberCon.onSubmitCompany(context);
+                                memberCon.onClearCompany();
+                              },
                               isEditCompany: true,
                               companyData: memberCon.company.value,
+                              onTapPhotoProfile: () {
+                                uploadImageCon.uploadImage(context,
+                                    isCompany: true);
+                              },
                             );
                           }),
                         );

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../Utils/function/upload_file_controller.dart';
 import 'edit_profile_screen.dart';
 
 class CompanyProfileTab extends StatefulWidget {
@@ -16,15 +17,8 @@ class CompanyProfileTab extends StatefulWidget {
 }
 
 class _CompanyProfileTabState extends State<CompanyProfileTab> {
-  @override
-  void initState() {
-    memberCon.fetchCompanyMember(id: widget.id);
-    memberCon.update();
-
-    super.initState();
-  }
-
   final memberCon = Get.put(MemberController());
+  final uploadImageCon = Get.put(UploadFileController());
   // final companyCon = Get.put(NewProfileController());
   bool isHideAddress = false;
   int page = 1;
@@ -59,9 +53,13 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
   //     isHideAddress = widget.isHidenAddress!;
   //   });
   // }
+  Future<void> onRefreshCompany() async {
+    await memberCon.fetchCompanyMember(id: memberCon.company.value.id);
+  }
 
   @override
   Widget build(BuildContext context) {
+    memberCon.fetchCompanyMember(id: widget.id);
     return Obx(
       () => memberCon.isLoadingCompanyProfile.value
           ? const Center(child: CircularProgressIndicator())
@@ -98,13 +96,13 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                             );
                             await launchUrl(launchUri);
                           },
-                          onTapAddress: () async {
-                            await launchUrl(
-                              Uri.parse('https://g.page/PassApp?share'),
-                              // 'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
-                              mode: LaunchMode.platformDefault,
-                            );
-                          },
+                          // onTapAddress: () async {
+                          //   await launchUrl(
+                          //     Uri.parse('https://g.page/PassApp?share'),
+                          //     // 'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
+                          //     mode: LaunchMode.platformDefault,
+                          //   );
+                          // },
                           onTapAssociate: () async {
                             final Uri launchUri = Uri(
                               scheme: 'https',
@@ -117,11 +115,15 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return EditProfileScreen(
+                                onTapPhotoProfile: () {
+                                  uploadImageCon.uploadImage(context,
+                                      isCompany: true);
+                                },
                                 isEditCompany: true,
                                 companyData: e.value,
                                 onTapDone: () {
                                   memberCon.onUpdateCompany(
-                                      context, memberCon.company.value.id!);
+                                      context, e.value.id!);
                                 },
                               );
                             }));

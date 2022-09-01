@@ -19,13 +19,15 @@ import '../../utils/function/get_sharepreference_data.dart';
 
 class UploadFileController extends GetxController {
   final imagePicker = ImagePicker();
-  var imageFile = File('').obs;
+  File? imageFile;
+  final imagePathFile = "".obs;
   final memberCon = Get.put(MemberController());
   final customerCon = Get.put(CustomerController());
 
   final isLoading = false.obs;
 
-  uploadImage(BuildContext context, {String? url, Map<String, dynamic>? body}) {
+  uploadImage(BuildContext context,
+      {String? url, Map<String, dynamic>? body, bool isCompany = false}) {
     return kIsWeb
         ? showModalBottomSheet(
             context: context,
@@ -65,7 +67,9 @@ class UploadFileController extends GetxController {
                     GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
-                        await onOpenCamera(url: url, body: body);
+                        await onOpenCamera(
+                            url: url, body: body, isCompany: isCompany);
+                        update();
                       },
                       child: Container(
                         color: Colors.white,
@@ -87,7 +91,9 @@ class UploadFileController extends GetxController {
                     GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
-                        await onChooseImage(url: url, body: body);
+                        await onChooseImage(
+                            url: url, body: body, isCompany: isCompany);
+                        update();
                       },
                       child: Container(
                         color: Colors.white,
@@ -194,7 +200,9 @@ class UploadFileController extends GetxController {
                         GestureDetector(
                           onTap: () async {
                             Navigator.pop(context);
-                            await onOpenCamera(url: url, body: body);
+                            await onOpenCamera(
+                                url: url, body: body, isCompany: isCompany);
+                            update();
                           },
                           child: Container(
                             color: Colors.white,
@@ -217,7 +225,9 @@ class UploadFileController extends GetxController {
                         GestureDetector(
                           onTap: () async {
                             Navigator.pop(context);
-                            await onChooseImage(url: url, body: body);
+                            await onChooseImage(
+                                url: url, body: body, isCompany: isCompany);
+                            update();
                           },
                           child: Container(
                             color: Colors.white,
@@ -320,7 +330,9 @@ class UploadFileController extends GetxController {
                       CupertinoActionSheetAction(
                         onPressed: () async {
                           Navigator.pop(context);
-                          await onOpenCamera(url: url, body: body);
+                          await onOpenCamera(
+                              url: url, body: body, isCompany: isCompany);
+                          update();
                         },
                         child: Text(
                           S.of(context).takePhoto,
@@ -334,7 +346,9 @@ class UploadFileController extends GetxController {
                       CupertinoActionSheetAction(
                         onPressed: () async {
                           Navigator.pop(context);
-                          await onChooseImage(url: url, body: body);
+                          await onChooseImage(
+                              url: url, body: body, isCompany: isCompany);
+                          update();
                         },
                         child: Text(
                           S.of(context).editImage,
@@ -383,10 +397,10 @@ class UploadFileController extends GetxController {
         ? '${GlobalConfiguration().getValue('api_base_urlv3')}$baseUrl'
         : '${GlobalConfiguration().getValue('main_api_url')}user/change-profile';
     // ignore: unnecessary_null_comparison
-    if (imageFile.value == null) {
+    if (imageFile == null) {
       return;
     }
-    final byte = imageFile.value.readAsBytesSync();
+    final byte = imageFile!.readAsBytesSync();
     final salarySlipResult = await FlutterImageCompress.compressWithList(
       byte.buffer.asUint8List(),
       minWidth: 800,
@@ -423,24 +437,42 @@ class UploadFileController extends GetxController {
     }
   }
 
-  Future<void> onChooseImage({String? url, Map<String, dynamic>? body}) async {
+  Future<void> onChooseImage(
+      {String? url, Map<String, dynamic>? body, bool isCompany = false}) async {
     final pickerFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
 
     if (pickerFile != null) {
-      imageFile.value = File(pickerFile.path);
+      if (isCompany == true) {
+        memberCon.comCompanyLogo = File(pickerFile.path);
+      }
+      imageFile = File(pickerFile.path);
+      imagePathFile.value = imageFile!.toString();
+
+      update();
     }
-    startUpload(baseUrl: url, body: body);
+    if (isCompany != true) {
+      startUpload(baseUrl: url, body: body);
+    }
   }
 
-  Future<void> onOpenCamera({String? url, Map<String, dynamic>? body}) async {
+  Future<void> onOpenCamera(
+      {String? url, Map<String, dynamic>? body, bool isCompany = false}) async {
     final pickerFile = await imagePicker.pickImage(source: ImageSource.camera);
 
     if (pickerFile != null) {
-      imageFile.value = File(pickerFile.path);
+      if (isCompany == true) {
+        memberCon.comCompanyLogo = File(pickerFile.path);
+      }
+
+      imageFile = File(pickerFile.path);
+      imagePathFile.value = imageFile!.toString();
+      update();
     }
 
-    startUpload(baseUrl: url, body: body);
+    if (isCompany != true) {
+      startUpload(baseUrl: url, body: body);
+    }
   }
 }

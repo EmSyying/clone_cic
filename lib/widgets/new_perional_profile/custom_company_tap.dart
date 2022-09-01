@@ -69,10 +69,10 @@ class CustomCompanyTap extends StatelessWidget {
                   border: Border.all(width: 1, color: Colors.grey[200]!),
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: NetworkImage(
-                      '$imageProfile',
-                    ),
-                  ),
+                      image: NetworkImage(
+                        '$imageProfile',
+                      ),
+                      fit: BoxFit.cover),
                 ),
               ),
               const SizedBox(

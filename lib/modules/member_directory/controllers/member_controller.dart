@@ -1158,6 +1158,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:cicgreenloan/Utils/function/upload_file_controller.dart';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/gender.dart';
@@ -1183,6 +1184,9 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 
 import '../../../Utils/helper/firebase_analytics.dart';
+
+final _customerController = Get.put(CustomerController());
+final uploadCon = Get.put(UploadFileController());
 
 class MemberController extends GetxController {
   final keyCompany = GlobalKey().obs;
@@ -1215,7 +1219,7 @@ class MemberController extends GetxController {
 
   final subscription = SubscriptionModel().obs;
   final subscriptionList = <SubscriptionData>[].obs;
-  final _customerController = Get.put(CustomerController());
+
   // final _memberCon = Get.put(MemberController());
 
   // Update Personal Profile Key
@@ -1432,9 +1436,8 @@ class MemberController extends GetxController {
 
   final isLoadingUpdateComapny = false.obs;
 
-  Future<void> onUpdateCompany(BuildContext context, int id) async {
-    String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}member-company/update';
+  Future<void> onUpdateCompany(BuildContext? context, int? id) async {
+    isLoadingUpdateComapny(true);
     if (comCompanyLogo != null) {
       final byte = comCompanyLogo!.readAsBytesSync();
       final companyLogos = await FlutterImageCompress.compressWithList(
@@ -1445,104 +1448,211 @@ class MemberController extends GetxController {
         rotate: 0,
       );
       base64Image = base64Encode(companyLogos);
+      debugPrint("Base 64 of Companhy Image: $base64Image");
     } else if (comCompanyLogoString.value != '') {
       base64Image = (await networkImageToBase64(comCompanyLogoString.value))!;
     }
-
-    tokenKey = await LocalData.getCurrentUser();
-    var data = json.encode({
-      "id": id,
-      "company_name": comCompanyName.value,
-      "member_id": _customerController.customer.value.customerId,
-      "khmer_name": comKhmerName.value,
-      "position": comPositions.value,
-      "company_logo":
-          base64Image == '' ? '' : "data:image/png;base64,$base64Image",
-      "company_profile": comCompanyProfile.value,
-      "company_product_and_service": comcompanyproductandservice.value,
-      "house_no": comhouseno.value,
-      "street_no": comstreetno.value,
-      "address": comaddress.value,
-      "phone_number": comphonenumber.value,
-      "email": comEmail.value,
-      "what_app": comWhatapp.value,
-      "telegram": comTelegram.value,
-      "messenger": comMessenger.value,
-      "skype": comSkype.value,
-      "we_chat": comWechat.value,
-      "website": comWebsite.value,
-      "facebook": comFacebook.value,
-      "linkedin": comLinkedin.value,
-      "twitter": comTwitter.value
-    });
-
-    try {
-      isLoadingUpdateComapny(true);
-      await http
-          .post(Uri.parse(url),
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer $tokenKey'
-              },
-              body: data)
-          .then((response) {
-        if (response.statusCode == 200) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              behavior: SnackBarBehavior.floating,
-              content: Text("Company Updated Successful...!"),
-              backgroundColor: Colors.green,
-              padding: EdgeInsets.all(20),
-            ),
-          );
-
-          // Timer(const Duration(seconds: 1), () {
-          //   Navigator.pop(context);
-          // });
-        } else {
-          debugPrint('Status Code = ${response.body}');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              behavior: SnackBarBehavior.floating,
-              content: Text("Company Updated Failed...!"),
-              backgroundColor: Colors.red,
-              padding: EdgeInsets.all(20),
-            ),
-          );
-          // Get.snackbar("", "Company Updated Failed...!",
-          //     borderRadius: 8,
-          //     duration: const Duration(seconds: 2),
-          //     backgroundColor: Colors.red,
-          //     colorText: Colors.white,
-          //     icon: const Icon(
-          //       Icons.close,
-          //       color: Colors.white,
-          //     ),
-          //     snackPosition: SnackPosition.TOP,
-          //     margin: const EdgeInsets.all(10),
-          //     overlayBlur: 3.0,
-          //     titleText: const Text(
-          //       'Updated Company',
-          //       style: TextStyle(color: Colors.white),
-          //     ),
-          //     messageText: const Text(
-          //       'Company Updated Failed...!',
-          //       style: TextStyle(color: Colors.white),
-          //     ),
-          //     snackStyle: SnackStyle.FLOATING);
-        }
-      });
-    } finally {
-      base64Image = '';
+    await apiBaseHelper.onNetworkRequesting(
+        url: 'member-company/update',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          "id": id,
+          "company_name": comCompanyName.value,
+          "member_id": _customerController.customer.value.customerId,
+          "khmer_name": comKhmerName.value,
+          "position": comPositions.value,
+          "company_logo":
+              base64Image == '' ? '' : "data:image/png;base64,$base64Image",
+          "company_profile": comCompanyProfile.value,
+          "company_product_and_service": comcompanyproductandservice.value,
+          "house_no": comhouseno.value,
+          "street_no": comstreetno.value,
+          "address": comaddress.value,
+          "phone_number": comphonenumber.value,
+          "email": comEmail.value,
+          "what_app": comWhatapp.value,
+          "telegram": comTelegram.value,
+          "messenger": comMessenger.value,
+          "skype": comSkype.value,
+          "we_chat": comWechat.value,
+          "website": comWebsite.value,
+          "facebook": comFacebook.value,
+          "linkedin": comLinkedin.value,
+          "twitter": comTwitter.value
+        }).then((response) {
+      ScaffoldMessenger.of(context!).showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Company Updated Successful...!"),
+          backgroundColor: Colors.green,
+          padding: EdgeInsets.all(20),
+        ),
+      );
+      fetchCompanyMember(id: cusController.customer.value.customerId);
+      update();
       isLoadingUpdateComapny(false);
-    }
+    }).onError((ErrorModel errorModel, stackTrace) {
+      ScaffoldMessenger.of(context!).showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Company Updated Failed...!"),
+          backgroundColor: Colors.red,
+          padding: EdgeInsets.all(20),
+        ),
+      );
+    });
   }
 
+  // Future<void> onUpdateCompany(BuildContext context, int id) async {
+  //   String url =
+  //       '${GlobalConfiguration().get('api_base_urlv3')}member-company/update';
+  //   // comCompanyLogo = uploadCon.imageFile;
+  //   if (comCompanyLogo != null) {
+  //     final byte = comCompanyLogo!.readAsBytesSync();
+  //     final companyLogos = await FlutterImageCompress.compressWithList(
+  //       byte.buffer.asUint8List(),
+  //       minWidth: 800,
+  //       minHeight: 800,
+  //       quality: 70,
+  //       rotate: 0,
+  //     );
+  //     base64Image = base64Encode(companyLogos);
+  //     debugPrint("Base 64 of Companhy Image: $base64Image");
+  //   } else if (comCompanyLogoString.value != '') {
+  //     base64Image = (await networkImageToBase64(comCompanyLogoString.value))!;
+  //   }
+
+  //   tokenKey = await LocalData.getCurrentUser();
+  //   // var data = json.encode({
+  //   //   "id": id,
+  //   //   "company_name": comCompanyName.value,
+  //   //   "member_id": _customerController.customer.value.customerId,
+  //   //   "khmer_name": comKhmerName.value,
+  //   //   "position": comPositions.value,
+  //   //   "company_logo":
+  //   //       base64Image == '' ? '' : "data:image/png;base64,$base64Image",
+  //   //   "company_profile": comCompanyProfile.value,
+  //   //   "company_product_and_service": comcompanyproductandservice.value,
+  //   //   "house_no": comhouseno.value,
+  //   //   "street_no": comstreetno.value,
+  //   //   "address": comaddress.value,
+  //   //   "phone_number": comphonenumber.value,
+  //   //   "email": comEmail.value,
+  //   //   "what_app": comWhatapp.value,
+  //   //   "telegram": comTelegram.value,
+  //   //   "messenger": comMessenger.value,
+  //   //   "skype": comSkype.value,
+  //   //   "we_chat": comWechat.value,
+  //   //   "website": comWebsite.value,
+  //   //   "facebook": comFacebook.value,
+  //   //   "linkedin": comLinkedin.value,
+  //   //   "twitter": comTwitter.value
+  //   // });
+
+  //   try {
+  //     isLoadingUpdateComapny(true);
+  //     await http.post(Uri.parse(url), headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //       'Authorization': 'Bearer $tokenKey'
+  //     }, body: {
+  //       "id": id,
+  //       "company_name": comCompanyName.value,
+  //       "member_id": _customerController.customer.value.customerId,
+  //       "khmer_name": comKhmerName.value,
+  //       "position": comPositions.value,
+  //       "company_logo":
+  //           base64Image == '' ? '' : "data:image/png;base64,$base64Image",
+  //       "company_profile": comCompanyProfile.value,
+  //       "company_product_and_service": comcompanyproductandservice.value,
+  //       "house_no": comhouseno.value,
+  //       "street_no": comstreetno.value,
+  //       "address": comaddress.value,
+  //       "phone_number": comphonenumber.value,
+  //       "email": comEmail.value,
+  //       "what_app": comWhatapp.value,
+  //       "telegram": comTelegram.value,
+  //       "messenger": comMessenger.value,
+  //       "skype": comSkype.value,
+  //       "we_chat": comWechat.value,
+  //       "website": comWebsite.value,
+  //       "facebook": comFacebook.value,
+  //       "linkedin": comLinkedin.value,
+  //       "twitter": comTwitter.value
+  //     }).then((response) {
+  //       debugPrint('helooo123456++++_-----:${response.statusCode}');
+  //       if (response.statusCode == 200) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(
+  //             behavior: SnackBarBehavior.floating,
+  //             content: Text("Company Updated Successful...!"),
+  //             backgroundColor: Colors.green,
+  //             padding: EdgeInsets.all(20),
+  //           ),
+  //         );
+  //         // Timer(const Duration(seconds: 1), () {
+  //         //   Navigator.pop(context);
+  //         // });
+  //         fetchCompanyMember();
+  //         update();
+  //       } else {
+  //         debugPrint('Status Code = ${response.body}');
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(
+  //             behavior: SnackBarBehavior.floating,
+  //             content: Text("Company Updated Failed...!"),
+  //             backgroundColor: Colors.red,
+  //             padding: EdgeInsets.all(20),
+  //           ),
+  //         );
+  //         // Get.snackbar("", "Company Updated Failed...!",
+  //         //     borderRadius: 8,
+  //         //     duration: const Duration(seconds: 2),
+  //         //     backgroundColor: Colors.red,
+  //         //     colorText: Colors.white,
+  //         //     icon: const Icon(
+  //         //       Icons.close,
+  //         //       color: Colors.white,
+  //         //     ),
+  //         //     snackPosition: SnackPosition.TOP,
+  //         //     margin: const EdgeInsets.all(10),
+  //         //     overlayBlur: 3.0,
+  //         //     titleText: const Text(
+  //         //       'Updated Company',
+  //         //       style: TextStyle(color: Colors.white),
+  //         //     ),
+  //         //     messageText: const Text(
+  //         //       'Company Updated Failed...!',
+  //         //       style: TextStyle(color: Colors.white),
+  //         //     ),
+  //         //     snackStyle: SnackStyle.FLOATING);
+  //       }
+  //     });
+  //   } finally {
+  //     base64Image = '';
+  //     isLoadingUpdateComapny(false);
+  //   }
+  // }
+
+  ///clear company form
+  onClearCompany() {
+    comCompanyName.value = '';
+    comphonenumber.value = '';
+    comEmail.value = '';
+    comaddress.value = '';
+    comWebsite.value = '';
+    comAboutUs.value = '';
+    comProduct.value = '';
+    base64Image = '';
+  }
+
+//submit company
   final isLoadingSubmitCompany = false.obs;
   Future<void> onSubmitCompany(BuildContext context) async {
-    String url = '${GlobalConfiguration().get('api_base_url')}member-company';
+    String url = '${GlobalConfiguration().get('api_base_urlv3')}member-company';
     tokenKey = await LocalData.getCurrentUser();
+    debugPrint('heloo statuscode:+++++++++');
     if (comCompanyLogo != null) {
       final byte = comCompanyLogo!.readAsBytesSync();
       List<int> companyLogos = await FlutterImageCompress.compressWithList(
@@ -1581,7 +1691,7 @@ class MemberController extends GetxController {
       "linkedin": comLinkedin.value,
       "twitter": comTwitter.value
     });
-
+    debugPrint('heloo statuscode:+++++++++123456');
     try {
       isLoadingSubmitCompany(true);
       var response = await http.post(Uri.parse(url),
@@ -1591,7 +1701,10 @@ class MemberController extends GetxController {
             'Authorization': 'Bearer $tokenKey'
           },
           body: data);
+      debugPrint('heloo statuscode:+++++++++YYYYYYY');
       if (response.statusCode == 200) {
+        debugPrint('heloo statuscode:${response.statusCode}');
+        debugPrint('heloo body:${response.body}');
         FirebaseAnalyticsHelper.sendAnalyticsEvent('Success Submit Company');
         Get.snackbar("", "Company Submit Successful...!",
             borderRadius: 8,
@@ -1612,10 +1725,15 @@ class MemberController extends GetxController {
             ),
             snackStyle: SnackStyle.FLOATING);
 
-        Timer(const Duration(seconds: 1), () {
-          Navigator.pop(context, true);
-        });
+        // Timer(const Duration(seconds: 1), () {
+        //   Navigator.pop(context, true);
+
+        // });
+        fetchCompanyMember(id: cusController.customer.value.customerId);
+        fetchCompanyMemberDetail(cusController.customer.value.customerId!);
       } else {
+        debugPrint('heloo body fail++:${response.body}');
+        debugPrint('heloo statuscode:+++++++++000000:${response.statusCode}');
         FirebaseAnalyticsHelper.sendAnalyticsEvent('Fail Submit Company');
         Get.snackbar("", "Company Submit Failed...!",
             borderRadius: 8,
@@ -2115,38 +2233,57 @@ class MemberController extends GetxController {
   final company = CompanyData().obs;
   final isLoadingCompanyProfile = false.obs;
   final companyDataList = <CompanyData>[].obs;
+
   Future<List<CompanyData>> fetchCompanyMember({int? id}) async {
-    tokenKey = await LocalData.getCurrentUser();
-    try {
-      isLoadingCompanyProfile(true);
-
-      // if (id != null) {
-      String url =
-          '${GlobalConfiguration().get('api_base_urlv3')}member-company?member_id=$id';
-      // } else {
-      //   url = '${GlobalConfiguration().get('api_base_urlv3')}company';
-      // }
-
-      await http.get(Uri.parse(url), headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $tokenKey'
-      }).then((response) {
-        companyDataList.clear();
-        if (response.statusCode == 200) {
-          companyDataList.clear();
-          var responseJson = json.decode(response.body)['data'];
-
-          responseJson.map((json) {
-            companyDataList.add(CompanyData.fromJson(json));
-          }).toList();
-        }
-      });
-    } finally {
-      isLoadingCompanyProfile(false);
-    }
+    isLoadingCompanyProfile(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+            url: 'member-company?member_id=$id',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((response) {
+      var responseJson = response['data'];
+      companyDataList.clear();
+      responseJson.map((e) {
+        company.value = CompanyData.fromJson(e);
+        companyDataList.add(company.value);
+        isLoadingCompanyProfile(false);
+      }).toList();
+    }).onError((ErrorModel errorModel, stackTrace) => null);
     return companyDataList;
   }
+  // Future<List<CompanyData>> fetchCompanyMember({int? id}) async {
+  //   tokenKey = await LocalData.getCurrentUser();
+  //   try {
+  //     isLoadingCompanyProfile(true);
+
+  //     // if (id != null) {
+  //     String url =
+  //         '${GlobalConfiguration().get('api_base_urlv3')}member-company?member_id=$id';
+  //     // } else {
+  //     //   url = '${GlobalConfiguration().get('api_base_urlv3')}company';
+  //     // }
+
+  //     await http.get(Uri.parse(url), headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //       'Authorization': 'Bearer $tokenKey'
+  //     }).then((response) {
+  //       companyDataList.clear();
+  //       if (response.statusCode == 200) {
+  //         companyDataList.clear();
+  //         var responseJson = json.decode(response.body)['data'];
+
+  //         responseJson.map((json) {
+  //           companyDataList.add(CompanyData.fromJson(json));
+  //         }).toList();
+  //       }
+  //     });
+  //   } finally {
+  //     isLoadingCompanyProfile(false);
+  //   }
+  //   return companyDataList;
+  // }
 
   final isLoadingCompany = false.obs;
   Future<List<CompanyData>> fetchCompanyMemberDetail(int id) async {
@@ -2353,8 +2490,6 @@ class MemberController extends GetxController {
   final currentPages = 1.obs;
   final next = true.obs;
   final searchTextFieldController = TextEditingController().obs;
-
-  ///
 
   ///Fetch All Member
   Future<List<Member>> onFetchAllMember({

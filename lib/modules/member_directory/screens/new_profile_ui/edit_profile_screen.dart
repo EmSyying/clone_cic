@@ -37,6 +37,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final memberCon = Get.put(MemberController());
   final customerCon = Get.put(CustomerController());
   final uploadImageCon = Get.put(UploadFileController());
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   memberCon.comCompanyName.value = widget.companyData!.companyName!;
+  //   memberCon.comphonenumber.value = widget.companyData!.phoneNumber!;
+  //   memberCon.comEmail.value = widget.companyData!.email!;
+  //   memberCon.comaddress.value = widget.companyData!.address!;
+  //   memberCon.comWebsite.value = widget.companyData!.website!;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +71,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           !widget.isCreateCompany!
               ? TextButton(
                   onPressed: () {
-                    widget.onTapDone!();
                     Navigator.pop(context);
+                    widget.onTapDone!();
                   },
 
                   // widget.isEditCompany == true
@@ -123,8 +132,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                     ),
-                  customerCon.customer.value.profile != null &&
-                          customerCon.customer.value.profile! != ''
+                  uploadImageCon.imagePathFile.value == ""
                       ? Container(
                           height: 85,
                           width: 85,
@@ -137,19 +145,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     ? Colors.white
                                     : AppColor.mainColor),
                             image: DecorationImage(
-                                image: NetworkImage(
-                                    customerCon.customer.value.profile!),
+                                image: NetworkImage(widget.isEditCompany == true
+                                    ? widget.companyData!.companyLogo!
+                                    : customerCon.customer.value.profile!),
                                 fit: BoxFit.cover),
                           ),
                         )
                       : Container(
                           height: 85,
                           width: 85,
-                          decoration: const BoxDecoration(
+                          margin: const EdgeInsets.only(top: 23),
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
+                            border: Border.all(
+                                width: 3.5,
+                                color: uploadImageCon.isLoading.value
+                                    ? Colors.white
+                                    : AppColor.mainColor),
                             image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'),
+                                image: FileImage(uploadImageCon.imageFile!),
                                 fit: BoxFit.cover),
                           ),
                         ),
@@ -204,7 +218,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 initialValue: '',
                               ),
                               CustomTextFieldNew(
+                                keyboardType: TextInputType.number,
                                 hintText: 'Phone Number',
+                                enable: false,
                                 onChange: (phone) {
                                   if (phone == '') {
                                     memberCon.phone.value;
@@ -298,9 +314,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 isValidate: true,
                                 labelText: 'Company Name',
                                 initialValue:
-                                    widget.companyData!.companyName ?? '',
+                                    memberCon.comCompanyName.value != ''
+                                        ? widget.companyData!.companyName
+                                        : '',
                               ),
                               CustomTextFieldNew(
+                                // isReadOnly: true,
                                 hintText: 'Phone Number',
                                 onChange: (phoneNum) {
                                   if (phoneNum == '') {
@@ -309,10 +328,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     memberCon.comphonenumber.value = phoneNum;
                                   }
                                 },
+                                keyboardType: TextInputType.number,
                                 isValidate: true,
                                 labelText: 'Phone Number',
                                 initialValue:
-                                    widget.companyData!.phoneNumber ?? '',
+                                    memberCon.comphonenumber.value != ''
+                                        ? widget.companyData!.phoneNumber
+                                        : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Email',
@@ -325,7 +347,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 isValidate: true,
                                 labelText: 'Email',
-                                initialValue: widget.companyData!.email ?? '',
+                                initialValue: memberCon.comEmail.value != ''
+                                    ? widget.companyData!.email
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Location',
@@ -339,7 +363,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 isValidate: true,
                                 labelText: 'Location',
-                                initialValue: widget.companyData!.address ?? '',
+                                initialValue: memberCon.comaddress.value != ''
+                                    ? widget.companyData!.address
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Website',
@@ -352,7 +378,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 isValidate: true,
                                 labelText: 'Website',
-                                initialValue: widget.companyData!.website ?? '',
+                                initialValue: memberCon.comWebsite.value != ''
+                                    ? widget.companyData!.website
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'About Us',
