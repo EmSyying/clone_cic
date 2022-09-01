@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +12,7 @@ class ViewWebsite extends StatefulWidget {
   final String? url;
   final String? title;
   final bool? isfromReport;
-  const ViewWebsite(
-      {Key? key,
-      @queryParam this.url,
-      @queryParam this.title,
-      @queryParam this.isfromReport = false})
+  const ViewWebsite({Key? key, this.url, this.title, this.isfromReport = false})
       : super(key: key);
 
   @override

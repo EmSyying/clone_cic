@@ -19,6 +19,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../configs/route_configuration/route.dart';
+import '../models/trading_info_url/last_trading_web_view_info.dart';
 
 class InquiryController extends GetxController {
   final isSubmitting = false.obs;
@@ -766,5 +767,27 @@ class InquiryController extends GetxController {
       isLoadingCard(false);
     }
     return lastTradingCardModel.value;
+  }
+
+  // View Last Trading Info
+  final isViewLastTrading = false.obs;
+  final viewLastTradingInfo = ViewLastTradingInfoUrl().obs;
+  Future<void> onViewLastTradingInfo() async {
+    isViewLastTrading(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'trading/info/webview',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      var responseJson = response;
+
+      viewLastTradingInfo.value = ViewLastTradingInfoUrl.fromJson(responseJson);
+
+      isViewLastTrading(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isViewLastTrading(false);
+    });
   }
 }

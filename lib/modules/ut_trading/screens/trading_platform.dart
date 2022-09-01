@@ -14,12 +14,11 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../Utils/function/format_date_time.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
-import '../../../utils/helper/container_partern.dart';
 import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
+import '../../../widgets/get_funding/custom_call_center.dart';
 import '../../../widgets/ut_tradding/custom_buy_card.dart';
 import '../../../widgets/ut_tradding/custom_fun_card.dart';
-import '../../../widgets/ut_tradding/custom_last_trading_info.dart';
 import '../../../widgets/ut_tradding/custom_max_min_card.dart';
 import '../../../widgets/ut_tradding/maximum_shimmer_card.dart';
 import '../../../widgets/ut_tradding/trade_session_shimmer.dart';
@@ -46,7 +45,7 @@ class _UTtradingState extends State<UTtrading>
   @override
   void initState() {
     inquiryController.tabController = TabController(length: 3, vsync: this);
-
+    inquiryController.onViewLastTradingInfo();
     inquiryController.getTradingSetting();
     inquiryController.fetchLastTradingOption();
 
@@ -290,53 +289,57 @@ class _UTtradingState extends State<UTtrading>
                                                           FirebaseAnalyticsHelper
                                                               .sendAnalyticsEvent(
                                                                   "View Last Trading Information");
-                                                          inquiryController
-                                                              .isSelect
-                                                              .value = true;
-                                                          inquiryController
-                                                              .lastTradinInfoIndex
-                                                              .value = 0;
-                                                          Future.delayed(
-                                                              const Duration(
-                                                                  seconds: 3),
-                                                              () {
-                                                            inquiryController
-                                                                .fetchLastTradingDetail(
-                                                                    id: inquiryController
-                                                                        .lastTradingOptionModelList[
-                                                                            0]
-                                                                        .id);
-                                                          });
-                                                          showMaterialModalBottomSheet(
-                                                            shape: const RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.only(
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            borderRaduis),
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            borderRaduis))),
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                customAlertLastTradingInfo(
-                                                              tradingOptionList:
-                                                                  inquiryController
-                                                                      .lastTradingOptionModelList,
-                                                              context: context,
-                                                              title:
-                                                                  'Last Trading Info',
-                                                              icon: Icons.close,
-                                                            ),
-                                                          );
-                                                          inquiryController
-                                                              .isInitSelct
-                                                              .value = true;
-                                                          inquiryController
-                                                              .isLoadingCard
-                                                              .value = true;
+                                                          debugPrint(
+                                                              "View Trading:${inquiryController.viewLastTradingInfo.value.linkTradingInfo}");
+                                                          context.push(
+                                                              '/ut-trading/view-last-trading-info?url=${inquiryController.viewLastTradingInfo.value.linkTradingInfo}&&title=View Last Trading Info');
+                                                          // inquiryController
+                                                          //     .isSelect
+                                                          //     .value = true;
+                                                          // inquiryController
+                                                          //     .lastTradinInfoIndex
+                                                          //     .value = 0;
+                                                          // Future.delayed(
+                                                          //     const Duration(
+                                                          //         seconds: 3),
+                                                          //     () {
+                                                          //   inquiryController
+                                                          //       .fetchLastTradingDetail(
+                                                          //           id: inquiryController
+                                                          //               .lastTradingOptionModelList[
+                                                          //                   0]
+                                                          //               .id);
+                                                          // });
+                                                          // showMaterialModalBottomSheet(
+                                                          //   shape: const RoundedRectangleBorder(
+                                                          //       borderRadius: BorderRadius.only(
+                                                          //           topLeft: Radius
+                                                          //               .circular(
+                                                          //                   borderRaduis),
+                                                          //           topRight: Radius
+                                                          //               .circular(
+                                                          //                   borderRaduis))),
+                                                          //   context: context,
+                                                          //   builder: (context) =>
+                                                          //       customAlertLastTradingInfo(
+                                                          //     tradingOptionList:
+                                                          //         inquiryController
+                                                          //             .lastTradingOptionModelList,
+                                                          //     context: context,
+                                                          //     title:
+                                                          //         'Last Trading Info',
+                                                          //     icon: Icons.close,
+                                                          //   ),
+                                                          // );
+                                                          // inquiryController
+                                                          //     .isInitSelct
+                                                          //     .value = true;
+                                                          // inquiryController
+                                                          //     .isLoadingCard
+                                                          //     .value = true;
 
-                                                          inquiryController
-                                                              .update();
+                                                          // inquiryController
+                                                          //     .update();
                                                         },
                                                         tradingstartDate: inquiryController
                                                                     .tradingSettingData
@@ -502,6 +505,7 @@ class _UTtradingState extends State<UTtrading>
                         elevation: 0.0,
                         action: [
                           IconButton(
+                            padding: EdgeInsets.zero,
                             icon: SvgPicture.asset('assets/images/iIcon.svg'),
                             onPressed: () {
                               FirebaseAnalyticsHelper.sendAnalyticsEvent(
@@ -513,6 +517,9 @@ class _UTtradingState extends State<UTtrading>
                                   icon: const Icon(Icons.clear));
                             },
                           ),
+                          CustomCallCenter(
+                              url: inquiryController
+                                  .tradingSettingData.data!.telegramLink),
                         ],
                         isLeading: true,
                         context: context,

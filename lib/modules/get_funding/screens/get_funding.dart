@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
 import 'package:cicgreenloan/Utils/helper/local_storage.dart';
@@ -33,8 +32,7 @@ class HomePage extends StatefulWidget {
   final bool? isNavigator;
   final String? tabName;
 
-  const HomePage({Key? key, @queryParam this.isNavigator, this.tabName})
-      : super(key: key);
+  const HomePage({Key? key, this.isNavigator, this.tabName}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }

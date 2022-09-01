@@ -426,14 +426,14 @@ final router = GoRouter(
 
                 // Debt Investment
                 GoRoute(
-                    path: 'debt-step1',
-                    name: 'DebtStep1',
-                    builder: (context, state) => Step1Debt(
-                        id: int.tryParse(state.queryParams['id'].toString()),
-                        step: int.tryParse(
-                          state.queryParams['step'].toString(),
-                        )),
-                   ),
+                  path: 'debt-step1',
+                  name: 'DebtStep1',
+                  builder: (context, state) => Step1Debt(
+                      id: int.tryParse(state.queryParams['id'].toString()),
+                      step: int.tryParse(
+                        state.queryParams['step'].toString(),
+                      )),
+                ),
                 GoRoute(
                   path: 'debt-step2',
                   name: 'DebtStep2',
@@ -470,7 +470,6 @@ final router = GoRouter(
                   builder: (context, state) => PreviewDebtForm(
                       id: int.tryParse(state.queryParams['id'].toString())),
                 ),
-                
               ]),
           GoRoute(
               path: 'ut-trading',
@@ -481,6 +480,16 @@ final router = GoRouter(
                     ),
                   ),
               routes: [
+                GoRoute(
+                  path: 'view-last-trading-info',
+                  name: 'ViewLastTradingInfo',
+                  builder: (context, state) {
+                    return ViewWebsite(
+                      url: state.queryParams['url'],
+                      title: state.queryParams['title'],
+                    );
+                  },
+                ),
                 GoRoute(
                     path: 'trading-inquiry/:operation',
                     name: 'Trading',

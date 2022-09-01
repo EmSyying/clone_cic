@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
 import 'package:cicgreenloan/Utils/helper/numerice_format.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -35,7 +34,7 @@ class Step2Equity extends StatefulWidget {
 
   final int? step;
   const Step2Equity(
-      {Key? key, @PathParam('id') this.id, @PathParam('step') this.step})
+      {Key? key, this.id, this.step})
       : super(key: key);
   @override
   State<Step2Equity> createState() => _Step2EquityState();

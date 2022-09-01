@@ -30,6 +30,7 @@ class Data {
   bool? allowBuyRequest;
   num? atLessFeeamount;
   num? feeInPercentage;
+  String? telegramLink;
   Data(
       {this.market,
       this.availableUt,
@@ -40,7 +41,8 @@ class Data {
       this.allowBuyRequest,
       this.allowSellRequest,
       this.atLessFeeamount,
-      this.feeInPercentage});
+      this.feeInPercentage,
+      this.telegramLink});
 
   Data.fromJson(Map<String, dynamic> json) {
     market = json['market'] != null ? Market.fromJson(json['market']) : null;
@@ -53,6 +55,7 @@ class Data {
     allowBuyRequest = json['allow_buy_request'];
     atLessFeeamount = json['at_less_fee_amount'];
     feeInPercentage = json['fee_in_percentage'];
+    telegramLink = json['telegram_link'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +70,7 @@ class Data {
     data['min_number_of_share_for_buying'] = minNumberOfShareForBuying;
     data['allow_sell_request'] = allowSellRequest;
     data['allow_buy_request'] = allowBuyRequest;
+    data['telegram_link'] = telegramLink;
 
     return data;
   }

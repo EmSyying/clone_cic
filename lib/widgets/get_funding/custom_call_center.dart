@@ -10,8 +10,9 @@ class CustomCallCenter extends StatefulWidget {
   final Color? color;
   final bool? isPading;
   final String? type;
+  final String? url;
   const CustomCallCenter(
-      {Key? key, this.color, this.isPading = false, this.type})
+      {Key? key, this.color, this.isPading = false, this.type, this.url})
       : super(key: key);
 
   @override
@@ -36,13 +37,15 @@ class _CustomCallCenterState extends State<CustomCallCenter> {
           FirebaseAnalyticsHelper.sendAnalyticsEvent("Get Funding Call Center");
         }
         await launchUrl(
-          Uri.parse('${equityCon.callCenter.value.link}'),
+          Uri.parse(widget.url != null
+              ? '${widget.url}'
+              : '${equityCon.callCenter.value.link}'),
           mode: LaunchMode.externalApplication,
         );
       },
       child: Padding(
-        padding: EdgeInsets.only(
-            left: 8.0, right: widget.isPading == true ? 0 : 10.0),
+        padding:
+            EdgeInsets.only(left: 0, right: widget.isPading == true ? 0 : 10.0),
         child: SvgPicture.asset(
           "assets/images/svgfile/telegram-icons.svg",
           height: 35.0,

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:auto_route/auto_route.dart';
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -21,9 +20,7 @@ import '../../../utils/helper/custom_snackbar.dart';
 class PDFViewer extends StatefulWidget {
   final String? urlAttachment;
   final String? title;
-  const PDFViewer(
-      {Key? key, @queryParam this.urlAttachment, @queryParam this.title})
-      : super(key: key);
+  const PDFViewer({Key? key, this.urlAttachment, this.title}) : super(key: key);
 
   @override
   State<PDFViewer> createState() => _PDFViewerState();

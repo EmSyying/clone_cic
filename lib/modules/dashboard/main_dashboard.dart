@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/find_widget_position.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
@@ -906,12 +905,10 @@ class _MainDashboardState extends State<MainDashboard> {
                                   ? () {
                                       FirebaseAnalyticsHelper
                                           .setCurrentScreenName(e.value.label!);
-                                      context.router
-                                          .pushNamed("/${e.value.route!}");
+                                      context.go("/${e.value.route!}");
                                     }
                                   : () {
-                                      context.router
-                                          .pushNamed("/${e.value.route!}");
+                                      context.go("/${e.value.route!}");
                                     },
                           title: e.value.label,
                           imageSvg: e.value.icon,
