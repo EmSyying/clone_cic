@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_payment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -221,14 +220,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       categoriesTil: 'Categories',
                       seeall: 'See All',
                       onTapSeeAll: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PrivilegePayment(
-                              id: priCon.shopId.value,
-                            ),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => PrivilegePayment(
+                        //       id: priCon.shopId.value,
+                        //     ),
+                        //   ),
+                        // );
                       },
                     ),
                   ),
