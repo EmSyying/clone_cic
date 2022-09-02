@@ -25,14 +25,14 @@ class ApiBaseHelper extends GetConnect {
 
   Future<dynamic> onNetworkRequesting(
       {String? url,
-      String? urlFull,
+      String? fullURL,
       Map<String, String>? header,
       Map<String, dynamic>? body,
       required METHODE? methode,
       required bool isAuthorize,
       bool isConvertToByte = false}) async {
     final token = await LocalData.getCurrentUser();
-    final fullUrl = urlFull ?? baseurl! + url!;
+    final fullUrl = fullURL ?? baseurl! + url!;
     Map<String, String> defaultHeader = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

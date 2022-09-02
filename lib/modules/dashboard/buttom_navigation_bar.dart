@@ -203,6 +203,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Build from BottomNavigationbar");
     saveUserToken = StorageUtil.getString('current_user');
 
     SystemChrome.setPreferredOrientations([

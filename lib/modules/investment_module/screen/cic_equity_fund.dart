@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
 
@@ -31,41 +33,13 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
   var n = NumberFormat('#,###', 'en_US');
   bool isExpandShareSubscribe = false;
   bool isExpandInvestmentReturn = false;
-  // OverlayState? overlayState;
-  // OverlayEntry? overlayEntry;
-
-  // onShowOverlay(BuildContext context) async {
-  //   overlayState = Overlay.of(context);
-  //   OverlayEntry overlayEntry = OverlayEntry(
-  //       builder: (context) => Positioned(
-  //             top: 150,
-  //             left: 20,
-  //             right: 20,
-  //             child: Material(
-  //               child: Container(
-  //                 color: Theme.of(context).primaryColor,
-  //                 width: 100,
-  //                 height: 100,
-  //                 child: const Text('Hello'),
-  //               ),
-  //             ),
-  //           ));
-  //   overlayState!.insert(overlayEntry);
-
-  //   await Future.delayed(const Duration(seconds: 2), () {
-  //     overlayEntry.remove();
-  //   });
-  // }
 
   ///
   OverlayState? overlayState;
   OverlayEntry? overlayEntry;
   final key1 = GlobalKey();
-  void showOverlay(
-    BuildContext context,
-    GlobalKey key, {
-    double padding = 10,
-  }) async {
+  void showOverlay(BuildContext context, GlobalKey key,
+      {double padding = 10}) async {
     overlayState = Overlay.of(context);
     var renderBox = key.currentContext!.findRenderObject() as RenderBox;
     var size = renderBox.size;
@@ -82,64 +56,64 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
       textOffset = Offset(0, offset.dy - padding - 50);
       debugPrint('else');
     }
+    double _getContentWidth() => MediaQuery.of(context).size.width - 40;
 
     overlayEntry = OverlayEntry(
       builder: (context) {
-        return AnimatedScale(
-          scale: 1,
-          duration: const Duration(seconds: 1),
-          child: GestureDetector(
-            onTap: () {
-              overlayEntry!.remove();
-            },
-            child: Stack(
-              children: [
-                ColorFiltered(
-                  colorFilter: const ColorFilter.mode(
-                    /// Mask layer color
-                    Colors.black54,
-                    BlendMode.srcOut,
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: const BoxDecoration(
-                          /// Any color
-                          color: Colors.white,
-                          backgroundBlendMode: BlendMode.dstOut,
-                        ),
-                      ),
-                      Positioned(
-                        top: offset.dy - padding / 2,
-                        left: offset.dx - padding / 2,
-                        child: Container(
-                          width: size.width + padding,
-                          height: size.height + padding,
-
-                          /// Any color
-
-                          decoration: BoxDecoration(
-                            // shape: BoxShape.circle,
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+        return GestureDetector(
+          onTap: () {
+            overlayEntry!.remove();
+          },
+          child: Stack(
+            children: [
+              ColorFiltered(
+                colorFilter: const ColorFilter.mode(
+                  /// Mask layer color
+                  Colors.black54,
+                  BlendMode.srcOut,
                 ),
-                Positioned(
-                  left: 20,
-                  top: textOffset.dy,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: const BoxDecoration(
+                        /// Any color
+                        color: Colors.white,
+                        backgroundBlendMode: BlendMode.dstOut,
+                      ),
+                    ),
+                    Positioned(
+                      top: offset.dy - padding / 2,
+                      left: offset.dx - padding / 2,
+                      child: Container(
+                        width: size.width + padding,
+                        height: size.height + padding,
+
+                        /// Any color
+
+                        decoration: BoxDecoration(
+                          // shape: BoxShape.circle,
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 20,
+                top: textOffset.dy,
+                child: GestureDetector(
+                  onTap: () {},
                   child: Container(
-                    width: MediaQuery.of(context).size.width - 40,
+                    width: _getContentWidth(),
                     padding: const EdgeInsets.symmetric(
                         vertical: 13, horizontal: 15),
                     decoration: BoxDecoration(
-                        color: AppColor.mainColor,
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -149,7 +123,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                           'Certificate',
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: Colors.white,
+                                    color: AppColor.mainColor,
                                     fontWeight: FontWeight.w700,
                                   ),
                         ),
@@ -158,7 +132,6 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                           'Click here to see your certificate and download it. ',
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: Colors.white,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14,
                                   ),
@@ -166,6 +139,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                elevation: 0.1,
+                                enableFeedback: false,
+                                primary: AppColor.mainColor),
                             onPressed: () {
                               overlayEntry!.remove();
                             },
@@ -175,9 +152,17 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                       ],
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              Positioned(
+                  top: offset.dy - size.height + padding - 20,
+                  left: offset.dx,
+                  // width: 40,
+                  child: Container(
+                      color: Colors.amber,
+                      child: SvgPicture.asset(
+                          'assets/images/svgfile/arrow_down.svg'))),
+            ],
           ),
         );
       },
@@ -198,18 +183,14 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
     priceController.getSharePrice();
     priceController.getShareSubHistories();
     priceController.getAllChartList();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 1), () {
-        showOverlay(context, key1, padding: 0);
-      });
-    });
+
     // priceController.fetchCertificate();
     super.initState();
   }
 
-  int _selectedSegment = 0;
+  int selectedSegment = 0;
   bool hide = false;
-  final List<Widget> _utChartHistory = [
+  final List<Widget> utChartHistory = [
     const SubscriptionChart(),
     const TradingChart(),
   ];
@@ -237,7 +218,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
-                        SvgPicture.asset('assets/images/svgfile/shareInfo.svg'),
+                        SvgPicture.asset(
+                          'assets/images/svgfile/shareInfo.svg',
+                        ),
                         const SizedBox(
                           width: 20,
                         ),
@@ -573,7 +556,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                               vertical: 20, horizontal: 20),
                           width: double.infinity,
                           child: CupertinoSlidingSegmentedControl(
-                            groupValue: _selectedSegment,
+                            groupValue: selectedSegment,
                             // backgroundColor: CupertinoColors.tertiarySystemFill,
                             children: <int, Widget>{
                               0: Padding(
@@ -600,7 +583,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                               ),
                             },
                             onValueChanged: (int? value) {
-                              _selectedSegment = value!;
+                              selectedSegment = value!;
 
                               setState(() {});
                             },
@@ -608,7 +591,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                         ),
                   hide
                       ? const SizedBox.shrink()
-                      : _utChartHistory[_selectedSegment],
+                      : utChartHistory[selectedSegment],
                 ],
               ),
             ),

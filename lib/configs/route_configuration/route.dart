@@ -3,6 +3,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../Utils/helper/switch_splash_screen/switch_splash_screen.dart';
 import '../../Utils/web_view/web_view.dart';
+import '../../core/auth/login.dart';
+import '../../core/auth/login_with_password.dart';
+import '../../core/auth/set_pin_code.dart';
+import '../../core/auth/verify_set_password.dart';
 import '../../core/walk_through/splash_screen.dart';
 import '../../core/walk_through/start_slide.dart';
 import '../../modules/bonus/screens/bonus_screen.dart';
@@ -36,6 +40,7 @@ import '../../modules/report_module/screens/cic_app_manual.dart';
 import '../../modules/report_module/screens/report.dart';
 import '../../modules/report_module/screens/view_report.dart';
 import '../../modules/setting_modules/screens/settings_screen.dart';
+import '../../modules/setting_modules/screens/sub_setting_screen/change_password.dart';
 import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
@@ -46,19 +51,9 @@ import '../../widgets/privilege/privilege/custom_all_store_list.dart';
 import '../../widgets/privilege/privilege/custom_card_favorites_list.dart';
 
 final router = GoRouter(
-    debugLogDiagnostics: true,
+    // debugLogDiagnostics: true,
     initialLocation: '/splashscreen',
     routes: [
-      GoRoute(
-        path: '/splas-screen',
-        name: 'SplashScreen',
-        builder: (context, state) => const Splashscreen(),
-      ),
-      GoRoute(
-        path: '/start-slide',
-        name: 'StartSlide',
-        builder: (context, state) => const StartupSlide(),
-      ),
       GoRoute(
         path: '/',
         name: 'HomePage',
@@ -765,8 +760,42 @@ final router = GoRouter(
       ),
       GoRoute(
         path: '/splashscreen',
+        name: 'SplashScreen',
+        builder: (context, state) => const Splashscreen(),
+      ),
+      GoRoute(
+        path: '/start-slide',
+        name: 'StartSlide',
+        builder: (context, state) => const StartupSlide(),
+      ),
+      GoRoute(
+        path: '/login',
         builder: (_, __) {
-          return const Splashscreen();
+          return const LoginScreen();
         },
+        routes: [],
+      ),
+      GoRoute(
+        path: '/password',
+        builder: (_, __) {
+          return const LoginWithPassWord();
+        },
+      ),
+      GoRoute(
+        path: '/setpincode',
+        builder: (_, __) {
+          return const SetPinCode();
+        },
+      ),
+      GoRoute(
+        path: '/verify-otp',
+        builder: (_, state) => const VerifySetPassword(
+            // isForgetPassword:
+            //     state.queryParams['isForgetPassword']!.toLowerCase() == 'true',
+            ),
+      ),
+      GoRoute(
+        path: '/changepassword',
+        builder: (_, state) => ChangePassword(),
       ),
     ]);

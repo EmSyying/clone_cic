@@ -65,6 +65,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('Built Profile');
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

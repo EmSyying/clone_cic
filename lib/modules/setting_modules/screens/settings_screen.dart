@@ -23,6 +23,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Utils/form_builder/custom_listile.dart';
@@ -30,6 +31,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/helper/custom_appbar.dart';
+import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
 import '../../report_module/screens/cic_app_manual.dart';
 
@@ -50,9 +52,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final _conSetting = Get.put(SettingController());
   final _memberCon = Get.put(MemberController());
+  final _authController = Get.put(AuthController());
 
   bool? isDarkMode;
-  bool? isOnNotification = false;
+  bool isOnNotification = false;
   bool? isOnFingerPrint = false;
   bool? isFaceID = false;
   String? biotricType = '';
@@ -132,7 +135,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     // isEnableNotification();
     // onGetNotificationEnable();
     setState(() {
-      isOnNotification = customerController.customer.value.enableNotification;
+      isOnNotification =
+          customerController.customer.value.enableNotification ?? false;
     });
 
     super.initState();
@@ -195,6 +199,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      _authController.clearAuth();
                       _user.customer.value = User();
                       _memberCon.personalProfile.value = PersonalProfileModel();
                       Navigator.pop(context);
@@ -257,6 +262,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         CupertinoButton(
                           child: const Text('Log Out'),
                           onPressed: () async {
+                            _authController.clearAuth();
                             _user.customer.value = User();
                             _memberCon.personalProfile.value =
                                 PersonalProfileModel();
@@ -265,10 +271,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             _user.isLoginSuccess(false);
 
                             await LocalData.removePINcode('setPIN');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()));
+                            context.go('/login');
                           },
                         ),
                       ],
@@ -318,17 +321,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       GestureDetector(
                         onTap: () async {
+                          _authController.clearAuth();
                           _user.customer.value = User();
                           _memberCon.personalProfile.value =
                               PersonalProfileModel();
                           Navigator.pop(context);
                           removeUser('current_user');
                           _user.isLoginSuccess(false);
+
                           await LocalData.removePINcode('setPIN');
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginScreen()));
+                          context.go('/login');
                         },
                         child: Container(
                           margin: const EdgeInsets.only(
@@ -595,7 +597,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       .onSwitchNotificationSetting();
                                   await customerController.getUser();
                                 },
-                                value: isOnNotification!,
+                                value: isOnNotification,
                               )
                             : Platform.isAndroid
                                 ? Switch(
@@ -614,7 +616,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           .onSwitchNotificationSetting();
                                       await customerController.getUser();
                                     },
-                                    value: isOnNotification!,
+                                    value: isOnNotification,
                                   )
                                 : CupertinoSwitch(
                                     onChanged: (value) async {
@@ -633,7 +635,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           .onSwitchNotificationSetting();
                                       await customerController.getUser();
                                     },
-                                    value: isOnNotification ?? false,
+                                    value: isOnNotification,
                                   ),
                       ),
                     ],

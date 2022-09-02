@@ -19,37 +19,27 @@ class Splashscreen extends StatefulWidget {
 
 class _SplashscreenState extends State<Splashscreen>
     with TickerProviderStateMixin {
-  bool isFirstTime = true;
   bool isLoading = true;
   final _googleMapCon = Get.put(GoogleMapsController());
 
   // final _userController = Get.put(CustomerController());
   final fifCon = Get.put(PriceController());
 
-  onNavigator() async {
+  void onNavigator() async {
     await LocalData.getCurrentUser().then((value) {
       if (value != null) {
-        // _userController.getUser();
-
         Future.delayed(const Duration(seconds: 3), () {
-          setState(() {
-            isLoading = false;
-          });
-          // Beamer.of(context).beamToNamed('/home');
+          isLoading = false;
+          setState(() {});
           context.go('/');
         });
       } else {
         Future.delayed(const Duration(seconds: 3), () {
-          setState(() {
-            isLoading = false;
-          });
-          // Beamer.of(context).beamToNamed('/on_boarding');
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const StartupSlide(),
-            ),
-          );
+          isLoading = false;
+          setState(() {});
+          context.go('/');
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const StartupSlide()));
         });
       }
     });

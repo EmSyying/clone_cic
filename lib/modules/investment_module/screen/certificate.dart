@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
+import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../utils/helper/container_partern.dart';
-import '../../../utils/helper/custom_snackbar.dart';
 
 class PDFViewer extends StatefulWidget {
   final String? urlAttachment;
@@ -74,11 +74,9 @@ class _PDFViewerState extends State<PDFViewer> {
         isReturnImagePathOfIOS: true,
       );
       if (result != null) {
-        customSnackbar(
-            imgUrl: 'assets/images/svgfile/successIcon.svg',
-            color: Colors.green,
-            titleText: 'Done',
-            messageText: 'Your certificate has been saved to gallery!');
+        customRouterSnackbar(
+            title: 'Done',
+            description: 'Your certificate has been saved to gallery!');
       }
     } catch (e) {
       debugPrint(e.toString());

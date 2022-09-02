@@ -9,7 +9,7 @@ CustomAppBar({
   required BuildContext context,
   Widget? leading,
   List<Widget>? action,
- required String? title,
+  required String? title,
   Widget? iconBack,
   double? elevation,
   Color? backgroundColor,
@@ -102,12 +102,6 @@ CustomAppBar({
                       ? Text(
                           title!,
                           style: Theme.of(context).textTheme.headline6,
-                          // style: TextStyle(
-                          //     fontFamily: 'DMSans',
-                          //     fontWeight: FontWeight.bold,
-                          //     fontSize: 25),
-                          // maxLines: 1,
-                          // overflow: TextOverflow.ellipsis,
                         )
                       : Padding(
                           padding: const EdgeInsets.only(right: 70),

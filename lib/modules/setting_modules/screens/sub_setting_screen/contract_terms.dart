@@ -29,14 +29,16 @@ class _ContractTermState extends State<ContractTerm> {
   Widget build(BuildContext context) {
     return DefaultSizeWeb(
       child: Scaffold(
-          appBar: CustomAppBar(
-            isLeading: true,
-            context: context,
-            title: widget.fromPage != null
-                ? 'CiC Service Agreement'
-                : 'Contractual Terms of Use of Laon Installment',
-          ),
-          body: Obx(
+        appBar: CustomAppBar(
+          isLogo: false,
+          isLeading: true,
+          context: context,
+          title: widget.fromPage != null
+              ? 'CiC Service Agreement'
+              : 'Contractual Terms of Use of Laon Installment',
+        ),
+        body: SafeArea(
+          child: Obx(
             () => !settingController.isLoading.value &&
                     settingController
                             .termAndcondtion.value.termAndConditionEnglish !=
@@ -44,30 +46,31 @@ class _ContractTermState extends State<ContractTerm> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/Logo/cic.png',
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
                       Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.all(20),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                settingController.termAndcondtion.value
-                                            .termAndConditionEnglish !=
-                                        null
-                                    ? HtmlWidget(
-                                        settingController.termAndcondtion.value
-                                            .termAndConditionEnglish!,
-                                        textStyle: const TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      )
-                                    : Container(),
-                              ],
-                            ),
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              Center(
+                                child: Image.asset(
+                                  'assets/images/Logo/cic.png',
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              settingController.termAndcondtion.value
+                                          .termAndConditionEnglish !=
+                                      null
+                                  ? HtmlWidget(
+                                      settingController.termAndcondtion.value
+                                          .termAndConditionEnglish!,
+                                      textStyle: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    )
+                                  : Container(),
+                            ],
                           ),
                         ),
                       ),
@@ -106,15 +109,14 @@ class _ContractTermState extends State<ContractTerm> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      )
                     ],
                   )
                 : const Center(
                     child: CircularProgressIndicator(),
                   ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -2529,7 +2529,7 @@ class MemberController extends GetxController {
     ///Request to API
     await apiBaseHelper
         .onNetworkRequesting(
-      urlFull:
+      fullURL:
           '${GlobalConfiguration().get('api_base_url')}customer$pageParam$filterParam$isCICmemberParam$hideMeParam$eventParam$jsonParam',
       // '${GlobalConfiguration().get('api_base_url')}customer?page=$page&hide_me=1$_filterParam',
       url: '',

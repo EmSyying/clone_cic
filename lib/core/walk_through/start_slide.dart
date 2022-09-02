@@ -163,9 +163,11 @@ class _StartupSlideState extends State<StartupSlide> {
                         // Beamer.of(context)
                         //     .beamToNamed('/on_boarding/construct_term');
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ContractTerm()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ContractTerm(),
+                          ),
+                        );
                       },
                       child: const Text('Skip'),
                     ),

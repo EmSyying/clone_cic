@@ -1,12 +1,16 @@
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
-import 'package:cicgreenloan/core/auth/login.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'dart:convert';
 import 'package:get/get.dart';
+
+import '../../../configs/route_configuration/route.dart';
+import '../../../utils/helper/custom_route_snackbar.dart';
 
 class CustomerController extends GetxController {
   final isloading = false.obs;
@@ -52,7 +56,12 @@ class CustomerController extends GetxController {
             dynamicParth.value = value.path;
           });
         } else {
-          Get.to(const LoginScreen());
+          customRouterSnackbar(
+              title: 'Something went wrong',
+              description: 'Please try to login again.',
+              type: SnackType.error);
+          router.routerDelegate.navigatorKey.currentState!.context.go('/login');
+          debugPrint('Error : ${response.statusCode} => ${response.body}');
         }
       });
     } finally {

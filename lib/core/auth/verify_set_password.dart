@@ -8,7 +8,6 @@ import 'package:cicgreenloan/Utils/function/set_current_user.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/custom_loading.dart';
 import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/change_password.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -100,7 +99,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
     setState(() {
       _isLoading = true;
     });
-    _isLoading ? showLoadingDialog(context) : Container();
+    _isLoading ? showLoadingDialog(context) : null;
 
     String url = '${GlobalConfiguration().getValue('main_api_url')}request-otp';
     try {
@@ -187,353 +186,22 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
     prefs.remove('current_user');
   }
 
-  Widget mybody(BuildContext context) {
-//    ThemeData themeData = Theme.of(context);
-    return DefaultSizeWeb(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/images/Logo/cic.png',
-                    width: 100.0,
-                  ),
-                  kIsWeb
-                      ? SizedBox(
-                          width: 500,
-                          height: 500,
-                          child: AnimatedBuilder(
-                              animation: controller!,
-                              builder: (context, child) {
-                                return controller!.isAnimating
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 150.0,
-                                            right: 150.0,
-                                            top: 20.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Align(
-                                              alignment:
-                                                  FractionalOffset.center,
-                                              child: AspectRatio(
-                                                aspectRatio: 1.0,
-                                                child: Stack(
-                                                  children: <Widget>[
-                                                    Positioned.fill(
-                                                      child: CustomPaint(
-                                                        painter:
-                                                            CustomTimerPainter(
-                                                          animation:
-                                                              controller!,
-                                                          backgroundColor:
-                                                              Colors.white,
-                                                          color: AppColor
-                                                              .mainColor,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          FractionalOffset
-                                                              .center,
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            timerString,
-                                                            style: const TextStyle(
-                                                                fontSize: 18.0,
-                                                                color: AppColor
-                                                                    .mainColor),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 20.0)
-                                          ],
-                                        ),
-                                      )
-                                    : Container();
-                              }),
-                        )
-                      : AnimatedBuilder(
-                          animation: controller!,
-                          builder: (context, child) {
-                            return controller!.isAnimating
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 150.0, right: 150.0, top: 20.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Align(
-                                          alignment: FractionalOffset.center,
-                                          child: AspectRatio(
-                                            aspectRatio: 1.0,
-                                            child: Stack(
-                                              children: <Widget>[
-                                                Positioned.fill(
-                                                  child: CustomPaint(
-                                                    painter: CustomTimerPainter(
-                                                      animation: controller!,
-                                                      backgroundColor:
-                                                          Colors.white,
-                                                      color: AppColor.mainColor,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      FractionalOffset.center,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        timerString,
-                                                        style: const TextStyle(
-                                                            fontSize: 18.0,
-                                                            color: AppColor
-                                                                .mainColor),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 20.0)
-                                      ],
-                                    ),
-                                  )
-                                : Container();
-                          }),
-                  Text(
-                    'Verify OTP',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 25,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    'Code is Sent to ${widget.phone}',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 60.0),
-                    // child: PinFieldAutoFill(
-                    //   autoFocus: true,
-                    //   decoration: UnderlineDecoration(
-                    //     bgColorBuilder: FixedColorBuilder(Colors.grey),
-                    //     colorBuilder: FixedColorBuilder(
-                    //       Colors.black.withOpacity(0.3),
-                    //     ),
-                    //     textStyle:
-                    //         TextStyle(color: Theme.of(context).primaryColor),
-                    //   ),
-                    //   codeLength: 4,
-                    //   onCodeChanged: (code) {
-                    //     if (code!.length == 4) {
-                    //       setState(() {
-                    //         _otpCode = code;
-                    //       });
-                    //       widget.isForgetPassword!
-                    //           ? onForgetPassword()
-                    //           : onVerifyOtp();
-                    //     }
-                    //   },
-                    // ),
-                    child: PinCodeTextField(
-                      appContext: context,
-                      pastedTextStyle: TextStyle(
-                        color: Colors.green.shade600,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      length: 4,
-                      obscureText: true,
-                      // obscuringCharacter: '*',
-                      // obscuringWidget: FlutterLogo(
-                      //   size: 24,
-                      // ),
-                      // blinkWhenObscuring: true,
-                      animationType: AnimationType.fade,
-                      // validator: (v) {
-                      //   if (v!.length < 3) {
-                      //     return "I'm from validator";
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
-
-                      autoFocus: true,
-                      pinTheme: PinTheme(
-                        activeColor: Colors.white,
-                        selectedFillColor: Colors.white,
-                        inactiveFillColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 50,
-                        fieldWidth: 50,
-                        activeFillColor: Colors.white,
-                      ),
-                      cursorColor: Colors.black,
-                      animationDuration: const Duration(milliseconds: 300),
-                      enableActiveFill: true,
-                      // errorAnimationController: errorController,
-                      // controller: textEditingController,
-                      keyboardType: TextInputType.number,
-                      boxShadows: const [
-                        BoxShadow(
-                          offset: Offset(0, 1),
-                          color: Colors.black12,
-                          blurRadius: 10,
-                        )
-                      ],
-                      onCompleted: (code) {
-                        setState(() {
-                          _otpCode = code;
-                        });
-                        widget.isForgetPassword!
-                            ? onForgetPassword()
-                            : onVerifyOtp();
-                      },
-                      // onTap: () {
-                      //   print("Pressed");
-                      // },
-                      onChanged: (value) {
-                        // print(value);
-                        // setState(() {
-                        //   currentText = value;
-                        // });
-                      },
-                      beforeTextPaste: (text) {
-                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                        return true;
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Don\'t receive code ?',
-                        style: Theme.of(context).textTheme.headline2,
-                      ),
-                      AnimatedBuilder(
-                          animation: controller!,
-                          builder: (context, child) {
-                            return GestureDetector(
-                              onTap: controller!.isAnimating
-                                  ? null
-                                  : () {
-                                      controller!.reverse(
-                                          from: controller!.value = 1.0);
-                                      requestOtpAgain();
-                                    },
-                              child: Text(
-                                ' Request Again',
-                                style: TextStyle(
-                                    color: controller!.isAnimating
-                                        ? Colors.grey
-                                        : Theme.of(context).primaryColor,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            );
-                          })
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 80.0,
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          _isVerifyLoading
-              ? Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            offset: Offset(
-                              1.0,
-                              0.0,
-                            ),
-                            blurRadius: 6,
-                            color: Colors.black12)
-                      ],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : Container()
-          // Positioned(
-          //   bottom: 20.0,
-          //   left: 20.0,
-          //   right: 20.0,
-          //   child: Container(
-          //     child: CustomButton(
-          //       title: 'Verify OTP',
-          //       onPressed: () {},
-          //     ),
-          //   ),
-          // )
-        ],
-      ),
-    );
-  }
-
   @override
   void initState() {
-    // getCurrentUser();
-//    getStart();
-    super.initState();
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 60),
     );
     controller!.reverse(from: controller!.value = 1.0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (controller != null) {
+      controller!.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -544,33 +212,260 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
           context: context,
           title: 'Verify OTP',
           leading: IconButton(
-            icon: kIsWeb
+            icon: Platform.isIOS
                 ? Icon(
-                    Icons.arrow_back,
+                    Icons.arrow_back_ios,
                     color: Get.theme.brightness == Brightness.light
                         ? Colors.white
                         : Theme.of(context).primaryColor,
                   )
-                : Platform.isAndroid
-                    ? Icon(
-                        Icons.arrow_back,
-                        color: Get.theme.brightness == Brightness.light
-                            ? Colors.white
-                            : Theme.of(context).primaryColor,
-                      )
-                    : Icon(
-                        Icons.arrow_back_ios,
-                        color: Get.theme.brightness == Brightness.light
-                            ? Colors.white
-                            : Theme.of(context).primaryColor,
-                      ),
+                : Icon(
+                    Icons.arrow_back,
+                    color: Get.theme.brightness == Brightness.light
+                        ? Colors.white
+                        : Theme.of(context).primaryColor,
+                  ),
             onPressed: () {
-              Navigator.pop(context, false);
               Navigator.pop(context, false);
             },
           ),
         ),
-        body: mybody(context),
+        body: DefaultSizeWeb(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              const SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+              ),
+              Positioned.fill(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/Logo/cic.png',
+                        width: 100.0,
+                      ),
+                      AnimatedBuilder(
+                          animation: controller!,
+                          builder: (context, child) {
+                            return controller!.isAnimating
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 150.0, right: 150.0, top: 20.0),
+                                    child: Align(
+                                      alignment: FractionalOffset.center,
+                                      child: AspectRatio(
+                                        aspectRatio: 1.0,
+                                        child: CustomPaint(
+                                          painter: CustomTimerPainter(
+                                            animation: controller,
+                                            backgroundColor: Colors.white,
+                                            color: AppColor.mainColor,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              timerString,
+                                              style: const TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: AppColor.mainColor),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox.shrink();
+                          }),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Text(
+                        'Verify OTP',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 25,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Text(
+                        'Code is Sent to ${widget.phone}',
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 60.0),
+                        // child: PinFieldAutoFill(
+                        //   autoFocus: true,
+                        //   decoration: UnderlineDecoration(
+                        //     bgColorBuilder: FixedColorBuilder(Colors.grey),
+                        //     colorBuilder: FixedColorBuilder(
+                        //       Colors.black.withOpacity(0.3),
+                        //     ),
+                        //     textStyle:
+                        //         TextStyle(color: Theme.of(context).primaryColor),
+                        //   ),
+                        //   codeLength: 4,
+                        //   onCodeChanged: (code) {
+                        //     if (code!.length == 4) {
+                        //       setState(() {
+                        //         _otpCode = code;
+                        //       });
+                        //       widget.isForgetPassword!
+                        //           ? onForgetPassword()
+                        //           : onVerifyOtp();
+                        //     }
+                        //   },
+                        // ),
+                        child: PinCodeTextField(
+                          appContext: context,
+                          pastedTextStyle: TextStyle(
+                            color: Colors.green.shade600,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          length: 4,
+                          obscureText: true,
+                          // obscuringCharacter: '*',
+                          // obscuringWidget: FlutterLogo(
+                          //   size: 24,
+                          // ),
+                          // blinkWhenObscuring: true,
+                          animationType: AnimationType.fade,
+                          // validator: (v) {
+                          //   if (v!.length < 3) {
+                          //     return "I'm from validator";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
+
+                          autoFocus: true,
+                          pinTheme: PinTheme(
+                            activeColor: Colors.white,
+                            selectedFillColor: Colors.white,
+                            inactiveFillColor: Colors.white,
+                            inactiveColor: Colors.white,
+                            shape: PinCodeFieldShape.box,
+                            borderRadius: BorderRadius.circular(5),
+                            fieldHeight: 50,
+                            fieldWidth: 50,
+                            activeFillColor: Colors.white,
+                          ),
+                          cursorColor: Colors.black,
+                          animationDuration: const Duration(milliseconds: 300),
+                          enableActiveFill: true,
+                          // errorAnimationController: errorController,
+                          // controller: textEditingController,
+                          keyboardType: TextInputType.number,
+                          boxShadows: const [
+                            BoxShadow(
+                              offset: Offset(0, 1),
+                              color: Colors.black12,
+                              blurRadius: 10,
+                            )
+                          ],
+                          onCompleted: (code) {
+                            setState(() {
+                              _otpCode = code;
+                            });
+                            widget.isForgetPassword!
+                                ? onForgetPassword()
+                                : onVerifyOtp();
+                          },
+                          // onTap: () {
+                          //   print("Pressed");
+                          // },
+                          onChanged: (value) {
+                            // print(value);
+                            // setState(() {
+                            //   currentText = value;
+                            // });
+                          },
+                          beforeTextPaste: (text) {
+                            //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                            //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                            return true;
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Don\'t receive code ?',
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                          AnimatedBuilder(
+                              animation: controller!,
+                              builder: (context, child) {
+                                return GestureDetector(
+                                  onTap: !controller!.isAnimating
+                                      ? null
+                                      : () {
+                                          controller!.reverse(
+                                              from: controller!.value = 1.0);
+                                          requestOtpAgain();
+                                        },
+                                  child: Text(
+                                    ' Request Again',
+                                    style: TextStyle(
+                                        color: controller!.isAnimating
+                                            ? Colors.grey
+                                            : Theme.of(context).primaryColor,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                );
+                              })
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 80.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              _isVerifyLoading
+                  ? Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: Offset(
+                                      1.0,
+                                      0.0,
+                                    ),
+                                    blurRadius: 6,
+                                    color: Colors.black12)
+                              ],
+                              borderRadius: BorderRadius.circular(10)),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColor.mainColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink()
+            ],
+          ),
+        ),
       ),
     );
   }
