@@ -34,8 +34,10 @@ import '../../modules/investment_module/screen/saving_detail_screen.dart';
 import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/notification_modules/screens/notification.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_filters.dart';
+import '../../modules/privilege_program/screen/privilege/privilege_payment.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_screen.dart';
 import '../../modules/privilege_program/screen/privilege/search_screen.dart';
+import '../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 import '../../modules/report_module/screens/cic_app_manual.dart';
 import '../../modules/report_module/screens/report.dart';
 import '../../modules/report_module/screens/view_report.dart';
@@ -47,8 +49,6 @@ import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
-import '../../widgets/privilege/privilege/custom_all_store_list.dart';
-import '../../widgets/privilege/privilege/custom_card_favorites_list.dart';
 
 final router = GoRouter(
     // debugLogDiagnostics: true,
@@ -682,64 +682,17 @@ final router = GoRouter(
           ),
 
           // Route privilege================
-          // GoRoute(
-          //   name: 'Privilege',
-          //   path: 'privilege',
-          //   builder: (context, state) => const PrivilegeScreen(),
-          //   routes: [
-          //     GoRoute(
-          //       name: 'Search',
-          //       path: 'search',
-          //       builder: (context, state) => const SearchScreen(),
-          //     ),
-          //     GoRoute(
-          //       path: 'privilege/:tabName',
-          //       name: 'Privilege',
-          //       builder: (context, state) => PrivilegeScreen(
-          //         tabPrivName: state.params['tabName'],
-          //       ),
-          //       routes: [
-          //         GoRoute(
-          //           path: 'preview-stores/:id',
-          //           name: 'PreviewStores',
-          //           builder: (context, state) => PreviewEquity(
-          //             id: int.tryParse(state.params['id']!),
-          //           ),
-          //         ),
-          //         GoRoute(
-          //           path: 'preview-favorites/:id',
-          //           name: 'PreviewFavorites',
-          //           builder: (context, state) => PreviewDebtForm(
-          //             id: int.tryParse(state.params['id']!),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //     GoRoute(
-          //       name: 'Filter',
-          //       path: 'filter',
-          //       builder: (context, state) => const PrivilegeFilters(),
-          //     ),
-          //   ],
-          // ),
           GoRoute(
-            path: 'privilege',
-            name: 'Privilege',
-            builder: (context, state) => const PrivilegeScreen(
-                // tabPrivName: state.params['tabPrivName'],
-                ),
+            path: 'privilege/:tabName',
+            name: 'PrivilegeScreen',
+            builder: (context, state) => PrivilegeScreen(
+              tabName: state.params['tabName'],
+            ),
             routes: [
               GoRoute(
-                path: 'allstores/:id',
-                name: 'CustomAllStoreList',
-                builder: (context, state) => CustomAllStoreList(
-                  id: int.tryParse(state.params['id']!),
-                ),
-              ),
-              GoRoute(
-                path: 'allfavorite/:id',
-                name: 'CustomCardFavoriesList',
-                builder: (context, state) => CustomCardFavoriesList(
+                path: ':id',
+                name: 'PrivilegeDetailScreen',
+                builder: (context, state) => PrivilegeDetailScreen(
                   id: int.tryParse(state.params['id']!),
                 ),
               ),
@@ -753,8 +706,14 @@ final router = GoRouter(
                 path: 'filter',
                 builder: (context, state) => const PrivilegeFilters(),
               ),
+              GoRoute(
+                name: 'PrivilegePayment',
+                path: 'privilege-payment',
+                builder: (context, state) => const PrivilegePayment(),
+              ),
             ],
           ),
+
           //end route privilege=========
         ],
       ),

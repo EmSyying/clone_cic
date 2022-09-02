@@ -18,27 +18,30 @@ class CustomAllStoreList extends StatefulWidget {
 }
 
 class _CustomAllStoreListState extends State<CustomAllStoreList> {
-  final preCont = Get.put(PrivilegeController());
+  final priCont = Get.put(PrivilegeController());
 
   @override
   void initState() {
-    preCont.onFetchAllStore(1);
+    priCont.onFetchAllStore(1);
+    priCont.onFetchShopDetail(widget.id);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('/privilege/all-store/id=============${widget.id}');
     return Obx(
-      () => preCont.isLoadingShopList.value
+      () => priCont.isLoadingShopList.value
           ? const CustomShimmerAllShop()
           : Column(
-              children: preCont.shopModelList
+              children: priCont.shopModelList
                   .asMap()
                   .entries
                   .map(
                     (e) => GestureDetector(
                       onTap: () {
-                        // context.go('/allstores/family/${widget.id}');
+                        //context.go('/privilege/all-store/${widget.id}');
+                        // context.push("/privilege/all-store/id=${widget.id}");
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -52,18 +55,18 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                         isFav: e.value.isFavorite!,
                         privilegeShopList: e.value,
                         onTapFav: () {
-                          preCont
+                          priCont
                               .setFavouriteStore(
-                            id: preCont.shopModelList[e.key].id!,
-                            boolFav: preCont.shopModelList[e.key].isFavorite!,
+                            id: priCont.shopModelList[e.key].id!,
+                            boolFav: priCont.shopModelList[e.key].isFavorite!,
                           )
                               .then((value) {
-                            if (preCont.shopModelList[e.key].isFavorite!) {
-                              preCont.shopModelList[e.key] = preCont
+                            if (priCont.shopModelList[e.key].isFavorite!) {
+                              priCont.shopModelList[e.key] = priCont
                                   .shopModelList[e.key]
                                   .copyWith(isFavorite: false);
                             } else {
-                              preCont.shopModelList[e.key] = preCont
+                              priCont.shopModelList[e.key] = priCont
                                   .shopModelList[e.key]
                                   .copyWith(isFavorite: true);
                             }

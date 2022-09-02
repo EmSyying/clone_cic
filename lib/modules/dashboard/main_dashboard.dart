@@ -678,7 +678,7 @@ class _MainDashboardState extends State<MainDashboard> {
               title: GestureDetector(
                 ///add this widget to test privilege screen don't forget remore====================
                 onTap: () {
-                  context.push('/privilege');
+                  context.push('/privilege/all-store');
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(

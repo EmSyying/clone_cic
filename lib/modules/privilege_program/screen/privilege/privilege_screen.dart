@@ -19,10 +19,10 @@ import '../../../../widgets/privilege/privilege/custom_card_favorites_list.dart'
 import '../../controller/privilege_controller.dart';
 
 class PrivilegeScreen extends StatefulWidget {
-  final String? tabPrivName;
+  final String? tabName;
   const PrivilegeScreen({
     Key? key,
-    this.tabPrivName,
+    this.tabName,
   }) : super(key: key);
 
   @override
