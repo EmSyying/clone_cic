@@ -1267,9 +1267,10 @@ class MemberController extends GetxController {
   final recommand = ''.obs;
   final profileBiorgraphy = ''.obs;
   final isSelectTap = false.obs;
-  final position = ''.obs;
-  final comapnyName = ''.obs;
-  final aboutAs = ''.obs;
+  final memberPosition = ''.obs;
+  final membercomapnyName = ''.obs;
+  final memberAboutAs = ''.obs;
+
   // Education Key
   final dateTime = DateFormat('yyyy-MM-dd');
   final school = ''.obs;
@@ -1853,7 +1854,14 @@ class MemberController extends GetxController {
           'twitter': tweeter.value != ''
               ? tweeter.value
               : personalProfile.value.twitter,
+          'about': memberAboutAs.value != ''
+              ? memberAboutAs.value
+              : personalProfile.value.about,
+          'title': memberPosition.value != ''
+              ? memberPosition.value
+              : personalProfile.value.about
         }).then((response) {
+      //  debugPrint('herr12345678r suss:${response.statusCode}');
       fetchMemberPersonProfile(id: cusController.customer.value.customerId);
 
       cusController.getUser();
@@ -1861,6 +1869,8 @@ class MemberController extends GetxController {
       Navigator.pop(context!);
       update();
     }).onError((ErrorModel errorModel, stackTrace) {
+      debugPrint('herr12345678r suss:${errorModel.statusCode}');
+      debugPrint('herr12345678r suss1234567:${errorModel.bodyString}');
       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
         content: Text('Personal Profile Updated Failed...!'),
         behavior: SnackBarBehavior.floating,
@@ -1880,14 +1890,88 @@ class MemberController extends GetxController {
 
   //   try {
   //     isLaodingUpdateProfile(true);
-  //     var response = await http.post(Uri.parse(url),
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Accept': 'application/json',
-  //           'Authorization': 'Bearer $tokenKey'
-  //         },
-  //         body: data);
+  //     var response = await http.post(Uri.parse(url), headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //       'Authorization': 'Bearer $tokenKey'
+  //     }, body: {
+  //       'member_id': _customerController.customer.value.customerId,
+  //       // 'position': '92',
+  //       'khmer_name': khmerName.value != ''
+  //           ? khmerName.value
+  //           : personalProfile.value.customerName,
+  //       'full_name': fullName.value != ''
+  //           ? fullName.value
+  //           : '${personalProfile.value.customerLatinName}',
+  //       'date_of_birth': customerDateOfBirth.value != ''
+  //           ? customerDateOfBirth.value
+  //           : '${personalProfile.value.customerDateOfBirth}',
+  //       'gender': gender.value.display != null
+  //           ? '${gender.value.id}'
+  //           : personalProfile.value.customerGender!.id,
+  //       'nationality': nationality.id != null
+  //           ? "${nationality.id}"
+  //           : personalProfile.value.customerNationality!.id,
+
+  //       'identity_type': identityTypeCode.value != ''
+  //           ? identityTypeCode.value
+  //           : personalProfile.value.customerIdentityType!.id,
+  //       'identity_number': identityNumber.value != ''
+  //           ? identityNumber.value
+  //           : personalProfile.value.customerIdentityNumber,
+  //       'identity_date': identityDate.value != ''
+  //           ? identityDate.value
+  //           : personalProfile.value.customerIdentityDate,
+  //       'identity_expired_date': identityExpireDate.value != ''
+  //           ? identityExpireDate.value
+  //           : personalProfile.value.customerIdentityExpiredDate,
+  //       'current_address': currentAddress.value != ''
+  //           ? '$currentAddress'
+  //           : personalProfile.value.currentAddress!.village!.code != ''
+  //               ? personalProfile.value.currentAddress!.village!.code
+  //               : '',
+  //       'current_street_no': currentStreet.value != ''
+  //           ? '$currentStreet'
+  //           : personalProfile.value.streetNo,
+  //       'current_house_no': currentHours.value != ''
+  //           ? '#$currentHours'
+  //           : personalProfile.value.houseNo,
+  //       'permanent_address': permanentAddress.value != ''
+  //           ? '$permanentAddress'
+  //           : personalProfile.value.permanentAddress!.village!.code != ''
+  //               ? personalProfile.value.permanentAddress!.village!.code
+  //               : '',
+  //       'permanent_street_no': permanentStreet.value != ''
+  //           ? '$permanentStreet'
+  //           : personalProfile.value.permanentStreetNo,
+  //       'permanent_house_no': permanetHours.value != ''
+  //           ? '$permanetHours'
+  //           : personalProfile.value.permanentHouseNo,
+  //       'phone': _customerController.customer.value.phone != ''
+  //           ? _customerController.customer.value.phone
+  //           : personalProfile.value.phone,
+  //       'email': gmail.value != '' ? gmail.value : personalProfile.value.email,
+  //       'whatapp':
+  //           whatApp.value != '' ? whatApp.value : personalProfile.value.whatapp,
+  //       'telegram': telegram.value != ''
+  //           ? telegram.value
+  //           : personalProfile.value.telegram,
+  //       'messenger': messenger.value != ''
+  //           ? messenger.value
+  //           : personalProfile.value.messenger,
+  //       'skype': skype.value != '' ? skype.value : personalProfile.value.skype,
+  //       'website':
+  //           webSite.value != '' ? webSite.value : personalProfile.value.website,
+  //       'facebook': facebook.value != ''
+  //           ? facebook.value
+  //           : personalProfile.value.facebook,
+  //       'linkedin':
+  //           linkIn.value != '' ? linkIn.value : personalProfile.value.linkedin,
+  //       'twitter':
+  //           tweeter.value != '' ? tweeter.value : personalProfile.value.twitter
+  //     });
   //     if (response.statusCode == 200) {
+  //       debugPrint('herrr suss:${response.statusCode}');
   //       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
   //         content: Text('Personal Profile Updated Successful...!'),
   //         behavior: SnackBarBehavior.floating,
@@ -1896,6 +1980,7 @@ class MemberController extends GetxController {
   //       ));
   //       fetchMemberPersonProfile();
   //     } else {
+  //       debugPrint('herr12345678r suss:${response.statusCode}');
   //       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
   //         content: Text('Personal Profile Updated Failed...!'),
   //         behavior: SnackBarBehavior.floating,

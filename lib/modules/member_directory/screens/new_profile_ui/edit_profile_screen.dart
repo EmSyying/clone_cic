@@ -37,6 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final memberCon = Get.put(MemberController());
   final customerCon = Get.put(CustomerController());
   final uploadImageCon = Get.put(UploadFileController());
+  bool? isDisableDone = false;
   // @override
   // void initState() {
   //   super.initState();
@@ -45,6 +46,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   //   memberCon.comEmail.value = widget.companyData!.email!;
   //   memberCon.comaddress.value = widget.companyData!.address!;
   //   memberCon.comWebsite.value = widget.companyData!.website!;
+
+  // }
+
+  // onValicationProfile() {
+  //   if (memberCon.fullName.value == '' ||
+  //       memberCon.fullName.value ==
+  //           memberCon.personalProfile.value.customerLatinName&&
+  //           memberCon.position.value==''||memberCon.position.value==
+  //           ) {
+  //     isDisableDone = true;
+  //   }
   // }
 
   @override
@@ -70,10 +82,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         action: [
           !widget.isCreateCompany!
               ? TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    widget.onTapDone!();
-                  },
+                  onPressed: isDisableDone == true
+                      ? null
+                      : () {
+                          Navigator.pop(context);
+                          widget.onTapDone!();
+                        },
 
                   // widget.isEditCompany == true
                   //     ? setState(() {
@@ -101,7 +115,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     style: Theme.of(context).textTheme.headline5!.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
-                          color: AppColor.mainColor,
+                          color: isDisableDone == true
+                              ? Colors.grey
+                              : AppColor.mainColor,
                         ),
                   ),
                 )
@@ -192,11 +208,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               CustomTextFieldNew(
                                 hintText: 'Name',
                                 onChange: (name) {
-                                  if (name == '') {
-                                    memberCon.fullName.value;
-                                  } else {
-                                    memberCon.fullName.value = name;
-                                  }
+                                  setState(() {
+                                    if (name.isEmpty ||
+                                        memberCon.fullName.value ==
+                                            memberCon.personalProfile.value
+                                                .customerLatinName) {
+                                      isDisableDone = true;
+                                      memberCon.fullName.value;
+                                    } else {
+                                      isDisableDone = false;
+                                      memberCon.fullName.value = name;
+                                    }
+                                  });
                                 },
                                 isValidate: true,
                                 labelText: 'Name',
@@ -208,14 +231,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 hintText: 'Title',
                                 onChange: (title) {
                                   if (title == '') {
-                                    memberCon.position.value;
+                                    memberCon.memberPosition.value;
                                   } else {
-                                    memberCon.position.value = title;
+                                    memberCon.memberPosition.value = title;
                                   }
                                 },
                                 isValidate: true,
                                 labelText: 'Title',
-                                initialValue: '',
+                                initialValue:
+                                    memberCon.personalProfile.value.title ?? '',
+                              ),
+                              CustomTextFieldNew(
+                                hintText: 'Company Name',
+                                onChange: (title) {
+                                  if (title == '') {
+                                    memberCon.companyName.value;
+                                  } else {
+                                    memberCon.companyName.value = title;
+                                  }
+                                },
+                                isValidate: true,
+                                labelText: 'Company Name',
+                                initialValue: memberCon
+                                        .personalProfile.value.companyName ??
+                                    '',
                               ),
                               CustomTextFieldNew(
                                 keyboardType: TextInputType.number,
@@ -281,9 +320,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 hintText: 'About Us',
                                 onChange: (aboutAs) {
                                   if (aboutAs == '') {
-                                    memberCon.aboutAs.value;
+                                    memberCon.memberAboutAs.value;
                                   } else {
-                                    memberCon.aboutAs.value = aboutAs;
+                                    memberCon.memberAboutAs.value = aboutAs;
                                   }
                                 },
                                 isValidate: true,

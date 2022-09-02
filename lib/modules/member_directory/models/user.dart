@@ -59,66 +59,73 @@ class User {
   int? confirmationAllInformation;
   Purpose? purpose;
   String? pinCode;
+  String? companyName;
+  String? title;
+  String? location;
 
-  User(
-      {this.id,
-      this.isCustomer,
-      this.customerId,
-      this.code,
-      this.firstName,
-      this.lastName,
-      this.fullName,
-      this.secondName,
-      this.dateOfBirth,
-      this.phone,
-      this.email,
-      this.screenLock,
-      this.isAgree,
-      this.recommended,
-      this.percentage,
-      this.numberShare,
-      this.blockShare,
-      this.memberType,
-      this.investorType,
-      this.qiid,
-      this.about,
-      this.address,
-      this.companies,
-      this.gender,
-      this.employmentStatus,
-      this.income,
-      this.position,
-      this.company,
-      this.houseNo,
-      this.streetNo,
-      this.currentAddress,
-      this.permanentHouseNo,
-      this.permanentStreetNo,
-      this.permanentAddress,
-      this.idCard,
-      this.familyBook,
-      this.residenceBook,
-      this.profile,
-      this.selfiesPhoto,
-      this.enableNotification,
-      this.letterOfBirthPhoto,
-      this.numberOfChildren,
-      this.numberOfFamilyMember,
-      this.cbcCheck,
-      this.cbcScores,
-      this.shiftWorks,
-      this.businessesIncome,
-      this.typeOfBusinessActivities,
-      this.generalExpenses,
-      this.yesOrNoLoanLeasingRepaymentExpenses,
-      this.loanLeasingRepaymentExpenses,
-      this.certificateOrContractOfEmployment,
-      this.salarySlip,
-      this.backIdCard,
-      this.nameOfInstitution,
-      this.confirmationAllInformation,
-      this.purpose,
-      this.pinCode});
+  User({
+    this.id,
+    this.isCustomer,
+    this.customerId,
+    this.code,
+    this.firstName,
+    this.lastName,
+    this.fullName,
+    this.secondName,
+    this.dateOfBirth,
+    this.phone,
+    this.email,
+    this.screenLock,
+    this.isAgree,
+    this.recommended,
+    this.percentage,
+    this.numberShare,
+    this.blockShare,
+    this.memberType,
+    this.investorType,
+    this.qiid,
+    this.about,
+    this.address,
+    this.companies,
+    this.gender,
+    this.employmentStatus,
+    this.income,
+    this.position,
+    this.company,
+    this.houseNo,
+    this.streetNo,
+    this.currentAddress,
+    this.permanentHouseNo,
+    this.permanentStreetNo,
+    this.permanentAddress,
+    this.idCard,
+    this.familyBook,
+    this.residenceBook,
+    this.profile,
+    this.selfiesPhoto,
+    this.enableNotification,
+    this.letterOfBirthPhoto,
+    this.numberOfChildren,
+    this.numberOfFamilyMember,
+    this.cbcCheck,
+    this.cbcScores,
+    this.shiftWorks,
+    this.businessesIncome,
+    this.typeOfBusinessActivities,
+    this.generalExpenses,
+    this.yesOrNoLoanLeasingRepaymentExpenses,
+    this.loanLeasingRepaymentExpenses,
+    this.certificateOrContractOfEmployment,
+    this.salarySlip,
+    this.backIdCard,
+    this.nameOfInstitution,
+    this.confirmationAllInformation,
+    this.purpose,
+    this.pinCode,
+    this.companyName,
+    this.title,
+    this.location,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -197,6 +204,9 @@ class User {
     purpose =
         json['purpose'] != null ? Purpose.fromJson(json['purpose']) : null;
     pinCode = json['pin_code'];
+    companyName = json['company_name'];
+    title = json['title'];
+    location = json['location'];
   }
 
   Map<String, dynamic> toJson() {
@@ -222,6 +232,9 @@ class User {
     data['qiid'] = qiid;
     data['about'] = about;
     data['address'] = address;
+    data['company_name'] = companyName;
+    data['title'] = title;
+    data['location'] = location;
     if (companies != null) {
       data['companies'] = companies!.toJson();
     }

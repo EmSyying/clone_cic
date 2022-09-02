@@ -102,7 +102,7 @@ class UploadFileController extends GetxController {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(
-                            S.of(context).editImage,
+                            S.of(context).openGallery,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3!

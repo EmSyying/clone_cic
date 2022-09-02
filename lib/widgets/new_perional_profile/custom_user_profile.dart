@@ -136,55 +136,68 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              CustomOptionProfile(
-                                onPress: () async {
-                                  final Uri launchUri = Uri(
-                                    scheme: 'tel',
-                                    path:
-                                        '${memberCon.personalProfile.value.phone}',
-                                  );
-                                  await launchUrl(launchUri);
-                                },
-                                title: 'Call',
-                                imageSvg: 'assets/images/svgfile/Call.svg',
-                              ),
-                              CustomOptionProfile(
-                                onPress: () async {
-                                  final Uri launchEmail = Uri(
-                                    scheme: 'mailto',
-                                    path:
-                                        '${memberCon.personalProfile.value.email}',
-                                  );
-                                  await launchUrl(launchEmail);
-                                },
-                                title: 'Email',
-                                imageSvg: 'assets/images/svgfile/message.svg',
-                              ),
-                              CustomOptionProfile(
-                                onPress: () async {
-                                  await launchUrl(
-                                    Uri.parse(
-                                        '${memberCon.personalProfile.value.telegram}'),
-                                    mode: LaunchMode.externalApplication,
-                                  );
-                                },
-                                title: 'Telegram',
-                                imageSvg: 'assets/images/svgfile/send.svg',
-                              ),
-                              CustomOptionProfile(
-                                onPress: () {
-                                  launchInBrowser(
-                                    Uri(
+                              if (memberCon.personalProfile.value.phone != '' &&
+                                  memberCon.personalProfile.value.phone != null)
+                                CustomOptionProfile(
+                                  onPress: () async {
+                                    final Uri launchUri = Uri(
+                                      scheme: 'tel',
+                                      path:
+                                          '${memberCon.personalProfile.value.phone}',
+                                    );
+                                    await launchUrl(launchUri);
+                                  },
+                                  title: 'Call',
+                                  imageSvg: 'assets/images/svgfile/Call.svg',
+                                ),
+                              if (memberCon.personalProfile.value.email != '' &&
+                                  memberCon.personalProfile.value.email != null)
+                                CustomOptionProfile(
+                                  onPress: () async {
+                                    final Uri launchEmail = Uri(
+                                      scheme: 'mailto',
+                                      path:
+                                          '${memberCon.personalProfile.value.email}',
+                                    );
+                                    await launchUrl(launchEmail);
+                                  },
+                                  title: 'Email',
+                                  imageSvg: 'assets/images/svgfile/message.svg',
+                                ),
+                              if (memberCon.personalProfile.value.telegram !=
+                                      '' &&
+                                  memberCon.personalProfile.value.telegram !=
+                                      null)
+                                CustomOptionProfile(
+                                  onPress: () async {
+                                    await launchUrl(
+                                      Uri.parse(
+                                          '${memberCon.personalProfile.value.telegram}'),
+                                      mode: LaunchMode.externalApplication,
+                                    );
+                                  },
+                                  title: 'Telegram',
+                                  imageSvg: 'assets/images/svgfile/send.svg',
+                                ),
+                              if (memberCon.personalProfile.value.website !=
+                                      '' &&
+                                  memberCon.personalProfile.value.website !=
+                                      null)
+                                CustomOptionProfile(
+                                  onPress: () {
+                                    launchInBrowser(
+                                      Uri(
                                         scheme: 'https',
                                         host:
                                             '${memberCon.personalProfile.value.website}',
-                                        path:
-                                            '${memberCon.personalProfile.value.website}'),
-                                  );
-                                },
-                                title: 'Website',
-                                imageSvg: 'assets/images/svgfile/website.svg',
-                              ),
+                                        // path:
+                                        //     '${memberCon.personalProfile.value.website}'
+                                      ),
+                                    );
+                                  },
+                                  title: 'Website',
+                                  imageSvg: 'assets/images/svgfile/website.svg',
+                                ),
                             ],
                           ),
                         ],

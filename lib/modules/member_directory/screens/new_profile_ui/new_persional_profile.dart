@@ -160,12 +160,10 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                                       .personalProfile.value.customerLatinName
                                   : customerUser.customer.value.fullName,
                               position: widget.isDirectory == true
-                                  ? memberCon
-                                      .personalProfile.value.position!.display
-                                  : customerUser
-                                          .customer.value.position!.display ??
-                                      '',
-                              description: 'Z1 Flexible',
+                                  ? memberCon.personalProfile.value.title
+                                  : customerUser.customer.value.title ?? '',
+                              description:
+                                  customerUser.customer.value.companyName,
                             ),
                     ),
                   ),
@@ -226,7 +224,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                 if (segmentedControlValue != 0)
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 20, right: 20, bottom: 30, top: 10),
+                        left: 20, right: 20, bottom: 10, top: 10),
                     child: CustomButton(
                       title: 'Add Company ',
                       onPressed: () {

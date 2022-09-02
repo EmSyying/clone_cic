@@ -38,44 +38,51 @@ class PersonalProfileModel {
   String? facebook;
   String? linkedin;
   String? twitter;
+  String? companyName;
+  String? title;
+  String? location;
 
-  PersonalProfileModel(
-      {this.id,
-      this.display,
-      this.customerName,
-      this.customerLatinName,
-      this.customerDateOfBirth,
-      this.customerGender,
-      this.customerNationality,
-      this.position,
-      this.recommended,
-      this.numberShare,
-      this.expertise,
-      this.memberType,
-      this.yearJoined,
-      this.profileBiography,
-      this.about,
-      this.other,
-      this.customerIdentityType,
-      this.customerIdentityNumber,
-      this.customerIdentityDate,
-      this.customerIdentityExpiredDate,
-      this.currentAddress,
-      this.streetNo,
-      this.houseNo,
-      this.permanentAddress,
-      this.permanentStreetNo,
-      this.permanentHouseNo,
-      this.phone,
-      this.email,
-      this.whatapp,
-      this.telegram,
-      this.messenger,
-      this.skype,
-      this.website,
-      this.facebook,
-      this.linkedin,
-      this.twitter});
+  PersonalProfileModel({
+    this.id,
+    this.display,
+    this.customerName,
+    this.customerLatinName,
+    this.customerDateOfBirth,
+    this.customerGender,
+    this.customerNationality,
+    this.position,
+    this.recommended,
+    this.numberShare,
+    this.expertise,
+    this.memberType,
+    this.yearJoined,
+    this.profileBiography,
+    this.about,
+    this.other,
+    this.customerIdentityType,
+    this.customerIdentityNumber,
+    this.customerIdentityDate,
+    this.customerIdentityExpiredDate,
+    this.currentAddress,
+    this.streetNo,
+    this.houseNo,
+    this.permanentAddress,
+    this.permanentStreetNo,
+    this.permanentHouseNo,
+    this.phone,
+    this.email,
+    this.whatapp,
+    this.telegram,
+    this.messenger,
+    this.skype,
+    this.website,
+    this.facebook,
+    this.linkedin,
+    this.twitter,
+    this.companyName,
+    this.title,
+    this.location,
+  });
 
   PersonalProfileModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -126,6 +133,9 @@ class PersonalProfileModel {
     facebook = json['facebook'];
     linkedin = json['linkedin'];
     twitter = json['twitter'];
+    companyName = json['company_name'];
+    title = json['title'];
+    location = json['location'];
   }
 
   Map<String, dynamic> toJson() {
@@ -158,6 +168,9 @@ class PersonalProfileModel {
     data['customer_identity_number'] = customerIdentityNumber;
     data['customer_identity_date'] = customerIdentityDate;
     data['customer_identity_expired_date'] = customerIdentityExpiredDate;
+    data['company_name'] = companyName;
+    data['title'] = title;
+    data['location'] = location;
     if (currentAddress != null) {
       data['current_address'] = currentAddress!.toJson();
     }
