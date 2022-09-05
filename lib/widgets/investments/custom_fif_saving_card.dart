@@ -62,14 +62,6 @@ class FIFSavingCard extends StatelessWidget {
     this.onTapCard,
   }) : super(key: key);
 
-  bool checkVariable() {
-    if (showPopUp == true) {
-      assert(showHidebutton == false);
-      return false;
-    }
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -220,19 +212,21 @@ class FIFSavingCard extends StatelessWidget {
                                               // ),
                                             ],
                                 )
-                              : GestureDetector(
-                                  onTap: ontapHide,
-                                  child: Text(
-                                    'Unhide',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle2!
-                                        .copyWith(
-                                            color: AppColor.mainColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16),
-                                  ),
-                                ),
+                              : const SizedBox.shrink(),
+                          if (showHidebutton)
+                            GestureDetector(
+                              onTap: ontapHide,
+                              child: Text(
+                                'Unhide',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                        color: AppColor.mainColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16),
+                              ),
+                            ),
                         ],
                       ),
                       SizedBox(

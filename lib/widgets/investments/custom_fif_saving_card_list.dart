@@ -60,6 +60,8 @@ class CustomSavingCardList extends StatelessWidget {
                 return Column(
                     children: fifAccountList!.asMap().entries.map((e) {
                   return FIFSavingCard(
+                    // showPopUp: false,
+                    // showHidebutton: true,
                     ontapAgreement: () async {
                       FirebaseAnalyticsHelper.sendAnalyticsEvent(
                           'View agreement FIF');
@@ -485,8 +487,27 @@ class CustomSavingCardList extends StatelessWidget {
           if (fifController.totalInvestmentButton.value)
             Column(
               children: fifhiddenList!
+                  .asMap()
+                  .entries
                   .map(
                     (e) => FIFSavingCard(
+                      onTapCard: () async {
+                        FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                            'account fif detail');
+                        fifController.investmentId.value = e.value.id!.toInt();
+
+                        context.push('/investment/cic-fixed-fund/saving-detail',
+                            extra: {
+                              "paddings": const EdgeInsets.only(
+                                  top: 50, left: 10, right: 0),
+                              "index": e.key,
+                              "hide": !e.value.hide!,
+                              "id": e.value.id,
+                              "code": e.value.code,
+                              "accountName": e.value.accountName
+                            });
+                        fifController.onclearWithdraw();
+                      },
                       ontapHide: () async {
                         await apppincode
                             .showLockScreen(
@@ -495,19 +516,20 @@ class CustomSavingCardList extends StatelessWidget {
                           (promise) {
                             if (promise) {
                               fifController.onShowHideInvestmentAccount(
-                                id: e.id,
+                                id: e.value.id,
                                 hide: false, //false = hide application
                               );
                             }
                           },
                         );
                       },
+                      showHidebutton: true,
                       showPopUp: false,
                       status: true,
-                      title: e.accountName,
-                      id: e.code,
-                      amount: e.investmentAmount,
-                      sheetColor: fromHex(e.color!),
+                      title: e.value.accountName,
+                      id: e.value.code,
+                      amount: e.value.investmentAmount,
+                      sheetColor: fromHex(e.value.color!),
                     ),
                   )
                   .toList(),
