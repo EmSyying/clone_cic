@@ -292,19 +292,21 @@ class CustomCompanyTap extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Text(
-            'About',
-            style: Theme.of(context)
-                .textTheme
-                .headline2!
-                .copyWith(fontWeight: FontWeight.w700),
+        if (description != '' && description != null)
+          const SizedBox(
+            height: 20,
           ),
-        ),
+        if (description != '' && description != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Text(
+              'About',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(fontWeight: FontWeight.w700),
+            ),
+          ),
         Padding(
           padding:
               const EdgeInsets.only(right: 20, top: 10, bottom: 20, left: 20),

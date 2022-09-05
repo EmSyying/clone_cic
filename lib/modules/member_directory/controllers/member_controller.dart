@@ -1160,6 +1160,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cicgreenloan/Utils/function/upload_file_controller.dart';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
+import 'package:cicgreenloan/Utils/helper/custom_route_snackbar.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/gender.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
@@ -1292,6 +1293,7 @@ class MemberController extends GetxController {
   final experienceDecription = ''.obs;
   final gender = GenderOption().obs;
   //Company
+  final comId = 0.obs;
   final comCompanyName = ''.obs;
   final comKhmerName = ''.obs;
   final comMajorOfBusiness = ''.obs;
@@ -1326,8 +1328,6 @@ class MemberController extends GetxController {
   File? comCompanyLogo;
   final memberIdList = <dynamic>[].obs;
   final profilePage = 1.obs;
-  final comAboutUs = ''.obs;
-  final comProduct = ''.obs;
   // List<dynamic>? invitedList=memberIdList;
   int? eventId;
   // onInviteMember({Member? member}) {
@@ -1482,17 +1482,24 @@ class MemberController extends GetxController {
           "linkedin": comLinkedin.value,
           "twitter": comTwitter.value
         }).then((response) {
-      ScaffoldMessenger.of(context!).showSnackBar(
-        const SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text("Company Updated Successful...!"),
-          backgroundColor: Colors.green,
-          padding: EdgeInsets.all(20),
-        ),
-      );
+      debugPrint("Company id after updated:${company.value.id}");
+      customRouterSnackbar(
+          title: 'Successful...!',
+          description: 'Company Updated Successful...!');
+      // ScaffoldMessenger.of(context!).showSnackBar(
+      //   const SnackBar(
+      //     behavior: SnackBarBehavior.floating,
+      //     content: Text("Company Updated Successful...!"),
+      //     backgroundColor: Colors.green,
+      //     padding: EdgeInsets.all(20),
+      //   ),
+      // );
       fetchCompanyMember(id: cusController.customer.value.customerId);
-      update();
+
+      // uploadCon.startUpload();
+
       isLoadingUpdateComapny(false);
+      update();
     }).onError((ErrorModel errorModel, stackTrace) {
       ScaffoldMessenger.of(context!).showSnackBar(
         const SnackBar(
@@ -1643,8 +1650,8 @@ class MemberController extends GetxController {
     comEmail.value = '';
     comaddress.value = '';
     comWebsite.value = '';
-    comAboutUs.value = '';
-    comProduct.value = '';
+    comCompanyProfile.value = '';
+    comcompanyproductandservice.value = '';
     base64Image = '';
   }
 
@@ -1670,7 +1677,6 @@ class MemberController extends GetxController {
       "company_name": comCompanyName.value,
       "member_id": _customerController.customer.value.customerId,
       "khmer_name": comKhmerName.value,
-
       "company_logo":
           base64Image == '' ? '' : "data:image/png;base64,$base64Image",
       "position": comPositions.value,
@@ -1859,7 +1865,7 @@ class MemberController extends GetxController {
               : personalProfile.value.about,
           'title': memberPosition.value != ''
               ? memberPosition.value
-              : personalProfile.value.about
+              : personalProfile.value.title
         }).then((response) {
       //  debugPrint('herr12345678r suss:${response.statusCode}');
       fetchMemberPersonProfile(id: cusController.customer.value.customerId);

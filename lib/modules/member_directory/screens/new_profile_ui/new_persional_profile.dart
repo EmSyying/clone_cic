@@ -97,8 +97,6 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                                 setState(
                                   () {
                                     memberCon.updatePersonalProfile(context);
-                                    memberCon.fetchMemberPersonProfile(
-                                        id: widget.id);
                                   },
                                 );
                               },
@@ -146,7 +144,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   excludeHeaderSemantics: true,
                   backgroundColor: AppColor.mainColor,
                   leading: const Text(''),
-                  expandedHeight: 280.0,
+                  expandedHeight: MediaQuery.of(context).size.height * 0.35,
                   elevation: 0.0,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
@@ -239,7 +237,6 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                                 memberCon.onClearCompany();
                               },
                               isEditCompany: true,
-                              companyData: memberCon.company.value,
                               onTapPhotoProfile: () {
                                 uploadImageCon.uploadImage(context,
                                     isCompany: true);
@@ -259,6 +256,38 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
             ),
           ),
         ),
+        bottomNavigationBar: segmentedControlValue != 0 && isInnerBox == false
+            ? Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                child: CustomButton(
+                  title: 'Add Company ',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return EditProfileScreen(
+                          onTapDone: () {
+                            memberCon.onSubmitCompany(context);
+                            memberCon.onClearCompany();
+                          },
+                          isEditCompany: true,
+                          // companyData: memberCon.company.value,
+                          onTapPhotoProfile: () {
+                            uploadImageCon.uploadImage(context,
+                                isCompany: true);
+                          },
+                        );
+                      }),
+                    );
+                  },
+                  isDisable: false,
+                  isOutline: false,
+                  backgroundColor: AppColor.mainColor.withOpacity(0.2),
+                  colorText: AppColor.mainColor,
+                  iconUrl: 'assets/images/svgfile/add.svg',
+                ),
+              )
+            : null,
       ),
     );
   }

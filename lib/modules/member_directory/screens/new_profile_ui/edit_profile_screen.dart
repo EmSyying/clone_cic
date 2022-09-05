@@ -6,12 +6,11 @@ import 'package:get/get.dart';
 import '../../../../Utils/function/upload_file_controller.dart';
 import '../../controllers/customer_controller.dart';
 import '../../controllers/member_controller.dart';
-import '../../models/company_data.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final int? id;
   final bool? isEditCompany;
-  final CompanyData? companyData;
+  // final CompanyData? companyData;
   final bool? isCreateCompany;
   final GestureTapCallback? onTapProfile;
   final GestureTapCallback? onTapDone;
@@ -22,7 +21,7 @@ class EditProfileScreen extends StatefulWidget {
       this.id,
       this.onTapPhotoProfile,
       this.isEditCompany = false,
-      this.companyData,
+      // this.companyData,
       this.isCreateCompany = false,
       this.onTapProfile,
       this.onTapDone})
@@ -162,7 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     : AppColor.mainColor),
                             image: DecorationImage(
                                 image: NetworkImage(widget.isEditCompany == true
-                                    ? widget.companyData!.companyLogo!
+                                    ? memberCon.company.value.companyLogo!
                                     : customerCon.customer.value.profile!),
                                 fit: BoxFit.cover),
                           ),
@@ -352,10 +351,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 isValidate: true,
                                 labelText: 'Company Name',
-                                initialValue:
-                                    memberCon.comCompanyName.value != ''
-                                        ? widget.companyData!.companyName
-                                        : '',
+                                initialValue: widget.id != null
+                                    ? memberCon.comCompanyName.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 // isReadOnly: true,
@@ -370,10 +368,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 keyboardType: TextInputType.number,
                                 isValidate: true,
                                 labelText: 'Phone Number',
-                                initialValue:
-                                    memberCon.comphonenumber.value != ''
-                                        ? widget.companyData!.phoneNumber
-                                        : '',
+                                initialValue: widget.id != null
+                                    ? memberCon.comphonenumber.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Email',
@@ -386,8 +383,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 isValidate: true,
                                 labelText: 'Email',
-                                initialValue: memberCon.comEmail.value != ''
-                                    ? widget.companyData!.email
+                                initialValue: widget.id != null
+                                    ? memberCon.comEmail.value
                                     : '',
                               ),
                               CustomTextFieldNew(
@@ -402,8 +399,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 isValidate: true,
                                 labelText: 'Location',
-                                initialValue: memberCon.comaddress.value != ''
-                                    ? widget.companyData!.address
+                                initialValue: widget.id != null
+                                    ? memberCon.comaddress.value
                                     : '',
                               ),
                               CustomTextFieldNew(
@@ -417,37 +414,44 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 isValidate: true,
                                 labelText: 'Website',
-                                initialValue: memberCon.comWebsite.value != ''
-                                    ? widget.companyData!.website
+                                initialValue: widget.id != null
+                                    ? memberCon.comWebsite.value
                                     : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'About Us',
                                 onChange: (comAboutAs) {
                                   if (comAboutAs == '') {
-                                    memberCon.comAboutUs.value;
+                                    memberCon.comCompanyProfile.value;
                                   } else {
-                                    memberCon.comAboutUs.value = comAboutAs;
+                                    memberCon.comCompanyProfile.value =
+                                        comAboutAs;
                                   }
                                 },
                                 isValidate: true,
                                 labelText: 'About Us',
                                 maxLine: 7,
-                                initialValue: '',
+                                initialValue: widget.id != null
+                                    ? memberCon.comCompanyProfile.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Product & Service',
                                 onChange: (companyProduct) {
                                   if (companyProduct == '') {
-                                    memberCon.comProduct.value;
+                                    memberCon.comcompanyproductandservice.value;
                                   } else {
-                                    memberCon.comProduct.value = companyProduct;
+                                    memberCon.comcompanyproductandservice
+                                        .value = companyProduct;
                                   }
                                 },
                                 isValidate: true,
                                 labelText: 'Product & Service',
                                 maxLine: 7,
-                                initialValue: '',
+                                initialValue: widget.id != null
+                                    ? memberCon
+                                        .comcompanyproductandservice.value
+                                    : '',
                               ),
                             ],
                           ),

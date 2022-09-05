@@ -223,8 +223,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "id" : 1583,
-    "company_name" : "Test",
+    "id":1583,
+    "company_name" : "Test1",
     "khmer_name" : "Test",
     "major_of_business" : 1,
     "position" : "Flutter",
@@ -252,7 +252,9 @@ Authorization: Bearer {{token}}
     "website" : "Test",
     "facebook" : "Test",
     "linkedin" : "Test",
-    "twitter" : "Test"
+    "twitter" : "Test",
+    "company_profile":"GitLab is a single application for the entire software development lifecycle. From project planning and source code management to CI/CD, monitoring, and security",
+    "company_product_and_service":"This is a self-managed instance of GitLab"
 }
 
 ###

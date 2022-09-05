@@ -74,8 +74,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                           imageProfile: e.value.companyLogo,
                           companyName: e.value.companyName,
                           title: 'heloo',
-                          description:
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Gravida sit tortor nisl fringilla porttitor viverra scelerisque. Turpis nisl et facilisis aliquam ultricies interdum lectus eget facilisis aliquam.',
+                          description: e.value.companyProfile ?? '',
                           image:
                               'https://www.khmertimeskh.com/wp-content/uploads/2019/11/Youk-Chamroeunrith-Chairman-of-Forte-Life-Assurance-Cambodia-L-and-Kuy-Vat-Siv-Channa-1.jpg',
                           phone: e.value.phoneNumber ?? '',
@@ -112,15 +111,26 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                           },
                           editCompany: 'Edit company info',
                           onTapEdit: () {
+                            memberCon.comCompanyName.value =
+                                e.value.companyName!;
+                            memberCon.comphonenumber.value =
+                                e.value.phoneNumber!;
+                            memberCon.comEmail.value = e.value.email!;
+                            memberCon.comaddress.value = e.value.address!;
+                            memberCon.comWebsite.value = e.value.website!;
+                            memberCon.comCompanyProfile.value =
+                                e.value.companyProfile!;
+                            memberCon.comcompanyproductandservice.value =
+                                e.value.companyProductAndService!;
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return EditProfileScreen(
+                                id: e.value.id,
                                 onTapPhotoProfile: () {
                                   uploadImageCon.uploadImage(context,
                                       isCompany: true);
                                 },
                                 isEditCompany: true,
-                                companyData: e.value,
                                 onTapDone: () {
                                   memberCon.onUpdateCompany(
                                       context, e.value.id!);
