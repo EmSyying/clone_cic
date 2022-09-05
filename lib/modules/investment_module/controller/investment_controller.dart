@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
@@ -28,6 +29,7 @@ import '../../../Utils/helper/screen_agrument/member_screen_argument.dart';
 import '../../../Utils/popupannouncement/popup_announcement.dart';
 import '../../../configs/route_management/route_name.dart';
 import '../../../utils/helper/custom_snackbar.dart';
+import '../../../utils/helper/custom_success_screen.dart';
 import '../../../utils/helper/format_number.dart';
 import '../../../widgets/investments/custom_principle_de_schedule_form.dart';
 import '../../../widgets/notification/accept_notification_pop_up.dart';
@@ -776,6 +778,25 @@ class PriceController extends GetxController {
           "bank_id": bankId.value,
           "mma_account_id": "${mmaAccountId.value}"
         }).then((response) {
+      Navigator.push(
+        context!,
+        MaterialPageRoute(
+          builder: (context) => CustomSucessScreen(
+            title: 'Success',
+            description: 'Your FIF application is submitted successfully. ',
+            buttonTitle: 'Done',
+            onPressedButton: () {
+              onClearFIF();
+              clearDeducSelection();
+              context.go('/investment/cic-fixed-fund');
+              Future.delayed(const Duration(seconds: 1), () {
+                getFIFApplication();
+                fetchFIFPending();
+              });
+            },
+          ),
+        ),
+      );
       // context!.navigateTo(
       //   CustomSucessScreenRouter(
       //     title: 'Success',

@@ -94,10 +94,7 @@ class BulletPaymentDetail extends StatelessWidget {
     if (fromPage == null) {
       debugPrint("id:$id");
       bulletCon.fetchFIFPendingDetail(id);
-    }
-    if (fromPage == "widthdraw" ||
-        fromPage == "from submit" ||
-        fromPage == "from renewal") {
+    } else {
       bulletCon.isLoadingPendingDetail.value = false;
     }
     debugPrint(

@@ -131,7 +131,7 @@ class _FIFOption1State extends State<FIFOption1> {
         debugPrint("Investment Duration: ${fifController.textDuration.value}");
         debugPrint(
             "Investment Firtpayment Date: ${fifController.displayFirstPaymentDate}");
-        context!.go(
+        context!.push(
             '/investment/cic-fixed-fund/invest-more/fif-step/bullet-payment',
             extra: {
               "isAnnullyRate": true,
