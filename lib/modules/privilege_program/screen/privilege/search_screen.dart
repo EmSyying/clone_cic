@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../widgets/privilege/custom_shimmer_allshop.dart';
@@ -15,8 +15,11 @@ import '../../../../widgets/privilege/privilege/custom_location_card.dart';
 import '../../controller/privilege_controller.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key, this.locationCode, this.locationName})
-      : super(key: key);
+  const SearchScreen({
+    Key? key,
+    this.locationCode,
+    this.locationName,
+  }) : super(key: key);
   final String? locationCode;
   final String? locationName;
 
@@ -25,7 +28,10 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  String? searchChangeFov;
+  String? filterChaFav;
   int segmentedControlValue = 0;
+
   PageController controller = PageController();
   final privilegController = Get.put(PrivilegeController());
 
@@ -101,6 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onSaved: (e) {},
             onChanged: (v) {
               onChangeHandler(v);
+              searchChangeFov = v;
             },
             controller: TextEditingController(),
             keyboardType: TextInputType.name,
@@ -204,17 +211,17 @@ class _SearchScreenState extends State<SearchScreen> {
                                 .map(
                                   (e) => GestureDetector(
                                     onTap: () {
-                                      context.go(
-                                          "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) =>
-                                      //         PrivilegeDetailScreen(
-                                      //       id: e.value.id,
-                                      //     ),
-                                      //   ),
-                                      // );
+                                      // context.go(
+                                      //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              PrivilegeDetailScreen(
+                                            id: e.value.id,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: CustomCardAllStores(
                                       isFav: e.value.isFavorite!,
@@ -222,33 +229,34 @@ class _SearchScreenState extends State<SearchScreen> {
                                       onTapFav: () {
                                         privilegController
                                             .setFavouriteStore(
-                                          id: privilegController
-                                              .searchShopList[e.key].id!,
-                                          boolFav: privilegController
-                                              .searchShopList[e.key]
-                                              .isFavorite!,
-                                        )
+                                                id: privilegController
+                                                    .categoryFilterList[e.key]
+                                                    .id!,
+                                                boolFav: privilegController
+                                                    .categoryFilterList[e.key]
+                                                    .isFavorite!)
                                             .then((value) {
                                           if (privilegController
-                                              .searchShopList[e.key]
+                                              .categoryFilterList[e.key]
                                               .isFavorite!) {
                                             privilegController
-                                                    .searchShopList[e.key] =
+                                                    .categoryFilterList[e.key] =
                                                 privilegController
-                                                    .searchShopList[e.key]
+                                                    .categoryFilterList[e.key]
                                                     .copyWith(
                                                         isFavorite: false);
                                           } else {
                                             privilegController
-                                                    .searchShopList[e.key] =
+                                                    .categoryFilterList[e.key] =
                                                 privilegController
-                                                    .searchShopList[e.key]
+                                                    .categoryFilterList[e.key]
                                                     .copyWith(isFavorite: true);
                                           }
+                                          // privilegController.onFetchAllStore(1);
+                                          // privilegController
+                                          //     .onFetchFavouriteStore();
+                                          // privilegController.update();
                                         });
-
-                                        setState(() {});
-                                        // preCont.shopModelList.refresh();
                                       },
                                     ),
                                   ),
@@ -324,7 +332,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       //Store/Shop
                       privilegController.isSearchLoading.value
                           ? const Padding(
-                              padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                              padding: EdgeInsets.only(
+                                left: 20.0,
+                                right: 20.0,
+                                top: 20.0,
+                              ),
                               child: CustomShimmerAllShop(),
                             )
                           : SingleChildScrollView(
@@ -338,17 +350,19 @@ class _SearchScreenState extends State<SearchScreen> {
                                       .map(
                                         (e) => GestureDetector(
                                           onTap: () {
-                                            context.go(
-                                                "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         PrivilegeDetailScreen(
-                                            //       id: e.value.id,
-                                            //     ),
-                                            //   ),
-                                            // );
+                                            // context.go(
+                                            //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PrivilegeDetailScreen(
+                                                  id: e.value.id,
+                                                ),
+                                              ),
+                                            ).then((value) {
+                                              searchText(searchChangeFov);
+                                            });
                                           },
                                           child: CustomCardAllStores(
                                             isFav: e.value.isFavorite!,
@@ -386,9 +400,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                                               isFavorite: true);
                                                 }
                                               });
-
-                                              setState(() {});
-                                              // preCont.shopModelList.refresh();
                                             },
                                           ),
                                         ),
@@ -401,7 +412,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       // Location
                       privilegController.isSearchLoading.value
                           ? const Padding(
-                              padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                              padding: EdgeInsets.only(
+                                left: 20.0,
+                                right: 20.0,
+                                top: 20.0,
+                              ),
                               child: CustomShimmerAllShop(),
                             )
                           : Padding(
@@ -418,17 +433,18 @@ class _SearchScreenState extends State<SearchScreen> {
                                               "is go to search by location");
                                           privilegController
                                               .onFilterByCategoriesByLocation(
-                                                  location:
-                                                      location.value.code);
+                                            location: location.value.code,
+                                          );
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   SearchScreen(
-                                                      locationName: location
-                                                          .value.province,
-                                                      locationCode:
-                                                          location.value.code),
+                                                locationName:
+                                                    location.value.province,
+                                                locationCode:
+                                                    location.value.code,
+                                              ),
                                             ),
                                           );
                                           debugPrint(

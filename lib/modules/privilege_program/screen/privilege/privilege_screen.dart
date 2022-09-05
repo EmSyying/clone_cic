@@ -381,16 +381,16 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                 ),
           ),
         ),
-        GestureDetector(
-          onTap: onTapSeeAll,
-          child: Text(
-            seeall ?? '',
-            style: Theme.of(context).textTheme.headline3!.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: onTapSeeAll,
+        //   child: Text(
+        //     seeall ?? '',
+        //     style: Theme.of(context).textTheme.headline3!.copyWith(
+        //           fontSize: 12,
+        //           fontWeight: FontWeight.w500,
+        //         ),
+        //   ),
+        // ),
       ],
     );
   }

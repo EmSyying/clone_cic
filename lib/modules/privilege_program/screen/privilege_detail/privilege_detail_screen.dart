@@ -34,16 +34,16 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
   final pageController = PageController();
   int segmentedControlValue = 0;
   bool innerBoxIsScrolled = false;
-  final preController = Get.put(PrivilegeController());
+  final priController = Get.put(PrivilegeController());
   final eventController = Get.put(EventController());
 
   @override
   void initState() {
-    preController.onFetchShopDetail(widget.id);
+    priController.onFetchShopDetail(widget.id);
 
     if (widget.id != 0 && widget.id != null) {
-      preController.onFetchShopDetail(widget.id).then((value) {
-        debugPrint('pro code = ${preController.shopId.value}');
+      priController.onFetchShopDetail(widget.id).then((value) {
+        debugPrint('pro code = ${priController.shopId.value}');
       });
     }
     super.initState();
@@ -53,7 +53,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
-        () => preController.isLoadingShopDetail.value
+        () => priController.isLoadingShopDetail.value
             ? const SafeArea(
                 child: LinearProgressIndicator(),
               )
@@ -80,30 +80,30 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                           Row(
                             children: [
                               CustomFovarite(
-                                isFav: preController
+                                isFav: priController
                                     .shopDetailModel.value.isFavorite!,
                                 isBoxIsScrolled: isBoxIsScroll,
                                 onPressed: () {
-                                  preController
+                                  priController
                                       .setFavouriteStore(
                                           id: widget.id!,
-                                          boolFav: preController.shopDetailModel
+                                          boolFav: priController.shopDetailModel
                                               .value.isFavorite!)
                                       .then((value) {
-                                    if (preController
+                                    if (priController
                                         .shopDetailModel.value.isFavorite!) {
-                                      preController.shopDetailModel.value =
-                                          preController.shopDetailModel.value
+                                      priController.shopDetailModel.value =
+                                          priController.shopDetailModel.value
                                               .copyWith(isFavorite: false);
                                     } else {
-                                      preController.shopDetailModel.value =
-                                          preController.shopDetailModel.value
+                                      priController.shopDetailModel.value =
+                                          priController.shopDetailModel.value
                                               .copyWith(isFavorite: true);
                                     }
-                                    preController.onFetchAllStore(1);
-                                    preController.onFetchFavouriteStore();
+                                    priController.onFetchAllStore(1);
+                                    priController.onFetchFavouriteStore();
 
-                                    preController.update();
+                                    priController.update();
                                   });
                                   // preController.shopDetailModel.refresh();
                                 },
@@ -176,7 +176,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                       width: double.infinity,
                                       color: Colors.transparent,
                                       child: Image.network(
-                                        preController
+                                        priController
                                                 .shopDetailModel.value.cover ??
                                             '',
                                         fit: BoxFit.cover,
@@ -201,7 +201,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              preController.shopDetailModel
+                                              priController.shopDetailModel
                                                   .value.fullAddress!,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -225,15 +225,15 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   right: 15,
                                   bottom: 70,
                                   child: CustomCardPrivilegeDetail(
-                                    sloganLogo: preController
+                                    sloganLogo: priController
                                         .shopDetailModel.value.shopLogo,
-                                    status: preController
+                                    status: priController
                                         .shopDetailModel.value.status,
-                                    titile: preController.shopDetailModel.value
+                                    titile: priController.shopDetailModel.value
                                         .shopNameInEnglish,
-                                    slogan: preController
+                                    slogan: priController
                                         .shopDetailModel.value.slogan,
-                                    discount: preController
+                                    discount: priController
                                         .shopDetailModel.value.discountRate,
                                   ),
                                 ),
@@ -364,7 +364,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   onPressed: () async {
                                     await launchUrl(
                                       Uri.parse(
-                                          'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
+                                          'https://maps.google.com/?q=${priController.shopDetailModel.value.latitude},${priController.shopDetailModel.value.longitude}'),
                                       mode: LaunchMode.platformDefault,
                                     );
                                   },
@@ -379,7 +379,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                         context: context,
                                         builder: (BuildContext context) =>
                                             CupertinoActionSheet(
-                                          actions: preController
+                                          actions: priController
                                               .shopDetailModel.value.contacts!
                                               .asMap()
                                               .entries
@@ -413,7 +413,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   onPressed: () async {
                                     await launchUrl(
                                       Uri.parse(
-                                        preController.shopDetailModel.value
+                                        priController.shopDetailModel.value
                                                 .telegramLink ??
                                             '',
                                       ),
@@ -473,7 +473,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             ),
             const SizedBox(height: 10),
             HtmlWidget(
-              preController.shopDetailModel.value.description ?? '',
+              priController.shopDetailModel.value.description ?? '',
               textStyle: Theme.of(context).textTheme.subtitle2!.copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 14,
@@ -489,7 +489,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             ),
             const SizedBox(height: 10),
             HtmlWidget(
-              preController.shopDetailModel.value.productOrService ?? '',
+              priController.shopDetailModel.value.productOrService ?? '',
               textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
                     fontWeight: FontWeight.w400,
                     letterSpacing: 0.2,
@@ -500,11 +500,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
       );
 
   Widget buildSchedule() =>
-      preController.shopDetailModel.value.openingDays!.isNotEmpty
+      priController.shopDetailModel.value.openingDays!.isNotEmpty
           ? SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: preController.shopDetailModel.value.openingDays!
+                children: priController.shopDetailModel.value.openingDays!
                     .asMap()
                     .entries
                     .map(
@@ -526,7 +526,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
 
   Widget buildGridImage() => GridView.builder(
         padding: const EdgeInsets.only(top: 30.0),
-        itemCount: preController.shopDetailModel.value.galleries!.length,
+        itemCount: priController.shopDetailModel.value.galleries!.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 14,
@@ -539,11 +539,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                 isNoIconDownload: false,
                 heroTag: 'view',
                 context: context,
-                imageUrl: preController.shopDetailModel.value.galleries![index],
+                imageUrl: priController.shopDetailModel.value.galleries![index],
               );
             },
             child: imageGalleries(
-              preController.shopDetailModel.value.galleries![index],
+              priController.shopDetailModel.value.galleries![index],
             ),
           );
         },

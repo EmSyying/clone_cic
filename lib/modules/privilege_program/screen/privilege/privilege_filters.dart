@@ -78,7 +78,8 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                                       cardListCat.value.id!;
                                   privilegeController
                                       .onFilterByCategoriesByLocation(
-                                          categoryId: cardListCat.value.id);
+                                    categoryId: cardListCat.value.id,
+                                  );
                                 },
                                 selected: privilegeController
                                         .selectedCategFil.value ==
@@ -102,7 +103,9 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                     onTap: () {
                       privilegeController.locationName.value = e.value.nameEn!;
                       privilegeController.onSelected(
-                          index: e.key, selectedItemCode: e.value.code);
+                        index: e.key,
+                        selectedItemCode: e.value.code,
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(

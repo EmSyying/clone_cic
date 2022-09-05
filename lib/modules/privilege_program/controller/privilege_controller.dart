@@ -242,7 +242,7 @@ class PrivilegeController extends GetxController {
       isLoadingCategoryFilter(false);
     });
 
-    return shopModelList;
+    return categoryFilterList;
   }
 
   // On Select Filter
@@ -259,8 +259,6 @@ class PrivilegeController extends GetxController {
       locationPrivilageList[index] =
           locationPrivilageList[index].copyWith(isSelected: false);
     }
-
-    ///
     if (locationPrivilageList[index].isSelected == true) {
       locationCodeList.add(selectedItemCode);
     } else {
@@ -277,7 +275,9 @@ class PrivilegeController extends GetxController {
 
 // Filter by Location and Categories
     onFilterByCategoriesByLocation(
-        location: allLocation, categoryId: categoriesId.value);
+      location: allLocation,
+      categoryId: categoriesId.value,
+    );
     update();
   }
 
