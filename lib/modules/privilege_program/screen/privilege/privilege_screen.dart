@@ -1,14 +1,16 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
+import 'package:go_router/go_router.dart';
 import '../../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../../Utils/custom_indicatior.dart';
 import '../../../../widgets/privilege/custom_row_filter.dart';
@@ -52,6 +54,18 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     super.initState();
   }
 
+  @override
+  void didChangeDependencies() {
+    final router = GoRouter.of(context);
+    if (router.location.contains('all-stores')) {
+      segmentedControlValue = 1;
+    } else {
+      segmentedControlValue = 0;
+    }
+
+    super.didChangeDependencies();
+  }
+
   final storePages = [
     const CustomAllStoreList(),
     const CustomCardFavoriesList(),
@@ -61,15 +75,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
   final _settingCon = Get.put(SettingController());
-  onNavToFilter() async {
-    context.pushNamed('filter');
-    // var result = await Navigator.push<bool>(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const PrivilegeFilters(),
-    //   ),
-    // );
-  }
 
   File? nationalBack;
   @override
@@ -168,13 +173,15 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              context.pushNamed('search');
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const SearchScreen(),
-                              //   ),
-                              // );
+                              didChangeDependencies();
+                              // context.go('/privilege/all-stores/search');
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SearchScreen(),
+                                ),
+                              );
                             },
                             child: Container(
                               height: 38,
@@ -304,7 +311,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           padding: const EdgeInsets.only(top: 20.0, bottom: 8),
                           child: CustomNumberStoresFilter(
                             onTapFilter: () {
-                              onNavToFilter();
+                              // context.go('/privilege/all-stores/filter');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PrivilegeFilters(),
+                                ),
+                              );
                             },
                             titleStores: segmentedControlValue == 0
                                 ? '${preController.shopModelList.length} Stores'

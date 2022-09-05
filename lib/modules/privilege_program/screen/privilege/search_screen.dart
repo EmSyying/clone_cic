@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../widgets/privilege/custom_shimmer_allshop.dart';
@@ -12,7 +13,6 @@ import '../../../../widgets/privilege/privilege/costom_all_stores.dart';
 import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
 import '../../../../widgets/privilege/privilege/custom_location_card.dart';
 import '../../controller/privilege_controller.dart';
-import '../privilege_detail/privilege_detail_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key, this.locationCode, this.locationName})
@@ -68,18 +68,25 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1.0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 22,
+        leading: GestureDetector(
+          child: const Padding(
+            padding: EdgeInsets.only(
+              left: 20.0,
+            ),
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+              size: 22,
+            ),
           ),
-          onPressed: () {
+          onTap: () {
             privilegController.onFetchAllStore(1);
             // privilegController.onClearSearch();
             Navigator.pop(context);
           },
         ),
+        leadingWidth: 30,
+        // titleSpacing: 0,
         title: Container(
           height: 38,
           width: double.infinity,
@@ -197,15 +204,17 @@ class _SearchScreenState extends State<SearchScreen> {
                                 .map(
                                   (e) => GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              PrivilegeDetailScreen(
-                                            id: e.value.id,
-                                          ),
-                                        ),
-                                      );
+                                      context.go(
+                                          "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         PrivilegeDetailScreen(
+                                      //       id: e.value.id,
+                                      //     ),
+                                      //   ),
+                                      // );
                                     },
                                     child: CustomCardAllStores(
                                       isFav: e.value.isFavorite!,
@@ -329,15 +338,17 @@ class _SearchScreenState extends State<SearchScreen> {
                                       .map(
                                         (e) => GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PrivilegeDetailScreen(
-                                                  id: e.value.id,
-                                                ),
-                                              ),
-                                            );
+                                            context.go(
+                                                "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (context) =>
+                                            //         PrivilegeDetailScreen(
+                                            //       id: e.value.id,
+                                            //     ),
+                                            //   ),
+                                            // );
                                           },
                                           child: CustomCardAllStores(
                                             isFav: e.value.isFavorite!,

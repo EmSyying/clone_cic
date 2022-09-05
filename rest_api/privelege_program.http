@@ -56,7 +56,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### List only favorite shop
-GET {{baseUrl}}v3/privilege/shop?favorite=true
+GET {{baseUrl}}v3/privilege/shop?favorite
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -81,7 +81,7 @@ Authorization: Bearer {{token}}
 
 
 ### favorite or unfavorite. is_favorite is boolean
-PUT {{baseUrl}}v3/privilege/shop/4
+PUT {{baseUrl}}v3/privilege/shop
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -91,7 +91,7 @@ Authorization: Bearer {{token}}
 }
 
 ### favorite or unfavorite
-PUT {{baseUrl}}v3/privilege/shop/5?is_favorite=true
+PUT {{baseUrl}}v3/privilege/shop/3?is_favorite=true
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

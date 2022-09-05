@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import '../../../modules/privilege_program/controller/privilege_controller.dart';
-import '../../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 import '../custom_shimmer_allshop.dart';
 import 'costom_all_stores.dart';
 
@@ -36,14 +36,16 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
                   .map(
                     (e) => GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PrivilegeDetailScreen(
-                              id: e.value.id,
-                            ),
-                          ),
-                        );
+                        context.go(
+                            "/privilege/all-store/${privillageCon.shopModelList[e.key].id}");
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => PrivilegeDetailScreen(
+                        //       id: e.value.id,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: CustomCardAllStores(
                         isFav: e.value.isFavorite!,

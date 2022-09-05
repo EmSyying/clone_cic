@@ -40,6 +40,12 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
   @override
   void initState() {
     preController.onFetchShopDetail(widget.id);
+
+    if (widget.id != 0 && widget.id != null) {
+      preController.onFetchShopDetail(widget.id).then((value) {
+        debugPrint('pro code = ${preController.shopId.value}');
+      });
+    }
     super.initState();
   }
 

@@ -3,8 +3,7 @@ import 'package:cicgreenloan/widgets/privilege/custom_shimmer_allshop.dart';
 import 'package:cicgreenloan/widgets/privilege/privilege/costom_all_stores.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAllStoreList extends StatefulWidget {
   final int? id;
@@ -24,12 +23,13 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
   void initState() {
     priCont.onFetchAllStore(1);
     priCont.onFetchShopDetail(widget.id);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('/privilege/all-store/id=============${widget.id}');
+    // final router = GoRouter.of(context);
     return Obx(
       () => priCont.isLoadingShopList.value
           ? const CustomShimmerAllShop()
@@ -40,16 +40,16 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                   .map(
                     (e) => GestureDetector(
                       onTap: () {
-                        //context.go('/privilege/all-store/${widget.id}');
-                        // context.push("/privilege/all-store/id=${widget.id}");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PrivilegeDetailScreen(
-                              id: e.value.id,
-                            ),
-                          ),
-                        );
+                        context.go(
+                            "/privilege/all-store/${priCont.shopModelList[e.key].id}");
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => PrivilegeDetailScreen(
+                        //       id: e.value.id,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: CustomCardAllStores(
                         isFav: e.value.isFavorite!,

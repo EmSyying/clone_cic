@@ -114,7 +114,7 @@ class PrivilegeController extends GetxController {
     isLoadingFav(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/shop?favorite=1',
+      url: 'privilege/shop?favorite=true',
       methode: METHODE.get,
       isAuthorize: true,
     )
