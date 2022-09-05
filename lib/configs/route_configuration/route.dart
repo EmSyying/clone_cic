@@ -481,7 +481,7 @@ final router = GoRouter(
                   builder: (context, state) {
                     return ViewWebsite(
                       url: state.queryParams['url'],
-                      title: state.queryParams['title'],
+                      title: 'View Last Trading Info',
                     );
                   },
                 ),

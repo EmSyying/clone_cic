@@ -14,15 +14,15 @@ import '../../../../utils/helper/firebase_analytics.dart';
 import '../../../../widgets/new_perional_profile/simmer_profile.dart';
 import '../../controllers/customer_controller.dart';
 import '../../controllers/member_controller.dart';
-import '../../models/user.dart';
 import 'edit_profile_screen.dart';
 
 class NewPeronalProfile extends StatefulWidget {
   final int? id;
-  final User? user;
+
   final bool? isDirectory;
+  final String? imgUrl;
   const NewPeronalProfile(
-      {Key? key, this.id, this.user, this.isDirectory = false})
+      {Key? key, this.id, this.isDirectory = false, this.imgUrl})
       : super(key: key);
 
   @override
@@ -154,7 +154,9 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                       () => customerUser.isloading.value
                           ? const SimmmerProfile()
                           : CustomUserProfile(
-                              id: customerUser.customer.value.customerId,
+                              imgUrl: widget.isDirectory == true
+                                  ? widget.imgUrl
+                                  : customerUser.customer.value.profile,
                               fullName: widget.isDirectory == true
                                   ? memberCon
                                       .personalProfile.value.customerLatinName

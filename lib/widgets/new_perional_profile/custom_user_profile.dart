@@ -9,22 +9,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Utils/function/upload_file_controller.dart';
-import '../../modules/member_directory/models/user.dart';
 
 class CustomUserProfile extends StatefulWidget {
   final String? fullName;
   final String? position;
   final String? description;
-  final User? userModel;
-  final int? id;
+  final String? imgUrl;
 
   const CustomUserProfile({
     Key? key,
     this.fullName,
     this.position,
     this.description,
-    this.userModel,
-    this.id,
+    this.imgUrl,
   }) : super(key: key);
 
   @override
@@ -232,32 +229,18 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                 shape: BoxShape.circle,
                               ),
                             ),
-                      customerCon.customer.value.profile != null &&
-                              customerCon.customer.value.profile != ''
-                          ? Container(
-                              height: 85,
-                              width: 85,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    width: 3.5, color: AppColor.mainColor),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        customerCon.customer.value.profile!),
-                                    fit: BoxFit.cover),
-                              ),
-                            )
-                          : Container(
-                              height: 85,
-                              width: 85,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
+                      Container(
+                        height: 85,
+                        width: 85,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(width: 3.5, color: AppColor.mainColor),
+                          image: DecorationImage(
+                              image: NetworkImage(widget.imgUrl!),
+                              fit: BoxFit.cover),
+                        ),
+                      )
                     ],
                   )),
               Positioned(

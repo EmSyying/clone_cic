@@ -970,15 +970,8 @@ class _DirectoryState extends State<Directory> {
                                                                 isDirectory:
                                                                     true,
                                                                 id: e.value.id,
-                                                                // memberDetailAgrument:
-                                                                //     MemberDetailAgrument(
-                                                                //   pageName:
-                                                                //       'memberList',
-                                                                //   isNavigator:
-                                                                //       true,
-                                                                //   id: e
-                                                                //       .value.id,
-                                                                // ),
+                                                                imgUrl: e.value
+                                                                    .photo,
                                                               ),
                                                             ),
                                                           );
