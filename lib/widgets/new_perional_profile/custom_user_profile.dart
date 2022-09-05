@@ -15,13 +15,14 @@ class CustomUserProfile extends StatefulWidget {
   final String? position;
   final String? description;
   final String? imgUrl;
-
+  final bool? isDirectories;
   const CustomUserProfile({
     Key? key,
     this.fullName,
     this.position,
     this.description,
     this.imgUrl,
+    this.isDirectories = false,
   }) : super(key: key);
 
   @override
@@ -243,22 +244,23 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                       )
                     ],
                   )),
-              Positioned(
-                top: 30,
-                right: 0,
-                left: 80,
-                child: GestureDetector(
-                  onTap: () {
-                    uploadImageCon.uploadImage(context);
-                  },
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Colors.white,
-                    child: SvgPicture.asset(
-                        'assets/images/svgfile/camera_new.svg'),
+              if (widget.isDirectories != true)
+                Positioned(
+                  top: 30,
+                  right: 0,
+                  left: 80,
+                  child: GestureDetector(
+                    onTap: () {
+                      uploadImageCon.uploadImage(context);
+                    },
+                    child: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.white,
+                      child: SvgPicture.asset(
+                          'assets/images/svgfile/camera_new.svg'),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
