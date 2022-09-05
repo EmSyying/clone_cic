@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/function/upload_file_controller.dart';
+import '../../../../Utils/helper/color.dart';
 import 'edit_profile_screen.dart';
 
 class CompanyProfileTab extends StatefulWidget {
@@ -67,79 +69,118 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
               child: memberCon.companyDataList.isEmpty
                   ? const CustomEmptyState()
                   : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          memberCon.companyDataList.asMap().entries.map((e) {
-                        return CustomCompanyTap(
-                          imageProfile: e.value.companyLogo,
-                          companyName: e.value.companyName,
-                          title: 'heloo',
-                          description: e.value.companyProfile ?? '',
-                          image:
-                              'https://www.khmertimeskh.com/wp-content/uploads/2019/11/Youk-Chamroeunrith-Chairman-of-Forte-Life-Assurance-Cambodia-L-and-Kuy-Vat-Siv-Channa-1.jpg',
-                          phone: e.value.phoneNumber ?? '',
-                          email: e.value.email ?? '',
-                          address: e.value.address ?? '',
-                          website: e.value.website ?? '',
-                          onTapPhone: () async {
-                            final Uri launchUri = Uri(
-                              scheme: 'tel',
-                              path: '${e.value.phoneNumber}',
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: memberCon.companyDataList
+                              .asMap()
+                              .entries
+                              .map((e) {
+                            return CustomCompanyTap(
+                              imageProfile: e.value.companyLogo,
+                              companyName: e.value.companyName,
+                              slogan: e.value.companySlogan,
+                              description: e.value.companyProfile ?? '',
+                              image:
+                                  'https://www.khmertimeskh.com/wp-content/uploads/2019/11/Youk-Chamroeunrith-Chairman-of-Forte-Life-Assurance-Cambodia-L-and-Kuy-Vat-Siv-Channa-1.jpg',
+                              phone: e.value.phoneNumber ?? '',
+                              email: e.value.email ?? '',
+                              address: e.value.address ?? '',
+                              website: e.value.website ?? '',
+                              productService: e.value.companyProductAndService,
+                              onTapPhone: () async {
+                                final Uri launchUri = Uri(
+                                  scheme: 'tel',
+                                  path: '${e.value.phoneNumber}',
+                                );
+                                await launchUrl(launchUri);
+                              },
+                              onTapEmail: () async {
+                                final Uri launchUri = Uri(
+                                  scheme: 'mailto',
+                                  path: '${e.value.email}',
+                                );
+                                await launchUrl(launchUri);
+                              },
+                              // onTapAddress: () async {
+                              //   await launchUrl(
+                              //     Uri.parse('https://g.page/PassApp?share'),
+                              //     // 'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
+                              //     mode: LaunchMode.platformDefault,
+                              //   );
+                              // },
+                              onTapAssociate: () async {
+                                final Uri launchUri = Uri(
+                                  scheme: 'https',
+                                  path: '${e.value.website}',
+                                );
+                                await launchUrl(launchUri);
+                              },
+                              editCompany: 'Edit company info',
+                              onTapEdit: () {
+                                memberCon.comCompanyName.value =
+                                    e.value.companyName!;
+                                memberCon.comphonenumber.value =
+                                    e.value.phoneNumber!;
+                                memberCon.comEmail.value = e.value.email!;
+                                memberCon.comaddress.value = e.value.address!;
+                                memberCon.comWebsite.value = e.value.website!;
+                                memberCon.comCompanyProfile.value =
+                                    e.value.companyProfile!;
+                                memberCon.comcompanyproductandservice.value =
+                                    e.value.companyProductAndService!;
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return EditProfileScreen(
+                                    id: e.value.id,
+                                    onTapPhotoProfile: () {
+                                      uploadImageCon.uploadImage(context,
+                                          isCompany: true);
+                                    },
+                                    isEditCompany: true,
+                                    onTapDone: () {
+                                      memberCon.onUpdateCompany(
+                                          context, e.value.id!);
+                                    },
+                                  );
+                                }));
+                              },
                             );
-                            await launchUrl(launchUri);
-                          },
-                          onTapEmail: () async {
-                            final Uri launchUri = Uri(
-                              scheme: 'mailto',
-                              path: '${e.value.email}',
-                            );
-                            await launchUrl(launchUri);
-                          },
-                          // onTapAddress: () async {
-                          //   await launchUrl(
-                          //     Uri.parse('https://g.page/PassApp?share'),
-                          //     // 'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
-                          //     mode: LaunchMode.platformDefault,
-                          //   );
-                          // },
-                          onTapAssociate: () async {
-                            final Uri launchUri = Uri(
-                              scheme: 'https',
-                              path: '${e.value.website}',
-                            );
-                            await launchUrl(launchUri);
-                          },
-                          editCompany: 'Edit company info',
-                          onTapEdit: () {
-                            memberCon.comCompanyName.value =
-                                e.value.companyName!;
-                            memberCon.comphonenumber.value =
-                                e.value.phoneNumber!;
-                            memberCon.comEmail.value = e.value.email!;
-                            memberCon.comaddress.value = e.value.address!;
-                            memberCon.comWebsite.value = e.value.website!;
-                            memberCon.comCompanyProfile.value =
-                                e.value.companyProfile!;
-                            memberCon.comcompanyproductandservice.value =
-                                e.value.companyProductAndService!;
-                            Navigator.push(context,
+                          }).toList(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 10),
+                          child: CustomButton(
+                            title: 'Add Company ',
+                            onPressed: () {
+                              Navigator.push(
+                                context,
                                 MaterialPageRoute(builder: (context) {
-                              return EditProfileScreen(
-                                id: e.value.id,
-                                onTapPhotoProfile: () {
-                                  uploadImageCon.uploadImage(context,
-                                      isCompany: true);
-                                },
-                                isEditCompany: true,
-                                onTapDone: () {
-                                  memberCon.onUpdateCompany(
-                                      context, e.value.id!);
-                                },
+                                  return EditProfileScreen(
+                                    onTapDone: () {
+                                      memberCon.onSubmitCompany(context);
+                                      memberCon.onClearCompany();
+                                    },
+                                    isEditCompany: true,
+                                    // companyData: memberCon.company.value,
+                                    onTapPhotoProfile: () {
+                                      uploadImageCon.uploadImage(context,
+                                          isCompany: true);
+                                    },
+                                  );
+                                }),
                               );
-                            }));
-                          },
-                        );
-                      }).toList(),
+                            },
+                            isDisable: false,
+                            isOutline: false,
+                            backgroundColor:
+                                AppColor.mainColor.withOpacity(0.2),
+                            colorText: AppColor.mainColor,
+                            iconUrl: 'assets/images/svgfile/add.svg',
+                          ),
+                        )
+                      ],
                     ),
 
               //   ),

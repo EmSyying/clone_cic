@@ -211,10 +211,52 @@ Authorization: Bearer {{token}}
 }
 
 ###
-GET {{baseUrl}}v2/member-company?member_id=21
+GET {{baseUrl}}v3/member-company?member_id=21
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+###
+POST {{baseUrl}}v3/member-company
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "company_name" : "Test1",
+    "member_id":"21",
+    "company_slogan":"Flexible",
+    "khmer_name" : "Test",
+    "major_of_business" : 1,
+    "position" : "Flutter",
+    "legal_status" : 1,
+    "registered_business" : 1,
+    "company_size" : "200",
+    "number_of_branches" : "10",
+    "business_model" : 1,
+    "capital_investment" : "Test",
+    "year_founded" : "2001",
+    "is_primary" : 1,
+    "personal_interest" : "Test",
+    "company_profile" : "Test",
+    "company_product_and_service" : "Test",
+    "house_no" : "01",
+    "street_no" : "01",
+    "address" : "0101",
+    "phone_number" : "012601102",
+    "email" : "test@gmail.com",
+    "what_app" : "Test",
+    "telegram" : "Test",
+    "messenger" : "Test",
+    "skype" : "Test",
+    "we_chat" : "Test",
+    "website" : "Test",
+    "facebook" : "Test",
+    "linkedin" : "Test",
+    "twitter" : "Test",
+    "company_profile":"GitLab is a single application for the entire software development lifecycle. From project planning and source code management to CI/CD, monitoring, and security",
+    "company_product_and_service":"This is a self-managed instance of GitLab"
+}
 
 ###
 POST {{baseUrl}}v3/member-company/update
@@ -272,7 +314,8 @@ Authorization: Bearer {{token}}
     "gender": "Female",
     "nationality": "Khmer",
     "identity_type": "qqq",
-    "identity_number": "122"
+    "identity_number": "122",
+    "company_name":"flexible"
 }
 
 

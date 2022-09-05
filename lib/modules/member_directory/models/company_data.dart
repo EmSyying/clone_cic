@@ -66,6 +66,7 @@ class CompanyData {
   int? numberOfStaff;
   String? ownerName;
   CompanyFiles? companyFiles;
+  String? companySlogan;
 
   CompanyData(
       {this.id,
@@ -108,7 +109,8 @@ class CompanyData {
       this.taxIdentificationNumber,
       this.numberOfStaff,
       this.ownerName,
-      this.companyFiles});
+      this.companyFiles,
+      this.companySlogan});
 
   CompanyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -165,6 +167,7 @@ class CompanyData {
     facebook = json['facebook'];
     linkedin = json['linkedin'];
     twitter = json['twitter'];
+    companySlogan = json['company_slogan'];
     typeOfOrganization = json['type_of_organization'] != null
         ? FinancialPurpose.fromJson(json['type_of_organization'])
         : null;
@@ -226,6 +229,7 @@ class CompanyData {
     data['facebook'] = facebook;
     data['linkedin'] = linkedin;
     data['twitter'] = twitter;
+    data['company_slogan'] = companySlogan;
     if (typeOfOrganization != null) {
       data['type_of_organization'] = typeOfOrganization!.toJson();
     }

@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/company_profile_tap.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/personal_profile_tap.dart';
@@ -223,75 +222,10 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                     children: widgets,
                   ),
                 ),
-                if (segmentedControlValue != 0)
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 20, bottom: 10, top: 10),
-                    child: CustomButton(
-                      title: 'Add Company ',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return EditProfileScreen(
-                              onTapDone: () {
-                                Navigator.pop(context);
-
-                                memberCon.onSubmitCompany(context);
-                                memberCon.onClearCompany();
-                              },
-                              isEditCompany: true,
-                              onTapPhotoProfile: () {
-                                uploadImageCon.uploadImage(context,
-                                    isCompany: true);
-                              },
-                            );
-                          }),
-                        );
-                      },
-                      isDisable: false,
-                      isOutline: false,
-                      backgroundColor: AppColor.mainColor.withOpacity(0.2),
-                      colorText: AppColor.mainColor,
-                      iconUrl: 'assets/images/svgfile/add.svg',
-                    ),
-                  ),
               ],
             ),
           ),
         ),
-        bottomNavigationBar: segmentedControlValue != 0 && isInnerBox == false
-            ? Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: CustomButton(
-                  title: 'Add Company ',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return EditProfileScreen(
-                          onTapDone: () {
-                            memberCon.onSubmitCompany(context);
-                            memberCon.onClearCompany();
-                          },
-                          isEditCompany: true,
-                          // companyData: memberCon.company.value,
-                          onTapPhotoProfile: () {
-                            uploadImageCon.uploadImage(context,
-                                isCompany: true);
-                          },
-                        );
-                      }),
-                    );
-                  },
-                  isDisable: false,
-                  isOutline: false,
-                  backgroundColor: AppColor.mainColor.withOpacity(0.2),
-                  colorText: AppColor.mainColor,
-                  iconUrl: 'assets/images/svgfile/add.svg',
-                ),
-              )
-            : null,
       ),
     );
   }

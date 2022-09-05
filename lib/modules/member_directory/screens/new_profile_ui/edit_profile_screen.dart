@@ -85,6 +85,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ? null
                       : () {
                           widget.onTapDone!();
+                          Navigator.pop(context);
                         },
                   child: Text(
                     'Done',
@@ -150,6 +151,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 if (name == '') {
                                   isDisableDone = true;
                                   memberCon.fullName.value = '';
+                                } else if (name ==
+                                    memberCon.personalProfile.value
+                                        .customerLatinName) {
+                                  isDisableDone = true;
                                 } else {
                                   isDisableDone = false;
                                   memberCon.fullName.value = name;
@@ -168,6 +173,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               if (title == '') {
                                 isDisableDone = true;
                                 memberCon.memberPosition.value = '';
+                              } else if (title ==
+                                  memberCon.personalProfile.value.title) {
+                                isDisableDone = true;
                               } else {
                                 isDisableDone = false;
                                 memberCon.memberPosition.value = title;
@@ -187,17 +195,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               if (companyName == '') {
                                 isDisableDone = true;
 
-                                memberCon.companyName.value = '';
+                                memberCon.membercomapnyName.value = '';
+                              } else if (companyName ==
+                                  memberCon.personalProfile.value.companyName) {
+                                isDisableDone = true;
                               } else {
                                 isDisableDone = false;
-                                memberCon.companyName.value = companyName;
+                                memberCon.membercomapnyName.value = companyName;
                               }
                             });
                           },
                           isValidate: true,
                           labelText: 'Company Name',
-                          initialValue: memberCon.companyName.value != ''
-                              ? memberCon.companyName.value
+                          initialValue: memberCon.membercomapnyName.value != ''
+                              ? memberCon.membercomapnyName.value
                               : '',
                         ),
                         CustomTextFieldNew(
@@ -209,6 +220,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               if (phone == '') {
                                 isDisableDone = true;
                                 memberCon.phone.value = '';
+                              } else if (phone ==
+                                  memberCon.personalProfile.value.phone) {
+                                isDisableDone = true;
                               } else {
                                 isDisableDone = false;
                                 memberCon.phone.value = phone;
@@ -228,6 +242,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               if (email == '') {
                                 isDisableDone = true;
                                 memberCon.gmail.value = '';
+                              } else if (email ==
+                                  memberCon.personalProfile.value.email) {
+                                isDisableDone = true;
                               } else {
                                 isDisableDone = false;
                                 memberCon.gmail.value = email;
@@ -247,6 +264,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               if (telegram == '') {
                                 isDisableDone = true;
                                 memberCon.telegram.value = '';
+                              } else if (telegram ==
+                                  memberCon.personalProfile.value.telegram) {
+                                isDisableDone = true;
                               } else {
                                 isDisableDone = false;
                                 memberCon.telegram.value = telegram;
@@ -266,6 +286,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               if (website == '') {
                                 isDisableDone = true;
                                 memberCon.webSite.value = '';
+                              } else if (website ==
+                                  memberCon.personalProfile.value.website) {
+                                isDisableDone = true;
                               } else {
                                 isDisableDone = false;
                                 memberCon.webSite.value = website;
@@ -286,6 +309,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 isDisableDone = true;
 
                                 memberCon.memberAboutAs.value = '';
+                              } else if (aboutAs ==
+                                  memberCon.personalProfile.value.about) {
+                                isDisableDone = true;
                               } else {
                                 isDisableDone = false;
                                 memberCon.memberAboutAs.value = aboutAs;
@@ -311,11 +337,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         CustomTextFieldNew(
                           hintText: 'Company Name',
                           onChange: (companyName) {
-                            if (companyName == '') {
-                              memberCon.comCompanyName.value;
-                            } else {
-                              memberCon.comCompanyName.value = companyName;
-                            }
+                            setState(() {
+                              if (companyName == '') {
+                                memberCon.comCompanyName.value;
+                                isDisableDone = true;
+                              } else if (companyName ==
+                                  memberCon.company.value.companyName) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comCompanyName.value = companyName;
+                              }
+                            });
                           },
                           isValidate: true,
                           labelText: 'Company Name',
@@ -325,13 +357,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         CustomTextFieldNew(
                           // isReadOnly: true,
+                          hintText: 'Slogan',
+                          onChange: (slogan) {
+                            setState(() {
+                              if (slogan == '') {
+                                memberCon.comSlogan.value;
+                                isDisableDone = true;
+                              } else if (slogan ==
+                                  memberCon.company.value.companySlogan) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comSlogan.value = slogan;
+                                isDisableDone = false;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Slogan',
+                          initialValue: widget.id != null
+                              ? memberCon.comSlogan.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          // isReadOnly: true,
                           hintText: 'Phone Number',
                           onChange: (phoneNum) {
-                            if (phoneNum == '') {
-                              memberCon.comphonenumber.value;
-                            } else {
-                              memberCon.comphonenumber.value = phoneNum;
-                            }
+                            setState(() {
+                              if (phoneNum == '') {
+                                memberCon.comphonenumber.value;
+                                isDisableDone = true;
+                              } else if (phoneNum ==
+                                  memberCon.company.value.phoneNumber) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comphonenumber.value = phoneNum;
+                              }
+                            });
                           },
                           keyboardType: TextInputType.number,
                           isValidate: true,
@@ -343,11 +404,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         CustomTextFieldNew(
                           hintText: 'Email',
                           onChange: (companyEmail) {
-                            if (companyEmail == '') {
-                              memberCon.comEmail.value;
-                            } else {
-                              memberCon.comEmail.value = companyEmail;
-                            }
+                            setState(() {
+                              if (companyEmail == '') {
+                                memberCon.comEmail.value;
+                                isDisableDone = true;
+                              } else if (companyEmail ==
+                                  memberCon.company.value.email) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comEmail.value = companyEmail;
+                              }
+                            });
                           },
                           isValidate: true,
                           labelText: 'Email',
@@ -357,11 +424,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         CustomTextFieldNew(
                           hintText: 'Location',
                           onChange: (companyLocation) {
-                            if (companyLocation == '') {
-                              memberCon.comaddress.value;
-                            } else {
-                              memberCon.comaddress.value = companyLocation;
-                            }
+                            setState(() {
+                              if (companyLocation == '') {
+                                memberCon.comaddress.value;
+                                isDisableDone = true;
+                              } else if (companyLocation ==
+                                  memberCon.company.value.address) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comaddress.value = companyLocation;
+                              }
+                            });
                           },
                           isValidate: true,
                           labelText: 'Location',
@@ -372,11 +445,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         CustomTextFieldNew(
                           hintText: 'Website',
                           onChange: (companyWebsite) {
-                            if (companyWebsite == '') {
-                              memberCon.comWebsite.value;
-                            } else {
-                              memberCon.comWebsite.value = companyWebsite;
-                            }
+                            setState(() {
+                              if (companyWebsite == '') {
+                                memberCon.comWebsite.value;
+                                isDisableDone = true;
+                              } else if (companyWebsite ==
+                                  memberCon.company.value.website) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comWebsite.value = companyWebsite;
+                              }
+                            });
                           },
                           isValidate: true,
                           labelText: 'Website',
@@ -387,11 +466,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         CustomTextFieldNew(
                           hintText: 'About Us',
                           onChange: (comAboutAs) {
-                            if (comAboutAs == '') {
-                              memberCon.comCompanyProfile.value;
-                            } else {
-                              memberCon.comCompanyProfile.value = comAboutAs;
-                            }
+                            setState(() {
+                              if (comAboutAs == '') {
+                                memberCon.comCompanyProfile.value;
+                                isDisableDone = true;
+                              } else if (comAboutAs ==
+                                  memberCon.company.value.companyProfile) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comCompanyProfile.value = comAboutAs;
+                              }
+                            });
                           },
                           isValidate: true,
                           labelText: 'About Us',
@@ -403,12 +488,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         CustomTextFieldNew(
                           hintText: 'Product & Service',
                           onChange: (companyProduct) {
-                            if (companyProduct == '') {
-                              memberCon.comcompanyproductandservice.value;
-                            } else {
-                              memberCon.comcompanyproductandservice.value =
-                                  companyProduct;
-                            }
+                            setState(() {
+                              if (companyProduct == '') {
+                                memberCon.comcompanyproductandservice.value;
+                                isDisableDone = true;
+                              } else if (companyProduct ==
+                                  memberCon
+                                      .company.value.companyProductAndService) {
+                                isDisableDone = true;
+                              } else {
+                                memberCon.comcompanyproductandservice.value =
+                                    companyProduct;
+                              }
+                            });
                           },
                           isValidate: true,
                           labelText: 'Product & Service',

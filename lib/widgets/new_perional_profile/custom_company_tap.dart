@@ -8,7 +8,7 @@ import '../../modules/member_directory/controllers/new_personal_profile/new_prof
 
 class CustomCompanyTap extends StatelessWidget {
   final String? companyName;
-  final String? title;
+  final String? slogan;
   final String? imageProfile;
   final String? description;
   final String? image;
@@ -22,6 +22,7 @@ class CustomCompanyTap extends StatelessWidget {
   final GestureTapCallback? onTapEmail;
   final GestureTapCallback? onTapAddress;
   final GestureTapCallback? onTapAssociate;
+  final String? productService;
 
   final bool? isEdiable;
   final bool? isHidenAddress;
@@ -29,7 +30,7 @@ class CustomCompanyTap extends StatelessWidget {
   const CustomCompanyTap(
       {Key? key,
       this.companyName,
-      this.title,
+      this.slogan,
       this.imageProfile,
       this.description,
       this.image,
@@ -45,7 +46,8 @@ class CustomCompanyTap extends StatelessWidget {
       this.onTapAddress,
       this.onTapAssociate,
       this.editCompany,
-      this.onTapEdit})
+      this.onTapEdit,
+      this.productService})
       : super(key: key);
 
   @override
@@ -82,15 +84,20 @@ class CustomCompanyTap extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '$companyName',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(fontWeight: FontWeight.w700),
+                    Padding(
+                      padding: slogan == null || slogan == ''
+                          ? const EdgeInsets.only(top: 20)
+                          : EdgeInsets.zero,
+                      child: Text(
+                        '$companyName',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline2!
+                            .copyWith(fontWeight: FontWeight.w700),
+                      ),
                     ),
                     Text(
-                      '$title',
+                      '$slogan',
                       style: Theme.of(context)
                           .textTheme
                           .headline3!
@@ -308,10 +315,34 @@ class CustomCompanyTap extends StatelessWidget {
             ),
           ),
         Padding(
-          padding:
-              const EdgeInsets.only(right: 20, top: 10, bottom: 20, left: 20),
+          padding: description != '' && description != null
+              ? const EdgeInsets.only(right: 20, top: 10, bottom: 20, left: 20)
+              : EdgeInsets.zero,
           child: Text(
             '$description',
+            style: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+          ),
+        ),
+        if (productService != '' && productService != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Text(
+              'Product and Service',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(fontWeight: FontWeight.w700),
+            ),
+          ),
+        Padding(
+          padding: productService != '' && productService != null
+              ? const EdgeInsets.only(right: 20, top: 10, bottom: 20, left: 20)
+              : EdgeInsets.zero,
+          child: Text(
+            '$productService',
             style: Theme.of(context)
                 .textTheme
                 .headline4!
@@ -345,9 +376,12 @@ class CustomCompanyTap extends StatelessWidget {
             ),
           ),
         ),
-        Divider(
-          thickness: 1.2,
-          color: Colors.grey[200],
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Divider(
+            thickness: 1.2,
+            color: Colors.grey[200],
+          ),
         )
       ],
     );
