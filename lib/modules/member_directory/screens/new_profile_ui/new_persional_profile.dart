@@ -84,6 +84,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
             widget.isDirectory == false
                 ? GestureDetector(
                     onTap: () {
+                      memberCon.onInitialProfileValue();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -152,6 +153,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                       () => customerUser.isloading.value
                           ? const SimmmerProfile()
                           : CustomUserProfile(
+                              isDirectories: widget.isDirectory,
                               imgUrl: widget.isDirectory == true
                                   ? widget.imgUrl
                                   : customerUser.customer.value.profile,
@@ -233,6 +235,8 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                           MaterialPageRoute(builder: (context) {
                             return EditProfileScreen(
                               onTapDone: () {
+                                Navigator.pop(context);
+
                                 memberCon.onSubmitCompany(context);
                                 memberCon.onClearCompany();
                               },

@@ -1271,6 +1271,17 @@ class MemberController extends GetxController {
   final memberPosition = ''.obs;
   final membercomapnyName = ''.obs;
   final memberAboutAs = ''.obs;
+  onInitialProfileValue() {
+    fullName.value = personalProfile.value.customerLatinName!;
+    memberPosition.value = personalProfile.value.title!;
+    membercomapnyName.value = personalProfile.value.companyName!;
+    phone.value = personalProfile.value.phone!;
+    gmail.value = personalProfile.value.email!;
+    telegram.value = personalProfile.value.telegram!;
+    webSite.value = personalProfile.value.website!;
+
+    memberAboutAs.value = personalProfile.value.about!;
+  }
 
   // Education Key
   final dateTime = DateFormat('yyyy-MM-dd');
@@ -2198,13 +2209,6 @@ class MemberController extends GetxController {
     }
     return personalProfilemember.value;
   }
-
-  // @override
-  // void onInit() {
-  //   fetchMemberPersonProfile(id: 21);
-
-  //   super.onInit();
-  // }
 
   final isLoadingProfile = false.obs;
   final personalProfile = PersonalProfileModel().obs;

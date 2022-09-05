@@ -289,7 +289,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                             width: 40.0,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Theme.of(context).primaryColor),
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withAlpha(16)),
                             child: SvgPicture.asset(
                               'assets/images/svgfile/pdfcertificate.svg',
                             ),

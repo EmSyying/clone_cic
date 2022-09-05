@@ -36,7 +36,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final memberCon = Get.put(MemberController());
   final customerCon = Get.put(CustomerController());
   final uploadImageCon = Get.put(UploadFileController());
-  bool? isDisableDone = false;
+  bool? isDisableDone = true;
   // @override
   // void initState() {
   //   super.initState();
@@ -84,31 +84,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onPressed: isDisableDone == true
                       ? null
                       : () {
-                          Navigator.pop(context);
                           widget.onTapDone!();
                         },
-
-                  // widget.isEditCompany == true
-                  //     ? setState(() {
-                  //         memberCon.update();
-                  //         // formkey.currentState!.save();
-                  //         memberCon.onUpdateCompany(context, widget.id!);
-                  //         memberCon.fetchCompanyMember(
-                  //             id: customerCon.customer.value.id);
-                  //         // debugPrint(
-                  //         //     'helooo name:${memberCon.personalProfilemember.value.fullName}');
-                  //       })
-                  //     : setState(() {
-                  //         memberCon.update();
-                  //         // formkey.currentState!.save();
-                  //         memberCon.updatePersonalProfile(context);
-                  //         memberCon.fetchMemberPersonProfile(
-                  //             id: customerCon.customer.value.id);
-
-                  //         debugPrint(
-                  //             'helooo name:${memberCon.personalProfilemember.value.fullName}');
-                  //       });
-
                   child: Text(
                     'Done',
                     style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -204,131 +181,164 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           padding: const EdgeInsets.only(top: 20, bottom: 30),
                           child: Column(
                             children: [
+                              Text(isDisableDone.toString()),
                               CustomTextFieldNew(
-                                hintText: 'Name',
-                                onChange: (name) {
+                                  hintText: 'Name',
+                                  onChange: (name) {
+                                    setState(() {
+                                      if (name == '') {
+                                        isDisableDone = true;
+                                        memberCon.fullName.value = '';
+                                      } else {
+                                        isDisableDone = false;
+                                        memberCon.fullName.value = name;
+                                      }
+                                    });
+                                  },
+                                  isValidate: true,
+                                  labelText: 'Name',
+                                  initialValue: memberCon.fullName.value != ''
+                                      ? memberCon.fullName.value
+                                      : ''),
+                              CustomTextFieldNew(
+                                hintText: 'Title',
+                                onChange: (title) {
                                   setState(() {
-                                    if (name.isEmpty ||
-                                        memberCon.fullName.value ==
-                                            memberCon.personalProfile.value
-                                                .customerLatinName) {
+                                    if (title == '') {
                                       isDisableDone = true;
-                                      memberCon.fullName.value;
+                                      memberCon.memberPosition.value = '';
                                     } else {
                                       isDisableDone = false;
-                                      memberCon.fullName.value = name;
+                                      memberCon.memberPosition.value = title;
                                     }
                                   });
                                 },
                                 isValidate: true,
-                                labelText: 'Name',
-                                initialValue: memberCon.personalProfile.value
-                                        .customerLatinName ??
-                                    '',
-                              ),
-                              CustomTextFieldNew(
-                                hintText: 'Title',
-                                onChange: (title) {
-                                  if (title == '') {
-                                    memberCon.memberPosition.value;
-                                  } else {
-                                    memberCon.memberPosition.value = title;
-                                  }
-                                },
-                                isValidate: true,
                                 labelText: 'Title',
                                 initialValue:
-                                    memberCon.personalProfile.value.title ?? '',
+                                    memberCon.memberPosition.value != ''
+                                        ? memberCon.memberPosition.value
+                                        : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Company Name',
-                                onChange: (title) {
-                                  if (title == '') {
-                                    memberCon.companyName.value;
-                                  } else {
-                                    memberCon.companyName.value = title;
-                                  }
+                                onChange: (companyName) {
+                                  setState(() {
+                                    if (companyName == '') {
+                                      isDisableDone = true;
+
+                                      memberCon.companyName.value = '';
+                                    } else {
+                                      isDisableDone = false;
+                                      memberCon.companyName.value = companyName;
+                                    }
+                                  });
                                 },
                                 isValidate: true,
                                 labelText: 'Company Name',
-                                initialValue: memberCon
-                                        .personalProfile.value.companyName ??
-                                    '',
+                                initialValue: memberCon.companyName.value != ''
+                                    ? memberCon.companyName.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 keyboardType: TextInputType.number,
                                 hintText: 'Phone Number',
                                 enable: false,
                                 onChange: (phone) {
-                                  if (phone == '') {
-                                    memberCon.phone.value;
-                                  } else {
-                                    memberCon.phone.value = phone;
-                                  }
+                                  setState(() {
+                                    if (phone == '') {
+                                      isDisableDone = true;
+                                      memberCon.phone.value = '';
+                                    } else {
+                                      isDisableDone = false;
+                                      memberCon.phone.value = phone;
+                                    }
+                                  });
                                 },
                                 isValidate: true,
                                 labelText: 'Phone Number',
-                                initialValue:
-                                    memberCon.personalProfile.value.phone ?? '',
+                                initialValue: memberCon.phone.value != ''
+                                    ? memberCon.phone.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Email',
                                 onChange: (email) {
-                                  if (email == '') {
-                                    memberCon.gmail.value;
-                                  } else {
-                                    memberCon.gmail.value = email;
-                                  }
+                                  setState(() {
+                                    if (email == '') {
+                                      isDisableDone = true;
+                                      memberCon.gmail.value = '';
+                                    } else {
+                                      isDisableDone = false;
+                                      memberCon.gmail.value = email;
+                                    }
+                                  });
                                 },
                                 isValidate: true,
                                 labelText: 'Email',
-                                initialValue:
-                                    memberCon.personalProfile.value.email ?? '',
+                                initialValue: memberCon.gmail.value != ''
+                                    ? memberCon.gmail.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Telegram',
                                 onChange: (telegram) {
-                                  if (telegram == '') {
-                                    memberCon.telegram.value;
-                                  } else {
-                                    memberCon.telegram.value = telegram;
-                                  }
+                                  setState(() {
+                                    if (telegram == '') {
+                                      isDisableDone = true;
+                                      memberCon.telegram.value = '';
+                                    } else {
+                                      isDisableDone = false;
+                                      memberCon.telegram.value = telegram;
+                                    }
+                                  });
                                 },
                                 isValidate: true,
                                 labelText: 'Telegram',
-                                initialValue:
-                                    memberCon.personalProfile.value.telegram ??
-                                        '',
+                                initialValue: memberCon.telegram.value != ''
+                                    ? memberCon.telegram.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'Website',
                                 onChange: (website) {
-                                  if (website == '') {
-                                    memberCon.webSite.value;
-                                  } else {
-                                    memberCon.webSite.value = website;
-                                  }
+                                  setState(() {
+                                    if (website == '') {
+                                      isDisableDone = true;
+                                      memberCon.webSite.value = '';
+                                    } else {
+                                      isDisableDone = false;
+                                      memberCon.webSite.value = website;
+                                    }
+                                  });
                                 },
                                 isValidate: true,
                                 labelText: 'Website',
-                                initialValue:
-                                    memberCon.personalProfile.value.website ??
-                                        '',
+                                initialValue: memberCon.webSite.value != ''
+                                    ? memberCon.webSite.value
+                                    : '',
                               ),
                               CustomTextFieldNew(
                                 hintText: 'About Us',
                                 onChange: (aboutAs) {
-                                  if (aboutAs == '') {
-                                    memberCon.memberAboutAs.value;
-                                  } else {
-                                    memberCon.memberAboutAs.value = aboutAs;
-                                  }
+                                  setState(() {
+                                    if (aboutAs == '') {
+                                      isDisableDone = true;
+
+                                      memberCon.memberAboutAs.value = '';
+                                    } else {
+                                      isDisableDone = false;
+                                      memberCon.memberAboutAs.value = aboutAs;
+                                    }
+                                  });
                                 },
                                 isValidate: true,
                                 labelText: 'About Us',
                                 maxLine: 7,
                                 initialValue:
-                                    memberCon.personalProfile.value.about ?? '',
+                                    memberCon.memberAboutAs.value != ''
+                                        ? memberCon.memberAboutAs.value
+                                        : '',
                               ),
                             ],
                           ),

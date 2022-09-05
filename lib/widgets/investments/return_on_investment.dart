@@ -63,7 +63,7 @@ class _ReturnOnInvestmentState extends State<ReturnOnInvestment> {
                         child: Row(
                           children: [
                             SvgPicture.asset(
-                                "assets/images/svgfile/returninvest.svg"),
+                                "assets/images/svgfile/shareInfo.svg"),
                             const SizedBox(width: 20.0),
                             Text(
                               "Return On Investment",
