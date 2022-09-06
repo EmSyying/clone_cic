@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/result_search.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../Utils/helper/color.dart';
+import '../../../../utils/helper/color.dart';
 import '../../../../widgets/privilege/custom_shimmer_allshop.dart';
 import '../../../../widgets/privilege/privilege/costom_all_stores.dart';
 import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
@@ -19,9 +20,11 @@ class SearchScreen extends StatefulWidget {
     Key? key,
     this.locationCode,
     this.locationName,
+    this.fromPage,
   }) : super(key: key);
   final String? locationCode;
   final String? locationName;
+  final String? fromPage;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -40,7 +43,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void dispose() {
     privilegController.onClearSearch();
-    privilegController.categoryFilterList.clear();
 
     super.dispose();
   }
@@ -86,8 +88,6 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           onTap: () {
-            privilegController.onFetchAllStore(1);
-            // privilegController.onClearSearch();
             Navigator.pop(context);
           },
         ),
@@ -115,8 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
       body: Obx(
-        () => widget.locationCode != null ||
-                privilegController.categoryFilterList.isNotEmpty
+        () => widget.locationName != null
             ? privilegController.isLoadingCategoryFilter.value
                 ? const Padding(
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -165,40 +164,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             ],
                           ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 20.0, bottom: 20.0),
-                            child: Text(
-                              "${privilegController.categoryFilterList.length} store search in",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w300,
-                                    color: const Color(0xff000000),
-                                    letterSpacing: 0.2,
-                                  ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 20.0, left: 10.0),
-                            child: Text(
-                              "\"${widget.locationName}\"",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff000000),
-                                    letterSpacing: 0.2,
-                                  ),
-                            ),
-                          ),
-                        ],
                       ),
                       SingleChildScrollView(
                         child: Padding(
@@ -429,6 +394,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     .map(
                                       (location) => GestureDetector(
                                         onTap: () {
+                                          privilegController.locationCode
+                                              .value = location.value.code!;
                                           debugPrint(
                                               "is go to search by location");
                                           privilegController
@@ -439,7 +406,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  SearchScreen(
+                                                  ResultSearch(
                                                 locationName:
                                                     location.value.province,
                                                 locationCode:

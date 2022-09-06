@@ -157,6 +157,18 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                               ),
                               onPressed: () {
                                 Navigator.pop(context);
+                                // debugPrint(
+                                //     "Location Name:${priController.locationName.value}");
+                                // debugPrint(
+                                //     "Categories:${priController.categoriesId.value}");
+                                if (priController.categoriesId.value != 0 ||
+                                    priController.locationCode.value != "") {
+                                  priController.onFilterByCategoriesByLocation(
+                                      location:
+                                          priController.locationCode.value,
+                                      categoryId:
+                                          priController.categoriesId.value);
+                                }
                               },
                             ),
                           ),
@@ -524,30 +536,39 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
               ),
             );
 
-  Widget buildGridImage() => GridView.builder(
-        padding: const EdgeInsets.only(top: 30.0),
-        itemCount: priController.shopDetailModel.value.galleries!.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 14,
-          crossAxisSpacing: 14,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () async {
-              await onPreviewImage(
-                isNoIconDownload: false,
-                heroTag: 'view',
-                context: context,
-                imageUrl: priController.shopDetailModel.value.galleries![index],
-              );
-            },
-            child: imageGalleries(
-              priController.shopDetailModel.value.galleries![index],
-            ),
-          );
-        },
-      );
+  Widget buildGridImage() =>
+      priController.shopDetailModel.value.galleries!.isNotEmpty
+          ? GridView.builder(
+              padding: const EdgeInsets.only(top: 30.0),
+              itemCount: priController.shopDetailModel.value.galleries!.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 14,
+                crossAxisSpacing: 14,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () async {
+                    await onPreviewImage(
+                      isNoIconDownload: false,
+                      heroTag: 'view',
+                      context: context,
+                      imageUrl:
+                          priController.shopDetailModel.value.galleries![index],
+                    );
+                  },
+                  child: imageGalleries(
+                    priController.shopDetailModel.value.galleries![index],
+                  ),
+                );
+              },
+            )
+          : const SingleChildScrollView(
+              child: CustomEmptyState(
+                title: 'No Galleries Days',
+                description: 'It seems you have no galleries days yet',
+              ),
+            );
 
   Widget openingDays({
     String? titleDay,

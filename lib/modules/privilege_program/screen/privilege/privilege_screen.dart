@@ -179,7 +179,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const SearchScreen(),
+                                  builder: (context) => SearchScreen(),
                                 ),
                               );
                             },

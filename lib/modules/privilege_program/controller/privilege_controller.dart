@@ -213,6 +213,7 @@ class PrivilegeController extends GetxController {
 
   // category & location filter
   final locationName = "".obs;
+  final locationCode = "".obs;
   final isLoadingCategoryFilter = false.obs;
   final categoryFilterModel = PrivilegeShopModel().obs;
   final categoryFilterList = <PrivilegeShopModel>[].obs;

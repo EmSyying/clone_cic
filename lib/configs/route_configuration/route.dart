@@ -699,7 +699,7 @@ final router = GoRouter(
               GoRoute(
                 path: 'search',
                 name: 'Search',
-                builder: (context, state) => const SearchScreen(),
+                builder: (context, state) => SearchScreen(),
               ),
               GoRoute(
                 name: 'Filter',
