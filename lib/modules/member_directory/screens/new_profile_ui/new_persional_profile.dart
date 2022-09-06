@@ -89,6 +89,8 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                         MaterialPageRoute(
                           builder: (context) {
                             return EditProfileScreen(
+                              titleDone: 'Done',
+                              appBarTitle: 'Edit Profile',
                               onTapPhotoProfile: () {
                                 uploadImageCon.uploadImage(context);
                               },

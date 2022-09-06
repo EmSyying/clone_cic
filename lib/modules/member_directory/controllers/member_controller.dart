@@ -148,6 +148,7 @@ class MemberController extends GetxController {
   //Company
   final comId = 0.obs;
   final comCompanyName = ''.obs;
+  final isCompanyName = true.obs;
   final comSlogan = ''.obs;
   final comKhmerName = ''.obs;
   final comMajorOfBusiness = ''.obs;
@@ -525,8 +526,7 @@ class MemberController extends GetxController {
       base64Image = base64Encode(companyLogos);
     }
     var data = json.encode({
-      //  "id": _customerController.customer.value.customerId,
-      "company_name": comEmail.value,
+      "company_name": comCompanyName.value,
       "company_slogan": comSlogan.value,
       "member_id": _customerController.customer.value.customerId,
       "khmer_name": comKhmerName.value,

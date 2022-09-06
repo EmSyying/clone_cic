@@ -132,16 +132,19 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return EditProfileScreen(
+                                    titleDone: 'Done',
+                                    appBarTitle: 'Edit Company',
                                     id: e.value.id,
                                     onTapPhotoProfile: () {
                                       uploadImageCon.uploadImage(context,
                                           isCompany: true);
                                     },
-                                    isEditCompany: true,
                                     onTapDone: () {
                                       memberCon.onUpdateCompany(
                                           context, e.value.id!);
                                     },
+                                    isCreateCompany: true,
+                                    isEditCompany: true,
                                   );
                                 }));
                               },
@@ -158,11 +161,8 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 context,
                                 MaterialPageRoute(builder: (context) {
                                   return EditProfileScreen(
-                                    onTapDone: () {
-                                      memberCon.onSubmitCompany(context);
-                                      memberCon.onClearCompany();
-                                    },
-                                    isEditCompany: true,
+                                    appBarTitle: 'Add Company',
+                                    isCreateCompany: true,
                                     // companyData: memberCon.company.value,
                                     onTapPhotoProfile: () {
                                       uploadImageCon.uploadImage(context,

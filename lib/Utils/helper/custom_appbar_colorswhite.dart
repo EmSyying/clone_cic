@@ -10,6 +10,7 @@ CustomAppBarWhiteColor({
   Widget? leading,
   List<Widget>? action,
   String? title,
+  Widget? widgetTitle,
   String? subtitle,
   Color? backgroundColor,
   double? elevation,
@@ -32,26 +33,27 @@ CustomAppBarWhiteColor({
               onPressed: () {
                 Navigator.pop(context!);
               }),
-      title: Column(
-        children: [
-          Text(
-            title ?? '',
-            style: const TextStyle(color: Colors.black),
+      title: widgetTitle ??
+          Column(
+            children: [
+              Text(
+                title ?? '',
+                style: const TextStyle(color: Colors.black),
+              ),
+              if (subtitle == "Rejected" ||
+                  subtitle == "Approved" ||
+                  subtitle == "Review")
+                Text(
+                  subtitle!,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: subtitle == "Rejected"
+                          ? const Color(0xffED1E26)
+                          : subtitle == "Review"
+                              ? const Color(0xffE28112)
+                              : const Color(0xff75BF72)),
+                ),
+            ],
           ),
-          if (subtitle == "Rejected" ||
-              subtitle == "Approved" ||
-              subtitle == "Review")
-            Text(
-              subtitle!,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: subtitle == "Rejected"
-                      ? const Color(0xffED1E26)
-                      : subtitle == "Review"
-                          ? const Color(0xffE28112)
-                          : const Color(0xff75BF72)),
-            ),
-        ],
-      ),
       systemOverlayStyle: SystemUiOverlayStyle.dark);
 }
