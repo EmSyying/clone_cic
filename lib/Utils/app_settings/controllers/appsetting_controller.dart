@@ -114,7 +114,8 @@ class SettingController extends GetxController {
     SlideModel slide = SlideModel();
     isLoading(true);
     var token = LocalData.getCurrentUser();
-    String url = '${GlobalConfiguration().get('api_base_url')}slide?type=Slide';
+    String url =
+        '${GlobalConfiguration().get('api_base_urlv3')}slide?type=Slide';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
