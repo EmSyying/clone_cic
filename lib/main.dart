@@ -593,7 +593,7 @@ class MyApp extends StatelessWidget {
                 secondaryHeaderColor: AppColor.secondaryColor,
                 cardColor: Colors.white,
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                    unselectedItemColor: Colors.black,
+                    unselectedItemColor: const Color(0XFF848F92),
                     selectedItemColor: Theme.of(context).primaryColor),
                 textTheme: TextTheme(
                   //appbar text

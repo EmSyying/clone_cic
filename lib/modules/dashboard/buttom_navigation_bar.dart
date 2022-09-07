@@ -279,8 +279,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
                     selectedItemColor: AppColor.mainColor,
 
-                    unselectedLabelStyle:
-                        const TextStyle(color: Color(0XFF848F92)),
                     onTap: _settingCon.onTap,
                   ),
             backgroundColor: AppColor.backgroundColor,
