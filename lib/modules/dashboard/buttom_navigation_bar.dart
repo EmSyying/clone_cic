@@ -26,6 +26,7 @@ import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../configs/route_configuration/route.dart';
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
+import '../event_module/screen/event.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
@@ -254,12 +255,12 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                       //       'assets/images/svgfile/menu/activesearchmenu.svg'),
                       //   label: S.of(context).search,
                       // ),
-                      // BottomNavigationBarItem(
-                      //     icon: SvgPicture.asset(
-                      //         'assets/images/svgfile/menu/eventInactive.svg'),
-                      //     activeIcon: SvgPicture.asset(
-                      //         'assets/images/svgfile/menu/eventActive.svg'),
-                      //     label: S.of(context).event),
+                      BottomNavigationBarItem(
+                          icon: SvgPicture.asset(
+                              'assets/images/svgfile/menu/eventInactive.svg'),
+                          activeIcon: SvgPicture.asset(
+                              'assets/images/svgfile/menu/eventActive.svg'),
+                          label: S.of(context).event),
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
                             'assets/images/svgfile/menu/account.svg'),
@@ -288,7 +289,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
               const QrCodeScreen(),
               // LearningHome(),
               // SearchScreen(),
-              // const EventScreen(),
+              const EventScreen(),
               //  Report(),
               //  BuySell(),
               // HomePage(),
