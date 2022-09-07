@@ -37,7 +37,6 @@ class _SplashscreenState extends State<Splashscreen>
         Future.delayed(const Duration(seconds: 3), () {
           isLoading = false;
           setState(() {});
-          context.go('/');
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const StartupSlide()));
         });

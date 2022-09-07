@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Utils/helper/store_utils.dart';
+
 class ApprovePaymentController extends GetxController {
   final isLoading = true.obs;
   final token = ''.obs;
@@ -30,8 +32,8 @@ class ApprovePaymentController extends GetxController {
       ).then((respone) {
         if (respone.statusCode == 200) {
           var responeData = json.decode(respone.body)['data'];
-          final _paymentSchedule = PaymentSchedules.fromjson(responeData);
-          paymentSchedule.value = _paymentSchedule;
+          final paySchedule = PaymentSchedules.fromjson(responeData);
+          paymentSchedule.value = paySchedule;
 
           isLoading(false);
 
@@ -62,8 +64,8 @@ class ApprovePaymentController extends GetxController {
       ).then((respone) {
         if (respone.statusCode == 200) {
           var responeData = json.decode(respone.body)['data'];
-          final _payment = Payment.fromJson(responeData);
-          payment.value = _payment;
+          final pay = Payment.fromJson(responeData);
+          payment.value = pay;
 
           isLoading.value = false;
         }
@@ -118,8 +120,7 @@ class ApprovePaymentController extends GetxController {
   }
 
   getCurrentUser() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    token.value = pref.getString('current_user')!;
+    token.value = StorageUtil.getString('current_user');
   }
 
   @override

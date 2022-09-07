@@ -54,7 +54,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
       }).then((response) {
         if (response.statusCode == 200) {
           var userToken = json.decode(response.body)['access_token'];
-          sharedPrefs.setString('current_user', userToken);
+          sharedPrefs.setString('current_user', userToken ?? "");
 
           _customerController.isLoginSuccess(true);
           LocalData.userLogin('userLogin', true);

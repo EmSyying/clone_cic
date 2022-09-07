@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/store_utils.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class NotificationController extends GetxController {
@@ -33,8 +33,7 @@ class NotificationController extends GetxController {
     isLoadingNotification(true);
     final notifications = NotificationModel().obs;
 
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    token.value = pref.getString('current_user')!;
+    token.value = StorageUtil.getString('current_user');
     String url =
         '${GlobalConfiguration().getValue('api_base_url')}user/notification';
     try {
@@ -104,8 +103,8 @@ class NotificationController extends GetxController {
   Future<int> countNotification() async {
     String url =
         '${GlobalConfiguration().getValue('api_base_url')}user/notification?only=unread&count=true';
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    token.value = pref.getString('current_user')!;
+
+    token.value = StorageUtil.getString('current_user');
     await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -121,8 +120,8 @@ class NotificationController extends GetxController {
   onReadNotification(String ids) async {
     String url =
         '${GlobalConfiguration().getValue('api_base_url')}user/notification/readordelete?to=read&ids=["$ids"]';
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    token.value = pref.getString('current_user')!;
+
+    token.value = StorageUtil.getString('current_user');
 
     await http.put(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
