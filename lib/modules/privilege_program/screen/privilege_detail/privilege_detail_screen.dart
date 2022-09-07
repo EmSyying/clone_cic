@@ -157,10 +157,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                               ),
                               onPressed: () {
                                 Navigator.pop(context);
-                                // debugPrint(
-                                //     "Location Name:${priController.locationName.value}");
-                                // debugPrint(
-                                //     "Categories:${priController.categoriesId.value}");
+
                                 if (priController.categoriesId.value != 0 ||
                                     priController.locationCode.value != "") {
                                   priController.onFilterByCategoriesByLocation(
@@ -169,6 +166,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                       categoryId:
                                           priController.categoriesId.value);
                                 }
+                                priController.onRefreshPrivilege();
                               },
                             ),
                           ),

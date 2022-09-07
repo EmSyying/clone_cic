@@ -33,28 +33,6 @@ class _ResultSearchState extends State<ResultSearch> {
     super.initState();
   }
 
-  // onChangeHandler1(value) {
-  //   const duration = Duration(milliseconds: 800);
-  //   if (searchOnStoppedTyping != null) {
-  //     // clear timer
-  //     setState(() => searchOnStoppedTyping!.cancel());
-  //   }
-  //   setState(() =>
-  //       searchOnStoppedTyping = Timer(duration, () => searchText1(value)));
-  // }
-
-  // searchText1(textSearch) async {
-  //   if (textSearch.replaceAll(' ', '').isNotEmpty) {
-  //     privilegCon.onSearchStores(keySearch: textSearch, isLocation: true);
-  //     privilegCon.onSearchStores(keySearch: textSearch);
-  //   } else {
-  //     privilegCon.searchShopList.clear();
-  //     privilegCon.searchLocationList.clear();
-
-  //     privilegCon.update();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
