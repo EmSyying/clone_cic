@@ -229,18 +229,20 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                     items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/home.svg'),
+                          'assets/images/svgfile/menu/home.svg',
+                          color: const Color(0XFF848F92),
+                        ),
                         label: S.of(context).homeMenu,
                         activeIcon: SvgPicture.asset(
                             'assets/images/svgfile/menu/HomeActiveIcon.svg'),
                       ),
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/qrcodeInactive.svg',
-                        ),
+                            'assets/images/svgfile/menu/qrcodeInactive.svg',
+                            color: const Color(0XFF848F92)),
                         activeIcon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/qrCodeActive.svg',
-                        ),
+                            'assets/images/svgfile/menu/qrCodeActive.svg',
+                            color: const Color(0XFF848F92)),
                         label: S.of(context).qrCode,
                       ),
                       // BottomNavigationBarItem(
@@ -263,7 +265,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                           label: S.of(context).event),
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/account.svg'),
+                            'assets/images/svgfile/menu/account.svg',
+                            color: const Color(0XFF848F92)),
                         activeIcon: SvgPicture.asset(
                             'assets/images/svgfile/menu/accountActive.svg'),
                         label: S.of(context).profile,
@@ -275,10 +278,9 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                         .unselectedItemColor,
 
                     selectedItemColor: AppColor.mainColor,
-                    //        selectedItemColor:
-                    //            DynamicTheme.of(context).brightness == Brightness.light
-                    //                ? AppColor.mainColor
-                    //                : Colors.white,
+
+                    unselectedLabelStyle:
+                        const TextStyle(color: Color(0XFF848F92)),
                     onTap: _settingCon.onTap,
                   ),
             backgroundColor: AppColor.backgroundColor,

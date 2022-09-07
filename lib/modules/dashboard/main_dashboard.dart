@@ -818,87 +818,93 @@ class _MainDashboardState extends State<MainDashboard> {
             // ShowAppTour(key: myInvestmentKey, child: Text('Hello World')),
             // ShowCaseWidget(builder: builder);
             // Showcase(key: key, child: child, description: description);
-            Obx(() => !_settingCon.isLoading.value &&
-                    _settingCon.slideList!.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: AspectRatio(
-                        aspectRatio: 5 / 2.3,
-                        child: Swiper(
-                            loop: true,
-                            index: currentIndex,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              if (_settingCon.slideList![index].status ==
-                                  'Active') {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Stack(
-                                    children: [
-                                      Positioned.fill(
-                                        child: CachedNetworkImage(
-                                          imageUrl: _settingCon
-                                              .slideList![index].image!,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 5,
-                                        right: 10,
-                                        child: _settingCon.slideList![index]
-                                                        .button !=
-                                                    null &&
-                                                _settingCon.slideList![index]
-                                                    .button!.isNotEmpty
-                                            ? Row(
-                                                children:
+            Obx(
+                () =>
+                    !_settingCon.isLoading.value &&
+                            _settingCon.slideList!.isNotEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: AspectRatio(
+                                aspectRatio: 5 / 2.3,
+                                child: Swiper(
+                                    loop: true,
+                                    index: currentIndex,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      if (_settingCon
+                                              .slideList![index].status ==
+                                          'Active') {
+                                        return ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Stack(
+                                            children: [
+                                              Positioned.fill(
+                                                child: CachedNetworkImage(
+                                                  imageUrl: _settingCon
+                                                      .slideList![index].image!,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              Positioned(
+                                                bottom: 5,
+                                                right: 10,
+                                                child:
                                                     _settingCon
-                                                        .slideList![index]
-                                                        .button!
-                                                        .map(
-                                                          (button) => Link(
-                                                            uri: Uri.tryParse(
-                                                                button.target!),
-                                                            builder: (context,
-                                                                    followLink) =>
-                                                                ElevatedButton(
-                                                                    style: ElevatedButton.styleFrom(
-                                                                        primary:
-                                                                            Theme.of(context)
-                                                                                .primaryColor),
-                                                                    onPressed:
-                                                                        followLink,
-                                                                    child: Text(
-                                                                        button
-                                                                            .title!)),
-                                                          ),
-                                                        )
-                                                        .toList(),
+                                                                    .slideList![
+                                                                        index]
+                                                                    .button !=
+                                                                null &&
+                                                            _settingCon
+                                                                .slideList![
+                                                                    index]
+                                                                .button!
+                                                                .isNotEmpty
+                                                        ? Row(
+                                                            children:
+                                                                _settingCon
+                                                                    .slideList![
+                                                                        index]
+                                                                    .button!
+                                                                    .map(
+                                                                      (button) =>
+                                                                          Link(
+                                                                        uri: Uri.tryParse(
+                                                                            button.target!),
+                                                                        builder: (context, followLink) => ElevatedButton(
+                                                                            style: ElevatedButton.styleFrom(
+                                                                              primary: Theme.of(context).primaryColor.withAlpha(110),
+                                                                            ),
+                                                                            onPressed: followLink,
+                                                                            child: Text(button.title!)),
+                                                                      ),
+                                                                    )
+                                                                    .toList(),
+                                                          )
+                                                        : Container(),
                                               )
-                                            : Container(),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                              return Container();
-                            },
-                            onIndexChanged: (value) {
-                              setState(() {
-                                currentIndex = value;
-                              });
-                            },
-                            curve: Curves.easeIn,
-                            autoplay: true,
-                            itemCount: _settingCon.slideList!.length,
-                            viewportFraction: 1,
-                            scale: 0.9)),
-                  )
-                : const SizedBox(
-                    height: 180,
-                    width: double.infinity,
-                  )),
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                      return Container();
+                                    },
+                                    onIndexChanged: (value) {
+                                      setState(() {
+                                        currentIndex = value;
+                                      });
+                                    },
+                                    curve: Curves.easeIn,
+                                    autoplay: true,
+                                    itemCount: _settingCon.slideList!.length,
+                                    viewportFraction: 1,
+                                    scale: 0.9)),
+                          )
+                        : const SizedBox(
+                            height: 180,
+                            width: double.infinity,
+                          )),
             Obx(() => !_settingCon.isLoading.value
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
