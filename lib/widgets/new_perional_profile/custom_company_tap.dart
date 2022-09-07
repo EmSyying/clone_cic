@@ -11,7 +11,7 @@ class CustomCompanyTap extends StatelessWidget {
   final String? slogan;
   final String? imageProfile;
   final String? description;
-  final String? image;
+
   final String? phone;
   final String? email;
   final String? address;
@@ -27,6 +27,7 @@ class CustomCompanyTap extends StatelessWidget {
   final bool? isEdiable;
   final bool? isHidenAddress;
   final int? id;
+  final List<String>? image;
   const CustomCompanyTap(
       {Key? key,
       this.companyName,
@@ -368,7 +369,7 @@ class CustomCompanyTap extends StatelessWidget {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    '$image',
+                    image![index],
                     fit: BoxFit.cover,
                   ),
                 );

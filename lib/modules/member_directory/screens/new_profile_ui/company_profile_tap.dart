@@ -81,8 +81,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               companyName: e.value.companyName,
                               slogan: e.value.companySlogan,
                               description: e.value.companyProfile ?? '',
-                              image:
-                                  'https://www.khmertimeskh.com/wp-content/uploads/2019/11/Youk-Chamroeunrith-Chairman-of-Forte-Life-Assurance-Cambodia-L-and-Kuy-Vat-Siv-Channa-1.jpg',
+                              image: e.value.companyActivityImages,
                               phone: e.value.phoneNumber ?? '',
                               email: e.value.email ?? '',
                               address: e.value.address ?? '',
@@ -122,12 +121,14 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                     e.value.companyName!;
                                 memberCon.comphonenumber.value =
                                     e.value.phoneNumber!;
+                                memberCon.comSlogan.value =
+                                    e.value.companySlogan!;
                                 memberCon.comEmail.value = e.value.email!;
                                 memberCon.comaddress.value = e.value.address!;
                                 memberCon.comWebsite.value = e.value.website!;
-                                memberCon.comCompanyProfile.value =
+                                memberCon.comProfile.value =
                                     e.value.companyProfile!;
-                                memberCon.comcompanyproductandservice.value =
+                                memberCon.comproductandservice.value =
                                     e.value.companyProductAndService!;
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {

@@ -79,8 +79,7 @@ class _CompanyPageState extends State<CompanyPage> {
 
   void setdata(e) {
     _memberCon.comCompanyLogoString.value = e.value.companyLogo!;
-    _memberCon.comcompanyproductandservice.value =
-        e.value.companyProductAndService!;
+    _memberCon.comproductandservice.value = e.value.companyProductAndService!;
     _memberCon.comCompanyName.value = e.value.companyName!;
     _memberCon.comKhmerName.value = e.value.khmerName!;
     _memberCon.comPositions.value = e.value.position!;
@@ -102,7 +101,7 @@ class _CompanyPageState extends State<CompanyPage> {
   void resetdata() {
     _memberCon.comCompanyLogo = null;
     _memberCon.comCompanyLogoString.value = '';
-    _memberCon.comcompanyproductandservice.value = '';
+    _memberCon.comproductandservice.value = '';
     _memberCon.comCompanyName.value = '';
     _memberCon.comKhmerName.value = '';
     _memberCon.comPositions.value = '';

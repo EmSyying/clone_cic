@@ -53,6 +53,7 @@ class MemberController extends GetxController {
   final isNomoreData = false.obs;
   final currentPage = 0.obs;
   final isEmty = false.obs;
+  final isDisableDoneButton = true.obs;
   final mapList = <String, List<int>>{}.obs;
 
   final educationMemberData = <EducationData>[].obs;
@@ -121,7 +122,6 @@ class MemberController extends GetxController {
     gmail.value = personalProfile.value.email!;
     telegram.value = personalProfile.value.telegram!;
     webSite.value = personalProfile.value.website!;
-
     memberAboutAs.value = personalProfile.value.about!;
   }
 
@@ -163,8 +163,8 @@ class MemberController extends GetxController {
   final comYearfounded = ''.obs;
   final comIsPrimary = ''.obs;
   final comPersonalInterest = ''.obs;
-  final comCompanyProfile = ''.obs;
-  final comcompanyproductandservice = ''.obs;
+  final comProfile = ''.obs;
+  final comproductandservice = ''.obs;
   final comhouseno = ''.obs;
   final comstreetno = ''.obs;
   final comaddress = ''.obs;
@@ -321,8 +321,8 @@ class MemberController extends GetxController {
           "position": comPositions.value,
           "company_logo":
               base64Image == '' ? '' : "data:image/png;base64,$base64Image",
-          "company_profile": comCompanyProfile.value,
-          "company_product_and_service": comcompanyproductandservice.value,
+          "company_profile": comProfile.value,
+          "company_product_and_service": comproductandservice.value,
           "house_no": comhouseno.value,
           "street_no": comstreetno.value,
           "address": comaddress.value,
@@ -357,6 +357,7 @@ class MemberController extends GetxController {
       isLoadingUpdateComapny(false);
       update();
     }).onError((ErrorModel errorModel, stackTrace) {
+      debugPrint('hello error:${errorModel.bodyString}');
       customRouterSnackbar(
         title: 'Fialed...!',
         description: 'Company Updated Failed...!',
@@ -365,137 +366,6 @@ class MemberController extends GetxController {
     });
   }
 
-  // Future<void> onUpdateCompany(BuildContext context, int id) async {
-  //   String url =
-  //       '${GlobalConfiguration().get('api_base_urlv3')}member-company/update';
-  //   // comCompanyLogo = uploadCon.imageFile;
-  //   if (comCompanyLogo != null) {
-  //     final byte = comCompanyLogo!.readAsBytesSync();
-  //     final companyLogos = await FlutterImageCompress.compressWithList(
-  //       byte.buffer.asUint8List(),
-  //       minWidth: 800,
-  //       minHeight: 800,
-  //       quality: 70,
-  //       rotate: 0,
-  //     );
-  //     base64Image = base64Encode(companyLogos);
-  //     debugPrint("Base 64 of Companhy Image: $base64Image");
-  //   } else if (comCompanyLogoString.value != '') {
-  //     base64Image = (await networkImageToBase64(comCompanyLogoString.value))!;
-  //   }
-
-  //   tokenKey = await LocalData.getCurrentUser();
-  //   // var data = json.encode({
-  //   //   "id": id,
-  //   //   "company_name": comCompanyName.value,
-  //   //   "member_id": _customerController.customer.value.customerId,
-  //   //   "khmer_name": comKhmerName.value,
-  //   //   "position": comPositions.value,
-  //   //   "company_logo":
-  //   //       base64Image == '' ? '' : "data:image/png;base64,$base64Image",
-  //   //   "company_profile": comCompanyProfile.value,
-  //   //   "company_product_and_service": comcompanyproductandservice.value,
-  //   //   "house_no": comhouseno.value,
-  //   //   "street_no": comstreetno.value,
-  //   //   "address": comaddress.value,
-  //   //   "phone_number": comphonenumber.value,
-  //   //   "email": comEmail.value,
-  //   //   "what_app": comWhatapp.value,
-  //   //   "telegram": comTelegram.value,
-  //   //   "messenger": comMessenger.value,
-  //   //   "skype": comSkype.value,
-  //   //   "we_chat": comWechat.value,
-  //   //   "website": comWebsite.value,
-  //   //   "facebook": comFacebook.value,
-  //   //   "linkedin": comLinkedin.value,
-  //   //   "twitter": comTwitter.value
-  //   // });
-
-  //   try {
-  //     isLoadingUpdateComapny(true);
-  //     await http.post(Uri.parse(url), headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer $tokenKey'
-  //     }, body: {
-  //       "id": id,
-  //       "company_name": comCompanyName.value,
-  //       "member_id": _customerController.customer.value.customerId,
-  //       "khmer_name": comKhmerName.value,
-  //       "position": comPositions.value,
-  //       "company_logo":
-  //           base64Image == '' ? '' : "data:image/png;base64,$base64Image",
-  //       "company_profile": comCompanyProfile.value,
-  //       "company_product_and_service": comcompanyproductandservice.value,
-  //       "house_no": comhouseno.value,
-  //       "street_no": comstreetno.value,
-  //       "address": comaddress.value,
-  //       "phone_number": comphonenumber.value,
-  //       "email": comEmail.value,
-  //       "what_app": comWhatapp.value,
-  //       "telegram": comTelegram.value,
-  //       "messenger": comMessenger.value,
-  //       "skype": comSkype.value,
-  //       "we_chat": comWechat.value,
-  //       "website": comWebsite.value,
-  //       "facebook": comFacebook.value,
-  //       "linkedin": comLinkedin.value,
-  //       "twitter": comTwitter.value
-  //     }).then((response) {
-  //       debugPrint('helooo123456++++_-----:${response.statusCode}');
-  //       if (response.statusCode == 200) {
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           const SnackBar(
-  //             behavior: SnackBarBehavior.floating,
-  //             content: Text("Company Updated Successful...!"),
-  //             backgroundColor: Colors.green,
-  //             padding: EdgeInsets.all(20),
-  //           ),
-  //         );
-  //         // Timer(const Duration(seconds: 1), () {
-  //         //   Navigator.pop(context);
-  //         // });
-  //         fetchCompanyMember();
-  //         update();
-  //       } else {
-  //         debugPrint('Status Code = ${response.body}');
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           const SnackBar(
-  //             behavior: SnackBarBehavior.floating,
-  //             content: Text("Company Updated Failed...!"),
-  //             backgroundColor: Colors.red,
-  //             padding: EdgeInsets.all(20),
-  //           ),
-  //         );
-  //         // Get.snackbar("", "Company Updated Failed...!",
-  //         //     borderRadius: 8,
-  //         //     duration: const Duration(seconds: 2),
-  //         //     backgroundColor: Colors.red,
-  //         //     colorText: Colors.white,
-  //         //     icon: const Icon(
-  //         //       Icons.close,
-  //         //       color: Colors.white,
-  //         //     ),
-  //         //     snackPosition: SnackPosition.TOP,
-  //         //     margin: const EdgeInsets.all(10),
-  //         //     overlayBlur: 3.0,
-  //         //     titleText: const Text(
-  //         //       'Updated Company',
-  //         //       style: TextStyle(color: Colors.white),
-  //         //     ),
-  //         //     messageText: const Text(
-  //         //       'Company Updated Failed...!',
-  //         //       style: TextStyle(color: Colors.white),
-  //         //     ),
-  //         //     snackStyle: SnackStyle.FLOATING);
-  //       }
-  //     });
-  //   } finally {
-  //     base64Image = '';
-  //     isLoadingUpdateComapny(false);
-  //   }
-  // }
-
   ///clear company form
   onClearCompany() {
     comCompanyName.value = '';
@@ -503,14 +373,14 @@ class MemberController extends GetxController {
     comEmail.value = '';
     comaddress.value = '';
     comWebsite.value = '';
-    comCompanyProfile.value = '';
-    comcompanyproductandservice.value = '';
+    comProfile.value = '';
+    comproductandservice.value = '';
     base64Image = '';
   }
 
 //submit company
   final isLoadingSubmitCompany = false.obs;
-  Future<void> onSubmitCompany(BuildContext context) async {
+  Future<void> onSubmitCompany(BuildContext? context) async {
     String url = '${GlobalConfiguration().get('api_base_urlv3')}member-company';
     tokenKey = await LocalData.getCurrentUser();
     debugPrint('heloo statuscode:+++++++++');
@@ -533,8 +403,8 @@ class MemberController extends GetxController {
       "company_logo":
           base64Image == '' ? '' : "data:image/png;base64,$base64Image",
       "position": comPositions.value,
-      "company_profile": comCompanyProfile.value,
-      "company_product_and_service": comcompanyproductandservice.value,
+      "company_profile": comProfile.value,
+      "company_product_and_service": comproductandservice.value,
       "house_no": comhouseno.value,
       "street_no": comstreetno.value,
       "address": comaddress.value,
@@ -576,7 +446,8 @@ class MemberController extends GetxController {
 
         // });
         fetchCompanyMember(id: cusController.customer.value.customerId);
-        fetchCompanyMemberDetail(cusController.customer.value.customerId!);
+        // fetchCompanyMemberDetail(cusController.customer.value.customerId!);
+        // Navigator.pop(context!);
       } else {
         debugPrint('heloo body fail++:${response.body}');
         debugPrint('heloo statuscode:+++++++++000000:${response.statusCode}');
@@ -597,6 +468,7 @@ class MemberController extends GetxController {
   final isLaodingUpdateProfile = false.obs;
   final cusController = Get.put(CustomerController());
   Future<void> updatePersonalProfile(BuildContext? context) async {
+    debugPrint('heloo1234567+++++:${gmail.value}');
     isLaodingUpdateProfile(true);
     await apiBaseHelpers.onNetworkRequesting(
         url: 'member-profile/update',
@@ -604,94 +476,99 @@ class MemberController extends GetxController {
         isAuthorize: true,
         body: {
           'member_id': _customerController.customer.value.customerId,
-          // 'position': '92',
-          'khmer_name': khmerName.value != ''
-              ? khmerName.value
-              : personalProfile.value.customerName,
           'company_name': membercomapnyName.value,
-          'full_name': fullName.value != ''
-              ? fullName.value
-              : '${personalProfile.value.customerLatinName}',
-          'date_of_birth': customerDateOfBirth.value != ''
-              ? customerDateOfBirth.value
-              : '${personalProfile.value.customerDateOfBirth}',
-          'gender': gender.value.display != null
-              ? '${gender.value.id}'
-              : personalProfile.value.customerGender!.id,
-          'nationality': nationality.id != null
-              ? "${nationality.id}"
-              : personalProfile.value.customerNationality!.id,
+          'full_name': fullName.value,
+          'phone': phone.value,
+          'email': gmail.value,
+          'telegram': telegram.value,
+          'website': webSite.value,
+          'about': memberAboutAs.value,
+          'title': memberPosition.value,
+          // 'member_id': _customerController.customer.value.customerId,
+          // // 'position': '92',
+          // 'khmer_name': khmerName.value != ''
+          //     ? khmerName.value
+          //     : personalProfile.value.customerName,
+          // 'company_name': membercomapnyName.value,
+          // 'full_name': fullName.value != ''
+          //     ? fullName.value
+          //     : '${personalProfile.value.customerLatinName}',
+          // 'date_of_birth': customerDateOfBirth.value != ''
+          //     ? customerDateOfBirth.value
+          //     : '${personalProfile.value.customerDateOfBirth}',
+          // 'gender': gender.value.display != null
+          //     ? '${gender.value.id}'
+          //     : personalProfile.value.customerGender!.id,
+          // 'nationality': nationality.id != null
+          //     ? "${nationality.id}"
+          //     : personalProfile.value.customerNationality!.id,
 
-          'identity_type': identityTypeCode.value != ''
-              ? identityTypeCode.value
-              : personalProfile.value.customerIdentityType!.id,
-          'identity_number': identityNumber.value != ''
-              ? identityNumber.value
-              : personalProfile.value.customerIdentityNumber,
-          'identity_date': identityDate.value != ''
-              ? identityDate.value
-              : personalProfile.value.customerIdentityDate,
-          'identity_expired_date': identityExpireDate.value != ''
-              ? identityExpireDate.value
-              : personalProfile.value.customerIdentityExpiredDate,
-          'current_address': currentAddress.value != ''
-              ? '$currentAddress'
-              : personalProfile.value.currentAddress!.village!.code != ''
-                  ? personalProfile.value.currentAddress!.village!.code
-                  : '',
-          'current_street_no': currentStreet.value != ''
-              ? '$currentStreet'
-              : personalProfile.value.streetNo,
-          'current_house_no': currentHours.value != ''
-              ? '#$currentHours'
-              : personalProfile.value.houseNo,
-          'permanent_address': permanentAddress.value != ''
-              ? '$permanentAddress'
-              : personalProfile.value.permanentAddress!.village!.code != ''
-                  ? personalProfile.value.permanentAddress!.village!.code
-                  : '',
-          'permanent_street_no': permanentStreet.value != ''
-              ? '$permanentStreet'
-              : personalProfile.value.permanentStreetNo,
-          'permanent_house_no': permanetHours.value != ''
-              ? '$permanetHours'
-              : personalProfile.value.permanentHouseNo,
-          'phone': _customerController.customer.value.phone != ''
-              ? _customerController.customer.value.phone
-              : personalProfile.value.phone,
-          'email':
-              gmail.value != '' ? gmail.value : personalProfile.value.email,
-          'whatapp': whatApp.value != ''
-              ? whatApp.value
-              : personalProfile.value.whatapp,
-          'telegram': telegram.value != ''
-              ? telegram.value
-              : personalProfile.value.telegram,
-          'messenger': messenger.value != ''
-              ? messenger.value
-              : personalProfile.value.messenger,
-          'skype':
-              skype.value != '' ? skype.value : personalProfile.value.skype,
-          'website': webSite.value != ''
-              ? webSite.value
-              : personalProfile.value.website,
-          'facebook': facebook.value != ''
-              ? facebook.value
-              : personalProfile.value.facebook,
-          'linkedin': linkIn.value != ''
-              ? linkIn.value
-              : personalProfile.value.linkedin,
-          'twitter': tweeter.value != ''
-              ? tweeter.value
-              : personalProfile.value.twitter,
-          'about': memberAboutAs.value != ''
-              ? memberAboutAs.value
-              : personalProfile.value.about,
-          'title': memberPosition.value != ''
-              ? memberPosition.value
-              : personalProfile.value.title
+          // 'identity_type': identityTypeCode.value != ''
+          //     ? identityTypeCode.value
+          //     : personalProfile.value.customerIdentityType!.id,
+          // 'identity_number': identityNumber.value != ''
+          //     ? identityNumber.value
+          //     : personalProfile.value.customerIdentityNumber,
+          // 'identity_date': identityDate.value != ''
+          //     ? identityDate.value
+          //     : personalProfile.value.customerIdentityDate,
+          // 'identity_expired_date': identityExpireDate.value != ''
+          //     ? identityExpireDate.value
+          //     : personalProfile.value.customerIdentityExpiredDate,
+          // 'current_address': currentAddress.value != ''
+          //     ? '$currentAddress'
+          //     : personalProfile.value.currentAddress!.village!.code != ''
+          //         ? personalProfile.value.currentAddress!.village!.code
+          //         : '',
+          // 'current_street_no': currentStreet.value != ''
+          //     ? '$currentStreet'
+          //     : personalProfile.value.streetNo,
+          // 'current_house_no': currentHours.value != ''
+          //     ? '#$currentHours'
+          //     : personalProfile.value.houseNo,
+          // 'permanent_address': permanentAddress.value != ''
+          //     ? '$permanentAddress'
+          //     : personalProfile.value.permanentAddress!.village!.code != ''
+          //         ? personalProfile.value.permanentAddress!.village!.code
+          //         : '',
+          // 'permanent_street_no': permanentStreet.value != ''
+          //     ? '$permanentStreet'
+          //     : personalProfile.value.permanentStreetNo,
+          // 'permanent_house_no': permanetHours.value != ''
+          //     ? '$permanetHours'
+          //     : personalProfile.value.permanentHouseNo,
+          // // 'phone': _customerController.customer.value.phone != ''
+          // //     ? _customerController.customer.value.phone
+          // //     : personalProfile.value.phone,
+          // 'phone': phone.value,
+          // 'email': gmail.value,
+          // 'whatapp': whatApp.value,
+          // 'telegram': telegram.value != ''
+          //     ? telegram.value
+          //     : personalProfile.value.telegram,
+          // 'messenger': messenger.value != ''
+          //     ? messenger.value
+          //     : personalProfile.value.messenger,
+          // 'skype':
+          //     skype.value != '' ? skype.value : personalProfile.value.skype,
+          // 'website': webSite.value,
+          // 'facebook': facebook.value != ''
+          //     ? facebook.value
+          //     : personalProfile.value.facebook,
+          // 'linkedin': linkIn.value != ''
+          //     ? linkIn.value
+          //     : personalProfile.value.linkedin,
+          // 'twitter': tweeter.value != ''
+          //     ? tweeter.value
+          //     : personalProfile.value.twitter,
+          // 'about': memberAboutAs.value,
+          // 'title': memberPosition.value
         }).then((response) {
-      //  debugPrint('herr12345678r suss:${response.statusCode}');
+      debugPrint('heloo1234567+++++200====:${gmail.value}');
+      customRouterSnackbar(
+          title: 'Successful...!',
+          description: 'Profile Updated Successful...!');
+      debugPrint('herr12345678r suss:===${personalProfile.value.companyName}');
       fetchMemberPersonProfile(id: cusController.customer.value.customerId);
 
       cusController.getUser();
@@ -700,13 +577,12 @@ class MemberController extends GetxController {
       update();
     }).onError((ErrorModel errorModel, stackTrace) {
       debugPrint('herr12345678r suss:${errorModel.statusCode}');
-      debugPrint('herr12345678r suss1234567:${errorModel.bodyString}');
-      ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
-        content: Text('Personal Profile Updated Failed...!'),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.red,
-        padding: EdgeInsets.all(20),
-      ));
+      debugPrint('herr12345678r suss1234567=====:${errorModel.bodyString}');
+      customRouterSnackbar(
+        title: 'Failed...!',
+        description: 'Profile Updated Failed...!',
+        type: SnackType.error,
+      );
       isLaodingUpdateProfile(false);
     });
   }

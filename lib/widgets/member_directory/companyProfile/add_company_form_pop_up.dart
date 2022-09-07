@@ -46,7 +46,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
 
   isNotNul() {
     return _memberCon.comCompanyName.value != "" &&
-        _memberCon.comcompanyproductandservice.value != "" &&
+        _memberCon.comproductandservice.value != "" &&
         _memberCon.comKhmerName.value != "" &&
         _memberCon.comphonenumber.value != "" &&
         _memberCon.comEmail.value != "" &&
@@ -132,7 +132,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
     } else {
       isValidateComapanyName = true;
     }
-    if (_memberCon.comcompanyproductandservice.value == "") {
+    if (_memberCon.comproductandservice.value == "") {
       setState(() {
         isValidatedProductService = false;
       });
@@ -509,26 +509,24 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                               isValidate: isValidatedProductService,
                               hintText: 'Product and Service',
                               initialValue:
-                                  _memberCon.comcompanyproductandservice.value,
+                                  _memberCon.comproductandservice.value,
                               labelText: 'Product and Service',
                               onChange: (value) {
                                 if (value == '') {
                                   setState(() {
-                                    _memberCon
-                                        .comcompanyproductandservice.value = '';
+                                    _memberCon.comproductandservice.value = '';
                                     isValidatedProductService = false;
                                   });
                                 } else {
                                   setState(() {
-                                    _memberCon.comcompanyproductandservice
-                                        .value = value;
+                                    _memberCon.comproductandservice.value =
+                                        value;
                                     isValidatedProductService = true;
                                   });
                                 }
                               },
                               onSave: (value) {
-                                _memberCon.comcompanyproductandservice.value =
-                                    value!;
+                                _memberCon.comproductandservice.value = value!;
                               },
                             ),
                             CustomTextFieldNew(

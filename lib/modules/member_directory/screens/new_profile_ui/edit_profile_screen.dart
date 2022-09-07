@@ -40,7 +40,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final memberCon = Get.put(MemberController());
   final customerCon = Get.put(CustomerController());
   final uploadImageCon = Get.put(UploadFileController());
-  bool? isDisableDone = true;
 
   // @override
   // void initState() {
@@ -104,461 +103,450 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           // widget.isEditCompany != true ? widget.actionDone! : Container()
 
           TextButton(
-            onPressed: isDisableDone == true
+            onPressed: memberCon.isDisableDoneButton.value == true
                 ? null
                 : () {
                     widget.onTapDone!();
                     Navigator.pop(context);
                   },
-            child: Text(
-              widget.titleDone ?? '',
-              style: Theme.of(context).textTheme.headline5!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: isDisableDone == true
-                        ? Colors.grey
-                        : AppColor.mainColor,
-                  ),
+            child: Obx(
+              () => Text(
+                '${widget.titleDone}',
+                style: Theme.of(context).textTheme.headline5!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: memberCon.isDisableDoneButton.value == true
+                          ? Colors.grey
+                          : AppColor.mainColor,
+                    ),
+              ),
             ),
-          )
+          ),
         ],
       ),
-      body: Container(
-        color: Colors.white,
-        child: SingleChildScrollView(
-          child: widget.isCreateCompany == false &&
-                  widget.isEditCompany == false
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 30),
-                  child: Column(
-                    children: [
-                      uploadImageCon.isLoading.value
-                          ? Container(
-                              width: 83.0,
-                              height: 83.0,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: const CircularProgressIndicator(
-                                backgroundColor: Colors.transparent,
-                                strokeWidth: 5,
-                                color: AppColor.mainColor,
-                              ),
-                            )
-                          : uploadImageCon.imagePathFile.value == ""
-                              ? _buildProfile(NetworkImage(
-                                  customerCon.customer.value.profile!))
-                              : _buildProfile(
-                                  FileImage(uploadImageCon.imageFile!)),
-                      TextButton(
-                        onPressed: widget.onTapPhotoProfile,
-                        child: Text(
-                          'Change Profile Photo',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w700),
+      body: Obx(
+        () => Container(
+          color: Colors.white,
+          child: SingleChildScrollView(
+            child: widget.isCreateCompany == false &&
+                    widget.isEditCompany == false
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 30),
+                    child: Column(
+                      children: [
+                        uploadImageCon.isLoading.value
+                            ? Container(
+                                width: 83.0,
+                                height: 83.0,
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle),
+                                child: const CircularProgressIndicator(
+                                  backgroundColor: Colors.transparent,
+                                  strokeWidth: 5,
+                                  color: AppColor.mainColor,
+                                ),
+                              )
+                            : uploadImageCon.imagePathFile.value == ""
+                                ? _buildProfile(NetworkImage(
+                                    customerCon.customer.value.profile!))
+                                : _buildProfile(
+                                    FileImage(uploadImageCon.imageFile!)),
+                        TextButton(
+                          onPressed: widget.onTapPhotoProfile,
+                          child: Text(
+                            'Change Profile Photo',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w700),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFieldNew(
-                          hintText: 'Name',
-                          onChange: (name) {
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFieldNew(
+                            hintText: 'Name',
+                            onChange: (name) {
+                              setState(() {
+                                if (name == '') {
+                                  memberCon.fullName.value = '';
+                                } else if (name ==
+                                    memberCon.personalProfile.value
+                                        .customerLatinName) {
+                                  memberCon.isDisableDoneButton.value = true;
+                                } else {
+                                  memberCon.fullName.value = name;
+                                  memberCon.isDisableDoneButton.value = false;
+                                }
+                              });
+                            },
+                            isValidate: true,
+                            labelText: 'Name',
+                            initialValue: memberCon.fullName.value != ''
+                                ? memberCon.fullName.value
+                                : ''),
+                        CustomTextFieldNew(
+                          hintText: 'Title',
+                          onChange: (title) {
                             setState(() {
-                              if (name == '') {
-                                isDisableDone = true;
-                                memberCon.fullName.value = '';
-                              } else if (name ==
-                                  memberCon.personalProfile.value
-                                      .customerLatinName) {
-                                isDisableDone = true;
+                              if (title == '') {
+                                memberCon.memberPosition.value = '';
+                              } else if (title ==
+                                  memberCon.personalProfile.value.title) {
+                                memberCon.isDisableDoneButton.value = true;
                               } else {
-                                isDisableDone = false;
-                                memberCon.fullName.value = name;
+                                memberCon.memberPosition.value = title;
+                                memberCon.isDisableDoneButton.value = false;
                               }
                             });
                           },
                           isValidate: true,
-                          labelText: 'Name',
-                          initialValue: memberCon.fullName.value != ''
-                              ? memberCon.fullName.value
-                              : ''),
-                      CustomTextFieldNew(
-                        hintText: 'Title',
-                        onChange: (title) {
-                          setState(() {
-                            if (title == '') {
-                              isDisableDone = true;
-                              memberCon.memberPosition.value = '';
-                            } else if (title ==
-                                memberCon.personalProfile.value.title) {
-                              isDisableDone = true;
-                            } else {
-                              isDisableDone = false;
-                              memberCon.memberPosition.value = title;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Title',
-                        initialValue: memberCon.memberPosition.value != ''
-                            ? memberCon.memberPosition.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Company Name',
-                        onChange: (companyName) {
-                          setState(() {
-                            if (companyName == '') {
-                              isDisableDone = true;
-
-                              memberCon.membercomapnyName.value = '';
-                            } else if (companyName ==
-                                memberCon.personalProfile.value.companyName) {
-                              isDisableDone = true;
-                            } else {
-                              isDisableDone = false;
-                              memberCon.membercomapnyName.value = companyName;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Company Name',
-                        initialValue: memberCon.membercomapnyName.value != ''
-                            ? memberCon.membercomapnyName.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        keyboardType: TextInputType.number,
-                        hintText: 'Phone Number',
-                        enable: false,
-                        onChange: (phone) {
-                          setState(() {
-                            if (phone == '') {
-                              isDisableDone = true;
-                              memberCon.phone.value = '';
-                            } else if (phone ==
-                                memberCon.personalProfile.value.phone) {
-                              isDisableDone = true;
-                            } else {
-                              isDisableDone = false;
-                              memberCon.phone.value = phone;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Phone Number',
-                        initialValue: memberCon.phone.value != ''
-                            ? memberCon.phone.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Email',
-                        onChange: (email) {
-                          setState(() {
-                            if (email == '') {
-                              isDisableDone = true;
-                              memberCon.gmail.value = '';
-                            } else if (email ==
-                                memberCon.personalProfile.value.email) {
-                              isDisableDone = true;
-                            } else {
-                              isDisableDone = false;
-                              memberCon.gmail.value = email;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Email',
-                        initialValue: memberCon.gmail.value != ''
-                            ? memberCon.gmail.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Telegram',
-                        onChange: (telegram) {
-                          setState(() {
-                            if (telegram == '') {
-                              isDisableDone = true;
-                              memberCon.telegram.value = '';
-                            } else if (telegram ==
-                                memberCon.personalProfile.value.telegram) {
-                              isDisableDone = true;
-                            } else {
-                              isDisableDone = false;
-                              memberCon.telegram.value = telegram;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Telegram',
-                        initialValue: memberCon.telegram.value != ''
-                            ? memberCon.telegram.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Website',
-                        onChange: (website) {
-                          setState(() {
-                            if (website == '') {
-                              isDisableDone = true;
-                              memberCon.webSite.value = '';
-                            } else if (website ==
-                                memberCon.personalProfile.value.website) {
-                              isDisableDone = true;
-                            } else {
-                              isDisableDone = false;
-                              memberCon.webSite.value = website;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Website',
-                        initialValue: memberCon.webSite.value != ''
-                            ? memberCon.webSite.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'About Us',
-                        onChange: (aboutAs) {
-                          setState(() {
-                            if (aboutAs == '') {
-                              isDisableDone = true;
-
-                              memberCon.memberAboutAs.value = '';
-                            } else if (aboutAs ==
-                                memberCon.personalProfile.value.about) {
-                              isDisableDone = true;
-                            } else {
-                              isDisableDone = false;
-                              memberCon.memberAboutAs.value = aboutAs;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'About Us',
-                        maxLine: 7,
-                        initialValue: memberCon.memberAboutAs.value != ''
-                            ? memberCon.memberAboutAs.value
-                            : '',
-                      ),
-                    ],
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 30),
-                  child: Column(
-                    children: [
-                      uploadImageCon.isLoading.value
-                          ? Container(
-                              width: 83.0,
-                              height: 83.0,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: const CircularProgressIndicator(
-                                backgroundColor: Colors.transparent,
-                                strokeWidth: 5,
-                                color: AppColor.mainColor,
-                              ),
-                            )
-                          : uploadImageCon.imagePathFile.value == ""
-                              ? _buildProfile(NetworkImage(
-                                  memberCon.company.value.companyLogo!))
-                              : _buildProfile(
-                                  FileImage(uploadImageCon.imageFile!)),
-                      TextButton(
-                        onPressed: widget.onTapPhotoProfile,
-                        child: Text(
-                          'Change Profile Photo',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w700),
+                          labelText: 'Title',
+                          initialValue: memberCon.memberPosition.value != ''
+                              ? memberCon.memberPosition.value
+                              : '',
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Company Name*',
-                        onChange: (companyName) {
-                          setState(() {
-                            if (companyName == '') {
-                              memberCon.comCompanyName.value = '';
-                              memberCon.isCompanyName.value = false;
-                              isDisableDone = true;
-                            } else if (companyName ==
-                                memberCon.company.value.companyName) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comCompanyName.value = companyName;
-                              memberCon.isCompanyName.value = true;
+                        CustomTextFieldNew(
+                          hintText: 'Company Name',
+                          onChange: (companyName) {
+                            setState(() {
+                              if (companyName == '') {
+                                memberCon.membercomapnyName.value = '';
+                              } else if (companyName ==
+                                  memberCon.personalProfile.value.companyName) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.membercomapnyName.value = companyName;
+                                memberCon.isDisableDoneButton.value = false;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Company Name',
+                          initialValue: memberCon.membercomapnyName.value != ''
+                              ? memberCon.membercomapnyName.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          keyboardType: TextInputType.number,
+                          hintText: 'Phone Number',
+                          enable: false,
+                          onChange: (phone) {
+                            setState(() {
+                              if (phone == '') {
+                                memberCon.phone.value = '';
+                              } else if (phone ==
+                                  memberCon.personalProfile.value.phone) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.phone.value = phone;
+                                memberCon.isDisableDoneButton.value = false;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Phone Number',
+                          initialValue: memberCon.phone.value != ''
+                              ? memberCon.phone.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Email',
+                          onChange: (email) {
+                            setState(() {
+                              if (email == '') {
+                                memberCon.gmail.value = '';
+                              } else if (email ==
+                                  memberCon.personalProfile.value.email) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.gmail.value = email;
+                                memberCon.isDisableDoneButton.value = false;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Email',
+                          initialValue: memberCon.gmail.value,
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Telegram',
+                          onChange: (telegram) {
+                            setState(() {
+                              if (telegram == '') {
+                                memberCon.telegram.value = '';
+                              } else if (telegram ==
+                                  memberCon.personalProfile.value.telegram) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.isDisableDoneButton.value = false;
+                                memberCon.telegram.value = telegram;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Telegram',
+                          initialValue: memberCon.telegram.value != ''
+                              ? memberCon.telegram.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Website',
+                          onChange: (website) {
+                            setState(() {
+                              if (website == '') {
+                                memberCon.webSite.value = '';
+                              } else if (website ==
+                                  memberCon.personalProfile.value.website) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.webSite.value = website;
+                                memberCon.isDisableDoneButton.value = false;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Website',
+                          initialValue: memberCon.webSite.value != ''
+                              ? memberCon.webSite.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'About Us',
+                          onChange: (aboutAs) {
+                            if (aboutAs != '') {
+                              setState(() {
+                                memberCon.isDisableDoneButton.value = false;
+                              });
                             }
-                          });
-                        },
-                        isValidate: memberCon.isCompanyName.value,
-                        labelText: 'Company Name*',
-                        initialValue: widget.id != null
-                            ? memberCon.comCompanyName.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        // isReadOnly: true,
-                        hintText: 'Slogan',
-                        onChange: (slogan) {
-                          setState(() {
-                            if (slogan == '') {
-                              memberCon.comSlogan.value;
-                              isDisableDone = true;
-                            } else if (slogan ==
-                                memberCon.company.value.companySlogan) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comSlogan.value = slogan;
-                              isDisableDone = false;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Slogan',
-                        initialValue:
-                            widget.id != null ? memberCon.comSlogan.value : '',
-                      ),
-                      CustomTextFieldNew(
-                        // isReadOnly: true,
-                        hintText: 'Phone Number',
-                        onChange: (phoneNum) {
-                          setState(() {
-                            if (phoneNum == '') {
-                              memberCon.comphonenumber.value;
-                              isDisableDone = true;
-                            } else if (phoneNum ==
-                                memberCon.company.value.phoneNumber) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comphonenumber.value = phoneNum;
-                            }
-                          });
-                        },
-                        keyboardType: TextInputType.number,
-                        isValidate: true,
-                        labelText: 'Phone Number',
-                        initialValue: widget.id != null
-                            ? memberCon.comphonenumber.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Email',
-                        onChange: (companyEmail) {
-                          setState(() {
-                            if (companyEmail == '') {
-                              memberCon.comEmail.value;
-                              isDisableDone = true;
-                            } else if (companyEmail ==
-                                memberCon.company.value.email) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comEmail.value = companyEmail;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Email',
-                        initialValue:
-                            widget.id != null ? memberCon.comEmail.value : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Location',
-                        onChange: (companyLocation) {
-                          setState(() {
-                            if (companyLocation == '') {
-                              memberCon.comaddress.value;
-                              isDisableDone = true;
-                            } else if (companyLocation ==
-                                memberCon.company.value.address) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comaddress.value = companyLocation;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Location',
-                        initialValue:
-                            widget.id != null ? memberCon.comaddress.value : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Website',
-                        onChange: (companyWebsite) {
-                          setState(() {
-                            if (companyWebsite == '') {
-                              memberCon.comWebsite.value;
-                              isDisableDone = true;
-                            } else if (companyWebsite ==
-                                memberCon.company.value.website) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comWebsite.value = companyWebsite;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Website',
-                        initialValue:
-                            widget.id != null ? memberCon.comWebsite.value : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'About Us',
-                        onChange: (comAboutAs) {
-                          setState(() {
-                            if (comAboutAs == '') {
-                              memberCon.comCompanyProfile.value;
-                              isDisableDone = true;
-                            } else if (comAboutAs ==
-                                memberCon.company.value.companyProfile) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comCompanyProfile.value = comAboutAs;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'About Us',
-                        maxLine: 7,
-                        initialValue: widget.id != null
-                            ? memberCon.comCompanyProfile.value
-                            : '',
-                      ),
-                      CustomTextFieldNew(
-                        hintText: 'Product & Service',
-                        onChange: (companyProduct) {
-                          setState(() {
-                            if (companyProduct == '') {
-                              memberCon.comcompanyproductandservice.value;
-                              isDisableDone = true;
-                            } else if (companyProduct ==
-                                memberCon
-                                    .company.value.companyProductAndService) {
-                              isDisableDone = true;
-                            } else {
-                              memberCon.comcompanyproductandservice.value =
-                                  companyProduct;
-                            }
-                          });
-                        },
-                        isValidate: true,
-                        labelText: 'Product & Service',
-                        maxLine: 7,
-                        initialValue: widget.id != null
-                            ? memberCon.comcompanyproductandservice.value
-                            : '',
-                      ),
-                    ],
+                            debugPrint(
+                                "is disable button done: ${memberCon.isDisableDoneButton.value}");
+                          },
+                          isValidate: true,
+                          labelText: 'About Us',
+                          maxLine: 7,
+                          initialValue: memberCon.memberAboutAs.value != ''
+                              ? memberCon.memberAboutAs.value
+                              : '',
+                        ),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 30),
+                    child: Column(
+                      children: [
+                        Text(memberCon.isDisableDoneButton.value.toString()),
+                        uploadImageCon.isLoading.value
+                            ? Container(
+                                width: 83.0,
+                                height: 83.0,
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle),
+                                child: const CircularProgressIndicator(
+                                  backgroundColor: Colors.transparent,
+                                  strokeWidth: 5,
+                                  color: AppColor.mainColor,
+                                ),
+                              )
+                            : uploadImageCon.imagePathFile.value == ""
+                                ? _buildProfile(NetworkImage(
+                                    memberCon.company.value.companyLogo!))
+                                : _buildProfile(
+                                    FileImage(uploadImageCon.imageFile!)),
+                        TextButton(
+                          onPressed: widget.onTapPhotoProfile,
+                          child: Text(
+                            'Change Profile Photo',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Company Name*',
+                          onChange: (comName) {
+                            setState(() {
+                              if (comName == '') {
+                                memberCon.comCompanyName.value = '';
+                                memberCon.isCompanyName.value = false;
+                                memberCon.isDisableDoneButton.value = true;
+                              } else if (comName.isNotEmpty) {
+                                memberCon.comCompanyName.value = comName;
+                                memberCon.isDisableDoneButton.value = false;
+                              } else if (comName ==
+                                  memberCon.company.value.companyName) {
+                                memberCon.isDisableDoneButton.value = true;
+                              }
+                            });
+                          },
+                          isValidate: memberCon.isCompanyName.value,
+                          labelText: 'Company Name*',
+                          initialValue: widget.id != null
+                              ? memberCon.comCompanyName.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Input Slogan',
+                          onChange: (slogan) {
+                            setState(() {
+                              if (slogan == '') {
+                                memberCon.comSlogan.value = '';
+                              } else if (slogan ==
+                                  memberCon.company.value.companySlogan) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.comSlogan.value = slogan;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Input Slogan',
+                          initialValue: widget.id != null
+                              ? memberCon.comSlogan.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          // isReadOnly: true,
+                          hintText: 'Phone Number',
+                          onChange: (phoneNum) {
+                            setState(() {
+                              if (phoneNum == '') {
+                                memberCon.comphonenumber.value = '';
+                              } else if (phoneNum ==
+                                  memberCon.company.value.phoneNumber) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.comphonenumber.value = phoneNum;
+                              }
+                            });
+                          },
+                          keyboardType: TextInputType.number,
+                          isValidate: true,
+                          labelText: 'Phone Number',
+                          initialValue: widget.id != null
+                              ? memberCon.comphonenumber.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Email',
+                          onChange: (companyEmail) {
+                            setState(() {
+                              if (companyEmail == '') {
+                                memberCon.comEmail.value = '';
+                              } else if (companyEmail ==
+                                  memberCon.company.value.email) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.comEmail.value = companyEmail;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Email',
+                          initialValue:
+                              widget.id != null ? memberCon.comEmail.value : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Location',
+                          onChange: (companyLocation) {
+                            setState(() {
+                              if (companyLocation == '') {
+                                memberCon.comaddress.value = '';
+                              } else if (companyLocation ==
+                                  memberCon.company.value.address) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.comaddress.value = companyLocation;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Location',
+                          initialValue: widget.id != null
+                              ? memberCon.comaddress.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Website',
+                          onChange: (companyWebsite) {
+                            setState(() {
+                              if (companyWebsite == '') {
+                                memberCon.comWebsite.value = '';
+                              } else if (companyWebsite ==
+                                  memberCon.company.value.website) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.comWebsite.value = companyWebsite;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Website',
+                          initialValue: widget.id != null
+                              ? memberCon.comWebsite.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'About Us',
+                          onChange: (comAboutAs) {
+                            debugPrint("Entert about us $comAboutAs");
+                            setState(() {
+                              memberCon.isDisableDoneButton.value = true;
+                            });
+                            // setState(() {
+                            //   if (comAboutAs == '') {
+                            //     memberCon.comProfile.value = '';
+                            //   } else if (comAboutAs ==
+                            //       memberCon.company.value.companyProfile) {
+                            //     isDisableDone = true;
+                            //   } else {
+                            //     memberCon.comProfile.value = comAboutAs;
+                            //   }
+                            // });
+                          },
+                          isValidate: true,
+                          labelText: 'About Us',
+                          maxLine: 7,
+                          initialValue: widget.id != null
+                              ? memberCon.comProfile.value
+                              : '',
+                        ),
+                        CustomTextFieldNew(
+                          hintText: 'Product & Service',
+                          onChange: (companyProduct) {
+                            setState(() {
+                              if (companyProduct == '') {
+                                memberCon.comproductandservice.value = '';
+                              } else if (companyProduct ==
+                                  memberCon
+                                      .company.value.companyProductAndService) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.comproductandservice.value =
+                                    companyProduct;
+                              }
+                            });
+                          },
+                          isValidate: true,
+                          labelText: 'Product & Service',
+                          maxLine: 7,
+                          initialValue: widget.id != null
+                              ? memberCon.comproductandservice.value
+                              : '',
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+          ),
         ),
       ),
       bottomNavigationBar:
@@ -583,7 +571,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: CustomButton(
                           onPressed: () {
                             isValidation();
-                            Navigator.pop(context);
+
                             // memberCon.onSubmitCompany(context);
                           },
                           title: 'Done',

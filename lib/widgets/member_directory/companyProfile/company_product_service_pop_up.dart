@@ -62,17 +62,15 @@ class _CompanyProductServicePopUPState
                       height: 20,
                     ),
                     CustomTextFieldNew(
-                      initialValue:
-                          _memberCon.comcompanyproductandservice.value,
+                      initialValue: _memberCon.comproductandservice.value,
                       hintText: 'Product and Service',
                       labelText: 'Product and Service',
                       onChange: (value) {
                         setState(() {
                           if (value == '') {
-                            _memberCon.comcompanyproductandservice.value = '';
+                            _memberCon.comproductandservice.value = '';
                           } else {
-                            _memberCon.comcompanyproductandservice.value =
-                                value;
+                            _memberCon.comproductandservice.value = value;
                             productserviceController.text = value;
                           }
                         });

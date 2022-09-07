@@ -79,6 +79,16 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
               : const Text(''),
           backgroundColor: AppColor.mainColor,
           elevation: 0,
+          // title: isInnerBox == false
+          //     ? Text(
+          //         '${customerUser.customer.value.fullName}',
+          //         style: Theme.of(context).textTheme.headline4!.copyWith(
+          //             fontWeight: FontWeight.w700,
+          //             fontSize: 20,
+          //             color: Colors.white),
+          //       )
+          //     : const Text(''),
+          centerTitle: true,
           actions: [
             widget.isDirectory == false
                 ? GestureDetector(

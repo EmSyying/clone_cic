@@ -6,7 +6,9 @@ class CustomOptionProfile extends StatelessWidget {
   final String? title;
   final String? imageSvg;
   final GestureTapCallback? onPress;
-  const CustomOptionProfile({Key? key, this.title, this.imageSvg, this.onPress})
+  final String? disableIcon;
+  const CustomOptionProfile(
+      {Key? key, this.title, this.imageSvg, this.onPress, this.disableIcon})
       : super(key: key);
 
   @override
@@ -14,18 +16,27 @@ class CustomOptionProfile extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: onPress,
+          onTap: disableIcon != '' && disableIcon != null
+              ? () {
+                  onPress!();
+                }
+              : null,
           child: Container(
             width: 40,
             height: 40,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColor.mainColor.withOpacity(0.1),
+              color: disableIcon != '' && disableIcon != null
+                  ? AppColor.mainColor.withOpacity(0.1)
+                  : Colors.grey[200],
             ),
             child: Center(
               child: SvgPicture.asset(
                 '$imageSvg',
                 fit: BoxFit.cover,
+                color: disableIcon != '' && disableIcon != null
+                    ? AppColor.mainColor
+                    : Colors.grey,
               ),
             ),
           ),
