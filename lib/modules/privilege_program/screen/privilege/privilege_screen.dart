@@ -48,8 +48,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
 
   @override
   void initState() {
-    priCon.onFetchAllStore(1);
-    priCon.onFetchCategories();
+    priCon.onRefreshPrivilege();
 
     super.initState();
   }

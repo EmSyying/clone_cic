@@ -15,6 +15,12 @@ class PrivilegeController extends GetxController {
   final optionSelecList = <OptionForm>[].obs;
   final isSelectFilter = false.obs;
   final selectedCategFil = ''.obs;
+//Refreshscreen====F
+  Future<void> onRefreshPrivilege() async {
+    await onFetchCategories();
+    await onFetchAllStore(1);
+    await onFetchFavouriteStore();
+  }
 
   ////function getListShop======
   ApiBaseHelper apiBaseHelper = ApiBaseHelper();
@@ -201,6 +207,7 @@ class PrivilegeController extends GetxController {
         );
         debugPrint('Categories=====name:${categoriesModelList[0].name}');
       }).toList();
+      debugPrint('Categories data:===2');
 
       isLoadingCategories(false);
     }).onError((ErrorModel errorModel, stackTrace) {
