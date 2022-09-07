@@ -366,6 +366,11 @@ class MemberController extends GetxController {
     });
   }
 
+//clear image profile
+  onClearImage() {
+    uploadCon.imageFile = null;
+  }
+
   ///clear company form
   onClearCompany() {
     comCompanyName.value = '';
@@ -375,7 +380,10 @@ class MemberController extends GetxController {
     comWebsite.value = '';
     comProfile.value = '';
     comproductandservice.value = '';
-    base64Image = '';
+    // base64Image = '';
+    // uploadCon.imageFile = null;
+    // company.value.companyLogo = '';
+    // cusController.customer.value.profile = '';
   }
 
 //submit company
@@ -447,7 +455,8 @@ class MemberController extends GetxController {
         // });
         fetchCompanyMember(id: cusController.customer.value.customerId);
         // fetchCompanyMemberDetail(cusController.customer.value.customerId!);
-        // Navigator.pop(context!);
+        Navigator.pop(context!);
+        update();
       } else {
         debugPrint('heloo body fail++:${response.body}');
         debugPrint('heloo statuscode:+++++++++000000:${response.statusCode}');

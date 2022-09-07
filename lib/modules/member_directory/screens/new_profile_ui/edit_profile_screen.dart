@@ -86,6 +86,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
+            // memberCon.onClearImage();
           },
           icon: const Icon(
             Icons.close,
@@ -107,11 +108,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ? null
                 : () {
                     widget.onTapDone!();
+
                     Navigator.pop(context);
                   },
             child: Obx(
               () => Text(
-                '${widget.titleDone}',
+                widget.titleDone ?? '',
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
@@ -147,11 +149,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   color: AppColor.mainColor,
                                 ),
                               )
-                            : uploadImageCon.imagePathFile.value == ""
-                                ? _buildProfile(NetworkImage(
-                                    customerCon.customer.value.profile!))
-                                : _buildProfile(
-                                    FileImage(uploadImageCon.imageFile!)),
+                            : _buildProfile(NetworkImage(
+                                customerCon.customer.value.profile!)),
                         TextButton(
                           onPressed: widget.onTapPhotoProfile,
                           child: Text(
@@ -338,7 +337,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     padding: const EdgeInsets.only(top: 20, bottom: 30),
                     child: Column(
                       children: [
-                        Text(memberCon.isDisableDoneButton.value.toString()),
                         uploadImageCon.isLoading.value
                             ? Container(
                                 width: 83.0,
@@ -353,8 +351,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                               )
                             : uploadImageCon.imagePathFile.value == ""
-                                ? _buildProfile(NetworkImage(
-                                    memberCon.company.value.companyLogo!))
+                                ? _buildProfile(NetworkImage(memberCon
+                                            .company.value.companyLogo ==
+                                        ''
+                                    ? 'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'
+                                    : memberCon.company.value.companyLogo!))
                                 : _buildProfile(
                                     FileImage(uploadImageCon.imageFile!)),
                         TextButton(
@@ -382,6 +383,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               } else if (comName.isNotEmpty) {
                                 memberCon.comCompanyName.value = comName;
                                 memberCon.isDisableDoneButton.value = false;
+                                memberCon.isCompanyName.value = true;
                               } else if (comName ==
                                   memberCon.company.value.companyName) {
                                 memberCon.isDisableDoneButton.value = true;

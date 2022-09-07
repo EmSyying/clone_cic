@@ -20,7 +20,7 @@ class PersonalProfileTap extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          if (memberCon.personalProfile.value.about != '' ||
+          if (memberCon.personalProfile.value.about != '' &&
               memberCon.personalProfile.value.about != null)
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -38,8 +38,8 @@ class PersonalProfileTap extends StatelessWidget {
             child: memberCon.personalProfile.value.about == '' ||
                     memberCon.personalProfile.value.about == null
                 ? const CustomEmptyState(
-                    title: 'No Information Yet!',
-                    description: 'Please fill Your Information...!',
+                    description:
+                        'You have not completed your personal profile yet,please go to edit button to fill in your personal profile.',
                   )
                 : Text(
                     '$description',

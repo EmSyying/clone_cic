@@ -2,12 +2,11 @@ import 'package:cicgreenloan/modules/member_directory/controllers/member_control
 import 'package:cicgreenloan/widgets/bonus/custom_empty_state.dart';
 import 'package:cicgreenloan/widgets/new_perional_profile/custom_company_tap.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/function/upload_file_controller.dart';
-import '../../../../Utils/helper/color.dart';
 import 'edit_profile_screen.dart';
 
 class CompanyProfileTab extends StatefulWidget {
@@ -148,16 +147,19 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                     isEditCompany: true,
                                   );
                                 }));
+                                if (uploadImageCon.imageFile != null) {
+                                  memberCon.isDisableDoneButton.value = false;
+                                }
                               },
                             );
                           }).toList(),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 20, right: 20, top: 10),
-                          child: CustomButton(
-                            title: 'Add Company ',
-                            onPressed: () {
+                              left: 20, right: 20, bottom: 20),
+                          child: GestureDetector(
+                            onTap: () {
+                              // memberCon.onClearCompany();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
@@ -173,12 +175,18 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 }),
                               );
                             },
-                            isDisable: false,
-                            isOutline: false,
-                            backgroundColor:
-                                AppColor.mainColor.withOpacity(0.2),
-                            colorText: AppColor.mainColor,
-                            iconUrl: 'assets/images/svgfile/add.svg',
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                    'assets/images/svgfile/add.svg'),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Add Company',
+                                  style: Theme.of(context).textTheme.headline3,
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
