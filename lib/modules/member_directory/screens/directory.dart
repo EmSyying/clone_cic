@@ -863,64 +863,64 @@ class _DirectoryState extends State<Directory> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (simpleListFilter.isNotEmpty)
-                              Container(
-                                width: double.infinity,
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Wrap(
-                                  runSpacing: 10,
-                                  spacing: 10,
-                                  children: List.generate(
-                                    simpleListFilter.length + 1,
-                                    (index) => index == simpleListFilter.length
-                                        ? GestureDetector(
-                                            onTap: () {
-                                              simpleListFilter.clear();
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              width: 55,
-                                              height: 36,
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                'Clear All',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle2!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: AppColor
-                                                            .newRedStatus),
-                                              ),
-                                            ),
-                                          )
-                                        : _buildFilterChip(
-                                            onTap: () {
-                                              simpleListFilter.removeAt(index);
-                                              setState(() {});
-                                            },
-                                            text: simpleListFilter[index],
-                                          ),
-                                  ),
-                                ),
-                              ),
-                            Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Text(
-                                simpleListFilter.isNotEmpty
-                                    ? '${simpleListFilter.length} Results'
-                                    : 'All Directory',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColor.chartLabelColor),
-                              ),
-                            ),
+                            // if (simpleListFilter.isNotEmpty)
+                            //   Container(
+                            //     width: double.infinity,
+                            //     padding:
+                            //         const EdgeInsets.only(left: 20, right: 20),
+                            //     child: Wrap(
+                            //       runSpacing: 10,
+                            //       spacing: 10,
+                            //       children: List.generate(
+                            //         simpleListFilter.length + 1,
+                            //         (index) => index == simpleListFilter.length
+                            //             ? GestureDetector(
+                            //                 onTap: () {
+                            //                   simpleListFilter.clear();
+                            //                   setState(() {});
+                            //                 },
+                            //                 child: Container(
+                            //                   width: 55,
+                            //                   height: 36,
+                            //                   alignment: Alignment.center,
+                            //                   child: Text(
+                            //                     'Clear All',
+                            //                     style: Theme.of(context)
+                            //                         .textTheme
+                            //                         .subtitle2!
+                            //                         .copyWith(
+                            //                             fontWeight:
+                            //                                 FontWeight.w400,
+                            //                             color: AppColor
+                            //                                 .newRedStatus),
+                            //                   ),
+                            //                 ),
+                            //               )
+                            //             : _buildFilterChip(
+                            //                 onTap: () {
+                            //                   simpleListFilter.removeAt(index);
+                            //                   setState(() {});
+                            //                 },
+                            //                 text: simpleListFilter[index],
+                            //               ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(20),
+                            //   child: Text(
+                            //     simpleListFilter.isNotEmpty
+                            //         ? '${simpleListFilter.length} Results'
+                            //         : 'All Directory',
+                            //     style: Theme.of(context)
+                            //         .textTheme
+                            //         .subtitle2!
+                            //         .copyWith(
+                            //             fontSize: 14,
+                            //             fontWeight: FontWeight.w500,
+                            //             color: AppColor.chartLabelColor),
+                            //   ),
+                            // ),
                             memberController.fetchAllMemberLoading.value
                                 ? _showShimmer()
                                 : memberController.listAllMember.isEmpty

@@ -15,7 +15,7 @@ class NewEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        height: 135.0,
+        height: 130.0,
         margin: const EdgeInsets.only(bottom: 15.0),
         width: double.infinity,
         decoration: containerCiCPartern,
@@ -37,7 +37,7 @@ class NewEventCard extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 135.0,
-                  width: 135.0,
+                  width: 110.0,
                   child: Hero(
                     tag: eventData!.cover!,
                     child: CachedNetworkImage(

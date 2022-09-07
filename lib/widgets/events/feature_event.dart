@@ -1,9 +1,9 @@
 import 'package:cicgreenloan/modules/event_module/models/event_data.dart';
 import 'package:cicgreenloan/modules/event_module/models/event_detail_argument.dart';
-import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
 
 import 'package:cicgreenloan/widgets/events/feature_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class FeatureEvent extends StatelessWidget {
   final String? title;
@@ -30,11 +30,7 @@ class FeatureEvent extends StatelessWidget {
                   onTap: () {
                     EventDetailArgument argument =
                         EventDetailArgument(id: e.value.id);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EventDetail(),
-                            settings: RouteSettings(arguments: argument)));
+                    context.go('/event-detail/${e.value.id}');
                   },
                   child: FeatureCard(
                     eventData: e.value,

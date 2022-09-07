@@ -130,11 +130,7 @@ class _EventScreenState extends State<EventScreen> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: CustomAppBar(
-              isLogo: false,
-              isLeading: false,
-              title: 'Event',
-              elevation: 0,
-              context: context),
+              isLogo: false, title: 'Event', elevation: 0, context: context),
           body: ConnectivityWidgetWrapper(
             stacked: false,
             alignment: Alignment.bottomCenter,

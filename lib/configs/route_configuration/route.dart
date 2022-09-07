@@ -1,3 +1,6 @@
+import 'package:cicgreenloan/modules/event_module/screen/event.dart';
+import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
+import 'package:cicgreenloan/modules/google_map_module/google_map.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -366,6 +369,54 @@ final router = GoRouter(
             ],
           ),
           GoRoute(
+              path: 'event',
+              name: 'Event',
+              builder: (context, state) => const EventScreen(),
+              routes: [
+                GoRoute(
+                    path: ':id',
+                    name: 'EventDetails',
+                    builder: (context, state) => EventDetail(
+                          eventId: int.tryParse(
+                            state.params['id'].toString(),
+                          ),
+                        ),
+                    routes: [
+                      GoRoute(
+                        path: 'view-map',
+                        name: 'ViewMaps',
+                        builder: (context, state) => GoogleMapsPage(
+                          title: state.queryParams['title'],
+                          latitude: double.tryParse(
+                              state.queryParams['latitude'].toString()),
+                          longtitude: double.tryParse(
+                              state.queryParams['longtitude'].toString()),
+                        ),
+                      ),
+                    ]),
+              ]),
+          GoRoute(
+              path: 'event-detail/:id',
+              name: 'EventDetail',
+              builder: (context, state) => EventDetail(
+                    eventId: int.tryParse(
+                      state.params['id'].toString(),
+                    ),
+                  ),
+              routes: [
+                GoRoute(
+                  path: 'view-map',
+                  name: 'ViewMap',
+                  builder: (context, state) => GoogleMapsPage(
+                    title: state.queryParams['title'],
+                    latitude: double.tryParse(
+                        state.queryParams['latitude'].toString()),
+                    longtitude: double.tryParse(
+                        state.queryParams['longtitude'].toString()),
+                  ),
+                ),
+              ]),
+          GoRoute(
               path: 'bonus',
               name: 'Bonus',
               builder: (context, state) => BonusScreen(
@@ -699,7 +750,7 @@ final router = GoRouter(
               GoRoute(
                 path: 'search',
                 name: 'Search',
-                builder: (context, state) => SearchScreen(),
+                builder: (context, state) => const SearchScreen(),
               ),
               GoRoute(
                 name: 'Filter',

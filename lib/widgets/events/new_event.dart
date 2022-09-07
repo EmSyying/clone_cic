@@ -1,10 +1,9 @@
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
 import 'package:cicgreenloan/modules/event_module/models/event_data.dart';
-import 'package:cicgreenloan/modules/event_module/models/event_detail_argument.dart';
-import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
 import 'package:cicgreenloan/widgets/events/new_event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class NewEvent extends StatelessWidget {
   final String? title;
@@ -32,14 +31,8 @@ class NewEvent extends StatelessWidget {
                 eventData: evenData,
               ),
               onTap: () {
-                EventDetailArgument argument =
-                    EventDetailArgument(id: evenData.id, eventData: evenData);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const EventDetail(),
-                      settings: RouteSettings(arguments: argument)),
-                );
+                debugPrint("${evenData.id}");
+                context.go('/event-detail/${evenData.id}');
               },
             );
           },

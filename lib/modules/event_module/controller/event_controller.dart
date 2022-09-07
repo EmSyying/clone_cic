@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cicgreenloan/Utils/helper/custom_route_snackbar.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/notify_share_pop_up.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
@@ -15,8 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
-
-import '../../../Utils/helper/custom_snackbar.dart';
 
 class EventController extends GetxController {
   String? tokenKey;
@@ -276,13 +275,12 @@ class EventController extends GetxController {
         "email": customerController.customer.value.email
       }).then((response) {
         if (response.statusCode == 200) {
-          customSnackbar(
-              context: context,
-              color: Colors.green,
-              imgUrl: 'assets/images/svgfile/successIcon.svg',
-              label: "Your register has been submited successfully",
-              titleText: "Registration",
-              messageText: "Your register has been submited successfully");
+          customRouterSnackbar(
+            title: "Registered Event",
+            description: "Your register has been submited successfully",
+            type: SnackType.done,
+          );
+
           isAfterRegister(true);
           onRefresh(eventID);
           fetchEventDetail(eventID);
@@ -359,13 +357,17 @@ class EventController extends GetxController {
         'Authorization': 'Bearer $tokenKey'
       }, body: {}).then((response) {
         if (response.statusCode == 200) {
-          customSnackbar(
-              context: context,
-              color: Colors.green,
-              imgUrl: 'assets/images/svgfile/successIcon.svg',
-              label: "Your Going has been submited successfully",
-              titleText: "Registration",
-              messageText: "Your Going has been submited successfully");
+          // customRouterSnackbar(
+          //   description: "Your Going has been submited successfully",
+          //   title: ""
+          // );
+          // customSnackbar(
+          //     context: context,
+          //     color: Colors.green,
+          //     imgUrl: 'assets/images/svgfile/successIcon.svg',
+          //     label: "Your Going has been submited successfully",
+          //     titleText: "Registration",
+          //     messageText: "Your Going has been submited successfully");
 
           update();
         } else {}
@@ -502,9 +504,10 @@ class EventController extends GetxController {
       }).then((response) async {
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['data'];
+          debugPrint("Response Json: $responseJson");
           eventDetail.value = EventData.fromJson(responseJson);
           Uri uri = await DynamicLinkService.createDynamicLink(
-              path: 'eventDetail?eventID=${eventDetail.value.id}',
+              path: 'event-detail/${eventDetail.value.id}',
               description: '${eventDetail.value.title}',
               image: '${eventDetail.value.cover}');
           eventShortenUrl.value = uri.toString();

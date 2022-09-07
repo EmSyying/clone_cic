@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:cicgreenloan/modules/google_map_module/models/direction_model.dart';
-import 'package:cicgreenloan/modules/event_module/models/event_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -31,7 +30,7 @@ class GoogleMapsController extends GetxController {
     googleMapcontroller = controller;
   }
 
-  onAnimateCamera(LatLng latlng, EventData value) {
+  onAnimateCamera(LatLng latlng) {
     googleMapcontroller!.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(

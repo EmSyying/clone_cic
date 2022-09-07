@@ -31,6 +31,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
@@ -42,9 +43,10 @@ import '../../../Utils/helper/container_partern.dart';
 import '../../qr_code/qr_code.dart';
 
 class EventDetail extends StatefulWidget {
-  const EventDetail({Key? key}) : super(key: key);
+  const EventDetail({Key? key, this.eventId}) : super(key: key);
 
-  // final int? eventId;
+  final int? eventId;
+
   // final EventData? eventData;
 
   @override
@@ -61,8 +63,7 @@ class _EventDetailState extends State<EventDetail> {
 
   @override
   void initState() {
-    // eventController.eventId = widget.eventId!;
-
+    eventController.fetchEventDetail(widget.eventId!);
     super.initState();
   }
 
@@ -146,11 +147,6 @@ class _EventDetailState extends State<EventDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final argument =
-        ModalRoute.of(context)!.settings.arguments as EventDetailArgument;
-    if (argument.id != null) {
-      eventController.fetchEventDetail(argument.id!);
-    }
     return CupertinoScaffold(
       body: Obx(
         () => IgnorePointer(
@@ -174,7 +170,7 @@ class _EventDetailState extends State<EventDetail> {
                         child: RefreshIndicator(
                           key: refreshKey,
                           onRefresh: () => eventController
-                              .onRefreshEventDetail(argument.id!),
+                              .onRefreshEventDetail(widget.eventId!),
                           child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,25 +181,18 @@ class _EventDetailState extends State<EventDetail> {
                                     Container(
                                       width: double.infinity,
                                       height: 250,
-                                      decoration: argument.eventData != null
-                                          ? BoxDecoration(
+                                      decoration: eventController
+                                              .isLoadingEventDetail.value
+                                          ? null
+                                          : BoxDecoration(
                                               image: DecorationImage(
-                                                  image: NetworkImage(argument
-                                                      .eventData!.cover!),
+                                                  image: NetworkImage(
+                                                      eventController
+                                                          .eventDetail
+                                                          .value
+                                                          .cover!),
                                                   fit: BoxFit.cover),
-                                            )
-                                          : eventController
-                                                  .isLoadingEventDetail.value
-                                              ? null
-                                              : BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          eventController
-                                                              .eventDetail
-                                                              .value
-                                                              .cover!),
-                                                      fit: BoxFit.cover),
-                                                ),
+                                            ),
                                       child: BackdropFilter(
                                         filter: ImageFilter.blur(
                                             sigmaX: 10, sigmaY: 10),
@@ -316,27 +305,14 @@ class _EventDetailState extends State<EventDetail> {
                                           child: SizedBox(
                                             height: 180.0,
                                             width: 350.0,
-                                            child: argument.eventData != null
-                                                ? Hero(
-                                                    tag: argument
-                                                        .eventData!.cover!,
-                                                    child: Image.network(
-                                                      argument
-                                                          .eventData!.cover!,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  )
-                                                : eventController
-                                                        .isLoadingEventDetail
-                                                        .value
-                                                    ? Container()
-                                                    : Image.network(
-                                                        eventController
-                                                            .eventDetail
-                                                            .value
-                                                            .cover!,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                            child: eventController
+                                                    .isLoadingEventDetail.value
+                                                ? Container()
+                                                : Image.network(
+                                                    eventController.eventDetail
+                                                        .value.cover!,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                           )),
                                     ),
                                   ],
@@ -672,12 +648,8 @@ class _EventDetailState extends State<EventDetail> {
                                                     left: 20.0, top: 15.0),
                                                 child: TextButton(
                                                   onPressed: () {
-                                                    Navigator.pushNamed(context,
-                                                        RouteName.GOOGLEMAPPAGE,
-                                                        arguments:
-                                                            eventController
-                                                                .eventDetail
-                                                                .value);
+                                                    context.go(
+                                                        '/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}');
                                                   },
                                                   child: const Text(
                                                     'View Map',
@@ -771,11 +743,12 @@ class _EventDetailState extends State<EventDetail> {
                                                 }
                                                 if (value ==
                                                     'Contact to organiser') {
-                                                  launchUrl(Uri.parse(eventController
-                                                      .eventDetail
-                                                      .value
-                                                      .telegramLink
-                                                      .toString()));
+                                                  launchUrl(Uri.parse(
+                                                      eventController
+                                                          .eventDetail
+                                                          .value
+                                                          .telegramLink
+                                                          .toString()));
                                                 }
 
                                                 if (value == 'share event') {

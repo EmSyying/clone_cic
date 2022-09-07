@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
@@ -204,6 +205,10 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
   @override
   Widget build(BuildContext context) {
+    final router = GoRouter.of(context);
+    // if (router.location.contains('event')) {
+    //   _settingCon.selectedIndex = 2;
+    // }
     debugPrint("Build from BottomNavigationbar");
     saveUserToken = StorageUtil.getString('current_user');
 

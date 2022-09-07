@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cicgreenloan/modules/google_map_module/controllers/google_map_controller.dart';
-import 'package:cicgreenloan/modules/event_module/models/event_data.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +9,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../Utils/helper/custom_appbar.dart';
 
 class GoogleMapsPage extends StatefulWidget {
-  const GoogleMapsPage({Key? key}) : super(key: key);
+  const GoogleMapsPage({Key? key, this.latitude, this.longtitude, this.title})
+      : super(key: key);
+  final double? latitude;
+  final double? longtitude;
+  final String? title;
 
   @override
   State<GoogleMapsPage> createState() => _GoogleMapsPageState();
@@ -22,19 +25,19 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
   @override
   Widget build(BuildContext context) {
     _googleMapCon.createMarkerImageFromAsset(context);
-    final argument = ModalRoute.of(context)!.settings.arguments as EventData;
+
     _googleMapCon.determinePosition().then((position) {
       _googleMapCon.currentPosition = position;
     });
     _googleMapCon.onGetDirections().then((value) {});
-    if (argument.latitude != null && argument.longitude != null) {
+    if (widget.latitude != null && widget.longtitude != null) {
       _googleMapCon.addMarker(
-          argument.title!, LatLng(argument.latitude!, argument.longitude!));
+          widget.title!, LatLng(widget.latitude!, widget.longtitude!));
       Future.delayed(
         const Duration(seconds: 1),
         () {
-          _googleMapCon.onAnimateCamera(
-              LatLng(argument.latitude!, argument.longitude!), argument);
+          _googleMapCon
+              .onAnimateCamera(LatLng(widget.latitude!, widget.longtitude!));
         },
       );
     }
