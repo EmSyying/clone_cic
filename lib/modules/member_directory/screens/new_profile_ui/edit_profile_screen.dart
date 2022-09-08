@@ -501,19 +501,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           hintText: 'About Us',
                           onChange: (comAboutAs) {
                             debugPrint("Entert about us $comAboutAs");
-                            setState(() {
-                              memberCon.isDisableDoneButton.value = true;
-                            });
                             // setState(() {
-                            //   if (comAboutAs == '') {
-                            //     memberCon.comProfile.value = '';
-                            //   } else if (comAboutAs ==
-                            //       memberCon.company.value.companyProfile) {
-                            //     isDisableDone = true;
-                            //   } else {
-                            //     memberCon.comProfile.value = comAboutAs;
-                            //   }
+                            //   memberCon.isDisableDoneButton.value = true;
                             // });
+                            setState(() {
+                              if (comAboutAs == '') {
+                                memberCon.comProfile.value = '';
+                              } else if (comAboutAs ==
+                                  memberCon.company.value.companyProfile) {
+                                memberCon.isDisableDoneButton.value = true;
+                              } else {
+                                memberCon.comProfile.value = comAboutAs;
+                              }
+                            });
                           },
                           isValidate: true,
                           labelText: 'About Us',
