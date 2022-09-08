@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../modules/member_directory/controllers/new_personal_profile/new_profile_controller.dart';
 
@@ -53,6 +54,7 @@ class CustomCompanyTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int? currentIndex = 0;
     // bool isHideAddress = false;
     final pageController = SwiperController();
     //  final memberCon = Get.put(MemberController());
@@ -355,26 +357,44 @@ class CustomCompanyTap extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Colors.transparent),
           margin: const EdgeInsets.only(right: 20, bottom: 20, left: 20),
-          child: AspectRatio(
-            aspectRatio: 5 / 2.3,
-            child: Swiper(
-              scale: 0.9,
-              controller: pageController,
-              itemCount: 3,
-              // autoplay: true,
-              onIndexChanged: (index) {
-                companyCon.indexSlide.value = index;
-              },
-              itemBuilder: (context, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    image![index],
-                    fit: BoxFit.cover,
-                  ),
-                );
-              },
-            ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              AspectRatio(
+                aspectRatio: 5 / 2.3,
+                child: Swiper(
+                  scale: 0.9,
+                  controller: pageController,
+                  itemCount: 3,
+                  // autoplay: true,
+                  onIndexChanged: (index) {
+                    companyCon.indexSlide.value = index;
+                  },
+                  itemBuilder: (context, index) {
+                    currentIndex = index;
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        image![index],
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Obx(() => Positioned(
+                    bottom: 10,
+                    child: SmoothIndicator(
+                      offset: companyCon.indexSlide.value.toDouble(),
+                      count: image!.length,
+                      effect: const ExpandingDotsEffect(
+                          dotColor: Colors.white54,
+                          activeDotColor: Colors.white,
+                          dotHeight: 8,
+                          dotWidth: 8),
+                    ),
+                  )),
+            ],
           ),
         ),
         Padding(

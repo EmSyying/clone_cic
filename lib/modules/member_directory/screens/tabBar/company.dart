@@ -166,7 +166,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                     CompanyProfileCard(
                                       isEditable: widget.isEdiable,
                                       companyName: e.value.companyName,
-                                      imgUrl: e.value.companyLogo,
+                                      imgUrl: e.value.companyLogo!,
                                       onTap: () async {
                                         debugPrint(
                                             'Check URL : $e.value.companyLogo');
