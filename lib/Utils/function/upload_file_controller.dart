@@ -452,8 +452,10 @@ class UploadFileController extends GetxController {
 
       update();
     }
-    if (isCompany != true) {
-      startUpload(baseUrl: url, body: body);
+    if (imageFile != null) {
+      if (isCompany != true) {
+        startUpload(baseUrl: url, body: body);
+      }
     }
   }
 
@@ -471,8 +473,10 @@ class UploadFileController extends GetxController {
       update();
     }
 
-    if (isCompany != true) {
-      startUpload(baseUrl: url, body: body);
+    if (imageFile != null) {
+      if (isCompany != true) {
+        startUpload(baseUrl: url, body: body);
+      }
     }
   }
 }
