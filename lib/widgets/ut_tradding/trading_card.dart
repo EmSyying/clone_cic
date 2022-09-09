@@ -151,6 +151,7 @@ class _InquiryCardState extends State<InquiryCard> {
                   child: Icon(
                     Icons.more_vert,
                     color: Colors.grey[500],
+                    size: 18,
                   ),
                 ),
                 onPressed: () {
