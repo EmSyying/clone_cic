@@ -12,17 +12,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import '../../../Utils/function/format_date_time.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/get_funding/custom_call_center.dart';
 import '../../../widgets/ut_tradding/custom_buy_card.dart';
 import '../../../widgets/ut_tradding/custom_fun_card.dart';
-import '../../../widgets/ut_tradding/custom_max_min_card.dart';
-import '../../../widgets/ut_tradding/maximum_shimmer_card.dart';
+import '../../../widgets/ut_tradding/custom_maket_trading_card.dart';
 import '../../../widgets/ut_tradding/trade_session_shimmer.dart';
-import '../../../widgets/ut_tradding/trading_session_card.dart';
 import '../../member_directory/controllers/customer_controller.dart';
 import '../../member_directory/controllers/member_controller.dart';
 import '../../member_directory/models/member.dart';
@@ -68,11 +65,12 @@ class _UTtradingState extends State<UTtrading>
   int currentIndex = 1;
   DateTime now = DateTime.now();
   final cusController = Get.put(CustomerController());
-  List<EquiryModelTest> listEquirystatic = [
-    EquiryModelTest(totalProce: 200, totalUT: 10),
-    EquiryModelTest(totalProce: 150, totalUT: 20),
-    EquiryModelTest(totalProce: 100, totalUT: 30),
+  final tradingPage = [
+    const MatchTrade(),
+    const UnMatchTrade(),
+    const CancelTrade(),
   ];
+  int segmentedControlValue = 0;
 
   bool? isOpenMarket() {
     if (inquiryController.tradingSettingData.data!.market!.open!) {
@@ -134,11 +132,16 @@ class _UTtradingState extends State<UTtrading>
         }
         return CupertinoPageScaffold(
           child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: const Color(0xFFE5E5E5),
             body: Column(
               children: [
                 Stack(
                   children: [
+                    // SvgPicture.asset(
+                    //   'assets/images/svgfile/ut-background.svg',
+                    //   color: Colors.white,
+                    // ),
+
                     CustomPaint(
                       size: Size(double.infinity,
                           MediaQuery.of(context).size.height * 1),
@@ -146,8 +149,8 @@ class _UTtradingState extends State<UTtrading>
                     ),
                     Positioned(
                       top: 100.0,
-                      left: 0.0,
                       right: 0.0,
+                      left: 0.0,
                       bottom: 0.0,
                       child: SingleChildScrollView(
                         child: SizedBox(
@@ -246,30 +249,6 @@ class _UTtradingState extends State<UTtrading>
                                         () => SliverList(
                                           delegate: SliverChildListDelegate(
                                             [
-                                              !inquiryController.isLoadingMarket
-                                                          .value &&
-                                                      inquiryController
-                                                              .tradingSettingData
-                                                              .data!
-                                                              .market!
-                                                              .open !=
-                                                          true
-                                                  ? Container(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20.0,
-                                                              right: 20.0),
-                                                      child: const Text(
-                                                        'If you already have a buyer/seller to trade with, you can transact now. Otherwise please wait until trading session is opended',
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color:
-                                                                Colors.white70),
-                                                      ),
-                                                    )
-                                                  : Container(),
                                               const SizedBox(height: 20.0),
                                               inquiryController
                                                       .isLoadingMarket.value
@@ -282,10 +261,11 @@ class _UTtradingState extends State<UTtrading>
                                                   : Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 20,
-                                                              right: 20),
-                                                      child: TradingSessionCard(
-                                                        onTap: () async {
+                                                              left: 20.0,
+                                                              right: 20.0),
+                                                      child:
+                                                          CustomMaketTradingCar(
+                                                        onViewLastTrading: () {
                                                           FirebaseAnalyticsHelper
                                                               .sendAnalyticsEvent(
                                                                   "View Last Trading Information");
@@ -293,140 +273,81 @@ class _UTtradingState extends State<UTtrading>
                                                               "View Trading:${inquiryController.viewLastTradingInfo.value.linkTradingInfo}");
                                                           context.push(
                                                               '/ut-trading/view-last-trading-info?url=${inquiryController.viewLastTradingInfo.value.linkTradingInfo}&&title=View Last Trading Info');
-                                                          // inquiryController
-                                                          //     .isSelect
-                                                          //     .value = true;
-                                                          // inquiryController
-                                                          //     .lastTradinInfoIndex
-                                                          //     .value = 0;
-                                                          // Future.delayed(
-                                                          //     const Duration(
-                                                          //         seconds: 3),
-                                                          //     () {
-                                                          //   inquiryController
-                                                          //       .fetchLastTradingDetail(
-                                                          //           id: inquiryController
-                                                          //               .lastTradingOptionModelList[
-                                                          //                   0]
-                                                          //               .id);
-                                                          // });
-                                                          // showMaterialModalBottomSheet(
-                                                          //   shape: const RoundedRectangleBorder(
-                                                          //       borderRadius: BorderRadius.only(
-                                                          //           topLeft: Radius
-                                                          //               .circular(
-                                                          //                   borderRaduis),
-                                                          //           topRight: Radius
-                                                          //               .circular(
-                                                          //                   borderRaduis))),
-                                                          //   context: context,
-                                                          //   builder: (context) =>
-                                                          //       customAlertLastTradingInfo(
-                                                          //     tradingOptionList:
-                                                          //         inquiryController
-                                                          //             .lastTradingOptionModelList,
-                                                          //     context: context,
-                                                          //     title:
-                                                          //         'Last Trading Info',
-                                                          //     icon: Icons.close,
-                                                          //   ),
-                                                          // );
-                                                          // inquiryController
-                                                          //     .isInitSelct
-                                                          //     .value = true;
-                                                          // inquiryController
-                                                          //     .isLoadingCard
-                                                          //     .value = true;
-
-                                                          // inquiryController
-                                                          //     .update();
                                                         },
-                                                        tradingstartDate: inquiryController
-                                                                    .tradingSettingData
-                                                                    .data!
-                                                                    .market!
-                                                                    .startDate! !=
-                                                                ""
-                                                            ? FormatDate.formatDateTime(
-                                                                inquiryController
-                                                                    .tradingSettingData
-                                                                    .data!
-                                                                    .market!
-                                                                    .startDate!)
-                                                            : inquiryController
-                                                                .tradingSettingData
-                                                                .data!
-                                                                .market!
-                                                                .startDate,
-                                                        tradingendDate: inquiryController
-                                                                        .tradingSettingData
-                                                                        .data!
-                                                                        .market!
-                                                                        .fromTime !=
-                                                                    "" &&
-                                                                inquiryController
-                                                                        .tradingSettingData
-                                                                        .data!
-                                                                        .market!
-                                                                        .toTime !=
-                                                                    ""
-                                                            ? '${inquiryController.tradingSettingData.data!.market!.fromTime} - ${inquiryController.tradingSettingData.data!.market!.toTime}'
-                                                            : inquiryController
-                                                                .tradingSettingData
-                                                                .data!
-                                                                .market!
-                                                                .fromTime,
-                                                        openMarket:
-                                                            inquiryController
-                                                                .tradingSettingData
-                                                                .data!
-                                                                .market!
-                                                                .open,
+                                                        fromTime: inquiryController
+                                                            .tradingSettingData
+                                                            .data!
+                                                            .market!
+                                                            .fromTime,
+                                                        toTime: inquiryController
+                                                            .tradingSettingData
+                                                            .data!
+                                                            .market!
+                                                            .toTime,
+                                                        isOpen: inquiryController
+                                                            .tradingSettingData
+                                                            .data!
+                                                            .market!
+                                                            .open!,
+                                                        maximum: inquiryController
+                                                            .tradingSettingData
+                                                            .data!
+                                                            .market!
+                                                            .maxBasePrice!
+                                                            .toString(),
+                                                        minimum: inquiryController
+                                                            .tradingSettingData
+                                                            .data!
+                                                            .market!
+                                                            .minBasePrice!
+                                                            .toString(),
+                                                        base: inquiryController
+                                                            .tradingSettingData
+                                                            .data!
+                                                            .market!
+                                                            .basePrice!
+                                                            .toString(),
                                                       ),
                                                     ),
-                                              const SizedBox(height: 20.0),
                                               Container(
+                                                margin: const EdgeInsets.only(
+                                                    top: 20.0),
                                                 padding: const EdgeInsets.only(
                                                     left: 20, right: 20),
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10),
+                                                  ),
+                                                ),
                                                 child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    inquiryController
-                                                            .isLoadingMarket
-                                                            .value
-                                                        ? const CustomMaximumShimmer()
-                                                        : CustomMaxMinCard(
-                                                            isLoading:
-                                                                inquiryController
-                                                                    .isLoadingMarket
-                                                                    .value,
-                                                            isOpen: inquiryController
-                                                                .tradingSettingData
-                                                                .data!
-                                                                .market!
-                                                                .open!,
-                                                            maximum: inquiryController
-                                                                .tradingSettingData
-                                                                .data!
-                                                                .market!
-                                                                .maxBasePrice!
-                                                                .toString(),
-                                                            minimum: inquiryController
-                                                                .tradingSettingData
-                                                                .data!
-                                                                .market!
-                                                                .minBasePrice!
-                                                                .toString(),
-                                                            base: inquiryController
-                                                                .tradingSettingData
-                                                                .data!
-                                                                .market!
-                                                                .basePrice!
-                                                                .toString(),
-                                                          ),
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 10),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Container(
+                                                        height: 3,
+                                                        width: 34,
+                                                        decoration: BoxDecoration(
+                                                            color: const Color(
+                                                                0xffBFBFBF),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
+                                                      ),
+                                                    ),
                                                     if (!inquiryController
                                                         .isLoadingInquiry.value)
                                                       CustomBuyCard(
@@ -438,10 +359,11 @@ class _UTtradingState extends State<UTtrading>
                                                     const Text(
                                                       'Available Funds to Trade',
                                                       style: TextStyle(
-                                                          fontSize: 18,
+                                                          fontSize: 16,
                                                           fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black),
+                                                              FontWeight.w500,
+                                                          color: ui.Color(
+                                                              0XFF848F92)),
                                                     ),
                                                     const SizedBox(
                                                         height: 20.0),
@@ -558,16 +480,16 @@ class RPSCustomPainter extends CustomPainter {
 
     canvas.drawPath(path_0, paint_0);
 
-    Paint paint_1 = Paint()
-      ..color = AppColor.mainColor
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 1.0;
-    paint_1.shader = ui.Gradient.linear(
-      Offset(0, size.height * 0.11),
-      Offset(size.width * 0.91, size.height * 0.11),
-      [const Color(0xFF205396), const Color(0xFF0A3977)],
-      [0.00, 1.00],
-    );
+    // Paint paint_1 = Paint()
+    //   ..color = AppColor.mainColor
+    //   ..style = PaintingStyle.fill
+    //   ..strokeWidth = 1.0;
+    // paint_1.shader = ui.Gradient.linear(
+    //   Offset(0, size.height * 0.11),
+    //   Offset(size.width * 0.91, size.height * 0.11),
+    //   [const Color(0xFF205396), const Color(0xFF0A3977)],
+    //   [0.00, 1.00],
+    // );
 
     Path path_1 = Path();
     path_1.moveTo(0, size.height * 0.0002593);
@@ -601,7 +523,7 @@ class RPSCustomPainter extends CustomPainter {
         size.height * 0.0002593);
     path_1.close();
 
-    canvas.drawPath(path_1, paint_1);
+    // canvas.drawPath(path_1, paint_1);
   }
 
   @override

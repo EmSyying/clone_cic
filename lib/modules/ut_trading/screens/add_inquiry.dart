@@ -96,13 +96,6 @@ class _AddInquiryState extends State<AddInquiry> {
 
   @override
   void initState() {
-    debugPrint(
-        "Customer ID from Add Inquiry: ${cusController.customer.value.customerId}");
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     inquirycontroller.demandInfo.value =
         widget.description != null ? widget.description! : "";
     inquirycontroller.qtyShare.value =
@@ -120,6 +113,11 @@ class _AddInquiryState extends State<AddInquiry> {
         operationType = 'Buy';
       });
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return DefaultSizeWeb(
       child: Scaffold(
         appBar: CustomAppBar(

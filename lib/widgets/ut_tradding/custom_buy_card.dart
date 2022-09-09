@@ -31,8 +31,11 @@ class _CustomBuyCardState extends State<CustomBuyCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(top: 10, bottom: 10, left: 1.0, right: 1.0),
+      padding: EdgeInsets.only(
+          top: widget.listData!.isEmpty ? 0 : 10.0,
+          bottom: 10,
+          left: 1.0,
+          right: 1.0),
       child: Column(
         children: widget.listData!
             .asMap()
