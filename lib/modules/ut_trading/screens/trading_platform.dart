@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/cancel_trade.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/match_trade.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/trading_instruction.dart';
@@ -137,15 +136,13 @@ class _UTtradingState extends State<UTtrading>
               children: [
                 Stack(
                   children: [
-                    // SvgPicture.asset(
-                    //   'assets/images/svgfile/ut-background.svg',
-                    //   color: Colors.white,
-                    // ),
-
                     CustomPaint(
                       size: Size(double.infinity,
                           MediaQuery.of(context).size.height * 1),
                       painter: RPSCustomPainter(),
+                    ),
+                    SvgPicture.asset(
+                      'assets/images/svgfile/background-ut.svg',
                     ),
                     Positioned(
                       top: 100.0,
@@ -461,7 +458,7 @@ class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint_0 = Paint()
-      ..color = AppColor.mainColor
+      ..color = const Color(0XFF0C4DA1)
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0;
 
