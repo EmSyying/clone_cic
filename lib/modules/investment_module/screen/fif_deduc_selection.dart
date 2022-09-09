@@ -200,19 +200,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                       Expanded(
                         child: CustomButton(
                           onPressed: () {
-                            showSaveDraftDialog(
-                              context: context,
-                              isDisableSaveDraft: true,
-                              title:
-                                  "Are you sure you want to leave this page?",
-                              content:
-                                  "Changes made to this page haven’t been saved yet.",
-                              isCancel: true,
-                              onDiscard: () {
-                                Navigator.pop(context);
-                                deducCon.clearDeducSelection();
-                              },
-                            );
+                            _buildCancelDialog(context);
                           },
                           isDisable: false,
                           title: "Cancel",
@@ -256,6 +244,20 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
           ),
         ),
       ),
+    );
+  }
+
+  _buildCancelDialog(BuildContext context) {
+    showSaveDraftDialog(
+      context: context,
+      isDisableSaveDraft: true,
+      title: "Are you sure you want to leave this page?",
+      content: "Changes made to this page haven’t been saved yet.",
+      isCancel: true,
+      onDiscard: () {
+        Navigator.pop(context);
+        deducCon.clearDeducSelection();
+      },
     );
   }
 }

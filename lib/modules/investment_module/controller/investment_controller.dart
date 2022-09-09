@@ -320,6 +320,17 @@ class PriceController extends GetxController {
   final isLoadingPostFiF = false.obs;
   final apiBaseHelper = ApiBaseHelper();
 
+  ///onRefresh CiC Fixed Income Fund
+  Future<void> onRefreshFIF() async {
+    totalInvestmentButton(false); //make button always close
+    await getAllChartList();
+    await fetchInvestmentAccount();
+    await fetchFIFConfirm();
+    await getHiddentContract();
+    await getFIFApplication();
+    await fetchFIFPending();
+  }
+
   ///Function Show/Hide Confirm List
   Future onShowHideInvestmentAccount({
     num? id,
@@ -335,11 +346,7 @@ class PriceController extends GetxController {
       isAuthorize: true,
     )
         .then((value) {
-      ///
-      debugPrint('button is ${totalInvestmentButton.value ? 'on' : 'off'}');
-      getFIFApplication();
-      fetchInvestmentAccount();
-      getHiddentContract();
+      onRefreshFIF();
       update();
     }).onError((ErrorModel error, stackTrace) {
       FirebaseCrashlytics.instance
@@ -757,17 +764,28 @@ class PriceController extends GetxController {
   final accountName = "".obs;
   final bankinfoId = 0.obs;
 
-  Future<void> onCreateFiF({num? id, BuildContext? context}) async {
-    debugPrint("Account Name:$accounName:Bank Id:${bankId.value}");
+  Future<void> onCreateFiF(
+      {num? id, required BuildContext? buildcontext}) async {
+    debugPrint("This funtion is work");
 
     isLoadingPostFiF(true);
-    update();
+
     await apiBaseHelper.onNetworkRequesting(
         url: id != null ? 'fif-application/$id' : 'fif-application',
         methode: id != null ? METHODE.update : METHODE.post,
         isAuthorize: true,
         body: {
-          "account_name": id != null || id != 0 ? accounName.value : '',
+          // "account_name": id != null || id != 0 ? accounName.value : '',
+          // "product_id": fiFApplicationDetailPending.value.productId,
+          // "duration": 10,
+          // "invest_amount": 1000,
+          // "deduction_amount": 10,
+          // "investment_date":
+          //     FormatDate.investmentDateDropDown(textInvestDate.toString()),
+          // "interest_receiving_account_type": "BANK",
+          // "bank_id": bankId.value,
+          // "mma_account_id": "",
+          "account_name": id != null ? accounName.value : '',
           "product_id": fiFApplicationDetailPending.value.productId,
           "duration": textDuration.value,
           "invest_amount": textAmount.value,
@@ -776,27 +794,31 @@ class PriceController extends GetxController {
               FormatDate.investmentDateDropDown(textInvestDate.toString()),
           "interest_receiving_account_type": textReceivingAccount.value,
           "bank_id": bankId.value,
-          "mma_account_id": "${mmaAccountId.value}"
+          "mma_account_id": mmaAccountId.value,
         }).then((response) {
-      Navigator.push(
-        context!,
-        MaterialPageRoute(
-          builder: (context) => CustomSucessScreen(
-            title: 'Success',
-            description: 'Your FIF application is submitted successfully. ',
-            buttonTitle: 'Done',
-            onPressedButton: () {
-              onClearFIF();
-              clearDeducSelection();
-              context.go('/investment/cic-fixed-fund');
-              Future.delayed(const Duration(seconds: 1), () {
-                getFIFApplication();
-                fetchFIFPending();
-              });
-            },
+      debugPrint("This funtion is work 2:$response");
+      if (response['success'] != null && response['success']) {
+        Navigator.push(
+          buildcontext!,
+          MaterialPageRoute(
+            builder: (context) => CustomSucessScreen(
+              title: 'Success',
+              description: 'Your FIF application is submitted successfully. ',
+              buttonTitle: 'Done',
+              onPressedButton: () {
+                onClearFIF();
+                clearDeducSelection();
+                context.go('/investment/cic-fixed-fund');
+                Future.delayed(const Duration(seconds: 1), () {
+                  getFIFApplication();
+                  fetchFIFPending();
+                });
+              },
+            ),
           ),
-        ),
-      );
+        );
+      }
+
       // context!.navigateTo(
       //   CustomSucessScreenRouter(
       //     title: 'Success',
@@ -819,10 +841,10 @@ class PriceController extends GetxController {
       isLoadingPostFiF(false);
       update();
     }).onError((ErrorModel error, stackTrace) {
+      debugPrint("This funtion is work 3: ${error.statusCode}");
+      debugPrint("FiF Submited failed : ${error.bodyString}");
       FirebaseCrashlytics.instance
           .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
-      debugPrint("Status Code failed : ${error.statusCode}");
-      debugPrint("Body failed : ${error.bodyString}");
     });
   }
 
@@ -849,13 +871,12 @@ class PriceController extends GetxController {
     )
         .then((response) {
       var responseJson = response["data"];
-      debugPrint("fetch Payment method 2$responseJson");
+
       paymentDataList.clear();
       responseJson.map((e) {
         paymentDataList.add(PaymentData.fromJson(e));
-        debugPrint("fetch Payment method 3");
+
         if (isNewBank.value == false) {
-          debugPrint("fetch Payment method 4");
           textReceivingAccount.value = paymentDataList.last.type!;
           textReceivingAccountTitle.value = paymentDataList.last.bankName!;
           update();
@@ -911,21 +932,49 @@ class PriceController extends GetxController {
 
   // Validate Pricipal Deduction
   final investmentDurationMessage = "".obs;
-  final principalDeductionMessage = "".obs;
-  Future<void> onValidatePrincipalDeduction(bool isTypingOn) async {
+  //TODO here
+  // final principalDeductionMessage = "".obs;
+  final minDeductionAmount = 0.0.obs;
+  final maxDeductionAmount = 0.0.obs;
+  final validateFIFLoading = false.obs;
+
+  Future<void> validateFIF() async {
+    debugPrint('Function Work');
+    validateFIFLoading(true);
+    await apiBaseHelper.onNetworkRequesting(
+        url: 'validate/principal-deduction',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          "invest_amount": textAmount.value,
+          "duration": textDuration.value,
+        }).then((response) {
+      if (response != null) {
+        minDeductionAmount.value = response['min_deduction_amount'].toDouble();
+        maxDeductionAmount.value = response['max_deduction_amount'].toDouble();
+      }
+      validateFIFLoading(false);
+      debugPrint("Changed $response");
+    }).onError((ErrorModel error, stackTrace) {
+      validateFIFLoading(false);
+      debugPrint("Changed Error$error");
+    });
+  }
+
+  /*Future<void> onValidatePrincipalDeduction(bool requestOnDuration) async {
     debugPrint("Product Code Dedction:${productCode.value}");
 
     isLoadingDelete(true);
     debugPrint(
-        "Dedection Validate is working:Text Duration:${textDuration.value}");
+        "Dedection Validate is working:Text Duration: ${textAmount.value}");
     await apiBaseHelper
         .onNetworkRequesting(
             url: 'validate/principal-deduction',
             methode: METHODE.post,
             isAuthorize: true,
-            body: isTypingOn == true
+            body: requestOnDuration == true
                 ? {
-                    "invest_amount": 12000,
+                    "invest_amount": textAmount.value,
                     "product_code": productCode.value,
                     "on": "duration",
                     "duration": textDuration.value,
@@ -939,7 +988,8 @@ class PriceController extends GetxController {
                     "duration": textDuration.value
                   })
         .then((response) {
-      if (isTypingOn == true) {
+      debugPrint('Response = $response');
+      if (requestOnDuration == true) {
         isValidateDuration.value = true;
       } else {
         isValidateDeductionAmount.value = true;
@@ -948,9 +998,10 @@ class PriceController extends GetxController {
       update();
       isLoadingDelete(false);
     }).onError((ErrorModel error, stackTrace) {
-      debugPrint("On Validateion working22::isTypeon:$isTypingOn");
+      debugPrint('Response = error ${error.bodyString}');
+      debugPrint("On Validateion working22::isTypeon:$requestOnDuration");
 
-      if (isTypingOn == true) {
+      if (requestOnDuration == true) {
         var investDurationMessageJson = error.bodyString['msg_duration'];
         debugPrint("Message on Validate22:$investDurationMessageJson");
 
@@ -959,14 +1010,14 @@ class PriceController extends GetxController {
       } else {
         var deductDurationMessageJson =
             error.bodyString['msg_deduction_amount'];
-        debugPrint("is deduciton Duration22:$deductDurationMessageJson");
+        debugPrint("is deduciton Duration:$deductDurationMessageJson");
 
         isValidateDeductionAmount.value = false;
 
         principalDeductionMessage.value = deductDurationMessageJson;
       }
     });
-  }
+  }*/
 
   //  Submit Preview renew
   final investmentId = 0.obs;

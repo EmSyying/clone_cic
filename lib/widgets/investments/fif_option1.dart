@@ -1,17 +1,20 @@
+import 'dart:async';
+
 import 'package:cicgreenloan/Utils/form_builder/custom_drop_down.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
+import 'package:cicgreenloan/utils/function/format_to_k.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../Utils/helper/app_pin_code.dart' as apppincode;
-import 'package:go_router/go_router.dart';
 import '../../Utils/chart/custom_circle_chart_1_3.dart';
+import '../../Utils/helper/app_pin_code.dart' as apppincode;
 import '../../Utils/helper/firebase_analytics.dart';
 import '../../Utils/pop_up_alert/show_alert_dialog.dart';
 
@@ -41,8 +44,57 @@ class FIFOption1 extends StatefulWidget {
 
 class _FIFOption1State extends State<FIFOption1> {
   final fifController = Get.put(PriceController());
+  Timer? searchOnStoppedTyping;
+  void _validateDeduc() {
+    fifController.validateFIF().then((value) {
+      if (fifController.deductionAmount.value != 0) {
+        if (Opterator.isBetween(
+            fifController.minDeductionAmount.value,
+            fifController.deductionAmount.value,
+            fifController.maxDeductionAmount.value)) {
+          fifController.isValidateDeductionAmount(true);
+        } else {
+          fifController.isValidateDeductionAmount(false);
+        }
+      }
+    });
+  }
 
-  bool onValidate(BuildContext? context) {
+  void _onChangeHandler(String textChanged, bool isAmount) {
+    debugPrint('TRUE HZ 111');
+    const duration = Duration(milliseconds: 800);
+    if (searchOnStoppedTyping != null) {
+      setState(() => searchOnStoppedTyping!.cancel());
+    }
+    setState(() {
+      searchOnStoppedTyping = Timer(
+        duration,
+        () {
+          if (textChanged.isNotEmpty) {
+            if (isAmount) {
+              if (Opterator.isBetween(
+                fifController.minimum.value,
+                fifController.textAmount.value,
+                fifController.maximum.value,
+              )) {
+                _validateDeduc();
+              }
+            } else {
+              if (Opterator.isBetween(
+                fifController.durationMin.value,
+                fifController.textDuration.value,
+                fifController.durationMax.value,
+              )) {
+                _validateDeduc();
+              }
+            }
+          }
+        },
+      );
+    });
+  }
+
+  void onValidate(BuildContext? context) {
     if (fifController.fiFApplicationDetailPending.value.subproductName == "") {
       fifController.isvalidateMethod.value = false;
     }
@@ -65,12 +117,24 @@ class _FIFOption1State extends State<FIFOption1> {
     } else {
       fifController.isValidateDuration.value = true;
     }
-    if (fifController.productCode.value == "MPD-0002" &&
-        fifController.deductionAmount.value == 0) {
+
+    //TODO: here
+    debugPrint('Amount : ${fifController.deductionAmount.value}');
+    debugPrint('maxAmount : ${fifController.maxDeductionAmount.value}');
+    debugPrint(
+        'maxAmount productNameType: ${fifController.productNameType.value}');
+    if (fifController.fiFApplicationDetailPending.value.subproductCode ==
+            "MPD-0002" &&
+        (fifController.deductionAmount.value == 0 ||
+            fifController.deductionAmount.value >
+                fifController.maxDeductionAmount.value)) {
+      debugPrint('Work on False');
       fifController.isValidateDeductionAmount.value = false;
     } else {
       fifController.isValidateDeductionAmount.value = true;
     }
+
+    ///
     if (fifController.textInvestDate == null) {
       fifController.isValidateinvestDate.value = false;
     } else {
@@ -85,194 +149,152 @@ class _FIFOption1State extends State<FIFOption1> {
     }
 
     if (Opterator.isBetween(fifController.minimum.value,
-                fifController.textAmount.value, fifController.maximum.value) &&
-            Opterator.isBetween(
-                fifController.durationMin.value,
-                fifController.textDuration.value,
-                fifController.durationMax.value) ||
-        fifController.fiFApplicationDetailPending.value.subproductName != "" &&
-            fifController.textInvestDate != null &&
-            fifController.textReceivingAccount.value != '' &&
-            fifController.textReceivingAccountTitle.value != '') {
-      debugPrint("===go===");
-      if (fifController.productCode.value == "MPC-0001" ||
-          fifController.productCode.value == "MPI-0004" ||
-          fifController.productCode.value == "MBP-0003") {
-        // context?.router.push(
-        //   ReviewApplicationRouter(
-        //     isAnnullyRate: true,
-        //     oncallBack: () async {
-        //       FirebaseAnalyticsHelper.sendAnalyticsEvent(
-        //           'Submit create fif application');
+            fifController.textAmount.value, fifController.maximum.value) &&
+        Opterator.isBetween(
+            fifController.durationMin.value,
+            fifController.textDuration.value,
+            fifController.durationMax.value) &&
+        fifController.textInvestDate != null &&
+        fifController.textReceivingAccount.value != '') {
+      debugPrint('All Form Validation = true');
 
-        //       apppincode
-        //           .showLockScreen(enableCancel: true, context: context)
-        //           .then((value) async {
-        //         if (value) {
-        //           await fifController.onCreateFiF(id: widget.id);
-        //         }
-        //       });
-        //     },
-        //     fromPage: widget.id != null ? 'from edit' : 'from submit',
-        //     titles: 'Fixed Income Fund',
-        //     productName: fifController.productNameType.value,
-        //     // annually: fifController.annuallyInterestRate.value,
-        //     isNoUSD: true,
-        //     investAmount: fifController.textAmount.value.toString(),
-        //     investDate: fifController.textInvestDate.toString(),
-        //     investDuration: fifController.textDuration.value,
-        //     firstPayDate: fifController.displayFirstPaymentDate.toString(),
-        //   ),
-        // );
-        debugPrint("Product Name: ${fifController.productNameType.value}");
-        debugPrint("Product ID: ${widget.id}");
-        debugPrint("Investment Amount: ${fifController.textAmount.value}");
-        debugPrint("Investment Date: ${fifController.textInvestDate}");
-        debugPrint("Investment Duration: ${fifController.textDuration.value}");
-        debugPrint(
-            "Investment Firtpayment Date: ${fifController.displayFirstPaymentDate}");
-        context!.push(
-            '/investment/cic-fixed-fund/invest-more/fif-step/bullet-payment',
-            extra: {
-              "isAnnullyRate": true,
-              "oncallBack": () async {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                    'Submit create fif application');
+      if (widget.options!.isNotEmpty) {
+        fifController.validateFIF().then((value) {
+          if (fifController.fiFApplicationDetailPending.value.subproductName !=
+              '') {
+            if (fifController
+                    .fiFApplicationDetailPending.value.subproductCode ==
+                "MPD-0002") {
+              if (fifController.deductionAmount.value != 0 &&
+                  fifController.maxDeductionAmount.value != 0 &&
+                  fifController.deductionAmount.value <=
+                      fifController.maxDeductionAmount.value) {
+                debugPrint(
+                    'All Form Validation = true with : ${fifController.maxDeductionAmount.value}');
+                Navigator.push(
+                  context!,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BulletPaymentDetail(
+                        isAnnullyRate: true,
+                        oncallBack: () async {
+                          FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                              'Submit create fif application');
 
-                apppincode
-                    .showLockScreen(
-                  enableCancel: true,
-                  context: context,
-                )
-                    .then((value) async {
-                  if (value) {
-                    await fifController.onCreateFiF(
-                        id: fifController.id.value, context: context);
-                  }
-                });
-              },
-              "options": fifController
-                  .fifProductTypeList[fifController.selectedProIndex.value]
-                  .options,
-              "fromPage":
-                  fifController.id.value != null ? 'from edit' : 'from submit',
-              "titles": 'Fixed Income Fund',
-              "productName": fifController.productNameType.value,
-              // annually: fifController.annuallyInterestRate.value,
-              "isNoUSD": true,
-              "investAmount": fifController.textAmount.value.toString(),
-              "investDate": fifController.textInvestDate.toString(),
-              "investDuration": fifController.textDuration.value,
-              "firstPayDate": fifController.displayFirstPaymentDate.toString(),
-            });
-        // context!.router.push(
-        //   ReviewApplicationRouter(
-        //       // isAnnullyRate: true,
-        //       // oncallBack: () async {
-        //       //   FirebaseAnalyticsHelper.sendAnalyticsEvent(
-        //       //       'Submit create fif application');
-
-        //       //   apppincode
-        //       //       .showLockScreen(
-        //       //     enableCancel: true,
-        //       //     context: context,
-        //       //   )
-        //       //       .then((value) async {
-        //       //     if (value) {
-        //       //       await fifController.onCreateFiF(
-        //       //           id: widget.fifOption1Arg!.id, context: context);
-        //       //     }
-        //       //   });
-        //       // },
-        //       // fromPage:
-        //       //     widget.fifOption1Arg!.id != null ? 'from edit' : 'from submit',
-        //       // titles: 'Fixed Income Fund',
-        //       // productName: fifController.productNameType.value,
-        //       // // annually: fifController.annuallyInterestRate.value,
-        //       // isNoUSD: true,
-        //       // investAmount: fifController.textAmount.value.toString(),
-        //       // investDate: fifController.textInvestDate.toString(),
-        //       // investDuration: fifController.textDuration.value,
-        //       // firstPayDate: fifController.displayFirstPaymentDate.toString(),
-        //       ),
-        // );
-        // Navigator.push(
-        //   context!,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return BulletPaymentDetail(
-        //         isAnnullyRate: true,
-        //         oncallBack: () async {
-        //           FirebaseAnalyticsHelper.sendAnalyticsEvent(
-        //               'Submit create fif application');
-
-        //           apppincode
-        //               .showLockScreen(
-        //             enableCancel: true,
-        //             context: context,
-        //           )
-        //               .then((value) async {
-        //             if (value) {
-        //               await fifController.onCreateFiF(
-        //                   id: widget.id, context: context);
-        //             }
-        //           });
-        //         },
-        //         fromPage: widget.id != null ? 'from edit' : 'from submit',
-        //         titles: 'Fixed Income Fund',
-        //         productName: fifController.productNameType.value,
-        //         // annually: fifController.annuallyInterestRate.value,
-        //         isNoUSD: true,
-        //         investAmount: fifController.textAmount.value.toString(),
-        //         investDate: fifController.textInvestDate.toString(),
-        //         investDuration: fifController.textDuration.value,
-        //         firstPayDate: fifController.displayFirstPaymentDate.toString(),
-        //       );
-        //     },
-        //   ),
-        // );
-      } else {
-        if (fifController.isValidateDeductionAmount.value == true &&
-            fifController.isvalidateMethod.value == true) {
-          Navigator.push(
-            context!,
-            MaterialPageRoute(
-              builder: (context) {
-                return BulletPaymentDetail(
-                  isAnnullyRate: true,
-                  oncallBack: () async {
-                    FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                        'submit edit fif application');
-                    apppincode
-                        .showLockScreen(enableCancel: true)
-                        .then((value) async {
-                      if (value) {
-                        await fifController.onCreateFiF(id: widget.id);
-                      }
-                    });
-                    // await Future.delayed(const Duration(seconds: 0));
-                    // await fifController.onCreateFiF(id: widget.id);
-                  },
-                  fromPage: widget.id != null ? 'from edit' : 'from submit',
-                  id: widget.id,
-                  titles: 'Fixed Income Fund',
-                  annually: fifController.annuallyInterestRate.value,
-                  productName: fifController.productNameType.value,
-                  investAmount: fifController.textAmount.value.toString(),
-                  investDate: fifController.textInvestDate.toString(),
-                  investDuration: fifController.textDuration.value,
+                          apppincode
+                              .showLockScreen(enableCancel: true)
+                              .then((value) {
+                            debugPrint('Success hx $value');
+                            if (value) {
+                              fifController.onCreateFiF(
+                                  id: widget.id, buildcontext: context);
+                            }
+                          });
+                        },
+                        fromPage:
+                            widget.id != null ? 'from edit' : 'from submit',
+                        titles: 'Fixed Income Fund',
+                        productName: fifController.productNameType.value,
+                        // annually: fifController.annuallyInterestRate.value,
+                        isNoUSD: true,
+                        investAmount: fifController.textAmount.value.toString(),
+                        investDate: fifController.textInvestDate.toString(),
+                        investDuration: fifController.textDuration.value,
+                        firstPayDate:
+                            fifController.displayFirstPaymentDate.toString(),
+                      );
+                    },
+                  ),
                 );
-              },
-            ),
-          );
-        } else {
-          debugPrint("Deduction Don't go");
-        }
+              }
+            } else {
+              // fifController.onCreateFiF(buildcontext: context, id: widget.id);
+              Navigator.push(
+                context!,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return BulletPaymentDetail(
+                      isAnnullyRate: true,
+                      oncallBack: () async {
+                        FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                            'Submit create fif application');
+
+                        await apppincode
+                            .showLockScreen(enableCancel: true)
+                            .then((value) async {
+                          if (value) {
+                            debugPrint('Make Request');
+
+                            await fifController.onCreateFiF(
+                                id: widget.id, buildcontext: context);
+                          }
+                        });
+                      },
+                      fromPage: widget.id != null ? 'from edit' : 'from submit',
+                      titles: 'Fixed Income Fund',
+                      productName: fifController.productNameType.value,
+                      // annually: fifController.annuallyInterestRate.value,
+                      isNoUSD: true,
+                      investAmount: fifController.textAmount.value.toString(),
+                      investDate: fifController.textInvestDate.toString(),
+                      investDuration: fifController.textDuration.value,
+                      firstPayDate:
+                          fifController.displayFirstPaymentDate.toString(),
+                    );
+                  },
+                ),
+              );
+            }
+          }
+        });
+
+        debugPrint('Deduction Amount = ${fifController.deductionAmount.value}');
+      } else {
+        // fifController.onCreateFiF(buildcontext: context, id: widget.id);
+        debugPrint('All Form Validation = No Deduction Amount Can Route Here');
+        Navigator.push(
+          context!,
+          MaterialPageRoute(
+            builder: (context) {
+              return BulletPaymentDetail(
+                isAnnullyRate: true,
+                oncallBack: () async {
+                  FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                      'Submit create fif application');
+
+                  await apppincode
+                      .showLockScreen(enableCancel: true)
+                      .then((value) {
+                    if (value) {
+                      debugPrint('Make Request');
+                      fifController.onCreateFiF(
+                          id: widget.id, buildcontext: context);
+                    }
+                  });
+                },
+                fromPage: widget.id != null ? 'from edit' : 'from submit',
+                titles: 'Fixed Income Fund',
+                productName: fifController.productNameType.value,
+                // annually: fifController.annuallyInterestRate.value,
+                isNoUSD: true,
+                investAmount: fifController.textAmount.value.toString(),
+                investDate: fifController.textInvestDate.toString(),
+                investDuration: fifController.textDuration.value,
+                firstPayDate: fifController.displayFirstPaymentDate.toString(),
+              );
+            },
+          ),
+        );
+        //TODO : Can Route here when Product not in MPD-0002
+
       }
     } else {
-      debugPrint("Don't go");
+      debugPrint('All Form Validation = false');
     }
-    return false;
+
+    debugPrint(
+        'Product Name : ${fifController.initialMethodProductCode.value}');
+    debugPrint('Product code : ${fifController.productCode.value}');
   }
 
   int? currentIndex;
@@ -281,11 +303,6 @@ class _FIFOption1State extends State<FIFOption1> {
   bool? shoulPop = false;
   @override
   void initState() {
-    debugPrint("Widget===========.id:${widget.options!.length}");
-    // if (widget.id != null) {
-    //   fifController.fetchFIFPendingDetail(widget.id);
-    // }
-
     fifController.isNewBank.value = true;
     fifController.fetchFirstDate();
     fifController.fetchPayment().then((value) {
@@ -295,13 +312,9 @@ class _FIFOption1State extends State<FIFOption1> {
     super.initState();
   }
 
-  DateTime dt1 = DateTime.parse(FormatDate.today().toString());
   dynamic investDateCheck = "";
-  String firstPaymebtDateCheck = "";
   String validateTextAmoun = '';
   String validateTextDuration = '';
-  String validateTextDeduction = '';
-  bool? isChange = false;
 
   @override
   Widget build(BuildContext context) {
@@ -446,36 +459,31 @@ class _FIFOption1State extends State<FIFOption1> {
                                 validateText:
                                     fifController.textAmount.value == 0.0
                                         ? "Please Enter Investment Amount"
-                                        : validateTextAmoun,
+                                        : fifController.validateMessage.value,
                                 hintText: 'Investment Amount',
                                 labelText: 'Investment Amount',
                                 isRequired: true,
                                 isValidate:
                                     fifController.isValidateAmount.value,
-                                onChange: (valueChnaged) {
-                                  var amount = valueChnaged.replaceAll(',', '');
-                                  if (amount == '') {
-                                    fifController.textAmount.value = 0.0;
-                                    fifController.isValidateAmount.value =
-                                        false;
-                                    debugPrint("is Validated");
-                                  } else if (onConvertToDouble(amount) <
-                                          fifController.minimum.value ||
-                                      onConvertToDouble(amount) >
-                                          fifController.maximum.value) {
-                                    fifController.textAmount.value =
-                                        onConvertToDouble(amount);
-                                    fifController.isValidateAmount.value =
-                                        false;
-                                    setState(() {
-                                      validateTextAmoun =
-                                          fifController.validateMessage.value;
-                                    });
-                                  } else {
-                                    fifController.textAmount.value =
-                                        onConvertToDouble(amount);
+                                onChange: (valueChange) {
+                                  _onChangeHandler(valueChange, true);
 
-                                    fifController.isValidateAmount.value = true;
+                                  if (valueChange.isEmpty) {
+                                    fifController.isValidateAmount(false);
+                                    fifController.textAmount.value = 0.0;
+                                  } else {
+                                    var amount =
+                                        valueChange.replaceAll(',', '');
+                                    fifController.textAmount.value =
+                                        onConvertToDouble(amount);
+                                    if (Opterator.isBetween(
+                                        fifController.minimum.value,
+                                        fifController.textAmount.value,
+                                        fifController.maximum.value)) {
+                                      fifController.isValidateAmount(true);
+                                    } else {
+                                      fifController.isValidateAmount(false);
+                                    }
                                   }
                                 },
                                 initialValue: fifController.textAmount.value !=
@@ -507,62 +515,41 @@ class _FIFOption1State extends State<FIFOption1> {
                                 ],
                                 controller: fifController.durationController,
                                 keyboardType: TextInputType.number,
-                                hintText: 'Invesment Duration',
-                                labelText: 'Invesment Duration',
+                                hintText: 'Investment Duration',
+                                labelText: 'Investment Duration',
                                 isRequired: true,
                                 isValidate:
                                     fifController.isValidateDuration.value,
                                 validateText:
                                     fifController.textDuration.value == 0
                                         ? "Please Enter Invesment Duration"
-                                        : fifController.initialMethodProductCode
-                                                    .value !=
-                                                "MPD-0002"
-                                            ? validateTextDuration
-                                            : fifController
-                                                .investmentDurationMessage
-                                                .value,
-                                onChange: (valueChnaged) {
-                                  var duration =
-                                      valueChnaged.replaceAll(',', '');
-                                  if (duration == '') {
+                                        : fifController.durationMessage.value,
+                                onChange: (valueChanged) {
+                                  _onChangeHandler(valueChanged, false);
+                                  if (valueChanged.isEmpty) {
+                                    fifController.isValidateDuration(false);
                                     fifController.textDuration.value = 0;
-                                    fifController.isValidateDuration.value =
-                                        false;
-                                  } else if (int.parse(duration) <
-                                          fifController.durationMin.value ||
-                                      int.parse(duration) >
-                                          fifController.durationMax.value) {
-                                    fifController.textDuration.value =
-                                        int.parse(duration);
-                                    fifController.isValidateDuration.value =
-                                        false;
-                                    if (fifController
-                                            .initialMethodProductCode.value ==
-                                        "MPD-0002") {
-                                      fifController
-                                          .onValidatePrincipalDeduction(true);
-                                    }
-                                    if (fifController
-                                            .initialMethodProductCode.value !=
-                                        "MPD-0002") {
-                                      setState(() {
-                                        validateTextDuration =
-                                            fifController.durationMessage.value;
-                                      });
-                                    }
                                   } else {
-                                    fifController.isValidateDuration.value =
-                                        true;
-
+                                    var duration =
+                                        valueChanged.replaceAll(',', '');
                                     fifController.textDuration.value =
                                         int.parse(duration);
-                                    if (fifController
-                                            .initialMethodProductCode.value ==
-                                        "MPD-0002") {
-                                      fifController
-                                          .onValidatePrincipalDeduction(true);
+                                    if (Opterator.isBetween(
+                                        fifController.durationMin.value,
+                                        fifController.textDuration.value,
+                                        fifController.durationMax.value)) {
+                                      fifController.isValidateDuration(true);
+                                    } else {
+                                      fifController.isValidateDuration(false);
                                     }
+                                  }
+
+                                  //
+                                  if (fifController
+                                          .initialMethodProductCode.value !=
+                                      "MPD-0002") {
+                                    validateTextDuration =
+                                        fifController.durationMessage.value;
                                   }
                                 },
                                 initialValue:
@@ -583,80 +570,99 @@ class _FIFOption1State extends State<FIFOption1> {
                                 ),
                               ),
 
-                              if (fifController.fiFApplicationDetailPending
-                                      .value.subproductCode ==
-                                  "MPD-0002")
-                                CustomTextFieldNew(
-                                  controller:
-                                      fifController.deductionAmountController,
-                                  enable: fifController.initialMethodProductCode
-                                                  .value ==
-                                              "MPD-0002" &&
-                                          fifController
-                                              .isValidateDuration.value &&
-                                          fifController.textDuration.value != 0
-                                      ? true
-                                      : fifController.initialMethodProductCode
-                                                  .value !=
-                                              "MPD-0002"
+                              if (widget.options!.isNotEmpty &&
+                                  fifController.fiFApplicationDetailPending
+                                          .value.subproductCode ==
+                                      "MPD-0002")
+                                Stack(
+                                  children: [
+                                    CustomTextFieldNew(
+                                      controller: fifController
+                                          .deductionAmountController,
+                                      enable: fifController
+                                                      .initialMethodProductCode
+                                                      .value ==
+                                                  "MPD-0002" &&
+                                              fifController
+                                                      .textDuration.value !=
+                                                  0
                                           ? true
-                                          : false,
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: Text(
-                                      'USD',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1!
-                                          .copyWith(color: Colors.black38),
-                                    ),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  inputFormatterList: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    NumericTextFormatter(),
-                                    FilteringTextInputFormatter.deny(
-                                        RegExp(r'^0+')),
-                                  ],
-                                  validateText: fifController
-                                              .deductionAmount.value ==
-                                          0
-                                      ? "Please Enter Principal Deduction Amount"
-                                      : fifController
-                                          .principalDeductionMessage.value,
-                                  isValidate: fifController
-                                      .isValidateDeductionAmount.value,
-                                  initialValue:
-                                      fifController.deductionAmount.value == 0
+                                          : fifController
+                                                      .initialMethodProductCode
+                                                      .value !=
+                                                  "MPD-0002"
+                                              ? true
+                                              : false,
+                                      suffixIcon: Padding(
+                                        padding: const EdgeInsets.only(top: 15),
+                                        child: Text(
+                                          'USD',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1!
+                                              .copyWith(color: Colors.black38),
+                                        ),
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                      inputFormatterList: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        NumericTextFormatter(),
+                                        FilteringTextInputFormatter.deny(
+                                            RegExp(r'^0+')),
+                                      ],
+                                      validateText: fifController
+                                                  .deductionAmount.value ==
+                                              0
+                                          ? "Please Enter Principal Deduction Amount"
+                                          : _deductionAmountValidateMSG,
+                                      isValidate: fifController
+                                          .isValidateDeductionAmount.value,
+                                      initialValue: fifController
+                                                  .deductionAmount.value ==
+                                              0
                                           ? ""
                                           : fifController.deductionAmount.value
                                               .toString(),
-                                  hintText: "Principal Deduction Amount",
-                                  labelText: "Principal Deduction Amount",
-                                  isRequired: true,
-                                  onChange: (valueChnaged) {
-                                    var value =
-                                        valueChnaged.replaceAll(',', '');
+                                      hintText: "Principal Deduction Amount",
+                                      labelText: "Principal Deduction Amount",
+                                      isRequired: true,
+                                      onChange: (valueChanged) {
+                                        var value =
+                                            valueChanged.replaceAll(',', '');
 
-                                    if (value == "") {
-                                      fifController.isValidateDeductionAmount
-                                          .value = false;
-                                      fifController.deductionAmount.value = 0.0;
-                                      fifController
-                                          .onValidatePrincipalDeduction(false);
-                                      debugPrint("when value clear");
-                                    } else {
-                                      fifController.deductionAmount.value =
-                                          onConvertToDouble(value);
-                                      fifController.isValidateDeductionAmount
-                                          .value = true;
-
-                                      fifController
-                                          .onValidatePrincipalDeduction(false);
-                                    }
-
-                                    fifController.update();
-                                  },
+                                        if (valueChanged.isEmpty) {
+                                          fifController
+                                              .isValidateDeductionAmount(false);
+                                          fifController.deductionAmount.value =
+                                              0.0;
+                                        } else {
+                                          fifController.deductionAmount.value =
+                                              onConvertToDouble(value);
+                                          fifController
+                                              .isValidateDeductionAmount
+                                              .value = true;
+                                          if (Opterator.isBetween(
+                                              fifController
+                                                  .minDeductionAmount.value,
+                                              fifController
+                                                  .deductionAmount.value,
+                                              fifController
+                                                  .maxDeductionAmount.value)) {
+                                            fifController
+                                                .isValidateDeductionAmount(
+                                                    true);
+                                          } else {
+                                            fifController
+                                                .isValidateDeductionAmount(
+                                                    false);
+                                          }
+                                        }
+                                      },
+                                    ),
+                                    fifController.validateFIFLoading.value
+                                        ? _loadingDeducAmount()
+                                        : const SizedBox.shrink()
+                                  ],
                                 ),
 
                               // SizedBox(height: 20),
@@ -810,51 +816,72 @@ class _FIFOption1State extends State<FIFOption1> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, bottom: 30, top: 20),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: CustomButton(
-                              isDisable: false,
-                              isOutline: true,
-                              title: 'Cancel',
-                              onPressed: () {
-                                showSaveDraftDialog(
-                                  onDiscard: () {
-                                    fifController.onClearFIF();
-                                    Navigator.pop(context);
-                                  },
-                                  isDisableSaveDraft: true,
-                                  context: context,
-                                  title:
-                                      'Are you sure you want to leave this page?',
-                                  content:
-                                      'Changes made to this page haven’t been saved yet.',
-                                  isCancel: true,
-                                );
-                              },
-                            )),
-                            const SizedBox(width: 15),
-                            Expanded(
-                              child: CustomButton(
-                                isDisable: false,
-                                isOutline: false,
-                                title: 'Next',
-                                onPressed: () {
-                                  onValidate(context);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
+                      _buildBotton(context)
                     ],
                   ),
           ),
         ),
       ),
+    );
+  }
+
+  Positioned _loadingDeducAmount() {
+    return Positioned.fill(
+      child: Container(
+        padding: EdgeInsets.only(
+            bottom: fifController.isValidateDeductionAmount.value ? 0 : 35),
+        decoration: const BoxDecoration(color: Colors.transparent),
+        alignment: Alignment.center,
+        child: const CupertinoActivityIndicator(),
+      ),
+    );
+  }
+
+  Widget _buildBotton(BuildContext context) {
+    return SafeArea(
+      top: false,
+      minimum: const EdgeInsets.all(20),
+      child: Row(
+        children: [
+          Expanded(
+              child: CustomButton(
+            isDisable: false,
+            isOutline: true,
+            title: 'Cancel',
+            onPressed: () {
+              _showCancelDialog(context);
+            },
+          )),
+          const SizedBox(width: 15),
+          Expanded(
+            child: CustomButton(
+              isDisable: false,
+              isOutline: false,
+              title: 'Next',
+              onPressed: () {
+                onValidate(context);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String get _deductionAmountValidateMSG =>
+      "The amounts must be between ${FormatToK.convertNumber(fifController.minDeductionAmount.value)} USD and ${FormatToK.convertNumber(fifController.maxDeductionAmount.value)} USD";
+
+  _showCancelDialog(BuildContext context) {
+    showSaveDraftDialog(
+      onDiscard: () {
+        fifController.onClearFIF();
+        Navigator.pop(context);
+      },
+      isDisableSaveDraft: true,
+      context: context,
+      title: 'Are you sure you want to leave this page?',
+      content: 'Changes made to this page haven’t been saved yet.',
+      isCancel: true,
     );
   }
 }

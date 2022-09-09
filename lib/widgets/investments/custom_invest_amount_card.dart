@@ -41,9 +41,8 @@ class CustomInvestAmonutCard extends StatelessWidget {
                     ? SvgPicture.asset(
                         'assets/images/svgfile/deposit_investment.svg')
                     : SvgPicture.asset('assets/images/svgfile/investfif.svg'),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 50),
+                const SizedBox(width: 20),
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +99,6 @@ class CustomInvestAmonutCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Spacer(),
               ],
             ),
           ),
