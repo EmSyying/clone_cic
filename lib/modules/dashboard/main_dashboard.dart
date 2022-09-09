@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cicgreenloan/Utils/helper/find_widget_position.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
@@ -16,7 +15,6 @@ import 'package:cicgreenloan/modules/notification_modules/controllers/notificati
 import 'package:cicgreenloan/widgets/dashboard/custom_associate_member.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/link.dart';
 import 'package:upgrader/upgrader.dart';
@@ -675,35 +673,23 @@ class _MainDashboardState extends State<MainDashboard> {
 //                    : Color(0xffDEE8E9).withOpacity(0.1),
               automaticallyImplyLeading: false,
               centerTitle: false,
-              title: GestureDetector(
-                ///add this widget to test privilege screen don't forget remore====================
-                onTap: () {
-                  context.push('/privilege/all-store');
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const PrivilegeScreen(),
-                  //   ),
-                  // );
-                },
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/images/svgfile/Logocic.svg',
-                      height: 27,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'Mobile',
-                      style: TextStyle(
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  ],
-                ),
+              title: Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/svgfile/Logocic.svg',
+                    height: 27,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    'Mobile',
+                    style: TextStyle(
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                ],
               ),
               actions: [
                 Row(
@@ -752,35 +738,35 @@ class _MainDashboardState extends State<MainDashboard> {
                     const SizedBox(
                       width: 10,
                     ),
-                    FlutterSwitch(
-                        key: widgetKey,
-                        padding: 3,
-                        width: 50,
-                        height: 30,
-                        inactiveIcon: const Text(
-                          'QM',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        activeIcon: const Text(
-                          'AM',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        activeColor: const Color(0xff0685CF),
-                        value: switchIcon!,
-                        onToggle: (e) {
-                          setState(() {
-                            switchIcon = e;
-                            if (e == true) {
-                              Offset offset = getWidgetInfo(widgetKey);
-                              context.go('/switch-splash-screen',
-                                  extra: offset);
-                            } else {
-                              Offset offset = getWidgetInfo(widgetKey);
-                              context.go('/switch-splash-screen',
-                                  extra: offset);
-                            }
-                          });
-                        }),
+                    // FlutterSwitch(
+                    //     key: widgetKey,
+                    //     padding: 3,
+                    //     width: 50,
+                    //     height: 30,
+                    //     inactiveIcon: const Text(
+                    //       'QM',
+                    //       style: TextStyle(color: Colors.black),
+                    //     ),
+                    //     activeIcon: const Text(
+                    //       'AM',
+                    //       style: TextStyle(color: Colors.black),
+                    //     ),
+                    //     activeColor: const Color(0xff0685CF),
+                    //     value: switchIcon!,
+                    //     onToggle: (e) {
+                    //       setState(() {
+                    //         switchIcon = e;
+                    //         if (e == true) {
+                    //           Offset offset = getWidgetInfo(widgetKey);
+                    //           context.go('/switch-splash-screen',
+                    //               extra: offset);
+                    //         } else {
+                    //           Offset offset = getWidgetInfo(widgetKey);
+                    //           context.go('/switch-splash-screen',
+                    //               extra: offset);
+                    //         }
+                    //       });
+                    //     }),
                     const SizedBox(
                       width: 10,
                     ),

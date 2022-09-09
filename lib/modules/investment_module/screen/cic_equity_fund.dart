@@ -6,7 +6,6 @@ import 'package:cicgreenloan/modules/investment_module/model/share_price_model.d
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/certificate.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -513,95 +512,95 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
             ),
 
             ///
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.only(top: 20),
-              color: AppColor.backgroundColor,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                            'assets/images/svgfile/ut_chart_history.dart.svg'),
-                        const SizedBox(width: 10),
-                        Text(
-                          'UT Transaction History',
-                          style:
-                              Theme.of(context).textTheme.headline2!.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            hide = !hide;
-                            setState(() {});
-                          },
-                          child: Text(
-                            hide ? 'Show' : 'Hide',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    height: 0,
-                                    decoration: TextDecoration.underline),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  hide
-                      ? const SizedBox.shrink()
-                      : Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          width: double.infinity,
-                          child: CupertinoSlidingSegmentedControl(
-                            groupValue: selectedSegment,
-                            // backgroundColor: CupertinoColors.tertiarySystemFill,
-                            children: <int, Widget>{
-                              0: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: Text(
-                                  'Subscription',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(fontSize: 13),
-                                ),
-                              ),
-                              1: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: Text(
-                                  'Trading',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(fontSize: 13),
-                                ),
-                              ),
-                            },
-                            onValueChanged: (int? value) {
-                              selectedSegment = value!;
+            // Container(
+            //   margin: const EdgeInsets.only(top: 10),
+            //   padding: const EdgeInsets.only(top: 20),
+            //   color: AppColor.backgroundColor,
+            //   child: Column(
+            //     children: [
+            //       Padding(
+            //         padding: const EdgeInsets.symmetric(horizontal: 20),
+            //         child: Row(
+            //           children: [
+            //             SvgPicture.asset(
+            //                 'assets/images/svgfile/ut_chart_history.dart.svg'),
+            //             const SizedBox(width: 10),
+            //             Text(
+            //               'UT Transaction History',
+            //               style:
+            //                   Theme.of(context).textTheme.headline2!.copyWith(
+            //                         fontWeight: FontWeight.w700,
+            //                       ),
+            //             ),
+            //             const Spacer(),
+            //             GestureDetector(
+            //               onTap: () {
+            //                 hide = !hide;
+            //                 setState(() {});
+            //               },
+            //               child: Text(
+            //                 hide ? 'Show' : 'Hide',
+            //                 style: Theme.of(context)
+            //                     .textTheme
+            //                     .headline3!
+            //                     .copyWith(
+            //                         fontWeight: FontWeight.w500,
+            //                         height: 0,
+            //                         decoration: TextDecoration.underline),
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //       hide
+            //           ? const SizedBox.shrink()
+            //           : Container(
+            //               margin: const EdgeInsets.symmetric(
+            //                   vertical: 20, horizontal: 20),
+            //               width: double.infinity,
+            //               child: CupertinoSlidingSegmentedControl(
+            //                 groupValue: selectedSegment,
+            //                 // backgroundColor: CupertinoColors.tertiarySystemFill,
+            //                 children: <int, Widget>{
+            //                   0: Padding(
+            //                     padding:
+            //                         const EdgeInsets.symmetric(vertical: 10),
+            //                     child: Text(
+            //                       'Subscription',
+            //                       style: Theme.of(context)
+            //                           .textTheme
+            //                           .subtitle2!
+            //                           .copyWith(fontSize: 13),
+            //                     ),
+            //                   ),
+            //                   1: Padding(
+            //                     padding:
+            //                         const EdgeInsets.symmetric(vertical: 10),
+            //                     child: Text(
+            //                       'Trading',
+            //                       style: Theme.of(context)
+            //                           .textTheme
+            //                           .subtitle2!
+            //                           .copyWith(fontSize: 13),
+            //                     ),
+            //                   ),
+            //                 },
+            //                 onValueChanged: (int? value) {
+            //                   selectedSegment = value!;
 
-                              setState(() {});
-                            },
-                          ),
-                        ),
-                  hide
-                      ? const SizedBox.shrink()
-                      : utChartHistory[selectedSegment],
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            //                   setState(() {});
+            //                 },
+            //               ),
+            //             ),
+            //       hide
+            //           ? const SizedBox.shrink()
+            //           : utChartHistory[selectedSegment],
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
 
             ///
             // const SizedBox(height: 20),
