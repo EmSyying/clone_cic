@@ -356,6 +356,7 @@ class MemberController extends GetxController {
 
       isLoadingUpdateComapny(false);
       update();
+      Navigator.pop(context!);
     }).onError((ErrorModel errorModel, stackTrace) {
       debugPrint('hello error:${errorModel.bodyString}');
       customRouterSnackbar(
@@ -368,7 +369,7 @@ class MemberController extends GetxController {
 
 //clear image profile
   onClearImage() {
-    uploadCon.imageFile = null;
+    uploadCon.imageFile.value = File('');
   }
 
   ///clear company form

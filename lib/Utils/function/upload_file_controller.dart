@@ -19,7 +19,7 @@ import '../../utils/function/get_sharepreference_data.dart';
 
 class UploadFileController extends GetxController {
   final imagePicker = ImagePicker();
-  File? imageFile;
+  final imageFile = File('').obs;
   final imagePathFile = "".obs;
   final memberCon = Get.put(MemberController());
   final customerCon = Get.put(CustomerController());
@@ -400,7 +400,7 @@ class UploadFileController extends GetxController {
     if (imageFile == null) {
       return;
     }
-    final byte = imageFile!.readAsBytesSync();
+    final byte = imageFile.value.readAsBytesSync();
     final salarySlipResult = await FlutterImageCompress.compressWithList(
       byte.buffer.asUint8List(),
       minWidth: 800,
@@ -433,6 +433,9 @@ class UploadFileController extends GetxController {
     } catch (ex) {
       debugPrint("Errorr: $ex");
     } finally {
+      debugPrint("File Path Before: ${imageFile.value.path}");
+      imageFile.value = File('');
+      debugPrint("File Path Before: ${imageFile.value.path}");
       isLoading(false);
     }
   }
@@ -442,17 +445,20 @@ class UploadFileController extends GetxController {
     final pickerFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
+    File? file;
 
     if (pickerFile != null) {
       if (isCompany == true) {
         memberCon.comCompanyLogo = File(pickerFile.path);
       }
-      imageFile = File(pickerFile.path);
-      imagePathFile.value = imageFile!.toString();
+      file = File(pickerFile.path);
+      imageFile.value = file;
+      imagePathFile.value = imageFile.toString();
 
       update();
     }
-    if (imageFile != null) {
+    debugPrint(imageFile.value.toString());
+    if (file != null) {
       if (isCompany != true) {
         startUpload(baseUrl: url, body: body);
       }
@@ -461,6 +467,7 @@ class UploadFileController extends GetxController {
 
   Future<void> onOpenCamera(
       {String? url, Map<String, dynamic>? body, bool isCompany = false}) async {
+    File? file;
     final pickerFile = await imagePicker.pickImage(source: ImageSource.camera);
 
     if (pickerFile != null) {
@@ -468,12 +475,13 @@ class UploadFileController extends GetxController {
         memberCon.comCompanyLogo = File(pickerFile.path);
       }
 
-      imageFile = File(pickerFile.path);
-      imagePathFile.value = imageFile!.toString();
+      file = File(pickerFile.path);
+      imageFile.value = file;
+      imagePathFile.value = imageFile.toString();
       update();
     }
 
-    if (imageFile != null) {
+    if (file != null) {
       if (isCompany != true) {
         startUpload(baseUrl: url, body: body);
       }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/widgets/bonus/custom_empty_state.dart';
 import 'package:cicgreenloan/widgets/new_perional_profile/custom_company_tap.dart';
@@ -75,6 +77,8 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               .asMap()
                               .entries
                               .map((e) {
+                            debugPrint(
+                                "Company Logo: ${e.value.companyActivityImages}");
                             return CustomCompanyTap(
                               imageProfile: e.value.companyLogo,
                               companyName: e.value.companyName,
@@ -126,7 +130,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 memberCon.comaddress.value = e.value.address!;
                                 memberCon.comWebsite.value = e.value.website!;
                                 memberCon.comProfile.value =
-                                    e.value.companyProfile!;
+                                    e.value.companyLogo!;
                                 memberCon.comproductandservice.value =
                                     e.value.companyProductAndService!;
                                 Navigator.push(context,
@@ -147,9 +151,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                     isEditCompany: true,
                                   );
                                 }));
-                                if (uploadImageCon.imageFile != null) {
-                                  memberCon.isDisableDoneButton.value = false;
-                                }
+                                memberCon.isDisableDoneButton.value = false;
                               },
                             );
                           }).toList(),
@@ -159,13 +161,14 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               left: 20, right: 20, bottom: 20),
                           child: GestureDetector(
                             onTap: () {
-                              // memberCon.onClearCompany();
+                              uploadImageCon.imageFile.value = File('');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
                                   return EditProfileScreen(
                                     appBarTitle: 'Add Company',
                                     isCreateCompany: true,
+
                                     // companyData: memberCon.company.value,
                                     onTapPhotoProfile: () {
                                       uploadImageCon.uploadImage(context,

@@ -649,7 +649,7 @@ class _EventDetailState extends State<EventDetail> {
                                                 child: TextButton(
                                                   onPressed: () {
                                                     context.go(
-                                                        '/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}');
+                                                        '/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}&latitude=${eventController.eventDetail.value.latitude}');
                                                   },
                                                   child: const Text(
                                                     'View Map',

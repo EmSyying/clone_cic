@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
@@ -86,7 +88,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
-            // memberCon.onClearImage();
+            uploadImageCon.imageFile.value = File('');
           },
           icon: const Icon(
             Icons.close,
@@ -103,24 +105,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         action: [
           // widget.isEditCompany != true ? widget.actionDone! : Container()
 
-          TextButton(
-            onPressed: memberCon.isDisableDoneButton.value == true
-                ? null
-                : () {
-                    widget.onTapDone!();
-
-                    Navigator.pop(context);
-                  },
-            child: Obx(
-              () => Text(
-                widget.titleDone ?? '',
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      color: memberCon.isDisableDoneButton.value == true
-                          ? Colors.grey
-                          : AppColor.mainColor,
-                    ),
+          Obx(
+            () => TextButton(
+              onPressed: memberCon.isDisableDoneButton.value == true ||
+                      uploadImageCon.imageFile.value.path == ''
+                  ? null
+                  : () {
+                      widget.onTapDone!();
+                    },
+              child: Obx(
+                () => Text(
+                  widget.titleDone ?? "",
+                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: memberCon.isDisableDoneButton.value == true ||
+                                uploadImageCon.imageFile.value.path == ''
+                            ? Colors.grey
+                            : AppColor.mainColor,
+                      ),
+                ),
               ),
             ),
           ),
@@ -350,18 +354,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   color: AppColor.mainColor,
                                 ),
                               )
-                            : uploadImageCon.imagePathFile.value == ""
-                                ? _buildProfile(NetworkImage(memberCon
-                                            .company.value.companyLogo ==
-                                        ''
-                                    ? 'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'
-                                    : memberCon.company.value.companyLogo!))
-                                : _buildProfile(
-                                    FileImage(uploadImageCon.imageFile!)),
+                            : !widget.isEditCompany!
+                                ? uploadImageCon.imageFile.value.path == ''
+                                    ? _buildProfile(const NetworkImage(
+                                        'https://cicstaging.z1central.com/uploads/files/default/default-image.png'))
+                                    : _buildProfile(FileImage(
+                                        uploadImageCon.imageFile.value))
+                                : uploadImageCon.imageFile.value.path == ''
+                                    ? _buildProfile(NetworkImage(memberCon
+                                                .company.value.companyLogo ==
+                                            ''
+                                        ? 'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'
+                                        : memberCon.comProfile.value))
+                                    : _buildProfile(FileImage(
+                                        uploadImageCon.imageFile.value)),
                         TextButton(
                           onPressed: widget.onTapPhotoProfile,
                           child: Text(
-                            'Change Profile Photo',
+                            'Change Company Logo',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3!

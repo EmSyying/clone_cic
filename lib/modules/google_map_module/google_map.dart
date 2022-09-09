@@ -26,11 +26,12 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
   Widget build(BuildContext context) {
     _googleMapCon.createMarkerImageFromAsset(context);
 
-    _googleMapCon.determinePosition().then((position) {
-      _googleMapCon.currentPosition = position;
-    });
+    // _googleMapCon.determinePosition().then((position) {
+    //   _googleMapCon.currentPosition = position;
+    // });
     _googleMapCon.onGetDirections().then((value) {});
     if (widget.latitude != null && widget.longtitude != null) {
+      debugPrint("Hello WOrld");
       _googleMapCon.addMarker(
           widget.title!, LatLng(widget.latitude!, widget.longtitude!));
       Future.delayed(
