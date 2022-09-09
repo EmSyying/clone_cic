@@ -130,7 +130,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 memberCon.comaddress.value = e.value.address!;
                                 memberCon.comWebsite.value = e.value.website!;
                                 memberCon.comProfile.value =
-                                    e.value.companyLogo!;
+                                    e.value.companyProfile!;
                                 memberCon.comproductandservice.value =
                                     e.value.companyProductAndService!;
                                 Navigator.push(context,
@@ -161,6 +161,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               left: 20, right: 20, bottom: 20),
                           child: GestureDetector(
                             onTap: () {
+                              // memberCon.isCompanyName.value = true;
                               uploadImageCon.imageFile.value = File('');
                               Navigator.push(
                                 context,

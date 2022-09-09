@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/function/upload_file_controller.dart';
+import '../../../../Utils/helper/custom_loading_button.dart';
 import '../../controllers/customer_controller.dart';
 import '../../controllers/member_controller.dart';
 
@@ -87,6 +88,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         context: context,
         leading: IconButton(
           onPressed: () {
+            memberCon.onClearCompany();
             Navigator.pop(context);
             uploadImageCon.imageFile.value = File('');
           },
@@ -275,7 +277,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           initialValue: memberCon.gmail.value,
                         ),
                         CustomTextFieldNew(
-                          hintText: 'Telegram',
+                          hintText: 'Link Telegram',
                           onChange: (telegram) {
                             setState(() {
                               if (telegram == '') {
@@ -290,13 +292,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             });
                           },
                           isValidate: true,
-                          labelText: 'Telegram',
+                          labelText: 'Link Telegram',
                           initialValue: memberCon.telegram.value != ''
                               ? memberCon.telegram.value
                               : '',
                         ),
                         CustomTextFieldNew(
-                          hintText: 'Website',
+                          hintText: 'Link Website',
                           onChange: (website) {
                             setState(() {
                               if (website == '') {
@@ -311,7 +313,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             });
                           },
                           isValidate: true,
-                          labelText: 'Website',
+                          labelText: 'Link Website',
                           initialValue: memberCon.webSite.value != ''
                               ? memberCon.webSite.value
                               : '',
@@ -488,7 +490,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               : '',
                         ),
                         CustomTextFieldNew(
-                          hintText: 'Website',
+                          hintText: 'Link Website',
                           onChange: (companyWebsite) {
                             setState(() {
                               if (companyWebsite == '') {
@@ -502,7 +504,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             });
                           },
                           isValidate: true,
-                          labelText: 'Website',
+                          labelText: 'Link Website',
                           initialValue: widget.id != null
                               ? memberCon.comWebsite.value
                               : '',
@@ -510,7 +512,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         CustomTextFieldNew(
                           hintText: 'About Us',
                           onChange: (comAboutAs) {
-                            debugPrint("Entert about us $comAboutAs");
                             // setState(() {
                             //   memberCon.isDisableDoneButton.value = true;
                             // });
@@ -571,6 +572,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Expanded(
                         child: CustomButton(
                           onPressed: () {
+                            memberCon.onClearCompany();
                             Navigator.pop(context);
                           },
                           title: 'Cancel',
@@ -580,16 +582,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       const SizedBox(width: 20),
                       Expanded(
-                        child: CustomButton(
-                          onPressed: () {
-                            isValidation();
+                        child: memberCon.isLoadingSubmitCompany.value
+                            ? const CustomLoadingButton()
+                            : CustomButton(
+                                onPressed:
+                                    memberCon.isDisableDoneButton.value == false
+                                        ? () {
+                                            isValidation();
 
-                            // memberCon.onSubmitCompany(context);
-                          },
-                          title: 'Done',
-                          isDisable: false,
-                          isOutline: false,
-                        ),
+                                            // memberCon.onSubmitCompany(context);
+                                          }
+                                        : null,
+                                title: 'Done',
+                                isDisable: false,
+                                isOutline: false,
+                              ),
                       ),
                     ],
                   ),

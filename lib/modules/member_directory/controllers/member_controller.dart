@@ -381,6 +381,8 @@ class MemberController extends GetxController {
     comWebsite.value = '';
     comProfile.value = '';
     comproductandservice.value = '';
+    isCompanyName.value = true;
+    isDisableDoneButton.value = true;
     // base64Image = '';
     // uploadCon.imageFile = null;
     // company.value.companyLogo = '';
@@ -429,7 +431,6 @@ class MemberController extends GetxController {
       "linkedin": comLinkedin.value,
       "twitter": comTwitter.value
     });
-    debugPrint('heloo statuscode:+++++++++123456');
     try {
       isLoadingSubmitCompany(true);
       var response = await http.post(Uri.parse(url),
@@ -439,11 +440,7 @@ class MemberController extends GetxController {
             'Authorization': 'Bearer $tokenKey'
           },
           body: data);
-      debugPrint('heloo statuscode:+++++++++YYYYYYY');
       if (response.statusCode == 200) {
-        debugPrint('heloo statuscode:${response.statusCode}');
-        debugPrint('heloo body:${response.body}');
-        debugPrint('heloo statuscode:+++++++++YYYYYYY====${comEmail.value}');
         FirebaseAnalyticsHelper.sendAnalyticsEvent('Success Submit Company');
         customRouterSnackbar(
           title: 'Successful...!',
@@ -459,8 +456,7 @@ class MemberController extends GetxController {
         Navigator.pop(context!);
         update();
       } else {
-        debugPrint('heloo body fail++:${response.body}');
-        debugPrint('heloo statuscode:+++++++++000000:${response.statusCode}');
+        debugPrint('hekoo create:${response.body}');
         FirebaseAnalyticsHelper.sendAnalyticsEvent('Fail Submit Company');
         customRouterSnackbar(
           title: 'Failed...!',
@@ -478,7 +474,6 @@ class MemberController extends GetxController {
   final isLaodingUpdateProfile = false.obs;
   final cusController = Get.put(CustomerController());
   Future<void> updatePersonalProfile(BuildContext? context) async {
-    debugPrint('heloo1234567+++++:${gmail.value}');
     isLaodingUpdateProfile(true);
     await apiBaseHelpers.onNetworkRequesting(
         url: 'member-profile/update',

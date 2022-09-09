@@ -219,7 +219,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   child: PageView(
                     controller: _pageViewController,
                     onPageChanged: (value) {
-                      debugPrint('heloo${_pageViewController.initialPage}');
+                      // debugPrint('heloo${_pageViewController.initialPage}');
                       if (_pageViewController.page == 0) {
                         FirebaseAnalyticsHelper.sendAnalyticsEvent(
                             'Personal Profile');
