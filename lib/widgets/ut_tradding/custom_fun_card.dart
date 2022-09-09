@@ -172,7 +172,7 @@ class CustomFunCard extends StatelessWidget {
                   child: CustomTradingButton(
                     isBuying: true,
                     color: isLoading!
-                        ? Colors.grey
+                        ? const Color(0xff75BF72).withAlpha(76)
                         : const Color(0xff75BF72).withAlpha(76),
                     title: 'Buy In',
                     onTap: isLoading! ? () {} : onBuy,
@@ -187,7 +187,7 @@ class CustomFunCard extends StatelessWidget {
                     isBuying: false,
                     title: 'Sell Out',
                     color: isLoading!
-                        ? Colors.grey
+                        ? const Color(0XFFF54E5E).withAlpha(76)
                         : const Color(0XFFF54E5E).withAlpha(76),
                     onTap: isLoading! ? () {} : onSale,
                   ),
