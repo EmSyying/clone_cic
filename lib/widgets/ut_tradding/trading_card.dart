@@ -45,39 +45,46 @@ class _InquiryCardState extends State<InquiryCard> {
           //       offset: Offset(1.0, 0.0), color: Colors.black12, blurRadius: 6)
           // ],
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0XFFAFAFAF), width: 0.25),
+          border: Border.all(
+              color: const Color(0XFFAFAFAF).withAlpha(75), width: 0.5),
           color: Colors.white),
       child: Row(
         children: [
           Expanded(
               child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding:
+                    const EdgeInsets.only(left: 15.0, top: 15.0, right: 15.0),
                 child: SvgPicture.asset(
                   widget.inquiryModel!.operation!.toLowerCase() == 'buy'
                       ? 'assets/images/svgfile/ut-buy-card.svg'
                       : 'assets/images/svgfile/ut-sell-card.svg',
-                  height: 35,
+                  // height: 35,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${widget.inquiryModel!.operation!.capitalize} Request',
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    widget.inquiryModel!.time!,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${widget.inquiryModel!.operation!.capitalize} Request',
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      widget.inquiryModel!.time!,
+                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                          color: const Color(0XFF464646)),
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               Column(
@@ -85,28 +92,31 @@ class _InquiryCardState extends State<InquiryCard> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   // if (widget.status == 'All')
-                  Text(
-                    widget.inquiryModel!.type!.capitalize!,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: widget.inquiryModel!.type!.toLowerCase() ==
-                                'submitted'
-                            ? const Color(0xff0685CF)
-                            : widget.inquiryModel!.type!.toLowerCase() ==
-                                    'unmatched'
-                                ? const Color(0xffE28112)
-                                : widget.inquiryModel!.type!.toLowerCase() ==
-                                        'matched'
-                                    ? Colors.green
-                                    : widget.inquiryModel!.type!
-                                                .toLowerCase() ==
-                                            'in progress'
-                                        ? const Color(0xff0685CF)
-                                        : Colors.black,
-                        fontWeight: FontWeight.w700),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 3.0),
+                    child: Text(
+                      widget.inquiryModel!.type!.capitalize!,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: widget.inquiryModel!.type!.toLowerCase() ==
+                                  'submitted'
+                              ? const Color(0xff0685CF)
+                              : widget.inquiryModel!.type!.toLowerCase() ==
+                                      'unmatched'
+                                  ? const Color(0xffE28112)
+                                  : widget.inquiryModel!.type!.toLowerCase() ==
+                                          'matched'
+                                      ? Colors.green
+                                      : widget.inquiryModel!.type!
+                                                  .toLowerCase() ==
+                                              'in progress'
+                                          ? const Color(0xff0685CF)
+                                          : Colors.black,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 4,
                   ),
                   Row(
                     children: [

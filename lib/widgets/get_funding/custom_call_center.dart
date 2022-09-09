@@ -11,8 +11,14 @@ class CustomCallCenter extends StatefulWidget {
   final bool? isPading;
   final String? type;
   final String? url;
+  final bool? isUT;
   const CustomCallCenter(
-      {Key? key, this.color, this.isPading = false, this.type, this.url})
+      {Key? key,
+      this.color,
+      this.isPading = false,
+      this.type,
+      this.url,
+      this.isUT})
       : super(key: key);
 
   @override
@@ -48,8 +54,8 @@ class _CustomCallCenterState extends State<CustomCallCenter> {
             EdgeInsets.only(left: 0, right: widget.isPading == true ? 0 : 10.0),
         child: SvgPicture.asset(
           "assets/images/svgfile/telegram-icons.svg",
-          height: 35.0,
-          width: 35.0,
+          height: widget.isUT == true ? 25 : 35.0,
+          width: widget.isUT == true ? 25 : 35.0,
         ),
       ),
     );

@@ -33,7 +33,8 @@ class CustomFunCard extends StatelessWidget {
           //       offset: Offset(1.0, 0.0), color: Colors.black12, blurRadius: 6)
           // ],
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0XFFAFAFAF), width: 0.25),
+          border: Border.all(
+              color: const Color(0XFFAFAFAF).withAlpha(75), width: 0.5),
           color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

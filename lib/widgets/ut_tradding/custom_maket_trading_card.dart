@@ -29,9 +29,11 @@ class CustomMaketTradingCar extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
-              offset: Offset(1.0, 0.0), color: Colors.black12, blurRadius: 6)
+              offset: Offset(1.0, 2.0),
+              color: AppColor.mainColor,
+              blurRadius: 6)
         ],
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColor.mainColor),
         color: const Color(0XFF0F50A4),
       ),

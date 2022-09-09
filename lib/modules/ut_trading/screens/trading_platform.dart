@@ -425,7 +425,11 @@ class _UTtradingState extends State<UTtrading>
                         action: [
                           IconButton(
                             padding: EdgeInsets.zero,
-                            icon: SvgPicture.asset('assets/images/iIcon.svg'),
+                            icon: SvgPicture.asset(
+                              'assets/images/iIcon.svg',
+                              width: 35.0,
+                              height: 35.0,
+                            ),
                             onPressed: () {
                               FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                   "General Instruction");
@@ -437,6 +441,7 @@ class _UTtradingState extends State<UTtrading>
                             },
                           ),
                           CustomCallCenter(
+                              isUT: true,
                               url: inquiryController
                                   .tradingSettingData.data!.telegramLink),
                         ],
