@@ -79,7 +79,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
               : const Text(''),
           backgroundColor: AppColor.mainColor,
           elevation: 0,
-          // title: isInnerBox == false
+          // title: isInnerBox == true
           //     ? Text(
           //         '${customerUser.customer.value.fullName}',
           //         style: Theme.of(context).textTheme.headline4!.copyWith(
@@ -144,7 +144,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
         ),
         body: NestedScrollView(
           floatHeaderSlivers: true,
-          headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             isInnerBox = innerBoxIsScrolled;
             return [
               SliverOverlapAbsorber(
@@ -156,7 +156,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   excludeHeaderSemantics: true,
                   backgroundColor: AppColor.mainColor,
                   leading: const Text(''),
-                  expandedHeight: MediaQuery.of(context).size.height * 0.35,
+                  expandedHeight: 270,
                   elevation: 0.0,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
