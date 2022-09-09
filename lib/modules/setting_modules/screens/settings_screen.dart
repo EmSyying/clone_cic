@@ -33,6 +33,7 @@ import 'package:http/http.dart' as http;
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
+import '../../privilege_program/screen/privilege/privilege_screen.dart';
 import '../../report_module/screens/cic_app_manual.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -968,11 +969,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           height: 10,
                         ),
                         !_settingCon.isLoading.value
-                            ? CachedNetworkImage(
-                                imageUrl: _settingCon
-                                    .appSettingVersion.value.applicationLogo!,
-                                width: 100,
-                                height: 100,
+                            ? GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PrivilegeScreen(),
+                                    ),
+                                  );
+                                },
+                                child: CachedNetworkImage(
+                                  imageUrl: _settingCon
+                                      .appSettingVersion.value.applicationLogo!,
+                                  width: 100,
+                                  height: 100,
+                                ),
                               )
                             : Container(),
                         !_settingCon.isLoading.value

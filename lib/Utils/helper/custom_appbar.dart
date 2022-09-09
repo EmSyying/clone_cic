@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../modules/event_module/screen/event.dart';
+
 // ignore: non_constant_identifier_names
 CustomAppBar({
   required BuildContext context,
@@ -99,9 +101,19 @@ CustomAppBar({
                       ? MediaQuery.of(context).size.width * 0.45
                       : MediaQuery.of(context).size.width * 0.9,
                   child: !isLogo
-                      ? Text(
-                          title!,
-                          style: Theme.of(context).textTheme.headline6,
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EventScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            title!,
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                         )
                       : Padding(
                           padding: const EdgeInsets.only(right: 70),
