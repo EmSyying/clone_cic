@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
@@ -27,7 +25,6 @@ class ResultSearch extends StatefulWidget {
 
 class _ResultSearchState extends State<ResultSearch> {
   final privilegCon = Get.put(PrivilegeController());
-  Timer? searchOnStoppedTyping;
   @override
   void initState() {
     super.initState();
@@ -68,9 +65,7 @@ class _ResultSearchState extends State<ResultSearch> {
           ),
           child: CustomFormFieldSearch(
             onSaved: (e) {},
-            onChanged: (v) {
-              // onChangeHandler1(v);
-            },
+            onChanged: (v) {},
             controller: TextEditingController(),
             keyboardType: TextInputType.name,
           ),

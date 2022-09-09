@@ -75,6 +75,7 @@ class PrivilegeController extends GetxController {
   final searLocationModel = SearchLocationListModel().obs;
   final searchLocationList = <SearchLocationListModel>[].obs;
   final isSearchLoading = false.obs;
+  final textSearch = ''.obs;
   Future<List<PrivilegeShopModel>> onSearchStores(
       {String? keySearch, bool isLocation = false}) async {
     debugPrint("is location $isLocation");

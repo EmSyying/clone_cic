@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../Utils/helper/color.dart';
 import '../../../modules/privilege_program/model/category_model/model_categories.dart';
@@ -44,10 +45,13 @@ class ComponentCardCategory extends StatelessWidget {
               children: [
                 Align(
                   alignment: AlignmentDirectional.bottomEnd,
-                  child: Image.network(
+                  child: SvgPicture.network(
                     modelCardCategory!.image ?? '',
-                    width: 80,
                   ),
+                  // Image.network(
+                  //   modelCardCategory!.image ?? '',
+                  //   width: 80,
+                  // ),
                 ),
                 Container(
                   padding: const EdgeInsets.only(
