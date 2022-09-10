@@ -160,19 +160,9 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               },
                               editCompany: 'Edit company info',
                               onTapEdit: () {
-                                memberCon.comCompanyName.value =
-                                    e.value.companyName!;
-                                memberCon.comphonenumber.value =
-                                    e.value.phoneNumber!;
-                                memberCon.comSlogan.value =
-                                    e.value.companySlogan!;
-                                memberCon.comEmail.value = e.value.email!;
-                                memberCon.comaddress.value = e.value.address!;
-                                memberCon.comWebsite.value = e.value.website!;
-                                memberCon.comProfile.value =
-                                    e.value.companyProfile!;
-                                memberCon.comproductandservice.value =
-                                    e.value.companyProductAndService!;
+                                memberCon.companyData.value = e.value;
+                                memberCon.copyCompanyData.value = e.value;
+
                                 memberCon.companyLogoUrl.value =
                                     e.value.companyLogo!;
                                 memberCon.base64Image = e.value.companyLogo!;

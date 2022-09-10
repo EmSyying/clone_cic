@@ -15,7 +15,6 @@ import 'package:cicgreenloan/modules/setting_modules/controllers/setting_control
 import 'package:cicgreenloan/Utils/pop_up_alert/custom_loading.dart';
 import 'package:cicgreenloan/generated/l10n.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
-import 'package:cicgreenloan/modules/member_directory/models/member_personal_profile.dart';
 import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/about_section.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +32,7 @@ import 'package:http/http.dart' as http;
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
+import '../../member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import '../../privilege_program/screen/privilege/privilege_screen.dart';
 import '../../report_module/screens/cic_app_manual.dart';
 
@@ -202,7 +202,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: () async {
                       _authController.clearAuth();
                       _user.customer.value = User();
-                      _memberCon.personalProfile.value = PersonalProfileModel();
+                      _memberCon.personalProfile.value = PersonalProfile();
                       Navigator.pop(context);
                       removeUser('current_user');
                       _user.isLoginSuccess(false);
@@ -266,7 +266,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             _authController.clearAuth();
                             _user.customer.value = User();
                             _memberCon.personalProfile.value =
-                                PersonalProfileModel();
+                                PersonalProfile();
                             Navigator.pop(context);
                             removeUser('current_user');
                             _user.isLoginSuccess(false);
@@ -324,8 +324,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: () async {
                           _authController.clearAuth();
                           _user.customer.value = User();
-                          _memberCon.personalProfile.value =
-                              PersonalProfileModel();
+                          _memberCon.personalProfile.value = PersonalProfile();
                           Navigator.pop(context);
                           removeUser('current_user');
                           _user.isLoginSuccess(false);

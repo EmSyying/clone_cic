@@ -59,12 +59,18 @@ class _ContectInfoPopUpState extends State<ContectInfoPopUp> {
   }
 
   void resetDataBasicInfo() {
-    _memberCon.personalProfile.value.currentAddress = _currentAddress;
-    _memberCon.personalProfile.value.streetNo = _currentStreet!;
-    _memberCon.personalProfile.value.houseNo = _currentHouse!;
-    _memberCon.personalProfile.value.permanentAddress = _permanentAddress;
-    _memberCon.personalProfile.value.permanentHouseNo = _permanentHouse;
-    _memberCon.personalProfile.value.permanentStreetNo = _permanentStreet;
+    _memberCon.personalProfile.value = _memberCon.personalProfile.value
+        .copyWith(currentAddress: _currentAddress);
+    _memberCon.personalProfile.value =
+        _memberCon.personalProfile.value.copyWith(streetNo: _currentStreet!);
+    _memberCon.personalProfile.value =
+        _memberCon.personalProfile.value.copyWith(houseNo: _currentHouse!);
+    _memberCon.personalProfile.value = _memberCon.personalProfile.value
+        .copyWith(permanentAddress: _permanentAddress);
+    _memberCon.personalProfile.value = _memberCon.personalProfile.value
+        .copyWith(permanentHouseNo: _permanentHouse);
+    _memberCon.personalProfile.value = _memberCon.personalProfile.value
+        .copyWith(permanentStreetNo: _permanentStreet);
     setState(() {});
   }
 
@@ -394,17 +400,28 @@ class _ContectInfoPopUpState extends State<ContectInfoPopUp> {
                                         _memberCon.isValidateFullAddress.value =
                                             true;
                                       }
-                                      _memberCon.personalProfile.value.houseNo =
-                                          _memberCon
-                                              .fullCurrentAddress.value.houseNo;
-                                      _memberCon
-                                              .personalProfile.value.streetNo =
-                                          _memberCon.fullCurrentAddress.value
-                                              .streetNo;
-                                      _memberCon.personalProfile.value
-                                          .currentAddress = CurrentAddress();
-                                      _memberCon.personalProfile.value.currentAddress =
-                                          CurrentAddress(
+                                      _memberCon.personalProfile.value =
+                                          _memberCon.personalProfile.value
+                                              .copyWith(
+                                                  houseNo: _memberCon
+                                                      .fullCurrentAddress
+                                                      .value
+                                                      .houseNo);
+                                      _memberCon.personalProfile.value =
+                                          _memberCon.personalProfile.value
+                                              .copyWith(
+                                                  streetNo: _memberCon
+                                                      .fullCurrentAddress
+                                                      .value
+                                                      .streetNo);
+                                      _memberCon.personalProfile.value =
+                                          _memberCon.personalProfile.value
+                                              .copyWith(
+                                                  currentAddress:
+                                                      CurrentAddress());
+
+                                      _memberCon.personalProfile.value = _memberCon.personalProfile.value.copyWith(
+                                          currentAddress: CurrentAddress(
                                               city: _memberCon
                                                   .fullCurrentAddress
                                                   .value
@@ -417,17 +434,13 @@ class _ContectInfoPopUpState extends State<ContectInfoPopUp> {
                                                   .fullCurrentAddress
                                                   .value
                                                   .addressList![2],
-                                              village: _memberCon
-                                                          .fullCurrentAddress
-                                                          .value
-                                                          .addressList!
-                                                          .length ==
-                                                      3
+                                              village: _memberCon.fullCurrentAddress.value.addressList!.length == 3
                                                   ? Address(name: "", code: "")
                                                   : _memberCon
                                                       .fullCurrentAddress
                                                       .value
-                                                      .addressList![3]);
+                                                      .addressList![3]));
+
                                       setState(() {});
                                     },
                                     selectAddress: _memberCon
@@ -641,38 +654,49 @@ class _ContectInfoPopUpState extends State<ContectInfoPopUp> {
                                           _memberCon.isValidatePermenantAddress
                                               .value = true;
                                         }
-                                        _memberCon.personalProfile.value
-                                                .permanentHouseNo =
-                                            _memberCon.fullResidentAddress.value
-                                                .houseNo;
-                                        _memberCon.personalProfile.value
-                                                .permanentStreetNo =
-                                            _memberCon.fullResidentAddress.value
-                                                .streetNo;
-                                        _memberCon.personalProfile.value
-                                                .permanentAddress =
-                                            CurrentAddress();
-                                        _memberCon.personalProfile.value.permanentAddress = _memberCon.fullResidentAddress.value.addressList!.length == 3
-                                            ? CurrentAddress(
-                                                city: _memberCon
-                                                    .fullResidentAddress
-                                                    .value
-                                                    .addressList![0],
-                                                district: _memberCon
-                                                    .fullResidentAddress
-                                                    .value
-                                                    .addressList![1],
-                                                commune: _memberCon
-                                                    .fullResidentAddress
-                                                    .value
-                                                    .addressList![2],
-                                                village:
-                                                    Address(code: "", name: ""))
-                                            : CurrentAddress(
-                                                city: _memberCon.fullResidentAddress.value.addressList![0],
-                                                district: _memberCon.fullResidentAddress.value.addressList![1],
-                                                commune: _memberCon.fullResidentAddress.value.addressList![2],
-                                                village: _memberCon.fullResidentAddress.value.addressList![3]);
+                                        _memberCon.personalProfile.value =
+                                            _memberCon.personalProfile.value
+                                                .copyWith(
+                                                    permanentHouseNo: _memberCon
+                                                        .fullResidentAddress
+                                                        .value
+                                                        .houseNo);
+                                        _memberCon.personalProfile.value =
+                                            _memberCon.personalProfile.value
+                                                .copyWith(
+                                                    permanentStreetNo:
+                                                        _memberCon
+                                                            .fullResidentAddress
+                                                            .value
+                                                            .streetNo);
+                                        _memberCon.personalProfile.value =
+                                            _memberCon.personalProfile.value
+                                                .copyWith(
+                                                    permanentAddress:
+                                                        CurrentAddress());
+                                        _memberCon.personalProfile.value = _memberCon.personalProfile.value.copyWith(
+                                            permanentAddress: _memberCon
+                                                        .fullResidentAddress
+                                                        .value
+                                                        .addressList!
+                                                        .length ==
+                                                    3
+                                                ? CurrentAddress(
+                                                    city: _memberCon
+                                                        .fullResidentAddress
+                                                        .value
+                                                        .addressList![0],
+                                                    district: _memberCon
+                                                        .fullResidentAddress
+                                                        .value
+                                                        .addressList![1],
+                                                    commune: _memberCon
+                                                        .fullResidentAddress
+                                                        .value
+                                                        .addressList![2],
+                                                    village: Address(code: "", name: ""))
+                                                : CurrentAddress(city: _memberCon.fullResidentAddress.value.addressList![0], district: _memberCon.fullResidentAddress.value.addressList![1], commune: _memberCon.fullResidentAddress.value.addressList![2], village: _memberCon.fullResidentAddress.value.addressList![3]));
+
                                         setState(() {});
                                       },
                                       selectAddress: _memberCon

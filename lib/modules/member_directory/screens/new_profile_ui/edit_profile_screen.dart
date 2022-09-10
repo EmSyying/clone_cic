@@ -107,7 +107,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 Obx(
                   () => TextButton(
-                    onPressed: memberCon.isDisableDoneButton.value == true
+                    onPressed: memberCon.copyPersonalProfile.value ==
+                            memberCon.personalProfile.value
                         ? null
                         : () {
                             widget.onTapDone!();
@@ -119,7 +120,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       style: Theme.of(context).textTheme.headline5!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            color: memberCon.isDisableDoneButton.value == true
+                            color: memberCon.copyPersonalProfile.value ==
+                                    memberCon.personalProfile.value
                                 ? Colors.grey
                                 : AppColor.mainColor,
                           ),
@@ -168,64 +170,47 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           hintText: 'Name',
                           onChange: (name) {
                             setState(() {
-                              if (name == '') {
-                                memberCon.fullName.value = '';
-                              } else if (name ==
-                                  memberCon.personalProfile.value
-                                      .customerLatinName) {
-                                memberCon.isDisableDoneButton.value = true;
-                              } else {
-                                memberCon.fullName.value = name;
-                                memberCon.isDisableDoneButton.value = false;
-                              }
+                              memberCon.personalProfile.value = memberCon
+                                  .personalProfile.value
+                                  .copyWith(customerLatinName: name);
                             });
                           },
                           isValidate: true,
                           labelText: 'Name',
-                          initialValue: memberCon.fullName.value != ''
-                              ? memberCon.fullName.value
-                              : ''),
+                          initialValue: memberCon
+                                  .personalProfile.value.customerLatinName ??
+                              ""),
                       CustomTextFieldNew(
                         hintText: 'Title',
                         onChange: (title) {
                           setState(() {
-                            if (title == '') {
-                              memberCon.memberPosition.value = '';
-                            } else if (title ==
-                                memberCon.personalProfile.value.title) {
-                              memberCon.isDisableDoneButton.value = true;
-                            } else {
-                              memberCon.memberPosition.value = title;
-                              memberCon.isDisableDoneButton.value = false;
-                            }
+                            memberCon.personalProfile.value = memberCon
+                                .personalProfile.value
+                                .copyWith(title: title);
                           });
                         },
                         isValidate: true,
                         labelText: 'Title',
-                        initialValue: memberCon.memberPosition.value != ''
-                            ? memberCon.memberPosition.value
-                            : '',
+                        initialValue:
+                            memberCon.personalProfile.value.title != ''
+                                ? memberCon.personalProfile.value.title
+                                : '',
                       ),
                       CustomTextFieldNew(
                         hintText: 'Company Name',
                         onChange: (companyName) {
                           setState(() {
-                            if (companyName == '') {
-                              memberCon.membercomapnyName.value = '';
-                            } else if (companyName ==
-                                memberCon.personalProfile.value.companyName) {
-                              memberCon.isDisableDoneButton.value = true;
-                            } else {
-                              memberCon.membercomapnyName.value = companyName;
-                              memberCon.isDisableDoneButton.value = false;
-                            }
+                            memberCon.personalProfile.value = memberCon
+                                .personalProfile.value
+                                .copyWith(companyName: companyName);
                           });
                         },
                         isValidate: true,
                         labelText: 'Company Name',
-                        initialValue: memberCon.membercomapnyName.value != ''
-                            ? memberCon.membercomapnyName.value
-                            : '',
+                        initialValue:
+                            memberCon.personalProfile.value.companyName != ''
+                                ? memberCon.personalProfile.value.companyName
+                                : '',
                       ),
                       CustomTextFieldNew(
                         keyboardType: TextInputType.number,
@@ -233,105 +218,72 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         enable: false,
                         onChange: (phone) {
                           setState(() {
-                            if (phone == '') {
-                              memberCon.phone.value = '';
-                            } else if (phone ==
-                                memberCon.personalProfile.value.phone) {
-                              memberCon.isDisableDoneButton.value = true;
-                            } else {
-                              memberCon.phone.value = phone;
-                              memberCon.isDisableDoneButton.value = false;
-                            }
+                            memberCon.personalProfile.value = memberCon
+                                .personalProfile.value
+                                .copyWith(phone: phone);
                           });
                         },
                         isValidate: true,
                         labelText: 'Phone Number',
-                        initialValue: memberCon.phone.value != ''
-                            ? memberCon.phone.value
-                            : '',
+                        initialValue:
+                            memberCon.personalProfile.value.phone ?? "",
                       ),
                       CustomTextFieldNew(
                         hintText: 'Email',
                         onChange: (email) {
                           setState(() {
-                            if (email == '') {
-                              memberCon.gmail.value = '';
-                            } else if (email ==
-                                memberCon.personalProfile.value.email) {
-                              memberCon.isDisableDoneButton.value = true;
-                              debugPrint(
-                                  'hwekloo:${memberCon.personalProfile.value.phone}');
-                            } else {
-                              memberCon.gmail.value = email;
-                              memberCon.isDisableDoneButton.value = false;
-                              debugPrint(
-                                  'hwekloo23222:${memberCon.personalProfile.value.phone}');
-                            }
+                            memberCon.personalProfile.value = memberCon
+                                .personalProfile.value
+                                .copyWith(email: email);
                           });
                         },
                         isValidate: true,
                         labelText: 'Email',
-                        initialValue: memberCon.gmail.value,
+                        initialValue:
+                            memberCon.personalProfile.value.email ?? '',
                       ),
                       CustomTextFieldNew(
                         hintText: 'Link Telegram',
                         onChange: (telegram) {
                           setState(() {
-                            if (telegram == '') {
-                              memberCon.telegram.value = '';
-                            } else if (telegram ==
-                                memberCon.personalProfile.value.telegram) {
-                              memberCon.isDisableDoneButton.value = true;
-                            } else {
-                              memberCon.isDisableDoneButton.value = false;
-                              memberCon.telegram.value = telegram;
-                            }
+                            memberCon.personalProfile.value = memberCon
+                                .personalProfile.value
+                                .copyWith(telegram: telegram);
                           });
                         },
                         isValidate: true,
                         labelText: 'Link Telegram',
-                        initialValue: memberCon.telegram.value != ''
-                            ? memberCon.telegram.value
-                            : '',
+                        initialValue:
+                            memberCon.personalProfile.value.telegram ?? '',
                       ),
                       CustomTextFieldNew(
                         hintText: 'Link Website',
                         onChange: (website) {
                           setState(() {
-                            if (website == '') {
-                              memberCon.webSite.value = '';
-                            } else if (website ==
-                                memberCon.personalProfile.value.website) {
-                              memberCon.isDisableDoneButton.value = true;
-                            } else {
-                              memberCon.webSite.value = website;
-                              memberCon.isDisableDoneButton.value = false;
-                            }
+                            memberCon.personalProfile.value = memberCon
+                                .personalProfile.value
+                                .copyWith(website: website);
                           });
                         },
                         isValidate: true,
                         labelText: 'Link Website',
-                        initialValue: memberCon.webSite.value != ''
-                            ? memberCon.webSite.value
-                            : '',
+                        initialValue:
+                            memberCon.personalProfile.value.website ?? "",
                       ),
                       CustomTextFieldNew(
                         hintText: 'About Us',
-                        onChange: (aboutAs) {
-                          if (aboutAs != '') {
-                            setState(() {
-                              memberCon.isDisableDoneButton.value = false;
-                            });
-                          }
-                          debugPrint(
-                              "is disable button done: ${memberCon.isDisableDoneButton.value}");
+                        onChange: (about) {
+                          setState(() {
+                            memberCon.personalProfile.value = memberCon
+                                .personalProfile.value
+                                .copyWith(about: about);
+                          });
                         },
                         isValidate: true,
                         labelText: 'About Us',
                         maxLine: 7,
-                        initialValue: memberCon.memberAboutAs.value != ''
-                            ? memberCon.memberAboutAs.value
-                            : '',
+                        initialValue:
+                            memberCon.personalProfile.value.about ?? "",
                       ),
                     ],
                   ),
@@ -374,15 +326,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           )
                         : TextButton(
-                            onPressed: memberCon.isDisableCompany.value ==
-                                        true &&
+                            onPressed: memberCon.copyCompanyData.value ==
+                                        memberCon.companyData.value &&
                                     uploadImageCon.imageFile.value.path == ''
                                 ? null
                                 : () {
                                     widget.onTapDone!();
                                   },
                             child: Text(
-                              "${memberCon.isDisableCompany.value}",
+                              "Done",
                               // widget.titleDone ?? "",
                               style: Theme.of(context)
                                   .textTheme
@@ -390,8 +342,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   .copyWith(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
-                                    color: memberCon.isDisableCompany.value ==
-                                                true &&
+                                    color: memberCon.copyCompanyData.value ==
+                                                memberCon.companyData.value &&
                                             uploadImageCon
                                                     .imageFile.value.path ==
                                                 ''
@@ -453,45 +405,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           hintText: 'Company Name*',
                           onChange: (comName) {
                             setState(() {
-                              if (comName == '') {
-                                memberCon.comCompanyName.value = '';
-                                // memberCon.isCompanyName.value = false;
-                                memberCon.isDisableCompany.value = true;
-                              } else if (comName ==
-                                  memberCon.comCompanyName.value) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comCompanyName.value = comName;
-                                memberCon.isDisableCompany.value = false;
-                                // memberCon.isCompanyName.value = true;
-                              }
+                              memberCon.companyData.value = memberCon
+                                  .companyData.value
+                                  .copyWith(companyName: comName);
                             });
                           },
                           isValidate: memberCon.isCompanyName.value,
                           labelText: 'Company Name*',
                           initialValue: widget.id != null
-                              ? memberCon.comCompanyName.value
+                              ? memberCon.companyData.value.companyName
                               : '',
                         ),
                         CustomTextFieldNew(
                           hintText: 'Input Slogan',
                           onChange: (slogan) {
                             setState(() {
-                              if (slogan == '') {
-                                memberCon.comSlogan.value = '';
-                                memberCon.isDisableCompany.value = false;
-                              } else if (memberCon.comSlogan.value == slogan) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comSlogan.value = slogan;
-                                memberCon.isDisableCompany.value = false;
-                              }
+                              memberCon.companyData.value = memberCon
+                                  .companyData.value
+                                  .copyWith(companySlogan: slogan);
                             });
                           },
                           isValidate: true,
                           labelText: 'Input Slogan',
                           initialValue: widget.id != null
-                              ? memberCon.comSlogan.value
+                              ? memberCon.companyData.value.companySlogan
                               : '',
                         ),
                         CustomTextFieldNew(
@@ -499,136 +436,94 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           hintText: 'Phone Number',
                           onChange: (phoneNum) {
                             setState(() {
-                              if (phoneNum == '') {
-                                memberCon.comphonenumber.value = '';
-                              } else if (phoneNum ==
-                                  memberCon.company.value.phoneNumber) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comphonenumber.value = phoneNum;
-                                memberCon.isDisableCompany.value = false;
-                              }
+                              memberCon.companyData.value = memberCon
+                                  .companyData.value
+                                  .copyWith(phoneNumber: phoneNum);
                             });
                           },
                           keyboardType: TextInputType.number,
                           isValidate: true,
                           labelText: 'Phone Number',
                           initialValue: widget.id != null
-                              ? memberCon.comphonenumber.value
+                              ? memberCon.companyData.value.phoneNumber
                               : '',
                         ),
                         CustomTextFieldNew(
                           hintText: 'Email',
                           onChange: (email) {
                             setState(() {
-                              if (email == '') {
-                                memberCon.comEmail.value = '';
-                                memberCon.isDisableCompany.value = false;
-                              } else if (memberCon.comEmail.value == email) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comEmail.value = email;
-                                memberCon.isDisableCompany.value = false;
-                              }
+                              memberCon.companyData.value = memberCon
+                                  .companyData.value
+                                  .copyWith(email: email);
                             });
                           },
                           isValidate: true,
                           labelText: 'Email',
-                          initialValue:
-                              widget.id != null ? memberCon.comEmail.value : '',
+                          initialValue: widget.id != null
+                              ? memberCon.companyData.value.email
+                              : '',
                         ),
                         CustomTextFieldNew(
                           hintText: 'Location',
                           onChange: (companyLocation) {
                             setState(() {
-                              if (companyLocation == '') {
-                                memberCon.comaddress.value = '';
-                                memberCon.isDisableCompany.value = false;
-                              } else if (memberCon.comaddress.value ==
-                                  companyLocation) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comaddress.value = companyLocation;
-                                memberCon.isDisableCompany.value = false;
-                              }
+                              memberCon.companyData.value = memberCon
+                                  .companyData.value
+                                  .copyWith(address: companyLocation);
                             });
                           },
                           isValidate: true,
                           labelText: 'Location',
                           initialValue: widget.id != null
-                              ? memberCon.comaddress.value
+                              ? memberCon.companyData.value.address
                               : '',
                         ),
                         CustomTextFieldNew(
                           hintText: 'Link Website',
                           onChange: (companyWebsite) {
                             setState(() {
-                              if (companyWebsite == '') {
-                                memberCon.comWebsite.value = '';
-                                memberCon.isDisableCompany.value = false;
-                              } else if (companyWebsite ==
-                                  memberCon.comWebsite.value) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comWebsite.value = companyWebsite;
-                                memberCon.isDisableCompany.value = false;
-                              }
+                              memberCon.companyData.value = memberCon
+                                  .companyData.value
+                                  .copyWith(website: companyWebsite);
                             });
                           },
                           isValidate: true,
                           labelText: 'Link Website',
                           initialValue: widget.id != null
-                              ? memberCon.comWebsite.value
+                              ? memberCon.companyData.value.website
                               : '',
                         ),
                         CustomTextFieldNew(
                           hintText: 'About Us',
                           onChange: (comAboutAs) {
-                            // setState(() {
-                            //   memberCon.isDisableDoneButton.value = true;
-                            // });
                             setState(() {
-                              if (comAboutAs == '') {
-                                memberCon.comProfile.value = '';
-                                memberCon.isDisableCompany.value = false;
-                              } else if (comAboutAs ==
-                                  memberCon.comProfile.value) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comProfile.value = comAboutAs;
-                                memberCon.isDisableCompany.value = false;
-                              }
+                              memberCon.companyData.value = memberCon
+                                  .companyData.value
+                                  .copyWith(companyProfile: comAboutAs);
                             });
                           },
                           isValidate: true,
                           labelText: 'About Us',
                           maxLine: 7,
                           initialValue: widget.id != null
-                              ? memberCon.comProfile.value
+                              ? memberCon.companyData.value.companyProfile
                               : '',
                         ),
                         CustomTextFieldNew(
                           hintText: 'Product & Service',
                           onChange: (companyProduct) {
                             setState(() {
-                              if (companyProduct == '') {
-                                memberCon.comproductandservice.value = '';
-                                memberCon.isDisableCompany.value = false;
-                              } else if (companyProduct ==
-                                  memberCon.comproductandservice.value) {
-                                memberCon.isDisableCompany.value = true;
-                              } else {
-                                memberCon.comproductandservice.value =
-                                    companyProduct;
-                                memberCon.isDisableCompany.value = false;
-                              }
+                              memberCon.companyData.value =
+                                  memberCon.companyData.value.copyWith(
+                                      companyProductAndService: companyProduct);
                             });
                           },
                           isValidate: true,
                           labelText: 'Product & Service',
                           maxLine: 7,
                           initialValue: widget.id != null
-                              ? memberCon.comproductandservice.value
+                              ? memberCon
+                                  .companyData.value.companyProductAndService
                               : '',
                         ),
                       ],

@@ -6,7 +6,6 @@ import 'package:cicgreenloan/Utils/helper/custom_route_snackbar.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/gender.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
-import 'package:cicgreenloan/modules/member_directory/models/company_data.dart';
 import 'package:cicgreenloan/modules/member_directory/models/eductation.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member_data.dart';
@@ -27,6 +26,8 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 
 import '../../../Utils/helper/firebase_analytics.dart';
+import '../models/company/company_data_model.dart';
+import '../models/personal_profile_model.dart/personal_profile_model.dart';
 
 final _customerController = Get.put(CustomerController());
 final uploadCon = Get.put(UploadFileController());
@@ -56,6 +57,8 @@ class MemberController extends GetxController {
   final isDisableDoneButton = true.obs;
   final isDisableCompany = true.obs;
   final mapList = <String, List<int>>{}.obs;
+  final companyData = CompanyDataModel().obs;
+  final copyCompanyData = CompanyDataModel().obs;
 
   final educationMemberData = <EducationData>[].obs;
 
@@ -115,16 +118,6 @@ class MemberController extends GetxController {
   final memberPosition = ''.obs;
   final membercomapnyName = ''.obs;
   final memberAboutAs = ''.obs;
-  onInitialProfileValue() {
-    fullName.value = personalProfile.value.customerLatinName!;
-    memberPosition.value = personalProfile.value.title!;
-    membercomapnyName.value = personalProfile.value.companyName!;
-    phone.value = personalProfile.value.phone!;
-    gmail.value = personalProfile.value.email!;
-    telegram.value = personalProfile.value.telegram!;
-    webSite.value = personalProfile.value.website!;
-    memberAboutAs.value = personalProfile.value.about!;
-  }
 
   // Education Key
   final dateTime = DateFormat('yyyy-MM-dd');
@@ -310,16 +303,7 @@ class MemberController extends GetxController {
     } else if (comCompanyLogoString.value != '') {
       base64Image = (await networkImageToBase64(comCompanyLogoString.value))!;
     }
-    debugPrint("CompanyName after updated:${comCompanyName.value}");
-    debugPrint("comTwitter.value after updated:${comTwitter.value}");
-    debugPrint("company_slogan after updated:$id");
-    debugPrint("company_slogan after updated:${comPositions.value}");
-    debugPrint("company_slogan after updated:${comproductandservice.value}");
-    debugPrint("company_slogan after updated:${comSlogan.value}");
-    debugPrint("company_slogan after updated:${comSlogan.value}");
-    debugPrint("company_slogan after updated:${comSlogan.value}");
-    debugPrint("company_slogan after updated:${comSlogan.value}");
-    debugPrint("company_slogan after updated:${comSlogan.value}");
+    debugPrint("Company Slogan: ${companyData.value}");
 
     await apiBaseHelper.onNetworkRequesting(
         url: 'member-company/update',
@@ -327,30 +311,32 @@ class MemberController extends GetxController {
         isAuthorize: true,
         body: {
           "id": id,
-          "company_name": comCompanyName.value,
-          "company_slogan": comSlogan.value,
+          "company_name": companyData.value.companyName,
+          "company_slogan": companyData.value.companySlogan,
           "member_id": _customerController.customer.value.customerId,
-          "khmer_name": comKhmerName.value,
-          "position": comPositions.value,
+          "khmer_name": companyData.value.khmerName,
+          "position": companyData.value.position,
           "company_logo":
               base64Image == '' ? '' : "data:image/png;base64,$base64Image",
-          "company_profile": comProfile.value,
-          "company_product_and_service": comproductandservice.value,
-          "house_no": comhouseno.value,
-          "street_no": comstreetno.value,
-          "address": comaddress.value,
-          "phone_number": comphonenumber.value,
-          "email": comEmail.value,
-          "what_app": comWhatapp.value,
-          "telegram": comTelegram.value,
-          "messenger": comMessenger.value,
-          "skype": comSkype.value,
-          "we_chat": comWechat.value,
-          "website": comWebsite.value,
-          "facebook": comFacebook.value,
-          "linkedin": comLinkedin.value,
-          "twitter": comTwitter.value
+          "company_profile": companyData.value.companyProfile,
+          "company_product_and_service":
+              companyData.value.companyProductAndService,
+          "house_no": companyData.value.houseNo,
+          "street_no": companyData.value.streetNo,
+          "address": companyData.value.address,
+          "phone_number": companyData.value.phoneNumber,
+          "email": companyData.value.email,
+          "what_app": companyData.value.whatApp,
+          "telegram": companyData.value.telegram,
+          "messenger": companyData.value.messenger,
+          "skype": companyData.value.skype,
+          "we_chat": companyData.value.weChat,
+          "website": companyData.value.website,
+          "facebook": companyData.value.facebook,
+          "linkedin": companyData.value.linkedin,
+          "twitter": companyData.value.twitter
         }).then((response) {
+      debugPrint("Company Slogan: ${companyData.value}");
       customRouterSnackbar(
           title: 'Successful...!',
           description: 'Company Updated Successful...!');
@@ -514,20 +500,21 @@ class MemberController extends GetxController {
   final cusController = Get.put(CustomerController());
   Future<void> updatePersonalProfile(BuildContext? context) async {
     isLaodingUpdateProfile(true);
+    debugPrint("Customer Name: ${personalProfile.value.customerName}");
     await apiBaseHelpers.onNetworkRequesting(
         url: 'member-profile/update',
         methode: METHODE.post,
         isAuthorize: true,
         body: {
           'member_id': _customerController.customer.value.customerId,
-          'company_name': membercomapnyName.value,
-          'full_name': fullName.value,
-          'phone': phone.value,
-          'email': gmail.value,
-          'telegram': telegram.value,
-          'website': webSite.value,
-          'about': memberAboutAs.value,
-          'title': memberPosition.value,
+          'company_name': personalProfile.value.companyName,
+          'full_name': personalProfile.value.customerLatinName,
+          'phone': personalProfile.value.phone,
+          'email': personalProfile.value.email,
+          'telegram': personalProfile.value.telegram,
+          'website': personalProfile.value.website,
+          'about': personalProfile.value.about,
+          'title': personalProfile.value.title,
         }).then((response) {
       customRouterSnackbar(
           title: 'Successful...!',
@@ -752,8 +739,9 @@ class MemberController extends GetxController {
   }
 
   final isLoadingProfile = false.obs;
-  final personalProfile = PersonalProfileModel().obs;
-  Future<PersonalProfileModel> fetchMemberPersonProfile({int? id}) async {
+  final personalProfile = PersonalProfile().obs;
+  final copyPersonalProfile = PersonalProfile().obs;
+  Future<PersonalProfile> fetchMemberPersonProfile({int? id}) async {
     isLoadingProfile(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
@@ -767,7 +755,7 @@ class MemberController extends GetxController {
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['data'];
 
-          personalProfile.value = PersonalProfileModel.fromJson(responseJson);
+          personalProfile.value = PersonalProfile.fromJson(responseJson);
         } else {}
       });
     } finally {
@@ -866,11 +854,11 @@ class MemberController extends GetxController {
   //   return experienceList;
   // }
 
-  final company = CompanyData().obs;
+  final company = CompanyDataModel().obs;
   final isLoadingCompanyProfile = false.obs;
-  final companyDataList = <CompanyData>[].obs;
+  final companyDataList = <CompanyDataModel>[].obs;
 
-  Future<List<CompanyData>> fetchCompanyMember({int? id}) async {
+  Future<List<CompanyDataModel>> fetchCompanyMember({int? id}) async {
     isLoadingCompanyProfile(true);
     await apiBaseHelper
         .onNetworkRequesting(
@@ -881,7 +869,7 @@ class MemberController extends GetxController {
       var responseJson = response['data'];
       companyDataList.clear();
       responseJson.map((e) {
-        company.value = CompanyData.fromJson(e);
+        company.value = CompanyDataModel.fromJson(e);
         companyDataList.add(company.value);
       }).toList();
       isLoadingCompanyProfile(false);
@@ -924,7 +912,7 @@ class MemberController extends GetxController {
   // }
 
   final isLoadingCompany = false.obs;
-  Future<List<CompanyData>> fetchCompanyMemberDetail(int id) async {
+  Future<List<CompanyDataModel>> fetchCompanyMemberDetail(int id) async {
     tokenKey = await LocalData.getCurrentUser();
     isLoadingCompany(true);
     try {
@@ -942,7 +930,7 @@ class MemberController extends GetxController {
           var responseJson = json.decode(response.body)['data'];
 
           responseJson.map((json) {
-            companyDataList.add(CompanyData.fromJson(json));
+            companyDataList.add(CompanyDataModel.fromJson(json));
           }).toList();
         }
       });

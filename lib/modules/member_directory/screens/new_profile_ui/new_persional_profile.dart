@@ -93,7 +93,8 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
             widget.isDirectory == false
                 ? GestureDetector(
                     onTap: () {
-                      memberCon.onInitialProfileValue();
+                      memberCon.copyPersonalProfile.value =
+                          memberCon.personalProfile.value;
                       Navigator.push(
                         context,
                         MaterialPageRoute(
