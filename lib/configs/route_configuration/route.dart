@@ -371,7 +371,9 @@ final router = GoRouter(
           GoRoute(
               path: 'event',
               name: 'Event',
-              builder: (context, state) => const EventScreen(),
+              builder: (context, state) => const EventScreen(
+                    
+                  ),
               routes: [
                 GoRoute(
                     path: ':id',

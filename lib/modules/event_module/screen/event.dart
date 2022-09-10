@@ -121,210 +121,210 @@ class _EventScreenState extends State<EventScreen> {
   TextEditingController searchtextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    // debugPrint('Recieved : ${widgt}');
     return CupertinoScaffold(
         body: Builder(
       builder: (BuildContext context) => CupertinoPageScaffold(
-          child: WillPopScope(
-        onWillPop: () async =>
-            widget.isNavigator != null && widget.isNavigator! ? true : false,
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: CustomAppBar(
-              isLogo: false, title: 'Event', elevation: 0, context: context),
-          body: ConnectivityWidgetWrapper(
-            stacked: false,
-            alignment: Alignment.bottomCenter,
-            offlineWidget: Column(
-              children: const [
-                Expanded(child: OfflineWidget()),
-              ],
-            ),
-            child: Column(
-              children: [
-                const DynamicEvent(),
-                Expanded(
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (notification) {
-                      if (notification.metrics.pixels ==
-                          notification.metrics.maxScrollExtent) {
-                        onFetchMoreData();
-                      } else {}
-                      return false;
-                    },
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, top: 20.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _eventController.eventTapName.value =
-                                          'Up Coming';
-                                      if (isSelectPastEvent == true) {
-                                        setState(() {
-                                          isSelectUpComing = true;
-                                          isSelectPastEvent = false;
-                                          index = 0;
-                                          eventLabel = "Up Coming";
-                                          searchtextController.text = '';
-                                        });
-                                      } else {
-                                        setState(() {
-                                          isSelectUpComing = false;
-                                          isSelectPastEvent = true;
-                                          index = 0;
-                                          eventLabel = "Up Coming";
-                                          searchtextController.text = '';
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      decoration: isSelectUpComing
-                                          ? BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: Theme.of(context)
-                                                  .primaryColor
-                                                  .withAlpha(40),
-                                            )
-                                          : BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color:
-                                                  Theme.of(context).cardColor),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      child: Center(
-                                        child: Text(
-                                          'Up Coming',
-                                          style: isSelectUpComing
-                                              ? TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor)
-                                              : const TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 10.0),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _eventController.eventTapName.value =
-                                          'Past Event';
+          child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(
+          isLogo: false,
+          title: 'Event',
+          elevation: 0,
+          context: context,
+          isLeading: true,
+        ),
+        body: ConnectivityWidgetWrapper(
+          stacked: false,
+          alignment: Alignment.bottomCenter,
+          offlineWidget: Column(
+            children: const [
+              Expanded(child: OfflineWidget()),
+            ],
+          ),
+          child: Column(
+            children: [
+              const DynamicEvent(),
+              Expanded(
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (notification) {
+                    if (notification.metrics.pixels ==
+                        notification.metrics.maxScrollExtent) {
+                      onFetchMoreData();
+                    } else {}
+                    return false;
+                  },
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 20.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _eventController.eventTapName.value =
+                                        'Up Coming';
+                                    if (isSelectPastEvent == true) {
+                                      setState(() {
+                                        isSelectUpComing = true;
+                                        isSelectPastEvent = false;
+                                        index = 0;
+                                        eventLabel = "Up Coming";
+                                        searchtextController.text = '';
+                                      });
+                                    } else {
                                       setState(() {
                                         isSelectUpComing = false;
                                         isSelectPastEvent = true;
-                                        index = 1;
-                                        eventLabel = "Past Event";
+                                        index = 0;
+                                        eventLabel = "Up Coming";
                                         searchtextController.text = '';
                                       });
-                                    },
-                                    child: Container(
-                                      decoration: isSelectPastEvent
-                                          ? BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: Theme.of(context)
-                                                  .primaryColor
-                                                  .withAlpha(40),
-                                            )
-                                          : BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color:
-                                                  Theme.of(context).cardColor),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      child: Center(
-                                        child: Text(
-                                          'Past Event',
-                                          style: isSelectPastEvent
-                                              ? TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor)
-                                              : const TextStyle(),
-                                        ),
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: isSelectUpComing
+                                        ? BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Theme.of(context)
+                                                .primaryColor
+                                                .withAlpha(40),
+                                          )
+                                        : BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Theme.of(context).cardColor),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: Center(
+                                      child: Text(
+                                        'Up Coming',
+                                        style: isSelectUpComing
+                                            ? TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor)
+                                            : const TextStyle(),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Stack(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 15.0, right: 60, top: 20.0),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  //              color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      top: 13.0,
-                                      left: 10.0,
-                                      child: SvgPicture.asset(
-                                        'assets/images/svgfile/search.svg',
-                                        height: 20,
+                              ),
+                              const SizedBox(width: 10.0),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _eventController.eventTapName.value =
+                                        'Past Event';
+                                    setState(() {
+                                      isSelectUpComing = false;
+                                      isSelectPastEvent = true;
+                                      index = 1;
+                                      eventLabel = "Past Event";
+                                      searchtextController.text = '';
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: isSelectPastEvent
+                                        ? BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Theme.of(context)
+                                                .primaryColor
+                                                .withAlpha(40),
+                                          )
+                                        : BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Theme.of(context).cardColor),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: Center(
+                                      child: Text(
+                                        'Past Event',
+                                        style: isSelectPastEvent
+                                            ? TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor)
+                                            : const TextStyle(),
                                       ),
                                     ),
-                                    TextFormField(
-                                      controller: searchtextController,
-                                      onChanged: (v) {
-                                        _onChangeHandler(v);
-                                      },
-                                      decoration: InputDecoration(
-                                          hintText: 'Search',
-                                          hintStyle: const TextStyle(
-                                              color: Colors.grey),
-                                          border: InputBorder.none,
-                                          fillColor: Colors.grey[300],
-                                          contentPadding:
-                                              const EdgeInsets.only(left: 40)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                top: 15,
-                                right: 15,
-                                child: SizedBox(
-                                  height: 50.0,
-                                  child: SvgPicture.asset(
-                                    'assets/images/svgfile/eventFilter.svg',
-                                    height: 18,
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          // Container(
-                          //   margin: EdgeInsets.only(
-                          //       left: 15.0, right: 15.0, top: 15.0),
-                          //   child: index == 0 ? UpComing() : PastEvent(),
-                          // ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, top: 15.0),
-                            child: transactionPage.elementAt(index),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 15.0, right: 60, top: 20.0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                //              color: Colors.red,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 13.0,
+                                    left: 10.0,
+                                    child: SvgPicture.asset(
+                                      'assets/images/svgfile/search.svg',
+                                      height: 20,
+                                    ),
+                                  ),
+                                  TextFormField(
+                                    controller: searchtextController,
+                                    onChanged: (v) {
+                                      _onChangeHandler(v);
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: 'Search',
+                                        hintStyle:
+                                            const TextStyle(color: Colors.grey),
+                                        border: InputBorder.none,
+                                        fillColor: Colors.grey[300],
+                                        contentPadding:
+                                            const EdgeInsets.only(left: 40)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 15,
+                              right: 15,
+                              child: SizedBox(
+                                height: 50.0,
+                                child: SvgPicture.asset(
+                                  'assets/images/svgfile/eventFilter.svg',
+                                  height: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // Container(
+                        //   margin: EdgeInsets.only(
+                        //       left: 15.0, right: 15.0, top: 15.0),
+                        //   child: index == 0 ? UpComing() : PastEvent(),
+                        // ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 15.0),
+                          child: transactionPage.elementAt(index),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       )),

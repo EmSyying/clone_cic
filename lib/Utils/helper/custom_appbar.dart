@@ -3,8 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
-import '../../modules/event_module/screen/event.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: non_constant_identifier_names
 CustomAppBar({
@@ -103,12 +102,13 @@ CustomAppBar({
                   child: !isLogo
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const EventScreen(),
-                              ),
-                            );
+                            context.go('/event');
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const EventScreen(),
+                            //   ),
+                            // );
                           },
                           child: Text(
                             title!,
