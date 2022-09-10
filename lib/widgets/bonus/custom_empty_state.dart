@@ -14,7 +14,6 @@ class CustomEmptyState extends StatelessWidget {
         ? Container(
             color: Colors.white,
             width: double.infinity,
-            height: MediaQuery.of(context).size.height,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,

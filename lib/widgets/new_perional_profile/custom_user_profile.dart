@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../Utils/function/upload_file_controller.dart';
 
 class CustomUserProfile extends StatefulWidget {
+  final int? id;
   final String? fullName;
   final String? position;
   final String? description;
@@ -18,6 +19,7 @@ class CustomUserProfile extends StatefulWidget {
   final bool? isDirectories;
   const CustomUserProfile({
     Key? key,
+    this.id,
     this.fullName,
     this.position,
     this.description,
@@ -247,7 +249,13 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                   left: 80,
                   child: GestureDetector(
                     onTap: () {
-                      uploadImageCon.uploadImage(context);
+                      uploadImageCon.uploadImage(context, onRemove: () {
+                        memberCon.onDeleteImageProfile(
+                          context,
+                          21,
+                          'member',
+                        );
+                      });
                     },
                     child: CircleAvatar(
                       radius: 18,

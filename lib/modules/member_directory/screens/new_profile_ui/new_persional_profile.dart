@@ -99,10 +99,12 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                         MaterialPageRoute(
                           builder: (context) {
                             return EditProfileScreen(
-                              titleDone: 'Done',
-                              appBarTitle: 'Edit Profile',
                               onTapPhotoProfile: () {
-                                uploadImageCon.uploadImage(context);
+                                uploadImageCon.uploadImage(context,
+                                    onRemove: () {
+                                  memberCon.onDeleteImageProfile(
+                                      context, widget.id, 'member');
+                                });
                               },
                               id: widget.id,
                               onTapDone: () {
@@ -164,6 +166,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                       () => customerUser.isloading.value
                           ? const SimmmerProfile()
                           : CustomUserProfile(
+                              id: widget.id,
                               isDirectories: widget.isDirectory,
                               imgUrl: widget.isDirectory == true
                                   ? widget.imgUrl

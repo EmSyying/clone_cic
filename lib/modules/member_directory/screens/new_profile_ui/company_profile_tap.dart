@@ -68,7 +68,48 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: memberCon.companyDataList.isEmpty
-                  ? const CustomEmptyState()
+                  ? Column(
+                      children: [
+                        const CustomEmptyState(),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 30),
+                          child: GestureDetector(
+                            onTap: () {
+                              // memberCon.isCompanyName.value = true;
+                              uploadImageCon.imageFile.value = File('');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return EditProfileScreen(
+                                    appBarTitle: 'Add Company',
+                                    // isCreateCompany: true,
+                                    isComapny: true,
+                                    // companyData: memberCon.company.value,
+                                    onTapPhotoProfile: () {
+                                      uploadImageCon.uploadImage(context,
+                                          isCompany: true);
+                                    },
+                                  );
+                                }),
+                              );
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                    'assets/images/svgfile/add.svg'),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Add Company',
+                                  style: Theme.of(context).textTheme.headline3,
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    )
                   : Column(
                       children: [
                         Column(
@@ -77,8 +118,6 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               .asMap()
                               .entries
                               .map((e) {
-                            debugPrint(
-                                "Company Logo: ${e.value.companyActivityImages}");
                             return CustomCompanyTap(
                               imageProfile: e.value.companyLogo,
                               companyName: e.value.companyName,
@@ -90,6 +129,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               address: e.value.address ?? '',
                               website: e.value.website ?? '',
                               productService: e.value.companyProductAndService,
+
                               onTapPhone: () async {
                                 final Uri launchUri = Uri(
                                   scheme: 'tel',
@@ -133,21 +173,31 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                     e.value.companyProfile!;
                                 memberCon.comproductandservice.value =
                                     e.value.companyProductAndService!;
+                                memberCon.companyLogoUrl.value =
+                                    e.value.companyLogo!;
+                                memberCon.base64Image = e.value.companyLogo!;
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return EditProfileScreen(
+                                    isComapny: true,
                                     titleDone: 'Done',
                                     appBarTitle: 'Edit Company',
                                     id: e.value.id,
                                     onTapPhotoProfile: () {
-                                      uploadImageCon.uploadImage(context,
-                                          isCompany: true);
+                                      uploadImageCon.uploadImage(
+                                        context,
+                                        isCompany: true,
+                                        onRemove: () {
+                                          memberCon.onDeleteImageProfile(
+                                              context, e.value.id, 'company');
+                                        },
+                                      );
                                     },
                                     onTapDone: () {
                                       memberCon.onUpdateCompany(
                                           context, e.value.id!);
                                     },
-                                    isCreateCompany: true,
+                                    // isCreateCompany: true,
                                     isEditCompany: true,
                                   );
                                 }));
@@ -168,8 +218,8 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 MaterialPageRoute(builder: (context) {
                                   return EditProfileScreen(
                                     appBarTitle: 'Add Company',
-                                    isCreateCompany: true,
-
+                                    // isCreateCompany: true,
+                                    isComapny: true,
                                     // companyData: memberCon.company.value,
                                     onTapPhotoProfile: () {
                                       uploadImageCon.uploadImage(context,

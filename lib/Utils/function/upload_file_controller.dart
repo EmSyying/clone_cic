@@ -27,7 +27,10 @@ class UploadFileController extends GetxController {
   final isLoading = false.obs;
 
   uploadImage(BuildContext context,
-      {String? url, Map<String, dynamic>? body, bool isCompany = false}) {
+      {String? url,
+      Map<String, dynamic>? body,
+      bool isCompany = false,
+      Function? onRemove}) {
     return kIsWeb
         ? showModalBottomSheet(
             context: context,
@@ -115,6 +118,7 @@ class UploadFileController extends GetxController {
                     GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
+                        onRemove!();
                       },
                       child: Container(
                         color: Colors.white,
@@ -250,6 +254,7 @@ class UploadFileController extends GetxController {
                         GestureDetector(
                           onTap: () async {
                             Navigator.pop(context);
+                            onRemove!();
                           },
                           child: Container(
                             color: Colors.white,
@@ -362,6 +367,7 @@ class UploadFileController extends GetxController {
                       CupertinoActionSheetAction(
                         onPressed: () {
                           Navigator.pop(context);
+                          onRemove!();
                         },
                         child: Text(
                           S.of(context).removeImage,

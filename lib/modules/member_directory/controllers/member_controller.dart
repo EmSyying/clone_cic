@@ -54,6 +54,7 @@ class MemberController extends GetxController {
   final currentPage = 0.obs;
   final isEmty = false.obs;
   final isDisableDoneButton = true.obs;
+  final isDisableCompany = true.obs;
   final mapList = <String, List<int>>{}.obs;
 
   final educationMemberData = <EducationData>[].obs;
@@ -181,6 +182,7 @@ class MemberController extends GetxController {
   final comTwitter = ''.obs;
   final comCompanyLogoString = ''.obs;
   File? comCompanyLogo;
+  final companyLogoUrl = "".obs;
   final memberIdList = <dynamic>[].obs;
   final profilePage = 1.obs;
   // List<dynamic>? invitedList=memberIdList;
@@ -308,6 +310,17 @@ class MemberController extends GetxController {
     } else if (comCompanyLogoString.value != '') {
       base64Image = (await networkImageToBase64(comCompanyLogoString.value))!;
     }
+    debugPrint("CompanyName after updated:${comCompanyName.value}");
+    debugPrint("comTwitter.value after updated:${comTwitter.value}");
+    debugPrint("company_slogan after updated:$id");
+    debugPrint("company_slogan after updated:${comPositions.value}");
+    debugPrint("company_slogan after updated:${comproductandservice.value}");
+    debugPrint("company_slogan after updated:${comSlogan.value}");
+    debugPrint("company_slogan after updated:${comSlogan.value}");
+    debugPrint("company_slogan after updated:${comSlogan.value}");
+    debugPrint("company_slogan after updated:${comSlogan.value}");
+    debugPrint("company_slogan after updated:${comSlogan.value}");
+
     await apiBaseHelper.onNetworkRequesting(
         url: 'member-company/update',
         methode: METHODE.post,
@@ -338,7 +351,6 @@ class MemberController extends GetxController {
           "linkedin": comLinkedin.value,
           "twitter": comTwitter.value
         }).then((response) {
-      debugPrint("Company id after updated:${company.value.id}");
       customRouterSnackbar(
           title: 'Successful...!',
           description: 'Company Updated Successful...!');
@@ -358,12 +370,39 @@ class MemberController extends GetxController {
       update();
       Navigator.pop(context!);
     }).onError((ErrorModel errorModel, stackTrace) {
-      debugPrint('hello error:${errorModel.bodyString}');
+      final message = errorModel.bodyString['message'];
       customRouterSnackbar(
         title: 'Fialed...!',
-        description: 'Company Updated Failed...!',
+        description: '$message Company Updated Failed...!',
         type: SnackType.error,
       );
+    });
+  }
+
+  final isEditCompany = false.obs;
+  // ondelete company
+  final isDeleteComapny = false.obs;
+  Future<void> onDeleteImageProfile(
+      BuildContext? context, int? id, String? model) async {
+    isDeleteComapny(true);
+    await apiBaseHelper.onNetworkRequesting(
+        methode: METHODE.post,
+        isAuthorize: true,
+        url: 'helper/remove/image/$id',
+        body: {"model": model}).then((response) {
+      customRouterSnackbar(
+        title: 'Deleted',
+        description: 'Profile image has been deleted',
+      );
+
+      isDeleteComapny(false);
+      cusController.getUser();
+      fetchCompanyMember();
+      fetchCompanyMemberDetail(id!);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isDeleteComapny(false);
+      debugPrint('fix me error:${errorModel.bodyString}');
+      debugPrint('fix me error status:${errorModel.statusCode}');
     });
   }
 
@@ -382,7 +421,7 @@ class MemberController extends GetxController {
     comProfile.value = '';
     comproductandservice.value = '';
     isCompanyName.value = true;
-    isDisableDoneButton.value = true;
+    isDisableCompany.value = true;
     // base64Image = '';
     // uploadCon.imageFile = null;
     // company.value.companyLogo = '';
@@ -489,87 +528,7 @@ class MemberController extends GetxController {
           'website': webSite.value,
           'about': memberAboutAs.value,
           'title': memberPosition.value,
-          // 'member_id': _customerController.customer.value.customerId,
-          // // 'position': '92',
-          // 'khmer_name': khmerName.value != ''
-          //     ? khmerName.value
-          //     : personalProfile.value.customerName,
-          // 'company_name': membercomapnyName.value,
-          // 'full_name': fullName.value != ''
-          //     ? fullName.value
-          //     : '${personalProfile.value.customerLatinName}',
-          // 'date_of_birth': customerDateOfBirth.value != ''
-          //     ? customerDateOfBirth.value
-          //     : '${personalProfile.value.customerDateOfBirth}',
-          // 'gender': gender.value.display != null
-          //     ? '${gender.value.id}'
-          //     : personalProfile.value.customerGender!.id,
-          // 'nationality': nationality.id != null
-          //     ? "${nationality.id}"
-          //     : personalProfile.value.customerNationality!.id,
-
-          // 'identity_type': identityTypeCode.value != ''
-          //     ? identityTypeCode.value
-          //     : personalProfile.value.customerIdentityType!.id,
-          // 'identity_number': identityNumber.value != ''
-          //     ? identityNumber.value
-          //     : personalProfile.value.customerIdentityNumber,
-          // 'identity_date': identityDate.value != ''
-          //     ? identityDate.value
-          //     : personalProfile.value.customerIdentityDate,
-          // 'identity_expired_date': identityExpireDate.value != ''
-          //     ? identityExpireDate.value
-          //     : personalProfile.value.customerIdentityExpiredDate,
-          // 'current_address': currentAddress.value != ''
-          //     ? '$currentAddress'
-          //     : personalProfile.value.currentAddress!.village!.code != ''
-          //         ? personalProfile.value.currentAddress!.village!.code
-          //         : '',
-          // 'current_street_no': currentStreet.value != ''
-          //     ? '$currentStreet'
-          //     : personalProfile.value.streetNo,
-          // 'current_house_no': currentHours.value != ''
-          //     ? '#$currentHours'
-          //     : personalProfile.value.houseNo,
-          // 'permanent_address': permanentAddress.value != ''
-          //     ? '$permanentAddress'
-          //     : personalProfile.value.permanentAddress!.village!.code != ''
-          //         ? personalProfile.value.permanentAddress!.village!.code
-          //         : '',
-          // 'permanent_street_no': permanentStreet.value != ''
-          //     ? '$permanentStreet'
-          //     : personalProfile.value.permanentStreetNo,
-          // 'permanent_house_no': permanetHours.value != ''
-          //     ? '$permanetHours'
-          //     : personalProfile.value.permanentHouseNo,
-          // // 'phone': _customerController.customer.value.phone != ''
-          // //     ? _customerController.customer.value.phone
-          // //     : personalProfile.value.phone,
-          // 'phone': phone.value,
-          // 'email': gmail.value,
-          // 'whatapp': whatApp.value,
-          // 'telegram': telegram.value != ''
-          //     ? telegram.value
-          //     : personalProfile.value.telegram,
-          // 'messenger': messenger.value != ''
-          //     ? messenger.value
-          //     : personalProfile.value.messenger,
-          // 'skype':
-          //     skype.value != '' ? skype.value : personalProfile.value.skype,
-          // 'website': webSite.value,
-          // 'facebook': facebook.value != ''
-          //     ? facebook.value
-          //     : personalProfile.value.facebook,
-          // 'linkedin': linkIn.value != ''
-          //     ? linkIn.value
-          //     : personalProfile.value.linkedin,
-          // 'twitter': tweeter.value != ''
-          //     ? tweeter.value
-          //     : personalProfile.value.twitter,
-          // 'about': memberAboutAs.value,
-          // 'title': memberPosition.value
         }).then((response) {
-      debugPrint('heloo1234567+++++200====:${gmail.value}');
       customRouterSnackbar(
           title: 'Successful...!',
           description: 'Profile Updated Successful...!');
@@ -591,118 +550,6 @@ class MemberController extends GetxController {
       isLaodingUpdateProfile(false);
     });
   }
-
-  // Future<void> updatePersonalProfile(BuildContext? context) async {
-  //   String url =
-  //       '${GlobalConfiguration().get('api_base_url')}member-profile/update';
-  //   tokenKey = await LocalData.getCurrentUser();
-
-  //   var data = json.encode({});
-
-  //   try {
-  //     isLaodingUpdateProfile(true);
-  //     var response = await http.post(Uri.parse(url), headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer $tokenKey'
-  //     }, body: {
-  //       'member_id': _customerController.customer.value.customerId,
-  //       // 'position': '92',
-  //       'khmer_name': khmerName.value != ''
-  //           ? khmerName.value
-  //           : personalProfile.value.customerName,
-  //       'full_name': fullName.value != ''
-  //           ? fullName.value
-  //           : '${personalProfile.value.customerLatinName}',
-  //       'date_of_birth': customerDateOfBirth.value != ''
-  //           ? customerDateOfBirth.value
-  //           : '${personalProfile.value.customerDateOfBirth}',
-  //       'gender': gender.value.display != null
-  //           ? '${gender.value.id}'
-  //           : personalProfile.value.customerGender!.id,
-  //       'nationality': nationality.id != null
-  //           ? "${nationality.id}"
-  //           : personalProfile.value.customerNationality!.id,
-
-  //       'identity_type': identityTypeCode.value != ''
-  //           ? identityTypeCode.value
-  //           : personalProfile.value.customerIdentityType!.id,
-  //       'identity_number': identityNumber.value != ''
-  //           ? identityNumber.value
-  //           : personalProfile.value.customerIdentityNumber,
-  //       'identity_date': identityDate.value != ''
-  //           ? identityDate.value
-  //           : personalProfile.value.customerIdentityDate,
-  //       'identity_expired_date': identityExpireDate.value != ''
-  //           ? identityExpireDate.value
-  //           : personalProfile.value.customerIdentityExpiredDate,
-  //       'current_address': currentAddress.value != ''
-  //           ? '$currentAddress'
-  //           : personalProfile.value.currentAddress!.village!.code != ''
-  //               ? personalProfile.value.currentAddress!.village!.code
-  //               : '',
-  //       'current_street_no': currentStreet.value != ''
-  //           ? '$currentStreet'
-  //           : personalProfile.value.streetNo,
-  //       'current_house_no': currentHours.value != ''
-  //           ? '#$currentHours'
-  //           : personalProfile.value.houseNo,
-  //       'permanent_address': permanentAddress.value != ''
-  //           ? '$permanentAddress'
-  //           : personalProfile.value.permanentAddress!.village!.code != ''
-  //               ? personalProfile.value.permanentAddress!.village!.code
-  //               : '',
-  //       'permanent_street_no': permanentStreet.value != ''
-  //           ? '$permanentStreet'
-  //           : personalProfile.value.permanentStreetNo,
-  //       'permanent_house_no': permanetHours.value != ''
-  //           ? '$permanetHours'
-  //           : personalProfile.value.permanentHouseNo,
-  //       'phone': _customerController.customer.value.phone != ''
-  //           ? _customerController.customer.value.phone
-  //           : personalProfile.value.phone,
-  //       'email': gmail.value != '' ? gmail.value : personalProfile.value.email,
-  //       'whatapp':
-  //           whatApp.value != '' ? whatApp.value : personalProfile.value.whatapp,
-  //       'telegram': telegram.value != ''
-  //           ? telegram.value
-  //           : personalProfile.value.telegram,
-  //       'messenger': messenger.value != ''
-  //           ? messenger.value
-  //           : personalProfile.value.messenger,
-  //       'skype': skype.value != '' ? skype.value : personalProfile.value.skype,
-  //       'website':
-  //           webSite.value != '' ? webSite.value : personalProfile.value.website,
-  //       'facebook': facebook.value != ''
-  //           ? facebook.value
-  //           : personalProfile.value.facebook,
-  //       'linkedin':
-  //           linkIn.value != '' ? linkIn.value : personalProfile.value.linkedin,
-  //       'twitter':
-  //           tweeter.value != '' ? tweeter.value : personalProfile.value.twitter
-  //     });
-  //     if (response.statusCode == 200) {
-  //       debugPrint('herrr suss:${response.statusCode}');
-  //       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
-  //         content: Text('Personal Profile Updated Successful...!'),
-  //         behavior: SnackBarBehavior.floating,
-  //         backgroundColor: Colors.green,
-  //         padding: EdgeInsets.all(20),
-  //       ));
-  //       fetchMemberPersonProfile();
-  //     } else {
-  //       debugPrint('herr12345678r suss:${response.statusCode}');
-  //       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
-  //         content: Text('Personal Profile Updated Failed...!'),
-  //         behavior: SnackBarBehavior.floating,
-  //         backgroundColor: Colors.red,
-  //         padding: EdgeInsets.all(20),
-  //       ));
-  //     }
-  //   } finally {
-  //     isLaodingUpdateProfile(false);
-  //   }
-  // }
 
   Future<void> onUpdateEducation() async {
     String url =
@@ -1036,9 +883,11 @@ class MemberController extends GetxController {
       responseJson.map((e) {
         company.value = CompanyData.fromJson(e);
         companyDataList.add(company.value);
-        isLoadingCompanyProfile(false);
       }).toList();
-    }).onError((ErrorModel errorModel, stackTrace) => null);
+      isLoadingCompanyProfile(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingCompanyProfile(false);
+    });
     return companyDataList;
   }
   // Future<List<CompanyData>> fetchCompanyMember({int? id}) async {
