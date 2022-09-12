@@ -17,7 +17,7 @@ import 'package:http/http.dart' as http;
 
 import '../../Utils/helper/color.dart';
 import '../../Utils/helper/custom_appbar.dart';
-import '../../Utils/helper/custom_snackbar.dart';
+import '../../Utils/helper/custom_route_snackbar.dart';
 
 class VerifySetPassword extends StatefulWidget {
   final String? phone;
@@ -66,21 +66,27 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
           setState(() {
             _isVerifyLoading = false;
           });
+          customRouterSnackbar(
+            title: 'Verify OTP',
+            description: 'Verify OTP Is Successfully!',
+          );
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ChangePassword(
-                        isForgetPassword: false,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangePassword(
+                isForgetPassword: false,
+              ),
+            ),
+          );
         } else {
           setState(() {
             _isVerifyLoading = false;
           });
-          customSnackbar(
-              isFailed: true,
-              color: Colors.red,
-              titleText: 'OTP is invalid',
-              messageText: 'Please Try Again');
+          customRouterSnackbar(
+            title: 'OTP is invalid',
+            description: 'Please Try Again',
+            type: SnackType.error,
+          );
         }
       });
     } catch (e) {
@@ -159,21 +165,27 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
 
         setCurrentUser(userToken);
         if (response.statusCode == 200) {
+          customRouterSnackbar(
+            title: 'Verify OTP',
+            description: 'Verify OTP Is Successful!',
+          );
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ChangePassword(
-                        isForgetPassword: true,
-                        phone: widget.phone!,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangePassword(
+                isForgetPassword: true,
+                phone: widget.phone!,
+              ),
+            ),
+          );
         }
       });
     } catch (e) {
-      customSnackbar(
-          isFailed: true,
-          color: Colors.red,
-          titleText: 'OTP is invalid',
-          messageText: 'Please Try Again');
+      customRouterSnackbar(
+        title: 'OTP is invalid',
+        description: 'Please Try Again',
+        type: SnackType.error,
+      );
     } finally {
       setState(() {
         _isVerifyLoading = false;

@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/core/auth/set_pin_code.dart';
-import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../utils/helper/custom_route_snackbar.dart';
 
 class PINCodeController extends GetxController {
   final currentUser = ''.obs;
@@ -22,7 +24,7 @@ class PINCodeController extends GetxController {
     return currentUser;
   }
 
-  Future<void> onSetPINCode(String pinCode) async {
+  Future<void> onSetPINCode(String pinCode, BuildContext context) async {
     tokenKey = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
@@ -41,9 +43,7 @@ class PINCodeController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          Get.offAll(const PaymentSchedule(
-            fromPage: 'loginPage',
-          ));
+          context.go('/');
         } else {}
       });
     } finally {
@@ -79,20 +79,19 @@ class PINCodeController extends GetxController {
                           status: 'set',
                         )));
           } else {
-            Get.offAll(
-              const PaymentSchedule(
-                fromPage: 'loginPage',
-              ),
-            );
+            context.go('/');
+            // Get.offAll(
+            //   const PaymentSchedule(
+            //     fromPage: 'loginPage',
+            //   ),
+            // );
           }
         } else {
-          Get.snackbar(
-            "Submit failed",
-            "PIN Code and Verify PIN Code are not match, try again!",
-            duration: const Duration(seconds: 1),
-            snackPosition: SnackPosition.BOTTOM,
-            colorText: Colors.white,
-            margin: const EdgeInsets.all(20.0),
+          customRouterSnackbar(
+            title: "Submit failed",
+            description:
+                "PIN Code and Verify PIN Code are not match, try again!",
+            type: SnackType.error,
           );
         }
       });

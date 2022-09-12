@@ -10,6 +10,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Utils/helper/custom_appbar.dart';
+import '../../Utils/helper/custom_route_snackbar.dart';
 import '../../Utils/pin_code_controller/pin_code_controller.dart';
 
 class SetPinCode extends StatefulWidget {
@@ -212,22 +213,17 @@ class _SetPinCodeState extends State<SetPinCode> {
                           } else if (widget.status == 'verify') {
                             if (setPinController.pinCodeChange.value == code) {
                               setPinController.onSetPINCode(
-                                  setPinController.pinCodeChange.value);
+                                  setPinController.pinCodeChange.value,
+                                  context);
                               LocalData.setPINCode("setPIN",
                                   customerController.customer.value.pinCode!);
                               await LocalData.getPINCode('setPIN');
                             } else {
-                              Get.snackbar(
-                                "Submit failed",
-                                "PIN Code and Verify PIN Code are not match",
-                                snackPosition: SnackPosition.BOTTOM,
-                                backgroundColor: Colors.red,
-                                colorText: Colors.white,
-                                icon: const Icon(
-                                  Icons.cancel,
-                                  color: Colors.white,
-                                ),
-                                margin: const EdgeInsets.all(20.0),
+                              customRouterSnackbar(
+                                title: "Submit failed",
+                                description:
+                                    "PIN Code and Verify PIN Code are not match",
+                                type: SnackType.error,
                               );
                             }
                           }
