@@ -335,11 +335,13 @@ class MemberController extends GetxController {
           title: 'Successful...!',
           description: 'Company Updated Successful...!');
 
-      fetchCompanyMember(id: cusController.customer.value.customerId);
-
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.pop(context!);
+        fetchCompanyMember(id: cusController.customer.value.customerId);
+      });
       isLoadingUpdateComapny(false);
       update();
-      Navigator.pop(context!);
+
       uploadCon.imageFile.value = File('');
     }).onError((ErrorModel errorModel, stackTrace) {
       isLoadingUpdateComapny(false);
@@ -364,12 +366,14 @@ class MemberController extends GetxController {
         isAuthorize: true,
         url: 'helper/remove/image/$id',
         body: {"model": model}).then((response) {
+      companyLogoUrl.value =
+          "https://cicstaging.z1central.com/uploads/files/default/default-image.png";
       customRouterSnackbar(
         title: 'Deleted',
         description: 'Profile image has been deleted',
       );
       cusController.getUser();
-      fetchCompanyMember(id: id);
+      fetchCompanyMember(id: cusController.customer.value.customerId);
       isDeleteComapny(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isDeleteComapny(false);

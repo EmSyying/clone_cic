@@ -363,7 +363,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     padding: const EdgeInsets.only(top: 20, bottom: 30),
                     child: Column(
                       children: [
-                        uploadImageCon.isLoading.value
+                        uploadImageCon.isLoading.value ||
+                                memberCon.isDeleteComapny.value
                             ? Container(
                                 width: 83.0,
                                 height: 83.0,
@@ -380,13 +381,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ? uploadImageCon.imageFile.value.path == ''
                                     ? _buildProfile(const NetworkImage(
                                         'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'))
-                                    : _buildProfile(FileImage(
-                                        uploadImageCon.imageFile.value))
+                                    : _buildProfile(
+                                        FileImage(
+                                            uploadImageCon.imageFile.value),
+                                      )
                                 : uploadImageCon.imageFile.value.path == ''
-                                    ? _buildProfile(NetworkImage(
-                                        memberCon.companyLogoUrl.value))
-                                    : _buildProfile(FileImage(
-                                        uploadImageCon.imageFile.value)),
+                                    ? _buildProfile(
+                                        NetworkImage(
+                                            memberCon.companyLogoUrl.value),
+                                      )
+                                    : _buildProfile(
+                                        FileImage(
+                                            uploadImageCon.imageFile.value),
+                                      ),
                         TextButton(
                           onPressed: widget.onTapPhotoProfile,
                           child: Text(

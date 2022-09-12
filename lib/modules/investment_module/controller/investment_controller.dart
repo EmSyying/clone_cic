@@ -1046,17 +1046,13 @@ class PriceController extends GetxController {
       var newmaturityDateJson = response['mew_maturity_date'];
       newMaturityDate.value = newmaturityDateJson;
 
-      // context!.router.push(
-      //   RenewReviewRouter(
-
-      // ),
-      // );
       Navigator.push(
         context!,
         MaterialPageRoute(
           builder: (context) {
             return BulletPaymentDetail(
               id: id,
+              fromPage: 'from renewal',
               annually: fifAccountDetailModel.value.annuallyInterestRate,
               productName: fifAccountDetailModel.value.productName,
               titles: 'Renewal Summary',

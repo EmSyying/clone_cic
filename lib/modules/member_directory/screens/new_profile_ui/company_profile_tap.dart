@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../Utils/function/upload_file_controller.dart';
+import '../../controllers/customer_controller.dart';
 import 'edit_profile_screen.dart';
 
 class CompanyProfileTab extends StatefulWidget {
@@ -22,6 +23,7 @@ class CompanyProfileTab extends StatefulWidget {
 class _CompanyProfileTabState extends State<CompanyProfileTab> {
   final memberCon = Get.put(MemberController());
   final uploadImageCon = Get.put(UploadFileController());
+  final customerController = Get.put(CustomerController());
   // final companyCon = Get.put(NewProfileController());
   bool isHideAddress = false;
   int page = 1;
@@ -62,7 +64,6 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
 
   @override
   Widget build(BuildContext context) {
-    memberCon.fetchCompanyMember(id: widget.id);
     return Obx(
       () => memberCon.isLoadingCompanyProfile.value
           ? const Center(child: CircularProgressIndicator())
@@ -160,8 +161,6 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               },
                               editCompany: 'Edit company info',
                               onTapEdit: () {
-                                debugPrint(
-                                    "company id before updateed:${e.value.id}");
                                 memberCon.companyData.value = e.value;
                                 memberCon.copyCompanyData.value = e.value;
 
