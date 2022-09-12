@@ -82,7 +82,7 @@ class PINCodeController extends GetxController {
                           status: 'set',
                         )));
           } else {
-            context.go('/');
+            context.go('/?fromPage=loginPage');
             // Get.offAll(
             //   const PaymentSchedule(
             //     fromPage: 'loginPage',

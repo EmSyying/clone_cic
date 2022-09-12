@@ -1,20 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:cicgreenloan/core/auth/set_pin_code.dart';
 import 'package:get/get.dart';
 import 'package:cicgreenloan/generated/l10n.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Utils/function/get_sharepreference_data.dart';
-import '../../Utils/function/set_current_user.dart';
 import '../../Utils/helper/color.dart';
-import '../../modules/dashboard/buttom_navigation_bar.dart';
-import '../../modules/member_directory/controllers/customer_controller.dart';
 import 'auth_controller/auth_controller.dart';
 
 class LoginWithPassWord extends StatefulWidget {
@@ -26,131 +17,11 @@ class LoginWithPassWord extends StatefulWidget {
 
 class _LoginWithPassWordState extends State<LoginWithPassWord> {
   final _authController = Get.put(AuthController());
-  final _customerController = Get.put(CustomerController());
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isLoading = false;
-
-  String? token;
-
-  getCurrentUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      token = prefs.getString('current_user');
-    });
-  }
-
-  onLogin() async {
-    String url = '${GlobalConfiguration().getValue('main_api_url')}login';
-    await http.post(Uri.parse(url), headers: {
-      'Accept': 'application/json',
-    }, body: {
-      // 'phone': widget.phone,
-      // 'password': passwordController.text
-    }).then((response) async {
-      if (response.statusCode == 200) {
-        debugPrint('Log IN');
-        var userToken = json.decode(response.body)['access_token'];
-        // _customerController.isLogin(true);
-        _customerController.isLoginSuccess(true);
-        setCurrentUser(userToken);
-        await LocalData.userLogin('userLogin', true);
-        // await _customerController.getUser();
-
-        _customerController.customer.value.pinCode != ""
-            // ignore: use_build_context_synchronously
-            ? Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const PaymentSchedule(fromPage: 'loginPage'),
-                ),
-              )
-            : Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SetPinCode(
-                    status: 'set',
-                  ),
-                ),
-              );
-      } else {
-        Get.snackbar("", "Login failed",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-            icon: const Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Login failed',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Password is not correct',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
-        // Get.snackbar("", "",
-        //     titleText: Text("Login failed"),
-        //     messageText: Text(
-        //       "Password is not correct",
-        //       style: TextStyle(fontSize: 22),
-        //     ),
-        //     snackPosition: SnackPosition.TOP);
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    });
-  }
-
-  // requestOtp() async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   _isLoading ? showLoadingDialog(context) : Container();
-
-  //   String url = '${GlobalConfiguration().getValue('main_api_url')}request-otp';
-  //   try {
-  //     final response = await http.post(Uri.parse(url), headers: {
-  //       'Accept': 'applicatio/json',
-  //       'Authorization': 'Bearer $token',
-  //     }, body: {
-  //       'phone': widget.phone
-  //     });
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => VerifySetPassword(
-  //             isForgetPassword: true,
-  //             phone: widget.phone!,
-  //           ),
-  //         ),
-  //       );
-  //     } else {
-  //       _isLoading = false;
-  //     }
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  //   setState(() {
-  //     _isLoading = !_isLoading;
-  //   });
-  // }
 
   @override
   void initState() {
-    getCurrentUser();
-
     super.initState();
   }
 

@@ -10,6 +10,8 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class NotificationController extends GetxController {
   final notificationList = <NotificationModel>[].obs;
   final notificationAnouncementList = <NotificationModel>[].obs;
@@ -30,10 +32,15 @@ class NotificationController extends GetxController {
   final countReadAnnouncement = 0.obs;
 
   Future<List<NotificationModel>> getNotification() async {
+    debugPrint("Notificaton is work");
     isLoadingNotification(true);
     final notifications = NotificationModel().obs;
-
-    token.value = StorageUtil.getString('current_user');
+    // Old Code
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    token.value = pref.getString('current_user')!;
+    // New Code
+    // token.value = StorageUtil.getString('current_user');
+    debugPrint("Notification Token:${token.value}");
     String url =
         '${GlobalConfiguration().getValue('api_base_url')}user/notification';
     try {
@@ -53,6 +60,7 @@ class NotificationController extends GetxController {
 
           ///
           responseData.map((json) {
+            debugPrint("notification1");
             notifications.value = NotificationModel.fromJson(json);
 
             if (notifications.value.data!.type!.toLowerCase() ==
@@ -63,17 +71,21 @@ class NotificationController extends GetxController {
                 notifications.value.data!.type!.toLowerCase() ==
                     'fif-reminder') {
               notificationAnouncementList.add(notifications.value);
+              debugPrint("notification2:");
               if (notifications.value.readAt == null) {
                 countReadAnnouncement.value = countReadAnnouncement.value + 1;
               }
             } else {
               notificationList.add(notifications.value);
+              debugPrint("notification3:${notificationList.length}");
               if (notifications.value.readAt == null) {
                 countReadNotification.value = countReadNotification.value + 1;
               }
             }
           }).toList();
-        } else {}
+        } else {
+          debugPrint("Notification is failed:${response.statusCode}");
+        }
       });
     } finally {
       isLoadingNotification(false);
@@ -104,7 +116,11 @@ class NotificationController extends GetxController {
     String url =
         '${GlobalConfiguration().getValue('api_base_url')}user/notification?only=unread&count=true';
 
-    token.value = StorageUtil.getString('current_user');
+    // Old Code
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    token.value = pref.getString('current_user')!;
+    // New Code
+    // token.value = StorageUtil.getString('current_user');
     await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

@@ -413,7 +413,7 @@ class PriceController extends GetxController {
 
   Future<FIFoptionModel> fetchFiFProductType({int? id}) async {
     fifOptionLoading.value = true;
-    debugPrint('fetchFiFProductType ID  : $id');
+    debugPrint("Product ID:$id");
     await apiBaseHelper
         .onNetworkRequesting(
       url: "fif-product/$id",
@@ -705,6 +705,8 @@ class PriceController extends GetxController {
           fiFApplicationDetailPending.value.annuallyInterestRate!;
 
       fetchFiFProductType(id: fiFApplicationDetailPending.value.productId);
+      debugPrint(
+          "ProductID from Detail:${fiFApplicationDetailPending.value.productId}");
       textAmount.refresh();
 
       isLoadingPendingDetail(false);
@@ -1108,6 +1110,41 @@ class PriceController extends GetxController {
         }).then((response) {
       var disbursmentDateJson = response['disbursement_date'];
       var withdrawAmountJson = response['withdraw_amount'];
+      Navigator.push(
+        context!,
+        MaterialPageRoute(
+          builder: (context) {
+            return BulletPaymentDetail(
+              fromPage: 'widthdraw',
+              productName: fifAccountDetailModel.value.productName,
+              titles: 'Withdraw Summary',
+              investAmount:
+                  fifAccountDetailModel.value.originalCurrentPrincipal,
+              isWithdraw: true,
+              withdrawer: fifAccountDetailModel.value.investorName,
+              withdrawAmount: withdrawAmountJson,
+              noticeDate: FormatDate.investmentDateDisplay(
+                  FormatDate.today().toString()),
+              disbursementDate: disbursmentDateJson,
+              contractStatus: textWithdrawAmount.value ==
+                      fifAccountDetailModel.value.originalAmount!.toInt()
+                  ? 'Passive'
+                  : 'Active',
+              id: investmentId.value,
+              oncallBack: () async {
+                FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                    'submit withdraw contract');
+
+                await Future.delayed(const Duration(seconds: 1));
+                // ignore: use_build_context_synchronously
+                onCreateWithdraw(investmentId.value, context);
+                onclearWithdraw();
+              },
+              annually: fifAccountDetailModel.value.annuallyInterestRate,
+            );
+          },
+        ),
+      );
 
       debugPrint("Perview Widthdraw:$disbursmentDateJson");
       update();
@@ -1488,21 +1525,43 @@ class PriceController extends GetxController {
 
   Future<void> onCreateWithdraw(withdrawId, BuildContext? context) async {
     isLoadingWithdraw(true);
-    await apiBaseHelper
-        .onNetworkRequesting(
-            url: 'fif-application/process?type=withdraw',
-            methode: METHODE.post,
-            isAuthorize: true,
-            body: {
-              "investment_id": withdrawId,
-              "disbursement_date": textdisbursementDateSubmit.value,
-              "amount": textWithdrawAmount.value
-            })
-        .then((e) async {})
-        .onError((ErrorModel errorModel, stackTrace) {
-          FirebaseCrashlytics.instance.log(
-              "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
-        });
+    await apiBaseHelper.onNetworkRequesting(
+        url: 'fif-application/process?type=withdraw',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          "investment_id": withdrawId,
+          "disbursement_date": textdisbursementDateSubmit.value,
+          "amount": textWithdrawAmount.value
+        }).then((e) async {
+      debugPrint("Widthdraw body:$e");
+      await Navigator.push(
+        context!,
+        MaterialPageRoute(
+          builder: (context) {
+            return CustomSucessScreen(
+              title: 'Success',
+              description: 'Your request for withdraw has been submitted.',
+              buttonTitle: 'Done',
+              onPressedButton: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Future.delayed(const Duration(seconds: 0), () {
+                  getFIFApplication();
+                  fetchFirstDate();
+                  fetchFIFPending();
+                });
+              },
+            );
+          },
+        ),
+      );
+    }).onError((ErrorModel errorModel, stackTrace) {
+      FirebaseCrashlytics.instance.log(
+          "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
+    });
   }
 
   final isLoadingWithdrawBank = false.obs;

@@ -102,6 +102,7 @@ class AuthController extends GetxController {
         debugPrint('Success $value');
         onLoginLoading(false);
         await setCurrentUser(value['access_token']);
+
         await LocalData.userLogin('userLogin', true);
         // context.push('/setpincode');
         await _customerController.getUser().then((value) {

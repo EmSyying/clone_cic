@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../Utils/helper/custom_appbar.dart';
+import '../../Utils/helper/custom_route_snackbar.dart';
 import '../../Utils/pin_code_controller/pin_code_controller.dart';
 
 class VerifyPINCode extends StatefulWidget {
@@ -139,17 +140,10 @@ class _VerifyPINCodeState extends State<VerifyPINCode> {
                               // Get.offAll(const PaymentSchedule());
                             }
                           } else {
-                            Get.snackbar(
-                              "Submit failed",
-                              "PIN Code are not match",
-                              snackPosition: SnackPosition.BOTTOM,
-                              backgroundColor: Colors.red,
-                              colorText: Colors.white,
-                              icon: const Icon(
-                                Icons.cancel,
-                                color: Colors.white,
-                              ),
-                              margin: const EdgeInsets.all(20.0),
+                            customRouterSnackbar(
+                              title: 'Submit Failed',
+                              description: 'PIN Code are not match',
+                              type: SnackType.error,
                             );
                           }
                         },
