@@ -4,15 +4,20 @@ class CustomEmptyState extends StatelessWidget {
   final String? title;
   final String? description;
   final bool? isEmptyBox;
-  const CustomEmptyState(
-      {Key? key, this.isEmptyBox = false, this.title, this.description})
-      : super(key: key);
+  final bool colors;
+  const CustomEmptyState({
+    Key? key,
+    this.isEmptyBox = false,
+    this.title,
+    this.description,
+    this.colors = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return !isEmptyBox!
         ? Container(
-            color: Colors.white,
+            color: colors ? Colors.transparent : Colors.white,
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,9 +29,16 @@ class CustomEmptyState extends StatelessWidget {
                   height: 250,
                 ),
                 Text(title ?? 'No transaction',
-                    style: Theme.of(context).textTheme.headline4),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontWeight: FontWeight.w600)),
+                const SizedBox(height: 10),
                 Text(description ?? 'It seems you have no transactions yet.',
-                    style: Theme.of(context).textTheme.headline2),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(fontWeight: FontWeight.w400)),
               ],
             ),
           )

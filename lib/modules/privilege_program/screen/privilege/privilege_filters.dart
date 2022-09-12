@@ -12,9 +12,11 @@ import '../../controller/privilege_controller.dart';
 
 class PrivilegeFilters extends StatefulWidget {
   final int? index;
+  final bool showLocation;
   const PrivilegeFilters({
     Key? key,
     this.index,
+    this.showLocation = true,
   }) : super(key: key);
 
   @override
@@ -89,71 +91,76 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                             ))
                         .toList(),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, top: 20.0, bottom: 6.0),
-                child: customTitleText(titleText: 'Locations'),
-              ),
-              Column(
-                children: privilegeController.locationPrivilageList
-                    .asMap()
-                    .entries
-                    .map((e) {
-                  return GestureDetector(
-                    onTap: () {
-                      privilegeController.locationName.value = e.value.nameEn!;
-                      privilegeController.onSelected(
-                        index: e.key,
-                        selectedItemCode: e.value.code,
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        right: 10.0,
-                        left: 10.0,
-                      ),
-                      child: FilterByType(
-                        isSelect: privilegeController
-                            .locationPrivilageList[e.key].isSelected,
-                        display: e.value.nameEn,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-              Container(
-                padding: const EdgeInsets.only(
-                  right: 20.0,
-                  left: 20.0,
-                  top: 10.0,
+              if (widget.showLocation)
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 20.0, bottom: 6.0),
+                  child: customTitleText(titleText: 'Locations'),
                 ),
-                alignment: Alignment.topLeft,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    privilegeController.isLoadingPriLocation.value
-                        ? const CupertinoActivityIndicator()
-                        : const SizedBox.shrink(),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    GestureDetector(
+              if (widget.showLocation)
+                Column(
+                  children: privilegeController.locationPrivilageList
+                      .asMap()
+                      .entries
+                      .map((e) {
+                    return GestureDetector(
                       onTap: () {
-                        privilegeController.seeMore();
+                        privilegeController.locationName.value =
+                            e.value.nameEn!;
+                        privilegeController.onSelected(
+                          index: e.key,
+                          selectedItemCode: e.value.code,
+                        );
                       },
-                      child: Text(
-                        privilegeController.isShowMore.value
-                            ? 'See More'
-                            : 'See Less',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                              fontWeight: FontWeight.w500,
-                              decoration: TextDecoration.underline,
-                            ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          right: 10.0,
+                          left: 10.0,
+                        ),
+                        child: FilterByType(
+                          isSelect: privilegeController
+                              .locationPrivilageList[e.key].isSelected,
+                          display: e.value.nameEn,
+                        ),
                       ),
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 ),
-              ),
+              if (widget.showLocation)
+                Container(
+                  padding: const EdgeInsets.only(
+                    right: 20.0,
+                    left: 20.0,
+                    top: 10.0,
+                  ),
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      privilegeController.isLoadingPriLocation.value
+                          ? const CupertinoActivityIndicator()
+                          : const SizedBox.shrink(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          privilegeController.seeMore();
+                        },
+                        child: Text(
+                          privilegeController.isShowMore.value
+                              ? 'See More'
+                              : 'See Less',
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ),

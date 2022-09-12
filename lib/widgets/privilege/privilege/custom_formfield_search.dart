@@ -35,6 +35,7 @@ class CustomFormFieldSearch extends StatelessWidget {
             //controller: controller,
             // initialValue: initialValue,
             keyboardType: keyboardType,
+            autofocus: true,
             decoration: InputDecoration(
               hintText: 'Search',
               hintStyle: Theme.of(context).textTheme.headline5!.copyWith(
