@@ -402,7 +402,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           height: 20,
                         ),
                         CustomTextFieldNew(
-                          hintText: 'Company Name*',
+                          isRequired: true,
+                          hintText: 'Company Name',
                           onChange: (comName) {
                             setState(() {
                               memberCon.companyData.value = memberCon
@@ -411,10 +412,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             });
                           },
                           isValidate: memberCon.isCompanyName.value,
-                          labelText: 'Company Name*',
-                          initialValue: widget.id != null
-                              ? memberCon.companyData.value.companyName
-                              : '',
+                          labelText: 'Company Name',
+                          initialValue: memberCon.companyData.value.companyName,
                         ),
                         CustomTextFieldNew(
                           hintText: 'Input Slogan',
@@ -427,9 +426,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           },
                           isValidate: true,
                           labelText: 'Input Slogan',
-                          initialValue: widget.id != null
-                              ? memberCon.companyData.value.companySlogan
-                              : '',
+                          initialValue:
+                              memberCon.companyData.value.companySlogan,
                         ),
                         CustomTextFieldNew(
                           // isReadOnly: true,
@@ -444,9 +442,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           keyboardType: TextInputType.number,
                           isValidate: true,
                           labelText: 'Phone Number',
-                          initialValue: widget.id != null
-                              ? memberCon.companyData.value.phoneNumber
-                              : '',
+                          initialValue: memberCon.companyData.value.phoneNumber,
                         ),
                         CustomTextFieldNew(
                           hintText: 'Email',
@@ -459,9 +455,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           },
                           isValidate: true,
                           labelText: 'Email',
-                          initialValue: widget.id != null
-                              ? memberCon.companyData.value.email
-                              : '',
+                          initialValue: memberCon.companyData.value.email,
                         ),
                         CustomTextFieldNew(
                           hintText: 'Location',
@@ -474,9 +468,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           },
                           isValidate: true,
                           labelText: 'Location',
-                          initialValue: widget.id != null
-                              ? memberCon.companyData.value.address
-                              : '',
+                          initialValue: memberCon.companyData.value.address,
                         ),
                         CustomTextFieldNew(
                           hintText: 'Link Website',
@@ -489,9 +481,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           },
                           isValidate: true,
                           labelText: 'Link Website',
-                          initialValue: widget.id != null
-                              ? memberCon.companyData.value.website
-                              : '',
+                          initialValue: memberCon.companyData.value.website,
                         ),
                         CustomTextFieldNew(
                           hintText: 'About Us',
@@ -505,9 +495,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           isValidate: true,
                           labelText: 'About Us',
                           maxLine: 7,
-                          initialValue: widget.id != null
-                              ? memberCon.companyData.value.companyProfile
-                              : '',
+                          initialValue:
+                              memberCon.companyData.value.companyProfile,
                         ),
                         CustomTextFieldNew(
                           hintText: 'Product & Service',
@@ -521,10 +510,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           isValidate: true,
                           labelText: 'Product & Service',
                           maxLine: 7,
-                          initialValue: widget.id != null
-                              ? memberCon
-                                  .companyData.value.companyProductAndService
-                              : '',
+                          initialValue: memberCon
+                              .companyData.value.companyProductAndService,
                         ),
                       ],
                     ),
@@ -550,22 +537,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ),
                         ),
                         const SizedBox(width: 20),
-                        Expanded(
-                          child: memberCon.isLoadingSubmitCompany.value
-                              ? const CustomLoadingButton()
-                              : CustomButton(
-                                  onPressed: memberCon.isDisableCompany.value ==
-                                          false
-                                      ? () {
-                                          // isValidation();
-
-                                          memberCon.onSubmitCompany(context);
-                                        }
-                                      : null,
-                                  title: 'Done',
-                                  isDisable: false,
-                                  isOutline: false,
-                                ),
+                        Obx(
+                          () => Expanded(
+                            child: memberCon.isLoadingSubmitCompany.value
+                                ? const CustomLoadingButton()
+                                : CustomButton(
+                                    onPressed: memberCon.companyData.value
+                                                    .companyName !=
+                                                "" &&
+                                            widget.id == null
+                                        ? () {
+                                            // isValidation();
+                                            memberCon.onSubmitCompany(context);
+                                          }
+                                        : null,
+                                    title: 'Done',
+                                    isDisable: false,
+                                    isOutline: false,
+                                  ),
+                          ),
                         ),
                       ],
                     ),

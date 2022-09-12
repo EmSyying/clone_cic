@@ -178,15 +178,11 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                     memberCon.personalProfile.value.telegram,
                               ),
                               CustomOptionProfile(
-                                onPress: () {
-                                  launchInBrowser(
-                                    Uri(
-                                      scheme: 'https',
-                                      host:
-                                          '${memberCon.personalProfile.value.website}',
-                                      // path:
-                                      //     '${memberCon.personalProfile.value.website}'
-                                    ),
+                                onPress: () async {
+                                  await launchUrl(
+                                    Uri.parse(
+                                        '${memberCon.personalProfile.value.website}'),
+                                    mode: LaunchMode.externalApplication,
                                   );
                                 },
                                 title: 'Website',
@@ -252,7 +248,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                       uploadImageCon.uploadImage(context, onRemove: () {
                         memberCon.onDeleteImageProfile(
                           context,
-                          21,
+                          widget.id,
                           'member',
                         );
                       });

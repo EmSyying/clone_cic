@@ -1,4 +1,6 @@
+import 'package:cicgreenloan/Utils/function/upload_file_controller.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
+import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
@@ -59,6 +61,8 @@ class CustomCompanyTap extends StatelessWidget {
     final pageController = SwiperController();
     //  final memberCon = Get.put(MemberController());
     final companyCon = Get.put(NewProfileController());
+    final uploadImageCon = Get.put(UploadFileController());
+    final memberCon = Get.put(MemberController());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -264,6 +268,10 @@ class CustomCompanyTap extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, left: 10),
                       child: GestureDetector(
                         onTap: () {
+                          // if (memberCon.company.value.companyLogo == '') {
+                          //   uploadImageCon.imageFile.value = File('');
+                          // },
+
                           Navigator.pop(context);
                           onTapEdit!();
                         },

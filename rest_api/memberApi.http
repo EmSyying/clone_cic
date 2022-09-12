@@ -1,14 +1,14 @@
 @baseUrl = https://cicstaging.z1central.com/api/
 ###
 
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMWQ2OWIxY2VkMzUyZDFhYjIxNjk4NjAxMmI0Zjk5YmYwMDRlM2VmNGUxNjhlMjQxM2Q0ZDlkYzI4OTllZTg0YmNhMWYxYTFkMDVhZGFjZmYiLCJpYXQiOjE2NjI2MTkyNjMuOTg5NjA5LCJuYmYiOjE2NjI2MTkyNjMuOTg5NjExLCJleHAiOjE2OTQxNTUyNjMuOTgwMzI4LCJzdWIiOiIxMyIsInNjb3BlcyI6WyIqIl19.LY4LMAynKCfjzXC7lQrjTVX4fb5cKUXCm6mEIpbgIXdWhJtuSn8wrmJDTIIUHnHJUNAoraJun_pjCraAM4gMjNyKE41ZGT5kwUh6YfgFf8dx-8KipjbNIwCkj58FtqUlXYBHz_RzJZxWokJf0xGmiEEr2ePln8F6jKIXiakvDhs1YkaHqFd-GyK9NhBR2c4mIndkqIBG8E11LtrgA1VwOuuZhznwKbAOTLuaS3dR54rGFYkDH2GyFal7B-TCSamx97oyQ5WemC05BFO6E3FQHAuO7xtBj635ffimg0YOoToLzPQU1EhuxiNzV5QcyEc36QU1DHzHg6SyjJ7CZW3JvM8LIV9JLpqVyPMyC8lLwzWJVv6YFApunLhjzfJT9dL891FHglnr2wwf0lwDmy2JnAr6Md5Jpy27rLOfGSqvvdfEjvTk_xkD6tSNbpjb-ZtuJlJipGaueuxb21BwX_mSwusC4n-aUscbyvTXT8JpNBHB9oeQ-uSlZfCdlZHmqyatgSMXIa3r6-aGHJ8A5ZS_c1uKgDNNO-19MXcw1yZMhmErdk3azMpFiGcE5ZAGQjxTGwmOI4bSFX5tyomixfHQyD5_HINVmPtq9EKub4RDafOluivv7g4MTBsEfNAVOX6nX7LfrfgKUFtZBTM2Mm6ssZVP9M4oK_Z6MTTVNHX7HEs
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZmVjZjk4ODRkNWQ0ZTAxZmYxYjM5MTU3YTQ1MDYzMTk5Zjc3OGQ5ZGJmMzY3N2M4NGE4ZTRjMDcwNjllZTQyMTVjM2M2MDUzMjQ2MmQ0N2UiLCJpYXQiOjE2NjI3MTI0MDguMjg2MzI4LCJuYmYiOjE2NjI3MTI0MDguMjg2MzMsImV4cCI6MTY5NDI0ODQwOC4yNzg1Miwic3ViIjoiMTEiLCJzY29wZXMiOlsiKiJdfQ.Es_1Me01V41rrsH7EaWFu52AW9698zNBIVdbfEXU_jgPDHnP7EplzS177ZW08GnbAmf3jf2_c7jd6I_EudZcbI-7ty-IP7W9I_4BOyv_9fbdrGqpUfI5sfTLaXx0ruXwDgLhMpfRR8dBIamjnynwd2VckJjwPPZFE5BJQMomjcwDXmMQtRMddhM1i7L-05f5DZaJ47DUpMZI14DIOvtccvx8D_gjKDNkVW4WMiubay1NEmF93wWGANgASCcPCjC7TONSq5N8ZyotBkoxtidMTX4hohp0zGxpGE-R9GgHFKeyJNt4jf1K28C6s5sIUkKYaad_ka3-z9bo5VR26dY8pvQr7KIIzyOANxfrWI6Uv19EVyStfZmYxuxByTUpo8IbC4DYYkhTZ80vFtDtCb0LaP1tjVbwa-aNImWigeABaS7s74-btT1xI4skWSb_B5aeUUsn-JC7DbHrqIUYiRtdjycpZOkimAxaZLnrN1VsY2PuDcTH-xNDUxgvpwvIF8T-5P57eDAx_618vikyQKc19VG9gCjLr9QfB1ulo28azyw1C5qeJHBnbR04pzbc3jXtThpyiXp9OW51qjmaBQ5X5LC3f2vDqeHz7x_2tFc_CmI6DjRoXLYXQSPwYrwRcBbUFuV1h1NZWlJhmMoFqJb7jymV7ILfqb3PFNib2yhPMTc
 POST {{baseUrl}}login
 Content-Type: application/json
 Accept: application/json
 
 {
-    "phone" : "+855975431111",
-    "password" : "SrunTola@2022"   
+    "phone" : "+85569722942",
+    "password" : "@Y1234567"   
 }
 
 ###
@@ -211,7 +211,7 @@ Authorization: Bearer {{token}}
 }
 
 ###
-GET {{baseUrl}}v3/member-company?member_id=6
+GET {{baseUrl}}v3/member-company?member_id=21
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -265,38 +265,30 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "id":1583,
-    "company_name" : "Test1",
-    "khmer_name" : "Test",
-    "major_of_business" : 1,
-    "position" : "Flutter",
-    "legal_status" : 1,
-    "registered_business" : 1,
-    "company_size" : "200",
-    "number_of_branches" : "10",
-    "business_model" : 1,
-    "capital_investment" : "Test",
-    "year_founded" : "2001",
-    "is_primary" : 1,
-    "personal_interest" : "Test",
-    "company_profile" : "Test",
-    "company_product_and_service" : "Test",
-    "house_no" : "01",
-    "street_no" : "01",
-    "address" : "0101",
-    "phone_number" : "012601102",
-    "email" : "test@gmail.com",
-    "what_app" : "Test",
-    "telegram" : "Test",
-    "messenger" : "Test",
-    "skype" : "Test",
-    "we_chat" : "Test",
-    "website" : "Test",
-    "facebook" : "Test",
-    "linkedin" : "Test",
-    "twitter" : "Test",
-    "company_profile":"GitLab is a single application for the entire software development lifecycle. From project planning and source code management to CI/CD, monitoring, and security",
-    "company_product_and_service":"This is a self-managed instance of GitLab"
+    "id": 1641,
+    "company_name": "Z1FSC-13",
+    "company_slogan": "hiis",
+    "member_id": 21,
+    "khmer_name":"ying",
+    "position":"dev",
+    "company_logo":
+       "",
+    "company_profile": "",
+    "company_product_and_service": "",
+    "house_no": "",
+    "street_no": "",
+    "address": "",
+    "phone_number": "",
+    "email": "",
+    "what_app": "",
+    "telegram": "",
+    "messenger": "",
+    "skype": "",
+    "we_chat": "",
+    "website": "",
+    "facebook": "",
+    "linkedin": "",
+    "twitter": ""
 }
 
 ###
@@ -384,7 +376,18 @@ Authorization: Bearer {{token}}
 
 ###
 
-GET {{baseUrl}}v3/company
+GET {{baseUrl}}v3/company/1641
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
+
+### Helper to remove image
+POST {{baseUrl}}api/helper/remove/image/1641
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "model" : "company" 
+// "member":""
+}

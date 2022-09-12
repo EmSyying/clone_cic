@@ -101,7 +101,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                     'assets/images/svgfile/add.svg'),
                                 const SizedBox(width: 10),
                                 Text(
-                                  'Add Company',
+                                  'Add Companysss',
                                   style: Theme.of(context).textTheme.headline3,
                                 )
                               ],
@@ -160,6 +160,8 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               },
                               editCompany: 'Edit company info',
                               onTapEdit: () {
+                                debugPrint(
+                                    "company id before updateed:${e.value.id}");
                                 memberCon.companyData.value = e.value;
                                 memberCon.copyCompanyData.value = e.value;
 
@@ -203,6 +205,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                             onTap: () {
                               // memberCon.isCompanyName.value = true;
                               uploadImageCon.imageFile.value = File('');
+                              memberCon.onClearCompany();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
@@ -212,6 +215,8 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                     isComapny: true,
                                     // companyData: memberCon.company.value,
                                     onTapPhotoProfile: () {
+                                      memberCon.copyPersonalProfile.value =
+                                          memberCon.personalProfile.value;
                                       uploadImageCon.uploadImage(context,
                                           isCompany: true);
                                     },

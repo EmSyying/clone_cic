@@ -288,6 +288,8 @@ class MemberController extends GetxController {
   final isLoadingUpdateComapny = false.obs;
 
   Future<void> onUpdateCompany(BuildContext? context, int? id) async {
+    debugPrint("Company Name Edit:${companyData.value.companyName}");
+    debugPrint("Company Id $id");
     isLoadingUpdateComapny(true);
     if (comCompanyLogo != null) {
       final byte = comCompanyLogo!.readAsBytesSync();
@@ -306,56 +308,42 @@ class MemberController extends GetxController {
     debugPrint("Company Slogan: ${companyData.value}");
 
     await apiBaseHelper.onNetworkRequesting(
-        url: 'member-company/update',
+        url: 'company/createOrUpdate',
         methode: METHODE.post,
         isAuthorize: true,
         body: {
-          "id": id,
+          "company_id": id,
           "company_name": companyData.value.companyName,
           "company_slogan": companyData.value.companySlogan,
-          "member_id": _customerController.customer.value.customerId,
-          "khmer_name": companyData.value.khmerName,
-          "position": companyData.value.position,
           "company_logo":
               base64Image == '' ? '' : "data:image/png;base64,$base64Image",
           "company_profile": companyData.value.companyProfile,
           "company_product_and_service":
               companyData.value.companyProductAndService,
-          "house_no": companyData.value.houseNo,
-          "street_no": companyData.value.streetNo,
           "address": companyData.value.address,
           "phone_number": companyData.value.phoneNumber,
           "email": companyData.value.email,
-          "what_app": companyData.value.whatApp,
-          "telegram": companyData.value.telegram,
-          "messenger": companyData.value.messenger,
-          "skype": companyData.value.skype,
-          "we_chat": companyData.value.weChat,
-          "website": companyData.value.website,
-          "facebook": companyData.value.facebook,
-          "linkedin": companyData.value.linkedin,
-          "twitter": companyData.value.twitter
+          "website": companyData.value.website
         }).then((response) {
-      debugPrint("Company Slogan: ${companyData.value}");
+      debugPrint("Base 64 of Companhy Image: $base64Image");
+      debugPrint("Company body:$response");
+      debugPrint("Company Id After updated:$id");
+      debugPrint(
+          "Company Name Edit after updated:${companyData.value.companyName}");
+
       customRouterSnackbar(
           title: 'Successful...!',
           description: 'Company Updated Successful...!');
-      // ScaffoldMessenger.of(context!).showSnackBar(
-      //   const SnackBar(
-      //     behavior: SnackBarBehavior.floating,
-      //     content: Text("Company Updated Successful...!"),
-      //     backgroundColor: Colors.green,
-      //     padding: EdgeInsets.all(20),
-      //   ),
-      // );
-      fetchCompanyMember(id: cusController.customer.value.customerId);
 
-      // uploadCon.startUpload();
+      fetchCompanyMember(id: cusController.customer.value.customerId);
 
       isLoadingUpdateComapny(false);
       update();
       Navigator.pop(context!);
+      uploadCon.imageFile.value = File('');
     }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingUpdateComapny(false);
+      debugPrint('company error:${errorModel.bodyString}');
       final message = errorModel.bodyString['message'];
       customRouterSnackbar(
         title: 'Fialed...!',
@@ -380,11 +368,9 @@ class MemberController extends GetxController {
         title: 'Deleted',
         description: 'Profile image has been deleted',
       );
-
-      isDeleteComapny(false);
       cusController.getUser();
-      fetchCompanyMember();
-      fetchCompanyMemberDetail(id!);
+      fetchCompanyMember(id: id);
+      isDeleteComapny(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isDeleteComapny(false);
       debugPrint('fix me error:${errorModel.bodyString}');
@@ -399,13 +385,16 @@ class MemberController extends GetxController {
 
   ///clear company form
   onClearCompany() {
-    comCompanyName.value = '';
-    comphonenumber.value = '';
-    comEmail.value = '';
-    comaddress.value = '';
-    comWebsite.value = '';
-    comProfile.value = '';
-    comproductandservice.value = '';
+    companyData.value = companyData.value.copyWith(
+        companyName: "",
+        companyLogo: '',
+        companySlogan: '',
+        phoneNumber: '',
+        email: '',
+        address: '',
+        website: '',
+        companyProfile: '',
+        companyProductAndService: '');
     isCompanyName.value = true;
     isDisableCompany.value = true;
     // base64Image = '';
@@ -417,7 +406,8 @@ class MemberController extends GetxController {
 //submit company
   final isLoadingSubmitCompany = false.obs;
   Future<void> onSubmitCompany(BuildContext? context) async {
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}member-company';
+    String url =
+        '${GlobalConfiguration().get('api_base_urlv3')}company/createOrUpdate';
     tokenKey = await LocalData.getCurrentUser();
     debugPrint('heloo statuscode:+++++++++');
     if (comCompanyLogo != null) {
@@ -432,29 +422,17 @@ class MemberController extends GetxController {
       base64Image = base64Encode(companyLogos);
     }
     var data = json.encode({
-      "company_name": comCompanyName.value,
-      "company_slogan": comSlogan.value,
       "member_id": _customerController.customer.value.customerId,
-      "khmer_name": comKhmerName.value,
+      "company_name": companyData.value.companyName,
+      "company_slogan": companyData.value.companySlogan,
       "company_logo":
           base64Image == '' ? '' : "data:image/png;base64,$base64Image",
-      "position": comPositions.value,
-      "company_profile": comProfile.value,
-      "company_product_and_service": comproductandservice.value,
-      "house_no": comhouseno.value,
-      "street_no": comstreetno.value,
-      "address": comaddress.value,
-      "phone_number": comphonenumber.value,
-      "email": comEmail.value,
-      "what_app": comWhatapp.value,
-      "telegram": comTelegram.value,
-      "messenger": comMessenger.value,
-      "skype": comSkype.value,
-      "we_chat": comWechat.value,
-      "website": comWebsite.value,
-      "facebook": comFacebook.value,
-      "linkedin": comLinkedin.value,
-      "twitter": comTwitter.value
+      "company_profile": companyData.value.companyProfile,
+      "company_product_and_service": companyData.value.companyProductAndService,
+      "address": companyData.value.address,
+      "phone_number": companyData.value.phoneNumber,
+      "email": companyData.value.email,
+      "website": companyData.value.website
     });
     try {
       isLoadingSubmitCompany(true);
@@ -471,14 +449,10 @@ class MemberController extends GetxController {
           title: 'Successful...!',
           description: 'Company Create Successful...!',
         );
-
-        // Timer(const Duration(seconds: 1), () {
-        //   Navigator.pop(context, true);
-
-        // });
         fetchCompanyMember(id: cusController.customer.value.customerId);
         // fetchCompanyMemberDetail(cusController.customer.value.customerId!);
         Navigator.pop(context!);
+
         update();
       } else {
         debugPrint('hekoo create:${response.body}');
