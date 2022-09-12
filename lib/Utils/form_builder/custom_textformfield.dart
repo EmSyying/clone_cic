@@ -88,6 +88,7 @@ class CustomTextFieldNew extends StatelessWidget {
             enabled: enable,
             readOnly: isReadOnly ?? false,
             decoration: InputDecoration(
+              alignLabelWithHint: true,
               //=======new updade====
               label: RichText(
                 text: TextSpan(

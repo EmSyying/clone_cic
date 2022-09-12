@@ -16,6 +16,8 @@ import 'package:cicgreenloan/modules/investment_module/model/share_balance_by_ye
 import 'package:cicgreenloan/modules/investment_module/model/share_subcription_by_price.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_subscription_by_year.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
+import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
+import 'package:cicgreenloan/utils/helper/local_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -411,6 +413,7 @@ class PriceController extends GetxController {
 
   Future<FIFoptionModel> fetchFiFProductType({int? id}) async {
     fifOptionLoading.value = true;
+    debugPrint('fetchFiFProductType ID  : $id');
     await apiBaseHelper
         .onNetworkRequesting(
       url: "fif-product/$id",
@@ -419,6 +422,7 @@ class PriceController extends GetxController {
     )
         .then(
       (value) {
+        debugPrint('fetchFiFProductType Response : $value');
         var responeJson = value['data'];
 
         fifProductTypeValidate.value = FIFoptionModel.fromJson(responeJson);
@@ -631,6 +635,9 @@ class PriceController extends GetxController {
   final isLoadingPendingDetail = false.obs;
   final bankType = BankType().obs;
   Future<FiFApplicationDetailModel> fetchFIFPendingDetail(num? id) async {
+    debugPrint('fetchFIFPendingDetail ID: $id');
+    debugPrint(
+        'fetchFIFPendingDetail ID2: ${fiFApplicationDetailPending.value.productId}');
     onDefaulValidate();
     isLoadingPendingDetail(true);
 
@@ -766,7 +773,7 @@ class PriceController extends GetxController {
 
   Future<void> onCreateFiF(
       {num? id, required BuildContext? buildcontext}) async {
-    debugPrint("This funtion is work");
+    debugPrint("Product ID : ${fiFApplicationDetailPending.value.productId}");
 
     isLoadingPostFiF(true);
 
@@ -1022,7 +1029,8 @@ class PriceController extends GetxController {
   //  Submit Preview renew
   final investmentId = 0.obs;
   final isPreviewLoading = false.obs;
-  Future<void> onPreviewRenewSubmit(BuildContext? context) async {
+  Future<void> onPreviewRenewSubmit(
+      {@required BuildContext? context, @required num? id}) async {
     isPreviewLoading(true);
 
     apiBaseHelper.onNetworkRequesting(
@@ -1046,11 +1054,10 @@ class PriceController extends GetxController {
         MaterialPageRoute(
           builder: (context) {
             return BulletPaymentDetail(
-              // id: widget.id,
+              id: id,
               annually: fifAccountDetailModel.value.annuallyInterestRate,
               productName: fifAccountDetailModel.value.productName,
               titles: 'Renewal Summary',
-
               investAmount:
                   fifAccountDetailModel.value.originalCurrentPrincipal,
               isRenewal: true,
@@ -1065,15 +1072,13 @@ class PriceController extends GetxController {
                 FirebaseAnalyticsHelper.sendAnalyticsEvent(
                     'submit renew contract');
 
-                await Future.delayed(
-                  const Duration(seconds: 0),
-                );
                 await onPostRenew(investmentId.value, context);
               },
             );
           },
         ),
       );
+      isPreviewLoading(false);
       debugPrint("Perview Renew:$newMaturityDate");
       update();
       isPreviewLoading(false);
@@ -1145,9 +1150,9 @@ class PriceController extends GetxController {
 
   // Hide Feature by user
   final isHideFeatureLoading = false.obs;
-  final isHideFeatureByUser = false.obs;
+  final allowFeaturebyTag = false.obs;
   Future<void> onHideFeatureByUser(id) async {
-    isHideFeatureByUser(true);
+    isHideFeatureLoading(true);
 
     await apiBaseHelper
         .onNetworkRequesting(
@@ -1155,12 +1160,17 @@ class PriceController extends GetxController {
       methode: METHODE.get,
       isAuthorize: false,
     )
-        .then((response) {
+        .then((response) async {
       debugPrint("Validate User id11===:$response");
       var isHideFeatureByUserJson = response['accessible'];
-      isHideFeatureByUser.value = isHideFeatureByUserJson;
 
-      update();
+      if (isHideFeatureByUserJson != null) {
+        await LocalStorage.storeData(
+            key: 'allow-fif', value: isHideFeatureByUserJson);
+        allowFeaturebyTag.value =
+            await LocalStorage.getBooleanValue(key: 'allow-fif');
+      }
+
       isHideFeatureLoading(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isHideFeatureLoading(false);
@@ -1329,7 +1339,8 @@ class PriceController extends GetxController {
   }
 
   final isLoadingRenew = false.obs;
-  Future<void> onPostRenew(num? id, BuildContext? context) async {
+  Future<void> onPostRenew(num? id, BuildContext context) async {
+    debugPrint('onPostRenew Work');
     isLoadingRenew(true);
     await apiBaseHelper.onNetworkRequesting(
         url: 'fif-application/process?type=renew',
@@ -1339,35 +1350,40 @@ class PriceController extends GetxController {
           "investment_id": id,
           "renew_period": textRenewPeriod.value,
         }).then((response) {
-      debugPrint('Fix me Error...+++++++++');
+      debugPrint('onPostRenew Success $response');
+      if (response['success'] != null && response['success']) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CustomSucessScreen(
+              title: 'Success',
+              description: 'Your FIF application is submitted successfully. ',
+              buttonTitle: 'Done',
+              onPressedButton: () {
+                onClearFIF();
+                clearDeducSelection();
+                context.go('/investment/cic-fixed-fund');
+                Future.delayed(const Duration(seconds: 1), () {
+                  getFIFApplication();
+                  fetchFIFPending();
+                });
+              },
+            ),
+          ),
+        );
+      }
+
       isLoadingRenew(false);
+
       update();
     }).onError((ErrorModel errorModel, stackTrace) {
       FirebaseCrashlytics.instance.log(
           "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
-      // debugPrint('Fix me Error...12345${errorModel.statusCode}');
-      debugPrint(
-          'Fix me Error...errorModel.statusCode....${errorModel.statusCode}');
-      debugPrint(
-          'Fix me Error...errorModel.statusCode....++++++${errorModel.bodyString}');
-      Get.snackbar("", "Your FIF Application was Update Failed...!",
-          borderRadius: 8,
-          duration: const Duration(seconds: 2),
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-          snackPosition: SnackPosition.TOP,
-          margin: const EdgeInsets.all(10),
-          overlayBlur: 3.0,
-          titleText: const Text(
-            'Updated FIF Application',
-            style: TextStyle(color: Colors.white),
-          ),
-          messageText: const Text(
-            'Your FIF Application was Updated Failed...!',
-            style: TextStyle(color: Colors.white),
-          ),
-          snackStyle: SnackStyle.FLOATING);
+      debugPrint('onPostRenew Fails');
+      customRouterSnackbar(
+          title: 'Updated FIF Application Fails',
+          description: 'Your FIF Application was Update Failed...!',
+          type: SnackType.error);
     });
   }
 

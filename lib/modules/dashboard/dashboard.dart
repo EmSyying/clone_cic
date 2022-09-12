@@ -18,7 +18,6 @@ import '../../Utils/offline_widget.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../../widgets/get_funding/custom_shimmer_contact_history.dart';
 import '../investment_module/controller/investment_controller.dart';
-import '../investment_module/model/share_price_model.dart';
 import '../investment_module/screen/cic_equity_fund.dart';
 import '../investment_module/screen/cic_fixed_income.dart';
 import '../member_directory/controllers/customer_controller.dart';
@@ -42,22 +41,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   ];
   var f = NumberFormat('#,###.00', 'en_US');
   var n = NumberFormat('#,###', 'en_US');
-  var formatnumber = 12344556.78;
-  DateTime dateTime = DateTime.now();
-  DateTime? day1;
-  DateTime? day2;
-  DateTime? day3;
-  DateTime? day4;
-  DateTime? day5;
-
-  List<SalesData> listData = [
-    SalesData('2018', 2.4),
-    SalesData('2019', 4.8),
-    SalesData('2020', 5.0),
-    SalesData('2021', 7.12),
-  ];
-
-  List<Evolution> reversList = [];
 
   // var priceList;
   @override
@@ -65,7 +48,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     priceController.tapcurrentIndex(0);
 
     priceController.tabController = TabController(
-        length: priceController.isHideFeatureByUser.value == false ? 2 : 1,
+        length: priceController.allowFeaturebyTag.value == false ? 2 : 1,
         vsync: this,
         initialIndex: 0);
     priceController.tabController.addListener(() {
@@ -78,7 +61,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     cusController.getUser();
     priceController.onFetchPrice();
     priceController.getSharePrice();
-    debugPrint("is Hide Feature:${priceController.isHideFeatureByUser.value}");
+    debugPrint("is Hide Feature:${priceController.allowFeaturebyTag.value}");
 
     super.initState();
   }
@@ -194,156 +177,158 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                     const Expanded(child: OfflineWidget()),
                   ],
                 ),
-                child: Stack(
-                  children: [
-                    const SizedBox(
-                      height: double.infinity,
-                      width: double.infinity,
-                    ),
-                    SizedBox(
-                      height: 242,
-                      width: double.infinity,
-                      child: SvgPicture.asset(
-                        'assets/images/svgfile/Investment_backg.svg',
-                        fit: BoxFit.fill,
+                child: Obx(
+                  () => Stack(
+                    children: [
+                      const SizedBox(
+                        height: double.infinity,
+                        width: double.infinity,
                       ),
-                    ),
-                    if (priceController.isHideFeatureByUser.value == false)
-                      Positioned(
-                        top: 90,
-                        left: 0,
-                        right: 0,
-                        child: TabBar(
-                          onTap: (e) {
-                            debugPrint(e.toString());
-                            // setState(() {
-                            //   if (priceController.tabController.index == 0) {
-                            //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                            //         'tab bar CiC EQUITY FUND');
-                            //   } else {
-                            //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                            //         'tab bar CiC FIXED INCOME FUND');
-                            //   }
-                            //   priceController.tabController;
-                            // });
-                          },
-                          padding: const EdgeInsets.only(left: 10.0),
-                          controller: priceController.tabController,
-                          isScrollable: true,
-                          indicatorColor: Colors.white,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          tabs: const [
-                            Tab(
-                              child: Text('CiC EQUITY FUND'),
-                            ),
-
-                            Tab(
-                              child: Text('CiC FIXED INCOME FUND'),
-                            )
-
-                            // Tab(
-                            //   child: Text('CiC REAL ESTATE FUND'),
-                            // ),
-                          ],
+                      SizedBox(
+                        height: 242,
+                        width: double.infinity,
+                        child: SvgPicture.asset(
+                          'assets/images/svgfile/Investment_backg.svg',
+                          fit: BoxFit.fill,
                         ),
                       ),
-                    priceController.isHideFeatureByUser.value == false
-                        ? Positioned(
-                            top: 160.0,
-                            left: 0.0,
-                            right: 0.0,
-                            bottom: 0.0,
-                            child: TabBarView(
-                              controller: priceController.tabController,
-                              children: const [
-                                CiCEquityFund(),
-                                CiCFixedIncome()
-                              ],
-                            ),
-                          )
-                        : const Positioned(
-                            top: 111.0,
-                            left: 0.0,
-                            right: 0.0,
-                            bottom: 0.0,
-                            child: CiCEquityFund(),
+                      if (priceController.allowFeaturebyTag.value == false)
+                        Positioned(
+                          top: 90,
+                          left: 0,
+                          right: 0,
+                          child: TabBar(
+                            onTap: (e) {
+                              debugPrint(e.toString());
+                              // setState(() {
+                              //   if (priceController.tabController.index == 0) {
+                              //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                              //         'tab bar CiC EQUITY FUND');
+                              //   } else {
+                              //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                              //         'tab bar CiC FIXED INCOME FUND');
+                              //   }
+                              //   priceController.tabController;
+                              // });
+                            },
+                            padding: const EdgeInsets.only(left: 10.0),
+                            controller: priceController.tabController,
+                            isScrollable: true,
+                            indicatorColor: Colors.white,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            tabs: const [
+                              Tab(
+                                child: Text('CiC EQUITY FUND'),
+                              ),
+
+                              Tab(
+                                child: Text('CiC FIXED INCOME FUND'),
+                              )
+
+                              // Tab(
+                              //   child: Text('CiC REAL ESTATE FUND'),
+                              // ),
+                            ],
                           ),
-                    SizedBox(
-                      height: 100,
-                      child: CustomAppBar(
-                          isLeading: true,
-                          isLogo: false,
-                          context: context,
-                          // leading: IconButton(
-                          //   icon: kIsWeb
-                          //       ? Icon(
-                          //           Icons.arrow_back,
-                          //           color:
-                          //               Get.theme.brightness == Brightness.light
-                          //                   ? Colors.white
-                          //                   : Theme.of(context).primaryColor,
-                          //         )
-                          //       : Platform.isAndroid
-                          //           ? Icon(
-                          //               Icons.arrow_back,
-                          //               color: Get.theme.brightness ==
-                          //                       Brightness.light
-                          //                   ? Colors.white
-                          //                   : Theme.of(context).primaryColor,
-                          //             )
-                          //           : Icon(
-                          //               Icons.arrow_back_ios,
-                          //               color: Get.theme.brightness ==
-                          //                       Brightness.light
-                          //                   ? Colors.white
-                          //                   : Theme.of(context).primaryColor,
-                          //             ),
-                          //   onPressed: () {
-                          //     Navigator.pop(context);
-                          //   },
-                          // ),
-                          // automaticallyImplyLeading:
-                          //     widget.isNavigator != null && widget.isNavigator
-                          //         ? true
-                          //         : false,
-                          // centerTitle: false,
-                          action: [
-                            //  isContract == true
-
-                            GestureDetector(
-                              onTap: () async {
-                                debugPrint("Workk===>");
-                                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                    'contract history');
-                                await onShowCustomCupertinoModalSheet(
-                                  context: context,
-                                  icon: const Icon(Icons.close_rounded),
-                                  title: "Contract History",
-                                  onTap: () {},
-                                  child: priceController.isLoading.value
-                                      ? const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 10),
-                                          child: ShimmerContactHistory(),
-                                        )
-                                      : const FIFHistoryAppbar(),
-                                );
-                              },
-                              child: priceController.tabController.index == 1
-                                  ? SvgPicture.asset(
-                                      "assets/images/history.svg")
-                                  : const SizedBox.shrink(),
+                        ),
+                      priceController.allowFeaturebyTag.value == false
+                          ? Positioned(
+                              top: 160.0,
+                              left: 0.0,
+                              right: 0.0,
+                              bottom: 0.0,
+                              child: TabBarView(
+                                controller: priceController.tabController,
+                                children: const [
+                                  CiCEquityFund(),
+                                  CiCFixedIncome()
+                                ],
+                              ),
+                            )
+                          : const Positioned(
+                              top: 111.0,
+                              left: 0.0,
+                              right: 0.0,
+                              bottom: 0.0,
+                              child: CiCEquityFund(),
                             ),
+                      SizedBox(
+                        height: 100,
+                        child: CustomAppBar(
+                            isLeading: true,
+                            isLogo: false,
+                            context: context,
+                            // leading: IconButton(
+                            //   icon: kIsWeb
+                            //       ? Icon(
+                            //           Icons.arrow_back,
+                            //           color:
+                            //               Get.theme.brightness == Brightness.light
+                            //                   ? Colors.white
+                            //                   : Theme.of(context).primaryColor,
+                            //         )
+                            //       : Platform.isAndroid
+                            //           ? Icon(
+                            //               Icons.arrow_back,
+                            //               color: Get.theme.brightness ==
+                            //                       Brightness.light
+                            //                   ? Colors.white
+                            //                   : Theme.of(context).primaryColor,
+                            //             )
+                            //           : Icon(
+                            //               Icons.arrow_back_ios,
+                            //               color: Get.theme.brightness ==
+                            //                       Brightness.light
+                            //                   ? Colors.white
+                            //                   : Theme.of(context).primaryColor,
+                            //             ),
+                            //   onPressed: () {
+                            //     Navigator.pop(context);
+                            //   },
+                            // ),
+                            // automaticallyImplyLeading:
+                            //     widget.isNavigator != null && widget.isNavigator
+                            //         ? true
+                            //         : false,
+                            // centerTitle: false,
+                            action: [
+                              //  isContract == true
 
-                            const SizedBox(width: 23)
-                          ],
-                          backgroundColor: Colors.transparent,
-                          elevation: 0.0,
-                          title: cusController.customer.value.fullName != null
-                              ? 'My Investment'
-                              : 'My Investment'),
-                    ),
-                  ],
+                              GestureDetector(
+                                onTap: () async {
+                                  debugPrint("Workk===>");
+                                  FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                      'contract history');
+                                  await onShowCustomCupertinoModalSheet(
+                                    context: context,
+                                    icon: const Icon(Icons.close_rounded),
+                                    title: "Contract History",
+                                    onTap: () {},
+                                    child: priceController.isLoading.value
+                                        ? const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 10),
+                                            child: ShimmerContactHistory(),
+                                          )
+                                        : const FIFHistoryAppbar(),
+                                  );
+                                },
+                                child: priceController.tabController.index == 1
+                                    ? SvgPicture.asset(
+                                        "assets/images/history.svg")
+                                    : const SizedBox.shrink(),
+                              ),
+
+                              const SizedBox(width: 23)
+                            ],
+                            backgroundColor: Colors.transparent,
+                            elevation: 0.0,
+                            title: cusController.customer.value.fullName != null
+                                ? 'My Investment'
+                                : 'My Investment'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -62,6 +62,9 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
 
   @override
   void initState() {
+    // debugPrint('height = $appbarheight');
+
+    investmentController.fetchFIFPendingDetail(widget.id);
     fifCon.fetchConfirmDetail(widget.id);
     fifCon.fetchFIFAccountDetail(widget.id).then((amount) {
       fifCon.textRenewAmount.value = amount.investmentAmount!
@@ -112,10 +115,6 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
   final investmentController = Get.put(PriceController());
   @override
   Widget build(BuildContext context) {
-    // debugPrint('height = $appbarheight');
-
-    investmentController.fetchFIFPendingDetail(widget.id);
-    fifCon.fetchFIFAccountDetail(widget.id);
     return DefaultSizeWeb(child: CupertinoScaffold(
       body: Builder(
         builder: (context) {

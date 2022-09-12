@@ -44,7 +44,7 @@ class RenewalScreen extends StatefulWidget {
 class _RenewalScreenState extends State<RenewalScreen> {
   final renewCon = Get.put(PriceController());
 
-  onValidate(BuildContext context) async {
+  void onValidate(BuildContext context) async {
     // if (renewCon.textRenewAmount.value == '') {
     //   renewCon.isRenewAmount.value = false;
     // } else {
@@ -56,15 +56,20 @@ class _RenewalScreenState extends State<RenewalScreen> {
       renewCon.isRenewAmount.value = true;
     }
     if (renewCon.textRenewPeriod.value != '') {
-      await renewCon.onPreviewRenewSubmit(context);
+      await renewCon.onPreviewRenewSubmit(context: context, id: widget.id);
     }
-    return false;
   }
 
   bool isDark = false;
+
+  @override
+  void initState() {
+    renewCon.fetchRenewPeriodMoth();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    renewCon.fetchRenewPeriodMoth();
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: isDark == false
@@ -176,9 +181,9 @@ class _RenewalScreenState extends State<RenewalScreen> {
               ),
               Container(
                 color: Colors.white,
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 30),
+                child: SafeArea(
+                  top: false,
+                  minimum: const EdgeInsets.all(20),
                   child: Row(
                     children: [
                       Expanded(
@@ -193,25 +198,22 @@ class _RenewalScreenState extends State<RenewalScreen> {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      Obx(
-                        () => Expanded(
-                          child: renewCon.isPreviewLoading.value
-                              ? const CustomLoadingButton()
-                              : CustomButton(
-                                  title: 'Next',
-                                  isDisable:
-                                      renewCon.isPreviewLoading.value == false
-                                          ? false
-                                          : true,
-                                  isOutline: false,
-                                  onPressed:
-                                      renewCon.textRenewPeriod.value != ''
-                                          ? () {
-                                              onValidate(context);
-                                            }
-                                          : null,
-                                ),
-                        ),
+                      Expanded(
+                        child: renewCon.isPreviewLoading.value
+                            ? const CustomLoadingButton()
+                            : CustomButton(
+                                title: 'Next',
+                                isDisable:
+                                    renewCon.isPreviewLoading.value == false
+                                        ? false
+                                        : true,
+                                isOutline: false,
+                                onPressed: renewCon.textRenewPeriod.value != ''
+                                    ? () {
+                                        onValidate(context);
+                                      }
+                                    : null,
+                              ),
                       ),
                     ],
                   ),

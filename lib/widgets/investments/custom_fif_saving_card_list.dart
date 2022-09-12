@@ -334,16 +334,20 @@ class CustomSavingCardList extends StatelessWidget {
                                 textFieldHere: Obx(
                                   () => Column(
                                     children: [
-                                      CustomTextFieldNew(
-                                        maxLine: 7,
-                                        hintText: 'Write your reason here...',
-                                        labelText: 'Write your reason here...',
-                                        initialValue: fifController
-                                            .reasonDescription.value,
-                                        onChange: (e) {
-                                          fifController
-                                              .reasonDescription.value = e;
-                                        },
+                                      SizedBox(
+                                        height: 200,
+                                        child: CustomTextFieldNew(
+                                          maxLine: 7,
+                                          hintText: 'Write your reason here...',
+                                          labelText:
+                                              'Write your reason here...',
+                                          initialValue: fifController
+                                              .reasonDescription.value,
+                                          onChange: (e) {
+                                            fifController
+                                                .reasonDescription.value = e;
+                                          },
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(

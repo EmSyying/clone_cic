@@ -264,7 +264,9 @@ final router = GoRouter(
                       annually: param['annually'].toString(),
                       productName: param['productName'].toString(),
                       // fromPage: param['fromPage'].toString(),
-                      investAmount: param['investAmount'].toString(),
+                      investAmount: param['investAmount'] != null
+                          ? param['investAmount'] as String
+                          : null,
                       investDate: param['investDate'].toString(),
                       investDuration:
                           num.tryParse(param['investDuration'].toString()),
@@ -371,9 +373,7 @@ final router = GoRouter(
           GoRoute(
               path: 'event',
               name: 'Event',
-              builder: (context, state) => const EventScreen(
-                    
-                  ),
+              builder: (context, state) => const EventScreen(),
               routes: [
                 GoRoute(
                     path: ':id',
