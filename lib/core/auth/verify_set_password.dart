@@ -70,6 +70,8 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
             title: 'Verify OTP',
             description: 'Verify OTP Is Successfully!',
           );
+          debugPrint("This block is working");
+
           Navigator.push(
             context,
             MaterialPageRoute(

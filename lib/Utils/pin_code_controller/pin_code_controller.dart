@@ -71,6 +71,9 @@ class PINCodeController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
+          customRouterSnackbar(
+              title: 'Successful...!',
+              description: 'Verify PIN Code Successful...!');
           if (status == 'Current') {
             Navigator.push(
                 context,

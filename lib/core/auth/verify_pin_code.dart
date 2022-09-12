@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/core/auth/set_pin_code.dart';
-import 'package:cicgreenloan/modules/get_funding/screens/payment_schedule.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../Utils/helper/custom_appbar.dart';
@@ -127,13 +127,16 @@ class _VerifyPINCodeState extends State<VerifyPINCode> {
                               _pinCode) {
                             if (widget.status == 'Current') {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const SetPinCode(
-                                            status: 'set',
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SetPinCode(
+                                    status: 'set',
+                                  ),
+                                ),
+                              );
                             } else {
-                              Get.offAll(const PaymentSchedule());
+                              context.go('/');
+                              // Get.offAll(const PaymentSchedule());
                             }
                           } else {
                             Get.snackbar(
