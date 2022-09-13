@@ -3,20 +3,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 // ignore: non_constant_identifier_names
-CustomAppBar({
-  required BuildContext context,
-  Widget? leading,
-  List<Widget>? action,
-  required String? title,
-  Widget? iconBack,
-  double? elevation,
-  Color? backgroundColor,
-  bool? isLeading,
-  bool? isLogo = true,
-}) {
+CustomAppBar(
+    {required BuildContext context,
+    Widget? leading,
+    List<Widget>? action,
+    required String? title,
+    Widget? iconBack,
+    double? elevation,
+    Color? backgroundColor,
+    bool? isLeading,
+    bool? isLogo = true,
+    GestureTapCallback? onTap}) {
   return AppBar(
     centerTitle: false,
     automaticallyImplyLeading: false,
@@ -101,15 +100,7 @@ CustomAppBar({
                       : MediaQuery.of(context).size.width * 0.9,
                   child: !isLogo
                       ? GestureDetector(
-                          onTap: () {
-                            context.go('/event');
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const EventScreen(),
-                            //   ),
-                            // );
-                          },
+                          onTap: onTap,
                           child: Text(
                             title!,
                             style: Theme.of(context).textTheme.headline6,

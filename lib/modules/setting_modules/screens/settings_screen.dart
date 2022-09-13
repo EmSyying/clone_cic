@@ -547,6 +547,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return DefaultSizeWeb(
       child: Scaffold(
         appBar: CustomAppBar(
+          onTap: () {
+            context.go('/event');
+          },
           isLeading: true,
           isLogo: false,
           context: context,

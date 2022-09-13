@@ -330,7 +330,7 @@ class MemberController extends GetxController {
         Navigator.pop(context!);
         fetchCompanyMember(id: cusController.customer.value.customerId);
       });
-      debugPrint("Company imag url: ${companyData.value.companyLogo}");
+
       isLoadingUpdateComapny(false);
       update();
 
