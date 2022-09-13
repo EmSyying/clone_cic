@@ -63,6 +63,13 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
   }
 
   @override
+  void initState() {
+    memberCon.fetchCompanyMember(
+        id: customerController.customer.value.customerId);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(
       () => memberCon.isLoadingCompanyProfile.value
@@ -130,7 +137,6 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               address: e.value.address ?? '',
                               website: e.value.website ?? '',
                               productService: e.value.companyProductAndService,
-
                               onTapPhone: () async {
                                 final Uri launchUri = Uri(
                                   scheme: 'tel',
@@ -145,13 +151,6 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 );
                                 await launchUrl(launchUri);
                               },
-                              // onTapAddress: () async {
-                              //   await launchUrl(
-                              //     Uri.parse('https://g.page/PassApp?share'),
-                              //     // 'https://maps.google.com/?q=${preController.shopDetailModel.value.latitude},${preController.shopDetailModel.value.longitude}'),
-                              //     mode: LaunchMode.platformDefault,
-                              //   );
-                              // },
                               onTapAssociate: () async {
                                 final Uri launchUri = Uri(
                                   scheme: 'https',

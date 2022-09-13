@@ -478,7 +478,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           initialValue: memberCon.companyData.value.address,
                         ),
                         CustomTextFieldNew(
-                          hintText: 'Link Website',
+                          hintText: 'https://www.example.com',
                           onChange: (companyWebsite) {
                             setState(() {
                               memberCon.companyData.value = memberCon
