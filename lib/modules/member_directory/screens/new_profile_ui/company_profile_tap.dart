@@ -37,29 +37,10 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
       page++;
     });
   }
-  // onGetMoreData() {
-  //   memberCon.profilePage.value += 1;
-  //   memberCon.fetchCompanyMember(id: widget.id);
-  // }
 
-  // Future<void> onRefresh() async {
-  //   if (widget.isEdiable == true) {
-  //     memberCon.fetchCompanyMember();
-  //     setState(() {
-  //       isHideAddress = widget.isHidenAddress!;
-  //     });
-  //   } else {
-  //     memberCon.fetchCompanyMemberDetail(widget.id!);
-  //     setState(() {
-  //       isHideAddress = widget.isHidenAddress!;
-  //     });
-  //   }
-  //   setState(() {
-  //     isHideAddress = widget.isHidenAddress!;
-  //   });
-  // }
   Future<void> onRefreshCompany() async {
-    await memberCon.fetchCompanyMember(id: memberCon.company.value.id);
+    await memberCon.fetchCompanyMember(
+        id: customerController.customer.value.customerId);
   }
 
   @override
@@ -78,7 +59,14 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
               child: memberCon.companyDataList.isEmpty
                   ? Column(
                       children: [
-                        const CustomEmptyState(),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: CustomEmptyState(
+                            title: 'No Description Yet!',
+                            description:
+                                'You have not completed your personal company yet,please presse on add company to fill in your company profile.',
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 30),
