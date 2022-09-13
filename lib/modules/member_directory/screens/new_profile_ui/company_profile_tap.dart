@@ -149,10 +149,9 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               onTapEdit: () {
                                 memberCon.companyData.value = e.value;
                                 memberCon.copyCompanyData.value = e.value;
-
                                 memberCon.companyLogoUrl.value =
                                     e.value.companyLogo!;
-                                memberCon.base64Image = e.value.companyLogo!;
+
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return EditProfileScreen(

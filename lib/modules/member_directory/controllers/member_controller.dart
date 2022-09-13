@@ -288,9 +288,8 @@ class MemberController extends GetxController {
   final isLoadingUpdateComapny = false.obs;
 
   Future<void> onUpdateCompany(BuildContext? context, int? id) async {
-    debugPrint("Company Name Edit:${companyData.value.companyName}");
-    debugPrint("Company Id $id");
     isLoadingUpdateComapny(true);
+    debugPrint('image com logo:$comCompanyLogo');
     if (comCompanyLogo != null) {
       final byte = comCompanyLogo!.readAsBytesSync();
       final companyLogos = await FlutterImageCompress.compressWithList(
@@ -301,12 +300,10 @@ class MemberController extends GetxController {
         rotate: 0,
       );
       base64Image = base64Encode(companyLogos);
-      debugPrint("Base 64 of Companhy Image: $base64Image");
     } else if (comCompanyLogoString.value != '') {
       base64Image = (await networkImageToBase64(comCompanyLogoString.value))!;
     }
-    debugPrint("Company Slogan: ${companyData.value}");
-
+    debugPrint('image url:$base64Image');
     await apiBaseHelper.onNetworkRequesting(
         url: 'company/createOrUpdate',
         methode: METHODE.post,
@@ -325,12 +322,6 @@ class MemberController extends GetxController {
           "email": companyData.value.email,
           "website": companyData.value.website
         }).then((response) {
-      debugPrint("Base 64 of Companhy Image: $base64Image");
-      debugPrint("Company body:$response");
-      debugPrint("Company Id After updated:$id");
-      debugPrint(
-          "Company Name Edit after updated:${companyData.value.companyName}");
-
       customRouterSnackbar(
           title: 'Successful...!',
           description: 'Company Updated Successful...!');
@@ -339,13 +330,14 @@ class MemberController extends GetxController {
         Navigator.pop(context!);
         fetchCompanyMember(id: cusController.customer.value.customerId);
       });
+      debugPrint("Company imag url: ${companyData.value.companyLogo}");
       isLoadingUpdateComapny(false);
       update();
 
       uploadCon.imageFile.value = File('');
+      onClearCompany();
     }).onError((ErrorModel errorModel, stackTrace) {
       isLoadingUpdateComapny(false);
-      debugPrint('company error:${errorModel.bodyString}');
       final message = errorModel.bodyString['message'];
       customRouterSnackbar(
         title: 'Fialed...!',
@@ -377,8 +369,6 @@ class MemberController extends GetxController {
       isDeleteComapny(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isDeleteComapny(false);
-      debugPrint('fix me error:${errorModel.bodyString}');
-      debugPrint('fix me error status:${errorModel.statusCode}');
     });
   }
 
@@ -401,7 +391,8 @@ class MemberController extends GetxController {
         companyProductAndService: '');
     isCompanyName.value = true;
     isDisableCompany.value = true;
-    // base64Image = '';
+    base64Image = '';
+    comCompanyLogo = null;
     // uploadCon.imageFile = null;
     // company.value.companyLogo = '';
     // cusController.customer.value.profile = '';
