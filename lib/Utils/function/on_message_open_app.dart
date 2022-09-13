@@ -47,13 +47,13 @@ class OnMessageOpenApp {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return const BulletPaymentDetail(
-                  // titles: 'Detail Summary',
-                  // status: event.data['operation'],
-                  // isStatusPending: true,
-                  // isNoUSD: false,
-                  // id: num.tryParse(event.data['application_id']),
-                  );
+              return BulletPaymentDetail(
+                titles: 'Detail Summary',
+                status: event.data['operation'],
+                isStatusPending: true,
+                isNoUSD: false,
+                id: num.tryParse(event.data['application_id']),
+              );
             },
           ),
         );

@@ -3,9 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
 import 'dart:async';
 import 'package:rxdart/subjects.dart';
+
+import '../../configs/route_configuration/route.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -64,7 +65,8 @@ class NotificationHelper {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? payload) async {
       onMessageOpenApp.onMessageOpenApp(
-          Get.context!, selectedNotificationPayload!);
+          router.routerDelegate.navigatorKey.currentState!.context,
+          selectedNotificationPayload!);
       debugPrint(
           "on Messaging:${selectedNotificationPayload!.notification!.title}");
 
@@ -77,7 +79,8 @@ class NotificationHelper {
           body: remoteMessage.notification!.body);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
-      onMessageOpenApp.onMessageOpenApp(Get.context!, event);
+      onMessageOpenApp.onMessageOpenApp(
+          router.routerDelegate.navigatorKey.currentState!.context, event);
     });
   }
 

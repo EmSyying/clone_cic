@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import '../../../Utils/helper/color.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
@@ -141,9 +142,9 @@ class _UTtradingState extends State<UTtrading>
                           MediaQuery.of(context).size.height * 1),
                       painter: RPSCustomPainter(),
                     ),
-                    SvgPicture.asset(
-                      'assets/images/svgfile/background-ut.svg',
-                    ),
+                    // SvgPicture.asset(
+                    //   'assets/images/svgfile/background-ut.svg',
+                    // ),
                     Positioned(
                       top: 100.0,
                       right: 0.0,
@@ -463,7 +464,7 @@ class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint_0 = Paint()
-      ..color = const Color(0XFF0C4DA1)
+      ..color = const ui.Color.fromARGB(255, 5, 89, 185)
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0;
 
@@ -482,16 +483,16 @@ class RPSCustomPainter extends CustomPainter {
 
     canvas.drawPath(path_0, paint_0);
 
-    // Paint paint_1 = Paint()
-    //   ..color = AppColor.mainColor
-    //   ..style = PaintingStyle.fill
-    //   ..strokeWidth = 1.0;
-    // paint_1.shader = ui.Gradient.linear(
-    //   Offset(0, size.height * 0.11),
-    //   Offset(size.width * 0.91, size.height * 0.11),
-    //   [const Color(0xFF205396), const Color(0xFF0A3977)],
-    //   [0.00, 1.00],
-    // );
+    Paint paint_1 = Paint()
+      ..color = AppColor.mainColor
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1.0;
+    paint_1.shader = ui.Gradient.linear(
+      Offset(0, size.height * 0.11),
+      Offset(size.width * 0.91, size.height * 0.11),
+      [const Color(0xFF205396), const Color(0xFF0A3977)],
+      [0.00, 1.00],
+    );
 
     Path path_1 = Path();
     path_1.moveTo(0, size.height * 0.0002593);

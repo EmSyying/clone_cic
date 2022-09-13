@@ -32,7 +32,6 @@ class NotificationController extends GetxController {
   final countReadAnnouncement = 0.obs;
 
   Future<List<NotificationModel>> getNotification() async {
-    debugPrint("Notificaton is work");
     isLoadingNotification(true);
     final notifications = NotificationModel().obs;
     // Old Code
@@ -40,7 +39,7 @@ class NotificationController extends GetxController {
     token.value = pref.getString('current_user')!;
     // New Code
     // token.value = StorageUtil.getString('current_user');
-    debugPrint("Notification Token:${token.value}");
+
     String url =
         '${GlobalConfiguration().getValue('api_base_url')}user/notification';
     try {
@@ -60,7 +59,6 @@ class NotificationController extends GetxController {
 
           ///
           responseData.map((json) {
-            debugPrint("notification1");
             notifications.value = NotificationModel.fromJson(json);
 
             if (notifications.value.data!.type!.toLowerCase() ==
@@ -71,13 +69,13 @@ class NotificationController extends GetxController {
                 notifications.value.data!.type!.toLowerCase() ==
                     'fif-reminder') {
               notificationAnouncementList.add(notifications.value);
-              debugPrint("notification2:");
+
               if (notifications.value.readAt == null) {
                 countReadAnnouncement.value = countReadAnnouncement.value + 1;
               }
             } else {
               notificationList.add(notifications.value);
-              debugPrint("notification3:${notificationList.length}");
+
               if (notifications.value.readAt == null) {
                 countReadNotification.value = countReadNotification.value + 1;
               }
