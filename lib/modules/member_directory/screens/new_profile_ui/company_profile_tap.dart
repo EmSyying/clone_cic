@@ -140,11 +140,10 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 await launchUrl(launchUri);
                               },
                               onTapAssociate: () async {
-                                final Uri launchUri = Uri(
-                                  scheme: 'https',
-                                  path: '${e.value.website}',
+                                await launchUrl(
+                                  Uri.parse('${e.value.website}'),
+                                  mode: LaunchMode.externalApplication,
                                 );
-                                await launchUrl(launchUri);
                               },
                               editCompany: 'Edit company info',
                               onTapEdit: () {
