@@ -46,9 +46,10 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   @override
   void initState() {
     priceController.tapcurrentIndex(0);
+    debugPrint('Local Storage : ${priceController.allowFeaturebyTag.value}');
 
     priceController.tabController = TabController(
-        length: priceController.allowFeaturebyTag.value == false ? 2 : 1,
+        length: priceController.allowFeaturebyTag.value ? 2 : 1,
         vsync: this,
         initialIndex: 0);
     priceController.tabController.addListener(() {
@@ -192,7 +193,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      if (priceController.allowFeaturebyTag.value == false)
+                      if (priceController.allowFeaturebyTag.value)
                         Positioned(
                           top: 90,
                           left: 0,
@@ -231,7 +232,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
-                      priceController.allowFeaturebyTag.value == false
+                      priceController.allowFeaturebyTag.value
                           ? Positioned(
                               top: 160.0,
                               left: 0.0,

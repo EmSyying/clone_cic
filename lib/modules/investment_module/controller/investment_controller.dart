@@ -17,7 +17,6 @@ import 'package:cicgreenloan/modules/investment_module/model/share_subcription_b
 import 'package:cicgreenloan/modules/investment_module/model/share_subscription_by_year.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
-import 'package:cicgreenloan/utils/helper/local_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -1198,10 +1197,12 @@ class PriceController extends GetxController {
       var isHideFeatureByUserJson = response['accessible'];
 
       if (isHideFeatureByUserJson != null) {
-        await LocalStorage.storeData(
-            key: 'allow-fif', value: isHideFeatureByUserJson);
-        allowFeaturebyTag.value =
-            await LocalStorage.getBooleanValue(key: 'allow-fif');
+        debugPrint('Local Storage : stored $isHideFeatureByUserJson');
+
+        final localdata = await SharedPreferences.getInstance();
+        await localdata.setBool('allow-fif', isHideFeatureByUserJson);
+
+        allowFeaturebyTag.value = localdata.getBool('allow-fif')!;
       }
 
       isHideFeatureLoading(false);
