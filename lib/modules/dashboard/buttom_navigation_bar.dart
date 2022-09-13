@@ -209,7 +209,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     //   _settingCon.selectedIndex = 2;
     // }
     debugPrint("Build from BottomNavigationbar");
-    saveUserToken = StorageUtil.getString('current_user');
+    // saveUserToken = StorageUtil.getString('current_user');
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

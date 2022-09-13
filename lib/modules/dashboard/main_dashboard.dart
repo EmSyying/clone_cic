@@ -438,14 +438,19 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   //
+  Future<void> getUser() async {
+    await cusController.getUser();
+    await fifCon.onHideFeatureByUser(cusController.customer.value.id);
+  }
 
   @override
   void initState() {
+    getUser();
     _notificationCon.countNotification();
     _settingCon.fetchAppSetting();
 
     DynamicLinkService.initDynamicLinks();
-    fifCon.onHideFeatureByUser(cusController.customer.value.id);
+
     // final newVersion = NewVersion(
     //   iOSId: 'com.cambodianinvestorscorporation',
     //   androidId: 'com.cambodianinvestorscorporation',

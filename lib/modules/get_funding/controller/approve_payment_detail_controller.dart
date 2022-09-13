@@ -8,8 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Utils/helper/store_utils.dart';
-
 class ApprovePaymentController extends GetxController {
   final isLoading = true.obs;
   final token = ''.obs;
@@ -119,8 +117,11 @@ class ApprovePaymentController extends GetxController {
     return payment.value;
   }
 
-  getCurrentUser() async {
-    token.value = StorageUtil.getString('current_user');
+  Future<String> getCurrentUser() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    token.value = pref.getString('current_user')!;
+    return token.value;
+    // token.value = StorageUtil.getString('current_user');
   }
 
   @override

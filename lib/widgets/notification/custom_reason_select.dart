@@ -39,9 +39,11 @@ class _CustomReasonSelectState extends State<CustomReasonSelect> {
                   )
                 : Container(),
           ),
-          Text(
-            widget.value!.display.toString(),
-            style: Theme.of(context).textTheme.bodyText1,
+          Expanded(
+            child: Text(
+              widget.value!.display.toString(),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
           )
         ],
       ),

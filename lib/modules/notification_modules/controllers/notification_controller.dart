@@ -1,9 +1,9 @@
-import 'package:cicgreenloan/Utils/helper/store_utils.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
 import 'package:cicgreenloan/modules/notification_modules/models/notification.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/trading_model.dart';
+import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -11,6 +11,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../configs/route_configuration/route.dart';
 
 class NotificationController extends GetxController {
   final notificationList = <NotificationModel>[].obs;
@@ -91,7 +93,10 @@ class NotificationController extends GetxController {
     return notificationAnouncementList;
   }
 
-  onClickNotification() {
+  void onClickNotification() {
+    // var test = notificationList.firstWhere((e) => e.readAt == null);
+
+    // debugPrint("Result : $test");
     for (var e in notificationList) {
       if (e.readAt == null) {
         countReadNotification(1);
@@ -131,11 +136,12 @@ class NotificationController extends GetxController {
     return countNotificatio.value;
   }
 
-  onReadNotification(String ids) async {
+  Future<void> onReadNotification(String ids) async {
     String url =
         '${GlobalConfiguration().getValue('api_base_url')}user/notification/readordelete?to=read&ids=["$ids"]';
-
-    token.value = StorageUtil.getString('current_user');
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    token.value = pref.getString('current_user')!;
+    //token.value = StorageUtil.getString('current_user');
 
     await http.put(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
@@ -182,6 +188,9 @@ class NotificationController extends GetxController {
     String url =
         '${GlobalConfiguration().get('api_base_urlv2')}trading-accepted-declined?';
 
+    debugPrint(
+        'TYPE : $type : REASON : $reason : transactionId : $transactionId : notificationId : $notificationId');
+
     var token = await LocalData.getCurrentUser();
     var body = json.encode({
       "type": type,
@@ -201,7 +210,8 @@ class NotificationController extends GetxController {
               body: body)
           .then((response) {
         if (response.statusCode == 200 && type == 'accepted') {
-          Navigator.pop(Get.context!);
+          Navigator.pop(
+              router.routerDelegate.navigatorKey.currentState!.context);
 
           getNotification();
         } else if (response.statusCode == 200 && type == 'rejected') {
@@ -209,31 +219,17 @@ class NotificationController extends GetxController {
           selectedReasonList.clear();
           onGetReason();
 
-          Navigator.pop(Get.context!);
+          Navigator.pop(
+              router.routerDelegate.navigatorKey.currentState!.context);
         } else {
-          Navigator.pop(Get.context!);
+          debugPrint('Message : ${response.statusCode} : ${response.body}');
+          Navigator.pop(
+              router.routerDelegate.navigatorKey.currentState!.context);
 
-          Get.snackbar("", "Submited Failed...!",
-              borderRadius: 8,
-              // duration: Duration(seconds: 2),
-              backgroundColor: Colors.red,
-              colorText: Colors.white,
-              icon: const Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Confirm trading',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'Your submited has not been successful',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+          customRouterSnackbar(
+              title: 'Confirm trading',
+              description: 'Your submited has not been successful',
+              type: SnackType.error);
         }
       });
     } finally {

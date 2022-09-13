@@ -1184,6 +1184,7 @@ class PriceController extends GetxController {
   final isHideFeatureLoading = false.obs;
   final allowFeaturebyTag = false.obs;
   Future<void> onHideFeatureByUser(id) async {
+    debugPrint('ID : $id');
     isHideFeatureLoading(true);
 
     await apiBaseHelper
@@ -1193,7 +1194,7 @@ class PriceController extends GetxController {
       isAuthorize: false,
     )
         .then((response) async {
-      debugPrint("Validate User id11===:$response");
+      debugPrint("Validate User $id ===:$response");
       var isHideFeatureByUserJson = response['accessible'];
 
       if (isHideFeatureByUserJson != null) {
