@@ -42,6 +42,7 @@ import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../investment_module/screen/deposit_screen.dart';
+import '../report_module/screens/view_report.dart';
 
 class MainDashboard extends StatefulWidget {
   final String? fromPage;
@@ -1088,12 +1089,16 @@ class _MainDashboardState extends State<MainDashboard> {
                         var item = snapshot.data![index];
                         return GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ViewReport(
-                            //               documentationModel: item,
-                            //             )));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ViewReport(
+                                  title: item.title,
+                                  url: item.url,
+                                  attachedFile: item.attachedFile,
+                                ),
+                              ),
+                            );
                           },
                           child: Container(
                             margin: const EdgeInsets.only(right: 20),
