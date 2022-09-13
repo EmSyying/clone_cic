@@ -18,7 +18,6 @@ import 'package:cicgreenloan/widgets/events/about_event_description.dart';
 import 'package:cicgreenloan/widgets/events/custom_invite_member.dart';
 import 'package:cicgreenloan/widgets/events/custom_register_form.dart';
 import 'package:cicgreenloan/widgets/events/custom_event_status.dart';
-import 'package:cicgreenloan/widgets/events/custom_responses.dart';
 import 'package:cicgreenloan/widgets/events/custom_ticket_card.dart';
 import 'package:cicgreenloan/widgets/events/customevent_interested.dart';
 import 'package:cicgreenloan/widgets/events/date_time_event_cad.dart';
@@ -669,14 +668,14 @@ class _EventDetailState extends State<EventDetail> {
                                             description: eventController
                                                 .eventDetail.value.description!,
                                           ),
-                                          if (eventController
-                                                  .eventDetail.value.posted!
-                                                  .toLowerCase() ==
-                                              "past")
-                                            const CustomResponses(
-                                                numberOfJoin: 23,
-                                                interested: 753,
-                                                numberOfShare: 453),
+                                          // if (eventController
+                                          //         .eventDetail.value.posted!
+                                          //         .toLowerCase() ==
+                                          //     "past")
+                                          //   const CustomResponses(
+                                          //       numberOfJoin: 23,
+                                          //       interested: 753,
+                                          //       numberOfShare: 453),
                                           RegisterMemberAmount(
                                             eventID: eventController
                                                 .eventDetail.value.id,

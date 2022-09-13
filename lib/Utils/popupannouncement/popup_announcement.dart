@@ -120,7 +120,7 @@ class PopUpAnnouncement extends StatelessWidget {
                       .map(
                         (data) => Link(
                           target: LinkTarget.self,
-                          uri: Uri.parse(data.target!),
+                          uri: Uri.parse(data.target ?? ''),
                           builder: (context, followLink) => InkWell(
                             onTap: () {
                               Navigator.pop(context);
@@ -132,7 +132,7 @@ class PopUpAnnouncement extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 40, vertical: 10),
                               child: Text(
-                                data.title!,
+                                data.title ?? '',
                                 style: const TextStyle(
                                   fontFamily: 'DMSans',
                                   fontSize: 16,
