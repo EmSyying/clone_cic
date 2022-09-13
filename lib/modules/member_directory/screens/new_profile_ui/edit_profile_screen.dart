@@ -106,27 +106,38 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // widget.isEditCompany != true ? widget.actionDone! : Container()
 
                 Obx(
-                  () => TextButton(
-                    onPressed: memberCon.copyPersonalProfile.value ==
-                            memberCon.personalProfile.value
-                        ? null
-                        : () {
-                            widget.onTapDone!();
-                          },
-                    child: Text(
-                      'Done',
-                      // "${memberCon.isDisableDoneButton.value}",
-                      // widget.titleDone ?? "",
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: memberCon.copyPersonalProfile.value ==
-                                    memberCon.personalProfile.value
-                                ? Colors.grey
-                                : AppColor.mainColor,
+                  () => memberCon.isLoadingProfile.value == true
+                      ? const Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: SpinKitThreeBounce(
+                            size: 20,
+                            color: AppColor.mainColor,
                           ),
-                    ),
-                  ),
+                        )
+                      : TextButton(
+                          onPressed: memberCon.copyPersonalProfile.value ==
+                                  memberCon.personalProfile.value
+                              ? null
+                              : () {
+                                  widget.onTapDone!();
+                                },
+                          child: Text(
+                            'Done',
+                            // "${memberCon.isDisableDoneButton.value}",
+                            // widget.titleDone ?? "",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: memberCon.copyPersonalProfile.value ==
+                                          memberCon.personalProfile.value
+                                      ? Colors.grey
+                                      : AppColor.mainColor,
+                                ),
+                          ),
+                        ),
                 ),
               ],
             ),
