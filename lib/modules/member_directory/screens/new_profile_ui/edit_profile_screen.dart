@@ -243,7 +243,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             memberCon.personalProfile.value.email ?? '',
                       ),
                       CustomTextFieldNew(
-                        hintText: 'Link Telegram',
+                        hintText: 'https://t.me/username',
                         onChange: (telegram) {
                           setState(() {
                             memberCon.personalProfile.value = memberCon
@@ -257,7 +257,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             memberCon.personalProfile.value.telegram ?? '',
                       ),
                       CustomTextFieldNew(
-                        hintText: 'Link Website',
+                        hintText: 'https://www.example.com',
                         onChange: (website) {
                           setState(() {
                             memberCon.personalProfile.value = memberCon
