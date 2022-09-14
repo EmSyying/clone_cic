@@ -34,7 +34,7 @@ class CustomNewCashOut extends StatelessWidget {
   final userCon = Get.put(CustomerController());
   String cashoutDate = DateTime.now().toString();
   DateFormat? dateFormat = DateFormat("HH:mm a");
-  bool isValidate() {
+  bool isValidate(BuildContext context) {
     if (newCashOutCon.cashoutAmount.value <
                 newCashOutCon.bonusSetting.value.minimumCashOutAmount! &&
             newCashOutCon.bonusSetting.value.isCicTeam == false ||
@@ -53,7 +53,7 @@ class CustomNewCashOut extends StatelessWidget {
         newCashOutCon.bankName.value != "" &&
         newCashOutCon.cashoutAmount.value <=
             newCashOutCon.balanceModel.value.balance!) {
-      newCashOutCon.onCashout();
+      newCashOutCon.onCashout(context: context);
     }
     return false;
   }
@@ -503,14 +503,14 @@ class CustomNewCashOut extends StatelessWidget {
                                           .sendAnalyticsEvent(
                                               'submit bonus cast out');
                                       newCashOutCon.isAgree.value = false;
-                                      isValidate();
+                                      isValidate(context);
                                     }
                                   : () {
                                       FirebaseAnalyticsHelper
                                           .sendAnalyticsEvent(
                                               'submit bonus cast out');
                                       newCashOutCon.isAgree.value = false;
-                                      isValidate();
+                                      isValidate(context);
                                     }
                               : null,
                           isDisable: false,

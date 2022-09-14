@@ -440,19 +440,19 @@ class BonusController extends GetxController {
               title: 'Subscription',
               description: 'Your subscription is submitted successfully.');
 
-          Future.delayed(const Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 2), () {
             fectchBalance();
             fetchTransationHistory(type: 'all');
             fetchPendingTransaction();
             subscriptionAmount.value = 0;
             displaysubscriptionCoast.value = 0.0;
             diplayNewUTAmount.value = 0;
-
             Navigator.pop(context!);
             isLoadingHistory.value = true;
             isSubmited.value = false;
             // onClear();
           });
+          update();
         } else {
           customRouterSnackbar(
             title: 'Subscription Failed',

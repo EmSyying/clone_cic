@@ -45,7 +45,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
       subscribeCon.isValidateSubscriptionAmount.value = true;
     }
     if (subscribeCon.subscriptionAmount.value != 0.0) {
-      subscribeCon.onSubscription();
+      subscribeCon.onSubscription(context: context);
     }
     return false;
   }
