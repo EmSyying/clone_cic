@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/function/get_sharepreference_data.dart';
-import '../../../Utils/helper/custom_snackbar.dart';
+import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../../ut_trading/models/detail_model.dart';
 import '../models/availabale_balance_model.dart';
@@ -363,13 +363,10 @@ class BonusController extends GetxController {
           var responseJson =
               json.decode(response.body)['errors']['account_number'][0];
 
-          debugPrint("====bank info:$responseJson");
-
-          customSnackbar(
-              isFailed: true,
-              color: Colors.red,
-              titleText: 'Submit bank Failed',
-              messageText: '$responseJson');
+          customRouterSnackbar(
+              title: 'Submit bank Failed',
+              description: '$responseJson',
+              type: SnackType.error);
         }
       });
     } finally {
@@ -398,11 +395,10 @@ class BonusController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          customSnackbar(
-              imgUrl: 'assets/images/svgfile/successIcon.svg',
-              color: Colors.green,
-              titleText: 'Cash Out',
-              messageText: 'Your cash out request is submitted successfully.');
+          customRouterSnackbar(
+              title: 'Cash Out',
+              description: 'Your cash out request is submitted successfully.');
+
           Future.delayed(const Duration(seconds: 3), () {
             fectchBalance();
             fetchTransationHistory(type: "all");
@@ -412,11 +408,10 @@ class BonusController extends GetxController {
             onClear();
           });
         } else {
-          customSnackbar(
-              isFailed: true,
-              color: Colors.red,
-              titleText: 'Cash Out Failed',
-              messageText: 'Please Try Again Later.');
+          customRouterSnackbar(
+              title: 'Cash Out Failed',
+              description: 'Please Try Again Later.',
+              type: SnackType.error);
         }
       });
     } finally {
@@ -441,11 +436,10 @@ class BonusController extends GetxController {
               body: json.encode({"number_of_share": subscriptionAmount.value}))
           .then((response) {
         if (response.statusCode == 200) {
-          customSnackbar(
-              imgUrl: 'assets/images/svgfile/successIcon.svg',
-              color: Colors.green,
-              titleText: 'Subscription',
-              messageText: 'Your subscription is submitted successfully.');
+          customRouterSnackbar(
+              title: 'Subscription',
+              description: 'Your subscription is submitted successfully.');
+
           Future.delayed(const Duration(seconds: 3), () {
             fectchBalance();
             fetchTransationHistory(type: 'all');
@@ -460,11 +454,11 @@ class BonusController extends GetxController {
             // onClear();
           });
         } else {
-          customSnackbar(
-              isFailed: true,
-              color: Colors.red,
-              titleText: 'Subscription Failed',
-              messageText: 'Please Try Again Later.');
+          customRouterSnackbar(
+            title: 'Subscription Failed',
+            description: 'Please Try Again Later.',
+            type: SnackType.error,
+          );
         }
       });
     } finally {
@@ -563,13 +557,10 @@ class BonusController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          debugPrint("Payment able:${payable.value}");
-          debugPrint("Referal id:${referalID.value}");
-          customSnackbar(
-              imgUrl: 'assets/images/svgfile/successIcon.svg',
-              color: Colors.green,
-              titleText: 'Reqest Payment',
-              messageText: 'Your request payment is submitted successfully.');
+          customRouterSnackbar(
+              title: 'Reqest Payment',
+              description: 'Your request payment is submitted successfully.');
+
           Future.delayed(const Duration(seconds: 3), () {
             fetchTransationHistory(type: "all");
             fetchPendingTransaction();
@@ -579,11 +570,10 @@ class BonusController extends GetxController {
             isSubscriptionHistories.value = true;
           });
         } else {
-          customSnackbar(
-              isFailed: true,
-              color: Colors.red,
-              titleText: 'Request payment Failed',
-              messageText: 'Please Try Again Later.');
+          customRouterSnackbar(
+              title: 'Request payment Failed',
+              description: 'Please Try Again Later.',
+              type: SnackType.error);
         }
       });
     } finally {

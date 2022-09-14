@@ -14,6 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/form_builder/custom_button.dart';
+import '../../Utils/helper/custom_route_snackbar.dart';
 import '../../Utils/helper/show_myqr_code.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../configs/route_management/route_name.dart';
@@ -81,27 +82,9 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
         isReturnImagePathOfIOS: true,
       );
       if (result != null) {
-        Get.snackbar("", "",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: const Color(0xff60AD00),
-            colorText: Colors.white,
-            icon: const Icon(
-              Icons.done,
-              color: Colors.white,
-            ),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Done',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Your ticket has been saved to gallery!',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
+        customRouterSnackbar(
+            title: 'Done',
+            description: 'Your ticket has been saved to gallery!');
       } else {}
     } catch (e) {
       debugPrint(e.toString());

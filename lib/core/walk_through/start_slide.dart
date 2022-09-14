@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
+import '../../Utils/helper/custom_route_snackbar.dart';
 import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
 
 class StartupSlide extends StatefulWidget {
@@ -213,7 +214,10 @@ class _ScheduleState extends State<Schedule> {
           supportMode = TermAndCondition.fromJson(responseData);
         });
       } else {
-        Get.snackbar('Error', 'Sorry! we are fixing bug');
+        customRouterSnackbar(
+            title: 'Error',
+            description: 'Sorry! our server underdevelopment',
+            type: SnackType.error);
       }
     });
     return supportMode;

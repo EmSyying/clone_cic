@@ -39,6 +39,7 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/helper/container_partern.dart';
+import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../qr_code/qr_code.dart';
 
 class EventDetail extends StatefulWidget {
@@ -117,27 +118,10 @@ class _EventDetailState extends State<EventDetail> {
         isReturnImagePathOfIOS: true,
       );
       if (result != null) {
-        Get.snackbar("", "",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: const Color(0xff60AD00),
-            colorText: Colors.white,
-            icon: const Icon(
-              Icons.done,
-              color: Colors.white,
-            ),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Done',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Your ticket has been saved to gallery!',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
+        customRouterSnackbar(
+              title: 'Done',
+              description:  'Your ticket has been saved to gallery!');
+       
       } else {}
     } catch (e) {
       debugPrint("$e");

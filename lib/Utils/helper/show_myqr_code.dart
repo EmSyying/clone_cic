@@ -17,6 +17,8 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 
+import '../../utils/helper/custom_route_snackbar.dart';
+
 class ShowMyQRCode extends StatefulWidget {
   final User? user;
   const ShowMyQRCode({Key? key, this.user}) : super(key: key);
@@ -73,27 +75,9 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
         isReturnImagePathOfIOS: true,
       );
       if (result != null) {
-        Get.snackbar("", "",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: const Color(0xff60AD00),
-            colorText: Colors.white,
-            icon: const Icon(
-              Icons.done,
-              color: Colors.white,
-            ),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Done',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Your QR code has been saved to gallery!',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
+        customRouterSnackbar(
+            title: 'Done',
+            description: 'Your ticket has been saved to gallery!');
       } else {}
     } catch (e) {
       debugPrint("$e");

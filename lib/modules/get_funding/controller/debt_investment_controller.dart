@@ -9,13 +9,13 @@ import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/utils/select_address/address_model/address.dart';
 import 'package:cicgreenloan/utils/select_address/address_model/full_address_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/helper/api_base_helper.dart';
+import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../Utils/helper/custom_snackbar.dart';
 
 class DebtInvestmentController extends GetxController {
@@ -297,37 +297,23 @@ class DebtInvestmentController extends GetxController {
         //08030205 080302 0803 08
 
         if (response.statusCode == 200) {
+          customRouterSnackbar(
+            title: 'Debt Investment',
+            description: step != null
+                ? "Save debt investment has been saved"
+                : "Your debt investment application request has been submitted succesfuly",
+          );
           context!.go("/get-funding/debt-investment");
           Future.delayed(const Duration(milliseconds: 985), () {
             fetchApplicationCard(page: 1);
           });
         } else {
-          debugPrint('Stateus code========:${response.statusCode}');
-          debugPrint("deb body failed:${response.body}");
-          Get.snackbar(
-              "",
-              step != null
+          customRouterSnackbar(
+              title: 'Debt Investment',
+              description: step != null
                   ? "Save debt investment has been failed"
                   : "Your debt investment application request has been submitted failed",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
-              backgroundColor: const Color(0xffd9534f),
-              colorText: Colors.white,
-              icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Debt Investment',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: Text(
-                step != null
-                    ? "Save debt investment has been failed"
-                    : "Your debt investment application request has been submitted failed",
-                style: const TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+              type: SnackType.error);
         }
       });
     } catch (e) {
@@ -495,20 +481,14 @@ class DebtInvestmentController extends GetxController {
       http.StreamedResponse streamedResponse = await request.send();
       http.Response.fromStream(streamedResponse).then((response) {
         if (response.statusCode == 200) {
-          // showDebtSnackbar
-          //     ? customSnackbar(
-          //         context: context,
-          //         color: Colors.green,
-          //         imgUrl: 'assets/images/svgfile/successIcon.svg',
-          //         label: step != 1 || step != 2 || step != 3 || step != 4
-          //             ? "Your debt investment application request has been submitted"
-          //             : "Your debt investment application request has been updated",
-          //         titleText: "Debt Investment",
-          //         messageText: step != 1 || step != 2 || step != 3 || step != 4
-          //             ? "Your debt investment application request has been submitted"
-          //             : "Your debt investment application request has been updated",
-          //       )
-          //     : null;
+          showDebtSnackbar
+              ? customRouterSnackbar(
+                  title: 'Debt Investment',
+                  description: step != 1 || step != 2 || step != 3 || step != 4
+                      ? "Your debt investment application request has been submitted"
+                      : "Your debt investment application request has been updated",
+                )
+              : null;
 
           isAgree.value = false;
           isAgree.refresh();
@@ -517,29 +497,11 @@ class DebtInvestmentController extends GetxController {
             fetchApplicationCard(page: 1);
           });
         } else {
-          debugPrint("Financial amount:${financingAmount.value}");
-          debugPrint("Updated failed:${response.body}");
-          debugPrint("Updated failed code:${response.statusCode}");
-
-          Get.snackbar(
-              "", "Your debt investment application has been updated failed",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
-              backgroundColor: const Color(0xffd9534f),
-              colorText: Colors.white,
-              icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Debt Investment',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'Your debt investment application has been updated failed',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+          customRouterSnackbar(
+              title: 'Debt Investment',
+              description:
+                  'Your debt investment application has been updated failed',
+              type: SnackType.error);
         }
       });
     } catch (e) {

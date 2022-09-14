@@ -19,7 +19,6 @@ import 'package:cicgreenloan/modules/investment_module/model/share_price_model.d
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
@@ -729,31 +728,21 @@ class PriceController extends GetxController {
         methode: METHODE.update,
         isAuthorize: true,
         body: {"account_name": textRenameTitle.value}).then((response) {
+      customRouterSnackbar(
+        title: 'Updated FIF Application',
+        description: 'Your FIF Application was Updated',
+      );
       getFIFApplication();
       fetchFIFPending();
 
       update();
       isLoadingRenametitle(false);
     }).onError((ErrorModel errorModel, stackTrace) {
-      debugPrint("something error:${errorModel.statusCode}");
-      Get.snackbar("", "Your FIF Application was Update Failed...!",
-          borderRadius: 8,
-          duration: const Duration(seconds: 2),
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-          snackPosition: SnackPosition.TOP,
-          margin: const EdgeInsets.all(10),
-          overlayBlur: 3.0,
-          titleText: const Text(
-            'Updated FIF Application',
-            style: TextStyle(color: Colors.white),
-          ),
-          messageText: const Text(
-            'Your FIF Application was Updated Failed...!',
-            style: TextStyle(color: Colors.white),
-          ),
-          snackStyle: SnackStyle.FLOATING);
+      customRouterSnackbar(
+          title: 'Updated FIF Application',
+          description: 'Your FIF Application was Updated Failed...!',
+          type: SnackType.error);
+
       FirebaseCrashlytics.instance.log(
           "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
     });

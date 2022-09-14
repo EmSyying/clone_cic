@@ -260,24 +260,10 @@ class MemberController extends GetxController {
               body: body)
           .then((response) {
         if (response.statusCode == 200) {
-          Get.snackbar("", "Your Invite was Submit Successful...!",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
-              backgroundColor: Colors.green,
-              colorText: Colors.white,
-              icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Event Invitation',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'Your invitation was submitted successfully...!',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+          customRouterSnackbar(
+              title: 'Event Invitation',
+              description: "Your Invite was Submit Successful...!",
+              type: SnackType.error);
         } else {}
       });
     } finally {

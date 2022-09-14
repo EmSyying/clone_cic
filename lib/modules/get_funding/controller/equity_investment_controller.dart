@@ -8,12 +8,12 @@ import 'package:cicgreenloan/modules/get_funding/models/get_funding_model.dart';
 import 'package:cicgreenloan/modules/get_funding/models/loan_option_data.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../Utils/helper/custom_snackbar.dart';
 import '../../../utils/helper/api_base_helper.dart';
 import 'debt_investment_controller.dart';
@@ -296,33 +296,21 @@ class EquityInvestmentController extends GetxController {
 
       http.Response.fromStream(streamedResponse).then((response) {
         if (response.statusCode == 200) {
+          customRouterSnackbar(
+            title: 'Equity Investment',
+            description:
+                "Your equity investment application request has been submited",
+          );
           context.go("/get-funding/equity-investment");
           Future.delayed(const Duration(milliseconds: 985), () {
             fetchOnEquityApplicationList(1);
           });
         } else {
-          debugPrint('debug stateus=========${response.statusCode}');
-          debugPrint('debug body========${response.body}');
-
-          Get.snackbar(
-              "", "Your equity investment application request has been failed",
-              borderRadius: 8,
-              duration: const Duration(seconds: 1),
-              backgroundColor: Colors.red,
-              colorText: Colors.white,
-              icon: const Icon(Icons.close),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Equity Investment',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                'Your equity investment application request has been failed',
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+          customRouterSnackbar(
+              title: 'Equity Investment',
+              description:
+                  "Your equity investment application request has been failed",
+              type: SnackType.error);
         }
       });
     } catch (e) {
@@ -406,64 +394,25 @@ class EquityInvestmentController extends GetxController {
 
       http.Response.fromStream(streamedResponse).then((response) {
         if (response.statusCode == 200) {
-          debugPrint("Debug Url:$url");
-          debugPrint("Updated to submit:$frompage");
           showSnackbar
-              ? Get.snackbar(
-                  "",
-                  submitRequest == "submitted"
+              ? customRouterSnackbar(
+                  title: 'Debt Investment',
+                  description: submitRequest == "submitted"
                       ? "Your equity investment application request has been submitted"
                       : "Your equity investment application request has been updated",
-                  borderRadius: 8,
-                  duration: const Duration(seconds: 1),
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  icon:
-                      SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-                  snackPosition: SnackPosition.TOP,
-                  margin: const EdgeInsets.all(10),
-                  overlayBlur: 3.0,
-                  titleText: const Text(
-                    'Equity Investment',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  messageText: Text(
-                    submitRequest == "submitted"
-                        ? "Your equity investment application request has been submitted"
-                        : "Your equity investment application request has been updated",
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  snackStyle: SnackStyle.FLOATING)
+                )
               : null;
+
           context.go("/get-funding/equity-investment");
           Future.delayed(const Duration(milliseconds: 985), () {
             fetchOnEquityApplicationList(1);
           });
         } else {
-          var responseJson =
-              json.decode(response.body)['errors']['financial_amount'][0];
-
-          debugPrint("====bank info:$responseJson");
-          debugPrint("updated equity body:${response.body}");
-          Get.snackbar(
-              "", "Your equity investment application has been updated failed",
-              borderRadius: 8,
-              duration: const Duration(seconds: 2),
-              backgroundColor: Colors.red,
-              colorText: Colors.white,
-              icon: const Icon(Icons.close),
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(10),
-              overlayBlur: 3.0,
-              titleText: const Text(
-                'Equity Investment',
-                style: TextStyle(color: Colors.white),
-              ),
-              messageText: const Text(
-                "Your equity investment application has been updated failed",
-                style: TextStyle(color: Colors.white),
-              ),
-              snackStyle: SnackStyle.FLOATING);
+          customRouterSnackbar(
+              title: 'Equity Investment',
+              description:
+                  "Your equity investment application has been updated failed",
+              type: SnackType.error);
         }
       });
     } catch (e) {
