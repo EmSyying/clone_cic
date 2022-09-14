@@ -113,39 +113,40 @@ class PopUpAnnouncement extends StatelessWidget {
                   height: 0,
                   thickness: 1,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: notificationModel!.data!.button!
-                      .map(
-                        (data) => Link(
-                          target: LinkTarget.self,
-                          uri: Uri.parse(data.target ?? ''),
-                          builder: (context, followLink) => InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                              notificationCon
-                                  .onReadNotification(notificationModel!.id!);
-                              followLink!();
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 10),
-                              child: Text(
-                                data.title ?? '',
-                                style: const TextStyle(
-                                  fontFamily: 'DMSans',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColor.mainColor,
+                if (notificationModel!.data!.button != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: notificationModel!.data!.button!
+                        .map(
+                          (data) => Link(
+                            target: LinkTarget.self,
+                            uri: Uri.parse(data.target ?? ''),
+                            builder: (context, followLink) => InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                                notificationCon
+                                    .onReadNotification(notificationModel!.id!);
+                                followLink!();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 10),
+                                child: Text(
+                                  data.title ?? '',
+                                  style: const TextStyle(
+                                    fontFamily: 'DMSans',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.mainColor,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                      .toList(),
-                ),
+                        )
+                        .toList(),
+                  ),
               ],
             ),
           ),
