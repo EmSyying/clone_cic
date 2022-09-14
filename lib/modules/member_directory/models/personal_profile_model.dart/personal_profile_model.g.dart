@@ -65,6 +65,7 @@ _$_PersonalProfile _$$_PersonalProfileFromJson(Map<String, dynamic> json) =>
       companyName: json['company_name'] as String?,
       title: json['title'] as String?,
       location: json['location'] as String?,
+      profile: json['profile'] as String?,
     );
 
 Map<String, dynamic> _$$_PersonalProfileToJson(_$_PersonalProfile instance) =>
@@ -108,4 +109,5 @@ Map<String, dynamic> _$$_PersonalProfileToJson(_$_PersonalProfile instance) =>
       'company_name': instance.companyName,
       'title': instance.title,
       'location': instance.location,
+      'profile': instance.profile,
     };

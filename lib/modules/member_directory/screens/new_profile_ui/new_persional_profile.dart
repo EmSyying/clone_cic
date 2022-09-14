@@ -47,6 +47,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
       ),
       CompanyProfileTab(
         id: widget.id,
+        isDirectories: widget.isDirectory,
       ),
     ];
     super.initState();
@@ -167,7 +168,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                               id: widget.id,
                               isDirectories: widget.isDirectory,
                               imgUrl: widget.isDirectory == true
-                                  ? widget.imgUrl
+                                  ? memberCon.personalProfile.value.profile
                                   : customerUser.customer.value.profile,
                               fullName: widget.isDirectory == true
                                   ? memberCon

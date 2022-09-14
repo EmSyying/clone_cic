@@ -80,6 +80,7 @@ mixin _$PersonalProfile {
   String? get companyName => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
+  String? get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -151,7 +152,8 @@ abstract class $PersonalProfileCopyWith<$Res> {
       @JsonKey(name: 'company_name')
           String? companyName,
       String? title,
-      String? location});
+      String? location,
+      String? profile});
 }
 
 /// @nodoc
@@ -204,6 +206,7 @@ class _$PersonalProfileCopyWithImpl<$Res>
     Object? companyName = freezed,
     Object? title = freezed,
     Object? location = freezed,
+    Object? profile = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -362,6 +365,10 @@ class _$PersonalProfileCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String?,
+      profile: profile == freezed
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -432,7 +439,8 @@ abstract class _$$_PersonalProfileCopyWith<$Res>
       @JsonKey(name: 'company_name')
           String? companyName,
       String? title,
-      String? location});
+      String? location,
+      String? profile});
 }
 
 /// @nodoc
@@ -487,6 +495,7 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
     Object? companyName = freezed,
     Object? title = freezed,
     Object? location = freezed,
+    Object? profile = freezed,
   }) {
     return _then(_$_PersonalProfile(
       id: id == freezed
@@ -645,6 +654,10 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String?,
+      profile: profile == freezed
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -711,7 +724,8 @@ class _$_PersonalProfile implements _PersonalProfile {
       @JsonKey(name: 'company_name')
           this.companyName,
       this.title,
-      this.location});
+      this.location,
+      this.profile});
 
   factory _$_PersonalProfile.fromJson(Map<String, dynamic> json) =>
       _$$_PersonalProfileFromJson(json);
@@ -814,10 +828,12 @@ class _$_PersonalProfile implements _PersonalProfile {
   final String? title;
   @override
   final String? location;
+  @override
+  final String? profile;
 
   @override
   String toString() {
-    return 'PersonalProfile(id: $id, display: $display, customerName: $customerName, customerLatinName: $customerLatinName, customerDateOfBirth: $customerDateOfBirth, customerGender: $customerGender, customerNationality: $customerNationality, position: $position, recommended: $recommended, numberShare: $numberShare, expertise: $expertise, memberType: $memberType, yearJoined: $yearJoined, profileBiography: $profileBiography, about: $about, other: $other, customerIdentityType: $customerIdentityType, customerIdentityNumber: $customerIdentityNumber, customerIdentityDate: $customerIdentityDate, customerIdentityExpiredDate: $customerIdentityExpiredDate, currentAddress: $currentAddress, streetNo: $streetNo, houseNo: $houseNo, permanentAddress: $permanentAddress, permanentStreetNo: $permanentStreetNo, permanentHouseNo: $permanentHouseNo, phone: $phone, email: $email, whatapp: $whatapp, telegram: $telegram, messenger: $messenger, skype: $skype, website: $website, facebook: $facebook, linkedin: $linkedin, twitter: $twitter, companyName: $companyName, title: $title, location: $location)';
+    return 'PersonalProfile(id: $id, display: $display, customerName: $customerName, customerLatinName: $customerLatinName, customerDateOfBirth: $customerDateOfBirth, customerGender: $customerGender, customerNationality: $customerNationality, position: $position, recommended: $recommended, numberShare: $numberShare, expertise: $expertise, memberType: $memberType, yearJoined: $yearJoined, profileBiography: $profileBiography, about: $about, other: $other, customerIdentityType: $customerIdentityType, customerIdentityNumber: $customerIdentityNumber, customerIdentityDate: $customerIdentityDate, customerIdentityExpiredDate: $customerIdentityExpiredDate, currentAddress: $currentAddress, streetNo: $streetNo, houseNo: $houseNo, permanentAddress: $permanentAddress, permanentStreetNo: $permanentStreetNo, permanentHouseNo: $permanentHouseNo, phone: $phone, email: $email, whatapp: $whatapp, telegram: $telegram, messenger: $messenger, skype: $skype, website: $website, facebook: $facebook, linkedin: $linkedin, twitter: $twitter, companyName: $companyName, title: $title, location: $location, profile: $profile)';
   }
 
   @override
@@ -883,7 +899,8 @@ class _$_PersonalProfile implements _PersonalProfile {
             const DeepCollectionEquality()
                 .equals(other.companyName, companyName) &&
             const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.location, location));
+            const DeepCollectionEquality().equals(other.location, location) &&
+            const DeepCollectionEquality().equals(other.profile, profile));
   }
 
   @JsonKey(ignore: true)
@@ -928,7 +945,8 @@ class _$_PersonalProfile implements _PersonalProfile {
         const DeepCollectionEquality().hash(twitter),
         const DeepCollectionEquality().hash(companyName),
         const DeepCollectionEquality().hash(title),
-        const DeepCollectionEquality().hash(location)
+        const DeepCollectionEquality().hash(location),
+        const DeepCollectionEquality().hash(profile)
       ]);
 
   @JsonKey(ignore: true)
@@ -1002,7 +1020,8 @@ abstract class _PersonalProfile implements PersonalProfile {
       @JsonKey(name: 'company_name')
           final String? companyName,
       final String? title,
-      final String? location}) = _$_PersonalProfile;
+      final String? location,
+      final String? profile}) = _$_PersonalProfile;
 
   factory _PersonalProfile.fromJson(Map<String, dynamic> json) =
       _$_PersonalProfile.fromJson;
@@ -1106,6 +1125,8 @@ abstract class _PersonalProfile implements PersonalProfile {
   String? get title => throw _privateConstructorUsedError;
   @override
   String? get location => throw _privateConstructorUsedError;
+  @override
+  String? get profile => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_PersonalProfileCopyWith<_$_PersonalProfile> get copyWith =>

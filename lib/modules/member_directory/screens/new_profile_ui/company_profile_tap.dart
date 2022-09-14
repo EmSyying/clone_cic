@@ -14,7 +14,9 @@ import 'edit_profile_screen.dart';
 
 class CompanyProfileTab extends StatefulWidget {
   final int? id;
-  const CompanyProfileTab({Key? key, this.id}) : super(key: key);
+  final bool? isDirectories;
+  const CompanyProfileTab({Key? key, this.id, this.isDirectories = false})
+      : super(key: key);
 
   @override
   State<CompanyProfileTab> createState() => _CompanyProfileTabState();
@@ -65,43 +67,47 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                 'You have not completed your personal company yet,please presse on add company to fill in your company profile.',
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, top: 30),
-                          child: GestureDetector(
-                            onTap: () {
-                              // memberCon.isCompanyName.value = true;
-                              uploadImageCon.imageFile.value = File('');
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return EditProfileScreen(
-                                    appBarTitle: 'Add Company',
-                                    // isCreateCompany: true,
-                                    isComapny: true,
-                                    // companyData: memberCon.company.value,
-                                    onTapPhotoProfile: () {
-                                      uploadImageCon.uploadImage(context,
-                                          isCompany: true);
-                                    },
-                                  );
-                                }),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                    'assets/images/svgfile/add.svg'),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Add Companysss',
-                                  style: Theme.of(context).textTheme.headline3,
-                                )
-                              ],
-                            ),
-                          ),
-                        )
+                        widget.isDirectories == false
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 30),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // memberCon.isCompanyName.value = true;
+                                    uploadImageCon.imageFile.value = File('');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return EditProfileScreen(
+                                          appBarTitle: 'Add Company',
+                                          // isCreateCompany: true,
+                                          isComapny: true,
+                                          // companyData: memberCon.company.value,
+                                          onTapPhotoProfile: () {
+                                            uploadImageCon.uploadImage(context,
+                                                isCompany: true);
+                                          },
+                                        );
+                                      }),
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                          'assets/images/svgfile/add.svg'),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Add Companysss',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(),
                       ],
                     )
                   : Column(
@@ -123,6 +129,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               address: e.value.address ?? '',
                               website: e.value.website ?? '',
                               productService: e.value.companyProductAndService,
+                              isDirectories: widget.isDirectories,
                               onTapPhone: () async {
                                 final Uri launchUri = Uri(
                                   scheme: 'tel',
@@ -180,46 +187,51 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                             );
                           }).toList(),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
-                          child: GestureDetector(
-                            onTap: () {
-                              // memberCon.isCompanyName.value = true;
-                              uploadImageCon.imageFile.value = File('');
-                              memberCon.onClearCompany();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return EditProfileScreen(
-                                    appBarTitle: 'Add Company',
-                                    // isCreateCompany: true,
-                                    isComapny: true,
-                                    // companyData: memberCon.company.value,
-                                    onTapPhotoProfile: () {
-                                      memberCon.copyPersonalProfile.value =
-                                          memberCon.personalProfile.value;
-                                      uploadImageCon.uploadImage(context,
-                                          isCompany: true);
-                                    },
-                                  );
-                                }),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                    'assets/images/svgfile/add.svg'),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Add Company',
-                                  style: Theme.of(context).textTheme.headline3,
-                                )
-                              ],
-                            ),
-                          ),
-                        )
+                        widget.isDirectories == false
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, bottom: 20),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // memberCon.isCompanyName.value = true;
+                                    uploadImageCon.imageFile.value = File('');
+                                    memberCon.onClearCompany();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return EditProfileScreen(
+                                          appBarTitle: 'Add Company',
+                                          // isCreateCompany: true,
+                                          isComapny: true,
+                                          // companyData: memberCon.company.value,
+                                          onTapPhotoProfile: () {
+                                            memberCon
+                                                    .copyPersonalProfile.value =
+                                                memberCon.personalProfile.value;
+                                            uploadImageCon.uploadImage(context,
+                                                isCompany: true);
+                                          },
+                                        );
+                                      }),
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                          'assets/images/svgfile/add.svg'),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Add Company',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container()
                       ],
                     ),
 

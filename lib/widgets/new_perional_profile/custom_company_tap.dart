@@ -28,8 +28,10 @@ class CustomCompanyTap extends StatelessWidget {
   final bool? isHidenAddress;
   final int? id;
   final List<String>? image;
+  final bool? isDirectories;
   const CustomCompanyTap(
       {Key? key,
+      this.isDirectories = false,
       this.companyName,
       this.slogan,
       this.imageProfile,
@@ -106,200 +108,202 @@ class CustomCompanyTap extends StatelessWidget {
                   ],
                 ),
               ),
-              PopupMenuButton(
-                color: Colors.white,
-                offset: const Offset(0, 35),
-                padding: EdgeInsets.zero,
-                elevation: 2,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+              if (phone != '' && email != '' && address != '' && website != '')
+                PopupMenuButton(
+                  color: Colors.white,
+                  offset: const Offset(0, 35),
+                  padding: EdgeInsets.zero,
+                  elevation: 2,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  icon: const Icon(
+                    Icons.more_vert,
+                    size: 22,
+                    color: Colors.black,
+                  ),
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                    if (phone != null && phone != '')
+                      PopupMenuItem(
+                        padding: const EdgeInsets.only(right: 10, left: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            onTapPhone!();
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 49,
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 18.0),
+                                SvgPicture.asset(
+                                    'assets/images/svgfile/phone_border.svg'),
+                                const SizedBox(width: 15.0),
+                                Expanded(
+                                  child: Text(
+                                    "$phone",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColor.darkColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    const PopupMenuDivider(height: 0),
+                    if (email != null && email != '')
+                      PopupMenuItem(
+                        padding: const EdgeInsets.only(right: 10, left: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            onTapEmail!();
+                          },
+                          child: Container(
+                            height: 49,
+                            color: Colors.transparent,
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 18.0),
+                                SvgPicture.asset(
+                                    'assets/images/svgfile/message_border.svg'),
+                                const SizedBox(width: 15.0),
+                                Expanded(
+                                  child: Text(
+                                    "$email",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColor.darkColor),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    const PopupMenuDivider(height: 0),
+                    if (address != null && address != '')
+                      PopupMenuItem(
+                        padding: const EdgeInsets.only(right: 10, left: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            onTapAddress!();
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 49,
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 18.0),
+                                SvgPicture.asset(
+                                    'assets/images/svgfile/location_border.svg'),
+                                const SizedBox(width: 15.0),
+                                Expanded(
+                                  child: Text(
+                                    "$address",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColor.darkColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    const PopupMenuDivider(height: 0),
+                    if (website != null && website != '')
+                      PopupMenuItem(
+                        padding: const EdgeInsets.only(right: 10, left: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            onTapAssociate!();
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 49,
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 18.0),
+                                SvgPicture.asset(
+                                    'assets/images/svgfile/web_border.svg'),
+                                const SizedBox(width: 15.0),
+                                Expanded(
+                                  child: Text(
+                                    "$website",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColor.darkColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    const PopupMenuDivider(height: 0),
+                    if (editCompany != null &&
+                        editCompany != '' &&
+                        isDirectories == false)
+                      PopupMenuItem(
+                        padding: const EdgeInsets.only(right: 10, left: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            // if (memberCon.company.value.companyLogo == '') {
+                            //   uploadImageCon.imageFile.value = File('');
+                            // },
+                            Navigator.pop(context);
+                            onTapEdit!();
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 49,
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 18.0),
+                                SvgPicture.asset(
+                                  'assets/images/svgfile/edit_profile.svg',
+                                  color: AppColor.mainColor,
+                                  width: 18,
+                                  height: 18,
+                                ),
+                                const SizedBox(width: 15.0),
+                                Expanded(
+                                  child: Text(
+                                    "$editCompany",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.mainColor,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-                icon: const Icon(
-                  Icons.more_vert,
-                  size: 22,
-                  color: Colors.black,
-                ),
-                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                  if (phone != null && phone != '')
-                    PopupMenuItem(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          onTapPhone!();
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 49,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 18.0),
-                              SvgPicture.asset(
-                                  'assets/images/svgfile/phone_border.svg'),
-                              const SizedBox(width: 15.0),
-                              Expanded(
-                                child: Text(
-                                  "$phone",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.darkColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  const PopupMenuDivider(height: 0),
-                  if (email != null && email != '')
-                    PopupMenuItem(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          onTapEmail!();
-                        },
-                        child: Container(
-                          height: 49,
-                          color: Colors.transparent,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 18.0),
-                              SvgPicture.asset(
-                                  'assets/images/svgfile/message_border.svg'),
-                              const SizedBox(width: 15.0),
-                              Expanded(
-                                child: Text(
-                                  "$email",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.darkColor),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  const PopupMenuDivider(height: 0),
-                  if (address != null && address != '')
-                    PopupMenuItem(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          onTapAddress!();
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 49,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 18.0),
-                              SvgPicture.asset(
-                                  'assets/images/svgfile/location_border.svg'),
-                              const SizedBox(width: 15.0),
-                              Expanded(
-                                child: Text(
-                                  "$address",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.darkColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  const PopupMenuDivider(height: 0),
-                  if (website != null && website != '')
-                    PopupMenuItem(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          onTapAssociate!();
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 49,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 18.0),
-                              SvgPicture.asset(
-                                  'assets/images/svgfile/web_border.svg'),
-                              const SizedBox(width: 15.0),
-                              Expanded(
-                                child: Text(
-                                  "$website",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.darkColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  const PopupMenuDivider(height: 0),
-                  if (editCompany != null && editCompany != '')
-                    PopupMenuItem(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          // if (memberCon.company.value.companyLogo == '') {
-                          //   uploadImageCon.imageFile.value = File('');
-                          // },
-
-                          Navigator.pop(context);
-                          onTapEdit!();
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 49,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 18.0),
-                              SvgPicture.asset(
-                                'assets/images/svgfile/edit_profile.svg',
-                                color: AppColor.mainColor,
-                                width: 18,
-                                height: 18,
-                              ),
-                              const SizedBox(width: 15.0),
-                              Expanded(
-                                child: Text(
-                                  "$editCompany",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.mainColor,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
             ],
           ),
         ),
