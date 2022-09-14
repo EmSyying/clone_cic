@@ -178,6 +178,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
 
   @override
   void initState() {
+    priceController.fetchCertificate();
     priceController.fetchOnReturnInvestment();
     priceController.getSharePrice();
     priceController.getShareSubHistories();
