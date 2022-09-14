@@ -108,7 +108,11 @@ class CustomCompanyTap extends StatelessWidget {
                   ],
                 ),
               ),
-              if (phone != '' && email != '' && address != '' && website != '')
+              if (phone != '' &&
+                      email != '' &&
+                      address != '' &&
+                      website != '' ||
+                  isDirectories == false)
                 PopupMenuButton(
                   color: Colors.white,
                   offset: const Offset(0, 35),
@@ -258,7 +262,8 @@ class CustomCompanyTap extends StatelessWidget {
                           ),
                         ),
                       ),
-                    const PopupMenuDivider(height: 0),
+                    if (isDirectories == false)
+                      const PopupMenuDivider(height: 0),
                     if (editCompany != null &&
                         editCompany != '' &&
                         isDirectories == false)

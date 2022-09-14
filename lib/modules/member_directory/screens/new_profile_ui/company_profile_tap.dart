@@ -98,7 +98,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                           'assets/images/svgfile/add.svg'),
                                       const SizedBox(width: 10),
                                       Text(
-                                        'Add Companysss',
+                                        'Add Company',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline3,
@@ -187,51 +187,51 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                             );
                           }).toList(),
                         ),
-                        widget.isDirectories == false
-                            ? Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20, right: 20, bottom: 20),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // memberCon.isCompanyName.value = true;
-                                    uploadImageCon.imageFile.value = File('');
-                                    memberCon.onClearCompany();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) {
-                                        return EditProfileScreen(
-                                          appBarTitle: 'Add Company',
-                                          // isCreateCompany: true,
-                                          isComapny: true,
-                                          // companyData: memberCon.company.value,
-                                          onTapPhotoProfile: () {
-                                            memberCon
-                                                    .copyPersonalProfile.value =
-                                                memberCon.personalProfile.value;
-                                            uploadImageCon.uploadImage(context,
-                                                isCompany: true);
-                                          },
-                                        );
-                                      }),
-                                    );
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                          'assets/images/svgfile/add.svg'),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        'Add Company',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : Container()
+                        // widget.isDirectories == false
+                        //     ? Padding(
+                        //         padding: const EdgeInsets.only(
+                        //             left: 20, right: 20, bottom: 20),
+                        //         child: GestureDetector(
+                        //           onTap: () {
+                        //             // memberCon.isCompanyName.value = true;
+                        //             uploadImageCon.imageFile.value = File('');
+                        //             memberCon.onClearCompany();
+                        //             Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(builder: (context) {
+                        //                 return EditProfileScreen(
+                        //                   appBarTitle: 'Add Company',
+                        //                   // isCreateCompany: true,
+                        //                   isComapny: true,
+                        //                   // companyData: memberCon.company.value,
+                        //                   onTapPhotoProfile: () {
+                        //                     memberCon
+                        //                             .copyPersonalProfile.value =
+                        //                         memberCon.personalProfile.value;
+                        //                     uploadImageCon.uploadImage(context,
+                        //                         isCompany: true);
+                        //                   },
+                        //                 );
+                        //               }),
+                        //             );
+                        //           },
+                        //           child: Row(
+                        //             mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               SvgPicture.asset(
+                        //                   'assets/images/svgfile/add.svg'),
+                        //               const SizedBox(width: 10),
+                        //               Text(
+                        //                 'Add Company',
+                        //                 style: Theme.of(context)
+                        //                     .textTheme
+                        //                     .headline3,
+                        //               )
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       )
+                        //     : Container()
                       ],
                     ),
 
