@@ -1420,7 +1420,7 @@ class PriceController extends GetxController {
     isLoadingPincode(true);
     await apiBaseHelper.onNetworkRequesting(
       url: '',
-      fullURL: 'https://cicstaging.z1central.com/api/user/verify-pin-code',
+      fullURL: 'https://cic.z1platform.com/api/user/verify-pin-code',
       methode: METHODE.post,
       isAuthorize: true,
       body: {'pin_code': pinCode},
