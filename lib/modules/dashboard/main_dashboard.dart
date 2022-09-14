@@ -197,201 +197,201 @@ class _MainDashboardState extends State<MainDashboard> {
     });
   }
 
-  onShowAllAppTour(BuildContext context) {
-    _settingCon.appSettingDataList.asMap().entries.map((overlay) {
-      overlay.value.overlayState = Overlay.of(context);
-      overlay.value.overlayEntry = OverlayEntry(builder: (context) {
-        return DefaultSizeWeb(
-          child: Stack(
-            children: [
-              const SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-              ),
-              Positioned(
-                left: overlay.value.xPosition,
-                top: overlay.value.yPosition,
-                child: Container(
-                  height: overlay.value.height,
-                  width: overlay.value.width,
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.transparent,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      height: overlay.value.height! - 10,
-                      width: overlay.value.width! - 10,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Material(
-                        child: DashBoardMenu(
-                          title: '${overlay.value.label}',
-                          onTap: () {},
-                          icon: '${overlay.value.icon}',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 20,
-                // left: _overlay.value.xPosition,
-                top: overlay.value.yPosition! - 200,
-                right: 20,
-                // right: _overlay.value.xPosition,
-                child: Container(
-                  height: 190,
-                  width: MediaQuery.of(context).size.height,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: const Color(0xff0F50A4),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                overlay.value.guideline!.label!,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                            IconButton(
-                                icon: const Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isFirstLaunch = false;
-                                  });
-                                  overlayBackground!.remove();
-                                  _settingCon.appSettingDataList[appTourIndex]
-                                      .overlayEntry!
-                                      .remove();
-                                  LocalData.storeAppTou('appTour', true);
-                                })
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            overlay.value.guideline!.description!,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 14),
-                          ),
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            children: [
-                              const Spacer(),
-                              if (appTourIndex != 0)
-                                GestureDetector(
-                                  onTap: () {
-                                    _settingCon.appSettingDataList[appTourIndex]
-                                        .overlayEntry!
-                                        .remove();
-                                    setState(() {
-                                      appTourIndex--;
-                                    });
-                                    _settingCon.appSettingDataList[appTourIndex]
-                                        .overlayState!
-                                        .insert(_settingCon
-                                            .appSettingDataList[appTourIndex]
-                                            .overlayEntry!);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: const Color(0xff0685CF),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    child: const Text(
-                                      'Back',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              const SizedBox(width: 20),
-                              GestureDetector(
-                                onTap: () {
-                                  _settingCon.appSettingDataList[appTourIndex]
-                                      .overlayEntry!
-                                      .remove();
-                                  setState(() {
-                                    if (appTourIndex !=
-                                        _settingCon.appSettingDataList.length) {
-                                      appTourIndex++;
-                                    }
-                                  });
-                                  if (appTourIndex !=
-                                      _settingCon.appSettingDataList.length) {
-                                    _settingCon.appSettingDataList[appTourIndex]
-                                        .overlayState!
-                                        .insert(_settingCon
-                                            .appSettingDataList[appTourIndex]
-                                            .overlayEntry!);
-                                  }
+  // onShowAllAppTour(BuildContext context) {
+  //   _settingCon.appSettingDataList.asMap().entries.map((overlay) {
+  //     overlay.value.overlayState = Overlay.of(context);
+  //     overlay.value.overlayEntry = OverlayEntry(builder: (context) {
+  //       return DefaultSizeWeb(
+  //         child: Stack(
+  //           children: [
+  //             const SizedBox(
+  //               width: double.infinity,
+  //               height: double.infinity,
+  //             ),
+  //             Positioned(
+  //               left: overlay.value.xPosition,
+  //               top: overlay.value.yPosition,
+  //               child: Container(
+  //                 height: overlay.value.height,
+  //                 width: overlay.value.width,
+  //                 padding: const EdgeInsets.all(8),
+  //                 color: Colors.transparent,
+  //                 child: ClipRRect(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                   child: Container(
+  //                     height: overlay.value.height! - 10,
+  //                     width: overlay.value.width! - 10,
+  //                     decoration: const BoxDecoration(
+  //                       color: Colors.white,
+  //                     ),
+  //                     child: Material(
+  //                       child: DashBoardMenu(
+  //                         title: '${overlay.value.label}',
+  //                         onTap: () {},
+  //                         icon: '${overlay.value.icon}',
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //             Positioned(
+  //               left: 20,
+  //               // left: _overlay.value.xPosition,
+  //               top: overlay.value.yPosition! - 200,
+  //               right: 20,
+  //               // right: _overlay.value.xPosition,
+  //               child: Container(
+  //                 height: 190,
+  //                 width: MediaQuery.of(context).size.height,
+  //                 padding: const EdgeInsets.all(10),
+  //                 decoration: BoxDecoration(
+  //                   color: const Color(0xff0F50A4),
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //                 child: Material(
+  //                   color: Colors.transparent,
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     mainAxisAlignment: MainAxisAlignment.start,
+  //                     children: [
+  //                       Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                         children: [
+  //                           Padding(
+  //                             padding: const EdgeInsets.only(left: 10),
+  //                             child: Text(
+  //                               overlay.value.guideline!.label!,
+  //                               style: const TextStyle(
+  //                                   color: Colors.white,
+  //                                   fontWeight: FontWeight.bold,
+  //                                   fontSize: 20),
+  //                             ),
+  //                           ),
+  //                           IconButton(
+  //                               icon: const Icon(
+  //                                 Icons.close,
+  //                                 color: Colors.white,
+  //                               ),
+  //                               onPressed: () {
+  //                                 setState(() {
+  //                                   isFirstLaunch = false;
+  //                                 });
+  //                                 overlayBackground!.remove();
+  //                                 _settingCon.appSettingDataList[appTourIndex]
+  //                                     .overlayEntry!
+  //                                     .remove();
+  //                                 LocalData.storeAppTou('appTour', true);
+  //                               })
+  //                         ],
+  //                       ),
+  //                       Padding(
+  //                         padding: const EdgeInsets.symmetric(horizontal: 10),
+  //                         child: Text(
+  //                           overlay.value.guideline!.description!,
+  //                           style: const TextStyle(
+  //                               color: Colors.white, fontSize: 14),
+  //                         ),
+  //                       ),
+  //                       const Spacer(),
+  //                       Padding(
+  //                         padding: const EdgeInsets.symmetric(horizontal: 10),
+  //                         child: Row(
+  //                           children: [
+  //                             const Spacer(),
+  //                             if (appTourIndex != 0)
+  //                               GestureDetector(
+  //                                 onTap: () {
+  //                                   _settingCon.appSettingDataList[appTourIndex]
+  //                                       .overlayEntry!
+  //                                       .remove();
+  //                                   setState(() {
+  //                                     appTourIndex--;
+  //                                   });
+  //                                   _settingCon.appSettingDataList[appTourIndex]
+  //                                       .overlayState!
+  //                                       .insert(_settingCon
+  //                                           .appSettingDataList[appTourIndex]
+  //                                           .overlayEntry!);
+  //                                 },
+  //                                 child: Container(
+  //                                   decoration: BoxDecoration(
+  //                                     borderRadius: BorderRadius.circular(6),
+  //                                     color: const Color(0xff0685CF),
+  //                                   ),
+  //                                   padding: const EdgeInsets.symmetric(
+  //                                       horizontal: 20, vertical: 10),
+  //                                   child: const Text(
+  //                                     'Back',
+  //                                     style: TextStyle(color: Colors.white),
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                             const SizedBox(width: 20),
+  //                             GestureDetector(
+  //                               onTap: () {
+  //                                 _settingCon.appSettingDataList[appTourIndex]
+  //                                     .overlayEntry!
+  //                                     .remove();
+  //                                 setState(() {
+  //                                   if (appTourIndex !=
+  //                                       _settingCon.appSettingDataList.length) {
+  //                                     appTourIndex++;
+  //                                   }
+  //                                 });
+  //                                 if (appTourIndex !=
+  //                                     _settingCon.appSettingDataList.length) {
+  //                                   _settingCon.appSettingDataList[appTourIndex]
+  //                                       .overlayState!
+  //                                       .insert(_settingCon
+  //                                           .appSettingDataList[appTourIndex]
+  //                                           .overlayEntry!);
+  //                                 }
 
-                                  if (appTourIndex ==
-                                      _settingCon.appSettingDataList.length) {
-                                    overlayBackground!.remove();
-                                  }
-                                  if (appTourIndex ==
-                                      _settingCon.appSettingDataList.length) {
-                                    setState(() {
-                                      isFirstLaunch = false;
-                                    });
-                                    LocalData.storeAppTou('appTour', true);
-                                  }
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    color: const Color(0xff0685CF),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  child: Text(
-                                    appTourIndex ==
-                                            _settingCon
-                                                    .appSettingDataList.length -
-                                                1
-                                        ? 'Close'
-                                        : 'Next',
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      });
-    }).toList();
-  }
+  //                                 if (appTourIndex ==
+  //                                     _settingCon.appSettingDataList.length) {
+  //                                   overlayBackground!.remove();
+  //                                 }
+  //                                 if (appTourIndex ==
+  //                                     _settingCon.appSettingDataList.length) {
+  //                                   setState(() {
+  //                                     isFirstLaunch = false;
+  //                                   });
+  //                                   LocalData.storeAppTou('appTour', true);
+  //                                 }
+  //                               },
+  //                               child: Container(
+  //                                 decoration: BoxDecoration(
+  //                                   borderRadius: BorderRadius.circular(6),
+  //                                   color: const Color(0xff0685CF),
+  //                                 ),
+  //                                 padding: const EdgeInsets.symmetric(
+  //                                     horizontal: 20, vertical: 10),
+  //                                 child: Text(
+  //                                   appTourIndex ==
+  //                                           _settingCon
+  //                                                   .appSettingDataList.length -
+  //                                               1
+  //                                       ? 'Close'
+  //                                       : 'Next',
+  //                                   style: const TextStyle(color: Colors.white),
+  //                                 ),
+  //                               ),
+  //                             )
+  //                           ],
+  //                         ),
+  //                       )
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     });
+  //   }).toList();
+  // }
 
   // initialObjectFinding() {
   //   _settingCon.appSettingDataList.asMap().entries.map((value) {
@@ -469,7 +469,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
     _notificationCon.onGetReason();
     actionKey = GlobalKey();
-    debugPrint("App Setting Data List${_settingCon.appSettingDataList.length}");
+
     // LocalData.showAppTou('appTour').then((value) {
     //   if (!value) {
     //     Future.delayed(const Duration(seconds: 2), () {
@@ -656,12 +656,12 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   Widget build(BuildContext context) {
     storeDeviceToken();
-    _settingCon.appSettingDataList.map((value) {
-      setState(() {
-        value.key = GlobalKey();
-      });
-    }).toList();
-    setState(() {});
+    // _settingCon.appSettingDataList.map((value) {
+    //   setState(() {
+    //     value.key = GlobalKey();
+    //   });
+    // }).toList();
+    // setState(() {});
     return DefaultSizeWeb(
       child: WillPopScope(
         onWillPop: () {
