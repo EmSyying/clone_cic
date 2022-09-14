@@ -116,10 +116,13 @@ class _AboutSectionState extends State<AboutSection> {
                   title: "Call",
                   isOutline: true,
                   isDisable: false,
-                  onPressed: () async {
-                    await launchUrl(Uri.parse(
-                        'tel://${_settingCon.contactUs.value.companyPhoneList}'));
-                  },
+                  onPressed:
+                      _settingCon.contactUs.value.companyPhoneList != null
+                          ? () async {
+                              await launchUrl(Uri.parse(
+                                  'tel://${_settingCon.contactUs.value.companyPhoneList}'));
+                            }
+                          : null,
                 )),
               ),
             ),
@@ -134,13 +137,15 @@ class _AboutSectionState extends State<AboutSection> {
                   title: "Telegram",
                   isOutline: false,
                   isDisable: false,
-                  onPressed: () async {
-                    await launchUrl(
-                      Uri.parse('${_settingCon.contactUs.value.telegramLink}'),
-                      mode: LaunchMode.externalApplication,
-                    );
-                    debugPrint("${_settingCon.contactUs.value.telegramLink}");
-                  },
+                  onPressed: _settingCon.contactUs.value.telegramLink != null
+                      ? () async {
+                          await launchUrl(
+                            Uri.parse(
+                                '${_settingCon.contactUs.value.telegramLink}'),
+                            mode: LaunchMode.externalApplication,
+                          );
+                        }
+                      : null,
                 ),
               ),
             ),
