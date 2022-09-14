@@ -15,7 +15,7 @@ class NewEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        height: 130.0,
+        height: 140.0,
         margin: const EdgeInsets.only(bottom: 15.0),
         width: double.infinity,
         decoration: containerCiCPartern,

@@ -18,7 +18,7 @@ class FeatureCard extends StatelessWidget {
           padding: const EdgeInsets.only(
               top: 45.0, right: 20.0, bottom: 10, left: 3),
           child: Container(
-            height: 250.0,
+            height: 260.0,
             width: 290.0,
             decoration: containerCiCPartern,
             child: Padding(
