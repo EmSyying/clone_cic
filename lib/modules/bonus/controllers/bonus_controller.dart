@@ -402,7 +402,7 @@ class BonusController extends GetxController {
           Future.delayed(const Duration(seconds: 3), () {
             fectchBalance();
             fetchTransationHistory(type: "all");
-            Navigator.pop(Get.context!);
+            Navigator.pop(context!);
             isLoadingHistory.value = true;
             isSubmited.value = false;
             onClear();
@@ -448,7 +448,7 @@ class BonusController extends GetxController {
             displaysubscriptionCoast.value = 0.0;
             diplayNewUTAmount.value = 0;
 
-            Navigator.pop(Get.context!);
+            Navigator.pop(context!);
             isLoadingHistory.value = true;
             isSubmited.value = false;
             // onClear();
@@ -566,7 +566,7 @@ class BonusController extends GetxController {
             fetchPendingTransaction();
             fectchBalance();
 
-            Navigator.pop(Get.context!);
+            Navigator.pop(context!);
             isSubscriptionHistories.value = true;
           });
         } else {
