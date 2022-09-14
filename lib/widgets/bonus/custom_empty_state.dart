@@ -34,11 +34,14 @@ class CustomEmptyState extends StatelessWidget {
                         .headline4!
                         .copyWith(fontWeight: FontWeight.w600)),
                 const SizedBox(height: 10),
-                Text(description ?? 'It seems you have no transactions yet.',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontWeight: FontWeight.w400)),
+                Text(
+                  description ?? 'It seems you have no transactions yet.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline2!
+                      .copyWith(fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           )
