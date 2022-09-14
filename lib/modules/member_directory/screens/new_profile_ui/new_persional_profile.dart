@@ -33,10 +33,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
   final memberCon = Get.put(MemberController());
   final uploadImageCon = Get.put(UploadFileController());
   bool? isInnerBox = false;
-  List<Widget> widgets = [
-    const PersonalProfileTap(),
-    const CompanyProfileTab(),
-  ];
+
   @override
   void initState() {
     memberCon.fetchMemberPersonProfile(id: widget.id);
@@ -50,15 +47,15 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
       ),
       CompanyProfileTab(
         id: widget.id,
-        // description:
-        //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Gravida sit tortor nisl fringilla porttitor viverra scelerisque. Turpis nisl et facilisis aliquam ultricies interdum lectus eget facilisis aliquam.',
-        // companyName: memberCon.company.value.companyName ?? '',
-        // title: 'Beyond Investment Opportunity',
       ),
     ];
     super.initState();
   }
 
+  List<Widget> widgets = [
+    const PersonalProfileTap(),
+    const CompanyProfileTab(),
+  ];
   final PageController _pageViewController = PageController();
   int segmentedControlValue = 0;
 
@@ -179,8 +176,9 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                               position: widget.isDirectory == true
                                   ? memberCon.personalProfile.value.title
                                   : customerUser.customer.value.title ?? '',
-                              description:
-                                  customerUser.customer.value.companyName,
+                              description: widget.isDirectory == true
+                                  ? memberCon.personalProfile.value.companyName
+                                  : customerUser.customer.value.companyName,
                             ),
                     ),
                   ),

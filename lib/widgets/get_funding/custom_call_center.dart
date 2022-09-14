@@ -54,8 +54,8 @@ class _CustomCallCenterState extends State<CustomCallCenter> {
             EdgeInsets.only(left: 0, right: widget.isPading == true ? 0 : 10.0),
         child: SvgPicture.asset(
           "assets/images/svgfile/telegram-icons.svg",
-          height: widget.isUT == true ? 25 : 35.0,
-          width: widget.isUT == true ? 25 : 35.0,
+          height: 35,
+          width: 35.0,
         ),
       ),
     );

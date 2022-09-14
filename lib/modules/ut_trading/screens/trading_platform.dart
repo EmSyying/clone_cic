@@ -428,8 +428,8 @@ class _UTtradingState extends State<UTtrading>
                             padding: EdgeInsets.zero,
                             icon: SvgPicture.asset(
                               'assets/images/iIcon.svg',
-                              width: 35.0,
-                              height: 35.0,
+                              width: 45.0,
+                              height: 45.0,
                             ),
                             onPressed: () {
                               FirebaseAnalyticsHelper.sendAnalyticsEvent(

@@ -108,7 +108,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                                         height: 20,
                                                       ),
                                                       Text(
-                                                        'CiC Fixed Income Fund provides investment to potential Cambodian SMEs and Startups in all sectors. Our primary focus is to provide access to working capital to potential SMEs in various growing sectors in Cambodia.',
+                                                        'Debt investment provides investment to potential Cambodian SMEs and Startups in all sectors. Our primary focus is to provide access to working capital to potential SMEs in various growing sectors in Cambodia.',
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .subtitle2,

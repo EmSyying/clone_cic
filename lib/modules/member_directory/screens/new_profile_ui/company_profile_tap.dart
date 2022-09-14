@@ -39,14 +39,12 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
   }
 
   Future<void> onRefreshCompany() async {
-    await memberCon.fetchCompanyMember(
-        id: customerController.customer.value.customerId);
+    await memberCon.fetchCompanyMember(id: widget.id);
   }
 
   @override
   void initState() {
-    memberCon.fetchCompanyMember(
-        id: customerController.customer.value.customerId);
+    memberCon.fetchCompanyMember(id: widget.id);
     super.initState();
   }
 

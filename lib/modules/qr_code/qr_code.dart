@@ -14,7 +14,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/form_builder/custom_button.dart';
-import '../../Utils/helper/screen_agrument/member_screen_argument.dart';
 import '../../Utils/helper/show_myqr_code.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../configs/route_management/route_name.dart';
@@ -28,7 +27,7 @@ import '../event_module/models/event_ticket.dart';
 import '../event_module/screen/event_detail.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../member_directory/controllers/member_controller.dart';
-import '../member_directory/screens/member_detail.dart';
+import '../member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../privilege_program/screen/privilege/privilege_payment.dart';
 
 class QrCodeScreen extends StatefulWidget {
@@ -400,18 +399,13 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                   onPressed: () async {
                                     int userId = int.parse(
                                         resultQR!.replaceAll('member', ''));
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => MemberDetail(
-                                          memberDetailAgrument:
-                                              MemberDetailAgrument(
-                                            isNavigator: true,
-                                            id: userId,
-                                            // customer: _memberCon
-                                            // .personalProfilemember.value,
-                                            pageName: 'memberList',
-                                          ),
+                                        builder: (context) => NewPeronalProfile(
+                                          isDirectory: true,
+                                          id: userId,
                                         ),
                                       ),
                                     );

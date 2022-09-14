@@ -398,7 +398,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _isLoading = true;
     });
-    _isLoading ? showLoadingDialog(context) : Container();
+    _isLoading == true ? showLoadingDialog(context) : Container();
 
     var token = await LocalData.getCurrentUser();
     String url = '${GlobalConfiguration().getValue('main_api_url')}request-otp';
@@ -413,6 +413,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         setState(() {
           _isLoading = false;
         });
+        Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -427,10 +428,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       }
     } catch (e) {
       rethrow;
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = !_isLoading;
-    });
   }
 
   onChooseLanguage(BuildContext context) {
