@@ -576,8 +576,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                                                                                                               // context.go('/notification/bullet-payment-detail', extra: bulletPaymentDetailArg);
                                                                                                             } else {
-                                                                                                              debugPrint("ID: ${_con.notificationList[index].data!.applicationId}");
-                                                                                                              // final savingDetailArg = BulletPaymentDetailArg(paddings: const EdgeInsets.only(top: 50, left: 10, right: 0), id: _con.notificationList[index].data!.applicationId);
+                                                                                                              debugPrint('This Function is work');
+
                                                                                                               context.go('/notification/saving-detail', extra: {
                                                                                                                 "id": _con.notificationList[index].data!.applicationId as num,
                                                                                                                 "paddings": const EdgeInsets.only(top: 50, left: 10, right: 0),

@@ -65,7 +65,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
   void initState() {
     // debugPrint('height = $appbarheight');
 
-    investmentController.fetchFIFPendingDetail(widget.id);
+    // investmentController.fetchFIFPendingDetail(widget.id);
     fifCon.fetchConfirmDetail(widget.id);
     fifCon.fetchFIFAccountDetail(widget.id).then((amount) {
       fifCon.textRenewAmount.value = amount.investmentAmount!

@@ -670,7 +670,7 @@ class PriceController extends GetxController {
 
       durationController.text =
           fiFApplicationDetailPending.value.originalDuration.toString();
-      accounName.value = fiFApplicationDetailPending.value.accountName!;
+      accounName.value = fiFApplicationDetailPending.value.accountName ?? "";
       textAmount.value =
           fiFApplicationDetailPending.value.originalAmount!.toDouble();
       textReceivingAccountTitle.value =
