@@ -322,6 +322,7 @@ class MemberController extends GetxController {
           "email": companyData.value.email,
           "website": companyData.value.website
         }).then((response) {
+      debugPrint('image url update:$base64Image');
       customRouterSnackbar(
           title: 'Successful...!',
           description: 'Company Updated Successful...!');

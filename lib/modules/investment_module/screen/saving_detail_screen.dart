@@ -177,7 +177,10 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                             "hide": !widget.hide!,
                                             "id": widget.id,
                                             "code": widget.code,
-                                            "accountName": widget.accountName,
+                                            "accountName": fifCon
+                                                .fifAccountDetailModel
+                                                .value
+                                                .accountName,
                                             "annually": fifCon
                                                 .fifAccountDetailModel
                                                 .value
@@ -186,7 +189,10 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                 .fifAccountDetailModel
                                                 .value
                                                 .investmentAmount,
-                                            "contractCode": widget.code
+                                            "contractCode": fifCon
+                                                .fifAccountDetailModel
+                                                .value
+                                                .code
                                           });
                                     } else {
                                       context.push(
@@ -198,7 +204,10 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           "hide": !widget.hide!,
                                           "id": widget.id,
                                           "code": widget.code,
-                                          "accountName": widget.accountName,
+                                          "accountName": fifCon
+                                              .fifAccountDetailModel
+                                              .value
+                                              .accountName,
                                           "annually": fifCon
                                               .fifAccountDetailModel
                                               .value
@@ -207,7 +216,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                               .fifAccountDetailModel
                                               .value
                                               .investmentAmount,
-                                          "contractCode": widget.code
+                                          "contractCode": fifCon
+                                              .fifAccountDetailModel.value.code
                                         },
                                       );
                                     }
