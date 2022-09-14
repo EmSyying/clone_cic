@@ -295,6 +295,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                   ),
                                   CustomTextFieldNew(
                                     maxLine: 7,
+                                    labelText: 'Type something...',
                                     hintText: 'Type something...',
                                     onChange: (value) {
                                       if (value.isEmpty) {
