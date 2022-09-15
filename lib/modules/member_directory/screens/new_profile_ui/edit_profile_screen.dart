@@ -391,7 +391,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             : !widget.isEditCompany!
                                 ? uploadImageCon.imageFile.value.path == ''
                                     ? _buildProfile(const NetworkImage(
-                                        'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'))
+                                        'https://cic.z1platform.com//uploads//files//default//default-user-icon.png'))
                                     : _buildProfile(
                                         FileImage(
                                             uploadImageCon.imageFile.value),

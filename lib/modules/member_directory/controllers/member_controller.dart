@@ -346,7 +346,7 @@ class MemberController extends GetxController {
         url: 'helper/remove/image/$id',
         body: {"model": model}).then((response) {
       companyLogoUrl.value =
-          "https://cicstaging.z1central.com/uploads/files/default/default-image.png";
+          "https://cic.z1platform.com/uploads/files/default/default-image.png";
       customRouterSnackbar(
         title: 'Deleted',
         description: 'Profile image has been deleted',

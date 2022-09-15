@@ -100,8 +100,17 @@ Future<void> main() async {
 
 Future<void> initPlugin() async {
   // Platform messages may fail, so we use a try/catch PlatformException.
+  // If the system can show an authorization request dialog
+  if (await AppTrackingTransparency.trackingAuthorizationStatus ==
+      TrackingStatus.notDetermined) {
+    // Wait for dialog popping animation
+    await Future.delayed(const Duration(milliseconds: 200));
+    // Request system's tracking authorization dialog
+    await AppTrackingTransparency.requestTrackingAuthorization();
+  }
 
   final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
+  debugPrint("App Tracking Transparency$uuid");
 }
 
 // ignore: must_be_immutable
