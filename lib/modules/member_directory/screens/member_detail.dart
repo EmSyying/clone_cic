@@ -394,7 +394,7 @@ class _MemberDetailState extends State<MemberDetail> {
                                                 : const CircleAvatar(
                                                     radius: 22,
                                                     backgroundImage: NetworkImage(
-                                                        'https://cic.z1platform.com//uploads//files//default//default-user-icon.png'))
+                                                        'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'))
                                       ],
                                     ),
                                   )
@@ -738,7 +738,7 @@ class _MemberDetailState extends State<MemberDetail> {
                                                                     .circle,
                                                                 image: DecorationImage(
                                                                     image: NetworkImage(
-                                                                        'https://cic.z1platform.com//uploads//files//default//default-user-icon.png'),
+                                                                        'https://cicstaging.z1central.com//uploads//files//default//default-user-icon.png'),
                                                                     fit: BoxFit
                                                                         .cover),
                                                               ),

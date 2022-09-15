@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.dart';
 
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
@@ -100,7 +101,7 @@ Future<void> main() async {
 Future<void> initPlugin() async {
   // Platform messages may fail, so we use a try/catch PlatformException.
 
-  // final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
+  final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
 }
 
 // ignore: must_be_immutable
@@ -595,7 +596,6 @@ class MyApp extends StatelessWidget {
                 appBarTheme: const AppBarTheme(
                   backgroundColor: AppColor.mainColor,
                   centerTitle: false,
-                  
                 ),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     unselectedItemColor: const Color(0XFF848F92),
