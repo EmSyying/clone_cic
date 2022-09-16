@@ -207,7 +207,7 @@ class PrivilegeController extends GetxController {
         categoriesModelList.add(
           ModelsCategories.fromJson(e),
         );
-        debugPrint('Categories=====name:${categoriesModelList[0].name}');
+        debugPrint('Categories name========:${categoriesModelList[0].name}');
       }).toList();
       debugPrint('Categories data:===2');
 

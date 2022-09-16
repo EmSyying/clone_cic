@@ -32,7 +32,7 @@ class CustomFormFieldSearch extends StatelessWidget {
           child: TextFormField(
             onChanged: onChanged,
             onSaved: onSaved,
-            //controller: controller,
+            controller: controller,
             // initialValue: initialValue,
             keyboardType: keyboardType,
             autofocus: true,

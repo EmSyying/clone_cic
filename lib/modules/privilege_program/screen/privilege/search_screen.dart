@@ -69,6 +69,7 @@ class _SearchScreenState extends State<SearchScreen> {
       await privilegController
           .onSearchStores(keySearch: textSearch)
           .then((value) {
+        privilegController.textSearchController.text = textSearch;
         searchChangeFov = textSearch;
       });
       showData = true;
@@ -89,20 +90,24 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1.0,
-        leading: GestureDetector(
-          child: const Padding(
-            padding: EdgeInsets.only(
-              left: 20.0,
+        leading: SizedBox(
+          width: 22,
+          height: 22,
+          child: GestureDetector(
+            child: const Padding(
+              padding: EdgeInsets.only(
+                left: 20.0,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 22,
+              ),
             ),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-              size: 22,
-            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
           ),
-          onTap: () {
-            Navigator.pop(context);
-          },
         ),
         leadingWidth: 30,
         // titleSpacing: 0,
@@ -117,11 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: CustomFormFieldSearch(
-            onSaved: (e) {
-              // debugPrint(
-              //     'sTest field====${privilegController.textSearchController.text}');
-              // privilegController.textSearchController.text = onChangeHandler(e);
-            },
+            onSaved: (e) {},
             onChanged: (v) {
               onChangeHandler(v);
             },
@@ -474,6 +475,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     privilegController
                                                         .textSearchController
                                                         .text;
+                                                    debugPrint(
+                                                        'print textSearch hany=====:${privilegController.textSearchController.text}');
                                                     privilegController
                                                             .locationCode
                                                             .value =
