@@ -65,7 +65,7 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await LocalStorage.init();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
+    // WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
     await Firebase.initializeApp();
     await GlobalConfiguration().loadFromAsset("app_settings");
     setPathUrlStrategy();
@@ -96,21 +96,6 @@ Future<void> main() async {
   }, (error, stackTrace) {
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
-}
-
-Future<void> initPlugin() async {
-  // Platform messages may fail, so we use a try/catch PlatformException.
-  // If the system can show an authorization request dialog
-  if (await AppTrackingTransparency.trackingAuthorizationStatus ==
-      TrackingStatus.notDetermined) {
-    // Wait for dialog popping animation
-    await Future.delayed(const Duration(milliseconds: 200));
-    // Request system's tracking authorization dialog
-    await AppTrackingTransparency.requestTrackingAuthorization();
-  }
-
-  final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
-  debugPrint("App Tracking Transparency$uuid");
 }
 
 // ignore: must_be_immutable
@@ -538,9 +523,26 @@ class MyApp extends StatelessWidget {
     isUserLogin = await LocalData.isUserLogin('userLogin');
   }
 
+// App Tracking
+  Future<void> initPlugin() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // If the system can show an authorization request dialog
+    if (await AppTrackingTransparency.trackingAuthorizationStatus ==
+        TrackingStatus.notDetermined) {
+      // Wait for dialog popping animation
+      await Future.delayed(const Duration(milliseconds: 200));
+      // Request system's tracking authorization dialog
+      await AppTrackingTransparency.requestTrackingAuthorization();
+    }
+
+    final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
+    debugPrint("App Tracking Transparency$uuid");
+  }
+
   // final appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
     DynamicLinkService.initDynamicLinks();
 
     getToken();
