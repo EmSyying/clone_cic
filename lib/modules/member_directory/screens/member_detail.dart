@@ -45,21 +45,6 @@ class _MemberDetailState extends State<MemberDetail> {
   void initState() {
     _memberCon.fetchMemberPersonProfile(id: widget.memberDetailAgrument!.id!);
     _memberCon.getUserDetail(widget.memberDetailAgrument!.id!);
-    //customerCon.getUser();
-
-    // if (widget.pageName != 'user') {
-    //   if (_memberCon.member.value.hiddenFields.length != 0) {
-    //     _memberCon.member.value.hiddenFields.map((e) {
-    //       if (e.field.contains('address')) {
-    //         setState(() {
-    //           ishideAddress = true;
-    //         });
-    //         print('is Hident: $ishideAddress');
-    //       }
-    //     });
-    //   }
-    //   print('Hident Field: ${_memberCon.member.value.hiddenFields[0]}');
-    // }
 
     super.initState();
   }
@@ -277,6 +262,8 @@ class _MemberDetailState extends State<MemberDetail> {
     }).catchError((onError) {});
   }
 
+  String defualImage =
+      '${GlobalConfiguration().get('base_url')}uploads/files/default/default-image.png';
   @override
   Widget build(BuildContext context) {
     if (widget.memberDetailAgrument != null) {
@@ -391,10 +378,11 @@ class _MemberDetailState extends State<MemberDetail> {
                                                             .value
                                                             .profile!),
                                                   )
-                                                : const CircleAvatar(
+                                                : CircleAvatar(
                                                     radius: 22,
-                                                    backgroundImage: NetworkImage(
-                                                        'https://cic.z1platform.com//uploads//files//default//default-user-icon.png'))
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                            defualImage))
                                       ],
                                     ),
                                   )
@@ -733,12 +721,12 @@ class _MemberDetailState extends State<MemberDetail> {
                                                               height: 90,
                                                               width: 90,
                                                               decoration:
-                                                                  const BoxDecoration(
+                                                                  BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                                 image: DecorationImage(
                                                                     image: NetworkImage(
-                                                                        'https://cic.z1platform.com//uploads//files//default//default-user-icon.png'),
+                                                                        defualImage),
                                                                     fit: BoxFit
                                                                         .cover),
                                                               ),

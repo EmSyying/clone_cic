@@ -339,14 +339,15 @@ class MemberController extends GetxController {
   final isDeleteComapny = false.obs;
   Future<void> onDeleteImageProfile(
       BuildContext? context, int? id, String? model) async {
+    String url =
+        '${GlobalConfiguration().get('base_url')}uploads/files/default/default-image.png';
     isDeleteComapny(true);
     await apiBaseHelper.onNetworkRequesting(
         methode: METHODE.post,
         isAuthorize: true,
         url: 'helper/remove/image/$id',
         body: {"model": model}).then((response) {
-      companyLogoUrl.value =
-          "https://cic.z1platform.com/uploads/files/default/default-image.png";
+      companyLogoUrl.value = url;
       customRouterSnackbar(
         title: 'Deleted',
         description: 'Profile image has been deleted',

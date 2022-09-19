@@ -929,8 +929,7 @@ class PriceController extends GetxController {
 
   // Validate Pricipal Deduction
   final investmentDurationMessage = "".obs;
-  //TODO here
-  // final principalDeductionMessage = "".obs;
+
   final minDeductionAmount = 0.0.obs;
   final maxDeductionAmount = 0.0.obs;
   final validateFIFLoading = false.obs;
@@ -1417,10 +1416,12 @@ class PriceController extends GetxController {
 
   submitPINCode(
       {String? pinCode, Function? onSuccess, BuildContext? context}) async {
+    String url =
+        '${GlobalConfiguration().get('main_api_url')}user/verify-pin-code';
     isLoadingPincode(true);
     await apiBaseHelper.onNetworkRequesting(
       url: '',
-      fullURL: 'https://cic.z1platform.com/api/user/verify-pin-code',
+      fullURL: url,
       methode: METHODE.post,
       isAuthorize: true,
       body: {'pin_code': pinCode},

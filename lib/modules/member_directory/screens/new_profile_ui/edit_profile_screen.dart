@@ -6,6 +6,7 @@ import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:global_configuration/global_configuration.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/function/upload_file_controller.dart';
 import '../../../../Utils/helper/custom_loading_button.dart';
@@ -45,26 +46,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final customerCon = Get.put(CustomerController());
   final uploadImageCon = Get.put(UploadFileController());
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   memberCon.comCompanyName.value = widget.companyData!.companyName!;
-  //   memberCon.comphonenumber.value = widget.companyData!.phoneNumber!;
-  //   memberCon.comEmail.value = widget.companyData!.email!;
-  //   memberCon.comaddress.value = widget.companyData!.address!;
-  //   memberCon.comWebsite.value = widget.companyData!.website!;
-
-  // }
-
-  // onValicationProfile() {
-  //   if (memberCon.fullName.value == '' ||
-  //       memberCon.fullName.value ==
-  //           memberCon.personalProfile.value.customerLatinName&&
-  //           memberCon.position.value==''||memberCon.position.value==
-  //           ) {
-  //     isDisableDone = true;
-  //   }
-  // }
   bool isValidation() {
     setState(() {
       if (memberCon.comCompanyName.value == '') {
@@ -83,6 +64,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return false;
   }
 
+  String defualImage =
+      '${GlobalConfiguration().get('base_url')}uploads/files/default/default-image.png';
   @override
   Widget build(BuildContext context) {
     // memberCon.fetchMemberPersonProfile();
@@ -390,8 +373,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               )
                             : !widget.isEditCompany!
                                 ? uploadImageCon.imageFile.value.path == ''
-                                    ? _buildProfile(const NetworkImage(
-                                        'https://cic.z1platform.com//uploads//files//default//default-user-icon.png'))
+                                    ? _buildProfile(NetworkImage(defualImage))
                                     : _buildProfile(
                                         FileImage(
                                             uploadImageCon.imageFile.value),
