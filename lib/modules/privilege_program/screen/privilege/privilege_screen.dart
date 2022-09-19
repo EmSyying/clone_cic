@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_filters.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +49,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     priCon.onFetchAllStore(page);
     priCon.onFetchCategories();
 
-    // priCon.onRefreshPrivilege();
+    priCon.onRefreshPrivilege();
 
     super.initState();
   }
@@ -175,15 +173,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              didChangeDependencies();
-                              // context.go('/privilege/all-stores/search');
+                              context.go("/privilege/all-stores/search-item");
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SearchScreen(),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const SearchScreen(),
+                              //   ),
+                              // );
                             },
                             child: Container(
                               height: 38,
@@ -303,8 +300,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                               ),
                             },
                             onValueChanged: (int? value) {
-                              segmentedControlValue = value!;
-                              setState(() {});
+                              setState(() {
+                                segmentedControlValue = value!;
+                              });
                             },
                           ),
                         ),
@@ -313,14 +311,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           padding: const EdgeInsets.only(top: 20.0, bottom: 8),
                           child: CustomNumberStoresFilter(
                             onTapFilter: () {
-                              // context.go('/privilege/all-stores/filter');
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PrivilegeFilters(),
-                                ),
-                              );
+                              context.go("/privilege/all-stores/filter-item");
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const PrivilegeFilters(),
+                              //   ),
+                              // );
                             },
                             titleStores: segmentedControlValue == 0
                                 ? '${preController.shopModelList.length} Stores'

@@ -30,7 +30,7 @@ class FeatureEvent extends StatelessWidget {
                   onTap: () {
                     EventDetailArgument argument =
                         EventDetailArgument(id: e.value.id);
-                    context.go('/event-detail/${e.value.id}');
+                    context.go('/setting/event/event-detail/${e.value.id}');
                   },
                   child: FeatureCard(
                     eventData: e.value,

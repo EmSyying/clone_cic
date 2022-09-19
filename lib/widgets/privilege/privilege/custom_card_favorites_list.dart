@@ -37,7 +37,7 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
                     (e) => GestureDetector(
                       onTap: () {
                         context.go(
-                            "/privilege/all-store/${privillageCon.shopModelList[e.key].id}");
+                            "/privilege/all-store/${privillageCon.favshopModelList[e.key].id}");
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(

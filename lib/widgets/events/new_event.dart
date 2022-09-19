@@ -32,7 +32,7 @@ class NewEvent extends StatelessWidget {
               ),
               onTap: () {
                 debugPrint("${evenData.id}");
-                context.go('/event-detail/${evenData.id}');
+                context.go('/setting/event/event-detail/${evenData.id}');
               },
             );
           },

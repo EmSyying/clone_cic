@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/helper/color.dart';
 import '../../../../widgets/bonus/custom_empty_state.dart';
@@ -231,15 +232,17 @@ class _SearchScreenState extends State<SearchScreen> {
                                       onTap: () {
                                         // context.go(
                                         //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PrivilegeDetailScreen(
-                                              id: e.value.id,
-                                            ),
-                                          ),
-                                        );
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         PrivilegeDetailScreen(
+                                        //       id: e.value.id,
+                                        //     ),
+                                        //   ),
+                                        // );
+                                        context.push(
+                                            "/privilege/all-store/privilege-detail/${privilegController.categoryFilterList[e.key].id}");
                                       },
                                       child: CustomCardAllStores(
                                         isFav: e.value.isFavorite!,

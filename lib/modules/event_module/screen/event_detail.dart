@@ -119,9 +119,8 @@ class _EventDetailState extends State<EventDetail> {
       );
       if (result != null) {
         customRouterSnackbar(
-              title: 'Done',
-              description:  'Your ticket has been saved to gallery!');
-       
+            title: 'Done',
+            description: 'Your ticket has been saved to gallery!');
       } else {}
     } catch (e) {
       debugPrint("$e");
@@ -632,7 +631,7 @@ class _EventDetailState extends State<EventDetail> {
                                                 child: TextButton(
                                                   onPressed: () {
                                                     context.go(
-                                                        '/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}&latitude=${eventController.eventDetail.value.latitude}');
+                                                        '/setting/event/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}&latitude=${eventController.eventDetail.value.latitude}');
                                                   },
                                                   child: const Text(
                                                     'View Map',
