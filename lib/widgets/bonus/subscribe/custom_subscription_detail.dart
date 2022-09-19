@@ -624,7 +624,8 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                             .copyWith(fontSize: 14),
                                       ),
                                     const SizedBox(height: 15),
-                                    if (datePayment != null)
+                                    if (datePayment != null &&
+                                        datePayment != '')
                                       Text(
                                         'Last Date of Payment',
                                         style: Theme.of(context)
