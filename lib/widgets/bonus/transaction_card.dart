@@ -103,9 +103,9 @@ class CustomTransactionCard extends StatelessWidget {
                                     subscribeCon.currentIndexPage.value = 1;
                                   },
                                   subscriptionStatus:
-                                      e.value.view!.subscriptionStatus,
-                                  investID: e.value.view!.investorId,
-                                  investName: e.value.view!.investorName,
+                                      e.value.view!.subscriptionStatus ?? '',
+                                  investID: e.value.view!.investorId ?? '',
+                                  investName: e.value.view!.investorName ?? '',
                                   pricePerUT: e.value.view!.pricePerUt,
                                   totalSubscription:
                                       e.value.view!.totalSubscriptionCost,
@@ -113,7 +113,8 @@ class CustomTransactionCard extends StatelessWidget {
                                   paymentStatus: e.value.view!.paymentStatus!
                                       .toUpperCase(),
                                   unPaidAmount: e.value.view!.unpaidAmount,
-                                  datePayment: e.value.view!.lastDateOfPayment,
+                                  datePayment:
+                                      e.value.view!.lastDateOfPayment ?? '',
                                   subscriptionUT: e.value.view!.utToSubscribe,
                                   subscriptiontCost:
                                       e.value.view!.totalSubscriptionCost,

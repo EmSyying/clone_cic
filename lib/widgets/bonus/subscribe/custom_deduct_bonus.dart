@@ -216,7 +216,7 @@ class CustomDeductBonus extends StatelessWidget {
                                 children:
                                     subDetailCon.bankMemberDataList.map((e) {
                                   return Padding(
-                                    padding: const EdgeInsets.all(20),
+                                    padding: const EdgeInsets.only(top: 20),
                                     child: CustomBankTransferCard(
                                       bankDetail: e,
                                     ),
