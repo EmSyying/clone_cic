@@ -73,7 +73,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
       width: double.infinity,
       child: Column(
         children: [
@@ -563,91 +563,100 @@ class CustomSubscriptionDetail extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Subscription Status',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(fontSize: 13),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text('$subscriptionStatus'.toUpperCase(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(
-                                                color: subscriptionStatus ==
-                                                        'WAITING'
-                                                    ? AppColor.mainColor
-                                                    : Colors.green)),
-                                    const SizedBox(height: 30),
-                                    Text(
-                                      'Investor ID',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(fontSize: 13),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text('$investID',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3),
-                                    const SizedBox(height: 30),
-                                    Text('Price per UT',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(fontSize: 13)),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                        '${FormatToK.digitNumber(pricePerUT)} USD',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(fontSize: 14)),
-                                    const SizedBox(height: 30),
-                                    Text('Total Subscription Cost',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(fontSize: 14)),
-                                    const SizedBox(height: 15),
-                                    if (unPaidAmount != 0)
-                                      Text(
-                                        'Remaining Amount',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(fontSize: 14),
-                                      ),
-                                    const SizedBox(height: 15),
-                                    if (datePayment != null &&
-                                        datePayment != '')
-                                      Text(
-                                        'Last Date of Payment',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(fontSize: 14),
-                                      ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
+                                        'Subscription Status',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5!
+                                            .copyWith(
+                                              fontSize: 13,
+                                            ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        'Investor ID',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5!
+                                            .copyWith(fontSize: 13),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        'Investor Name',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5!
+                                            .copyWith(fontSize: 13),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Text('Price per UT',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5!
+                                              .copyWith(fontSize: 13)),
+                                      const SizedBox(height: 5),
+                                      Text(
                                         'Payment Status',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .headline5!
                                             .copyWith(fontSize: 13),
                                       ),
+                                      const SizedBox(height: 5),
+                                      Text('UT to Subscribe',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5!
+                                              .copyWith(fontSize: 13)),
+                                      const SizedBox(height: 5),
+                                      if (datePayment != null &&
+                                          datePayment != '')
+                                        Text(
+                                          'Last Date of Payment',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5!
+                                              .copyWith(fontSize: 14),
+                                        ),
+                                    ]),
+                                Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        '$subscriptionStatus'.toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .copyWith(
+                                              color: subscriptionStatus ==
+                                                      'WAITING'
+                                                  ? AppColor.mainColor
+                                                  : Colors.green,
+                                              fontSize: 12,
+                                            ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text('$investID',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2!
+                                              .copyWith(fontSize: 12)),
+                                      const SizedBox(height: 5),
+                                      Text('$investName'.toUpperCase(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2!
+                                              .copyWith(fontSize: 12)),
+                                      const SizedBox(height: 20),
+                                      Text(
+                                          '${FormatToK.digitNumber(pricePerUT)} USD',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2!
+                                              .copyWith(fontSize: 12)),
                                       const SizedBox(height: 5),
                                       Text('$paymentStatus',
                                           style: Theme.of(context)
@@ -668,65 +677,135 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                                                   'pending']
                                                               : Colors.green,
                                                   fontWeight: FontWeight.w700)),
-                                      const SizedBox(height: 30),
-                                      Text(
-                                        'Investor Name',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(fontSize: 13),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text('$investName'.toUpperCase(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3),
-                                      const SizedBox(height: 30),
-                                      Text('UT to Subscribe',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(fontSize: 13)),
                                       const SizedBox(height: 5),
                                       Text('$utSubscribe UT',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline2!
-                                              .copyWith(fontSize: 14)),
-                                      const SizedBox(height: 30),
-                                      Text(
-                                          '${FormatToK.digitNumber(totalSubscription)} USD',
+                                              .copyWith(fontSize: 12)),
+                                      const SizedBox(height: 5),
+                                      // if (datePayment != null)
+                                      Text('$datePayment',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline2!
-                                              .copyWith(
-                                                  fontSize: 14,
-                                                  color: unPaidAmount == 0
-                                                      ? AppColor
-                                                          .statusColor['late']
-                                                      : null)),
-                                      const SizedBox(height: 15),
-                                      if (unPaidAmount != 0)
-                                        Text(
-                                            '${FormatToK.digitNumber(unPaidAmount)} USD',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline2!
-                                                .copyWith(
-                                                    fontSize: 14,
-                                                    color: Colors.red)),
-                                      const SizedBox(height: 15),
-                                      if (datePayment != null)
-                                        Text('$datePayment',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5!
-                                                .copyWith(fontSize: 14)),
-                                    ],
-                                  ),
-                                ),
+                                              .copyWith(fontSize: 14)),
+                                    ]),
                               ],
                             ),
+
+          ////
+          const SizedBox(height: 15),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey.withOpacity(0.1),
+            ),
+
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Total Subscription Cost',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontSize: 14)),
+                      Text('${FormatToK.digitNumber(totalSubscription)} USD',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: unPaidAmount == 0
+                                      ? AppColor.statusColor['late']
+                                      : AppColor.mainColor)),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  if (unPaidAmount != 0)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Remaining Amount',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontSize: 14),
+                        ),
+                        if (unPaidAmount != 0)
+                          Text('${FormatToK.digitNumber(unPaidAmount)} USD',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontSize: 14, color: Colors.red)),
+                      ],
+                    ),
+                  const SizedBox(height: 5),
+                  const Divider(
+                    thickness: 0.4,
+                    color: Colors.grey,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Amount to pay:',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        '5000 USD',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+
+            //     // Padding(
+            //     //   padding: const EdgeInsets.only(right: 20),
+            //     //   child: Column(
+            //     //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     //     children: [
+            //     //       Text('${FormatToK.digitNumber(totalSubscription)} USD',
+            //     //           style: Theme.of(context)
+            //     //               .textTheme
+            //     //               .headline2!
+            //     //               .copyWith(
+            //     //                   fontSize: 14,
+            //     //                   color: unPaidAmount == 0
+            //     //                       ? AppColor.statusColor['late']
+            //     //                       : AppColor.mainColor)),
+            //     //       const SizedBox(height: 15),
+            //     //       if (unPaidAmount != 0)
+            //     //         Text('${FormatToK.digitNumber(unPaidAmount)} USD',
+            //     //             style: Theme.of(context)
+            //     //                 .textTheme
+            //     //                 .headline2!
+            //     //                 .copyWith(fontSize: 14, color: Colors.red)),
+            //     //     ],
+            //     //   ),
+            //     // ),
+            //   ],
+            // ),
+          ),
+
           const SizedBox(
             height: 20,
           ),
