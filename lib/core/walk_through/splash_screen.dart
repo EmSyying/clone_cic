@@ -26,23 +26,23 @@ class _SplashscreenState extends State<Splashscreen>
   final fifCon = Get.put(PriceController());
 
   void onNavigator() async {
-    await LocalData.getCurrentUser().then((value) {
-      if (value != null) {
-        Future.delayed(const Duration(seconds: 3), () {
-          isLoading = false;
-          setState(() {});
-          context.go('/');
-        });
-      } else {
-        Future.delayed(const Duration(seconds: 3), () {
-          isLoading = false;
-          setState(() {});
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const StartupSlide()));
-        });
-      }
-    });
     try {
+      await LocalData.getCurrentUser().then((value) {
+        if (value != null) {
+          Future.delayed(const Duration(seconds: 3), () {
+            isLoading = false;
+            setState(() {});
+            context.go('/');
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 3), () {
+            isLoading = false;
+            setState(() {});
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const StartupSlide()));
+          });
+        }
+      });
       await _googleMapCon.determinePosition().then((value) {
         _googleMapCon.latitute = value.latitude;
         _googleMapCon.longtitute = value.longitude;

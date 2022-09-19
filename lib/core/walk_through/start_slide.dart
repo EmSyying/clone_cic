@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cicgreenloan/core/walk_through/easy_payment.dart';
 import 'package:cicgreenloan/core/walk_through/quick_notification.dart';
@@ -31,6 +33,15 @@ class _StartupSlideState extends State<StartupSlide> {
   final pageIndexNotifier = ValueNotifier<int>(0);
 
   int? selectedPage;
+  Future<void> initPlugin() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      final status =
+          await AppTrackingTransparency.requestTrackingAuthorization();
+    } on PlatformException {
+      //
+    }
+  }
   // PageController? _pageController;
 
   List<Widget> pageView = [
@@ -44,6 +55,7 @@ class _StartupSlideState extends State<StartupSlide> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
   }
 
   @override
