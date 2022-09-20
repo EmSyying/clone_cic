@@ -91,46 +91,37 @@ Future<void> main() async {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    runApp(MyApp());
+    runApp(const MyApp());
   }, (error, stackTrace) {
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
 }
 
-Future<void> initPlugin() async {
-  // Platform messages may fail, so we use a try/catch PlatformException.
-  try {
-    final status = await AppTrackingTransparency.requestTrackingAuthorization();
-  } on PlatformException {
-    //
-  }
-}
-
 // ignore: must_be_immutable
-class MyApp extends StatelessWidget {
-  Setting? setting;
-  String? token;
-  final isLocal = true;
-  final _con = Get.put(SettingController());
+class MyApp extends StatefulWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
 
-  MyApp({Key? key}) : super(key: key);
-  Future<void> getToken() async {
-    // SharedPreferences pref = await SharedPreferences.getInstance();
+  const MyApp({Key? key}) : super(key: key);
 
-    // _con.token.value = pref.getString('current_user')!;
-  }
+  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
-  // Future<void> getSetting() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   appVersion = pref.getString('setting');
-  //   var localData = json.decode(pref.getString('setting'));
-  //   print("Data: $localData");
-  // }
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Setting? setting;
+
+  String? token;
+
+  final isLocal = true;
+
+  final _con = Get.put(SettingController());
 
   String currentLocale = '';
+
   Future<void> getCurrentLocale() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     currentLocale = pref.getString('locale')!;
@@ -139,29 +130,30 @@ class MyApp extends StatelessWidget {
   bool isDisableAutoDarkMode = false;
 
   // UserController _userController = UserController();
-
-  // This widget is the root of your application.
   getLocalData() async {}
 
   final customerController = Get.put(CustomerController());
 
   final timeout = const Duration(minutes: 1);
+
   final ms = const Duration(milliseconds: 1);
-  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+
   Map<String, dynamic> deviceData = <String, dynamic>{};
+
   Future<void> initPlatformState() async {
     Map<String, dynamic> deviceData = <String, dynamic>{};
 
     try {
       if (Platform.isAndroid) {
-        deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+        deviceData =
+            _readAndroidBuildData(await MyApp.deviceInfoPlugin.androidInfo);
         // var versionName = deviceData['systemName'];
         // if (versionName == 'OxygenOS') {
         //   _con.isAutoDarkMode.value = true;
         // }
       } else if (kIsWeb) {
       } else if (Platform.isIOS) {
-        deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
+        deviceData = _readIosDeviceInfo(await MyApp.deviceInfoPlugin.iosInfo);
         // var versionName = deviceData['systemName'];
         // if (versionName == 'iOS') {
         //   _con.isAutoDarkMode.value = true;
@@ -228,14 +220,9 @@ class MyApp extends StatelessWidget {
   Timer timer = Timer(const Duration(minutes: 1), () {});
 
   // String storePinCode;
-  // getPinCode() async {
-  //   storePinCode = await LocalData.getPINCode('setPIN');
-  //   print('===================PIN Code==============: $storePinCode');
-  // }
-
   final setPINCodeController = Get.put(SetPINCodeController());
-  // var pinCode;
 
+  // var pinCode;
   final LocalAuthentication auth = LocalAuthentication();
 
   Future<void> checkBiometrics() async {
@@ -527,16 +514,40 @@ class MyApp extends StatelessWidget {
   }
 
   bool isUserLogin = false;
+
   checkUserLogin() async {
     isUserLogin = await LocalData.isUserLogin('userLogin');
   }
 
-  // final appRouter = AppRouter();
+  Future<void> initAppTracking() async {
+    final TrackingStatus status =
+        await AppTrackingTransparency.trackingAuthorizationStatus;
+
+    // If the system can show an authorization request dialog
+    if (status == TrackingStatus.notDetermined) {
+      // Show a custom explainer dialog before the system dialog
+
+      // Wait for dialog popping animation
+      await Future.delayed(const Duration(milliseconds: 200));
+      // Request system's tracking authorization dialog
+      final TrackingStatus status =
+          await AppTrackingTransparency.requestTrackingAuthorization();
+      debugPrint("Tracking status:$status");
+    }
+
+    final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
+    debugPrint("UUID:$uuid");
+  }
+
+  @override
+  void initState() {
+    initAppTracking();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     DynamicLinkService.initDynamicLinks();
-
-    getToken();
 
     storeBiotricType();
     getLocalData();
