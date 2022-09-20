@@ -93,6 +93,8 @@ class NotificationController extends GetxController {
     return notificationAnouncementList;
   }
 
+  void onCheckNotification() {}
+
   void onClickNotification() {
     // var test = notificationList.firstWhere((e) => e.readAt == null);
 

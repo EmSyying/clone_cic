@@ -12,6 +12,7 @@ import 'package:cicgreenloan/modules/report_module/controllers/documentation_con
 import 'package:cicgreenloan/modules/notification_modules/screens/notification.dart';
 import 'package:cicgreenloan/modules/ut_trading/controllers/trading_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/controllers/notification_controller.dart';
+import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:cicgreenloan/widgets/dashboard/custom_associate_member.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/services.dart';
@@ -69,64 +70,9 @@ class _MainDashboardState extends State<MainDashboard> {
   int currentIndex = 0;
   String _deviceToken = "";
   String deviceType = "";
-  int appTourIndex = 0;
+
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final widgetKey = GlobalKey();
-  OverlayEntry? overlayEntry;
-  OverlayState? overlayState;
-  Future<void> onShowOverLay(BuildContext context) async {
-    OverlayState? overlayState = Overlay.of(context);
-    overlayEntry = OverlayEntry(builder: (context) {
-      return Container(
-        color: Colors.red,
-        child: Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Positioned(
-            top: 200,
-            left: 20,
-            right: 20,
-            child: Material(
-              child: Container(
-                height: 400,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(0.0, 1.0),
-                          color: Colors.black12,
-                          blurRadius: 5)
-                    ]),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      color: Colors.red,
-                    ),
-                    // ignore: deprecated_member_use
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          overlayEntry!.remove();
-                        });
-                      },
-                      child: const Text(''),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    });
-    setState(() {
-      overlayState!.insert(overlayEntry!);
-    });
-  }
 
   final String serverToken =
       'AAAAjhN5SfY:APA91bE-IRLKGTVEa21xdrg2nk1u-OGWSyAZ5Gk0GHrvzN7KlQ1CSNtVBmyvUcksTP1tyKxUL9s3eqDPGAgLD17vhn7755DrSBy8HLYMlBaZSS0A5WLyGKeAR27b50OilVdCw2K1_t3f';
@@ -181,232 +127,25 @@ class _MainDashboardState extends State<MainDashboard> {
   GlobalKey? actionKey;
 
   bool isFirstLaunch = true;
+  GlobalKey key1 = GlobalKey();
 
-  OverlayEntry? showOverlay() {
-    return OverlayEntry(builder: (context) {
-      return DefaultSizeWeb(
-        child: Stack(
-          children: [
-            Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.black45),
-          ],
-        ),
-      );
-    });
+  Future<void> showDashboardTour({bool allowSkip = true}) async {
+    await CiCApp.showOverlays(
+      context: context,
+      allowSkip: allowSkip,
+      itemCount: _settingCon.appSettingDataList.length,
+      titleBuilder: (index) =>
+          _settingCon.appSettingDataList[index].guideline!.label ?? '',
+      descriptionBuilder: (index) =>
+          _settingCon.appSettingDataList[index].guideline!.description ?? '',
+      key: (index) => _settingCon.appSettingDataList[index].key,
+      overlaySetting: OverlaySetting(
+          padding: -30,
+          duration: const Duration(milliseconds: 200),
+          curves: Curves.fastOutSlowIn),
+    );
   }
 
-  // onShowAllAppTour(BuildContext context) {
-  //   _settingCon.appSettingDataList.asMap().entries.map((overlay) {
-  //     overlay.value.overlayState = Overlay.of(context);
-  //     overlay.value.overlayEntry = OverlayEntry(builder: (context) {
-  //       return DefaultSizeWeb(
-  //         child: Stack(
-  //           children: [
-  //             const SizedBox(
-  //               width: double.infinity,
-  //               height: double.infinity,
-  //             ),
-  //             Positioned(
-  //               left: overlay.value.xPosition,
-  //               top: overlay.value.yPosition,
-  //               child: Container(
-  //                 height: overlay.value.height,
-  //                 width: overlay.value.width,
-  //                 padding: const EdgeInsets.all(8),
-  //                 color: Colors.transparent,
-  //                 child: ClipRRect(
-  //                   borderRadius: BorderRadius.circular(10),
-  //                   child: Container(
-  //                     height: overlay.value.height! - 10,
-  //                     width: overlay.value.width! - 10,
-  //                     decoration: const BoxDecoration(
-  //                       color: Colors.white,
-  //                     ),
-  //                     child: Material(
-  //                       child: DashBoardMenu(
-  //                         title: '${overlay.value.label}',
-  //                         onTap: () {},
-  //                         icon: '${overlay.value.icon}',
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //             Positioned(
-  //               left: 20,
-  //               // left: _overlay.value.xPosition,
-  //               top: overlay.value.yPosition! - 200,
-  //               right: 20,
-  //               // right: _overlay.value.xPosition,
-  //               child: Container(
-  //                 height: 190,
-  //                 width: MediaQuery.of(context).size.height,
-  //                 padding: const EdgeInsets.all(10),
-  //                 decoration: BoxDecoration(
-  //                   color: const Color(0xff0F50A4),
-  //                   borderRadius: BorderRadius.circular(10),
-  //                 ),
-  //                 child: Material(
-  //                   color: Colors.transparent,
-  //                   child: Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     mainAxisAlignment: MainAxisAlignment.start,
-  //                     children: [
-  //                       Row(
-  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                         children: [
-  //                           Padding(
-  //                             padding: const EdgeInsets.only(left: 10),
-  //                             child: Text(
-  //                               overlay.value.guideline!.label!,
-  //                               style: const TextStyle(
-  //                                   color: Colors.white,
-  //                                   fontWeight: FontWeight.bold,
-  //                                   fontSize: 20),
-  //                             ),
-  //                           ),
-  //                           IconButton(
-  //                               icon: const Icon(
-  //                                 Icons.close,
-  //                                 color: Colors.white,
-  //                               ),
-  //                               onPressed: () {
-  //                                 setState(() {
-  //                                   isFirstLaunch = false;
-  //                                 });
-  //                                 overlayBackground!.remove();
-  //                                 _settingCon.appSettingDataList[appTourIndex]
-  //                                     .overlayEntry!
-  //                                     .remove();
-  //                                 LocalData.storeAppTou('appTour', true);
-  //                               })
-  //                         ],
-  //                       ),
-  //                       Padding(
-  //                         padding: const EdgeInsets.symmetric(horizontal: 10),
-  //                         child: Text(
-  //                           overlay.value.guideline!.description!,
-  //                           style: const TextStyle(
-  //                               color: Colors.white, fontSize: 14),
-  //                         ),
-  //                       ),
-  //                       const Spacer(),
-  //                       Padding(
-  //                         padding: const EdgeInsets.symmetric(horizontal: 10),
-  //                         child: Row(
-  //                           children: [
-  //                             const Spacer(),
-  //                             if (appTourIndex != 0)
-  //                               GestureDetector(
-  //                                 onTap: () {
-  //                                   _settingCon.appSettingDataList[appTourIndex]
-  //                                       .overlayEntry!
-  //                                       .remove();
-  //                                   setState(() {
-  //                                     appTourIndex--;
-  //                                   });
-  //                                   _settingCon.appSettingDataList[appTourIndex]
-  //                                       .overlayState!
-  //                                       .insert(_settingCon
-  //                                           .appSettingDataList[appTourIndex]
-  //                                           .overlayEntry!);
-  //                                 },
-  //                                 child: Container(
-  //                                   decoration: BoxDecoration(
-  //                                     borderRadius: BorderRadius.circular(6),
-  //                                     color: const Color(0xff0685CF),
-  //                                   ),
-  //                                   padding: const EdgeInsets.symmetric(
-  //                                       horizontal: 20, vertical: 10),
-  //                                   child: const Text(
-  //                                     'Back',
-  //                                     style: TextStyle(color: Colors.white),
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             const SizedBox(width: 20),
-  //                             GestureDetector(
-  //                               onTap: () {
-  //                                 _settingCon.appSettingDataList[appTourIndex]
-  //                                     .overlayEntry!
-  //                                     .remove();
-  //                                 setState(() {
-  //                                   if (appTourIndex !=
-  //                                       _settingCon.appSettingDataList.length) {
-  //                                     appTourIndex++;
-  //                                   }
-  //                                 });
-  //                                 if (appTourIndex !=
-  //                                     _settingCon.appSettingDataList.length) {
-  //                                   _settingCon.appSettingDataList[appTourIndex]
-  //                                       .overlayState!
-  //                                       .insert(_settingCon
-  //                                           .appSettingDataList[appTourIndex]
-  //                                           .overlayEntry!);
-  //                                 }
-
-  //                                 if (appTourIndex ==
-  //                                     _settingCon.appSettingDataList.length) {
-  //                                   overlayBackground!.remove();
-  //                                 }
-  //                                 if (appTourIndex ==
-  //                                     _settingCon.appSettingDataList.length) {
-  //                                   setState(() {
-  //                                     isFirstLaunch = false;
-  //                                   });
-  //                                   LocalData.storeAppTou('appTour', true);
-  //                                 }
-  //                               },
-  //                               child: Container(
-  //                                 decoration: BoxDecoration(
-  //                                   borderRadius: BorderRadius.circular(6),
-  //                                   color: const Color(0xff0685CF),
-  //                                 ),
-  //                                 padding: const EdgeInsets.symmetric(
-  //                                     horizontal: 20, vertical: 10),
-  //                                 child: Text(
-  //                                   appTourIndex ==
-  //                                           _settingCon
-  //                                                   .appSettingDataList.length -
-  //                                               1
-  //                                       ? 'Close'
-  //                                       : 'Next',
-  //                                   style: const TextStyle(color: Colors.white),
-  //                                 ),
-  //                               ),
-  //                             )
-  //                           ],
-  //                         ),
-  //                       )
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     });
-  //   }).toList();
-  // }
-
-  // initialObjectFinding() {
-  //   _settingCon.appSettingDataList.asMap().entries.map((value) {
-  //     RenderBox? renderBox4 =
-  //         value.value.key.currentContext.findRenderObject() as RenderBox?;
-  //     value.value.width = renderBox4!.size.width;
-  //     value.value.height = renderBox4.size.height;
-
-  //     Offset offset4 = renderBox4.localToGlobal(Offset.zero);
-  //     value.value.xPosition = offset4.dx;
-  //     value.value.yPosition = offset4.dy;
-  //   }).toList();
-  // }
-
-  OverlayEntry? overlayBackground;
   NotificationAppLaunchDetails? notificationAppLaunchDetails;
 
   bool get didNotificationLaunchApp =>
@@ -446,8 +185,18 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   void initState() {
     getUser();
+
+    _settingCon.fetchAppSetting().then((value) async {
+      bool isFirstLaunch = await LocalData.showAppTou('appTour');
+      if (isFirstLaunch) {
+        Future.delayed(const Duration(seconds: 1), () {
+          showDashboardTour(allowSkip: false).then((value) async {
+            await LocalData.storeAppTou('appTour', false);
+          });
+        });
+      }
+    });
     _notificationCon.countNotification();
-    _settingCon.fetchAppSetting();
 
     DynamicLinkService.initDynamicLinks();
 
@@ -633,14 +382,6 @@ class _MainDashboardState extends State<MainDashboard> {
     }
   }
 
-  List<String> imageList = [
-    'assets/images/slide/CIC Banner 1 .jpg',
-    'assets/images/slide/CIC Banner 2.jpg',
-    'assets/images/slide/CIC Banner 3 .jpg',
-    'assets/images/slide/CIC Banner 3 .jpg',
-    'assets/images/slide/CIC Banner 3 .jpg',
-  ];
-
   var timeout = const Duration(seconds: 2);
   var ms = const Duration(milliseconds: 1);
   Timer? timer;
@@ -699,6 +440,7 @@ class _MainDashboardState extends State<MainDashboard> {
               ),
               actions: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
                       key: actionKey,
@@ -744,6 +486,14 @@ class _MainDashboardState extends State<MainDashboard> {
                     const SizedBox(
                       width: 10,
                     ),
+                    GestureDetector(
+                      onTap: () async {
+                        await LocalData.storeAppTou('appTour', true);
+                        // showDashboardTour();
+                      },
+                      child: SvgPicture.asset('assets/images/demo.svg'),
+                    ),
+
                     // FlutterSwitch(
                     //     key: widgetKey,
                     //     padding: 3,
@@ -973,6 +723,7 @@ class _MainDashboardState extends State<MainDashboard> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ClipRRect(
+                        // key: key1,
                         borderRadius: BorderRadius.circular(10),
                         child: Stack(
                           alignment: Alignment.center,

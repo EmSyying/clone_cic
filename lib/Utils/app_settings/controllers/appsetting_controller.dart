@@ -277,13 +277,13 @@ class SettingController extends GetxController {
         'Authorization': 'Bearer $token'
       }).then((response) {
         if (response.statusCode == 200) {
+          appSettingDataList.clear();
           var responseJson = json.decode(response.body)['data'];
           responseJson.map((data) {
             var settingData = AppSettingData.fromJson(data);
             appSettingDataList.add(settingData);
+            // debugPrint("App Setting Data for Funtion:$responseJson");
           }).toList();
-          debugPrint(
-              "App Setting Data for Funtion:${appSettingDataList.length}");
         } else {}
       });
     } finally {

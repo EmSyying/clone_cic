@@ -1,12 +1,9 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:async';
 
 import 'package:cicgreenloan/modules/dashboard/main_dashboard.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import 'package:cicgreenloan/modules/qr_code/qr_code.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
-import 'package:cicgreenloan/Utils/helper/store_utils.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -16,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
@@ -46,7 +42,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   String homeMenu = '';
   String notificationMenu = '';
   String profileMenu = '';
-
   var saveUserToken = '';
 
   final LocalAuthentication auth = LocalAuthentication();
@@ -106,8 +101,31 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
   final appSettingCon = Get.put(SettingController());
 
+  /*final QuickActions _quickActions = const QuickActions();
+
+  Future<void> _initQuickAction() async {
+    await _quickActions.initialize((shortcutType) {
+      if (shortcutType.isNotEmpty) {
+        context.go('/$shortcutType');
+      }
+    });
+    _quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+          type: 'qr-screen', localizedTitle: 'Scan Qr Code', icon: ''),
+      const ShortcutItem(
+          type: 'ut-trading', localizedTitle: 'UT Trading', icon: ''),
+      const ShortcutItem(
+          type: 'directory', localizedTitle: 'Directory', icon: ''),
+    ]);
+  }*/
+
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    // _initQuickAction();
     cusController.getUser();
 
     LocalData.showAppTou('appTour').then((value) async {
@@ -204,17 +222,12 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
+    // final router = GoRouter.of(context);
     // if (router.location.contains('event')) {
     //   _settingCon.selectedIndex = 2;
     // }
     debugPrint("Build from BottomNavigationbar");
     // saveUserToken = StorageUtil.getString('current_user');
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
 
     return GetBuilder(
       init: SettingController(),
