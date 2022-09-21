@@ -230,8 +230,19 @@ class CustomTransactionCard extends StatelessWidget {
                                 }
 
                                 onShowBottomSheet(
-                                  isDismissible: false,
+                                  isDismissible: true,
                                   context: context,
+                                  // title: e.value.view!.transactionId != null
+                                  //     ? 'Transaction ID: ${e.value.view!.transactionId}'
+                                  //     : 'Transaction',
+                                  icondata: Icons.close,
+                                  type: e.value.type,
+                                  label: 'Subscription',
+                                  time: e.value.date,
+                                  // amount: e.value.referalId,
+                                  action: Text('ID: ${e.value.transactionId}'),
+                                  // isHeight:
+                                  //     MediaQuery.of(context).size.height * 0.7,
                                   // title: e.value.referalId != null
                                   //     ? 'Subscription ID: ${e.value.referalId}'
                                   //     : 'Subscription',
@@ -422,7 +433,7 @@ class CustomTransactionCard extends StatelessWidget {
                                     ),
                                   );
                                 } else {
-                                  debugPrint("is payment");
+                                  // status payment
                                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                       'View transaction detail');
                                   onShowBottomSheet(

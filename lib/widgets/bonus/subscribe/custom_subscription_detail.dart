@@ -694,7 +694,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                               ],
                             ),
 
-          ////
+          //// subscription status partailly paid
           const SizedBox(height: 15),
           Container(
             width: double.infinity,
@@ -703,7 +703,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey.withOpacity(0.1),
             ),
-
             child: Padding(
               padding: const EdgeInsets.only(right: 20),
               child: Column(
@@ -712,7 +711,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Total Subscription Cost',
+                      Text('Total Subscription Cost:',
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
@@ -734,7 +733,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Remaining Amount',
+                          'Paid Amount:',
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
@@ -745,7 +744,8 @@ class CustomSubscriptionDetail extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2!
-                                  .copyWith(fontSize: 14, color: Colors.red)),
+                                  .copyWith(
+                                      fontSize: 14, color: AppColor.mainColor)),
                       ],
                     ),
                   const SizedBox(height: 5),
@@ -826,7 +826,11 @@ class CustomSubscriptionDetail extends StatelessWidget {
                     Navigator.pop(context);
                   }
                 : onTab,
-          )
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          // const Text('hello'),
         ],
       ),
     );

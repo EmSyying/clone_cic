@@ -42,6 +42,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
         () => memberCon.isLoadingProfile.value
             ? const Center(child: CircularProgressIndicator())
             : PersonalProfileTap(
+                isDirectory: widget.isDirectory,
                 description: memberCon.personalProfile.value.about ?? '',
               ),
       ),

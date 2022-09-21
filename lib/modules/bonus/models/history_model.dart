@@ -61,6 +61,7 @@ class HistoryData {
 }
 
 class Histories {
+  num? transactionId;
   num? referalId;
   String? remark;
   num? utAmount;
@@ -77,7 +78,8 @@ class Histories {
   String? accountNumber;
 
   Histories(
-      {this.referalId,
+      {this.transactionId,
+      this.referalId,
       this.remark,
       this.utAmount,
       this.type,
@@ -93,6 +95,7 @@ class Histories {
       this.accountNumber});
 
   Histories.fromJson(Map<String, dynamic> json) {
+    transactionId = json['transaction_id'];
     referalId = json['referal_id'];
     remark = json['remark'];
     utAmount = json['ut_amount'];
@@ -111,6 +114,7 @@ class Histories {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['transaction_id'] = transactionId;
     data['referal_id'] = referalId;
     data['remark'] = remark;
     data['ut_amount'] = utAmount;

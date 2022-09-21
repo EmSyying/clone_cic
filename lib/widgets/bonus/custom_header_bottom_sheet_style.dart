@@ -6,19 +6,20 @@ import '../../utils/helper/color.dart';
 
 class CustomHeaderBottomStyle extends StatelessWidget {
   const CustomHeaderBottomStyle(
-      {Key? key, this.type, this.label, this.time, this.amount})
+      {Key? key, this.type, this.label, this.time, this.amount, this.action})
       : super(key: key);
   final String? type;
   final String? label;
   final String? time;
   final num? amount;
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
-          margin: const EdgeInsets.only(left: 10),
+          margin: const EdgeInsets.only(left: 20),
           width: 40,
           height: 40,
           decoration: BoxDecoration(
@@ -31,7 +32,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                   ? SvgPicture.asset(
                       'assets/images/svgfile/dividend.svg',
                     )
-                  : type == 'cash-out'
+                  : type == 'cash-out' || type == 'subscription'
                       ? SvgPicture.asset(
                           'assets/images/svgfile/cashout1.svg',
                         )
@@ -58,6 +59,8 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -72,14 +75,18 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
-                      child: Text(
-                        "${FormatToK.digitNumber(amount ?? 0)} USD",
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: type == 'bonus' || type == 'cash-in'
-                                ? AppColor.statusColor['green']
-                                : AppColor.statusColor['late'],
-                            fontWeight: FontWeight.bold),
-                      ),
+                      child: action ??
+                          Text(
+                            "${FormatToK.digitNumber(amount ?? 0)} USD",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(
+                                    color: type == 'bonus' || type == 'cash-in'
+                                        ? AppColor.statusColor['green']
+                                        : AppColor.statusColor['late'],
+                                    fontWeight: FontWeight.bold),
+                          ),
                     ),
                   ],
                 )

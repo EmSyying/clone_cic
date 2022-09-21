@@ -7,8 +7,10 @@ import '../../controllers/member_controller.dart';
 class PersonalProfileTap extends StatelessWidget {
   final String? description;
   final int? id;
+  final bool? isDirectory;
 
-  const PersonalProfileTap({Key? key, this.description, this.id})
+  const PersonalProfileTap(
+      {Key? key, this.description, this.id, this.isDirectory = false})
       : super(key: key);
 
   @override
@@ -35,10 +37,11 @@ class PersonalProfileTap extends StatelessWidget {
             padding:
                 const EdgeInsets.only(right: 20, top: 10, bottom: 20, left: 20),
             child: description == '' || description == null
-                ? const CustomEmptyState(
+                ? CustomEmptyState(
                     title: 'No Description Yet!',
-                    description:
-                        'You have not completed your personal profile yet,please go to edit button to fill in your personal profile.',
+                    description: isDirectory == false
+                        ? 'You have not completed your personal profile yet,please go to edit button to fill in your personal profile.'
+                        : '',
                   )
                 : Text(
                     '$description',

@@ -5,23 +5,25 @@ import 'package:flutter/material.dart';
 import '../Utils/helper/container_partern.dart';
 import 'bonus/custom_header_bottom_sheet_style.dart';
 
-onShowBottomSheet(
-    {@required BuildContext? context,
-    String? title,
-    String? type,
-    String? label,
-    String? time,
-    num? amount,
-    Widget? child,
-    IconData? icondata,
-    Widget? icon,
-    Widget? text,
-    bool? isscroll = false,
-    double? isHeight,
-    bool? isLoading = false,
-    Color? backgroundColor,
-    bool? isNoAppBar = false,
-    bool? isDismissible}) {
+onShowBottomSheet({
+  @required BuildContext? context,
+  String? title,
+  String? type,
+  String? label,
+  String? time,
+  num? amount,
+  Widget? child,
+  IconData? icondata,
+  Widget? icon,
+  Widget? text,
+  bool? isscroll = false,
+  double? isHeight,
+  bool? isLoading = false,
+  Color? backgroundColor,
+  bool? isNoAppBar = false,
+  bool? isDismissible,
+  Widget? action,
+}) {
   showModalBottomSheet(
     backgroundColor: backgroundColor,
     isDismissible: isDismissible ?? true,
@@ -122,7 +124,7 @@ onShowBottomSheet(
               child: SizedBox(
                 height: isHeight != null
                     ? MediaQuery.of(context).size.height * 0.9
-                    : null,
+                    : isHeight,
                 child: SingleChildScrollView(
                   physics: isscroll!
                       ? const ScrollPhysics()
@@ -151,6 +153,7 @@ onShowBottomSheet(
                                 label: label,
                                 time: time,
                                 amount: amount,
+                                action: action,
                               )
                             : Row(
                                 children: [
