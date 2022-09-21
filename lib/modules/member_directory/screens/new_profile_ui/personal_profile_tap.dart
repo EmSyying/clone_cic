@@ -38,7 +38,9 @@ class PersonalProfileTap extends StatelessWidget {
                 const EdgeInsets.only(right: 20, top: 10, bottom: 20, left: 20),
             child: description == '' || description == null
                 ? CustomEmptyState(
-                    title: 'No Description Yet!',
+                    title: isDirectory == false
+                        ? 'No Description Yet!'
+                        : 'No Description',
                     description: isDirectory == false
                         ? 'You have not completed your personal profile yet,please go to edit button to fill in your personal profile.'
                         : '',
