@@ -1,8 +1,10 @@
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
+import 'package:cicgreenloan/modules/guilder/guider_controller.dart';
 import 'package:cicgreenloan/widgets/ut_tradding/sub_min_max.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class CustomMaketTradingCar extends StatelessWidget {
   const CustomMaketTradingCar(
@@ -25,6 +27,7 @@ class CustomMaketTradingCar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final guider = Get.put(CiCGuidController());
     return Container(
       decoration: BoxDecoration(
         boxShadow: const [
@@ -68,6 +71,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                           ),
                         ),
                         Container(
+                          key: guider.utTrading[0].key = GlobalKey(),
                           margin: const EdgeInsets.only(left: 8.0),
                           decoration: BoxDecoration(
                             boxShadow: const [
@@ -104,6 +108,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 5.0),
                       child: Row(
+                        key: guider.utTrading[1].key = GlobalKey(),
                         children: [
                           Text(
                             FormatDate.investmentDateDisplay(
@@ -146,6 +151,7 @@ class CustomMaketTradingCar extends StatelessWidget {
           Row(
             children: [
               Expanded(
+                key: guider.utTrading[2].key = GlobalKey(),
                 child: minimum == null
                     ? const SubMinMax(
                         title: "Minimum",
@@ -162,6 +168,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                 color: const Color(0XFFAFAFAF),
               ),
               Expanded(
+                key: guider.utTrading[3].key = GlobalKey(),
                 child: base == null
                     ? const SubMinMax(
                         title: "Base",
@@ -178,6 +185,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                 color: const Color(0XFFAFAFAF),
               ),
               Expanded(
+                key: guider.utTrading[4].key = GlobalKey(),
                 child: maximum == null
                     ? const SubMinMax(
                         title: "Maximum",
@@ -199,6 +207,7 @@ class CustomMaketTradingCar extends StatelessWidget {
           GestureDetector(
             onTap: onViewLastTrading,
             child: Padding(
+              key: guider.utTrading[5].key = GlobalKey(),
               padding: const EdgeInsets.only(
                   top: 12.0, left: 20.0, bottom: 12.0, right: 20.0),
               child: Row(

@@ -3,8 +3,8 @@ import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:cicgreenloan/modules/ut_trading/screens/cancel_trade.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/match_trade.dart';
-import 'package:cicgreenloan/modules/ut_trading/screens/trading_instruction.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/un_match_trade.dart';
+import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,6 +20,7 @@ import '../../../widgets/ut_tradding/custom_buy_card.dart';
 import '../../../widgets/ut_tradding/custom_fun_card.dart';
 import '../../../widgets/ut_tradding/custom_maket_trading_card.dart';
 import '../../../widgets/ut_tradding/trade_session_shimmer.dart';
+import '../../guilder/guider_controller.dart';
 import '../../member_directory/controllers/customer_controller.dart';
 import '../../member_directory/controllers/member_controller.dart';
 import '../../member_directory/models/member.dart';
@@ -65,6 +66,7 @@ class _UTtradingState extends State<UTtrading>
   int currentIndex = 1;
   DateTime now = DateTime.now();
   final cusController = Get.put(CustomerController());
+  final _guider = Get.put(CiCGuidController());
   final tradingPage = [
     const MatchTrade(),
     const UnMatchTrade(),
@@ -432,13 +434,55 @@ class _UTtradingState extends State<UTtrading>
                               height: 45.0,
                             ),
                             onPressed: () {
-                              FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                  "General Instruction");
-                              onShowCustomCupertinoModalSheet(
-                                  context: context,
-                                  child: const UTManagement(),
-                                  title: 'General Instruction',
-                                  icon: const Icon(Icons.clear));
+                              CiCApp.showOverlays(
+                                context: context,
+                                itemCount: _guider.utTrading.length,
+                                key: (index) => _guider.utTrading[index].key!,
+                                titleBuilder: (index) =>
+                                    _guider.utTrading[index].title ?? '',
+                                descriptionBuilder: (index) =>
+                                    _guider.utTrading[index].description ?? '',
+                                objectSettingBuilder: (index) => index == 0
+                                    ? ObjectSetting(
+                                        edgeInsets:
+                                            const EdgeInsets.only(right: 7),
+                                        paddingSize: const Size(-14, 0),
+                                        radius: BorderRadius.circular(8))
+                                    : index == 0
+                                        ? ObjectSetting(
+                                            edgeInsets:
+                                                const EdgeInsets.only(right: 7),
+                                            paddingSize: const Size(0, -5),
+                                            radius: BorderRadius.circular(8))
+                                        : index == 2 || index == 3 || index == 4
+                                            ? ObjectSetting(
+                                                paddingSize:
+                                                    const Size(-20, 10),
+                                                radius:
+                                                    BorderRadius.circular(8),
+                                              )
+                                            : index == 5
+                                                ? ObjectSetting(
+                                                    paddingSize:
+                                                        const Size(-20, -10),
+                                                  )
+                                                : index == 1
+                                                    ? ObjectSetting(
+                                                        paddingSize:
+                                                            const Size(10, 5),
+                                                      )
+                                                    : ObjectSetting(
+                                                        paddingSize:
+                                                            const Size(0, 0),
+                                                      ),
+                              );
+                              // FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                              //     "General Instruction");
+                              // onShowCustomCupertinoModalSheet(
+                              //     context: context,
+                              //     child: const UTManagement(),
+                              //     title: 'General Instruction',
+                              //     icon: const Icon(Icons.clear));
                             },
                           ),
                           CustomCallCenter(

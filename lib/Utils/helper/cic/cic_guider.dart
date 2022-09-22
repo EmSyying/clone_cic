@@ -632,7 +632,7 @@ class CiCApp {
     required GlobalKey Function(int index) key,
     String Function(int index)? titleBuilder,
     String Function(int index)? descriptionBuilder,
-    ObjectSetting Function(int index)? objectSettingBuilder,
+    ObjectSetting? Function(int index)? objectSettingBuilder,
     OverlaySetting? overlaySetting,
     bool allowSkip = true,
   }) async {

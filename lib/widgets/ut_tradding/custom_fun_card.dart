@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/modules/guilder/guider_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class CustomFunCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final guider = Get.put(CiCGuidController());
     return Container(
       margin: const EdgeInsets.all(5),
       width: MediaQuery.of(context).size.width,
@@ -170,6 +172,7 @@ class CustomFunCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: CustomTradingButton(
+                    key: guider.utTrading[6].key = GlobalKey(),
                     isBuying: true,
                     color: isLoading!
                         ? const Color(0xff75BF72).withAlpha(76)
@@ -184,6 +187,7 @@ class CustomFunCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: CustomTradingButton(
+                    key: guider.utTrading[7].key = GlobalKey(),
                     isBuying: false,
                     title: 'Sell Out',
                     color: isLoading!
