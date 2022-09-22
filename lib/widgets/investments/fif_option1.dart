@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../Utils/chart/custom_circle_chart_1_3.dart';
 import '../../Utils/helper/app_pin_code.dart' as apppincode;
@@ -285,7 +286,7 @@ class _FIFOption1State extends State<FIFOption1> {
             },
           ),
         );
-        //TODO : Can Route here when Product not in MPD-0002
+        //Can Route here when Product not in MPD-0002
 
       }
     } else {
@@ -875,7 +876,10 @@ class _FIFOption1State extends State<FIFOption1> {
     showSaveDraftDialog(
       onDiscard: () {
         fifController.onClearFIF();
+        fifController.clearDeducSelection();
+        fifController.productCode.value == '';
         Navigator.pop(context);
+        context.go('/investment/cic-fixed-fund/invest-more');
       },
       isDisableSaveDraft: true,
       context: context,
