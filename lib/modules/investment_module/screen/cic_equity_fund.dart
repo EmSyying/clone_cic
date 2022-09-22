@@ -5,7 +5,6 @@ import 'package:cicgreenloan/modules/investment_module/model/share_price_model.d
 
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/certificate.dart';
-import 'package:cicgreenloan/utils/helper/color.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,6 +16,7 @@ import '../../../widgets/investments/custom_card.dart';
 import '../../../widgets/investments/equity_fund/subscription_chart.dart';
 import '../../../widgets/investments/equity_fund/trading_chart.dart';
 import '../../../widgets/investments/return_on_investment.dart';
+import '../../guilder/guider_controller.dart';
 
 class CiCEquityFund extends StatefulWidget {
   const CiCEquityFund({Key? key}) : super(key: key);
@@ -32,143 +32,11 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
   var n = NumberFormat('#,###', 'en_US');
   bool isExpandShareSubscribe = false;
   bool isExpandInvestmentReturn = false;
+  final _guidkey = Get.put(CiCGuidController());
 
   ///
   OverlayState? overlayState;
   OverlayEntry? overlayEntry;
-  final key1 = GlobalKey();
-  void showOverlay(BuildContext context, GlobalKey key,
-      {double padding = 10}) async {
-    overlayState = Overlay.of(context);
-    var renderBox = key.currentContext!.findRenderObject() as RenderBox;
-    var size = renderBox.size;
-    var offset = renderBox.localToGlobal(Offset.zero);
-    debugPrint(offset.toString());
-
-    ///handle textposition
-    Offset textOffset = Offset.zero;
-    if (offset.dy < MediaQuery.of(context).size.height / 2) {
-      textOffset =
-          Offset(0, offset.dy + (padding / 2) + size.height + padding + 10);
-      debugPrint('if');
-    } else {
-      textOffset = Offset(0, offset.dy - padding - 50);
-      debugPrint('else');
-    }
-    double _getContentWidth() => MediaQuery.of(context).size.width - 40;
-
-    overlayEntry = OverlayEntry(
-      builder: (context) {
-        return GestureDetector(
-          onTap: () {
-            overlayEntry!.remove();
-          },
-          child: Stack(
-            children: [
-              ColorFiltered(
-                colorFilter: const ColorFilter.mode(
-                  /// Mask layer color
-                  Colors.black54,
-                  BlendMode.srcOut,
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: const BoxDecoration(
-                        /// Any color
-                        color: Colors.white,
-                        backgroundBlendMode: BlendMode.dstOut,
-                      ),
-                    ),
-                    Positioned(
-                      top: offset.dy - padding / 2,
-                      left: offset.dx - padding / 2,
-                      child: Container(
-                        width: size.width + padding,
-                        height: size.height + padding,
-
-                        /// Any color
-
-                        decoration: BoxDecoration(
-                          // shape: BoxShape.circle,
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                left: 20,
-                top: textOffset.dy,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: _getContentWidth(),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 13, horizontal: 15),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Certificate',
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: AppColor.mainColor,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          'Click here to see your certificate and download it. ',
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14,
-                                  ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                elevation: 0.1,
-                                enableFeedback: false,
-                                primary: AppColor.mainColor),
-                            onPressed: () {
-                              overlayEntry!.remove();
-                            },
-                            child: const Text('Done'),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                  top: offset.dy - size.height + padding - 20,
-                  left: offset.dx,
-                  // width: 40,
-                  child: Container(
-                      color: Colors.amber,
-                      child: SvgPicture.asset(
-                          'assets/images/svgfile/arrow_down.svg'))),
-            ],
-          ),
-        );
-      },
-    );
-
-    overlayState!.insert(overlayEntry!);
-  }
 
   List<Evolution> reversList = [];
   final refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -226,6 +94,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                         ),
                         Text(
                           'UT Information',
+                          key: _guidkey.investmentKey[1].key = GlobalKey(),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
@@ -285,7 +154,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                             );
                           },
                           child: Container(
-                            key: key1,
+                            key: _guidkey.investmentKey[2].key = GlobalKey(),
                             alignment: Alignment.center,
                             height: 40.0,
                             width: 40.0,
@@ -434,6 +303,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                     children: [
                                       Text(
                                         'UT Price Evolution',
+                                        key: _guidkey.investmentKey[3].key =
+                                            GlobalKey(),
                                         style: Get.theme.brightness ==
                                                 Brightness.light
                                             ? TextStyle(

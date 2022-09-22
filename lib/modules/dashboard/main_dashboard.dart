@@ -133,14 +133,18 @@ class _MainDashboardState extends State<MainDashboard> {
     await CiCApp.showOverlays(
       context: context,
       allowSkip: allowSkip,
+      //objbuilder : (index)=> Raduis;
       itemCount: _settingCon.appSettingDataList.length,
       titleBuilder: (index) =>
           _settingCon.appSettingDataList[index].guideline!.label ?? '',
       descriptionBuilder: (index) =>
           _settingCon.appSettingDataList[index].guideline!.description ?? '',
       key: (index) => _settingCon.appSettingDataList[index].key,
+      objectSettingBuilder: (index) => ObjectSetting(
+        edgeInsets: EdgeInsets.zero,
+        paddingSize: const Size(-30, -30),
+      ),
       overlaySetting: OverlaySetting(
-          padding: -30,
           duration: const Duration(milliseconds: 200),
           curves: Curves.fastOutSlowIn),
     );

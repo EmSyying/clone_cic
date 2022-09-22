@@ -138,6 +138,7 @@ class _UTsubscriptionChartState extends State<UTsubscriptionChart> {
         FormatToK.convertNumber(int.tryParse(details.text.replaceAll(',', ''))),
         _axisLabelStyle(),
       ),
+      // numberFormat: NumberFormat('#,## UT'),
       maximum: 6000,
       majorTickLines: const MajorTickLines(color: Colors.transparent),
       axisLine: const AxisLine(width: 0),
@@ -164,6 +165,7 @@ class _UTsubscriptionChartState extends State<UTsubscriptionChart> {
         yValueMapper: (_ChartData sales, _) => sales.y,
 
         ///
+
         dataLabelMapper: (data, _) =>
             '${FormatNumber.formatNumberDefualt(data.y).toString().replaceAll('-', '')} UT',
 

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/history_appbar.dart';
+import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,7 @@ import '../../Utils/helper/custom_appbar.dart';
 import '../../Utils/offline_widget.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../../widgets/get_funding/custom_shimmer_contact_history.dart';
+import '../guilder/guider_controller.dart';
 import '../investment_module/controller/investment_controller.dart';
 import '../investment_module/screen/cic_equity_fund.dart';
 import '../investment_module/screen/cic_fixed_income.dart';
@@ -34,6 +36,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final cusController = Get.put(CustomerController());
   final priceController = Get.put(PriceController());
+  final _guidkey = Get.put(CiCGuidController());
 
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
@@ -119,6 +122,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
     super.didChangeDependencies();
   }
+
+  final GlobalKey _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -217,13 +222,17 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             isScrollable: true,
                             indicatorColor: Colors.white,
                             indicatorSize: TabBarIndicatorSize.label,
-                            tabs: const [
+                            tabs: [
                               Tab(
-                                child: Text('CiC EQUITY FUND'),
+                                key: _guidkey.investmentKey[0].key =
+                                    GlobalKey(),
+                                child: const Text('CiC EQUITY FUND'),
                               ),
 
                               Tab(
-                                child: Text('CiC FIXED INCOME FUND'),
+                                key: _guidkey.investmentKey[4].key =
+                                    GlobalKey(),
+                                child: const Text('CiC FIXED INCOME FUND'),
                               )
 
                               // Tab(
@@ -259,41 +268,42 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             isLeading: true,
                             isLogo: false,
                             context: context,
-                            // leading: IconButton(
-                            //   icon: kIsWeb
-                            //       ? Icon(
-                            //           Icons.arrow_back,
-                            //           color:
-                            //               Get.theme.brightness == Brightness.light
-                            //                   ? Colors.white
-                            //                   : Theme.of(context).primaryColor,
-                            //         )
-                            //       : Platform.isAndroid
-                            //           ? Icon(
-                            //               Icons.arrow_back,
-                            //               color: Get.theme.brightness ==
-                            //                       Brightness.light
-                            //                   ? Colors.white
-                            //                   : Theme.of(context).primaryColor,
-                            //             )
-                            //           : Icon(
-                            //               Icons.arrow_back_ios,
-                            //               color: Get.theme.brightness ==
-                            //                       Brightness.light
-                            //                   ? Colors.white
-                            //                   : Theme.of(context).primaryColor,
-                            //             ),
-                            //   onPressed: () {
-                            //     Navigator.pop(context);
-                            //   },
-                            // ),
-                            // automaticallyImplyLeading:
-                            //     widget.isNavigator != null && widget.isNavigator
-                            //         ? true
-                            //         : false,
-                            // centerTitle: false,
                             action: [
                               //  isContract == true
+
+                              GestureDetector(
+                                onTap: () async {
+                                  // await LocalData.storeAppTou('appTour', true);
+                                  CiCApp.showOverlays(
+                                    context: context,
+                                    key: (_) => _guidkey.investmentKey[_].key!,
+                                    objectSettingBuilder: (_) => ObjectSetting(
+                                        edgeInsets: _ == 0 || _ == 4
+                                            ? const EdgeInsets.symmetric(
+                                                horizontal: 10)
+                                            : const EdgeInsets.all(10),
+                                        radius: _ == 2
+                                            ? BorderRadius.circular(50)
+                                            : null,
+                                        paddingSize: _ == 0 || _ == 4
+                                            ? const Size(0, -5)
+                                            : _ == 3
+                                                ? const Size(0, -10)
+                                                : null),
+                                    titleBuilder: (_) =>
+                                        _guidkey.investmentKey[_].title ?? '',
+                                    descriptionBuilder: (_) =>
+                                        _guidkey.investmentKey[_].description ??
+                                        '',
+                                    itemCount: _guidkey.investmentKey.length,
+                                    allowSkip: false,
+                                    overlaySetting: OverlaySetting(),
+                                  );
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/images/demo.svg',
+                                ),
+                              ),
 
                               GestureDetector(
                                 onTap: () async {
