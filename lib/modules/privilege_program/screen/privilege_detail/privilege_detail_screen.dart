@@ -380,41 +380,43 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   },
                                 ),
                                 IconButton(
-                                    icon: SvgPicture.asset(
-                                      'assets/images/privilege/calling.svg',
-                                    ),
-                                    color: AppColor.mainColor,
-                                    onPressed: () {
-                                      showCupertinoModalPopup(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            CupertinoActionSheet(
-                                          actions: priController
-                                              .shopDetailModel.value.contacts!
-                                              .asMap()
-                                              .entries
-                                              .map(
-                                                (e) => cupertinoActionSheet(
-                                                  phone: e.value.phone,
-                                                  mobile: e.value.mobile,
-                                                ),
-                                              )
-                                              .toList(),
-                                          cancelButton:
-                                              CupertinoActionSheetAction(
-                                            child: const Text(
-                                              'Cancel',
-                                              style: TextStyle(
-                                                color: AppColor.mainColor,
+                                  icon: SvgPicture.asset(
+                                    'assets/images/privilege/calling.svg',
+                                  ),
+                                  color: AppColor.mainColor,
+                                  onPressed: () {
+                                    showCupertinoModalPopup(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                     
+                                          CupertinoActionSheet(
+                                        actions: priController
+                                            .shopDetailModel.value.contacts!
+                                            .asMap()
+                                            .entries
+                                            .map(
+                                              (e) => cupertinoActionSheet(
+                                                phone: e.value.phone,
+                                                mobile: e.value.mobile,
                                               ),
+                                            )
+                                            .toList(),
+                                        cancelButton:
+                                            CupertinoActionSheetAction(
+                                          child: const Text(
+                                            'Cancel',
+                                            style: TextStyle(
+                                              color: AppColor.mainColor,
                                             ),
-                                            onPressed: () {
-                                              Navigator.pop(context, 'Cancel');
-                                            },
                                           ),
+                                          onPressed: () {
+                                            Navigator.pop(context, 'Cancel');
+                                          },
                                         ),
-                                      );
-                                    }),
+                                      ),
+                                    );
+                                  },
+                                ),
                                 IconButton(
                                   icon: SvgPicture.asset(
                                     'assets/images/privilege/telegram.svg',
@@ -427,7 +429,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                                 .telegramLink ??
                                             '',
                                       ),
-                                      mode: LaunchMode.platformDefault,
+                                      mode: LaunchMode.externalApplication,
                                     );
                                   },
                                 ),
@@ -450,19 +452,29 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
         verticalDirection: VerticalDirection.up,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            phone ?? '',
-            style: Theme.of(context).textTheme.headline3!.copyWith(
-                  fontWeight: FontWeight.w200,
-                  fontSize: 20.0,
-                ),
+          GestureDetector(
+            onTap: () {
+              launchUrl(Uri.parse('tel://$phone'));
+            },
+            child: Text(
+              phone ?? '',
+              style: Theme.of(context).textTheme.headline3!.copyWith(
+                    fontWeight: FontWeight.w200,
+                    fontSize: 20.0,
+                  ),
+            ),
           ),
-          Text(
-            mobile ?? '',
-            style: Theme.of(context).textTheme.headline3!.copyWith(
-                  fontWeight: FontWeight.w200,
-                  fontSize: 20.0,
-                ),
+          GestureDetector(
+            onTap: () {
+              launchUrl(Uri.parse('tel://$mobile'));
+            },
+            child: Text(
+              mobile ?? '',
+              style: Theme.of(context).textTheme.headline3!.copyWith(
+                    fontWeight: FontWeight.w200,
+                    fontSize: 20.0,
+                  ),
+            ),
           ),
         ],
       ),
