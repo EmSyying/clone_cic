@@ -121,8 +121,8 @@ class _Step1DebtState extends State<Step1Debt> {
         debtCon.isValidatePermenantAddress.value == true &&
         debtCon.isValidateFullAddress.value == true) {
       FocusScope.of(context).unfocus();
-      context.push(
-          "/get-funding/debt-investment/debt-step2?id=${widget.id}&&step=${widget.step}");
+      context
+          .push("/get_funding/debt-step2?id=${widget.id}&&step=${widget.step}");
     }
   }
 
@@ -183,7 +183,7 @@ class _Step1DebtState extends State<Step1Debt> {
         // reqCon.purpose.value = Purpose();
 
         if (customer.customerName!.isNotEmpty) {
-          debtCon.fullName.value = customer.customerLatinName!;
+          debtCon.fullName.value = cusCon.customer.value.fullName!;
         }
         if (customer.customerDateOfBirth != '') {
           debtCon.dateOfBirth.value = customer.customerDateOfBirth!;
@@ -375,8 +375,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                     },
                                     isCancel: true,
                                     onDiscard: () {
-                                      context
-                                          .push("/get-funding/debt-investment");
+                                      context.push("/get_funding");
                                     },
                                   );
                                 },

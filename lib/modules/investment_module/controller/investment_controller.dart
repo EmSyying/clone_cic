@@ -805,7 +805,7 @@ class PriceController extends GetxController {
               onPressedButton: () {
                 onClearFIF();
                 clearDeducSelection();
-                context.go('/investment/cic-fixed-fund');
+                context.go('/investment');
                 Future.delayed(const Duration(seconds: 1), () {
                   getFIFApplication();
                   fetchFIFPending();
@@ -1385,7 +1385,7 @@ class PriceController extends GetxController {
               onPressedButton: () {
                 onClearFIF();
                 clearDeducSelection();
-                context.go('/investment/cic-fixed-fund');
+                context.go('/investment');
                 Future.delayed(const Duration(seconds: 1), () {
                   getFIFApplication();
                   fetchFIFPending();

@@ -112,13 +112,15 @@ class _Step3DebtState extends State<Step3Debt> {
         debtCon.ownerName.value != "" &&
         debtCon.productSevice.value != "") {
       FocusScope.of(context).unfocus();
-      context.push(
-          "/get-funding/debt-investment/debt-step4?id=${widget.id}&&step=${widget.step}");
+      context
+          .push("/get_funding/debt-step4?id=${widget.id}&&step=${widget.step}");
     }
   }
 
   @override
   void initState() {
+    memberCon.fetchCompanyMember(
+        id: cutomerController.customer.value.customerId);
     super.initState();
     if (memberCon.companyDataList.isNotEmpty) {
       memberCon.addCompany.value = false;
@@ -508,8 +510,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 },
                                           onDiscard: () {
                                             setValidate();
-                                            context.go(
-                                                "/get-funding/debt-investment");
+                                            context.go("/get_funding");
                                           });
                                     },
                               icon: Icon(

@@ -241,7 +241,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 onPressed: () {
                   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
                   context.push(
-                      '/investment/cic-fixed-fund/about-fif?title=About FIF&url=${fifController.investmentModel.value.aboutFif}');
+                      '/investment/about-fif?title=About FIF&url=${fifController.investmentModel.value.aboutFif}');
                 },
               ),
             ),
@@ -261,7 +261,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   fifController.isNewBank.value = true;
                   fifController.textReceivingAccount.value = "";
                   fifController.clearDeducSelection();
-                  context.push('/investment/cic-fixed-fund/invest-more');
+                  context.push('/investment/invest-more');
                   // context.router.push(FIFDeucSelectionRouter());
                 },
               ),

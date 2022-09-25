@@ -879,7 +879,7 @@ class _FIFOption1State extends State<FIFOption1> {
         fifController.clearDeducSelection();
         fifController.productCode.value == '';
         Navigator.pop(context);
-        context.go('/investment/cic-fixed-fund/invest-more');
+        context.go('/investment/invest-more');
       },
       isDisableSaveDraft: true,
       context: context,

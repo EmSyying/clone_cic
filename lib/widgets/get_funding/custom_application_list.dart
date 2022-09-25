@@ -61,9 +61,9 @@ class ApplicationList extends StatelessWidget {
                             if (getFundingModel.status != "Draft") {
                               isEquity!
                                   ? context.go(
-                                      "/get-funding/equity-investment/preview-equity?id=${getFundingModel.id}")
+                                      "/get_funding/preview-equity?id=${getFundingModel.id}")
                                   : context.go(
-                                      "/get-funding/debt-investment/preview-debt?id=${getFundingModel.id}");
+                                      "/get_funding/preview-debt?id=${getFundingModel.id}");
                             } else {
                               null;
                             }
@@ -78,29 +78,29 @@ class ApplicationList extends StatelessWidget {
                               isEquity!
                                   ? getFundingModel.step == 1
                                       ? context.go(
-                                          "/get-funding/equity-investment/equity-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                          "/get_funding/equity-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                       : getFundingModel.step == 2
                                           ? context.go(
-                                              "/get-funding/equity-investment/equity-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                              "/get_funding/equity-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                           : getFundingModel.step == 3
                                               ? context.go(
-                                                  "/get-funding/equity-investment/equity-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                  "/get_funding/equity-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                               : context.go(
-                                                  "/get-funding/equity-investment/preview-equity?id=${getFundingModel.id}")
+                                                  "/get_funding/preview-equity?id=${getFundingModel.id}")
                                   : getFundingModel.step == 1
                                       ? context.go(
-                                          "/get-funding/debt-investment/debt-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                          "/get_funding/debt-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                       : getFundingModel.step == 2
                                           ? context.go(
-                                              "/get-funding/debt-investment/debt-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                              "/get_funding/debt-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                           : getFundingModel.step == 3
                                               ? context.go(
-                                                  "/get-funding/debt-investment/debt-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                  "/get_funding/debt-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                               : getFundingModel.step == 4
                                                   ? context.go(
-                                                      "/get-funding/debt-investment/debt-step4?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                      "/get_funding/debt-step4?id=${getFundingModel.id}&&step=${getFundingModel.step}")
                                                   : context.go(
-                                                      "/get-funding/debt-investment/preview-debt?id=${getFundingModel.id}");
+                                                      "/get_funding/preview-debt?id=${getFundingModel.id}");
                             },
                             onTapDelete: () {
                               if (isEquity == true) {

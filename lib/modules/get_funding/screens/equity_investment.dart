@@ -180,8 +180,8 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                         onPressed: () {
                                           equityController.resetData();
                                           debugPrint("Go to step 1 by create");
-                                          context.go(
-                                              "/get-funding/equity-investment/equity-step1");
+                                          context
+                                              .go("/get_funding/equity-step1");
                                         },
                                         isDisable: false,
                                         isOutline: false,
@@ -316,7 +316,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
             onPressed: () {
               equityController.resetData();
 
-              context.go("/get-funding/equity-investment/equity-step1");
+              context.go("/get_funding/equity-step1");
             },
             title: 'Get Equity Invesment',
           ),

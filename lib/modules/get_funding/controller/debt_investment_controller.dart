@@ -303,7 +303,7 @@ class DebtInvestmentController extends GetxController {
                 ? "Save debt investment has been saved"
                 : "Your debt investment application request has been submitted succesfuly",
           );
-          context!.go("/get-funding/debt-investment");
+          context!.go("/get_funding");
           Future.delayed(const Duration(milliseconds: 985), () {
             fetchApplicationCard(page: 1);
           });
@@ -492,7 +492,7 @@ class DebtInvestmentController extends GetxController {
 
           isAgree.value = false;
           isAgree.refresh();
-          context!.go("/get-funding/debt-investment");
+          context!.go("/get_funding");
           Future.delayed(const Duration(milliseconds: 985), () {
             fetchApplicationCard(page: 1);
           });

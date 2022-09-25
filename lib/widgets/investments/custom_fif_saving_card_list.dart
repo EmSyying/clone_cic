@@ -69,10 +69,9 @@ class CustomSavingCardList extends StatelessWidget {
                         (value) {
                           value.isNotEmpty && value.length == 1
                               ? context.push(
-                                  '/investment/cic-fixed-fund/view-agreement?title=${value[0].title ?? ''}&title=${value[0].url}',
+                                  '/investment/view-agreement?title=${value[0].title ?? ''}&title=${value[0].url}',
                                 )
-                              : context.push(
-                                  '/investment/cic-fixed-fund/view-agreement-list',
+                              : context.push('/investment/view-agreement-list',
                                   extra: value);
                         },
                       );
@@ -108,16 +107,15 @@ class CustomSavingCardList extends StatelessWidget {
                         code: e.value.code,
                         accountName: e.value.accountName,
                       );
-                      context.push('/investment/cic-fixed-fund/saving-detail',
-                          extra: {
-                            "paddings": const EdgeInsets.only(
-                                top: 50, left: 10, right: 0),
-                            "index": e.key,
-                            "hide": !e.value.hide!,
-                            "id": e.value.id,
-                            "code": e.value.code,
-                            "accountName": e.value.accountName
-                          });
+                      context.push('/investment/saving-detail', extra: {
+                        "paddings":
+                            const EdgeInsets.only(top: 50, left: 10, right: 0),
+                        "index": e.key,
+                        "hide": !e.value.hide!,
+                        "id": e.value.id,
+                        "code": e.value.code,
+                        "accountName": e.value.accountName
+                      });
                       fifController.onclearWithdraw();
                     },
                     ontapHide: () async {
@@ -284,7 +282,7 @@ class CustomSavingCardList extends StatelessWidget {
                         fifController.selected.value = "";
                         // fifController.fetchConfirmDetail(e.value.id);
                         context.push(
-                            '/investment/cic-fixed-fund/deposite-screen/${e.value.id!.toInt()}');
+                            '/investment/deposite-screen/${e.value.id!.toInt()}');
                       },
                     );
                   }).toList(),
@@ -405,7 +403,7 @@ class CustomSavingCardList extends StatelessWidget {
                                 'edit fif application');
                             Navigator.pop(context);
                             context.push(
-                                '/investment/cic-fixed-fund/edit-application/${e.value.id}');
+                                '/investment/edit-application/${e.value.id}');
                           },
                           pendingStyle: true,
                           sheetColor: Colors.transparent,
@@ -416,8 +414,7 @@ class CustomSavingCardList extends StatelessWidget {
                             FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                 'pending fif detail');
 
-                            context.push(
-                                '/investment/cic-fixed-fund/bullet-payment-detail',
+                            context.push('/investment/bullet-payment-detail',
                                 extra: {
                                   "isAnnullyRate": true,
                                   "titles": "Detail Summary",
@@ -500,16 +497,15 @@ class CustomSavingCardList extends StatelessWidget {
                             'account fif detail');
                         fifController.investmentId.value = e.value.id!.toInt();
 
-                        context.push('/investment/cic-fixed-fund/saving-detail',
-                            extra: {
-                              "paddings": const EdgeInsets.only(
-                                  top: 50, left: 10, right: 0),
-                              "index": e.key,
-                              "hide": !e.value.hide!,
-                              "id": e.value.id,
-                              "code": e.value.code,
-                              "accountName": e.value.accountName
-                            });
+                        context.push('/investment/saving-detail', extra: {
+                          "paddings": const EdgeInsets.only(
+                              top: 50, left: 10, right: 0),
+                          "index": e.key,
+                          "hide": !e.value.hide!,
+                          "id": e.value.id,
+                          "code": e.value.code,
+                          "accountName": e.value.accountName
+                        });
                         fifController.onclearWithdraw();
                       },
                       ontapHide: () async {

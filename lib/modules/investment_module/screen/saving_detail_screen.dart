@@ -169,7 +169,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                     Navigator.pop(context);
                                     if (widget.fromPage == null) {
                                       context.push(
-                                          '/investment/cic-fixed-fund/saving-detail/renew-contract',
+                                          '/investment/saving-detail/renew-contract',
                                           extra: {
                                             "paddings": const EdgeInsets.only(
                                                 top: 50, left: 10, right: 0),

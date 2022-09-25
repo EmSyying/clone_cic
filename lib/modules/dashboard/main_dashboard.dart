@@ -765,7 +765,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                   .setCurrentScreenName(
                                                       value.label!);
                                               debugPrint(
-                                                  "routed:${value.route!}");
+                                                  "routed12:${value.route!}");
                                               context.go("/${value.route}");
                                             },
                                       icon: value.icon,

@@ -301,7 +301,7 @@ class EquityInvestmentController extends GetxController {
             description:
                 "Your equity investment application request has been submited",
           );
-          context.go("/get-funding/equity-investment");
+          context.go("/get_funding");
           Future.delayed(const Duration(milliseconds: 985), () {
             fetchOnEquityApplicationList(1);
           });

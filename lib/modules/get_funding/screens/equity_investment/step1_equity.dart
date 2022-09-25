@@ -95,7 +95,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
         equityController.useOfFund.value != '' &&
         equityController.intendedDate.value != '') {
       context.push(
-          "/get-funding/equity-investment/equity-step2?id=${widget.id}&&step=${widget.step}");
+          "/get_funding/equity-step2?id=${widget.id}&&step=${widget.step}");
     }
   }
 
@@ -182,8 +182,7 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                   onDiscard: () {
                                                     equityController
                                                         .resetData();
-                                                    context.go(
-                                                        "/get-funding/equity-investment");
+                                                    context.go("/get_funding");
                                                   });
                                             },
                                   icon: const Icon(

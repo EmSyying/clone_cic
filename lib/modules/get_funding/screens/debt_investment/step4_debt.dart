@@ -40,7 +40,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
   final DebtInvestmentController debtCon = Get.put(DebtInvestmentController());
 
   void _onValidate() {
-    context.push("/get-funding/debt-investment/preview-debt?id=${widget.id}");
+    context.push("/get_funding/preview-debt?id=${widget.id}");
   }
 
   @override
@@ -309,7 +309,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                         },
                                   onDiscard: () {
                                     debtCon.onResetData();
-                                    context.go("/get-funding/debt-investment");
+                                    context.go("/get_funding");
                                   },
                                 );
                               },

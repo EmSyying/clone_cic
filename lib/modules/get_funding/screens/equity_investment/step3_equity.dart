@@ -160,8 +160,7 @@ class _Step3EquityState extends State<Step3Equity> {
 
     if (equityController.numberOfBoardMembers.value != 0 &&
         equityController.numberOfShareHolders.value != 0) {
-      context
-          .go("/get-funding/equity-investment/preview-equity?id=${widget.id}");
+      context.go("/get_funding/preview-equity?id=${widget.id}");
     }
   }
 
@@ -320,8 +319,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 isCancel: true,
                                                 onDiscard: () {
                                                   equityController.resetData();
-                                                  context.go(
-                                                      '/get-funding/equity-investment');
+                                                  context.go('/get_funding');
                                                 });
                                           },
                                 icon: Icon(

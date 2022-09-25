@@ -63,7 +63,7 @@ final router = GoRouter(
         builder: (context, state) => const PaymentSchedule(),
         routes: [
           GoRoute(
-            path: 'investment/:tabName',
+            path: 'investment',
             name: 'Investment',
             builder: (context, state) => Dashboard(
               tabName: state.params['tabName'],
@@ -426,7 +426,7 @@ final router = GoRouter(
                     tapName: state.queryParams['tapName'],
                   )),
           GoRoute(
-              path: 'get-funding/:tabName',
+              path: 'get_funding',
               name: 'GetFunding',
               builder: (context, state) => HomePage(
                     tabName: state.params['tabName'],
@@ -521,7 +521,7 @@ final router = GoRouter(
                 ),
               ]),
           GoRoute(
-              path: 'ut-trading',
+              path: 'ut_trading',
               name: 'UT-Trading',
               builder: (context, state) => UTtrading(
                     tradeId: int.tryParse(
@@ -602,10 +602,10 @@ final router = GoRouter(
               name: 'Directory',
               builder: (context, state) => const Directory()),
           GoRoute(
-              path: 'report/:id',
+              path: 'report',
               name: 'Report',
               builder: (context, state) => Report(
-                    currentTabIndex: int.tryParse(state.params['id']!),
+                    currentTabIndex: 0,
                   ),
               routes: [
                 GoRoute(

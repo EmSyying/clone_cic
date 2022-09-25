@@ -133,7 +133,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
   @override
   void didChangeDependencies() {
     final router = GoRouter.of(context);
-    if (router.location.contains('equity-investment')) {
+    if (router.location.contains('get_funding')) {
       debtCon.tapcurrentIndex.value = 0;
     } else {
       debtCon.tapcurrentIndex.value = 1;

@@ -114,7 +114,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     final router = GoRouter.of(context);
-    if (router.location.contains('cic-equity-fund')) {
+    if (router.location.contains('investment')) {
       priceController.tabController.index = 0;
     } else {
       priceController.tabController.index = 1;

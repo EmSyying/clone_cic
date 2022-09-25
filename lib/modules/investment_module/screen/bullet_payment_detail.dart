@@ -355,8 +355,8 @@ class BulletPaymentDetail extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.push(
-                          '/investment/cic-fixed-fund/view-contract-term?fromPage=FIF');
+                      context
+                          .push('/investment/view-contract-term?fromPage=FIF');
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5.0),

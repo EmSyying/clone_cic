@@ -103,7 +103,7 @@ class _Step2DebtState extends State<Step2Debt> {
           debtCon.isValidateTermAmount.value == false) {
         FocusScope.of(context).unfocus();
         context.push(
-            "/get-funding/debt-investment/debt-step3?id=${widget.id}&&step=${widget.step}");
+            "/get_funding/debt-step3?id=${widget.id}&&step=${widget.step}");
       }
     }
   }
@@ -393,8 +393,7 @@ class _Step2DebtState extends State<Step2Debt> {
                                         },
                                         onDiscard: () {
                                           setValidate();
-                                          context.go(
-                                              "/get-funding/debt-investment");
+                                          context.go("/get_funding");
                                         },
                                       );
                                     },

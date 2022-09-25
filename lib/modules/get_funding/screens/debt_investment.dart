@@ -170,7 +170,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                             onPressed: () {
                                               debtCon.onResetData();
                                               context.push(
-                                                  "/get-funding/debt-investment/debt-step1");
+                                                  "/get_funding/debt-step1");
                                             },
                                             title: 'Get Debt Invesment',
                                           ),
@@ -276,7 +276,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                                 debtCon.applicationDetail.value
                                                     .status = "";
                                                 context.push(
-                                                    "/get-funding/debt-investment/debt-step1");
+                                                    "/get_funding/debt-step1");
                                               },
                                               isDisable: false,
                                               isOutline: false,

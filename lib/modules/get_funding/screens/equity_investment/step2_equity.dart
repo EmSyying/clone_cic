@@ -33,9 +33,7 @@ class Step2Equity extends StatefulWidget {
   final int? id;
 
   final int? step;
-  const Step2Equity(
-      {Key? key, this.id, this.step})
-      : super(key: key);
+  const Step2Equity({Key? key, this.id, this.step}) : super(key: key);
   @override
   State<Step2Equity> createState() => _Step2EquityState();
 }
@@ -117,8 +115,8 @@ class _Step2EquityState extends State<Step2Equity> {
         equityController.purposeOfFund.value =
             optionController.optionData.value.riaseuseoffund![0].id!;
       }
-      context.go(
-          "/get-funding/equity-investment/equity-step3?id=${widget.id}&&step=${widget.step}");
+      context
+          .go("/get_funding/equity-step3?id=${widget.id}&&step=${widget.step}");
     }
   }
 
@@ -434,7 +432,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                                         equityController
                                                             .resetData();
                                                         context.go(
-                                                            '/get-funding/equity-investment');
+                                                            '/get_funding');
                                                       });
                                                 },
                                       icon: Icon(

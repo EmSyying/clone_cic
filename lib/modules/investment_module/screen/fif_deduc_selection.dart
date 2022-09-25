@@ -221,7 +221,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                             : CustomButton(
                                 onPressed: () {
                                   context.push(
-                                    '/investment/cic-fixed-fund/invest-more/fif-step',
+                                    '/investment/invest-more/fif-step',
                                     extra: {
                                       "id": widget.id,
                                       "options": deducCon
