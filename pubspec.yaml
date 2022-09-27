@@ -42,7 +42,7 @@ dependencies:
   dotted_decoration: ^2.0.0
   equatable: ^2.0.3
   expandable_text: ^2.2.0
-  file_picker: ^4.5.1
+  file_picker: ^5.2.0+1
   firebase_analytics: ^9.3.0
   firebase_core: ^1.20.0
   firebase_core_web: ^1.2.0
@@ -90,7 +90,7 @@ dependencies:
   modal_bottom_sheet: ^2.0.0
   new_version: ^0.3.0
   number_display: ^3.0.0
-  open_file: ^3.2.1
+  open_filex: ^4.1.1
   page_view_dot_indicator: ^2.0.0
   passcode_screen: ^2.0.0
   path: ^1.8.0

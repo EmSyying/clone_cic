@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:open_filex/open_filex.dart';
 // import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -154,7 +154,8 @@ class _PDFViewerState extends State<PDFViewer> {
       setState(() {
         isloadingfile = false;
       });
-      OpenFile.open("${directory!.path}/$fileName");
+
+      OpenFilex.open("${directory!.path}/$fileName");
     }
     return false;
   }
