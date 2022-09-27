@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/modules/event_module/screen/event.dart';
 import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
 import 'package:cicgreenloan/modules/google_map_module/google_map.dart';
+import 'package:cicgreenloan/modules/wallet/screen/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -798,6 +799,10 @@ final router = GoRouter(
 
           //end route privilege=========
         ],
+      ),
+      GoRoute(
+        path: '/wallet',
+        builder: (_, state) => const WalletScreen(),
       ),
       GoRoute(
         path: '/splashscreen',

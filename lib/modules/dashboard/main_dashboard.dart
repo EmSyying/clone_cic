@@ -426,9 +426,14 @@ class _MainDashboardState extends State<MainDashboard> {
               centerTitle: false,
               title: Row(
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/svgfile/Logocic.svg',
-                    height: 27,
+                  GestureDetector(
+                    onTap: () {
+                      context.push('/wallet');
+                    },
+                    child: SvgPicture.asset(
+                      'assets/images/svgfile/Logocic.svg',
+                      height: 27,
+                    ),
                   ),
                   const SizedBox(
                     width: 10,
