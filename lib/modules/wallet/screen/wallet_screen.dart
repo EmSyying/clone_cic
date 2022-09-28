@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/modules/wallet/screen/mma_deposit_card.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,7 +10,6 @@ import '../../../Utils/helper/firebase_analytics.dart';
 import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
 import '../../bonus/screens/income_transaction.dart';
-import 'deposit_screen.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({Key? key}) : super(key: key);
@@ -125,13 +125,20 @@ class _WalletScreenState extends State<WalletScreen>
                                 _operationButton(
                                   context,
                                   ontap: () {
-                                    FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                        'MMA Deposit');
+                                    // FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                    //     'MMA Deposit');
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         const DepositScreen(),
+                                    //   ),
+                                    // );
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const DepositScreen(),
+                                            const MMADepositCard(),
                                       ),
                                     );
                                   },
