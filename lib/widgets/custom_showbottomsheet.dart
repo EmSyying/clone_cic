@@ -38,9 +38,7 @@ onShowBottomSheet({
               // heightFactor: 20,
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: isHeight != null
-                    ? MediaQuery.of(context).size.height * 0.9
-                    : isHeight,
+                height: isHeight ?? MediaQuery.of(context).size.height * 0.9,
                 child: SingleChildScrollView(
                   physics: isscroll!
                       ? const ScrollPhysics()
@@ -122,9 +120,7 @@ onShowBottomSheet({
               // heightFactor: 20,
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: isHeight != null
-                    ? MediaQuery.of(context).size.height * 0.9
-                    : isHeight,
+                height: isHeight ?? MediaQuery.of(context).size.height * 0.9,
                 child: SingleChildScrollView(
                   physics: isscroll!
                       ? const ScrollPhysics()

@@ -49,6 +49,7 @@ _$_FiFApplicationDetailModel _$$_FiFApplicationDetailModelFromJson(
       paymentProgressBar: json['payment_progress_bar'] as num?,
       currencyCode: json['currency_code'] as String?,
       originalCurrentPrincipal: json['original_current_principal'] as String?,
+      autoRenewal: json['auto_renewal'] as String?,
       schedule: (json['schedule'] as List<dynamic>?)
           ?.map((e) => ScheduleModelList.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -98,6 +99,7 @@ Map<String, dynamic> _$$_FiFApplicationDetailModelToJson(
       'payment_progress_bar': instance.paymentProgressBar,
       'currency_code': instance.currencyCode,
       'original_current_principal': instance.originalCurrentPrincipal,
+      'auto_renewal': instance.autoRenewal,
       'schedule': instance.schedule,
       'withdrawal_notice': instance.withdrawalNotice,
     };

@@ -17,6 +17,7 @@ class CustomDetailSummery extends StatelessWidget {
     this.investPayment,
     this.durationPeriod,
     this.maturityInstruction,
+    this.accountBank,
   }) : super(key: key);
   final String? investDate;
   final String? firstpaymentDate;
@@ -26,6 +27,7 @@ class CustomDetailSummery extends StatelessWidget {
   final num? investPayment;
   final String? durationPeriod;
   final String? maturityInstruction;
+  final String? accountBank;
   @override
   Widget build(BuildContext context) {
     final fifController = Get.put(PriceController());
@@ -152,6 +154,32 @@ class CustomDetailSummery extends StatelessWidget {
                                   fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                       ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Coupon Receiving Account',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: 14),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        '$accountBank',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontSize: 12, fontWeight: FontWeight.w700),
+                      ),
                     ),
                   ],
                 ),

@@ -12,7 +12,9 @@ import '../../../../Utils/helper/container_partern.dart';
 
 class CustomChangeAccountBank extends StatelessWidget {
   final bool? isFiF;
-  CustomChangeAccountBank({Key? key, this.isFiF = false}) : super(key: key);
+  final Widget? button;
+  CustomChangeAccountBank({Key? key, this.isFiF = false, this.button})
+      : super(key: key);
   final List dropDownList = ["ABA Bank", "ACELEDA Bank"];
 
   final newCashOutCon = Get.put(BonusController());
@@ -50,7 +52,7 @@ class CustomChangeAccountBank extends StatelessWidget {
 
     return Obx(
       () => Container(
-        padding: const EdgeInsets.only(bottom: 30),
+        padding: const EdgeInsets.only(bottom: 20),
         height: MediaQuery.of(context).size.height / 2 +
             MediaQuery.of(context).viewInsets.bottom,
         child: Column(children: [
@@ -60,23 +62,29 @@ class CustomChangeAccountBank extends StatelessWidget {
             width: 50,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderRaduis),
-                color: Colors.grey),
+                color: Colors.grey[400]),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.close)),
-              const Spacer(),
-              const Padding(
-                padding: EdgeInsets.only(right: 40),
-                child: Text('Add new account'),
-              ),
-              const Spacer(),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.black,
+                    )),
+                const Spacer(),
+                const Padding(
+                  padding: EdgeInsets.only(right: 40),
+                  child: Text('Add new account'),
+                ),
+                const Spacer(),
+              ],
+            ),
           ),
           const Padding(
             padding: EdgeInsets.only(left: 20, right: 20),
@@ -192,19 +200,20 @@ class CustomChangeAccountBank extends StatelessWidget {
                         Padding(
                             padding:
                                 const EdgeInsets.only(right: 20, left: 20.0),
-                            child: CustomButton(
-                              onPressed: () {
-                                newCashOutCon.accountNumberController.text =
-                                    newCashOutCon.accountNumber.value;
+                            child: button ??
+                                CustomButton(
+                                  onPressed: () {
+                                    newCashOutCon.accountNumberController.text =
+                                        newCashOutCon.accountNumber.value;
 
-                                newCashOutCon.accountNameController.text =
-                                    newCashOutCon.accountName.value;
-                                isValidate();
-                              },
-                              title: 'Save',
-                              isOutline: false,
-                              isDisable: newCashOutCon.isCreateBank.value,
-                            ))
+                                    newCashOutCon.accountNameController.text =
+                                        newCashOutCon.accountName.value;
+                                    isValidate();
+                                  },
+                                  title: 'Save',
+                                  isOutline: false,
+                                  isDisable: newCashOutCon.isCreateBank.value,
+                                ))
                       ],
                     ),
                   ),

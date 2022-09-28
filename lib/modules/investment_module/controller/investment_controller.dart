@@ -1014,6 +1014,26 @@ class PriceController extends GetxController {
       }
     });
   }*/
+//auto renewal
+  final isLoadingAutoRenew = false.obs;
+  Future<void> onAutoRenew(num? id, String? autoRenew) async {
+    isLoadingAutoRenew(true);
+    await apiBaseHelper.onNetworkRequesting(
+        methode: METHODE.post,
+        isAuthorize: true,
+        url: 'fif/change/auto-renewal',
+        body: {
+          "fif_id": id,
+          "auto_renewal": autoRenew,
+        }).then((res) {
+      debugPrint('res=====:$res');
+      fetchFIFAccountDetail(id);
+      isLoadingAutoRenew(false);
+    }).onError((ErrorModel error, stackTrace) {
+      debugPrint('res=====---:${error.bodyString}');
+      isLoadingAutoRenew(false);
+    });
+  }
 
   //  Submit Preview renew
   final investmentId = 0.obs;

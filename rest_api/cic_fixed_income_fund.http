@@ -1,12 +1,12 @@
 @baseUrl = https://cicstaging.z1central.com/api/
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiYTBmMjcwY2ZmYmIxMzE4NjlkZWU5NDgzZDZhODVmYTI5NjkyOTUzZmQwZmI5MTYwNzc1ZWRjYjk3MjMwMmRjODAyNTA5MzYwYTNlZWE5NDgiLCJpYXQiOjE2NjE3NDU0OTQuNzk4MSwibmJmIjoxNjYxNzQ1NDk0Ljc5ODEwMiwiZXhwIjoxNjkzMjgxNDk0Ljc4ODM4LCJzdWIiOiIxMCIsInNjb3BlcyI6WyIqIl19.m4oXNo63fsB3YElnBdE6jZtJtIF371JyKhT8-FMzxVaE_rULi9NoARBrvPzvhhAsngu2SH4xwxaQWh2foxKowfj1AcKkH1KqMSwWeerLjL8fSDXhac_ALjkDxGmjQxqupJl2tuGKDS6PXvkMvBk6lgC79HJL-NRO8VI7LqjawPKbxbAA3iTvsLHDqejYxmDG6wZ8hwVG16T4Ox8cFMyeSK4HYytpPFGiVgNvuGBNpzhSGquLx_yNo8y_wOn5G36tZwgm0P9FxvlXntVQzqUmx3tWeI8M6aoNeAOhZatFuG0SjgdyOgGxXArB2dcKTLlbYznuASAPs3KC0fBChpC05sZuO1SSYzNCpPxhmYEWGqcASG7-LceBf0pKjbw5kHkeOuS9X96XH5XM-Xr2w0d2fMyJZHVyBoSliM6wDtmHCEHSSPGZQtybi4Kn2UJNYolzGxkyPv6mTNgXXI9Q5Nhx_vfDOVWhoRTuaQbcOibdiVdlq8hiBM9dkK9QMcvj8eyEMxzD6I49GZfI62WwesUh69tAV6Y_BP_mJrKtwhX718V0zuJfEgbkxJtZ7k8KvxrP2Y9WJIAt9QrMwBwSwZwMNBtlKDynJ3vyoouKGlZIoQ9xSm5DpgANfXB66FVLTh1YHMM0lP2eABkYNxQ9pxeInvZZHGBYYlz4bqLJdyRJZkI
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNjRlZTk3MzQ3OGE0ODQ4M2FlOTFhNDc1YWQyYjUxMzc2YTBkODZmMWY5OWE1Y2MxYzAzNTNlMjBkZDFkNWMxYTI1ZWFhOTQ5NGU3ZWNjZWEiLCJpYXQiOjE2NjM3NTMwMzkuNzQ4MDgyLCJuYmYiOjE2NjM3NTMwMzkuNzQ4MDg5LCJleHAiOjE2OTUyODkwMzkuNzM2MDI5LCJzdWIiOiIxMSIsInNjb3BlcyI6WyIqIl19.Ys8yq-LAeZasyJXtcMekekCsbo9XrRYVLF-cVfJ1n5asCEYDnQI0e5zC0Ahf-oCRKzgA8fPFHCrK2UHREt5sMgrsgJCGEndcAcM-qtveHBQF9mDuorg_l8-Vja6L6oIngScmQtMLEfv8sX_ai0BaSmqN3ytV-apFBCbvTXUSgJzXWVgwmPckGJUtUaNJOyKtrLM1xUUgx_m-sCLBRxL_EY0zMJ8WrUP5MAZwusQCZU0kjB9jq70yKmbygX3N4BakztnvLbSVx1Kei6bqM-UbAwPYrM2RqJUt7ctWrAYVynziYsPH9PBqK7p84v5OcCFvF7EEMBOV4Nc7-_AnJsLa7Baw5q-_m8hvS35X15ZVLpYpyX9ac7NtDkeAN5k9DRWO8lmIthbUPRbbC_9nJOtPdzUY40hVTeedVr-8XmrXJs95xCOocE3EZejgDOem4f1nsq9r-UZZVzoQgh5QdsggOqDTaV-2nyYYprVtbwDvmo0pDV1fnei_bGgOFbC2L82vmIWKbkATBD2wdqJRrXapG_i0Pdl1OLVHon2QrubD7mmDciFkozOz5R7Zu1QO5V5pgiIk6KY9Nv6vqYO49OXxSPSHBQcRucLjxYHnAWkV2mEAGAjZW4fPWQNJQaCbWDkd-IYuVWIh3wkIICD_UhnZQjGfSycEhrJQVQWi2ghrluI
 POST {{baseUrl}}login
 Content-Type: application/json
 Accept: application/json
 
 {
-    "phone" : "+85510305096",
-    "password" : "Admin@2022"   
+    "phone" : "+85569722942",
+    "password" : "@1234567Y"   
 }
 
 ### FIF Application API
@@ -54,7 +54,7 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ### Account List
-GET {{baseUrl}}v3/fif-account/3
+GET {{baseUrl}}v3/fif-account/18
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -220,3 +220,15 @@ Authorization: Bearer {{token}}
     "duration": 12,
     "deduction_amount": "",
  }
+
+
+### Stop or enable auto renewal contract
+POST {{baseUrl}}v3/fif/change/auto-renewal
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "fif_id": 12,
+    "auto_renewal": "no",
+}

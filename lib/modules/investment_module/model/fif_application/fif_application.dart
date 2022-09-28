@@ -51,6 +51,7 @@ class FiFApplicationDetailModel with _$FiFApplicationDetailModel {
     @JsonKey(name: 'currency_code') String? currencyCode,
     @JsonKey(name: 'original_current_principal')
         String? originalCurrentPrincipal,
+    @JsonKey(name: 'auto_renewal') String? autoRenewal,
     List<ScheduleModelList>? schedule,
     @JsonKey(name: 'withdrawal_notice') List<WithdrawNotice>? withdrawalNotice,
   }) = _FiFApplicationDetailModel;
