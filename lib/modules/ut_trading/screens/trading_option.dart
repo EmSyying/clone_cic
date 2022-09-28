@@ -257,13 +257,13 @@ class _TradingState extends State<Trading> {
                                     false &&
                                 widget.operation == 'sell'
                         ? () => context.go(
-                            "/ut-trading/trading-inquiry/${widget.operation}/inquiry-form")
+                            "/ut_trading/trading-inquiry/${widget.operation}/inquiry-form")
                         : inquiryController.selectTrade.value == 2
                             ? () {
                                 if (memberController.selectedMember.value.id !=
                                     null) {
                                   context.go(
-                                      "/ut-trading/trading-inquiry/${widget.operation}/inquiry-form");
+                                      "/ut_trading/trading-inquiry/${widget.operation}/inquiry-form");
                                 } else {
                                   setState(() {
                                     isValidateMember = false;

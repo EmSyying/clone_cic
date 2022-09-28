@@ -272,7 +272,7 @@ class _UTtradingState extends State<UTtrading>
                                                           debugPrint(
                                                               "View Trading:${inquiryController.viewLastTradingInfo.value.linkTradingInfo}");
                                                           context.push(
-                                                              '/ut-trading/view-last-trading-info?url=${inquiryController.viewLastTradingInfo.value.linkTradingInfo}&&title=View Last Trading Info');
+                                                              '/ut_trading/view-last-trading-info?url=${inquiryController.viewLastTradingInfo.value.linkTradingInfo}&&title=View Last Trading Info');
                                                         },
                                                         fromTime: inquiryController
                                                             .tradingSettingData
@@ -390,7 +390,7 @@ class _UTtradingState extends State<UTtrading>
                                                             .value = Member();
 
                                                         context.go(
-                                                            '/ut-trading/trading-inquiry/buy');
+                                                            '/ut_trading/trading-inquiry/buy');
                                                       },
                                                       onSale: () {
                                                         FirebaseAnalyticsHelper
@@ -401,7 +401,7 @@ class _UTtradingState extends State<UTtrading>
                                                             .value = Member();
 
                                                         context.go(
-                                                            '/ut-trading/trading-inquiry/sell');
+                                                            '/ut_trading/trading-inquiry/sell');
                                                       },
                                                     ),
                                                     const SizedBox(
