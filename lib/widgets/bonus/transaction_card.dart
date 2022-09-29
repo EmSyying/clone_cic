@@ -92,33 +92,36 @@ class CustomTransactionCard extends StatelessWidget {
                           List<Widget> pageList = [
                             SingleChildScrollView(
                               physics: const NeverScrollableScrollPhysics(),
+                              //subscription detail(partially paid)
                               child: CustomSubscriptionDetail(
-                                  onTab: () {
-                                    FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                        'View transaction detail');
-                                    subscribeCon.pageController.animateToPage(1,
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeInOut);
-                                    subscribeCon.currentIndexPage.value = 1;
-                                  },
-                                  subscriptionStatus:
-                                      e.value.view!.subscriptionStatus ?? '',
-                                  investID: e.value.view!.investorId ?? '',
-                                  investName: e.value.view!.investorName ?? '',
-                                  pricePerUT: e.value.view!.pricePerUt,
-                                  totalSubscription:
-                                      e.value.view!.totalSubscriptionCost,
-                                  utSubscribe: e.value.view!.utToSubscribe,
-                                  paymentStatus: e.value.view!.paymentStatus!
-                                      .toUpperCase(),
-                                  unPaidAmount: e.value.view!.unpaidAmount,
-                                  datePayment:
-                                      e.value.view!.lastDateOfPayment ?? '',
-                                  subscriptionUT: e.value.view!.utToSubscribe,
-                                  subscriptiontCost:
-                                      e.value.view!.totalSubscriptionCost,
-                                  remainingPayment: e.value.view!.unpaidAmount),
+                                onTab: () {
+                                  FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                      'View transaction detail');
+                                  subscribeCon.pageController.animateToPage(1,
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.easeInOut);
+                                  subscribeCon.currentIndexPage.value = 1;
+                                },
+                                subscriptionStatus:
+                                    e.value.view!.subscriptionStatus ?? '',
+                                investID: e.value.view!.investorId ?? '',
+                                investName: e.value.view!.investorName ?? '',
+                                pricePerUT: e.value.view!.pricePerUt,
+                                totalSubscription:
+                                    e.value.view!.totalSubscriptionCost,
+                                utSubscribe: e.value.view!.utToSubscribe,
+                                paymentStatus:
+                                    e.value.view!.paymentStatus!.toUpperCase(),
+                                unPaidAmount: e.value.view!.unpaidAmount,
+                                datePayment:
+                                    e.value.view!.lastDateOfPayment ?? '',
+                                subscriptionUT: e.value.view!.utToSubscribe,
+                                subscriptiontCost:
+                                    e.value.view!.totalSubscriptionCost,
+                                remainingPayment: e.value.view!.unpaidAmount,
+                                amountToPay: e.value.view!.payable,
+                              ),
                             ),
                             SingleChildScrollView(
                               physics: const NeverScrollableScrollPhysics(),
@@ -228,24 +231,19 @@ class CustomTransactionCard extends StatelessWidget {
                                   subscribeCon.payable.value = double.parse(
                                       e.value.view!.payable.toString());
                                 }
-
+                                //subscription partially paid
                                 onShowBottomSheet(
                                   isDismissible: true,
+                                  // isHeight:
+                                  //     MediaQuery.of(context).size.height * 0.68,
                                   context: context,
-                                  // title: e.value.view!.transactionId != null
-                                  //     ? 'Transaction ID: ${e.value.view!.transactionId}'
-                                  //     : 'Transaction',
+
                                   icondata: Icons.close,
                                   type: e.value.type,
                                   label: 'Subscription',
                                   time: e.value.date,
                                   // amount: e.value.referalId,
                                   action: Text('ID: ${e.value.transactionId}'),
-                                  // isHeight:
-                                  //     MediaQuery.of(context).size.height * 0.7,
-                                  // title: e.value.referalId != null
-                                  //     ? 'Subscription ID: ${e.value.referalId}'
-                                  //     : 'Subscription',
                                   text: Obx(
                                     () => Text(subscribeCon
                                                 .currentIndexPage.value ==
@@ -351,6 +349,7 @@ class CustomTransactionCard extends StatelessWidget {
                                   ),
                                 );
                               } else {
+                                //bonus detail
                                 if (e.value.type == "bonus") {
                                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                       'View transaction bonus detail');
@@ -377,6 +376,7 @@ class CustomTransactionCard extends StatelessWidget {
                                       utAmount: e.value.view!.utAmount,
                                     ),
                                   );
+                                  //cash out detail
                                 } else if (e.value.type == "cash-out") {
                                   debugPrint(" is cash out");
                                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
@@ -406,6 +406,7 @@ class CustomTransactionCard extends StatelessWidget {
                                       toAccount: e.value.view!.toAccount,
                                     ),
                                   );
+                                  //cast in detail
                                 } else if (e.value.type == "cash-in") {
                                   debugPrint("is cash in");
                                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
@@ -433,7 +434,7 @@ class CustomTransactionCard extends StatelessWidget {
                                     ),
                                   );
                                 } else {
-                                  // status payment
+                                  // status payment detail
                                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                       'View transaction detail');
                                   onShowBottomSheet(

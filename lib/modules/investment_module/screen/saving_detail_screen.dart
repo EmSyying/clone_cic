@@ -281,18 +281,28 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           color: Colors.black,
                                         ),
                                         title: 'Interest Receiving Account',
-                                        widget: Column(
-                                          children: fifCon.paymentDataList
-                                              .asMap()
-                                              .entries
-                                              .map((e) {
-                                            return CustomSelectBank(
-                                              bankName: e.value.bankName,
-                                              accountName: e.value.accounName,
-                                              accountNo: e.value.accountNumber,
-                                              image: e.value.image,
-                                            );
-                                          }).toList(),
+                                        widget: Obx(
+                                          () => Column(
+                                            children: fifCon.paymentDataList
+                                                .asMap()
+                                                .entries
+                                                .map((e) {
+                                              return CustomSelectBank(
+                                                bankName: e.value.bankName,
+                                                accountName: e.value.accounName,
+                                                accountNo:
+                                                    e.value.accountNumber,
+                                                image: e.value.image,
+                                                selectIndex:
+                                                    fifCon.selectBankAcc.value,
+                                                selected: e.key,
+                                                onTap: () {
+                                                  fifCon.selectBankAcc.value =
+                                                      e.key;
+                                                },
+                                              );
+                                            }).toList(),
+                                          ),
                                         ),
                                         bottomBar: GestureDetector(
                                           onTap: () {

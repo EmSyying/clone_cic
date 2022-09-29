@@ -107,6 +107,7 @@ class PriceController extends GetxController {
   final isCreateNewDate = "".obs;
   final textMaturityDate = 0.obs;
   final textminimumWithdraw = ''.obs;
+  final selectBankAcc = 0.obs;
   TextEditingController amountController = TextEditingController();
   TextEditingController durationController = TextEditingController();
   TextEditingController deductionAmountController = TextEditingController();

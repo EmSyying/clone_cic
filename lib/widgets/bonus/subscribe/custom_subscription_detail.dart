@@ -38,6 +38,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
 
   final String? transactionDate;
   final num? amount;
+  final num? amountToPay;
   const CustomSubscriptionDetail(
       {Key? key,
       this.histories,
@@ -67,7 +68,8 @@ class CustomSubscriptionDetail extends StatelessWidget {
       this.from,
       this.toAccount,
       this.subscriptionID,
-      this.type})
+      this.type,
+      this.amountToPay})
       : super(key: key);
 
   @override
@@ -762,7 +764,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        '5000 USD',
+                        '${FormatToK.digitNumber(amountToPay)} USD',
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
