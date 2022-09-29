@@ -606,9 +606,14 @@ class _MyAppState extends State<MyApp> {
                 primaryColor: AppColor.mainColor,
                 secondaryHeaderColor: AppColor.secondaryColor,
                 cardColor: Colors.white,
-                appBarTheme: const AppBarTheme(
+                appBarTheme: AppBarTheme(
                   backgroundColor: AppColor.mainColor,
                   centerTitle: false,
+                  titleTextStyle:
+                      Theme.of(context).textTheme.subtitle2!.copyWith(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
                 ),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     unselectedItemColor: const Color(0XFF848F92),

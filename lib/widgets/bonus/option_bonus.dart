@@ -26,7 +26,7 @@ class CustomOptionBonus extends StatelessWidget {
                       width: 65,
                       height: 65,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(12),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(

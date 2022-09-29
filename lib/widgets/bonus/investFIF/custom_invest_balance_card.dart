@@ -16,7 +16,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
       rightSubTitle,
       titleBalance;
   final num? currency;
-  final bool? isContainStack;
+  final bool isContainStack;
   const CustomInvestBalanceCard({
     Key? key,
     this.leftTitle,
@@ -31,7 +31,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 170,
+      height: isContainStack ? null : 170,
       child: Stack(
         children: [
           Container(

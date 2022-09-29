@@ -60,11 +60,12 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
         ),
         Expanded(
           child: TabBarView(
-              controller: subscribeCon.tabControllerSubscribe,
-              children: [
-                const CustomNewSubscription(),
-                CustomSubscribeHistory(),
-              ]),
+            controller: subscribeCon.tabControllerSubscribe,
+            children: [
+              const CustomNewSubscription(),
+              CustomSubscribeHistory(),
+            ],
+          ),
         )
       ],
     );

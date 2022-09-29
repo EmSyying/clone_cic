@@ -9,6 +9,7 @@ class CustomTextFieldNew extends StatelessWidget {
   final String? labelText;
   final String? hintText;
   final String? type;
+  final String? suffixText;
   final FormFieldValidator<String>? validate;
   final Function? onTap;
   final FormFieldSetter<String>? onSave;
@@ -41,6 +42,7 @@ class CustomTextFieldNew extends StatelessWidget {
     this.labelText,
     this.hintText,
     this.type,
+    this.suffixText,
     this.validate,
     this.onTap,
     this.autoFocus,
@@ -110,7 +112,7 @@ class CustomTextFieldNew extends StatelessWidget {
                   initialValue == '' || enable == false || isReadOnly == true
                       ? Colors.grey[100]
                       : Theme.of(context).cardColor,
-              filled: true,
+              filled: true, suffixText: suffixText,
               suffixIcon: suffixIcon,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

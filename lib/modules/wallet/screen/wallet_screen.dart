@@ -6,10 +6,13 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../Utils/function/format_to_k.dart';
 import '../../../Utils/helper/custom_appbar.dart';
-import '../../../Utils/helper/firebase_analytics.dart';
+import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
+import '../../../widgets/custom_showbottomsheet.dart';
 import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
 import '../../bonus/screens/income_transaction.dart';
+
+import 'dart:ui' as ui;
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({Key? key}) : super(key: key);
@@ -42,6 +45,7 @@ class _WalletScreenState extends State<WalletScreen>
       backgroundColor: AppColor.mainColor,
       appBar: CustomAppBar(
         context: context,
+        isLogo: false,
         elevation: 0,
         title: 'MM Account',
         leading: IconButton(
@@ -64,11 +68,10 @@ class _WalletScreenState extends State<WalletScreen>
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/mma_bg.svg',
-                      // colorBlendMode: BlendMode.srcOver,
-
-                      color: AppColor.mainColor.withOpacity(0.1),
+                    Positioned.fill(
+                      child: CustomPaint(
+                        painter: PathPainter(),
+                      ),
                     ),
                     Container(
                       width: double.infinity,
@@ -148,21 +151,26 @@ class _WalletScreenState extends State<WalletScreen>
                                 _operationButton(
                                   context,
                                   ontap: () {
-                                    FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                        'MMA subscribe');
+                                    // FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                    //     'MMA subscribe');
+                                    show(context);
                                   },
                                   text: 'Transfer',
                                   img: 'assets/images/transfer.svg',
                                 ),
                                 _operationButton(
                                   context,
-                                  ontap: () {},
+                                  ontap: () {
+                                    show(context);
+                                  },
                                   text: 'Invest',
                                   img: 'assets/images/svgfile/investfif.svg',
                                 ),
                                 _operationButton(
                                   context,
-                                  ontap: () {},
+                                  ontap: () {
+                                    show(context);
+                                  },
                                   text: 'Pay',
                                   img: 'assets/images/svgfile/cashout.svg',
                                 ),
@@ -246,6 +254,20 @@ class _WalletScreenState extends State<WalletScreen>
     );
   }
 
+  show(BuildContext context) {
+    onShowBottomSheet(
+      isHeight: MediaQuery.of(context).size.height * .5,
+      backgroundColor: Colors.transparent,
+      context: context,
+      isNoAppBar: true,
+      child: const CustomPopupButtonSheet(
+        assetImage: 'assets/images/svgfile/underDevelopment.svg',
+        description: 'This feature is under development at the moment',
+        title: 'This feature not available yet',
+      ),
+    );
+  }
+
   Widget _operationButton(
     BuildContext context, {
     String? text,
@@ -282,4 +304,32 @@ class _WalletScreenState extends State<WalletScreen>
       ),
     );
   }
+}
+
+class PathPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    Paint paintFill = Paint()..style = PaintingStyle.fill;
+    paintFill.shader = ui.Gradient.linear(
+      Offset(w * 0.9, h * 0.9),
+      Offset(0, h * 0.5),
+      [const Color(0xff133B6F), const Color(0xff0B3C7C).withOpacity(0)],
+    );
+
+    Path path = Path();
+    path.moveTo(0, 0);
+    path.lineTo(0, h * 0.85);
+
+    path.quadraticBezierTo(w * 0.55, h * 0.8, w * 0.75, 0);
+    path.close();
+    canvas.drawPath(path, paintFill);
+  }
+
+  @override
+  bool shouldRepaint(PathPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(PathPainter oldDelegate) => false;
 }

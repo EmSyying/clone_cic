@@ -798,11 +798,13 @@ final router = GoRouter(
           ),
 
           //end route privilege=========
+
+          ///wallet
+          GoRoute(
+            path: 'wallet',
+            builder: (_, state) => const WalletScreen(),
+          ),
         ],
-      ),
-      GoRoute(
-        path: '/wallet',
-        builder: (_, state) => const WalletScreen(),
       ),
       GoRoute(
         path: '/splashscreen',

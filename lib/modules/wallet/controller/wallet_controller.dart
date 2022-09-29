@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/modules/wallet/model/mma_deposit_card_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WalletController extends GetxController {
@@ -22,4 +23,9 @@ class WalletController extends GetxController {
       imageMMACard: 'assets/images/svgfile/subscribe_card.svg',
     )
   ].obs;
+
+  ///Set Amount
+
+  final recievingAmount = ''.obs;
+  TextEditingController amountController = TextEditingController();
 }

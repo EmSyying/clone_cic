@@ -41,10 +41,11 @@ CustomAppBar(
                 const SizedBox(
                   width: 10,
                 ),
-              SvgPicture.asset(
-                'assets/images/svgfile/Logocic.svg',
-                height: 27,
-              ),
+              if (!isLogo!)
+                SvgPicture.asset(
+                  'assets/images/svgfile/Logocic.svg',
+                  height: 27,
+                ),
               const SizedBox(
                 width: 15,
               ),
