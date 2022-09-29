@@ -256,6 +256,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
       isCancel: true,
       onDiscard: () {
         Navigator.pop(context);
+        Navigator.pop(context);
         deducCon.clearDeducSelection();
       },
     );
