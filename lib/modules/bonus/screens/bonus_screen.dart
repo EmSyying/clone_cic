@@ -169,13 +169,14 @@ class _BonusScreenState extends State<BonusScreen>
                                     ),
                                   ),
                                   Text(
-                                      "As of ${FormatDate.formatDateTime(datetime)}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(
-                                              fontSize: 12,
-                                              color: Colors.white70)),
+                                    "As of ${FormatDate.formatDateTime(datetime)}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(
+                                            fontSize: 12,
+                                            color: Colors.white70),
+                                  ),
                                   const SizedBox(height: 20),
                                   Container(
                                     padding: const EdgeInsets.only(
@@ -316,7 +317,6 @@ class _BonusScreenState extends State<BonusScreen>
                   ),
                 ),
               ),
-          
             ),
           );
         }),

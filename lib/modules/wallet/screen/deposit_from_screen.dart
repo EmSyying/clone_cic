@@ -82,7 +82,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 25),
                       child: PrettyQr(
                         data:
-                            'Example Amount : ${_walletController.recievingAmount.value.isNotEmpty ? _walletController.recievingAmount.value : ''}',
+                            'wallet${_walletController.recievingAmount.value.isNotEmpty ? _walletController.recievingAmount.value : ''}',
                         size: 160,
                         errorCorrectLevel: QrErrorCorrectLevel.H,
                       ),
@@ -108,7 +108,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                         }),
                         const SizedBox(width: 50),
                         _buildButton(textStyle,
-                            text: 'Share',
+                            text: 'Save',
                             icon: SvgPicture.asset('assets/images/save.svg'),
                             onTap: () {
                           customRouterSnackbar(

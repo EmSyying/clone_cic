@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
-import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -73,110 +72,108 @@ class _CustomPopupButtonSheetState extends State<CustomPopupButtonSheet>
 
   @override
   Widget build(BuildContext context) {
-    return DefaultSizeWeb(
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.transparent,
-            ),
-            height: 380,
-            width: double.infinity,
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.transparent,
           ),
-          Positioned(
-            top: 15,
-            left: 0,
-            right: 0,
-            child: SlideTransition(
-              position: _animationBottomsheet!,
-              child: Container(
-                padding: const EdgeInsets.only(top: 100),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                width: double.infinity,
-                height: 360,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${widget.title}',
+          height: 380,
+          width: double.infinity,
+        ),
+        Positioned(
+          top: 15,
+          left: 0,
+          right: 0,
+          child: SlideTransition(
+            position: _animationBottomsheet!,
+            child: Container(
+              padding: const EdgeInsets.only(top: 100),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              width: double.infinity,
+              height: 360,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${widget.title}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 55),
+                    child: Text(
+                      '${widget.description}',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
-                    const SizedBox(
-                      height: 5,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: CustomButton(
+                      title: widget.buttonTitle,
+                      onPressed: () {
+                        // setState(() {
+                        //   moveUp = !moveUp;
+                        // });
+                        Navigator.pop(context);
+                      },
+                      isOutline: false,
+                      isDisable: false,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 55),
-                      child: Text(
-                        '${widget.description}',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: CustomButton(
-                        title: widget.buttonTitle,
-                        onPressed: () {
-                          // setState(() {
-                          //   moveUp = !moveUp;
-                          // });
-                          Navigator.pop(context);
-                        },
-                        isOutline: false,
-                        isDisable: false,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-          Positioned(
-            top: widget.imagePaddingFromTop,
-            right: 0,
-            left: 0,
-            child: widget.isImageAnimated
-                ? SlideTransition(
-                    position: _animation!,
-                    child: widget.imageUrl == null
-                        ? SvgPicture.asset(
-                            '${widget.assetImage}',
-                            width: 150,
-                            height: 150,
-                          )
-                        : Image.network(
-                            '${widget.imageUrl}',
-                            width: widget.imageWidth,
-                            height: widget.imageHeight,
-                          ),
-                  )
-                : widget.imageUrl == null
-                    ? SvgPicture.asset(
-                        '${widget.assetImage}',
-                        width: 150,
-                        height: 150,
-                      )
-                    : Image.network(
-                        '${widget.imageUrl}',
-                        width: widget.imageWidth,
-                        height: widget.imageHeight,
-                      ),
-          ),
-        ],
-      ),
+        ),
+        Positioned(
+          top: widget.imagePaddingFromTop,
+          right: 0,
+          left: 0,
+          child: widget.isImageAnimated
+              ? SlideTransition(
+                  position: _animation!,
+                  child: widget.imageUrl == null
+                      ? SvgPicture.asset(
+                          '${widget.assetImage}',
+                          width: 150,
+                          height: 150,
+                        )
+                      : Image.network(
+                          '${widget.imageUrl}',
+                          width: widget.imageWidth,
+                          height: widget.imageHeight,
+                        ),
+                )
+              : widget.imageUrl == null
+                  ? SvgPicture.asset(
+                      '${widget.assetImage}',
+                      width: 150,
+                      height: 150,
+                    )
+                  : Image.network(
+                      '${widget.imageUrl}',
+                      width: widget.imageWidth,
+                      height: widget.imageHeight,
+                    ),
+        ),
+      ],
     );
   }
 }

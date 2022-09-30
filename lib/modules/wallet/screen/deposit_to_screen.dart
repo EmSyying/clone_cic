@@ -102,8 +102,9 @@ class _DepositToScreenState extends State<DepositToScreen> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                    SafeArea(
+                      top: false,
+                      minimum: const EdgeInsets.all(20),
                       child: CustomButton(
                         title: 'Next',
                         onPressed: () {
