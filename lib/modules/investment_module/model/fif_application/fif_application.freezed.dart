@@ -95,6 +95,8 @@ mixin _$FiFApplicationDetailModel {
   String? get originalCurrentPrincipal => throw _privateConstructorUsedError;
   @JsonKey(name: 'auto_renewal')
   String? get autoRenewal => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bank_account')
+  BankAccount? get bankAccount => throw _privateConstructorUsedError;
   List<ScheduleModelList>? get schedule => throw _privateConstructorUsedError;
   @JsonKey(name: 'withdrawal_notice')
   List<WithdrawNotice>? get withdrawalNotice =>
@@ -186,11 +188,14 @@ abstract class $FiFApplicationDetailModelCopyWith<$Res> {
           String? originalCurrentPrincipal,
       @JsonKey(name: 'auto_renewal')
           String? autoRenewal,
+      @JsonKey(name: 'bank_account')
+          BankAccount? bankAccount,
       List<ScheduleModelList>? schedule,
       @JsonKey(name: 'withdrawal_notice')
           List<WithdrawNotice>? withdrawalNotice});
 
   $BankTypeCopyWith<$Res>? get bankType;
+  $BankAccountCopyWith<$Res>? get bankAccount;
 }
 
 /// @nodoc
@@ -243,6 +248,7 @@ class _$FiFApplicationDetailModelCopyWithImpl<$Res>
     Object? currencyCode = freezed,
     Object? originalCurrentPrincipal = freezed,
     Object? autoRenewal = freezed,
+    Object? bankAccount = freezed,
     Object? schedule = freezed,
     Object? withdrawalNotice = freezed,
   }) {
@@ -403,6 +409,10 @@ class _$FiFApplicationDetailModelCopyWithImpl<$Res>
           ? _value.autoRenewal
           : autoRenewal // ignore: cast_nullable_to_non_nullable
               as String?,
+      bankAccount: bankAccount == freezed
+          ? _value.bankAccount
+          : bankAccount // ignore: cast_nullable_to_non_nullable
+              as BankAccount?,
       schedule: schedule == freezed
           ? _value.schedule
           : schedule // ignore: cast_nullable_to_non_nullable
@@ -422,6 +432,17 @@ class _$FiFApplicationDetailModelCopyWithImpl<$Res>
 
     return $BankTypeCopyWith<$Res>(_value.bankType!, (value) {
       return _then(_value.copyWith(bankType: value));
+    });
+  }
+
+  @override
+  $BankAccountCopyWith<$Res>? get bankAccount {
+    if (_value.bankAccount == null) {
+      return null;
+    }
+
+    return $BankAccountCopyWith<$Res>(_value.bankAccount!, (value) {
+      return _then(_value.copyWith(bankAccount: value));
     });
   }
 }
@@ -509,12 +530,16 @@ abstract class _$$_FiFApplicationDetailModelCopyWith<$Res>
           String? originalCurrentPrincipal,
       @JsonKey(name: 'auto_renewal')
           String? autoRenewal,
+      @JsonKey(name: 'bank_account')
+          BankAccount? bankAccount,
       List<ScheduleModelList>? schedule,
       @JsonKey(name: 'withdrawal_notice')
           List<WithdrawNotice>? withdrawalNotice});
 
   @override
   $BankTypeCopyWith<$Res>? get bankType;
+  @override
+  $BankAccountCopyWith<$Res>? get bankAccount;
 }
 
 /// @nodoc
@@ -571,6 +596,7 @@ class __$$_FiFApplicationDetailModelCopyWithImpl<$Res>
     Object? currencyCode = freezed,
     Object? originalCurrentPrincipal = freezed,
     Object? autoRenewal = freezed,
+    Object? bankAccount = freezed,
     Object? schedule = freezed,
     Object? withdrawalNotice = freezed,
   }) {
@@ -731,6 +757,10 @@ class __$$_FiFApplicationDetailModelCopyWithImpl<$Res>
           ? _value.autoRenewal
           : autoRenewal // ignore: cast_nullable_to_non_nullable
               as String?,
+      bankAccount: bankAccount == freezed
+          ? _value.bankAccount
+          : bankAccount // ignore: cast_nullable_to_non_nullable
+              as BankAccount?,
       schedule: schedule == freezed
           ? _value._schedule
           : schedule // ignore: cast_nullable_to_non_nullable
@@ -821,6 +851,8 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
           this.originalCurrentPrincipal,
       @JsonKey(name: 'auto_renewal')
           this.autoRenewal,
+      @JsonKey(name: 'bank_account')
+          this.bankAccount,
       final List<ScheduleModelList>? schedule,
       @JsonKey(name: 'withdrawal_notice')
           final List<WithdrawNotice>? withdrawalNotice})
@@ -943,6 +975,9 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
   @override
   @JsonKey(name: 'auto_renewal')
   final String? autoRenewal;
+  @override
+  @JsonKey(name: 'bank_account')
+  final BankAccount? bankAccount;
   final List<ScheduleModelList>? _schedule;
   @override
   List<ScheduleModelList>? get schedule {
@@ -964,7 +999,7 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
 
   @override
   String toString() {
-    return 'FiFApplicationDetailModel(code: $code, productId: $productId, productCode: $productCode, subid: $subid, subproductName: $subproductName, subproductCode: $subproductCode, accountName: $accountName, investmentAmount: $investmentAmount, originalAmount: $originalAmount, deductionAmount: $deductionAmount, totalInterestEarned: $totalInterestEarned, monthlyInterestEarned: $monthlyInterestEarned, productName: $productName, annuallyInterestRate: $annuallyInterestRate, investmentDate: $investmentDate, firstPaymentDate: $firstPaymentDate, investmentAmountFormat: $investmentAmountFormat, maturityDate: $maturityDate, description: $description, duration: $duration, originalDuration: $originalDuration, durationPeriod: $durationPeriod, paid: $paid, returnPaymenMethod: $returnPaymenMethod, mmaAccountid: $mmaAccountid, bankId: $bankId, investorName: $investorName, endMaturity: $endMaturity, currentPrincipal: $currentPrincipal, interestType: $interestType, allowWithdrawal: $allowWithdrawal, minimumWithdrawal: $minimumWithdrawal, withdrawalMessage: $withdrawalMessage, paidFormat: $paidFormat, bankType: $bankType, paymentProgressBar: $paymentProgressBar, currencyCode: $currencyCode, originalCurrentPrincipal: $originalCurrentPrincipal, autoRenewal: $autoRenewal, schedule: $schedule, withdrawalNotice: $withdrawalNotice)';
+    return 'FiFApplicationDetailModel(code: $code, productId: $productId, productCode: $productCode, subid: $subid, subproductName: $subproductName, subproductCode: $subproductCode, accountName: $accountName, investmentAmount: $investmentAmount, originalAmount: $originalAmount, deductionAmount: $deductionAmount, totalInterestEarned: $totalInterestEarned, monthlyInterestEarned: $monthlyInterestEarned, productName: $productName, annuallyInterestRate: $annuallyInterestRate, investmentDate: $investmentDate, firstPaymentDate: $firstPaymentDate, investmentAmountFormat: $investmentAmountFormat, maturityDate: $maturityDate, description: $description, duration: $duration, originalDuration: $originalDuration, durationPeriod: $durationPeriod, paid: $paid, returnPaymenMethod: $returnPaymenMethod, mmaAccountid: $mmaAccountid, bankId: $bankId, investorName: $investorName, endMaturity: $endMaturity, currentPrincipal: $currentPrincipal, interestType: $interestType, allowWithdrawal: $allowWithdrawal, minimumWithdrawal: $minimumWithdrawal, withdrawalMessage: $withdrawalMessage, paidFormat: $paidFormat, bankType: $bankType, paymentProgressBar: $paymentProgressBar, currencyCode: $currencyCode, originalCurrentPrincipal: $originalCurrentPrincipal, autoRenewal: $autoRenewal, bankAccount: $bankAccount, schedule: $schedule, withdrawalNotice: $withdrawalNotice)';
   }
 
   @override
@@ -1043,6 +1078,8 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
                 other.originalCurrentPrincipal, originalCurrentPrincipal) &&
             const DeepCollectionEquality()
                 .equals(other.autoRenewal, autoRenewal) &&
+            const DeepCollectionEquality()
+                .equals(other.bankAccount, bankAccount) &&
             const DeepCollectionEquality().equals(other._schedule, _schedule) &&
             const DeepCollectionEquality()
                 .equals(other._withdrawalNotice, _withdrawalNotice));
@@ -1091,6 +1128,7 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
         const DeepCollectionEquality().hash(currencyCode),
         const DeepCollectionEquality().hash(originalCurrentPrincipal),
         const DeepCollectionEquality().hash(autoRenewal),
+        const DeepCollectionEquality().hash(bankAccount),
         const DeepCollectionEquality().hash(_schedule),
         const DeepCollectionEquality().hash(_withdrawalNotice)
       ]);
@@ -1183,6 +1221,8 @@ abstract class _FiFApplicationDetailModel implements FiFApplicationDetailModel {
               final String? originalCurrentPrincipal,
           @JsonKey(name: 'auto_renewal')
               final String? autoRenewal,
+          @JsonKey(name: 'bank_account')
+              final BankAccount? bankAccount,
           final List<ScheduleModelList>? schedule,
           @JsonKey(name: 'withdrawal_notice')
               final List<WithdrawNotice>? withdrawalNotice}) =
@@ -1304,6 +1344,9 @@ abstract class _FiFApplicationDetailModel implements FiFApplicationDetailModel {
   @override
   @JsonKey(name: 'auto_renewal')
   String? get autoRenewal => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'bank_account')
+  BankAccount? get bankAccount => throw _privateConstructorUsedError;
   @override
   List<ScheduleModelList>? get schedule => throw _privateConstructorUsedError;
   @override

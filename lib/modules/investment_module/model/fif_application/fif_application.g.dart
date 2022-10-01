@@ -50,6 +50,9 @@ _$_FiFApplicationDetailModel _$$_FiFApplicationDetailModelFromJson(
       currencyCode: json['currency_code'] as String?,
       originalCurrentPrincipal: json['original_current_principal'] as String?,
       autoRenewal: json['auto_renewal'] as String?,
+      bankAccount: json['bank_account'] == null
+          ? null
+          : BankAccount.fromJson(json['bank_account'] as Map<String, dynamic>),
       schedule: (json['schedule'] as List<dynamic>?)
           ?.map((e) => ScheduleModelList.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -100,6 +103,7 @@ Map<String, dynamic> _$$_FiFApplicationDetailModelToJson(
       'currency_code': instance.currencyCode,
       'original_current_principal': instance.originalCurrentPrincipal,
       'auto_renewal': instance.autoRenewal,
+      'bank_account': instance.bankAccount,
       'schedule': instance.schedule,
       'withdrawal_notice': instance.withdrawalNotice,
     };

@@ -1,5 +1,7 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
+import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomSelectBank extends StatelessWidget {
   final String? image;
@@ -8,10 +10,10 @@ class CustomSelectBank extends StatelessWidget {
   final String? accountNo;
   final int? selected;
   final int? selectIndex;
-  final GestureTapCallback? onTap;
+  final GestureTapCallback? onTapSelectBank;
   const CustomSelectBank({
     Key? key,
-    this.onTap,
+    this.onTapSelectBank,
     this.selected = 0,
     this.image,
     this.bankName,
@@ -22,10 +24,11 @@ class CustomSelectBank extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fifCon = Get.put(PriceController());
     return Column(
       children: [
         GestureDetector(
-          onTap: onTap,
+          onTap: onTapSelectBank,
           child: Container(
             color: Colors.transparent,
             padding: const EdgeInsets.only(left: 20, top: 20),

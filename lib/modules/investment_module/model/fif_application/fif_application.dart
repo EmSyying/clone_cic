@@ -2,6 +2,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'bank_account/bank_account.dart';
 import 'schedule/schedule.dart';
 import 'withdraw_notice/bank_type.dart';
 import 'withdraw_notice/withdraw_notice.dart';
@@ -52,6 +53,7 @@ class FiFApplicationDetailModel with _$FiFApplicationDetailModel {
     @JsonKey(name: 'original_current_principal')
         String? originalCurrentPrincipal,
     @JsonKey(name: 'auto_renewal') String? autoRenewal,
+    @JsonKey(name: 'bank_account') BankAccount? bankAccount,
     List<ScheduleModelList>? schedule,
     @JsonKey(name: 'withdrawal_notice') List<WithdrawNotice>? withdrawalNotice,
   }) = _FiFApplicationDetailModel;

@@ -107,7 +107,7 @@ class PriceController extends GetxController {
   final isCreateNewDate = "".obs;
   final textMaturityDate = 0.obs;
   final textminimumWithdraw = ''.obs;
-  final selectBankAcc = 0.obs;
+
   TextEditingController amountController = TextEditingController();
   TextEditingController durationController = TextEditingController();
   TextEditingController deductionAmountController = TextEditingController();
@@ -486,7 +486,6 @@ class PriceController extends GetxController {
   final fifApplicationLoading = true.obs;
   Future<List<FIFApplicationListModel>> getFIFApplication() async {
     fifApplicationLoading.value = true;
-
     try {
       await apiBaseHelper
           .onNetworkRequesting(
@@ -496,7 +495,6 @@ class PriceController extends GetxController {
           .then((value) {
         // fifApplicationLoading.value = false;
         var responseJson = value;
-
         fifApplicationList.clear();
         responseJson["data"].map((e) {
           fifApplicationList.add(FIFApplicationListModel.fromJson(e));
@@ -1691,6 +1689,43 @@ class PriceController extends GetxController {
           "${errorModel.bodyString.toString()} ${errorModel.statusCode.toString()}");
       debugPrint('Fix me error renew period:${errorModel.statusCode}');
       debugPrint('Fix me error renew period:${errorModel.bodyString}');
+    });
+  }
+
+  // edit and create bank account
+  final fifBankTypeId = 0.obs;
+  final fifAccName = ''.obs;
+  final fifAccNumber = ''.obs;
+  final fifBankId = 0.obs;
+  final fifBankName = ''.obs;
+  final isfifBankName = true.obs;
+  final isfifAccName = true.obs;
+  final isfifAccNumber = true.obs;
+  final isLoadingfifBankAcc = false.obs;
+  final selectBankAcc = 0.obs;
+  Future<void> onfifCreateBank(BuildContext context,
+      {num? fifId, num? bankId}) async {
+    isLoadingfifBankAcc(true);
+    apiBaseHelper.onNetworkRequesting(
+        methode: METHODE.post,
+        isAuthorize: true,
+        url: 'fif/bank/editOrCreate',
+        body: {
+          'fif_id': fifId,
+          'bank_id': bankId, //(create bank) no need to submit
+          'bank_type_id': fifBankTypeId.value,
+          'account_name': fifAccName.value,
+          'account_number': fifAccNumber.value,
+        }).then((res) {
+      debugPrint('ressss234:${fifBankTypeId.value}');
+      debugPrint('ressss234222:$res');
+      Navigator.pop(context);
+      fetchPayment();
+      fetchFIFAccountDetail(fifId);
+      isLoadingfifBankAcc(false);
+    }).onError((ErrorModel error, stackTrace) {
+      debugPrint('erroor234:${error.bodyString}');
+      isLoadingfifBankAcc(false);
     });
   }
 }

@@ -27,7 +27,7 @@ Authorization: Bearer {{token}}
 }
 
 ### FIF Application Pending List
-GET {{baseUrl}}v3/fif-application?type=pending
+GET {{baseUrl}}v3/fif-application/39?type=pending
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -232,3 +232,16 @@ Authorization: Bearer {{token}}
     "fif_id": 12,
     "auto_renewal": "no",
 }
+
+### FiF Bank
+GET {{baseUrl}}v3/bank-type
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/fif-return-payment-method
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+

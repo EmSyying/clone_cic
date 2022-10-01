@@ -1,8 +1,8 @@
-import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/investment_module/model/fif_application/schedule/schedule.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/contract_withdraw.dart';
+import 'package:cicgreenloan/modules/investment_module/screen/fif_create_bank.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,6 @@ import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/custom_detail_summery.dart';
 import '../../../widgets/investments/interest_transaction_schedule_card_shimmer.dart';
 import '../../../widgets/investments/principal_history.dart';
-import '../../bonus/screens/cash_out/custom_change_account_bank.dart';
 import '../controller/investment_controller.dart';
 import 'interest_schedule.dart';
 
@@ -98,7 +97,8 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                     fifCon.fifAccountDetailModel.value.paidFormat ?? '',
                 maturityInstruction:
                     fifCon.fifAccountDetailModel.value.endMaturity,
-                accountBank: 'Acleda Bank (000 123 456)',
+                accountBank:
+                    fifCon.fifAccountDetailModel.value.bankAccount!.account,
               ),
       ),
       Obx(
@@ -294,11 +294,25 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                     e.value.accountNumber,
                                                 image: e.value.image,
                                                 selectIndex:
-                                                    fifCon.selectBankAcc.value,
-                                                selected: e.key,
-                                                onTap: () {
+                                                    e.value.id!.toInt(),
+                                                selected: fifCon
+                                                    .fifAccountDetailModel
+                                                    .value
+                                                    .bankAccount!
+                                                    .id,
+                                                onTapSelectBank: () {
                                                   fifCon.selectBankAcc.value =
-                                                      e.key;
+                                                      e.value.id!.toInt();
+                                                  // fifCon.selectBankAcc.value =
+                                                  //     fifCon
+                                                  //         .fifAccountDetailModel
+                                                  //         .value
+                                                  //         .bankAccount!
+                                                  //         .id!;
+                                                  fifCon.onfifCreateBank(
+                                                      context,
+                                                      fifId: widget.id,
+                                                      bankId: e.value.id);
                                                 },
                                               );
                                             }).toList(),
@@ -308,40 +322,55 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                           onTap: () {
                                             Navigator.pop(context);
                                             showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              enableDrag: true,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          borderRaduis)),
-                                              context: context,
-                                              builder: (context) =>
-                                                  CustomChangeAccountBank(
-                                                button: Row(
-                                                  children: [
-                                                    Expanded(
-                                                        child: CustomButton(
-                                                      isDisable: false,
-                                                      isOutline: true,
-                                                      title: 'Cancel',
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
+                                                isScrollControlled: true,
+                                                enableDrag: true,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            borderRaduis)),
+                                                context: context,
+                                                builder: (context) =>
+                                                    FiFCreateBankAcc(
+                                                      onTapSave: () {
+                                                        debugPrint(
+                                                            'id:::::${widget.id}');
+                                                        fifCon.onfifCreateBank(
+                                                            context,
+                                                            fifId: widget.id);
                                                       },
-                                                    )),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Expanded(
-                                                        child: CustomButton(
-                                                      isDisable: false,
-                                                      isOutline: false,
-                                                      title: 'Save',
-                                                      onPressed: () {},
-                                                    )),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
+                                                    )
+                                                //     CustomChangeAccountBank(
+                                                //   button: Row(
+                                                //     children: [
+                                                //       Expanded(
+                                                //           child: CustomButton(
+                                                //         isDisable: false,
+                                                //         isOutline: true,
+                                                //         title: 'Cancel',
+                                                //         onPressed: () {
+                                                //           Navigator.pop(context);
+                                                //         },
+                                                //       )),
+                                                //       const SizedBox(
+                                                //         width: 10,
+                                                //       ),
+                                                //       Expanded(
+                                                //           child: CustomButton(
+                                                //         isDisable: false,
+                                                //         isOutline: false,
+                                                //         title: 'Save',
+                                                //         onPressed: () {
+                                                //           fifCon.onfifCreateBank(
+                                                //               fifId: fifCon
+                                                //                   .fifAppModel
+                                                //                   .value
+                                                //                   .id);
+                                                //         },
+                                                //       )),
+                                                //     ],
+                                                //   ),
+                                                // ),
+                                                );
                                           },
                                           child: Row(
                                             children: [
