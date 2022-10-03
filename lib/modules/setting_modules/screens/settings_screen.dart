@@ -25,12 +25,10 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/form_builder/custom_listile.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
@@ -50,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final customerController = Get.put(CustomerController());
   String defaultLang = 'English';
   final _con = Get.put(SettingAppController());
-  // final _settingCon = Get.put(SettingController());
+  final _settingCon = Get.put(SettingController());
   final _user = Get.put(CustomerController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final _conSetting = Get.put(SettingController());
@@ -135,8 +133,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     getBiotricType();
     isAuthenthication();
-    _conSetting.fetchCompanyInfo();
-
     // isEnableNotification();
     // onGetNotificationEnable();
     setState(() {
@@ -156,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     //   });
     // }
     _con.getLocale();
-    _conSetting.fetchAppVersion();
+    _settingCon.fetchAppVersion();
   }
 
   onShowDialog(BuildContext context) {
@@ -554,7 +550,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Scaffold(
         appBar: CustomAppBar(
           onTap: () {
-            context.go('/setting/event');
+            context.go('/event');
           },
           isLeading: true,
           isLogo: false,
@@ -602,7 +598,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       isOnNotification = value;
                                     });
                                   });
-                                  await _conSetting
+                                  await _settingCon
                                       .onSwitchNotificationSetting();
                                   await customerController.getUser();
                                 },
@@ -621,7 +617,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           isOnNotification = value;
                                         });
                                       });
-                                      await _conSetting
+                                      await _settingCon
                                           .onSwitchNotificationSetting();
                                       await customerController.getUser();
                                     },
@@ -640,7 +636,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           isOnNotification = value;
                                         });
                                       });
-                                      await _conSetting
+                                      await _settingCon
                                           .onSwitchNotificationSetting();
                                       await customerController.getUser();
                                     },
@@ -954,77 +950,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           );
                         },
                       ),
-                      Container(
-                        color: Theme.of(context).cardColor,
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                          child: Divider(
-                            thickness: 1,
-                          ),
-                        ),
-                      ),
-                      UserListile(
-                        icon: "assets/images/support.svg",
-                        label: "Technical Support",
-                        onTap: () {
-                          showCupertinoModalPopup(
-                            context: context,
-                            builder: (context) {
-                              return CupertinoActionSheet(
-                                actions: [
-                                  CupertinoActionSheetAction(
-                                    onPressed: () async {
-                                      Navigator.pop(context);
-
-                                      await launchUrl(
-                                        Uri.parse(
-                                            '${_conSetting.contactUs.value.telegramLink}'),
-                                        mode: LaunchMode.externalApplication,
-                                      );
-                                    },
-                                    child: const Text(
-                                      "Chat Telegram",
-                                      style: TextStyle(
-                                        fontFamily: 'DMSans',
-                                        fontSize: 16,
-                                        color: AppColor.mainColor,
-                                      ),
-                                    ),
-                                  ),
-                                  CupertinoActionSheetAction(
-                                    onPressed: () async {
-                                      await launchUrl(
-                                        Uri.parse('tel://+855 96 886 1168'),
-                                      );
-                                    },
-                                    child: const Text(
-                                      "+855 96 886 1168",
-                                      style: TextStyle(
-                                        fontFamily: 'DMSans',
-                                        fontSize: 16,
-                                        color: AppColor.mainColor,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                                cancelButton: CupertinoActionSheetAction(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text(
-                                    "Cancel",
-                                    style: TextStyle(
-                                      fontFamily: 'DMSans',
-                                      fontSize: 16,
-                                      color: AppColor.mainColor,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
                     ],
                   ),
                   const SizedBox(height: 10.0),
@@ -1047,7 +972,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        !_conSetting.isLoading.value
+                        !_settingCon.isLoading.value
                             ? GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -1059,16 +984,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   );
                                 },
                                 child: CachedNetworkImage(
-                                  imageUrl: _conSetting
+                                  imageUrl: _settingCon
                                       .appSettingVersion.value.applicationLogo!,
                                   width: 100,
                                   height: 100,
                                 ),
                               )
                             : Container(),
-                        !_conSetting.isLoading.value
+                        !_settingCon.isLoading.value
                             ? Text(
-                                'Version ${_conSetting.appSettingVersion.value.applicationNewVersion}',
+                                'Version ${_settingCon.appSettingVersion.value.applicationNewVersion}',
                                 style: const TextStyle(
                                     fontFamily: 'Poppin', fontSize: 12),
                               )
@@ -1076,11 +1001,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         const SizedBox(
                           height: 5,
                         ),
-                        !_conSetting.isLoading.value
+                        !_settingCon.isLoading.value
                             ? SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Text(
-                                  _conSetting
+                                  _settingCon
                                       .appSettingVersion.value.applicationName!,
                                   maxLines: 2,
                                   textAlign: TextAlign.center,
@@ -1107,6 +1032,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> onRefresh() async {
-    await _conSetting.fetchAppVersion();
+    await _settingCon.fetchAppVersion();
   }
 }

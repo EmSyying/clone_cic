@@ -1,12 +1,12 @@
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
+import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/privacy_policy.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 
 import '../../../../Utils/helper/custom_appbar.dart';
-import '../../../../core/auth/login.dart';
 
 class ContractTerm extends StatefulWidget {
   final String? fromPage;
@@ -86,10 +86,13 @@ class _ContractTermState extends State<ContractTerm> {
                               Navigator.pop(context);
                             } else {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const LoginScreen()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PrivacyPolcy(
+                                    fromPage: widget.fromPage,
+                                  ),
+                                ),
+                              );
                             }
                           },
                           title: 'I have read and agree',

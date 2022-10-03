@@ -218,6 +218,31 @@ class SettingController extends GetxController {
     return termAndcondtion.value;
   }
 
+  final privacyPolicy = PrivacyPolicy().obs;
+  final isPrivacyPolicy = false.obs;
+  Future<PrivacyPolicy> fetchPrivacyPolicy() async {
+    var token = await LocalData.getCurrentUser();
+    String url = '${GlobalConfiguration().get('api_base_urlv3')}support';
+    try {
+      isPrivacyPolicy(true);
+      await http.get(Uri.parse(url), headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      }).then((response) {
+        if (response.statusCode == 200) {
+          var responseJson = json.decode(response.body)['privacy_and_policies'];
+          privacyPolicy.value = PrivacyPolicy.fromJson(responseJson);
+          debugPrint(
+              "Privacy Policy:${privacyPolicy.value.privacyPolicyEnglish}");
+        } else {}
+      });
+    } finally {
+      isPrivacyPolicy(false);
+    }
+    return privacyPolicy.value;
+  }
+
   Future<AboutCiCFeature> fetchAboutCiCFeatureApp() async {
     var token = await LocalData.getCurrentUser();
     String url = '${GlobalConfiguration().get('api_base_url')}app-setting';
@@ -277,13 +302,13 @@ class SettingController extends GetxController {
         'Authorization': 'Bearer $token'
       }).then((response) {
         if (response.statusCode == 200) {
-          appSettingDataList.clear();
           var responseJson = json.decode(response.body)['data'];
           responseJson.map((data) {
             var settingData = AppSettingData.fromJson(data);
             appSettingDataList.add(settingData);
-            // debugPrint("App Setting Data for Funtion:$responseJson");
           }).toList();
+          debugPrint(
+              "App Setting Data for Funtion:${appSettingDataList.length}");
         } else {}
       });
     } finally {
