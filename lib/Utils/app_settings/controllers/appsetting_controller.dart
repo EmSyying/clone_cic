@@ -233,8 +233,6 @@ class SettingController extends GetxController {
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['privacy_and_policies'];
           privacyPolicy.value = PrivacyPolicy.fromJson(responseJson);
-          debugPrint(
-              "Privacy Policy:${privacyPolicy.value.privacyPolicyEnglish}");
         } else {}
       });
     } finally {

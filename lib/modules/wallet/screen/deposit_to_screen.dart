@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
+import '../../../Utils/helper/custom_loading_button.dart';
 import '../../../Utils/helper/numerice_format.dart';
 
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
-import '../../investment_module/screen/deposit_screen.dart';
 import '../controller/wallet_controller.dart';
 
 class DepositToScreen extends StatefulWidget {
@@ -21,7 +21,6 @@ class DepositToScreen extends StatefulWidget {
 
 class _DepositToScreenState extends State<DepositToScreen> {
   final _walletController = Get.put(WalletController());
-  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +63,7 @@ class _DepositToScreenState extends State<DepositToScreen> {
                       ),
                     ),
                     TextFormField(
-                      controller: _controller,
+                      controller: _walletController.controllerToDepositAmount,
                       showCursor: false,
                       style: textStyle.copyWith(fontSize: 46),
                       inputFormatters: [
@@ -85,12 +84,13 @@ class _DepositToScreenState extends State<DepositToScreen> {
                     CustomKeyboard(
                       onChanged: (value) {
                         debugPrint(
-                            'Offset ${_controller.selection.base.offset}');
+                            'Offset ${_walletController.controllerToDepositAmount.selection.base.offset}');
                         setState(() {
-                          _controller = TextEditingController(
-                              text: FormatNumber.numberFormatdefual
-                                  .parse(value)
-                                  .toString());
+                          _walletController.controllerToDepositAmount =
+                              TextEditingController(
+                                  text: FormatNumber.numberFormatdefual
+                                      .parse(value)
+                                      .toString());
                         });
                       },
                     ),
@@ -98,20 +98,22 @@ class _DepositToScreenState extends State<DepositToScreen> {
                     SafeArea(
                       top: false,
                       minimum: const EdgeInsets.all(20),
-                      child: CustomButton(
-                        title: 'Next',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const DepositeScreen(
-                                id: 12,
+                      child: Obx(
+                        () => _walletController.isToDeposit.value
+                            ? const CustomLoadingButton()
+                            : CustomButton(
+                                title: 'Next',
+                                onPressed: _walletController
+                                            .controllerToDepositAmount.text !=
+                                        ''
+                                    ? () {
+                                        _walletController
+                                            .onToDepositBankOrWallet(context);
+                                      }
+                                    : null,
+                                isDisable: false,
+                                isOutline: false,
                               ),
-                            ),
-                          );
-                        },
-                        isDisable: false,
-                        isOutline: false,
                       ),
                     )
                   ],

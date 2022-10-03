@@ -1,9 +1,11 @@
+import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
 import 'package:cicgreenloan/modules/wallet/model/mma_deposit_card_model.dart';
 import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../investment_module/screen/deposit_screen.dart';
 import '../model/wallet_model.dart';
 
 class WalletController extends GetxController {
@@ -47,6 +49,47 @@ class WalletController extends GetxController {
           'FetchWalletAmount Error : ${error.statusCode} : ${error.bodyString}');
     });
     return walletAmount.value;
+  }
+
+  // To Deposit Via Bank/Wallet
+  TextEditingController controllerToDepositAmount = TextEditingController();
+  final isToDeposit = false.obs;
+  Future<void> onToDepositBankOrWallet(BuildContext context) async {
+    debugPrint("wallet is working");
+    isToDeposit(true);
+    await _apiBaseHelper.onNetworkRequesting(
+      url: 'user/wallet/deposit',
+      methode: METHODE.post,
+      isAuthorize: true,
+      body: {
+        'amount': onConvertToDouble(controllerToDepositAmount.text),
+      },
+    ).then((response) {
+      debugPrint("wallet is working1");
+      debugPrint("Response wallet:$response");
+      debugPrint("wallet is 2");
+      customRouterSnackbar(
+          title: 'Done',
+          description: '${response['message']}',
+          type: SnackType.done);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const DepositeScreen(
+            id: 12,
+          ),
+        ),
+      );
+      controllerToDepositAmount.text = '';
+      isToDeposit(false);
+    }).onError((ErrorModel error, stackTrace) {
+      debugPrint("Message Error:${error.bodyString}");
+      isToDeposit(false);
+      customRouterSnackbar(
+          title: 'Failed',
+          description: '${error.bodyString['message']}',
+          type: SnackType.error);
+    });
   }
 
   ///transaction by Qr Code
