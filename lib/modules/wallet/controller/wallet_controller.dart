@@ -61,6 +61,10 @@ class WalletController extends GetxController {
   }
 
   // To Deposit Via Bank/Wallet
+  void clearDepositAmount() {
+    controllerToDepositAmount.text = '';
+  }
+
   TextEditingController controllerToDepositAmount = TextEditingController();
   final isToDeposit = false.obs;
   Future<void> onToDepositBankOrWallet(BuildContext context) async {

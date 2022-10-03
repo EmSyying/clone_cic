@@ -24,6 +24,12 @@ class _DepositToScreenState extends State<DepositToScreen> {
   final _walletController = Get.put(WalletController());
 
   @override
+  void dispose() {
+    _walletController.clearDepositAmount();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
     return Scaffold(

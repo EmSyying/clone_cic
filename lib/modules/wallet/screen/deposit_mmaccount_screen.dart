@@ -60,14 +60,14 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
           body: fifController.isLoadingDetailAcc.value
               ? const LinearProgressIndicator()
               : Obx(
-                  () => Stack(
+                  () => Column(
                     children: [
-                      Column(
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Container(
+                      Expanded(
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Stack(
+                            children: [
+                              Container(
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 padding:
@@ -171,79 +171,55 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                   ],
                                 ),
                               ),
-                            ),
-                          ),
-                          SafeArea(
-                            top: false,
-                            minimum: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 20,
-                            ),
-                            child: _walletController.isToDeposit.value == true
-                                ? const CustomLoadingButton()
-                                : CustomButton(
-                                    title: 'Submit',
-                                    isDisable: false,
-                                    isOutline: false,
-                                    onPressed: () {
-                                      _walletController
-                                          .onToDepositBankOrWallet(context);
-                                      // Navigator.pop(context);
-                                    },
+                              Positioned(
+                                top: 260,
+                                left: 6,
+                                child: Container(
+                                  width: 26,
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[50],
+                                    shape: BoxShape.circle,
                                   ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                        top: 280,
-                        left: 6,
-                        child: Container(
-                          width: 26,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[50],
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 280,
-                        right: 6,
-                        child: Container(
-                          width: 26,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[50],
-                            shape: BoxShape.circle,
+                                ),
+                              ),
+                              Positioned(
+                                top: 260,
+                                right: 6,
+                                child: Container(
+                                  width: 26,
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[50],
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                      ),
+                      SafeArea(
+                        top: false,
+                        minimum: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 20,
+                        ),
+                        child: _walletController.isToDeposit.value == true
+                            ? const CustomLoadingButton()
+                            : CustomButton(
+                                title: 'Submit',
+                                isDisable: false,
+                                isOutline: false,
+                                onPressed: () {
+                                  _walletController
+                                      .onToDepositBankOrWallet(context);
+                                  // Navigator.pop(context);
+                                },
+                              ),
                       ),
                     ],
                   ),
-                  // Column(
-                  //   children: [
-                  // WalletTotalCard(
-                  //   amount:
-                  //       _walletController.walletAmount.value.balanceFormat,
-                  // ),
-                  //     Column(
-                  //       children: fifController.withdrawBankList
-                  //           .asMap()
-                  //           .entries
-                  //           .map((e) {
-                  //         return Padding(
-                  //           padding:
-                  //               const EdgeInsets.only(left: 20.0, right: 20.0),
-                  //           child: CustomCopyBank(
-                  //               imgUrl: e.value.image,
-                  //               bankName: e.value.bankName,
-                  //               accountNumber: e.value.accountNumber,
-                  //               accountName: e.value.accountName),
-                  //         );
-                  //       }).toList(),
-                  //     ),
-                  //   ],
-                  // ),
                 ),
         ),
       ),
