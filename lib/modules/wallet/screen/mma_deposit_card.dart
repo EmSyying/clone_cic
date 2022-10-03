@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
-import '../../../widgets/mmaccount/custom_mma_card.dart';
+
+import '../../../widgets/wallets/custom_mma_card.dart';
 import 'deposit_from_screen.dart';
 
 class MMADepositCard extends StatelessWidget {

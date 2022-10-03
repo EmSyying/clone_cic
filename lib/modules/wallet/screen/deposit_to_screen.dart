@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/modules/wallet/screen/custom_keyboard.dart';
+import 'package:cicgreenloan/modules/wallet/screen/deposit_mmaccount_screen.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/utils/helper/format_number.dart';
@@ -107,8 +108,15 @@ class _DepositToScreenState extends State<DepositToScreen> {
                                             .controllerToDepositAmount.text !=
                                         ''
                                     ? () {
-                                        _walletController
-                                            .onToDepositBankOrWallet(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MMAcountDepositScreen(),
+                                          ),
+                                        );
+                                        // _walletController
+                                        //     .onToDepositBankOrWallet(context);
                                       }
                                     : null,
                                 isDisable: false,

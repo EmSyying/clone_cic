@@ -5,7 +5,6 @@ import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../investment_module/screen/deposit_screen.dart';
 import '../model/wallet_model.dart';
 
 class WalletController extends GetxController {
@@ -15,20 +14,20 @@ class WalletController extends GetxController {
   List<MMADepositCardModel> mmacardlist = [
     MMADepositCardModel(
       title: 'To deposit via Banks / Wallets',
-      imageMMACard: 'assets/images/svgfile/dividend.svg',
+      imageMMACard: 'assets/images/wallet/fontisto_wallet.svg',
     ),
     MMADepositCardModel(
       title: 'To receive from other MM Account',
-      imageMMACard: 'assets/images/svgfile/cashout1.svg',
+      imageMMACard: 'assets/images/wallet/navigation_icons.svg',
     ),
-    MMADepositCardModel(
-      title: 'To deposit via ZPoin',
-      imageMMACard: 'assets/images/svgfile/investfif.svg',
-    ),
-    MMADepositCardModel(
-      title: 'To deposit via KESS PAY',
-      imageMMACard: 'assets/images/svgfile/subscribe_card.svg',
-    )
+    // MMADepositCardModel(
+    //   title: 'To deposit via ZPoin',
+    //   imageMMACard: 'assets/images/svgfile/investfif.svg',
+    // ),
+    // MMADepositCardModel(
+    //   title: 'To deposit via KESS PAY',
+    //   imageMMACard: 'assets/images/svgfile/subscribe_card.svg',
+    // )
   ].obs;
 
   ///Fetch Wallet Amount
@@ -72,14 +71,15 @@ class WalletController extends GetxController {
           title: 'Done',
           description: '${response['message']}',
           type: SnackType.done);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DepositeScreen(
-            id: 12,
-          ),
-        ),
-      );
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const MMAcountDepositScreen(id: 12),
+      //   ),
+      // );
       controllerToDepositAmount.text = '';
       isToDeposit(false);
     }).onError((ErrorModel error, stackTrace) {
