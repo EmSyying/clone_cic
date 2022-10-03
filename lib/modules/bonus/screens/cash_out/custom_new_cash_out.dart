@@ -1,6 +1,5 @@
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/custom_change_account_bank.dart';
 import 'package:cicgreenloan/widgets/bonus/investFIF/custom_invest_balance_card.dart';
-import 'package:cicgreenloan/widgets/bonus/investFIF/optionInvest/interest_summary.dart';
 import 'package:cicgreenloan/widgets/bonus/service_agreement.dart';
 
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
@@ -79,6 +78,7 @@ class CustomNewCashOut extends StatelessWidget {
                           children: [
                             // SizedBox(height: 10),
                             CustomInvestBalanceCard(
+                              isContainStack: true,
                               titleBalance: 'Available Balance',
                               currency:
                                   newCashOutCon.balanceModel.value.balance,
@@ -299,192 +299,187 @@ class CustomNewCashOut extends StatelessWidget {
                               ),
                             ),
 
-                            Container(
-                              margin: const EdgeInsets.only(top: 15),
-                              padding: const EdgeInsets.only(bottom: 20),
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20, right: 20, top: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Payment Information',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        ),
-                                        GetBuilder<SettingController>(
-                                            init: SettingController(),
-                                            builder: (controller) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  onShowBottomSheet(
-                                                      icondata: Icons.close,
-                                                      isLoading:
-                                                          controller.isloading,
-                                                      title: controller
-                                                                  .uiSettingData
-                                                                  .paymentInformation !=
-                                                              null
-                                                          ? controller
-                                                              .uiSettingData
-                                                              .paymentInformation!
-                                                              .label
-                                                          : "Payment Information",
-                                                      context: context,
-                                                      child: Column(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        20,
-                                                                    vertical:
-                                                                        10),
-                                                            child: controller
-                                                                        .uiSettingData
-                                                                        .paymentInformation !=
-                                                                    null
-                                                                ? HtmlWidget(
-                                                                    "${controller.uiSettingData.paymentInformation!.description}",
-                                                                    textStyle: Theme.of(
-                                                                            context)
-                                                                        .textTheme
-                                                                        .headline2!
-                                                                        .copyWith(
-                                                                            fontWeight:
-                                                                                FontWeight.normal,
-                                                                            fontSize: 14),
-                                                                  )
-                                                                : Container(),
-                                                          )
-                                                        ],
-                                                      ));
-                                                },
-                                                child: SvgPicture.asset(
-                                                    'assets/images/svgfile/questicon.svg'),
-                                              );
-                                            })
-                                      ],
-                                    ),
-                                  ),
-                                  CustomInterestSummary(
-                                    titleDate: 'Transfer within :',
-                                    date: "",
-                                    time: newCashOutCon
-                                        .bonusSetting.value.cashOutSendingDate,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 20, right: 20),
-                                    child: Divider(
-                                      thickness: 0.5,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20, right: 20, top: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Cash Out Amount',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        ),
-                                        Text(
-                                          "${newCashOutCon.cashoutAmount.value.toString()} USD",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2!
-                                              .copyWith(
-                                                color: AppColor
-                                                    .statusColor['late'],
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                newCashOutCon.isAgree.value =
-                                    !newCashOutCon.isAgree.value;
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.only(
-                                    left: 20, top: 20, bottom: 20),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        newCashOutCon.isAgree.value == false
-                                            ? SvgPicture.asset(
-                                                'assets/images/svgfile/cicle_check.svg',
-                                                color: Colors.grey,
-                                              )
-                                            : SvgPicture.asset(
-                                                'assets/images/svgfile/circle_check-selected.svg'),
-                                        const SizedBox(width: 20),
-                                        Text(
-                                          'I have read  and agree to',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.grey),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            onShowCustomCupertinoModalSheet(
-                                                context: context,
-                                                child: ServiceAgreement(
-                                                  serviceAgreement:
-                                                      newCashOutCon
-                                                          .bonusSetting
-                                                          .value
-                                                          .serviceAgreement,
-                                                ),
-                                                title: 'Service Agreement',
-                                                icon: const Icon(
-                                                    Icons.arrow_back_ios));
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0),
-                                            child: Text(
-                                              'CiC Serivce Agreement',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline2!
-                                                  .copyWith(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color:
-                                                          AppColor.mainColor),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            // Container(
+                            //   margin: const EdgeInsets.only(top: 15),
+                            //   padding: const EdgeInsets.only(bottom: 20),
+                            //   color: Colors.white,
+                            //   child: Column(
+                            //     children: [
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //             left: 20, right: 20, top: 20),
+                            //         child: Row(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.spaceBetween,
+                            //           children: [
+                            //             Text(
+                            //               'Payment Information',
+                            //               style: Theme.of(context)
+                            //                   .textTheme
+                            //                   .bodyText2,
+                            //             ),
+                            //             GetBuilder<SettingController>(
+                            //                 init: SettingController(),
+                            //                 builder: (controller) {
+                            //                   return InkWell(
+                            //                     onTap: () {
+                            //                       onShowBottomSheet(
+                            //                           icondata: Icons.close,
+                            //                           isLoading:
+                            //                               controller.isloading,
+                            //                           title: controller
+                            //                                       .uiSettingData
+                            //                                       .paymentInformation !=
+                            //                                   null
+                            //                               ? controller
+                            //                                   .uiSettingData
+                            //                                   .paymentInformation!
+                            //                                   .label
+                            //                               : "Payment Information",
+                            //                           context: context,
+                            //                           child: Column(
+                            //                             children: [
+                            //                               Padding(
+                            //                                 padding:
+                            //                                     const EdgeInsets
+                            //                                             .symmetric(
+                            //                                         horizontal:
+                            //                                             20,
+                            //                                         vertical:
+                            //                                             10),
+                            //                                 child: controller
+                            //                                             .uiSettingData
+                            //                                             .paymentInformation !=
+                            //                                         null
+                            //                                     ? HtmlWidget(
+                            //                                         "${controller.uiSettingData.paymentInformation!.description}",
+                            //                                         textStyle: Theme.of(
+                            //                                                 context)
+                            //                                             .textTheme
+                            //                                             .headline2!
+                            //                                             .copyWith(
+                            //                                                 fontWeight:
+                            //                                                     FontWeight.normal,
+                            //                                                 fontSize: 14),
+                            //                                       )
+                            //                                     : Container(),
+                            //                               )
+                            //                             ],
+                            //                           ));
+                            //                     },
+                            //                     child: SvgPicture.asset(
+                            //                         'assets/images/svgfile/questicon.svg'),
+                            //                   );
+                            //                 })
+                            //           ],
+                            //         ),
+                            //       ),
+                            //       CustomInterestSummary(
+                            //         titleDate: 'Transfer within :',
+                            //         date: "",
+                            //         time: newCashOutCon
+                            //             .bonusSetting.value.cashOutSendingDate,
+                            //       ),
+                            //       const SizedBox(height: 20),
+                            //       const Padding(
+                            //         padding:
+                            //             EdgeInsets.only(left: 20, right: 20),
+                            //         child: Divider(
+                            //           thickness: 0.5,
+                            //           color: Colors.grey,
+                            //         ),
+                            //       ),
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //             left: 20, right: 20, top: 10),
+                            //         child: Row(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.spaceBetween,
+                            //           children: [
+                            //             Text(
+                            //               'Cash Out Amount',
+                            //               style: Theme.of(context)
+                            //                   .textTheme
+                            //                   .bodyText2,
+                            //             ),
+                            //             Text(
+                            //               "${newCashOutCon.cashoutAmount.value.toString()} USD",
+                            //               style: Theme.of(context)
+                            //                   .textTheme
+                            //                   .bodyText2!
+                            //                   .copyWith(
+                            //                     color: AppColor
+                            //                         .statusColor['late'],
+                            //                   ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        newCashOutCon.isAgree.value =
+                            !newCashOutCon.isAgree.value;
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            left: 20, top: 20, bottom: 20),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                newCashOutCon.isAgree.value == false
+                                    ? SvgPicture.asset(
+                                        'assets/images/svgfile/cicle_check.svg',
+                                        color: Colors.grey,
+                                      )
+                                    : SvgPicture.asset(
+                                        'assets/images/svgfile/circle_check-selected.svg'),
+                                const SizedBox(width: 20),
+                                Text(
+                                  'I have read  and agree to',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.grey),
                                 ),
-                              ),
+                                GestureDetector(
+                                  onTap: () {
+                                    onShowCustomCupertinoModalSheet(
+                                        context: context,
+                                        child: ServiceAgreement(
+                                          serviceAgreement: newCashOutCon
+                                              .bonusSetting
+                                              .value
+                                              .serviceAgreement,
+                                        ),
+                                        title: 'Service Agreement',
+                                        icon: const Icon(Icons.arrow_back_ios));
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5.0),
+                                    child: Text(
+                                      'CiC Serivce Agreement',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.normal,
+                                              color: AppColor.mainColor),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -515,7 +510,7 @@ class CustomNewCashOut extends StatelessWidget {
                               : null,
                           isDisable: false,
                           isOutline: false,
-                          title: 'Submit',
+                          title: 'Proceed to Pay',
                         )),
                   ],
                 ),

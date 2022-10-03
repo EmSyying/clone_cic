@@ -36,6 +36,7 @@ class CustomHistoryCashOut extends StatelessWidget {
           child: Column(
             children: [
               CustomInvestBalanceCard(
+                isContainStack: true,
                 titleBalance: 'Available Balance',
                 currency: historyCashOutCon.balanceModel.value.balance,
                 leftTitle: 'Investor ID',

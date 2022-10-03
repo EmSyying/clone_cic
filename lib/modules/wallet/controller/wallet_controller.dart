@@ -29,6 +29,16 @@ class WalletController extends GetxController {
     //   imageMMACard: 'assets/images/svgfile/subscribe_card.svg',
     // )
   ].obs;
+  List<MMADepositCardModel> mmAccountTransferList = [
+    MMADepositCardModel(
+      title: 'To deposit via Banks / Wallets',
+      imageMMACard: 'assets/images/svgfile/dividend.svg',
+    ),
+    MMADepositCardModel(
+      title: 'To receive from other MM Account',
+      imageMMACard: 'assets/images/svgfile/cashout1.svg',
+    ),
+  ].obs;
 
   ///Fetch Wallet Amount
   final walletAmount = WalletAmountModel().obs;
@@ -93,13 +103,13 @@ class WalletController extends GetxController {
   }
 
   ///transaction by Qr Code
-  Future<WalletAmountModel> scanWalletQr(String amount) async {
+  Future<void> oscanWalletQr(String amount, String receiver) async {
     await _apiBaseHelper.onNetworkRequesting(
       url: 'user/wallet',
       methode: METHODE.post,
       isAuthorize: true,
       body: {
-        'sender': '981096049',
+        'sender': walletAmount.value.accountNumber,
         'receiver': '296566817',
         'amount': amount,
       },
@@ -108,9 +118,8 @@ class WalletController extends GetxController {
           title: 'Done', description: 'Success', type: SnackType.done);
     }).onError((ErrorModel error, stackTrace) {
       customRouterSnackbar(
-          title: 'Done', description: 'Success', type: SnackType.done);
+          title: 'Done', description: 'Success', type: SnackType.error);
     });
-    return walletAmount.value;
   }
 
   ///Set Amount

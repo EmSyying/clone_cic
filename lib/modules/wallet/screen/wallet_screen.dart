@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../Utils/function/format_date_time.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
+import '../../bonus/controllers/bonus_controller.dart';
 import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
 import '../../bonus/screens/income_transaction.dart';
@@ -27,6 +28,7 @@ class _WalletScreenState extends State<WalletScreen>
     with TickerProviderStateMixin {
   TabController? _tabController;
   final _walletController = Get.put(WalletController());
+  final newCashOutCon = Get.put(BonusController());
 
   final String datetime = DateTime.now().toString();
 
@@ -34,6 +36,8 @@ class _WalletScreenState extends State<WalletScreen>
   void initState() {
     _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
     _walletController.fetchWalletAmount();
+    newCashOutCon.fetchbonusSetting();
+    newCashOutCon.fectchBalance();
     super.initState();
   }
 
@@ -155,7 +159,9 @@ class _WalletScreenState extends State<WalletScreen>
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const MMADepositCard(),
+                                                const MMADepositCard(
+                                              fromModule: 'Deposit',
+                                            ),
                                           ),
                                         );
                                       },
@@ -167,7 +173,15 @@ class _WalletScreenState extends State<WalletScreen>
                                       ontap: () {
                                         // FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                         //     'MMA subscribe');
-                                        show(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MMADepositCard(
+                                              fromModule: 'Transfer',
+                                            ),
+                                          ),
+                                        );
                                       },
                                       text: 'Transfer',
                                       img: 'assets/images/transfer.svg',

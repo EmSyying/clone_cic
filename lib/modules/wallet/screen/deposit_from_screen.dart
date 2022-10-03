@@ -2,7 +2,6 @@ import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
-import 'package:cicgreenloan/utils/helper/format_number.dart';
 import 'package:cicgreenloan/utils/helper/numerice_format.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,6 @@ class DepositFromScreen extends StatefulWidget {
 }
 
 class _DepositFromScreenState extends State<DepositFromScreen> {
-  final TextEditingController _controller = TextEditingController();
   final _walletController = Get.put(WalletController());
   @override
   Widget build(BuildContext context) {
@@ -34,29 +32,16 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     return Scaffold(
       backgroundColor: const Color(0xfffafafa),
       appBar: CustomAppBar(
-        context: context,
-        title: 'Deposit',
         elevation: 0,
-        backgroundColor: AppColor.mainColor,
-        isLogo: true,
-        leading: TextButton(
-          style: TextButton.styleFrom(primary: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            children: const [
-              Icon(Icons.arrow_back_ios),
-              Text('Back'),
-            ],
-          ),
-        ),
+        isLeading: true,
+        context: context,
+        title: "Deposit",
       ),
       body: Obx(
         () => Column(
           children: [
             WalletTotalCard(
-              amount: FormatNumber.formatNumber(230000),
+              amount: _walletController.walletAmount.value.balanceFormat,
             ),
             Expanded(
               child: Container(
@@ -82,7 +67,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 25),
                       child: PrettyQr(
                         data:
-                            'wallet${_walletController.recievingAmount.value.isNotEmpty ? _walletController.recievingAmount.value : ''}',
+                            'wallet${_walletController.walletAmount.value.accountNumber}',
                         size: 160,
                         errorCorrectLevel: QrErrorCorrectLevel.H,
                       ),

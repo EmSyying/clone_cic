@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:ui' as ui;
 import '../../Utils/helper/color.dart';
+import '../custom_showbottomsheet.dart';
 
 class WalletTotalCard extends StatelessWidget {
   final Widget? icon;
@@ -26,44 +27,78 @@ class WalletTotalCard extends StatelessWidget {
       ),
       child: CustomPaint(
         painter: PathPainter(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            children: [
-              const SizedBox(width: 30),
-              icon ??
-                  SvgPicture.asset(
-                    'assets/images/mma_wallet.svg',
-                    color: Colors.white,
-                  ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  // mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      title ?? 'Available Balance',
-                      style: textStyle.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const Spacer(),
+                InkWell(
+                  onTap: () {
+                    onShowBottomSheet(
+                        icondata: Icons.close,
+                        isLoading: false,
+                        title: 'Available Information',
+                        context: context,
+                        child: Column(
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              child: Text("Available Balance"),
+                            )
+                          ],
+                        ));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 13.0, right: 15.0),
+                    child: SvgPicture.asset(
+                      'assets/images/svgfile/questicon.svg',
+                      color: Colors.white,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        text: amount ?? '0.00',
-                        style: textStyle.copyWith(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              )
-            ],
-          ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: [
+                  const SizedBox(width: 30),
+                  icon ??
+                      SvgPicture.asset(
+                        'assets/images/mma_wallet.svg',
+                        color: Colors.white,
+                      ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      // mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          title ?? 'Available Balance',
+                          style: textStyle.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: amount ?? '0.00',
+                            style: textStyle.copyWith(
+                              color: Colors.white,
+                              fontSize: 25,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

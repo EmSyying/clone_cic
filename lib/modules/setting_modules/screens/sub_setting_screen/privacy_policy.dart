@@ -38,6 +38,13 @@ class PrivacyPolcy extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              Center(
+                                child: Image.asset(
+                                  'assets/images/Logo/cic.png',
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                               settingController.privacyPolicy.value
                                           .privacyPolicyEnglish !=
                                       null
