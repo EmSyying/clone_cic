@@ -66,6 +66,7 @@ class _ContractTermState extends State<ContractTerm> {
                                       settingController.termAndcondtion.value
                                           .termAndConditionEnglish!,
                                       textStyle: const TextStyle(
+                                        height: 1.5,
                                         fontWeight: FontWeight.normal,
                                       ),
                                     )

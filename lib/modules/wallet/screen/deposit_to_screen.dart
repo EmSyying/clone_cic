@@ -3,12 +3,14 @@ import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/utils/helper/format_number.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/numerice_format.dart';
 
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../investment_module/screen/deposit_screen.dart';
+import '../controller/wallet_controller.dart';
 
 class DepositToScreen extends StatefulWidget {
   const DepositToScreen({Key? key}) : super(key: key);
@@ -18,37 +20,28 @@ class DepositToScreen extends StatefulWidget {
 }
 
 class _DepositToScreenState extends State<DepositToScreen> {
+  final _walletController = Get.put(WalletController());
   TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
     return Scaffold(
       backgroundColor: const Color(0xfffafafa),
       appBar: CustomAppBar(
-        context: context,
-        title: 'To Deposit via banks',
         elevation: 0,
-        backgroundColor: AppColor.mainColor,
-        isLogo: true,
-        leading: TextButton(
-          style: TextButton.styleFrom(primary: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            children: const [
-              Icon(Icons.arrow_back_ios),
-              Text('Back'),
-            ],
-          ),
-        ),
+        isLeading: true,
+        context: context,
+        title: "To Deposit via banks",
       ),
       body: SafeArea(
         top: false,
         child: Column(
           children: [
-            WalletTotalCard(
-              amount: FormatNumber.formatNumber(230000),
+            Obx(
+              () => WalletTotalCard(
+                amount: _walletController.walletAmount.value.balanceFormat,
+              ),
             ),
             Expanded(
               child: Container(

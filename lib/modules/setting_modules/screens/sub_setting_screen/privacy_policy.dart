@@ -45,6 +45,7 @@ class PrivacyPolcy extends StatelessWidget {
                                       settingController.privacyPolicy.value
                                           .privacyPolicyEnglish!,
                                       textStyle: const TextStyle(
+                                        height: 1.5,
                                         fontWeight: FontWeight.normal,
                                       ),
                                     )

@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/function/format_date_time.dart';
+import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
@@ -60,24 +61,13 @@ class _WalletScreenState extends State<WalletScreen>
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: const Text('MM Account'),
+          appBar: CustomAppBar(
             elevation: 0,
+            isLogo: false,
+            isLeading: true,
+            context: context,
+            title: "MM Account",
           ),
-          // CustomAppBar(
-          //   context: context,
-          //   isLogo: false,
-          //   elevation: 0,
-          //   title: 'MM Account',
-          //   leading: IconButton(
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //     },
-          //     icon: const Icon(Icons.arrow_back_ios),
-          //   ),
-          // ),
           body: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
@@ -121,23 +111,15 @@ class _WalletScreenState extends State<WalletScreen>
                                   () => RichText(
                                     textAlign: TextAlign.center,
                                     text: TextSpan(
-                                        // text: FormatToK.digitNumber(),
-                                        text: _walletController
-                                            .walletAmount.value.accountNumber,
-                                        style: textStyle.copyWith(
-                                          fontSize: 30,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: ' USD',
-                                            style: textStyle.copyWith(
-                                              fontSize: 22,
-                                              color: Colors.white70,
-                                            ),
-                                          )
-                                        ]),
+                                      // text: FormatToK.digitNumber(),
+                                      text: _walletController
+                                          .walletAmount.value.balanceFormat,
+                                      style: textStyle.copyWith(
+                                        fontSize: 30,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -239,8 +221,6 @@ class _WalletScreenState extends State<WalletScreen>
                           'All Transactions',
                           style: Theme.of(context).textTheme.headline2,
                         ),
-                        const Spacer(),
-                        SvgPicture.asset('assets/images/searchicon.svg')
                       ],
                     ),
                   ),

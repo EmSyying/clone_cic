@@ -52,20 +52,12 @@ class WalletTotalCard extends StatelessWidget {
                     ),
                     RichText(
                       text: TextSpan(
-                          text: amount ?? '0.00',
-                          style: textStyle.copyWith(
-                            color: Colors.white,
-                            fontSize: 25,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: ' USD',
-                              style: textStyle.copyWith(
-                                color: Colors.white,
-                                fontSize: 19.5,
-                              ),
-                            ),
-                          ]),
+                        text: amount ?? '0.00',
+                        style: textStyle.copyWith(
+                          color: Colors.white,
+                          fontSize: 25,
+                        ),
+                      ),
                     )
                   ],
                 ),
