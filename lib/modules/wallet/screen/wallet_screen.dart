@@ -13,9 +13,9 @@ import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
 import '../../bonus/screens/income_transaction.dart';
 
-import 'dart:ui' as ui;
-
 import '../controller/wallet_controller.dart';
+
+import 'dart:ui' as ui;
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({Key? key}) : super(key: key);
@@ -53,8 +53,10 @@ class _WalletScreenState extends State<WalletScreen>
 
     return Stack(
       children: [
+        //Background Style
         Scaffold(
           backgroundColor: AppColor.mainColor,
+          extendBodyBehindAppBar: true,
           body: SizedBox(
             width: double.infinity,
             height: double.infinity,
@@ -63,9 +65,11 @@ class _WalletScreenState extends State<WalletScreen>
             ),
           ),
         ),
+
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: CustomAppBar(
+            backgroundColor: Colors.transparent,
             elevation: 0,
             isLogo: false,
             isLeading: true,
@@ -338,18 +342,23 @@ class PathPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final w = size.width;
     final h = size.height;
-    Paint paintFill = Paint()..style = PaintingStyle.fill;
-    paintFill.shader = ui.Gradient.linear(
-      Offset(w * 0.9, h * 0.9),
-      Offset(0, h * 0.5),
-      [const Color(0xff133B6F), const Color(0xff0B3C7C).withOpacity(0)],
-    );
+    Paint paintFill = Paint()
+      ..style = PaintingStyle.fill
+      // ..color = Colors.red
+      ..shader = ui.Gradient.linear(
+        Offset(w * 1.4, h * 0.45),
+        Offset(0, h * 0.55),
+        [
+          const Color(0xff133B6F),
+          const Color(0xff0B3C7C).withOpacity(0),
+        ],
+      );
 
     Path path = Path();
     path.moveTo(0, 0);
-    path.lineTo(0, h * 0.3);
+    path.lineTo(0, h * 0.30);
 
-    path.quadraticBezierTo(w * 0.2, h * 0.2, w * 0.85, 0);
+    path.quadraticBezierTo(w * 0.56, h * 0.29, w * 0.85, 0);
     path.close();
     canvas.drawPath(path, paintFill);
   }
