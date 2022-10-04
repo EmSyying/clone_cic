@@ -1198,7 +1198,7 @@ class PriceController extends GetxController {
         .onNetworkRequesting(
       url: 'fif/setting?user_id=$id',
       methode: METHODE.get,
-      isAuthorize: false,
+      isAuthorize: true,
     )
         .then((response) async {
       debugPrint("Validate User $id ===:$response");

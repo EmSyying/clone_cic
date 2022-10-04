@@ -115,6 +115,11 @@ class WalletController extends GetxController {
   }
 
   ///Set Amount
+  void clearDeposit() {
+    recievingAmount('');
+    amountController.text = '';
+  }
+
   final recievingAmount = ''.obs;
   TextEditingController amountController = TextEditingController();
 }

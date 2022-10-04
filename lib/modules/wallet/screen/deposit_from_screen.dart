@@ -1,10 +1,9 @@
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
-import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
-import 'package:cicgreenloan/utils/helper/numerice_format.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -13,6 +12,7 @@ import 'package:share/share.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 
+import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
@@ -26,6 +26,15 @@ class DepositFromScreen extends StatefulWidget {
 
 class _DepositFromScreenState extends State<DepositFromScreen> {
   final _walletController = Get.put(WalletController());
+
+  @override
+  void dispose() {
+    _walletController.clearDeposit();
+    super.dispose();
+  }
+
+  GlobalKey qrKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
@@ -53,89 +62,104 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 30),
-                    Text(
-                      'Show QR Code to receive payment from others.',
-                      style: textStyle.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 25),
-                      child: PrettyQr(
-                        data:
-                            'wallet${_walletController.walletAmount.value.accountNumber}',
-                        size: 160,
-                        errorCorrectLevel: QrErrorCorrectLevel.H,
-                      ),
-                    ),
-                    if (_walletController.recievingAmount.value.isEmpty)
-                      GestureDetector(
-                        onTap: () {
-                          _inputAmount(context);
-                        },
-                        child: _setAmountButton(textStyle),
-                      ),
-                    _walletController.recievingAmount.value.isNotEmpty
-                        ? _hasAmount(textStyle)
-                        : const SizedBox(),
-                    const Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildButton(textStyle,
-                            icon: SvgPicture.asset('assets/images/share.svg'),
-                            text: 'Share', onTap: () {
-                          Share.share('This is sample share');
-                        }),
-                        const SizedBox(width: 50),
-                        _buildButton(textStyle,
-                            text: 'Save',
-                            icon: SvgPicture.asset('assets/images/save.svg'),
-                            onTap: () {
-                          customRouterSnackbar(
-                              description: 'Qr Code Saved.',
-                              suffix: false,
-                              prefix: true);
-                        }),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    SafeArea(
-                      top: false,
-                      minimum: const EdgeInsets.only(bottom: 20),
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Read ',
-                          style: textStyle.copyWith(fontSize: 12),
-                          children: [
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ContractTerm(
-                                        fromPage: 'agree',
-                                      ),
-                                    ),
-                                  );
-                                },
-                              text: 'CiC Service Agreement',
-                              style: textStyle.copyWith(
-                                  color: AppColor.mainColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12),
-                            ),
-                          ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 30),
+                      Text(
+                        'Show QR Code to receive payment from others.',
+                        style: textStyle.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25),
+                        child: PrettyQr(
+                          key: qrKey,
+                          data:
+                              'wallet${_walletController.walletAmount.value.accountNumber}-${_walletController.recievingAmount.value}',
+                          size: 160,
+                          errorCorrectLevel: QrErrorCorrectLevel.H,
+                        ),
+                      ),
+                      if (_walletController.recievingAmount.value.isEmpty)
+                        GestureDetector(
+                          onTap: () {
+                            _inputAmount(context);
+                          },
+                          child: _setAmountButton(textStyle),
+                        ),
+                      _walletController.recievingAmount.value.isNotEmpty
+                          ? _hasAmount(textStyle)
+                          : const SizedBox(),
+                      // const Spacer(),
+                    ],
+                  ),
                 ),
+              ),
+            ),
+            //fix overflow keyboard
+            Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildButton(textStyle,
+                          icon: SvgPicture.asset('assets/images/share.svg'),
+                          text: 'Share', onTap: () {
+                        Share.share(
+                            '${_walletController.walletAmount.value.accountNumber}');
+                      }),
+                      const SizedBox(width: 50),
+                      _buildButton(textStyle,
+                          text: 'Save',
+                          icon: SvgPicture.asset('assets/images/save.svg'),
+                          onTap: () {
+                        // var qrKey;
+
+                        // ImageGallerySaver.saveImage();
+                        customRouterSnackbar(
+                            description: 'Qr Code Saved.',
+                            suffix: false,
+                            prefix: true);
+                      }),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  SafeArea(
+                    top: false,
+                    minimum: const EdgeInsets.only(bottom: 20),
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Read ',
+                        style: textStyle.copyWith(fontSize: 12),
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ContractTerm(
+                                      fromPage: 'agree',
+                                    ),
+                                  ),
+                                );
+                              },
+                            text: 'CiC Service Agreement',
+                            style: textStyle.copyWith(
+                                color: AppColor.mainColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             )
           ],
@@ -144,12 +168,12 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     );
   }
 
-  Future<dynamic> _inputAmount(BuildContext context) {
-    return showCupertinoModalBottomSheet(
+  Future<void> _inputAmount(BuildContext context) async {
+    await showCupertinoModalBottomSheet(
       context: context,
       barrierColor: Colors.black26,
       topRadius: const Radius.circular(14),
-      builder: (context) => Material(
+      builder: (_) => Material(
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.25 +
               MediaQuery.of(context).viewInsets.bottom,
@@ -167,7 +191,21 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
               ),
               CustomTextFieldNew(
                 controller: _walletController.amountController,
-                inputFormatterList: [NumericTextFormatter()],
+                inputFormatterList: [
+                  FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                  TextInputFormatter.withFunction((oldValue, newValue) {
+                    try {
+                      final text = newValue.text;
+                      if (text.isNotEmpty) double.parse(text);
+                      return newValue;
+                    } catch (e) {
+                      return oldValue;
+                    }
+                  }),
+                ],
+                autoFocus: true,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 labelText: 'Set Amount',
                 isRequired: true,
                 onChange: (value) {
@@ -201,9 +239,9 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                     Expanded(
                       child: CustomButton(
                         onPressed: () {
+                          Navigator.pop(context);
                           _walletController.recievingAmount.value =
                               _walletController.amountController.text;
-                          Navigator.pop(context);
                         },
                         backgroundColor: AppColor.mainColor,
                         colorText: Colors.white,
@@ -219,7 +257,12 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
           ),
         ),
       ),
-    );
+    ).then((value) {
+      _walletController.amountController.text =
+          _walletController.recievingAmount.value;
+    });
+
+    // if (ispop) {}
   }
 
   Column _hasAmount(TextStyle textStyle) {
