@@ -2,9 +2,9 @@ import 'package:cicgreenloan/modules/wallet/screen/custom_keyboard.dart';
 import 'package:cicgreenloan/modules/wallet/screen/deposit_mmaccount_screen.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
-import 'package:cicgreenloan/utils/helper/format_number.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_loading_button.dart';
@@ -22,6 +22,7 @@ class DepositToScreen extends StatefulWidget {
 
 class _DepositToScreenState extends State<DepositToScreen> {
   final _walletController = Get.put(WalletController());
+  final frm = NumberFormat('#,###.00', 'en');
 
   @override
   void dispose() {
@@ -88,14 +89,16 @@ class _DepositToScreenState extends State<DepositToScreen> {
                   const Spacer(),
                   CustomKeyboard(
                     onChanged: (value) {
-                      debugPrint(
-                          'Offset ${_walletController.controllerToDepositAmount.selection.base.offset}');
+                      debugPrint(value);
                       setState(() {
-                        _walletController.controllerToDepositAmount =
-                            TextEditingController(
-                                text: FormatNumber.numberFormatdefual
-                                    .parse(value)
-                                    .toString());
+                        if (value.isNotEmpty) {
+                          _walletController.controllerToDepositAmount =
+                              TextEditingController(
+                                  text: frm.parse(value).toString());
+                        } else {
+                          _walletController.controllerToDepositAmount =
+                              TextEditingController(text: null);
+                        }
                       });
                     },
                   ),

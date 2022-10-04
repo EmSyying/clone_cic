@@ -16,7 +16,7 @@ class CustomKeyboardState extends State<CustomKeyboard> {
     ['4', '5', '6'],
     ['7', '8', '9'],
     [
-      ',',
+      '.',
       '0',
       const Icon(
         Icons.backspace,
@@ -26,7 +26,7 @@ class CustomKeyboardState extends State<CustomKeyboard> {
   ];
   String amount = '';
 
-  onKeyTap(val) {
+  _onKeyTap(val) {
     if (val == '0' && amount.isEmpty) {
       return;
     }
@@ -34,7 +34,7 @@ class CustomKeyboardState extends State<CustomKeyboard> {
     widget.onChanged?.call(amount);
   }
 
-  onBackspacePress() {
+  _onBackspacePress() {
     if (amount.isEmpty) {
       return;
     }
@@ -43,7 +43,7 @@ class CustomKeyboardState extends State<CustomKeyboard> {
     widget.onChanged?.call(amount);
   }
 
-  renderKeyboard() {
+  List<Row> renderKeyboard() {
     return keys
         .map(
           (x) => Row(
@@ -56,9 +56,9 @@ class CustomKeyboardState extends State<CustomKeyboard> {
                     onTap: (val) {
                       debugPrint(val.toString());
                       if (val is Widget) {
-                        onBackspacePress();
+                        _onBackspacePress();
                       } else {
-                        onKeyTap(val);
+                        _onKeyTap(val);
                       }
                     },
                   ),
