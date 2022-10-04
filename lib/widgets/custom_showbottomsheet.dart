@@ -5,25 +5,23 @@ import 'package:flutter/material.dart';
 import '../Utils/helper/container_partern.dart';
 import 'bonus/custom_header_bottom_sheet_style.dart';
 
-onShowBottomSheet({
-  @required BuildContext? context,
-  String? title,
-  String? type,
-  String? label,
-  String? time,
-  num? amount,
-  Widget? child,
-  IconData? icondata,
-  Widget? icon,
-  Widget? text,
-  bool? isscroll = false,
-  double? isHeight,
-  bool? isLoading = false,
-  Color? backgroundColor,
-  bool? isNoAppBar = false,
-  bool? isDismissible,
-  Widget? action,
-}) {
+onShowBottomSheet(
+    {@required BuildContext? context,
+    String? title,
+    String? type,
+    String? label,
+    String? time,
+    num? amount,
+    Widget? child,
+    IconData? icondata,
+    Widget? icon,
+    Widget? text,
+    bool? isscroll = false,
+    double? isHeight,
+    bool? isLoading = false,
+    Color? backgroundColor,
+    bool? isNoAppBar = false,
+    bool? isDismissible}) {
   showModalBottomSheet(
     backgroundColor: backgroundColor,
     isDismissible: isDismissible ?? true,
@@ -38,7 +36,9 @@ onShowBottomSheet({
               // heightFactor: 20,
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: isHeight,
+                height: isHeight != null
+                    ? MediaQuery.of(context).size.height * 0.9
+                    : isHeight,
                 child: SingleChildScrollView(
                   physics: isscroll!
                       ? const ScrollPhysics()
@@ -120,7 +120,9 @@ onShowBottomSheet({
               // heightFactor: 20,
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: isHeight ?? MediaQuery.of(context).size.height * 0.9,
+                height: isHeight != null
+                    ? MediaQuery.of(context).size.height * 0.7
+                    : null,
                 child: SingleChildScrollView(
                   physics: isscroll!
                       ? const ScrollPhysics()
@@ -149,7 +151,6 @@ onShowBottomSheet({
                                 label: label,
                                 time: time,
                                 amount: amount,
-                                action: action,
                               )
                             : Row(
                                 children: [

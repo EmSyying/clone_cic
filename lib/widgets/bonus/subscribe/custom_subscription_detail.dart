@@ -697,85 +697,85 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             ),
 
           //// subscription status partailly paid
-          // const SizedBox(height: 15),
-          // Container(
-          //   width: double.infinity,
-          //   padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15),
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(10),
-          //     color: Colors.grey.withOpacity(0.1),
-          //   ),
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(right: 20),
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Text('Total Subscription Cost:',
-          //                 style: Theme.of(context)
-          //                     .textTheme
-          //                     .headline5!
-          //                     .copyWith(fontSize: 14)),
-          //             Text('${FormatToK.digitNumber(totalSubscription)} USD',
-          //                 style: Theme.of(context)
-          //                     .textTheme
-          //                     .headline2!
-          //                     .copyWith(
-          //                         fontSize: 14,
-          //                         color: unPaidAmount == 0
-          //                             ? AppColor.statusColor['late']
-          //                             : AppColor.mainColor)),
-          //           ],
-          //         ),
-          //         const SizedBox(height: 15),
-          //         if (unPaidAmount != 0)
-          //           Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Text(
-          //                 'Paid Amount:',
-          //                 style: Theme.of(context)
-          //                     .textTheme
-          //                     .headline5!
-          //                     .copyWith(fontSize: 14),
-          //               ),
-          //               if (unPaidAmount != 0)
-          //                 Text('${FormatToK.digitNumber(unPaidAmount)} USD',
-          //                     style: Theme.of(context)
-          //                         .textTheme
-          //                         .headline2!
-          //                         .copyWith(
-          //                             fontSize: 14, color: AppColor.mainColor)),
-          //             ],
-          //           ),
-          //         const SizedBox(height: 5),
-          //         const Divider(
-          //           thickness: 0.4,
-          //           color: Colors.grey,
-          //         ),
-          //         Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Text(
-          //               'Amount to pay:',
-          //               style: Theme.of(context).textTheme.headline2!.copyWith(
-          //                   fontSize: 16, fontWeight: FontWeight.w500),
-          //             ),
-          //             Text(
-          //               '${FormatToK.digitNumber(amountToPay)} USD',
-          //               style: Theme.of(context).textTheme.headline2!.copyWith(
-          //                   fontSize: 16,
-          //                   fontWeight: FontWeight.w700,
-          //                   color: Colors.red),
-          //             ),
-          //           ],
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
+          const SizedBox(height: 15),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey.withOpacity(0.1),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Total Subscription Cost:',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontSize: 14)),
+                      Text('${FormatToK.digitNumber(totalSubscription)} USD',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: unPaidAmount == 0
+                                      ? AppColor.statusColor['late']
+                                      : AppColor.mainColor)),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  if (unPaidAmount != 0)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Paid Amount:',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontSize: 14),
+                        ),
+                        if (unPaidAmount != 0)
+                          Text('${FormatToK.digitNumber(unPaidAmount)} USD',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
+                                      fontSize: 14, color: AppColor.mainColor)),
+                      ],
+                    ),
+                  const SizedBox(height: 5),
+                  const Divider(
+                    thickness: 0.4,
+                    color: Colors.grey,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Amount to pay:',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        '${FormatToK.digitNumber(amountToPay)} USD',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
 
           const SizedBox(
             height: 20,
