@@ -23,13 +23,13 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../widgets/notification/accept_notification_pop_up.dart';
 import '../../../widgets/ut_tradding/notification_detail_popup.dart';
-import '../../bonus/screens/bonus_screen.dart';
 import '../../event_module/models/event_detail_argument.dart';
 import '../../event_module/screen/event_detail.dart';
 import '../../get_funding/screens/debt_investment/preview_debt_form.dart';
 import '../../get_funding/screens/equity_investment/preview_equity.dart';
 import '../../investment_module/screen/bullet_payment_detail.dart';
 import '../../investment_module/screen/deposit_screen.dart';
+import '../../wallet/screen/wallet_screen.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -519,7 +519,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                       ),
                                                                                                     );
                                                                                                   }
-                                                                                                : _con.notificationList[index].data!.type == 'bonus' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment'
+                                                                                                : _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment'
                                                                                                     ? () async {
                                                                                                         notificationIdList.add(items.id);
                                                                                                         _con.onReadNotification(_con.notificationList[index].id!);
@@ -528,7 +528,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                         });
                                                                                                         await Navigator.push(
                                                                                                           context,
-                                                                                                          MaterialPageRoute(builder: (context) => const BonusScreen()),
+                                                                                                          MaterialPageRoute(builder: (context) => const WalletScreen()),
                                                                                                         );
                                                                                                       }
                                                                                                     : _con.notificationList[index].data!.type == 'fif' || _con.notificationList[index].data!.type == 'withdraw' || _con.notificationList[index].data!.type == 'renew' || _con.notificationList[index].data!.type == 'fif-monthly-payment'
@@ -591,7 +591,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                             setState(() {
                                                                                                               _con.notificationList[index].readAt = '';
                                                                                                             });
-
+                                                                                                            debugPrint("Notification Type:${_con.notificationList[index].data!.type}");
                                                                                                             await onShowCustomCupertinoModalSheet(
                                                                                                               context: context,
                                                                                                               icon: const Icon(Icons.close),
