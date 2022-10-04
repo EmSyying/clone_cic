@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dotted_decoration/dotted_decoration.dart';
 
 import 'package:flutter/material.dart';
@@ -24,26 +22,10 @@ class ReviewMMATransferScreen extends StatelessWidget {
     return DefaultSizeWeb(
       child: Scaffold(
         appBar: CustomAppBar(
+          elevation: 0,
+          isLeading: true,
           context: context,
-          title: 'Review',
-          leading: IconButton(
-            icon: Platform.isIOS
-                ? Icon(
-                    Icons.arrow_back_ios,
-                    color: Get.theme.brightness == Brightness.light
-                        ? Colors.white
-                        : Theme.of(context).primaryColor,
-                  )
-                : Icon(
-                    Icons.arrow_back,
-                    color: Get.theme.brightness == Brightness.light
-                        ? Colors.white
-                        : Theme.of(context).primaryColor,
-                  ),
-            onPressed: () {
-              Navigator.pop(context, false);
-            },
-          ),
+          title: "Review",
         ),
         body: Column(
           children: [
