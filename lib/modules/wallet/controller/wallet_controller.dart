@@ -20,23 +20,15 @@ class WalletController extends GetxController {
       title: 'To receive from other MM Account',
       imageMMACard: 'assets/images/wallet/navigation_icons.svg',
     ),
-    // MMADepositCardModel(
-    //   title: 'To deposit via ZPoin',
-    //   imageMMACard: 'assets/images/svgfile/investfif.svg',
-    // ),
-    // MMADepositCardModel(
-    //   title: 'To deposit via KESS PAY',
-    //   imageMMACard: 'assets/images/svgfile/subscribe_card.svg',
-    // )
   ].obs;
   List<MMADepositCardModel> mmAccountTransferList = [
     MMADepositCardModel(
-      title: 'To deposit via Banks / Wallets',
-      imageMMACard: 'assets/images/svgfile/dividend.svg',
+      title: 'Cash Out',
+      imageMMACard: 'assets/images/svgfile/cashout.svg',
     ),
     MMADepositCardModel(
-      title: 'To receive from other MM Account',
-      imageMMACard: 'assets/images/svgfile/cashout1.svg',
+      title: 'Transfer to other MM Account',
+      imageMMACard: 'assets/images/wallet/transferto-other-account.svg',
     ),
   ].obs;
 
