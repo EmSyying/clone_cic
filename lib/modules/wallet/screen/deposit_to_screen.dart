@@ -40,102 +40,99 @@ class _DepositToScreenState extends State<DepositToScreen> {
         context: context,
         title: "To Deposit via banks",
       ),
-      body: SafeArea(
-        top: false,
-        child: Column(
-          children: [
-            Obx(
-              () => WalletTotalCard(
-                amount: _walletController.walletAmount.value.balanceFormat,
+      body: Column(
+        children: [
+          Obx(
+            () => WalletTotalCard(
+              amount: _walletController.walletAmount.value.balanceFormat,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  Text(
+                    'Enter Deposit Amount',
+                    style: textStyle.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _walletController.controllerToDepositAmount,
+                    showCursor: false,
+                    style: textStyle.copyWith(fontSize: 46),
+                    inputFormatters: [
+                      //FilteringTextInputFormatter.digitsOnly,
+                      NumericTextFormatter(),
+                    ],
+                    textAlign: TextAlign.center,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      hintText: '0.00',
+                      hintStyle: textStyle.copyWith(
+                          fontSize: 46, color: AppColor.chartLabelColor),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                  const Spacer(),
+                  CustomKeyboard(
+                    onChanged: (value) {
+                      debugPrint(
+                          'Offset ${_walletController.controllerToDepositAmount.selection.base.offset}');
+                      setState(() {
+                        _walletController.controllerToDepositAmount =
+                            TextEditingController(
+                                text: FormatNumber.numberFormatdefual
+                                    .parse(value)
+                                    .toString());
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  SafeArea(
+                    top: false,
+                    minimum: const EdgeInsets.all(20),
+                    child: Obx(
+                      () => _walletController.isToDeposit.value
+                          ? const CustomLoadingButton()
+                          : CustomButton(
+                              title: 'Next',
+                              onPressed: _walletController
+                                          .controllerToDepositAmount.text !=
+                                      ''
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MMAcountDepositScreen(),
+                                        ),
+                                      );
+                                      // _walletController
+                                      //     .onToDepositBankOrWallet(context);
+                                    }
+                                  : null,
+                              isDisable: false,
+                              isOutline: false,
+                            ),
+                    ),
+                  )
+                ],
               ),
             ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 30),
-                    Text(
-                      'Enter Deposit Amount',
-                      style: textStyle.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _walletController.controllerToDepositAmount,
-                      showCursor: false,
-                      style: textStyle.copyWith(fontSize: 46),
-                      inputFormatters: [
-                        //FilteringTextInputFormatter.digitsOnly,
-                        NumericTextFormatter(),
-                      ],
-                      textAlign: TextAlign.center,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        hintText: '0.00',
-                        hintStyle: textStyle.copyWith(
-                            fontSize: 46, color: AppColor.chartLabelColor),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    const Spacer(),
-                    CustomKeyboard(
-                      onChanged: (value) {
-                        debugPrint(
-                            'Offset ${_walletController.controllerToDepositAmount.selection.base.offset}');
-                        setState(() {
-                          _walletController.controllerToDepositAmount =
-                              TextEditingController(
-                                  text: FormatNumber.numberFormatdefual
-                                      .parse(value)
-                                      .toString());
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    SafeArea(
-                      top: false,
-                      minimum: const EdgeInsets.all(20),
-                      child: Obx(
-                        () => _walletController.isToDeposit.value
-                            ? const CustomLoadingButton()
-                            : CustomButton(
-                                title: 'Next',
-                                onPressed: _walletController
-                                            .controllerToDepositAmount.text !=
-                                        ''
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MMAcountDepositScreen(),
-                                          ),
-                                        );
-                                        // _walletController
-                                        //     .onToDepositBankOrWallet(context);
-                                      }
-                                    : null,
-                                isDisable: false,
-                                isOutline: false,
-                              ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
