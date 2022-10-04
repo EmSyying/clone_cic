@@ -1,6 +1,4 @@
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/custom_change_account_bank.dart';
-import 'package:cicgreenloan/widgets/bonus/investFIF/custom_invest_balance_card.dart';
-import 'package:cicgreenloan/widgets/bonus/service_agreement.dart';
 
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
 
@@ -14,22 +12,23 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
-import '../../../../Utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/function/convert_to_double.dart';
-import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/container_partern.dart';
 
 import '../../../../utils/form_builder/custom_drop_down.dart';
 import '../../../../utils/form_builder/dropdow_item.dart';
 import '../../../../utils/helper/firebase_analytics.dart';
+import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../../member_directory/controllers/customer_controller.dart';
+import '../../../wallet/controller/wallet_controller.dart';
 import '../../controllers/bonus_controller.dart';
 
 // ignore: must_be_immutable
 class CustomNewCashOut extends StatelessWidget {
   CustomNewCashOut({Key? key}) : super(key: key);
   final newCashOutCon = Get.put(BonusController());
+  final _walletController = Get.put(WalletController());
   final userCon = Get.put(CustomerController());
   String cashoutDate = DateTime.now().toString();
   DateFormat? dateFormat = DateFormat("HH:mm a");
@@ -51,7 +50,7 @@ class CustomNewCashOut extends StatelessWidget {
     if (newCashOutCon.cashoutAmount.value != 0.0 &&
         newCashOutCon.bankName.value != "" &&
         newCashOutCon.cashoutAmount.value <=
-            newCashOutCon.balanceModel.value.balance!) {
+            _walletController.walletAmount.value.balance!) {
       newCashOutCon.onCashout(context: context);
     }
     return false;
@@ -76,17 +75,21 @@ class CustomNewCashOut extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            // SizedBox(height: 10),
-                            CustomInvestBalanceCard(
-                              isContainStack: true,
-                              titleBalance: 'Available Balance',
-                              currency:
-                                  newCashOutCon.balanceModel.value.balance,
-                              leftTitle: 'Investor ID',
-                              leftSubTitle: userCon.customer.value.code,
-                              rightTitle: 'Investor Name',
-                              rightSubTitle: userCon.customer.value.fullName,
+                            WalletTotalCard(
+                              amount: _walletController
+                                  .walletAmount.value.balanceFormat,
                             ),
+                            // SizedBox(height: 10),
+                            // CustomInvestBalanceCard(
+                            //   isContainStack: true,
+                            //   titleBalance: 'Available Balance',
+                            //   currency:
+                            //       newCashOutCon.balanceModel.value.balance,
+                            //   leftTitle: 'Investor ID',
+                            //   leftSubTitle: userCon.customer.value.code,
+                            //   rightTitle: 'Investor Name',
+                            //   rightSubTitle: userCon.customer.value.fullName,
+                            // ),
                             const SizedBox(height: 20.0),
 
                             Container(
@@ -241,12 +244,12 @@ class CustomNewCashOut extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
                                   CustomTextFieldNew(
-                                    validateText: newCashOutCon.balanceModel
+                                    validateText: _walletController.walletAmount
                                                     .value.balance ==
                                                 0 ||
                                             newCashOutCon.cashoutAmount.value >
-                                                newCashOutCon
-                                                    .balanceModel.value.balance!
+                                                _walletController
+                                                    .walletAmount.value.balance!
                                         ? newCashOutCon.validateText.value
                                         : null,
                                     keyboardType:
@@ -263,8 +266,8 @@ class CustomNewCashOut extends StatelessWidget {
                                         newCashOutCon.isValidateCashoutAmount
                                             .value = false;
                                       } else if (onConvertToDouble(value) >
-                                          newCashOutCon
-                                              .balanceModel.value.balance!) {
+                                          _walletController
+                                              .walletAmount.value.balance!) {
                                         newCashOutCon.cashoutAmount.value =
                                             double.parse(value);
                                         newCashOutCon.isValidateCashoutAmount
@@ -443,42 +446,42 @@ class CustomNewCashOut extends StatelessWidget {
                                         'assets/images/svgfile/circle_check-selected.svg'),
                                 const SizedBox(width: 20),
                                 Text(
-                                  'I have read  and agree to',
+                                  'I have read  and agree to CiC serivce agreement',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline2!
                                       .copyWith(
                                           fontSize: 13,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: const Color(0XFF464646)),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    onShowCustomCupertinoModalSheet(
-                                        context: context,
-                                        child: ServiceAgreement(
-                                          serviceAgreement: newCashOutCon
-                                              .bonusSetting
-                                              .value
-                                              .serviceAgreement,
-                                        ),
-                                        title: 'Service Agreement',
-                                        icon: const Icon(Icons.arrow_back_ios));
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5.0),
-                                    child: Text(
-                                      'CiC Serivce Agreement',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.normal,
-                                              color: AppColor.mainColor),
-                                    ),
-                                  ),
-                                ),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     onShowCustomCupertinoModalSheet(
+                                //         context: context,
+                                //         child: ServiceAgreement(
+                                //           serviceAgreement: newCashOutCon
+                                //               .bonusSetting
+                                //               .value
+                                //               .serviceAgreement,
+                                //         ),
+                                //         title: 'Service Agreement',
+                                //         icon: const Icon(Icons.arrow_back_ios));
+                                //   },
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.only(left: 5.0),
+                                //     child: Text(
+                                //       'CiC Serivce Agreement',
+                                //       style: Theme.of(context)
+                                //           .textTheme
+                                //           .headline2!
+                                //           .copyWith(
+                                //               fontSize: 13,
+                                //               fontWeight: FontWeight.normal,
+                                //               color: AppColor.mainColor),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ],

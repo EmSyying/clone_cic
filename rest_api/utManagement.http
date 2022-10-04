@@ -356,6 +356,19 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+
+###
+# banner slide
+GET {{baseUrl}}v3/slide?type=slide
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+GET {{baseUrl}}v3/service
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
 ###
 # get channel by member id
 GET {{baseUrl}}api/v2/channel?member_id=442

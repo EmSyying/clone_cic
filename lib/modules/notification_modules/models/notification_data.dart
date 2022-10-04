@@ -102,19 +102,22 @@ class NotificationData {
 }
 
 class Button {
-  String? title;
+  String? icon;
+  String? label;
   String? target;
 
-  Button({this.title, this.target});
+  Button({this.icon, this.label, this.target});
 
   Button.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
+    icon = json['icon'];
+    label = json['label'];
     target = json['target'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['title'] = title;
+    data['icon'] = icon;
+    data['label'] = label;
     data['target'] = target;
     return data;
   }

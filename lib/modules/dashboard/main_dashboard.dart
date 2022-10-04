@@ -599,8 +599,8 @@ class _MainDashboardState extends State<MainDashboard> {
                                                 ),
                                               ),
                                               Positioned(
-                                                bottom: 5,
-                                                right: 10,
+                                                bottom: 20,
+                                                left: 25,
                                                 child:
                                                     _settingCon
                                                                     .slideList![
@@ -623,12 +623,25 @@ class _MainDashboardState extends State<MainDashboard> {
                                                                           Link(
                                                                         uri: Uri.tryParse(
                                                                             button.target!),
-                                                                        builder: (context, followLink) => ElevatedButton(
-                                                                            style: ElevatedButton.styleFrom(
-                                                                              primary: Theme.of(context).primaryColor.withAlpha(110),
-                                                                            ),
-                                                                            onPressed: followLink,
-                                                                            child: Text(button.title!)),
+                                                                        builder:
+                                                                            (context, followLink) =>
+                                                                                ElevatedButton(
+                                                                          style:
+                                                                              ElevatedButton.styleFrom(primary: Colors.white.withOpacity(0.2)),
+                                                                          onPressed:
+                                                                              followLink,
+                                                                          child:
+                                                                              Row(
+                                                                            children: [
+                                                                              if (button.icon != null)
+                                                                                SvgPicture.network(button.icon!),
+                                                                              const SizedBox(
+                                                                                width: 10,
+                                                                              ),
+                                                                              Text(button.label!),
+                                                                            ],
+                                                                          ),
+                                                                        ),
                                                                       ),
                                                                     )
                                                                     .toList(),

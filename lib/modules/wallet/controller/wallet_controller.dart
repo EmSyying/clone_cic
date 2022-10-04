@@ -20,23 +20,15 @@ class WalletController extends GetxController {
       title: 'To receive from other MM Account',
       imageMMACard: 'assets/images/wallet/navigation_icons.svg',
     ),
-    // MMADepositCardModel(
-    //   title: 'To deposit via ZPoin',
-    //   imageMMACard: 'assets/images/svgfile/investfif.svg',
-    // ),
-    // MMADepositCardModel(
-    //   title: 'To deposit via KESS PAY',
-    //   imageMMACard: 'assets/images/svgfile/subscribe_card.svg',
-    // )
   ].obs;
   List<MMADepositCardModel> mmAccountTransferList = [
     MMADepositCardModel(
-      title: 'To deposit via Banks / Wallets',
-      imageMMACard: 'assets/images/svgfile/dividend.svg',
+      title: 'Cash Out',
+      imageMMACard: 'assets/images/svgfile/cashout.svg',
     ),
     MMADepositCardModel(
-      title: 'To receive from other MM Account',
-      imageMMACard: 'assets/images/svgfile/cashout1.svg',
+      title: 'Transfer to other MM Account',
+      imageMMACard: 'assets/images/wallet/transferto-other-account.svg',
     ),
   ].obs;
 
@@ -78,22 +70,18 @@ class WalletController extends GetxController {
         'amount': onConvertToDouble(controllerToDepositAmount.text),
       },
     ).then((response) {
-      debugPrint("wallet is working1");
-      debugPrint("Response wallet:$response");
-      debugPrint("wallet is 2");
       customRouterSnackbar(
           title: 'Done',
           description: '${response['message']}',
           type: SnackType.done);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const MMAcountDepositScreen(id: 12),
-      //   ),
-      // );
+      //  navigator here
+
+      Future.delayed(const Duration(seconds: 2), () {
+        // context.go("/wallet");
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
       controllerToDepositAmount.text = '';
       isToDeposit(false);
     }).onError((ErrorModel error, stackTrace) {
