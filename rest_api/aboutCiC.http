@@ -18,7 +18,13 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 ###
-GET {{baseUrl}}v1/app-setting
+GET {{baseUrl}}v3/app-setting
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/slide?type=Splash Screen
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

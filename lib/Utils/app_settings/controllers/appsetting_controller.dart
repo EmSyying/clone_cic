@@ -115,7 +115,7 @@ class SettingController extends GetxController {
     isLoading(true);
     var token = LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}slide?type=Slide';
+        '${GlobalConfiguration().get('api_base_urlv3')}slide?module=Slide';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',

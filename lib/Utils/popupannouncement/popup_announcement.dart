@@ -133,7 +133,7 @@ class PopUpAnnouncement extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 40, vertical: 10),
                                 child: Text(
-                                  data.title ?? '',
+                                  data.label ?? '',
                                   style: const TextStyle(
                                     fontFamily: 'DMSans',
                                     fontSize: 16,
