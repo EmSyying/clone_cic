@@ -122,6 +122,7 @@ class _AddInquiryState extends State<AddInquiry> {
       child: Scaffold(
         appBar: CustomAppBar(
             isLeading: true,
+            isLogo: false,
             context: context,
             elevation: 1.0,
             leading: GestureDetector(

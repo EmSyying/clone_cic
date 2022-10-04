@@ -70,22 +70,18 @@ class WalletController extends GetxController {
         'amount': onConvertToDouble(controllerToDepositAmount.text),
       },
     ).then((response) {
-      debugPrint("wallet is working1");
-      debugPrint("Response wallet:$response");
-      debugPrint("wallet is 2");
       customRouterSnackbar(
           title: 'Done',
           description: '${response['message']}',
           type: SnackType.done);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const MMAcountDepositScreen(id: 12),
-      //   ),
-      // );
+      //  navigator here
+
+      Future.delayed(const Duration(seconds: 2), () {
+        // context.go("/wallet");
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
       controllerToDepositAmount.text = '';
       isToDeposit(false);
     }).onError((ErrorModel error, stackTrace) {
