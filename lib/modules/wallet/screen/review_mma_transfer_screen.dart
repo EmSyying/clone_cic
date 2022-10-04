@@ -20,25 +20,28 @@ class ReviewMMATransferScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final fifController = Get.put(PriceController());
     final newCashOutCon = Get.put(BonusController());
     return DefaultSizeWeb(
       child: Scaffold(
         appBar: CustomAppBar(
-          elevation: 0,
           context: context,
           title: 'Review',
           leading: IconButton(
             icon: Platform.isIOS
-                ? const Icon(
+                ? Icon(
                     Icons.arrow_back_ios,
-                    color: Colors.white,
+                    color: Get.theme.brightness == Brightness.light
+                        ? Colors.white
+                        : Theme.of(context).primaryColor,
                   )
-                : const Icon(
+                : Icon(
                     Icons.arrow_back,
+                    color: Get.theme.brightness == Brightness.light
+                        ? Colors.white
+                        : Theme.of(context).primaryColor,
                   ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context, false);
             },
           ),
         ),
@@ -82,68 +85,11 @@ class ReviewMMATransferScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          //=======
-                          Container(
-                            margin: const EdgeInsets.only(
-                              bottom: 18.0,
-                              top: 20.0,
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'CiC MM account',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  'Pay securely with CiC MM Account',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.0,
-                                        color: const Color(0xff848F92),
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-
+                          //=======title
+                          containerMMAccount(context),
                           const SizedBox(height: 20),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                decoration: DottedDecoration(
-                                    strokeWidth: 2,
-                                    shape: Shape.line,
-                                    color: Colors.grey[100]!),
-                              ),
-                              Container(
-                                color: Colors.white,
-                                child: Text(
-                                  'You are about to Cash Out',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        letterSpacing: 0.28,
-                                        fontSize: 16.0,
-                                        color: const Color(0xff515151),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          //====borderDottedDecoration===
+                          borderDottedDecoration(context),
                           Container(
                             margin: const EdgeInsets.only(
                               bottom: 20.0,
@@ -170,51 +116,53 @@ class ReviewMMATransferScreen extends StatelessWidget {
                             ),
                           ),
 
-                          Container(
-                            margin: const EdgeInsets.only(
-                              bottom: 20.0,
-                              top: 20.0,
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  newCashOutCon.bankName.value,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  newCashOutCon.accountNumberController.text,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16,
-                                        color: const Color(0xff515151),
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  newCashOutCon.accountNameController.text,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.0,
-                                        color: const Color(0xff848F92),
-                                      ),
-                                ),
-                              ],
+                          Obx(
+                            () => Container(
+                              margin: const EdgeInsets.only(
+                                bottom: 20.0,
+                                top: 20.0,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    newCashOutCon.bankName.value,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline4!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    newCashOutCon.accountNumberController.text,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: const Color(0xff515151),
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    newCashOutCon.accountNameController.text,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.0,
+                                          color: const Color(0xff848F92),
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -250,7 +198,6 @@ class ReviewMMATransferScreen extends StatelessWidget {
             ),
             SafeArea(
               top: false,
-              bottom: false,
               child: Column(
                 children: [
                   Padding(
@@ -285,7 +232,7 @@ class ReviewMMATransferScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 10.0,
-                      bottom: 30.0,
+                      bottom: 20.0,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -322,6 +269,63 @@ class ReviewMMATransferScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget containerMMAccount(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 18.0,
+        top: 20.0,
+      ),
+      child: Column(
+        children: [
+          Text(
+            'CiC MM account',
+            style: Theme.of(context).textTheme.headline4!.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            'Pay securely with CiC MM Account',
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.0,
+                  color: const Color(0xff848F92),
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget borderDottedDecoration(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          decoration: DottedDecoration(
+            strokeWidth: 2,
+            shape: Shape.line,
+            color: Colors.grey[100]!,
+          ),
+        ),
+        Container(
+          color: Colors.white,
+          child: Text(
+            'You are about to Cash Out',
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.28,
+                  fontSize: 16.0,
+                  color: const Color(0xff515151),
+                ),
+          ),
+        ),
+      ],
     );
   }
 }
