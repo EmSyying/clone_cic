@@ -18,10 +18,10 @@ import '../../../../Utils/helper/container_partern.dart';
 
 import '../../../../utils/form_builder/custom_drop_down.dart';
 import '../../../../utils/form_builder/dropdow_item.dart';
-import '../../../../utils/helper/firebase_analytics.dart';
 import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../../member_directory/controllers/customer_controller.dart';
 import '../../../wallet/controller/wallet_controller.dart';
+import '../../../wallet/screen/review_mma_transfer_screen.dart';
 import '../../controllers/bonus_controller.dart';
 
 // ignore: must_be_immutable
@@ -497,19 +497,21 @@ class CustomNewCashOut extends StatelessWidget {
                               ? newCashOutCon.bankName.value != "" &&
                                       newCashOutCon.accountNumber.value != ""
                                   ? () {
-                                      FirebaseAnalyticsHelper
-                                          .sendAnalyticsEvent(
-                                              'submit bonus cast out');
-                                      newCashOutCon.isAgree.value = false;
-                                      isValidate(context);
+                                      debugPrint("cash out 1");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ReviewMMATransferScreen(),
+                                        ),
+                                      );
+                                      // FirebaseAnalyticsHelper
+                                      //     .sendAnalyticsEvent(
+                                      //         'submit bonus cast out');
+                                      // newCashOutCon.isAgree.value = false;
+                                      // isValidate(context);
                                     }
-                                  : () {
-                                      FirebaseAnalyticsHelper
-                                          .sendAnalyticsEvent(
-                                              'submit bonus cast out');
-                                      newCashOutCon.isAgree.value = false;
-                                      isValidate(context);
-                                    }
+                                  : null
                               : null,
                           isDisable: false,
                           isOutline: false,

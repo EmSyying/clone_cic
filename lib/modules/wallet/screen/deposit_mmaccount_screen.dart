@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
-import '../../../Utils/helper/custom_appbar_colorswhite.dart';
+import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_loading_button.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/custom_invest_amount_card.dart';
@@ -40,14 +40,14 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
     return Obx(
       () => DefaultSizeWeb(
         child: Scaffold(
-          appBar: CustomAppBarWhiteColor(
+          appBar: CustomAppBar(
             context: context,
             title: 'CiC MM account',
             leading: IconButton(
               icon: Platform.isIOS
                   ? const Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.black,
+                      color: Colors.white,
                     )
                   : const Icon(
                       Icons.arrow_back,
