@@ -90,11 +90,13 @@ class _DepositToScreenState extends State<DepositToScreen> {
                   CustomKeyboard(
                     onChanged: (value) {
                       debugPrint(value);
+
                       setState(() {
                         if (value.isNotEmpty) {
+                          var d = double.parse(value);
                           _walletController.controllerToDepositAmount =
                               TextEditingController(
-                                  text: frm.parse(value).toString());
+                                  text: frm.format(d).toString());
                         } else {
                           _walletController.controllerToDepositAmount =
                               TextEditingController(text: null);
