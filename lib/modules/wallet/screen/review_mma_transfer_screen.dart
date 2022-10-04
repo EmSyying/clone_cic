@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
-import '../../../Utils/helper/custom_success_screen.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/slide_button.dart';
 import '../../bonus/controllers/bonus_controller.dart';
@@ -189,25 +188,26 @@ class ReviewMMATransferScreen extends StatelessWidget {
                     ),
                     child: SlideButton(
                       callback: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CustomSucessScreen(
-                                title: 'Success',
-                                description:
-                                    'The Cash out is completed successfully.',
-                                buttonTitle: 'Done',
-                                onPressedButton: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                              );
-                            },
-                          ),
-                        );
+                        newCashOutCon.onCashout(context);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) {
+                        //       return CustomSucessScreen(
+                        //         title: 'Success',
+                        //         description:
+                        //             'The Cash out is completed successfully.',
+                        //         buttonTitle: 'Done',
+                        //         onPressedButton: () {
+                        //           Navigator.pop(context);
+                        //           Navigator.pop(context);
+                        //           Navigator.pop(context);
+                        //           Navigator.pop(context);
+                        //         },
+                        //       );
+                        //     },
+                        //   ),
+                        // );
                       },
                     ),
                   ),

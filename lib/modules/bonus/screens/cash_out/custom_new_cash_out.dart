@@ -51,7 +51,7 @@ class CustomNewCashOut extends StatelessWidget {
         newCashOutCon.bankName.value != "" &&
         newCashOutCon.cashoutAmount.value <=
             _walletController.walletAmount.value.balance!) {
-      newCashOutCon.onCashout(context: context);
+      newCashOutCon.onCashout(context);
     }
     return false;
   }

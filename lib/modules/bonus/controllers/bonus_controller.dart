@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../Utils/function/get_sharepreference_data.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
+import '../../../Utils/helper/custom_success_screen.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../../ut_trading/models/detail_model.dart';
 import '../models/availabale_balance_model.dart';
@@ -375,9 +376,9 @@ class BonusController extends GetxController {
   }
 
   // Cash out
-  Future<void> onCashout({
-    BuildContext? context,
-  }) async {
+  Future<void> onCashout(
+    BuildContext context,
+  ) async {
     final tokenKey = await LocalData.getCurrentUser();
     isCashout(true);
     String url = '${GlobalConfiguration().get('api_base_urlv3')}cash-out';
@@ -395,18 +396,35 @@ class BonusController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          customRouterSnackbar(
-              title: 'Cash Out',
-              description: 'Your cash out request is submitted successfully.');
-
-          Future.delayed(const Duration(seconds: 3), () {
-            fectchBalance();
-            fetchTransationHistory(type: "all");
-            Navigator.pop(context!);
-            isLoadingHistory.value = true;
-            isSubmited.value = false;
-            onClear();
+          Future.delayed(const Duration(seconds: 2), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return CustomSucessScreen(
+                    title: 'Success',
+                    description: 'The Cash out is completed successfully.',
+                    buttonTitle: 'Done',
+                    onPressedButton: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+            );
           });
+
+          // Future.delayed(const Duration(seconds: 3), () {
+          //   fectchBalance();
+          //   fetchTransationHistory(type: "all");
+          //   Navigator.pop(context);
+          //   isLoadingHistory.value = true;
+          //   isSubmited.value = false;
+          //   onClear();
+          // });
         } else {
           customRouterSnackbar(
               title: 'Cash Out Failed',
