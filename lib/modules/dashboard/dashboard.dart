@@ -139,33 +139,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 offlineWidget: Column(
                   children: [
                     AppBar(
-                      // leading: IconButton(
-                      //   icon: kIsWeb
-                      //       ? Icon(
-                      //           Icons.arrow_back,
-                      //           color: Get.theme.brightness == Brightness.light
-                      //               ? Colors.white
-                      //               : Theme.of(context).primaryColor,
-                      //         )
-                      //       : Platform.isAndroid
-                      //           ? Icon(
-                      //               Icons.arrow_back,
-                      //               color:
-                      //                   Get.theme.brightness == Brightness.light
-                      //                       ? Colors.white
-                      //                       : Theme.of(context).primaryColor,
-                      //             )
-                      //           : Icon(
-                      //               Icons.arrow_back_ios,
-                      //               color:
-                      //                   Get.theme.brightness == Brightness.light
-                      //                       ? Colors.white
-                      //                       : Theme.of(context).primaryColor,
-                      //             ),
-                      //   onPressed: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      // ),
                       backgroundColor: Theme.of(context).primaryColor,
                       automaticallyImplyLeading:
                           widget.isNavigator != null && widget.isNavigator!

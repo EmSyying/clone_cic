@@ -175,7 +175,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                       FirebaseAnalyticsHelper
                                           .sendAnalyticsEvent(
                                               'Stop Contract Renewal');
-                                      // Navigator.pop(context);
+                                      Navigator.pop(context);
                                       investmentController.onAutoRenew(
                                           widget.id,
                                           isautorenew == true ? 'yes' : 'no');
