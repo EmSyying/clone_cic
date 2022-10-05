@@ -273,8 +273,11 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                                     overlaySetting: OverlaySetting(),
                                   );
                                 },
-                                child: SvgPicture.asset(
-                                  'assets/images/demo.svg',
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: SvgPicture.asset(
+                                    'assets/images/demo.svg',
+                                  ),
                                 ),
                               ),
 

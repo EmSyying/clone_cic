@@ -9,8 +9,8 @@ import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_loading_button.dart';
 import '../../../widgets/defualt_size_web.dart';
-import '../../../widgets/investments/custom_invest_amount_card.dart';
 import '../../../widgets/investments/fif_contract/custom_copy_bank.dart';
+import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../controller/wallet_controller.dart';
 
@@ -85,12 +85,14 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                 ),
                                 child: Column(
                                   children: [
-                                    CustomInvestAmonutCard(
-                                      title: 'CiC MM Account',
-                                      investAmount: _walletController
-                                          .walletAmount.value.balanceFormat,
-                                      isColors: true,
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0),
+                                      child: WalletTotalCard(
+                                        amount: _walletController
+                                            .walletAmount.value.balanceFormat,
+                                      ),
                                     ),
+
                                     //=======
                                     const SizedBox(height: 20),
                                     Stack(

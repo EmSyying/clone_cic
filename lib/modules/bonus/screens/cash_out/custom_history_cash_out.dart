@@ -3,14 +3,17 @@ import 'package:cicgreenloan/modules/member_directory/controllers/customer_contr
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/cash_in_histories.dart';
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/cash_in_ount.dart';
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/cash_out_histories.dart';
-import 'package:cicgreenloan/widgets/bonus/investFIF/custom_invest_balance_card.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_chips.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
+import '../../../wallet/controller/wallet_controller.dart';
+
 class CustomHistoryCashOut extends StatelessWidget {
   CustomHistoryCashOut({Key? key}) : super(key: key);
   final historyCashOutCon = Get.put(BonusController());
+  final _walletController = Get.put(WalletController());
   final userCon = Get.put(CustomerController());
 
   @override
@@ -35,14 +38,11 @@ class CustomHistoryCashOut extends StatelessWidget {
           color: Colors.grey[100],
           child: Column(
             children: [
-              CustomInvestBalanceCard(
-                isContainStack: true,
-                titleBalance: 'Available Balance',
-                currency: historyCashOutCon.balanceModel.value.balance,
-                leftTitle: 'Investor ID',
-                leftSubTitle: userCon.customer.value.code,
-                rightTitle: 'Investor Name',
-                rightSubTitle: userCon.customer.value.fullName,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: WalletTotalCard(
+                  amount: _walletController.walletAmount.value.balanceFormat,
+                ),
               ),
               const SizedBox(height: 20.0),
               Container(

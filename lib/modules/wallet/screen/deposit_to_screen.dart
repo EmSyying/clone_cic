@@ -43,8 +43,9 @@ class _DepositToScreenState extends State<DepositToScreen> {
       ),
       body: Column(
         children: [
-          Obx(
-            () => WalletTotalCard(
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: WalletTotalCard(
               amount: _walletController.walletAmount.value.balanceFormat,
             ),
           ),

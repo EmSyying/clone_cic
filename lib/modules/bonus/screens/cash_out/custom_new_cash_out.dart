@@ -75,22 +75,15 @@ class CustomNewCashOut extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            WalletTotalCard(
-                              amount: _walletController
-                                  .walletAmount.value.balanceFormat,
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: WalletTotalCard(
+                                amount: _walletController
+                                    .walletAmount.value.balanceFormat,
+                              ),
                             ),
-                            // SizedBox(height: 10),
-                            // CustomInvestBalanceCard(
-                            //   isContainStack: true,
-                            //   titleBalance: 'Available Balance',
-                            //   currency:
-                            //       newCashOutCon.balanceModel.value.balance,
-                            //   leftTitle: 'Investor ID',
-                            //   leftSubTitle: userCon.customer.value.code,
-                            //   rightTitle: 'Investor Name',
-                            //   rightSubTitle: userCon.customer.value.fullName,
-                            // ),
-                            const SizedBox(height: 20.0),
+
+                            const SizedBox(height: 10.0),
 
                             Container(
                               padding: const EdgeInsets.only(bottom: 20),

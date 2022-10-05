@@ -82,10 +82,10 @@ CustomAppBar(
                           ? Icons.arrow_back
                           : Icons.arrow_back_ios),
                 ),
-              if (isLeading != null && isLeading)
-                const SizedBox(
-                  width: 10,
-                ),
+              // if (isLeading != null && isLeading)
+              //   const SizedBox(
+              //     width: 10,
+              //   ),
               if (!isLogo!)
                 SvgPicture.asset(
                   'assets/images/svgfile/Logocic.svg',

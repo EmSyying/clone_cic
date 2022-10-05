@@ -20,7 +20,7 @@ class WalletTotalCard extends StatelessWidget {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
     return Container(
       height: 110,
-      margin: const EdgeInsets.all(20),
+      // margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColor.mainColor,
         borderRadius: BorderRadius.circular(10),
