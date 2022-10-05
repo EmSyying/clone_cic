@@ -2,13 +2,12 @@ import 'package:cicgreenloan/modules/wallet/screen/custom_keyboard.dart';
 import 'package:cicgreenloan/modules/wallet/screen/deposit_mmaccount_screen.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
+import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_loading_button.dart';
-import '../../../Utils/helper/numerice_format.dart';
 
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../controller/wallet_controller.dart';
@@ -22,7 +21,6 @@ class DepositToScreen extends StatefulWidget {
 
 class _DepositToScreenState extends State<DepositToScreen> {
   final _walletController = Get.put(WalletController());
-  final frm = NumberFormat('#,###.00', 'en');
 
   @override
   void dispose() {
@@ -69,42 +67,27 @@ class _DepositToScreenState extends State<DepositToScreen> {
                       fontSize: 14,
                     ),
                   ),
-                  TextFormField(
-                    controller: _walletController.controllerToDepositAmount,
-                    showCursor: false,
-                    style: textStyle.copyWith(fontSize: 46),
-                    inputFormatters: [
-                      //FilteringTextInputFormatter.digitsOnly,
-                      NumericTextFormatter(),
-                    ],
-                    textAlign: TextAlign.center,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
-                      hintText: '0.00',
-                      hintStyle: textStyle.copyWith(
-                          fontSize: 46, color: AppColor.chartLabelColor),
-                      border: InputBorder.none,
+                  GetBuilder<WalletController>(
+                    init: WalletController(),
+                    builder: (controller) => TextFormField(
+                      readOnly: true,
+                      controller:
+                          _walletController.controllerToDepositAmount.value,
+                      showCursor: false,
+                      style: textStyle.copyWith(fontSize: 46),
+                      textAlign: TextAlign.center,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      decoration: InputDecoration(
+                        hintText: '0.00',
+                        hintStyle: textStyle.copyWith(
+                            fontSize: 46, color: AppColor.chartLabelColor),
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
                   const Spacer(),
-                  CustomKeyboard(
-                    onChanged: (value) {
-                      debugPrint(value);
-
-                      setState(() {
-                        if (value.isNotEmpty) {
-                          var d = double.parse(value);
-                          _walletController.controllerToDepositAmount =
-                              TextEditingController(
-                                  text: frm.format(d).toString());
-                        } else {
-                          _walletController.controllerToDepositAmount =
-                              TextEditingController(text: null);
-                        }
-                      });
-                    },
-                  ),
+                  CustomKeyboard(onChanged: _walletController.onchageKeyboard),
                   const SizedBox(height: 10),
                   SafeArea(
                     top: false,
@@ -115,16 +98,31 @@ class _DepositToScreenState extends State<DepositToScreen> {
                           : CustomButton(
                               title: 'Next',
                               onPressed: _walletController
-                                          .controllerToDepositAmount.text !=
+                                          .controllerToDepositAmount
+                                          .value
+                                          .text !=
                                       ''
                                   ? () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MMAcountDepositScreen(),
-                                        ),
-                                      );
+                                      var number = double.tryParse(
+                                          _walletController
+                                              .controllerToDepositAmount
+                                              .value
+                                              .text);
+
+                                      if (number != null && number > 0) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MMAcountDepositScreen(),
+                                          ),
+                                        );
+                                      } else {
+                                        customRouterSnackbar(
+                                            description:
+                                                'Please Enter Amount to continue');
+                                      }
+
                                       // _walletController
                                       //     .onToDepositBankOrWallet(context);
                                     }

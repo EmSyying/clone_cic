@@ -135,8 +135,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                             height: 10.0,
                                           ),
                                           Text(
-                                            _walletController
-                                                .controllerToDepositAmount.text,
+                                            '${_walletController.controllerToDepositAmount.value.text} USD',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline4!

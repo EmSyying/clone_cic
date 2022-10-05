@@ -27,9 +27,32 @@ class CustomKeyboardState extends State<CustomKeyboard> {
   String amount = '';
 
   _onKeyTap(val) {
-    if (val == '0' && amount.isEmpty) {
+    if (val == '0' && amount == '0') {
+      return; //stop function
+    }
+
+    if (val == '.' && amount == '0') {
+      amount = '0.';
+      widget.onChanged?.call(amount);
+      return; //stop function
+    }
+
+    if (val == '.' && amount.contains('.')) {
+      return; //stop function
+    }
+
+    if (val == '.' && amount.isEmpty) {
+      amount = '0.';
+      widget.onChanged?.call(amount);
+      return; //stop function
+    }
+
+    if (val != '0' && amount == '0') {
+      amount = val;
+      widget.onChanged?.call(amount);
       return;
     }
+
     amount = amount + val;
     widget.onChanged?.call(amount);
   }
