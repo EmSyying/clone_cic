@@ -24,23 +24,29 @@ class KeyboardKeyState extends State<KeyboardKey> {
 
     return Text(
       widget.label,
-      style: Theme.of(context)
-          .textTheme
-          .headline2!
-          .copyWith(color: const Color(0xff5A5A5A), fontSize: 30,fontWeight: FontWeight.w500),
+      style: Theme.of(context).textTheme.headline2!.copyWith(
+          color: const Color(0xff5A5A5A),
+          fontSize: 30,
+          fontWeight: FontWeight.w500),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        widget.onTap(widget.value);
-      },
-      child: AspectRatio(
-        aspectRatio: 2,
-        child: Center(
-          child: renderLabel(),
+    return Material(
+      color: Colors.white,
+      shape: const RoundedRectangleBorder(),
+      child: InkWell(
+        onTap: () {
+          widget.onTap(widget.value);
+        },
+        child: Ink(
+          child: AspectRatio(
+            aspectRatio: 2,
+            child: Center(
+              child: renderLabel(),
+            ),
+          ),
         ),
       ),
     );

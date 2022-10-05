@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/custom_appbar.dart';
@@ -125,7 +126,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                           //Amount to Deposit=====
                                           CustomCashOutAndTransferAmount(
                                             amountCashOutTransfer:
-                                                '${_walletController.controllerToDepositAmount.value.text} ',
+                                                '${_walletController.controllerToDepositAmount.value.text.toCiCNumber()} ',
                                           ),
                                         ],
                                       ),
@@ -194,5 +195,18 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
         ),
       ),
     );
+  }
+}
+
+extension CiCAmount on String {
+  static final numberFormat = NumberFormat("#,##0.00", "en_US");
+  String toCiCNumber() {
+    var numb = double.tryParse(this);
+    if (numb != null) {
+      return numberFormat.format(numb);
+    } else {
+      debugPrint('here');
+      return this;
+    }
   }
 }

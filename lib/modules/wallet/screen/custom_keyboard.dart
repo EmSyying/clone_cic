@@ -31,17 +31,11 @@ class CustomKeyboardState extends State<CustomKeyboard> {
       return; //stop function
     }
 
-    if (val == '.' && amount == '0') {
-      amount = '0.';
-      widget.onChanged?.call(amount);
-      return; //stop function
-    }
-
     if (val == '.' && amount.contains('.')) {
       return; //stop function
     }
 
-    if (val == '.' && amount.isEmpty) {
+    if (val == '.' && (amount.isEmpty || amount == '0')) {
       amount = '0.';
       widget.onChanged?.call(amount);
       return; //stop function
@@ -69,8 +63,8 @@ class CustomKeyboardState extends State<CustomKeyboard> {
   List<Row> renderKeyboard() {
     return keys
         .map(
-          (x) => Row(
-            children: x.map(
+          (e) => Row(
+            children: e.map(
               (y) {
                 return Expanded(
                   child: KeyboardKey(
