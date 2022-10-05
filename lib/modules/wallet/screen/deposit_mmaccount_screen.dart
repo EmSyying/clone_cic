@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
@@ -11,6 +10,9 @@ import '../../../Utils/helper/custom_loading_button.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/fif_contract/custom_copy_bank.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
+import '../../../widgets/wallets/custom_cash_out_and_transfer_amount_mma.dart';
+import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
+import '../../../widgets/wallets/custom_stack_dotted_decoration.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../controller/wallet_controller.dart';
 
@@ -93,27 +95,13 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                       ),
                                     ),
 
-                                    //=======
+                                    //=======Border StackDottedDecoratio=====
                                     const SizedBox(height: 20),
-                                    Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: DottedDecoration(
-                                              strokeWidth: 2,
-                                              shape: Shape.line,
-                                              color: Colors.grey[100]!),
-                                        ),
-                                        Container(
-                                          color: Colors.white,
-                                          child: SvgPicture.asset(
-                                            'assets/images/svgfile/deposit_arrow_down.svg',
-                                            width: 40,
-                                            height: 40,
-                                          ),
-                                        ),
-                                      ],
+                                    const CustomStackDottedDecoration(
+                                      assetName:
+                                          'assets/images/svgfile/deposit_arrow_down.svg',
                                     ),
+
                                     Container(
                                       margin: const EdgeInsets.only(
                                         bottom: 10.0,
@@ -134,14 +122,10 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                           const SizedBox(
                                             height: 10.0,
                                           ),
-                                          Text(
-                                            '${_walletController.controllerToDepositAmount.value.text} USD',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                          //Amount to Deposit=====
+                                          CustomCashOutAndTransferAmount(
+                                            amountCashOutTransfer:
+                                                '${_walletController.controllerToDepositAmount.value.text} ',
                                           ),
                                         ],
                                       ),
@@ -172,29 +156,14 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                   ],
                                 ),
                               ),
-                              Positioned(
-                                top: 260,
+                              //PositionedBoxShapCircle =shap border=====
+                              const CustomPositionedBoxShapCircle(
+                                top: 280,
                                 left: 6,
-                                child: Container(
-                                  width: 26,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[50],
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
                               ),
-                              Positioned(
-                                top: 260,
+                              const CustomPositionedBoxShapCircle(
+                                top: 280,
                                 right: 6,
-                                child: Container(
-                                  width: 26,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[50],
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
                               ),
                             ],
                           ),

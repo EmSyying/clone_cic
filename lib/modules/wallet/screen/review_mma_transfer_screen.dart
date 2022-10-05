@@ -1,5 +1,3 @@
-import 'package:dotted_decoration/dotted_decoration.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -8,6 +6,9 @@ import 'package:go_router/go_router.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/slide_button.dart';
+import '../../../widgets/wallets/custom_cash_out_and_transfer_amount_mma.dart';
+import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
+import '../../../widgets/wallets/custom_stack_dotted_decoration.dart';
 import '../../bonus/controllers/bonus_controller.dart';
 
 class ReviewMMATransferScreen extends StatelessWidget {
@@ -66,28 +67,25 @@ class ReviewMMATransferScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          //=======title
+                          //=======title CiC MM acount======
                           containerMMAccount(context),
                           const SizedBox(height: 20),
-                          //====borderDottedDecoration===
-                          borderDottedDecoration(context),
+                          //====border StackDottedDecoration=====
+                          const CustomStackDottedDecoration(
+                            dottedDecorationTransfer: true,
+                            title: 'You are about to Cash Out',
+                          ),
+                          //Amount Cash Out MMA=========
                           Container(
                             margin: const EdgeInsets.only(
                               bottom: 20.0,
                               top: 20.0,
                             ),
-                            child: Text(
-                              '${newCashOutCon.cashoutAmount.value} USD',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 24,
-                                  ),
+                            child: CustomCashOutAndTransferAmount(
+                              amountCashOutTransfer:
+                                  '${newCashOutCon.cashoutAmount.value} ',
                             ),
                           ),
-
                           Container(
                             color: Colors.white,
                             child: SvgPicture.asset(
@@ -149,29 +147,14 @@ class ReviewMMATransferScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Positioned(
+                    ////Posistion Boxshap Chircle on border dotted========
+                    const CustomPositionedBoxShapCircle(
                       top: 195,
                       left: 6,
-                      child: Container(
-                        width: 26,
-                        height: 26,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[50],
-                          shape: BoxShape.circle,
-                        ),
-                      ),
                     ),
-                    Positioned(
+                    const CustomPositionedBoxShapCircle(
                       top: 195,
                       right: 6,
-                      child: Container(
-                        width: 26,
-                        height: 26,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[50],
-                          shape: BoxShape.circle,
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -259,33 +242,6 @@ class ReviewMMATransferScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget borderDottedDecoration(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          decoration: DottedDecoration(
-            strokeWidth: 2,
-            shape: Shape.line,
-            color: Colors.grey[100]!,
-          ),
-        ),
-        Container(
-          color: Colors.white,
-          child: Text(
-            'You are about to Cash Out',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 0.28,
-                  fontSize: 16.0,
-                  color: const Color(0xff515151),
-                ),
-          ),
-        ),
-      ],
     );
   }
 }
