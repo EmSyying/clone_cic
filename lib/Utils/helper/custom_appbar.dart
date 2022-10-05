@@ -15,6 +15,8 @@ CustomAppBar(
     Color? backgroundColor,
     bool? isLeading,
     bool? isLogo = true,
+    bool? isCallonPressed = false,
+    VoidCallback? onPressed,
     GestureTapCallback? onTap}) {
   return AppBar(
     centerTitle: false,
@@ -72,10 +74,12 @@ CustomAppBar(
             children: [
               if (isLeading != null && isLeading)
                 IconButton(
-                  onPressed: () {
-                    // Beamer.of(context!).beamBack();
-                    Navigator.pop(context);
-                  },
+                  onPressed: isCallonPressed == false
+                      ? () {
+                          // Beamer.of(context!).beamBack();
+                          Navigator.pop(context);
+                        }
+                      : onPressed,
                   icon: kIsWeb
                       ? const Icon(Icons.arrow_back)
                       : Icon(Platform.isAndroid

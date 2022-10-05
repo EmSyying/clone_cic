@@ -112,6 +112,8 @@ class BonusController extends GetxController {
     bankName.value = "";
     diplayNewUTAmount.value = 0;
     subscriptionAmount.value = 0;
+    isAgree.value = false;
+    isValidateCashoutAmount.value = true;
   }
 
   onClearBank() {
@@ -396,7 +398,7 @@ class BonusController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          Future.delayed(const Duration(seconds: 2), () {
+          Future.delayed(const Duration(seconds: 1), () {
             Navigator.push(
               context,
               MaterialPageRoute(

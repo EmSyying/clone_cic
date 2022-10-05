@@ -118,8 +118,8 @@ class MMADepositCard extends StatelessWidget {
                                 );
                               } else {
                                 onShowBottomSheet(
-                                  isHeight:
-                                      MediaQuery.of(context).size.height * .4,
+                                  // isHeight:
+                                  //     MediaQuery.of(context).size.height * .4,
                                   backgroundColor: Colors.transparent,
                                   context: context,
                                   isNoAppBar: true,

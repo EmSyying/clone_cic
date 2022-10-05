@@ -179,42 +179,20 @@ class ReviewMMATransferScreen extends StatelessWidget {
             ),
             SafeArea(
               top: false,
+              minimum: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 20,
+              ),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 20.0,
-                    ),
-                    child: SlideButton(
-                      callback: () {
-                        newCashOutCon.onCashout(context);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return CustomSucessScreen(
-                        //         title: 'Success',
-                        //         description:
-                        //             'The Cash out is completed successfully.',
-                        //         buttonTitle: 'Done',
-                        //         onPressedButton: () {
-                        //           Navigator.pop(context);
-                        //           Navigator.pop(context);
-                        //           Navigator.pop(context);
-                        //           Navigator.pop(context);
-                        //         },
-                        //       );
-                        //     },
-                        //   ),
-                        // );
-                      },
-                    ),
+                  SlideButton(
+                    callback: () async {
+                      await newCashOutCon.onCashout(context);
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 10.0,
-                      bottom: 20.0,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
