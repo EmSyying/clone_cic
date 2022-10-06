@@ -10,6 +10,7 @@ import '../../Utils/web_view/web_view.dart';
 import '../../core/auth/login.dart';
 import '../../core/auth/login_with_password.dart';
 import '../../core/auth/set_pin_code.dart';
+import '../../core/auth/verify_pin_code.dart';
 import '../../core/auth/verify_set_password.dart';
 import '../../core/walk_through/splash_screen.dart';
 import '../../core/walk_through/start_slide.dart';
@@ -716,6 +717,30 @@ final router = GoRouter(
             name: 'SettingScreen',
             builder: (context, state) => const SettingsScreen(),
             routes: [
+              GoRoute(
+                  path: 'verify-pin-code',
+                  builder: (context, state) => const VerifyPINCode(
+                        status: 'Current',
+                      ),
+                  routes: [
+                    GoRoute(
+                        path: 'setpincode',
+                        builder: (context, state) {
+                          return const SetPinCode(
+                            status: 'set',
+                          );
+                        },
+                        routes: [
+                          GoRoute(
+                            path: 'verify-setpincode',
+                            builder: (context, state) {
+                              return const SetPinCode(
+                                status: 'verify',
+                              );
+                            },
+                          ),
+                        ]),
+                  ]),
               GoRoute(
                 path: 'cic-app-manual',
                 name: 'CiCAppManul',

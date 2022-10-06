@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
+import 'package:cicgreenloan/modules/wallet/model/deposit/deposit_detail.dart';
 import 'package:cicgreenloan/modules/wallet/model/mma_deposit_card_model.dart';
 import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
@@ -31,6 +32,28 @@ class WalletController extends GetxController {
       imageMMACard: 'assets/images/wallet/transferto-other-account.svg',
     ),
   ].obs;
+// Fetch on Deposit Detail
+  final depositDetail = DepositDetail().obs;
+  final isDepositDetail = false.obs;
+  Future<DepositDetail> onFetchDepositDetail(int id) async {
+    isDepositDetail(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+            url: 'user/wallet/deposit/$id',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((response) {
+      debugPrint("Deposit Body:$response");
+      depositDetail.value = DepositDetail.fromJson(response['data']);
+      debugPrint("Deposit detail:${depositDetail.value.transactionId}");
+      isDepositDetail(false);
+    }).onError((ErrorModel error, stackTrace) {
+      isDepositDetail(false);
+      debugPrint(
+          'FetchWalletAmount Error : ${error.statusCode} : ${error.bodyString}');
+    });
+    return depositDetail.value;
+  }
 
   ///Fetch Wallet Amount
   final walletAmount = WalletAmountModel().obs;

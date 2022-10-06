@@ -9,7 +9,6 @@ import 'package:cicgreenloan/Utils/web_view/web_view.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/core/auth/login.dart';
-import 'package:cicgreenloan/core/auth/verify_pin_code.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/modules/setting_modules/controllers/setting_controller.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/custom_loading.dart';
@@ -837,14 +836,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 'Are you sure, you want to change PIN Code?',
                             context: context,
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const VerifyPINCode(
-                                    status: 'Current',
-                                  ),
-                                ),
-                              );
+                              Navigator.pop(context);
+                              context.go('/setting/verify-pin-code');
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const VerifyPINCode(
+                              //       status: 'Current',
+                              //     ),
+                              //   ),
+                              // );
                             },
                           );
                         },

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
-import 'package:cicgreenloan/core/auth/set_pin_code.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -127,14 +126,15 @@ class _VerifyPINCodeState extends State<VerifyPINCode> {
                           if (customerController.customer.value.pinCode ==
                               _pinCode) {
                             if (widget.status == 'Current') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SetPinCode(
-                                    status: 'set',
-                                  ),
-                                ),
-                              );
+                              context.go('/setting/verify-pin-code/setpincode');
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const SetPinCode(
+                              //       status: 'set',
+                              //     ),
+                              //   ),
+                              // );
                             } else {
                               context.go('/');
                               // Get.offAll(const PaymentSchedule());

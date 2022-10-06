@@ -43,8 +43,10 @@ class PINCodeController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          context.go('/');
-        } else {}
+          context.goNamed('HomePage');
+        } else {
+          debugPrint("Pin Code is failed");
+        }
       });
     } finally {
       isLoading(false);
