@@ -607,24 +607,44 @@ class _MainDashboardState extends State<MainDashboard> {
                                                         '${_settingCon.slideList![index].button!.target}'),
                                                     builder:
                                                         (context, followLink) =>
-                                                            ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              primary: Colors
-                                                                  .white
-                                                                  .withOpacity(
-                                                                      0.2)),
-                                                      onPressed: followLink,
-                                                      child: Row(
-                                                        children: [
-                                                          SvgPicture.network(
-                                                              '${_settingCon.slideList![index].button!.icon}'),
-                                                          const SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text(
-                                                              '${_settingCon.slideList![index].button!.label}'),
-                                                        ],
+                                                            GestureDetector(
+                                                      onTap: followLink,
+                                                      child: Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                vertical: 8,
+                                                                horizontal: 8),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          color: Colors.white
+                                                              .withOpacity(0.4),
+                                                        ),
+                                                        child: Row(
+                                                          children: [
+                                                            SvgPicture.network(
+                                                                '${_settingCon.slideList![index].button!.icon}'),
+                                                            const SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                              '${_settingCon.slideList![index].button!.label}',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .headline6!
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
