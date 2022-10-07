@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
 import 'package:cicgreenloan/modules/notification_modules/controllers/notification_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/models/notification.dart';
 import 'package:flutter/material.dart';
@@ -25,50 +26,84 @@ class NotificationWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              notification!.data!.type == 'Disbursement' ||
-                      notification!.data!.type == 'Debt' ||
-                      notification!.data!.type == 'Equity'
-                  ? SvgPicture.asset(notification!.readAt == null
-                      ? 'assets/images/svgfile/requestLoanIcon.svg'
-                      : 'assets/images/svgfile/readrequestloadIcon.svg')
-                  : notification!.data!.type!.toLowerCase() == 'fif' ||
-                          notification!.data!.type!.toLowerCase() ==
-                              'withdraw' ||
-                          notification!.data!.type!.toLowerCase() == 'renew' ||
-                          notification!.data!.type!.toLowerCase() ==
-                              'fif-monthly-payment'
-                      ? SvgPicture.asset(
-                          notification!.readAt == null
-                              ? 'assets/images/svgfile/fifnotification.svg'
-                              : 'assets/images/svgfile/fifnotificationread.svg',
-                        )
-                      : notification!.data!.type == 'ut-trading'
-                          ? SvgPicture.asset(notification!.readAt == null
-                              ? 'assets/images/svgfile/utNotificationIcon.svg'
-                              : 'assets/images/svgfile/readTradeIcon.svg')
-                          : notification!.data!.type == 'subscription-payment' ||
-                                  notification!.data!.type == 'trading-payment'
-                              ? SvgPicture.asset(notification!.readAt == null
-                                  ? 'assets/images/svgfile/paymentIcon.svg'
-                                  : 'assets/images/svgfile/readPaymentIcon.svg')
-                              : notification!.data!.type == 'cash-out'
-                                  ? SvgPicture.asset(notification!.readAt == null
-                                      ? "assets/images/svgfile/cashoutNotification.svg"
-                                      : "assets/images/svgfile/readCashout.svg")
-                                  : notification!.data!.type == 'bonus'
-                                      ? SvgPicture.asset(notification!.readAt == null
-                                          ? "assets/images/svgfile/Bonus.svg"
-                                          : "assets/images/svgfile/readbonus.svg")
-                                      : notification!.data!.type ==
-                                              'confirm-subscription'
-                                          ? SvgPicture.asset(notification!.readAt == null
-                                              ? "assets/images/svgfile/confirmSubscription.svg"
-                                              : "assets/images/svgfile/readSubscription.svg")
-                                          : notification!.data!.type ==
-                                                  'confirm-payment'
-                                              ? SvgPicture.asset(
-                                                  notification!.readAt == null ? "assets/images/svgfile/confirmSubscription.svg" : "assets/images/svgfile/readSubscription.svg")
-                                              : SvgPicture.asset(notification!.readAt == null ? 'assets/images/svgfile/announcementicons.svg' : 'assets/images/svgfile/readAnnouncementicons.svg'),
+              Container(
+                height: 40,
+                width: 40,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: fromHex('#4FA30F').withOpacity(0.2),
+                ),
+                alignment: Alignment.center,
+                child: SvgPicture.network(
+                    'https://cicstaging.z1central.com/uploads/files/default/icon_cic_url.svg',
+                    color: fromHex('#4FA30F')),
+              ),
+              // Container(
+              //   width: 40,
+              //   height: 40,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(20),
+              //     color: notification!.data!.type == 'bonus' ||
+              //             notification!.data!.type == 'cash-in' ||
+              //             notification!.data!.type == 'wallet-deposit'
+              //         ? AppColor.statusColor['green']!.withOpacity(0.2)
+              //         : AppColor.statusColor['late']!.withOpacity(0.2),
+              //   ),
+              //   child: notification!.data!.type == 'Disbursement' ||
+              //           notification!.data!.type == 'Debt' ||
+              //           notification!.data!.type == 'Equity'
+              //       ? SvgPicture.asset(notification!.readAt == null
+              //           ? 'assets/images/svgfile/requestLoanIcon.svg'
+              //           : 'assets/images/svgfile/readrequestloadIcon.svg')
+              //       : notification!.data!.type!.toLowerCase() == 'fif' ||
+              //               notification!.data!.type!.toLowerCase() ==
+              //                   'withdraw' ||
+              //               notification!.data!.type!.toLowerCase() ==
+              //                   'renew' ||
+              //               notification!.data!.type!.toLowerCase() ==
+              //                   'fif-monthly-payment'
+              //           ? SvgPicture.asset(
+              //               notification!.readAt == null
+              //                   ? 'assets/images/svgfile/fifnotification.svg'
+              //                   : 'assets/images/svgfile/fifnotificationread.svg',
+              //             )
+              //           : notification!.data!.type == 'ut-trading'
+              //               ? SvgPicture.asset(notification!.readAt == null
+              //                   ? 'assets/images/svgfile/utNotificationIcon.svg'
+              //                   : 'assets/images/svgfile/readTradeIcon.svg')
+              //               : notification!.data!.type == 'subscription-payment' ||
+              //                       notification!.data!.type ==
+              //                           'trading-payment'
+              //                   ? SvgPicture.asset(notification!.readAt == null
+              //                       ? 'assets/images/svgfile/paymentIcon.svg'
+              //                       : 'assets/images/svgfile/readPaymentIcon.svg')
+              //                   : notification!.data!.type == 'cash-out'
+              //                       ? SvgPicture.asset(notification!.readAt == null
+              //                           ? "assets/images/svgfile/cashoutNotification.svg"
+              //                           : "assets/images/svgfile/readCashout.svg")
+              //                       : notification!.data!.type == 'bonus'
+              //                           ? SvgPicture.asset(notification!.readAt == null
+              //                               ? "assets/images/svgfile/Bonus.svg"
+              //                               : "assets/images/svgfile/readbonus.svg")
+              //                           : notification!.data!.type ==
+              //                                   'confirm-subscription'
+              //                               ? SvgPicture.asset(notification!.readAt == null ? "assets/images/svgfile/confirmSubscription.svg" : "assets/images/svgfile/readSubscription.svg")
+              //                               : notification!.data!.type == 'confirm-payment'
+              //                                   ? SvgPicture.asset(notification!.readAt == null ? "assets/images/svgfile/confirmSubscription.svg" : "assets/images/svgfile/readSubscription.svg")
+              //                                   : notification!.data!.type == 'wallet-deposit'
+              //                                       ? SvgPicture.asset(
+              //                                           'assets/images/svgfile/dividend.svg',
+              //                                           width: 15,
+              //                                           height: 15,
+              //                                           color: notification!
+              //                                                       .readAt ==
+              //                                                   null
+              //                                               ? null
+              //                                               : Colors.grey,
+              //                                         )
+              //                                       : SvgPicture.asset(notification!.readAt == null ? 'assets/images/svgfile/announcementicons.svg' : 'assets/images/svgfile/readAnnouncementicons.svg'),
+              // ),
               const SizedBox(
                 width: 20.0,
               ),

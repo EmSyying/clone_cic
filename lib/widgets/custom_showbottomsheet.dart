@@ -12,6 +12,8 @@ onShowBottomSheet(
     String? label,
     String? time,
     num? amount,
+    bool? isAmountFormat = false,
+    String? amountFormat,
     Widget? child,
     IconData? icondata,
     Widget? icon,
@@ -147,6 +149,8 @@ onShowBottomSheet(
                       if (!isNoAppBar)
                         label != null
                             ? CustomHeaderBottomStyle(
+                                isAmountFormat: isAmountFormat,
+                                amountFormat: amountFormat,
                                 type: type,
                                 label: label,
                                 time: time,

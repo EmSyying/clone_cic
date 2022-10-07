@@ -22,7 +22,9 @@ DepositDetail _$DepositDetailFromJson(Map<String, dynamic> json) {
 mixin _$DepositDetail {
   int? get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  @JsonKey(name: 'transaction_id')
   String? get transactionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'deposit_method')
   String? get depositMethod => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
   String? get time => throw _privateConstructorUsedError;
@@ -42,8 +44,8 @@ abstract class $DepositDetailCopyWith<$Res> {
   $Res call(
       {int? id,
       String? title,
-      String? transactionId,
-      String? depositMethod,
+      @JsonKey(name: 'transaction_id') String? transactionId,
+      @JsonKey(name: 'deposit_method') String? depositMethod,
       String? date,
       String? time,
       String? amount});
@@ -111,8 +113,8 @@ abstract class _$$_DepositDetailCopyWith<$Res>
   $Res call(
       {int? id,
       String? title,
-      String? transactionId,
-      String? depositMethod,
+      @JsonKey(name: 'transaction_id') String? transactionId,
+      @JsonKey(name: 'deposit_method') String? depositMethod,
       String? date,
       String? time,
       String? amount});
@@ -178,8 +180,8 @@ class _$_DepositDetail implements _DepositDetail {
   _$_DepositDetail(
       {this.id,
       this.title,
-      this.transactionId,
-      this.depositMethod,
+      @JsonKey(name: 'transaction_id') this.transactionId,
+      @JsonKey(name: 'deposit_method') this.depositMethod,
       this.date,
       this.time,
       this.amount});
@@ -192,8 +194,10 @@ class _$_DepositDetail implements _DepositDetail {
   @override
   final String? title;
   @override
+  @JsonKey(name: 'transaction_id')
   final String? transactionId;
   @override
+  @JsonKey(name: 'deposit_method')
   final String? depositMethod;
   @override
   final String? date;
@@ -250,8 +254,8 @@ abstract class _DepositDetail implements DepositDetail {
   factory _DepositDetail(
       {final int? id,
       final String? title,
-      final String? transactionId,
-      final String? depositMethod,
+      @JsonKey(name: 'transaction_id') final String? transactionId,
+      @JsonKey(name: 'deposit_method') final String? depositMethod,
       final String? date,
       final String? time,
       final String? amount}) = _$_DepositDetail;
@@ -264,8 +268,10 @@ abstract class _DepositDetail implements DepositDetail {
   @override
   String? get title => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'transaction_id')
   String? get transactionId => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'deposit_method')
   String? get depositMethod => throw _privateConstructorUsedError;
   @override
   String? get date => throw _privateConstructorUsedError;

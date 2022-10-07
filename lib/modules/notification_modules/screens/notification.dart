@@ -12,7 +12,6 @@ import 'package:cicgreenloan/widgets/notification/notification_shimmer.dart';
 import 'package:cicgreenloan/widgets/notification/notification_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../../../Utils/helper/color.dart';
+import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../widgets/custom_showbottomsheet.dart';
@@ -535,48 +534,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                         });
 
                                                                                                         await onShowBottomSheet(
+                                                                                                          type: _con.notificationList[index].data!.type,
+                                                                                                          isAmountFormat: true,
                                                                                                           context: context,
-                                                                                                          icon: Row(
-                                                                                                            children: [
-                                                                                                              Container(
-                                                                                                                margin: const EdgeInsets.only(left: 15, bottom: 5),
-                                                                                                                width: 40,
-                                                                                                                height: 40,
-                                                                                                                decoration: BoxDecoration(
-                                                                                                                  borderRadius: BorderRadius.circular(10),
-                                                                                                                  color: AppColor.statusColor['green']!.withOpacity(0.2).withOpacity(0.2),
-                                                                                                                ),
-                                                                                                                child: Padding(
-                                                                                                                  padding: const EdgeInsets.all(8.0),
-                                                                                                                  child: SvgPicture.asset(
-                                                                                                                    'assets/images/svgfile/dividend.svg',
-                                                                                                                  ),
-                                                                                                                ),
-                                                                                                              ),
-                                                                                                              Padding(
-                                                                                                                padding: const EdgeInsets.only(left: 10.0),
-                                                                                                                child: Row(
-                                                                                                                  children: [
-                                                                                                                    Column(
-                                                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                                      children: [
-                                                                                                                        Text(
-                                                                                                                          _walletController.depositDetail.value.title!,
-                                                                                                                          style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: 14, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
-                                                                                                                        ),
-                                                                                                                        const SizedBox(height: 5),
-                                                                                                                        Text(
-                                                                                                                          _walletController.depositDetail.value.time!,
-                                                                                                                          style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: 12, color: Colors.grey),
-                                                                                                                        )
-                                                                                                                      ],
-                                                                                                                    ),
-                                                                                                                    Text(_walletController.depositDetail.value.amount!)
-                                                                                                                  ],
-                                                                                                                ),
-                                                                                                              ),
-                                                                                                            ],
-                                                                                                          ),
+                                                                                                          label: _walletController.depositDetail.value.title!,
+                                                                                                          time: _walletController.depositDetail.value.time!,
+                                                                                                          amountFormat: _walletController.depositDetail.value.amount,
+                                                                                                          text: Text(_walletController.depositDetail.value.amount!),
                                                                                                           child: Padding(
                                                                                                             padding: const EdgeInsets.all(20.0),
                                                                                                             child: Column(
@@ -584,6 +548,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                                 CustomWalletDetail(label: 'Transaction Id', value: _walletController.depositDetail.value.transactionId),
                                                                                                                 CustomWalletDetail(label: 'Transaction Date', value: _walletController.depositDetail.value.date),
                                                                                                                 CustomWalletDetail(label: 'Payment Type', value: _walletController.depositDetail.value.depositMethod),
+                                                                                                                const SizedBox(height: 25.0),
+                                                                                                                CustomButton(
+                                                                                                                  isDisable: false,
+                                                                                                                  isOutline: true,
+                                                                                                                  title: 'Close',
+                                                                                                                  onPressed: () {
+                                                                                                                    Navigator.pop(context);
+                                                                                                                  },
+                                                                                                                )
                                                                                                               ],
                                                                                                             ),
                                                                                                           ),

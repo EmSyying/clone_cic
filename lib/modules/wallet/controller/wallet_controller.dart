@@ -43,14 +43,12 @@ class WalletController extends GetxController {
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
-      debugPrint("Deposit Body:$response");
       depositDetail.value = DepositDetail.fromJson(response['data']);
-      debugPrint("Deposit detail:${depositDetail.value.transactionId}");
+
       isDepositDetail(false);
     }).onError((ErrorModel error, stackTrace) {
       isDepositDetail(false);
-      debugPrint(
-          'FetchWalletAmount Error : ${error.statusCode} : ${error.bodyString}');
+      debugPrint('Error : ${error.statusCode} : ${error.bodyString}');
     });
     return depositDetail.value;
   }

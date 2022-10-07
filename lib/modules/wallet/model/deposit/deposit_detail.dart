@@ -8,8 +8,8 @@ class DepositDetail with _$DepositDetail {
   factory DepositDetail({
     final int? id,
     final String? title,
-    final String? transactionId,
-    final String? depositMethod,
+    @JsonKey(name: 'transaction_id') final String? transactionId,
+    @JsonKey(name: 'deposit_method') final String? depositMethod,
     final String? date,
     final String? time,
     final String? amount,

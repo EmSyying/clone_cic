@@ -6,12 +6,21 @@ import '../../utils/helper/color.dart';
 
 class CustomHeaderBottomStyle extends StatelessWidget {
   const CustomHeaderBottomStyle(
-      {Key? key, this.type, this.label, this.time, this.amount, this.action})
+      {Key? key,
+      this.type,
+      this.label,
+      this.time,
+      this.amount,
+      this.action,
+      this.amountFormat,
+      this.isAmountFormat = false})
       : super(key: key);
   final String? type;
   final String? label;
   final String? time;
   final num? amount;
+  final String? amountFormat;
+  final bool? isAmountFormat;
   final Widget? action;
 
   @override
@@ -24,11 +33,15 @@ class CustomHeaderBottomStyle extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: type == 'bonus' || type == 'cash-in'
+              color: type == 'bonus' ||
+                      type == 'cash-in' ||
+                      type == 'wallet-deposit'
                   ? AppColor.statusColor['green']!.withOpacity(0.2)
                   : AppColor.statusColor['late']!.withOpacity(0.2)),
           child: Center(
-              child: type == 'bonus' || type == 'cash-in'
+              child: type == 'bonus' ||
+                      type == 'cash-in' ||
+                      type == 'wallet-deposit'
                   ? SvgPicture.asset(
                       'assets/images/svgfile/dividend.svg',
                     )
@@ -77,12 +90,16 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 20.0),
                       child: action ??
                           Text(
-                            "${FormatToK.digitNumber(amount ?? 0)} USD",
+                            isAmountFormat == true
+                                ? amountFormat!
+                                : "${FormatToK.digitNumber(amount ?? 0)} USD",
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!
                                 .copyWith(
-                                    color: type == 'bonus' || type == 'cash-in'
+                                    color: type == 'bonus' ||
+                                            type == 'cash-in' ||
+                                            type == 'wallet-deposit'
                                         ? AppColor.statusColor['green']
                                         : AppColor.statusColor['late'],
                                     fontWeight: FontWeight.bold),
