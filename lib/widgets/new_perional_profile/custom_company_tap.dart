@@ -76,7 +76,7 @@ class CustomCompanyTap extends StatelessWidget {
                       image: NetworkImage(
                         '$imageProfile',
                       ),
-                      fit: BoxFit.cover),
+                      fit: BoxFit.contain),
                 ),
               ),
               const SizedBox(
