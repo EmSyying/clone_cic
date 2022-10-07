@@ -12,6 +12,7 @@ import 'package:cicgreenloan/widgets/notification/notification_shimmer.dart';
 import 'package:cicgreenloan/widgets/notification/notification_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -19,17 +20,20 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
+import '../../../widgets/custom_showbottomsheet.dart';
 import '../../../widgets/notification/accept_notification_pop_up.dart';
 import '../../../widgets/ut_tradding/notification_detail_popup.dart';
+import '../../../widgets/wallets/custom_wallet_label_detail.dart';
 import '../../event_module/models/event_detail_argument.dart';
 import '../../event_module/screen/event_detail.dart';
 import '../../get_funding/screens/debt_investment/preview_debt_form.dart';
 import '../../get_funding/screens/equity_investment/preview_equity.dart';
 import '../../investment_module/screen/bullet_payment_detail.dart';
 import '../../investment_module/screen/deposit_screen.dart';
-import '../../wallet/screen/wallet_screen.dart';
+import '../../wallet/controller/wallet_controller.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -48,6 +52,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   final _con = Get.put(NotificationController());
   final controller = Get.put(ApprovePaymentController());
+  final _walletController = Get.put(WalletController());
 
   bool isLoading = true;
   final _keyRefresh = GlobalKey<RefreshIndicatorState>();
@@ -521,15 +526,72 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                   }
                                                                                                 : _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment'
                                                                                                     ? () async {
+                                                                                                        debugPrint("Wallet Id:${_con.notificationList[index].data!.transactionId}");
+                                                                                                        _walletController.onFetchDepositDetail(_con.notificationList[index].data!.transactionId!);
                                                                                                         notificationIdList.add(items.id);
                                                                                                         _con.onReadNotification(_con.notificationList[index].id!);
                                                                                                         setState(() {
                                                                                                           _con.notificationList[index].readAt = '';
                                                                                                         });
-                                                                                                        await Navigator.push(
-                                                                                                          context,
-                                                                                                          MaterialPageRoute(builder: (context) => const WalletScreen()),
+
+                                                                                                        await onShowBottomSheet(
+                                                                                                          context: context,
+                                                                                                          icon: Row(
+                                                                                                            children: [
+                                                                                                              Container(
+                                                                                                                margin: const EdgeInsets.only(left: 15, bottom: 5),
+                                                                                                                width: 40,
+                                                                                                                height: 40,
+                                                                                                                decoration: BoxDecoration(
+                                                                                                                  borderRadius: BorderRadius.circular(10),
+                                                                                                                  color: AppColor.statusColor['green']!.withOpacity(0.2).withOpacity(0.2),
+                                                                                                                ),
+                                                                                                                child: Padding(
+                                                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                                                  child: SvgPicture.asset(
+                                                                                                                    'assets/images/svgfile/dividend.svg',
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                              Padding(
+                                                                                                                padding: const EdgeInsets.only(left: 10.0),
+                                                                                                                child: Row(
+                                                                                                                  children: [
+                                                                                                                    Column(
+                                                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                                      children: [
+                                                                                                                        Text(
+                                                                                                                          _walletController.depositDetail.value.title!,
+                                                                                                                          style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: 14, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
+                                                                                                                        ),
+                                                                                                                        const SizedBox(height: 5),
+                                                                                                                        Text(
+                                                                                                                          _walletController.depositDetail.value.time!,
+                                                                                                                          style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: 12, color: Colors.grey),
+                                                                                                                        )
+                                                                                                                      ],
+                                                                                                                    ),
+                                                                                                                    Text(_walletController.depositDetail.value.amount!)
+                                                                                                                  ],
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ],
+                                                                                                          ),
+                                                                                                          child: Padding(
+                                                                                                            padding: const EdgeInsets.all(20.0),
+                                                                                                            child: Column(
+                                                                                                              children: [
+                                                                                                                CustomWalletDetail(label: 'Transaction Id', value: _walletController.depositDetail.value.transactionId),
+                                                                                                                CustomWalletDetail(label: 'Transaction Date', value: _walletController.depositDetail.value.date),
+                                                                                                                CustomWalletDetail(label: 'Payment Type', value: _walletController.depositDetail.value.depositMethod),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                          ),
                                                                                                         );
+                                                                                                        // await Navigator.push(
+                                                                                                        //   context,
+                                                                                                        //   MaterialPageRoute(builder: (context) => const WalletScreen()),
+                                                                                                        // );
                                                                                                       }
                                                                                                     : _con.notificationList[index].data!.type == 'fif' || _con.notificationList[index].data!.type == 'withdraw' || _con.notificationList[index].data!.type == 'renew' || _con.notificationList[index].data!.type == 'fif-monthly-payment'
                                                                                                         ? () async {

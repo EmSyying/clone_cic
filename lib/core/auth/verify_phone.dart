@@ -73,6 +73,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
           //   ),
           // );
         } else {
+          debugPrint("OTP Body:${response.body}");
           customSnackbar(
               isFailed: true,
               color: Colors.red,

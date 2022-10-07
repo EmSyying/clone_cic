@@ -6,6 +6,7 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -105,55 +106,6 @@ class _SetPinCodeState extends State<SetPinCode> {
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 60.0),
-                      // child: PinFieldAutoFill(
-                      //   autoFocus: true,
-                      //   decoration: UnderlineDecoration(
-                      //     bgColorBuilder: FixedColorBuilder(Colors.grey),
-                      //     colorBuilder: FixedColorBuilder(
-                      //       Colors.black.withOpacity(0.3),
-                      //     ),
-                      //     textStyle:
-                      //         TextStyle(color: Theme.of(context).primaryColor),
-                      //   ),
-                      //   codeLength: 4,
-                      //   onCodeChanged: (code) async {
-                      //     if (code!.length == 4) {
-                      //       setState(() {
-                      //         print('code $code');
-                      //       });
-                      //       if (widget.status == 'set') {
-                      //         setPinController.pinCodeChange.value = code;
-                      //         Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //                 builder: (context) => SetPinCode(
-                      //                       status: 'verify',
-                      //                     )));
-                      //       } else if (widget.status == 'verify') {
-                      //         if (setPinController.pinCodeChange.value == code) {
-                      //           setPinController.onSetPINCode(
-                      //               setPinController.pinCodeChange.value);
-                      //           LocalData.setPINCode("setPIN",
-                      //               customerController.customer.value.pinCode!);
-                      //           await LocalData.getPINCode('setPIN');
-                      //         } else {
-                      //           Get.snackbar(
-                      //             "Submit failed",
-                      //             "PIN Code and Verify PIN Code are not match",
-                      //             snackPosition: SnackPosition.BOTTOM,
-                      //             backgroundColor: Colors.red,
-                      //             colorText: Colors.white,
-                      //             icon: Icon(
-                      //               Icons.cancel,
-                      //               color: Colors.white,
-                      //             ),
-                      //             margin: EdgeInsets.all(20.0),
-                      //           );
-                      //         }
-                      //       }
-                      //     }
-                      //   },
-                      // ),
                       child: PinCodeTextField(
                         appContext: context,
                         pastedTextStyle: TextStyle(
@@ -204,12 +156,16 @@ class _SetPinCodeState extends State<SetPinCode> {
                         onCompleted: (code) async {
                           if (widget.status == 'set') {
                             setPinController.pinCodeChange.value = code;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SetPinCode(
-                                          status: 'verify',
-                                        )));
+                            context.go(
+                                '/setting/verify-pin-code/setpincode/verify-setpincode');
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const SetPinCode(
+                            //       status: 'verify',
+                            //     ),
+                            //   ),
+                            // );
                           } else if (widget.status == 'verify') {
                             if (setPinController.pinCodeChange.value == code) {
                               setPinController.onSetPINCode(
