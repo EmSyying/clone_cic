@@ -109,19 +109,22 @@ class SettingController extends GetxController {
     return uiSettingData;
   }
 
+  bool? isOnFingerPrint = false;
   Future<List<SlideModel>> fetchSlide() async {
     slideList!.clear();
     SlideModel slide = SlideModel();
     isLoading(true);
-    var token = LocalData.getCurrentUser();
+    var token = await LocalData.getCurrentUser();
+    bool biometrics = await LocalData.getAuthenValue('authen');
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}slide?module=Slide';
+        '${GlobalConfiguration().get('api_base_urlv3')}slide?module=Slide&biometrics=$biometrics';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'
       }).then((response) {
+        debugPrint('hii1234567:${response.body}');
         var responseJson = json.decode(response.body)['data'];
         if (response.statusCode == 200) {
           responseJson.map((data) {

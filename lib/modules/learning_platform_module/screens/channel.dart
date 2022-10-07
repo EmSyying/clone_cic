@@ -92,7 +92,7 @@ class _ChannelProfileState extends State<ChannelProfile> {
                                 index: currentIndex!,
                                 itemBuilder: (context, index) {
                                   if (_settingCon.slideList![index].status ==
-                                      'Active') {
+                                      'Display') {
                                     return ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: CachedNetworkImage(
@@ -126,7 +126,7 @@ class _ChannelProfileState extends State<ChannelProfile> {
                                 .asMap()
                                 .entries
                                 .where((element) =>
-                                    element.value.status == 'Active')
+                                    element.value.status == 'Display')
                                 .map(
                                   (e) => CustomIndicator(
                                     isSelect: e.key == currentIndex,

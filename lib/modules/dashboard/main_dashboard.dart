@@ -569,106 +569,90 @@ class _MainDashboardState extends State<MainDashboard> {
             // ShowAppTour(key: myInvestmentKey, child: Text('Hello World')),
             // ShowCaseWidget(builder: builder);
             // Showcase(key: key, child: child, description: description);
-            Obx(
-                () =>
-                    !_settingCon.isLoading.value &&
-                            _settingCon.slideList!.isNotEmpty
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            child: AspectRatio(
-                                aspectRatio: 5 / 2.3,
-                                child: Swiper(
-                                    loop: true,
-                                    index: currentIndex,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      if (_settingCon
-                                              .slideList![index].status ==
-                                          'Active') {
-                                        return ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Stack(
-                                            children: [
-                                              Positioned.fill(
-                                                child: CachedNetworkImage(
-                                                  imageUrl: _settingCon
-                                                      .slideList![index].image!,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              Positioned(
-                                                bottom: 20,
-                                                left: 25,
-                                                child:
-                                                    _settingCon
-                                                                    .slideList![
-                                                                        index]
-                                                                    .button !=
-                                                                null &&
-                                                            _settingCon
-                                                                .slideList![
-                                                                    index]
-                                                                .button!
-                                                                .isNotEmpty
-                                                        ? Row(
-                                                            children:
-                                                                _settingCon
-                                                                    .slideList![
-                                                                        index]
-                                                                    .button!
-                                                                    .map(
-                                                                      (button) =>
-                                                                          Link(
-                                                                        uri: Uri.tryParse(
-                                                                            button.target!),
-                                                                        builder:
-                                                                            (context, followLink) =>
-                                                                                ElevatedButton(
-                                                                          style:
-                                                                              ElevatedButton.styleFrom(primary: Colors.white.withOpacity(0.2)),
-                                                                          onPressed:
-                                                                              followLink,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              if (button.icon != null)
-                                                                                SvgPicture.network(button.icon!),
-                                                                              const SizedBox(
-                                                                                width: 10,
-                                                                              ),
-                                                                              Text(button.label!),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                    .toList(),
-                                                          )
-                                                        : Container(),
+            Obx(() => !_settingCon.isLoading.value &&
+                    _settingCon.slideList!.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: AspectRatio(
+                        aspectRatio: 5 / 2.3,
+                        child: Swiper(
+                            loop: true,
+                            index: currentIndex,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              if (_settingCon.slideList![index].status ==
+                                  'Display') {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Stack(
+                                    children: [
+                                      Positioned.fill(
+                                        child: CachedNetworkImage(
+                                          imageUrl: _settingCon
+                                              .slideList![index].image!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 20,
+                                        left: 25,
+                                        child: _settingCon
+                                                    .slideList![index].button !=
+                                                null
+                                            ? Row(
+                                                children: [
+                                                  Link(
+                                                    uri: Uri.tryParse(
+                                                        '${_settingCon.slideList![index].button!.target}'),
+                                                    builder:
+                                                        (context, followLink) =>
+                                                            ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              primary: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                      0.2)),
+                                                      onPressed: followLink,
+                                                      child: Row(
+                                                        children: [
+                                                          SvgPicture.network(
+                                                              '${_settingCon.slideList![index].button!.icon}'),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                              '${_settingCon.slideList![index].button!.label}'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               )
-                                            ],
-                                          ),
-                                        );
-                                      }
-                                      return Container();
-                                    },
-                                    onIndexChanged: (value) {
-                                      setState(() {
-                                        currentIndex = value;
-                                      });
-                                    },
-                                    curve: Curves.easeIn,
-                                    autoplay: true,
-                                    itemCount: _settingCon.slideList!.length,
-                                    viewportFraction: 1,
-                                    scale: 0.9)),
-                          )
-                        : const SizedBox(
-                            height: 180,
-                            width: double.infinity,
-                          )),
+                                            : Container(),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            },
+                            onIndexChanged: (value) {
+                              setState(() {
+                                currentIndex = value;
+                              });
+                            },
+                            curve: Curves.easeIn,
+                            autoplay: true,
+                            itemCount: _settingCon.slideList!.length,
+                            viewportFraction: 1,
+                            scale: 0.9)),
+                  )
+                : const SizedBox(
+                    height: 180,
+                    width: double.infinity,
+                  )),
             Obx(() => !_settingCon.isLoading.value
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -676,7 +660,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     children: _settingCon.slideList!
                         .asMap()
                         .entries
-                        .where((element) => element.value.status == 'Active')
+                        .where((element) => element.value.status == 'Display')
                         .map((e) => CustomIndicator(
                               isSelect: e.key == currentIndex,
                             ))

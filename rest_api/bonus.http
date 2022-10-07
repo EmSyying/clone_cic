@@ -121,8 +121,7 @@ Authorization: Bearer {{token}}
 
 {
 
-    "number_of_share": 560
-
+    "number_of_share": 560,
     "number_of_share": 2000
 }
 

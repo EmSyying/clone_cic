@@ -121,7 +121,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             if (_settingCon.slideList![index].status ==
-                                'Active') {
+                                'Display') {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: CachedNetworkImage(
@@ -155,7 +155,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       children: _settingCon.slideList!
                           .asMap()
                           .entries
-                          .where((element) => element.value.status == 'Active')
+                          .where((element) => element.value.status == 'Display')
                           .map((e) => CustomIndicator(
                                 isSelect: e.key == currentIndex,
                               ))

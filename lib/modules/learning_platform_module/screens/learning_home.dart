@@ -171,7 +171,7 @@ class _LearningHomeState extends State<LearningHome> {
                                         .asMap()
                                         .entries
                                         .where((element) =>
-                                            element.value.status == 'Active')
+                                            element.value.status == 'Display')
                                         .map((e) => CustomIndicator(
                                               isSelect: e.key == currentIndex,
                                             ))

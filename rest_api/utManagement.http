@@ -359,7 +359,7 @@ Authorization: Bearer {{token}}
 
 ###
 # banner slide
-GET {{baseUrl}}v3/slide?type=slide
+GET {{baseUrl}}v3/slide?module=Slide&biometrics=true
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

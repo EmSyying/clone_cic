@@ -1,7 +1,5 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
-import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomSelectBank extends StatelessWidget {
   final String? image;
@@ -24,7 +22,6 @@ class CustomSelectBank extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fifCon = Get.put(PriceController());
     return Column(
       children: [
         GestureDetector(

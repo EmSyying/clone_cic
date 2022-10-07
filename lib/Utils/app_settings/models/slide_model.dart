@@ -5,7 +5,7 @@ class SlideModel {
   String? type;
   String? status;
   String? image;
-  List<Button>? button;
+  Button? button;
 
   SlideModel(
       {this.title,
@@ -23,12 +23,7 @@ class SlideModel {
     type = json['type'];
     status = json['status'];
     image = json['image'];
-    if (json['button'] != null) {
-      button = <Button>[];
-      json['button'].forEach((v) {
-        button!.add(Button.fromJson(v));
-      });
-    }
+    button = json['button'] != null ? Button.fromJson(json['button']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -40,29 +35,29 @@ class SlideModel {
     data['status'] = status;
     data['image'] = image;
     if (button != null) {
-      data['button'] = button!.map((v) => v.toJson()).toList();
+      data['button'] = button!.toJson();
     }
     return data;
   }
 }
 
 class Button {
-  String? icon;
   String? label;
+  String? icon;
   String? target;
 
-  Button({this.icon, this.label, this.target});
+  Button({this.label, this.icon, this.target});
 
   Button.fromJson(Map<String, dynamic> json) {
-    icon = json['icon'];
     label = json['label'];
+    icon = json['icon'];
     target = json['target'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['icon'] = icon;
     data['label'] = label;
+    data['icon'] = icon;
     data['target'] = target;
     return data;
   }
