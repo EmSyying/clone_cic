@@ -398,26 +398,29 @@ class BonusController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          Future.delayed(const Duration(seconds: 1), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return CustomSucessScreen(
-                    title: 'Success',
-                    description: 'The Cash out is completed successfully.',
-                    buttonTitle: 'Done',
-                    onPressedButton: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-              ),
-            );
-          });
+          Future.delayed(
+            const Duration(seconds: 1),
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return CustomSucessScreen(
+                      title: 'Success',
+                      description: 'The Cash out is completed successfully.',
+                      buttonTitle: 'Done',
+                      onPressedButton: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              );
+            },
+          );
 
           // Future.delayed(const Duration(seconds: 3), () {
           //   fectchBalance();
@@ -439,9 +442,9 @@ class BonusController extends GetxController {
     }
   }
 
-  Future<void> onSubscription({
-    BuildContext? context,
-  }) async {
+  Future<void> onSubscription(
+    BuildContext context,
+  ) async {
     final tokenKey = await LocalData.getCurrentUser();
     isSubscription(true);
     String url = '${GlobalConfiguration().get('api_base_urlv3')}subscription';
@@ -453,27 +456,51 @@ class BonusController extends GetxController {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer $tokenKey'
               },
-              body: json.encode({"number_of_share": subscriptionAmount.value}))
+              body: json.encode(
+                {"number_of_share": subscriptionAmount.value},
+              ))
           .then((response) {
         if (response.statusCode == 200) {
-          customRouterSnackbar(
-              title: 'Subscription',
-              description: 'Your subscription is submitted successfully.');
+          debugPrint(
+              'hany test submit subscription====: ${subscriptionAmount.value}');
+          Future.delayed(
+            const Duration(seconds: 1),
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return CustomSucessScreen(
+                      title: 'Success',
+                      description:
+                          'The UT Subscription is Submit successfully.',
+                      buttonTitle: 'Done',
+                      onPressedButton: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              );
+            },
+          );
 
-          Future.delayed(const Duration(seconds: 2), () {
-            fectchBalance();
-            fetchTransationHistory(type: 'all');
-            fetchPendingTransaction();
-            subscriptionAmount.value = 0;
-            displaysubscriptionCoast.value = 0.0;
-            diplayNewUTAmount.value = 0;
-            Navigator.pop(context!);
-            isLoadingHistory.value = true;
-            isSubmited.value = false;
-            // onClear();
-          });
+          // Future.delayed(const Duration(seconds: 1), () {
+          //   fectchBalance();
+          //   fetchTransationHistory(type: 'all');
+          //   fetchPendingTransaction();
+          //   subscriptionAmount.value = 0;
+          //   displaysubscriptionCoast.value = 0.0;
+          //   diplayNewUTAmount.value = 0;
+          //   Navigator.pop(context);
+          //   isLoadingHistory.value = true;
+          //   isSubmited.value = false;
+          //   // onClear();
+          // });
           update();
         } else {
+          debugPrint('error subscription=========');
           customRouterSnackbar(
             title: 'Subscription Failed',
             description: 'Please Try Again Later.',

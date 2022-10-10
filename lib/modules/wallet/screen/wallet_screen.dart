@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/modules/wallet/screen/mma_deposit_card.dart';
+import 'package:cicgreenloan/modules/wallet/screen/mma_invest_fif_screen.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +14,7 @@ import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
 import '../../bonus/screens/income_transaction.dart';
 
+import '../../investment_module/controller/investment_controller.dart';
 import '../controller/wallet_controller.dart';
 
 import 'dart:ui' as ui;
@@ -29,6 +31,7 @@ class _WalletScreenState extends State<WalletScreen>
   TabController? _tabController;
   final _walletController = Get.put(WalletController());
   final newCashOutCon = Get.put(BonusController());
+  final priceController = Get.put(PriceController());
 
   final String datetime = DateTime.now().toString();
 
@@ -38,6 +41,10 @@ class _WalletScreenState extends State<WalletScreen>
     _walletController.fetchWalletAmount();
     newCashOutCon.fetchbonusSetting();
     newCashOutCon.fectchBalance();
+    priceController.onFetchPrice();
+    newCashOutCon.fetchUTScription();
+    newCashOutCon.fetchPaymentSummary();
+
     super.initState();
   }
 
@@ -193,7 +200,14 @@ class _WalletScreenState extends State<WalletScreen>
                                     _operationButton(
                                       context,
                                       ontap: () {
-                                        show(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MMAInvestFIFScreen(),
+                                          ),
+                                        );
+                                        // show(context);
                                       },
                                       text: 'Invest',
                                       img:

@@ -15,16 +15,24 @@ class CustomButton extends StatefulWidget {
   final String? iconUrl;
   final Color? backgroundColor;
   final Color? colorText;
-  const CustomButton(
-      {Key? key,
-      this.colorText,
-      this.backgroundColor,
-      this.title,
-      this.onPressed,
-      this.isDisable,
-      this.isOutline,
-      this.iconUrl})
-      : super(key: key);
+  final double? height;
+  final double? width;
+  final bool isCardInvestfif;
+  final TextStyle? style;
+  const CustomButton({
+    Key? key,
+    this.colorText,
+    this.backgroundColor,
+    this.title,
+    this.onPressed,
+    this.isDisable,
+    this.isOutline,
+    this.iconUrl,
+    this.height,
+    this.width,
+    this.isCardInvestfif = false,
+    this.style,
+  }) : super(key: key);
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -53,8 +61,8 @@ class _CustomButtonState extends State<CustomButton> {
           )
         : Platform.isAndroid
             ? SizedBox(
-                height: 50,
-                width: double.infinity,
+                height: widget.isCardInvestfif == false ? 50 : widget.height,
+                width: widget.isCardInvestfif ? double.infinity : widget.width,
                 child: !widget.isDisable! && !widget.isOutline!
                     // ignore: deprecated_member_use
                     ? GestureDetector(
@@ -79,14 +87,14 @@ class _CustomButtonState extends State<CustomButton> {
                               widget.colorText != null
                                   ? Text(
                                       widget.title!,
-                                      style: Theme.of(context)
+                                      style: widget.isCardInvestfif == false ? Theme.of(context)
                                           .textTheme
                                           .button!
-                                          .copyWith(color: widget.colorText),
+                                          .copyWith(color: widget.colorText): widget.style,
                                     )
                                   : Text(
                                       widget.title!,
-                                      style: Theme.of(context).textTheme.button,
+                                      style:widget.isCardInvestfif == false ? Theme.of(context).textTheme.button: widget.style,
                                     ),
                             ],
                           ),
@@ -184,8 +192,11 @@ class _CustomButtonState extends State<CustomButton> {
               )
             : Platform.isIOS
                 ? SizedBox(
-                    height: 50,
-                    width: double.infinity,
+                    height:
+                        widget.isCardInvestfif == false ? 50 : widget.height,
+                    width: widget.isCardInvestfif == false
+                        ? double.infinity
+                        : widget.width,
                     child: !widget.isDisable! && !widget.isOutline!
                         ? CupertinoButton(
                             padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -205,15 +216,19 @@ class _CustomButtonState extends State<CustomButton> {
                                 widget.colorText != null
                                     ? Text(
                                         widget.title!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .button!
-                                            .copyWith(color: widget.colorText),
+                                        style: widget.isCardInvestfif == false
+                                            ? Theme.of(context)
+                                                .textTheme
+                                                .button!
+                                                .copyWith(
+                                                    color: widget.colorText)
+                                            : widget.style,
                                       )
                                     : Text(
                                         widget.title!,
-                                        style:
-                                            Theme.of(context).textTheme.button,
+                                        style: widget.isCardInvestfif == false
+                                            ? Theme.of(context).textTheme.button
+                                            : widget.style,
                                       ),
                               ],
                             ),

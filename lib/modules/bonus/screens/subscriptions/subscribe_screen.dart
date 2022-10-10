@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_new_subscription.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_subscribe_history.dart';
@@ -25,49 +26,57 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          color: const Color.fromRGBO(255, 255, 255, 1),
-          child: TabBar(
-            onTap: (v) {
-              FocusScope.of(context).unfocus();
-            },
-            labelPadding: const EdgeInsets.only(top: 20, bottom: 20),
-            indicatorColor: AppColor.mainColor,
-            labelColor: AppColor.mainColor,
-            unselectedLabelColor: Colors.grey,
-            controller: subscribeCon.tabControllerSubscribe,
-            indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
-            tabs: const [
-              Text(
-                'New Subscription',
-                style: TextStyle(
-                    fontFamily: 'DMSans',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              ),
-              Text(
-                'Subscription History',
-                style: TextStyle(
-                    fontFamily: 'DMSans',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              ),
-            ],
+    return Scaffold(
+      appBar: CustomAppBar(
+        elevation: 0,
+        isLeading: true,
+        context: context,
+        title: "UT Subscription",
+      ),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            color: const Color.fromRGBO(255, 255, 255, 1),
+            child: TabBar(
+              onTap: (v) {
+                FocusScope.of(context).unfocus();
+              },
+              labelPadding: const EdgeInsets.only(top: 20, bottom: 20),
+              indicatorColor: AppColor.mainColor,
+              labelColor: AppColor.mainColor,
+              unselectedLabelColor: Colors.grey,
+              controller: subscribeCon.tabControllerSubscribe,
+              indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
+              tabs: const [
+                Text(
+                  'New Subscription',
+                  style: TextStyle(
+                      fontFamily: 'DMSans',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  'Subscription History',
+                  style: TextStyle(
+                      fontFamily: 'DMSans',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: subscribeCon.tabControllerSubscribe,
-            children: [
-              const CustomNewSubscription(),
-              CustomSubscribeHistory(),
-            ],
+          Expanded(
+            child: TabBarView(
+              controller: subscribeCon.tabControllerSubscribe,
+              children: [
+                const CustomNewSubscription(),
+                CustomSubscribeHistory(),
+              ],
+            ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

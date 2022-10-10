@@ -6,6 +6,7 @@ import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../model/invest/card_mma_invest_model.dart';
 import '../model/wallet_model.dart';
 
 class WalletController extends GetxController {
@@ -31,6 +32,18 @@ class WalletController extends GetxController {
       title: 'Transfer to other MM Account',
       imageMMACard: 'assets/images/wallet/transferto-other-account.svg',
     ),
+  ].obs;
+  List<MMACardInvestModel> mmainvestFIFCard = [
+    MMACardInvestModel(title: 'Avg. Annual Return 14.4% to 18%'),
+    MMACardInvestModel(title: 'Minimum Period 2 months'),
+    MMACardInvestModel(title: 'Monthly Interest'),
+    MMACardInvestModel(title: 'Minimum Amount 10,000.00 USD'),
+  ].obs;
+  List<MMACardInvestModel> mmainvestEquityCard = [
+    MMACardInvestModel(title: 'Avg. Annual Return 40% to 51%'),
+    MMACardInvestModel(title: 'Minimum Period 2 months'),
+    MMACardInvestModel(title: 'Capital Gain & Dividend'),
+    MMACardInvestModel(title: 'Minimum Amount 1,037.00 USD'),
   ].obs;
 // Fetch on Deposit Detail
   final depositDetail = DepositDetail().obs;

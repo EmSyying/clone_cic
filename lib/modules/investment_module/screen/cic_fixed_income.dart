@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
+import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
@@ -17,7 +18,9 @@ import '../../get_funding/controller/equity_investment_controller.dart';
 import '../model/first_date/first_date.dart';
 
 class CiCFixedIncome extends StatefulWidget {
-  const CiCFixedIncome({Key? key}) : super(key: key);
+  final bool ismmaInvestFIF;
+  const CiCFixedIncome({Key? key, this.ismmaInvestFIF = false})
+      : super(key: key);
 
   @override
   State<CiCFixedIncome> createState() => _CiCFixedIncomeState();
@@ -48,24 +51,55 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      key: refreshKey,
-      onRefresh: fifController.onRefreshFIF,
-      child: Obx(() => fifController.fifApplicationLoading.value == false &&
-                  fifController.isLoadingPending.value == false &&
-                  fifController.isLoadingConfirm.value == false &&
-                  fifController.isLoadingInvestment.value == false &&
-                  fifController.getHiddentContractLoading.value == false
-              ?
+    return widget.ismmaInvestFIF == false
+        ? RefreshIndicator(
+            key: refreshKey,
+            onRefresh: fifController.onRefreshFIF,
+            child: Obx(
+                () => fifController.fifApplicationLoading.value == false &&
+                        fifController.isLoadingPending.value == false &&
+                        fifController.isLoadingConfirm.value == false &&
+                        fifController.isLoadingInvestment.value == false &&
+                        fifController.getHiddentContractLoading.value == false
+                    ?
 
-              ///when all fetch function done it work here
-              showData()
-              : showShimmer()
+                    ///when all fetch function done it work here
+                    showData()
+                    : showShimmer()
 
-          ///data
+                ///data
+                ),
+          )
+        : Scaffold(
+            appBar: CustomAppBar(
+              title: 'CiC Fixed Income Fund',
+              isLeading: true,
+              isLogo: false,
+              context: context,
+            ),
+            body: Container(
+              margin: const EdgeInsets.only(top: 20.0),
+              child: RefreshIndicator(
+                key: refreshKey,
+                onRefresh: fifController.onRefreshFIF,
+                child: Obx(
+                    () => fifController.fifApplicationLoading.value == false &&
+                            fifController.isLoadingPending.value == false &&
+                            fifController.isLoadingConfirm.value == false &&
+                            fifController.isLoadingInvestment.value == false &&
+                            fifController.getHiddentContractLoading.value ==
+                                false
+                        ?
 
-          ),
-    );
+                        ///when all fetch function done it work here
+                        showData()
+                        : showShimmer()
+
+                    ///data
+                    ),
+              ),
+            ),
+          );
   }
 
   Widget showData() {
@@ -90,7 +124,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                     SliverAppBar(
                       automaticallyImplyLeading: false,
                       backgroundColor: Colors.transparent,
-                      expandedHeight: 108.0,
+                      expandedHeight:
+                          widget.ismmaInvestFIF == false ? 108.0 : 138,
                       stretch: true,
                       onStretchTrigger: () async {
                         debugPrint('stretch');

@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
@@ -6,7 +5,6 @@ import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controlle
 
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
-import 'package:cicgreenloan/widgets/bonus/investFIF/custom_invest_balance_card.dart';
 import 'package:cicgreenloan/widgets/bonus/investFIF/optionInvest/interest_summary.dart';
 import 'package:cicgreenloan/widgets/bonus/service_agreement.dart';
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
@@ -20,7 +18,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/format_number.dart';
-import '../../../../utils/helper/firebase_analytics.dart';
+import '../../../../widgets/investments/slide_button.dart';
+import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
 
 class CustomNewSubscription extends StatefulWidget {
   const CustomNewSubscription({Key? key}) : super(key: key);
@@ -45,7 +44,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
       subscribeCon.isValidateSubscriptionAmount.value = true;
     }
     if (subscribeCon.subscriptionAmount.value != 0.0) {
-      subscribeCon.onSubscription(context: context);
+      subscribeCon.onSubscription(context);
     }
     return false;
   }
@@ -81,20 +80,20 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                               color: Colors.grey[100],
                               child: Column(
                                 children: [
-                                  CustomInvestBalanceCard(
-                                    titleBalance: 'Available Balance',
-                                    currency:
-                                        subscribeCon.balanceModel.value.balance,
-                                    leftTitle: 'Investor ID',
-                                    leftSubTitle: userCon.customer.value.code,
-                                    rightTitle: 'Investor Name',
-                                    rightSubTitle:
-                                        userCon.customer.value.fullName,
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 20.0,
+                                      right: 20.0,
+                                      top: 20.0,
+                                    ),
+                                    child: WalletTotalCard(
+                                      amount: subscribeCon
+                                          .balanceModel.value.balance
+                                          .toString(),
+                                    ),
                                   ),
-                                  // SizedBox(height: 20),
                                   Container(
                                     width: double.infinity,
-                                    // height: MediaQuery.of(context).size.height * 0.18,
                                     margin: const EdgeInsets.only(top: 20),
                                     padding: const EdgeInsets.only(
                                         top: 20, bottom: 20),
@@ -507,23 +506,19 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                             ),
                           ),
                         ),
-                        Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, top: 20, bottom: 30),
-                          child: CustomButton(
-                            onPressed: subscribeCon.isAgree.value == true
-                                ? () {
-                                    FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                        'submit bonus subscribe');
-                                    subscribeCon.isAgree.value = false;
-                                    FocusScope.of(context).unfocus();
-                                    isValidate();
+                        SafeArea(
+                          top: false,
+                          minimum: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 20,
+                          ),
+                          child: SlideButton(
+                            callback: subscribeCon.isAgree.value == true &&
+                                    subscribeCon.subscriptionAmount.value != 0
+                                ? () async {
+                                    await subscribeCon.onSubscription(context);
                                   }
                                 : null,
-                            isDisable: subscribeCon.isUTScription.value,
-                            isOutline: false,
-                            title: 'Submit',
                           ),
                         ),
                       ],
