@@ -1,11 +1,7 @@
 import 'dart:io';
 import 'package:cicgreenloan/Utils/helper/numerice_format.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
-import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/equatable_debt_model.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/loan_option.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
@@ -28,6 +24,7 @@ import '../../../../Utils/helper/container_partern.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../Utils/helper/format_number.dart';
+import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../../widgets/get_funding/custom_add_other_label.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
 import '../../../../widgets/get_funding/custom_select_2_getfunding.dart';
@@ -46,71 +43,80 @@ class Step3Debt extends StatefulWidget {
 }
 
 class _Step3DebtState extends State<Step3Debt> {
-  final memberCon = Get.put(MemberController());
-  final cutomerController = Get.put(CustomerController());
-  final debtCon = Get.put(DebtInvestmentController());
-  final optionCon = Get.put(DocumentCategory());
   var defaultData = DebtStep3Model();
   var tempData = DebtStep3Model();
   int? currentIndex;
   void _onValidate() {
-    if (debtCon.companyName.value == "") {
-      debtCon.isValCompanyName.value = false;
+    if (InjectionHelper.debtInvestmentController.companyName.value == "") {
+      InjectionHelper.debtInvestmentController.isValCompanyName.value = false;
     } else {
-      debtCon.isValCompanyName.value = true;
+      InjectionHelper.debtInvestmentController.isValCompanyName.value = true;
     }
 
-    if (debtCon.address.value == '') {
-      debtCon.isValAddress.value = false;
+    if (InjectionHelper.debtInvestmentController.address.value == '') {
+      InjectionHelper.debtInvestmentController.isValAddress.value = false;
     } else {
-      debtCon.isValAddress.value = true;
+      InjectionHelper.debtInvestmentController.isValAddress.value = true;
     }
 
-    if (debtCon.yearOfEstablishment.value == '') {
-      debtCon.isValYearOfEstablishment.value = false;
+    if (InjectionHelper.debtInvestmentController.yearOfEstablishment.value ==
+        '') {
+      InjectionHelper.debtInvestmentController.isValYearOfEstablishment.value =
+          false;
     } else {
-      debtCon.isValYearOfEstablishment.value = true;
+      InjectionHelper.debtInvestmentController.isValYearOfEstablishment.value =
+          true;
     }
 
-    if (debtCon.typeOfOrganization.value.display == null) {
-      debtCon.isValTypeOfOrganization.value = false;
+    if (InjectionHelper
+            .debtInvestmentController.typeOfOrganization.value.display ==
+        null) {
+      InjectionHelper.debtInvestmentController.isValTypeOfOrganization.value =
+          false;
     } else {
-      debtCon.isValTypeOfOrganization.value = true;
+      InjectionHelper.debtInvestmentController.isValTypeOfOrganization.value =
+          true;
     }
 
-    if (debtCon.industry.value.display == null) {
-      debtCon.isValIndustry.value = false;
+    if (InjectionHelper.debtInvestmentController.industry.value.display ==
+        null) {
+      InjectionHelper.debtInvestmentController.isValIndustry.value = false;
     } else {
-      debtCon.isValIndustry.value = true;
+      InjectionHelper.debtInvestmentController.isValIndustry.value = true;
     }
 
-    if (debtCon.numberOfStaff.value == '') {
-      debtCon.isValNumberOfStaff.value = false;
-      debtCon.update();
+    if (InjectionHelper.debtInvestmentController.numberOfStaff.value == '') {
+      InjectionHelper.debtInvestmentController.isValNumberOfStaff.value = false;
+      InjectionHelper.debtInvestmentController.update();
     } else {
-      debtCon.isValNumberOfStaff.value = true;
-      debtCon.update();
+      InjectionHelper.debtInvestmentController.isValNumberOfStaff.value = true;
+      InjectionHelper.debtInvestmentController.update();
     }
 
-    if (debtCon.ownerName.value == '') {
-      debtCon.isValOwnerName.value = false;
+    if (InjectionHelper.debtInvestmentController.ownerName.value == '') {
+      InjectionHelper.debtInvestmentController.isValOwnerName.value = false;
     } else {
-      debtCon.isValOwnerName.value = true;
+      InjectionHelper.debtInvestmentController.isValOwnerName.value = true;
     }
 
-    if (debtCon.productSevice.value == '') {
-      debtCon.isValProductService.value = false;
+    if (InjectionHelper.debtInvestmentController.productSevice.value == '') {
+      InjectionHelper.debtInvestmentController.isValProductService.value =
+          false;
     } else {
-      debtCon.isValProductService.value = true;
+      InjectionHelper.debtInvestmentController.isValProductService.value = true;
     }
-    if (debtCon.companyName.value != "" &&
-        debtCon.address.value != "" &&
-        debtCon.yearOfEstablishment.value != "" &&
-        debtCon.typeOfOrganization.value.display != null &&
-        debtCon.industry.value.display != null &&
-        debtCon.numberOfStaff.value != "" &&
-        debtCon.ownerName.value != "" &&
-        debtCon.productSevice.value != "") {
+    if (InjectionHelper.debtInvestmentController.companyName.value != "" &&
+        InjectionHelper.debtInvestmentController.address.value != "" &&
+        InjectionHelper.debtInvestmentController.yearOfEstablishment.value !=
+            "" &&
+        InjectionHelper
+                .debtInvestmentController.typeOfOrganization.value.display !=
+            null &&
+        InjectionHelper.debtInvestmentController.industry.value.display !=
+            null &&
+        InjectionHelper.debtInvestmentController.numberOfStaff.value != "" &&
+        InjectionHelper.debtInvestmentController.ownerName.value != "" &&
+        InjectionHelper.debtInvestmentController.productSevice.value != "") {
       FocusScope.of(context).unfocus();
       context
           .push("/get_funding/debt-step4?id=${widget.id}&&step=${widget.step}");
@@ -119,297 +125,382 @@ class _Step3DebtState extends State<Step3Debt> {
 
   @override
   void initState() {
-    memberCon.fetchCompanyMember(
-        id: cutomerController.customer.value.customerId);
+    InjectionHelper.memberController.fetchCompanyMember(
+        id: InjectionHelper.customerController.customer.value.customerId);
     super.initState();
-    if (memberCon.companyDataList.isNotEmpty) {
-      memberCon.addCompany.value = false;
+    if (InjectionHelper.memberController.companyDataList.isNotEmpty) {
+      InjectionHelper.memberController.addCompany.value = false;
     }
-    debtCon.productController.value;
-    debtCon.addresscontroller.value;
+    InjectionHelper.debtInvestmentController.productController.value;
+    InjectionHelper.debtInvestmentController.addresscontroller.value;
     if (widget.id != null) {
-      debtCon.fetchAppDetails(widget.id!).then((value) {
+      InjectionHelper.debtInvestmentController
+          .fetchAppDetails(widget.id!)
+          .then((value) {
         // ============initial step1 =============
-        if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerGender !=
             null) {
-          debtCon.gender.value.display = debtCon
-              .applicationDetail.value.customerInfo!.customerGender!.display;
-          debtCon.gender.value.id =
-              debtCon.applicationDetail.value.customerInfo!.customerGender!.id;
+          InjectionHelper.debtInvestmentController.gender.value.display =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerGender!.display;
+          InjectionHelper.debtInvestmentController.gender.value.id =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerGender!.id;
         }
-        if (debtCon.applicationDetail.value.customerInfo!.customerName != "") {
-          debtCon.fullName.value =
-              debtCon.applicationDetail.value.customerInfo!.customerName!;
-        }
-        if (debtCon.applicationDetail.value.customerInfo!.customerEmail != "") {
-          debtCon.email.value =
-              debtCon.applicationDetail.value.customerInfo!.customerEmail!;
-        }
-        if (debtCon.applicationDetail.value.customerInfo!.customerDateOfBirth !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerName !=
             "") {
-          debtCon.dateOfBirth.value = debtCon
-              .applicationDetail.value.customerInfo!.customerDateOfBirth!;
+          InjectionHelper.debtInvestmentController.fullName.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerName!;
+        }
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerEmail !=
+            "") {
+          InjectionHelper.debtInvestmentController.email.value = InjectionHelper
+              .debtInvestmentController
+              .applicationDetail
+              .value
+              .customerInfo!
+              .customerEmail!;
+        }
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerDateOfBirth !=
+            "") {
+          InjectionHelper.debtInvestmentController.dateOfBirth.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerDateOfBirth!;
         }
         // Address
-        if (debtCon.applicationDetail.value.customerInfo!.currentHouseNo !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentHouseNo !=
             null) {
-          debtCon.fullCurrentAddress.value.houseNo =
-              debtCon.applicationDetail.value.customerInfo!.currentHouseNo;
+          InjectionHelper
+                  .debtInvestmentController.fullCurrentAddress.value.houseNo =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.currentHouseNo;
         }
-        if (debtCon.applicationDetail.value.customerInfo!.currentStreetNo !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentStreetNo !=
             null) {
-          debtCon.fullCurrentAddress.value.streetNo =
-              debtCon.applicationDetail.value.customerInfo!.currentStreetNo;
+          InjectionHelper
+                  .debtInvestmentController.fullCurrentAddress.value.streetNo =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.currentStreetNo;
         }
-        if (debtCon.applicationDetail.value.customerInfo!.currentAddress !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentAddress !=
             null) {
-          debtCon.fullCurrentAddress.value = FullAddress(
-            houseNo:
-                debtCon.applicationDetail.value.customerInfo!.currentHouseNo ??
-                    "",
-            streetNo:
-                debtCon.applicationDetail.value.customerInfo!.currentStreetNo ??
-                    "",
+          InjectionHelper.debtInvestmentController.fullCurrentAddress.value =
+              FullAddress(
+            houseNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentHouseNo ??
+                "",
+            streetNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentStreetNo ??
+                "",
             addressList: [
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.city!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.city!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.city!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.city!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.district!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.district!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.district!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.district!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.commune!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.commune!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.commune!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.commune!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.village!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.village!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.village!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.village!.name,
               ),
             ],
           );
         }
-        if (debtCon.applicationDetail.value.customerInfo!.residenceAddress !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.residenceAddress !=
             null) {
-          debtCon.fullResidentAddress.value = FullAddress(
-            houseNo: debtCon
-                    .applicationDetail.value.customerInfo!.residenceHouseNo ??
+          InjectionHelper.debtInvestmentController.fullResidentAddress.value =
+              FullAddress(
+            houseNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceHouseNo ??
                 "",
-            streetNo: debtCon
-                    .applicationDetail.value.customerInfo!.residenceStreetNo ??
+            streetNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceStreetNo ??
                 "",
             addressList: [
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.city!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.city!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.city!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.city!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.district!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.district!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.district!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.district!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.commune!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.commune!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.commune!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.commune!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.village!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.village!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.village!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.village!.name,
               ),
             ],
           );
         }
 
         // =============End initial step1 =============
-        debtCon.productType.value = Option(
+        InjectionHelper.debtInvestmentController.productType.value = Option(
             id: value.productType!.id!.toInt(),
             productName: value.productType!.name);
 
-        debtCon.financingPurpose.value = Optionmodel(
-            id: value.financialPurpose!.id,
-            display: value.financialPurpose!.display);
+        InjectionHelper.debtInvestmentController.financingPurpose.value =
+            Optionmodel(
+                id: value.financialPurpose!.id,
+                display: value.financialPurpose!.display);
 
-        debtCon.financingAmount.value = value.financialAmount!.toDouble();
-        debtCon.term.value = value.duration!.toInt();
-        debtCon.intendedDate.value = value.intendedDateDisbursement.toString();
-        debtCon.financingAmountcontroller.text =
-            debtCon.applicationDetail.value.financialAmount!.toString() == "0"
-                ? ""
-                : debtCon.applicationDetail.value.financialAmount!.toString();
-        debtCon.financingAmount.value =
-            debtCon.applicationDetail.value.financialAmount != null
-                ? debtCon.financingAmount.value
+        InjectionHelper.debtInvestmentController.financingAmount.value =
+            value.financialAmount!.toDouble();
+        InjectionHelper.debtInvestmentController.term.value =
+            value.duration!.toInt();
+        InjectionHelper.debtInvestmentController.intendedDate.value =
+            value.intendedDateDisbursement.toString();
+        InjectionHelper.debtInvestmentController.financingAmountcontroller
+            .text = InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.financialAmount!
+                    .toString() ==
+                "0"
+            ? ""
+            : InjectionHelper.debtInvestmentController.applicationDetail.value
+                .financialAmount!
+                .toString();
+        InjectionHelper.debtInvestmentController.financingAmount.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                        .financialAmount !=
+                    null
+                ? InjectionHelper.debtInvestmentController.financingAmount.value
                 : 0;
-        debtCon.termController.text =
-            debtCon.applicationDetail.value.duration.toString() == ""
+        InjectionHelper.debtInvestmentController.termController.text =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                        .duration
+                        .toString() ==
+                    ""
                 ? ""
-                : debtCon.applicationDetail.value.duration.toString();
-        debtCon.term.value = debtCon.applicationDetail.value.duration != null
-            ? debtCon.term.value
+                : InjectionHelper
+                    .debtInvestmentController.applicationDetail.value.duration
+                    .toString();
+        InjectionHelper.debtInvestmentController.term.value = InjectionHelper
+                    .debtInvestmentController
+                    .applicationDetail
+                    .value
+                    .duration !=
+                null
+            ? InjectionHelper.debtInvestmentController.term.value
             : 0;
         // =================End initial step 2================
-        debtCon.companyName.value = value.company!.companyName!;
-        debtCon.address.value = value.company!.address!;
-        debtCon.addresscontroller.text = value.company!.address!;
-        debtCon.yearOfEstablishment.value =
+        InjectionHelper.debtInvestmentController.companyName.value =
+            value.company!.companyName!;
+        InjectionHelper.debtInvestmentController.address.value =
+            value.company!.address!;
+        InjectionHelper.debtInvestmentController.addresscontroller.text =
+            value.company!.address!;
+        InjectionHelper.debtInvestmentController.yearOfEstablishment.value =
             value.company!.yearFounded!.toString();
-        debtCon.yearofestablistmentController.text =
-            value.company!.yearFounded!.toString();
-        debtCon.typeOfOrganization.value =
+        InjectionHelper.debtInvestmentController.yearofestablistmentController
+            .text = value.company!.yearFounded!.toString();
+        InjectionHelper.debtInvestmentController.typeOfOrganization.value =
             value.company!.typeOfOrganization != null
                 ? Optionmodel(
                     id: value.company!.typeOfOrganization!.id,
                     display: value.company!.typeOfOrganization!.display)
                 : Optionmodel(id: 0, display: null);
 
-        debtCon.taxIdentificationNumber.value =
+        InjectionHelper.debtInvestmentController.taxIdentificationNumber.value =
             value.company!.taxIdentificationNumber!;
-        debtCon.taxindentificationController.text =
-            value.company!.taxIdentificationNumber!;
+        InjectionHelper.debtInvestmentController.taxindentificationController
+            .text = value.company!.taxIdentificationNumber!;
 
-        debtCon.industry.value = value.company!.industry != null
-            ? Optionmodel(
-                id: value.company!.industry!.id,
-                display: value.company!.industry!.display)
-            : Optionmodel(id: 0, display: null);
-        debtCon.typeOfOrganization.value.display ==
+        InjectionHelper.debtInvestmentController.industry.value =
+            value.company!.industry != null
+                ? Optionmodel(
+                    id: value.company!.industry!.id,
+                    display: value.company!.industry!.display)
+                : Optionmodel(id: 0, display: null);
+        InjectionHelper
+                .debtInvestmentController.typeOfOrganization.value.display ==
             value.company!.typeOfOrganization!.display;
-        debtCon.industry.value.display == value.company!.industry!.display;
+        InjectionHelper.debtInvestmentController.industry.value.display ==
+            value.company!.industry!.display;
 
         ///
         if (value.company!.numberOfStaff != null &&
             value.company!.numberOfStaff != 0) {
           var displaynumberOfStaff =
               FormatNumber.formatNumberDefualt(value.company!.numberOfStaff!);
-          debtCon.numberofStaffController.text =
-              displaynumberOfStaff.toString();
+          InjectionHelper.debtInvestmentController.numberofStaffController
+              .text = displaynumberOfStaff.toString();
         } else {
-          debtCon.numberofStaffController.text = '';
+          InjectionHelper
+              .debtInvestmentController.numberofStaffController.text = '';
         }
 
         ///
-        debtCon.numberOfStaff.value = value.company!.numberOfStaff!.toString();
-        debtCon.ownernameController.text = value.company!.ownerName!;
-        debtCon.ownerName.value = value.company!.ownerName!;
-        debtCon.productSevice.value = value.company!.companyProductAndService!;
-        debtCon.productController.text =
+        InjectionHelper.debtInvestmentController.numberOfStaff.value =
+            value.company!.numberOfStaff!.toString();
+        InjectionHelper.debtInvestmentController.ownernameController.text =
+            value.company!.ownerName!;
+        InjectionHelper.debtInvestmentController.ownerName.value =
+            value.company!.ownerName!;
+        InjectionHelper.debtInvestmentController.productSevice.value =
             value.company!.companyProductAndService!;
-        debtCon.patentDocument.value = value.companyPatentDoc!;
-        debtCon.certificatioDoc.value = value.companyMoCCertificate!;
-        debtCon.licenseDoc.value = value.companyLicenceDoc!;
-        debtCon.memorandumDoc.value = value.companyMAA!;
+        InjectionHelper.debtInvestmentController.productController.text =
+            value.company!.companyProductAndService!;
+        InjectionHelper.debtInvestmentController.patentDocument.value =
+            value.companyPatentDoc!;
+        InjectionHelper.debtInvestmentController.certificatioDoc.value =
+            value.companyMoCCertificate!;
+        InjectionHelper.debtInvestmentController.licenseDoc.value =
+            value.companyLicenceDoc!;
+        InjectionHelper.debtInvestmentController.memorandumDoc.value =
+            value.companyMAA!;
 
         if (value.companyPatentDoc == 1) {
-          debtCon.isPatentDoc.value = true;
+          InjectionHelper.debtInvestmentController.isPatentDoc.value = true;
         } else {
-          debtCon.isPatentDoc.value = false;
+          InjectionHelper.debtInvestmentController.isPatentDoc.value = false;
         }
         if (value.companyMoCCertificate == 1) {
-          debtCon.isCertificate.value = true;
+          InjectionHelper.debtInvestmentController.isCertificate.value = true;
         } else {
-          debtCon.isCertificate.value = false;
+          InjectionHelper.debtInvestmentController.isCertificate.value = false;
         }
         if (value.companyLicenceDoc == 1) {
-          debtCon.isLicense.value = true;
+          InjectionHelper.debtInvestmentController.isLicense.value = true;
         } else {
-          debtCon.isLicense.value = false;
+          InjectionHelper.debtInvestmentController.isLicense.value = false;
         }
         if (value.companyMAA == 1) {
-          debtCon.isMemorandum.value = true;
+          InjectionHelper.debtInvestmentController.isMemorandum.value = true;
         } else {
-          debtCon.isMemorandum.value = false;
+          InjectionHelper.debtInvestmentController.isMemorandum.value = false;
         }
 
         defaultData = DebtStep3Model(
-          companyName: debtCon.companyName.value,
-          address: debtCon.address.value,
-          yearOfEstablishment: debtCon.yearOfEstablishment.value,
-          typeOfOrganization: debtCon.typeOfOrganization.value,
-          taxIdentificationNumber: debtCon.taxIdentificationNumber.value,
-          industry: debtCon.industry.value,
-          numberOfStaff: debtCon.numberOfStaff.value,
-          ownerName: debtCon.ownerName.value,
-          productSevice: debtCon.productSevice.value,
-          patentDoc: debtCon.patentDocument.value,
-          licenceDoc: debtCon.licenseDoc.value,
-          mocCertificate: debtCon.certificatioDoc.value,
-          memorandum: debtCon.memorandumDoc.value,
+          companyName:
+              InjectionHelper.debtInvestmentController.companyName.value,
+          address: InjectionHelper.debtInvestmentController.address.value,
+          yearOfEstablishment: InjectionHelper
+              .debtInvestmentController.yearOfEstablishment.value,
+          typeOfOrganization:
+              InjectionHelper.debtInvestmentController.typeOfOrganization.value,
+          taxIdentificationNumber: InjectionHelper
+              .debtInvestmentController.taxIdentificationNumber.value,
+          industry: InjectionHelper.debtInvestmentController.industry.value,
+          numberOfStaff:
+              InjectionHelper.debtInvestmentController.numberOfStaff.value,
+          ownerName: InjectionHelper.debtInvestmentController.ownerName.value,
+          productSevice:
+              InjectionHelper.debtInvestmentController.productSevice.value,
+          patentDoc:
+              InjectionHelper.debtInvestmentController.patentDocument.value,
+          licenceDoc: InjectionHelper.debtInvestmentController.licenseDoc.value,
+          mocCertificate:
+              InjectionHelper.debtInvestmentController.certificatioDoc.value,
+          memorandum:
+              InjectionHelper.debtInvestmentController.memorandumDoc.value,
         );
         tempData = DebtStep3Model(
-          companyName: debtCon.companyName.value,
-          address: debtCon.address.value,
-          yearOfEstablishment: debtCon.yearOfEstablishment.value,
-          typeOfOrganization: debtCon.typeOfOrganization.value,
-          taxIdentificationNumber: debtCon.taxIdentificationNumber.value,
-          industry: debtCon.industry.value,
-          numberOfStaff: debtCon.numberOfStaff.value,
-          ownerName: debtCon.ownerName.value,
-          productSevice: debtCon.productSevice.value,
-          patentDoc: debtCon.patentDocument.value,
-          licenceDoc: debtCon.licenseDoc.value,
-          mocCertificate: debtCon.certificatioDoc.value,
-          memorandum: debtCon.memorandumDoc.value,
+          companyName:
+              InjectionHelper.debtInvestmentController.companyName.value,
+          address: InjectionHelper.debtInvestmentController.address.value,
+          yearOfEstablishment: InjectionHelper
+              .debtInvestmentController.yearOfEstablishment.value,
+          typeOfOrganization:
+              InjectionHelper.debtInvestmentController.typeOfOrganization.value,
+          taxIdentificationNumber: InjectionHelper
+              .debtInvestmentController.taxIdentificationNumber.value,
+          industry: InjectionHelper.debtInvestmentController.industry.value,
+          numberOfStaff:
+              InjectionHelper.debtInvestmentController.numberOfStaff.value,
+          ownerName: InjectionHelper.debtInvestmentController.ownerName.value,
+          productSevice:
+              InjectionHelper.debtInvestmentController.productSevice.value,
+          patentDoc:
+              InjectionHelper.debtInvestmentController.patentDocument.value,
+          licenceDoc: InjectionHelper.debtInvestmentController.licenseDoc.value,
+          mocCertificate:
+              InjectionHelper.debtInvestmentController.certificatioDoc.value,
+          memorandum:
+              InjectionHelper.debtInvestmentController.memorandumDoc.value,
         );
       });
     }
   }
 
   setValidate() {
-    debtCon.isValCompanyName.value = true;
-    debtCon.isValAddress.value = true;
-    debtCon.isValYearOfEstablishment.value = true;
-    debtCon.isValTypeOfOrganization.value = true;
-    debtCon.isValIndustry.value = true;
-    debtCon.isValNumberOfStaff.value = true;
-    debtCon.isValOwnerName.value = true;
-    debtCon.isValProductService.value = true;
+    InjectionHelper.debtInvestmentController.isValCompanyName.value = true;
+    InjectionHelper.debtInvestmentController.isValAddress.value = true;
+    InjectionHelper.debtInvestmentController.isValYearOfEstablishment.value =
+        true;
+    InjectionHelper.debtInvestmentController.isValTypeOfOrganization.value =
+        true;
+    InjectionHelper.debtInvestmentController.isValIndustry.value = true;
+    InjectionHelper.debtInvestmentController.isValNumberOfStaff.value = true;
+    InjectionHelper.debtInvestmentController.isValOwnerName.value = true;
+    InjectionHelper.debtInvestmentController.isValProductService.value = true;
   }
 
   onResetCompany() {
-    debtCon.companyName.value = "";
-    debtCon.address.value = "";
-    debtCon.yearOfEstablishment.value = "";
-    debtCon.typeOfOrganization.value = Optionmodel(display: null, id: 0);
-    debtCon.taxIdentificationNumber.value = "";
-    debtCon.industry.value = Optionmodel(
+    InjectionHelper.debtInvestmentController.companyName.value = "";
+    InjectionHelper.debtInvestmentController.address.value = "";
+    InjectionHelper.debtInvestmentController.yearOfEstablishment.value = "";
+    InjectionHelper.debtInvestmentController.typeOfOrganization.value =
+        Optionmodel(display: null, id: 0);
+    InjectionHelper.debtInvestmentController.taxIdentificationNumber.value = "";
+    InjectionHelper.debtInvestmentController.industry.value = Optionmodel(
       display: null,
       id: 0,
     );
-    debtCon.numberOfStaff.value = "0";
-    debtCon.ownerName.value = "";
-    debtCon.productSevice.value = "";
-    debtCon.addresscontroller.text = "";
-    debtCon.yearofestablistmentController.text = "";
-    debtCon.ownernameController.text = "";
-    debtCon.productController.text = "";
-    debtCon.numberofStaffController.text = "";
-    debtCon.taxindentificationController.text = "";
+    InjectionHelper.debtInvestmentController.numberOfStaff.value = "0";
+    InjectionHelper.debtInvestmentController.ownerName.value = "";
+    InjectionHelper.debtInvestmentController.productSevice.value = "";
+    InjectionHelper.debtInvestmentController.addresscontroller.text = "";
+    InjectionHelper
+        .debtInvestmentController.yearofestablistmentController.text = "";
+    InjectionHelper.debtInvestmentController.ownernameController.text = "";
+    InjectionHelper.debtInvestmentController.productController.text = "";
+    InjectionHelper.debtInvestmentController.numberofStaffController.text = "";
+    InjectionHelper.debtInvestmentController.taxindentificationController.text =
+        "";
 
-    debtCon.isPatentDoc.value = false;
-    debtCon.isCertificate.value = false;
-    debtCon.isMemorandum.value = false;
-    debtCon.isLicense.value = false;
+    InjectionHelper.debtInvestmentController.isPatentDoc.value = false;
+    InjectionHelper.debtInvestmentController.isCertificate.value = false;
+    InjectionHelper.debtInvestmentController.isMemorandum.value = false;
+    InjectionHelper.debtInvestmentController.isLicense.value = false;
 
-    debtCon.patentDocument.value = 0;
-    debtCon.certificatioDoc.value = 0;
-    debtCon.licenseDoc.value = 0;
-    debtCon.memorandumDoc.value = 0;
+    InjectionHelper.debtInvestmentController.patentDocument.value = 0;
+    InjectionHelper.debtInvestmentController.certificatioDoc.value = 0;
+    InjectionHelper.debtInvestmentController.licenseDoc.value = 0;
+    InjectionHelper.debtInvestmentController.memorandumDoc.value = 0;
   }
 
   TextEditingController addNewOtherType = TextEditingController();
@@ -421,7 +512,7 @@ class _Step3DebtState extends State<Step3Debt> {
       body: Builder(
         builder: (context) => CupertinoPageScaffold(
           child: Obx(
-            () => debtCon.isLoadingSubmit.value
+            () => InjectionHelper.debtInvestmentController.isLoadingSubmit.value
                 ? Scaffold(
                     body: Container(
                       width: double.infinity,
@@ -455,64 +546,105 @@ class _Step3DebtState extends State<Step3Debt> {
                   )
                 : Scaffold(
                     resizeToAvoidBottomInset: false,
-                    appBar: debtCon.isSubmitLoading.value == true
+                    appBar: InjectionHelper.debtInvestmentController
+                                .isSubmitLoading.value ==
+                            true
                         ? AppBar()
                         : CustomAppBarWhiteColor(
                             leading: IconButton(
-                              onPressed: tempData == defaultData &&
-                                      debtCon.companyName.value == "" &&
-                                      debtCon.address.value == "" &&
-                                      debtCon.yearOfEstablishment.value == "" &&
-                                      debtCon.typeOfOrganization.value
-                                              .display ==
-                                          null &&
-                                      debtCon.taxIdentificationNumber.value ==
-                                          "" &&
-                                      debtCon.industry.value.display == null &&
-                                      debtCon.numberOfStaff.value == "0" &&
-                                      debtCon.ownerName.value == "" &&
-                                      debtCon.productSevice.value == ""
-                                  ? () {
-                                      setValidate();
-                                      Navigator.pop(context);
-                                    }
-                                  : () {
-                                      showSaveDraftDialog(
-                                          onSaveTitle: widget.id != null
-                                              ? "Update Draft"
-                                              : "Save Draft",
-                                          context: context,
-                                          isCancel: true,
-                                          content:
-                                              'Changes made to this page haven’t been saved yet.',
-                                          title:
-                                              'Are you sure you want to leave this page?',
-                                          onSave: widget.id != null
-                                              ? () async {
-                                                  Navigator.pop(context);
-                                                  await debtCon
-                                                      .onEditDebtInvestment(
-                                                          id: widget.id,
-                                                          context: context,
-                                                          frompage: debtCon
-                                                              .applicationDetail
-                                                              .value
-                                                              .step!
-                                                              .toInt(),
-                                                          step: 3);
-                                                }
-                                              : () async {
-                                                  Navigator.pop(context);
-                                                  await debtCon
-                                                      .onSubmitDebtInvestment(
-                                                          context: context,
-                                                          step: 3);
-                                                },
-                                          onDiscard: () {
-                                            setValidate();
-                                            context.go("/get_funding");
-                                          });
-                                    },
+                              onPressed:
+                                  tempData == defaultData &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .companyName
+                                                  .value ==
+                                              "" &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .address
+                                                  .value ==
+                                              "" &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .yearOfEstablishment
+                                                  .value ==
+                                              "" &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .typeOfOrganization
+                                                  .value
+                                                  .display ==
+                                              null &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .taxIdentificationNumber
+                                                  .value ==
+                                              "" &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .industry
+                                                  .value
+                                                  .display ==
+                                              null &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .numberOfStaff
+                                                  .value ==
+                                              "0" &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .ownerName
+                                                  .value ==
+                                              "" &&
+                                          InjectionHelper
+                                                  .debtInvestmentController
+                                                  .productSevice
+                                                  .value ==
+                                              ""
+                                      ? () {
+                                          setValidate();
+                                          Navigator.pop(context);
+                                        }
+                                      : () {
+                                          showSaveDraftDialog(
+                                              onSaveTitle: widget.id != null
+                                                  ? "Update Draft"
+                                                  : "Save Draft",
+                                              context: context,
+                                              isCancel: true,
+                                              content:
+                                                  'Changes made to this page haven’t been saved yet.',
+                                              title:
+                                                  'Are you sure you want to leave this page?',
+                                              onSave: widget.id != null
+                                                  ? () async {
+                                                      Navigator.pop(context);
+                                                      await InjectionHelper
+                                                          .debtInvestmentController
+                                                          .onEditDebtInvestment(
+                                                              id: widget.id,
+                                                              context: context,
+                                                              frompage: InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .applicationDetail
+                                                                  .value
+                                                                  .step!
+                                                                  .toInt(),
+                                                              step: 3);
+                                                    }
+                                                  : () async {
+                                                      Navigator.pop(context);
+                                                      await InjectionHelper
+                                                          .debtInvestmentController
+                                                          .onSubmitDebtInvestment(
+                                                              context: context,
+                                                              step: 3);
+                                                    },
+                                              onDiscard: () {
+                                                setValidate();
+                                                context.go("/get_funding");
+                                              });
+                                        },
                               icon: Icon(
                                 kIsWeb
                                     ? Icons.arrow_back
@@ -536,7 +668,8 @@ class _Step3DebtState extends State<Step3Debt> {
                             ],
                           ),
                     body: Obx(
-                      () => debtCon.isLoadingData.value
+                      () => InjectionHelper
+                              .debtInvestmentController.isLoadingData.value
                           ? const LinearProgressIndicator()
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -566,9 +699,13 @@ class _Step3DebtState extends State<Step3Debt> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              memberCon.companyDataList
+                                              InjectionHelper
+                                                          .memberController
+                                                          .companyDataList
                                                           .isNotEmpty &&
-                                                      memberCon.addCompany
+                                                      InjectionHelper
+                                                              .memberController
+                                                              .addCompany
                                                               .value ==
                                                           false
                                                   ? Padding(
@@ -580,20 +717,28 @@ class _Step3DebtState extends State<Step3Debt> {
                                                         onCreateCompany: () {
                                                           onResetCompany();
 
-                                                          memberCon.addCompany
+                                                          InjectionHelper
+                                                              .memberController
+                                                              .addCompany
                                                               .value = true;
-                                                          memberCon.addCompany
+                                                          InjectionHelper
+                                                              .memberController
+                                                              .addCompany
                                                               .refresh();
-                                                          memberCon.update();
+                                                          InjectionHelper
+                                                              .memberController
+                                                              .update();
 
                                                           Navigator.pop(
                                                               context);
                                                         },
                                                         isCompany: true,
-                                                        isValidate: debtCon
+                                                        isValidate: InjectionHelper
+                                                            .debtInvestmentController
                                                             .isValCompanyName
                                                             .value,
-                                                        item: memberCon
+                                                        item: InjectionHelper
+                                                            .memberController
                                                             .companyDataList
                                                             .asMap()
                                                             .entries
@@ -691,62 +836,78 @@ class _Step3DebtState extends State<Step3Debt> {
                                                           );
                                                         }).toList(),
                                                         onChange: (v) {
-                                                          debtCon.companyName
-                                                                  .value =
-                                                              v["Name"];
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .companyName
+                                                              .value = v["Name"];
 
                                                           setState(() {
                                                             tempData.companyName =
-                                                                debtCon
+                                                                InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .companyName
                                                                     .value;
                                                           });
 
-                                                          debtCon.address
-                                                                  .value =
-                                                              v["Address"];
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .address
+                                                              .value = v["Address"];
 
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .addresscontroller
                                                               .text = v["Address"];
 
                                                           v["patent"]
                                                               .map((e) =>
-                                                                  debtCon
+                                                                  InjectionHelper
+                                                                      .debtInvestmentController
                                                                       .patentDoc
                                                                       .add(e
                                                                           .url))
                                                               .toList();
                                                           v["licence"]
-                                                              .map((e) => debtCon
-                                                                  .licenceDoc
-                                                                  .add(e.url))
+                                                              .map((e) =>
+                                                                  InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .licenceDoc
+                                                                      .add(e
+                                                                          .url))
                                                               .toList();
                                                           v["moc"]
-                                                              .map((e) => debtCon
+                                                              .map((e) => InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .mocCertificate
                                                                   .add(e.url))
                                                               .toList();
 
                                                           ///Disable File +++
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .yearOfEstablishment
                                                               .value = v['Year'];
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .yearofestablistmentController
                                                               .text = v['Year'];
-                                                          debtCon.ownerName
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .ownerName
                                                                   .value =
                                                               v['OwnerName'];
-                                                          debtCon.ownernameController
-                                                                  .text =
-                                                              v['OwnerName'];
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .ownernameController
+                                                              .text = v['OwnerName'];
                                                           v['NumberOfStaff'] ==
                                                                   ''
-                                                              ? debtCon
+                                                              ? InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .numberOfStaff
                                                                   .value = ''
-                                                              : debtCon
+                                                              : InjectionHelper
+                                                                      .debtInvestmentController
                                                                       .numberOfStaff
                                                                       .value =
                                                                   v['NumberOfStaff'];
@@ -754,7 +915,8 @@ class _Step3DebtState extends State<Step3Debt> {
                                                           ///
                                                           if (v['NumberOfStaff'] ==
                                                               '') {
-                                                            debtCon
+                                                            InjectionHelper
+                                                                .debtInvestmentController
                                                                 .numberofStaffController
                                                                 .text = '';
                                                           } else {
@@ -763,94 +925,125 @@ class _Step3DebtState extends State<Step3Debt> {
                                                                     .formatNumberDefualt(
                                                                         int.parse(
                                                                             v['NumberOfStaff']));
-                                                            debtCon.numberofStaffController
+                                                            InjectionHelper
+                                                                    .debtInvestmentController
+                                                                    .numberofStaffController
                                                                     .text =
                                                                 displaynumberstaff
                                                                     .toString();
                                                           }
 
                                                           ///
-                                                          debtCon.typeOfOrganization
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .typeOfOrganization
                                                                   .value =
                                                               Optionmodel(
                                                                   id: int.parse(v[
                                                                       'Typeid']),
                                                                   display: v[
                                                                       'TypeDis']);
-                                                          debtCon.industry
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .industry
                                                                   .value =
                                                               Optionmodel(
                                                                   id: int.parse(v[
                                                                       'Industryid']),
                                                                   display: v[
                                                                       'IndustryDis']);
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .taxindentificationController
                                                               .text = v['Tax'];
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .taxIdentificationNumber
                                                               .value = v['Tax'];
-                                                          debtCon.companyIndex
-                                                                  .value =
-                                                              v['Code'];
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .companyIndex
+                                                              .value = v['Code'];
 
-                                                          debtCon.productSevice
-                                                                  .value =
-                                                              v["Product"];
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .productSevice
+                                                              .value = v["Product"];
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .productController
                                                               .text = v["Product"];
 
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .isValProductService
                                                               .value = true;
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .isValCompanyName
                                                               .value = true;
-                                                          debtCon.isValAddress
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .isValAddress
                                                               .value = true;
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .isValYearOfEstablishment
                                                               .value = true;
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .isValTypeOfOrganization
                                                               .value = true;
-                                                          debtCon.isValIndustry
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .isValIndustry
                                                               .value = true;
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .isValNumberOfStaff
                                                               .value = true;
-                                                          debtCon.isValOwnerName
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .isValOwnerName
                                                               .value = true;
                                                         },
                                                         label: 'Company Name',
-                                                        defaultValue: debtCon
+                                                        defaultValue: InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .companyName
                                                                     .value !=
                                                                 ''
                                                             ? {
-                                                                "Name": debtCon
+                                                                "Name": InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .companyName
                                                                     .value,
-                                                                "Code": debtCon
+                                                                "Code": InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .companyIndex
                                                                     .value
                                                               }
                                                             : null,
                                                       ),
                                                     )
-                                                  : memberCon.addCompany
+                                                  : InjectionHelper
+                                                              .memberController
+                                                              .addCompany
                                                               .value ==
                                                           true
                                                       ? CustomTextFieldNew(
-                                                          autoFocus: memberCon
-                                                              .addCompany.value,
+                                                          autoFocus:
+                                                              InjectionHelper
+                                                                  .memberController
+                                                                  .addCompany
+                                                                  .value,
                                                           textInputAction:
                                                               TextInputAction
                                                                   .next,
                                                           maxLine: 1,
                                                           isRequired: true,
-                                                          isValidate: debtCon
+                                                          isValidate: InjectionHelper
+                                                              .debtInvestmentController
                                                               .isValCompanyName
                                                               .value,
                                                           //===
@@ -859,11 +1052,13 @@ class _Step3DebtState extends State<Step3Debt> {
                                                           hintText:
                                                               'Company Name',
                                                           onChange: (value) {
-                                                            debtCon
+                                                            InjectionHelper
+                                                                .debtInvestmentController
                                                                 .isValCompanyName
                                                                 .value = true;
                                                             if (value.isEmpty) {
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .companyName
                                                                   .value = '';
                                                               setState(() {
@@ -871,30 +1066,38 @@ class _Step3DebtState extends State<Step3Debt> {
                                                                     "";
                                                               });
                                                             } else {
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .companyName
                                                                   .value = value;
                                                               setState(() {
                                                                 tempData.companyName =
-                                                                    debtCon
+                                                                    InjectionHelper
+                                                                        .debtInvestmentController
                                                                         .companyName
                                                                         .value;
                                                               });
                                                             }
                                                           },
-                                                          initialValue: debtCon
-                                                              .companyName
-                                                              .value,
+                                                          initialValue:
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .companyName
+                                                                  .value,
                                                         )
                                                       : CustomTextFieldNew(
-                                                          autoFocus: memberCon
-                                                              .addCompany.value,
+                                                          autoFocus:
+                                                              InjectionHelper
+                                                                  .memberController
+                                                                  .addCompany
+                                                                  .value,
                                                           textInputAction:
                                                               TextInputAction
                                                                   .next,
                                                           maxLine: 1,
                                                           isRequired: true,
-                                                          isValidate: debtCon
+                                                          isValidate: InjectionHelper
+                                                              .debtInvestmentController
                                                               .isValCompanyName
                                                               .value,
                                                           labelText:
@@ -902,11 +1105,13 @@ class _Step3DebtState extends State<Step3Debt> {
                                                           hintText:
                                                               'Company Name',
                                                           onChange: (value) {
-                                                            debtCon
+                                                            InjectionHelper
+                                                                .debtInvestmentController
                                                                 .isValCompanyName
                                                                 .value = true;
                                                             if (value.isEmpty) {
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .companyName
                                                                   .value = '';
                                                               setState(() {
@@ -914,54 +1119,75 @@ class _Step3DebtState extends State<Step3Debt> {
                                                                     "";
                                                               });
                                                             } else {
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .companyName
                                                                   .value = value;
                                                               setState(() {
                                                                 tempData.companyName =
-                                                                    debtCon
+                                                                    InjectionHelper
+                                                                        .debtInvestmentController
                                                                         .companyName
                                                                         .value;
                                                               });
                                                             }
                                                           },
-                                                          initialValue: debtCon
-                                                              .companyName
-                                                              .value,
+                                                          initialValue:
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .companyName
+                                                                  .value,
                                                         ),
                                               const SizedBox(height: 5),
                                               CustomTextFieldNew(
                                                 textInputAction:
                                                     TextInputAction.next,
                                                 maxLine: 1,
-                                                controller:
-                                                    debtCon.addresscontroller,
+                                                controller: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .addresscontroller,
                                                 isRequired: true,
-                                                isValidate:
-                                                    debtCon.isValAddress.value,
+                                                isValidate: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .isValAddress
+                                                    .value,
                                                 labelText: 'Address',
                                                 hintText: 'Address',
                                                 onChange: (value) {
                                                   if (value.isEmpty) {
-                                                    debtCon.isValAddress.value =
-                                                        false;
-                                                    debtCon.address.value = '';
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValAddress
+                                                        .value = false;
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .address
+                                                        .value = '';
                                                     setState(() {
                                                       tempData.address = "";
                                                     });
                                                   } else {
-                                                    debtCon.isValAddress.value =
-                                                        true;
-                                                    debtCon.address.value =
-                                                        value;
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValAddress
+                                                        .value = true;
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .address
+                                                        .value = value;
                                                     setState(() {
                                                       tempData.address =
-                                                          debtCon.address.value;
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .address
+                                                              .value;
                                                     });
                                                   }
                                                 },
-                                                initialValue:
-                                                    debtCon.address.value,
+                                                initialValue: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .address
+                                                    .value,
                                               ),
                                               CustomTextFieldNew(
                                                 textInputAction:
@@ -969,7 +1195,8 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 maxLine: 1,
                                                 maxlenght: 4,
                                                 isRequired: true,
-                                                isValidate: debtCon
+                                                isValidate: InjectionHelper
+                                                    .debtInvestmentController
                                                     .isValYearOfEstablishment
                                                     .value,
                                                 labelText:
@@ -978,24 +1205,31 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     'Year Of Establishment',
                                                 onChange: (value) {
                                                   if (value.isEmpty) {
-                                                    debtCon
+                                                    InjectionHelper
+                                                        .debtInvestmentController
                                                         .isValYearOfEstablishment
                                                         .value = false;
-                                                    debtCon.yearOfEstablishment
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .yearOfEstablishment
                                                         .value = '';
                                                     setState(() {
                                                       tempData.yearOfEstablishment =
                                                           "";
                                                     });
                                                   } else {
-                                                    debtCon
+                                                    InjectionHelper
+                                                        .debtInvestmentController
                                                         .isValYearOfEstablishment
                                                         .value = true;
-                                                    debtCon.yearOfEstablishment
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .yearOfEstablishment
                                                         .value = value;
                                                     setState(() {
                                                       tempData.yearOfEstablishment =
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .yearOfEstablishment
                                                               .value;
                                                     });
@@ -1009,10 +1243,13 @@ class _Step3DebtState extends State<Step3Debt> {
                                                   FilteringTextInputFormatter
                                                       .deny(RegExp(r'^0+')),
                                                 ],
-                                                controller: debtCon
+                                                controller: InjectionHelper
+                                                    .debtInvestmentController
                                                     .yearofestablistmentController,
-                                                initialValue: debtCon
-                                                    .yearOfEstablishment.value,
+                                                initialValue: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .yearOfEstablishment
+                                                    .value,
                                               ),
                                               CICDropdown(
                                                 onCreateCompany: () {
@@ -1028,14 +1265,18 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     },
                                                     onSave: () {
                                                       setState(() {
-                                                        debtCon.typeOfOrganization
-                                                                .value.display =
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .typeOfOrganization
+                                                                .value
+                                                                .display =
                                                             addNewOtherType
                                                                 .text;
                                                         if (addNewOtherType
                                                                 .text !=
                                                             "") {
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .typeOfOrganization
                                                               .value
                                                               .id = null;
@@ -1059,10 +1300,14 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 isCompany: true,
                                                 otherLabel: "Add Other",
                                                 colors: Colors.white,
-                                                isValidate: debtCon
+                                                isValidate: InjectionHelper
+                                                    .debtInvestmentController
                                                     .isValTypeOfOrganization
                                                     .value,
-                                                item: optionCon.optionData.value
+                                                item: InjectionHelper
+                                                    .optionController
+                                                    .optionData
+                                                    .value
                                                     .organization!
                                                     .asMap()
                                                     .entries
@@ -1076,7 +1321,9 @@ class _Step3DebtState extends State<Step3Debt> {
                                                   );
                                                 }).toList(),
                                                 onChange: (v) {
-                                                  debtCon.typeOfOrganization
+                                                  InjectionHelper
+                                                      .debtInvestmentController
+                                                      .typeOfOrganization
                                                       .value = Optionmodel(
                                                     display: v["Name"],
                                                     id: int.parse(
@@ -1093,26 +1340,33 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     );
                                                   });
 
-                                                  debtCon
+                                                  InjectionHelper
+                                                      .debtInvestmentController
                                                       .isValTypeOfOrganization
                                                       .value = true;
                                                 },
                                                 label: 'Type Of Organization',
-                                                defaultValue: debtCon
+                                                defaultValue: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .typeOfOrganization
                                                                 .value
                                                                 .display !=
                                                             null &&
-                                                        debtCon.typeOfOrganization
-                                                                .value.display!
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .typeOfOrganization
+                                                                .value
+                                                                .display!
                                                                 .toLowerCase() !=
                                                             'null'
                                                     ? {
-                                                        "Name": debtCon
+                                                        "Name": InjectionHelper
+                                                            .debtInvestmentController
                                                             .typeOfOrganization
                                                             .value
                                                             .display,
-                                                        "Code": debtCon
+                                                        "Code": InjectionHelper
+                                                            .debtInvestmentController
                                                             .typeOfOrganization
                                                             .value
                                                             .id
@@ -1124,9 +1378,11 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 textInputAction:
                                                     TextInputAction.next,
                                                 maxLine: 1,
-                                                controller: debtCon
+                                                controller: InjectionHelper
+                                                    .debtInvestmentController
                                                     .taxindentificationController,
-                                                initialValue: debtCon
+                                                initialValue: InjectionHelper
+                                                    .debtInvestmentController
                                                     .taxIdentificationNumber
                                                     .value,
                                                 labelText:
@@ -1135,7 +1391,8 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     'Tax Identification Number (TIN)',
                                                 onChange: (value) {
                                                   if (value.isEmpty) {
-                                                    debtCon
+                                                    InjectionHelper
+                                                        .debtInvestmentController
                                                         .taxIdentificationNumber
                                                         .value = '';
                                                     setState(() {
@@ -1143,12 +1400,14 @@ class _Step3DebtState extends State<Step3Debt> {
                                                           "";
                                                     });
                                                   } else {
-                                                    debtCon
+                                                    InjectionHelper
+                                                        .debtInvestmentController
                                                         .taxIdentificationNumber
                                                         .value = value;
                                                     setState(() {
                                                       tempData.taxIdentificationNumber =
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .taxIdentificationNumber
                                                               .value;
                                                     });
@@ -1169,14 +1428,20 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     },
                                                     onSave: () {
                                                       setState(() {
-                                                        debtCon.industry.value
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .industry
+                                                                .value
                                                                 .display =
                                                             addNewOtherIndustry
                                                                 .text;
                                                         if (addNewOtherIndustry
                                                                 .text !=
                                                             "") {
-                                                          debtCon.industry.value
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .industry
+                                                              .value
                                                               .id = null;
                                                         }
                                                       });
@@ -1196,11 +1461,16 @@ class _Step3DebtState extends State<Step3Debt> {
                                                 isCompany: true,
                                                 otherLabel: "Add Other",
                                                 colors: Colors.white,
-                                                isValidate:
-                                                    debtCon.isValIndustry.value,
+                                                isValidate: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .isValIndustry
+                                                    .value,
                                                 item:
                                                     // listIndustryTest
-                                                    optionCon.optionData.value
+                                                    InjectionHelper
+                                                        .optionController
+                                                        .optionData
+                                                        .value
                                                         .industry!
                                                         .asMap()
                                                         .entries
@@ -1214,8 +1484,10 @@ class _Step3DebtState extends State<Step3Debt> {
                                                   );
                                                 }).toList(),
                                                 onChange: (v) {
-                                                  debtCon.industry.value =
-                                                      Optionmodel(
+                                                  InjectionHelper
+                                                      .debtInvestmentController
+                                                      .industry
+                                                      .value = Optionmodel(
                                                     display: v["Name"],
                                                     id: int.parse(
                                                       v["Code"],
@@ -1223,27 +1495,42 @@ class _Step3DebtState extends State<Step3Debt> {
                                                   );
                                                   setState(() {
                                                     tempData.industry =
-                                                        debtCon.industry.value;
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .industry
+                                                            .value;
                                                   });
 
-                                                  debtCon.isValIndustry.value =
-                                                      true;
+                                                  InjectionHelper
+                                                      .debtInvestmentController
+                                                      .isValIndustry
+                                                      .value = true;
                                                 },
                                                 label: 'Industry',
-                                                defaultValue: debtCon
+                                                defaultValue: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .industry
                                                                 .value
                                                                 .display !=
                                                             null &&
-                                                        debtCon.industry.value
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .industry
+                                                                .value
                                                                 .display!
                                                                 .toLowerCase() !=
                                                             'null'
                                                     ? {
-                                                        "Name": debtCon.industry
-                                                            .value.display,
-                                                        "Code": debtCon
-                                                            .industry.value.id
+                                                        "Name": InjectionHelper
+                                                            .debtInvestmentController
+                                                            .industry
+                                                            .value
+                                                            .display,
+                                                        "Code": InjectionHelper
+                                                            .debtInvestmentController
+                                                            .industry
+                                                            .value
+                                                            .id
                                                       }
                                                     : null,
                                               ),
@@ -1253,28 +1540,38 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     TextInputAction.next,
                                                 maxLine: 1,
                                                 isRequired: true,
-                                                isValidate: debtCon
-                                                    .isValNumberOfStaff.value,
+                                                isValidate: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .isValNumberOfStaff
+                                                    .value,
                                                 labelText: 'Number Of Staff',
                                                 hintText: 'Number Of Staff',
                                                 onChange: (valueChanged) {
                                                   String value = valueChanged
                                                       .replaceAll(',', '');
                                                   if (value == '') {
-                                                    debtCon.isValNumberOfStaff
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValNumberOfStaff
                                                         .value = false;
                                                     setState(() {
                                                       tempData.numberOfStaff =
                                                           "0";
                                                     });
-                                                    // debtCon.isValNumberOfStaff
+                                                    // InjectionHelper.debtInvestmentController.isValNumberOfStaff
                                                     //     .value = false;
-                                                    debtCon.numberOfStaff
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .numberOfStaff
                                                         .value = '';
                                                   } else {
-                                                    debtCon.isValNumberOfStaff
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValNumberOfStaff
                                                         .value = true;
-                                                    debtCon.numberOfStaff
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .numberOfStaff
                                                         .value = value;
                                                     setState(() {
                                                       tempData.numberOfStaff =
@@ -1282,15 +1579,19 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     });
                                                   }
                                                 },
-                                                controller: debtCon
+                                                controller: InjectionHelper
+                                                    .debtInvestmentController
                                                     .numberofStaffController,
-                                                initialValue: debtCon
+                                                initialValue: InjectionHelper
+                                                            .debtInvestmentController
                                                             .numberOfStaff
                                                             .value ==
                                                         "0"
                                                     ? ""
-                                                    : debtCon
-                                                        .numberOfStaff.value,
+                                                    : InjectionHelper
+                                                        .debtInvestmentController
+                                                        .numberOfStaff
+                                                        .value,
                                                 keyboardType:
                                                     TextInputType.number,
                                                 inputFormatterList: [
@@ -1306,58 +1607,84 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     TextInputAction.next,
                                                 maxLine: 1,
                                                 isRequired: true,
-                                                isValidate: debtCon
-                                                    .isValOwnerName.value,
+                                                isValidate: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .isValOwnerName
+                                                    .value,
                                                 labelText: 'Owner Name',
                                                 hintText: 'Owner Name',
                                                 onChange: (value) {
                                                   if (value.isEmpty) {
-                                                    debtCon.isValOwnerName
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValOwnerName
                                                         .value = false;
-                                                    debtCon.ownerName.value =
-                                                        '';
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .ownerName
+                                                        .value = '';
                                                     setState(() {
                                                       tempData.ownerName = "";
                                                     });
                                                   } else {
-                                                    debtCon.isValOwnerName
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValOwnerName
                                                         .value = true;
-                                                    debtCon.ownerName.value =
-                                                        value;
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .ownerName
+                                                        .value = value;
                                                     setState(() {
                                                       tempData.ownerName =
-                                                          debtCon
-                                                              .ownerName.value;
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .ownerName
+                                                              .value;
                                                     });
                                                   }
                                                 },
-                                                controller:
-                                                    debtCon.ownernameController,
-                                                initialValue:
-                                                    debtCon.ownerName.value,
+                                                controller: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .ownernameController,
+                                                initialValue: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .ownerName
+                                                    .value,
                                               ),
                                               CustomTextFieldNew(
                                                 isRequired: true,
-                                                controller:
-                                                    debtCon.productController,
-                                                isValidate: debtCon
-                                                    .isValProductService.value,
+                                                controller: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .productController,
+                                                isValidate: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .isValProductService
+                                                    .value,
                                                 labelText: 'Product / Service',
                                                 hintText: 'Product / Service',
                                                 onChange: (value) {
                                                   if (value.isEmpty) {
-                                                    debtCon.isValProductService
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValProductService
                                                         .value = false;
-                                                    debtCon.productSevice
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .productSevice
                                                         .value = '';
                                                     setState(() {
                                                       tempData.productSevice =
                                                           "";
                                                     });
                                                   } else {
-                                                    debtCon.isValProductService
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValProductService
                                                         .value = true;
-                                                    debtCon.productSevice
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .productSevice
                                                         .value = value;
                                                     setState(() {
                                                       tempData.productSevice =
@@ -1365,8 +1692,10 @@ class _Step3DebtState extends State<Step3Debt> {
                                                     });
                                                   }
                                                 },
-                                                initialValue:
-                                                    debtCon.productSevice.value,
+                                                initialValue: InjectionHelper
+                                                    .debtInvestmentController
+                                                    .productSevice
+                                                    .value,
                                               ),
                                               Padding(
                                                 padding:
@@ -1397,21 +1726,33 @@ class _Step3DebtState extends State<Step3Debt> {
                                                       isMultipleSelect: true,
                                                       title:
                                                           'Company’s Patent Document',
-                                                      isSelect: debtCon
-                                                          .isPatentDoc.value,
+                                                      isSelect: InjectionHelper
+                                                          .debtInvestmentController
+                                                          .isPatentDoc
+                                                          .value,
                                                       ontap: () {
-                                                        debtCon.isPatentDoc
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .isPatentDoc
                                                                 .value =
-                                                            !debtCon.isPatentDoc
+                                                            !InjectionHelper
+                                                                .debtInvestmentController
+                                                                .isPatentDoc
                                                                 .value;
-                                                        if (debtCon.isPatentDoc
+                                                        if (InjectionHelper
+                                                            .debtInvestmentController
+                                                            .isPatentDoc
                                                             .value) {
-                                                          debtCon.patentDocument
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .patentDocument
                                                               .value = 1;
                                                           tempData.patentDoc =
                                                               1;
                                                         } else {
-                                                          debtCon.patentDocument
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .patentDocument
                                                               .value = 0;
                                                           tempData.patentDoc =
                                                               0;
@@ -1425,24 +1766,32 @@ class _Step3DebtState extends State<Step3Debt> {
                                                       isMultipleSelect: true,
                                                       title:
                                                           'Company’s MOC Certificate',
-                                                      isSelect: debtCon
-                                                          .isCertificate.value,
+                                                      isSelect: InjectionHelper
+                                                          .debtInvestmentController
+                                                          .isCertificate
+                                                          .value,
                                                       ontap: () {
-                                                        debtCon.isCertificate
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .isCertificate
                                                                 .value =
-                                                            !debtCon
+                                                            !InjectionHelper
+                                                                .debtInvestmentController
                                                                 .isCertificate
                                                                 .value;
-                                                        if (debtCon
+                                                        if (InjectionHelper
+                                                            .debtInvestmentController
                                                             .isCertificate
                                                             .value) {
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .certificatioDoc
                                                               .value = 1;
                                                           tempData
                                                               .mocCertificate = 1;
                                                         } else {
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .certificatioDoc
                                                               .value = 0;
                                                           tempData
@@ -1457,21 +1806,33 @@ class _Step3DebtState extends State<Step3Debt> {
                                                       isMultipleSelect: true,
                                                       title:
                                                           'Company’s License Document',
-                                                      isSelect: debtCon
-                                                          .isLicense.value,
+                                                      isSelect: InjectionHelper
+                                                          .debtInvestmentController
+                                                          .isLicense
+                                                          .value,
                                                       ontap: () {
-                                                        debtCon.isLicense
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .isLicense
                                                                 .value =
-                                                            !debtCon.isLicense
+                                                            !InjectionHelper
+                                                                .debtInvestmentController
+                                                                .isLicense
                                                                 .value;
-                                                        if (debtCon
-                                                            .isLicense.value) {
-                                                          debtCon.licenseDoc
+                                                        if (InjectionHelper
+                                                            .debtInvestmentController
+                                                            .isLicense
+                                                            .value) {
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .licenseDoc
                                                               .value = 1;
                                                           tempData.licenceDoc =
                                                               1;
                                                         } else {
-                                                          debtCon.licenseDoc
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .licenseDoc
                                                               .value = 0;
                                                           tempData.licenceDoc =
                                                               0;
@@ -1485,23 +1846,34 @@ class _Step3DebtState extends State<Step3Debt> {
                                                       isMultipleSelect: true,
                                                       title:
                                                           'Company’s Memorandum And Article Of \n Association',
-                                                      isSelect: debtCon
-                                                          .isMemorandum.value,
+                                                      isSelect: InjectionHelper
+                                                          .debtInvestmentController
+                                                          .isMemorandum
+                                                          .value,
                                                       ontap: () {
-                                                        debtCon.isMemorandum
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .isMemorandum
                                                                 .value =
-                                                            !debtCon
+                                                            !InjectionHelper
+                                                                .debtInvestmentController
                                                                 .isMemorandum
                                                                 .value;
 
-                                                        if (debtCon.isMemorandum
+                                                        if (InjectionHelper
+                                                            .debtInvestmentController
+                                                            .isMemorandum
                                                             .value) {
-                                                          debtCon.memorandumDoc
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .memorandumDoc
                                                               .value = 1;
                                                           tempData.memorandum =
                                                               1;
                                                         } else {
-                                                          debtCon.memorandumDoc
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .memorandumDoc
                                                               .value = 0;
                                                           tempData.memorandum =
                                                               0;
@@ -1531,37 +1903,56 @@ class _Step3DebtState extends State<Step3Debt> {
                                           isDisable: tempData == defaultData &&
                                                   tempData.memorandum ==
                                                       defaultData.memorandum &&
-                                                  debtCon.memorandumDoc.value ==
-                                                      debtCon
-                                                          .memorandumDoc.value &&
+                                                  InjectionHelper
+                                                          .debtInvestmentController
+                                                          .memorandumDoc
+                                                          .value ==
+                                                      InjectionHelper
+                                                          .debtInvestmentController
+                                                          .memorandumDoc
+                                                          .value &&
                                                   addNewOtherIndustry.text ==
                                                       "" &&
                                                   addNewOtherType.text == ""
                                               ? true
-                                              : debtCon.companyName.value == "" &&
-                                                      debtCon.address.value ==
+                                              : InjectionHelper.debtInvestmentController.companyName.value == "" &&
+                                                      InjectionHelper.debtInvestmentController.address.value ==
                                                           "" &&
-                                                      debtCon.yearOfEstablishment
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .yearOfEstablishment
                                                               .value ==
                                                           "" &&
-                                                      debtCon
+                                                      InjectionHelper
+                                                              .debtInvestmentController
                                                               .typeOfOrganization
                                                               .value
                                                               .display ==
                                                           null &&
-                                                      debtCon
+                                                      InjectionHelper
+                                                              .debtInvestmentController
                                                               .taxIdentificationNumber
                                                               .value ==
                                                           "" &&
-                                                      debtCon.industry.value
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .industry
+                                                              .value
                                                               .display ==
                                                           null &&
-                                                      debtCon.numberOfStaff
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .numberOfStaff
                                                               .value ==
                                                           "0" &&
-                                                      debtCon.ownerName.value ==
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .ownerName
+                                                              .value ==
                                                           "" &&
-                                                      debtCon.productSevice
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .productSevice
                                                               .value ==
                                                           ""
                                                   ? true
@@ -1580,18 +1971,21 @@ class _Step3DebtState extends State<Step3Debt> {
                                                       "Debt Save Draft Step3");
                                             }
                                             widget.id != null
-                                                ? await debtCon
+                                                ? await InjectionHelper
+                                                    .debtInvestmentController
                                                     .onEditDebtInvestment(
                                                         showDebtSnackbar: false,
                                                         id: widget.id,
-                                                        frompage: debtCon
+                                                        frompage: InjectionHelper
+                                                            .debtInvestmentController
                                                             .applicationDetail
                                                             .value
                                                             .step!
                                                             .toInt(),
                                                         context: context,
                                                         step: 3)
-                                                : await debtCon
+                                                : await InjectionHelper
+                                                    .debtInvestmentController
                                                     .onSubmitDebtInvestment(
                                                         showDebtSnackbar: false,
                                                         context: context,

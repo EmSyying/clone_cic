@@ -1,10 +1,9 @@
 import 'dart:io';
 import 'package:cicgreenloan/Utils/chart/custom_circle_chart_1_3.dart';
+import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
 import 'package:cicgreenloan/Utils/helper/numerice_format.dart';
-import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/show_alert_dialog.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_select_2_getfunding.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_select_getfunding.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_text_getfunding.dart';
@@ -38,9 +37,6 @@ class Step3Equity extends StatefulWidget {
 }
 
 class _Step3EquityState extends State<Step3Equity> {
-  final equityController = Get.put(EquityInvestmentController());
-
-  final optionController = Get.put(DocumentCategory());
   @override
   void initState() {
     if (widget.id != null) inistialdata();
@@ -48,155 +44,220 @@ class _Step3EquityState extends State<Step3Equity> {
   }
 
   inistialdata() async {
-    await equityController.fetchAppDetails(widget.id!);
+    await InjectionHelper.equityInvestmentController
+        .fetchAppDetails(widget.id!);
 
-    equityController.status.value =
-        equityController.applicationData.value.status!;
-    equityController.equityId.value =
-        equityController.applicationData.value.id!;
-    equityController.financingAmoung.value =
-        equityController.applicationData.value.financialAmount != null
-            ? equityController.applicationData.value.financialAmount!.toInt()
+    InjectionHelper.equityInvestmentController.status.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.status!;
+    InjectionHelper.equityInvestmentController.equityId.value =
+        InjectionHelper.equityInvestmentController.applicationData.value.id!;
+    InjectionHelper.equityInvestmentController.financingAmoung.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .financialAmount !=
+                null
+            ? InjectionHelper.equityInvestmentController.applicationData.value
+                .financialAmount!
+                .toInt()
             : 0;
-    equityController.intendedDate.value =
-        equityController.applicationData.value.intendedDateDisbursement!;
-    equityController.numberOfShareHolders.value =
-        equityController.applicationData.value.numberofshareholder!.toInt();
+    InjectionHelper.equityInvestmentController.intendedDate.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .intendedDateDisbursement!;
+    InjectionHelper.equityInvestmentController.numberOfShareHolders.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .numberofshareholder!
+            .toInt();
 
     ///
     var displaynumberofshareholder = FormatNumber.formatNumberDefualt(
-        equityController.applicationData.value.numberofshareholder!);
-    equityController.numberofSharecontroller.text =
-        equityController.applicationData.value.numberofshareholder! == 0
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .numberofshareholder!);
+    InjectionHelper.equityInvestmentController.numberofSharecontroller.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .numberofshareholder! ==
+                0
             ? ""
             : displaynumberofshareholder.toString();
 
     ///
     var displaynumberofboardmember = FormatNumber.formatNumberDefualt(
-        equityController.applicationData.value.numberofboardmember!);
-    equityController.numberofBoardcontroller.text =
-        equityController.applicationData.value.numberofboardmember == 0
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .numberofboardmember!);
+    InjectionHelper.equityInvestmentController.numberofBoardcontroller.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .numberofboardmember ==
+                0
             ? ""
             : displaynumberofboardmember.toString();
 
     ///
-    equityController.numberOfBoardMembers.value =
-        equityController.applicationData.value.numberofboardmember!.toInt();
-    equityController.useOfFund.value =
-        equityController.applicationData.value.useofFund!;
+    InjectionHelper.equityInvestmentController.numberOfBoardMembers.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .numberofboardmember!
+            .toInt();
+    InjectionHelper.equityInvestmentController.useOfFund.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.useofFund!;
 
-    equityController.companyName.value =
-        equityController.applicationData.value.company!.companyName!;
-    equityController.address.value =
-        equityController.applicationData.value.company!.address!;
-    equityController.yearOfEstablishment.value =
-        equityController.applicationData.value.company!.yearFounded!.toString();
+    InjectionHelper.equityInvestmentController.companyName.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.companyName!;
+    InjectionHelper.equityInvestmentController.address.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.company!.address!;
+    InjectionHelper.equityInvestmentController.yearOfEstablishment.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.yearFounded!
+            .toString();
 
-    equityController.typeOfOrganization.value = equityController
-                .applicationData.value.company!.typeOfOrganization !=
-            null
-        ? equityController.applicationData.value.company!.typeOfOrganization!
-        : Optionmodel(id: 0, display: "");
-
-    equityController.taxIdentificationNumber.value = equityController
-        .applicationData.value.company!.taxIdentificationNumber!;
-    equityController.industry.value =
-        equityController.applicationData.value.company!.industry != null
-            ? equityController.applicationData.value.company!.industry!
+    InjectionHelper.equityInvestmentController.typeOfOrganization.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.typeOfOrganization !=
+                null
+            ? InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.typeOfOrganization!
             : Optionmodel(id: 0, display: "");
 
-    equityController.numberOfStaff.value = equityController
-        .applicationData.value.company!.numberOfStaff!
-        .toString();
-    equityController.ownerName.value =
-        equityController.applicationData.value.company!.ownerName!;
-    equityController.productSevice.value = equityController
-        .applicationData.value.company!.companyProductAndService!;
-    equityController.patentDocument.value =
-        equityController.applicationData.value.companyPatentDoc!;
-    equityController.certificatioDoc.value =
-        equityController.applicationData.value.companyMoCCertificate!;
-    equityController.licenseDoc.value =
-        equityController.applicationData.value.companyLicenceDoc!;
-    equityController.memorandumDoc.value =
-        equityController.applicationData.value.companyMAA!;
+    InjectionHelper.equityInvestmentController.taxIdentificationNumber.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.taxIdentificationNumber!;
+    InjectionHelper.equityInvestmentController.industry.value = InjectionHelper
+                .equityInvestmentController
+                .applicationData
+                .value
+                .company!
+                .industry !=
+            null
+        ? InjectionHelper
+            .equityInvestmentController.applicationData.value.company!.industry!
+        : Optionmodel(id: 0, display: "");
 
-    equityController.purposeOfFund.value =
-        equityController.applicationData.value.raisefundusefor!.toInt();
+    InjectionHelper.equityInvestmentController.numberOfStaff.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.numberOfStaff!
+            .toString();
+    InjectionHelper.equityInvestmentController.ownerName.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.company!.ownerName!;
+    InjectionHelper.equityInvestmentController.productSevice.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.companyProductAndService!;
+    InjectionHelper.equityInvestmentController.patentDocument.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.companyPatentDoc!;
+    InjectionHelper.equityInvestmentController.certificatioDoc.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .companyMoCCertificate!;
+    InjectionHelper.equityInvestmentController.licenseDoc.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .companyLicenceDoc!;
+    InjectionHelper.equityInvestmentController.memorandumDoc.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.companyMAA!;
 
-    equityController.haveTheConsenus.value =
-        equityController.applicationData.value.iscompanyraisefund!.toInt();
-    equityController.areYouTheMajorityShareholder.value =
-        equityController.applicationData.value.ismajorityshareholder!.toInt();
-    equityController.havefinancial.value =
-        equityController.applicationData.value.financialroject!.toInt();
-    equityController.businessPlan.value =
-        equityController.applicationData.value.businessPlan!.toInt();
-    equityController.articleOfIncorporation.value =
-        equityController.applicationData.value.articleOfIncorporation!.toInt();
-    equityController.incomeStatement.value =
-        equityController.applicationData.value.incomeStatement!.toInt();
-    equityController.balanceSheet.value =
-        equityController.applicationData.value.balanceSheet!.toInt();
-    equityController.cashFlowStatement.value =
-        equityController.applicationData.value.cashFlowStatement!.toInt();
-    equityController.marketStudy.value =
-        equityController.applicationData.value.marketStudyDocs!.toInt();
-    equityController.otherDocuments.value =
-        equityController.applicationData.value.otherDocument!.toInt();
+    InjectionHelper.equityInvestmentController.purposeOfFund.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.raisefundusefor!
+            .toInt();
+
+    InjectionHelper.equityInvestmentController.haveTheConsenus.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .iscompanyraisefund!
+            .toInt();
+    InjectionHelper
+            .equityInvestmentController.areYouTheMajorityShareholder.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .ismajorityshareholder!
+            .toInt();
+    InjectionHelper.equityInvestmentController.havefinancial.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.financialroject!
+            .toInt();
+    InjectionHelper.equityInvestmentController.businessPlan.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.businessPlan!
+            .toInt();
+    InjectionHelper.equityInvestmentController.articleOfIncorporation.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .articleOfIncorporation!
+            .toInt();
+    InjectionHelper.equityInvestmentController.incomeStatement.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.incomeStatement!
+            .toInt();
+    InjectionHelper.equityInvestmentController.balanceSheet.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.balanceSheet!
+            .toInt();
+    InjectionHelper.equityInvestmentController.cashFlowStatement.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.cashFlowStatement!
+            .toInt();
+    InjectionHelper.equityInvestmentController.marketStudy.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.marketStudyDocs!
+            .toInt();
+    InjectionHelper.equityInvestmentController.otherDocuments.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.otherDocument!
+            .toInt();
   }
 
   void _onpress() {
-    if (equityController.numberOfShareHolders.value == 0) {
-      equityController.isValNumberOfShareHolders.value = false;
+    if (InjectionHelper.equityInvestmentController.numberOfShareHolders.value ==
+        0) {
+      InjectionHelper
+          .equityInvestmentController.isValNumberOfShareHolders.value = false;
     } else {
-      equityController.isValNumberOfShareHolders.value = true;
+      InjectionHelper
+          .equityInvestmentController.isValNumberOfShareHolders.value = true;
     }
-    if (equityController.numberOfBoardMembers.value == 0) {
-      equityController.isValNumberOfBoardMembers.value = false;
+    if (InjectionHelper.equityInvestmentController.numberOfBoardMembers.value ==
+        0) {
+      InjectionHelper
+          .equityInvestmentController.isValNumberOfBoardMembers.value = false;
     } else {
-      equityController.isValNumberOfBoardMembers.value = true;
+      InjectionHelper
+          .equityInvestmentController.isValNumberOfBoardMembers.value = true;
     }
 
-    if (equityController.numberOfBoardMembers.value != 0 &&
-        equityController.numberOfShareHolders.value != 0) {
+    if (InjectionHelper.equityInvestmentController.numberOfBoardMembers.value !=
+            0 &&
+        InjectionHelper.equityInvestmentController.numberOfShareHolders.value !=
+            0) {
       context.go("/get_funding/preview-equity?id=${widget.id}");
     }
   }
 
   Function eq = const ListEquality().equals;
   bool checkDisableSavedraft() {
-    return equityController.numberOfShareHolders.toString() ==
-            equityController.applicationData.value.numberofshareholder
+    return InjectionHelper.equityInvestmentController.numberOfShareHolders.toString() == InjectionHelper.equityInvestmentController.applicationData.value.numberofshareholder.toString() &&
+        InjectionHelper.equityInvestmentController.haveTheConsenus.toString() ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .iscompanyraisefund
                 .toString() &&
-        equityController.haveTheConsenus.toString() ==
-            equityController.applicationData.value.iscompanyraisefund
+        InjectionHelper.equityInvestmentController.purposeOfFund.value.toString() ==
+            InjectionHelper.equityInvestmentController.applicationData.value.raisefundusefor
                 .toString() &&
-        equityController.purposeOfFund.value.toString() ==
-            equityController.applicationData.value.raisefundusefor.toString() &&
-        equityController.areYouTheMajorityShareholder.toString() ==
-            equityController.applicationData.value.ismajorityshareholder
+        InjectionHelper.equityInvestmentController.areYouTheMajorityShareholder.toString() ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .ismajorityshareholder
                 .toString() &&
-        equityController.havefinancial.value.toString() ==
-            equityController.applicationData.value.financialroject!
+        InjectionHelper.equityInvestmentController.havefinancial.value.toString() ==
+            InjectionHelper.equityInvestmentController.applicationData.value.financialroject!
                 .toString() &&
-        equityController.numberOfBoardMembers.toString() ==
-            equityController.applicationData.value.numberofboardmember
+        InjectionHelper.equityInvestmentController.numberOfBoardMembers.toString() ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .numberofboardmember
                 .toString() &&
-        equityController.businessPlan.value ==
-            equityController.applicationData.value.businessPlan &&
-        equityController.articleOfIncorporation.value ==
-            equityController.applicationData.value.articleOfIncorporation &&
-        equityController.incomeStatement.value ==
-            equityController.applicationData.value.incomeStatement &&
-        equityController.balanceSheet.value ==
-            equityController.applicationData.value.balanceSheet &&
-        equityController.cashFlowStatement.value ==
-            equityController.applicationData.value.cashFlowStatement &&
-        equityController.marketStudy.value ==
-            equityController.applicationData.value.marketStudyDocs &&
-        equityController.otherDocuments.value ==
-            equityController.applicationData.value.otherDocument;
+        InjectionHelper.equityInvestmentController.businessPlan.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .businessPlan &&
+        InjectionHelper.equityInvestmentController.articleOfIncorporation.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .articleOfIncorporation &&
+        InjectionHelper.equityInvestmentController.incomeStatement.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value.incomeStatement &&
+        InjectionHelper.equityInvestmentController.balanceSheet.value == InjectionHelper.equityInvestmentController.applicationData.value.balanceSheet &&
+        InjectionHelper.equityInvestmentController.cashFlowStatement.value == InjectionHelper.equityInvestmentController.applicationData.value.cashFlowStatement &&
+        InjectionHelper.equityInvestmentController.marketStudy.value == InjectionHelper.equityInvestmentController.applicationData.value.marketStudyDocs &&
+        InjectionHelper.equityInvestmentController.otherDocuments.value == InjectionHelper.equityInvestmentController.applicationData.value.otherDocument;
   }
 
   FocusNode numberofBoardFocus = FocusNode();
@@ -209,7 +270,8 @@ class _Step3EquityState extends State<Step3Equity> {
             onPointerDown: (PointerDownEvent event) =>
                 FocusManager.instance.primaryFocus?.unfocus(),
             child: Obx(
-              () => equityController.isLoadingSubmit.value
+              () => InjectionHelper
+                      .equityInvestmentController.isLoadingSubmit.value
                   ? Scaffold(
                       body: Container(
                         width: double.infinity,
@@ -243,85 +305,120 @@ class _Step3EquityState extends State<Step3Equity> {
                     )
                   : Scaffold(
                       resizeToAvoidBottomInset: false,
-                      appBar: equityController.isSubmitLoading.value == true
+                      appBar: InjectionHelper.equityInvestmentController
+                                  .isSubmitLoading.value ==
+                              true
                           ? AppBar()
                           : CustomAppBarWhiteColor(
                               context: context,
                               title: 'Equity Investment',
                               leading: IconButton(
-                                onPressed: widget.id != null &&
-                                        checkDisableSavedraft()
-                                    ? () {
-                                        FocusScope.of(context).unfocus();
-                                        Navigator.pop(context);
-                                      }
-                                    : equityController.numberOfShareHolders.value == 0 &&
-                                            equityController
-                                                    .numberOfBoardMembers
-                                                    .value ==
-                                                0 &&
-                                            equityController.businessPlan.value ==
-                                                0 &&
-                                            equityController
-                                                    .articleOfIncorporation
-                                                    .value ==
-                                                0 &&
-                                            equityController.incomeStatement.value ==
-                                                0 &&
-                                            equityController.balanceSheet.value ==
-                                                0 &&
-                                            equityController
-                                                    .cashFlowStatement.value ==
-                                                0 &&
-                                            equityController
-                                                    .marketStudy.value ==
-                                                0 &&
-                                            equityController
-                                                    .otherDocuments.value ==
-                                                0
+                                onPressed:
+                                    widget.id != null && checkDisableSavedraft()
                                         ? () {
                                             FocusScope.of(context).unfocus();
                                             Navigator.pop(context);
                                           }
-                                        : () {
-                                            FocusScope.of(context).unfocus();
-                                            showSaveDraftDialog(
-                                                context: context,
-                                                onSaveTitle: widget.id != null
-                                                    ? "Update Draft"
-                                                    : "Save Draft",
-                                                content:
-                                                    'Changes made to this page haven’t been saved yet.',
-                                                title:
-                                                    'Are you sure you want to leave this page?',
-                                                onSave: () async {
-                                                  // Navigator.pop(context);
+                                        : InjectionHelper
+                                                        .equityInvestmentController
+                                                        .numberOfShareHolders
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .numberOfBoardMembers
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .businessPlan
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .articleOfIncorporation
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .incomeStatement
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .balanceSheet
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .cashFlowStatement
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .marketStudy
+                                                        .value ==
+                                                    0 &&
+                                                InjectionHelper
+                                                        .equityInvestmentController
+                                                        .otherDocuments
+                                                        .value ==
+                                                    0
+                                            ? () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                Navigator.pop(context);
+                                              }
+                                            : () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                showSaveDraftDialog(
+                                                    context: context,
+                                                    onSaveTitle:
+                                                        widget.id != null
+                                                            ? "Update Draft"
+                                                            : "Save Draft",
+                                                    content:
+                                                        'Changes made to this page haven’t been saved yet.',
+                                                    title:
+                                                        'Are you sure you want to leave this page?',
+                                                    onSave: () async {
+                                                      // Navigator.pop(context);
 
-                                                  if (widget.id == null) {
-                                                    Navigator.pop(context);
-                                                    await equityController
-                                                        .onSubmitEquityInvestment(
-                                                            context: context,
-                                                            type: "3");
-                                                    debugPrint(
-                                                        "Submitted  ....");
-                                                  } else {
-                                                    debugPrint("Edit Update");
+                                                      if (widget.id == null) {
+                                                        Navigator.pop(context);
+                                                        await InjectionHelper
+                                                            .equityInvestmentController
+                                                            .onSubmitEquityInvestment(
+                                                                context:
+                                                                    context,
+                                                                type: "3");
+                                                        debugPrint(
+                                                            "Submitted  ....");
+                                                      } else {
+                                                        debugPrint(
+                                                            "Edit Update");
 
-                                                    equityController
-                                                        .onEditEquityInvestment(
-                                                            context: context,
-                                                            id: widget.id!,
-                                                            pagenumber: "3");
-                                                    Navigator.pop(context);
-                                                  }
-                                                },
-                                                isCancel: true,
-                                                onDiscard: () {
-                                                  equityController.resetData();
-                                                  context.go('/get_funding');
-                                                });
-                                          },
+                                                        InjectionHelper
+                                                            .equityInvestmentController
+                                                            .onEditEquityInvestment(
+                                                                context:
+                                                                    context,
+                                                                id: widget.id!,
+                                                                pagenumber:
+                                                                    "3");
+                                                        Navigator.pop(context);
+                                                      }
+                                                    },
+                                                    isCancel: true,
+                                                    onDiscard: () {
+                                                      InjectionHelper
+                                                          .equityInvestmentController
+                                                          .resetData();
+                                                      context
+                                                          .go('/get_funding');
+                                                    });
+                                              },
                                 icon: Icon(
                                   kIsWeb
                                       ? Icons.arrow_back
@@ -342,7 +439,8 @@ class _Step3EquityState extends State<Step3Equity> {
                               ],
                             ),
                       body: Obx(
-                        () => equityController.isLoadingData.value
+                        () => InjectionHelper
+                                .equityInvestmentController.isLoadingData.value
                             ? const LinearProgressIndicator()
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,7 +489,8 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 ),
                                               ),
                                               CustomTextFieldNew(
-                                                controller: equityController
+                                                controller: InjectionHelper
+                                                    .equityInvestmentController
                                                     .numberofSharecontroller,
                                                 onEditingComplete: () {
                                                   FocusScope.of(context)
@@ -408,7 +507,8 @@ class _Step3EquityState extends State<Step3Equity> {
                                                   NumericTextFormatter()
                                                 ],
                                                 isRequired: true,
-                                                isValidate: equityController
+                                                isValidate: InjectionHelper
+                                                    .equityInvestmentController
                                                     .isValNumberOfShareHolders
                                                     .value,
                                                 labelText:
@@ -419,44 +519,51 @@ class _Step3EquityState extends State<Step3Equity> {
                                                   var value = valueChanged
                                                       .replaceAll(',', '');
                                                   if (value.isEmpty) {
-                                                    equityController
+                                                    InjectionHelper
+                                                        .equityInvestmentController
                                                         .numberOfShareHolders
                                                         .value = 0;
-                                                    equityController
+                                                    InjectionHelper
+                                                        .equityInvestmentController
                                                         .isValNumberOfShareHolders
                                                         .value = false;
                                                   } else {
-                                                    equityController
-                                                            .numberOfShareHolders
-                                                            .value =
-                                                        int.parse(value);
-                                                    if (equityController
+                                                    InjectionHelper
+                                                        .equityInvestmentController
+                                                        .numberOfShareHolders
+                                                        .value = int.parse(value);
+                                                    if (InjectionHelper
+                                                            .equityInvestmentController
                                                             .numberOfShareHolders
                                                             .value >
                                                         0) {
-                                                      equityController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .isValNumberOfShareHolders
                                                           .value = true;
                                                     } else {
-                                                      equityController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .isValNumberOfShareHolders
                                                           .value = false;
                                                     }
                                                   }
                                                 },
-                                                initialValue: equityController
+                                                initialValue: InjectionHelper
+                                                            .equityInvestmentController
                                                             .numberOfShareHolders
                                                             .value ==
                                                         0
                                                     ? ''
-                                                    : FormatNumber
-                                                        .formDecimalNumber(
-                                                            equityController
-                                                                .numberOfShareHolders
-                                                                .value),
+                                                    : FormatNumber.formDecimalNumber(
+                                                        InjectionHelper
+                                                            .equityInvestmentController
+                                                            .numberOfShareHolders
+                                                            .value),
                                               ),
                                               CustomTextFieldNew(
-                                                controller: equityController
+                                                controller: InjectionHelper
+                                                    .equityInvestmentController
                                                     .numberofBoardcontroller,
                                                 focusScope: numberofBoardFocus,
                                                 isRequired: true,
@@ -469,7 +576,8 @@ class _Step3EquityState extends State<Step3Equity> {
                                                       .deny(RegExp(r'^0+')),
                                                   NumericTextFormatter()
                                                 ],
-                                                isValidate: equityController
+                                                isValidate: InjectionHelper
+                                                    .equityInvestmentController
                                                     .isValNumberOfBoardMembers
                                                     .value,
                                                 labelText:
@@ -480,37 +588,44 @@ class _Step3EquityState extends State<Step3Equity> {
                                                   var value = valueChanged
                                                       .replaceAll(',', '');
                                                   if (value.isEmpty) {
-                                                    equityController
+                                                    InjectionHelper
+                                                        .equityInvestmentController
                                                         .numberOfBoardMembers
                                                         .value = 0;
-                                                    equityController
+                                                    InjectionHelper
+                                                        .equityInvestmentController
                                                         .isValNumberOfBoardMembers
                                                         .value = false;
                                                   } else {
-                                                    equityController
-                                                            .numberOfBoardMembers
-                                                            .value =
-                                                        int.parse(value);
-                                                    if (equityController
+                                                    InjectionHelper
+                                                        .equityInvestmentController
+                                                        .numberOfBoardMembers
+                                                        .value = int.parse(value);
+                                                    if (InjectionHelper
+                                                            .equityInvestmentController
                                                             .numberOfBoardMembers
                                                             .value >
                                                         0) {
-                                                      equityController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .isValNumberOfBoardMembers
                                                           .value = true;
                                                     } else {
-                                                      equityController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .isValNumberOfBoardMembers
                                                           .value = false;
                                                     }
                                                   }
                                                 },
-                                                initialValue: equityController
+                                                initialValue: InjectionHelper
+                                                            .equityInvestmentController
                                                             .numberOfBoardMembers
                                                             .value ==
                                                         0
                                                     ? ''
-                                                    : equityController
+                                                    : InjectionHelper
+                                                        .equityInvestmentController
                                                         .numberOfBoardMembers
                                                         .value
                                                         .toString(),
@@ -550,13 +665,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .haveTheConsenus
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .haveTheConsenus
                                                             .value = 0;
                                                       },
@@ -566,12 +683,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .haveTheConsenus
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .haveTheConsenus
                                                             .value = 1;
                                                       },
@@ -600,19 +719,22 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     bottom: 20,
                                                     right: 20),
                                                 child: Row(
-                                                    children: optionController
+                                                    children: InjectionHelper
+                                                        .optionController
                                                         .optionData
                                                         .value
                                                         .riaseuseoffund!
                                                         .map((e) =>
                                                             CustomSelect2GetFunding(
                                                               title: e.display,
-                                                              isSelect: equityController
+                                                              isSelect: InjectionHelper
+                                                                      .equityInvestmentController
                                                                       .purposeOfFund
                                                                       .value ==
                                                                   e.id,
                                                               ontap: () {
-                                                                equityController
+                                                                InjectionHelper
+                                                                    .equityInvestmentController
                                                                     .purposeOfFund
                                                                     .value = e.id!;
                                                               },
@@ -634,16 +756,18 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .areYouTheMajorityShareholder
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        // equityController
+                                                        // InjectionHelper.equityInvestmentController
                                                         //     .areYouTheMajorityShareholder
                                                         //     .value = 0;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .areYouTheMajorityShareholder
                                                             .value = 0;
                                                       },
@@ -653,12 +777,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .areYouTheMajorityShareholder
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .areYouTheMajorityShareholder
                                                             .value = 1;
                                                       },
@@ -682,13 +808,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .businessPlan
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .businessPlan
                                                             .value = 0;
                                                       },
@@ -698,12 +826,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .businessPlan
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .businessPlan
                                                             .value = 1;
                                                       },
@@ -727,13 +857,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .articleOfIncorporation
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .articleOfIncorporation
                                                             .value = 0;
                                                       },
@@ -743,12 +875,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .articleOfIncorporation
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .articleOfIncorporation
                                                             .value = 1;
                                                       },
@@ -796,13 +930,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .incomeStatement
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .incomeStatement
                                                             .value = 0;
                                                       },
@@ -812,12 +948,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .incomeStatement
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .incomeStatement
                                                             .value = 1;
                                                       },
@@ -842,13 +980,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .balanceSheet
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .balanceSheet
                                                             .value = 0;
                                                       },
@@ -858,12 +998,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .balanceSheet
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .balanceSheet
                                                             .value = 1;
                                                       },
@@ -888,13 +1030,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .cashFlowStatement
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .cashFlowStatement
                                                             .value = 0;
                                                       },
@@ -904,12 +1048,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .cashFlowStatement
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .cashFlowStatement
                                                             .value = 1;
                                                       },
@@ -934,13 +1080,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .havefinancial
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .havefinancial
                                                             .value = 0;
                                                       },
@@ -950,12 +1098,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .havefinancial
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .havefinancial
                                                             .value = 1;
                                                       },
@@ -1000,13 +1150,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .marketStudy
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .marketStudy
                                                             .value = 0;
                                                       },
@@ -1016,12 +1168,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .marketStudy
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .marketStudy
                                                             .value = 1;
                                                       },
@@ -1045,13 +1199,15 @@ class _Step3EquityState extends State<Step3Equity> {
                                                 child: Row(
                                                   children: [
                                                     CustomSelectgetFunding(
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .otherDocuments
                                                               .value ==
                                                           0,
                                                       title: 'No',
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .otherDocuments
                                                             .value = 0;
                                                       },
@@ -1061,12 +1217,14 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     ),
                                                     CustomSelectgetFunding(
                                                       title: 'Yes',
-                                                      onSelect: equityController
+                                                      onSelect: InjectionHelper
+                                                              .equityInvestmentController
                                                               .otherDocuments
                                                               .value ==
                                                           1,
                                                       ontap: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .otherDocuments
                                                             .value = 1;
                                                       },
@@ -1094,41 +1252,53 @@ class _Step3EquityState extends State<Step3Equity> {
                                       children: [
                                         Expanded(
                                           child: CustomButton(
-                                            isDisable: equityController
+                                            isDisable: InjectionHelper
+                                                            .equityInvestmentController
                                                             .numberOfShareHolders
                                                             .value ==
                                                         0 &&
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .numberOfBoardMembers
                                                             .value ==
                                                         0 &&
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .numberOfBoardMembers
                                                             .value ==
                                                         0 &&
-                                                    equityController.businessPlan
+                                                    InjectionHelper
+                                                            .equityInvestmentController
+                                                            .businessPlan
                                                             .value ==
                                                         0 &&
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .articleOfIncorporation
                                                             .value ==
                                                         0 &&
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .incomeStatement
                                                             .value ==
                                                         0 &&
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .balanceSheet
                                                             .value ==
                                                         0 &&
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .cashFlowStatement
                                                             .value ==
                                                         0 &&
-                                                    equityController.marketStudy
+                                                    InjectionHelper
+                                                            .equityInvestmentController
+                                                            .marketStudy
                                                             .value ==
                                                         0 &&
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .otherDocuments
                                                             .value ==
                                                         0
@@ -1142,24 +1312,26 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     FirebaseAnalyticsHelper
                                                         .sendAnalyticsEvent(
                                                             "Equity Update Draft Step3");
-                                                    await equityController
+                                                    await InjectionHelper
+                                                        .equityInvestmentController
                                                         .onEditEquityInvestment(
                                                             showSnackbar: false,
                                                             context: context,
                                                             id: widget.id!,
                                                             pagenumber: "3",
-                                                            frompage:
-                                                                equityController
-                                                                    .applicationData
-                                                                    .value
-                                                                    .step!
-                                                                    .toInt());
+                                                            frompage: InjectionHelper
+                                                                .equityInvestmentController
+                                                                .applicationData
+                                                                .value
+                                                                .step!
+                                                                .toInt());
                                                   }
                                                 : () async {
                                                     FirebaseAnalyticsHelper
                                                         .sendAnalyticsEvent(
                                                             "Equity Save Draft Step3");
-                                                    await equityController
+                                                    await InjectionHelper
+                                                        .equityInvestmentController
                                                         .onSubmitEquityInvestment(
                                                             showSnackbar: false,
                                                             context: context,

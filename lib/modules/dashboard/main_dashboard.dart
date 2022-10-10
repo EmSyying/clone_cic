@@ -871,6 +871,7 @@ class _MainDashboardState extends State<MainDashboard> {
                         var item = snapshot.data![index];
                         return GestureDetector(
                           onTap: () {
+                            // debugPrint('item.cover${item.cover}');
                             Navigator.push(
                               context,
                               MaterialPageRoute(

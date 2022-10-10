@@ -1,6 +1,4 @@
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/required_doc.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/company_info.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/financing_info.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment/pop_up_edit/personal_info.dart';
@@ -26,8 +24,8 @@ import '../../../../Utils/helper/container_partern.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../Utils/helper/format_number.dart';
+import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../../utils/function/format_date_time.dart';
-import '../../../../utils/select_address/select_address_controller.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
 import '../../../../widgets/get_funding/custom_review_required_doc_debt.dart';
 
@@ -41,16 +39,12 @@ class PreviewDebtForm extends StatefulWidget {
 }
 
 class _PreviewDebtFormState extends State<PreviewDebtForm> {
-  final DebtInvestmentController debtCon = Get.put(DebtInvestmentController());
-  final MemberController memCon = Get.put(MemberController());
-  final reqCon = Get.put(RequestLoanController());
-
   @override
   void initState() {
     if (widget.id != null) {
       onGetData();
     } else {
-      debtCon.isAgree.value = false;
+      InjectionHelper.debtInvestmentController.isAgree.value = false;
     }
     super.initState();
   }
@@ -76,52 +70,78 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
         fullAddress: FullAddress(
           addressList: [
             Address(
-              name: debtCon.fullCurrentAddress.value.addressList![0].name,
-              code: debtCon.fullCurrentAddress.value.addressList![0].code,
+              name: InjectionHelper.debtInvestmentController.fullCurrentAddress
+                  .value.addressList![0].name,
+              code: InjectionHelper.debtInvestmentController.fullCurrentAddress
+                  .value.addressList![0].code,
             ),
             Address(
-              name: debtCon.fullCurrentAddress.value.addressList![1].name,
-              code: debtCon.fullCurrentAddress.value.addressList![1].code,
+              name: InjectionHelper.debtInvestmentController.fullCurrentAddress
+                  .value.addressList![1].name,
+              code: InjectionHelper.debtInvestmentController.fullCurrentAddress
+                  .value.addressList![1].code,
             ),
             Address(
-              name: debtCon.fullCurrentAddress.value.addressList![2].name,
-              code: debtCon.fullCurrentAddress.value.addressList![2].code,
+              name: InjectionHelper.debtInvestmentController.fullCurrentAddress
+                  .value.addressList![2].name,
+              code: InjectionHelper.debtInvestmentController.fullCurrentAddress
+                  .value.addressList![2].code,
             ),
-            debtCon.fullCurrentAddress.value.addressList!.length != 3
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value
+                        .addressList!.length !=
+                    3
                 ? Address(
-                    name: debtCon.fullCurrentAddress.value.addressList![3].name,
-                    code: debtCon.fullCurrentAddress.value.addressList![3].code,
+                    name: InjectionHelper.debtInvestmentController
+                        .fullCurrentAddress.value.addressList![3].name,
+                    code: InjectionHelper.debtInvestmentController
+                        .fullCurrentAddress.value.addressList![3].code,
                   )
                 : Address(),
           ],
-          houseNo: debtCon.fullCurrentAddress.value.houseNo ?? "",
-          streetNo: debtCon.fullCurrentAddress.value.streetNo ?? "",
+          houseNo: InjectionHelper
+                  .debtInvestmentController.fullCurrentAddress.value.houseNo ??
+              "",
+          streetNo: InjectionHelper
+                  .debtInvestmentController.fullCurrentAddress.value.streetNo ??
+              "",
         ),
         permanetAddress: FullAddress(
           addressList: [
             Address(
-              name: debtCon.fullResidentAddress.value.addressList![0].name,
-              code: debtCon.fullResidentAddress.value.addressList![0].code,
+              name: InjectionHelper.debtInvestmentController.fullResidentAddress
+                  .value.addressList![0].name,
+              code: InjectionHelper.debtInvestmentController.fullResidentAddress
+                  .value.addressList![0].code,
             ),
             Address(
-              name: debtCon.fullResidentAddress.value.addressList![1].name,
-              code: debtCon.fullResidentAddress.value.addressList![1].code,
+              name: InjectionHelper.debtInvestmentController.fullResidentAddress
+                  .value.addressList![1].name,
+              code: InjectionHelper.debtInvestmentController.fullResidentAddress
+                  .value.addressList![1].code,
             ),
             Address(
-              name: debtCon.fullResidentAddress.value.addressList![2].name,
-              code: debtCon.fullResidentAddress.value.addressList![2].code,
+              name: InjectionHelper.debtInvestmentController.fullResidentAddress
+                  .value.addressList![2].name,
+              code: InjectionHelper.debtInvestmentController.fullResidentAddress
+                  .value.addressList![2].code,
             ),
-            debtCon.fullResidentAddress.value.addressList!.length != 3
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value
+                        .addressList!.length !=
+                    3
                 ? Address(
-                    name:
-                        debtCon.fullResidentAddress.value.addressList![3].name,
-                    code:
-                        debtCon.fullResidentAddress.value.addressList![3].code,
+                    name: InjectionHelper.debtInvestmentController
+                        .fullResidentAddress.value.addressList![3].name,
+                    code: InjectionHelper.debtInvestmentController
+                        .fullResidentAddress.value.addressList![3].code,
                   )
                 : Address(),
           ],
-          houseNo: debtCon.fullResidentAddress.value.houseNo ?? "",
-          streetNo: debtCon.fullResidentAddress.value.streetNo ?? "",
+          houseNo: InjectionHelper
+                  .debtInvestmentController.fullResidentAddress.value.houseNo ??
+              "",
+          streetNo: InjectionHelper.debtInvestmentController.fullResidentAddress
+                  .value.streetNo ??
+              "",
         ),
       ),
     );
@@ -156,28 +176,28 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
         title: 'Company Information',
         context: context,
         child: const EditCompanyInfo());
-    if (debtCon.patentDocument.value == 1) {
-      debtCon.isPatentDoc.value = true;
+    if (InjectionHelper.debtInvestmentController.patentDocument.value == 1) {
+      InjectionHelper.debtInvestmentController.isPatentDoc.value = true;
     } else {
-      debtCon.isPatentDoc.value = false;
+      InjectionHelper.debtInvestmentController.isPatentDoc.value = false;
     }
-    if (debtCon.certificatioDoc.value == 1) {
-      debtCon.isCertificate.value = true;
+    if (InjectionHelper.debtInvestmentController.certificatioDoc.value == 1) {
+      InjectionHelper.debtInvestmentController.isCertificate.value = true;
     } else {
-      debtCon.isCertificate.value = false;
+      InjectionHelper.debtInvestmentController.isCertificate.value = false;
     }
-    if (debtCon.licenseDoc.value == 1) {
-      debtCon.isLicense.value = true;
+    if (InjectionHelper.debtInvestmentController.licenseDoc.value == 1) {
+      InjectionHelper.debtInvestmentController.isLicense.value = true;
     } else {
-      debtCon.isLicense.value = false;
+      InjectionHelper.debtInvestmentController.isLicense.value = false;
     }
-    if (debtCon.memorandumDoc.value == 1) {
-      debtCon.isMemorandum.value = true;
+    if (InjectionHelper.debtInvestmentController.memorandumDoc.value == 1) {
+      InjectionHelper.debtInvestmentController.isMemorandum.value = true;
     } else {
-      debtCon.isMemorandum.value = false;
+      InjectionHelper.debtInvestmentController.isMemorandum.value = false;
     }
-    memCon.addCompany.value = false;
-    debtCon.onResetValidateCompany();
+    InjectionHelper.memberController.addCompany.value = false;
+    InjectionHelper.debtInvestmentController.onResetValidateCompany();
   }
 
   int? incomeStatement;
@@ -189,278 +209,360 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
   bool checkNotEqual() {
     return
         //personal info
-        debtCon.fullName.value !=
-                debtCon.applicationDetail.value.customerInfo!.customerName ||
-            debtCon.dateOfBirth.value !=
-                debtCon.applicationDetail.value.customerInfo!
-                    .customerDateOfBirth! ||
-            debtCon.email.value !=
-                debtCon.applicationDetail.value.customerInfo!.customerEmail! ||
-            debtCon.gender.value.display !=
-                debtCon.applicationDetail.value.customerInfo!.customerGender!
-                    .display ||
+        InjectionHelper.debtInvestmentController.fullName.value !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerName ||
+            InjectionHelper.debtInvestmentController.dateOfBirth.value !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerDateOfBirth! ||
+            InjectionHelper.debtInvestmentController.email.value !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerEmail! ||
+            InjectionHelper.debtInvestmentController.gender.value.display !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerGender!.display ||
 
             // address
             //current
-            debtCon.fullCurrentAddress.value.houseNo !=
-                debtCon.applicationDetail.value.customerInfo!.currentHouseNo ||
-            debtCon.fullCurrentAddress.value.streetNo !=
-                debtCon.applicationDetail.value.customerInfo!.currentStreetNo ||
-            debtCon.fullCurrentAddress.value.addressList![0].name.toString() !=
-                debtCon.applicationDetail.value.customerInfo!.currentAddress!
-                    .city!.name
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value.houseNo !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.currentHouseNo ||
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value.streetNo !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.currentStreetNo ||
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![0].name.toString() !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.currentAddress!.city!.name
                     .toString() ||
-            debtCon.fullCurrentAddress.value.addressList![1].name !=
-                debtCon.applicationDetail.value.customerInfo!.currentAddress!
-                    .district!.name ||
-            debtCon.fullCurrentAddress.value.addressList![2].name !=
-                debtCon.applicationDetail.value.customerInfo!.currentAddress!
-                    .commune!.name ||
-            debtCon.fullCurrentAddress.value.addressList![3].name !=
-                debtCon.applicationDetail.value.customerInfo!.currentAddress!
-                    .village!.name ||
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![1].name !=
+                InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.currentAddress!.district!.name ||
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![2].name != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.currentAddress!.commune!.name ||
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![3].name != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.currentAddress!.village!.name ||
             //permanent
-            debtCon.fullResidentAddress.value.houseNo !=
-                debtCon
-                    .applicationDetail.value.customerInfo!.residenceHouseNo ||
-            debtCon.fullResidentAddress.value.streetNo !=
-                debtCon.applicationDetail.value.customerInfo!.residenceStreetNo ||
-            debtCon.fullResidentAddress.value.addressList![0].name != debtCon.applicationDetail.value.customerInfo!.residenceAddress!.city!.name ||
-            debtCon.fullResidentAddress.value.addressList![1].name != debtCon.applicationDetail.value.customerInfo!.residenceAddress!.district!.name ||
-            debtCon.fullResidentAddress.value.addressList![2].name != debtCon.applicationDetail.value.customerInfo!.residenceAddress!.commune!.name ||
-            debtCon.fullResidentAddress.value.addressList![3].name != debtCon.applicationDetail.value.customerInfo!.residenceAddress!.village!.name ||
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value.houseNo != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.residenceHouseNo ||
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value.streetNo != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.residenceStreetNo ||
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![0].name != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.residenceAddress!.city!.name ||
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![1].name != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.residenceAddress!.district!.name ||
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![2].name != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.residenceAddress!.commune!.name ||
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![3].name != InjectionHelper.debtInvestmentController.applicationDetail.value.customerInfo!.residenceAddress!.village!.name ||
             //financing information
-            debtCon.financingPurpose.value.display != debtCon.applicationDetail.value.financialPurpose!.display ||
-            debtCon.financingAmount.value != debtCon.applicationDetail.value.financialAmount!.toDouble() ||
-            debtCon.term.value.toString() != debtCon.applicationDetail.value.duration!.toString() ||
-            debtCon.intendedDate.value != debtCon.applicationDetail.value.intendedDateDisbursement! ||
+            InjectionHelper.debtInvestmentController.financingPurpose.value.display != InjectionHelper.debtInvestmentController.applicationDetail.value.financialPurpose!.display ||
+            InjectionHelper.debtInvestmentController.financingAmount.value != InjectionHelper.debtInvestmentController.applicationDetail.value.financialAmount!.toDouble() ||
+            InjectionHelper.debtInvestmentController.term.value.toString() != InjectionHelper.debtInvestmentController.applicationDetail.value.duration!.toString() ||
+            InjectionHelper.debtInvestmentController.intendedDate.value != InjectionHelper.debtInvestmentController.applicationDetail.value.intendedDateDisbursement! ||
             //company information
-            debtCon.companyName.value != debtCon.applicationDetail.value.company!.companyName ||
-            debtCon.address.value != debtCon.applicationDetail.value.company!.address ||
-            debtCon.yearOfEstablishment.value != debtCon.applicationDetail.value.company!.yearFounded ||
-            debtCon.typeOfOrganization.value.display != debtCon.applicationDetail.value.company!.typeOfOrganization!.display ||
-            debtCon.taxIdentificationNumber.value != debtCon.applicationDetail.value.company!.taxIdentificationNumber ||
-            debtCon.industry.value.display != debtCon.applicationDetail.value.company!.industry!.display ||
-            debtCon.numberOfStaff.value != debtCon.applicationDetail.value.company!.numberOfStaff.toString() ||
-            debtCon.ownerName.value != debtCon.applicationDetail.value.company!.ownerName ||
-            debtCon.productSevice.value != debtCon.applicationDetail.value.company!.companyProductAndService ||
+            InjectionHelper.debtInvestmentController.companyName.value != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.companyName ||
+            InjectionHelper.debtInvestmentController.address.value != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.address ||
+            InjectionHelper.debtInvestmentController.yearOfEstablishment.value != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.yearFounded ||
+            InjectionHelper.debtInvestmentController.typeOfOrganization.value.display != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.typeOfOrganization!.display ||
+            InjectionHelper.debtInvestmentController.taxIdentificationNumber.value != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.taxIdentificationNumber ||
+            InjectionHelper.debtInvestmentController.industry.value.display != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.industry!.display ||
+            InjectionHelper.debtInvestmentController.numberOfStaff.value != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.numberOfStaff.toString() ||
+            InjectionHelper.debtInvestmentController.ownerName.value != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.ownerName ||
+            InjectionHelper.debtInvestmentController.productSevice.value != InjectionHelper.debtInvestmentController.applicationDetail.value.company!.companyProductAndService ||
 
             //other doc
-            debtCon.incomeStatement.value != incomeStatement ||
-            debtCon.balanceSheet.value != balanceSheet ||
-            debtCon.cashFlowStatement.value != cashFlow ||
-            debtCon.businessPlan.value != businessPlan ||
-            debtCon.otherDocuments.value != otherDocument!;
+            InjectionHelper.debtInvestmentController.incomeStatement.value != incomeStatement ||
+            InjectionHelper.debtInvestmentController.balanceSheet.value != balanceSheet ||
+            InjectionHelper.debtInvestmentController.cashFlowStatement.value != cashFlow ||
+            InjectionHelper.debtInvestmentController.businessPlan.value != businessPlan ||
+            InjectionHelper.debtInvestmentController.otherDocuments.value != otherDocument!;
   }
 
   void onGetData() async {
     if (widget.id != null) {
-      await debtCon.fetchAppDetails(widget.id!);
+      await InjectionHelper.debtInvestmentController
+          .fetchAppDetails(widget.id!);
 
-      if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.customerGender !=
           null) {
-        debtCon.gender.value.display = debtCon
-            .applicationDetail.value.customerInfo!.customerGender!.display;
-        debtCon.gender.value.id =
-            debtCon.applicationDetail.value.customerInfo!.customerGender!.id;
+        InjectionHelper.debtInvestmentController.gender.value.display =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerGender!.display;
+        InjectionHelper.debtInvestmentController.gender.value.id =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerGender!.id;
       }
 
-      if (debtCon.applicationDetail.value.customerInfo!.customerName != "") {
-        debtCon.fullName.value =
-            debtCon.applicationDetail.value.customerInfo!.customerName!;
-      }
-
-      if (debtCon.applicationDetail.value.customerInfo!.customerEmail != "") {
-        debtCon.email.value =
-            debtCon.applicationDetail.value.customerInfo!.customerEmail!;
-      }
-      if (debtCon.applicationDetail.value.customerInfo!.customerDateOfBirth !=
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.customerName !=
           "") {
-        debtCon.dateOfBirth.value =
-            debtCon.applicationDetail.value.customerInfo!.customerDateOfBirth!;
+        InjectionHelper.debtInvestmentController.fullName.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerName!;
+      }
+
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.customerEmail !=
+          "") {
+        InjectionHelper.debtInvestmentController.email.value = InjectionHelper
+            .debtInvestmentController
+            .applicationDetail
+            .value
+            .customerInfo!
+            .customerEmail!;
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.customerDateOfBirth !=
+          "") {
+        InjectionHelper.debtInvestmentController.dateOfBirth.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerDateOfBirth!;
       }
       // Address
-      if (debtCon.applicationDetail.value.customerInfo!.currentHouseNo !=
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.currentHouseNo !=
           null) {
-        debtCon.fullCurrentAddress.value.houseNo =
-            debtCon.applicationDetail.value.customerInfo!.currentHouseNo;
+        InjectionHelper
+                .debtInvestmentController.fullCurrentAddress.value.houseNo =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentHouseNo;
       }
-      if (debtCon.applicationDetail.value.customerInfo!.currentStreetNo !=
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.currentStreetNo !=
           null) {
-        debtCon.fullCurrentAddress.value.streetNo =
-            debtCon.applicationDetail.value.customerInfo!.currentStreetNo;
+        InjectionHelper
+                .debtInvestmentController.fullCurrentAddress.value.streetNo =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentStreetNo;
       }
 
-      if (debtCon.applicationDetail.value.customerInfo!.currentAddress !=
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.currentAddress !=
           null) {
-        debtCon.fullCurrentAddress.value = FullAddress(
-          houseNo:
-              debtCon.applicationDetail.value.customerInfo!.currentHouseNo ??
-                  "",
-          streetNo:
-              debtCon.applicationDetail.value.customerInfo!.currentStreetNo ??
-                  "",
+        InjectionHelper.debtInvestmentController.fullCurrentAddress.value =
+            FullAddress(
+          houseNo: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentHouseNo ??
+              "",
+          streetNo: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentStreetNo ??
+              "",
           addressList: [
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.city!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.city!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.city!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.city!.name,
             ),
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.district!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.district!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.district!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.district!.name,
             ),
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.commune!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.commune!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.commune!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.commune!.name,
             ),
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.village!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .currentAddress!.village!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.village!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.currentAddress!.village!.name,
             ),
           ],
         );
       }
-      if (debtCon.applicationDetail.value.customerInfo!.residenceAddress !=
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .customerInfo!.residenceAddress !=
           null) {
-        debtCon.fullResidentAddress.value = FullAddress(
-          houseNo:
-              debtCon.applicationDetail.value.customerInfo!.residenceHouseNo ??
-                  "",
-          streetNo:
-              debtCon.applicationDetail.value.customerInfo!.residenceStreetNo ??
-                  "",
+        InjectionHelper.debtInvestmentController.fullResidentAddress.value =
+            FullAddress(
+          houseNo: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceHouseNo ??
+              "",
+          streetNo: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceStreetNo ??
+              "",
           addressList: [
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.city!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.city!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.city!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.city!.name,
             ),
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.district!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.district!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.district!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.district!.name,
             ),
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.commune!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.commune!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.commune!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.commune!.name,
             ),
             Address(
-              code: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.village!.code,
-              name: debtCon.applicationDetail.value.customerInfo!
-                  .residenceAddress!.village!.name,
+              code: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.village!.code,
+              name: InjectionHelper.debtInvestmentController.applicationDetail
+                  .value.customerInfo!.residenceAddress!.village!.name,
             ),
           ],
         );
       }
       // Financing info
-      if (debtCon.applicationDetail.value.productType != null) {
-        debtCon.productType.value.productName =
-            debtCon.applicationDetail.value.productType!.name;
-        debtCon.productType.value.id =
-            debtCon.applicationDetail.value.productType!.id!.toInt();
+      if (InjectionHelper
+              .debtInvestmentController.applicationDetail.value.productType !=
+          null) {
+        InjectionHelper.debtInvestmentController.productType.value.productName =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .productType!.name;
+        InjectionHelper.debtInvestmentController.productType.value.id =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .productType!.id!
+                .toInt();
       }
-      if (debtCon.applicationDetail.value.financialPurpose != null) {
-        debtCon.financingPurpose.value.display =
-            debtCon.applicationDetail.value.financialPurpose!.display;
-        debtCon.financingPurpose.value.id =
-            debtCon.applicationDetail.value.financialPurpose!.id;
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .financialPurpose !=
+          null) {
+        InjectionHelper
+                .debtInvestmentController.financingPurpose.value.display =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .financialPurpose!.display;
+        InjectionHelper.debtInvestmentController.financingPurpose.value.id =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .financialPurpose!.id;
       }
-      if (debtCon.applicationDetail.value.financialAmount!.toDouble() != 0.0) {
-        debtCon.financingAmount.value =
-            debtCon.applicationDetail.value.financialAmount!.toDouble();
+      if (InjectionHelper
+              .debtInvestmentController.applicationDetail.value.financialAmount!
+              .toDouble() !=
+          0.0) {
+        InjectionHelper.debtInvestmentController.financingAmount.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .financialAmount!
+                .toDouble();
       }
-      if (debtCon.applicationDetail.value.intendedDateDisbursement != null) {
-        debtCon.intendedDate.value =
-            debtCon.applicationDetail.value.intendedDateDisbursement!;
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .intendedDateDisbursement !=
+          null) {
+        InjectionHelper.debtInvestmentController.intendedDate.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .intendedDateDisbursement!;
       }
-      if (debtCon.applicationDetail.value.duration != 0) {
-        debtCon.term.value = debtCon.applicationDetail.value.duration!.toInt();
+      if (InjectionHelper
+              .debtInvestmentController.applicationDetail.value.duration !=
+          0) {
+        InjectionHelper.debtInvestmentController.term.value = InjectionHelper
+            .debtInvestmentController.applicationDetail.value.duration!
+            .toInt();
       }
       debugPrint("Function assign value is work22222");
       //company info
-      if (debtCon.applicationDetail.value.company!.companyName != "") {
-        debtCon.companyName.value =
-            debtCon.applicationDetail.value.company!.companyName!;
-      }
-
-      if (debtCon.applicationDetail.value.company!.address != "") {
-        debtCon.address.value =
-            debtCon.applicationDetail.value.company!.address!;
-      }
-      if (debtCon.applicationDetail.value.company!.yearFounded != "") {
-        debtCon.yearOfEstablishment.value =
-            debtCon.applicationDetail.value.company!.yearFounded!;
-      }
-      if (debtCon
-              .applicationDetail.value.company!.typeOfOrganization!.display !=
-          '') {
-        debtCon.typeOfOrganization.value.display = debtCon
-            .applicationDetail.value.company!.typeOfOrganization!.display!;
-        if (debtCon.applicationDetail.value.company!.typeOfOrganization!.id !=
-            null) {
-          debtCon.typeOfOrganization.value.id =
-              debtCon.applicationDetail.value.company!.typeOfOrganization!.id!;
-        }
-      }
-      if (debtCon.applicationDetail.value.company!.taxIdentificationNumber !=
-          '') {
-        debtCon.taxIdentificationNumber.value =
-            debtCon.applicationDetail.value.company!.taxIdentificationNumber!;
-      }
-      if (debtCon.applicationDetail.value.company!.industry!.display != "") {
-        debtCon.industry.value.display =
-            debtCon.applicationDetail.value.company!.industry!.display!;
-        if (debtCon.applicationDetail.value.company!.industry!.id != null) {
-          debtCon.industry.value.id =
-              debtCon.applicationDetail.value.company!.industry!.id!;
-        }
-      }
-      if (debtCon.applicationDetail.value.company!.numberOfStaff != 0) {
-        debtCon.numberOfStaff.value =
-            debtCon.applicationDetail.value.company!.numberOfStaff.toString();
-      }
-      if (debtCon.applicationDetail.value.company!.ownerName != "") {
-        debtCon.ownerName.value =
-            debtCon.applicationDetail.value.company!.ownerName!;
-      }
-      if (debtCon.applicationDetail.value.company!.companyProductAndService !=
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.companyName !=
           "") {
-        debtCon.productSevice.value =
-            debtCon.applicationDetail.value.company!.companyProductAndService!;
+        InjectionHelper.debtInvestmentController.companyName.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.companyName!;
       }
-      debtCon.patentDocument.value =
-          debtCon.applicationDetail.value.companyPatentDoc!;
-      debtCon.certificatioDoc.value =
-          debtCon.applicationDetail.value.companyMoCCertificate!;
-      debtCon.licenseDoc.value =
-          debtCon.applicationDetail.value.companyLicenceDoc!;
-      debtCon.memorandumDoc.value = debtCon.applicationDetail.value.companyMAA!;
 
-      debtCon.incomeStatement.value =
-          debtCon.applicationDetail.value.incomeStatement!;
-      debtCon.balanceSheet.value =
-          debtCon.applicationDetail.value.balanceSheet!;
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.address !=
+          "") {
+        InjectionHelper.debtInvestmentController.address.value = InjectionHelper
+            .debtInvestmentController.applicationDetail.value.company!.address!;
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.yearFounded !=
+          "") {
+        InjectionHelper.debtInvestmentController.yearOfEstablishment.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.yearFounded!;
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.typeOfOrganization!.display !=
+          '') {
+        InjectionHelper
+                .debtInvestmentController.typeOfOrganization.value.display =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.typeOfOrganization!.display!;
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.typeOfOrganization!.id !=
+            null) {
+          InjectionHelper.debtInvestmentController.typeOfOrganization.value.id =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .company!.typeOfOrganization!.id!;
+        }
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.taxIdentificationNumber !=
+          '') {
+        InjectionHelper.debtInvestmentController.taxIdentificationNumber.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.taxIdentificationNumber!;
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.industry!.display !=
+          "") {
+        InjectionHelper.debtInvestmentController.industry.value.display =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.industry!.display!;
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.industry!.id !=
+            null) {
+          InjectionHelper.debtInvestmentController.industry.value.id =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .company!.industry!.id!;
+        }
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.numberOfStaff !=
+          0) {
+        InjectionHelper.debtInvestmentController.numberOfStaff.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.numberOfStaff
+                .toString();
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.ownerName !=
+          "") {
+        InjectionHelper.debtInvestmentController.ownerName.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.ownerName!;
+      }
+      if (InjectionHelper.debtInvestmentController.applicationDetail.value
+              .company!.companyProductAndService !=
+          "") {
+        InjectionHelper.debtInvestmentController.productSevice.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                .company!.companyProductAndService!;
+      }
+      InjectionHelper.debtInvestmentController.patentDocument.value =
+          InjectionHelper.debtInvestmentController.applicationDetail.value
+              .companyPatentDoc!;
+      InjectionHelper.debtInvestmentController.certificatioDoc.value =
+          InjectionHelper.debtInvestmentController.applicationDetail.value
+              .companyMoCCertificate!;
+      InjectionHelper.debtInvestmentController.licenseDoc.value =
+          InjectionHelper.debtInvestmentController.applicationDetail.value
+              .companyLicenceDoc!;
+      InjectionHelper.debtInvestmentController.memorandumDoc.value =
+          InjectionHelper
+              .debtInvestmentController.applicationDetail.value.companyMAA!;
 
-      debtCon.cashFlowStatement.value =
-          debtCon.applicationDetail.value.cashFlowStatement!;
+      InjectionHelper.debtInvestmentController.incomeStatement.value =
+          InjectionHelper.debtInvestmentController.applicationDetail.value
+              .incomeStatement!;
+      InjectionHelper.debtInvestmentController.balanceSheet.value =
+          InjectionHelper
+              .debtInvestmentController.applicationDetail.value.balanceSheet!;
 
-      debtCon.otherDocuments.value =
-          debtCon.applicationDetail.value.otherDocument!;
-      debtCon.businessPlan.value =
-          debtCon.applicationDetail.value.businessPlan!;
+      InjectionHelper.debtInvestmentController.cashFlowStatement.value =
+          InjectionHelper.debtInvestmentController.applicationDetail.value
+              .cashFlowStatement!;
+
+      InjectionHelper.debtInvestmentController.otherDocuments.value =
+          InjectionHelper
+              .debtInvestmentController.applicationDetail.value.otherDocument!;
+      InjectionHelper.debtInvestmentController.businessPlan.value =
+          InjectionHelper
+              .debtInvestmentController.applicationDetail.value.businessPlan!;
     }
   }
 
@@ -471,7 +573,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
       body: Builder(
         builder: (context) => CupertinoPageScaffold(
           child: Obx(
-            () => debtCon.isLoadingSubmit.value
+            () => InjectionHelper.debtInvestmentController.isLoadingSubmit.value
                 ? Scaffold(
                     body: Container(
                       width: double.infinity,
@@ -502,16 +604,23 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                     ),
                   )
                 : Scaffold(
-                    appBar: debtCon.isLoadingSubmit.value == true
+                    appBar: InjectionHelper.debtInvestmentController
+                                .isLoadingSubmit.value ==
+                            true
                         ? AppBar()
-                        :  widget.id != null
+                        : widget.id != null
                             ? CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Submitted Application',
-                                subtitle: debtCon.isLoadingData.value == true
+                                subtitle: InjectionHelper
+                                            .debtInvestmentController
+                                            .isLoadingData
+                                            .value ==
+                                        true
                                     ? ""
-                                    : debtCon.applicationDetail.value.status,
-                                // '${debtCon.applicationDetail.value.status}',
+                                    : InjectionHelper.debtInvestmentController
+                                        .applicationDetail.value.status,
+                                // '${InjectionHelper.debtInvestmentController.applicationDetail.value.status}',
                                 action: [
                                     const CustomCallCenter(),
                                     const SizedBox(
@@ -521,15 +630,19 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                             : CustomAppBarWhiteColor(
                                 context: context,
                                 title: 'Preview Form',
-                                subtitle:
-                                    debtCon.applicationDetail.value.status,
+                                subtitle: InjectionHelper
+                                    .debtInvestmentController
+                                    .applicationDetail
+                                    .value
+                                    .status,
                                 action: [
                                     const CustomCallCenter(),
                                     const SizedBox(
                                       width: 5,
                                     )
                                   ]),
-                    body: debtCon.isLoadingData.value
+                    body: InjectionHelper
+                            .debtInvestmentController.isLoadingData.value
                         ? const LinearProgressIndicator()
                         : ConnectivityWidgetWrapper(
                             stacked: false,
@@ -548,11 +661,17 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        if ( widget.id != null)
-                                          if (debtCon.applicationDetail.value
+                                        if (widget.id != null)
+                                          if (InjectionHelper
+                                                  .debtInvestmentController
+                                                  .applicationDetail
+                                                  .value
                                                   .reason !=
                                               null)
-                                            if (debtCon.applicationDetail.value
+                                            if (InjectionHelper
+                                                    .debtInvestmentController
+                                                    .applicationDetail
+                                                    .value
                                                     .status ==
                                                 'Rejected')
                                               CustomRejectReason(
@@ -560,7 +679,8 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                 onEdit: () {},
                                                 title:
                                                     "Rejected Application Reason",
-                                                reason: debtCon
+                                                reason: InjectionHelper
+                                                    .debtInvestmentController
                                                     .applicationDetail
                                                     .value
                                                     .reason,
@@ -569,102 +689,148 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                           onTap: () {
                                             _onShowEditPersonalInfo(context);
                                           },
-                                          isEdit: 
-                                                  widget.id == null ||
-                                                  debtCon.applicationDetail
-                                                          .value.status ==
+                                          isEdit: widget.id == null ||
+                                                  InjectionHelper
+                                                          .debtInvestmentController
+                                                          .applicationDetail
+                                                          .value
+                                                          .status ==
                                                       "Draft"
                                               ? true
                                               : false,
-                                          dob: debtCon.dateOfBirth.value,
-                                          email: debtCon.email.value,
-                                          fullName: debtCon.fullName.value,
-                                          gender: debtCon.gender.value.display,
-                                          phone: debtCon.phoneNumber.value,
+                                          dob: InjectionHelper
+                                              .debtInvestmentController
+                                              .dateOfBirth
+                                              .value,
+                                          email: InjectionHelper
+                                              .debtInvestmentController
+                                              .email
+                                              .value,
+                                          fullName: InjectionHelper
+                                              .debtInvestmentController
+                                              .fullName
+                                              .value,
+                                          gender: InjectionHelper
+                                              .debtInvestmentController
+                                              .gender
+                                              .value
+                                              .display,
+                                          phone: InjectionHelper
+                                              .debtInvestmentController
+                                              .phoneNumber
+                                              .value,
                                         ),
                                         CustomReviewAddress(
-                                          houseNo: debtCon.fullCurrentAddress
-                                                  .value.houseNo ??
+                                          houseNo: InjectionHelper
+                                                  .debtInvestmentController
+                                                  .fullCurrentAddress
+                                                  .value
+                                                  .houseNo ??
                                               "",
-                                          street: debtCon.fullCurrentAddress
-                                                  .value.streetNo ??
+                                          street: InjectionHelper
+                                                  .debtInvestmentController
+                                                  .fullCurrentAddress
+                                                  .value
+                                                  .streetNo ??
                                               "",
-                                          city: debtCon.fullCurrentAddress.value
+                                          city: InjectionHelper
+                                                      .debtInvestmentController
+                                                      .fullCurrentAddress
+                                                      .value
                                                       .addressList !=
                                                   null
-                                              ? "${debtCon.fullCurrentAddress.value.addressList![0].name}"
+                                              ? "${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![0].name}"
                                               : "",
-                                          district: debtCon.fullCurrentAddress
-                                                      .value.addressList !=
+                                          district: InjectionHelper
+                                                      .debtInvestmentController
+                                                      .fullCurrentAddress
+                                                      .value
+                                                      .addressList !=
                                                   null
-                                              ? "${debtCon.fullCurrentAddress.value.addressList![1].name}"
+                                              ? "${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![1].name}"
                                               : "",
-                                          commune: debtCon.fullCurrentAddress
-                                                      .value.addressList !=
+                                          commune: InjectionHelper
+                                                      .debtInvestmentController
+                                                      .fullCurrentAddress
+                                                      .value
+                                                      .addressList !=
                                                   null
-                                              ? "${debtCon.fullCurrentAddress.value.addressList![2].name}"
+                                              ? "${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![2].name}"
                                               : "",
-                                          village: debtCon.fullCurrentAddress
-                                                      .value.addressList ==
+                                          village: InjectionHelper
+                                                      .debtInvestmentController
+                                                      .fullCurrentAddress
+                                                      .value
+                                                      .addressList ==
                                                   null
                                               ? ""
-                                              : debtCon
+                                              : InjectionHelper
+                                                          .debtInvestmentController
                                                           .fullCurrentAddress
                                                           .value
                                                           .addressList!
                                                           .length !=
                                                       3
-                                                  ? "${debtCon.fullCurrentAddress.value.addressList![3].name}"
+                                                  ? "${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![3].name}"
                                                   : "",
-                                          permanenthouseNo: debtCon
+                                          permanenthouseNo: InjectionHelper
+                                                  .debtInvestmentController
                                                   .fullResidentAddress
                                                   .value
                                                   .houseNo ??
                                               "",
-                                          permanentStreet: debtCon
+                                          permanentStreet: InjectionHelper
+                                                  .debtInvestmentController
                                                   .fullResidentAddress
                                                   .value
                                                   .streetNo ??
                                               "",
-                                          permanentCity: debtCon
+                                          permanentCity: InjectionHelper
+                                                      .debtInvestmentController
                                                       .fullResidentAddress
                                                       .value
                                                       .addressList !=
                                                   null
-                                              ? "${debtCon.fullResidentAddress.value.addressList![0].name}"
+                                              ? "${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![0].name}"
                                               : "",
-                                          permanentDistrict: debtCon
+                                          permanentDistrict: InjectionHelper
+                                                      .debtInvestmentController
                                                       .fullResidentAddress
                                                       .value
                                                       .addressList !=
                                                   null
-                                              ? "${debtCon.fullResidentAddress.value.addressList![1].name}"
+                                              ? "${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![1].name}"
                                               : "",
-                                          permanentCommune: debtCon
+                                          permanentCommune: InjectionHelper
+                                                      .debtInvestmentController
                                                       .fullResidentAddress
                                                       .value
                                                       .addressList !=
                                                   null
-                                              ? "${debtCon.fullResidentAddress.value.addressList![2].name}"
+                                              ? "${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![2].name}"
                                               : "",
-                                          permanentVillage: debtCon
+                                          permanentVillage: InjectionHelper
+                                                      .debtInvestmentController
                                                       .fullResidentAddress
                                                       .value
                                                       .addressList ==
                                                   null
                                               ? ""
-                                              : debtCon
+                                              : InjectionHelper
+                                                          .debtInvestmentController
                                                           .fullResidentAddress
                                                           .value
                                                           .addressList!
                                                           .length !=
                                                       3
-                                                  ? "${debtCon.fullResidentAddress.value.addressList![3].name}"
+                                                  ? "${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![3].name}"
                                                   : "",
-                                          isEdit:
-                                                  widget.id == null ||
-                                                  debtCon.applicationDetail
-                                                          .value.status ==
+                                          isEdit: widget.id == null ||
+                                                  InjectionHelper
+                                                          .debtInvestmentController
+                                                          .applicationDetail
+                                                          .value
+                                                          .status ==
                                                       "Draft"
                                               ? true
                                               : false,
@@ -673,86 +839,155 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                           },
                                         ),
                                         CustomReviewFinancingCard(
-                                          isEdit:
-                                                  widget.id == null ||
-                                                  debtCon.applicationDetail
-                                                          .value.status ==
+                                          isEdit: widget.id == null ||
+                                                  InjectionHelper
+                                                          .debtInvestmentController
+                                                          .applicationDetail
+                                                          .value
+                                                          .status ==
                                                       "Draft"
                                               ? true
                                               : false,
                                           onTap: () {
-                                            debtCon.isValidateTerm.value = true;
-                                            debtCon.isValidateFinancingAmount
+                                            InjectionHelper
+                                                .debtInvestmentController
+                                                .isValidateTerm
                                                 .value = true;
-                                            _onShowEditFinancingInfo(context,
-                                                debtCon.productType.value.id);
+                                            InjectionHelper
+                                                .debtInvestmentController
+                                                .isValidateFinancingAmount
+                                                .value = true;
+                                            _onShowEditFinancingInfo(
+                                                context,
+                                                InjectionHelper
+                                                    .debtInvestmentController
+                                                    .productType
+                                                    .value
+                                                    .id);
                                           },
-                                          productType: debtCon
-                                              .productType.value.productName,
+                                          productType: InjectionHelper
+                                              .debtInvestmentController
+                                              .productType
+                                              .value
+                                              .productName,
                                           financingAmount:
-                                              '\$${FormatNumber.formatNumber(double.parse(debtCon.financingAmount.toString()))}',
-                                          financingPurpose: debtCon
-                                              .financingPurpose.value.display,
-                                          intendedDate: debtCon
-                                                      .whenOnchangeDate.value ==
+                                              '\$${FormatNumber.formatNumber(double.parse(InjectionHelper.debtInvestmentController.financingAmount.toString()))}',
+                                          financingPurpose: InjectionHelper
+                                              .debtInvestmentController
+                                              .financingPurpose
+                                              .value
+                                              .display,
+                                          intendedDate: InjectionHelper
+                                                      .debtInvestmentController
+                                                      .whenOnchangeDate
+                                                      .value ==
                                                   ""
-                                              ? debtCon.intendedDate.value == ""
+                                              ? InjectionHelper
+                                                          .debtInvestmentController
+                                                          .intendedDate
+                                                          .value ==
+                                                      ""
                                                   ? ""
                                                   : FormatDate
                                                       .formatDateTimeGetfunding(
-                                                          debtCon.intendedDate
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .intendedDate
                                                               .value)
-                                              : debtCon.intendedDate.value,
-                                          term: debtCon.term.value.toString(),
+                                              : InjectionHelper
+                                                  .debtInvestmentController
+                                                  .intendedDate
+                                                  .value,
+                                          term: InjectionHelper
+                                              .debtInvestmentController
+                                              .term
+                                              .value
+                                              .toString(),
                                         ),
                                         CustomReviewCompanyInfocard(
                                           title: 'Company Information*',
-                                          isEditable: 
-                                                  widget.id == null ||
-                                                  debtCon.applicationDetail
-                                                          .value.status ==
+                                          isEditable: widget.id == null ||
+                                                  InjectionHelper
+                                                          .debtInvestmentController
+                                                          .applicationDetail
+                                                          .value
+                                                          .status ==
                                                       "Draft"
                                               ? true
                                               : false,
                                           onTap: () {
                                             ontapCompanyInfo(context);
                                           },
-                                          address: debtCon.address.value,
-                                          year:
-                                              debtCon.yearOfEstablishment.value,
-                                          typeofOrganization: debtCon
-                                              .typeOfOrganization.value.display,
-                                          companyName:
-                                              debtCon.companyName.value,
-                                          taxIdentification: debtCon
-                                              .taxIdentificationNumber.value,
-                                          industry:
-                                              debtCon.industry.value.display,
-                                          numberofStaff:
-                                              debtCon.numberOfStaff.value != ''
-                                                  ? FormatNumber
-                                                          .formatNumberDefualt(
-                                                              int.parse(debtCon
-                                                                  .numberOfStaff
-                                                                  .value))
-                                                      .toString()
-                                                  : '',
-                                          ownername: debtCon.ownerName.value,
-                                          productSevice:
-                                              debtCon.productSevice.value,
-                                          patentDoc:
-                                              debtCon.patentDocument.value,
-                                          mocCertificate:
-                                              debtCon.certificatioDoc.value,
-                                          licenceDoc: debtCon.licenseDoc.value,
-                                          memorandom:
-                                              debtCon.memorandumDoc.value,
+                                          address: InjectionHelper
+                                              .debtInvestmentController
+                                              .address
+                                              .value,
+                                          year: InjectionHelper
+                                              .debtInvestmentController
+                                              .yearOfEstablishment
+                                              .value,
+                                          typeofOrganization: InjectionHelper
+                                              .debtInvestmentController
+                                              .typeOfOrganization
+                                              .value
+                                              .display,
+                                          companyName: InjectionHelper
+                                              .debtInvestmentController
+                                              .companyName
+                                              .value,
+                                          taxIdentification: InjectionHelper
+                                              .debtInvestmentController
+                                              .taxIdentificationNumber
+                                              .value,
+                                          industry: InjectionHelper
+                                              .debtInvestmentController
+                                              .industry
+                                              .value
+                                              .display,
+                                          numberofStaff: InjectionHelper
+                                                      .debtInvestmentController
+                                                      .numberOfStaff
+                                                      .value !=
+                                                  ''
+                                              ? FormatNumber.formatNumberDefualt(
+                                                      int.parse(InjectionHelper
+                                                          .debtInvestmentController
+                                                          .numberOfStaff
+                                                          .value))
+                                                  .toString()
+                                              : '',
+                                          ownername: InjectionHelper
+                                              .debtInvestmentController
+                                              .ownerName
+                                              .value,
+                                          productSevice: InjectionHelper
+                                              .debtInvestmentController
+                                              .productSevice
+                                              .value,
+                                          patentDoc: InjectionHelper
+                                              .debtInvestmentController
+                                              .patentDocument
+                                              .value,
+                                          mocCertificate: InjectionHelper
+                                              .debtInvestmentController
+                                              .certificatioDoc
+                                              .value,
+                                          licenceDoc: InjectionHelper
+                                              .debtInvestmentController
+                                              .licenseDoc
+                                              .value,
+                                          memorandom: InjectionHelper
+                                              .debtInvestmentController
+                                              .memorandumDoc
+                                              .value,
                                         ),
                                         CustomRiviewRequiredDocInDebt(
-                                          isEdit:
-                                                  widget.id == null ||
-                                                  debtCon.applicationDetail
-                                                          .value.status ==
+                                          isEdit: widget.id == null ||
+                                                  InjectionHelper
+                                                          .debtInvestmentController
+                                                          .applicationDetail
+                                                          .value
+                                                          .status ==
                                                       "Draft"
                                               ? true
                                               : false,
@@ -764,9 +999,9 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                     ),
                                   ),
                                 ),
-                                if (
-                                    widget.id == null ||
-                                    debtCon.applicationDetail.value.status ==
+                                if (widget.id == null ||
+                                    InjectionHelper.debtInvestmentController
+                                            .applicationDetail.value.status ==
                                         "Draft")
                                   Container(
                                     margin: const EdgeInsets.only(
@@ -781,26 +1016,28 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                 bottom: 10, top: 10),
                                             child: CustomSelect2GetFunding(
                                               isFromCreateOrUpdated:
-                                                
-                                                      widget.id == null ||
+                                                  widget.id == null ||
                                                       checkNotEqual(),
                                               islongLabel: true,
                                               title:
                                                   'I hereby declare that the informations provided above are correct and true.',
-                                              isSelect:
-                                                      widget.id != null &&
-                                                          !checkNotEqual()
+                                              isSelect: widget.id != null &&
+                                                      !checkNotEqual()
                                                   ? false
-                                                  : debtCon.isAgree.value,
-                                              ontap:
-                                                      widget.id != null
+                                                  : InjectionHelper
+                                                      .debtInvestmentController
+                                                      .isAgree
+                                                      .value,
+                                              ontap: widget.id != null
                                                   ? () {
-                                                      if (debtCon
+                                                      if (InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![0]
                                                               .name ==
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .applicationDetail
                                                               .value
                                                               .customerInfo!
@@ -810,32 +1047,51 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                       } else {}
 
                                                       if (checkNotEqual()) {
-                                                        if (debtCon
-                                                            .isAgree.value) {
-                                                          debtCon.isAgree
+                                                        if (InjectionHelper
+                                                            .debtInvestmentController
+                                                            .isAgree
+                                                            .value) {
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .isAgree
                                                               .value = false;
                                                         } else {
                                                           setState(() {
-                                                            debtCon.isAgree
+                                                            InjectionHelper
+                                                                .debtInvestmentController
+                                                                .isAgree
                                                                 .value = true;
                                                           });
                                                         }
                                                       } else {
-                                                        debtCon.isAgree.value =
-                                                            false;
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .isAgree
+                                                            .value = false;
                                                       }
                                                     }
                                                   : () {
-                                                      debtCon.isAgree.value =
-                                                          !debtCon
-                                                              .isAgree.value;
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .isAgree
+                                                              .value =
+                                                          !InjectionHelper
+                                                              .debtInvestmentController
+                                                              .isAgree
+                                                              .value;
                                                     },
                                             ),
                                           ),
-                                          if (debtCon.applicationDetail.value
+                                          if (InjectionHelper
+                                                      .debtInvestmentController
+                                                      .applicationDetail
+                                                      .value
                                                       .status !=
                                                   'Approved' &&
-                                              debtCon.applicationDetail.value
+                                              InjectionHelper
+                                                      .debtInvestmentController
+                                                      .applicationDetail
+                                                      .value
                                                       .status !=
                                                   'Rejected')
                                             Row(
@@ -845,12 +1101,14 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                     isDisable: false,
                                                     isOutline: true,
                                                     onPressed: () async {
-                                                      if (debtCon
+                                                      if (InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .applicationDetail
                                                                   .value
                                                                   .status !=
                                                               "Draft" &&
-                                                          debtCon
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .applicationDetail
                                                                   .value
                                                                   .status !=
@@ -865,111 +1123,140 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                                                 ),
                                                 const SizedBox(width: 20),
                                                 Expanded(
-                                                  child:
-                                                     
-                                                              widget.id == null
-                                                          ? CustomButton(
-                                                              isDisable: debtCon
-                                                                      .isAgree
+                                                  child: widget.id == null
+                                                      ? CustomButton(
+                                                          isDisable: InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .isAgree
+                                                                  .value
+                                                              ? false
+                                                              : true,
+                                                          isOutline: false,
+                                                          onPressed: () async {
+                                                            FirebaseAnalyticsHelper
+                                                                .sendAnalyticsEvent(
+                                                                    "Submit Debt Investment");
+                                                            await InjectionHelper
+                                                                .debtInvestmentController
+                                                                .onSubmitDebtInvestment(
+                                                                    context:
+                                                                        context);
+                                                          },
+                                                          title: 'Submit',
+                                                        )
+                                                      : CustomButton(
+                                                          isDisable: !checkNotEqual()
+                                                              ? true
+                                                              : false ||
+                                                                  InjectionHelper
+                                                                          .debtInvestmentController
+                                                                          .isAgree
+                                                                          .value ==
+                                                                      false,
+                                                          isOutline: false,
+                                                          onPressed: InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .applicationDetail
                                                                       .value
-                                                                  ? false
-                                                                  : true,
-                                                              isOutline: false,
-                                                              onPressed:
-                                                                  () async {
-                                                                FirebaseAnalyticsHelper
-                                                                    .sendAnalyticsEvent(
-                                                                        "Submit Debt Investment");
-                                                                await debtCon
-                                                                    .onSubmitDebtInvestment(
-                                                                        context:
-                                                                            context);
-                                                              },
-                                                              title: 'Submit',
-                                                            )
-                                                          : CustomButton(
-                                                              isDisable: !checkNotEqual()
-                                                                  ? true
-                                                                  : false ||
-                                                                      debtCon.isAgree
-                                                                              .value ==
-                                                                          false,
-                                                              isOutline: false,
-                                                              onPressed: debtCon
+                                                                      .status ==
+                                                                  "Draft"
+                                                              ? () async {
+                                                                  FirebaseAnalyticsHelper
+                                                                      .sendAnalyticsEvent(
+                                                                          "Debt Update Draft to Submit");
+                                                                  // Draft to new
+                                                                  debugPrint(
+                                                                      "Draft to new");
+                                                                  await InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .onEditDebtInvestment(
+                                                                    step: 5,
+                                                                    context:
+                                                                        context,
+                                                                    id: widget
+                                                                        .id,
+                                                                    frompage: InjectionHelper
+                                                                        .debtInvestmentController
+                                                                        .applicationDetail
+                                                                        .value
+                                                                        .step!
+                                                                        .toInt(),
+                                                                  );
+                                                                }
+                                                              : InjectionHelper
+                                                                          .debtInvestmentController
                                                                           .applicationDetail
                                                                           .value
                                                                           .status ==
-                                                                      "Draft"
+                                                                      "Rejected"
                                                                   ? () async {
-                                                                      FirebaseAnalyticsHelper
-                                                                          .sendAnalyticsEvent(
-                                                                              "Debt Update Draft to Submit");
-                                                                      // Draft to new
-                                                                      debugPrint(
-                                                                          "Draft to new");
-                                                                      await debtCon
+                                                                      // New to New
+                                                                      await InjectionHelper
+                                                                          .debtInvestmentController
                                                                           .onEditDebtInvestment(
-                                                                        step: 5,
                                                                         context:
                                                                             context,
+                                                                        step: 5,
                                                                         id: widget
                                                                             .id,
-                                                                        frompage: debtCon
+                                                                        frompage: InjectionHelper
+                                                                            .debtInvestmentController
                                                                             .applicationDetail
                                                                             .value
                                                                             .step!
                                                                             .toInt(),
                                                                       );
                                                                     }
-                                                                  : debtCon.applicationDetail.value
+                                                                  : InjectionHelper
+                                                                              .debtInvestmentController
+                                                                              .applicationDetail
+                                                                              .value
                                                                               .status ==
-                                                                          "Rejected"
+                                                                          "New"
                                                                       ? () async {
                                                                           // New to New
-                                                                          await debtCon
+
+                                                                          await InjectionHelper
+                                                                              .debtInvestmentController
                                                                               .onEditDebtInvestment(
-                                                                            context:
-                                                                                context,
                                                                             step:
                                                                                 5,
+                                                                            context:
+                                                                                context,
                                                                             id: widget.id,
                                                                             frompage:
-                                                                                debtCon.applicationDetail.value.step!.toInt(),
+                                                                                InjectionHelper.debtInvestmentController.applicationDetail.value.step!.toInt(),
                                                                           );
                                                                         }
-                                                                      : debtCon.applicationDetail.value.status ==
-                                                                              "New"
-                                                                          ? () async {
-                                                                              // New to New
-
-                                                                              await debtCon.onEditDebtInvestment(
-                                                                                step: 5,
-                                                                                context: context,
-                                                                                id: widget.id,
-                                                                                frompage: debtCon.applicationDetail.value.step!.toInt(),
-                                                                              );
-                                                                            }
-                                                                          : () async {
-                                                                              await debtCon.onSubmitDebtInvestment(
-                                                                                  //frompage: debtCon.applicationDetail.value.step!.toInt(),
-                                                                                  context: context,
-                                                                                  step: widget.id != null && debtCon.applicationDetail.value.status == "Rejected" ? null : 5);
-                                                                            },
-                                                              title: debtCon
+                                                                      : () async {
+                                                                          await InjectionHelper.debtInvestmentController.onSubmitDebtInvestment(
+                                                                              //frompage: InjectionHelper.debtInvestmentController.applicationDetail.value.step!.toInt(),
+                                                                              context: context,
+                                                                              step: widget.id != null && InjectionHelper.debtInvestmentController.applicationDetail.value.status == "Rejected" ? null : 5);
+                                                                        },
+                                                          title: InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .applicationDetail
+                                                                      .value
+                                                                      .status ==
+                                                                  "Rejected"
+                                                              ? "Re-Submit"
+                                                              : InjectionHelper
+                                                                          .debtInvestmentController
                                                                           .applicationDetail
                                                                           .value
                                                                           .status ==
-                                                                      "Rejected"
-                                                                  ? "Re-Submit"
-                                                                  : debtCon.applicationDetail.value
+                                                                      "New"
+                                                                  ? "Update"
+                                                                  : InjectionHelper
+                                                                              .debtInvestmentController
+                                                                              .applicationDetail
+                                                                              .value
                                                                               .status ==
-                                                                          "New"
-                                                                      ? "Update"
-                                                                      : debtCon.applicationDetail.value.status ==
-                                                                              "Draft"
-                                                                          ? "Submit"
-                                                                          : "Close",
-                                                            ),
+                                                                          "Draft"
+                                                                      ? "Submit"
+                                                                      : "Close",
+                                                        ),
                                                 ),
                                               ],
                                             ),

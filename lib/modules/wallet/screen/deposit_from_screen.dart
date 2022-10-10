@@ -1,12 +1,19 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:share/share.dart';
 
@@ -34,6 +41,38 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
   }
 
   GlobalKey qrKey = GlobalKey();
+  static GlobalKey printScreenKey = GlobalKey();
+  Future<void> onCaptureAndSave(BuildContext context) async {
+    try {
+      RenderRepaintBoundary boundary = printScreenKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+      var image = await boundary.toImage(pixelRatio: 5);
+      var byteData = await image.toByteData(
+        format: ImageByteFormat.png,
+      );
+      var pngBytes = byteData!.buffer.asUint8List();
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/screenshot.png');
+      await file.writeAsBytes(pngBytes);
+      await [Permission.storage].request();
+      final time = DateTime.now()
+          .toIso8601String()
+          .replaceAll(".", "-")
+          .replaceAll(":", "-");
+      final name = 'Ticket $time';
+      final result = await ImageGallerySaver.saveImage(
+        pngBytes,
+        name: name,
+        isReturnImagePathOfIOS: true,
+      );
+      if (result != null) {
+        customRouterSnackbar(
+            description: 'Qr Code Saved.', suffix: false, prefix: true);
+      } else {}
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,38 +105,41 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                   ),
                 ),
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      Text(
-                        'Show QR Code to receive payment from others.',
-                        style: textStyle.copyWith(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
+                  child: RepaintBoundary(
+                    key: printScreenKey,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 30),
+                        Text(
+                          'Show QR Code to receive payment from others.',
+                          style: textStyle.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 25),
-                        child: PrettyQr(
-                          key: qrKey,
-                          data:
-                              'wallet${_walletController.walletAmount.value.accountNumber}-${_walletController.recievingAmount.value}',
-                          size: 160,
-                          errorCorrectLevel: QrErrorCorrectLevel.H,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 25),
+                          child: PrettyQr(
+                            key: qrKey,
+                            data:
+                                'wallet${_walletController.walletAmount.value.accountNumber}-${_walletController.recievingAmount.value}',
+                            size: 160,
+                            errorCorrectLevel: QrErrorCorrectLevel.H,
+                          ),
                         ),
-                      ),
-                      if (_walletController.recievingAmount.value.isEmpty)
-                        GestureDetector(
-                          onTap: () {
-                            _inputAmount(context);
-                          },
-                          child: _setAmountButton(textStyle),
-                        ),
-                      _walletController.recievingAmount.value.isNotEmpty
-                          ? _hasAmount(textStyle)
-                          : const SizedBox(),
-                      // const Spacer(),
-                    ],
+                        if (_walletController.recievingAmount.value.isEmpty)
+                          GestureDetector(
+                            onTap: () {
+                              _inputAmount(context);
+                            },
+                            child: _setAmountButton(textStyle),
+                          ),
+                        _walletController.recievingAmount.value.isNotEmpty
+                            ? _hasAmount(textStyle)
+                            : const SizedBox(),
+                        // const Spacer(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -121,13 +163,8 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                           text: 'Save',
                           icon: SvgPicture.asset('assets/images/save.svg'),
                           onTap: () {
-                        // var qrKey;
-
-                        // ImageGallerySaver.saveImage();
-                        customRouterSnackbar(
-                            description: 'Qr Code Saved.',
-                            suffix: false,
-                            prefix: true);
+                        setState(() {});
+                        onCaptureAndSave(context);
                       }),
                     ],
                   ),

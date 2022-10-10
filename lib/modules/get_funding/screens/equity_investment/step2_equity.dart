@@ -1,12 +1,8 @@
 import 'dart:io';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
 import 'package:cicgreenloan/Utils/helper/numerice_format.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
-import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/equat_equity_model.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_form_card.dart';
@@ -24,6 +20,7 @@ import '../../../../Utils/helper/container_partern.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 
 import '../../../../Utils/helper/firebase_analytics.dart';
+import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../../Utils/pop_up_alert/show_alert_dialog.dart';
 import '../../../../widgets/get_funding/custom_add_other_label.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
@@ -39,10 +36,7 @@ class Step2Equity extends StatefulWidget {
 }
 
 class _Step2EquityState extends State<Step2Equity> {
-  final equityController = Get.put(EquityInvestmentController());
-  final memberController = Get.put(MemberController());
-  final customerController = Get.put(CustomerController());
-  final optionController = Get.put(DocumentCategory());
+  
 
   final addressFocus = FocusNode();
   final yearofFocus = FocusNode();
@@ -54,66 +48,82 @@ class _Step2EquityState extends State<Step2Equity> {
   var defaultData = Step2EquityModel();
   var tempData = Step2EquityModel();
   void _onpress() {
-    if (equityController.companyName.value == '') {
-      equityController.isValCompanyName.value = false;
+    if (InjectionHelper.equityInvestmentController.companyName.value == '') {
+      InjectionHelper.equityInvestmentController.isValCompanyName.value = false;
     } else {
-      equityController.isValCompanyName.value = true;
+      InjectionHelper.equityInvestmentController.isValCompanyName.value = true;
     }
 
-    if (equityController.address.value == '') {
-      equityController.isValAddress.value = false;
+    if (InjectionHelper.equityInvestmentController.address.value == '') {
+      InjectionHelper.equityInvestmentController.isValAddress.value = false;
     } else {
-      equityController.isValAddress.value = true;
+      InjectionHelper.equityInvestmentController.isValAddress.value = true;
     }
 
-    if (equityController.yearOfEstablishment.value == '') {
-      equityController.isValYearOfEstablishment.value = false;
+    if (InjectionHelper.equityInvestmentController.yearOfEstablishment.value ==
+        '') {
+      InjectionHelper
+          .equityInvestmentController.isValYearOfEstablishment.value = false;
     } else {
-      equityController.isValYearOfEstablishment.value = true;
+      InjectionHelper
+          .equityInvestmentController.isValYearOfEstablishment.value = true;
     }
 
-    if (equityController.typeOfOrganization.value.display == null) {
-      equityController.isValTypeOfOrganization.value = false;
+    if (InjectionHelper
+            .equityInvestmentController.typeOfOrganization.value.display ==
+        null) {
+      InjectionHelper.equityInvestmentController.isValTypeOfOrganization.value =
+          false;
     } else {
-      equityController.isValTypeOfOrganization.value = true;
+      InjectionHelper.equityInvestmentController.isValTypeOfOrganization.value =
+          true;
     }
 
-    if (equityController.industry.value.display == null) {
-      equityController.isValIndustry.value = false;
+    if (InjectionHelper.equityInvestmentController.industry.value.display ==
+        null) {
+      InjectionHelper.equityInvestmentController.isValIndustry.value = false;
     } else {
-      equityController.isValIndustry.value = true;
+      InjectionHelper.equityInvestmentController.isValIndustry.value = true;
     }
 
-    if (equityController.numberOfStaff.value == '') {
-      equityController.isValNumberOfStaff.value = false;
+    if (InjectionHelper.equityInvestmentController.numberOfStaff.value == '') {
+      InjectionHelper.equityInvestmentController.isValNumberOfStaff.value =
+          false;
     } else {
-      equityController.isValNumberOfStaff.value = true;
+      InjectionHelper.equityInvestmentController.isValNumberOfStaff.value =
+          true;
     }
 
-    if (equityController.ownerName.value == '') {
-      equityController.isValOwnerName.value = false;
+    if (InjectionHelper.equityInvestmentController.ownerName.value == '') {
+      InjectionHelper.equityInvestmentController.isValOwnerName.value = false;
     } else {
-      equityController.isValOwnerName.value = true;
+      InjectionHelper.equityInvestmentController.isValOwnerName.value = true;
     }
 
-    if (equityController.productSevice.value == '') {
-      equityController.isValProductService.value = false;
+    if (InjectionHelper.equityInvestmentController.productSevice.value == '') {
+      InjectionHelper.equityInvestmentController.isValProductService.value =
+          false;
     } else {
-      equityController.isValProductService.value = true;
+      InjectionHelper.equityInvestmentController.isValProductService.value =
+          true;
     }
 
-    if (equityController.productSevice.value != '' &&
-        equityController.ownerName.value != '' &&
-        equityController.numberOfStaff.value != '' &&
-        equityController.industry.value.display != null &&
-        equityController.typeOfOrganization.value.display != null &&
-        equityController.yearOfEstablishment.value != '' &&
-        equityController.address.value != '' &&
-        equityController.address.value != '' &&
-        equityController.companyName.value != '') {
-      if (equityController.purposeOfFund.value == 1) {
-        equityController.purposeOfFund.value =
-            optionController.optionData.value.riaseuseoffund![0].id!;
+    if (InjectionHelper.equityInvestmentController.productSevice.value != '' &&
+        InjectionHelper.equityInvestmentController.ownerName.value != '' &&
+        InjectionHelper.equityInvestmentController.numberOfStaff.value != '' &&
+        InjectionHelper.equityInvestmentController.industry.value.display !=
+            null &&
+        InjectionHelper
+                .equityInvestmentController.typeOfOrganization.value.display !=
+            null &&
+        InjectionHelper.equityInvestmentController.yearOfEstablishment.value !=
+            '' &&
+        InjectionHelper.equityInvestmentController.address.value != '' &&
+        InjectionHelper.equityInvestmentController.address.value != '' &&
+        InjectionHelper.equityInvestmentController.companyName.value != '') {
+      if (InjectionHelper.equityInvestmentController.purposeOfFund.value == 1) {
+        InjectionHelper.equityInvestmentController.purposeOfFund.value =
+            InjectionHelper.optionController.optionData.value.riaseuseoffund![0].id!;
       }
       context
           .go("/get_funding/equity-step3?id=${widget.id}&&step=${widget.step}");
@@ -122,184 +132,229 @@ class _Step2EquityState extends State<Step2Equity> {
 
   @override
   void initState() {
-    memberController.fetchCompanyMember(
-        id: customerController.customer.value.customerId);
+    InjectionHelper.memberController.fetchCompanyMember(
+        id: InjectionHelper.customerController.customer.value.customerId);
     if (widget.id != null) {
       inistialdata();
     }
 
-    if (memberController.companyDataList.isNotEmpty) {
-      memberController.addCompany.value = false;
+    if (InjectionHelper.memberController.companyDataList.isNotEmpty) {
+      InjectionHelper.memberController.addCompany.value = false;
     }
     super.initState();
   }
 
   inistialdata() async {
     if (widget.id != null) {
-      await equityController.fetchAppDetails(widget.id!);
+      await InjectionHelper.equityInvestmentController
+          .fetchAppDetails(widget.id!);
     }
 
-    equityController.financingAmountcontroller.text =
-        equityController.applicationData.value.financialAmount.toString() == ""
+    InjectionHelper.equityInvestmentController.financingAmountcontroller.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .financialAmount
+                    .toString() ==
+                ""
             ? ""
-            : equityController.applicationData.value.financialAmount!
+            : InjectionHelper.equityInvestmentController.applicationData.value
+                .financialAmount!
                 .toString();
 
-    equityController.financingAmoung.value =
-        equityController.applicationData.value.financialAmount != null
-            ? equityController.applicationData.value.financialAmount!.toInt()
+    InjectionHelper.equityInvestmentController.financingAmoung.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .financialAmount !=
+                null
+            ? InjectionHelper.equityInvestmentController.applicationData.value
+                .financialAmount!
+                .toInt()
             : 0;
 
-    equityController.intendedDate.value =
-        equityController.applicationData.value.intendedDateDisbursement!;
+    InjectionHelper.equityInvestmentController.intendedDate.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .intendedDateDisbursement!;
 
-    equityController.useOfFundcontroller.text =
-        equityController.applicationData.value.useofFund!;
-    equityController.useOfFund.value =
-        equityController.applicationData.value.useofFund!;
-    equityController.companyName.value =
-        equityController.applicationData.value.company!.companyName!;
-    equityController.address.value =
-        equityController.applicationData.value.company!.address!;
-    equityController.addresscontroller.text =
-        equityController.applicationData.value.company!.address!;
-    equityController.yearOfEstablishment.value =
-        equityController.applicationData.value.company!.yearFounded!.toString();
-    equityController.yearOfestabliscontroller.text =
-        equityController.applicationData.value.company!.yearFounded!.toString();
-    equityController.typeOfOrganization.value = equityController
-                .applicationData.value.company!.typeOfOrganization !=
-            null
-        ? equityController.applicationData.value.company!.typeOfOrganization!
-        : Optionmodel(id: 0, display: null);
-
-    equityController.taxIdentificationNumber.value = equityController
-        .applicationData.value.company!.taxIdentificationNumber!;
-    equityController.taxcontroller.text = equityController
-        .applicationData.value.company!.taxIdentificationNumber!;
-    equityController.industry.value =
-        equityController.applicationData.value.company!.industry != null
-            ? equityController.applicationData.value.company!.industry!
+    InjectionHelper.equityInvestmentController.useOfFundcontroller.text =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.useofFund!;
+    InjectionHelper.equityInvestmentController.useOfFund.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.useofFund!;
+    InjectionHelper.equityInvestmentController.companyName.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.companyName!;
+    InjectionHelper.equityInvestmentController.address.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.company!.address!;
+    InjectionHelper.equityInvestmentController.addresscontroller.text =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.company!.address!;
+    InjectionHelper.equityInvestmentController.yearOfEstablishment.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.yearFounded!
+            .toString();
+    InjectionHelper.equityInvestmentController.yearOfestabliscontroller.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.yearFounded!
+            .toString();
+    InjectionHelper.equityInvestmentController.typeOfOrganization.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.typeOfOrganization !=
+                null
+            ? InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.typeOfOrganization!
             : Optionmodel(id: 0, display: null);
 
+    InjectionHelper.equityInvestmentController.taxIdentificationNumber.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.taxIdentificationNumber!;
+    InjectionHelper.equityInvestmentController.taxcontroller.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.taxIdentificationNumber!;
+    InjectionHelper.equityInvestmentController.industry.value = InjectionHelper
+                .equityInvestmentController
+                .applicationData
+                .value
+                .company!
+                .industry !=
+            null
+        ? InjectionHelper
+            .equityInvestmentController.applicationData.value.company!.industry!
+        : Optionmodel(id: 0, display: null);
+
     ///
-    var displayNumberofStaff = FormatNumber.formatNumberDefualt(
-        equityController.applicationData.value.company!.numberOfStaff!);
-    equityController.numberofStaffcontroller.text =
-        equityController.applicationData.value.company!.numberOfStaff! == 0
+    var displayNumberofStaff = FormatNumber.formatNumberDefualt(InjectionHelper
+        .equityInvestmentController
+        .applicationData
+        .value
+        .company!
+        .numberOfStaff!);
+    InjectionHelper.equityInvestmentController.numberofStaffcontroller.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.numberOfStaff! ==
+                0
             ? ""
             : displayNumberofStaff.toString();
-    equityController.numberOfStaff.value = equityController
-        .applicationData.value.company!.numberOfStaff!
-        .toString();
-    equityController.ownerNamecontroller.text =
-        equityController.applicationData.value.company!.ownerName!;
-    equityController.ownerName.value =
-        equityController.applicationData.value.company!.ownerName!;
-    equityController.productSevice.value = equityController
-        .applicationData.value.company!.companyProductAndService!;
-    equityController.productController.text = equityController
-        .applicationData.value.company!.companyProductAndService!;
-    equityController.patentDocument.value =
-        equityController.applicationData.value.companyPatentDoc!;
-    equityController.certificatioDoc.value =
-        equityController.applicationData.value.companyMoCCertificate!;
-    equityController.licenseDoc.value =
-        equityController.applicationData.value.companyLicenceDoc!;
-    equityController.memorandumDoc.value =
-        equityController.applicationData.value.companyMAA!;
+    InjectionHelper.equityInvestmentController.numberOfStaff.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.numberOfStaff!
+            .toString();
+    InjectionHelper.equityInvestmentController.ownerNamecontroller.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.ownerName!;
+    InjectionHelper.equityInvestmentController.ownerName.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.company!.ownerName!;
+    InjectionHelper.equityInvestmentController.productSevice.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.companyProductAndService!;
+    InjectionHelper.equityInvestmentController.productController.text =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .company!.companyProductAndService!;
+    InjectionHelper.equityInvestmentController.patentDocument.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.companyPatentDoc!;
+    InjectionHelper.equityInvestmentController.certificatioDoc.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .companyMoCCertificate!;
+    InjectionHelper.equityInvestmentController.licenseDoc.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .companyLicenceDoc!;
+    InjectionHelper.equityInvestmentController.memorandumDoc.value =
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.companyMAA!;
     debugPrint(
-        "Patent doc:${equityController.applicationData.value.companyPatentDoc}");
-    if (equityController.applicationData.value.companyPatentDoc == 1) {
-      equityController.isPatentDoc.value = true;
+        "Patent doc:${InjectionHelper.equityInvestmentController.applicationData.value.companyPatentDoc}");
+    if (InjectionHelper.equityInvestmentController.applicationData.value
+            .companyPatentDoc ==
+        1) {
+      InjectionHelper.equityInvestmentController.isPatentDoc.value = true;
     } else {
-      equityController.isPatentDoc.value = false;
+      InjectionHelper.equityInvestmentController.isPatentDoc.value = false;
     }
-    if (equityController.certificatioDoc.value == 1) {
-      equityController.isCertificate.value = true;
+    if (InjectionHelper.equityInvestmentController.certificatioDoc.value == 1) {
+      InjectionHelper.equityInvestmentController.isCertificate.value = true;
     } else {
-      equityController.isCertificate.value = false;
+      InjectionHelper.equityInvestmentController.isCertificate.value = false;
     }
-    if (equityController.licenseDoc.value == 1) {
-      equityController.isLicense.value = true;
+    if (InjectionHelper.equityInvestmentController.licenseDoc.value == 1) {
+      InjectionHelper.equityInvestmentController.isLicense.value = true;
     } else {
-      equityController.isLicense.value = false;
+      InjectionHelper.equityInvestmentController.isLicense.value = false;
     }
-    if (equityController.memorandumDoc.value == 1) {
-      equityController.isMemorandum.value = true;
+    if (InjectionHelper.equityInvestmentController.memorandumDoc.value == 1) {
+      InjectionHelper.equityInvestmentController.isMemorandum.value = true;
     } else {
-      equityController.isMemorandum.value = false;
+      InjectionHelper.equityInvestmentController.isMemorandum.value = false;
     }
   }
 
   onResetCompany() {
-    equityController.companyName.value = "";
-    equityController.address.value = "";
-    equityController.yearOfEstablishment.value = "";
-    equityController.typeOfOrganization.value =
+    InjectionHelper.equityInvestmentController.companyName.value = "";
+    InjectionHelper.equityInvestmentController.address.value = "";
+    InjectionHelper.equityInvestmentController.yearOfEstablishment.value = "";
+    InjectionHelper.equityInvestmentController.typeOfOrganization.value =
         Optionmodel(display: null, id: 0);
-    equityController.taxIdentificationNumber.value = "";
-    equityController.industry.value = Optionmodel(
+    InjectionHelper.equityInvestmentController.taxIdentificationNumber.value =
+        "";
+    InjectionHelper.equityInvestmentController.industry.value = Optionmodel(
       display: null,
       id: 0,
     );
-    equityController.numberOfStaff.value = "";
-    equityController.ownerName.value = "";
-    equityController.productSevice.value = "";
-    equityController.addresscontroller.text = "";
-    equityController.yearOfestabliscontroller.text = "";
-    equityController.ownerNamecontroller.text = "";
-    equityController.productController.text = "";
-    equityController.numberofStaffcontroller.text = "";
-    equityController.taxcontroller.text = "";
+    InjectionHelper.equityInvestmentController.numberOfStaff.value = "";
+    InjectionHelper.equityInvestmentController.ownerName.value = "";
+    InjectionHelper.equityInvestmentController.productSevice.value = "";
+    InjectionHelper.equityInvestmentController.addresscontroller.text = "";
+    InjectionHelper.equityInvestmentController.yearOfestabliscontroller.text =
+        "";
+    InjectionHelper.equityInvestmentController.ownerNamecontroller.text = "";
+    InjectionHelper.equityInvestmentController.productController.text = "";
+    InjectionHelper.equityInvestmentController.numberofStaffcontroller.text =
+        "";
+    InjectionHelper.equityInvestmentController.taxcontroller.text = "";
 
-    equityController.isPatentDoc.value = false;
-    equityController.isCertificate.value = false;
-    equityController.isMemorandum.value = false;
-    equityController.isLicense.value = false;
+    InjectionHelper.equityInvestmentController.isPatentDoc.value = false;
+    InjectionHelper.equityInvestmentController.isCertificate.value = false;
+    InjectionHelper.equityInvestmentController.isMemorandum.value = false;
+    InjectionHelper.equityInvestmentController.isLicense.value = false;
 
-    equityController.patentDocument.value = 0;
-    equityController.certificatioDoc.value = 0;
-    equityController.memorandumDoc.value = 0;
-    equityController.licenseDoc.value = 0;
+    InjectionHelper.equityInvestmentController.patentDocument.value = 0;
+    InjectionHelper.equityInvestmentController.certificatioDoc.value = 0;
+    InjectionHelper.equityInvestmentController.memorandumDoc.value = 0;
+    InjectionHelper.equityInvestmentController.licenseDoc.value = 0;
   }
 
   bool checkdisablesavedraf() {
-    return equityController.companyName.value ==
-            equityController.applicationData.value.company!.companyName &&
-        equityController.address.value ==
-            equityController.applicationData.value.company!.address! &&
-        equityController.yearOfEstablishment.value ==
-            equityController.applicationData.value.company!.yearFounded &&
-        equityController.typeOfOrganization.value ==
-            equityController
-                .applicationData.value.company!.typeOfOrganization &&
-        equityController.taxIdentificationNumber.value ==
-            equityController
-                .applicationData.value.company!.taxIdentificationNumber &&
-        equityController.industry.value ==
-            equityController.applicationData.value.company!.industry &&
-        equityController.numberOfStaff.value ==
-            equityController.applicationData.value.company!.numberOfStaff
+    return InjectionHelper.equityInvestmentController.companyName.value == InjectionHelper.equityInvestmentController.applicationData.value.company!.companyName &&
+        InjectionHelper.equityInvestmentController.address.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.address! &&
+        InjectionHelper.equityInvestmentController.yearOfEstablishment.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.yearFounded &&
+        InjectionHelper.equityInvestmentController.typeOfOrganization.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.typeOfOrganization &&
+        InjectionHelper.equityInvestmentController.taxIdentificationNumber.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.taxIdentificationNumber &&
+        InjectionHelper.equityInvestmentController.industry.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.industry &&
+        InjectionHelper.equityInvestmentController.numberOfStaff.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.numberOfStaff
                 .toString() &&
-        equityController.ownerName.value ==
-            equityController.applicationData.value.company!.ownerName &&
-        equityController.patentDocument.value ==
-            equityController.applicationData.value.companyPatentDoc! &&
-        equityController.certificatioDoc.value ==
-            equityController.applicationData.value.companyMoCCertificate! &&
-        equityController.licenseDoc.value ==
-            equityController.applicationData.value.companyLicenceDoc! &&
-        equityController.memorandumDoc.value ==
-            equityController.applicationData.value.companyMAA! &&
-        equityController.typeOfOrganization.value.display ==
-            equityController
-                .applicationData.value.company!.typeOfOrganization!.display &&
-        equityController.industry.value.display ==
-            equityController.applicationData.value.company!.industry!.display &&
-        equityController.productSevice.value ==
-            equityController
-                .applicationData.value.company!.companyProductAndService;
+        InjectionHelper.equityInvestmentController.ownerName.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .company!.ownerName &&
+        InjectionHelper.equityInvestmentController.patentDocument.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .companyPatentDoc! &&
+        InjectionHelper.equityInvestmentController.certificatioDoc.value ==
+            InjectionHelper.equityInvestmentController.applicationData.value
+                .companyMoCCertificate! &&
+        InjectionHelper.equityInvestmentController.licenseDoc.value == InjectionHelper.equityInvestmentController.applicationData.value.companyLicenceDoc! &&
+        InjectionHelper.equityInvestmentController.memorandumDoc.value == InjectionHelper.equityInvestmentController.applicationData.value.companyMAA! &&
+        InjectionHelper.equityInvestmentController.typeOfOrganization.value.display == InjectionHelper.equityInvestmentController.applicationData.value.company!.typeOfOrganization!.display &&
+        InjectionHelper.equityInvestmentController.industry.value.display == InjectionHelper.equityInvestmentController.applicationData.value.company!.industry!.display &&
+        InjectionHelper.equityInvestmentController.productSevice.value == InjectionHelper.equityInvestmentController.applicationData.value.company!.companyProductAndService;
   }
 
   TextEditingController addNewOtherType = TextEditingController();
@@ -314,7 +369,8 @@ class _Step2EquityState extends State<Step2Equity> {
           onPointerDown: (PointerDownEvent event) =>
               FocusManager.instance.primaryFocus?.unfocus(),
           child: Obx(
-            () => equityController.isLoadingSubmit.value
+            () => InjectionHelper
+                    .equityInvestmentController.isLoadingSubmit.value
                 ? Scaffold(
                     body: Container(
                       width: double.infinity,
@@ -348,12 +404,15 @@ class _Step2EquityState extends State<Step2Equity> {
                   )
                 : Scaffold(
                     resizeToAvoidBottomInset: false,
-                    appBar: equityController.isSubmitLoading.value == true
+                    appBar: InjectionHelper.equityInvestmentController
+                                .isSubmitLoading.value ==
+                            true
                         ? AppBar()
                         : CustomAppBarWhiteColor(
                             context: context,
                             title: 'Equity Investment',
-                            leading: !equityController.isLoadingData.value
+                            leading: !InjectionHelper.equityInvestmentController
+                                    .isLoadingData.value
                                 ? Obx(
                                     () => IconButton(
                                       onPressed: widget.id != null &&
@@ -362,32 +421,47 @@ class _Step2EquityState extends State<Step2Equity> {
                                               FocusScope.of(context).unfocus();
                                               Navigator.pop(context);
                                             }
-                                          : equityController.companyName.value == "" &&
-                                                  equityController.address.value ==
+                                          : InjectionHelper.equityInvestmentController.companyName.value == "" &&
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .address
+                                                          .value ==
                                                       "" &&
-                                                  equityController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
                                                           .yearOfEstablishment
                                                           .value ==
                                                       "" &&
-                                                  equityController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
                                                           .typeOfOrganization
                                                           .value
                                                           .display ==
                                                       null &&
-                                                  equityController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
                                                           .taxIdentificationNumber
                                                           .value ==
                                                       "" &&
-                                                  equityController.industry
-                                                          .value.display ==
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .industry
+                                                          .value
+                                                          .display ==
                                                       null &&
-                                                  equityController.numberOfStaff
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .numberOfStaff
                                                           .value ==
                                                       "" &&
-                                                  equityController
-                                                          .ownerName.value ==
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .ownerName
+                                                          .value ==
                                                       "" &&
-                                                  equityController.productSevice
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .productSevice
                                                           .value ==
                                                       ""
                                               ? () {
@@ -411,13 +485,15 @@ class _Step2EquityState extends State<Step2Equity> {
                                                       onSave: () async {
                                                         Navigator.pop(context);
                                                         if (widget.id == null) {
-                                                          await equityController
+                                                          await InjectionHelper
+                                                              .equityInvestmentController
                                                               .onSubmitEquityInvestment(
                                                                   context:
                                                                       context,
                                                                   type: "1");
                                                         } else {
-                                                          equityController
+                                                          InjectionHelper
+                                                              .equityInvestmentController
                                                               .onEditEquityInvestment(
                                                                   context:
                                                                       context,
@@ -429,10 +505,11 @@ class _Step2EquityState extends State<Step2Equity> {
                                                       },
                                                       isCancel: true,
                                                       onDiscard: () {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .resetData();
-                                                        context.go(
-                                                            '/get_funding');
+                                                        context
+                                                            .go('/get_funding');
                                                       });
                                                 },
                                       icon: Icon(
@@ -464,8 +541,9 @@ class _Step2EquityState extends State<Step2Equity> {
                             ],
                           ),
                     body: Obx(
-                      () => memberController.isLoading.value ||
-                              equityController.isLoadingData.value
+                      () => InjectionHelper.memberController.isLoading.value ||
+                              InjectionHelper.equityInvestmentController
+                                  .isLoadingData.value
                           ? const LinearProgressIndicator()
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -495,10 +573,14 @@ class _Step2EquityState extends State<Step2Equity> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            memberController.companyDataList
+                                            InjectionHelper
+                                                        .memberController
+                                                        .companyDataList
                                                         .isNotEmpty &&
-                                                    memberController
-                                                            .addCompany.value ==
+                                                    InjectionHelper
+                                                            .memberController
+                                                            .addCompany
+                                                            .value ==
                                                         false
                                                 ? Padding(
                                                     padding:
@@ -508,23 +590,27 @@ class _Step2EquityState extends State<Step2Equity> {
                                                       colors: Colors.white,
                                                       onCreateCompany: () {
                                                         onResetCompany();
-                                                        memberController
+                                                        InjectionHelper
+                                                            .memberController
                                                             .addCompany
                                                             .value = true;
-                                                        memberController
+                                                        InjectionHelper
+                                                            .memberController
                                                             .addCompany
                                                             .refresh();
-                                                        memberController
+                                                        InjectionHelper
+                                                            .memberController
                                                             .update();
 
                                                         Navigator.pop(context);
                                                       },
                                                       isCompany: true,
-                                                      isValidate:
-                                                          equityController
-                                                              .isValCompanyName
-                                                              .value,
-                                                      item: memberController
+                                                      isValidate: InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isValCompanyName
+                                                          .value,
+                                                      item: InjectionHelper
+                                                          .memberController
                                                           .companyDataList
                                                           .asMap()
                                                           .entries
@@ -617,37 +703,45 @@ class _Step2EquityState extends State<Step2Equity> {
                                                         );
                                                       }).toList(),
                                                       onChange: (v) {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .companyName
                                                             .value = v["Name"];
-                                                        equityController
-                                                                .address.value =
-                                                            v["Address"];
+                                                        InjectionHelper
+                                                            .equityInvestmentController
+                                                            .address
+                                                            .value = v["Address"];
 
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .addresscontroller
                                                             .text = v["Address"];
 
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .yearOfEstablishment
                                                             .value = v['Year'];
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .yearOfestabliscontroller
                                                             .text = v['Year'];
-                                                        equityController
-                                                                .ownerName
-                                                                .value =
-                                                            v['OwnerName'];
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
+                                                            .ownerName
+                                                            .value = v['OwnerName'];
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .ownerNamecontroller
                                                             .text = v['OwnerName'];
 
                                                         v['NumberOfStaff'] ==
                                                                 '0'
-                                                            ? equityController
+                                                            ? InjectionHelper
+                                                                .equityInvestmentController
                                                                 .numberOfStaff
                                                                 .value = ''
-                                                            : equityController
+                                                            : InjectionHelper
+                                                                    .equityInvestmentController
                                                                     .numberOfStaff
                                                                     .value =
                                                                 v['NumberOfStaff'];
@@ -658,17 +752,20 @@ class _Step2EquityState extends State<Step2Equity> {
                                                                         'NumberOfStaff']));
                                                         v['NumberOfStaff'] ==
                                                                 '0'
-                                                            ? equityController
+                                                            ? InjectionHelper
+                                                                .equityInvestmentController
                                                                 .numberofStaffcontroller
                                                                 .text = ''
-                                                            : equityController
+                                                            : InjectionHelper
+                                                                    .equityInvestmentController
                                                                     .numberofStaffcontroller
                                                                     .text =
                                                                 displaynumberstaff
                                                                     .toString();
 
                                                         ///
-                                                        equityController
+                                                        InjectionHelper
+                                                                .equityInvestmentController
                                                                 .typeOfOrganization
                                                                 .value =
                                                             Optionmodel(
@@ -676,7 +773,8 @@ class _Step2EquityState extends State<Step2Equity> {
                                                                     'Typeid']),
                                                                 display: v[
                                                                     'TypeDis']);
-                                                        equityController
+                                                        InjectionHelper
+                                                                .equityInvestmentController
                                                                 .industry
                                                                 .value =
                                                             Optionmodel(
@@ -684,71 +782,88 @@ class _Step2EquityState extends State<Step2Equity> {
                                                                     'Industryid']),
                                                                 display: v[
                                                                     'IndustryDis']);
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .taxcontroller
                                                             .text = v['Tax'];
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .taxIdentificationNumber
                                                             .value = v['Tax'];
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .companyIndex
                                                             .value = v['Code'];
 
-                                                        equityController
-                                                                .productSevice
-                                                                .value =
-                                                            v["Product"];
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
+                                                            .productSevice
+                                                            .value = v["Product"];
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .productController
                                                             .text = v["Product"];
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValProductService
                                                             .value = true;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValCompanyName
                                                             .value = true;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValAddress
                                                             .value = true;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValYearOfEstablishment
                                                             .value = true;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValTypeOfOrganization
                                                             .value = true;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValIndustry
                                                             .value = true;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValNumberOfStaff
                                                             .value = true;
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .isValOwnerName
                                                             .value = true;
                                                       },
                                                       label: 'Company Name',
-                                                      defaultValue:
-                                                          equityController
-                                                                      .companyName
-                                                                      .value !=
-                                                                  ''
-                                                              ? {
-                                                                  "Name": equityController
-                                                                      .companyName
-                                                                      .value,
-                                                                  "Code": equityController
-                                                                      .companyIndex
-                                                                      .value
-                                                                }
-                                                              : null,
+                                                      defaultValue: InjectionHelper
+                                                                  .equityInvestmentController
+                                                                  .companyName
+                                                                  .value !=
+                                                              ''
+                                                          ? {
+                                                              "Name": InjectionHelper
+                                                                  .equityInvestmentController
+                                                                  .companyName
+                                                                  .value,
+                                                              "Code": InjectionHelper
+                                                                  .equityInvestmentController
+                                                                  .companyIndex
+                                                                  .value
+                                                            }
+                                                          : null,
                                                     ),
                                                   )
-                                                : memberController
-                                                            .addCompany.value ==
+                                                : InjectionHelper
+                                                            .memberController
+                                                            .addCompany
+                                                            .value ==
                                                         true
                                                     ? CustomTextFieldNew(
                                                         autoFocus:
-                                                            memberController
+                                                            InjectionHelper
+                                                                .memberController
                                                                 .addCompany
                                                                 .value,
                                                         textInputAction:
@@ -756,43 +871,49 @@ class _Step2EquityState extends State<Step2Equity> {
                                                                 .next,
                                                         maxLine: 1,
                                                         isRequired: true,
-                                                        isValidate:
-                                                            equityController
-                                                                .isValCompanyName
-                                                                .value,
+                                                        isValidate: InjectionHelper
+                                                            .equityInvestmentController
+                                                            .isValCompanyName
+                                                            .value,
                                                         labelText:
                                                             'Company Name',
                                                         hintText:
                                                             'Company Name',
                                                         onChange: (value) {
-                                                          equityController
+                                                          InjectionHelper
+                                                              .equityInvestmentController
                                                               .isValCompanyName
                                                               .value = true;
                                                           if (value.isEmpty) {
-                                                            equityController
+                                                            InjectionHelper
+                                                                .equityInvestmentController
                                                                 .companyName
                                                                 .value = '';
                                                             tempData.companyName =
                                                                 "";
                                                           } else {
-                                                            equityController
+                                                            InjectionHelper
+                                                                .equityInvestmentController
                                                                 .companyName
                                                                 .value = value;
                                                             tempData.companyName =
-                                                                equityController
+                                                                InjectionHelper
+                                                                    .equityInvestmentController
                                                                     .companyName
                                                                     .value;
                                                           }
                                                           setState(() {});
                                                         },
                                                         initialValue:
-                                                            equityController
+                                                            InjectionHelper
+                                                                .equityInvestmentController
                                                                 .companyName
                                                                 .value,
                                                       )
                                                     : CustomTextFieldNew(
                                                         autoFocus:
-                                                            memberController
+                                                            InjectionHelper
+                                                                .memberController
                                                                 .addCompany
                                                                 .value,
                                                         textInputAction:
@@ -800,20 +921,22 @@ class _Step2EquityState extends State<Step2Equity> {
                                                                 .next,
                                                         maxLine: 1,
                                                         isRequired: true,
-                                                        isValidate:
-                                                            equityController
-                                                                .isValCompanyName
-                                                                .value,
+                                                        isValidate: InjectionHelper
+                                                            .equityInvestmentController
+                                                            .isValCompanyName
+                                                            .value,
                                                         labelText:
                                                             'Company Name',
                                                         hintText:
                                                             'Company Name',
                                                         onChange: (value) {
-                                                          equityController
+                                                          InjectionHelper
+                                                              .equityInvestmentController
                                                               .isValCompanyName
                                                               .value = true;
                                                           if (value.isEmpty) {
-                                                            equityController
+                                                            InjectionHelper
+                                                                .equityInvestmentController
                                                                 .companyName
                                                                 .value = '';
                                                             setState(() {
@@ -821,19 +944,22 @@ class _Step2EquityState extends State<Step2Equity> {
                                                                   "";
                                                             });
                                                           } else {
-                                                            equityController
+                                                            InjectionHelper
+                                                                .equityInvestmentController
                                                                 .companyName
                                                                 .value = value;
                                                             setState(() {
                                                               tempData.companyName =
-                                                                  equityController
+                                                                  InjectionHelper
+                                                                      .equityInvestmentController
                                                                       .companyName
                                                                       .value;
                                                             });
                                                           }
                                                         },
                                                         initialValue:
-                                                            equityController
+                                                            InjectionHelper
+                                                                .equityInvestmentController
                                                                 .companyName
                                                                 .value,
                                                       ),
@@ -843,32 +969,46 @@ class _Step2EquityState extends State<Step2Equity> {
                                                 FocusScope.of(context)
                                                     .requestFocus(yearofFocus);
                                               },
-                                              controller: equityController
+                                              controller: InjectionHelper
+                                                  .equityInvestmentController
                                                   .addresscontroller,
                                               isRequired: true,
-                                              isValidate: equityController
-                                                  .isValAddress.value,
+                                              isValidate: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .isValAddress
+                                                  .value,
                                               labelText: 'Address',
                                               hintText: 'Address',
                                               onChange: (value) {
                                                 if (value.isEmpty) {
-                                                  equityController
-                                                      .address.value = '';
-                                                  equityController.isValAddress
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .address
+                                                      .value = '';
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .isValAddress
                                                       .value = false;
                                                 } else {
-                                                  equityController
-                                                      .address.value = value;
-                                                  equityController.isValAddress
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .address
+                                                      .value = value;
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .isValAddress
                                                       .value = true;
                                                 }
                                               },
-                                              initialValue: equityController
-                                                  .address.value,
+                                              initialValue: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .address
+                                                  .value,
                                             ),
                                             CustomTextFieldNew(
                                               maxlenght: 4,
-                                              controller: equityController
+                                              controller: InjectionHelper
+                                                  .equityInvestmentController
                                                   .yearOfestabliscontroller,
                                               inputFormatterList: [
                                                 FilteringTextInputFormatter
@@ -884,7 +1024,8 @@ class _Step2EquityState extends State<Step2Equity> {
                                                     .requestFocus(taxFocus);
                                               },
                                               isRequired: true,
-                                              isValidate: equityController
+                                              isValidate: InjectionHelper
+                                                  .equityInvestmentController
                                                   .isValYearOfEstablishment
                                                   .value,
                                               labelText:
@@ -892,23 +1033,29 @@ class _Step2EquityState extends State<Step2Equity> {
                                               hintText: 'Year Of Establishment',
                                               onChange: (value) {
                                                 if (value.isEmpty) {
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .yearOfEstablishment
                                                       .value = '';
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValYearOfEstablishment
                                                       .value = false;
                                                 } else {
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .yearOfEstablishment
                                                       .value = value;
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValYearOfEstablishment
                                                       .value = true;
                                                 }
                                               },
-                                              initialValue: equityController
-                                                  .yearOfEstablishment.value,
+                                              initialValue: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .yearOfEstablishment
+                                                  .value,
                                             ),
                                             CICDropdown(
                                               onCreateCompany: () {
@@ -921,7 +1068,8 @@ class _Step2EquityState extends State<Step2Equity> {
                                                     Navigator.pop(context);
                                                   },
                                                   onSave: () {
-                                                    equityController
+                                                    InjectionHelper
+                                                            .equityInvestmentController
                                                             .typeOfOrganization
                                                             .value
                                                             .display =
@@ -929,7 +1077,8 @@ class _Step2EquityState extends State<Step2Equity> {
 
                                                     if (addNewOtherType.text !=
                                                         "") {
-                                                      equityController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .typeOfOrganization
                                                           .value
                                                           .id = null;
@@ -953,10 +1102,11 @@ class _Step2EquityState extends State<Step2Equity> {
                                               isCompany: true,
                                               otherLabel: "Add Other",
                                               colors: Colors.white,
-                                              isValidate: equityController
+                                              isValidate: InjectionHelper
+                                                  .equityInvestmentController
                                                   .isValTypeOfOrganization
                                                   .value,
-                                              item: optionController.optionData
+                                              item: InjectionHelper.optionController.optionData
                                                   .value.organization!
                                                   .asMap()
                                                   .entries
@@ -970,34 +1120,40 @@ class _Step2EquityState extends State<Step2Equity> {
                                                 );
                                               }).toList(),
                                               onChange: (v) {
-                                                equityController
+                                                InjectionHelper
+                                                    .equityInvestmentController
                                                     .typeOfOrganization
                                                     .value = Optionmodel(
                                                   id: int.parse(v["Code"]),
                                                   display: v["Name"],
                                                 );
-                                                equityController
+                                                InjectionHelper
+                                                    .equityInvestmentController
                                                     .isValTypeOfOrganization
                                                     .value = true;
                                               },
                                               label: 'Type Of Organization',
-                                              defaultValue: equityController
+                                              defaultValue: InjectionHelper
+                                                              .equityInvestmentController
                                                               .typeOfOrganization
                                                               .value
                                                               .display !=
                                                           null &&
-                                                      equityController
+                                                      InjectionHelper
+                                                              .equityInvestmentController
                                                               .typeOfOrganization
                                                               .value
                                                               .display!
                                                               .toLowerCase() !=
                                                           'null'
                                                   ? {
-                                                      "Name": equityController
+                                                      "Name": InjectionHelper
+                                                          .equityInvestmentController
                                                           .typeOfOrganization
                                                           .value
                                                           .display,
-                                                      "Code": equityController
+                                                      "Code": InjectionHelper
+                                                          .equityInvestmentController
                                                           .typeOfOrganization
                                                           .value
                                                           .id
@@ -1008,7 +1164,8 @@ class _Step2EquityState extends State<Step2Equity> {
                                               height: 10,
                                             ),
                                             CustomTextFieldNew(
-                                              controller: equityController
+                                              controller: InjectionHelper
+                                                  .equityInvestmentController
                                                   .taxcontroller,
                                               focusScope: taxFocus,
                                               onEditingComplete: () {
@@ -1022,16 +1179,19 @@ class _Step2EquityState extends State<Step2Equity> {
                                                   'Tax Identification Number (TIN)',
                                               onChange: (value) {
                                                 if (value.isEmpty) {
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .taxIdentificationNumber
                                                       .value = '';
                                                 } else {
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .taxIdentificationNumber
                                                       .value = value;
                                                 }
                                               },
-                                              initialValue: equityController
+                                              initialValue: InjectionHelper
+                                                  .equityInvestmentController
                                                   .taxIdentificationNumber
                                                   .value,
                                             ),
@@ -1046,15 +1206,21 @@ class _Step2EquityState extends State<Step2Equity> {
                                                     Navigator.pop(context);
                                                   },
                                                   onSave: () {
-                                                    equityController.industry
-                                                            .value.display =
+                                                    InjectionHelper
+                                                            .equityInvestmentController
+                                                            .industry
+                                                            .value
+                                                            .display =
                                                         addNewOtherIndustry
                                                             .text;
                                                     if (addNewOtherIndustry
                                                             .text !=
                                                         "") {
-                                                      equityController.industry
-                                                          .value.id = null;
+                                                      InjectionHelper
+                                                          .equityInvestmentController
+                                                          .industry
+                                                          .value
+                                                          .id = null;
                                                     }
                                                     setState(() {});
                                                     Navigator.pop(context);
@@ -1074,27 +1240,37 @@ class _Step2EquityState extends State<Step2Equity> {
                                               isCompany: true,
                                               otherLabel: "Add Other",
                                               colors: Colors.white,
-                                              defaultValue: equityController
+                                              defaultValue: InjectionHelper
+                                                              .equityInvestmentController
                                                               .industry
                                                               .value
                                                               .display !=
                                                           null &&
-                                                      equityController.industry
-                                                              .value.display!
+                                                      InjectionHelper
+                                                              .equityInvestmentController
+                                                              .industry
+                                                              .value
+                                                              .display!
                                                               .toLowerCase() !=
                                                           'null'
                                                   ? {
-                                                      "Name": equityController
+                                                      "Name": InjectionHelper
+                                                          .equityInvestmentController
                                                           .industry
                                                           .value
                                                           .display,
-                                                      "Code": equityController
-                                                          .industry.value.id
+                                                      "Code": InjectionHelper
+                                                          .equityInvestmentController
+                                                          .industry
+                                                          .value
+                                                          .id
                                                     }
                                                   : null,
-                                              isValidate: equityController
-                                                  .isValIndustry.value,
-                                              item: optionController
+                                              isValidate: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .isValIndustry
+                                                  .value,
+                                              item: InjectionHelper.optionController
                                                   .optionData.value.industry!
                                                   .asMap()
                                                   .entries
@@ -1108,13 +1284,17 @@ class _Step2EquityState extends State<Step2Equity> {
                                                 );
                                               }).toList(),
                                               onChange: (v) {
-                                                equityController.industry
+                                                InjectionHelper
+                                                    .equityInvestmentController
+                                                    .industry
                                                     .value = Optionmodel(
                                                   display: v["Name"],
                                                   id: int.parse(v["Code"]),
                                                 );
-                                                equityController
-                                                    .isValIndustry.value = true;
+                                                InjectionHelper
+                                                    .equityInvestmentController
+                                                    .isValIndustry
+                                                    .value = true;
                                               },
                                               label: 'Industry',
                                             ),
@@ -1131,7 +1311,8 @@ class _Step2EquityState extends State<Step2Equity> {
                                               ],
                                               keyboardType:
                                                   TextInputType.number,
-                                              controller: equityController
+                                              controller: InjectionHelper
+                                                  .equityInvestmentController
                                                   .numberofStaffcontroller,
                                               focusScope: numberofFocus,
                                               onEditingComplete: () {
@@ -1140,88 +1321,121 @@ class _Step2EquityState extends State<Step2Equity> {
                                                         ownernameFocus);
                                               },
                                               isRequired: true,
-                                              isValidate: equityController
-                                                  .isValNumberOfStaff.value,
+                                              isValidate: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .isValNumberOfStaff
+                                                  .value,
                                               labelText: 'Number Of Staff',
                                               hintText: 'Number Of Staff',
                                               onChange: (valueChanged) {
                                                 var value = valueChanged
                                                     .replaceAll(',', '');
                                                 if (value.isEmpty) {
-                                                  equityController
-                                                      .numberOfStaff.value = '';
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .numberOfStaff
+                                                      .value = '';
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValNumberOfStaff
                                                       .value = false;
                                                 } else {
-                                                  equityController.numberOfStaff
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .numberOfStaff
                                                       .value = value;
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValNumberOfStaff
                                                       .value = true;
                                                 }
                                               },
-                                              initialValue: equityController
+                                              initialValue: InjectionHelper
+                                                          .equityInvestmentController
                                                           .numberOfStaff
                                                           .value ==
                                                       "0"
                                                   ? ""
-                                                  : equityController
-                                                      .numberOfStaff.value,
+                                                  : InjectionHelper
+                                                      .equityInvestmentController
+                                                      .numberOfStaff
+                                                      .value,
                                             ),
                                             CustomTextFieldNew(
-                                              controller: equityController
+                                              controller: InjectionHelper
+                                                  .equityInvestmentController
                                                   .ownerNamecontroller,
                                               focusScope: ownernameFocus,
                                               onEditingComplete: () {},
                                               isRequired: true,
-                                              isValidate: equityController
-                                                  .isValOwnerName.value,
+                                              isValidate: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .isValOwnerName
+                                                  .value,
                                               labelText: 'Owner Name',
                                               hintText: 'Owner Name',
                                               onChange: (value) {
                                                 if (value.isEmpty) {
-                                                  equityController
-                                                      .ownerName.value = '';
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .ownerName
+                                                      .value = '';
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValOwnerName
                                                       .value = false;
                                                 } else {
-                                                  equityController
-                                                      .ownerName.value = value;
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .ownerName
+                                                      .value = value;
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValOwnerName
                                                       .value = true;
                                                 }
                                               },
-                                              initialValue: equityController
-                                                  .ownerName.value,
+                                              initialValue: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .ownerName
+                                                  .value,
                                             ),
                                             CustomTextFieldNew(
                                               isRequired: true,
-                                              controller: equityController
+                                              controller: InjectionHelper
+                                                  .equityInvestmentController
                                                   .productController,
-                                              isValidate: equityController
-                                                  .isValProductService.value,
+                                              isValidate: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .isValProductService
+                                                  .value,
                                               labelText: 'Product / Service',
                                               hintText: 'Product / Service',
                                               onChange: (value) {
                                                 if (value.isEmpty) {
-                                                  equityController
-                                                      .productSevice.value = '';
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .productSevice
+                                                      .value = '';
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValProductService
                                                       .value = false;
                                                 } else {
-                                                  equityController.productSevice
+                                                  InjectionHelper
+                                                      .equityInvestmentController
+                                                      .productSevice
                                                       .value = value;
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .isValProductService
                                                       .value = true;
                                                 }
                                               },
-                                              initialValue: equityController
-                                                  .productSevice.value,
+                                              initialValue: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .productSevice
+                                                  .value,
                                             ),
                                             const SizedBox(
                                               height: 20,
@@ -1255,23 +1469,31 @@ class _Step2EquityState extends State<Step2Equity> {
                                                     isMultipleSelect: true,
                                                     title:
                                                         'Company’s Patent Document',
-                                                    isSelect: equityController
-                                                        .isPatentDoc.value,
+                                                    isSelect: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .isPatentDoc
+                                                        .value,
                                                     ontap: () {
-                                                      equityController
+                                                      InjectionHelper
+                                                              .equityInvestmentController
                                                               .isPatentDoc
                                                               .value =
-                                                          !equityController
+                                                          !InjectionHelper
+                                                              .equityInvestmentController
                                                               .isPatentDoc
                                                               .value;
 
-                                                      if (equityController
-                                                          .isPatentDoc.value) {
-                                                        equityController
+                                                      if (InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isPatentDoc
+                                                          .value) {
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .patentDocument
                                                             .value = 1;
                                                       } else {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .patentDocument
                                                             .value = 0;
                                                       }
@@ -1284,23 +1506,30 @@ class _Step2EquityState extends State<Step2Equity> {
                                                     isMultipleSelect: true,
                                                     title:
                                                         'Company’s MOC Certificate',
-                                                    isSelect: equityController
-                                                        .isCertificate.value,
+                                                    isSelect: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .isCertificate
+                                                        .value,
                                                     ontap: () {
-                                                      equityController
+                                                      InjectionHelper
+                                                              .equityInvestmentController
                                                               .isCertificate
                                                               .value =
-                                                          !equityController
+                                                          !InjectionHelper
+                                                              .equityInvestmentController
                                                               .isCertificate
                                                               .value;
-                                                      if (equityController
+                                                      if (InjectionHelper
+                                                          .equityInvestmentController
                                                           .isCertificate
                                                           .value) {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .certificatioDoc
                                                             .value = 1;
                                                       } else {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .certificatioDoc
                                                             .value = 0;
                                                       }
@@ -1313,20 +1542,30 @@ class _Step2EquityState extends State<Step2Equity> {
                                                     isMultipleSelect: true,
                                                     title:
                                                         'Company’s License Document',
-                                                    isSelect: equityController
-                                                        .isLicense.value,
+                                                    isSelect: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .isLicense
+                                                        .value,
                                                     ontap: () {
-                                                      equityController
-                                                              .isLicense.value =
-                                                          !equityController
-                                                              .isLicense.value;
-                                                      if (equityController
-                                                          .isLicense.value) {
-                                                        equityController
+                                                      InjectionHelper
+                                                              .equityInvestmentController
+                                                              .isLicense
+                                                              .value =
+                                                          !InjectionHelper
+                                                              .equityInvestmentController
+                                                              .isLicense
+                                                              .value;
+                                                      if (InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isLicense
+                                                          .value) {
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .licenseDoc
                                                             .value = 1;
                                                       } else {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .licenseDoc
                                                             .value = 0;
                                                       }
@@ -1339,23 +1578,31 @@ class _Step2EquityState extends State<Step2Equity> {
                                                     isMultipleSelect: true,
                                                     title:
                                                         'Company’s Memorandum And Article Of \n Association',
-                                                    isSelect: equityController
-                                                        .isMemorandum.value,
+                                                    isSelect: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .isMemorandum
+                                                        .value,
                                                     ontap: () {
-                                                      equityController
+                                                      InjectionHelper
+                                                              .equityInvestmentController
                                                               .isMemorandum
                                                               .value =
-                                                          !equityController
+                                                          !InjectionHelper
+                                                              .equityInvestmentController
                                                               .isMemorandum
                                                               .value;
                                                       //check if else make sure value in ontap is ture when we have API
-                                                      if (equityController
-                                                          .isMemorandum.value) {
-                                                        equityController
+                                                      if (InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isMemorandum
+                                                          .value) {
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .memorandumDoc
                                                             .value = 1;
                                                       } else {
-                                                        equityController
+                                                        InjectionHelper
+                                                            .equityInvestmentController
                                                             .memorandumDoc
                                                             .value = 0;
                                                       }
@@ -1381,86 +1628,71 @@ class _Step2EquityState extends State<Step2Equity> {
                                       Expanded(
                                         child: CustomButton(
                                           isDisable: widget.id != null
-                                              ? equityController.companyName.value == "" &&
-                                                      equityController.address.value ==
+                                              ? InjectionHelper.equityInvestmentController.companyName.value == "" &&
+                                                      InjectionHelper.equityInvestmentController.address.value ==
                                                           "" &&
-                                                      equityController.yearOfEstablishment
-                                                              .value ==
+                                                      InjectionHelper.equityInvestmentController.yearOfEstablishment.value ==
                                                           "" &&
-                                                      equityController
+                                                      InjectionHelper
+                                                              .equityInvestmentController
                                                               .typeOfOrganization
                                                               .value
                                                               .display ==
                                                           null &&
-                                                      equityController
-                                                              .taxIdentificationNumber
-                                                              .value ==
+                                                      InjectionHelper.equityInvestmentController.taxIdentificationNumber.value ==
                                                           "" &&
-                                                      equityController.industry
-                                                              .value.display ==
+                                                      InjectionHelper
+                                                              .equityInvestmentController
+                                                              .industry
+                                                              .value
+                                                              .display ==
                                                           null &&
-                                                      equityController
-                                                              .numberOfStaff
+                                                      InjectionHelper.equityInvestmentController.numberOfStaff.value ==
+                                                          "" &&
+                                                      InjectionHelper
+                                                              .equityInvestmentController
+                                                              .ownerName
                                                               .value ==
                                                           "" &&
-                                                      equityController
-                                                              .ownerName.value ==
+                                                      InjectionHelper
+                                                              .equityInvestmentController
+                                                              .productSevice
+                                                              .value ==
                                                           "" &&
-                                                      equityController
-                                                              .productSevice.value ==
-                                                          "" &&
-                                                      !equityController
-                                                          .isPatentDoc.value &&
-                                                      !equityController
-                                                          .isCertificate.value &&
-                                                      !equityController
-                                                          .isLicense.value &&
-                                                      !equityController.isMemorandum
+                                                      !InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isPatentDoc
+                                                          .value &&
+                                                      !InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isCertificate
+                                                          .value &&
+                                                      !InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isLicense
+                                                          .value &&
+                                                      !InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isMemorandum
                                                           .value
                                                   ? true
-                                                  : widget
-                                                                  .id !=
-                                                              null &&
+                                                  : widget.id != null &&
                                                           checkdisablesavedraf() &&
                                                           addNewOtherIndustry.text ==
                                                               "" &&
-                                                          addNewOtherType
-                                                                  .text ==
+                                                          addNewOtherType.text ==
                                                               ""
                                                       ? true
                                                       : false
-                                              : equityController
-                                                              .companyName.value ==
-                                                          "" &&
-                                                      equityController.address.value ==
-                                                          "" &&
-                                                      equityController
-                                                              .yearOfEstablishment
-                                                              .value ==
-                                                          "" &&
-                                                      equityController
-                                                              .typeOfOrganization
-                                                              .value
-                                                              .display ==
-                                                          null &&
-                                                      equityController
-                                                              .taxIdentificationNumber
-                                                              .value ==
-                                                          "" &&
-                                                      equityController.industry
-                                                              .value.display ==
-                                                          null &&
-                                                      equityController
-                                                              .numberOfStaff
-                                                              .value ==
-                                                          "" &&
-                                                      equityController.ownerName
-                                                              .value ==
-                                                          "" &&
-                                                      equityController
-                                                              .productSevice
-                                                              .value ==
-                                                          ""
+                                              : InjectionHelper.equityInvestmentController.companyName.value == "" &&
+                                                      InjectionHelper.equityInvestmentController.address.value == "" &&
+                                                      InjectionHelper.equityInvestmentController.yearOfEstablishment.value == "" &&
+                                                      InjectionHelper.equityInvestmentController.typeOfOrganization.value.display == null &&
+                                                      InjectionHelper.equityInvestmentController.taxIdentificationNumber.value == "" &&
+                                                      InjectionHelper.equityInvestmentController.industry.value.display == null &&
+                                                      InjectionHelper.equityInvestmentController.numberOfStaff.value == "" &&
+                                                      InjectionHelper.equityInvestmentController.ownerName.value == "" &&
+                                                      InjectionHelper.equityInvestmentController.productSevice.value == ""
                                                   ? true
                                                   : false,
                                           isOutline: true,
@@ -1469,24 +1701,26 @@ class _Step2EquityState extends State<Step2Equity> {
                                                   FirebaseAnalyticsHelper
                                                       .sendAnalyticsEvent(
                                                           "Equity Update Draft Step2");
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .onEditEquityInvestment(
                                                           showSnackbar: false,
                                                           context: context,
                                                           id: widget.id!,
                                                           pagenumber: "2",
-                                                          frompage:
-                                                              equityController
-                                                                  .applicationData
-                                                                  .value
-                                                                  .step!
-                                                                  .toInt());
+                                                          frompage: InjectionHelper
+                                                              .equityInvestmentController
+                                                              .applicationData
+                                                              .value
+                                                              .step!
+                                                              .toInt());
                                                 }
                                               : () {
                                                   FirebaseAnalyticsHelper
                                                       .sendAnalyticsEvent(
                                                           "Equity Save Draft Step2");
-                                                  equityController
+                                                  InjectionHelper
+                                                      .equityInvestmentController
                                                       .onSubmitEquityInvestment(
                                                           showSnackbar: false,
                                                           context: context,

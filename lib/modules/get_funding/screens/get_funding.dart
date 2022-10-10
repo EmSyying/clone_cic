@@ -6,8 +6,6 @@ import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/generated/l10n.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/history_get_funding.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/debt_investment.dart';
 import 'package:cicgreenloan/modules/get_funding/screens/equity_investment.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
@@ -27,6 +25,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
+import '../../../Utils/helper/injection_helper/injection_helper.dart';
 
 class HomePage extends StatefulWidget {
   final bool? isNavigator;
@@ -83,9 +82,6 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
   int? userID;
   String? deviceType = "";
   String? pageName = 'equity-investment';
-  final debtCon = Get.put(DebtInvestmentController());
-  final equityController = Get.put(EquityInvestmentController());
-  final equityCon = Get.put(EquityInvestmentController());
 
   ///virak
   final GlobalKey _one = GlobalKey();
@@ -112,21 +108,25 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
 
   @override
   void dispose() {
-    // debtCon.tabController.dispose();
+    // InjectionHelper.debtInvestmentController.tabController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     startShowCase();
-    debtCon.tabController = TabController(
-        length: 2, vsync: this, initialIndex: debtCon.tapcurrentIndex.value);
-    debtCon.tabController.addListener(() {
+    InjectionHelper.debtInvestmentController.tabController = TabController(
+        length: 2,
+        vsync: this,
+        initialIndex:
+            InjectionHelper.debtInvestmentController.tapcurrentIndex.value);
+    InjectionHelper.debtInvestmentController.tabController.addListener(() {
       setState(() {
-        debtCon.tapcurrentIndex.value = debtCon.tabController.index;
+        InjectionHelper.debtInvestmentController.tapcurrentIndex.value =
+            InjectionHelper.debtInvestmentController.tabController.index;
       });
     });
-    equityCon.fetchCallCenter();
+    InjectionHelper.equityInvestmentController.fetchCallCenter();
     super.initState();
   }
 
@@ -134,9 +134,9 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
   void didChangeDependencies() {
     final router = GoRouter.of(context);
     if (router.location.contains('get_funding')) {
-      debtCon.tapcurrentIndex.value = 0;
+      InjectionHelper.debtInvestmentController.tapcurrentIndex.value = 0;
     } else {
-      debtCon.tapcurrentIndex.value = 1;
+      InjectionHelper.debtInvestmentController.tapcurrentIndex.value = 1;
     }
 
     super.didChangeDependencies();
@@ -216,6 +216,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                 CustomAppBar(
                   context: context,
                   title: 'Get Funding',
+                  isLogo: false,
                   action: [
                     GestureDetector(
                       onTap: () async {
@@ -238,17 +239,9 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                         : Platform.isIOS || Platform.isAndroid
                             ? GestureDetector(
                                 onTap: () async {
-                                  debugPrint(
-                                      '===================:${equityCon.callCenter.value.link}');
-                                  // var url = Uri(
-                                  //   scheme: 'https',
-                                  //   host: 't.me',
-                                  //   path: 'horn_chhany',
-                                  // );
-                                  // await launch('${equityCon.callCenter.value.link}');
                                   await launchUrl(
                                     Uri.parse(
-                                        '${equityCon.callCenter.value.link}'),
+                                        '${InjectionHelper.equityInvestmentController.callCenter.value.link}'),
                                     mode: LaunchMode.externalApplication,
                                   );
                                 },
@@ -335,7 +328,8 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                         fontSize: 16,
                         color: Theme.of(context).primaryColor),
                     indicatorWeight: 3,
-                    controller: debtCon.tabController,
+                    controller:
+                        InjectionHelper.debtInvestmentController.tabController,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,
@@ -355,7 +349,8 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                 ),
                 Expanded(
                   child: TabBarView(
-                    controller: debtCon.tabController,
+                    controller:
+                        InjectionHelper.debtInvestmentController.tabController,
                     children: const [
                       EquityInvestment(),
                       DebtInvestment(),

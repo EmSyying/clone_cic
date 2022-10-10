@@ -1,11 +1,7 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
-import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
-import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/equatable_debt_model.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/gender.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member_personal_profile.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/utils/form_builder/address_select_modal_sheet.dart';
@@ -16,7 +12,6 @@ import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/pop_up_alert/show_alert_dialog.dart';
 import 'package:cicgreenloan/utils/select_address/address_model/address.dart';
 import 'package:cicgreenloan/utils/select_address/address_model/full_address_model.dart';
-import 'package:cicgreenloan/utils/select_address/select_address_controller.dart';
 import 'package:cicgreenloan/widgets/get_funding/address_picker.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_chips.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +23,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/helper/container_partern.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
+import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
 
 class Step1Debt extends StatefulWidget {
@@ -40,11 +36,6 @@ class Step1Debt extends StatefulWidget {
 }
 
 class _Step1DebtState extends State<Step1Debt> {
-  final debtCon = Get.put(DebtInvestmentController());
-  final cusCon = Get.put(CustomerController());
-  final reqCon = Get.put(RequestLoanController());
-  final option = Get.put(DocumentCategory());
-  final _memberCon = Get.put(MemberController());
   final _formKey = GlobalKey<FormState>();
   List addressOption = ['Yes', 'No'];
   List<GenderOption> gender = [
@@ -57,69 +48,105 @@ class _Step1DebtState extends State<Step1Debt> {
 
   // ignore: unused_element
   void _onValidate() {
-    if (debtCon.fullName.value == '') {
-      debtCon.isValidateFullName.value = false;
+    if (InjectionHelper.debtInvestmentController.fullName.value == '') {
+      InjectionHelper.debtInvestmentController.isValidateFullName.value = false;
     } else {
-      debtCon.isValidateFullName.value = true;
+      InjectionHelper.debtInvestmentController.isValidateFullName.value = true;
     }
-    if (debtCon.dateOfBirth.value == "") {
-      debtCon.isValidateDateOfBirth.value = false;
+    if (InjectionHelper.debtInvestmentController.dateOfBirth.value == "") {
+      InjectionHelper.debtInvestmentController.isValidateDateOfBirth.value =
+          false;
     } else {
-      debtCon.isValidateDateOfBirth.value = true;
+      InjectionHelper.debtInvestmentController.isValidateDateOfBirth.value =
+          true;
     }
-    if (debtCon.gender.value.display != null) {
-      debtCon.isValidateGender.value = true;
+    if (InjectionHelper.debtInvestmentController.gender.value.display != null) {
+      InjectionHelper.debtInvestmentController.isValidateGender.value = true;
     } else {
-      debtCon.isValidateGender.value = false;
+      InjectionHelper.debtInvestmentController.isValidateGender.value = false;
     }
-    if (debtCon.email.value == "") {
-      debtCon.isValidateEmail.value = false;
+    if (InjectionHelper.debtInvestmentController.email.value == "") {
+      InjectionHelper.debtInvestmentController.isValidateEmail.value = false;
     } else {
-      debtCon.isValidateEmail.value = true;
+      InjectionHelper.debtInvestmentController.isValidateEmail.value = true;
     }
-    if (debtCon.phoneNumber.value == "") {
-      debtCon.isValidatePhone.value = false;
+    if (InjectionHelper.debtInvestmentController.phoneNumber.value == "") {
+      InjectionHelper.debtInvestmentController.isValidatePhone.value = false;
     } else {
-      debtCon.isValidatePhone.value = true;
+      InjectionHelper.debtInvestmentController.isValidatePhone.value = true;
     }
 
-    if (reqCon.selectedAddressOption.value == 0) {
-      debtCon.fullResidentAddress.value = debtCon.fullCurrentAddress.value;
-      debtCon.isValidatePermenantAddress.value = true;
+    if (InjectionHelper.requestLoanController.selectedAddressOption.value ==
+        0) {
+      InjectionHelper.debtInvestmentController.fullResidentAddress.value =
+          InjectionHelper.debtInvestmentController.fullCurrentAddress.value;
+      InjectionHelper
+          .debtInvestmentController.isValidatePermenantAddress.value = true;
     }
-    if (debtCon.fullCurrentAddress.value.streetNo != "" &&
-        debtCon.fullCurrentAddress.value.houseNo != "" &&
-        debtCon.fullCurrentAddress.value.addressList![0].name != "" &&
-        debtCon.fullCurrentAddress.value.addressList![1].name != "" &&
-        debtCon.fullCurrentAddress.value.addressList![2].name != "") {
-      debtCon.isValidateFullAddress.value = true;
+    if (InjectionHelper
+                .debtInvestmentController.fullCurrentAddress.value.streetNo !=
+            "" &&
+        InjectionHelper
+                .debtInvestmentController.fullCurrentAddress.value.houseNo !=
+            "" &&
+        InjectionHelper.debtInvestmentController.fullCurrentAddress.value
+                .addressList![0].name !=
+            "" &&
+        InjectionHelper.debtInvestmentController.fullCurrentAddress.value
+                .addressList![1].name !=
+            "" &&
+        InjectionHelper.debtInvestmentController.fullCurrentAddress.value
+                .addressList![2].name !=
+            "") {
+      InjectionHelper.debtInvestmentController.isValidateFullAddress.value =
+          true;
     } else {
-      if (_memberCon.personalProfile.value.currentAddress!.city!.code != '') {
-        debtCon.isValidateFullAddress.value = true;
+      if (InjectionHelper.memberController.personalProfile.value.currentAddress!
+              .city!.code !=
+          '') {
+        InjectionHelper.debtInvestmentController.isValidateFullAddress.value =
+            true;
       } else {
-        debtCon.isValidateFullAddress.value = false;
+        InjectionHelper.debtInvestmentController.isValidateFullAddress.value =
+            false;
       }
     }
-    if (debtCon.fullResidentAddress.value.streetNo != "" &&
-        debtCon.fullResidentAddress.value.houseNo != "" &&
-        debtCon.fullResidentAddress.value.addressList![0].name != "" &&
-        debtCon.fullResidentAddress.value.addressList![1].name != "" &&
-        debtCon.fullResidentAddress.value.addressList![2].name != "") {
-      debtCon.isValidatePermenantAddress.value = true;
+    if (InjectionHelper.debtInvestmentController.fullResidentAddress.value.streetNo != "" &&
+        InjectionHelper
+                .debtInvestmentController.fullResidentAddress.value.houseNo !=
+            "" &&
+        InjectionHelper.debtInvestmentController.fullResidentAddress.value
+                .addressList![0].name !=
+            "" &&
+        InjectionHelper.debtInvestmentController.fullResidentAddress.value
+                .addressList![1].name !=
+            "" &&
+        InjectionHelper.debtInvestmentController.fullResidentAddress.value
+                .addressList![2].name !=
+            "") {
+      InjectionHelper
+          .debtInvestmentController.isValidatePermenantAddress.value = true;
     } else {
-      if (_memberCon.personalProfile.value.permanentAddress!.city!.code != '') {
-        debtCon.isValidatePermenantAddress.value = true;
+      if (InjectionHelper.memberController.personalProfile.value
+              .permanentAddress!.city!.code !=
+          '') {
+        InjectionHelper
+            .debtInvestmentController.isValidatePermenantAddress.value = true;
       } else {
-        debtCon.isValidatePermenantAddress.value = false;
+        InjectionHelper
+            .debtInvestmentController.isValidatePermenantAddress.value = false;
       }
     }
-    if (debtCon.fullName.value != '' &&
-        debtCon.dateOfBirth.value != "" &&
-        debtCon.gender.value.display != null &&
-        debtCon.email.value != "" &&
-        debtCon.phoneNumber.value != "" &&
-        debtCon.isValidatePermenantAddress.value == true &&
-        debtCon.isValidateFullAddress.value == true) {
+    if (InjectionHelper.debtInvestmentController.fullName.value != '' &&
+        InjectionHelper.debtInvestmentController.dateOfBirth.value != "" &&
+        InjectionHelper.debtInvestmentController.gender.value.display != null &&
+        InjectionHelper.debtInvestmentController.email.value != "" &&
+        InjectionHelper.debtInvestmentController.phoneNumber.value != "" &&
+        InjectionHelper
+                .debtInvestmentController.isValidatePermenantAddress.value ==
+            true &&
+        InjectionHelper.debtInvestmentController.isValidateFullAddress.value ==
+            true) {
       FocusScope.of(context).unfocus();
       context
           .push("/get_funding/debt-step2?id=${widget.id}&&step=${widget.step}");
@@ -128,143 +155,192 @@ class _Step1DebtState extends State<Step1Debt> {
 
   void onCheck() {
     defualtData = DebtStep1Model(
-      fullName: debtCon.fullName.value,
-      dateOfBirth: debtCon.dateOfBirth.value,
-      email: debtCon.email.value,
-      phoneNumber: debtCon.phoneNumber.value,
-      addIndex: reqCon.selectedAddressOption.value,
-      gender: debtCon.gender.value,
-      city: _memberCon.personalProfile.value.currentAddress!.city!.name,
-      dis: _memberCon.personalProfile.value.currentAddress!.district!.name,
-      com: _memberCon.personalProfile.value.currentAddress!.commune!.name,
-      vil: _memberCon.personalProfile.value.currentAddress!.village!.name,
-      currHouseNo: _memberCon.personalProfile.value.houseNo,
-      currStreetNo: _memberCon.personalProfile.value.streetNo,
-      perCity: _memberCon.personalProfile.value.permanentAddress!.city!.name,
-      perDis: _memberCon.personalProfile.value.permanentAddress!.district!.name,
-      perCom: _memberCon.personalProfile.value.permanentAddress!.commune!.name,
-      perVil: _memberCon.personalProfile.value.permanentAddress!.village!.name,
-      perHouseNo: _memberCon.personalProfile.value.permanentHouseNo,
-      perStreetNo: _memberCon.personalProfile.value.streetNo,
+      fullName: InjectionHelper.debtInvestmentController.fullName.value,
+      dateOfBirth: InjectionHelper.debtInvestmentController.dateOfBirth.value,
+      email: InjectionHelper.debtInvestmentController.email.value,
+      phoneNumber: InjectionHelper.debtInvestmentController.phoneNumber.value,
+      addIndex:
+          InjectionHelper.requestLoanController.selectedAddressOption.value,
+      gender: InjectionHelper.debtInvestmentController.gender.value,
+      city: InjectionHelper
+          .memberController.personalProfile.value.currentAddress!.city!.name,
+      dis: InjectionHelper.memberController.personalProfile.value
+          .currentAddress!.district!.name,
+      com: InjectionHelper
+          .memberController.personalProfile.value.currentAddress!.commune!.name,
+      vil: InjectionHelper
+          .memberController.personalProfile.value.currentAddress!.village!.name,
+      currHouseNo:
+          InjectionHelper.memberController.personalProfile.value.houseNo,
+      currStreetNo:
+          InjectionHelper.memberController.personalProfile.value.streetNo,
+      perCity: InjectionHelper
+          .memberController.personalProfile.value.permanentAddress!.city!.name,
+      perDis: InjectionHelper.memberController.personalProfile.value
+          .permanentAddress!.district!.name,
+      perCom: InjectionHelper.memberController.personalProfile.value
+          .permanentAddress!.commune!.name,
+      perVil: InjectionHelper.memberController.personalProfile.value
+          .permanentAddress!.village!.name,
+      perHouseNo: InjectionHelper
+          .memberController.personalProfile.value.permanentHouseNo,
+      perStreetNo:
+          InjectionHelper.memberController.personalProfile.value.streetNo,
     );
     tempData = DebtStep1Model(
-      fullName: debtCon.fullName.value,
-      dateOfBirth: debtCon.dateOfBirth.value,
-      email: debtCon.email.value,
-      phoneNumber: debtCon.phoneNumber.value,
-      addIndex: reqCon.selectedAddressOption.value,
-      gender: debtCon.gender.value,
-      city: _memberCon.personalProfile.value.currentAddress!.city!.name,
-      dis: _memberCon.personalProfile.value.currentAddress!.district!.name,
-      com: _memberCon.personalProfile.value.currentAddress!.commune!.name,
-      vil: _memberCon.personalProfile.value.currentAddress!.village!.name,
-      currHouseNo: _memberCon.personalProfile.value.houseNo,
-      currStreetNo: _memberCon.personalProfile.value.streetNo,
-      perCity: _memberCon.personalProfile.value.permanentAddress!.city!.name,
-      perDis: _memberCon.personalProfile.value.permanentAddress!.district!.name,
-      perCom: _memberCon.personalProfile.value.permanentAddress!.commune!.name,
-      perVil: _memberCon.personalProfile.value.permanentAddress!.village!.name,
-      perHouseNo: _memberCon.personalProfile.value.permanentHouseNo,
-      perStreetNo: _memberCon.personalProfile.value.streetNo,
+      fullName: InjectionHelper.debtInvestmentController.fullName.value,
+      dateOfBirth: InjectionHelper.debtInvestmentController.dateOfBirth.value,
+      email: InjectionHelper.debtInvestmentController.email.value,
+      phoneNumber: InjectionHelper.debtInvestmentController.phoneNumber.value,
+      addIndex:
+          InjectionHelper.requestLoanController.selectedAddressOption.value,
+      gender: InjectionHelper.debtInvestmentController.gender.value,
+      city: InjectionHelper
+          .memberController.personalProfile.value.currentAddress!.city!.name,
+      dis: InjectionHelper.memberController.personalProfile.value
+          .currentAddress!.district!.name,
+      com: InjectionHelper
+          .memberController.personalProfile.value.currentAddress!.commune!.name,
+      vil: InjectionHelper
+          .memberController.personalProfile.value.currentAddress!.village!.name,
+      currHouseNo:
+          InjectionHelper.memberController.personalProfile.value.houseNo,
+      currStreetNo:
+          InjectionHelper.memberController.personalProfile.value.streetNo,
+      perCity: InjectionHelper
+          .memberController.personalProfile.value.permanentAddress!.city!.name,
+      perDis: InjectionHelper.memberController.personalProfile.value
+          .permanentAddress!.district!.name,
+      perCom: InjectionHelper.memberController.personalProfile.value
+          .permanentAddress!.commune!.name,
+      perVil: InjectionHelper.memberController.personalProfile.value
+          .permanentAddress!.village!.name,
+      perHouseNo: InjectionHelper
+          .memberController.personalProfile.value.permanentHouseNo,
+      perStreetNo:
+          InjectionHelper.memberController.personalProfile.value.streetNo,
     );
   }
 
   @override
   void initState() {
-    reqCon.getGender();
-    reqCon.getPurposeList();
+    InjectionHelper.requestLoanController.getGender();
+    InjectionHelper.requestLoanController.getPurposeList();
 
-    debtCon.selectAddIndex.value = reqCon.selectedAddressOption.value;
+    InjectionHelper.debtInvestmentController.selectAddIndex.value =
+        InjectionHelper.requestLoanController.selectedAddressOption.value;
 
-    _memberCon
-        .fetchMemberPersonProfile(id: cusCon.customer.value.customerId!)
+    InjectionHelper.memberController
+        .fetchMemberPersonProfile(
+            id: InjectionHelper.customerController.customer.value.customerId!)
         .then(
       (customer) {
-        // reqCon.purpose.value = Purpose();
+        // InjectionHelper.requestLoanController.purpose.value = Purpose();
 
         if (customer.customerName!.isNotEmpty) {
-          debtCon.fullName.value = cusCon.customer.value.fullName!;
+          InjectionHelper.debtInvestmentController.fullName.value =
+              InjectionHelper.customerController.customer.value.fullName!;
         }
         if (customer.customerDateOfBirth != '') {
-          debtCon.dateOfBirth.value = customer.customerDateOfBirth!;
+          InjectionHelper.debtInvestmentController.dateOfBirth.value =
+              customer.customerDateOfBirth!;
         }
         if (customer.customerGender!.display! != '') {
-          debtCon.gender.value = Optionmodel(
+          InjectionHelper.debtInvestmentController.gender.value = Optionmodel(
               id: customer.customerGender!.id!,
               display: customer.customerGender!.display!);
           if (customer.customerGender!.display! == 'Male') {
-            debtCon.selectedIndexGender.value = 0;
+            InjectionHelper.debtInvestmentController.selectedIndexGender.value =
+                0;
           } else {
-            debtCon.selectedIndexGender.value = 1;
+            InjectionHelper.debtInvestmentController.selectedIndexGender.value =
+                1;
           }
         }
-        if (customer.email! != '') debtCon.email.value = customer.email!;
-        if (customer.phone! != '') {
-          debtCon.phoneNumber.value = customer.phone!;
+        if (customer.email! != '') {
+          InjectionHelper.debtInvestmentController.email.value =
+              customer.email!;
         }
-        if (_memberCon.personalProfile.value.currentAddress != null) {
-          debtCon.fullCurrentAddress.value = FullAddress(
-            houseNo: _memberCon.personalProfile.value.houseNo ?? "",
-            streetNo: _memberCon.personalProfile.value.streetNo ?? "",
+        if (customer.phone! != '') {
+          InjectionHelper.debtInvestmentController.phoneNumber.value =
+              customer.phone!;
+        }
+        if (InjectionHelper
+                .memberController.personalProfile.value.currentAddress !=
+            null) {
+          InjectionHelper.debtInvestmentController.fullCurrentAddress.value =
+              FullAddress(
+            houseNo: InjectionHelper
+                    .memberController.personalProfile.value.houseNo ??
+                "",
+            streetNo: InjectionHelper
+                    .memberController.personalProfile.value.streetNo ??
+                "",
             addressList: [
               Address(
-                code:
-                    _memberCon.personalProfile.value.currentAddress!.city!.code,
-                name:
-                    _memberCon.personalProfile.value.currentAddress!.city!.name,
+                code: InjectionHelper.memberController.personalProfile.value
+                    .currentAddress!.city!.code,
+                name: InjectionHelper.memberController.personalProfile.value
+                    .currentAddress!.city!.name,
               ),
               Address(
-                code: _memberCon
-                    .personalProfile.value.currentAddress!.district!.code,
-                name: _memberCon
-                    .personalProfile.value.currentAddress!.district!.name,
+                code: InjectionHelper.memberController.personalProfile.value
+                    .currentAddress!.district!.code,
+                name: InjectionHelper.memberController.personalProfile.value
+                    .currentAddress!.district!.name,
               ),
               Address(
-                code: _memberCon
-                    .personalProfile.value.currentAddress!.commune!.code,
-                name: _memberCon
-                    .personalProfile.value.currentAddress!.commune!.name,
+                code: InjectionHelper.memberController.personalProfile.value
+                    .currentAddress!.commune!.code,
+                name: InjectionHelper.memberController.personalProfile.value
+                    .currentAddress!.commune!.name,
               ),
               Address(
-                code: _memberCon
-                        .personalProfile.value.currentAddress!.village!.code ??
+                code: InjectionHelper.memberController.personalProfile.value
+                        .currentAddress!.village!.code ??
                     "",
-                name: _memberCon
-                        .personalProfile.value.currentAddress!.village!.name ??
+                name: InjectionHelper.memberController.personalProfile.value
+                        .currentAddress!.village!.name ??
                     "",
               ),
             ],
           );
-          if (_memberCon.personalProfile.value.permanentAddress != null) {
-            debtCon.fullResidentAddress.value = FullAddress(
-              houseNo: _memberCon.personalProfile.value.permanentHouseNo ?? "",
-              streetNo:
-                  _memberCon.personalProfile.value.permanentStreetNo ?? "",
+          if (InjectionHelper
+                  .memberController.personalProfile.value.permanentAddress !=
+              null) {
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value =
+                FullAddress(
+              houseNo: InjectionHelper.memberController.personalProfile.value
+                      .permanentHouseNo ??
+                  "",
+              streetNo: InjectionHelper.memberController.personalProfile.value
+                      .permanentStreetNo ??
+                  "",
               addressList: [
                 Address(
-                  code: _memberCon
-                      .personalProfile.value.permanentAddress!.city!.code,
-                  name: _memberCon
-                      .personalProfile.value.permanentAddress!.city!.name,
+                  code: InjectionHelper.memberController.personalProfile.value
+                      .permanentAddress!.city!.code,
+                  name: InjectionHelper.memberController.personalProfile.value
+                      .permanentAddress!.city!.name,
                 ),
                 Address(
-                  code: _memberCon
-                      .personalProfile.value.permanentAddress!.district!.code,
-                  name: _memberCon
-                      .personalProfile.value.permanentAddress!.district!.name,
+                  code: InjectionHelper.memberController.personalProfile.value
+                      .permanentAddress!.district!.code,
+                  name: InjectionHelper.memberController.personalProfile.value
+                      .permanentAddress!.district!.name,
                 ),
                 Address(
-                  code: _memberCon
-                      .personalProfile.value.permanentAddress!.commune!.code,
-                  name: _memberCon
-                      .personalProfile.value.permanentAddress!.commune!.name,
+                  code: InjectionHelper.memberController.personalProfile.value
+                      .permanentAddress!.commune!.code,
+                  name: InjectionHelper.memberController.personalProfile.value
+                      .permanentAddress!.commune!.name,
                 ),
                 Address(
-                  code: _memberCon.personalProfile.value.permanentAddress!
-                          .village!.code ??
+                  code: InjectionHelper.memberController.personalProfile.value
+                          .permanentAddress!.village!.code ??
                       "",
-                  name: _memberCon.personalProfile.value.permanentAddress!
-                          .village!.name ??
+                  name: InjectionHelper.memberController.personalProfile.value
+                          .permanentAddress!.village!.name ??
                       "",
                 ),
               ],
@@ -279,12 +355,12 @@ class _Step1DebtState extends State<Step1Debt> {
   }
 
   onResetValidate() {
-    debtCon.isValidateFullName.value = true;
-    debtCon.isValidateDateOfBirth.value = true;
-    debtCon.isValidateGender.value = true;
-    debtCon.isValidateEmail.value = true;
-    debtCon.isValidatePhone.value = true;
-    debtCon.isValidateFullAddress.value = true;
+    InjectionHelper.debtInvestmentController.isValidateFullName.value = true;
+    InjectionHelper.debtInvestmentController.isValidateDateOfBirth.value = true;
+    InjectionHelper.debtInvestmentController.isValidateGender.value = true;
+    InjectionHelper.debtInvestmentController.isValidateEmail.value = true;
+    InjectionHelper.debtInvestmentController.isValidatePhone.value = true;
+    InjectionHelper.debtInvestmentController.isValidateFullAddress.value = true;
   }
 
   @override
@@ -295,7 +371,8 @@ class _Step1DebtState extends State<Step1Debt> {
           child: WillPopScope(
             onWillPop: () async => false,
             child: Obx(
-              () => debtCon.isLoadingSubmit.value
+              () => InjectionHelper
+                      .debtInvestmentController.isLoadingSubmit.value
                   ? Scaffold(
                       body: Container(
                         width: double.infinity,
@@ -338,13 +415,21 @@ class _Step1DebtState extends State<Step1Debt> {
                                 }
                               : () {
                                   FocusScope.of(context).unfocus();
-                                  debtCon.currentAddressList.clear();
-                                  debtCon.isValidateFullName.value = true;
-                                  debtCon.isValidateDateOfBirth.value = true;
-                                  debtCon.isValidateGender.value = true;
-                                  debtCon.isValidateEmail.value = true;
-                                  debtCon.isValidatePhone.value = true;
-                                  debtCon.isValidateFullAddress.value = true;
+                                  InjectionHelper.debtInvestmentController
+                                      .currentAddressList
+                                      .clear();
+                                  InjectionHelper.debtInvestmentController
+                                      .isValidateFullName.value = true;
+                                  InjectionHelper.debtInvestmentController
+                                      .isValidateDateOfBirth.value = true;
+                                  InjectionHelper.debtInvestmentController
+                                      .isValidateGender.value = true;
+                                  InjectionHelper.debtInvestmentController
+                                      .isValidateEmail.value = true;
+                                  InjectionHelper.debtInvestmentController
+                                      .isValidatePhone.value = true;
+                                  InjectionHelper.debtInvestmentController
+                                      .isValidateFullAddress.value = true;
 
                                   showSaveDraftDialog(
                                     context: context,
@@ -358,12 +443,15 @@ class _Step1DebtState extends State<Step1Debt> {
                                     onSave: () async {
                                       Navigator.pop(context);
                                       widget.id != null
-                                          ? await debtCon.onEditDebtInvestment(
+                                          ? await InjectionHelper
+                                              .debtInvestmentController
+                                              .onEditDebtInvestment(
                                               context: context,
                                               id: widget.id,
                                               step: 1,
                                             )
-                                          : await debtCon
+                                          : await InjectionHelper
+                                              .debtInvestmentController
                                               .onSubmitDebtInvestment(
                                                   context: context, step: 1);
 
@@ -397,7 +485,8 @@ class _Step1DebtState extends State<Step1Debt> {
                         ],
                       ),
                       body: Obx(
-                        () => _memberCon.isLoadingProfile.value
+                        () => InjectionHelper
+                                .memberController.isLoadingProfile.value
                             ? const LinearProgressIndicator()
                             : Column(
                                 children: [
@@ -437,7 +526,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                     isRequired: true,
                                                     keyboardType:
                                                         TextInputType.name,
-                                                    isValidate: debtCon
+                                                    isValidate: InjectionHelper
+                                                        .debtInvestmentController
                                                         .isValidateFullName
                                                         .value,
                                                     labelText: 'Full Name ',
@@ -448,50 +538,67 @@ class _Step1DebtState extends State<Step1Debt> {
                                                             value;
                                                       });
                                                       if (value.isEmpty) {
-                                                        debtCon.fullName.value =
-                                                            '';
-                                                        debtCon
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .fullName
+                                                            .value = '';
+                                                        InjectionHelper
+                                                            .debtInvestmentController
                                                             .isValidateFullName
                                                             .value = false;
                                                       } else {
-                                                        debtCon.fullName.value =
-                                                            value;
-                                                        debtCon
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .fullName
+                                                            .value = value;
+                                                        InjectionHelper
+                                                            .debtInvestmentController
                                                             .isValidateFullName
                                                             .value = true;
                                                       }
                                                     },
-                                                    initialValue:
-                                                        debtCon.fullName.value,
+                                                    initialValue: InjectionHelper
+                                                        .debtInvestmentController
+                                                        .fullName
+                                                        .value,
                                                     onSave: ((value) {
-                                                      debtCon.fullName.value =
-                                                          value!;
+                                                      InjectionHelper
+                                                          .debtInvestmentController
+                                                          .fullName
+                                                          .value = value!;
                                                     }),
                                                   ),
                                                   CICDropdown(
-                                                    isValidate: debtCon
+                                                    isValidate: InjectionHelper
+                                                        .debtInvestmentController
                                                         .isValidateDateOfBirth
                                                         .value,
                                                     label: 'Date of birth ',
                                                     onChange: (value) {
-                                                      debtCon.dateOfBirth
-                                                              .value =
-                                                          value["Name"];
-                                                      debtCon
+                                                      InjectionHelper
+                                                          .debtInvestmentController
+                                                          .dateOfBirth
+                                                          .value = value["Name"];
+                                                      InjectionHelper
+                                                          .debtInvestmentController
                                                           .isValidateDateOfBirth
                                                           .value = true;
                                                       setState(() {
                                                         tempData.dateOfBirth =
-                                                            debtCon.dateOfBirth
+                                                            InjectionHelper
+                                                                .debtInvestmentController
+                                                                .dateOfBirth
                                                                 .value;
                                                       });
                                                     },
-                                                    defaultValue: debtCon
+                                                    defaultValue: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .dateOfBirth
                                                                 .value !=
                                                             ""
                                                         ? {
-                                                            'Name': debtCon
+                                                            'Name': InjectionHelper
+                                                                .debtInvestmentController
                                                                 .dateOfBirth
                                                                 .value,
                                                             'Code': '02'
@@ -521,7 +628,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                       scrollDirection:
                                                           Axis.horizontal,
                                                       child: Row(
-                                                        children: option
+                                                        children: InjectionHelper
+                                                            .optionController
                                                             .optionData
                                                             .value
                                                             .gender!
@@ -530,7 +638,9 @@ class _Step1DebtState extends State<Step1Debt> {
                                                             .map((e) {
                                                           return GestureDetector(
                                                             onTap: () {
-                                                              debtCon.gender
+                                                              InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .gender
                                                                       .value =
                                                                   Optionmodel(
                                                                       id: e
@@ -541,14 +651,17 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                           .display);
                                                               setState(() {
                                                                 tempData.gender =
-                                                                    debtCon
+                                                                    InjectionHelper
+                                                                        .debtInvestmentController
                                                                         .gender
                                                                         .value;
                                                               });
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .selectedIndexGender
                                                                   .value = e.key;
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .isValidateGender
                                                                   .value = true;
                                                             },
@@ -560,23 +673,28 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                           20),
                                                               title: e.value
                                                                   .display!,
-                                                              currentIndex: debtCon
+                                                              currentIndex: InjectionHelper
+                                                                          .debtInvestmentController
                                                                           .gender
                                                                           .value
                                                                           .display ==
                                                                       null
                                                                   ? null
                                                                   : e.key,
-                                                              selectIndex: debtCon
-                                                                  .selectedIndexGender
-                                                                  .value,
+                                                              selectIndex:
+                                                                  InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .selectedIndexGender
+                                                                      .value,
                                                             ),
                                                           );
                                                         }).toList(),
                                                       ),
                                                     ),
                                                   ),
-                                                  if (debtCon.isValidateGender
+                                                  if (InjectionHelper
+                                                          .debtInvestmentController
+                                                          .isValidateGender
                                                           .value ==
                                                       false)
                                                     Container(
@@ -616,33 +734,50 @@ class _Step1DebtState extends State<Step1Debt> {
                                                   CustomTextFieldNew(
                                                     maxLine: 1,
                                                     isRequired: true,
-                                                    isValidate: debtCon
-                                                        .isValidateEmail.value,
+                                                    isValidate: InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValidateEmail
+                                                        .value,
                                                     labelText: 'Email',
                                                     hintText: 'Enter email',
                                                     onChange: (value) {
                                                       if (value.isEmpty) {
-                                                        debtCon.email.value =
-                                                            '';
-                                                        debtCon.isValidateEmail
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .email
+                                                            .value = '';
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .isValidateEmail
                                                             .value = false;
                                                       } else {
-                                                        debtCon.email.value =
-                                                            value;
-                                                        debtCon.isValidateEmail
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .email
+                                                            .value = value;
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .isValidateEmail
                                                             .value = true;
                                                       }
                                                       setState(() {
                                                         tempData.email =
-                                                            debtCon.email.value;
+                                                            InjectionHelper
+                                                                .debtInvestmentController
+                                                                .email
+                                                                .value;
                                                       });
                                                     },
                                                     onSave: ((value) {
-                                                      debtCon.email.value =
-                                                          value!;
+                                                      InjectionHelper
+                                                          .debtInvestmentController
+                                                          .email
+                                                          .value = value!;
                                                     }),
-                                                    initialValue:
-                                                        debtCon.email.value,
+                                                    initialValue: InjectionHelper
+                                                        .debtInvestmentController
+                                                        .email
+                                                        .value,
                                                     keyboardType: TextInputType
                                                         .emailAddress,
                                                   ),
@@ -650,17 +785,23 @@ class _Step1DebtState extends State<Step1Debt> {
                                                     maxLine: 1,
                                                     isReadOnly: true,
                                                     isRequired: true,
-                                                    isValidate: debtCon
-                                                        .isValidatePhone.value,
+                                                    isValidate: InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValidatePhone
+                                                        .value,
                                                     onSave: ((value) {
-                                                      debtCon.phoneNumber
+                                                      InjectionHelper
+                                                          .debtInvestmentController
+                                                          .phoneNumber
                                                           .value = value!;
                                                     }),
                                                     labelText: 'Phone',
                                                     hintText:
                                                         'Enter your phone number',
-                                                    initialValue: debtCon
-                                                        .phoneNumber.value,
+                                                    initialValue: InjectionHelper
+                                                        .debtInvestmentController
+                                                        .phoneNumber
+                                                        .value,
                                                     keyboardType:
                                                         TextInputType.number,
                                                   ),
@@ -733,19 +874,23 @@ class _Step1DebtState extends State<Step1Debt> {
                                                             .map((e) {
                                                       return GestureDetector(
                                                         onTap: () {
-                                                          if (reqCon
+                                                          if (InjectionHelper
+                                                                  .requestLoanController
                                                                   .selectedAddressOption
                                                                   .value !=
                                                               e.key) {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .selectedAddressOption
                                                                 .value = e.key;
                                                           } else {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .selectedAddressOption
                                                                 .value = 1;
                                                           }
-                                                          reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
                                                               .selectedAddressOption
                                                               .value;
                                                           setState(() {
@@ -760,7 +905,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                   right: 20),
                                                           title: e.value,
                                                           currentIndex: e.key,
-                                                          selectIndex: reqCon
+                                                          selectIndex: InjectionHelper
+                                                              .requestLoanController
                                                               .selectedAddressOption
                                                               .value,
                                                         ),
@@ -769,172 +915,222 @@ class _Step1DebtState extends State<Step1Debt> {
                                                   ),
                                                   const SizedBox(height: 30.0),
                                                   AddressPickerWidget(
-                                                    isValidate: debtCon
+                                                    isValidate: InjectionHelper
+                                                        .debtInvestmentController
                                                         .isValidateFullAddress
                                                         .value,
                                                     onTap: () async {
-                                                      if (debtCon
+                                                      if (InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![0]
                                                               .name ==
                                                           "") {
-                                                        reqCon
+                                                        InjectionHelper
+                                                            .requestLoanController
                                                             .getProvince("en");
                                                       } else {
-                                                        if (debtCon
+                                                        if (InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullCurrentAddress
                                                                 .value
                                                                 .addressList![0]
                                                                 .name !=
                                                             "") {
-                                                          reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
                                                               .value = [];
-                                                          reqCon.getProvince(
-                                                              "en");
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getProvince(
+                                                                  "en");
 
-                                                          reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
-                                                              .add(debtCon
+                                                              .add(InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullCurrentAddress
                                                                   .value
                                                                   .addressList![0]);
-                                                          reqCon.getDistrict(
-                                                              debtCon
-                                                                  .fullCurrentAddress
-                                                                  .value
-                                                                  .addressList![
-                                                                      0]
-                                                                  .code!,
-                                                              'en');
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getDistrict(
+                                                                  InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .fullCurrentAddress
+                                                                      .value
+                                                                      .addressList![
+                                                                          0]
+                                                                      .code!,
+                                                                  'en');
                                                         }
 
-                                                        if (debtCon
+                                                        if (InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullCurrentAddress
                                                                 .value
                                                                 .addressList![1]
                                                                 .name !=
                                                             "") {
-                                                          reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
-                                                              .add(debtCon
+                                                              .add(InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullCurrentAddress
                                                                   .value
                                                                   .addressList![1]);
-                                                          reqCon.getCommune(
-                                                              debtCon
-                                                                  .fullCurrentAddress
-                                                                  .value
-                                                                  .addressList![
-                                                                      1]
-                                                                  .code!,
-                                                              'en');
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getCommune(
+                                                                  InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .fullCurrentAddress
+                                                                      .value
+                                                                      .addressList![
+                                                                          1]
+                                                                      .code!,
+                                                                  'en');
                                                         }
-                                                        if (debtCon
+                                                        if (InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullCurrentAddress
                                                                 .value
                                                                 .addressList![2]
                                                                 .name !=
                                                             "") {
-                                                          reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
-                                                              .add(debtCon
+                                                              .add(InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullCurrentAddress
                                                                   .value
                                                                   .addressList![2]);
 
-                                                          reqCon.getVillage(
-                                                              debtCon
-                                                                  .fullCurrentAddress
-                                                                  .value
-                                                                  .addressList![
-                                                                      2]
-                                                                  .code!,
-                                                              'en');
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getVillage(
+                                                                  InjectionHelper
+                                                                      .debtInvestmentController
+                                                                      .fullCurrentAddress
+                                                                      .value
+                                                                      .addressList![
+                                                                          2]
+                                                                      .code!,
+                                                                  'en');
                                                         }
-                                                        if (debtCon
+                                                        if (InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullCurrentAddress
                                                                 .value
                                                                 .addressList![3]
                                                                 .name !=
                                                             "") {
-                                                          reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
-                                                              .add(debtCon
+                                                              .add(InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullCurrentAddress
                                                                   .value
                                                                   .addressList![3]);
                                                         }
                                                       }
 
-                                                      debtCon.currentAddress
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .currentAddress
                                                               .value =
                                                           (await onShowModalSheet(
                                                         currentAddress:
                                                             CurrentAddress(
-                                                          city: debtCon
+                                                          city: InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![0],
-                                                          commune: debtCon
+                                                          commune: InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![1],
-                                                          district: debtCon
+                                                          district: InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![2],
-                                                          village: debtCon
+                                                          village: InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![3],
                                                         ),
                                                         context: context,
-                                                        streetNo: debtCon
+                                                        streetNo: InjectionHelper
+                                                            .debtInvestmentController
                                                             .fullCurrentAddress
                                                             .value
                                                             .streetNo,
-                                                        houseNo: debtCon
+                                                        houseNo: InjectionHelper
+                                                            .debtInvestmentController
                                                             .fullCurrentAddress
                                                             .value
                                                             .houseNo,
                                                         onCancel: () {
-                                                          reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
                                                               .clear();
                                                           // Navigator.pop(context);
                                                         },
-                                                        selectAddress: reqCon
+                                                        selectAddress: InjectionHelper
+                                                            .requestLoanController
                                                             .currentAddressList,
                                                         onSelectProvince:
                                                             (Address province) {
-                                                          reqCon.districtList
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .districtList
                                                               .clear();
-                                                          reqCon.getDistrict(
-                                                              province.code!,
-                                                              'en');
-                                                          if (!reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getDistrict(
+                                                                  province
+                                                                      .code!,
+                                                                  'en');
+                                                          if (!InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
                                                               .contains(
                                                                   province)) {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .currentAddressList
                                                                 .add(province);
                                                           }
                                                         },
                                                         onSelectCommune:
                                                             (Address commune) {
-                                                          reqCon.villageList
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .villageList
                                                               .clear();
-                                                          reqCon.getVillage(
-                                                              commune.code!,
-                                                              'en');
-                                                          if (!reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getVillage(
+                                                                  commune.code!,
+                                                                  'en');
+                                                          if (!InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
                                                               .contains(
                                                                   commune)) {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .currentAddressList
                                                                 .add(commune);
                                                           }
@@ -942,36 +1138,48 @@ class _Step1DebtState extends State<Step1Debt> {
                                                         onSelectDistrict:
                                                             (Address
                                                                 disctrict) {
-                                                          reqCon.communeList
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .communeList
                                                               .clear();
-                                                          reqCon.getCommune(
-                                                              disctrict.code!,
-                                                              'en');
-                                                          if (!reqCon
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getCommune(
+                                                                  disctrict
+                                                                      .code!,
+                                                                  'en');
+                                                          if (!InjectionHelper
+                                                              .requestLoanController
                                                               .currentAddressList
                                                               .contains(
                                                                   disctrict)) {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .currentAddressList
                                                                 .add(disctrict);
                                                           }
                                                         },
                                                         onSelectVillage:
                                                             (Address village) {
-                                                          if (reqCon
+                                                          if (InjectionHelper
+                                                                  .requestLoanController
                                                                   .currentAddressList
                                                                   .length !=
                                                               4) {
-                                                            if (!reqCon
+                                                            if (!InjectionHelper
+                                                                .requestLoanController
                                                                 .currentAddressList
                                                                 .contains(
                                                                     village)) {
-                                                              reqCon
+                                                              InjectionHelper
+                                                                  .requestLoanController
                                                                   .currentAddressList
                                                                   .add(village);
                                                             }
                                                           } else {
-                                                            reqCon.currentAddressList[
+                                                            InjectionHelper
+                                                                    .requestLoanController
+                                                                    .currentAddressList[
                                                                 3] = village;
                                                           }
                                                         },
@@ -980,117 +1188,171 @@ class _Step1DebtState extends State<Step1Debt> {
                                                           if (address.code!
                                                                   .length ==
                                                               6) {
-                                                            reqCon.villageList
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .villageList
                                                                 .clear();
-                                                            reqCon.getVillage(
-                                                                address.code!,
-                                                                'en');
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getVillage(
+                                                                    address
+                                                                        .code!,
+                                                                    'en');
                                                           } else if (address
                                                                   .code!
                                                                   .length ==
                                                               4) {
-                                                            reqCon.communeList
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .communeList
                                                                 .clear();
-                                                            reqCon.getCommune(
-                                                                address.code!,
-                                                                'en');
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getCommune(
+                                                                    address
+                                                                        .code!,
+                                                                    'en');
                                                           } else {
-                                                            reqCon.districtList
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .districtList
                                                                 .clear();
-                                                            reqCon.getDistrict(
-                                                                address.code!,
-                                                                'en');
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getDistrict(
+                                                                    address
+                                                                        .code!,
+                                                                    'en');
                                                           }
                                                         },
-                                                        communeList:
-                                                            reqCon.communeList,
+                                                        communeList: InjectionHelper
+                                                            .requestLoanController
+                                                            .communeList,
                                                         provinceList:
-                                                            reqCon.provinceList,
-                                                        villageList:
-                                                            reqCon.villageList,
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .provinceList,
+                                                        villageList: InjectionHelper
+                                                            .requestLoanController
+                                                            .villageList,
                                                         districtList:
-                                                            reqCon.districtList,
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .districtList,
                                                       ))!;
-                                                      debtCon
+                                                      InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![0] =
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .currentAddress
                                                               .value
                                                               .addressList![0];
-                                                      debtCon
+                                                      InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![1] =
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .currentAddress
                                                               .value
                                                               .addressList![1];
-                                                      debtCon
+                                                      InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![2] =
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .currentAddress
                                                               .value
                                                               .addressList![2];
-                                                      debtCon
+                                                      InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![3] =
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .currentAddress
                                                               .value
                                                               .addressList![3];
-                                                      debtCon.fullCurrentAddress
-                                                              .value.streetNo =
-                                                          debtCon.currentAddress
-                                                              .value.streetNo;
-                                                      debtCon.fullCurrentAddress
-                                                              .value.houseNo =
-                                                          debtCon.currentAddress
-                                                              .value.houseNo;
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .fullCurrentAddress
+                                                              .value
+                                                              .streetNo =
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .currentAddress
+                                                              .value
+                                                              .streetNo;
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .fullCurrentAddress
+                                                              .value
+                                                              .houseNo =
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .currentAddress
+                                                              .value
+                                                              .houseNo;
 
-                                                      if (debtCon
+                                                      if (InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList !=
                                                           null) {
-                                                        debtCon
+                                                        InjectionHelper
+                                                            .debtInvestmentController
                                                             .isValidateFullAddress
                                                             .value = true;
-                                                        debtCon
+                                                        InjectionHelper
+                                                            .debtInvestmentController
                                                             .fullCurrentAddress
                                                             .refresh();
-                                                        debtCon.update();
+                                                        InjectionHelper
+                                                            .debtInvestmentController
+                                                            .update();
                                                         setState(() {
                                                           tempData.currHouseNo =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullCurrentAddress
                                                                   .value
                                                                   .houseNo;
                                                           tempData.currStreetNo =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullCurrentAddress
                                                                   .value
                                                                   .streetNo;
-                                                          tempData.city = debtCon
-                                                              .fullCurrentAddress
-                                                              .value
-                                                              .addressList![0]
-                                                              .name;
-                                                          tempData.dis = debtCon
+                                                          tempData.city =
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .fullCurrentAddress
+                                                                  .value
+                                                                  .addressList![
+                                                                      0]
+                                                                  .name;
+                                                          tempData.dis = InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![1]
                                                               .name;
-                                                          tempData.com = debtCon
+                                                          tempData.com = InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![2]
                                                               .name;
-                                                          tempData.vil = debtCon
+                                                          tempData.vil = InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullCurrentAddress
                                                               .value
                                                               .addressList![3]
@@ -1098,187 +1360,236 @@ class _Step1DebtState extends State<Step1Debt> {
                                                         });
                                                       }
                                                     },
-                                                    selectAddress: debtCon
+                                                    selectAddress: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullCurrentAddress
                                                                 .value
                                                                 .addressList![0]
                                                                 .name !=
                                                             ""
-                                                        ? debtCon
+                                                        ? InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .fullCurrentAddress
                                                                     .value
                                                                     .addressList![
                                                                         3]
                                                                     .name ==
                                                                 ""
-                                                            ? '${debtCon.fullCurrentAddress.value.streetNo} ${debtCon.fullCurrentAddress.value.houseNo} ${debtCon.fullCurrentAddress.value.addressList![2].name} ${debtCon.fullCurrentAddress.value.addressList![1].name} ${debtCon.fullCurrentAddress.value.addressList![0].name}'
-                                                            : '${debtCon.fullCurrentAddress.value.streetNo} ${debtCon.fullCurrentAddress.value.houseNo} ${debtCon.fullCurrentAddress.value.addressList![3].name} ${debtCon.fullCurrentAddress.value.addressList![2].name} ${debtCon.fullCurrentAddress.value.addressList![1].name} ${debtCon.fullCurrentAddress.value.addressList![0].name}'
+                                                            ? '${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![0].name}'
+                                                            : '${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![3].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![0].name}'
                                                         : null,
                                                     title: 'Current Address',
                                                   ),
                                                   const SizedBox(height: 20.0),
-                                                  if (reqCon
+                                                  if (InjectionHelper
+                                                          .requestLoanController
                                                           .selectedAddressOption
                                                           .value ==
                                                       1)
                                                     AddressPickerWidget(
-                                                      isValidate: debtCon
+                                                      isValidate: InjectionHelper
+                                                          .debtInvestmentController
                                                           .isValidatePermenantAddress
                                                           .value,
                                                       onTap: () async {
-                                                        reqCon
+                                                        InjectionHelper
+                                                            .requestLoanController
                                                             .residentAddressList
                                                             .clear();
-                                                        if (debtCon
+                                                        if (InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullResidentAddress
                                                                 .value
                                                                 .addressList![0]
                                                                 .name ==
                                                             "") {
-                                                          reqCon.getProvince(
-                                                              "en");
+                                                          InjectionHelper
+                                                              .requestLoanController
+                                                              .getProvince(
+                                                                  "en");
                                                         } else {
-                                                          if (debtCon
+                                                          if (InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![
                                                                       0]
                                                                   .name !=
                                                               "") {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
                                                                 .value = [];
-                                                            reqCon.getProvince(
-                                                                "en");
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getProvince(
+                                                                    "en");
 
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
-                                                                .add(debtCon
+                                                                .add(InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .fullResidentAddress
                                                                     .value
                                                                     .addressList![0]);
-                                                            reqCon.getDistrict(
-                                                                debtCon
-                                                                    .fullResidentAddress
-                                                                    .value
-                                                                    .addressList![
-                                                                        0]
-                                                                    .code!,
-                                                                'en');
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getDistrict(
+                                                                    InjectionHelper
+                                                                        .debtInvestmentController
+                                                                        .fullResidentAddress
+                                                                        .value
+                                                                        .addressList![
+                                                                            0]
+                                                                        .code!,
+                                                                    'en');
                                                           }
 
-                                                          if (debtCon
+                                                          if (InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![
                                                                       1]
                                                                   .name !=
                                                               "") {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
-                                                                .add(debtCon
+                                                                .add(InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .fullResidentAddress
                                                                     .value
                                                                     .addressList![1]);
-                                                            reqCon.getCommune(
-                                                                debtCon
-                                                                    .fullResidentAddress
-                                                                    .value
-                                                                    .addressList![
-                                                                        1]
-                                                                    .code!,
-                                                                'en');
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getCommune(
+                                                                    InjectionHelper
+                                                                        .debtInvestmentController
+                                                                        .fullResidentAddress
+                                                                        .value
+                                                                        .addressList![
+                                                                            1]
+                                                                        .code!,
+                                                                    'en');
                                                           }
-                                                          if (debtCon
+                                                          if (InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![
                                                                       2]
                                                                   .name !=
                                                               "") {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
-                                                                .add(debtCon
+                                                                .add(InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .fullResidentAddress
                                                                     .value
                                                                     .addressList![2]);
 
-                                                            reqCon.getVillage(
-                                                                debtCon
-                                                                    .fullResidentAddress
-                                                                    .value
-                                                                    .addressList![
-                                                                        2]
-                                                                    .code!,
-                                                                'en');
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getVillage(
+                                                                    InjectionHelper
+                                                                        .debtInvestmentController
+                                                                        .fullResidentAddress
+                                                                        .value
+                                                                        .addressList![
+                                                                            2]
+                                                                        .code!,
+                                                                    'en');
                                                           }
-                                                          if (debtCon
+                                                          if (InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![
                                                                       3]
                                                                   .name !=
                                                               "") {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
-                                                                .add(debtCon
+                                                                .add(InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .fullResidentAddress
                                                                     .value
                                                                     .addressList![3]);
                                                           }
                                                         }
 
-                                                        debtCon.residentAddress
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .residentAddress
                                                                 .value =
                                                             (await onShowModalSheet(
                                                           permanentAddress:
                                                               CurrentAddress(
-                                                            city: debtCon
+                                                            city: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullResidentAddress
                                                                 .value
                                                                 .addressList![0],
-                                                            commune: debtCon
+                                                            commune: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullResidentAddress
                                                                 .value
                                                                 .addressList![1],
-                                                            district: debtCon
+                                                            district: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullResidentAddress
                                                                 .value
                                                                 .addressList![2],
-                                                            village: debtCon
+                                                            village: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .fullResidentAddress
                                                                 .value
                                                                 .addressList![3],
                                                           ),
                                                           context: context,
-                                                          streetNo: debtCon
+                                                          streetNo: InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullResidentAddress
                                                               .value
                                                               .streetNo,
-                                                          houseNo: debtCon
+                                                          houseNo: InjectionHelper
+                                                              .debtInvestmentController
                                                               .fullResidentAddress
                                                               .value
                                                               .houseNo,
                                                           onCancel: () {
-                                                            reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
                                                                 .clear();
                                                           },
-                                                          selectAddress: reqCon
+                                                          selectAddress: InjectionHelper
+                                                              .requestLoanController
                                                               .residentAddressList,
                                                           onSelectProvince:
                                                               (Address
                                                                   province) {
-                                                            reqCon.districtList
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .districtList
                                                                 .clear();
-                                                            reqCon.getDistrict(
-                                                                province.code!,
-                                                                'en');
-                                                            if (!reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getDistrict(
+                                                                    province
+                                                                        .code!,
+                                                                    'en');
+                                                            if (!InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
                                                                 .contains(
                                                                     province)) {
-                                                              reqCon
+                                                              InjectionHelper
+                                                                  .requestLoanController
                                                                   .residentAddressList
                                                                   .add(
                                                                       province);
@@ -1287,16 +1598,23 @@ class _Step1DebtState extends State<Step1Debt> {
                                                           onSelectCommune:
                                                               (Address
                                                                   commune) {
-                                                            reqCon.villageList
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .villageList
                                                                 .clear();
-                                                            reqCon.getVillage(
-                                                                commune.code!,
-                                                                'en');
-                                                            if (!reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getVillage(
+                                                                    commune
+                                                                        .code!,
+                                                                    'en');
+                                                            if (!InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
                                                                 .contains(
                                                                     commune)) {
-                                                              reqCon
+                                                              InjectionHelper
+                                                                  .requestLoanController
                                                                   .residentAddressList
                                                                   .add(commune);
                                                             }
@@ -1304,16 +1622,23 @@ class _Step1DebtState extends State<Step1Debt> {
                                                           onSelectDistrict:
                                                               (Address
                                                                   disctrict) {
-                                                            reqCon.communeList
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .communeList
                                                                 .clear();
-                                                            reqCon.getCommune(
-                                                                disctrict.code!,
-                                                                'en');
-                                                            if (!reqCon
+                                                            InjectionHelper
+                                                                .requestLoanController
+                                                                .getCommune(
+                                                                    disctrict
+                                                                        .code!,
+                                                                    'en');
+                                                            if (!InjectionHelper
+                                                                .requestLoanController
                                                                 .residentAddressList
                                                                 .contains(
                                                                     disctrict)) {
-                                                              reqCon
+                                                              InjectionHelper
+                                                                  .requestLoanController
                                                                   .residentAddressList
                                                                   .add(
                                                                       disctrict);
@@ -1322,21 +1647,26 @@ class _Step1DebtState extends State<Step1Debt> {
                                                           onSelectVillage:
                                                               (Address
                                                                   village) {
-                                                            if (reqCon
+                                                            if (InjectionHelper
+                                                                    .requestLoanController
                                                                     .residentAddressList
                                                                     .length !=
                                                                 4) {
-                                                              if (!reqCon
+                                                              if (!InjectionHelper
+                                                                  .requestLoanController
                                                                   .residentAddressList
                                                                   .contains(
                                                                       village)) {
-                                                                reqCon
+                                                                InjectionHelper
+                                                                    .requestLoanController
                                                                     .residentAddressList
                                                                     .add(
                                                                         village);
                                                               }
                                                             } else {
-                                                              reqCon.residentAddressList[
+                                                              InjectionHelper
+                                                                      .requestLoanController
+                                                                      .residentAddressList[
                                                                   3] = village;
                                                             }
                                                           },
@@ -1345,127 +1675,168 @@ class _Step1DebtState extends State<Step1Debt> {
                                                             if (address.code!
                                                                     .length ==
                                                                 6) {
-                                                              reqCon.villageList
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .villageList
                                                                   .clear();
-                                                              reqCon.getVillage(
-                                                                  address.code!,
-                                                                  'en');
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .getVillage(
+                                                                      address
+                                                                          .code!,
+                                                                      'en');
                                                             } else if (address
                                                                     .code!
                                                                     .length ==
                                                                 4) {
-                                                              reqCon.communeList
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .communeList
                                                                   .clear();
-                                                              reqCon.getCommune(
-                                                                  address.code!,
-                                                                  'en');
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .getCommune(
+                                                                      address
+                                                                          .code!,
+                                                                      'en');
                                                             } else {
-                                                              reqCon
+                                                              InjectionHelper
+                                                                  .requestLoanController
                                                                   .districtList
                                                                   .clear();
-                                                              reqCon.getDistrict(
-                                                                  address.code!,
-                                                                  'en');
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .getDistrict(
+                                                                      address
+                                                                          .code!,
+                                                                      'en');
                                                             }
-                                                            if (debtCon
+                                                            if (InjectionHelper
+                                                                    .debtInvestmentController
                                                                     .currentAddress
                                                                     .value
                                                                     .addressList !=
                                                                 null) {}
                                                           },
-                                                          communeList: reqCon
-                                                              .communeList,
-                                                          provinceList: reqCon
-                                                              .provinceList,
-                                                          villageList: reqCon
-                                                              .villageList,
-                                                          districtList: reqCon
-                                                              .districtList,
+                                                          communeList:
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .communeList,
+                                                          provinceList:
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .provinceList,
+                                                          villageList:
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .villageList,
+                                                          districtList:
+                                                              InjectionHelper
+                                                                  .requestLoanController
+                                                                  .districtList,
                                                         ))!;
                                                         setState(() {
-                                                          debtCon
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![0] =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![0];
-                                                          debtCon
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![1] =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![1];
-                                                          debtCon
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![2] =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![2];
-                                                          debtCon
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![3] =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![3];
-                                                          debtCon
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .streetNo =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .streetNo;
-                                                          debtCon
+                                                          InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .houseNo =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .houseNo;
                                                         });
                                                         setState(() {
                                                           tempData.perHouseNo =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .houseNo;
                                                           tempData.perStreetNo =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .streetNo;
                                                           tempData.perCity =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![
                                                                       0]
                                                                   .name;
                                                           tempData.perDis =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![
                                                                       1]
                                                                   .name;
                                                           tempData.perCom =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![
                                                                       2]
                                                                   .name;
                                                           tempData.perVil =
-                                                              debtCon
+                                                              InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .residentAddress
                                                                   .value
                                                                   .addressList![
@@ -1473,22 +1844,24 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                   .name;
                                                         });
                                                       },
-                                                      selectAddress: debtCon
+                                                      selectAddress: InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
                                                                   .addressList![
                                                                       0]
                                                                   .name !=
                                                               ""
-                                                          ? debtCon
+                                                          ? InjectionHelper
+                                                                      .debtInvestmentController
                                                                       .fullResidentAddress
                                                                       .value
                                                                       .addressList![
                                                                           3]
                                                                       .name ==
                                                                   ""
-                                                              ? '${debtCon.fullResidentAddress.value.streetNo} ${debtCon.fullResidentAddress.value.houseNo} ${debtCon.fullResidentAddress.value.addressList![2].name} ${debtCon.fullResidentAddress.value.addressList![1].name} ${debtCon.fullResidentAddress.value.addressList![0].name}'
-                                                              : '${debtCon.fullResidentAddress.value.streetNo} ${debtCon.fullResidentAddress.value.houseNo} ${debtCon.fullResidentAddress.value.addressList![3].name} ${debtCon.fullResidentAddress.value.addressList![2].name} ${debtCon.fullResidentAddress.value.addressList![1].name} ${debtCon.fullResidentAddress.value.addressList![0].name} '
+                                                              ? '${InjectionHelper.debtInvestmentController.fullResidentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![0].name}'
+                                                              : '${InjectionHelper.debtInvestmentController.fullResidentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![3].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![0].name} '
                                                           : null,
                                                       title:
                                                           'Permanent Address',
@@ -1524,29 +1897,45 @@ class _Step1DebtState extends State<Step1Debt> {
                                                         "Debt Save Draft Step1");
                                               }
                                               widget.id != null
-                                                  ? await debtCon
+                                                  ? await InjectionHelper
+                                                      .debtInvestmentController
                                                       .onEditDebtInvestment(
                                                       context: context,
                                                       id: widget.id,
                                                       step: 1,
                                                     )
-                                                  : await debtCon
+                                                  : await InjectionHelper
+                                                      .debtInvestmentController
                                                       .onSubmitDebtInvestment(
                                                           context: context,
                                                           step: 1);
-                                              debtCon.currentAddressList
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .currentAddressList
                                                   .clear();
-                                              debtCon.isValidateFullName.value =
-                                                  true;
-                                              debtCon.isValidateDateOfBirth
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidateFullName
                                                   .value = true;
-                                              debtCon.isValidateGender.value =
-                                                  true;
-                                              debtCon.isValidateEmail.value =
-                                                  true;
-                                              debtCon.isValidatePhone.value =
-                                                  true;
-                                              debtCon.isValidateFullAddress
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidateDateOfBirth
+                                                  .value = true;
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidateGender
+                                                  .value = true;
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidateEmail
+                                                  .value = true;
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidatePhone
+                                                  .value = true;
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidateFullAddress
                                                   .value = true;
                                               Future.delayed(Duration.zero)
                                                   .then((_) {

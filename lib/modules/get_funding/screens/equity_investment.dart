@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/modules/get_funding/controller/equity_investment_controller.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_application_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Utils/helper/container_partern.dart';
+import '../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../widgets/get_funding/custom_shimmer_card_get_funding.dart';
 
 class EquityInvestment extends StatefulWidget {
@@ -19,23 +19,25 @@ class EquityInvestment extends StatefulWidget {
 }
 
 class _EquityInvestmentState extends State<EquityInvestment> {
-  final equityController = Get.put(EquityInvestmentController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   bool isEmpty = true;
   int page = 1;
   Future<void> onRefresh() async {
     page = 1;
-    equityController.fetchOnEquityApplicationList(page);
+    InjectionHelper.equityInvestmentController
+        .fetchOnEquityApplicationList(page);
   }
 
   getData() {
     page += 1;
-    equityController.fetchOnEquityApplicationList(page);
+    InjectionHelper.equityInvestmentController
+        .fetchOnEquityApplicationList(page);
   }
 
   @override
   void initState() {
-    equityController.fetchOnEquityApplicationList(page);
+    InjectionHelper.equityInvestmentController
+        .fetchOnEquityApplicationList(page);
 
     super.initState();
   }
@@ -47,7 +49,8 @@ class _EquityInvestmentState extends State<EquityInvestment> {
       body: Builder(
         builder: (context) => CupertinoPageScaffold(
           child: Obx(
-            () => equityController.isDeleteEquity.value
+            () => InjectionHelper
+                    .equityInvestmentController.isDeleteEquity.value
                 ? Scaffold(
                     body: Container(
                       width: double.infinity,
@@ -69,16 +72,18 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                     ),
                   )
                 : Obx(
-                    () => equityController.isequityLoading.value
+                    () => InjectionHelper
+                            .equityInvestmentController.isequityLoading.value
                         ? () {
                             return const Padding(
                                 padding: EdgeInsets.only(top: 20),
                                 child: CustomShimmerCardGetFunding());
                           }()
-                        : !equityController.isequityLoading.value &&
-                                equityController
+                        : !InjectionHelper.equityInvestmentController
+                                    .isequityLoading.value &&
+                                InjectionHelper.equityInvestmentController
                                     .equityApplicationList.isEmpty &&
-                                equityController
+                                InjectionHelper.equityInvestmentController
                                     .equityApplicationDraftList.isEmpty
                             ? showEmptyState()
                             : RefreshIndicator(
@@ -105,7 +110,8 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                               const AlwaysScrollableScrollPhysics(),
                                           controller: scrollController,
                                           children: [
-                                            equityController
+                                            InjectionHelper
+                                                    .equityInvestmentController
                                                     .equityApplicationList
                                                     .isNotEmpty
                                                 ? ApplicationList(
@@ -114,13 +120,14 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                                     listTitleColor:
                                                         const Color(0xff464646),
                                                     isEquity: true,
-                                                    applicationList:
-                                                        equityController
-                                                            .equityApplicationList,
+                                                    applicationList: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .equityApplicationList,
                                                   )
                                                 : const SizedBox(),
                                             const SizedBox(height: 20),
-                                            equityController
+                                            InjectionHelper
+                                                    .equityInvestmentController
                                                     .equityApplicationDraftList
                                                     .isNotEmpty
                                                 ? ApplicationList(
@@ -129,15 +136,17 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                                     listTitleColor:
                                                         const Color(0xff848F92),
                                                     isEquity: true,
-                                                    applicationList:
-                                                        equityController
-                                                            .equityApplicationDraftList,
+                                                    applicationList: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .equityApplicationDraftList,
                                                   )
                                                 : const SizedBox(),
 
                                             ///Loading Pagination
-                                            equityController
-                                                    .isfetchequtydata.value
+                                            InjectionHelper
+                                                    .equityInvestmentController
+                                                    .isfetchequtydata
+                                                    .value
                                                 ? Padding(
                                                     padding:
                                                         const EdgeInsets.only(
@@ -178,7 +187,9 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                           top: 10),
                                       child: CustomButton(
                                         onPressed: () {
-                                          equityController.resetData();
+                                          InjectionHelper
+                                              .equityInvestmentController
+                                              .resetData();
                                           debugPrint("Go to step 1 by create");
                                           context
                                               .go("/get_funding/equity-step1");
@@ -314,7 +325,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
             isDisable: false,
             isOutline: false,
             onPressed: () {
-              equityController.resetData();
+              InjectionHelper.equityInvestmentController.resetData();
 
               context.go("/get_funding/equity-step1");
             },

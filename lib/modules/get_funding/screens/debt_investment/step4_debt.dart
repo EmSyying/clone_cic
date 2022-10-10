@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/loan_option.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
@@ -37,8 +37,6 @@ class RequiredDocument extends StatefulWidget {
 }
 
 class _RequiredDocumentState extends State<RequiredDocument> {
-  final DebtInvestmentController debtCon = Get.put(DebtInvestmentController());
-
   void _onValidate() {
     context.push("/get_funding/preview-debt?id=${widget.id}");
   }
@@ -46,190 +44,254 @@ class _RequiredDocumentState extends State<RequiredDocument> {
   @override
   void initState() {
     if (widget.id != null) {
-      debtCon.fetchAppDetails(widget.id!).then((value) {
+      InjectionHelper.debtInvestmentController
+          .fetchAppDetails(widget.id!)
+          .then((value) {
         // ============initial step1 =============
-        if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerGender !=
             null) {
-          debtCon.gender.value.display = debtCon
-              .applicationDetail.value.customerInfo!.customerGender!.display;
-          debtCon.gender.value.id =
-              debtCon.applicationDetail.value.customerInfo!.customerGender!.id;
+          InjectionHelper.debtInvestmentController.gender.value.display =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerGender!.display;
+          InjectionHelper.debtInvestmentController.gender.value.id =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerGender!.id;
         }
 
-        if (debtCon.applicationDetail.value.customerInfo!.customerName != "") {
-          debtCon.fullName.value =
-              debtCon.applicationDetail.value.customerInfo!.customerName!;
-        }
-
-        if (debtCon.applicationDetail.value.customerInfo!.customerEmail != "") {
-          debtCon.email.value =
-              debtCon.applicationDetail.value.customerInfo!.customerEmail!;
-        }
-        if (debtCon.applicationDetail.value.customerInfo!.customerDateOfBirth !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerName !=
             "") {
-          debtCon.dateOfBirth.value = debtCon
-              .applicationDetail.value.customerInfo!.customerDateOfBirth!;
+          InjectionHelper.debtInvestmentController.fullName.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerName!;
+        }
+
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerEmail !=
+            "") {
+          InjectionHelper.debtInvestmentController.email.value = InjectionHelper
+              .debtInvestmentController
+              .applicationDetail
+              .value
+              .customerInfo!
+              .customerEmail!;
+        }
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.customerDateOfBirth !=
+            "") {
+          InjectionHelper.debtInvestmentController.dateOfBirth.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerDateOfBirth!;
         }
         // Address
-        if (debtCon.applicationDetail.value.customerInfo!.currentHouseNo !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentHouseNo !=
             null) {
-          debtCon.fullCurrentAddress.value.houseNo =
-              debtCon.applicationDetail.value.customerInfo!.currentHouseNo;
+          InjectionHelper
+                  .debtInvestmentController.fullCurrentAddress.value.houseNo =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.currentHouseNo;
         }
-        if (debtCon.applicationDetail.value.customerInfo!.currentStreetNo !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentStreetNo !=
             null) {
-          debtCon.fullCurrentAddress.value.streetNo =
-              debtCon.applicationDetail.value.customerInfo!.currentStreetNo;
+          InjectionHelper
+                  .debtInvestmentController.fullCurrentAddress.value.streetNo =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.currentStreetNo;
         }
 
-        if (debtCon.applicationDetail.value.customerInfo!.currentAddress !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.currentAddress !=
             null) {
-          debtCon.fullCurrentAddress.value = FullAddress(
-            houseNo:
-                debtCon.applicationDetail.value.customerInfo!.currentHouseNo ??
-                    "",
-            streetNo:
-                debtCon.applicationDetail.value.customerInfo!.currentStreetNo ??
-                    "",
+          InjectionHelper.debtInvestmentController.fullCurrentAddress.value =
+              FullAddress(
+            houseNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentHouseNo ??
+                "",
+            streetNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentStreetNo ??
+                "",
             addressList: [
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.city!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.city!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.city!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.city!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.district!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.district!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.district!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.district!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.commune!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.commune!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.commune!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.commune!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.village!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .currentAddress!.village!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.village!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.currentAddress!.village!.name,
               ),
             ],
           );
         }
-        if (debtCon.applicationDetail.value.customerInfo!.residenceAddress !=
+        if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                .customerInfo!.residenceAddress !=
             null) {
-          debtCon.fullResidentAddress.value = FullAddress(
-            houseNo: debtCon
-                    .applicationDetail.value.customerInfo!.residenceHouseNo ??
+          InjectionHelper.debtInvestmentController.fullResidentAddress.value =
+              FullAddress(
+            houseNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceHouseNo ??
                 "",
-            streetNo: debtCon
-                    .applicationDetail.value.customerInfo!.residenceStreetNo ??
+            streetNo: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceStreetNo ??
                 "",
             addressList: [
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.city!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.city!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.city!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.city!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.district!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.district!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.district!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.district!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.commune!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.commune!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.commune!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.commune!.name,
               ),
               Address(
-                code: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.village!.code,
-                name: debtCon.applicationDetail.value.customerInfo!
-                    .residenceAddress!.village!.name,
+                code: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.village!.code,
+                name: InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.customerInfo!.residenceAddress!.village!.name,
               ),
             ],
           );
         }
 
         // =============End initial step1 =============
-        debtCon.productType.value = Option(
+        InjectionHelper.debtInvestmentController.productType.value = Option(
             id: value.productType!.id!.toInt(),
             productName: value.productType!.name);
 
-        debtCon.financingPurpose.value = Optionmodel(
-            id: value.financialPurpose!.id,
-            display: value.financialPurpose!.display);
-        debtCon.financingAmount.value = value.financialAmount!.toDouble();
-        debtCon.term.value = value.duration!.toInt();
-        debtCon.intendedDate.value = value.intendedDateDisbursement.toString();
-        debtCon.financingAmountcontroller.text =
-            debtCon.applicationDetail.value.financialAmount!.toString() == "0"
-                ? ""
-                : debtCon.applicationDetail.value.financialAmount!.toString();
-        debtCon.financingAmount.value =
-            debtCon.applicationDetail.value.financialAmount != null
-                ? debtCon.financingAmount.value
+        InjectionHelper.debtInvestmentController.financingPurpose.value =
+            Optionmodel(
+                id: value.financialPurpose!.id,
+                display: value.financialPurpose!.display);
+        InjectionHelper.debtInvestmentController.financingAmount.value =
+            value.financialAmount!.toDouble();
+        InjectionHelper.debtInvestmentController.term.value =
+            value.duration!.toInt();
+        InjectionHelper.debtInvestmentController.intendedDate.value =
+            value.intendedDateDisbursement.toString();
+        InjectionHelper.debtInvestmentController.financingAmountcontroller
+            .text = InjectionHelper.debtInvestmentController.applicationDetail
+                    .value.financialAmount!
+                    .toString() ==
+                "0"
+            ? ""
+            : InjectionHelper.debtInvestmentController.applicationDetail.value
+                .financialAmount!
+                .toString();
+        InjectionHelper.debtInvestmentController.financingAmount.value =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                        .financialAmount !=
+                    null
+                ? InjectionHelper.debtInvestmentController.financingAmount.value
                 : 0;
-        debtCon.termController.text =
-            debtCon.applicationDetail.value.duration.toString() == ""
+        InjectionHelper.debtInvestmentController.termController.text =
+            InjectionHelper.debtInvestmentController.applicationDetail.value
+                        .duration
+                        .toString() ==
+                    ""
                 ? ""
-                : debtCon.applicationDetail.value.duration.toString();
-        debtCon.term.value = debtCon.applicationDetail.value.duration != null
-            ? debtCon.term.value
+                : InjectionHelper
+                    .debtInvestmentController.applicationDetail.value.duration
+                    .toString();
+        InjectionHelper.debtInvestmentController.term.value = InjectionHelper
+                    .debtInvestmentController
+                    .applicationDetail
+                    .value
+                    .duration !=
+                null
+            ? InjectionHelper.debtInvestmentController.term.value
             : 0;
         // =================End initial step 2================
 
-        debtCon.companyName.value = value.company!.companyName!;
+        InjectionHelper.debtInvestmentController.companyName.value =
+            value.company!.companyName!;
 
-        debtCon.address.value = value.company!.address!;
-        debtCon.addresscontroller.text = value.company!.address!;
-        debtCon.yearOfEstablishment.value =
+        InjectionHelper.debtInvestmentController.address.value =
+            value.company!.address!;
+        InjectionHelper.debtInvestmentController.addresscontroller.text =
+            value.company!.address!;
+        InjectionHelper.debtInvestmentController.yearOfEstablishment.value =
             value.company!.yearFounded!.toString();
-        debtCon.yearofestablistmentController.text =
-            value.company!.yearFounded!.toString();
-        debtCon.typeOfOrganization.value =
+        InjectionHelper.debtInvestmentController.yearofestablistmentController
+            .text = value.company!.yearFounded!.toString();
+        InjectionHelper.debtInvestmentController.typeOfOrganization.value =
             value.company!.typeOfOrganization != null
                 ? Optionmodel(
                     id: value.company!.typeOfOrganization!.id!,
                     display: value.company!.typeOfOrganization!.display!)
                 : Optionmodel(id: 0, display: "");
 
-        debtCon.taxIdentificationNumber.value =
+        InjectionHelper.debtInvestmentController.taxIdentificationNumber.value =
             value.company!.taxIdentificationNumber!;
-        debtCon.taxindentificationController.text =
-            value.company!.taxIdentificationNumber!;
-        debtCon.industry.value = value.company!.industry != null
-            ? Optionmodel(
-                id: value.company!.industry!.id!,
-                display: value.company!.industry!.display!)
-            : Optionmodel(id: 0, display: "");
-        debtCon.numberofStaffController.text =
+        InjectionHelper.debtInvestmentController.taxindentificationController
+            .text = value.company!.taxIdentificationNumber!;
+        InjectionHelper.debtInvestmentController.industry.value =
+            value.company!.industry != null
+                ? Optionmodel(
+                    id: value.company!.industry!.id!,
+                    display: value.company!.industry!.display!)
+                : Optionmodel(id: 0, display: "");
+        InjectionHelper.debtInvestmentController.numberofStaffController.text =
             value.company!.numberOfStaff!.toString();
-        debtCon.numberOfStaff.value = value.company!.numberOfStaff!.toString();
-        debtCon.ownernameController.text = value.company!.ownerName!;
-        debtCon.ownerName.value = value.company!.ownerName!;
-        debtCon.productSevice.value = value.company!.companyProductAndService!;
-        debtCon.productController.text =
+        InjectionHelper.debtInvestmentController.numberOfStaff.value =
+            value.company!.numberOfStaff!.toString();
+        InjectionHelper.debtInvestmentController.ownernameController.text =
+            value.company!.ownerName!;
+        InjectionHelper.debtInvestmentController.ownerName.value =
+            value.company!.ownerName!;
+        InjectionHelper.debtInvestmentController.productSevice.value =
+            value.company!.companyProductAndService!;
+        InjectionHelper.debtInvestmentController.productController.text =
             value.company!.companyProductAndService!;
 
-        debtCon.patentDocument.value = value.companyPatentDoc!;
-        debtCon.certificatioDoc.value = value.companyMoCCertificate!;
-        debtCon.licenseDoc.value = value.companyLicenceDoc!;
-        debtCon.memorandumDoc.value = value.companyMAA!;
-        debtCon.businessPlan.value = value.businessPlan!.toInt();
-        debtCon.incomeStatement.value = value.incomeStatement!.toInt();
-        debtCon.balanceSheet.value = value.balanceSheet!.toInt();
-        debtCon.cashFlowStatement.value = value.cashFlowStatement!.toInt();
+        InjectionHelper.debtInvestmentController.patentDocument.value =
+            value.companyPatentDoc!;
+        InjectionHelper.debtInvestmentController.certificatioDoc.value =
+            value.companyMoCCertificate!;
+        InjectionHelper.debtInvestmentController.licenseDoc.value =
+            value.companyLicenceDoc!;
+        InjectionHelper.debtInvestmentController.memorandumDoc.value =
+            value.companyMAA!;
+        InjectionHelper.debtInvestmentController.businessPlan.value =
+            value.businessPlan!.toInt();
+        InjectionHelper.debtInvestmentController.incomeStatement.value =
+            value.incomeStatement!.toInt();
+        InjectionHelper.debtInvestmentController.balanceSheet.value =
+            value.balanceSheet!.toInt();
+        InjectionHelper.debtInvestmentController.cashFlowStatement.value =
+            value.cashFlowStatement!.toInt();
 
-        debtCon.otherDocuments.value = value.otherDocument!.toInt();
+        InjectionHelper.debtInvestmentController.otherDocuments.value =
+            value.otherDocument!.toInt();
 
-        debtCon.patentDoc.clear();
+        InjectionHelper.debtInvestmentController.patentDoc.clear();
       });
     }
 
@@ -242,7 +304,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
       body: Builder(
         builder: (context) => CupertinoPageScaffold(
           child: Obx(
-            () => debtCon.isLoadingSubmit.value
+            () => InjectionHelper.debtInvestmentController.isLoadingSubmit.value
                 ? Scaffold(
                     body: Container(
                       width: double.infinity,
@@ -275,7 +337,9 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                     ),
                   )
                 : Scaffold(
-                    appBar: debtCon.isSubmitLoading.value == true
+                    appBar: InjectionHelper.debtInvestmentController
+                                .isSubmitLoading.value ==
+                            true
                         ? AppBar()
                         : CustomAppBarWhiteColor(
                             leading: IconButton(
@@ -293,9 +357,14 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                   onSave: widget.id != null
                                       ? () async {
                                           //Navigator.pop(context);
-                                          await debtCon.onEditDebtInvestment(
-                                            frompage: debtCon
-                                                .applicationDetail.value.step!
+                                          await InjectionHelper
+                                              .debtInvestmentController
+                                              .onEditDebtInvestment(
+                                            frompage: InjectionHelper
+                                                .debtInvestmentController
+                                                .applicationDetail
+                                                .value
+                                                .step!
                                                 .toInt(),
                                             id: widget.id,
                                             context: context,
@@ -304,11 +373,14 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                         }
                                       : () async {
                                           //  Navigator.pop(context);
-                                          await debtCon.onSubmitDebtInvestment(
-                                              context: context, step: 4);
+                                          await InjectionHelper
+                                              .debtInvestmentController
+                                              .onSubmitDebtInvestment(
+                                                  context: context, step: 4);
                                         },
                                   onDiscard: () {
-                                    debtCon.onResetData();
+                                    InjectionHelper.debtInvestmentController
+                                        .onResetData();
                                     context.go("/get_funding");
                                   },
                                 );
@@ -336,7 +408,8 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                             ],
                           ),
                     body: Obx(
-                      () => debtCon.isLoadingData.value
+                      () => InjectionHelper
+                              .debtInvestmentController.isLoadingData.value
                           ? const LinearProgressIndicator()
                           : SizedBox(
                               width: double.infinity,
@@ -394,13 +467,15 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                   child: Row(
                                                     children: [
                                                       CustomSelectgetFunding(
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .incomeStatement
                                                                 .value ==
                                                             0,
                                                         title: 'No',
                                                         ontap: () {
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .incomeStatement
                                                               .value = 0;
                                                         },
@@ -410,12 +485,14 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                       ),
                                                       CustomSelectgetFunding(
                                                         title: 'Yes',
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .incomeStatement
                                                                 .value ==
                                                             1,
                                                         ontap: () {
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .incomeStatement
                                                               .value = 1;
                                                         },
@@ -443,13 +520,16 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                   child: Row(
                                                     children: [
                                                       CustomSelectgetFunding(
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .balanceSheet
                                                                 .value ==
                                                             0,
                                                         title: 'No',
                                                         ontap: () {
-                                                          debtCon.balanceSheet
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .balanceSheet
                                                               .value = 0;
                                                         },
                                                       ),
@@ -458,12 +538,15 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                       ),
                                                       CustomSelectgetFunding(
                                                         title: 'Yes',
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .balanceSheet
                                                                 .value ==
                                                             1,
                                                         ontap: () {
-                                                          debtCon.balanceSheet
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .balanceSheet
                                                               .value = 1;
                                                         },
                                                       ),
@@ -490,13 +573,15 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                   child: Row(
                                                     children: [
                                                       CustomSelectgetFunding(
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .cashFlowStatement
                                                                 .value ==
                                                             0,
                                                         title: 'No',
                                                         ontap: () {
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .cashFlowStatement
                                                               .value = 0;
                                                         },
@@ -506,12 +591,14 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                       ),
                                                       CustomSelectgetFunding(
                                                         title: 'Yes',
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .cashFlowStatement
                                                                 .value ==
                                                             1,
                                                         ontap: () {
-                                                          debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .cashFlowStatement
                                                               .value = 1;
                                                         },
@@ -539,13 +626,16 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                   child: Row(
                                                     children: [
                                                       CustomSelectgetFunding(
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .businessPlan
                                                                 .value ==
                                                             0,
                                                         title: 'No',
                                                         ontap: () {
-                                                          debtCon.businessPlan
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .businessPlan
                                                               .value = 0;
                                                         },
                                                       ),
@@ -554,12 +644,15 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                       ),
                                                       CustomSelectgetFunding(
                                                         title: 'Yes',
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .businessPlan
                                                                 .value ==
                                                             1,
                                                         ontap: () {
-                                                          debtCon.businessPlan
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .businessPlan
                                                               .value = 1;
                                                         },
                                                       ),
@@ -586,13 +679,16 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                   child: Row(
                                                     children: [
                                                       CustomSelectgetFunding(
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .otherDocuments
                                                                 .value ==
                                                             0,
                                                         title: 'No',
                                                         ontap: () {
-                                                          debtCon.otherDocuments
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .otherDocuments
                                                               .value = 0;
                                                         },
                                                       ),
@@ -601,12 +697,15 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                       ),
                                                       CustomSelectgetFunding(
                                                         title: 'Yes',
-                                                        onSelect: debtCon
+                                                        onSelect: InjectionHelper
+                                                                .debtInvestmentController
                                                                 .otherDocuments
                                                                 .value ==
                                                             1,
                                                         ontap: () {
-                                                          debtCon.otherDocuments
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .otherDocuments
                                                               .value = 1;
                                                         },
                                                       ),
@@ -643,10 +742,12 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                         "Debt Save Draft Step4");
                                               }
                                               widget.id != null
-                                                  ? await debtCon
+                                                  ? await InjectionHelper
+                                                      .debtInvestmentController
                                                       .onEditDebtInvestment(
                                                         showDebtSnackbar: false,
-                                                        frompage: debtCon
+                                                        frompage: InjectionHelper
+                                                            .debtInvestmentController
                                                             .applicationDetail
                                                             .value
                                                             .step!
@@ -656,15 +757,20 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                                         step: 4,
                                                       )
                                                       .then((value) =>
-                                                          debtCon.onResetData())
-                                                  : await debtCon
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .onResetData())
+                                                  : await InjectionHelper
+                                                      .debtInvestmentController
                                                       .onSubmitDebtInvestment(
                                                           showDebtSnackbar:
                                                               false,
                                                           context: context,
                                                           step: 4)
-                                                      .then((value) => debtCon
-                                                          .onResetData());
+                                                      .then((value) =>
+                                                          InjectionHelper
+                                                              .debtInvestmentController
+                                                              .onResetData());
                                               // Navigator.pop(context);
                                             },
                                             title: widget.id != null

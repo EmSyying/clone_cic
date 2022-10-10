@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:cicgreenloan/Utils/helper/format_number.dart';
-import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/equatable_debt_model.dart';
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
-import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/models/loan_option.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
@@ -27,6 +25,7 @@ import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/container_partern.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
+import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../../Utils/helper/numerice_format.dart';
 import '../../../../utils/function/format_to_k.dart';
 import '../../../../widgets/get_funding/custom_add_other_label.dart';
@@ -46,61 +45,80 @@ class Step2Debt extends StatefulWidget {
 }
 
 class _Step2DebtState extends State<Step2Debt> {
-  final debtCon = Get.put(DebtInvestmentController());
-  final optionCon = Get.put(DocumentCategory());
   TextEditingController txtFinanceController = TextEditingController();
   String validateText = '';
   bool isEnable = false;
 
   void isValidate() {
-    if (debtCon.financingPurpose.value.display == null) {
-      debtCon.isValidateFnancingPurpose.value = false;
+    if (InjectionHelper
+            .debtInvestmentController.financingPurpose.value.display ==
+        null) {
+      InjectionHelper.debtInvestmentController.isValidateFnancingPurpose.value =
+          false;
     } else {
-      debtCon.isValidateFnancingPurpose.value = true;
+      InjectionHelper.debtInvestmentController.isValidateFnancingPurpose.value =
+          true;
     }
-    if (debtCon.productType.value.productName == null) {
-      debtCon.isValidateProductType.value = false;
+    if (InjectionHelper
+            .debtInvestmentController.productType.value.productName ==
+        null) {
+      InjectionHelper.debtInvestmentController.isValidateProductType.value =
+          false;
     } else {
-      debtCon.isValidateProductType.value = true;
+      InjectionHelper.debtInvestmentController.isValidateProductType.value =
+          true;
     }
-    if (debtCon.financingAmount.value >
-        debtCon.optionData.value.financingAmount!.maximum!) {
-      debtCon.isValidateFinancingAmount.value = false;
+    if (InjectionHelper.debtInvestmentController.financingAmount.value >
+        InjectionHelper.debtInvestmentController.optionData.value
+            .financingAmount!.maximum!) {
+      InjectionHelper.debtInvestmentController.isValidateFinancingAmount.value =
+          false;
       validateText =
-          "Financing amount must between \$${debtCon.optionData.value.financingAmount!.minimum!} - \$${debtCon.optionData.value.financingAmount!.maximum!}";
+          "Financing amount must between \$${InjectionHelper.debtInvestmentController.optionData.value.financingAmount!.minimum!} - \$${InjectionHelper.debtInvestmentController.optionData.value.financingAmount!.maximum!}";
     }
-    if (debtCon.financingAmount.value > 0 &&
-        debtCon.financingAmount.value <
-            debtCon.optionData.value.financingAmount!.minimum!) {
-      debtCon.isValidateFinancingAmount.value = false;
+    if (InjectionHelper.debtInvestmentController.financingAmount.value > 0 &&
+        InjectionHelper.debtInvestmentController.financingAmount.value <
+            InjectionHelper.debtInvestmentController.optionData.value
+                .financingAmount!.minimum!) {
+      InjectionHelper.debtInvestmentController.isValidateFinancingAmount.value =
+          false;
       validateText =
-          "Financing amount must between \$${debtCon.optionData.value.financingAmount!.minimum!} - \$${debtCon.optionData.value.financingAmount!.maximum!}";
+          "Financing amount must between \$${InjectionHelper.debtInvestmentController.optionData.value.financingAmount!.minimum!} - \$${InjectionHelper.debtInvestmentController.optionData.value.financingAmount!.maximum!}";
     }
 
-    if (debtCon.financingAmount.value == 0.0) {
-      debtCon.isValidateFinancingAmount.value = false;
+    if (InjectionHelper.debtInvestmentController.financingAmount.value == 0.0) {
+      InjectionHelper.debtInvestmentController.isValidateFinancingAmount.value =
+          false;
       validateText = "Please enter Financing Amount (USD)";
     }
-    if (debtCon.term.value == 0) {
-      debtCon.isValidateTerm.value = false;
+    if (InjectionHelper.debtInvestmentController.term.value == 0) {
+      InjectionHelper.debtInvestmentController.isValidateTerm.value = false;
     } else {
-      debtCon.isValidateTerm.value = true;
+      InjectionHelper.debtInvestmentController.isValidateTerm.value = true;
     }
-    if (debtCon.intendedDate.value == "") {
-      debtCon.isValidateIntendedDate.value = false;
+    if (InjectionHelper.debtInvestmentController.intendedDate.value == "") {
+      InjectionHelper.debtInvestmentController.isValidateIntendedDate.value =
+          false;
     } else {
-      debtCon.isValidateIntendedDate.value = true;
+      InjectionHelper.debtInvestmentController.isValidateIntendedDate.value =
+          true;
     }
 
-    if (debtCon.financingAmount.value >=
-            debtCon.optionData.value.financingAmount!.minimum! &&
-        debtCon.financingAmount.value <=
-            debtCon.optionData.value.financingAmount!.maximum!) {
-      if (debtCon.financingPurpose.value.display != null &&
-          debtCon.financingAmount.value != 0.0 &&
-          debtCon.term.value != 0 &&
-          debtCon.intendedDate.value != "" &&
-          debtCon.isValidateTermAmount.value == false) {
+    if (InjectionHelper.debtInvestmentController.financingAmount.value >=
+            InjectionHelper.debtInvestmentController.optionData.value
+                .financingAmount!.minimum! &&
+        InjectionHelper.debtInvestmentController.financingAmount.value <=
+            InjectionHelper.debtInvestmentController.optionData.value
+                .financingAmount!.maximum!) {
+      if (InjectionHelper
+                  .debtInvestmentController.financingPurpose.value.display !=
+              null &&
+          InjectionHelper.debtInvestmentController.financingAmount.value !=
+              0.0 &&
+          InjectionHelper.debtInvestmentController.term.value != 0 &&
+          InjectionHelper.debtInvestmentController.intendedDate.value != "" &&
+          InjectionHelper.debtInvestmentController.isValidateTermAmount.value ==
+              false) {
         FocusScope.of(context).unfocus();
         context.push(
             "/get_funding/debt-step3?id=${widget.id}&&step=${widget.step}");
@@ -113,186 +131,336 @@ class _Step2DebtState extends State<Step2Debt> {
 
   @override
   void initState() {
-    debtCon.fetchLoanOption();
-    debtCon.fetchOptionData(id: 1);
-    debtCon.productType.value.id = 1;
+    InjectionHelper.debtInvestmentController.fetchLoanOption();
+    InjectionHelper.debtInvestmentController.fetchOptionData(id: 1);
+    InjectionHelper.debtInvestmentController.productType.value.id = 1;
     if (widget.id != null) {
       isEnable = true;
       if (widget.id != null) {
-        debtCon.fetchAppDetails(widget.id!).then((value) {
-          debtCon.fetchOptionData(id: value.productType!.id!.toInt());
+        InjectionHelper.debtInvestmentController
+            .fetchAppDetails(widget.id!)
+            .then((value) {
+          InjectionHelper.debtInvestmentController
+              .fetchOptionData(id: value.productType!.id!.toInt());
 
           // ============initial step1 =============
-          if (debtCon.applicationDetail.value.customerInfo!.customerGender !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerGender !=
               null) {
-            debtCon.gender.value.display = debtCon
-                .applicationDetail.value.customerInfo!.customerGender!.display;
-            debtCon.gender.value.id = debtCon
-                .applicationDetail.value.customerInfo!.customerGender!.id;
+            InjectionHelper.debtInvestmentController.gender.value.display =
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerGender!.display;
+            InjectionHelper.debtInvestmentController.gender.value.id =
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerGender!.id;
           }
 
-          if (debtCon.applicationDetail.value.customerInfo!.customerName !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerName !=
               "") {
-            debtCon.fullName.value =
-                debtCon.applicationDetail.value.customerInfo!.customerName!;
+            InjectionHelper.debtInvestmentController.fullName.value =
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerName!;
           }
 
-          if (debtCon.applicationDetail.value.customerInfo!.customerEmail !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerEmail !=
               "") {
-            debtCon.email.value =
-                debtCon.applicationDetail.value.customerInfo!.customerEmail!;
+            InjectionHelper.debtInvestmentController.email.value =
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerEmail!;
           }
-          if (debtCon
-                  .applicationDetail.value.customerInfo!.customerDateOfBirth !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.customerDateOfBirth !=
               "") {
-            debtCon.dateOfBirth.value = debtCon
-                .applicationDetail.value.customerInfo!.customerDateOfBirth!;
+            InjectionHelper.debtInvestmentController.dateOfBirth.value =
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.customerDateOfBirth!;
           }
           // Address
-          if (debtCon.applicationDetail.value.customerInfo!.currentHouseNo !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.currentHouseNo !=
               null) {
-            debtCon.fullCurrentAddress.value.houseNo =
-                debtCon.applicationDetail.value.customerInfo!.currentHouseNo;
+            InjectionHelper
+                    .debtInvestmentController.fullCurrentAddress.value.houseNo =
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.currentHouseNo;
           }
-          if (debtCon.applicationDetail.value.customerInfo!.currentStreetNo !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.currentStreetNo !=
               null) {
-            debtCon.fullCurrentAddress.value.streetNo =
-                debtCon.applicationDetail.value.customerInfo!.currentStreetNo;
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value
+                    .streetNo =
+                InjectionHelper.debtInvestmentController.applicationDetail.value
+                    .customerInfo!.currentStreetNo;
           }
 
-          if (debtCon.applicationDetail.value.customerInfo!.currentAddress !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.currentAddress !=
               null) {
-            debtCon.fullCurrentAddress.value = FullAddress(
-              houseNo: debtCon
+            InjectionHelper.debtInvestmentController.fullCurrentAddress.value =
+                FullAddress(
+              houseNo: InjectionHelper.debtInvestmentController
                       .applicationDetail.value.customerInfo!.currentHouseNo ??
                   "",
-              streetNo: debtCon
+              streetNo: InjectionHelper.debtInvestmentController
                       .applicationDetail.value.customerInfo!.currentStreetNo ??
                   "",
               addressList: [
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.city!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.city!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .city!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .city!
+                      .name,
                 ),
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.district!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.district!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .district!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .district!
+                      .name,
                 ),
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.commune!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.commune!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .commune!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .commune!
+                      .name,
                 ),
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.village!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .currentAddress!.village!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .village!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .currentAddress!
+                      .village!
+                      .name,
                 ),
               ],
             );
           }
-          if (debtCon.applicationDetail.value.customerInfo!.residenceAddress !=
+          if (InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .customerInfo!.residenceAddress !=
               null) {
-            debtCon.fullResidentAddress.value = FullAddress(
-              houseNo: debtCon
+            InjectionHelper.debtInvestmentController.fullResidentAddress.value =
+                FullAddress(
+              houseNo: InjectionHelper.debtInvestmentController
                       .applicationDetail.value.customerInfo!.residenceHouseNo ??
                   "",
-              streetNo: debtCon.applicationDetail.value.customerInfo!
+              streetNo: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
                       .residenceStreetNo ??
                   "",
               addressList: [
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.city!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.city!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .city!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .city!
+                      .name,
                 ),
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.district!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.district!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .district!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .district!
+                      .name,
                 ),
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.commune!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.commune!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .commune!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .commune!
+                      .name,
                 ),
                 Address(
-                  code: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.village!.code,
-                  name: debtCon.applicationDetail.value.customerInfo!
-                      .residenceAddress!.village!.name,
+                  code: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .village!
+                      .code,
+                  name: InjectionHelper
+                      .debtInvestmentController
+                      .applicationDetail
+                      .value
+                      .customerInfo!
+                      .residenceAddress!
+                      .village!
+                      .name,
                 ),
               ],
             );
           }
 
           // =============End initial step1 =============
-          debtCon.productType.value =
-              debtCon.applicationDetail.value.productType != null
+          InjectionHelper.debtInvestmentController.productType.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                          .productType !=
+                      null
                   ? Option(
-                      productName:
-                          debtCon.applicationDetail.value.productType!.name,
-                      id: debtCon.applicationDetail.value.productType!.id!
+                      productName: InjectionHelper.debtInvestmentController
+                          .applicationDetail.value.productType!.name,
+                      id: InjectionHelper.debtInvestmentController
+                          .applicationDetail.value.productType!.id!
                           .toInt(),
                     )
                   : Option(id: 0, productName: null);
-          debtCon.financingPurpose.value =
-              debtCon.applicationDetail.value.financialPurpose != null
+          InjectionHelper.debtInvestmentController.financingPurpose.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                          .financialPurpose !=
+                      null
                   ? Optionmodel(
-                      display: debtCon
+                      display: InjectionHelper.debtInvestmentController
                           .applicationDetail.value.financialPurpose!.display,
-                      id: debtCon.applicationDetail.value.financialPurpose!.id,
+                      id: InjectionHelper.debtInvestmentController
+                          .applicationDetail.value.financialPurpose!.id,
                     )
                   : Optionmodel(id: 0, display: null);
-          debtCon.financingPurpose.value.display =
-              debtCon.applicationDetail.value.financialPurpose!.display;
+          InjectionHelper
+                  .debtInvestmentController.financingPurpose.value.display =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .financialPurpose!.display;
 
           ///
           var displayfinancialAmount = FormatNumber.formatNumberDefualt(
-              debtCon.applicationDetail.value.financialAmount!);
-          debtCon.financingAmountcontroller.text =
-              debtCon.applicationDetail.value.financialAmount == 0
-                  ? ""
-                  : displayfinancialAmount.toString();
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .financialAmount!);
+          InjectionHelper.debtInvestmentController.financingAmountcontroller
+              .text = InjectionHelper.debtInvestmentController.applicationDetail
+                      .value.financialAmount ==
+                  0
+              ? ""
+              : displayfinancialAmount.toString();
 
           ///
-          debtCon.financingAmount.value =
-              debtCon.applicationDetail.value.financialAmount!.toDouble();
+          InjectionHelper.debtInvestmentController.financingAmount.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .financialAmount!
+                  .toDouble();
 
-          debtCon.termController.text =
-              debtCon.applicationDetail.value.duration == 0
+          InjectionHelper.debtInvestmentController.termController.text =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                          .duration ==
+                      0
                   ? ""
-                  : debtCon.applicationDetail.value.duration!.toString();
-          debtCon.term.value =
-              debtCon.applicationDetail.value.duration!.toInt();
-          debtCon.intendedDate.value = debtCon
-              .applicationDetail.value.intendedDateDisbursement
-              .toString();
+                  : InjectionHelper.debtInvestmentController.applicationDetail
+                      .value.duration!
+                      .toString();
+          InjectionHelper.debtInvestmentController.term.value = InjectionHelper
+              .debtInvestmentController.applicationDetail.value.duration!
+              .toInt();
+          InjectionHelper.debtInvestmentController.intendedDate.value =
+              InjectionHelper.debtInvestmentController.applicationDetail.value
+                  .intendedDateDisbursement
+                  .toString();
 
           defaultData = DebtStep2Model(
-            financingAmount: debtCon.financingAmount.value,
-            productType: debtCon.productType.value,
-            financingPurpose: debtCon.financingPurpose.value,
-            intendedDate: debtCon.intendedDate.value,
-            term: debtCon.term.value,
-            addNewFinancingPurpose: debtCon.financingPurpose.value.display,
+            financingAmount:
+                InjectionHelper.debtInvestmentController.financingAmount.value,
+            productType:
+                InjectionHelper.debtInvestmentController.productType.value,
+            financingPurpose:
+                InjectionHelper.debtInvestmentController.financingPurpose.value,
+            intendedDate:
+                InjectionHelper.debtInvestmentController.intendedDate.value,
+            term: InjectionHelper.debtInvestmentController.term.value,
+            addNewFinancingPurpose: InjectionHelper
+                .debtInvestmentController.financingPurpose.value.display,
           );
           tempData = DebtStep2Model(
-            financingAmount: debtCon.financingAmount.value,
-            productType: debtCon.productType.value,
-            financingPurpose: debtCon.financingPurpose.value,
-            intendedDate: debtCon.intendedDate.value,
-            term: debtCon.term.value,
-            addNewFinancingPurpose: debtCon.financingPurpose.value.display,
+            financingAmount:
+                InjectionHelper.debtInvestmentController.financingAmount.value,
+            productType:
+                InjectionHelper.debtInvestmentController.productType.value,
+            financingPurpose:
+                InjectionHelper.debtInvestmentController.financingPurpose.value,
+            intendedDate:
+                InjectionHelper.debtInvestmentController.intendedDate.value,
+            term: InjectionHelper.debtInvestmentController.term.value,
+            addNewFinancingPurpose: InjectionHelper
+                .debtInvestmentController.financingPurpose.value.display,
           );
         });
       }
@@ -301,11 +469,14 @@ class _Step2DebtState extends State<Step2Debt> {
   }
 
   setValidate() {
-    debtCon.isValidateProductType.value = true;
-    debtCon.isValidateFnancingPurpose.value = true;
-    debtCon.isValidateFinancingAmount.value = true;
-    debtCon.isValidateIntendedDate.value = true;
-    debtCon.isValidateTerm.value = true;
+    InjectionHelper.debtInvestmentController.isValidateProductType.value = true;
+    InjectionHelper.debtInvestmentController.isValidateFnancingPurpose.value =
+        true;
+    InjectionHelper.debtInvestmentController.isValidateFinancingAmount.value =
+        true;
+    InjectionHelper.debtInvestmentController.isValidateIntendedDate.value =
+        true;
+    InjectionHelper.debtInvestmentController.isValidateTerm.value = true;
   }
 
   DateTime dt1 = DateTime.parse(FormatDate.today().toString());
@@ -316,7 +487,7 @@ class _Step2DebtState extends State<Step2Debt> {
       body: Builder(
         builder: (context) => CupertinoPageScaffold(
           child: Obx(
-            () => debtCon.isLoadingSubmit.value
+            () => InjectionHelper.debtInvestmentController.isLoadingSubmit.value
                 ? Scaffold(
                     body: Container(
                       width: double.infinity,
@@ -350,7 +521,9 @@ class _Step2DebtState extends State<Step2Debt> {
                   )
                 : Scaffold(
                     resizeToAvoidBottomInset: false,
-                    appBar: debtCon.isSubmitLoading.value == true
+                    appBar: InjectionHelper.debtInvestmentController
+                                .isSubmitLoading.value ==
+                            true
                         ? AppBar()
                         : CustomAppBarWhiteColor(
                             leading: IconButton(
@@ -376,17 +549,20 @@ class _Step2DebtState extends State<Step2Debt> {
                                         onSave: () async {
                                           Navigator.pop(context);
                                           widget.id != null
-                                              ? await debtCon
+                                              ? await InjectionHelper
+                                                  .debtInvestmentController
                                                   .onEditDebtInvestment(
                                                       id: widget.id,
                                                       context: context,
                                                       step: 2,
-                                                      frompage: debtCon
+                                                      frompage: InjectionHelper
+                                                          .debtInvestmentController
                                                           .applicationDetail
                                                           .value
                                                           .step!
                                                           .toInt())
-                                              : await debtCon
+                                              : await InjectionHelper
+                                                  .debtInvestmentController
                                                   .onSubmitDebtInvestment(
                                                       context: context,
                                                       step: 2);
@@ -420,7 +596,8 @@ class _Step2DebtState extends State<Step2Debt> {
                             ],
                           ),
                     body: Obx(
-                      () => debtCon.isLoadingData.value
+                      () => InjectionHelper
+                              .debtInvestmentController.isLoadingData.value
                           ? const LinearProgressIndicator()
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -455,16 +632,22 @@ class _Step2DebtState extends State<Step2Debt> {
                                                 },
                                                 onSave: () {
                                                   setState(() {
-                                                    debtCon.financingPurpose
-                                                            .value.display =
+                                                    InjectionHelper
+                                                            .debtInvestmentController
+                                                            .financingPurpose
+                                                            .value
+                                                            .display =
                                                         addNewFinancingPurpose
                                                             .text;
 
                                                     if (addNewFinancingPurpose
                                                             .text !=
                                                         "") {
-                                                      debtCon.financingPurpose
-                                                          .value.id = null;
+                                                      InjectionHelper
+                                                          .debtInvestmentController
+                                                          .financingPurpose
+                                                          .value
+                                                          .id = null;
                                                     }
                                                   });
                                                   Navigator.pop(context);
@@ -482,13 +665,17 @@ class _Step2DebtState extends State<Step2Debt> {
                                             },
                                             isCompany: true,
                                             otherLabel: "Add Other",
-                                            isValidate: debtCon
+                                            isValidate: InjectionHelper
+                                                .debtInvestmentController
                                                 .isValidateFnancingPurpose
                                                 .value,
                                             validate: true,
                                             colors: Colors.white,
-                                            item: optionCon
-                                                .optionData.value.purpose!
+                                            item: InjectionHelper
+                                                .optionController
+                                                .optionData
+                                                .value
+                                                .purpose!
                                                 .asMap()
                                                 .entries
                                                 .map((e) {
@@ -507,28 +694,34 @@ class _Step2DebtState extends State<Step2Debt> {
                                                   display: value["Name"],
                                                 );
 
-                                                debtCon.financingPurpose.value =
-                                                    Optionmodel(
+                                                InjectionHelper
+                                                    .debtInvestmentController
+                                                    .financingPurpose
+                                                    .value = Optionmodel(
                                                   display: value["Name"],
                                                   id: int.parse(value["Code"]),
                                                 );
-                                                debtCon
+                                                InjectionHelper
+                                                    .debtInvestmentController
                                                     .isValidateFnancingPurpose
                                                     .value = true;
                                               });
                                             },
                                             label: 'Financing Purpose',
-                                            defaultValue: debtCon
+                                            defaultValue: InjectionHelper
+                                                        .debtInvestmentController
                                                         .financingPurpose
                                                         .value
                                                         .display !=
                                                     null
                                                 ? {
-                                                    "Name": debtCon
+                                                    "Name": InjectionHelper
+                                                        .debtInvestmentController
                                                         .financingPurpose
                                                         .value
                                                         .display,
-                                                    "Code": debtCon
+                                                    "Code": InjectionHelper
+                                                        .debtInvestmentController
                                                         .financingPurpose
                                                         .value
                                                         .id
@@ -544,13 +737,15 @@ class _Step2DebtState extends State<Step2Debt> {
                                               FilteringTextInputFormatter.deny(
                                                   RegExp(r'^0+')),
                                             ],
-                                            controller: debtCon
+                                            controller: InjectionHelper
+                                                .debtInvestmentController
                                                 .financingAmountcontroller,
                                             validateText: validateText,
                                             textInputAction:
                                                 TextInputAction.next,
                                             isRequired: true,
-                                            isValidate: debtCon
+                                            isValidate: InjectionHelper
+                                                .debtInvestmentController
                                                 .isValidateFinancingAmount
                                                 .value,
                                             labelText:
@@ -564,54 +759,68 @@ class _Step2DebtState extends State<Step2Debt> {
                                                     int.parse(value);
                                                 int val = int.parse(value);
                                                 if (val <
-                                                    debtCon
+                                                    InjectionHelper
+                                                        .debtInvestmentController
                                                         .optionData
                                                         .value
                                                         .financingAmount!
                                                         .minimum!) {
-                                                  debtCon
+                                                  InjectionHelper
+                                                      .debtInvestmentController
                                                       .isValidateFinancingAmount
                                                       .value = false;
                                                   setState(() {
                                                     validateText =
-                                                        "Financing amount is starting from \$${FormatToK.digitNumber(debtCon.optionData.value.financingAmount!.minimum!)}";
+                                                        "Financing amount is starting from \$${FormatToK.digitNumber(InjectionHelper.debtInvestmentController.optionData.value.financingAmount!.minimum!)}";
                                                   });
                                                 } else {
                                                   setState(() {
-                                                    debtCon.financingAmount
+                                                    InjectionHelper
+                                                            .debtInvestmentController
+                                                            .financingAmount
                                                             .value =
                                                         double.parse(value);
                                                   });
-                                                  debtCon
+                                                  InjectionHelper
+                                                      .debtInvestmentController
                                                       .isValidateFinancingAmount
                                                       .value = true;
                                                 }
                                                 if (val >
-                                                    debtCon
+                                                    InjectionHelper
+                                                        .debtInvestmentController
                                                         .optionData
                                                         .value
                                                         .financingAmount!
                                                         .maximum!) {
-                                                  debtCon
+                                                  InjectionHelper
+                                                      .debtInvestmentController
                                                       .isValidateFinancingAmount
                                                       .value = false;
-                                                  debtCon.financingAmount
+                                                  InjectionHelper
+                                                      .debtInvestmentController
+                                                      .financingAmount
                                                       .value = 0.0;
                                                   setState(() {
                                                     validateText =
-                                                        "Financing amount must between \$${FormatToK.digitNumber(debtCon.optionData.value.financingAmount!.minimum!)} - \$${FormatToK.digitNumber(debtCon.optionData.value.financingAmount!.maximum!)}";
+                                                        "Financing amount must between \$${FormatToK.digitNumber(InjectionHelper.debtInvestmentController.optionData.value.financingAmount!.minimum!)} - \$${FormatToK.digitNumber(InjectionHelper.debtInvestmentController.optionData.value.financingAmount!.maximum!)}";
                                                   });
                                                 } else {
                                                   setState(() {
-                                                    debtCon.financingAmount
+                                                    InjectionHelper
+                                                            .debtInvestmentController
+                                                            .financingAmount
                                                             .value =
                                                         double.parse(value);
                                                   });
                                                 }
                                               } else {
-                                                debtCon.financingAmount.value =
-                                                    0.0;
-                                                debtCon
+                                                InjectionHelper
+                                                    .debtInvestmentController
+                                                    .financingAmount
+                                                    .value = 0.0;
+                                                InjectionHelper
+                                                    .debtInvestmentController
                                                     .isValidateFinancingAmount
                                                     .value = false;
                                                 setState(() {
@@ -621,19 +830,25 @@ class _Step2DebtState extends State<Step2Debt> {
                                               }
                                               setState(() {
                                                 tempData.financingAmount =
-                                                    debtCon
-                                                        .financingAmount.value;
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .financingAmount
+                                                        .value;
                                               });
                                             },
                                             keyboardType: const TextInputType
                                                     .numberWithOptions(
                                                 decimal: true),
-                                            initialValue: debtCon
+                                            initialValue: InjectionHelper
+                                                        .debtInvestmentController
                                                         .financingAmount
                                                         .value ==
                                                     0.0
                                                 ? ''
-                                                : debtCon.financingAmount.value
+                                                : InjectionHelper
+                                                    .debtInvestmentController
+                                                    .financingAmount
+                                                    .value
                                                     .toString(),
                                           ),
                                           CustomTextFieldNew(
@@ -644,9 +859,13 @@ class _Step2DebtState extends State<Step2Debt> {
                                                   RegExp(r'^0+')),
                                             ],
                                             isRequired: true,
-                                            controller: debtCon.termController,
-                                            isValidate:
-                                                debtCon.isValidateTerm.value,
+                                            controller: InjectionHelper
+                                                .debtInvestmentController
+                                                .termController,
+                                            isValidate: InjectionHelper
+                                                .debtInvestmentController
+                                                .isValidateTerm
+                                                .value,
                                             labelText: 'Term (Months) ',
                                             hintText: 'Term (Months) ',
                                             onChange: (value) {
@@ -656,32 +875,53 @@ class _Step2DebtState extends State<Step2Debt> {
                                                       int.parse(value);
                                                 });
                                                 setState(() {
-                                                  debtCon.isValidateTerm.value =
-                                                      true;
-                                                  debtCon.term.value =
-                                                      int.parse(value);
-                                                  if (debtCon.term.value <
-                                                          debtCon
+                                                  InjectionHelper
+                                                      .debtInvestmentController
+                                                      .isValidateTerm
+                                                      .value = true;
+                                                  InjectionHelper
+                                                      .debtInvestmentController
+                                                      .term
+                                                      .value = int.parse(value);
+                                                  if (InjectionHelper
+                                                              .debtInvestmentController
+                                                              .term
+                                                              .value <
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .optionData
                                                               .value
                                                               .duration!
                                                               .minimum! ||
-                                                      debtCon.term.value >
-                                                          debtCon
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .term
+                                                              .value >
+                                                          InjectionHelper
+                                                              .debtInvestmentController
                                                               .optionData
                                                               .value
                                                               .duration!
                                                               .maximum!) {
-                                                    debtCon.isValidateTermAmount
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValidateTermAmount
                                                         .value = true;
                                                   } else {
-                                                    debtCon.isValidateTermAmount
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .isValidateTermAmount
                                                         .value = false;
                                                   }
                                                 });
                                               } else {
-                                                debtCon.isValidateTerm(false);
-                                                debtCon.term.value = 0;
+                                                InjectionHelper
+                                                    .debtInvestmentController
+                                                    .isValidateTerm(false);
+                                                InjectionHelper
+                                                    .debtInvestmentController
+                                                    .term
+                                                    .value = 0;
                                                 setState(() {
                                                   tempData.term = 0;
                                                 });
@@ -690,15 +930,27 @@ class _Step2DebtState extends State<Step2Debt> {
                                             keyboardType: const TextInputType
                                                     .numberWithOptions(
                                                 decimal: true),
-                                            initialValue: debtCon.term.value
+                                            initialValue: InjectionHelper
+                                                        .debtInvestmentController
+                                                        .term
+                                                        .value
                                                         .toString() !=
                                                     "0"
-                                                ? debtCon.term.value.toString()
+                                                ? InjectionHelper
+                                                    .debtInvestmentController
+                                                    .term
+                                                    .value
+                                                    .toString()
                                                 : "",
                                           ),
-                                          if (debtCon
-                                                  .isValidateTermAmount.value &&
-                                              debtCon.isValidateTerm.value ==
+                                          if (InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidateTermAmount
+                                                  .value &&
+                                              InjectionHelper
+                                                      .debtInvestmentController
+                                                      .isValidateTerm
+                                                      .value ==
                                                   true)
                                             Container(
                                               padding: const EdgeInsets.only(
@@ -706,14 +958,16 @@ class _Step2DebtState extends State<Step2Debt> {
                                               ),
                                               child: CustomValidateError(
                                                 validateTitle:
-                                                    'Term amount must be between ${debtCon.optionData.value.duration!.minimum!} and ${debtCon.optionData.value.duration!.maximum!}',
+                                                    'Term amount must be between ${InjectionHelper.debtInvestmentController.optionData.value.duration!.minimum!} and ${InjectionHelper.debtInvestmentController.optionData.value.duration!.maximum!}',
                                               ),
                                             ),
                                           CICDropdown(
                                             // isEnable: !isEnable,
                                             currentDate: widget.id != null &&
                                                     dt1.isAfter(
-                                                      debtCon.intendedDate
+                                                      InjectionHelper
+                                                                  .debtInvestmentController
+                                                                  .intendedDate
                                                                   .value ==
                                                               ""
                                                           ? DateTime(
@@ -722,48 +976,68 @@ class _Step2DebtState extends State<Step2Debt> {
                                                               dt1.day)
                                                           : DateFormat(
                                                                   "dd-MM-yyyy")
-                                                              .parse(debtCon
+                                                              .parse(InjectionHelper
+                                                                  .debtInvestmentController
                                                                   .intendedDate
                                                                   .value),
                                                     )
                                                 ? DateFormat("dd-MM-yyyy")
-                                                    .parse(debtCon
-                                                        .intendedDate.value)
+                                                    .parse(InjectionHelper
+                                                        .debtInvestmentController
+                                                        .intendedDate
+                                                        .value)
                                                 : FormatDate.today(),
-                                            isValidate: debtCon
-                                                .isValidateIntendedDate.value,
+                                            isValidate: InjectionHelper
+                                                .debtInvestmentController
+                                                .isValidateIntendedDate
+                                                .value,
                                             label:
                                                 'Intended Date of Disbursement​',
                                             onChange: (value) {
-                                              debtCon.whenOnchangeDate.value =
-                                                  value["Name"];
-                                              debtCon.intendedDate.value =
-                                                  value["Name"];
-                                              debtCon.isValidateIntendedDate
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .whenOnchangeDate
+                                                  .value = value["Name"];
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .intendedDate
+                                                  .value = value["Name"];
+                                              InjectionHelper
+                                                  .debtInvestmentController
+                                                  .isValidateIntendedDate
                                                   .value = true;
                                               setState(() {
                                                 tempData.intendedDate =
-                                                    debtCon.intendedDate.value;
+                                                    InjectionHelper
+                                                        .debtInvestmentController
+                                                        .intendedDate
+                                                        .value;
                                               });
                                             },
-                                            defaultValue:
-                                                debtCon.intendedDate.value == ''
-                                                    ? null
-                                                    : {
-                                                        'Name': debtCon
-                                                                    .whenOnchangeDate
-                                                                    .value ==
-                                                                ""
-                                                            ? FormatDate
-                                                                .formatDateTimeGetfunding(
-                                                                    debtCon
-                                                                        .intendedDate
-                                                                        .value)
-                                                            : debtCon
-                                                                .intendedDate
-                                                                .value,
-                                                        'Code': '02'
-                                                      },
+                                            defaultValue: InjectionHelper
+                                                        .debtInvestmentController
+                                                        .intendedDate
+                                                        .value ==
+                                                    ''
+                                                ? null
+                                                : {
+                                                    'Name': InjectionHelper
+                                                                .debtInvestmentController
+                                                                .whenOnchangeDate
+                                                                .value ==
+                                                            ""
+                                                        ? FormatDate
+                                                            .formatDateTimeGetfunding(
+                                                                InjectionHelper
+                                                                    .debtInvestmentController
+                                                                    .intendedDate
+                                                                    .value)
+                                                        : InjectionHelper
+                                                            .debtInvestmentController
+                                                            .intendedDate
+                                                            .value,
+                                                    'Code': '02'
+                                                  },
                                             isDateTimePicker: true,
                                           ),
                                         ],
@@ -782,14 +1056,25 @@ class _Step2DebtState extends State<Step2Debt> {
                                                   addNewFinancingPurpose.text ==
                                                       ""
                                               ? true
-                                              : debtCon.productType.value
+                                              : InjectionHelper
+                                                              .debtInvestmentController
+                                                              .productType
+                                                              .value
                                                               .productName ==
                                                           null &&
-                                                      debtCon.financingAmount
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .financingAmount
                                                               .value ==
                                                           0.0 &&
-                                                      debtCon.term.value == 0 &&
-                                                      debtCon.intendedDate
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .term
+                                                              .value ==
+                                                          0 &&
+                                                      InjectionHelper
+                                                              .debtInvestmentController
+                                                              .intendedDate
                                                               .value ==
                                                           ""
                                                   ? true
@@ -808,18 +1093,21 @@ class _Step2DebtState extends State<Step2Debt> {
                                                       "Debt Save Draft Step2");
                                             }
                                             widget.id != null
-                                                ? await debtCon
+                                                ? await InjectionHelper
+                                                    .debtInvestmentController
                                                     .onEditDebtInvestment(
                                                         showDebtSnackbar: false,
                                                         id: widget.id,
                                                         context: context,
-                                                        frompage: debtCon
+                                                        frompage: InjectionHelper
+                                                            .debtInvestmentController
                                                             .applicationDetail
                                                             .value
                                                             .step!
                                                             .toInt(),
                                                         step: 2)
-                                                : await debtCon
+                                                : await InjectionHelper
+                                                    .debtInvestmentController
                                                     .onSubmitDebtInvestment(
                                                         showDebtSnackbar: false,
                                                         context: context,

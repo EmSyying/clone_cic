@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
+import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
 import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,6 @@ import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
 import '../../../widgets/investments/custom_shimmer_fif_saving_card.dart';
 import '../../../widgets/investments/custom_total_investment_card.dart';
-import '../../get_funding/controller/equity_investment_controller.dart';
 import '../model/first_date/first_date.dart';
 
 class CiCFixedIncome extends StatefulWidget {
@@ -27,25 +26,12 @@ class CiCFixedIncome extends StatefulWidget {
 }
 
 class _CiCFixedIncomeState extends State<CiCFixedIncome> {
-  final equityCon = Get.put(EquityInvestmentController());
-  final fifController = Get.put(PriceController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
-
-  // Future<void> onRefresh() async {
-  //   priceController.totalInvestmentButton(false); //make button always close
-  //   priceController.getAllChartList();
-  //   priceController.fetchInvestmentAccount();
-  //   priceController.fetchFIFConfirm();
-  //   priceController.getHiddentContract();
-  //   priceController.getFIFApplication();
-  //   priceController.fetchFIFPending();
-  //   equityCon.fetchCallCenter(type: "FIF");
-  // }
 
   @override
   void initState() {
-    fifController.onRefreshFIF();
-    equityCon.fetchCallCenter(type: "FIF");
+    InjectionHelper.investmentController.onRefreshFIF();
+    InjectionHelper.equityInvestmentController.fetchCallCenter(type: "FIF");
     super.initState();
   }
 
@@ -54,21 +40,33 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
     return widget.ismmaInvestFIF == false
         ? RefreshIndicator(
             key: refreshKey,
-            onRefresh: fifController.onRefreshFIF,
-            child: Obx(
-                () => fifController.fifApplicationLoading.value == false &&
-                        fifController.isLoadingPending.value == false &&
-                        fifController.isLoadingConfirm.value == false &&
-                        fifController.isLoadingInvestment.value == false &&
-                        fifController.getHiddentContractLoading.value == false
-                    ?
+            onRefresh: InjectionHelper.investmentController.onRefreshFIF,
+            child:
+                Obx(
+                    () =>
+                        InjectionHelper.investmentController
+                                        .fifApplicationLoading.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .isLoadingPending.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .isLoadingConfirm.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .isLoadingInvestment.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .getHiddentContractLoading.value ==
+                                    false
+                            ?
 
-                    ///when all fetch function done it work here
-                    showData()
-                    : showShimmer()
+                            ///when all fetch function done it work here
+                            showData()
+                            : showShimmer()
 
-                ///data
-                ),
+                    ///data
+                    ),
           )
         : Scaffold(
             appBar: CustomAppBar(
@@ -81,13 +79,21 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
               margin: const EdgeInsets.only(top: 20.0),
               child: RefreshIndicator(
                 key: refreshKey,
-                onRefresh: fifController.onRefreshFIF,
-                child: Obx(
-                    () => fifController.fifApplicationLoading.value == false &&
-                            fifController.isLoadingPending.value == false &&
-                            fifController.isLoadingConfirm.value == false &&
-                            fifController.isLoadingInvestment.value == false &&
-                            fifController.getHiddentContractLoading.value ==
+                onRefresh: InjectionHelper.investmentController.onRefreshFIF,
+                child: Obx(() => InjectionHelper.investmentController
+                                    .fifApplicationLoading.value ==
+                                false &&
+                            InjectionHelper.investmentController
+                                    .isLoadingPending.value ==
+                                false &&
+                            InjectionHelper.investmentController
+                                    .isLoadingConfirm.value ==
+                                false &&
+                            InjectionHelper.investmentController
+                                    .isLoadingInvestment.value ==
+                                false &&
+                            InjectionHelper.investmentController
+                                    .getHiddentContractLoading.value ==
                                 false
                         ?
 
@@ -111,7 +117,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
         }
         return notification.depth == 2;
       },
-      onRefresh: fifController.onRefreshFIF,
+      onRefresh: InjectionHelper.investmentController.onRefreshFIF,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -135,20 +141,32 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                           StretchMode.zoomBackground
                         ],
                         // collapseMode: CollapseMode.parallax,
-                        background: fifController.investmentModel.value
+                        background: InjectionHelper
+                                        .investmentController
+                                        .investmentModel
+                                        .value
                                         .totalInvestment ==
                                     "0.00" ||
-                                fifController.investmentModel.value
+                                InjectionHelper
+                                        .investmentController
+                                        .investmentModel
+                                        .value
                                         .totalInvestment ==
                                     null ||
-                                fifController.investmentModel.value
+                                InjectionHelper
+                                        .investmentController
+                                        .investmentModel
+                                        .value
                                         .totalInvestment ==
                                     '0'
                             ? TotalInvestmentCard(
-                                amount: fifController.investmentModel.value
+                                amount: InjectionHelper
+                                            .investmentController
+                                            .investmentModel
+                                            .value
                                             .totalInvestment !=
                                         null
-                                    ? fifController
+                                    ? InjectionHelper.investmentController
                                         .investmentModel.value.totalInvestment!
                                     : "0.00",
                                 chartData: [
@@ -162,18 +180,23 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
 
                             ///BDBDBD
                             : TotalInvestmentCard(
-                                chartData: fifController.fifChartList,
-                                amount: fifController
+                                chartData: InjectionHelper
+                                    .investmentController.fifChartList,
+                                amount: InjectionHelper.investmentController
                                     .investmentModel.value.totalInvestment,
                               ),
                       ),
                     ),
                   ];
                 },
-                body: (fifController.fifAppPendingList.isEmpty &&
-                        fifController.fifApplicationList.isEmpty &&
-                        fifController.fifAppConfirmList.isEmpty &&
-                        fifController.hiddenContractList.isEmpty)
+                body: (InjectionHelper
+                            .investmentController.fifAppPendingList.isEmpty &&
+                        InjectionHelper
+                            .investmentController.fifApplicationList.isEmpty &&
+                        InjectionHelper
+                            .investmentController.fifAppConfirmList.isEmpty &&
+                        InjectionHelper
+                            .investmentController.hiddenContractList.isEmpty)
                     ? showEmptyState()
                     : Column(
                         children: [
@@ -206,16 +229,22 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                                   ),
                                   Expanded(
                                     child: CustomSavingCardList(
-                                      buttonShow: fifController
-                                          .totalInvestmentButton.value,
-                                      fifhiddenList:
-                                          fifController.hiddenContractList,
-                                      fifAccountList:
-                                          fifController.fifApplicationList,
-                                      fifConfirmList:
-                                          fifController.fifAppConfirmList,
-                                      fifPendingList:
-                                          fifController.fifAppPendingList,
+                                      buttonShow: InjectionHelper
+                                          .investmentController
+                                          .totalInvestmentButton
+                                          .value,
+                                      fifhiddenList: InjectionHelper
+                                          .investmentController
+                                          .hiddenContractList,
+                                      fifAccountList: InjectionHelper
+                                          .investmentController
+                                          .fifApplicationList,
+                                      fifConfirmList: InjectionHelper
+                                          .investmentController
+                                          .fifAppConfirmList,
+                                      fifPendingList: InjectionHelper
+                                          .investmentController
+                                          .fifAppPendingList,
                                     ),
                                   ),
                                 ],
@@ -276,7 +305,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 onPressed: () {
                   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
                   context.push(
-                      '/investment/about-fif?title=About FIF&url=${fifController.investmentModel.value.aboutFif}');
+                      '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
                 },
               ),
             ),
@@ -285,17 +314,22 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
               child: CustomButton(
                 isDisable: false,
                 isOutline: false,
-                title: fifController.fifAppConfirmList.isNotEmpty ||
-                        fifController.fifAppPendingList.isNotEmpty ||
-                        fifController.fifApplicationList.isNotEmpty
-                    ? 'Invest More'
-                    : 'Invest Now',
+                title:
+                    InjectionHelper.investmentController.fifAppConfirmList
+                                .isNotEmpty ||
+                            InjectionHelper.investmentController
+                                .fifAppPendingList.isNotEmpty ||
+                            InjectionHelper.investmentController
+                                .fifApplicationList.isNotEmpty
+                        ? 'Invest More'
+                        : 'Invest Now',
                 onPressed: () async {
                   FirebaseAnalyticsHelper.sendAnalyticsEvent('invest more fif');
-                  fifController.onClearFIF();
-                  fifController.isNewBank.value = true;
-                  fifController.textReceivingAccount.value = "";
-                  fifController.clearDeducSelection();
+                  InjectionHelper.investmentController.onClearFIF();
+                  InjectionHelper.investmentController.isNewBank.value = true;
+                  InjectionHelper
+                      .investmentController.textReceivingAccount.value = "";
+                  InjectionHelper.investmentController.clearDeducSelection();
                   context.push('/investment/invest-more');
                   // context.router.push(FIFDeucSelectionRouter());
                 },
