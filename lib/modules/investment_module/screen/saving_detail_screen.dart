@@ -12,6 +12,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../Utils/function/custom_select_bank.dart';
 import '../../../Utils/function/custom_show_bottom_sheet.dart';
 import '../../../Utils/helper/container_partern.dart';
+import '../../../Utils/pop_up_alert/reminder_dailog.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/defualt_size_web.dart';
@@ -164,109 +165,144 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                             ),
                             itemBuilder: (BuildContext context) =>
                                 <PopupMenuEntry>[
-                              PopupMenuItem(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Obx(
-                                  () => GestureDetector(
-                                    onTap: () {
-                                      isautorenew = !isautorenew!;
-                                      debugPrint("heiii:$isautorenew");
+                              if (fifCon.fifAccountDetailModel.value
+                                      .autoRenewal ==
+                                  'Yes')
+                                PopupMenuItem(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Obx(
+                                    () => fifCon.fifAccountDetailModel.value
+                                                .autoRenewal ==
+                                            'Yes'
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              isautorenew = !isautorenew!;
+                                              debugPrint("heiii:$isautorenew");
+                                              FirebaseAnalyticsHelper
+                                                  .sendAnalyticsEvent(
+                                                      'Stop Contract Renewal');
+                                              Navigator.pop(context);
+                                              // investmentController.onAutoRenew(
+                                              //     widget.id,
+                                              //     isautorenew == true
+                                              //         ? 'yes'
+                                              //         : 'no');
+                                              showReminderDailog(
+                                                  context: context,
+                                                  title:
+                                                      'Are you sure you want to stop renewal of this contract?',
+                                                  content:
+                                                      'You won\'t be able to set it to auto-renewal again until you create a new contract.',
+                                                  cancelTitle: 'Cancel',
+                                                  actionTitle: 'Stop Now',
+                                                  actionTitleColor: Colors.red,
+                                                  onActioned: () {
+                                                    investmentController
+                                                        .onAutoRenew(
+                                                            widget.id,
+                                                            isautorenew == true
+                                                                ? 'yes'
+                                                                : 'no');
+                                                    Navigator.pop(context);
+                                                  },
+                                                  onCanceled: () {
+                                                    Navigator.pop(context);
+                                                  });
 
-                                      FirebaseAnalyticsHelper
-                                          .sendAnalyticsEvent(
-                                              'Stop Contract Renewal');
-                                      Navigator.pop(context);
-                                      investmentController.onAutoRenew(
-                                          widget.id,
-                                          isautorenew == true ? 'yes' : 'no');
-                                      // if (widget.fromPage == null) {
-                                      //   context.push(
-                                      //       '/investment/cic-fixed-fund/saving-detail/renew-contract',
-                                      //       extra: {
-                                      //         "paddings": const EdgeInsets.only(
-                                      //             top: 50, left: 10, right: 0),
-                                      //         "index": widget.index,
-                                      //         "hide": !widget.hide!,
-                                      //         "id": widget.id,
-                                      //         "code": widget.code,
-                                      //         "accountName": fifCon
-                                      //             .fifAccountDetailModel
-                                      //             .value
-                                      //             .accountName,
-                                      //         "annually": fifCon
-                                      //             .fifAccountDetailModel
-                                      //             .value
-                                      //             .annuallyInterestRate,
-                                      //         "investAmount": fifCon
-                                      //             .fifAccountDetailModel
-                                      //             .value
-                                      //             .investmentAmount,
-                                      //         "contractCode": fifCon
-                                      //             .fifAccountDetailModel
-                                      //             .value
-                                      //             .code
-                                      //       });
-                                      // } else {
-                                      //   context.push(
-                                      //     '/notification/saving-detail/renew-contract',
-                                      //     extra: {
-                                      //       "paddings": const EdgeInsets.only(
-                                      //           top: 50, left: 10, right: 0),
-                                      //       "index": widget.index,
-                                      //       "hide": !widget.hide!,
-                                      //       "id": widget.id,
-                                      //       "code": widget.code,
-                                      //       "accountName": fifCon
-                                      //           .fifAccountDetailModel
-                                      //           .value
-                                      //           .accountName,
-                                      //       "annually": fifCon
-                                      //           .fifAccountDetailModel
-                                      //           .value
-                                      //           .annuallyInterestRate,
-                                      //       "investAmount": fifCon
-                                      //           .fifAccountDetailModel
-                                      //           .value
-                                      //           .investmentAmount,
-                                      //       "contractCode": fifCon
-                                      //           .fifAccountDetailModel.value.code
-                                      //     },
-                                      //   );
-                                      // }
-                                    },
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      height: 49,
-                                      child: Row(
-                                        children: [
-                                          const SizedBox(width: 18.0),
-                                          SvgPicture.asset(
-                                              'assets/images/sync_icon.svg'),
-                                          const SizedBox(width: 15.0),
-                                          Expanded(
-                                            child: Text(
-                                              fifCon.fifAccountDetailModel.value
-                                                          .autoRenewal ==
-                                                      'Yes'
-                                                  ? 'Stop Contract Renewal'
-                                                  : "Start Contract Renewal",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle2!
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color:
-                                                          AppColor.darkColor),
+                                              // if (widget.fromPage == null) {
+                                              //   context.push(
+                                              //       '/investment/cic-fixed-fund/saving-detail/renew-contract',
+                                              //       extra: {
+                                              //         "paddings": const EdgeInsets.only(
+                                              //             top: 50, left: 10, right: 0),
+                                              //         "index": widget.index,
+                                              //         "hide": !widget.hide!,
+                                              //         "id": widget.id,
+                                              //         "code": widget.code,
+                                              //         "accountName": fifCon
+                                              //             .fifAccountDetailModel
+                                              //             .value
+                                              //             .accountName,
+                                              //         "annually": fifCon
+                                              //             .fifAccountDetailModel
+                                              //             .value
+                                              //             .annuallyInterestRate,
+                                              //         "investAmount": fifCon
+                                              //             .fifAccountDetailModel
+                                              //             .value
+                                              //             .investmentAmount,
+                                              //         "contractCode": fifCon
+                                              //             .fifAccountDetailModel
+                                              //             .value
+                                              //             .code
+                                              //       });
+                                              // } else {
+                                              //   context.push(
+                                              //     '/notification/saving-detail/renew-contract',
+                                              //     extra: {
+                                              //       "paddings": const EdgeInsets.only(
+                                              //           top: 50, left: 10, right: 0),
+                                              //       "index": widget.index,
+                                              //       "hide": !widget.hide!,
+                                              //       "id": widget.id,
+                                              //       "code": widget.code,
+                                              //       "accountName": fifCon
+                                              //           .fifAccountDetailModel
+                                              //           .value
+                                              //           .accountName,
+                                              //       "annually": fifCon
+                                              //           .fifAccountDetailModel
+                                              //           .value
+                                              //           .annuallyInterestRate,
+                                              //       "investAmount": fifCon
+                                              //           .fifAccountDetailModel
+                                              //           .value
+                                              //           .investmentAmount,
+                                              //       "contractCode": fifCon
+                                              //           .fifAccountDetailModel.value.code
+                                              //     },
+                                              //   );
+                                              // }
+                                            },
+                                            child: Container(
+                                              color: Colors.transparent,
+                                              height: 49,
+                                              child: Row(
+                                                children: [
+                                                  const SizedBox(width: 18.0),
+                                                  SvgPicture.asset(
+                                                      'assets/images/sync_icon.svg'),
+                                                  const SizedBox(width: 15.0),
+                                                  Expanded(
+                                                    child: Text(
+                                                      'Stop Contract Renewal',
+                                                      // fifCon.fifAccountDetailModel.value
+                                                      //             .autoRenewal ==
+                                                      //         'Yes'
+                                                      //     ? 'Stop Contract Renewal'
+                                                      //     : "Start Contract Renewal",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .subtitle2!
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: AppColor
+                                                                  .darkColor),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                          )
+                                        : Container(),
                                   ),
                                 ),
-                              ),
-                              const PopupMenuDivider(height: 0),
+                              if (fifCon.fifAccountDetailModel.value
+                                      .autoRenewal ==
+                                  'Yes')
+                                const PopupMenuDivider(height: 0),
                               PopupMenuItem(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: GestureDetector(

@@ -230,7 +230,7 @@ Authorization: Bearer {{token}}
 
 {
     "fif_id": 12,
-    "auto_renewal": "no",
+    "auto_renewal": "yes",
 }
 
 ### FiF Bank

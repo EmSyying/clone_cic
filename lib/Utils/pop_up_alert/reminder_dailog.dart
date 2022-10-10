@@ -11,6 +11,7 @@ showReminderDailog({
   String? cancelTitle,
   VoidCallback? onActioned,
   VoidCallback? onCanceled,
+  Color? actionTitleColor,
 }) {
   return showDialog(
     barrierDismissible: true,
@@ -60,7 +61,7 @@ showReminderDailog({
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xff007AFF),
+                      color: actionTitleColor ?? const Color(0xff007AFF),
                     ),
               ),
             ),
