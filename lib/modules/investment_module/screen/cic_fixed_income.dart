@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
 import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
+import '../../../Utils/helper/color.dart';
 import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
@@ -70,40 +72,59 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
           )
         : Scaffold(
             appBar: CustomAppBar(
-              title: 'CiC Fixed Income Fund',
+              elevation: 0,
               isLeading: true,
               isLogo: false,
               context: context,
+              title: "CiC Fixed Income Fund",
             ),
-            body: Container(
-              margin: const EdgeInsets.only(top: 20.0),
-              child: RefreshIndicator(
-                key: refreshKey,
-                onRefresh: InjectionHelper.investmentController.onRefreshFIF,
-                child: Obx(() => InjectionHelper.investmentController
-                                    .fifApplicationLoading.value ==
-                                false &&
-                            InjectionHelper.investmentController
-                                    .isLoadingPending.value ==
-                                false &&
-                            InjectionHelper.investmentController
-                                    .isLoadingConfirm.value ==
-                                false &&
-                            InjectionHelper.investmentController
-                                    .isLoadingInvestment.value ==
-                                false &&
-                            InjectionHelper.investmentController
-                                    .getHiddentContractLoading.value ==
-                                false
-                        ?
+            backgroundColor: AppColor.backgroundColor,
+            body: Stack(
+              children: [
+                const SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+                SizedBox(
+                  height: 110,
+                  width: double.infinity,
+                  child: SvgPicture.asset(
+                    'assets/images/svgfile/Investment_backg.svg',
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20.0),
+                  child: RefreshIndicator(
+                    key: refreshKey,
+                    onRefresh:
+                        InjectionHelper.investmentController.onRefreshFIF,
+                    child: Obx(() => InjectionHelper.investmentController
+                                        .fifApplicationLoading.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .isLoadingPending.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .isLoadingConfirm.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .isLoadingInvestment.value ==
+                                    false &&
+                                InjectionHelper.investmentController
+                                        .getHiddentContractLoading.value ==
+                                    false
+                            ?
 
-                        ///when all fetch function done it work here
-                        showData()
-                        : showShimmer()
+                            ///when all fetch function done it work here
+                            showData()
+                            : showShimmer()
 
-                    ///data
-                    ),
-              ),
+                        ///data
+                        ),
+                  ),
+                ),
+              ],
             ),
           );
   }

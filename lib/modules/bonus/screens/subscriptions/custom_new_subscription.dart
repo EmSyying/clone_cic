@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/color.dart';
@@ -480,18 +481,24 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                                   padding:
                                                       const EdgeInsets.only(
                                                           left: 5.0),
-                                                  child: Text(
-                                                    'CiC Serivce Agreement',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline2!
-                                                        .copyWith(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            color: AppColor
-                                                                .mainColor),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      context.push(
+                                                          '/investment/view-contract-term?fromPage=FIF');
+                                                    },
+                                                    child: Text(
+                                                      'CiC Serivce Agreement',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline2!
+                                                          .copyWith(
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              color: AppColor
+                                                                  .mainColor),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
