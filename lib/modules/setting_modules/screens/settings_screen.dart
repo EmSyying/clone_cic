@@ -24,10 +24,12 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/form_builder/custom_listile.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
@@ -134,6 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     isAuthenthication();
     // isEnableNotification();
     // onGetNotificationEnable();
+    _settingCon.fetchTechnicalSupport();
     setState(() {
       isOnNotification =
           customerController.customer.value.enableNotification ?? false;
@@ -948,6 +951,75 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             MaterialPageRoute(
                               builder: (context) => const CiCAppManual(),
                             ),
+                          );
+                        },
+                      ),
+                      Container(
+                        color: Theme.of(context).cardColor,
+                        child: const Padding(
+                          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: Divider(
+                            thickness: 1,
+                          ),
+                        ),
+                      ),
+                      UserListile(
+                        icon: "assets/images/svgfile/technical_support.svg",
+                        label: "Technical Support",
+                        onTap: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) {
+                              return CupertinoActionSheet(
+                                actions: [
+                                  CupertinoActionSheetAction(
+                                    onPressed: () async {
+                                      await launchUrl(
+                                        Uri.parse(
+                                            '${_settingCon.technicalSupport.value.link}'),
+                                        mode: LaunchMode.externalApplication,
+                                      );
+                                    },
+                                    child: const Text(
+                                      "Chat Telegram",
+                                      style: TextStyle(
+                                        fontFamily: 'DMSans',
+                                        fontSize: 16,
+                                        color: AppColor.mainColor,
+                                      ),
+                                    ),
+                                  ),
+                                  CupertinoActionSheetAction(
+                                    onPressed: () async {
+                                      await launchUrl(Uri.parse(
+                                        'tel://${_settingCon.technicalSupport.value.phone}',
+                                      ));
+                                    },
+                                    child: Text(
+                                      '${_settingCon.technicalSupport.value.phone}',
+                                      style: const TextStyle(
+                                        fontFamily: 'DMSans',
+                                        fontSize: 16,
+                                        color: AppColor.mainColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                cancelButton: CupertinoActionSheetAction(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    "Cancel",
+                                    style: TextStyle(
+                                      fontFamily: 'DMSans',
+                                      fontSize: 16,
+                                      color: AppColor.mainColor,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       ),

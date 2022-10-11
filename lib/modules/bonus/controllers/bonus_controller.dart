@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -378,12 +379,14 @@ class BonusController extends GetxController {
   }
 
   // Cash out
+
   Future<void> onCashout(
     BuildContext context,
   ) async {
     final tokenKey = await LocalData.getCurrentUser();
     isCashout(true);
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}cash-out';
+    String url =
+        '${GlobalConfiguration().get('api_base_urlv3')}user/wallet/cash-out';
     try {
       await http
           .post(Uri.parse(url),
@@ -393,11 +396,12 @@ class BonusController extends GetxController {
                 'Authorization': 'Bearer $tokenKey'
               },
               body: json.encode({
+                "amount": onConvertToDouble('${cashoutAmount.value}'),
                 "bank_id": "${bankId.value}",
-                "amount": "${cashoutAmount.value}",
               }))
           .then((response) {
         if (response.statusCode == 200) {
+          onClear();
           Future.delayed(
             const Duration(seconds: 1),
             () {
@@ -421,19 +425,12 @@ class BonusController extends GetxController {
               );
             },
           );
-
-          // Future.delayed(const Duration(seconds: 3), () {
-          //   fectchBalance();
-          //   fetchTransationHistory(type: "all");
-          //   Navigator.pop(context);
-          //   isLoadingHistory.value = true;
-          //   isSubmited.value = false;
-          //   onClear();
-          // });
         } else {
+          var responseJson = json.decode(response.body)['message'];
+          // debugPrint("Cash out boday:$responseJson");
           customRouterSnackbar(
               title: 'Cash Out Failed',
-              description: 'Please Try Again Later.',
+              description: responseJson,
               type: SnackType.error);
         }
       });

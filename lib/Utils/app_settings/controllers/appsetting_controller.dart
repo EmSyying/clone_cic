@@ -15,11 +15,14 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
+import '../../../utils/helper/api_base_helper.dart';
 import '../models/app_setting.dart';
 import '../models/slide_model.dart';
+import '../models/technical_support_model.dart';
 import '../models/term_and_condtion.dart';
 
 class SettingController extends GetxController {
+  final _apiBaseHelper = ApiBaseHelper();
   final settingApp = Setting().obs;
   final appSetting = Setting().obs;
   Setting cicAppSetting = Setting();
@@ -59,6 +62,33 @@ class SettingController extends GetxController {
     } else {
       onHideBottomNavigationBar(false);
     }
+  }
+
+//Fetch Technical Support=======
+  final technicalSupport = TechnicalSupportModel().obs;
+  final isLoadingTechnical = false.obs;
+  Future<TechnicalSupportModel> fetchTechnicalSupport() async {
+    isLoadingTechnical(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+      url: 'technical/support',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      debugPrint('debug Print tes fech technical support:$response');
+
+      technicalSupport.value = TechnicalSupportModel.fromJson(response);
+      debugPrint("Technical Support:${technicalSupport.value.link}");
+
+      isLoadingTechnical(false);
+    }).onError((ErrorModel error, stackTrace) {
+      isLoadingTechnical(false);
+      debugPrint(
+        'Technical Support Error : ${error.statusCode} : ${error.bodyString}',
+      );
+    });
+    return technicalSupport.value;
   }
 
   final contactUs = ContactUs().obs;
@@ -348,6 +378,7 @@ class SettingController extends GetxController {
     fetchSlide();
     fetchSetting();
     onFetchUIData();
+
     super.onInit();
   }
 }
