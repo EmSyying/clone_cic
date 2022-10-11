@@ -20,14 +20,14 @@ class WalletTotalCard extends StatelessWidget {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
     return Container(
       height: 110,
-      // margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColor.mainColor,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: CustomPaint(
         painter: PathPainter(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               children: [
@@ -54,49 +54,56 @@ class WalletTotalCard extends StatelessWidget {
                     child: SvgPicture.asset(
                       'assets/images/svgfile/questicon.svg',
                       color: Colors.white,
+                      width: 24.0,
+                      height: 20.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: [
-                  const SizedBox(width: 30),
-                  icon ??
-                      SvgPicture.asset(
-                        'assets/images/mma_wallet.svg',
-                        color: Colors.white,
-                      ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: Column(
-                      // mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          title ?? 'Available Balance',
-                          style: textStyle.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: amount ?? '0.00',
-                            style: textStyle.copyWith(
-                              color: Colors.white,
-                              fontSize: 25,
-                            ),
-                          ),
-                        )
-                      ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                icon ??
+                    SvgPicture.asset(
+                      'assets/images/mma_wallet.svg',
+                      color: Colors.white,
+                      fit: BoxFit.cover,
+                      width: 36,
+                      height: 25,
                     ),
-                  )
-                ],
-              ),
+                const SizedBox(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title ?? 'Available Balance',
+                      style: textStyle.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        letterSpacing: 0.2,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: amount ?? '0.00',
+                        style: textStyle.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 21,
+                          letterSpacing: 0.2,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ],
         ),
