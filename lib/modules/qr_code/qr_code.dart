@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
 
@@ -136,7 +135,6 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                         controller: cameraController,
                                         onDetect: (barcode, args) {
                                           setState(() {
-                                            log(barcode.toString());
                                             resultQR = barcode.rawValue;
 
                                             if (resultQR!.contains('WALLET')) {
@@ -150,28 +148,14 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                               });
                                             }
 
-                                            // if (resultQR!.contains('event') &&
-                                            //     resultQR!.contains('member') &&
-                                            //     resultQR!.contains('shop') &&
-                                            //     resultQR!.contains('WALLET')) {
-
-                                            //   // cameraController.stop();
-                                            //   // isInvalid = false;
-                                            //   // cameraController.stop().then(
-                                            //   //   (value) {
-                                            //   //     if (resultQR!.contains(
-                                            //   //         CiCQr.wallet.key)) {
-                                            //   //       _walletController
-                                            //   //           .onScanTransfer(
-                                            //   //               resultQR ?? '');
-                                            //   //       Navigator.pop(context);
-                                            //   //     }
-                                            //   //   },
-                                            //   // );
-                                            // } else {
-                                            //   // isInvalid = true;
-                                            //   // cameraController.stop();
-                                            // }
+                                            if (!resultQR!.contains('event') &&
+                                                !resultQR!.contains('member') &&
+                                                !resultQR!.contains('shop') &&
+                                                !resultQR!.contains('WALLET')) {
+                                              isInvalid = true;
+                                            } else {
+                                              isInvalid = false;
+                                            }
                                           });
 
                                           // debugPrint('Barcode found : $rawVal');
