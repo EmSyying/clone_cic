@@ -1,9 +1,11 @@
-enum CiCQr<String> {
-  member('member'),
-  event('event'),
-  shop('shop'),
-  wallet('wallet');
+enum CiCQr {
+  member('MEMBER'),
+  event('EVENT'),
+  shop('SHOP'),
+  wallet('WALLET');
 
-  final String value;
-  const CiCQr(this.value);
+  final String key;
+  const CiCQr(this.key);
 }
+
+

@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/modules/qr_code/qrcode_controller/qr_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -30,6 +32,7 @@ import '../member_directory/controllers/customer_controller.dart';
 import '../member_directory/controllers/member_controller.dart';
 import '../member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../privilege_program/screen/privilege/privilege_payment.dart';
+import '../wallet/controller/wallet_controller.dart';
 
 class QrCodeScreen extends StatefulWidget {
   final String? pageName;
@@ -47,7 +50,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   static GlobalKey printScreenKey = GlobalKey();
   final _settingCon = Get.put(SettingController());
   final setPinCon = Get.put(SetPINCodeController());
-  bool? isFlashOn = false;
+  final _walletController = Get.put(WalletController());
+  bool isFlashOn = false;
   MobileScannerController cameraController =
       MobileScannerController(facing: CameraFacing.back);
 
@@ -58,7 +62,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   bool isInvalid = false;
 
   ///
-  Future<void> onCaptureAndSave(BuildContext context) async {
+  Future<void> _onCaptureAndSave(BuildContext context) async {
     try {
       RenderRepaintBoundary boundary = printScreenKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
@@ -128,20 +132,48 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                       height: width * 0.7,
                                       width: width * 0.7,
                                       child: MobileScanner(
-                                        allowDuplicates: true,
+                                        allowDuplicates: false,
                                         controller: cameraController,
                                         onDetect: (barcode, args) {
-                                          var rawVal = barcode.rawValue;
-                                          resultQR = rawVal;
-                                          if (!resultQR!.contains('event') &&
-                                              !resultQR!.contains('member') &&
-                                              !resultQR!.contains('shop')) {
-                                            isInvalid = true;
-                                            cameraController.stop();
-                                          } else {
-                                            isInvalid = false;
-                                          }
-                                          setState(() {});
+                                          setState(() {
+                                            log(barcode.toString());
+                                            resultQR = barcode.rawValue;
+
+                                            if (resultQR!.contains('WALLET')) {
+                                              cameraController
+                                                  .stop()
+                                                  .then((value) {
+                                                _walletController
+                                                    .onScanTransfer(
+                                                        resultQR ?? '');
+                                                Navigator.pop(context);
+                                              });
+                                            }
+
+                                            // if (resultQR!.contains('event') &&
+                                            //     resultQR!.contains('member') &&
+                                            //     resultQR!.contains('shop') &&
+                                            //     resultQR!.contains('WALLET')) {
+
+                                            //   // cameraController.stop();
+                                            //   // isInvalid = false;
+                                            //   // cameraController.stop().then(
+                                            //   //   (value) {
+                                            //   //     if (resultQR!.contains(
+                                            //   //         CiCQr.wallet.key)) {
+                                            //   //       _walletController
+                                            //   //           .onScanTransfer(
+                                            //   //               resultQR ?? '');
+                                            //   //       Navigator.pop(context);
+                                            //   //     }
+                                            //   //   },
+                                            //   // );
+                                            // } else {
+                                            //   // isInvalid = true;
+                                            //   // cameraController.stop();
+                                            // }
+                                          });
+
                                           // debugPrint('Barcode found : $rawVal');
                                         },
                                       ),
@@ -322,9 +354,9 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                               title:
                                                                   'Save ticket as image',
                                                               onPressed: () {
-                                                                setState(() {});
-                                                                onCaptureAndSave(
+                                                                _onCaptureAndSave(
                                                                     context);
+                                                                setState(() {});
                                                               },
                                                             ),
                                                           ),
@@ -371,6 +403,22 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                               ),
 
                             ///member
+                            if (resultQR != null &&
+                                resultQR!.contains(CiCQr.wallet.key))
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5),
+                                child: CustomButton(
+                                  isDisable: false,
+                                  isOutline: false,
+                                  onPressed: () async {
+                                    _walletController
+                                        .onScanTransfer(resultQR ?? '');
+                                    Navigator.pop(context);
+                                  },
+                                  title: 'Confirm',
+                                ),
+                              ),
                             if (resultQR != null &&
                                 resultQR!.contains('member'))
                               Padding(
@@ -458,17 +506,17 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: widget.pageName == 'eventDetail'
-                                ? () {
-                                    Navigator.pop(context);
-                                  }
-                                : () {
-                                    debugPrint("is Pressed");
-                                    _settingCon.selectedIndex = 0;
-                                    _settingCon
-                                        .onHideBottomNavigationBar(false);
-                                    _settingCon.update();
-                                  },
+                            onPressed: () {
+                              if (widget.pageName == 'eventDetail' ||
+                                  widget.pageName == 'transfer') {
+                                Navigator.pop(context);
+                              } else {
+                                debugPrint("is Pressed");
+                                _settingCon.selectedIndex = 0;
+                                _settingCon.onHideBottomNavigationBar(false);
+                                _settingCon.update();
+                              }
+                            },
                             icon: const Icon(
                               Icons.close_rounded,
                               color: Colors.white,
@@ -495,72 +543,72 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                   ),
 
                   ///invalid
-                  isInvalid
-                      ? BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                          child: Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            color: Colors.black54,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
-                                    Icon(Icons.report_problem_outlined,
-                                        size: 70, color: Colors.white),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Text(
-                                      'Invalid QR Code',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  onTap: () {
-                                    setState(() {
-                                      isInvalid = false;
-                                      cameraController.start();
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 50,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    width: double.infinity,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 1, color: Colors.white)),
-                                    child: const Text(
-                                      'Rescan',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
+                  isInvalid ? _buildInvalidQr() : const SizedBox(),
                 ],
               ),
             ),
           );
         }),
+      ),
+    );
+  }
+
+  Widget _buildInvalidQr() {
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Colors.black54,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Icon(Icons.report_problem_outlined,
+                    size: 70, color: Colors.white),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Invalid QR Code',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            )),
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  isInvalid = false;
+                  cameraController.start();
+                });
+              },
+              child: Container(
+                height: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(width: 1, color: Colors.white)),
+                child: const Text(
+                  'Rescan',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
       ),
     );
   }

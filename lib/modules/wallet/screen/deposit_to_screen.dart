@@ -2,7 +2,6 @@ import 'package:cicgreenloan/modules/wallet/screen/custom_keyboard.dart';
 import 'package:cicgreenloan/modules/wallet/screen/deposit_mmaccount_screen.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
-import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -97,34 +96,15 @@ class _DepositToScreenState extends State<DepositToScreen> {
                           ? const CustomLoadingButton()
                           : CustomButton(
                               title: 'Next',
-                              onPressed: _walletController
-                                          .controllerToDepositAmount
-                                          .value
-                                          .text !=
-                                      ''
+                              onPressed: _validateButton()
                                   ? () {
-                                      var number = double.tryParse(
-                                          _walletController
-                                              .controllerToDepositAmount
-                                              .value
-                                              .text);
-
-                                      if (number != null && number > 0) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MMAcountDepositScreen(),
-                                          ),
-                                        );
-                                      } else {
-                                        customRouterSnackbar(
-                                            description:
-                                                'Please Enter Amount to continue');
-                                      }
-
-                                      // _walletController
-                                      //     .onToDepositBankOrWallet(context);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MMAcountDepositScreen(),
+                                        ),
+                                      );
                                     }
                                   : null,
                               isDisable: false,
@@ -139,5 +119,16 @@ class _DepositToScreenState extends State<DepositToScreen> {
         ],
       ),
     );
+  }
+
+  bool _validateButton() {
+    double? amount =
+        double.tryParse(_walletController.controllerToDepositAmount.value.text);
+
+    if (amount != null && amount > 0) {
+      //Amount must not empty and bigger than zero
+      return true;
+    }
+    return false;
   }
 }

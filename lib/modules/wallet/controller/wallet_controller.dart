@@ -6,7 +6,9 @@ import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/card_mma_invest_model.dart';
+import '../model/transfer_recieved/transfer_model.dart';
 import '../model/wallet_model.dart';
 
 class WalletController extends GetxController {
@@ -77,6 +79,8 @@ class WalletController extends GetxController {
         .then((response) {
       var wallet = response['data']['wallet'];
       walletAmount.value = WalletAmountModel.fromJson(wallet);
+      transferModel.value = transferModel.value
+          .copyWith(phoneNumber: walletAmount.value.accountNumber);
       fetchWalletLoading(false);
     }).onError((ErrorModel error, stackTrace) {
       fetchWalletLoading(false);
@@ -157,12 +161,26 @@ class WalletController extends GetxController {
   final recievingAmount = ''.obs;
   TextEditingController amountController = TextEditingController();
   // final frm = NumberFormat("#,###", "en");
-  void onchageKeyboard(String value) {
+  void onchageKeyboard(dynamic value) {
     if (value.isNotEmpty) {
       controllerToDepositAmount.value = TextEditingController(text: value);
     } else {
       controllerToDepositAmount.value = TextEditingController(text: null);
     }
     update();
+  }
+
+  ///MMA Transfer
+
+  final transferModel = TransferModel(qrType: CiCQr.wallet.key).obs;
+  TextEditingController qrRecievingPhone = TextEditingController();
+  TextEditingController qrRecievingAmount = TextEditingController();
+
+  void onScanTransfer(String result) {
+    try {
+      var decodedResult = TransferModel.fromJson(result);
+      qrRecievingPhone.text = decodedResult.phoneNumber ?? '';
+      qrRecievingAmount.text = decodedResult.amount ?? '';
+    } catch (e) {}
   }
 }

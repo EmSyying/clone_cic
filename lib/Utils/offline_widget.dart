@@ -23,7 +23,7 @@ class OfflineWidget extends StatelessWidget {
                     fontFamily: 'DMSans',
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: Colors.black),
               ),
               const SizedBox(
                 height: 20,

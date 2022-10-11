@@ -1,13 +1,12 @@
 import 'dart:io';
 
+import 'package:cicgreenloan/widgets/investments/slide_button.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/custom_appbar.dart';
-import '../../../Utils/helper/custom_loading_button.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/fif_contract/custom_copy_bank.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
@@ -171,24 +170,30 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                         ),
                       ),
                       SafeArea(
-                        top: false,
-                        minimum: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 20,
-                        ),
-                        child: _walletController.isToDeposit.value == true
-                            ? const CustomLoadingButton()
-                            : CustomButton(
-                                title: 'Submit',
-                                isDisable: false,
-                                isOutline: false,
-                                onPressed: () {
-                                  _walletController
-                                      .onToDepositBankOrWallet(context);
-                                  // Navigator.pop(context);
-                                },
-                              ),
-                      ),
+                          top: false,
+                          minimum: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 20,
+                          ),
+                          child: SlideButton(
+                            callback: () {
+                              _walletController
+                                  .onToDepositBankOrWallet(context);
+                            },
+                          )
+                          // _walletController.isToDeposit.value == true
+                          //     ? const CustomLoadingButton()
+                          //     : CustomButton(
+                          //         title: 'Submit',
+                          //         isDisable: false,
+                          //         isOutline: false,
+                          //         onPressed: () {
+                          //           _walletController
+                          //               .onToDepositBankOrWallet(context);
+                          //           // Navigator.pop(context);
+                          //         },
+                          //       ),
+                          ),
                     ],
                   ),
                 ),

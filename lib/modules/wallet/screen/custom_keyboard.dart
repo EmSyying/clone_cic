@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../model/keyboard_key.dart';
 
 class CustomKeyboard extends StatefulWidget {
-  ValueChanged<String>? onChanged;
-  CustomKeyboard({Key? key, this.onChanged}) : super(key: key);
+  final num? digit;
+  final ValueChanged<String>? onChanged;
+  const CustomKeyboard({Key? key, this.digit, this.onChanged})
+      : super(key: key);
 
   @override
   CustomKeyboardState createState() => CustomKeyboardState();
@@ -44,6 +46,11 @@ class CustomKeyboardState extends State<CustomKeyboard> {
     if (val != '0' && amount == '0') {
       amount = val;
       widget.onChanged?.call(amount);
+      return;
+    }
+    //1000.000
+    if (amount.contains('.') &&
+        amount.length - 1 - amount.indexOf('.') >= (widget.digit ?? 2)) {
       return;
     }
 

@@ -1,4 +1,8 @@
-class DateUtilsMaturity {
+import 'package:cicgreenloan/utils/function/format_date_time.dart';
+
+extension DateUtilsMaturity on DateTime {
+  String asDate() => FormatDate.investmentDateDisplay(toString());
+
   ///Get total day of Month
   static int getDayofMonth(DateTime date) {
     int dayOfmonth = date.month;

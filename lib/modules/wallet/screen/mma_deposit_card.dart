@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/modules/wallet/controller/wallet_controller.dart';
 import 'package:cicgreenloan/modules/wallet/screen/deposit_to_screen.dart';
 import 'package:cicgreenloan/modules/wallet/screen/mm_account_transfer.dart';
+import 'package:cicgreenloan/modules/wallet/screen/transfer_to_screen.dart';
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -97,15 +98,6 @@ class MMADepositCard extends StatelessWidget {
                           (e) => CustomMMACard(
                             onTap: () async {
                               if (e.title ==
-                                  contWallet.mmacardlist.elementAt(1).title) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DepositFromScreen(),
-                                  ),
-                                );
-                              } else if (e.title ==
                                   contWallet.mmAccountTransferList
                                       .elementAt(0)
                                       .title) {
@@ -117,18 +109,10 @@ class MMADepositCard extends StatelessWidget {
                                   ),
                                 );
                               } else {
-                                onShowBottomSheet(
-                                  // isHeight:
-                                  //     MediaQuery.of(context).size.height * .4,
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  isNoAppBar: true,
-                                  child: const CustomPopupButtonSheet(
-                                    assetImage:
-                                        'assets/images/svgfile/underDevelopment.svg',
-                                    description:
-                                        'This feature is under development at the moment',
-                                    title: 'This feature not available yet',
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const TransferToMMA(),
                                   ),
                                 );
                               }

@@ -122,7 +122,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                           child: PrettyQr(
                             key: qrKey,
                             data:
-                                'wallet${_walletController.walletAmount.value.accountNumber}-${_walletController.recievingAmount.value}',
+                                _walletController.transferModel.value.toJson(),
                             size: 160,
                             errorCorrectLevel: QrErrorCorrectLevel.H,
                           ),
@@ -279,9 +279,13 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                     Expanded(
                       child: CustomButton(
                         onPressed: () {
+                          _walletController.amountController.text;
+                          _walletController.transferModel.value =
+                              _walletController.transferModel.value.copyWith(
+                                  amount:
+                                      _walletController.recievingAmount.value);
+                          _walletController.update();
                           Navigator.pop(context);
-                          _walletController.recievingAmount.value =
-                              _walletController.amountController.text;
                         },
                         backgroundColor: AppColor.mainColor,
                         colorText: Colors.white,
@@ -300,6 +304,9 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     ).then((value) {
       _walletController.amountController.text =
           _walletController.recievingAmount.value;
+      _walletController.transferModel.value
+          .copyWith(amount: _walletController.recievingAmount.value);
+      _walletController.update();
     });
 
     // if (ispop) {}
@@ -356,6 +363,9 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
           onTap: () {
             _walletController.recievingAmount('');
             _walletController.amountController.text = '';
+            _walletController.transferModel.value =
+                _walletController.transferModel.value.copyWith(amount: null);
+            _walletController.update();
           },
           child: Text(
             'Remove',
