@@ -86,6 +86,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                   ],
                                 ),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 20.0),
@@ -137,7 +138,23 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                           shape: Shape.line,
                                           color: const Color(0xffDBDBDB)),
                                     ),
-                                    const SizedBox(height: 20),
+
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        top: 24.0,
+                                        bottom: 30.0,
+                                      ),
+                                      child: Text(
+                                        'Available Payment Account',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 18.0,
+                                            ),
+                                      ),
+                                    ),
 
                                     ///========
                                     Column(
@@ -176,8 +193,8 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                             vertical: 20,
                           ),
                           child: SlideButton(
-                            callback: () {
-                              _walletController
+                            callback: () async {
+                              await _walletController
                                   .onToDepositBankOrWallet(context);
                             },
                           )

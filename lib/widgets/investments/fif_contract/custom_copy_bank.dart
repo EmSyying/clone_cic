@@ -82,7 +82,7 @@ class CustomCopyBank extends StatelessWidget {
                               color: Colors.white,
                             ),
                             const SizedBox(width: 15),
-                            const Text("AccountNumber copied to clipboard."),
+                            const Text("Copied to clipboard."),
                           ],
                         ),
                         behavior: SnackBarBehavior.floating,

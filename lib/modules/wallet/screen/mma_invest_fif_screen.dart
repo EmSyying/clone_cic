@@ -53,7 +53,7 @@ class MMAInvestFIFScreen extends StatelessWidget {
               },
             ),
             CustomCardInvestFIF(
-              assetImage: 'assets/images/wallet/mma_invest_fif.jpg',
+              assetImage: 'assets/images/wallet/mma_invest_equity.jpg',
               titleFIF: 'CiC EQUITY FUND',
               column: Column(
                 children: contWallet.mmainvestEquityCard

@@ -330,7 +330,7 @@ class _WalletScreenState extends State<WalletScreen>
             height: 60,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(14),
             ),
             alignment: Alignment.center,
             child: SvgPicture.asset(img ?? ''),

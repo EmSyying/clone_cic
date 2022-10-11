@@ -174,7 +174,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                     minimum: const EdgeInsets.only(bottom: 20),
                     child: RichText(
                       text: TextSpan(
-                        text: 'Read ',
+                        text: 'By submitting you agree to ',
                         style: textStyle.copyWith(fontSize: 12),
                         children: [
                           TextSpan(

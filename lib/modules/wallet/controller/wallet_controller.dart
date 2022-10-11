@@ -6,6 +6,7 @@ import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../Utils/helper/custom_success_screen.dart';
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/card_mma_invest_model.dart';
 import '../model/transfer_recieved/transfer_model.dart';
@@ -108,18 +109,41 @@ class WalletController extends GetxController {
         'amount': onConvertToDouble(controllerToDepositAmount.value.text),
       },
     ).then((response) {
-      customRouterSnackbar(
-          title: 'Done',
-          description: '${response['message']}',
-          type: SnackType.done);
+      // customRouterSnackbar(
+      //     title: 'Done',
+      //     description: '${response['message']}',
+      //     type: SnackType.done);
       //  navigator here
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return CustomSucessScreen(
+                  title: 'Success',
+                  description: 'The Deposit is Submit successfully.',
+                  buttonTitle: 'Done',
+                  onPressedButton: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
+          );
+        },
+      );
 
-      Future.delayed(const Duration(seconds: 2), () {
-        // context.go("/wallet");
-        Navigator.pop(context);
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
+      // Future.delayed(const Duration(seconds: 2), () {
+      //   // context.go("/wallet");
+      //   Navigator.pop(context);
+      //   Navigator.pop(context);
+      //   Navigator.pop(context);
+      // });
       controllerToDepositAmount.value.text = '';
       isToDeposit(false);
     }).onError((ErrorModel error, stackTrace) {
