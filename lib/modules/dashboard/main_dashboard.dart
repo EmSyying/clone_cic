@@ -782,14 +782,23 @@ class _MainDashboardState extends State<MainDashboard> {
                                                 },
                                               );
                                             }
-                                          : () {
-                                              FirebaseAnalyticsHelper
-                                                  .setCurrentScreenName(
-                                                      value.label!);
-                                              debugPrint(
-                                                  "routed12:${value.route!}");
-                                              context.go("/${value.route}");
-                                            },
+                                          : value.route == 'report'
+                                              ? () {
+                                                  FirebaseAnalyticsHelper
+                                                      .setCurrentScreenName(
+                                                          value.label!);
+
+                                                  context
+                                                      .go("/${value.route}/0");
+                                                }
+                                              : () {
+                                                  FirebaseAnalyticsHelper
+                                                      .setCurrentScreenName(
+                                                          value.label!);
+                                                  debugPrint(
+                                                      "routed:${value.route!}");
+                                                  context.go("/${value.route}");
+                                                },
                                       icon: value.icon,
                                     );
                                   }).toList()),

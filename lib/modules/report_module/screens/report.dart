@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
 
+// ignore: must_be_immutable
 class Report extends StatefulWidget {
   final bool? isNavigator;
   int? currentTabIndex;

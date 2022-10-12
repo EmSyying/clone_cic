@@ -604,10 +604,10 @@ final router = GoRouter(
               name: 'Directory',
               builder: (context, state) => const Directory()),
           GoRoute(
-              path: 'report',
+              path: 'report/:id',
               name: 'Report',
               builder: (context, state) => Report(
-                    currentTabIndex: 0,
+                    currentTabIndex: int.tryParse(state.params['id']!),
                   ),
               routes: [
                 GoRoute(
