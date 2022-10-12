@@ -422,15 +422,18 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                               animation: controller!,
                               builder: (context, child) {
                                 return GestureDetector(
-                                  onTap: !controller!.isAnimating
+                                  onTap: controller!.isAnimating
                                       ? null
                                       : () {
+                                          debugPrint("Request again1");
                                           controller!.reverse(
                                               from: controller!.value = 1.0);
+                                          debugPrint("Request again2");
                                           requestOtpAgain();
+                                          debugPrint("Request again3");
                                         },
                                   child: Text(
-                                    ' Request Again',
+                                    ' Request Again 222',
                                     style: TextStyle(
                                         color: controller!.isAnimating
                                             ? Colors.grey
