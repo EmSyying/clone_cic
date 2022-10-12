@@ -1,6 +1,8 @@
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
+import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -103,6 +105,24 @@ class _TransferToMMAState extends State<TransferToMMA> {
                 ),
                 CustomTextFieldNew(
                   controller: _walletController.qrRecievingAmount,
+                  inputFormatterList: [
+                    FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                    TextInputFormatter.withFunction((oldValue, newValue) {
+                      double? number = double.tryParse(newValue.text);
+                      if (number != null) {
+                        debugPrint('New');
+                        return newValue.copyWith(
+                            text: newValue.text.asInput(),
+                            selection: TextSelection.collapsed(
+                                offset: newValue.text.asInput().length));
+                      } else if (newValue.text.isEmpty) {
+                        return const TextEditingValue();
+                      } else {
+                        debugPrint('Old');
+                        return oldValue;
+                      }
+                    }),
+                  ],
                   isRequired: true,
                   labelText: 'Amount',
                   hintText: 'Amount',
@@ -119,18 +139,21 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
           ///bottom block
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              readAgreement = !readAgreement;
+              setState(() {});
+            },
             child: Container(
               padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
               child: Column(
                 children: [
                   Row(
                     children: [
-                      _tickIcon(true),
+                      _tickIcon(readAgreement),
                       const SizedBox(width: 20),
                       Text(
                         'I have read  and agree to CiC serivce agreement',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                        style: textStyle.copyWith(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
                             color: const Color(0XFF464646)),
@@ -143,16 +166,23 @@ class _TransferToMMAState extends State<TransferToMMA> {
           ),
         ],
       ),
-      bottomNavigationBar: const SafeArea(
+      bottomNavigationBar: SafeArea(
         top: false,
-        minimum: EdgeInsets.all(20),
+        minimum: const EdgeInsets.all(20),
         child: CustomButton(
+          onPressed: () {},
           title: 'Process to Pay',
-          isDisable: false,
+          isDisable: _validateButton(),
           isOutline: false,
         ),
       ),
     );
+  }
+
+  bool readAgreement = false;
+
+  bool _validateButton() {
+    return true;
   }
 
   Widget _tickIcon(bool select, {double? width, Color? color}) => select

@@ -33,4 +33,6 @@ extension CiCAmount on String {
       return this;
     }
   }
+
+  String clean() => replaceAll(RegExp(','), '');
 }

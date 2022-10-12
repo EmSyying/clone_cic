@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
+import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:cicgreenloan/widgets/mmaccount/custom_qr_card.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -45,37 +46,6 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
   OverlayEntry? overlayEntry;
   bool isShowPopupQRCode = false;
   static GlobalKey printScreenKey = GlobalKey();
-  Future<void> onCaptureAndSave() async {
-    try {
-      RenderRepaintBoundary boundary = printScreenKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary;
-      var image = await boundary.toImage(pixelRatio: 5);
-      var byteData = await image.toByteData(
-        format: ImageByteFormat.png,
-      );
-      var pngBytes = byteData!.buffer.asUint8List();
-      final directory = await getTemporaryDirectory();
-      final file = File('${directory.path}/screenshot.png');
-      await file.writeAsBytes(pngBytes);
-      await [Permission.storage].request();
-      final time = DateTime.now()
-          .toIso8601String()
-          .replaceAll(".", "-")
-          .replaceAll(":", "-");
-      final name = 'Ticket $time';
-      final result = await ImageGallerySaver.saveImage(
-        pngBytes,
-        name: name,
-        isReturnImagePathOfIOS: true,
-      );
-      if (result != null) {
-        customRouterSnackbar(
-            description: 'Qr Code Saved.', suffix: false, prefix: true);
-      } else {}
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,21 +53,20 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     return Stack(
       children: [
         Center(
-          child: Padding(
-            padding: const EdgeInsets.all(70.0),
-            child: RepaintBoundary(
-              key: printScreenKey,
-              child: CustomQRCard(
-                userID:
-                    _walletController.walletAmount.value.wallet!.accountNumber,
-                userName:
-                    _walletController.walletAmount.value.invester!.investerName,
-                amountQr:
-                    _walletController.walletAmount.value.wallet!.balanceFormat,
-              ),
+          child: RepaintBoundary(
+            key: printScreenKey,
+            child: CustomQRCard(
+              userID:
+                  _walletController.walletAmount.value.wallet!.accountNumber,
+              userName:
+                  _walletController.walletAmount.value.invester!.investerName,
+              amountQr:
+                  _walletController.walletAmount.value.wallet!.balanceFormat,
             ),
           ),
         ),
+
+        /// Main Screen
         Scaffold(
           backgroundColor: const Color(0xfffafafa),
           appBar: CustomAppBar(
@@ -148,7 +117,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                                     'assets/images/Logo/cic_logo_x4jpg.jpg'),
                                 data: _walletController.transferModel.value
                                     .toJson(),
-                                size: 160,
+                                size: 170,
                                 // errorCorrectLevel: QrErrorCorrectLevel.H,
                               )),
                           if (_walletController.recievingAmount.value.isEmpty)
@@ -160,7 +129,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                             ),
                           _walletController.recievingAmount.value.isNotEmpty
                               ? _hasAmount(textStyle)
-                              : const SizedBox(),
+                              : const SizedBox.shrink(),
                           // const Spacer(),
                         ],
                       ),
@@ -178,7 +147,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                           _buildButton(textStyle,
                               icon: SvgPicture.asset('assets/images/share.svg'),
                               text: 'Share', onTap: () {
-                            captureAndSharePng(context);
+                            _captureAndSharePng(context);
                           }),
                           const SizedBox(width: 50),
                           _buildButton(textStyle,
@@ -188,7 +157,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                             setState(() {
                               isShowPopupQRCode = true;
                               Future.delayed(const Duration(seconds: 1), () {
-                                onCaptureAndSave();
+                                _onCaptureAndSave();
                                 isShowPopupQRCode = false;
                               });
                             });
@@ -234,6 +203,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
             ),
           ),
         ),
+
         // if (isShowPopupQRCode)
         //   BackdropFilter(
         //     filter: ImageFilter.blur(sigmaY: 6, sigmaX: 6),
@@ -268,7 +238,43 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     );
   }
 
-  Future<void> captureAndSharePng(BuildContext context) async {
+  Future<void> _onCaptureAndSave() async {
+    try {
+      RenderRepaintBoundary boundary = printScreenKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+      var image = await boundary.toImage(pixelRatio: 5);
+      var byteData = await image.toByteData(
+        format: ImageByteFormat.png,
+      );
+      var pngBytes = byteData!.buffer.asUint8List();
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/screenshot.png');
+      await file.writeAsBytes(pngBytes);
+      await [Permission.storage].request();
+      final time = DateTime.now()
+          .toIso8601String()
+          .replaceAll(".", "-")
+          .replaceAll(":", "-");
+      final name = 'MMA-$time';
+
+      final result = await ImageGallerySaver.saveFile(file.path,
+          name: name, isReturnPathOfIOS: true);
+      // final result = await ImageGallerySaver
+      // .saveImage(
+      //   pngBytes,
+      //   name: name,
+      //   isReturnImagePathOfIOS: true,
+      // );
+      if (result != null) {
+        customRouterSnackbar(
+            description: 'Qr Code Saved.', suffix: false, prefix: true);
+      } else {}
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> _captureAndSharePng(BuildContext context) async {
     try {
       final RenderBox box = context.findRenderObject() as RenderBox;
       RenderRepaintBoundary boundary = printScreenKey.currentContext!
@@ -314,13 +320,27 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                 inputFormatterList: [
                   FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
                   TextInputFormatter.withFunction((oldValue, newValue) {
-                    try {
-                      final text = newValue.text;
-                      if (text.isNotEmpty) double.parse(text);
-                      return newValue;
-                    } catch (e) {
+                    double? number = double.tryParse(newValue.text);
+                    if (number != null) {
+                      debugPrint('New');
+                      return newValue.copyWith(
+                          text: newValue.text.asInput(),
+                          selection: TextSelection.collapsed(
+                              offset: newValue.text.asInput().length));
+                    } else if (newValue.text.isEmpty) {
+                      return const TextEditingValue();
+                    } else {
+                      debugPrint('Old');
                       return oldValue;
                     }
+                    // try {
+                    //   final text = newValue.text;
+                    //   if (text.isNotEmpty) double.parse(text);
+                    //   debugPrint('ERROR');
+                    //   return newValue;
+                    // } catch (e) {
+                    //   return oldValue;
+                    // }
                   }),
                 ],
                 autoFocus: true,
@@ -329,6 +349,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                 labelText: 'Set Amount',
                 isRequired: true,
                 onChange: (value) {
+                  _walletController.update();
                   // _walletController.recievingAmount(value);
                 },
                 suffixText: 'USD',
@@ -357,22 +378,37 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: CustomButton(
-                        onPressed: () {
-                          _walletController.amountController.text;
-                          _walletController.transferModel.value =
-                              _walletController.transferModel.value.copyWith(
-                                  amount:
-                                      _walletController.recievingAmount.value);
-                          _walletController.update();
-                          Navigator.pop(context);
-                        },
-                        backgroundColor: AppColor.mainColor,
-                        colorText: Colors.white,
-                        isDisable: false,
-                        isOutline: false,
-                        title: 'Confirm',
-                      ),
+                      child: GetBuilder(
+                          init: WalletController(),
+                          builder: (_) {
+                            return CustomButton(
+                              onPressed: () {
+                                _walletController.recievingAmount.value =
+                                    _walletController.amountController.text;
+                                _walletController.transferModel.value =
+                                    _walletController.transferModel.value
+                                        .copyWith(
+                                            amount: _walletController
+                                                .recievingAmount.value);
+                                _walletController.update();
+                                Navigator.pop(context);
+                              },
+                              backgroundColor: AppColor.mainColor,
+                              colorText: Colors.white,
+                              isDisable: double.tryParse(_walletController
+                                              .amountController.text
+                                              .clean()) !=
+                                          null &&
+                                      double.tryParse(_walletController
+                                              .amountController.text
+                                              .clean())! >
+                                          0
+                                  ? false
+                                  : true,
+                              isOutline: false,
+                              title: 'Confirm',
+                            );
+                          }),
                     ),
                   ],
                 ),
@@ -406,7 +442,8 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
             children: [
               RichText(
                 text: TextSpan(
-                  text: '${_walletController.recievingAmount.value} ',
+                  text:
+                      '${_walletController.recievingAmount.value.toCurrencyAmount()} ',
                   style: textStyle.copyWith(
                     fontSize: 18,
                     color: AppColor.mainColor,
@@ -444,7 +481,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
             _walletController.recievingAmount('');
             _walletController.amountController.text = '';
             _walletController.transferModel.value =
-                _walletController.transferModel.value.copyWith(amount: null);
+                _walletController.transferModel.value.copyWith(amount: '');
             _walletController.update();
           },
           child: Text(
@@ -461,11 +498,12 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
 
   Container _setAmountButton(TextStyle textStyle) {
     return Container(
+      width: 200,
       padding: const EdgeInsets.symmetric(
         vertical: 12,
       ),
-      margin: const EdgeInsets.symmetric(
-        horizontal: 70,
+      margin: const EdgeInsets.only(
+        top: 40,
       ),
       decoration: BoxDecoration(
         color: Colors.white,

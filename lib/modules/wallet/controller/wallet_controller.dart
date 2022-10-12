@@ -96,10 +96,10 @@ class WalletController extends GetxController {
 
   // To Deposit Via Bank/Wallet
   void clearDepositAmount() {
-    controllerToDepositAmount.value.text = '';
+    depositAmount.value = '';
   }
 
-  final controllerToDepositAmount = TextEditingController().obs;
+  final depositAmount = ''.obs;
   final isToDeposit = false.obs;
   Future<void> onToDepositBankOrWallet(BuildContext context) async {
     debugPrint("wallet is working");
@@ -109,7 +109,7 @@ class WalletController extends GetxController {
       methode: METHODE.post,
       isAuthorize: true,
       body: {
-        'amount': onConvertToDouble(controllerToDepositAmount.value.text),
+        'amount': onConvertToDouble(depositAmount.value),
       },
     ).then((response) {
       // customRouterSnackbar(
@@ -147,7 +147,7 @@ class WalletController extends GetxController {
       //   Navigator.pop(context);
       //   Navigator.pop(context);
       // });
-      controllerToDepositAmount.value.text = '';
+      depositAmount.value = '';
       isToDeposit(false);
     }).onError((ErrorModel error, stackTrace) {
       debugPrint("Message Error:${error.bodyString}");
@@ -190,9 +190,9 @@ class WalletController extends GetxController {
   // final frm = NumberFormat("#,###", "en");
   void onchageKeyboard(dynamic value) {
     if (value.isNotEmpty) {
-      controllerToDepositAmount.value = TextEditingController(text: value);
+      depositAmount.value = value;
     } else {
-      controllerToDepositAmount.value = TextEditingController(text: null);
+      depositAmount.value = '';
     }
     update();
   }

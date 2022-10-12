@@ -10,19 +10,15 @@ class CustomQRCard extends StatelessWidget {
   final String? amountQr;
   final String? userID;
   final String? userName;
-  CustomQRCard(
-      {Key? key, this.overlayEntry, this.amountQr, this.userID, this.userName})
+  const CustomQRCard({Key? key, this.amountQr, this.userID, this.userName})
       : super(key: key);
-  OverlayEntry? overlayEntry;
 
   @override
   Widget build(BuildContext context) {
     final walletController = Get.put(WalletController());
 
     return Container(
-      height: 410,
-      width: 400,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: const LinearGradient(
@@ -32,23 +28,23 @@ class CustomQRCard extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20),
-            padding: const EdgeInsets.all(20),
-            width: double.infinity,
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20), color: Colors.white),
             child: PrettyQr(
               image: const AssetImage('assets/images/Logo/cic_logo_x4jpg.jpg'),
-              size: 210,
+              size: 200,
               data: walletController.transferModel.value.toJson(),
               roundEdges: true,
               elementColor: AppColor.mainColor,
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 14,
+            width: 1,
           ),
           Text(
             '$userID',
@@ -59,8 +55,10 @@ class CustomQRCard extends StatelessWidget {
           ),
           const SizedBox(
             height: 15,
+            width: 1,
           ),
           Container(
+            width: 249,
             decoration: DottedDecoration(
               strokeWidth: 1,
               shape: Shape.line,
@@ -69,6 +67,7 @@ class CustomQRCard extends StatelessWidget {
           ),
           const SizedBox(
             height: 20,
+            width: 1,
           ),
           Text(
             '$amountQr',

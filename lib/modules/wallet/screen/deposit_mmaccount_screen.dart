@@ -126,7 +126,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                           //Amount to Deposit=====
                                           CustomCashOutAndTransferAmount(
                                             amountCashOutTransfer:
-                                                '${_walletController.controllerToDepositAmount.value.text.toCiCNumber()} ',
+                                                '${_walletController.depositAmount.value.toCiCNumber()} ',
                                           ),
                                         ],
                                       ),

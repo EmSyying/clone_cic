@@ -1,12 +1,12 @@
 import 'package:cicgreenloan/modules/wallet/screen/custom_keyboard.dart';
 import 'package:cicgreenloan/modules/wallet/screen/deposit_mmaccount_screen.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
-import 'package:cicgreenloan/utils/helper/color.dart';
+import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
-import '../../../Utils/helper/custom_loading_button.dart';
 
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../controller/wallet_controller.dart';
@@ -38,93 +38,89 @@ class _DepositToScreenState extends State<DepositToScreen> {
         context: context,
         title: "To Deposit via banks",
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: WalletTotalCard(
-              amount:
-                  _walletController.walletAmount.value.wallet!.balanceFormat,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
+      body: Obx(
+        () => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: WalletTotalCard(
+                amount:
+                    _walletController.walletAmount.value.wallet!.balanceFormat,
               ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 30),
-                  Text(
-                    'Enter Deposit Amount',
-                    style: textStyle.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+            ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
                   ),
-                  GetBuilder<WalletController>(
-                    init: WalletController(),
-                    builder: (controller) => TextFormField(
-                      readOnly: true,
-                      controller:
-                          _walletController.controllerToDepositAmount.value,
-                      showCursor: false,
-                      style: textStyle.copyWith(fontSize: 46),
-                      textAlign: TextAlign.center,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        hintText: '0.00',
-                        hintStyle: textStyle.copyWith(
-                            fontSize: 46, color: AppColor.chartLabelColor),
-                        border: InputBorder.none,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(height: 30),
+                    Text(
+                      'Enter Deposit Amount',
+                      style: textStyle.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  CustomKeyboard(onChanged: _walletController.onchageKeyboard),
-                  const SizedBox(height: 10),
-                  SafeArea(
-                    top: false,
-                    minimum: const EdgeInsets.all(20),
-                    child: Obx(
-                      () => _walletController.isToDeposit.value
-                          ? const CustomLoadingButton()
-                          : CustomButton(
-                              title: 'Next',
-                              onPressed: _validateButton()
-                                  ? () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MMAcountDepositScreen(),
-                                        ),
-                                      );
-                                    }
-                                  : null,
-                              isDisable: false,
-                              isOutline: false,
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: _walletController.depositAmount.value != ''
+                          ? Text(
+                              _walletController.depositAmount.value.asInput(),
+                              style: textStyle.copyWith(fontSize: 46),
+                            )
+                          : _buildZeroAmount(textStyle),
                     ),
-                  )
-                ],
+
+                    // const Spacer(),
+                    CustomKeyboard(
+                        onChanged: _walletController.onchageKeyboard),
+                    const SizedBox(height: 10),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        minimum: const EdgeInsets.all(20),
+        child: CustomButton(
+          title: 'Next',
+          onPressed: _validateButton()
+              ? () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MMAcountDepositScreen(),
+                    ),
+                  );
+                }
+              : null,
+          isDisable: false,
+          isOutline: false,
+        ),
       ),
     );
   }
 
+  Widget _buildZeroAmount(TextStyle textStyle) => Text(
+        '0.00',
+        style:
+            textStyle.copyWith(fontSize: 46, color: AppColor.chartLabelColor),
+      );
+
   bool _validateButton() {
-    double? amount =
-        double.tryParse(_walletController.controllerToDepositAmount.value.text);
+    double? amount = double.tryParse(_walletController.depositAmount.value);
 
     if (amount != null && amount > 0) {
       //Amount must not empty and bigger than zero
