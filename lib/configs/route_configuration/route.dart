@@ -32,6 +32,8 @@ import '../../modules/investment_module/model/fif_contract_option/fif_contract_o
 import '../../modules/investment_module/model/view_agreement/view_agreement.dart';
 import '../../modules/investment_module/screen/bullet_payment_detail.dart';
 import '../../modules/investment_module/screen/certificate.dart';
+import '../../modules/investment_module/screen/cic_equity_fund.dart';
+import '../../modules/investment_module/screen/cic_fixed_income.dart';
 import '../../modules/investment_module/screen/deposit_screen.dart';
 import '../../modules/investment_module/screen/fif_deduc_selection.dart';
 import '../../modules/investment_module/screen/renewal_screen.dart';
@@ -54,6 +56,7 @@ import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
 import '../../modules/wallet/screen/deposit_to_screen.dart';
 import '../../modules/wallet/screen/mma_deposit_card.dart';
+import '../../modules/wallet/screen/mma_invest_fif_screen.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
 
@@ -847,6 +850,27 @@ final router = GoRouter(
                   //   path: 'account-transfer',
                   //   builder: (_, state) => const DepositFromScreen(),
                   // )
+                ],
+              ),
+              GoRoute(
+                path: 'invest-fif',
+                name: 'mmaInvestFIFScreen',
+                builder: (context, state) => const MMAInvestFIFScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'cic-equity-fund',
+                    name: 'CiCEquityFund',
+                    builder: (context, state) => const CiCEquityFund(
+                      isEquityTrue: true,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'cic-fixed-income',
+                    name: 'CiCFixedIncome',
+                    builder: (context, state) => const CiCFixedIncome(
+                      ismmaInvestFIF: true,
+                    ),
+                  ),
                 ],
               ),
             ],

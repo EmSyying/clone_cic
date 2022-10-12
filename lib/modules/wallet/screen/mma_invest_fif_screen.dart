@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../widgets/wallets/custom_card_invest_fif.dart';
 import '../../../widgets/wallets/custom_title_cart_ivest_fif.dart';
-import '../../investment_module/screen/cic_equity_fund.dart';
-import '../../investment_module/screen/cic_fixed_income.dart';
 import '../controller/wallet_controller.dart';
 
 class MMAInvestFIFScreen extends StatelessWidget {
@@ -41,15 +40,16 @@ class MMAInvestFIFScreen extends StatelessWidget {
               titleButton: 'Explore More',
               onPressed: () {},
               onTap: () {
-                debugPrint('test fif======');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CiCFixedIncome(
-                      ismmaInvestFIF: true,
-                    ),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const CiCFixedIncome(
+                //       ismmaInvestFIF: true,
+                //     ),
+                //   ),
+                // );
+
+                context.push("/wallet/invest-fif/cic-fixed-income");
               },
             ),
             CustomCardInvestFIF(
@@ -67,14 +67,15 @@ class MMAInvestFIFScreen extends StatelessWidget {
               titleButton: 'Explore More',
               onPressed: () {},
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CiCEquityFund(
-                      isEquityTrue: true,
-                    ),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const CiCEquityFund(
+                //       isEquityTrue: true,
+                //     ),
+                //   ),
+                // );
+                context.push("/wallet/invest-fif/cic-equity-fund");
               },
             )
           ],

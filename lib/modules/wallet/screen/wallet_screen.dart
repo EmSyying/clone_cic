@@ -105,7 +105,7 @@ class _WalletScreenState extends State<WalletScreen>
                         Container(
                           width: double.infinity,
                           padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).padding.top + 10),
+                              top: MediaQuery.of(context).padding.top + 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -113,11 +113,12 @@ class _WalletScreenState extends State<WalletScreen>
                                 'Available Balance'.toUpperCase(),
                                 style: textStyle.copyWith(
                                   fontSize: 14,
-                                  color: Colors.white70,
-                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.4,
                                 ),
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 6.0),
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 padding:
@@ -129,36 +130,39 @@ class _WalletScreenState extends State<WalletScreen>
                                           : RichText(
                                               textAlign: TextAlign.center,
                                               text: TextSpan(
-                                                // text: FormatToK.digitNumber(),
                                                 text: _walletController
                                                     .walletAmount
                                                     .value
                                                     .wallet!
                                                     .balanceFormat,
                                                 style: textStyle.copyWith(
-                                                  fontSize: 30,
+                                                  fontSize: 25,
                                                   color: Colors.white,
-                                                  fontWeight: FontWeight.w400,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                               ),
                                             ),
                                 ),
                               ),
+                              const SizedBox(
+                                height: 6.0,
+                              ),
                               Text(
                                 "As of ${FormatDate.formatDateTime(datetime)}",
                                 style: textStyle.copyWith(
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   color: Colors.white70,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              const SizedBox(height: 30),
                               Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 30.0,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     _operationButton(
                                       context,
@@ -334,8 +338,8 @@ class _WalletScreenState extends State<WalletScreen>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 60,
-            height: 60,
+            width: 58,
+            height: 58,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
@@ -348,9 +352,10 @@ class _WalletScreenState extends State<WalletScreen>
             child: Text(
               text ?? '',
               style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontSize: 12,
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w500),
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
             ),
           )
         ],
