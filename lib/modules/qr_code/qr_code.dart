@@ -12,7 +12,6 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/form_builder/custom_button.dart';
 import '../../Utils/helper/custom_route_snackbar.dart';
@@ -137,7 +136,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                           setState(() {
                                             resultQR = barcode.rawValue;
 
-                                            if (resultQR!.contains('WALLET')) {
+                                            if (resultQR!.contains('WALLET') &&
+                                                widget.pageName == 'transfer') {
                                               cameraController
                                                   .stop()
                                                   .then((value) {
