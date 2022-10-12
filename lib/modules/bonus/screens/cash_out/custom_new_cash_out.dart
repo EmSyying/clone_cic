@@ -50,7 +50,7 @@ class CustomNewCashOut extends StatelessWidget {
     if (newCashOutCon.cashoutAmount.value != 0.0 &&
         newCashOutCon.bankName.value != "" &&
         newCashOutCon.cashoutAmount.value <=
-            _walletController.walletAmount.value.balance!) {
+            _walletController.walletAmount.value.wallet!.balance!) {
       newCashOutCon.onCashout(context);
     }
     return false;
@@ -79,7 +79,7 @@ class CustomNewCashOut extends StatelessWidget {
                               padding: const EdgeInsets.all(20.0),
                               child: WalletTotalCard(
                                 amount: _walletController
-                                    .walletAmount.value.balanceFormat,
+                                    .walletAmount.value.wallet!.balanceFormat,
                               ),
                             ),
 
@@ -238,11 +238,11 @@ class CustomNewCashOut extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   CustomTextFieldNew(
                                     validateText: _walletController.walletAmount
-                                                    .value.balance ==
+                                                    .value.wallet!.balance ==
                                                 0 ||
                                             newCashOutCon.cashoutAmount.value >
-                                                _walletController
-                                                    .walletAmount.value.balance!
+                                                _walletController.walletAmount
+                                                    .value.wallet!.balance!
                                         ? newCashOutCon.validateText.value
                                         : null,
                                     keyboardType:
@@ -259,8 +259,8 @@ class CustomNewCashOut extends StatelessWidget {
                                         newCashOutCon.isValidateCashoutAmount
                                             .value = false;
                                       } else if (onConvertToDouble(value) >
-                                          _walletController
-                                              .walletAmount.value.balance!) {
+                                          _walletController.walletAmount.value
+                                              .wallet!.balance!) {
                                         newCashOutCon.cashoutAmount.value =
                                             double.parse(value);
                                         newCashOutCon.isValidateCashoutAmount

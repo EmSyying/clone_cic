@@ -91,8 +91,8 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 20.0),
                                       child: WalletTotalCard(
-                                        amount: _walletController
-                                            .walletAmount.value.balanceFormat,
+                                        amount: _walletController.walletAmount
+                                            .value.wallet!.balanceFormat,
                                       ),
                                     ),
 

@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
+import 'package:cicgreenloan/widgets/mmaccount/custom_qr_card.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -41,8 +42,10 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
   }
 
   GlobalKey qrKey = GlobalKey();
+  OverlayEntry? overlayEntry;
+  bool isShowPopupQRCode = false;
   static GlobalKey printScreenKey = GlobalKey();
-  Future<void> onCaptureAndSave(BuildContext context) async {
+  Future<void> onCaptureAndSave() async {
     try {
       RenderRepaintBoundary boundary = printScreenKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
@@ -77,135 +80,212 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
-    return Scaffold(
-      backgroundColor: const Color(0xfffafafa),
-      appBar: CustomAppBar(
-        elevation: 0,
-        isLeading: true,
-        context: context,
-        title: "Deposit",
-      ),
-      body: Obx(
-        () => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: WalletTotalCard(
-                amount: _walletController.walletAmount.value.balanceFormat,
+    return Stack(
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(70.0),
+            child: RepaintBoundary(
+              key: printScreenKey,
+              child: CustomQRCard(
+                userID:
+                    _walletController.walletAmount.value.wallet!.accountNumber,
+                userName:
+                    _walletController.walletAmount.value.invester!.investerName,
+                amountQr:
+                    _walletController.walletAmount.value.wallet!.balanceFormat,
               ),
             ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: const Color(0xfffafafa),
+          appBar: CustomAppBar(
+            elevation: 0,
+            isLeading: true,
+            context: context,
+            title: "Deposit",
+          ),
+          body: Obx(
+            () => Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: WalletTotalCard(
+                    amount: _walletController
+                        .walletAmount.value.wallet!.balanceFormat,
                   ),
                 ),
-                child: SingleChildScrollView(
-                  child: RepaintBoundary(
-                    key: printScreenKey,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 30),
-                        Text(
-                          'Show QR Code to receive payment from others.',
-                          style: textStyle.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: PrettyQr(
-                            key: qrKey,
-                            data:
-                                _walletController.transferModel.value.toJson(),
-                            size: 160,
-                            errorCorrectLevel: QrErrorCorrectLevel.H,
-                          ),
-                        ),
-                        if (_walletController.recievingAmount.value.isEmpty)
-                          GestureDetector(
-                            onTap: () {
-                              _inputAmount(context);
-                            },
-                            child: _setAmountButton(textStyle),
-                          ),
-                        _walletController.recievingAmount.value.isNotEmpty
-                            ? _hasAmount(textStyle)
-                            : const SizedBox(),
-                        // const Spacer(),
-                      ],
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-            //fix overflow keyboard
-            Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildButton(textStyle,
-                          icon: SvgPicture.asset('assets/images/share.svg'),
-                          text: 'Share', onTap: () {
-                        Share.share(
-                            '${_walletController.walletAmount.value.accountNumber}');
-                      }),
-                      const SizedBox(width: 50),
-                      _buildButton(textStyle,
-                          text: 'Save',
-                          icon: SvgPicture.asset('assets/images/save.svg'),
-                          onTap: () {
-                        setState(() {});
-                        onCaptureAndSave(context);
-                      }),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  SafeArea(
-                    top: false,
-                    minimum: const EdgeInsets.only(bottom: 20),
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'By submitting you agree to ',
-                        style: textStyle.copyWith(fontSize: 12),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ContractTerm(
-                                      fromPage: 'agree',
-                                    ),
-                                  ),
-                                );
-                              },
-                            text: 'CiC Service Agreement',
+                          const SizedBox(height: 30),
+                          Text(
+                            'Show QR Code to receive payment from others.',
                             style: textStyle.copyWith(
-                                color: AppColor.mainColor,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                            ),
                           ),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 25),
+                              child: PrettyQr(
+                                elementColor: Theme.of(context).primaryColor,
+                                roundEdges: true,
+                                key: qrKey,
+                                image: const AssetImage(
+                                    'assets/images/Logo/cic_logo_x4jpg.jpg'),
+                                data: _walletController.transferModel.value
+                                    .toJson(),
+                                size: 160,
+                                // errorCorrectLevel: QrErrorCorrectLevel.H,
+                              )),
+                          if (_walletController.recievingAmount.value.isEmpty)
+                            GestureDetector(
+                              onTap: () {
+                                _inputAmount(context);
+                              },
+                              child: _setAmountButton(textStyle),
+                            ),
+                          _walletController.recievingAmount.value.isNotEmpty
+                              ? _hasAmount(textStyle)
+                              : const SizedBox(),
+                          // const Spacer(),
                         ],
                       ),
                     ),
                   ),
-                ],
-              ),
-            )
-          ],
+                ),
+                //fix overflow keyboard
+                Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildButton(textStyle,
+                              icon: SvgPicture.asset('assets/images/share.svg'),
+                              text: 'Share', onTap: () {
+                            captureAndSharePng(context);
+                          }),
+                          const SizedBox(width: 50),
+                          _buildButton(textStyle,
+                              text: 'Save',
+                              icon: SvgPicture.asset('assets/images/save.svg'),
+                              onTap: () {
+                            setState(() {
+                              isShowPopupQRCode = true;
+                              Future.delayed(const Duration(seconds: 1), () {
+                                onCaptureAndSave();
+                                isShowPopupQRCode = false;
+                              });
+                            });
+                          }),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      SafeArea(
+                        top: false,
+                        minimum: const EdgeInsets.only(bottom: 20),
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'By submitting you agree to ',
+                            style: textStyle.copyWith(fontSize: 12),
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ContractTerm(
+                                          fromPage: 'agree',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                text: 'CiC Service Agreement',
+                                style: textStyle.copyWith(
+                                    color: AppColor.mainColor,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      ),
+        // if (isShowPopupQRCode)
+        //   BackdropFilter(
+        //     filter: ImageFilter.blur(sigmaY: 6, sigmaX: 6),
+        //     child: SizedBox(
+        //       height: double.infinity,
+        //       width: double.infinity,
+        //       child: Center(
+        //         child: Padding(
+        //           padding: const EdgeInsets.all(70.0),
+        //           child: RepaintBoundary(
+        //             key: printScreenKey,
+        //             child: GestureDetector(
+        //               onTap: () {
+        //                 Share.share("Hello")
+        //                     .then((value) => debugPrint("Done"));
+        //               },
+        //               child: CustomQRCard(
+        //                 userID: _walletController
+        //                     .walletAmount.value.wallet!.accountNumber,
+        //                 userName: _walletController
+        //                     .walletAmount.value.invester!.investerName,
+        //                 amountQr: _walletController
+        //                     .walletAmount.value.wallet!.balanceFormat,
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   )
+      ],
     );
+  }
+
+  Future<void> captureAndSharePng(BuildContext context) async {
+    try {
+      final RenderBox box = context.findRenderObject() as RenderBox;
+      RenderRepaintBoundary boundary = printScreenKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+      var image = await boundary.toImage(pixelRatio: 2);
+      var byteData = await image.toByteData(format: ImageByteFormat.png);
+      var pngBytes = byteData!.buffer.asUint8List();
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/transferqr.png');
+      await file.writeAsBytes(pngBytes);
+      Share.shareFiles(['${directory.path}/transferqr.png'],
+          text:
+              'Hi! Here is my CiC ID. You can scan this QR code to send money or Tap on the link below for sending payment:',
+          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+    } catch (e) {
+      debugPrint("$e");
+    }
   }
 
   Future<void> _inputAmount(BuildContext context) async {

@@ -41,7 +41,8 @@ class CustomHistoryCashOut extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: WalletTotalCard(
-                  amount: _walletController.walletAmount.value.balanceFormat,
+                  amount: _walletController
+                      .walletAmount.value.wallet!.balanceFormat,
                 ),
               ),
               const SizedBox(height: 20.0),

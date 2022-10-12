@@ -52,6 +52,8 @@ import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.
 import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
+import '../../modules/wallet/screen/deposit_to_screen.dart';
+import '../../modules/wallet/screen/mma_deposit_card.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
 
@@ -828,6 +830,26 @@ final router = GoRouter(
           GoRoute(
             path: 'wallet',
             builder: (_, state) => const WalletScreen(),
+            routes: [
+              GoRoute(
+                name: 'DepositCard',
+                path: 'deposit-card',
+                builder: (_, state) => MMADepositCard(
+                    fromModule: state.queryParams['fromModule'].toString()),
+                routes: [
+                  GoRoute(
+                    name: 'AccountTransfer',
+                    path: 'account-transfer',
+                    builder: (_, state) => const DepositToScreen(),
+                  ),
+                  // GoRoute(
+                  //   name: 'DepositFrom',
+                  //   path: 'account-transfer',
+                  //   builder: (_, state) => const DepositFromScreen(),
+                  // )
+                ],
+              ),
+            ],
           ),
         ],
       ),

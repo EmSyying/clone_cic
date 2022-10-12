@@ -40,7 +40,8 @@ class _TransferToMMAState extends State<TransferToMMA> {
           Padding(
             padding: const EdgeInsets.all(20),
             child: WalletTotalCard(
-              amount: _walletController.walletAmount.value.balanceFormat,
+              amount:
+                  _walletController.walletAmount.value.wallet!.balanceFormat,
             ),
           ),
 

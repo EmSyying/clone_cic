@@ -5,7 +5,11 @@ class TransferModel {
   final String? qrType;
   final String? phoneNumber;
   final String? amount;
+  final String? idQR;
+  final String? userName;
   TransferModel({
+    this.idQR,
+    this.userName,
     this.qrType,
     this.phoneNumber,
     this.amount,
@@ -16,6 +20,8 @@ class TransferModel {
       'qrType': qrType,
       'phoneNumber': phoneNumber,
       'amount': amount,
+      'idQR': idQR,
+      'userName': userName,
     };
   }
 
@@ -25,6 +31,8 @@ class TransferModel {
       phoneNumber:
           map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       amount: map['amount'] != null ? map['amount'] as String : null,
+      idQR: map['idQR'] != null ? map['idQR'] as String : null,
+      userName: map['userName'] != null ? map['userName'] as String : null,
     );
   }
 
@@ -37,11 +45,15 @@ class TransferModel {
     String? qrType,
     String? phoneNumber,
     String? amount,
+    String? idQR,
+    String? userName,
   }) {
     return TransferModel(
       qrType: qrType ?? this.qrType,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       amount: amount ?? this.amount,
+      idQR: idQR ?? this.idQR,
+      userName: userName ?? this.userName,
     );
   }
 }

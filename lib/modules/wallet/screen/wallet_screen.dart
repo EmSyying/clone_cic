@@ -123,19 +123,25 @@ class _WalletScreenState extends State<WalletScreen>
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Obx(
-                                  () => RichText(
-                                    textAlign: TextAlign.center,
-                                    text: TextSpan(
-                                      // text: FormatToK.digitNumber(),
-                                      text: _walletController
-                                          .walletAmount.value.balanceFormat,
-                                      style: textStyle.copyWith(
-                                        fontSize: 30,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
+                                  () =>
+                                      _walletController.fetchWalletLoading.value
+                                          ? const Center(child: Text(''))
+                                          : RichText(
+                                              textAlign: TextAlign.center,
+                                              text: TextSpan(
+                                                // text: FormatToK.digitNumber(),
+                                                text: _walletController
+                                                    .walletAmount
+                                                    .value
+                                                    .wallet!
+                                                    .balanceFormat,
+                                                style: textStyle.copyWith(
+                                                  fontSize: 30,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
                                 ),
                               ),
                               Text(
@@ -166,6 +172,8 @@ class _WalletScreenState extends State<WalletScreen>
                                         //         const DepositScreen(),
                                         //   ),
                                         // );
+                                        // context.go(
+                                        //     '/wallet/deposit-card?fromModule=Deposit');
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

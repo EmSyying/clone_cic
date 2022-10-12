@@ -53,6 +53,7 @@ class MMADepositCard extends StatelessWidget {
                             onTap: () async {
                               if (e.title ==
                                   contWallet.mmacardlist.elementAt(1).title) {
+                                // context.go('wallet/deposit-card?fromModule=')
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

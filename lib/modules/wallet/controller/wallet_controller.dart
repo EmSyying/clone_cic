@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
 import 'package:cicgreenloan/modules/wallet/model/deposit/deposit_detail.dart';
 import 'package:cicgreenloan/modules/wallet/model/mma_deposit_card_model.dart';
+import 'package:cicgreenloan/modules/wallet/model/wallet/wallet_data_model.dart';
 import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import '../../../Utils/helper/custom_success_screen.dart';
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/card_mma_invest_model.dart';
 import '../model/transfer_recieved/transfer_model.dart';
-import '../model/wallet_model.dart';
 
 class WalletController extends GetxController {
   final _apiBaseHelper = ApiBaseHelper();
@@ -70,18 +70,21 @@ class WalletController extends GetxController {
   }
 
   ///Fetch Wallet Amount
-  final walletAmount = WalletAmountModel().obs;
+  final walletAmount = WalletDataModel().obs;
   final fetchWalletLoading = false.obs;
-  Future<WalletAmountModel> fetchWalletAmount() async {
+  Future<WalletDataModel> fetchWalletAmount() async {
     fetchWalletLoading(true);
     await _apiBaseHelper
         .onNetworkRequesting(
             url: 'user/wallet', methode: METHODE.get, isAuthorize: true)
         .then((response) {
-      var wallet = response['data']['wallet'];
-      walletAmount.value = WalletAmountModel.fromJson(wallet);
-      transferModel.value = transferModel.value
-          .copyWith(phoneNumber: walletAmount.value.accountNumber);
+      var wallet = response['data'];
+      walletAmount.value = WalletDataModel.fromJson(wallet);
+      transferModel.value = transferModel.value.copyWith(
+        phoneNumber: walletAmount.value.wallet!.accountNumber,
+        idQR: walletAmount.value.invester!.investerId,
+        userName: walletAmount.value.invester!.investerName,
+      );
       fetchWalletLoading(false);
     }).onError((ErrorModel error, stackTrace) {
       fetchWalletLoading(false);
@@ -163,7 +166,7 @@ class WalletController extends GetxController {
       methode: METHODE.post,
       isAuthorize: true,
       body: {
-        'sender': walletAmount.value.accountNumber,
+        'sender': walletAmount.value.wallet!.accountNumber,
         'receiver': '296566817',
         'amount': amount,
       },
