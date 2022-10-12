@@ -425,15 +425,13 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                                   onTap: controller!.isAnimating
                                       ? null
                                       : () {
-                                          debugPrint("Request again1");
                                           controller!.reverse(
                                               from: controller!.value = 1.0);
-                                          debugPrint("Request again2");
+
                                           requestOtpAgain();
-                                          debugPrint("Request again3");
                                         },
                                   child: Text(
-                                    ' Request Again 222',
+                                    ' Request Again',
                                     style: TextStyle(
                                         color: controller!.isAnimating
                                             ? Colors.grey

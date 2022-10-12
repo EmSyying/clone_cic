@@ -1,12 +1,12 @@
 import 'package:intl/intl.dart';
 
 class FormatNumber {
-  static var numberFormatdefual = NumberFormat('#,##0', 'en');
-  static var numberFormat = NumberFormat('#,##0.00', 'en');
-  static var decimalFormat = NumberFormat('00', 'en');
-  static var percentage = NumberFormat('#', 'en');
-  static var formatDate = DateFormat("EEEE, dd MMM yyyy");
-  static var formatCode = NumberFormat('### ### ###', 'en');
+  static final numberFormatdefual = NumberFormat('#,##0', 'en');
+  static final numberFormat = NumberFormat('#,##0.00', 'en');
+  static final decimalFormat = NumberFormat('00', 'en');
+  static final percentage = NumberFormat('#', 'en');
+  static final formatDate = DateFormat("EEEE, dd MMM yyyy");
+  static final formatCode = NumberFormat('### ### ###', 'en');
 
   static formatNumberDefualt(num number) => numberFormatdefual.format(number);
   static formatNumber(num number) => numberFormat.format(number);
