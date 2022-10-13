@@ -57,6 +57,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
 
   @override
   void initState() {
+    priceController.isFromWallet.value = false;
     priceController.fetchCertificate();
     priceController.fetchOnReturnInvestment();
     priceController.getSharePrice();
@@ -1446,9 +1447,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const SubscribeBonusScreen(
-                                                  
-                                                ),
+                                                const SubscribeBonusScreen(),
                                           ),
                                         );
                                       },

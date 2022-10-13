@@ -1,10 +1,10 @@
 import 'package:cicgreenloan/modules/wallet/screen/mma_deposit_card.dart';
-import 'package:cicgreenloan/modules/wallet/screen/mma_invest_fif_screen.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/function/format_date_time.dart';
 import '../../../Utils/helper/custom_appbar.dart';
@@ -212,13 +212,14 @@ class _WalletScreenState extends State<WalletScreen>
                                     _operationButton(
                                       context,
                                       ontap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MMAInvestFIFScreen(),
-                                          ),
-                                        );
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         const MMAInvestFIFScreen(),
+                                        //   ),
+                                        // );
+                                        context.push('/wallet/invest-fif');
                                         // show(context);
                                       },
                                       text: 'Invest',

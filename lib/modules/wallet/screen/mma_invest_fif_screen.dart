@@ -3,18 +3,15 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
+import '../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../widgets/wallets/custom_card_invest_fif.dart';
 import '../../../widgets/wallets/custom_title_cart_ivest_fif.dart';
-import '../controller/wallet_controller.dart';
 
 class MMAInvestFIFScreen extends StatelessWidget {
   const MMAInvestFIFScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final contWallet = Get.put(WalletController());
-    // final guidkey = Get.put(CiCGuidController());
-    // final priceController = Get.put(PriceController());
     return Scaffold(
       appBar: CustomAppBar(
         elevation: 0,
@@ -29,7 +26,7 @@ class MMAInvestFIFScreen extends StatelessWidget {
               assetImage: 'assets/images/wallet/mma_invest_fif.jpg',
               titleFIF: 'CiC FIXED INCOME FUND',
               column: Column(
-                children: contWallet.mmainvestFIFCard
+                children: InjectionHelper.walletController.mmainvestFIFCard
                     .map(
                       (e) => CustomTitleCardInvestFIF(
                         title: e.title,
@@ -48,7 +45,7 @@ class MMAInvestFIFScreen extends StatelessWidget {
                 //     ),
                 //   ),
                 // );
-
+                InjectionHelper.investmentController.isFromWallet.value = true;
                 context.push("/wallet/invest-fif/cic-fixed-income");
               },
             ),
@@ -56,7 +53,7 @@ class MMAInvestFIFScreen extends StatelessWidget {
               assetImage: 'assets/images/wallet/mma_invest_equity.jpg',
               titleFIF: 'CiC EQUITY FUND',
               column: Column(
-                children: contWallet.mmainvestEquityCard
+                children: InjectionHelper.walletController.mmainvestEquityCard
                     .map(
                       (e) => CustomTitleCardInvestFIF(
                         title: e.title,

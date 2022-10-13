@@ -1,11 +1,11 @@
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
-import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_new_subscription.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_subscribe_history.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/color.dart';
+import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 
 class SubscribeBonusScreen extends StatefulWidget {
   const SubscribeBonusScreen({Key? key}) : super(key: key);
@@ -16,12 +16,25 @@ class SubscribeBonusScreen extends StatefulWidget {
 
 class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
     with SingleTickerProviderStateMixin {
-  final subscribeCon = Get.put(BonusController());
-
   @override
   void initState() {
-    subscribeCon.tabControllerSubscribe = TabController(length: 2, vsync: this);
+    InjectionHelper.bonusController.tabControllerSubscribe = TabController(
+        length: 2,
+        vsync: this,
+        initialIndex: InjectionHelper.bonusController.tapcurrentIndex.value);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    final router = GoRouter.of(context);
+    if (router.location.contains('subscription')) {
+      InjectionHelper.bonusController.tapcurrentIndex.value = 0;
+    } else {
+      InjectionHelper.debtInvestmentController.tapcurrentIndex.value = 1;
+    }
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -46,7 +59,8 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
               indicatorColor: AppColor.mainColor,
               labelColor: AppColor.mainColor,
               unselectedLabelColor: Colors.grey,
-              controller: subscribeCon.tabControllerSubscribe,
+              controller:
+                  InjectionHelper.bonusController.tabControllerSubscribe,
               indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
               tabs: const [
                 Text(
@@ -68,7 +82,8 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
           ),
           Expanded(
             child: TabBarView(
-              controller: subscribeCon.tabControllerSubscribe,
+              controller:
+                  InjectionHelper.bonusController.tabControllerSubscribe,
               children: [
                 const CustomNewSubscription(),
                 CustomSubscribeHistory(),

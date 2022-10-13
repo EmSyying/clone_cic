@@ -15,6 +15,7 @@ import '../../core/auth/verify_set_password.dart';
 import '../../core/walk_through/splash_screen.dart';
 import '../../core/walk_through/start_slide.dart';
 import '../../modules/bonus/screens/bonus_screen.dart';
+import '../../modules/bonus/screens/subscriptions/subscribe_screen.dart';
 import '../../modules/dashboard/buttom_navigation_bar.dart';
 import '../../modules/dashboard/dashboard.dart';
 import '../../modules/get_funding/screens/debt_investment/preview_debt_form.dart';
@@ -858,12 +859,19 @@ final router = GoRouter(
                 builder: (context, state) => const MMAInvestFIFScreen(),
                 routes: [
                   GoRoute(
-                    path: 'cic-equity-fund',
-                    name: 'CiCEquityFund',
-                    builder: (context, state) => const CiCEquityFund(
-                      isEquityTrue: true,
-                    ),
-                  ),
+                      path: 'cic-equity-fund',
+                      name: 'CiCEquityFund',
+                      builder: (context, state) => const CiCEquityFund(
+                            isEquityTrue: true,
+                          ),
+                      routes: [
+                        GoRoute(
+                          path: 'ut-subscription',
+                          name: 'Ut-Subscription',
+                          builder: (context, state) =>
+                              const SubscribeBonusScreen(),
+                        ),
+                      ]),
                   GoRoute(
                     path: 'cic-fixed-income',
                     name: 'CiCFixedIncome',

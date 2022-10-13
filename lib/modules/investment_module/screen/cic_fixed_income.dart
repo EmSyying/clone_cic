@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
-import '../../../Utils/helper/color.dart';
 import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
@@ -34,6 +33,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
   void initState() {
     InjectionHelper.investmentController.onRefreshFIF();
     InjectionHelper.equityInvestmentController.fetchCallCenter(type: "FIF");
+    InjectionHelper.investmentController
+        .onCreateFiF(id: 1, buildcontext: context);
     super.initState();
   }
 
@@ -78,15 +79,10 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
               context: context,
               title: "CiC Fixed Income Fund",
             ),
-            backgroundColor: AppColor.backgroundColor,
             body: Stack(
               children: [
-                const SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
-                ),
                 SizedBox(
-                  height: 110,
+                  height: 120,
                   width: double.infinity,
                   child: SvgPicture.asset(
                     'assets/images/svgfile/Investment_backg.svg',
@@ -94,7 +90,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 20.0),
+                  margin: const EdgeInsets.only(top: 30.0),
                   child: RefreshIndicator(
                     key: refreshKey,
                     onRefresh:

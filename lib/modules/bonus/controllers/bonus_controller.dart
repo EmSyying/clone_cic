@@ -22,6 +22,7 @@ class BonusController extends GetxController {
   final fifController = Get.put(PriceController());
   late TabController tabController;
   late TabController tabControllerSubscribe;
+  final tapcurrentIndex = 0.obs;
   late TabController tabControllerCashOut;
   final isSelectedBank = false.obs;
   final bankInfoIndex = 0.obs;

@@ -759,10 +759,10 @@ class PriceController extends GetxController {
   final isCreateBank = false.obs;
   final accountName = "".obs;
   final bankinfoId = 0.obs;
-
+  final isFromWallet = false.obs;
   Future<void> onCreateFiF(
       {num? id, required BuildContext? buildcontext}) async {
-    debugPrint("Product ID : ${fiFApplicationDetailPending.value.productId}");
+    debugPrint("is from page:${isFromWallet.value}");
 
     isLoadingPostFiF(true);
 
@@ -804,7 +804,11 @@ class PriceController extends GetxController {
               onPressedButton: () {
                 onClearFIF();
                 clearDeducSelection();
-                context.go('/investment');
+                if (isFromWallet.value == true) {
+                  context.go('/wallet/invest-fif/cic-fixed-income');
+                } else {
+                  context.go('/investment');
+                }
                 Future.delayed(const Duration(seconds: 1), () {
                   getFIFApplication();
                   fetchFIFPending();
