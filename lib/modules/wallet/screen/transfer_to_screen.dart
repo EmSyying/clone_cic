@@ -25,6 +25,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
   @override
   void dispose() {
+    _walletController.clearMMATransfer();
     super.dispose();
   }
 
