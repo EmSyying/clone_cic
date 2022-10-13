@@ -109,8 +109,8 @@ class _TransferToMMAState extends State<TransferToMMA> {
                   ),
                 ),
                 CustomTextFieldNew(
-                  // keyboardType:
-                  //     const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   controller: _walletController.qrRecievingAmount,
                   inputFormatterList: [
                     FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
