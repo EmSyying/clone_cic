@@ -8,7 +8,8 @@ import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 
 class SubscribeBonusScreen extends StatefulWidget {
-  const SubscribeBonusScreen({Key? key}) : super(key: key);
+  final String? tabName;
+  const SubscribeBonusScreen({Key? key, this.tabName}) : super(key: key);
 
   @override
   State<SubscribeBonusScreen> createState() => _SubscribeBonusScreenState();
@@ -28,10 +29,10 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
   @override
   void didChangeDependencies() {
     final router = GoRouter.of(context);
-    if (router.location.contains('subscription')) {
-      InjectionHelper.bonusController.tapcurrentIndex.value = 0;
+    if (router.location.contains('new-subscription')) {
+      InjectionHelper.bonusController.tabControllerSubscribe.index = 0;
     } else {
-      InjectionHelper.debtInvestmentController.tapcurrentIndex.value = 1;
+      InjectionHelper.bonusController.tabControllerSubscribe.index = 1;
     }
 
     super.didChangeDependencies();

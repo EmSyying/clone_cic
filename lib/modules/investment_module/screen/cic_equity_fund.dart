@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -23,7 +24,6 @@ import '../../../widgets/investments/custom_card.dart';
 import '../../../widgets/investments/equity_fund/subscription_chart.dart';
 import '../../../widgets/investments/equity_fund/trading_chart.dart';
 import '../../../widgets/investments/return_on_investment.dart';
-import '../../bonus/screens/subscriptions/subscribe_screen.dart';
 import '../../guilder/guider_controller.dart';
 
 class CiCEquityFund extends StatefulWidget {
@@ -1443,13 +1443,15 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                       isOutline: false,
                                       isDisable: false,
                                       onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SubscribeBonusScreen(),
-                                          ),
-                                        );
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         const SubscribeBonusScreen(),
+                                        //   ),
+                                        // );
+                                        context.push(
+                                            "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription'");
                                       },
                                       title: "Invest More",
                                     ),

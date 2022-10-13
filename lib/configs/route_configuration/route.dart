@@ -859,19 +859,29 @@ final router = GoRouter(
                 builder: (context, state) => const MMAInvestFIFScreen(),
                 routes: [
                   GoRoute(
-                      path: 'cic-equity-fund',
-                      name: 'CiCEquityFund',
-                      builder: (context, state) => const CiCEquityFund(
-                            isEquityTrue: true,
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'ut-subscription',
-                          name: 'Ut-Subscription',
-                          builder: (context, state) =>
-                              const SubscribeBonusScreen(),
-                        ),
-                      ]),
+                    path: 'cic-equity-fund',
+                    name: 'CiCEquityFund',
+                    builder: (context, state) => const CiCEquityFund(
+                      isEquityTrue: true,
+                    ),
+                    routes: [
+                      // GoRoute(
+                      //   path: 'ut-subscription/:tabName',
+                      //   name: 'UtSubscription',
+                      //   builder: (context, state) => SubscribeBonusScreen(
+                      //     tabName: state.params['tabName'],
+                      //   ),
+                      // ),
+                      GoRoute(
+                        path: 'ut-subscription/:tabName',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final String tabName = state.params['tabName']!;
+
+                          return SubscribeBonusScreen(tabName: tabName);
+                        },
+                      )
+                    ],
+                  ),
                   GoRoute(
                     path: 'cic-fixed-income',
                     name: 'CiCFixedIncome',

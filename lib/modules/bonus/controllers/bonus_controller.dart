@@ -3,6 +3,7 @@ import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
@@ -474,8 +475,8 @@ class BonusController extends GetxController {
                           'The UT Subscription is Submit successfully.',
                       buttonTitle: 'Done',
                       onPressedButton: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        context.go(
+                            '/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription');
                       },
                     );
                   },
@@ -484,18 +485,16 @@ class BonusController extends GetxController {
             },
           );
 
-          // Future.delayed(const Duration(seconds: 1), () {
-          //   fectchBalance();
-          //   fetchTransationHistory(type: 'all');
-          //   fetchPendingTransaction();
-          //   subscriptionAmount.value = 0;
-          //   displaysubscriptionCoast.value = 0.0;
-          //   diplayNewUTAmount.value = 0;
-          //   Navigator.pop(context);
-          //   isLoadingHistory.value = true;
-          //   isSubmited.value = false;
-          //   // onClear();
-          // });
+          fectchBalance();
+          fetchTransationHistory(type: 'all');
+          fetchPendingTransaction();
+          subscriptionAmount.value = 0;
+          displaysubscriptionCoast.value = 0.0;
+          diplayNewUTAmount.value = 0;
+
+          isLoadingHistory.value = true;
+          isSubmited.value = false;
+          onClear();
           update();
         } else {
           debugPrint('error subscription=========');
