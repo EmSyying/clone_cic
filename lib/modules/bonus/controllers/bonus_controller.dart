@@ -492,12 +492,10 @@ class BonusController extends GetxController {
           displaysubscriptionCoast.value = 0.0;
           diplayNewUTAmount.value = 0;
 
-          isLoadingHistory.value = true;
           isSubmited.value = false;
           onClear();
           update();
         } else {
-          debugPrint('error subscription=========');
           customRouterSnackbar(
             title: 'Subscription Failed',
             description: 'Please Try Again Later.',
