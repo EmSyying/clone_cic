@@ -158,7 +158,7 @@ class WalletController extends GetxController {
           type: SnackType.error);
     });
   }
-
+ 
   ///transaction by Qr Code
   Future<void> oscanWalletQr(String amount, String receiver) async {
     await _apiBaseHelper.onNetworkRequesting(

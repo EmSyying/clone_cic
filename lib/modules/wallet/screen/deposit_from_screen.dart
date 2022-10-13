@@ -55,13 +55,15 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
         Center(
           child: RepaintBoundary(
             key: printScreenKey,
-            child: CustomQRCard(
-              userID:
-                  _walletController.walletAmount.value.wallet!.accountNumber,
-              userName:
-                  _walletController.walletAmount.value.invester!.investerName,
-              amountQr:
-                  _walletController.walletAmount.value.wallet!.balanceFormat,
+            child: Obx(
+              () => CustomQRCard(
+                userID:
+                    _walletController.walletAmount.value.wallet!.accountNumber,
+                userName:
+                    _walletController.walletAmount.value.invester!.investerName,
+                amountQr:
+                    _walletController.recievingAmount.value.toCurrencyAmount(),
+              ),
             ),
           ),
         ),

@@ -91,24 +91,28 @@ class _DepositToScreenState extends State<DepositToScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        minimum: const EdgeInsets.all(20),
-        child: CustomButton(
-          title: 'Next',
-          onPressed: _validateButton()
-              ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MMAcountDepositScreen(),
-                    ),
-                  );
-                }
-              : null,
-          isDisable: false,
-          isOutline: false,
-        ),
+      bottomNavigationBar: ColoredBox(
+        color: Colors.white,
+        child: SafeArea(
+            top: false,
+            minimum: const EdgeInsets.all(20),
+            child: Obx(
+              () => CustomButton(
+                title: 'Next',
+                onPressed: _validateButton()
+                    ? () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MMAcountDepositScreen(),
+                          ),
+                        );
+                      }
+                    : null,
+                isDisable: !_validateButton(),
+                isOutline: false,
+              ),
+            )),
       ),
     );
   }
