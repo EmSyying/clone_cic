@@ -158,10 +158,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                               onTap: () {
                             setState(() {
                               isShowPopupQRCode = true;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                _onCaptureAndSave();
-                                isShowPopupQRCode = false;
-                              });
+                              _onCaptureAndSave();
                             });
                           }),
                         ],
@@ -302,7 +299,8 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
       barrierColor: Colors.black26,
       topRadius: const Radius.circular(14),
       builder: (_) => Material(
-        child: SizedBox(
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 30),
           height: MediaQuery.of(context).size.height * 0.25 +
               MediaQuery.of(context).viewInsets.bottom,
           width: MediaQuery.of(context).size.width,
