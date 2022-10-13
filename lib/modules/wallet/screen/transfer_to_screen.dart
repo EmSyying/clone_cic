@@ -1,12 +1,12 @@
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
-import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
+import '../../../utils/helper/digit_decimal_formarter.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../qr_code/qr_code.dart';
 import '../controller/wallet_controller.dart';
@@ -20,8 +20,13 @@ class TransferToMMA extends StatefulWidget {
 
 class _TransferToMMAState extends State<TransferToMMA> {
   final _walletController = Get.put(WalletController());
-
   final _phoneNumberFocus = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle2!;
@@ -104,24 +109,12 @@ class _TransferToMMAState extends State<TransferToMMA> {
                   ),
                 ),
                 CustomTextFieldNew(
+                  // keyboardType:
+                  //     const TextInputType.numberWithOptions(decimal: true),
                   controller: _walletController.qrRecievingAmount,
                   inputFormatterList: [
                     FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-                    TextInputFormatter.withFunction((oldValue, newValue) {
-                      double? number = double.tryParse(newValue.text);
-                      if (number != null) {
-                        debugPrint('New');
-                        return newValue.copyWith(
-                            text: newValue.text.asInput(),
-                            selection: TextSelection.collapsed(
-                                offset: newValue.text.asInput().length));
-                      } else if (newValue.text.isEmpty) {
-                        return const TextEditingValue();
-                      } else {
-                        debugPrint('Old');
-                        return oldValue;
-                      }
-                    }),
+                    DigitFormatWithDecimal()
                   ],
                   isRequired: true,
                   labelText: 'Amount',

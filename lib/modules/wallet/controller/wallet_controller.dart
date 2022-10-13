@@ -158,7 +158,7 @@ class WalletController extends GetxController {
           type: SnackType.error);
     });
   }
- 
+
   ///transaction by Qr Code
   Future<void> oscanWalletQr(String amount, String receiver) async {
     await _apiBaseHelper.onNetworkRequesting(
@@ -198,16 +198,24 @@ class WalletController extends GetxController {
   }
 
   ///MMA Transfer
-
   final transferModel = TransferModel(qrType: CiCQr.wallet.key).obs;
   TextEditingController qrRecievingPhone = TextEditingController();
   TextEditingController qrRecievingAmount = TextEditingController();
+  final remarkText = ''.obs;
 
   void onScanTransfer(String result) {
     try {
       var decodedResult = TransferModel.fromJson(result);
       qrRecievingPhone.text = decodedResult.phoneNumber ?? '';
       qrRecievingAmount.text = decodedResult.amount ?? '';
-    } catch (e) {}
+    } catch (e) {
+      debugPrint('Error $e');
+    }
+  }
+
+  void clearMMATransfer() {
+    qrRecievingPhone.text = '';
+    qrRecievingAmount.text = '';
+    remarkText('');
   }
 }
