@@ -1,12 +1,13 @@
+import 'package:cicgreenloan/modules/wallet/screen/transfer_review.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
+import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
-import '../../../utils/helper/digit_decimal_formarter.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../qr_code/qr_code.dart';
 import '../controller/wallet_controller.dart';
@@ -41,8 +42,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
             Navigator.pop(context);
             debugPrint('cashout======');
           }),
-      body: ListView(
-        shrinkWrap: true,
+      body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(20),
@@ -65,6 +65,10 @@ class _TransferToMMAState extends State<TransferToMMA> {
             child: Column(
               children: [
                 CustomTextFieldNew(
+                  initialValue: _walletController.qrRecievingPhone.text,
+                  inputFormatterList: [FilteringTextInputFormatter.digitsOnly],
+                  keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true, signed: false),
                   focusScope: _phoneNumberFocus,
                   controller: _walletController.qrRecievingPhone,
                   isRequired: true,
@@ -109,19 +113,44 @@ class _TransferToMMAState extends State<TransferToMMA> {
                   ),
                 ),
                 CustomTextFieldNew(
+                  initialValue: _walletController.qrRecievingAmount.text,
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   controller: _walletController.qrRecievingAmount,
                   inputFormatterList: [
                     FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-                    DigitFormatWithDecimal()
+                    TextInputFormatter.withFunction((oldValue, newValue) {
+                      double? number = double.tryParse(newValue.text);
+                      if (number != null) {
+                        debugPrint('New');
+                        return newValue.copyWith(
+                            text: newValue.text.asInput(),
+                            selection: TextSelection.collapsed(
+                                offset: newValue.text.asInput().length));
+                      } else if (newValue.text.isEmpty) {
+                        return const TextEditingValue();
+                      } else {
+                        debugPrint('Old');
+                        return oldValue;
+                      }
+                      // try {
+                      //   final text = newValue.text;
+                      //   if (text.isNotEmpty) double.parse(text);
+                      //   debugPrint('ERROR');
+                      //   return newValue;
+                      // } catch (e) {
+                      //   return oldValue;
+                      // }
+                    }),
                   ],
                   isRequired: true,
                   labelText: 'Amount',
                   hintText: 'Amount',
                   suffixText: 'USD',
                 ),
-                const CustomTextFieldNew(
+                CustomTextFieldNew(
+                  initialValue: _walletController.remarkTextController.text,
+                  controller: _walletController.remarkTextController,
                   labelText: 'Remark',
                   hintText: 'Remark',
                 ),
@@ -129,11 +158,12 @@ class _TransferToMMAState extends State<TransferToMMA> {
               ],
             ),
           ),
-
-          ///bottom block
+          const Spacer(),
           GestureDetector(
             onTap: () {
               readAgreement = !readAgreement;
+              debugPrint(
+                  '${_walletController.qrRecievingAmount.text.isNotEmpty}');
               setState(() {});
             },
             child: Container(
@@ -163,9 +193,22 @@ class _TransferToMMAState extends State<TransferToMMA> {
         top: false,
         minimum: const EdgeInsets.all(20),
         child: CustomButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TransferReview(),
+                ));
+          },
           title: 'Process to Pay',
-          isDisable: _validateButton(),
+          isDisable: readAgreement &&
+                  _walletController.qrRecievingPhone.text.isNotEmpty &&
+                  _walletController.qrRecievingAmount.text.isNotEmpty &&
+                  double.tryParse(
+                          _walletController.qrRecievingAmount.text.clean())! <
+                      _walletController.walletAmount.value.wallet!.balance!
+              ? false
+              : true,
           isOutline: false,
         ),
       ),
@@ -174,9 +217,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
   bool readAgreement = false;
 
-  bool _validateButton() {
-    return true;
-  }
+  // bool _validateButton() => ;
 
   Widget _tickIcon(bool select, {double? width, Color? color}) => select
       ? SvgPicture.asset('assets/images/svgfile/circle_check-selected.svg',

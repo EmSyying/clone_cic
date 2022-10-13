@@ -6,19 +6,26 @@ class DigitFormatWithDecimal extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    double? number = double.tryParse(newValue.text);
+    String newTextValue = newValue.text.replaceAll(',', '.');
+    double? number = double.tryParse(newTextValue);
+
+    ///
+    debugPrint("VALUE ${oldValue.text}");
+    debugPrint("VALUE ${newValue.text}");
+    // if (newValue.text == '.' && oldValue.text.length < newValue.text.length) {
+    //   return const TextEditingValue(
+    //     text: '0.',
+    //     selection: TextSelection.collapsed(offset: 2),
+    //   );
+    // } else if (newValue.text == '0' && oldValue.text == '0') {
+    //   return oldValue;
+    // } else
     if (number != null) {
-      debugPrint('NewValue = ${newValue.text}');
-      debugPrint('NewValue Clean = ${newValue.text.clean()}');
       return newValue.copyWith(
           text: newValue.text.replaceAll(',', '.').asInput(),
           selection:
               TextSelection.collapsed(offset: newValue.text.asInput().length));
-    } else if (newValue.text.isEmpty) {
-      return const TextEditingValue();
-    } else {
-      debugPrint('Old');
-      return oldValue;
     }
+    return oldValue;
   }
 }

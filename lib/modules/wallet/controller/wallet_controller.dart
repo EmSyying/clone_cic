@@ -4,10 +4,11 @@ import 'package:cicgreenloan/modules/wallet/model/mma_deposit_card_model.dart';
 import 'package:cicgreenloan/modules/wallet/model/wallet/wallet_data_model.dart';
 import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
+import 'package:cicgreenloan/utils/helper/custom_success_screen.dart';
+import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../Utils/helper/custom_success_screen.dart';
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/card_mma_invest_model.dart';
 import '../model/transfer_recieved/transfer_model.dart';
@@ -201,6 +202,7 @@ class WalletController extends GetxController {
   final transferModel = TransferModel(qrType: CiCQr.wallet.key).obs;
   TextEditingController qrRecievingPhone = TextEditingController();
   TextEditingController qrRecievingAmount = TextEditingController();
+  TextEditingController remarkTextController = TextEditingController();
   final remarkText = ''.obs;
 
   void onScanTransfer(String result) {
@@ -217,5 +219,54 @@ class WalletController extends GetxController {
     qrRecievingPhone.text = '';
     qrRecievingAmount.text = '';
     remarkText('');
+  }
+
+  Future<void> transferToOtherMMA(BuildContext context) async {
+    debugPrint('AMOUNT = ${qrRecievingAmount.text}');
+    await _apiBaseHelper.onNetworkRequesting(
+      url: 'user/wallet/transaction/create',
+      methode: METHODE.post,
+      isAuthorize: true,
+      body: {
+        'sender': walletAmount.value.wallet!.accountNumber ?? '',
+        'receiver': qrRecievingPhone.text,
+        'amount': qrRecievingAmount.text.clean()
+      },
+    ).then((response) {
+      debugPrint("SUCCESS$response");
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return CustomSucessScreen(
+                  title: 'Success',
+                  description: 'The Deposit is Submit successfully.',
+                  buttonTitle: 'Done',
+                  onPressedButton: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    fetchWalletAmount();
+                  },
+                );
+              },
+            ),
+          );
+        },
+      );
+    }).onError(
+      (ErrorModel error, _) {
+        customRouterSnackbar(
+            title: 'Error',
+            description: error.bodyString['message'] ?? '',
+            type: SnackType.error);
+        debugPrint(
+            'transferToOtherMMA Error : ${error.statusCode} : ${error.bodyString}  ');
+      },
+    );
   }
 }
