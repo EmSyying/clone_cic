@@ -794,28 +794,32 @@ class PriceController extends GetxController {
         }).then((response) {
       debugPrint("This funtion is work 2:$response");
       if (response['success'] != null && response['success']) {
-        Navigator.push(
-          buildcontext!,
-          MaterialPageRoute(
-            builder: (context) => CustomSucessScreen(
-              title: 'Success',
-              description: 'Your FIF application is submitted successfully. ',
-              buttonTitle: 'Done',
-              onPressedButton: () {
-                onClearFIF();
-                clearDeducSelection();
-                if (isFromWallet.value == true) {
-                  context.go('/wallet/invest-fif/cic-fixed-income');
-                } else {
-                  context.go('/investment');
-                }
-                Future.delayed(const Duration(seconds: 1), () {
-                  getFIFApplication();
-                  fetchFIFPending();
-                });
-              },
-            ),
-          ),
+        Future.delayed(
+          const Duration(seconds: 1),
+          () {
+            Navigator.push(
+              buildcontext!,
+              MaterialPageRoute(
+                builder: (context) => CustomSucessScreen(
+                  title: 'Success',
+                  description:
+                      'Your FIF application is submitted successfully. hany test screen',
+                  buttonTitle: 'Done',
+                  onPressedButton: () {
+                    onClearFIF();
+                    clearDeducSelection();
+                    if (isFromWallet.value == true) {
+                      context.go('/wallet/invest-fif/cic-fixed-income');
+                    } else {
+                      context.go('/investment');
+                    }
+                  },
+                ),
+              ),
+            );
+            getFIFApplication();
+            fetchFIFPending();
+          },
         );
       }
 

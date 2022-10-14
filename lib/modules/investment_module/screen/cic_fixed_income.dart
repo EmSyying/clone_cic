@@ -33,8 +33,6 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
   void initState() {
     InjectionHelper.investmentController.onRefreshFIF();
     InjectionHelper.equityInvestmentController.fetchCallCenter(type: "FIF");
-    InjectionHelper.investmentController
-        .onCreateFiF(id: 1, buildcontext: context);
     super.initState();
   }
 
@@ -268,7 +266,9 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                               ),
                             ),
                           ),
-                          showAllButton(),
+                          widget.ismmaInvestFIF
+                              ? buttonInvestFiF()
+                              : showAllButton()
                         ],
                       ),
               ),
@@ -354,6 +354,58 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  buttonInvestFiF() {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 10.0,
+        bottom: 20.0,
+        left: 20.0,
+        right: 20.0,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: CustomButton(
+              isDisable: false,
+              isOutline: true,
+              title: 'About FIF',
+              onPressed: () {
+                FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
+                context.push(
+                    '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
+              },
+            ),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: CustomButton(
+              isDisable: false,
+              isOutline: false,
+              title: InjectionHelper
+                          .investmentController.fifAppConfirmList.isNotEmpty ||
+                      InjectionHelper
+                          .investmentController.fifAppPendingList.isNotEmpty ||
+                      InjectionHelper
+                          .investmentController.fifApplicationList.isNotEmpty
+                  ? 'Invest More'
+                  : 'Invest Now',
+              onPressed: () async {
+                FirebaseAnalyticsHelper.sendAnalyticsEvent('invest more fif');
+                InjectionHelper.investmentController.onClearFIF();
+                InjectionHelper.investmentController.isNewBank.value = true;
+                InjectionHelper
+                    .investmentController.textReceivingAccount.value = "";
+                InjectionHelper.investmentController.clearDeducSelection();
+                context.push('/investment/invest-more');
+                // context.router.push(FIFDeucSelectionRouter());
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
