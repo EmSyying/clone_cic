@@ -203,11 +203,11 @@ class _TransferToMMAState extends State<TransferToMMA> {
           },
           title: 'Process to Pay',
           isDisable: readAgreement &&
-                  _walletController.qrRecievingPhone.text.isNotEmpty &&
+                      _walletController.qrRecievingPhone.text.isNotEmpty ||
                   _walletController.qrRecievingAmount.text.isNotEmpty &&
-                  double.tryParse(
-                          _walletController.qrRecievingAmount.text.clean())! <
-                      _walletController.walletAmount.value.wallet!.balance!
+                      double.tryParse(_walletController.qrRecievingAmount.text
+                              .clean())! <
+                          _walletController.walletAmount.value.wallet!.balance!
               ? false
               : true,
           isOutline: false,
