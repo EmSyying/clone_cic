@@ -412,7 +412,7 @@ class BonusController extends GetxController {
                 MaterialPageRoute(
                   builder: (context) {
                     return CustomSucessScreen(
-                      title: 'FIF Application',
+                      title: 'Success',
                       description: 'The Cash out is completed successfully.',
                       buttonTitle: 'Done',
                       onPressedButton: () {
