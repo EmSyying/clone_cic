@@ -44,7 +44,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
         child: Scaffold(
           appBar: CustomAppBar(
             context: context,
-            title: 'CiC MM account',
+            title: 'CiC MM Account',
             leading: IconButton(
               icon: Platform.isIOS
                   ? const Icon(

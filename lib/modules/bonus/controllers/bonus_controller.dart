@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -390,6 +389,7 @@ class BonusController extends GetxController {
     String url =
         '${GlobalConfiguration().get('api_base_urlv3')}user/wallet/cash-out';
     try {
+      debugPrint('print amout:===${cashoutAmount.value}');
       await http
           .post(Uri.parse(url),
               headers: {
@@ -398,7 +398,7 @@ class BonusController extends GetxController {
                 'Authorization': 'Bearer $tokenKey'
               },
               body: json.encode({
-                "amount": onConvertToDouble('${cashoutAmount.value}'),
+                "amount": cashoutAmount.value,
                 "bank_id": "${bankId.value}",
               }))
           .then((response) {

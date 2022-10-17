@@ -803,7 +803,7 @@ class PriceController extends GetxController {
                 builder: (context) => CustomSucessScreen(
                   title: 'Success',
                   description:
-                      'Your FIF application is submitted successfully. hany test screen',
+                      'Your FIF application is submitted successfully.',
                   buttonTitle: 'Done',
                   onPressedButton: () {
                     onClearFIF();

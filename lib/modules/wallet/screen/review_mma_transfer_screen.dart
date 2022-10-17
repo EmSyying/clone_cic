@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -83,7 +84,7 @@ class ReviewMMATransferScreen extends StatelessWidget {
                             ),
                             child: CustomCashOutAndTransferAmount(
                               amountCashOutTransfer:
-                                  '${newCashOutCon.cashoutAmount.value} ',
+                                  '${newCashOutCon.cashoutAmount.value.toString().toCurrencyAmount()} ',
                             ),
                           ),
                           Container(

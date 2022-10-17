@@ -208,7 +208,7 @@ class TransferReview extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'CiC MM account',
+            'CiC MM Account',
             style: Theme.of(context).textTheme.headline4!.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
