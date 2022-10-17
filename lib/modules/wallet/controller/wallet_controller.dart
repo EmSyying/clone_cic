@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/card_mma_invest_model.dart';
+import '../model/invest/invest_option_model.dart';
 import '../model/transfer_recieved/transfer_model.dart';
 
 class WalletController extends GetxController {
@@ -49,6 +50,31 @@ class WalletController extends GetxController {
     MMACardInvestModel(title: 'Capital Gain & Dividend'),
     MMACardInvestModel(title: 'Minimum Amount 1,037.00 USD'),
   ].obs;
+
+  ///Fetch FiF Option List
+  final listFiFOption = <InvestOptionModel>[].obs;
+  final listFiFOptionLoading = false.obs; //Loading
+
+  Future<void> fetchFiFOptionList() async {
+    listFiFOptionLoading(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+            methode: METHODE.get,
+            isAuthorize: true,
+            url: 'wallet/invest/option')
+        .then((response) {
+      debugPrint('Success $response');
+      listFiFOption.clear();
+      response['data'].map((e) {
+        listFiFOption.add(InvestOptionModel.fromJson(e));
+      }).toList();
+      listFiFOptionLoading(false);
+    }).onError((ErrorModel error, stackTrace) {
+      listFiFOptionLoading(false);
+      debugPrint('Error ${error.statusCode}');
+    });
+  }
+
 // Fetch on Deposit Detail
   final depositDetail = DepositDetail().obs;
   final isDepositDetail = false.obs;
