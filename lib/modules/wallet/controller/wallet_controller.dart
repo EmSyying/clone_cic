@@ -127,7 +127,7 @@ class WalletController extends GetxController {
               builder: (context) {
                 return CustomSucessScreen(
                   title: 'Success',
-                  description: 'The Deposit is Submit successfully.',
+                  description: 'The deposit request is submitted',
                   buttonTitle: 'Done',
                   onPressedButton: () {
                     Navigator.pop(context);
