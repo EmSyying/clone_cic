@@ -31,13 +31,13 @@ class CustomSucessScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                title ?? "",
-                style: Theme.of(context).textTheme.headline2!.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
+              // Text(
+              //   title ?? "",
+              //   style: Theme.of(context).textTheme.headline2!.copyWith(
+              //         color: Colors.white,
+              //         fontWeight: FontWeight.w700,
+              //       ),
+              // ),
               const Spacer(),
 
               ///
@@ -52,7 +52,7 @@ class CustomSucessScreen extends StatelessWidget {
                     options: LottieOptions(enableMergePaths: true),
                   ),
               Text(
-                "Success",
+                "$title",
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: Colors.white,
                       fontSize: 35,
