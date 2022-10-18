@@ -32,7 +32,7 @@ class CustomCardInvestFIF extends StatelessWidget {
           left: 10.0,
           right: 10.0,
         ),
-        height: 210.0,
+        height: 215.0,
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -42,7 +42,7 @@ class CustomCardInvestFIF extends StatelessWidget {
           borderRadius: BorderRadius.circular(14.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 26.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +65,7 @@ class CustomCardInvestFIF extends StatelessWidget {
                       onTap: onTapExplore,
                       child: Container(
                         width: 106,
-                        height: 36,
+                        height: 38,
                         padding: const EdgeInsets.all(6.0),
                         decoration: BoxDecoration(
                           color: AppColor.arrowforwardColor['dark'],
@@ -74,10 +74,9 @@ class CustomCardInvestFIF extends StatelessWidget {
                         child: Center(
                           child: Text(
                             exploreMore ?? '',
-                            // 'Explore More',
                             style:
                                 Theme.of(context).textTheme.headline2!.copyWith(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 12.0,
                                       color: AppColor.mainColor,
                                     ),

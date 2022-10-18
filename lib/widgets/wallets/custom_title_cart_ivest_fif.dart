@@ -23,8 +23,9 @@ class CustomTitleCardInvestFIF extends StatelessWidget {
           Text(
             title ?? '',
             style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                   fontSize: 12.0,
+                  letterSpacing: 0.4,
                   color: AppColor.arrowforwardColor['dark'],
                 ),
           ),
