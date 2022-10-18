@@ -12,6 +12,7 @@ class MMAInvestFIFScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    InjectionHelper.walletController.fetchFiFOptionList();
     return Scaffold(
       appBar: CustomAppBar(
         elevation: 0,
@@ -19,65 +20,36 @@ class MMAInvestFIFScreen extends StatelessWidget {
         context: context,
         title: "Invest FIF",
       ),
-      body: Obx(
-        () => Column(
-          children: [
-            CustomCardInvestFIF(
-              assetImage: 'assets/images/wallet/mma_invest_fif.jpg',
-              titleFIF: 'CiC FIXED INCOME FUND',
-              column: Column(
-                children: InjectionHelper.walletController.mmainvestFIFCard
-                    .map(
-                      (e) => CustomTitleCardInvestFIF(
-                        title: e.title,
+      body:
+          Obx(() => InjectionHelper.walletController.listFiFOptionLoading.value
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: InjectionHelper.walletController.listFiFOption
+                      .asMap()
+                      .entries
+                      .map((e) {
+                    return CustomCardInvestFIF(
+                      assetImage: e.value.background,
+                      titleFIF: e.value.title,
+                      onTap: () {
+                        e.key == 0
+                            ? context
+                                .push("/wallet/invest-fif/cic-fixed-income")
+                            : context
+                                .push("/wallet/invest-fif/cic-equity-fund");
+                      },
+                      column: Column(
+                        children: e.value.details!.asMap().entries.map((e) {
+                          return CustomTitleCardInvestFIF(title: e.value.list);
+                        }).toList(),
                       ),
-                    )
-                    .toList(),
-              ),
-              titleButton: 'Explore More',
-              onPressed: () {},
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const CiCFixedIncome(
-                //       ismmaInvestFIF: true,
-                //     ),
-                //   ),
-                // );
-                InjectionHelper.investmentController.isFromWallet.value = true;
-                context.push("/wallet/invest-fif/cic-fixed-income");
-              },
-            ),
-            CustomCardInvestFIF(
-              assetImage: 'assets/images/wallet/mma_invest_equity.jpg',
-              titleFIF: 'CiC EQUITY FUND',
-              column: Column(
-                children: InjectionHelper.walletController.mmainvestEquityCard
-                    .map(
-                      (e) => CustomTitleCardInvestFIF(
-                        title: e.title,
-                      ),
-                    )
-                    .toList(),
-              ),
-              titleButton: 'Explore More',
-              onPressed: () {},
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const CiCEquityFund(
-                //       isEquityTrue: true,
-                //     ),
-                //   ),
-                // );
-                context.push("/wallet/invest-fif/cic-equity-fund");
-              },
-            )
-          ],
-        ),
-      ),
+                      exploreMore: 'Explore More',
+                      onTapExplore: () {},
+                    );
+                  }).toList(),
+                )),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../Utils/form_builder/custom_button.dart';
 import '../../Utils/helper/color.dart';
 
 class CustomCardInvestFIF extends StatelessWidget {
@@ -8,16 +7,19 @@ class CustomCardInvestFIF extends StatelessWidget {
   final String? titleFIF;
   final String? titleButton;
   final String? assetImage;
-  final VoidCallback? onPressed;
+  final String? exploreMore;
+  // final VoidCallback? onPressed;
   final GestureTapCallback? onTap;
+  final GestureTapCallback? onTapExplore;
   const CustomCardInvestFIF({
     Key? key,
     this.column,
     this.titleFIF,
     this.titleButton,
     this.assetImage,
-    this.onPressed,
     this.onTap,
+    this.exploreMore,
+    this.onTapExplore,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class CustomCardInvestFIF extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(assetImage ?? ''),
+            image: NetworkImage(assetImage ?? ''),
             fit: BoxFit.fill,
           ),
           borderRadius: BorderRadius.circular(14.0),
@@ -54,22 +56,29 @@ class CustomCardInvestFIF extends StatelessWidget {
                     ),
               ),
               column!,
-              CustomButton(
-                title: titleButton,
-                isCardInvestfif: true,
-                width: 106,
-                height: 36,
-                style: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12.0,
-                      color: AppColor.mainColor,
+              GestureDetector(
+                onTap: onTapExplore,
+                child: Container(
+                  width: 106,
+                  height: 36,
+                  padding: const EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    color: AppColor.arrowforwardColor['dark'],
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      exploreMore ?? '',
+                      // 'Explore More',
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.0,
+                            color: AppColor.mainColor,
+                          ),
                     ),
-                colorText: AppColor.mainColor,
-                backgroundColor: AppColor.arrowforwardColor['dark'],
-                isDisable: false,
-                isOutline: false,
-                onPressed: onPressed,
-              ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
