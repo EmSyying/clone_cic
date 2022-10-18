@@ -45,7 +45,7 @@ class CustomCardInvestFIF extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 titleFIF ?? '',
@@ -55,30 +55,37 @@ class CustomCardInvestFIF extends StatelessWidget {
                       color: AppColor.arrowforwardColor['dark'],
                     ),
               ),
+              const SizedBox(
+                height: 12.0,
+              ),
               column!,
-              GestureDetector(
-                onTap: onTapExplore,
-                child: Container(
-                  width: 106,
-                  height: 36,
-                  padding: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color: AppColor.arrowforwardColor['dark'],
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Center(
-                    child: Text(
-                      exploreMore ?? '',
-                      // 'Explore More',
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12.0,
-                            color: AppColor.mainColor,
+              const Spacer(),
+              onTapExplore != null
+                  ? GestureDetector(
+                      onTap: onTapExplore,
+                      child: Container(
+                        width: 106,
+                        height: 36,
+                        padding: const EdgeInsets.all(6.0),
+                        decoration: BoxDecoration(
+                          color: AppColor.arrowforwardColor['dark'],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            exploreMore ?? '',
+                            // 'Explore More',
+                            style:
+                                Theme.of(context).textTheme.headline2!.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColor.mainColor,
+                                    ),
                           ),
-                    ),
-                  ),
-                ),
-              )
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink()
             ],
           ),
         ),

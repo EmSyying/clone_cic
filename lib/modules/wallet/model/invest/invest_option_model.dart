@@ -10,6 +10,8 @@ class InvestOptionModel with _$InvestOptionModel {
     final int? id,
     final String? title,
     final String? background,
+    @JsonKey(name: 'explore_more') final String? exploreMore,
+    final String? route,
     @JsonKey(name: 'detail') final List<FiFDetailModel>? details,
   }) = _InvestOptionModel;
 

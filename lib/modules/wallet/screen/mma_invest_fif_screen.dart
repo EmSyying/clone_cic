@@ -34,11 +34,10 @@ class MMAInvestFIFScreen extends StatelessWidget {
                       assetImage: e.value.background,
                       titleFIF: e.value.title,
                       onTap: () {
-                        e.key == 0
-                            ? context
-                                .push("/wallet/invest-fif/cic-fixed-income")
-                            : context
-                                .push("/wallet/invest-fif/cic-equity-fund");
+                        InjectionHelper
+                            .investmentController.isFromWallet.value = true;
+
+                        context.push("${e.value.route}");
                       },
                       column: Column(
                         children: e.value.details!.asMap().entries.map((e) {
@@ -46,7 +45,12 @@ class MMAInvestFIFScreen extends StatelessWidget {
                         }).toList(),
                       ),
                       exploreMore: 'Explore More',
-                      onTapExplore: () {},
+                      onTapExplore: e.value.exploreMore == null
+                          ? null
+                          : () async {
+                              context.push(
+                                  '/explore-more?isfromReport=true&title=${e.value.title}&url=${e.value.exploreMore}');
+                            },
                     );
                   }).toList(),
                 )),

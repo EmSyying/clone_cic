@@ -23,6 +23,9 @@ mixin _$InvestOptionModel {
   int? get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get background => throw _privateConstructorUsedError;
+  @JsonKey(name: 'explore_more')
+  String? get exploreMore => throw _privateConstructorUsedError;
+  String? get route => throw _privateConstructorUsedError;
   @JsonKey(name: 'detail')
   List<FiFDetailModel>? get details => throw _privateConstructorUsedError;
 
@@ -41,6 +44,8 @@ abstract class $InvestOptionModelCopyWith<$Res> {
       {int? id,
       String? title,
       String? background,
+      @JsonKey(name: 'explore_more') String? exploreMore,
+      String? route,
       @JsonKey(name: 'detail') List<FiFDetailModel>? details});
 }
 
@@ -58,6 +63,8 @@ class _$InvestOptionModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
     Object? background = freezed,
+    Object? exploreMore = freezed,
+    Object? route = freezed,
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
@@ -72,6 +79,14 @@ class _$InvestOptionModelCopyWithImpl<$Res>
       background: background == freezed
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exploreMore: exploreMore == freezed
+          ? _value.exploreMore
+          : exploreMore // ignore: cast_nullable_to_non_nullable
+              as String?,
+      route: route == freezed
+          ? _value.route
+          : route // ignore: cast_nullable_to_non_nullable
               as String?,
       details: details == freezed
           ? _value.details
@@ -92,6 +107,8 @@ abstract class _$$_InvestOptionModelCopyWith<$Res>
       {int? id,
       String? title,
       String? background,
+      @JsonKey(name: 'explore_more') String? exploreMore,
+      String? route,
       @JsonKey(name: 'detail') List<FiFDetailModel>? details});
 }
 
@@ -111,6 +128,8 @@ class __$$_InvestOptionModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
     Object? background = freezed,
+    Object? exploreMore = freezed,
+    Object? route = freezed,
     Object? details = freezed,
   }) {
     return _then(_$_InvestOptionModel(
@@ -125,6 +144,14 @@ class __$$_InvestOptionModelCopyWithImpl<$Res>
       background: background == freezed
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exploreMore: exploreMore == freezed
+          ? _value.exploreMore
+          : exploreMore // ignore: cast_nullable_to_non_nullable
+              as String?,
+      route: route == freezed
+          ? _value.route
+          : route // ignore: cast_nullable_to_non_nullable
               as String?,
       details: details == freezed
           ? _value._details
@@ -141,6 +168,8 @@ class _$_InvestOptionModel implements _InvestOptionModel {
       {this.id,
       this.title,
       this.background,
+      @JsonKey(name: 'explore_more') this.exploreMore,
+      this.route,
       @JsonKey(name: 'detail') final List<FiFDetailModel>? details})
       : _details = details;
 
@@ -153,6 +182,11 @@ class _$_InvestOptionModel implements _InvestOptionModel {
   final String? title;
   @override
   final String? background;
+  @override
+  @JsonKey(name: 'explore_more')
+  final String? exploreMore;
+  @override
+  final String? route;
   final List<FiFDetailModel>? _details;
   @override
   @JsonKey(name: 'detail')
@@ -165,7 +199,7 @@ class _$_InvestOptionModel implements _InvestOptionModel {
 
   @override
   String toString() {
-    return 'InvestOptionModel(id: $id, title: $title, background: $background, details: $details)';
+    return 'InvestOptionModel(id: $id, title: $title, background: $background, exploreMore: $exploreMore, route: $route, details: $details)';
   }
 
   @override
@@ -177,6 +211,9 @@ class _$_InvestOptionModel implements _InvestOptionModel {
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality()
                 .equals(other.background, background) &&
+            const DeepCollectionEquality()
+                .equals(other.exploreMore, exploreMore) &&
+            const DeepCollectionEquality().equals(other.route, route) &&
             const DeepCollectionEquality().equals(other._details, _details));
   }
 
@@ -187,6 +224,8 @@ class _$_InvestOptionModel implements _InvestOptionModel {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(background),
+      const DeepCollectionEquality().hash(exploreMore),
+      const DeepCollectionEquality().hash(route),
       const DeepCollectionEquality().hash(_details));
 
   @JsonKey(ignore: true)
@@ -206,6 +245,8 @@ abstract class _InvestOptionModel implements InvestOptionModel {
           {final int? id,
           final String? title,
           final String? background,
+          @JsonKey(name: 'explore_more') final String? exploreMore,
+          final String? route,
           @JsonKey(name: 'detail') final List<FiFDetailModel>? details}) =
       _$_InvestOptionModel;
 
@@ -218,6 +259,11 @@ abstract class _InvestOptionModel implements InvestOptionModel {
   String? get title => throw _privateConstructorUsedError;
   @override
   String? get background => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'explore_more')
+  String? get exploreMore => throw _privateConstructorUsedError;
+  @override
+  String? get route => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'detail')
   List<FiFDetailModel>? get details => throw _privateConstructorUsedError;

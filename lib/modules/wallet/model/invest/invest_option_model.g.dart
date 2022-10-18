@@ -11,6 +11,8 @@ _$_InvestOptionModel _$$_InvestOptionModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
       title: json['title'] as String?,
       background: json['background'] as String?,
+      exploreMore: json['explore_more'] as String?,
+      route: json['route'] as String?,
       details: (json['detail'] as List<dynamic>?)
           ?.map((e) => FiFDetailModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -22,5 +24,7 @@ Map<String, dynamic> _$$_InvestOptionModelToJson(
       'id': instance.id,
       'title': instance.title,
       'background': instance.background,
+      'explore_more': instance.exploreMore,
+      'route': instance.route,
       'detail': instance.details,
     };
