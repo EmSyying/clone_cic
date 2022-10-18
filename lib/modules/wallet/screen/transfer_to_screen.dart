@@ -1,7 +1,9 @@
 import 'package:cicgreenloan/modules/wallet/screen/transfer_review.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
+import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,193 +45,222 @@ class _TransferToMMAState extends State<TransferToMMA> {
             Navigator.pop(context);
             debugPrint('cashout======');
           }),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: WalletTotalCard(
-                      amount: _walletController
-                          .walletAmount.value.wallet!.balanceFormat,
-                    ),
-                  ),
-
-                  ///middle block
-                  Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
+      body: Obx(
+        () => Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: WalletTotalCard(
+                        amount: _walletController
+                            .walletAmount.value.wallet!.balanceFormat,
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        CustomTextFieldNew(
-                          initialValue: _walletController.qrRecievingPhone.text,
-                          inputFormatterList: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true, signed: false),
-                          focusScope: _phoneNumberFocus,
-                          controller: _walletController.qrRecievingPhone,
-                          isRequired: true,
-                          autoFocus: false,
-                          labelText: 'Receiver Phone Number',
-                          hintText: 'Receiver Phone Number',
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: IntrinsicHeight(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const VerticalDivider(
-                                    thickness: 1,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Material(
-                                              child: QrCodeScreen(
-                                                pageName: 'transfer',
+
+                    ///middle block
+                    Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          CustomTextFieldNew(
+                            onEditingComplete: () {
+                              _walletController.checkValidateAccount();
+                            },
+                            isValidate: _walletController.userFound.value,
+                            initialValue:
+                                _walletController.qrRecievingPhone.text,
+                            inputFormatterList: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            focusScope: _phoneNumberFocus,
+                            controller: _walletController.qrRecievingPhone,
+                            isRequired: true,
+                            autoFocus: false,
+                            labelText: 'Receiver Phone Number',
+                            hintText: 'Receiver Phone Number',
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const VerticalDivider(
+                                      thickness: 1,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Material(
+                                                child: QrCodeScreen(
+                                                  pageName: 'transfer',
+                                                ),
                                               ),
-                                            ),
-                                          )).then((value) {
-                                        _phoneNumberFocus.unfocus();
-                                      });
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
-                                      child: SvgPicture.asset(
-                                        'assets/images/svgfile/qr_s.svg',
-                                        height: 20,
+                                            )).then((value) {
+                                          _phoneNumberFocus.unfocus();
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: SvgPicture.asset(
+                                          'assets/images/svgfile/qr_s.svg',
+                                          height: 20,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
+                          _walletController.validateMessage.value.isNotEmpty
+                              ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _walletController.userFound.value
+                                        ? SvgPicture.asset(
+                                            'assets/images/wallet_found.svg')
+                                        : const Icon(
+                                            CupertinoIcons
+                                                .exclamationmark_circle_fill,
+                                            color: AppColor.primaryColor,
+                                          ),
+                                    Text(
+                                      _walletController.validateMessage.value,
+                                      style: textStyle.copyWith(
+                                        color: _walletController.userFound.value
+                                            ? const Color(0xff4FA30F)
+                                            : AppColor.primaryColor,
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : const SizedBox.shrink(),
+                          CustomTextFieldNew(
+                            initialValue:
+                                _walletController.qrRecievingAmount.text,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true),
+                            controller: _walletController.qrRecievingAmount,
+                            inputFormatterList: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r"[0-9.]")),
+                              TextInputFormatter.withFunction(
+                                  (oldValue, newValue) {
+                                double? number = double.tryParse(newValue.text);
+                                if (number != null) {
+                                  debugPrint('New');
+                                  return newValue.copyWith(
+                                      text: newValue.text.asInput(),
+                                      selection: TextSelection.collapsed(
+                                          offset:
+                                              newValue.text.asInput().length));
+                                } else if (newValue.text.isEmpty) {
+                                  return const TextEditingValue();
+                                } else {
+                                  debugPrint('Old');
+                                  return oldValue;
+                                }
+                                // try {
+                                //   final text = newValue.text;
+                                //   if (text.isNotEmpty) double.parse(text);
+                                //   debugPrint('ERROR');
+                                //   return newValue;
+                                // } catch (e) {
+                                //   return oldValue;
+                                // }
+                              }),
+                            ],
+                            isRequired: true,
+                            labelText: 'Amount',
+                            hintText: 'Amount',
+                            suffixText: 'USD',
+                          ),
+                          CustomTextFieldNew(
+                            initialValue:
+                                _walletController.remarkTextController.text,
+                            controller: _walletController.remarkTextController,
+                            labelText: 'Remark',
+                            hintText: 'Remark',
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                readAgreement = !readAgreement;
+                debugPrint(
+                    '${_walletController.qrRecievingAmount.text.isNotEmpty}');
+                setState(() {});
+              },
+              child: Container(
+                padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        _tickIcon(readAgreement),
+                        const SizedBox(width: 20),
+                        Text(
+                          'I have read  and agree to CiC serivce agreement',
+                          style: textStyle.copyWith(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0XFF464646)),
                         ),
-                        CustomTextFieldNew(
-                          initialValue:
-                              _walletController.qrRecievingAmount.text,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true),
-                          controller: _walletController.qrRecievingAmount,
-                          inputFormatterList: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r"[0-9.]")),
-                            TextInputFormatter.withFunction(
-                                (oldValue, newValue) {
-                              double? number = double.tryParse(newValue.text);
-                              if (number != null) {
-                                debugPrint('New');
-                                return newValue.copyWith(
-                                    text: newValue.text.asInput(),
-                                    selection: TextSelection.collapsed(
-                                        offset:
-                                            newValue.text.asInput().length));
-                              } else if (newValue.text.isEmpty) {
-                                return const TextEditingValue();
-                              } else {
-                                debugPrint('Old');
-                                return oldValue;
-                              }
-                              // try {
-                              //   final text = newValue.text;
-                              //   if (text.isNotEmpty) double.parse(text);
-                              //   debugPrint('ERROR');
-                              //   return newValue;
-                              // } catch (e) {
-                              //   return oldValue;
-                              // }
-                            }),
-                          ],
-                          isRequired: true,
-                          labelText: 'Amount',
-                          hintText: 'Amount',
-                          suffixText: 'USD',
-                        ),
-                        CustomTextFieldNew(
-                          initialValue:
-                              _walletController.remarkTextController.text,
-                          controller: _walletController.remarkTextController,
-                          labelText: 'Remark',
-                          hintText: 'Remark',
-                        ),
-                        const SizedBox(height: 20),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              readAgreement = !readAgreement;
-              debugPrint(
-                  '${_walletController.qrRecievingAmount.text.isNotEmpty}');
-              setState(() {});
-            },
-            child: Container(
-              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      _tickIcon(readAgreement),
-                      const SizedBox(width: 20),
-                      Text(
-                        'I have read  and agree to CiC serivce agreement',
-                        style: textStyle.copyWith(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0XFF464646)),
-                      ),
-                    ],
-                  ),
-                ],
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, top: 20, bottom: 30),
+              child: CustomButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TransferReview(),
+                      ));
+                },
+                title: 'Process to Pay',
+                isDisable: readAgreement &&
+                        _walletController.qrRecievingPhone.text.isNotEmpty &&
+                        _walletController.qrRecievingAmount.text.isNotEmpty &&
+                        double.tryParse(_walletController.qrRecievingAmount.text
+                                .clean())! <
+                            _walletController
+                                .walletAmount.value.wallet!.balance!
+                    ? false
+                    : true,
+                isOutline: false,
               ),
             ),
-          ),
-          Container(
-            color: Colors.white,
-            padding:
-                const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 30),
-            child: CustomButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const TransferReview(),
-                    ));
-              },
-              title: 'Process to Pay',
-              isDisable: readAgreement &&
-                          _walletController.qrRecievingPhone.text.isNotEmpty ||
-                      _walletController.qrRecievingAmount.text.isNotEmpty &&
-                          double.tryParse(_walletController
-                                  .qrRecievingAmount.text
-                                  .clean())! <
-                              _walletController
-                                  .walletAmount.value.wallet!.balance!
-                  ? false
-                  : true,
-              isOutline: false,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

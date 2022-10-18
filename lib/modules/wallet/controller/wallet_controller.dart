@@ -236,6 +236,7 @@ class WalletController extends GetxController {
       var decodedResult = TransferModel.fromJson(result);
       qrRecievingPhone.text = decodedResult.phoneNumber ?? '';
       qrRecievingAmount.text = decodedResult.amount ?? '';
+      checkValidateAccount();
     } catch (e) {
       debugPrint('Error $e');
     }
@@ -294,5 +295,37 @@ class WalletController extends GetxController {
             'transferToOtherMMA Error : ${error.statusCode} : ${error.bodyString}  ');
       },
     );
+  }
+
+  final _checkValidateLoading = false.obs;
+  final validateMessage = ''.obs;
+  final userFound = false.obs;
+  Future<void> checkValidateAccount() async {
+    String numberSubmit = qrRecievingPhone.text.startsWith('0')
+        ? '+855${qrRecievingPhone.text.substring(1)}'
+        : qrRecievingPhone.text;
+    _checkValidateLoading(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+      url: 'wallet/verify/Account',
+      body: {'receiver_number': numberSubmit},
+      methode: METHODE.post,
+      isAuthorize: true,
+    )
+        .then((response) {
+      debugPrint(
+          'checkValidateAccount Success : ${response.statusCode} : $response');
+      userFound(response['success']);
+      validateMessage(response['receiver_name']);
+
+      _checkValidateLoading(false);
+    }).onError((ErrorModel error, stackTrace) {
+      debugPrint(
+          'checkValidateAccount Error : ${error.statusCode} : ${error.bodyString}');
+      userFound(error.bodyString['success']);
+      validateMessage(error.bodyString['receiver_name']);
+
+      _checkValidateLoading(false);
+    });
   }
 }
