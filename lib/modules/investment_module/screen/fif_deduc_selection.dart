@@ -92,9 +92,8 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                                   title: e.value.productName,
                                   description: e.value.description,
                                   onExploreMore: () {
-                                    // ExploreMoreRouter(
-                                    //       title: e.value.productName,
-                                    //       url: "${e.value.urlWebview}")
+                                    context.push(
+                                        '/explore-more?isfromReport=true&title=${e.value.productName}&url=${e.value.urlWebview}');
                                   },
                                   onPressed: () {
                                     if (widget.id != null) {

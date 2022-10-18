@@ -895,6 +895,19 @@ final router = GoRouter(
           ),
         ],
       ),
+
+      // Explore More
+
+      GoRoute(
+        path: '/explore-more',
+        name: 'Explore More',
+        builder: ((context, state) => ViewWebsite(
+              isfromReport:
+                  state.queryParams['isfromReport']!.toLowerCase() == 'false',
+              title: state.queryParams['title'],
+              url: state.queryParams['url'],
+            )),
+      ),
       GoRoute(
         path: '/splashscreen',
         name: 'SplashScreen',
