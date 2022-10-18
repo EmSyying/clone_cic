@@ -13,6 +13,7 @@ class CustomTextFieldNew extends StatelessWidget {
   final FormFieldValidator<String>? validate;
   final Function? onTap;
   final FormFieldSetter<String>? onSave;
+  final ValueChanged<String>? onFieldSubmitted;
   final TextInputType? keyboardType;
   final int? maxLine;
   final int? minLines;
@@ -55,6 +56,7 @@ class CustomTextFieldNew extends StatelessWidget {
     this.textInputAction,
     this.enable = true,
     this.minLines,
+    this.onFieldSubmitted,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class CustomTextFieldNew extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
+            onFieldSubmitted: onFieldSubmitted,
             minLines: minLines,
             autofocus: autoFocus ?? false,
             inputFormatters: inputFormatterList,

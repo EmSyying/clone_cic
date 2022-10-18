@@ -28,7 +28,18 @@ class _TransferToMMAState extends State<TransferToMMA> {
   @override
   void dispose() {
     _walletController.clearMMATransfer();
+    _phoneNumberFocus.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _phoneNumberFocus.addListener(() {
+      if (!_phoneNumberFocus.hasFocus) {
+        _walletController.checkValidateAccount();
+      }
+    });
+    super.initState();
   }
 
   @override
@@ -47,6 +58,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
           }),
       body: Obx(
         () => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -71,12 +83,15 @@ class _TransferToMMAState extends State<TransferToMMA> {
                         ),
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextFieldNew(
                             onEditingComplete: () {
                               _walletController.checkValidateAccount();
                             },
-                            isValidate: _walletController.userFound.value,
+                            onFieldSubmitted: (_) {
+                              _walletController.checkValidateAccount();
+                            },
                             initialValue:
                                 _walletController.qrRecievingPhone.text,
                             inputFormatterList: [
@@ -129,26 +144,32 @@ class _TransferToMMAState extends State<TransferToMMA> {
                             ),
                           ),
                           _walletController.validateMessage.value.isNotEmpty
-                              ? Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    _walletController.userFound.value
-                                        ? SvgPicture.asset(
-                                            'assets/images/wallet_found.svg')
-                                        : const Icon(
-                                            CupertinoIcons
-                                                .exclamationmark_circle_fill,
-                                            color: AppColor.primaryColor,
-                                          ),
-                                    Text(
-                                      _walletController.validateMessage.value,
-                                      style: textStyle.copyWith(
-                                        color: _walletController.userFound.value
-                                            ? const Color(0xff4FA30F)
-                                            : AppColor.primaryColor,
-                                      ),
-                                    )
-                                  ],
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, bottom: 5, right: 20),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      _walletController.userFound.value
+                                          ? SvgPicture.asset(
+                                              'assets/images/wallet_found.svg')
+                                          : const Icon(
+                                              CupertinoIcons
+                                                  .exclamationmark_circle_fill,
+                                              color: AppColor.primaryColor,
+                                            ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        _walletController.validateMessage.value,
+                                        style: textStyle.copyWith(
+                                          color:
+                                              _walletController.userFound.value
+                                                  ? const Color(0xff4FA30F)
+                                                  : AppColor.primaryColor,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 )
                               : const SizedBox.shrink(),
                           CustomTextFieldNew(
@@ -240,11 +261,15 @@ class _TransferToMMAState extends State<TransferToMMA> {
                   left: 20, right: 20, top: 20, bottom: 30),
               child: CustomButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TransferReview(),
-                      ));
+                  _walletController.checkValidateAccount().then((value) {
+                    if (_walletController.userFound.value) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TransferReview(),
+                          ));
+                    }
+                  });
                 },
                 title: 'Process to Pay',
                 isDisable: readAgreement &&
@@ -253,7 +278,8 @@ class _TransferToMMAState extends State<TransferToMMA> {
                         double.tryParse(_walletController.qrRecievingAmount.text
                                 .clean())! <
                             _walletController
-                                .walletAmount.value.wallet!.balance!
+                                .walletAmount.value.wallet!.balance! &&
+                        _walletController.userFound.value
                     ? false
                     : true,
                 isOutline: false,

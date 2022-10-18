@@ -104,7 +104,7 @@ class TransferReview extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                'Name',
+                                walletController.validateMessage.value,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!

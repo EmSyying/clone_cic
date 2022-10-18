@@ -110,7 +110,7 @@ class _WalletScreenState extends State<WalletScreen>
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Available Balance'.toUpperCase(),
+                                'Available Balance',
                                 style: textStyle.copyWith(
                                   fontSize: 14,
                                   color: Colors.white,

@@ -245,6 +245,8 @@ class WalletController extends GetxController {
   void clearMMATransfer() {
     qrRecievingPhone.text = '';
     qrRecievingAmount.text = '';
+    validateMessage('');
+    userFound(false);
     remarkText('');
   }
 
@@ -313,8 +315,7 @@ class WalletController extends GetxController {
       isAuthorize: true,
     )
         .then((response) {
-      debugPrint(
-          'checkValidateAccount Success : ${response.statusCode} : $response');
+      debugPrint('checkValidateAccount Success  : $response');
       userFound(response['success']);
       validateMessage(response['receiver_name']);
 
@@ -323,7 +324,7 @@ class WalletController extends GetxController {
       debugPrint(
           'checkValidateAccount Error : ${error.statusCode} : ${error.bodyString}');
       userFound(error.bodyString['success']);
-      validateMessage(error.bodyString['receiver_name']);
+      validateMessage(error.bodyString['message']);
 
       _checkValidateLoading(false);
     });
