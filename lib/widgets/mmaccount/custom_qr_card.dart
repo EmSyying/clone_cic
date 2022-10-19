@@ -21,8 +21,8 @@ class CustomQRCard extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.bottomRight,
-          end: Alignment.centerRight,
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
           colors: [Color(0xff103783), Color(0xff3588E8)],
         ),
       ),

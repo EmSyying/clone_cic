@@ -20,7 +20,6 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:share/share.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
-
 import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
@@ -203,36 +202,36 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
           ),
         ),
 
-        // if (isShowPopupQRCode)
-        //   BackdropFilter(
-        //     filter: ImageFilter.blur(sigmaY: 6, sigmaX: 6),
-        //     child: SizedBox(
-        //       height: double.infinity,
-        //       width: double.infinity,
-        //       child: Center(
-        //         child: Padding(
-        //           padding: const EdgeInsets.all(70.0),
-        //           child: RepaintBoundary(
-        //             key: printScreenKey,
-        //             child: GestureDetector(
-        //               onTap: () {
-        //                 Share.share("Hello")
-        //                     .then((value) => debugPrint("Done"));
-        //               },
-        //               child: CustomQRCard(
-        //                 userID: _walletController
-        //                     .walletAmount.value.wallet!.accountNumber,
-        //                 userName: _walletController
-        //                     .walletAmount.value.invester!.investerName,
-        //                 amountQr: _walletController
-        //                     .walletAmount.value.wallet!.balanceFormat,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   )
+        if (isShowPopupQRCode)
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaY: 6, sigmaX: 6),
+            child: SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(70.0),
+                  child: RepaintBoundary(
+                    key: printScreenKey,
+                    child: GestureDetector(
+                      onTap: () {
+                        Share.share("Hello")
+                            .then((value) => debugPrint("Done"));
+                      },
+                      child: CustomQRCard(
+                        userID: _walletController
+                            .walletAmount.value.wallet!.accountNumber,
+                        userName: _walletController
+                            .walletAmount.value.invester!.investerName,
+                        amountQr: _walletController
+                            .walletAmount.value.wallet!.balanceFormat,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
       ],
     );
   }
@@ -286,7 +285,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
       await file.writeAsBytes(pngBytes);
       Share.shareFiles(['${directory.path}/transferqr.png'],
           text:
-              'Hi! Here is my CiC ID. You can scan this QR code to send money or Tap on the link below for sending payment:',
+              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment:',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     } catch (e) {
       debugPrint("$e");
