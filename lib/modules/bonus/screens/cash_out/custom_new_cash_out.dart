@@ -533,7 +533,8 @@ class CustomNewCashOut extends StatelessWidget {
                       child: CustomButton(
                         onPressed: newCashOutCon.isAgree.value
                             ? newCashOutCon.bankName.value != "" &&
-                                    newCashOutCon.accountNumber.value != ""
+                                    newCashOutCon.accountNumber.value != "" &&
+                                    newCashOutCon.cashoutAmount.value != 0
                                 ? () {
                                     debugPrint("cash out 1");
                                     Navigator.push(

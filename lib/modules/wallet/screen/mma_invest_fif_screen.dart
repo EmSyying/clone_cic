@@ -45,12 +45,12 @@ class MMAInvestFIFScreen extends StatelessWidget {
                         }).toList(),
                       ),
                       exploreMore: 'Explore More',
-                      onTapExplore: e.value.exploreMore == null
-                          ? null
-                          : () async {
+                      onTapExplore: e.value.exploreMore != null
+                          ? () async {
                               context.push(
                                   '/explore-more?isfromReport=true&title=${e.value.title}&url=${e.value.exploreMore}');
-                            },
+                            }
+                          : null,
                     );
                   }).toList(),
                 )),

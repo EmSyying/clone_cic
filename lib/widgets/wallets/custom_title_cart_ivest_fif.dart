@@ -9,7 +9,7 @@ class CustomTitleCardInvestFIF extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6.0),
+      padding: const EdgeInsets.only(bottom: 3.0),
       child: Row(
         children: [
           Icon(
@@ -18,16 +18,22 @@ class CustomTitleCardInvestFIF extends StatelessWidget {
             color: AppColor.arrowforwardColor['dark'],
           ),
           const SizedBox(
-            width: 4.0,
+            width: 6.0,
           ),
           Text(
             title ?? '',
             style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12.0,
-                  letterSpacing: 0.4,
-                  color: AppColor.arrowforwardColor['dark'],
+              shadows: [
+                Shadow(
+                  offset: const Offset(0.0, 4.0),
+                  blurRadius: 10.0,
+                  color: Colors.white.withOpacity(0.3),
                 ),
+              ],
+              fontWeight: FontWeight.w600,
+              fontSize: 12.5,
+              color: AppColor.arrowforwardColor['dark'],
+            ),
           ),
         ],
       ),
