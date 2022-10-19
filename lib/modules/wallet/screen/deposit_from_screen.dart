@@ -202,36 +202,36 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
           ),
         ),
 
-        if (isShowPopupQRCode)
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaY: 6, sigmaX: 6),
-            child: SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(70.0),
-                  child: RepaintBoundary(
-                    key: printScreenKey,
-                    child: GestureDetector(
-                      onTap: () {
-                        Share.share("Hello")
-                            .then((value) => debugPrint("Done"));
-                      },
-                      child: CustomQRCard(
-                        userID: _walletController
-                            .walletAmount.value.wallet!.accountNumber,
-                        userName: _walletController
-                            .walletAmount.value.invester!.investerName,
-                        amountQr: _walletController
-                            .walletAmount.value.wallet!.balanceFormat,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
+        // if (isShowPopupQRCode)
+        //   BackdropFilter(
+        //     filter: ImageFilter.blur(sigmaY: 6, sigmaX: 6),
+        //     child: SizedBox(
+        //       height: double.infinity,
+        //       width: double.infinity,
+        //       child: Center(
+        //         child: Padding(
+        //           padding: const EdgeInsets.all(70.0),
+        //           child: RepaintBoundary(
+        //             key: printScreenKey,
+        //             child: GestureDetector(
+        //               onTap: () {
+        //                 Share.share("Hello")
+        //                     .then((value) => debugPrint("Done"));
+        //               },
+        //               child: CustomQRCard(
+        //                 userID: _walletController
+        //                     .walletAmount.value.wallet!.accountNumber,
+        //                 userName: _walletController
+        //                     .walletAmount.value.invester!.investerName,
+        //                 amountQr: _walletController
+        //                     .walletAmount.value.wallet!.balanceFormat,
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   )
       ],
     );
   }
