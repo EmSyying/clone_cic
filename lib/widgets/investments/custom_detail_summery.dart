@@ -164,7 +164,7 @@ class CustomDetailSummery extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Coupon Receiving \n Account',
+                        'Coupon Receiving \nAccount',
                         style: Theme.of(context)
                             .textTheme
                             .headline5!
