@@ -19,12 +19,11 @@ class CustomQRCard extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xff384593), Color(0xff3588E8)],
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomRight,
+          end: Alignment.centerRight,
+          colors: [Color(0xff103783), Color(0xff3588E8)],
         ),
       ),
       child: Column(
@@ -43,20 +42,20 @@ class CustomQRCard extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 14,
+            height: 20,
             width: 1,
           ),
-          Text(
-            '$userID',
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(
-            height: 15,
-            width: 1,
-          ),
+          // Text(
+          //   '$userID',
+          //   style: Theme.of(context)
+          //       .textTheme
+          //       .headline6!
+          //       .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+          // ),
+          // const SizedBox(
+          //   height: 15,
+          //   width: 1,
+          // ),
           Container(
             width: 249,
             decoration: DottedDecoration(
@@ -70,7 +69,7 @@ class CustomQRCard extends StatelessWidget {
             width: 1,
           ),
           Text(
-            '$amountQr',
+            amountQr != null && amountQr != '' ? '$amountQr USD' : '0.00 USD',
             style: Theme.of(context)
                 .textTheme
                 .headline6!

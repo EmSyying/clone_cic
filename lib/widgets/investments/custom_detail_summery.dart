@@ -164,17 +164,17 @@ class CustomDetailSummery extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Coupon Receiving Account',
+                        'Coupon Receiving \n Account',
                         style: Theme.of(context)
                             .textTheme
                             .headline5!
                             .copyWith(fontSize: 14),
                         maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                        // overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 40),
                       child: Text(
                         '$accountBank',
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
