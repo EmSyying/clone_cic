@@ -37,6 +37,7 @@ import 'package:http/http.dart' as http;
 import 'package:new_version/new_version.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import '../../Utils/function/convert_fromhex_color.dart';
 import '../../Utils/helper/local_notification.dart';
 import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
@@ -910,11 +911,20 @@ class _MainDashboardState extends State<MainDashboard> {
                                   margin: const EdgeInsets.only(left: 15),
                                   height: 60,
                                   width: 60,
+                                  padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                          image: NetworkImage(item.cover!),
-                                          fit: BoxFit.fill)),
+                                    color: fromHex(item.color ?? '')
+                                        .withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: SvgPicture.network(
+                                    item.cover ?? '',
+                                    color: item.color != null &&
+                                            item.color!.isNotEmpty
+                                        ? fromHex(item.color!)
+                                        : null,
+                                  ),
                                 ),
                                 Expanded(
                                   child: Column(
