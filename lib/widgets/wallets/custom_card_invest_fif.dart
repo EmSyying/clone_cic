@@ -32,7 +32,7 @@ class CustomCardInvestFIF extends StatelessWidget {
           left: 20.0,
           right: 20.0,
         ),
-        height: 215.0,
+        height: 180.0,
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
