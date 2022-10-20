@@ -418,7 +418,6 @@ class CustomNewCashOut extends StatelessWidget {
                                     newCashOutCon.accountNumber.value != "" &&
                                     newCashOutCon.cashoutAmount.value != 0
                                 ? () {
-                                    debugPrint("cash out 1");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -437,7 +436,10 @@ class CustomNewCashOut extends StatelessWidget {
                         isDisable: newCashOutCon.isAgree.value
                             ? newCashOutCon.bankName.value != "" &&
                                     newCashOutCon.accountNumber.value != "" &&
-                                    newCashOutCon.cashoutAmount.value != 0
+                                    newCashOutCon.cashoutAmount.value != 0 &&
+                                    newCashOutCon.cashoutAmount.value <
+                                        _walletController
+                                            .walletAmount.value.wallet!.balance!
                                 ? false
                                 : true
                             : true,

@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/custom_history_cash_out.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,12 @@ class _CashOutScreenState extends State<CashOutScreen>
     );
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    InjectionHelper.bonusController.onClear();
+    super.dispose();
   }
 
   @override
