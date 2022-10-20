@@ -196,15 +196,16 @@ class _WalletScreenState extends State<WalletScreen>
                                       ontap: () {
                                         // FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                         //     'MMA subscribe');
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MMADepositCard(
-                                              fromModule: 'Transfer',
-                                            ),
-                                          ),
-                                        );
+                                        context.push('/wallet/mma-transfer');
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         const MMADepositCard(
+                                        //       fromModule: 'Transfer',
+                                        //     ),
+                                        //   ),
+                                        // );
                                       },
                                       text: 'Transfer',
                                       img: 'assets/images/transfer.svg',

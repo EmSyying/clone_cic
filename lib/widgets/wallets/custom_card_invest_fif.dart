@@ -49,7 +49,7 @@ class CustomCardInvestFIF extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 titleFIF ?? '',
@@ -66,31 +66,32 @@ class CustomCardInvestFIF extends StatelessWidget {
                   color: AppColor.arrowforwardColor['dark'],
                 ),
               ),
+
               column!,
-              GestureDetector(
-                onTap: onTapExplore ?? () {},
-                child: Container(
-                  width: 106,
-                  height: 38,
-                  padding: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color: AppColor.arrowforwardColor['dark'],
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Center(
-                    child: Text(
-                      exploreMore ?? '',
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12.5,
-                            color: onTapExplore != null
-                                ? AppColor.mainColor
-                                : Colors.grey,
-                          ),
-                    ),
-                  ),
-                ),
-              )
+              // GestureDetector(
+              //   onTap: onTapExplore ?? () {},
+              //   child: Container(
+              //     width: 106,
+              //     height: 38,
+              //     padding: const EdgeInsets.all(6.0),
+              //     decoration: BoxDecoration(
+              //       color: AppColor.arrowforwardColor['dark'],
+              //       borderRadius: BorderRadius.circular(8.0),
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         exploreMore ?? '',
+              //         style: Theme.of(context).textTheme.headline2!.copyWith(
+              //               fontWeight: FontWeight.w600,
+              //               fontSize: 12.5,
+              //               color: onTapExplore != null
+              //                   ? AppColor.mainColor
+              //                   : Colors.grey,
+              //             ),
+              //       ),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

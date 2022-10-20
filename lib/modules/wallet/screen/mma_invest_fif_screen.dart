@@ -18,7 +18,7 @@ class MMAInvestFIFScreen extends StatelessWidget {
         elevation: 0,
         isLeading: true,
         context: context,
-        title: "Invest FIF",
+        title: "Invest",
       ),
       body:
           Obx(() => InjectionHelper.walletController.listFiFOptionLoading.value
@@ -44,13 +44,13 @@ class MMAInvestFIFScreen extends StatelessWidget {
                           return CustomTitleCardInvestFIF(title: e.value.list);
                         }).toList(),
                       ),
-                      exploreMore: 'Explore More',
-                      onTapExplore: e.value.exploreMore != null
-                          ? () async {
-                              context.push(
-                                  '/explore-more?isfromReport=true&title=${e.value.title}&url=${e.value.exploreMore}');
-                            }
-                          : null,
+                      // exploreMore: 'Explore More',
+                      // onTapExplore: e.value.exploreMore != null
+                      //     ? () async {
+                      //         context.push(
+                      //             '/explore-more?isfromReport=true&title=${e.value.title}&url=${e.value.exploreMore}');
+                      //       }
+                      //     : null,
                     );
                   }).toList(),
                 )),

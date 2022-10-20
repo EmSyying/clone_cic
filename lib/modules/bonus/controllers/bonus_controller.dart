@@ -24,6 +24,7 @@ class BonusController extends GetxController {
   late TabController tabControllerSubscribe;
   final tapcurrentIndex = 0.obs;
   late TabController tabControllerCashOut;
+
   final isSelectedBank = false.obs;
   final bankInfoIndex = 0.obs;
   final isSelectduration = false.obs;
@@ -416,10 +417,11 @@ class BonusController extends GetxController {
                       description: 'The Cash out is completed successfully.',
                       buttonTitle: 'Done',
                       onPressedButton: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        context.push('/wallet/mma-transfer/mma-deposite-card');
+                        // Navigator.pop(context);
+                        // Navigator.pop(context);
+                        // Navigator.pop(context);
+                        // Navigator.pop(context);
                       },
                     );
                   },
@@ -465,6 +467,7 @@ class BonusController extends GetxController {
           Future.delayed(
             const Duration(seconds: 1),
             () {
+              //
               Navigator.push(
                 context,
                 MaterialPageRoute(

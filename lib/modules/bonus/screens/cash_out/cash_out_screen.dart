@@ -2,11 +2,15 @@ import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/custom_history_cash_out.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../Utils/helper/color.dart';
 import 'custom_new_cash_out.dart';
 
+//
 class CashOutScreen extends StatefulWidget {
-  const CashOutScreen({Key? key}) : super(key: key);
+  final String? tabName;
+
+  const CashOutScreen({Key? key, this.tabName}) : super(key: key);
 
   @override
   State<CashOutScreen> createState() => _CashOutScreenState();
@@ -17,18 +21,37 @@ class _CashOutScreenState extends State<CashOutScreen>
   final cashOutCon = Get.put(BonusController());
   @override
   void initState() {
-    cashOutCon.tabControllerCashOut = TabController(vsync: this, length: 2);
+    cashOutCon.tabControllerCashOut = TabController(
+      length: 2,
+      vsync: this,
+      // initialIndex: cashOutCon.tapcurrentIndex.value,
+    );
 
     super.initState();
   }
 
   @override
+  void didChangeDependencies() {
+    final router = GoRouter.of(context);
+    if (router.location.contains('new-cash-oute')) {
+      cashOutCon.tabControllerCashOut.index = 1;
+    } else {
+      cashOutCon.tabControllerCashOut.index = 0;
+    }
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          TabBar(
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          child: TabBar(
+            onTap: (v) {
+              FocusScope.of(context).unfocus();
+            },
             controller: cashOutCon.tabControllerCashOut,
             labelColor: AppColor.mainColor,
             indicatorColor: AppColor.mainColor,
@@ -39,15 +62,15 @@ class _CashOutScreenState extends State<CashOutScreen>
               Text('History'),
             ],
           ),
-          Expanded(
-              child: TabBarView(
-                  controller: cashOutCon.tabControllerCashOut,
-                  children: [
-                CustomNewCashOut(),
-                CustomHistoryCashOut(),
-              ]))
-        ],
-      ),
+        ),
+        Expanded(
+            child: TabBarView(
+                controller: cashOutCon.tabControllerCashOut,
+                children: [
+              CustomNewCashOut(),
+              CustomHistoryCashOut(),
+            ]))
+      ],
     );
   }
 }

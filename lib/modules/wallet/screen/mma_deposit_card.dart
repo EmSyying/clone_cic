@@ -1,10 +1,10 @@
 import 'package:cicgreenloan/modules/wallet/controller/wallet_controller.dart';
 import 'package:cicgreenloan/modules/wallet/screen/deposit_to_screen.dart';
-import 'package:cicgreenloan/modules/wallet/screen/mm_account_transfer.dart';
 import 'package:cicgreenloan/modules/wallet/screen/transfer_to_screen.dart';
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
 
@@ -102,13 +102,18 @@ class MMADepositCard extends StatelessWidget {
                                   contWallet.mmAccountTransferList
                                       .elementAt(0)
                                       .title) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MmAccountTransfer(),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         const MmAccountTransfer(),
+                                //   ),
+                                // );
+
+                                context.push(
+                                    '/wallet/mma-transfer/mma-deposite-card');
+                                // context.push(
+                                //     '/wallet/mma-transfer/mma-deposite-card/mma-cash-out/new-cash-oute');
                               } else {
                                 Navigator.push(
                                   context,

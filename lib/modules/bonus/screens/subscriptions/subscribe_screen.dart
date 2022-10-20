@@ -20,9 +20,10 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
   @override
   void initState() {
     InjectionHelper.bonusController.tabControllerSubscribe = TabController(
-        length: 2,
-        vsync: this,
-        initialIndex: InjectionHelper.bonusController.tapcurrentIndex.value);
+      length: 2,
+      vsync: this,
+      initialIndex: InjectionHelper.bonusController.tapcurrentIndex.value,
+    );
     super.initState();
   }
 

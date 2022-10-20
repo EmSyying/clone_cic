@@ -15,6 +15,7 @@ import '../../core/auth/verify_set_password.dart';
 import '../../core/walk_through/splash_screen.dart';
 import '../../core/walk_through/start_slide.dart';
 import '../../modules/bonus/screens/bonus_screen.dart';
+import '../../modules/bonus/screens/cash_out/cash_out_screen.dart';
 import '../../modules/bonus/screens/subscriptions/subscribe_screen.dart';
 import '../../modules/dashboard/buttom_navigation_bar.dart';
 import '../../modules/dashboard/dashboard.dart';
@@ -56,6 +57,7 @@ import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
 import '../../modules/wallet/screen/deposit_to_screen.dart';
+import '../../modules/wallet/screen/mm_account_transfer.dart';
 import '../../modules/wallet/screen/mma_deposit_card.dart';
 import '../../modules/wallet/screen/mma_invest_fif_screen.dart';
 import '../../widgets/investments/fif_option1.dart';
@@ -889,6 +891,31 @@ final router = GoRouter(
                       ismmaInvestFIF: true,
                     ),
                   ),
+                ],
+              ),
+
+              ///====MMA Transfer====
+              GoRoute(
+                path: 'mma-transfer',
+                name: 'MMADepositCard',
+                builder: (context, state) => const MMADepositCard(
+                  fromModule: 'Transfer',
+                ),
+                routes: [
+                  GoRoute(
+                      path: 'mma-deposite-card',
+                      name: 'MMAcountTransfer',
+                      builder: (context, state) => const MmAccountTransfer(),
+                      routes: [
+                        GoRoute(
+                          path: 'mma-cash-out/:tabName',
+                          builder: (BuildContext context, GoRouterState state) {
+                            final String tabName = state.params['tabName']!;
+
+                            return CashOutScreen(tabName: tabName);
+                          },
+                        ),
+                      ]),
                 ],
               ),
             ],
