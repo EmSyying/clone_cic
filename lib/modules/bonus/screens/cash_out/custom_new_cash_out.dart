@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/helper/extension/string_extension.dart';
 import 'package:cicgreenloan/modules/bonus/screens/cash_out/custom_change_account_bank.dart';
 
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
@@ -20,6 +19,7 @@ import '../../../../Utils/helper/container_partern.dart';
 
 import '../../../../utils/form_builder/custom_drop_down.dart';
 import '../../../../utils/form_builder/dropdow_item.dart';
+import '../../../../utils/helper/digit_decimal_formarter.dart';
 import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../../member_directory/controllers/customer_controller.dart';
 import '../../../wallet/controller/wallet_controller.dart';
@@ -257,27 +257,30 @@ class CustomNewCashOut extends StatelessWidget {
                                       ? newCashOutCon.validateText.value
                                       : null,
                                   inputFormatterList: [
+                                    DigitFormatWithDecimal(),
                                     FilteringTextInputFormatter.allow(
-                                        RegExp(r"[0-9.]")),
-                                    TextInputFormatter.withFunction(
-                                        (oldValue, newValue) {
-                                      double? number =
-                                          double.tryParse(newValue.text);
-                                      if (number != null) {
-                                        debugPrint('New');
-                                        return newValue.copyWith(
-                                            text: newValue.text.asInput(),
-                                            selection: TextSelection.collapsed(
-                                                offset: newValue.text
-                                                    .asInput()
-                                                    .length));
-                                      } else if (newValue.text.isEmpty) {
-                                        return const TextEditingValue();
-                                      } else {
-                                        debugPrint('Old');
-                                        return oldValue;
-                                      }
-                                    }),
+                                        RegExp(r'^\d+\.?\d{0,2}')),
+                                    // FilteringTextInputFormatter.allow(
+                                    //     RegExp(r"[0-9.]")),
+                                    // TextInputFormatter.withFunction(
+                                    //     (oldValue, newValue) {
+                                    //   double? number =
+                                    //       double.tryParse(newValue.text);
+                                    //   if (number != null) {
+                                    //     debugPrint('New');
+                                    //     return newValue.copyWith(
+                                    //         text: newValue.text.asInput(),
+                                    //         selection: TextSelection.collapsed(
+                                    //             offset: newValue.text
+                                    //                 .asInput()
+                                    //                 .length));
+                                    //   } else if (newValue.text.isEmpty) {
+                                    //     return const TextEditingValue();
+                                    //   } else {
+                                    //     debugPrint('Old');
+                                    //     return oldValue;
+                                    //   }
+                                    // }),
                                   ],
                                   keyboardType:
                                       const TextInputType.numberWithOptions(

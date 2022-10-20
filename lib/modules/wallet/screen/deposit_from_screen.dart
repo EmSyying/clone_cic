@@ -21,6 +21,7 @@ import 'package:share/share.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
+import '../../../utils/helper/digit_decimal_formarter.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
@@ -317,30 +318,31 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
               CustomTextFieldNew(
                 controller: _walletController.amountController,
                 inputFormatterList: [
-                  FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-                  TextInputFormatter.withFunction((oldValue, newValue) {
-                    double? number = double.tryParse(newValue.text);
-                    if (number != null) {
-                      debugPrint('New');
-                      return newValue.copyWith(
-                          text: newValue.text.asInput(),
-                          selection: TextSelection.collapsed(
-                              offset: newValue.text.asInput().length));
-                    } else if (newValue.text.isEmpty) {
-                      return const TextEditingValue();
-                    } else {
-                      debugPrint('Old');
-                      return oldValue;
-                    }
-                    // try {
-                    //   final text = newValue.text;
-                    //   if (text.isNotEmpty) double.parse(text);
-                    //   debugPrint('ERROR');
-                    //   return newValue;
-                    // } catch (e) {
-                    //   return oldValue;
-                    // }
-                  }),
+                  // FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                  // TextInputFormatter.withFunction((oldValue, newValue) {
+                  //   double? number = double.tryParse(newValue.text);
+                  //   if (number != null) {
+                  //     debugPrint('New');
+                  //     return newValue.copyWith(
+                  //         text: newValue.text.asInput(),
+                  //         selection: TextSelection.collapsed(
+                  //             offset: newValue.text.asInput().length));
+                  //   } else if (newValue.text.isEmpty) {
+                  //     return const TextEditingValue();
+                  //   } else {
+                  //     debugPrint('Old');
+                  //     return oldValue;
+                  //   }
+                  //   // try {
+                  //   //   final text = newValue.text;
+                  //   //   if (text.isNotEmpty) double.parse(text);
+                  //   //   debugPrint('ERROR');
+                  //   //   return newValue;
+            //   //   return oldValue;
+                  //   // }
+                  // }),
+                  DigitFormatWithDecimal(),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],
                 autoFocus: true,
                 keyboardType:
