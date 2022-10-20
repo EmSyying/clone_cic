@@ -17,6 +17,7 @@ import 'package:cicgreenloan/widgets/dashboard/custom_associate_member.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:url_launcher/link.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
@@ -360,6 +361,53 @@ class _MainDashboardState extends State<MainDashboard> {
     super.initState();
   }
 
+  final LocalAuthentication auth = LocalAuthentication();
+  bool authenticated = false;
+  Future<bool> _authenticate() async {
+    authenticated = false;
+    List<BiometricType> availableBiometrics =
+        await auth.getAvailableBiometrics();
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        if (availableBiometrics.contains(BiometricType.fingerprint)) {
+          await LocalData.storeBiotricType('biotricType', 'fingerPrint');
+        }
+      } else {
+        if (availableBiometrics.contains(BiometricType.face)) {
+          await LocalData.storeBiotricType('biotricType', 'faceId');
+        } else {
+          await LocalData.storeBiotricType('biotricType', 'touchId');
+        }
+      }
+
+      try {
+        _settingCon.isAuthenticating.value = true;
+        _settingCon.authorized.value = 'Authenticating';
+
+        authenticated = await auth.authenticate(
+          localizedReason: 'Scan your fingerprint to authenticate',
+        );
+
+        _settingCon.isAuthenticating.value = false;
+        _settingCon.authorized.value = 'Authenticating';
+      } on PlatformException {
+        debugPrint("error");
+      }
+    }
+    return authenticated;
+  }
+
+  isAuthenthication() async {
+    if (!kIsWeb) {
+      await LocalData.getAuthenValue('authen').then((value) {
+        setState(() {
+          // isFaceID = value;
+          // isOnFingerPrint = value;
+        });
+      });
+    }
+  }
+
   // Future<void> _sendAnalyticsEvent() async {}
 
   fetchAppVersion() async {
@@ -609,7 +657,29 @@ class _MainDashboardState extends State<MainDashboard> {
                                                     builder:
                                                         (context, followLink) =>
                                                             GestureDetector(
-                                                      onTap: followLink,
+                                                      onTap: _settingCon
+                                                                  .slideList![
+                                                                      index]
+                                                                  .type ==
+                                                              'Biometrics'
+                                                          ? () {
+                                                              _authenticate()
+                                                                  .then(
+                                                                      (value) {
+                                                                if (authenticated) {
+                                                                  LocalData
+                                                                      .storeAuthenthicationKey(
+                                                                          'authen',
+                                                                          value);
+
+                                                                  // if (!isOnFingerPrint)
+                                                                  setState(
+                                                                      () {});
+                                                                }
+                                                              });
+                                                              setState(() {});
+                                                            }
+                                                          : followLink,
                                                       child: Container(
                                                         padding:
                                                             const EdgeInsets

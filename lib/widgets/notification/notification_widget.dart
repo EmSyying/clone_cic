@@ -75,7 +75,9 @@ class NotificationWidget extends StatelessWidget {
                               ? SvgPicture.asset(notification!.readAt == null
                                   ? 'assets/images/svgfile/paymentIcon.svg'
                                   : 'assets/images/svgfile/readPaymentIcon.svg')
-                              : notification!.data!.type == 'cash-out'
+                              : notification!.data!.type == 'cash-out' ||
+                                      notification!.data!.type ==
+                                          'wallet-cashout'
                                   ? SvgPicture.asset(notification!.readAt == null
                                       ? "assets/images/svgfile/cashoutNotification.svg"
                                       : "assets/images/svgfile/readCashout.svg")
@@ -85,13 +87,13 @@ class NotificationWidget extends StatelessWidget {
                                           : "assets/images/svgfile/readbonus.svg")
                                       : notification!.data!.type ==
                                               'confirm-subscription'
-                                          ? SvgPicture.asset(notification!.readAt == null
+                                          ? SvgPicture.asset(notification!.readAt ==
+                                                  null
                                               ? "assets/images/svgfile/confirmSubscription.svg"
                                               : "assets/images/svgfile/readSubscription.svg")
                                           : notification!.data!.type ==
                                                   'confirm-payment'
-                                              ? SvgPicture.asset(
-                                                  notification!.readAt == null ? "assets/images/svgfile/confirmSubscription.svg" : "assets/images/svgfile/readSubscription.svg")
+                                              ? SvgPicture.asset(notification!.readAt == null ? "assets/images/svgfile/confirmSubscription.svg" : "assets/images/svgfile/readSubscription.svg")
                                               : notification!.data!.type == 'wallet-deposit'
                                                   ? SvgPicture.asset(
                                                       'assets/images/svgfile/dividend.svg',

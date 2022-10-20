@@ -103,8 +103,8 @@ class _TransferToMMAState extends State<TransferToMMA> {
                             controller: _walletController.qrRecievingPhone,
                             isRequired: true,
                             autoFocus: false,
-                            labelText: 'Receiver Phone Number',
-                            hintText: 'Receiver Phone Number',
+                            labelText: 'Receiver Account Number',
+                            hintText: 'Receiver Account Number',
                             suffixIcon: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: IntrinsicHeight(

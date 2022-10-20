@@ -82,9 +82,7 @@ class CustomNewCashOut extends StatelessWidget {
                                   .walletAmount.value.wallet!.balanceFormat,
                             ),
                           ),
-
                           const SizedBox(height: 10.0),
-
                           Container(
                             padding: const EdgeInsets.only(bottom: 20.0),
                             color: Colors.white,
@@ -335,126 +333,6 @@ class CustomNewCashOut extends StatelessWidget {
                               ],
                             ),
                           ),
-
-                          // Container(
-                          //   margin: const EdgeInsets.only(top: 15),
-                          //   padding: const EdgeInsets.only(bottom: 20),
-                          //   color: Colors.white,
-                          //   child: Column(
-                          //     children: [
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(
-                          //             left: 20, right: 20, top: 20),
-                          //         child: Row(
-                          //           mainAxisAlignment:
-                          //               MainAxisAlignment.spaceBetween,
-                          //           children: [
-                          //             Text(
-                          //               'Payment Information',
-                          //               style: Theme.of(context)
-                          //                   .textTheme
-                          //                   .bodyText2,
-                          //             ),
-                          //             GetBuilder<SettingController>(
-                          //                 init: SettingController(),
-                          //                 builder: (controller) {
-                          //                   return InkWell(
-                          //                     onTap: () {
-                          //                       onShowBottomSheet(
-                          //                           icondata: Icons.close,
-                          //                           isLoading:
-                          //                               controller.isloading,
-                          //                           title: controller
-                          //                                       .uiSettingData
-                          //                                       .paymentInformation !=
-                          //                                   null
-                          //                               ? controller
-                          //                                   .uiSettingData
-                          //                                   .paymentInformation!
-                          //                                   .label
-                          //                               : "Payment Information",
-                          //                           context: context,
-                          //                           child: Column(
-                          //                             children: [
-                          //                               Padding(
-                          //                                 padding:
-                          //                                     const EdgeInsets
-                          //                                             .symmetric(
-                          //                                         horizontal:
-                          //                                             20,
-                          //                                         vertical:
-                          //                                             10),
-                          //                                 child: controller
-                          //                                             .uiSettingData
-                          //                                             .paymentInformation !=
-                          //                                         null
-                          //                                     ? HtmlWidget(
-                          //                                         "${controller.uiSettingData.paymentInformation!.description}",
-                          //                                         textStyle: Theme.of(
-                          //                                                 context)
-                          //                                             .textTheme
-                          //                                             .headline2!
-                          //                                             .copyWith(
-                          //                                                 fontWeight:
-                          //                                                     FontWeight.normal,
-                          //                                                 fontSize: 14),
-                          //                                       )
-                          //                                     : Container(),
-                          //                               )
-                          //                             ],
-                          //                           ));
-                          //                     },
-                          //                     child: SvgPicture.asset(
-                          //                         'assets/images/svgfile/questicon.svg'),
-                          //                   );
-                          //                 })
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       CustomInterestSummary(
-                          //         titleDate: 'Transfer within :',
-                          //         date: "",
-                          //         time: newCashOutCon
-                          //             .bonusSetting.value.cashOutSendingDate,
-                          //       ),
-                          //       const SizedBox(height: 20),
-                          //       const Padding(
-                          //         padding:
-                          //             EdgeInsets.only(left: 20, right: 20),
-                          //         child: Divider(
-                          //           thickness: 0.5,
-                          //           color: Colors.grey,
-                          //         ),
-                          //       ),
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(
-                          //             left: 20, right: 20, top: 10),
-                          //         child: Row(
-                          //           mainAxisAlignment:
-                          //               MainAxisAlignment.spaceBetween,
-                          //           children: [
-                          //             Text(
-                          //               'Cash Out Amount',
-                          //               style: Theme.of(context)
-                          //                   .textTheme
-                          //                   .bodyText2,
-                          //             ),
-                          //             Text(
-                          //               "${newCashOutCon.cashoutAmount.value.toString()} USD",
-                          //               style: Theme.of(context)
-                          //                   .textTheme
-                          //                   .bodyText2!
-                          //                   .copyWith(
-                          //                     color: AppColor
-                          //                         .statusColor['late'],
-                          //                   ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -531,6 +409,7 @@ class CustomNewCashOut extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           left: 20, right: 20, top: 20, bottom: 30),
                       child: CustomButton(
+                        width: double.infinity,
                         onPressed: newCashOutCon.isAgree.value
                             ? newCashOutCon.bankName.value != "" &&
                                     newCashOutCon.accountNumber.value != "" &&
@@ -552,7 +431,13 @@ class CustomNewCashOut extends StatelessWidget {
                                   }
                                 : null
                             : null,
-                        isDisable: false,
+                        isDisable: newCashOutCon.isAgree.value
+                            ? newCashOutCon.bankName.value != "" &&
+                                    newCashOutCon.accountNumber.value != "" &&
+                                    newCashOutCon.cashoutAmount.value != 0
+                                ? false
+                                : true
+                            : true,
                         isOutline: false,
                         title: 'Proceed to Pay',
                       )),

@@ -523,48 +523,52 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                       ),
                                                                                                     );
                                                                                                   }
-                                                                                                : _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment'
+                                                                                                : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment'
                                                                                                     ? () async {
                                                                                                         debugPrint("Wallet Id:${_con.notificationList[index].data!.transactionId}");
-                                                                                                        _walletController.onFetchDepositDetail(_con.notificationList[index].data!.transactionId!);
-                                                                                                        notificationIdList.add(items.id);
-                                                                                                        _con.onReadNotification(_con.notificationList[index].id!);
-                                                                                                        setState(() {
-                                                                                                          _con.notificationList[index].readAt = '';
-                                                                                                        });
-
-                                                                                                        await onShowBottomSheet(
-                                                                                                          type: _con.notificationList[index].data!.type,
-                                                                                                          isAmountFormat: true,
-                                                                                                          context: context,
-                                                                                                          label: _walletController.depositDetail.value.title!,
-                                                                                                          time: _walletController.depositDetail.value.time!,
-                                                                                                          amountFormat: _walletController.depositDetail.value.amount,
-                                                                                                          text: Text(_walletController.depositDetail.value.amount!),
-                                                                                                          child: Padding(
-                                                                                                            padding: const EdgeInsets.all(20.0),
-                                                                                                            child: Column(
-                                                                                                              children: [
-                                                                                                                CustomWalletDetail(label: 'Transaction Id', value: _walletController.depositDetail.value.transactionId),
-                                                                                                                CustomWalletDetail(label: 'Transaction Date', value: _walletController.depositDetail.value.date),
-                                                                                                                CustomWalletDetail(label: 'Payment Type', value: _walletController.depositDetail.value.depositMethod),
-                                                                                                                const SizedBox(height: 25.0),
-                                                                                                                CustomButton(
-                                                                                                                  isDisable: false,
-                                                                                                                  isOutline: true,
-                                                                                                                  title: 'Close',
-                                                                                                                  onPressed: () {
-                                                                                                                    Navigator.pop(context);
-                                                                                                                  },
-                                                                                                                )
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        );
-                                                                                                        // await Navigator.push(
-                                                                                                        //   context,
-                                                                                                        //   MaterialPageRoute(builder: (context) => const WalletScreen()),
-                                                                                                        // );
+                                                                                                        if (_con.notificationList[index].data!.type == 'wallet-cashout') {
+                                                                                                          notificationIdList.add(items.id);
+                                                                                                          _con.onReadNotification(_con.notificationList[index].id!);
+                                                                                                          setState(() {
+                                                                                                            _con.notificationList[index].readAt = '';
+                                                                                                          });
+                                                                                                        } else {
+                                                                                                          notificationIdList.add(items.id);
+                                                                                                          _con.onReadNotification(_con.notificationList[index].id!);
+                                                                                                          setState(() {
+                                                                                                            _con.notificationList[index].readAt = '';
+                                                                                                          });
+                                                                                                          _walletController.onFetchDepositDetail(_con.notificationList[index].data!.transactionId!).then((value) {
+                                                                                                            onShowBottomSheet(
+                                                                                                              type: _con.notificationList[index].data!.type,
+                                                                                                              isAmountFormat: true,
+                                                                                                              context: context,
+                                                                                                              label: _walletController.depositDetail.value.title!,
+                                                                                                              time: _walletController.depositDetail.value.time!,
+                                                                                                              amountFormat: _walletController.depositDetail.value.amount,
+                                                                                                              text: Text(_walletController.depositDetail.value.amount!),
+                                                                                                              child: Padding(
+                                                                                                                padding: const EdgeInsets.all(20.0),
+                                                                                                                child: Column(
+                                                                                                                  children: [
+                                                                                                                    CustomWalletDetail(label: 'Transaction Id', value: _walletController.depositDetail.value.transactionId),
+                                                                                                                    CustomWalletDetail(label: 'Transaction Date', value: _walletController.depositDetail.value.date),
+                                                                                                                    CustomWalletDetail(label: 'Payment Type', value: _walletController.depositDetail.value.depositMethod),
+                                                                                                                    const SizedBox(height: 25.0),
+                                                                                                                    CustomButton(
+                                                                                                                      isDisable: false,
+                                                                                                                      isOutline: true,
+                                                                                                                      title: 'Close',
+                                                                                                                      onPressed: () {
+                                                                                                                        Navigator.pop(context);
+                                                                                                                      },
+                                                                                                                    )
+                                                                                                                  ],
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            );
+                                                                                                          });
+                                                                                                        }
                                                                                                       }
                                                                                                     : _con.notificationList[index].data!.type == 'fif' || _con.notificationList[index].data!.type == 'withdraw' || _con.notificationList[index].data!.type == 'renew' || _con.notificationList[index].data!.type == 'fif-monthly-payment'
                                                                                                         ? () async {
