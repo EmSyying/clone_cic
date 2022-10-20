@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../Utils/function/format_date_time.dart';
 import '../../../Utils/helper/custom_appbar.dart';
@@ -120,49 +121,66 @@ class _WalletScreenState extends State<WalletScreen>
                                     letterSpacing: 0.4,
                                   ),
                                 ),
-                                const SizedBox(height: 6.0),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Obx(
-                                    () => _walletController
-                                            .fetchWalletLoading.value
-                                        ? const Center(
-                                            child: Text('...',
-                                                style: TextStyle(
-                                                    color: Colors.white)))
-                                        : RichText(
-                                            textAlign: TextAlign.center,
-                                            text: TextSpan(
-                                              text: _walletController
-                                                  .walletAmount
-                                                  .value
-                                                  .wallet!
-                                                  .balanceFormat,
-                                              style: textStyle.copyWith(
-                                                fontSize: 25,
+                                const SizedBox(height: 10.0),
+                                Obx(
+                                  () => _walletController
+                                              .fetchWalletLoading.value ==
+                                          true
+                                      ? Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.white,
+                                          child: Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 20),
+                                            width: 80,
+                                            height: 12,
+                                            decoration: BoxDecoration(
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                                borderRadius:
+                                                    BorderRadius.circular(4)),
+                                          ),
+                                        )
+                                      // const Center(
+                                      //     child: Text('...',
+                                      //         style: TextStyle(
+                                      //             color: Colors.white)))
+                                      : RichText(
+                                          textAlign: TextAlign.center,
+                                          text: TextSpan(
+                                            text: _walletController.walletAmount
+                                                .value.wallet!.balanceFormat,
+                                            style: textStyle.copyWith(
+                                              fontSize: 25,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                  ),
+                                        ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      _walletController
-                                                  .fetchWalletLoading.value ==
-                                              true
-                                          ? const Text(
-                                              '...',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )
-                                          : Text(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    _walletController
+                                                .fetchWalletLoading.value ==
+                                            true
+                                        ? Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.white,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(2)),
+                                              margin: const EdgeInsets.only(
+                                                  top: 20, bottom: 20),
+                                              width: 150,
+                                              height: 7,
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 20),
+                                            child: Text(
                                               "${FormatDate.eventDateTime(datetime)} | ID ${_walletController.walletAmount.value.wallet!.accountNumber}",
                                               style: textStyle.copyWith(
                                                 fontSize: 14,
@@ -170,6 +188,10 @@ class _WalletScreenState extends State<WalletScreen>
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
+                                          ),
+                                    if (_walletController
+                                            .fetchWalletLoading.value !=
+                                        true)
                                       IconButton(
                                         onPressed: () {
                                           Clipboard.setData(
@@ -204,8 +226,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           height: 15,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
