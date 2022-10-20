@@ -101,7 +101,9 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                                             type == 'cash-in' ||
                                             type == 'wallet-deposit'
                                         ? AppColor.statusColor['green']
-                                        : AppColor.statusColor['late'],
+                                        : type == 'subscription'
+                                            ? Colors.black
+                                            : AppColor.statusColor['late'],
                                     fontWeight: FontWeight.bold),
                           ),
                     ),

@@ -406,6 +406,7 @@ class CustomDeductBonus extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 10),
                           child: CustomButton(
+                            width: double.infinity,
                             onPressed: () {
                               subDetailCon.onRequestPayment(context);
                               subDetailCon.isConfirm.value = false;

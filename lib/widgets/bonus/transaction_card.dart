@@ -233,7 +233,7 @@ class CustomTransactionCard extends StatelessWidget {
                                 }
                                 //subscription partially paid
                                 onShowBottomSheet(
-                                  isDismissible: false,
+                                  // isDismissible: false,
 
                                   context: context,
 
@@ -241,8 +241,8 @@ class CustomTransactionCard extends StatelessWidget {
                                   type: e.value.type,
                                   label: 'Subscription',
                                   time: e.value.date,
-                                  // amount: e.value.referalId,
-                                  // action: Text('ID: ${e.value.transactionId}'),
+                                  amountFormat: 'ID: ${e.value.transactionId}',
+                                  isAmountFormat: true,
                                   text: Obx(
                                     () => Text(subscribeCon
                                                 .currentIndexPage.value ==
