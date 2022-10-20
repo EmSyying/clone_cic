@@ -49,7 +49,7 @@ class CustomCardInvestFIF extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 titleFIF ?? '',
@@ -66,7 +66,9 @@ class CustomCardInvestFIF extends StatelessWidget {
                   color: AppColor.arrowforwardColor['dark'],
                 ),
               ),
-
+              const SizedBox(
+                height: 14.0,
+              ),
               column!,
               // GestureDetector(
               //   onTap: onTapExplore ?? () {},
