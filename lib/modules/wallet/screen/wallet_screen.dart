@@ -163,7 +163,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                   color: Colors.white),
                                             )
                                           : Text(
-                                              "${FormatDate.formatDateDays(datetime)} | ID ${_walletController.walletAmount.value.wallet!.accountNumber}",
+                                              "${FormatDate.eventDateTime(datetime)} | ID ${_walletController.walletAmount.value.wallet!.accountNumber}",
                                               style: textStyle.copyWith(
                                                 fontSize: 14,
                                                 color: Colors.white70,
@@ -183,7 +183,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                 content: Row(
                                                   children: [
                                                     SvgPicture.asset(
-                                                      'assets/images/svgfile/copy_svg.svg',
+                                                      'assets/images/wallet/copy_fill.svg',
                                                       color: Colors.white,
                                                     ),
                                                     const SizedBox(width: 15),
@@ -198,7 +198,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           });
                                         },
                                         icon: SvgPicture.asset(
-                                          'assets/images/svgfile/copy_svg.svg',
+                                          'assets/images/wallet/copy_fill.svg',
                                           color: Colors.white,
                                           width: 15,
                                           height: 15,
