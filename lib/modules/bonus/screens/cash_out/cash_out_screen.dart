@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../Utils/helper/color.dart';
+import '../../../../Utils/helper/custom_appbar.dart';
 import 'custom_new_cash_out.dart';
 
-//
 class CashOutScreen extends StatefulWidget {
   final String? tabName;
 
@@ -34,9 +34,9 @@ class _CashOutScreenState extends State<CashOutScreen>
   void didChangeDependencies() {
     final router = GoRouter.of(context);
     if (router.location.contains('new-cash-oute')) {
-      cashOutCon.tabControllerCashOut.index = 1;
-    } else {
       cashOutCon.tabControllerCashOut.index = 0;
+    } else {
+      cashOutCon.tabControllerCashOut.index = 1;
     }
 
     super.didChangeDependencies();
@@ -44,33 +44,41 @@ class _CashOutScreenState extends State<CashOutScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: Colors.white,
-          child: TabBar(
-            onTap: (v) {
-              FocusScope.of(context).unfocus();
-            },
-            controller: cashOutCon.tabControllerCashOut,
-            labelColor: AppColor.mainColor,
-            indicatorColor: AppColor.mainColor,
-            labelPadding: const EdgeInsets.only(top: 20, bottom: 15),
-            indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
-            tabs: const [
-              Text('New Cash Out'),
-              Text('History'),
-            ],
+    return Scaffold(
+      appBar: CustomAppBar(
+        elevation: 0,
+        isLeading: true,
+        context: context,
+        title: "MM Acount Cash Out",
+      ),
+      body: Column(
+        children: [
+          Container(
+            color: Colors.white,
+            child: TabBar(
+              onTap: (v) {
+                FocusScope.of(context).unfocus();
+              },
+              controller: cashOutCon.tabControllerCashOut,
+              labelColor: AppColor.mainColor,
+              indicatorColor: AppColor.mainColor,
+              labelPadding: const EdgeInsets.only(top: 20, bottom: 15),
+              indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
+              tabs: const [
+                Text('New Cash Out'),
+                Text('History'),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-            child: TabBarView(
-                controller: cashOutCon.tabControllerCashOut,
-                children: [
-              CustomNewCashOut(),
-              CustomHistoryCashOut(),
-            ]))
-      ],
+          Expanded(
+              child: TabBarView(
+                  controller: cashOutCon.tabControllerCashOut,
+                  children: [
+                CustomNewCashOut(),
+                CustomHistoryCashOut(),
+              ]))
+        ],
+      ),
     );
   }
 }

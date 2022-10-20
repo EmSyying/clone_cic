@@ -57,7 +57,6 @@ import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
 import '../../modules/wallet/screen/deposit_to_screen.dart';
-import '../../modules/wallet/screen/mm_account_transfer.dart';
 import '../../modules/wallet/screen/mma_deposit_card.dart';
 import '../../modules/wallet/screen/mma_invest_fif_screen.dart';
 import '../../widgets/investments/fif_option1.dart';
@@ -903,19 +902,27 @@ final router = GoRouter(
                 ),
                 routes: [
                   GoRoute(
-                      path: 'mma-deposite-card',
-                      name: 'MMAcountTransfer',
-                      builder: (context, state) => const MmAccountTransfer(),
-                      routes: [
-                        GoRoute(
-                          path: 'mma-cash-out/:tabName',
-                          builder: (BuildContext context, GoRouterState state) {
-                            final String tabName = state.params['tabName']!;
+                    path: 'mma-cash-out/:tabName',
+                    builder: (BuildContext context, GoRouterState state) {
+                      final String tabName = state.params['tabName']!;
 
-                            return CashOutScreen(tabName: tabName);
-                          },
-                        ),
-                      ]),
+                      return CashOutScreen(tabName: tabName);
+                    },
+                  ),
+                  // GoRoute(
+                  //     path: 'mma-deposite-card',
+                  //     name: 'MMAcountTransfer',
+                  //     builder: (context, state) => const MmAccountTransfer(),
+                  //     routes: [
+                  //       GoRoute(
+                  //         path: 'mma-cash-out/:tabName',
+                  //         builder: (BuildContext context, GoRouterState state) {
+                  //           final String tabName = state.params['tabName']!;
+
+                  //           return CashOutScreen(tabName: tabName);
+                  //         },
+                  //       ),
+                  //     ],),
                 ],
               ),
             ],

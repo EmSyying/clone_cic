@@ -406,7 +406,7 @@ class BonusController extends GetxController {
         if (response.statusCode == 200) {
           onClear();
           Future.delayed(
-            const Duration(seconds: 1),
+            const Duration(seconds: 0),
             () {
               Navigator.push(
                 context,
@@ -414,14 +414,11 @@ class BonusController extends GetxController {
                   builder: (context) {
                     return CustomSucessScreen(
                       title: 'Success',
-                      description: 'The Cash out is completed successfully.',
+                      description: 'The cash out request has been submitted',
                       buttonTitle: 'Done',
                       onPressedButton: () {
-                        context.push('/wallet/mma-transfer/mma-deposite-card');
-                        // Navigator.pop(context);
-                        // Navigator.pop(context);
-                        // Navigator.pop(context);
-                        // Navigator.pop(context);
+                        context.go(
+                            '/wallet/mma-transfer/mma-cash-out/history-cashout');
                       },
                     );
                   },
@@ -465,7 +462,7 @@ class BonusController extends GetxController {
           debugPrint(
               'hany test submit subscription====: ${subscriptionAmount.value}');
           Future.delayed(
-            const Duration(seconds: 1),
+            const Duration(seconds: 0),
             () {
               //
               Navigator.push(
@@ -475,7 +472,7 @@ class BonusController extends GetxController {
                     return CustomSucessScreen(
                       title: 'Success',
                       description:
-                          'The UT Subscription is Submit successfully.',
+                          'The UT Subscription request has been submitted',
                       buttonTitle: 'Done',
                       onPressedButton: () {
                         context.go(

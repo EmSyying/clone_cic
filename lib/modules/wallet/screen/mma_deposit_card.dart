@@ -111,7 +111,7 @@ class MMADepositCard extends StatelessWidget {
                                 // );
 
                                 context.push(
-                                    '/wallet/mma-transfer/mma-deposite-card');
+                                    '/wallet/mma-transfer/mma-cash-out/new-cash-oute');
                                 // context.push(
                                 //     '/wallet/mma-transfer/mma-deposite-card/mma-cash-out/new-cash-oute');
                               } else {
