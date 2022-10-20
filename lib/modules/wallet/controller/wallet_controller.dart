@@ -245,6 +245,7 @@ class WalletController extends GetxController {
   void clearMMATransfer() {
     qrRecievingPhone.text = '';
     qrRecievingAmount.text = '';
+    remarkTextController.text = '';
     validateMessage('');
     userFound(false);
     remarkText('');
@@ -303,14 +304,14 @@ class WalletController extends GetxController {
   final validateMessage = ''.obs;
   final userFound = false.obs;
   Future<void> checkValidateAccount() async {
-    String numberSubmit = qrRecievingPhone.text.startsWith('0')
-        ? '+855${qrRecievingPhone.text.substring(1)}'
-        : qrRecievingPhone.text;
+    // String numberSubmit = qrRecievingPhone.text.startsWith('0')
+    //     ? '+855${qrRecievingPhone.text.substring(1)}'
+    //     : qrRecievingPhone.text;
     _checkValidateLoading(true);
     await _apiBaseHelper
         .onNetworkRequesting(
       url: 'wallet/verify/Account',
-      body: {'receiver_number': numberSubmit},
+      body: {'receiver_number': qrRecievingPhone.text},
       methode: METHODE.post,
       isAuthorize: true,
     )
