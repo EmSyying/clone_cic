@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/modules/wallet/screen/mma_deposit_card.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -102,143 +103,196 @@ class _WalletScreenState extends State<WalletScreen>
                         //     painter: PathPainter(),
                         //   ),
                         // ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).padding.top + 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Available Balance',
-                                style: textStyle.copyWith(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: 0.4,
+                        Obx(
+                          () => Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).padding.top + 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Available Balance',
+                                  style: textStyle.copyWith(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: 0.4,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 6.0),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Obx(
-                                  () =>
-                                      _walletController.fetchWalletLoading.value
-                                          ? const Center(child: Text(''))
-                                          : RichText(
-                                              textAlign: TextAlign.center,
-                                              text: TextSpan(
-                                                text: _walletController
-                                                    .walletAmount
-                                                    .value
-                                                    .wallet!
-                                                    .balanceFormat,
-                                                style: textStyle.copyWith(
-                                                  fontSize: 25,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                const SizedBox(height: 6.0),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Obx(
+                                    () => _walletController
+                                            .fetchWalletLoading.value
+                                        ? const Center(
+                                            child: Text('...',
+                                                style: TextStyle(
+                                                    color: Colors.white)))
+                                        : RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                              text: _walletController
+                                                  .walletAmount
+                                                  .value
+                                                  .wallet!
+                                                  .balanceFormat,
+                                              style: textStyle.copyWith(
+                                                fontSize: 25,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
                                               ),
                                             ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 6.0,
-                              ),
-                              Text(
-                                "As of ${FormatDate.formatDateTime(datetime)}",
-                                style: textStyle.copyWith(
-                                  fontSize: 14,
-                                  color: Colors.white70,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 30.0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    _operationButton(
-                                      context,
-                                      ontap: () {
-                                        // FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                        //     'MMA Deposit');
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         const DepositScreen(),
-                                        //   ),
-                                        // );
-                                        // context.go(
-                                        //     '/wallet/deposit-card?fromModule=Deposit');
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MMADepositCard(
-                                              fromModule: 'Deposit',
-                                            ),
                                           ),
-                                        );
-                                      },
-                                      text: 'Deposit',
-                                      img: 'assets/images/mma_wallet.svg',
-                                    ),
-                                    _operationButton(
-                                      context,
-                                      ontap: () {
-                                        // FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                        //     'MMA subscribe');
-                                        context.push('/wallet/mma-transfer');
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         const MMADepositCard(
-                                        //       fromModule: 'Transfer',
-                                        //     ),
-                                        //   ),
-                                        // );
-                                      },
-                                      text: 'Transfer',
-                                      img: 'assets/images/transfer.svg',
-                                    ),
-                                    _operationButton(
-                                      context,
-                                      ontap: () {
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         const MMAInvestFIFScreen(),
-                                        //   ),
-                                        // );
-                                        context.push('/wallet/invest-fif');
-                                        // show(context);
-                                      },
-                                      text: 'Invest',
-                                      img:
-                                          'assets/images/svgfile/investfif.svg',
-                                    ),
-                                    _operationButton(
-                                      context,
-                                      ontap: () {
-                                        show(context);
-                                      },
-                                      text: 'Pay',
-                                      img: 'assets/images/svgfile/cashout.svg',
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _walletController
+                                                  .fetchWalletLoading.value ==
+                                              true
+                                          ? const Text(
+                                              '...',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          : Text(
+                                              "${FormatDate.formatDateDays(datetime)} | ID ${_walletController.walletAmount.value.wallet!.accountNumber}",
+                                              style: textStyle.copyWith(
+                                                fontSize: 14,
+                                                color: Colors.white70,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                      IconButton(
+                                        onPressed: () {
+                                          Clipboard.setData(
+                                            ClipboardData(
+                                                text:
+                                                    '${_walletController.walletAmount.value.wallet!.accountNumber}'),
+                                          ).then((value) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Row(
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      'assets/images/svgfile/copy_svg.svg',
+                                                      color: Colors.white,
+                                                    ),
+                                                    const SizedBox(width: 15),
+                                                    const Text(
+                                                        "Copied to clipboard."),
+                                                  ],
+                                                ),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                              ),
+                                            );
+                                          });
+                                        },
+                                        icon: SvgPicture.asset(
+                                          'assets/images/svgfile/copy_svg.svg',
+                                          color: Colors.white,
+                                          width: 15,
+                                          height: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 10.0,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      _operationButton(
+                                        context,
+                                        ontap: () {
+                                          // FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                          //     'MMA Deposit');
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const DepositScreen(),
+                                          //   ),
+                                          // );
+                                          // context.go(
+                                          //     '/wallet/deposit-card?fromModule=Deposit');
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const MMADepositCard(
+                                                fromModule: 'Deposit',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        text: 'Deposit',
+                                        img: 'assets/images/mma_wallet.svg',
+                                      ),
+                                      _operationButton(
+                                        context,
+                                        ontap: () {
+                                          // FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                          //     'MMA subscribe');
+                                          context.push('/wallet/mma-transfer');
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const MMADepositCard(
+                                          //       fromModule: 'Transfer',
+                                          //     ),
+                                          //   ),
+                                          // );
+                                        },
+                                        text: 'Transfer',
+                                        img: 'assets/images/transfer.svg',
+                                      ),
+                                      _operationButton(
+                                        context,
+                                        ontap: () {
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const MMAInvestFIFScreen(),
+                                          //   ),
+                                          // );
+                                          context.push('/wallet/invest-fif');
+                                          // show(context);
+                                        },
+                                        text: 'Invest',
+                                        img:
+                                            'assets/images/svgfile/investfif.svg',
+                                      ),
+                                      _operationButton(
+                                        context,
+                                        ontap: () {
+                                          show(context);
+                                        },
+                                        text: 'Pay',
+                                        img:
+                                            'assets/images/svgfile/cashout.svg',
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -340,8 +394,8 @@ class _WalletScreenState extends State<WalletScreen>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 58,
-            height: 58,
+            width: 60,
+            height: 60,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
