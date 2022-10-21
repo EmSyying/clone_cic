@@ -5,9 +5,40 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter",
+            "name": "CiC App Dev",
+            "cwd": ".",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
+        },
+        {
+            "name": "CiC App Pre",
+            "cwd": ".",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main_pre.dart",
+            "args": [
+                "--flavor",
+                "pre"
+            ],
+        },
+        {
+            "name": "CiC App Pro",
+            "cwd": ".",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main_prod.dart",
+            "args": [
+                "--flavor",
+                "prod"
+            ],
         }
     ]
 }

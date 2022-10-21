@@ -63,6 +63,23 @@ android {
         }
     }
 
+    flavorDimensions "CiC-App"
+    productFlavors {
+        dev {
+            dimension "CiC-App"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+        pre {
+            dimension "CiC-App"
+            applicationIdSuffix ".pre"
+            versionNameSuffix "-pre"
+        }
+        prod {
+            dimension "CiC-App"
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
