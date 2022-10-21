@@ -8,6 +8,7 @@ import 'package:cicgreenloan/utils/helper/custom_success_screen.dart';
 import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/card_mma_invest_model.dart';
@@ -139,11 +140,6 @@ class WalletController extends GetxController {
         'amount': onConvertToDouble(depositAmount.value),
       },
     ).then((response) {
-      // customRouterSnackbar(
-      //     title: 'Done',
-      //     description: '${response['message']}',
-      //     type: SnackType.done);
-      //  navigator here
       Future.delayed(
         const Duration(seconds: 1),
         () {
@@ -156,10 +152,7 @@ class WalletController extends GetxController {
                   description: 'The deposit request is submitted',
                   buttonTitle: 'Done',
                   onPressedButton: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    context.go('/wallet');
                   },
                 );
               },
@@ -168,12 +161,6 @@ class WalletController extends GetxController {
         },
       );
 
-      // Future.delayed(const Duration(seconds: 2), () {
-      //   // context.go("/wallet");
-      //   Navigator.pop(context);
-      //   Navigator.pop(context);
-      //   Navigator.pop(context);
-      // });
       depositAmount.value = '';
       isToDeposit(false);
     }).onError((ErrorModel error, stackTrace) {

@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/modules/wallet/screen/mma_deposit_card.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -240,26 +239,17 @@ class _WalletScreenState extends State<WalletScreen>
                                       _operationButton(
                                         context,
                                         ontap: () {
-                                          // FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                          //     'MMA Deposit');
                                           // Navigator.push(
                                           //   context,
                                           //   MaterialPageRoute(
                                           //     builder: (context) =>
-                                          //         const DepositScreen(),
+                                          //         const MMADepositCard(
+                                          //       fromModule: 'Deposit',
+                                          //     ),
                                           //   ),
                                           // );
-                                          // context.go(
-                                          //     '/wallet/deposit-card?fromModule=Deposit');
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const MMADepositCard(
-                                                fromModule: 'Deposit',
-                                              ),
-                                            ),
-                                          );
+                                          context.push(
+                                              '/wallet/deposit-card?fromModule=Deposit');
                                         },
                                         text: 'Deposit',
                                         img: 'assets/images/mma_wallet.svg',
@@ -267,18 +257,7 @@ class _WalletScreenState extends State<WalletScreen>
                                       _operationButton(
                                         context,
                                         ontap: () {
-                                          // FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                          //     'MMA subscribe');
                                           context.push('/wallet/mma-transfer');
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) =>
-                                          //         const MMADepositCard(
-                                          //       fromModule: 'Transfer',
-                                          //     ),
-                                          //   ),
-                                          // );
                                         },
                                         text: 'Transfer',
                                         img: 'assets/images/transfer.svg',

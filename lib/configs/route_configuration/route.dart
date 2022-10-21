@@ -56,6 +56,8 @@ import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.
 import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
+import '../../modules/wallet/screen/deposit_from_screen.dart';
+import '../../modules/wallet/screen/deposit_mmaccount_screen.dart';
 import '../../modules/wallet/screen/deposit_to_screen.dart';
 import '../../modules/wallet/screen/mma_deposit_card.dart';
 import '../../modules/wallet/screen/mma_invest_fif_screen.dart';
@@ -843,15 +845,22 @@ final router = GoRouter(
                     fromModule: state.queryParams['fromModule'].toString()),
                 routes: [
                   GoRoute(
-                    name: 'AccountTransfer',
-                    path: 'account-transfer',
+                    name: 'DepositToScreen',
+                    path: 'deposit-to-screen',
                     builder: (_, state) => const DepositToScreen(),
+                    routes: [
+                      GoRoute(
+                        name: 'MMAccountDepositScreen',
+                        path: 'mmaccount-deposit-screen',
+                        builder: (_, state) => const MMAcountDepositScreen(),
+                      ),
+                    ],
                   ),
-                  // GoRoute(
-                  //   name: 'DepositFrom',
-                  //   path: 'account-transfer',
-                  //   builder: (_, state) => const DepositFromScreen(),
-                  // )
+                  GoRoute(
+                    name: 'RecieverMmAccount',
+                    path: 'reciever-mm-account',
+                    builder: (_, state) => const DepositFromScreen(),
+                  ),
                 ],
               ),
               GoRoute(
@@ -866,13 +875,6 @@ final router = GoRouter(
                       isEquityTrue: true,
                     ),
                     routes: [
-                      // GoRoute(
-                      //   path: 'ut-subscription/:tabName',
-                      //   name: 'UtSubscription',
-                      //   builder: (context, state) => SubscribeBonusScreen(
-                      //     tabName: state.params['tabName'],
-                      //   ),
-                      // ),
                       GoRoute(
                         path: 'ut-subscription/:tabName',
                         builder: (BuildContext context, GoRouterState state) {
@@ -909,20 +911,6 @@ final router = GoRouter(
                       return CashOutScreen(tabName: tabName);
                     },
                   ),
-                  // GoRoute(
-                  //     path: 'mma-deposite-card',
-                  //     name: 'MMAcountTransfer',
-                  //     builder: (context, state) => const MmAccountTransfer(),
-                  //     routes: [
-                  //       GoRoute(
-                  //         path: 'mma-cash-out/:tabName',
-                  //         builder: (BuildContext context, GoRouterState state) {
-                  //           final String tabName = state.params['tabName']!;
-
-                  //           return CashOutScreen(tabName: tabName);
-                  //         },
-                  //       ),
-                  //     ],),
                 ],
               ),
             ],

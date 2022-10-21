@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/wallet/controller/wallet_controller.dart';
-import 'package:cicgreenloan/modules/wallet/screen/deposit_to_screen.dart';
 import 'package:cicgreenloan/modules/wallet/screen/transfer_to_screen.dart';
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
 
 import '../../../utils/helper/custom_appbar.dart';
 import '../../../widgets/wallets/custom_mma_card.dart';
-import 'deposit_from_screen.dart';
 
 class MMADepositCard extends StatelessWidget {
   final String fromModule;
@@ -53,23 +51,13 @@ class MMADepositCard extends StatelessWidget {
                             onTap: () async {
                               if (e.title ==
                                   contWallet.mmacardlist.elementAt(1).title) {
-                                // context.go('wallet/deposit-card?fromModule=')
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DepositFromScreen(),
-                                  ),
-                                );
+                                context.push(
+                                    '/wallet/deposit-card/reciever-mm-account');
                               } else if (e.title ==
                                   contWallet.mmacardlist.elementAt(0).title) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DepositToScreen(),
-                                  ),
-                                );
+                                debugPrint("account transfer");
+                                context.push(
+                                    '/wallet/deposit-card/deposit-to-screen');
                               } else {
                                 onShowBottomSheet(
                                   isHeight:

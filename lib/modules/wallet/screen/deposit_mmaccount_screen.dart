@@ -197,20 +197,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                               await _walletController
                                   .onToDepositBankOrWallet(context);
                             },
-                          )
-                          // _walletController.isToDeposit.value == true
-                          //     ? const CustomLoadingButton()
-                          //     : CustomButton(
-                          //         title: 'Submit',
-                          //         isDisable: false,
-                          //         isOutline: false,
-                          //         onPressed: () {
-                          //           _walletController
-                          //               .onToDepositBankOrWallet(context);
-                          //           // Navigator.pop(context);
-                          //         },
-                          //       ),
-                          ),
+                          )),
                     ],
                   ),
                 ),

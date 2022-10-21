@@ -1,9 +1,9 @@
 import 'package:cicgreenloan/modules/wallet/screen/custom_keyboard.dart';
-import 'package:cicgreenloan/modules/wallet/screen/deposit_mmaccount_screen.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
@@ -101,12 +101,8 @@ class _DepositToScreenState extends State<DepositToScreen> {
                 title: 'Next',
                 onPressed: _validateButton()
                     ? () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MMAcountDepositScreen(),
-                          ),
-                        );
+                        context.push(
+                            '/wallet/deposit-card/deposit-to-screen/mmaccount-deposit-screen');
                       }
                     : null,
                 isDisable: !_validateButton(),
