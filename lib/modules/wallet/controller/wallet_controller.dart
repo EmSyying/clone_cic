@@ -216,7 +216,6 @@ class WalletController extends GetxController {
   TextEditingController qrRecievingPhone = TextEditingController();
   TextEditingController qrRecievingAmount = TextEditingController();
   TextEditingController remarkTextController = TextEditingController();
-  final remarkText = ''.obs;
 
   void onScanTransfer(String result) {
     try {
@@ -235,7 +234,6 @@ class WalletController extends GetxController {
     remarkTextController.text = '';
     validateMessage('');
     userFound(false);
-    remarkText('');
   }
 
   Future<void> transferToOtherMMA(BuildContext context) async {
@@ -247,7 +245,8 @@ class WalletController extends GetxController {
       body: {
         'sender': walletAmount.value.wallet!.accountNumber ?? '',
         'receiver': qrRecievingPhone.text,
-        'amount': qrRecievingAmount.text.clean()
+        'amount': qrRecievingAmount.text.clean(),
+        'description': remarkTextController.value.text
       },
     ).then((response) {
       debugPrint("SUCCESS$response");

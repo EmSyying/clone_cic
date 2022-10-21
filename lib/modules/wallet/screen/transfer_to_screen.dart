@@ -189,7 +189,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
                               //     RegExp(r"[0-9.,]")),
                               DigitFormatWithDecimal(),
                               FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\d+\.?\d{0,2}')), //allow 2 decimal
+                                  RegExp(r'^\d+\.?\d{0,2}')), //all ow 2 decimal
                               // FilteringTextInputFormatter.allow(
                               //     RegExp(r"[0-9.]")),
                               // TextInputFormatter.withFunction(

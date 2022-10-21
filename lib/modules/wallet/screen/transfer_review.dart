@@ -155,7 +155,7 @@ class TransferReview extends StatelessWidget {
               children: [
                 SlideButton(
                   callback: () async {
-                    walletController.transferToOtherMMA(context);
+                    await walletController.transferToOtherMMA(context);
                   },
                 ),
                 Padding(
