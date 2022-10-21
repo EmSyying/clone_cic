@@ -61,6 +61,8 @@ import '../../modules/wallet/screen/deposit_mmaccount_screen.dart';
 import '../../modules/wallet/screen/deposit_to_screen.dart';
 import '../../modules/wallet/screen/mma_deposit_card.dart';
 import '../../modules/wallet/screen/mma_invest_fif_screen.dart';
+import '../../modules/wallet/screen/transfer_review.dart';
+import '../../modules/wallet/screen/transfer_to_screen.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
 
@@ -831,7 +833,7 @@ final router = GoRouter(
             ],
           ),
 
-          //end route privilege=========
+          //end route privilege
 
           ///wallet
           GoRoute(
@@ -894,8 +896,23 @@ final router = GoRouter(
                   ),
                 ],
               ),
+              // Transfer to other MM Account
+              GoRoute(
+                  path: 'transfer-to-other-mmacount',
+                  name: 'TransferToMMA',
+                  builder: (context, state) => TransferToMMA(
+                        receiverAccount: state.queryParams['receiverAccount'],
+                        receiverAmount: state.queryParams['receiverAmount'],
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'review-transfer',
+                      name: 'ReviewTransfer',
+                      builder: (context, state) => const TransferReview(),
+                    ),
+                  ]),
 
-              ///====MMA Transfer====
+              //MMA Cash out
               GoRoute(
                 path: 'mma-transfer',
                 name: 'MMADepositCard',

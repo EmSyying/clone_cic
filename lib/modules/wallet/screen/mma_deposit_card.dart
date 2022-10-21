@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/wallet/controller/wallet_controller.dart';
-import 'package:cicgreenloan/modules/wallet/screen/transfer_to_screen.dart';
 import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,25 +89,11 @@ class MMADepositCard extends StatelessWidget {
                                   contWallet.mmAccountTransferList
                                       .elementAt(0)
                                       .title) {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) =>
-                                //         const MmAccountTransfer(),
-                                //   ),
-                                // );
-
                                 context.push(
                                     '/wallet/mma-transfer/mma-cash-out/new-cash-oute');
-                                // context.push(
-                                //     '/wallet/mma-transfer/mma-deposite-card/mma-cash-out/new-cash-oute');
                               } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const TransferToMMA(),
-                                  ),
-                                );
+                                context.push(
+                                    '/wallet/transfer-to-other-mmacount?isFromLink=false');
                               }
                             },
                             title: e.title,

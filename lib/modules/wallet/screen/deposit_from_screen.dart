@@ -253,9 +253,10 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
       final directory = await getTemporaryDirectory();
       final file = File('${directory.path}/transferqr.png');
       await file.writeAsBytes(pngBytes);
+
       Share.shareFiles(['${directory.path}/transferqr.png'],
           text:
-              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment:',
+              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: https://cicapp.page.link/wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     } catch (e) {
       debugPrint("$e");

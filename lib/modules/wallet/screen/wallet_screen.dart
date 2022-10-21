@@ -239,15 +239,6 @@ class _WalletScreenState extends State<WalletScreen>
                                       _operationButton(
                                         context,
                                         ontap: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) =>
-                                          //         const MMADepositCard(
-                                          //       fromModule: 'Deposit',
-                                          //     ),
-                                          //   ),
-                                          // );
                                           context.push(
                                               '/wallet/deposit-card?fromModule=Deposit');
                                         },
@@ -265,13 +256,6 @@ class _WalletScreenState extends State<WalletScreen>
                                       _operationButton(
                                         context,
                                         ontap: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) =>
-                                          //         const MMAInvestFIFScreen(),
-                                          //   ),
-                                          // );
                                           context.push('/wallet/invest-fif');
                                           // show(context);
                                         },

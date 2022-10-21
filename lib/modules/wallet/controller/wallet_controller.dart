@@ -262,10 +262,7 @@ class WalletController extends GetxController {
                   description: 'The Deposit is Submit successfully.',
                   buttonTitle: 'Done',
                   onPressedButton: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    context.go('/wallet');
                     fetchWalletAmount();
                   },
                 );

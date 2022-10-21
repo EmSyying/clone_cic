@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/modules/wallet/screen/transfer_review.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/helper/digit_decimal_formarter.dart';
@@ -16,7 +16,14 @@ import '../../qr_code/qr_code.dart';
 import '../controller/wallet_controller.dart';
 
 class TransferToMMA extends StatefulWidget {
-  const TransferToMMA({Key? key}) : super(key: key);
+  final String? receiverAccount;
+  final String? receiverAmount;
+
+  const TransferToMMA({
+    Key? key,
+    this.receiverAccount,
+    this.receiverAmount,
+  }) : super(key: key);
 
   @override
   State<TransferToMMA> createState() => _TransferToMMAState();
@@ -35,6 +42,13 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
   @override
   void initState() {
+    if (widget.receiverAccount != null) {
+      _walletController.fetchWalletAmount();
+      _walletController.qrRecievingPhone.text = widget.receiverAccount!;
+      _walletController.qrRecievingAmount.text = widget.receiverAmount!;
+
+      _walletController.checkValidateAccount();
+    }
     _phoneNumberFocus.addListener(() {
       if (!_phoneNumberFocus.hasFocus) {
         _walletController.checkValidateAccount();
@@ -268,11 +282,8 @@ class _TransferToMMAState extends State<TransferToMMA> {
                 onPressed: () {
                   _walletController.checkValidateAccount().then((value) {
                     if (_walletController.userFound.value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const TransferReview(),
-                          ));
+                      context.push(
+                          '/wallet/transfer-to-other-mmacount/review-transfer');
                     }
                   });
                 },
