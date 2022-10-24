@@ -563,7 +563,7 @@ class _MyAppState extends State<MyApp> {
             onPointerDown: (tapdown) {
               // debugPrint(
               //     'Is Enable Pin Code: ${controller.cicAppSetting.enablePinCode}');
-              FocusScope.of(context).requestFocus(FocusNode());
+              // FocusScope.of(context).requestFocus(FocusNode());
               LocalData.showAppTou('appTour').then((value) {});
 
               if (controller.cicAppSetting.enablePinCode!) {
