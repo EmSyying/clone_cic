@@ -123,12 +123,15 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                                 // errorCorrectLevel: QrErrorCorrectLevel.H,
                               )),
                           if (_walletController.recievingAmount.value.isEmpty)
-                            GestureDetector(
-                              onTap: () {
+                            _amountButton(
+                              textStyle,
+                              ontap: () {
                                 _inputAmount(context);
                               },
-                              child: _setAmountButton(textStyle),
+                              text: 'Set Amount',
+                              color: AppColor.mainColor,
                             ),
+
                           _walletController.recievingAmount.value.isNotEmpty
                               ? _hasAmount(textStyle)
                               : const SizedBox.shrink(),
@@ -408,62 +411,84 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text:
-                      '${_walletController.recievingAmount.value.toCurrencyAmount()} ',
-                  style: textStyle.copyWith(
-                    fontSize: 18,
-                    color: AppColor.mainColor,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  children: [
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          debugPrint('Hello');
-                        },
-                      text: 'USD',
-                      style: textStyle.copyWith(
-                          color: AppColor.mainColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14),
-                    )
-                  ],
-                ),
+          child: RichText(
+            text: TextSpan(
+              text:
+                  '${_walletController.recievingAmount.value.toCurrencyAmount()} ',
+              style: textStyle.copyWith(
+                fontSize: 18,
+                color: AppColor.mainColor,
+                fontWeight: FontWeight.w700,
               ),
-              IconButton(
-                onPressed: () {
-                  _inputAmount(context);
-                },
-                icon: SvgPicture.asset(
-                  'assets/images/svgfile/editedIcon.svg',
-                  color: Colors.black,
-                ),
-              )
-            ],
+              children: [
+                TextSpan(
+                  text: 'USD',
+                  style: textStyle.copyWith(
+                      color: AppColor.mainColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12),
+                )
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            _walletController.recievingAmount('');
-            _walletController.amountController.text = '';
-            _walletController.transferModel.value =
-                _walletController.transferModel.value.copyWith(amount: '');
-            _walletController.update();
-          },
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
           child: Text(
-            'Remove',
-            style: textStyle.copyWith(
-                color: AppColor.primaryColor,
-                fontWeight: FontWeight.w500,
-                fontSize: 14),
+            _walletController.walletAmount.value.invester!.investerName!,
+            style: textStyle.copyWith(fontSize: 14),
           ),
-        )
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _amountButton(
+              textStyle,
+              ontap: () {
+                _walletController.recievingAmount('');
+                _walletController.amountController.text = '';
+                _walletController.transferModel.value =
+                    _walletController.transferModel.value.copyWith(amount: '');
+                _walletController.update();
+              },
+              text: 'Remove',
+              color: AppColor.primaryColor,
+            ),
+            const SizedBox(width: 16),
+            _amountButton(
+              textStyle,
+              ontap: () {
+                _inputAmount(context);
+              },
+              text: 'Reset Amount',
+              color: AppColor.mainColor,
+            ),
+          ],
+        ),
       ],
+    );
+  }
+
+  GestureDetector _amountButton(TextStyle textStyle,
+      {GestureTapCallback? ontap, String? text, Color? color}) {
+    return GestureDetector(
+      onTap: ontap
+      // _inputAmount(context);
+      ,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        width: 134,
+        decoration: BoxDecoration(
+            color: color?.withOpacity(0.14),
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: Text(
+            text ?? '',
+            style: textStyle.copyWith(
+                color: color, fontWeight: FontWeight.w500, fontSize: 14),
+          ),
+        ),
+      ),
     );
   }
 
