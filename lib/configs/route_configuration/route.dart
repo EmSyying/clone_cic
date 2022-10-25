@@ -47,6 +47,7 @@ import '../../modules/privilege_program/screen/privilege/privilege_payment.dart'
 import '../../modules/privilege_program/screen/privilege/privilege_screen.dart';
 import '../../modules/privilege_program/screen/privilege/search_screen.dart';
 import '../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
+import '../../modules/qr_code/qr_code.dart';
 import '../../modules/report_module/screens/cic_app_manual.dart';
 import '../../modules/report_module/screens/report.dart';
 import '../../modules/report_module/screens/view_report.dart';
@@ -75,6 +76,39 @@ final router = GoRouter(
         name: 'HomePage',
         builder: (context, state) => const PaymentSchedule(),
         routes: [
+          ///Qr Screen
+          GoRoute(
+            path: 'qr-screen',
+            name: 'QrScreen',
+            builder: (_, state) {
+              Map<String, String> qparam = state.queryParams;
+              return QrCodeScreen(
+                pageName: qparam['pageName'],
+              );
+            },
+            routes: [
+              // GoRoute(
+              //   path: 'event',
+              //   name: 'QrEvent',
+              //   builder: (_, __) => const EventScreen(),
+              // ),
+              GoRoute(
+                path: 'transfer-to-other-mmacount',
+                name: 'QrTransferToMMA',
+                builder: (_, state) => TransferToMMA(
+                  receiverAccount: state.queryParams['receiverAccount'],
+                  receiverAmount: state.queryParams['receiverAmount'],
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'review-transfer',
+                    name: 'QrReviewTransfer',
+                    builder: (_, __) => const TransferReview(),
+                  ),
+                ],
+              ),
+            ],
+          ),
           GoRoute(
             path: 'investment',
             name: 'Investment',

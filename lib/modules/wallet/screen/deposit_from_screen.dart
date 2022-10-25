@@ -492,33 +492,6 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     );
   }
 
-  Container _setAmountButton(TextStyle textStyle) {
-    return Container(
-      width: 200,
-      padding: const EdgeInsets.symmetric(
-        vertical: 12,
-      ),
-      margin: const EdgeInsets.only(
-        top: 40,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColor.mainColor,
-          width: 1.5,
-        ),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        'Set Amount',
-        style: textStyle.copyWith(
-          color: AppColor.mainColor,
-        ),
-      ),
-    );
-  }
-
   Widget _buildButton(
     textStyle, {
     String? text,

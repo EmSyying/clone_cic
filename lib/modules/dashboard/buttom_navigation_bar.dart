@@ -302,7 +302,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
             body: [
               // Dashboard(),
               const MainDashboard(),
-
               const QrCodeScreen(),
               // LearningHome(),
               // SearchScreen(),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -132,19 +133,41 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                       child: MobileScanner(
                                         allowDuplicates: false,
                                         controller: cameraController,
-                                        onDetect: (barcode, args) {
+                                        onDetect: (barcode, _) {
                                           setState(() {
                                             resultQR = barcode.rawValue;
 
+                                            ///Scan from Wallet Transfer Screen
                                             if (resultQR!.contains('WALLET') &&
                                                 widget.pageName == 'transfer') {
-                                              cameraController
+                                              cameraController //force stop camera when got key wallet
                                                   .stop()
                                                   .then((value) {
                                                 _walletController
                                                     .onScanTransfer(
                                                         resultQR ?? '');
                                                 Navigator.pop(context);
+                                              });
+                                            }
+
+                                            ///Scan from Dashboard
+                                            if (resultQR!.contains('WALLET') &&
+                                                widget.pageName == null) {
+                                              cameraController //force stop camera when got key wallet
+                                                  .stop()
+                                                  .then((value) {
+                                                _walletController
+                                                    .onScanTransfer(
+                                                        resultQR ?? '');
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //       builder: (context) =>
+                                                //           const TransferToMMA(),
+                                                //     ));
+
+                                                context.push(
+                                                    '/transfer-to-other-mmacount');
                                               });
                                             }
 
@@ -157,8 +180,6 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                               isInvalid = false;
                                             }
                                           });
-
-                                          // debugPrint('Barcode found : $rawVal');
                                         },
                                       ),
                                     ),
