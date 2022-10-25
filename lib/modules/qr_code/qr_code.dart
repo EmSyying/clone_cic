@@ -167,7 +167,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                 //     ));
 
                                                 context.push(
-                                                    '/transfer-to-other-mmacount');
+                                                    '/qr-screen/transfer-to-other-mmacount');
                                               });
                                             }
 

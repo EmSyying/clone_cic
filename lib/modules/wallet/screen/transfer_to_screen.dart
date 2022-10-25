@@ -42,7 +42,8 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
   @override
   void initState() {
-    if (widget.receiverAccount != null) {
+    _walletController.fetchWalletAmount();
+    if (widget.receiverAccount != null && widget.receiverAccount!.isNotEmpty) {
       _walletController.fetchWalletAmount();
       _walletController.qrRecievingPhone.text = widget.receiverAccount!;
       _walletController.qrRecievingAmount.text = widget.receiverAmount!;
@@ -71,7 +72,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
             Navigator.pop(context);
             debugPrint('cashout======');
           }),
-      body: Obx(
+      body:  Obx(
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -208,7 +209,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
                               FilteringTextInputFormatter.allow(
                                   RegExp(r'^\d+\.?\d{0,2}')), //all ow 2 decimal
                               // FilteringTextInputFormatter.allow(
-                               //     RegExp(r"[0-9.]")),
+                              //     RegExp(r"[0-9.]")),
                               // TextInputFormatter.withFunction(
                               //     (oldValue, newValue) {
                               //   double? number = double.tryParse(newValue.text);
