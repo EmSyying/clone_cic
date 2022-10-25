@@ -247,31 +247,70 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                               GestureDetector(
                                 onTap: () async {
                                   // await LocalData.storeAppTou('appTour', true);
-                                  CiCApp.showOverlays(
-                                    context: context,
-                                    key: (_) => _guidkey.investmentKey[_].key!,
-                                    objectSettingBuilder: (_) => ObjectSetting(
-                                        edgeInsets: _ == 0 || _ == 4
-                                            ? const EdgeInsets.symmetric(
-                                                horizontal: 10)
-                                            : const EdgeInsets.all(10),
-                                        radius: _ == 2
-                                            ? BorderRadius.circular(50)
-                                            : null,
-                                        paddingSize: _ == 0 || _ == 4
-                                            ? const Size(0, -5)
-                                            : _ == 3
-                                                ? const Size(0, -10)
-                                                : null),
-                                    titleBuilder: (_) =>
-                                        _guidkey.investmentKey[_].title ?? '',
-                                    descriptionBuilder: (_) =>
-                                        _guidkey.investmentKey[_].description ??
-                                        '',
-                                    itemCount: _guidkey.investmentKey.length,
-                                    allowSkip: false,
-                                    overlaySetting: OverlaySetting(),
-                                  );
+                                  priceController.tabController.index == 0
+                                      ? CiCApp.showOverlays(
+                                          context: context,
+                                          key: (_) =>
+                                              _guidkey.investmentKey[_].key!,
+                                          objectSettingBuilder: (_) =>
+                                              ObjectSetting(
+                                                  edgeInsets: _ == 0 || _ == 4
+                                                      ? const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 10)
+                                                      : const EdgeInsets.all(
+                                                          10),
+                                                  radius: _ == 2
+                                                      ? BorderRadius.circular(
+                                                          50)
+                                                      : null,
+                                                  paddingSize: _ == 0 || _ == 4
+                                                      ? const Size(0, -5)
+                                                      : _ == 3
+                                                          ? const Size(0, -10)
+                                                          : null),
+                                          titleBuilder: (_) =>
+                                              _guidkey.investmentKey[_].title ??
+                                              '',
+                                          descriptionBuilder: (_) =>
+                                              _guidkey.investmentKey[_]
+                                                  .description ??
+                                              '',
+                                          itemCount:
+                                              _guidkey.investmentKey.length,
+                                          allowSkip: false,
+                                          overlaySetting: OverlaySetting(),
+                                        )
+                                      : CiCApp.showOverlays(
+                                          context: context,
+                                          key: (_) =>
+                                              _guidkey.investmentFiF[_].key!,
+                                          objectSettingBuilder: (_) =>
+                                              ObjectSetting(
+                                                  edgeInsets: _ == 0
+                                                      ? const EdgeInsets.only(
+                                                          top: 15)
+                                                      : null,
+                                                  radius:
+                                                      _ == 0
+                                                          ? BorderRadius
+                                                              .circular(12)
+                                                          : null,
+                                                  paddingSize: _ == 0
+                                                      ? const Size(-39, -29)
+                                                      : null),
+                                          titleBuilder: (_) =>
+                                              _guidkey.investmentFiF[_].title ??
+                                              '',
+                                          descriptionBuilder: (_) =>
+                                              _guidkey.investmentFiF[_]
+                                                  .description ??
+                                              '',
+                                          itemCount:
+                                              _guidkey.investmentFiF.length,
+                                          allowSkip: false,
+                                          overlaySetting: OverlaySetting(),
+                                        );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 10.0),

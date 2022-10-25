@@ -15,6 +15,7 @@ import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
 import '../../../widgets/investments/custom_shimmer_fif_saving_card.dart';
 import '../../../widgets/investments/custom_total_investment_card.dart';
+import '../../guilder/guider_controller.dart';
 import '../model/first_date/first_date.dart';
 
 class CiCFixedIncome extends StatefulWidget {
@@ -28,6 +29,7 @@ class CiCFixedIncome extends StatefulWidget {
 
 class _CiCFixedIncomeState extends State<CiCFixedIncome> {
   final refreshKey = GlobalKey<RefreshIndicatorState>();
+  final contro = Get.put(CiCGuidController());
 
   @override
   void initState() {
@@ -175,6 +177,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                                         .totalInvestment ==
                                     '0'
                             ? TotalInvestmentCard(
+                                key: contro.investmentFiF[0].key = GlobalKey(),
                                 amount: InjectionHelper
                                             .investmentController
                                             .investmentModel
@@ -195,6 +198,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
 
                             ///BDBDBD
                             : TotalInvestmentCard(
+                                key: contro.investmentFiF[0].key = GlobalKey(),
                                 chartData: InjectionHelper
                                     .investmentController.fifChartList,
                                 amount: InjectionHelper.investmentController
@@ -329,6 +333,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
             const SizedBox(width: 20),
             Expanded(
               child: CustomButton(
+                key: contro.investmentFiF[1].key = GlobalKey(),
                 isDisable: false,
                 isOutline: false,
                 title:

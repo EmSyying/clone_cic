@@ -2,57 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CiCGuidController extends GetxController {
+  List<GuidelineModel> investmentFiF = <GuidelineModel>[
+    GuidelineModel(
+        title: 'Total Investment in USD',
+        description:
+            'Here vou can see vour current total CiC Fixed Income Fund investment'),
+    GuidelineModel(
+        title: 'Invest More',
+        description: 'Create a new Fixed Income Fund application'),
+  ];
   List<GuidelineModel> investmentKey = <GuidelineModel>[
     GuidelineModel(
-        title: 'CiC Equity Fund',
-        description: 'This tab contains UT Information and UT Evolution'),
+        title: 'View CiC Equity Fund',
+        description:
+            'Quickly check your CiC equity fund by just switching the tab'),
     GuidelineModel(
-        title: 'UT Information', description: 'Here are information about UT.'),
+        title: 'UT Information',
+        description:
+            'View the current UT price, price evolution, and your total UT'),
     GuidelineModel(
         title: 'Certificate',
-        description:
-            'Here you can view and download your digital Certificate.'),
+        description: 'View or download your investor certificate'),
     GuidelineModel(
         title: 'UT Price Evolution',
-        description: 'Here are Evolution of UT price from previous year.'),
+        description:
+            'See UT price evolution, filter quarterly, yearly, or all time'),
     GuidelineModel(
         title: 'CiC Fixed Income Fund',
         description:
-            'Here is Fixed Income investment plateform where you can invest up to 50M\$'),
+            'Quickly check your CiC Fixed Income Fund by just switching the tab'),
   ];
 
   List<GuidelineModel> utTrading = <GuidelineModel>[
     GuidelineModel(
       title: 'Trading Status',
-      description: 'Here is Trading Status indicator.',
+      description: 'Letting you know whether trading is open or close',
     ),
     GuidelineModel(
       title: 'Trading Date and Time',
-      description: 'Here is specific datetime for our Trading Hour.',
+      description: 'Display trading date and time',
     ),
     GuidelineModel(
       title: 'Minimum Price',
-      description: 'Here is minimum price of UT during Trading Hour.',
+      description:
+          'Display the recommended minimum UT trading price on the trading date',
     ),
     GuidelineModel(
       title: 'Base Price',
-      description: 'Here is base price of UT during Trading Hour.',
+      description: 'Display the current UT price on trading date',
     ),
     GuidelineModel(
       title: 'Maximum Price',
-      description: 'Here is max price of UT during Trading Hour.',
+      description:
+          'Display the recommended maximum UT trading price on the trading date',
     ),
     GuidelineModel(
       title: 'View Last Trading',
-      description: 'Here is you can view all your last trading record.',
+      description:
+          'View trading related information and last trading information',
     ),
     GuidelineModel(
       title: 'Buy In',
-      description: 'Click this button then it take you to UT buy screen.',
+      description: 'Click this button then it take you to UT buy screen',
     ),
     GuidelineModel(
       title: 'Sell Out',
-      description: 'Click this button then it take you to UT sell screen.',
+      description: 'Click this button then it take you to UT sell screen',
     ),
   ];
 }
