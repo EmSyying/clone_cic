@@ -880,7 +880,7 @@ class CiCApp {
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            if (allowSkip || itemCount > 1)
+                            if (allowSkip && itemCount > 1)
                               GestureDetector(
                                 onTap: () {
                                   overlayEntry!.remove();

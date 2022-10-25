@@ -129,9 +129,9 @@ class _MainDashboardState extends State<MainDashboard> {
   GlobalKey? actionKey;
 
   bool isFirstLaunch = true;
-  GlobalKey key1 = GlobalKey();
 
-  Future<void> showDashboardTour({bool allowSkip = true}) async {
+  Future<void> _showDashboardTour({bool allowSkip = true}) async {
+    debugPrint('allow skip = $allowSkip');
     await CiCApp.showOverlays(
       context: context,
       allowSkip: allowSkip,
@@ -183,21 +183,21 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   //
-  Future<void> getUser() async {
+  Future<void> _getUser() async {
     await cusController.getUser();
     await fifCon.onHideFeatureByUser(cusController.customer.value.id);
   }
 
   @override
   void initState() {
-    getUser();
+    _getUser();
 
     _settingCon.fetchAppSetting().then((value) async {
       bool isFirstLaunch = await LocalData.showAppTou('appTour');
-      if (isFirstLaunch) {
+      if (!isFirstLaunch) {
         Future.delayed(const Duration(seconds: 1), () {
-          showDashboardTour(allowSkip: false).then((value) async {
-            await LocalData.storeAppTou('appTour', false);
+          _showDashboardTour(allowSkip: false).then((value) async {
+            await LocalData.storeAppTou('appTour', true);
           });
         });
       }
@@ -339,10 +339,6 @@ class _MainDashboardState extends State<MainDashboard> {
 
           // print('Device Token: $_deviceToken');
         }));
-    Future.delayed(Duration.zero).then((_) => {
-          // _getPaymentSchedule = _con.fetchPayment(),
-          // _isLoading = false,
-        });
 
     // storeDeviceToken();
     if (!kIsWeb && Platform.isAndroid) {
@@ -547,7 +543,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     GestureDetector(
                       onTap: () async {
                         // await LocalData.storeAppTou('appTour', true);
-                        showDashboardTour();
+                        _showDashboardTour();
                       },
                       child: SvgPicture.asset('assets/images/demo.svg'),
                     ),
@@ -615,9 +611,6 @@ class _MainDashboardState extends State<MainDashboard> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ShowAppTour(key: myInvestmentKey, child: Text('Hello World')),
-            // ShowCaseWidget(builder: builder);
-            // Showcase(key: key, child: child, description: description);
             Obx(() => !_settingCon.isLoading.value &&
                     _settingCon.slideList!.isNotEmpty
                 ? Padding(

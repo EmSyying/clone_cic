@@ -72,7 +72,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
             Navigator.pop(context);
             debugPrint('cashout======');
           }),
-      body:  Obx(
+      body: Obx(
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
