@@ -3,6 +3,7 @@ import 'package:cicgreenloan/modules/privilege_program/controller/privilege_cont
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../Utils/helper/color.dart';
@@ -136,7 +137,8 @@ class PaymentDoneScreen extends StatelessWidget {
               minimum: const EdgeInsets.all(20),
               child: CustomButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
+                  context.push('/privilege/all-store');
                 },
                 title: 'Done',
                 isDisable: false,

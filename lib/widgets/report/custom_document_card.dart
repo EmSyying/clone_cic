@@ -27,7 +27,7 @@ class CustomDocumentCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             alignment: Alignment.center,
-            child: SvgPicture.network(
+            child: SvgPicture.asset(
               documentationModel!.cover ?? '',
               color: documentationModel!.color != null &&
                       documentationModel!.color!.isNotEmpty
@@ -35,40 +35,38 @@ class CustomDocumentCard extends StatelessWidget {
                   : null,
             ),
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    documentationModel!.title ?? '',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(fontWeight: FontWeight.w500, fontSize: 16),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  documentationModel!.title ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(
-                  height: 5,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  documentationModel!.publishedAt ?? '',
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Colors.black54,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    documentationModel!.publishedAt ?? '',
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: Colors.black54,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ],
       ),

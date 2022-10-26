@@ -42,6 +42,7 @@ import '../../modules/investment_module/screen/renewal_screen.dart';
 import '../../modules/investment_module/screen/saving_detail_screen.dart';
 import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/notification_modules/screens/notification.dart';
+import '../../modules/privilege_program/screen/privilege/payment_done_screen.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_filters.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_payment.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_screen.dart';
@@ -50,6 +51,8 @@ import '../../modules/privilege_program/screen/privilege_detail/privilege_detail
 import '../../modules/qr_code/qr_code.dart';
 import '../../modules/report_module/screens/cic_app_manual.dart';
 import '../../modules/report_module/screens/report.dart';
+import '../../modules/report_module/screens/report_filed.dart';
+import '../../modules/report_module/screens/report_screen.dart';
 import '../../modules/report_module/screens/view_report.dart';
 import '../../modules/setting_modules/screens/settings_screen.dart';
 import '../../modules/setting_modules/screens/sub_setting_screen/change_password.dart';
@@ -864,6 +867,11 @@ final router = GoRouter(
                 path: 'privilege-payment',
                 builder: (context, state) => const PrivilegePayment(),
               ),
+              GoRoute(
+                name: 'PaymentDoneScreen',
+                path: 'payment-done-screen',
+                builder: (context, state) => const PaymentDoneScreen(),
+              ),
             ],
           ),
 
@@ -963,6 +971,21 @@ final router = GoRouter(
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          //==Report====
+          GoRoute(
+            path: 'report_screen',
+            name: 'ReportScreen',
+            builder: (context, state) => const ReportScreen(),
+            routes: [
+              GoRoute(
+                path: 'report-filed',
+                name: 'ReportFiledCategory',
+                builder: (context, state) => FileCategoriesReport(
+                  tabLabel: state.queryParams['tabLabel'],
+                ),
               ),
             ],
           ),

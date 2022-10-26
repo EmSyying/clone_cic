@@ -5,11 +5,40 @@ import 'package:global_configuration/global_configuration.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../models/catigories_card_report_model.dart';
+
 class DocumentationController extends GetxController {
   final documentationModel = DocumentationModel();
+  //Categories report Model======
   List<DocumentationModel> documentationList = <DocumentationModel>[];
   final isLoading = false.obs;
   String? tokenKey;
+  final List<CategoriesCardReportModel> listCategoriesReport = [
+    CategoriesCardReportModel(
+        title: 'Investor',
+        icons: 'assets/images/wallet/navigation_icons.svg',
+        item: '16'),
+    CategoriesCardReportModel(
+        title: 'Whitepaper',
+        icons: 'assets/images/wallet/navigation_icons.svg',
+        item: '9'),
+    CategoriesCardReportModel(
+        title: 'Publications',
+        icons: 'assets/images/wallet/navigation_icons.svg',
+        item: '8'),
+    CategoriesCardReportModel(
+        title: 'Newsletter',
+        icons: 'assets/images/wallet/navigation_icons.svg',
+        item: '5'),
+    CategoriesCardReportModel(
+        title: 'Tax & Legal',
+        icons: 'assets/images/wallet/navigation_icons.svg',
+        item: '18'),
+    CategoriesCardReportModel(
+        title: 'Others',
+        icons: 'assets/images/wallet/navigation_icons.svg',
+        item: '0'),
+  ].obs;
 
   Future<List<DocumentationModel>> getDocumentList(String docType) async {
     tokenKey = await LocalData.getCurrentUser();

@@ -44,7 +44,7 @@ class CustomCardInvestFIF extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.25),
+            color: Colors.black.withOpacity(0.2),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
           child: Column(
