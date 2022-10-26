@@ -257,6 +257,15 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
       final file = File('${directory.path}/transferqr.png');
       await file.writeAsBytes(pngBytes);
 
+      // var url = await DynamicLinkService.createDynamicLink(
+      //     path:
+      //         'wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',
+      //     title: 'Title',
+      //     description: 'ss',
+      //     image:
+      //         'https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr');
+      // debugPrint("Shot Url: $url");
+
       Share.shareFiles(['${directory.path}/transferqr.png'],
           text:
               'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: https://cicapp.page.link/wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',

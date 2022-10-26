@@ -204,7 +204,7 @@ class _MainDashboardState extends State<MainDashboard> {
     });
     _notificationCon.countNotification();
 
-    DynamicLinkService.initDynamicLinks();
+    DynamicLinkService.initDynamicLinks(context);
 
     // final newVersion = NewVersion(
     //   iOSId: 'com.cambodianinvestorscorporation',
