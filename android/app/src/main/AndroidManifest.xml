@@ -74,7 +74,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http" android:host="cicapp.page.link"/>
                 <data android:scheme="https" />
-                <data android:scheme="app" android:host="open.my.app" />
+               
             </intent-filter>
 
         </activity>
