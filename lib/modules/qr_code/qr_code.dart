@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:cicgreenloan/modules/qr_code/qrcode_controller/qr_type.dart';
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -155,20 +155,22 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                 widget.pageName == null) {
                                               cameraController //force stop camera when got key wallet
                                                   .stop()
-                                                  .then((value) {
-                                                _walletController
-                                                    .onScanTransfer(
-                                                        resultQR ?? '');
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //       builder: (context) =>
-                                                //           const TransferToMMA(),
-                                                //     ));
+                                                  .then(
+                                                (value) {
+                                                  _walletController
+                                                      .onScanTransfer(
+                                                          resultQR ?? '');
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           const TransferToMMA(),
+                                                  //     ));
 
-                                                context.push(
-                                                    '/qr-screen/transfer-to-other-mmacount');
-                                              });
+                                                  context.go(
+                                                      '/${CICRoute.i.transferToMMA().path}');
+                                                },
+                                              );
                                             }
 
                                             if (!resultQR!.contains('event') &&
@@ -407,23 +409,36 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                 ),
                               ),
 
-                            ///member
-                            if (resultQR != null &&
-                                resultQR!.contains(CiCQr.wallet.key))
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5),
-                                child: CustomButton(
-                                  isDisable: false,
-                                  isOutline: false,
-                                  onPressed: () async {
-                                    _walletController
-                                        .onScanTransfer(resultQR ?? '');
-                                    Navigator.pop(context);
-                                  },
-                                  title: 'Confirm',
-                                ),
+                            ///member //TODO
+                            // if (resultQR != null &&
+                            //     resultQR!.contains(CiCQr.wallet.key))
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              child: CustomButton(
+                                isDisable: false,
+                                isOutline: false,
+                                onPressed: () async {
+                                  _walletController
+                                      .onScanTransfer(resultQR ?? '');
+                                  // debugPrint(CICRoute.i.transferToMMA().path);
+
+                                  context.go(
+                                      '/${CICRoute.i.transferToMMA().path}');
+
+                                  Future.delayed(const Duration(seconds: 1),
+                                      () {
+                                    _settingCon.selectedIndex = 0;
+                                    _settingCon
+                                        .onHideBottomNavigationBar(false);
+                                    _settingCon.update();
+                                  });
+
+                                  // Navigator.pop(context);
+                                },
+                                title: 'Confirm',
                               ),
+                            ),
                             if (resultQR != null &&
                                 resultQR!.contains('member'))
                               Padding(

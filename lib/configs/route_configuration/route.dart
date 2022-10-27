@@ -70,6 +70,35 @@ import '../../modules/wallet/screen/transfer_to_screen.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
 
+abstract class MainRoute {
+  GoRoute transferToMMA([String fromWhere]);
+}
+
+class CICRoute extends MainRoute {
+  CICRoute._();
+
+  ///instance member of classs
+  static final i = CICRoute._();
+
+  @override
+  GoRoute transferToMMA([String fromWhere = '']) => GoRoute(
+        path: 'transfer-to-other-mmacount',
+        name: '${fromWhere}TransferToMMA',
+        builder: (_, state) => TransferToMMA(
+          receiverAccount: state.queryParams['receiverAccount'],
+          receiverAmount: state.queryParams['receiverAmount'],
+        ),
+        routes: [
+          GoRoute(
+            path: 'review-transfer',
+            name: '${fromWhere}ReviewTransfer',
+            //_,__ just because arguments are not used
+            builder: (_, __) => const TransferReview(),
+          ),
+        ],
+      );
+}
+
 final router = GoRouter(
     // debugLogDiagnostics: true,
     initialLocation: '/splashscreen',
@@ -79,6 +108,11 @@ final router = GoRouter(
         name: 'HomePage',
         builder: (context, state) => const PaymentSchedule(),
         routes: [
+          // transferToMMA,
+
+          ///Transfer from Homepage
+          CICRoute.i.transferToMMA('HomePage'),
+
           ///Qr Screen
           GoRoute(
             path: 'qr-screen',
@@ -95,21 +129,6 @@ final router = GoRouter(
               //   name: 'QrEvent',
               //   builder: (_, __) => const EventScreen(),
               // ),
-              GoRoute(
-                path: 'transfer-to-other-mmacount',
-                name: 'QrTransferToMMA',
-                builder: (_, state) => TransferToMMA(
-                  receiverAccount: state.queryParams['receiverAccount'],
-                  receiverAmount: state.queryParams['receiverAmount'],
-                ),
-                routes: [
-                  GoRoute(
-                    path: 'review-transfer',
-                    name: 'QrReviewTransfer',
-                    builder: (_, __) => const TransferReview(),
-                  ),
-                ],
-              ),
             ],
           ),
           GoRoute(
@@ -939,20 +958,7 @@ final router = GoRouter(
                 ],
               ),
               // Transfer to other MM Account
-              GoRoute(
-                  path: 'transfer-to-other-mmacount',
-                  name: 'TransferToMMA',
-                  builder: (context, state) => TransferToMMA(
-                        receiverAccount: state.queryParams['receiverAccount'],
-                        receiverAmount: state.queryParams['receiverAmount'],
-                      ),
-                  routes: [
-                    GoRoute(
-                      path: 'review-transfer',
-                      name: 'ReviewTransfer',
-                      builder: (context, state) => const TransferReview(),
-                    ),
-                  ]),
+              CICRoute.i.transferToMMA('Wallet'),
 
               //MMA Cash out
               GoRoute(
