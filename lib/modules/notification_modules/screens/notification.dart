@@ -195,7 +195,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   ? RefreshIndicator(
                                       key: _keyRefresh,
                                       onRefresh: onRefreshData,
-                                      child: ListView.separated(
+                                      child: ListView.builder(
                                         padding: EdgeInsets.zero,
                                         itemCount: _con.notificationList.length,
                                         itemBuilder: (context, index) {
@@ -655,13 +655,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                     .notificationList[index]),
                                           );
                                         },
-                                        separatorBuilder:
-                                            (BuildContext context, int index) {
-                                          return const Divider(
-                                            height: 0,
-                                            thickness: 0.7,
-                                          );
-                                        },
+                                        // separatorBuilder:
+                                        //     (BuildContext context, int index) {
+                                        //   return const Divider(
+                                        //     height: 0,
+                                        //     thickness: 0.7,
+                                        //   );
+                                        // },
                                       ),
                                     )
                                   : emptyState(),
@@ -670,7 +670,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               : _con.notificationAnouncementList.isNotEmpty
                                   ? RefreshIndicator(
                                       onRefresh: onRefreshData,
-                                      child: ListView.separated(
+                                      child: ListView.builder(
                                           padding: EdgeInsets.zero,
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
@@ -783,14 +783,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                               ),
                                             );
                                           },
-                                          separatorBuilder:
-                                              (BuildContext context,
-                                                  int index) {
-                                            return const Divider(
-                                              height: 0,
-                                              thickness: 0.7,
-                                            );
-                                          },
+                                          // separatorBuilder:
+                                          //     (BuildContext context,
+                                          //         int index) {
+                                          //   return const Divider(
+                                          //     height: 0,
+                                          //     thickness: 0.7,
+                                          //   );
+                                          // },
                                           itemCount: _con
                                               .notificationAnouncementList
                                               .length),

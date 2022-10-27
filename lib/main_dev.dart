@@ -62,10 +62,17 @@ Future<void> main() async {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     FlavorConfig(
-        flavor: Flavor.DEV,
-        color: Colors.deepPurpleAccent,
-        values: FlavorValues(
-            baseUrl: "https://api-stagging.z1platform.com/api/s60/api/v2/"));
+      flavor: Flavor.DEV,
+      color: Colors.deepPurpleAccent,
+      values: FlavorValues(
+          baseUrl: "https://cicstaging.z1central.com/",
+          apiBaseUrl: "https://cicstaging.z1central.com/api/v1/",
+          mainApiUrl: "https://cicstaging.z1central.com/api/",
+          baseUrlV2: "https://cicstaging.z1central.com/",
+          apiBaseUrlV2: "https://cicstaging.z1central.com/api/v2/",
+          mainApiUrlV2: "https://cicstaging.z1central.com/api/",
+          apiBaseUrlV3: "https://cicstaging.z1central.com/api/v3/"),
+    );
 
     runApp(const MyApp());
   }, (error, stackTrace) {

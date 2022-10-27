@@ -312,12 +312,6 @@ class PriceController extends GetxController {
         image: 'assets/images/banks/aba_bank1.png'),
   ];
 
-  @override
-  void onInit() {
-    getfifOption();
-    super.onInit();
-  }
-
   final isLoadingPostFiF = false.obs;
   final apiBaseHelper = ApiBaseHelper();
 
@@ -379,7 +373,7 @@ class PriceController extends GetxController {
 
   final fifOptionLoading = true.obs;
   Future<List<FIFoptionModel>> getfifOption() async {
-    // fifOptionLoading.value = true;
+    fifOptionLoading.value = true;
     await apiBaseHelper
         .onNetworkRequesting(
       url: "fif-product",

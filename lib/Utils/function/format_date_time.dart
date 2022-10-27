@@ -50,6 +50,13 @@ class FormatDate {
     return outputFormat.format(inputDate);
   }
 
+  static String? notificationDate(date) {
+    var inputFormat = DateFormat('yyyy-MM-dd');
+    var inputDate = inputFormat.parse(date);
+    var outputFormat = DateFormat('EEE, dd yyyy');
+    return outputFormat.format(inputDate);
+  }
+
   static String investmentDate(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
     String formatDate = DateFormat('dd-MMM-yyyy', 'en_US').format(dateTime);

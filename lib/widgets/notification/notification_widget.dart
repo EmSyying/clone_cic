@@ -1,8 +1,11 @@
+import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/modules/notification_modules/controllers/notification_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/models/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
+import '../../Utils/function/convert_fromhex_color.dart';
 
 class NotificationWidget extends StatelessWidget {
   final NotificationModel? notification;
@@ -14,9 +17,12 @@ class NotificationWidget extends StatelessWidget {
     final con = Get.put(NotificationController());
 
     return Container(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 10),
       width: double.infinity,
-      decoration: const BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(
+          color: notification!.readAt == null && fromPage == null
+              ? const Color(0XFFE5E5E5).withOpacity(0.1)
+              : Colors.white),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,19 +31,19 @@ class NotificationWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Container(
-              //   height: 40,
-              //   width: 40,
-              //   padding: const EdgeInsets.all(12),
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(10),
-              //     color: fromHex('#4FA30F').withOpacity(0.2),
-              //   ),
-              //   alignment: Alignment.center,
-              //   child: SvgPicture.network(
-              //       'https://cicstaging.z1central.com/uploads/files/default/icon_cic_url.svg',
-              //       color: fromHex('#4FA30F')),
-              // ),
+              Container(
+                height: 40,
+                width: 40,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: fromHex('#4FA30F').withOpacity(0.2),
+                ),
+                alignment: Alignment.center,
+                child: SvgPicture.network(
+                    'https://cicstaging.z1central.com/uploads/files/default/icon_cic_url.svg',
+                    color: fromHex('#4FA30F')),
+              ),
               // Container(
               //   width: 40,
               //   height: 40,
@@ -48,62 +54,63 @@ class NotificationWidget extends StatelessWidget {
               //             notification!.data!.type == 'wallet-deposit'
               //         ? AppColor.statusColor['green']!.withOpacity(0.2)
               //         : AppColor.statusColor['late']!.withOpacity(0.2),
-              //   ),),
-              notification!.data!.type == 'Disbursement' ||
-                      notification!.data!.type == 'Debt' ||
-                      notification!.data!.type == 'Equity'
-                  ? SvgPicture.asset(notification!.readAt == null
-                      ? 'assets/images/svgfile/requestLoanIcon.svg'
-                      : 'assets/images/svgfile/readrequestloadIcon.svg')
-                  : notification!.data!.type!.toLowerCase() == 'fif' ||
-                          notification!.data!.type!.toLowerCase() ==
-                              'withdraw' ||
-                          notification!.data!.type!.toLowerCase() == 'renew' ||
-                          notification!.data!.type!.toLowerCase() ==
-                              'fif-monthly-payment'
-                      ? SvgPicture.asset(
-                          notification!.readAt == null
-                              ? 'assets/images/svgfile/fifnotification.svg'
-                              : 'assets/images/svgfile/fifnotificationread.svg',
-                        )
-                      : notification!.data!.type == 'ut-trading'
-                          ? SvgPicture.asset(notification!.readAt == null
-                              ? 'assets/images/svgfile/utNotificationIcon.svg'
-                              : 'assets/images/svgfile/readTradeIcon.svg')
-                          : notification!.data!.type == 'subscription-payment' ||
-                                  notification!.data!.type == 'trading-payment'
-                              ? SvgPicture.asset(notification!.readAt == null
-                                  ? 'assets/images/svgfile/paymentIcon.svg'
-                                  : 'assets/images/svgfile/readPaymentIcon.svg')
-                              : notification!.data!.type == 'cash-out' ||
-                                      notification!.data!.type ==
-                                          'wallet-cashout'
-                                  ? SvgPicture.asset(notification!.readAt == null
-                                      ? "assets/images/svgfile/cashoutNotification.svg"
-                                      : "assets/images/svgfile/readCashout.svg")
-                                  : notification!.data!.type == 'bonus'
-                                      ? SvgPicture.asset(notification!.readAt == null
-                                          ? "assets/images/svgfile/Bonus.svg"
-                                          : "assets/images/svgfile/readbonus.svg")
-                                      : notification!.data!.type ==
-                                              'confirm-subscription'
-                                          ? SvgPicture.asset(notification!.readAt ==
-                                                  null
-                                              ? "assets/images/svgfile/confirmSubscription.svg"
-                                              : "assets/images/svgfile/readSubscription.svg")
-                                          : notification!.data!.type ==
-                                                  'confirm-payment'
-                                              ? SvgPicture.asset(notification!.readAt == null ? "assets/images/svgfile/confirmSubscription.svg" : "assets/images/svgfile/readSubscription.svg")
-                                              : notification!.data!.type == 'wallet-deposit'
-                                                  ? SvgPicture.asset(
-                                                      'assets/images/svgfile/dividend.svg',
-                                                      color: notification!
-                                                                  .readAt ==
-                                                              null
-                                                          ? null
-                                                          : Colors.grey,
-                                                    )
-                                                  : SvgPicture.asset(notification!.readAt == null ? 'assets/images/svgfile/announcementicons.svg' : 'assets/images/svgfile/readAnnouncementicons.svg'),
+              //   ),
+              // ),
+              // notification!.data!.type == 'Disbursement' ||
+              //         notification!.data!.type == 'Debt' ||
+              //         notification!.data!.type == 'Equity'
+              //     ? SvgPicture.asset(notification!.readAt == null
+              //         ? 'assets/images/svgfile/requestLoanIcon.svg'
+              //         : 'assets/images/svgfile/readrequestloadIcon.svg')
+              //     : notification!.data!.type!.toLowerCase() == 'fif' ||
+              //             notification!.data!.type!.toLowerCase() ==
+              //                 'withdraw' ||
+              //             notification!.data!.type!.toLowerCase() == 'renew' ||
+              //             notification!.data!.type!.toLowerCase() ==
+              //                 'fif-monthly-payment'
+              //         ? SvgPicture.asset(
+              //             notification!.readAt == null
+              //                 ? 'assets/images/svgfile/fifnotification.svg'
+              //                 : 'assets/images/svgfile/fifnotificationread.svg',
+              //           )
+              //         : notification!.data!.type == 'ut-trading'
+              //             ? SvgPicture.asset(notification!.readAt == null
+              //                 ? 'assets/images/svgfile/utNotificationIcon.svg'
+              //                 : 'assets/images/svgfile/readTradeIcon.svg')
+              //             : notification!.data!.type == 'subscription-payment' ||
+              //                     notification!.data!.type == 'trading-payment'
+              //                 ? SvgPicture.asset(notification!.readAt == null
+              //                     ? 'assets/images/svgfile/paymentIcon.svg'
+              //                     : 'assets/images/svgfile/readPaymentIcon.svg')
+              //                 : notification!.data!.type == 'cash-out' ||
+              //                         notification!.data!.type ==
+              //                             'wallet-cashout'
+              //                     ? SvgPicture.asset(notification!.readAt == null
+              //                         ? "assets/images/svgfile/cashoutNotification.svg"
+              //                         : "assets/images/svgfile/readCashout.svg")
+              //                     : notification!.data!.type == 'bonus'
+              //                         ? SvgPicture.asset(notification!.readAt == null
+              //                             ? "assets/images/svgfile/Bonus.svg"
+              //                             : "assets/images/svgfile/readbonus.svg")
+              //                         : notification!.data!.type ==
+              //                                 'confirm-subscription'
+              //                             ? SvgPicture.asset(notification!.readAt ==
+              //                                     null
+              //                                 ? "assets/images/svgfile/confirmSubscription.svg"
+              //                                 : "assets/images/svgfile/readSubscription.svg")
+              //                             : notification!.data!.type ==
+              //                                     'confirm-payment'
+              //                                 ? SvgPicture.asset(notification!.readAt == null ? "assets/images/svgfile/confirmSubscription.svg" : "assets/images/svgfile/readSubscription.svg")
+              //                                 : notification!.data!.type == 'wallet-deposit'
+              //                                     ? SvgPicture.asset(
+              //                                         'assets/images/svgfile/dividend.svg',
+              //                                         color: notification!
+              //                                                     .readAt ==
+              //                                                 null
+              //                                             ? null
+              //                                             : Colors.grey,
+              //                                       )
+              //                                     : SvgPicture.asset(notification!.readAt == null ? 'assets/images/svgfile/announcementicons.svg' : 'assets/images/svgfile/readAnnouncementicons.svg'),
 
               const SizedBox(
                 width: 20.0,
@@ -175,16 +182,29 @@ class NotificationWidget extends StatelessWidget {
                     const SizedBox(
                       height: 3,
                     ),
-                    Text(
-                      '${notification!.humanCreatedAt}',
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.w100),
-                    ),
-                    const SizedBox(
-                      height: 8.0,
+                    if (fromPage != 'rejectPopup')
+                      Text(
+                        '${notification!.data!.body}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'DMSans',
+                            color: notification!.readAt == null
+                                ? Colors.black87
+                                : const Color(0xff6D7174),
+                            fontWeight: FontWeight.w100),
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        '${FormatDate.notificationDate(notification!.updatedAt)}    ${notification!.humanCreatedAt}',
+                        style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.w100),
+                      ),
                     ),
                   ],
                 ),
@@ -199,19 +219,19 @@ class NotificationWidget extends StatelessWidget {
                 )
             ],
           ),
-          if (fromPage != 'rejectPopup')
-            Text(
-              '${notification!.data!.body}',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'DMSans',
-                  color: notification!.readAt == null
-                      ? Colors.black87
-                      : const Color(0xff6D7174),
-                  fontWeight: FontWeight.w100),
-            ),
+          // if (fromPage != 'rejectPopup')
+          //   Text(
+          //     '${notification!.data!.body}',
+          //     maxLines: 2,
+          //     overflow: TextOverflow.ellipsis,
+          //     style: TextStyle(
+          //         fontSize: 14,
+          //         fontFamily: 'DMSans',
+          //         color: notification!.readAt == null
+          //             ? Colors.black87
+          //             : const Color(0xff6D7174),
+          //         fontWeight: FontWeight.w100),
+          //   ),
         ],
       ),
     );
