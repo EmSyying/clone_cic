@@ -30,7 +30,6 @@ import '../event_module/screen/event_detail.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../member_directory/controllers/member_controller.dart';
 import '../member_directory/screens/new_profile_ui/new_persional_profile.dart';
-import '../privilege_program/screen/privilege/privilege_payment.dart';
 import '../wallet/controller/wallet_controller.dart';
 
 class QrCodeScreen extends StatefulWidget {
@@ -475,7 +474,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                 ),
                               ),
 
-                            //privilege shop
+                            // privilege shop
                             if (resultQR != null && resultQR!.contains('shop'))
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -487,41 +486,10 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                     int shopId = int.parse(
                                       resultQR!.replaceAll('shop', ''),
                                     );
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PrivilegePayment(
-                                          id: shopId,
-                                        ),
-                                      ),
-                                    );
+                                    context.push('/privilege-payment/$shopId');
                                   },
                                   title: 'Enter Amount',
                                 ),
-                                // CustomButton(
-                                //   isDisable: false,
-                                //   isOutline: false,
-                                //   onPressed: () async {
-                                //     int userId = int.parse(
-                                //         resultQR!.replaceAll('shop', ''));
-                                //     Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //         builder: (context) => MemberDetail(
-                                //           memberDetailAgrument:
-                                //               MemberDetailAgrument(
-                                //             isNavigator: true,
-                                //             id: userId,
-                                //             // customer: _memberCon
-                                //             // .personalProfilemember.value,
-                                //             pageName: 'memberList',
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     );
-                                //   },
-                                //   title: 'Enter Amount',
-                                // ),
                               ),
                           ],
                         ),

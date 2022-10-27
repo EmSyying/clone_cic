@@ -72,6 +72,7 @@ import '../../widgets/investments/view_agreement_list.dart';
 
 abstract class MainRoute {
   GoRoute transferToMMA([String fromWhere]);
+  GoRoute privilagePayment([String fromWhere]);
 }
 
 class CICRoute extends MainRoute {
@@ -97,6 +98,22 @@ class CICRoute extends MainRoute {
           ),
         ],
       );
+
+  @override
+  GoRoute privilagePayment([String? fromWhere]) => GoRoute(
+        name: '${fromWhere}PrivilegePayment',
+        path: 'privilege-payment/:id',
+        builder: (_, state) => PrivilegePayment(
+          id: int.tryParse(state.params['id'] ?? '0'),
+        ),
+        routes: [
+          GoRoute(
+            name: '${fromWhere}PaymentDoneScreen',
+            path: 'payment-done-screen',
+            builder: (_, __) => const PaymentDoneScreen(),
+          ),
+        ],
+      );
 }
 
 final router = GoRouter(
@@ -112,6 +129,7 @@ final router = GoRouter(
 
           ///Transfer from Homepage
           CICRoute.i.transferToMMA('HomePage'),
+          CICRoute.i.privilagePayment('HomePage'),
 
           ///Qr Screen
           GoRoute(
@@ -881,11 +899,7 @@ final router = GoRouter(
                 path: 'filter-item',
                 builder: (context, state) => const PrivilegeFilters(),
               ),
-              GoRoute(
-                name: 'PrivilegePayment',
-                path: 'privilege-payment',
-                builder: (context, state) => const PrivilegePayment(),
-              ),
+              CICRoute.i.privilagePayment('Privilage'),
               GoRoute(
                 name: 'PaymentDoneScreen',
                 path: 'payment-done-screen',

@@ -2,13 +2,13 @@ import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/option_model/option_form.dart';
 import '../model/category_model/model_categories.dart';
 import '../model/location/location.dart';
 import '../model/search_loation_list/search_location_list.dart';
 import '../model/stores_model/model_pre.dart';
-import '../screen/privilege/payment_done_screen.dart';
 
 class PrivilegeController extends GetxController {
   final favoritesList = <StoreModel>[].obs;
@@ -386,12 +386,14 @@ class PrivilegeController extends GetxController {
           "amount": privilegeAmount.value,
         }).then((response) {
       debugPrint("4 Digits code:$response");
-      Navigator.push(
-        context!,
-        MaterialPageRoute(
-          builder: (context) => const PaymentDoneScreen(),
-        ),
-      );
+      debugPrint('Clicked  ${GoRouter.of(context!).location}');
+      context.push('/privilege-payment/$shopId/payment-done-screen');
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const PaymentDoneScreen(),
+      //   ),
+      // );
 
       try {
         debugPrint('payment body::=====$response');
