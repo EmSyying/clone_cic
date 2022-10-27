@@ -17,11 +17,13 @@ class _BooksState extends State<SwitchSplashScreen>
   final _settingCon = Get.put(SettingController());
   @override
   void initState() {
-    _settingCon.fetchAppSetting(context: context, isSwitchSplashScreen: true);
+    Future.delayed(const Duration(seconds: 1), () {
+      _settingCon.fetchAppSetting(context: context, isSwitchSplashScreen: true);
+    });
     super.initState();
     _settingCon.animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 500),
       upperBound: 1.3,
     );
 

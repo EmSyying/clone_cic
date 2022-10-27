@@ -193,16 +193,16 @@ class _MainDashboardState extends State<MainDashboard> {
   void initState() {
     _getUser();
 
-    _settingCon.fetchAppSetting().then((value) async {
-      bool isFirstLaunch = await LocalData.showAppTou('appTour');
-      if (!isFirstLaunch) {
-        Future.delayed(const Duration(seconds: 1), () {
-          _showDashboardTour(allowSkip: false).then((value) async {
-            await LocalData.storeAppTou('appTour', true);
-          });
-        });
-      }
-    });
+    // _settingCon.fetchAppSetting().then((value) async {
+    //   bool isFirstLaunch = await LocalData.showAppTou('appTour');
+    //   if (!isFirstLaunch) {
+    //     Future.delayed(const Duration(seconds: 1), () {
+    //       _showDashboardTour(allowSkip: false).then((value) async {
+    //         await LocalData.storeAppTou('appTour', true);
+    //       });
+    //     });
+    //   }
+    // });
     _notificationCon.countNotification();
 
     DynamicLinkService.initDynamicLinks(context);
@@ -358,6 +358,7 @@ class _MainDashboardState extends State<MainDashboard> {
     super.initState();
   }
 
+  Timer? delayTime;
   final LocalAuthentication auth = LocalAuthentication();
   bool authenticated = false;
   Future<bool> _authenticate() async {
@@ -501,7 +502,7 @@ class _MainDashboardState extends State<MainDashboard> {
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white12),
                     child: Text(
-                      'AM',
+                      dashboardType == 'AM' ? 'AM' : 'QM',
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
@@ -521,18 +522,18 @@ class _MainDashboardState extends State<MainDashboard> {
                         key: widgetKey,
                         child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                dashboardType = 'AM';
-                                if (dashboardType == 'AM') {
-                                  Offset offset = getWidgetInfo(widgetKey);
-                                  context.go('/switch-splash-screen',
-                                      extra: offset);
-                                } else {
-                                  Offset offset = getWidgetInfo(widgetKey);
-                                  context.go('/switch-splash-screen',
-                                      extra: offset);
-                                }
+                              Navigator.pop(context);
+                              Offset offset = getWidgetInfo(widgetKey);
+                              context.go('/switch-splash-screen',
+                                  extra: offset);
+
+                              Future.delayed(const Duration(milliseconds: 230),
+                                  () {
+                                setState(() {
+                                  dashboardType = 'AM';
+                                });
                               });
+
                               // setState(() {
                               //   // switchIcon = e;
                               //   // if (e == true) {
@@ -560,17 +561,15 @@ class _MainDashboardState extends State<MainDashboard> {
                       PopupMenuItem(
                         child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                dashboardType = 'QM';
-                                if (dashboardType == 'QM') {
-                                  Offset offset = getWidgetInfo(widgetKey);
-                                  context.go('/switch-splash-screen',
-                                      extra: offset);
-                                } else {
-                                  Offset offset = getWidgetInfo(widgetKey);
-                                  context.go('/switch-splash-screen',
-                                      extra: offset);
-                                }
+                              Navigator.pop(context);
+                              Offset offset = getWidgetInfo(widgetKey);
+                              context.go('/switch-splash-screen',
+                                  extra: offset);
+                              Future.delayed(const Duration(milliseconds: 230),
+                                  () {
+                                setState(() {
+                                  dashboardType = 'QM';
+                                });
                               });
                             },
                             child: const Text('QM')),
@@ -681,7 +680,17 @@ class _MainDashboardState extends State<MainDashboard> {
       ),
     );
   }
+//  onSwitch(){
+//   return
+//   Future.delayed(const Duration(seconds: 2),(){
+//     dashboardType == 'AM'
+//                 ? const MainDashBoardTypeAM()
+//                 : Platform.isAndroid
+//                     ? UpgradeAlert(child: buildBody())
+//                     : buildBody();
+//   });
 
+// }
   Widget buildBody() {
     return ConnectivityWidgetWrapper(
       stacked: false,
