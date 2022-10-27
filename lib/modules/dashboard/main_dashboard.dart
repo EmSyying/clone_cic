@@ -18,8 +18,8 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:url_launcher/link.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:url_launcher/link.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:cicgreenloan/Utils/custom_indicatior.dart';
 import 'package:cicgreenloan/widgets/dashboard/dashboard_menu.dart';
@@ -39,6 +39,7 @@ import 'package:new_version/new_version.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import '../../Utils/function/convert_fromhex_color.dart';
+import '../../Utils/helper/find_widget_position.dart';
 import '../../Utils/helper/local_notification.dart';
 import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
@@ -46,6 +47,7 @@ import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../investment_module/screen/deposit_screen.dart';
 import '../report_module/screens/view_report.dart';
+import 'main_dashboard_type_am.dart';
 
 class MainDashboard extends StatefulWidget {
   final String? fromPage;
@@ -75,7 +77,6 @@ class _MainDashboardState extends State<MainDashboard> {
 
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final widgetKey = GlobalKey();
-
   final String serverToken =
       'AAAAjhN5SfY:APA91bE-IRLKGTVEa21xdrg2nk1u-OGWSyAZ5Gk0GHrvzN7KlQ1CSNtVBmyvUcksTP1tyKxUL9s3eqDPGAgLD17vhn7755DrSBy8HLYMlBaZSS0A5WLyGKeAR27b50OilVdCw2K1_t3f';
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
@@ -442,6 +443,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
   void handleTimeout() {}
   bool? switchIcon = false;
+  String? dashboardType = '';
 
   @override
   Widget build(BuildContext context) {
@@ -462,6 +464,7 @@ class _MainDashboardState extends State<MainDashboard> {
           onRefresh: onRefresh,
           child: Scaffold(
             appBar: AppBar(
+              elevation: 0,
               backgroundColor: context.theme.backgroundColor,
 //            backgroundColor:
 //                DynamicTheme.of(context).brightness == Brightness.light
@@ -489,6 +492,90 @@ class _MainDashboardState extends State<MainDashboard> {
                         fontFamily: 'DMSans',
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 5),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white12),
+                    child: Text(
+                      'AM',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  PopupMenuButton(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    icon: const Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Icon(Icons.expand_more),
+                    ),
+                    itemBuilder: (context) => <PopupMenuEntry>[
+                      PopupMenuItem(
+                        key: widgetKey,
+                        child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                dashboardType = 'AM';
+                                if (dashboardType == 'AM') {
+                                  Offset offset = getWidgetInfo(widgetKey);
+                                  context.go('/switch-splash-screen',
+                                      extra: offset);
+                                } else {
+                                  Offset offset = getWidgetInfo(widgetKey);
+                                  context.go('/switch-splash-screen',
+                                      extra: offset);
+                                }
+                              });
+                              // setState(() {
+                              //   // switchIcon = e;
+                              //   // if (e == true) {
+                              //   Offset offset = getWidgetInfo(widgetKey);
+                              //   context.go('/switch-splash-screen',
+                              //       extra: offset);
+                              //   Navigator.pop(context);
+                              //   // context.go('/am-dashboard');
+
+                              //   // Navigator.push(
+                              //   //     context,
+                              //   //     MaterialPageRoute(
+                              //   //         builder: (context) =>
+                              //   //             const DashboardTypeAM()));
+                              //   // else {
+                              //   //   Offset offset = getWidgetInfo(widgetKey);
+                              //   //   context.go('/switch-splash-screen', extra: offset);
+                              //   // }
+                              // });
+                            },
+                            child: const Text('AM')),
+                      ),
+                      //QM Dashboard
+                      const PopupMenuDivider(height: 0),
+                      PopupMenuItem(
+                        child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                dashboardType = 'QM';
+                                if (dashboardType == 'QM') {
+                                  Offset offset = getWidgetInfo(widgetKey);
+                                  context.go('/switch-splash-screen',
+                                      extra: offset);
+                                } else {
+                                  Offset offset = getWidgetInfo(widgetKey);
+                                  context.go('/switch-splash-screen',
+                                      extra: offset);
+                                }
+                              });
+                            },
+                            child: const Text('QM')),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -547,7 +634,6 @@ class _MainDashboardState extends State<MainDashboard> {
                       },
                       child: SvgPicture.asset('assets/images/demo.svg'),
                     ),
-
                     // FlutterSwitch(
                     //     key: widgetKey,
                     //     padding: 3,
@@ -585,9 +671,11 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),
-            body: Platform.isAndroid
-                ? UpgradeAlert(child: buildBody())
-                : buildBody(),
+            body: dashboardType == 'AM'
+                ? const MainDashBoardTypeAM()
+                : Platform.isAndroid
+                    ? UpgradeAlert(child: buildBody())
+                    : buildBody(),
           ),
         ),
       ),

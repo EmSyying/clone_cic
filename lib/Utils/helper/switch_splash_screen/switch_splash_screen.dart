@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,7 +39,7 @@ class _BooksState extends State<SwitchSplashScreen>
     return AnimatedBuilder(
         animation: _settingCon.animationController,
         child: Scaffold(
-          backgroundColor: Colors.purple,
+          backgroundColor: AppColor.mainColor,
           body: Obx(() => _settingCon.isLoading.value
               ? const Center(
                   child: CircularProgressIndicator(
