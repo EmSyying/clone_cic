@@ -169,6 +169,16 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
 
                                                   context.go(
                                                       '/${CICRoute.i.transferToMMA().path}');
+                                                  Future.delayed(
+                                                      const Duration(
+                                                          seconds: 1), () {
+                                                    _settingCon.selectedIndex =
+                                                        0;
+                                                    _settingCon
+                                                        .onHideBottomNavigationBar(
+                                                            false);
+                                                    _settingCon.update();
+                                                  });
                                                 },
                                               );
                                             }
@@ -412,33 +422,33 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                             ///member //TODO
                             // if (resultQR != null &&
                             //     resultQR!.contains(CiCQr.wallet.key))
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 5),
-                              child: CustomButton(
-                                isDisable: false,
-                                isOutline: false,
-                                onPressed: () async {
-                                  _walletController
-                                      .onScanTransfer(resultQR ?? '');
-                                  // debugPrint(CICRoute.i.transferToMMA().path);
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(
+                            //       horizontal: 20, vertical: 5),
+                            //   child: CustomButton(
+                            //     isDisable: false,
+                            //     isOutline: false,
+                            //     onPressed: () async {
+                            //       _walletController
+                            //           .onScanTransfer(resultQR ?? '');
+                            //       // debugPrint(CICRoute.i.transferToMMA().path);
 
-                                  context.go(
-                                      '/${CICRoute.i.transferToMMA().path}');
+                            //       context.go(
+                            //           '/${CICRoute.i.transferToMMA().path}');
 
-                                  Future.delayed(const Duration(seconds: 1),
-                                      () {
-                                    _settingCon.selectedIndex = 0;
-                                    _settingCon
-                                        .onHideBottomNavigationBar(false);
-                                    _settingCon.update();
-                                  });
+                            //       Future.delayed(const Duration(seconds: 1),
+                            //           () {
+                            //         _settingCon.selectedIndex = 0;
+                            //         _settingCon
+                            //             .onHideBottomNavigationBar(false);
+                            //         _settingCon.update();
+                            //       });
 
-                                  // Navigator.pop(context);
-                                },
-                                title: 'Confirm',
-                              ),
-                            ),
+                            //       // Navigator.pop(context);
+                            //     },
+                            //     title: 'Confirm',
+                            //   ),
+                            // ),
                             if (resultQR != null &&
                                 resultQR!.contains('member'))
                               Padding(
