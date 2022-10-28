@@ -13,10 +13,17 @@ import 'package:go_router/go_router.dart';
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/card_mma_invest_model.dart';
 import '../model/invest/invest_option_model.dart';
+import '../model/transaction/wallet_transaction.dart';
+import '../model/transaction/wallet_transaction_detail.dart';
 import '../model/transfer_recieved/transfer_model.dart';
 
 class WalletController extends GetxController {
   final _apiBaseHelper = ApiBaseHelper();
+  // Transaction Card
+  PageController pageController = PageController();
+  final currentIndexPage = 0.obs;
+  final isConfirm = false.obs;
+  //End
   final name = ''.obs;
 
   List<MMADepositCardModel> mmacardlist = [
@@ -74,6 +81,84 @@ class WalletController extends GetxController {
       listFiFOptionLoading(false);
       debugPrint('Error ${error.statusCode}');
     });
+  }
+
+  // Wallet Transaction
+  final walletTransactionList = <WalletTransaction>[].obs;
+  final isWalletTrnsaction = false.obs;
+  Future<List<WalletTransaction>> onFetchWalletTransaction(
+      {String? type}) async {
+    final walletTransactionListLocal = <WalletTransaction>[];
+    isWalletTrnsaction(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+            methode: METHODE.get,
+            isAuthorize: true,
+            url: 'user/wallet/transaction?type=$type')
+        .then((response) {
+      debugPrint('Success $response');
+      listFiFOption.clear();
+      response['data'].map((e) {
+        walletTransactionListLocal.add(WalletTransaction.fromJson(e));
+      }).toList();
+      walletTransactionList.value = walletTransactionListLocal;
+
+      isWalletTrnsaction(false);
+    }).onError((ErrorModel error, stackTrace) {
+      isWalletTrnsaction(false);
+      debugPrint('Error ${error.statusCode}');
+    });
+    return walletTransactionList;
+  }
+
+  // Wallet Transaction Detail
+  final walletTransactionDetail = WalletTransactionDetail().obs;
+  final isWalletTransactionDetail = false.obs;
+  Future<WalletTransactionDetail> onFetchWalletTransactionDetail(int id) async {
+    isWalletTransactionDetail(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+            url: 'user/wallet/transaction/$id',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((response) {
+      walletTransactionDetail.value =
+          WalletTransactionDetail.fromJson(response['data']);
+      debugPrint(
+          "Wallet TransacitonDetail:${walletTransactionDetail.value.label}");
+      isWalletTransactionDetail(false);
+    }).onError((ErrorModel error, stackTrace) {
+      isWalletTransactionDetail(false);
+      debugPrint('Error : ${error.statusCode} : ${error.bodyString}');
+    });
+    return walletTransactionDetail.value;
+  }
+
+  // Wallet Transaction Pending
+  final walletTransactionPendingList = <WalletTransaction>[].obs;
+  final isWalletTrnsactionPending = false.obs;
+  Future<List<WalletTransaction>> onFetchWalletTransactionPending() async {
+    final walletTransactionListPendingLocal = <WalletTransaction>[];
+    isWalletTrnsactionPending(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+            methode: METHODE.get,
+            isAuthorize: true,
+            url: '/user/wallet/transaction?pending=1')
+        .then((response) {
+      debugPrint('Success $response');
+      listFiFOption.clear();
+      response['data'].map((e) {
+        walletTransactionListPendingLocal.add(WalletTransaction.fromJson(e));
+      }).toList();
+      walletTransactionPendingList.value = walletTransactionListPendingLocal;
+
+      isWalletTrnsactionPending(false);
+    }).onError((ErrorModel error, stackTrace) {
+      isWalletTrnsactionPending(false);
+      debugPrint('Error ${error.statusCode}');
+    });
+    return walletTransactionPendingList;
   }
 
 // Fetch on Deposit Detail
