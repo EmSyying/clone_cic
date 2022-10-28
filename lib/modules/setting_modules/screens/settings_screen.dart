@@ -552,7 +552,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Scaffold(
         appBar: CustomAppBar(
           onTap: () {
-            context.go('/event');
+            context.go('/setting/event');
           },
           isLeading: true,
           isLogo: false,
