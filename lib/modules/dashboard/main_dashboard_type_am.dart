@@ -265,11 +265,6 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                   border: Border.all(color: Colors.white, width: 2),
                   shape: BoxShape.circle,
                   color: AppColor.mainColor,
-                  // image: const DecorationImage(
-                  //     image: NetworkImage(
-                  //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDuE2ejpy-CjPVNdAhuIVch-8DRr20pvVwxs2pBWtl&s',
-                  //     ),
-                  //     fit: BoxFit.cover),
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(3),
@@ -297,7 +292,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                           .headline5!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                     ),
-                    Text('Syying',
+                    Text('${customerUser.customer.value.fullName}',
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
