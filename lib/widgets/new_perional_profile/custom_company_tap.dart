@@ -1,10 +1,6 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-
-import '../../modules/member_directory/controllers/new_personal_profile/new_profile_controller.dart';
 
 class CustomCompanyTap extends StatelessWidget {
   final String? companyName;
@@ -55,9 +51,9 @@ class CustomCompanyTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pageController = SwiperController();
-    final companyCon = Get.put(NewProfileController());
-    int currentIndex = 0;
+    // final pageController = SwiperController();
+    // final companyCon = Get.put(NewProfileController());
+    // int currentIndex = 0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -76,7 +72,7 @@ class CustomCompanyTap extends StatelessWidget {
                       image: NetworkImage(
                         '$imageProfile',
                       ),
-                      fit: BoxFit.contain),
+                      fit: BoxFit.cover),
                 ),
               ),
               const SizedBox(
