@@ -444,7 +444,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
   void handleTimeout() {}
   bool? switchIcon = false;
-  String? dashboardType = '';
+  String? dashboardType = 'QM';
 
   @override
   Widget build(BuildContext context) {
@@ -510,6 +510,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     ),
                   ),
                   PopupMenuButton(
+                    position: PopupMenuPosition.under,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
@@ -521,58 +522,67 @@ class _MainDashboardState extends State<MainDashboard> {
                       PopupMenuItem(
                         key: widgetKey,
                         child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                              Offset offset = getWidgetInfo(widgetKey);
-                              context.go('/switch-splash-screen',
-                                  extra: offset);
+                            onTap: dashboardType == 'AM'
+                                ? null
+                                : () {
+                                    Navigator.pop(context);
+                                    Offset offset = getWidgetInfo(widgetKey);
+                                    context.go('/switch-splash-screen',
+                                        extra: offset);
+                                    Future.delayed(
+                                        const Duration(milliseconds: 230), () {
+                                      setState(() {
+                                        dashboardType = 'AM';
+                                      });
+                                    });
 
-                              Future.delayed(const Duration(milliseconds: 230),
-                                  () {
-                                setState(() {
-                                  dashboardType = 'AM';
-                                });
-                              });
+                                    // setState(() {
+                                    //   // switchIcon = e;
+                                    //   // if (e == true) {
+                                    //   Offset offset = getWidgetInfo(widgetKey);
+                                    //   context.go('/switch-splash-screen',
+                                    //       extra: offset);
+                                    //   Navigator.pop(context);
+                                    //   // context.go('/am-dashboard');
 
-                              // setState(() {
-                              //   // switchIcon = e;
-                              //   // if (e == true) {
-                              //   Offset offset = getWidgetInfo(widgetKey);
-                              //   context.go('/switch-splash-screen',
-                              //       extra: offset);
-                              //   Navigator.pop(context);
-                              //   // context.go('/am-dashboard');
-
-                              //   // Navigator.push(
-                              //   //     context,
-                              //   //     MaterialPageRoute(
-                              //   //         builder: (context) =>
-                              //   //             const DashboardTypeAM()));
-                              //   // else {
-                              //   //   Offset offset = getWidgetInfo(widgetKey);
-                              //   //   context.go('/switch-splash-screen', extra: offset);
-                              //   // }
-                              // });
-                            },
-                            child: const Text('AM')),
+                                    //   // Navigator.push(
+                                    //   //     context,
+                                    //   //     MaterialPageRoute(
+                                    //   //         builder: (context) =>
+                                    //   //             const DashboardTypeAM()));
+                                    //   // else {
+                                    //   //   Offset offset = getWidgetInfo(widgetKey);
+                                    //   //   context.go('/switch-splash-screen', extra: offset);
+                                    //   // }
+                                    // });
+                                  },
+                            child: Container(
+                                color: Colors.transparent,
+                                width: double.infinity,
+                                child: const Text('AM'))),
                       ),
                       //QM Dashboard
                       const PopupMenuDivider(height: 0),
                       PopupMenuItem(
                         child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                              Offset offset = getWidgetInfo(widgetKey);
-                              context.go('/switch-splash-screen',
-                                  extra: offset);
-                              Future.delayed(const Duration(milliseconds: 230),
-                                  () {
-                                setState(() {
-                                  dashboardType = 'QM';
-                                });
-                              });
-                            },
-                            child: const Text('QM')),
+                            onTap: dashboardType == 'QM'
+                                ? null
+                                : () {
+                                    Navigator.pop(context);
+                                    Offset offset = getWidgetInfo(widgetKey);
+                                    context.go('/switch-splash-screen',
+                                        extra: offset);
+                                    Future.delayed(
+                                        const Duration(milliseconds: 230), () {
+                                      setState(() {
+                                        dashboardType = 'QM';
+                                      });
+                                    });
+                                  },
+                            child: Container(
+                                color: Colors.transparent,
+                                width: double.infinity,
+                                child: const Text('QM'))),
                       ),
                     ],
                   ),
