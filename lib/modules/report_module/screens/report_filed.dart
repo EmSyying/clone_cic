@@ -37,46 +37,48 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
         title: widget.tabLabel,
         //'Report',
       ),
-      body: Column(
-        children: [
-          Container(
-            height: 38,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 11,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 38,
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 11,
+              ),
+              margin: const EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: CustomFormFieldSearch(
+                onSaved: (e) {},
+                onChanged: (v) {},
+                //  controller: privilegController.textSearchController,
+                keyboardType: TextInputType.name,
+              ),
             ),
-            margin: const EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: CustomFormFieldSearch(
-              onSaved: (e) {},
-              onChanged: (v) {},
-              //  controller: privilegController.textSearchController,
-              keyboardType: TextInputType.name,
-            ),
-          ),
-          // Expanded(
-          //   child: InvestorPage(
-          //     tabLabel: docTypeCon.documentTypeList[widget.currentTabIndex].id
-          //         .toString(),
-          //   ),
-          // ),
-          Column(
-            children: year
-                .map(
-                  (e) => CustomListWithTitle(
-                    onTap: (value) {
-                      debugPrint(value.title);
-                    },
-                    year: e['year'],
-                    items: e['items'],
-                  ),
-                )
-                .toList(),
-          )
-        ],
+            // Expanded(
+            //   child: InvestorPage(
+            //     tabLabel: docTypeCon.documentTypeList[widget.currentTabIndex].id
+            //         .toString(),
+            //   ),
+            // ),
+            Column(
+              children: year
+                  .map(
+                    (e) => CustomListWithTitle(
+                      onTap: (value) {
+                        debugPrint(value.title);
+                      },
+                      year: e['year'],
+                      items: e['items'],
+                    ),
+                  )
+                  .toList(),
+            )
+          ],
+        ),
       ),
     );
   }
