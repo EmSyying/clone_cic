@@ -15,29 +15,19 @@ class DocumentationController extends GetxController {
   String? tokenKey;
   final List<CategoriesCardReportModel> listCategoriesReport = [
     CategoriesCardReportModel(
-        title: 'Investor',
-        icons: 'assets/images/wallet/navigation_icons.svg',
-        item: '16'),
+        title: 'Investor', icons: 'assets/images/investor.svg', item: '16'),
     CategoriesCardReportModel(
-        title: 'Whitepaper',
-        icons: 'assets/images/wallet/navigation_icons.svg',
-        item: '9'),
+        title: 'Whitepaper', icons: 'assets/images/whitepaper.svg', item: '9'),
     CategoriesCardReportModel(
         title: 'Publications',
-        icons: 'assets/images/wallet/navigation_icons.svg',
+        icons: 'assets/images/publications.svg',
         item: '8'),
     CategoriesCardReportModel(
-        title: 'Newsletter',
-        icons: 'assets/images/wallet/navigation_icons.svg',
-        item: '5'),
+        title: 'Newsletter', icons: 'assets/images/newsletter.svg', item: '5'),
     CategoriesCardReportModel(
-        title: 'Tax & Legal',
-        icons: 'assets/images/wallet/navigation_icons.svg',
-        item: '18'),
+        title: 'Tax & Legal', icons: 'assets/images/tax_legal.svg', item: '18'),
     CategoriesCardReportModel(
-        title: 'Others',
-        icons: 'assets/images/wallet/navigation_icons.svg',
-        item: '0'),
+        title: 'Others', icons: 'assets/images/others.svg', item: '0'),
   ].obs;
 
   Future<List<DocumentationModel>> getDocumentList(String docType) async {
