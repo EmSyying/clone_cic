@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
-import '../model/invest/card_mma_invest_model.dart';
 import '../model/invest/invest_option_model.dart';
 import '../model/transaction/wallet_transaction.dart';
 import '../model/transaction/wallet_transaction_detail.dart';
@@ -46,18 +45,6 @@ class WalletController extends GetxController {
       imageMMACard: 'assets/images/wallet/transferto-other-account.svg',
     ),
   ].obs;
-  List<MMACardInvestModel> mmainvestFIFCard = [
-    MMACardInvestModel(title: 'Avg. Annual Return 14.4% to 18%'),
-    MMACardInvestModel(title: 'Minimum Period 2 months'),
-    MMACardInvestModel(title: 'Monthly Interest'),
-    MMACardInvestModel(title: 'Minimum Amount 10,000.00 USD'),
-  ].obs;
-  List<MMACardInvestModel> mmainvestEquityCard = [
-    MMACardInvestModel(title: 'Avg. Annual Return 40% to 51%'),
-    MMACardInvestModel(title: 'Minimum Period 2 months'),
-    MMACardInvestModel(title: 'Capital Gain & Dividend'),
-    MMACardInvestModel(title: 'Minimum Amount 1,037.00 USD'),
-  ].obs;
 
   ///Fetch FiF Option List
   final listFiFOption = <InvestOptionModel>[].obs;
@@ -86,9 +73,10 @@ class WalletController extends GetxController {
   // Wallet Transaction
   final walletTransactionList = <WalletTransaction>[].obs;
   final isWalletTrnsaction = false.obs;
+
   Future<List<WalletTransaction>> onFetchWalletTransaction(
-      {String? type}) async {
-    final walletTransactionListLocal = <WalletTransaction>[];
+      [String? type]) async {
+    final tempList = <WalletTransaction>[];
     isWalletTrnsaction(true);
     await _apiBaseHelper
         .onNetworkRequesting(
@@ -97,12 +85,10 @@ class WalletController extends GetxController {
             url: 'user/wallet/transaction?type=$type')
         .then((response) {
       debugPrint('Success $response');
-      listFiFOption.clear();
       response['data'].map((e) {
-        walletTransactionListLocal.add(WalletTransaction.fromJson(e));
+        tempList.add(WalletTransaction.fromJson(e));
       }).toList();
-      walletTransactionList.value = walletTransactionListLocal;
-
+      walletTransactionList.value = tempList;
       isWalletTrnsaction(false);
     }).onError((ErrorModel error, stackTrace) {
       isWalletTrnsaction(false);
@@ -110,6 +96,8 @@ class WalletController extends GetxController {
     });
     return walletTransactionList;
   }
+
+  ///all transaction
 
   // Wallet Transaction Detail
   final walletTransactionDetail = WalletTransactionDetail().obs;
@@ -324,7 +312,7 @@ class WalletController extends GetxController {
   Future<void> transferToOtherMMA(BuildContext context) async {
     debugPrint('AMOUNT = ${qrRecievingAmount.text}');
     await _apiBaseHelper.onNetworkRequesting(
-      url: 'user/wallet/transaction/create',
+      url: 'user/wallet/transaction',
       methode: METHODE.post,
       isAuthorize: true,
       body: {
