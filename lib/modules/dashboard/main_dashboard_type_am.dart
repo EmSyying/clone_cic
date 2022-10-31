@@ -1,15 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/link.dart';
 
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/custom_indicatior.dart';
 import '../../Utils/function/convert_fromhex_color.dart';
 import '../../Utils/helper/color.dart';
+import '../member_directory/controllers/customer_controller.dart';
 import '../report_module/controllers/documentation_controller.dart';
 import '../report_module/models/documentation_model.dart';
 import '../report_module/screens/view_report.dart';
@@ -23,6 +22,7 @@ class MainDashBoardTypeAM extends StatefulWidget {
 
 class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
   Future<List<DocumentationModel>>? futureList;
+  final customerUser = Get.put(CustomerController());
   final documentCon = Get.put(DocumentationController());
   final settingCon = Get.put(SettingController());
   int currentIndex = 0;
@@ -273,13 +273,13 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(3),
-                  decoration: const BoxDecoration(
-                    boxShadow: [],
+                  decoration: BoxDecoration(
+                    boxShadow: const [],
                     shape: BoxShape.circle,
-                    color: AppColor.mainColor,
+                    color: Colors.grey[200],
                     image: DecorationImage(
                         image: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDuE2ejpy-CjPVNdAhuIVch-8DRr20pvVwxs2pBWtl&s'),
+                            '${customerUser.customer.value.profile}'),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -325,79 +325,82 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                         index: currentIndex,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          if (settingCon.slideList![index].status ==
-                              'Display') {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Stack(
-                                children: [
-                                  Positioned.fill(
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          settingCon.slideList![index].image!,
-                                      fit: BoxFit.cover,
+                          // if (settingCon.slideList![index].status ==
+                          //     'Display') {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                    ///////static image
+                                    child: Image.asset(
+                                  documentListTest[index],
+                                  fit: BoxFit.cover,
+                                )
+                                    // CachedNetworkImage(
+                                    //   imageUrl:
+                                    //       settingCon.slideList![index].image!,
+                                    //   fit: BoxFit.cover,
+                                    // ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    bottom: 20,
-                                    left: 25,
-                                    child: settingCon
-                                                .slideList![index].button !=
-                                            null
-                                        ? Row(
-                                            children: [
-                                              Link(
-                                                uri: Uri.tryParse(
-                                                    '${settingCon.slideList![index].button!.target}'),
-                                                builder:
-                                                    (context, followLink) =>
-                                                        GestureDetector(
-                                                  onTap: followLink,
-                                                  child: Container(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 8,
-                                                        horizontal: 8),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      color: Colors.white
-                                                          .withOpacity(0.4),
-                                                    ),
-                                                    child: Row(
-                                                      children: [
-                                                        SvgPicture.network(
-                                                            '${settingCon.slideList![index].button!.icon}'),
-                                                        const SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Text(
-                                                          '${settingCon.slideList![index].button!.label}',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .headline6!
-                                                              .copyWith(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : Container(),
-                                  )
-                                ],
-                              ),
-                            );
-                          }
-                          return Container();
+                                ///////buitton on banner slide
+                                // Positioned(
+                                //   bottom: 20,
+                                //   left: 25,
+                                //   child: settingCon.slideList![index].button !=
+                                //           null
+                                //       ? Row(
+                                //           children: [
+                                //             Link(
+                                //               uri: Uri.tryParse(
+                                //                   '${settingCon.slideList![index].button!.target}'),
+                                //               builder: (context, followLink) =>
+                                //                   GestureDetector(
+                                //                 onTap: followLink,
+                                //                 child: Container(
+                                //                   padding: const EdgeInsets
+                                //                           .symmetric(
+                                //                       vertical: 8,
+                                //                       horizontal: 8),
+                                //                   decoration: BoxDecoration(
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             8),
+                                //                     color: Colors.white
+                                //                         .withOpacity(0.4),
+                                //                   ),
+                                //                   child: Row(
+                                //                     children: [
+                                //                       SvgPicture.network(
+                                //                           '${settingCon.slideList![index].button!.icon}'),
+                                //                       const SizedBox(
+                                //                         width: 10,
+                                //                       ),
+                                //                       Text(
+                                //                         '${settingCon.slideList![index].button!.label}',
+                                //                         style: Theme.of(context)
+                                //                             .textTheme
+                                //                             .headline6!
+                                //                             .copyWith(
+                                //                                 fontSize: 12,
+                                //                                 fontWeight:
+                                //                                     FontWeight
+                                //                                         .w700),
+                                //                       ),
+                                //                     ],
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //             ),
+                                //           ],
+                                //         )
+                                //       : Container(),
+                                // )
+                              ],
+                            ),
+                          );
+                          // }
+                          // return Container();
                         },
                         onIndexChanged: (value) {
                           setState(() {
@@ -447,22 +450,33 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                       ],
                     ),
                     child: GridView.count(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      crossAxisCount: 3,
-                      childAspectRatio: 3 / 2.15,
-                      children: settingCon.appSettingDataList
-                          .asMap()
-                          .entries
-                          .map((e) => Padding(
-                                padding: const EdgeInsets.only(top: 16),
-                                child: customMenu(
-                                    context: context,
-                                    icon: e.value.icon,
-                                    label: e.value.label),
-                              ))
-                          .toList(),
-                    ),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        crossAxisCount: 3,
+                        childAspectRatio: 3 / 2.20,
+                        children: menuListTest
+                            .asMap()
+                            .entries
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.only(top: 18),
+                                  child: customMenu(
+                                      context: context,
+                                      icon: e.value.url,
+                                      label: e.value.title),
+                                ))
+                            .toList()
+                        // settingCon.appSettingDataList
+                        //     .asMap()
+                        //     .entries
+                        //     .map((e) => Padding(
+                        //           padding: const EdgeInsets.only(top: 16),
+                        //           child: customMenu(
+                        //               context: context,
+                        //               icon: e.value.icon,
+                        //               label: e.value.label),
+                        //         ))
+                        //     .toList(),
+                        ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -604,7 +618,7 @@ customMenu({
 }) {
   return Column(
     children: [
-      SvgPicture.network(
+      SvgPicture.asset(
         '$icon',
         width: 30,
         height: 30,
@@ -623,37 +637,33 @@ customMenu({
   );
 }
 
-List<DocumentationModel> documentListTest = [
+List<String> documentListTest = [
+  'assets/images/banner1.png',
+  'assets/images/banner2.png',
+];
+List<DocumentationModel> menuListTest = [
   DocumentationModel(
     title: 'My Investment',
-    url: 'assets/images/svgfile/HomeActive.svg',
+    url: 'assets/images/svgfile/static_invesment.svg',
   ),
   DocumentationModel(
-    title: 'My Investment',
-    url: 'assets/images/svgfile/language.svg',
+    title: 'Get Funding',
+    url: 'assets/images/svgfile/static_getfunding.svg',
   ),
   DocumentationModel(
-    title: 'My Investment',
-    url: 'assets/images/svgfile/language.svg',
+    title: 'Program',
+    url: 'assets/images/svgfile/static_program.svg',
   ),
-  // DocumentationModel(
-  //   title: 'My Investment',
-  //   url: 'assets/images/svgfile/marketClose.svg',
-  // ),
   DocumentationModel(
-    title: 'My Investment',
-    url: 'assets/images/svgfile/announcementIcon.svg',
+    title: 'Learning',
+    url: 'assets/images/svgfile/static_learning.svg',
   ),
-  // DocumentationModel(
-  //   title: 'My Investment',
-  //   url: 'assets/images/svgfile/announcementIcon.svg',
-  // ),
-  // DocumentationModel(
-  //   title: 'My Investment',
-  //   url: 'assets/images/svgfile/announcementIcon.svg',
-  // ),
-  // DocumentationModel(
-  //   title: 'My Investment',
-  //   url: 'assets/images/svgfile/announcementIcon.svg',
-  // ),
+  DocumentationModel(
+    title: 'Directory',
+    url: 'assets/images/svgfile/static_directory.svg',
+  ),
+  DocumentationModel(
+    title: 'Events',
+    url: 'assets/images/svgfile/static_event.svg',
+  ),
 ];

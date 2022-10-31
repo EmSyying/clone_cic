@@ -473,121 +473,189 @@ class _MainDashboardState extends State<MainDashboard> {
 //                    : Color(0xffDEE8E9).withOpacity(0.1),
               automaticallyImplyLeading: false,
               centerTitle: false,
-              title: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.push('/wallet');
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/svgfile/Logocic.svg',
-                      height: 27,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    'Mobile',
-                    style: TextStyle(
-                        fontFamily: 'DMSans',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
+              title:
+                  // Row(
+                  //   children: [
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     context.push('/wallet');
+                  //   },
+                  //   child: SvgPicture.asset(
+                  //     'assets/images/svgfile/Logocic.svg',
+                  //     height: 27,
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   width: 10,
+                  // ),
+                  // const Text(
+                  //   'Mobile',
+                  //   style: TextStyle(
+                  //       fontFamily: 'DMSans',
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 20),
+                  // ),
+                  // Container(
+                  //   margin: const EdgeInsets.only(left: 5),
+                  //   padding:
+                  //       const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(5),
+                  //       color: Colors.white12),
+                  //   child: Text(
+                  //     dashboardType == 'AM' ? 'AM' : 'QM',
+                  //     style: Theme.of(context)
+                  //         .textTheme
+                  //         .headline6!
+                  //         .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                  //   ),
+                  // ),
                   Container(
-                    margin: const EdgeInsets.only(left: 5),
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white12),
-                    child: Text(
-                      dashboardType == 'AM' ? 'AM' : 'QM',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                width: double.infinity,
+                color: Colors.transparent,
+                child: PopupMenuButton(
+                  position: PopupMenuPosition.under,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  icon: SizedBox(
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/svgfile/Logocic.svg',
+                            height: 27,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            'Mobile',
+                            style: TextStyle(
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          // Container(
+                          //   margin: const EdgeInsets.only(left: 5),
+                          //   padding: const EdgeInsets.symmetric(
+                          //       vertical: 2, horizontal: 8),
+                          //   decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(5),
+                          //       color: Colors.white12),
+                          //   child: Text(
+                          //     dashboardType == 'AM' ? 'AM' : 'QM',
+                          //     style: Theme.of(context)
+                          //         .textTheme
+                          //         .headline6!
+                          //         .copyWith(
+                          //             fontSize: 12,
+                          //             fontWeight: FontWeight.w600),
+                          //   ),
+                          // ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Icon(Icons.expand_more)
+                        ],
+                      ),
                     ),
                   ),
-                  PopupMenuButton(
-                    position: PopupMenuPosition.under,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    icon: const Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Icon(Icons.expand_more),
-                    ),
-                    itemBuilder: (context) => <PopupMenuEntry>[
-                      PopupMenuItem(
-                        key: widgetKey,
-                        child: GestureDetector(
-                            onTap: dashboardType == 'AM'
-                                ? null
-                                : () {
-                                    Navigator.pop(context);
-                                    Offset offset = getWidgetInfo(widgetKey);
-                                    context.go('/switch-splash-screen',
-                                        extra: offset);
-                                    Future.delayed(
-                                        const Duration(milliseconds: 230), () {
-                                      setState(() {
-                                        dashboardType = 'AM';
-                                      });
+                  // Padding(
+                  //   padding: EdgeInsets.only(right: 10),
+                  //   child: Icon(Icons.expand_more),
+                  // ),
+                  itemBuilder: (context) => <PopupMenuEntry>[
+                    PopupMenuItem(
+                      key: widgetKey,
+                      child: GestureDetector(
+                          onTap: dashboardType == 'QM'
+                              ? null
+                              : () {
+                                  Navigator.pop(context);
+                                  Offset offset = getWidgetInfo(widgetKey);
+                                  context.go('/switch-splash-screen',
+                                      extra: offset);
+                                  Future.delayed(
+                                      const Duration(milliseconds: 230), () {
+                                    setState(() {
+                                      dashboardType = 'QM';
                                     });
+                                  });
 
-                                    // setState(() {
-                                    //   // switchIcon = e;
-                                    //   // if (e == true) {
-                                    //   Offset offset = getWidgetInfo(widgetKey);
-                                    //   context.go('/switch-splash-screen',
-                                    //       extra: offset);
-                                    //   Navigator.pop(context);
-                                    //   // context.go('/am-dashboard');
+                                  // setState(() {
+                                  //   // switchIcon = e;
+                                  //   // if (e == true) {
+                                  //   Offset offset = getWidgetInfo(widgetKey);
+                                  //   context.go('/switch-splash-screen',
+                                  //       extra: offset);
+                                  //   Navigator.pop(context);
+                                  //   // context.go('/am-dashboard');
 
-                                    //   // Navigator.push(
-                                    //   //     context,
-                                    //   //     MaterialPageRoute(
-                                    //   //         builder: (context) =>
-                                    //   //             const DashboardTypeAM()));
-                                    //   // else {
-                                    //   //   Offset offset = getWidgetInfo(widgetKey);
-                                    //   //   context.go('/switch-splash-screen', extra: offset);
-                                    //   // }
-                                    // });
-                                  },
-                            child: Container(
-                                color: Colors.transparent,
-                                width: double.infinity,
-                                child: const Text('AM'))),
-                      ),
-                      //QM Dashboard
-                      const PopupMenuDivider(height: 0),
-                      PopupMenuItem(
-                        child: GestureDetector(
-                            onTap: dashboardType == 'QM'
-                                ? null
-                                : () {
-                                    Navigator.pop(context);
-                                    Offset offset = getWidgetInfo(widgetKey);
-                                    context.go('/switch-splash-screen',
-                                        extra: offset);
-                                    Future.delayed(
-                                        const Duration(milliseconds: 230), () {
-                                      setState(() {
-                                        dashboardType = 'QM';
-                                      });
+                                  //   // Navigator.push(
+                                  //   //     context,
+                                  //   //     MaterialPageRoute(
+                                  //   //         builder: (context) =>
+                                  //   //             const DashboardTypeAM()));
+                                  //   // else {
+                                  //   //   Offset offset = getWidgetInfo(widgetKey);
+                                  //   //   context.go('/switch-splash-screen', extra: offset);
+                                  //   // }
+                                  // });
+                                },
+                          child: Container(
+                              color: Colors.transparent,
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                      'assets/images/svgfile/qm_icon.svg'),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Text('QM Account'),
+                                ],
+                              ))),
+                    ),
+                    //QM Dashboard
+                    const PopupMenuDivider(height: 0),
+                    PopupMenuItem(
+                      child: GestureDetector(
+                          onTap: dashboardType == 'AM'
+                              ? null
+                              : () {
+                                  Navigator.pop(context);
+                                  Offset offset = getWidgetInfo(widgetKey);
+                                  context.go('/switch-splash-screen',
+                                      extra: offset);
+                                  Future.delayed(
+                                      const Duration(milliseconds: 230), () {
+                                    setState(() {
+                                      dashboardType = 'AM';
                                     });
-                                  },
-                            child: Container(
-                                color: Colors.transparent,
-                                width: double.infinity,
-                                child: const Text('QM'))),
-                      ),
-                    ],
-                  ),
-                ],
+                                  });
+                                },
+                          child: Container(
+                              color: Colors.transparent,
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                      'assets/images/svgfile/am_icon.svg'),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Text('AM Account'),
+                                ],
+                              ))),
+                    ),
+                  ],
+                ),
               ),
+              //   ],
+              // ),
               actions: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
