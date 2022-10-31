@@ -24,6 +24,7 @@ mixin _$WalletTransactionDetail {
   int? get id => throw _privateConstructorUsedError;
   String? get label => throw _privateConstructorUsedError;
   String? get amount => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
   String? get time => throw _privateConstructorUsedError;
   @JsonKey(name: 'deposit_method')
@@ -31,6 +32,10 @@ mixin _$WalletTransactionDetail {
   String? get remark => throw _privateConstructorUsedError;
   @JsonKey(name: 'transaction_type')
   String? get transactionType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bank_account_nummber')
+  String? get bnakAccountNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bank_name')
+  String? get bankName => throw _privateConstructorUsedError;
   @JsonKey(name: 'transaction_id')
   String? get transactionId => throw _privateConstructorUsedError;
 
@@ -49,11 +54,14 @@ abstract class $WalletTransactionDetailCopyWith<$Res> {
       {int? id,
       String? label,
       String? amount,
+      String? status,
       String? date,
       String? time,
       @JsonKey(name: 'deposit_method') String? depositMethod,
       String? remark,
       @JsonKey(name: 'transaction_type') String? transactionType,
+      @JsonKey(name: 'bank_account_nummber') String? bnakAccountNumber,
+      @JsonKey(name: 'bank_name') String? bankName,
       @JsonKey(name: 'transaction_id') String? transactionId});
 }
 
@@ -71,11 +79,14 @@ class _$WalletTransactionDetailCopyWithImpl<$Res>
     Object? id = freezed,
     Object? label = freezed,
     Object? amount = freezed,
+    Object? status = freezed,
     Object? date = freezed,
     Object? time = freezed,
     Object? depositMethod = freezed,
     Object? remark = freezed,
     Object? transactionType = freezed,
+    Object? bnakAccountNumber = freezed,
+    Object? bankName = freezed,
     Object? transactionId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -90,6 +101,10 @@ class _$WalletTransactionDetailCopyWithImpl<$Res>
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String?,
       date: date == freezed
           ? _value.date
@@ -110,6 +125,14 @@ class _$WalletTransactionDetailCopyWithImpl<$Res>
       transactionType: transactionType == freezed
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bnakAccountNumber: bnakAccountNumber == freezed
+          ? _value.bnakAccountNumber
+          : bnakAccountNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bankName: bankName == freezed
+          ? _value.bankName
+          : bankName // ignore: cast_nullable_to_non_nullable
               as String?,
       transactionId: transactionId == freezed
           ? _value.transactionId
@@ -130,11 +153,14 @@ abstract class _$$_WalletTransactionDetailCopyWith<$Res>
       {int? id,
       String? label,
       String? amount,
+      String? status,
       String? date,
       String? time,
       @JsonKey(name: 'deposit_method') String? depositMethod,
       String? remark,
       @JsonKey(name: 'transaction_type') String? transactionType,
+      @JsonKey(name: 'bank_account_nummber') String? bnakAccountNumber,
+      @JsonKey(name: 'bank_name') String? bankName,
       @JsonKey(name: 'transaction_id') String? transactionId});
 }
 
@@ -155,11 +181,14 @@ class __$$_WalletTransactionDetailCopyWithImpl<$Res>
     Object? id = freezed,
     Object? label = freezed,
     Object? amount = freezed,
+    Object? status = freezed,
     Object? date = freezed,
     Object? time = freezed,
     Object? depositMethod = freezed,
     Object? remark = freezed,
     Object? transactionType = freezed,
+    Object? bnakAccountNumber = freezed,
+    Object? bankName = freezed,
     Object? transactionId = freezed,
   }) {
     return _then(_$_WalletTransactionDetail(
@@ -174,6 +203,10 @@ class __$$_WalletTransactionDetailCopyWithImpl<$Res>
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String?,
       date: date == freezed
           ? _value.date
@@ -195,6 +228,14 @@ class __$$_WalletTransactionDetailCopyWithImpl<$Res>
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as String?,
+      bnakAccountNumber: bnakAccountNumber == freezed
+          ? _value.bnakAccountNumber
+          : bnakAccountNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bankName: bankName == freezed
+          ? _value.bankName
+          : bankName // ignore: cast_nullable_to_non_nullable
+              as String?,
       transactionId: transactionId == freezed
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
@@ -210,11 +251,14 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
       {this.id,
       this.label,
       this.amount,
+      this.status,
       this.date,
       this.time,
       @JsonKey(name: 'deposit_method') this.depositMethod,
       this.remark,
       @JsonKey(name: 'transaction_type') this.transactionType,
+      @JsonKey(name: 'bank_account_nummber') this.bnakAccountNumber,
+      @JsonKey(name: 'bank_name') this.bankName,
       @JsonKey(name: 'transaction_id') this.transactionId});
 
   factory _$_WalletTransactionDetail.fromJson(Map<String, dynamic> json) =>
@@ -226,6 +270,8 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
   final String? label;
   @override
   final String? amount;
+  @override
+  final String? status;
   @override
   final String? date;
   @override
@@ -239,12 +285,18 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
   @JsonKey(name: 'transaction_type')
   final String? transactionType;
   @override
+  @JsonKey(name: 'bank_account_nummber')
+  final String? bnakAccountNumber;
+  @override
+  @JsonKey(name: 'bank_name')
+  final String? bankName;
+  @override
   @JsonKey(name: 'transaction_id')
   final String? transactionId;
 
   @override
   String toString() {
-    return 'WalletTransactionDetail(id: $id, label: $label, amount: $amount, date: $date, time: $time, depositMethod: $depositMethod, remark: $remark, transactionType: $transactionType, transactionId: $transactionId)';
+    return 'WalletTransactionDetail(id: $id, label: $label, amount: $amount, status: $status, date: $date, time: $time, depositMethod: $depositMethod, remark: $remark, transactionType: $transactionType, bnakAccountNumber: $bnakAccountNumber, bankName: $bankName, transactionId: $transactionId)';
   }
 
   @override
@@ -255,6 +307,7 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.label, label) &&
             const DeepCollectionEquality().equals(other.amount, amount) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.time, time) &&
             const DeepCollectionEquality()
@@ -262,6 +315,9 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
             const DeepCollectionEquality().equals(other.remark, remark) &&
             const DeepCollectionEquality()
                 .equals(other.transactionType, transactionType) &&
+            const DeepCollectionEquality()
+                .equals(other.bnakAccountNumber, bnakAccountNumber) &&
+            const DeepCollectionEquality().equals(other.bankName, bankName) &&
             const DeepCollectionEquality()
                 .equals(other.transactionId, transactionId));
   }
@@ -273,11 +329,14 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(label),
       const DeepCollectionEquality().hash(amount),
+      const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(time),
       const DeepCollectionEquality().hash(depositMethod),
       const DeepCollectionEquality().hash(remark),
       const DeepCollectionEquality().hash(transactionType),
+      const DeepCollectionEquality().hash(bnakAccountNumber),
+      const DeepCollectionEquality().hash(bankName),
       const DeepCollectionEquality().hash(transactionId));
 
   @JsonKey(ignore: true)
@@ -295,16 +354,23 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
 
 abstract class _WalletTransactionDetail implements WalletTransactionDetail {
   factory _WalletTransactionDetail(
-          {final int? id,
-          final String? label,
-          final String? amount,
-          final String? date,
-          final String? time,
-          @JsonKey(name: 'deposit_method') final String? depositMethod,
-          final String? remark,
-          @JsonKey(name: 'transaction_type') final String? transactionType,
-          @JsonKey(name: 'transaction_id') final String? transactionId}) =
-      _$_WalletTransactionDetail;
+      {final int? id,
+      final String? label,
+      final String? amount,
+      final String? status,
+      final String? date,
+      final String? time,
+      @JsonKey(name: 'deposit_method')
+          final String? depositMethod,
+      final String? remark,
+      @JsonKey(name: 'transaction_type')
+          final String? transactionType,
+      @JsonKey(name: 'bank_account_nummber')
+          final String? bnakAccountNumber,
+      @JsonKey(name: 'bank_name')
+          final String? bankName,
+      @JsonKey(name: 'transaction_id')
+          final String? transactionId}) = _$_WalletTransactionDetail;
 
   factory _WalletTransactionDetail.fromJson(Map<String, dynamic> json) =
       _$_WalletTransactionDetail.fromJson;
@@ -315,6 +381,8 @@ abstract class _WalletTransactionDetail implements WalletTransactionDetail {
   String? get label => throw _privateConstructorUsedError;
   @override
   String? get amount => throw _privateConstructorUsedError;
+  @override
+  String? get status => throw _privateConstructorUsedError;
   @override
   String? get date => throw _privateConstructorUsedError;
   @override
@@ -327,6 +395,12 @@ abstract class _WalletTransactionDetail implements WalletTransactionDetail {
   @override
   @JsonKey(name: 'transaction_type')
   String? get transactionType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'bank_account_nummber')
+  String? get bnakAccountNumber => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'bank_name')
+  String? get bankName => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'transaction_id')
   String? get transactionId => throw _privateConstructorUsedError;

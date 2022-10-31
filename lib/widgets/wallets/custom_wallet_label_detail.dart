@@ -23,10 +23,14 @@ class CustomWalletDetail extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              "$value",
+              "$value".toUpperCase(),
               style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontSize: 12,
-                  color: const Color(0XFF0A0B09),
+                  color: value!.toUpperCase() == "UNPAID"
+                      ? Colors.red
+                      : value!.toUpperCase() == "PAID"
+                          ? Colors.green
+                          : const Color(0XFF0A0B09),
                   fontWeight: FontWeight.w700),
             ),
           ],

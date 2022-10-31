@@ -523,16 +523,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                       ),
                                                                                                     );
                                                                                                   }
-                                                                                                : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment'
+                                                                                                : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment' || _con.notificationList[index].data!.type == 'receiver' || _con.notificationList[index].data!.type == 'transferer'
                                                                                                     ? () async {
-                                                                                                        debugPrint("Wallet Id:${_con.notificationList[index].data!.transactionId}");
-                                                                                                        if (_con.notificationList[index].data!.type == 'wallet-cashout') {
-                                                                                                          notificationIdList.add(items.id);
-                                                                                                          _con.onReadNotification(_con.notificationList[index].id!);
-                                                                                                          setState(() {
-                                                                                                            _con.notificationList[index].readAt = '';
-                                                                                                          });
-                                                                                                        } else {
+                                                                                                        debugPrint("Wallet Id:${_con.notificationList[index].data!.transactionId}Type:${_con.notificationList[index].data!.type}");
+                                                                                                        if (_con.notificationList[index].data!.type == 'wallet-deposit') {
                                                                                                           notificationIdList.add(items.id);
                                                                                                           _con.onReadNotification(_con.notificationList[index].id!);
                                                                                                           setState(() {
@@ -543,17 +537,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                               type: _con.notificationList[index].data!.type,
                                                                                                               isAmountFormat: true,
                                                                                                               context: context,
-                                                                                                              label: _walletController.depositDetail.value.title!,
-                                                                                                              time: _walletController.depositDetail.value.time!,
-                                                                                                              amountFormat: _walletController.depositDetail.value.amount,
-                                                                                                              text: Text(_walletController.depositDetail.value.amount!),
+                                                                                                              label: _con.notificationList[index].data!.title,
+                                                                                                              time: value.time!,
+                                                                                                              amountFormat: value.amount,
+                                                                                                              text: Text(value.amount!),
                                                                                                               child: Padding(
                                                                                                                 padding: const EdgeInsets.all(20.0),
                                                                                                                 child: Column(
                                                                                                                   children: [
-                                                                                                                    CustomWalletDetail(label: 'Transaction Id', value: _walletController.depositDetail.value.transactionId),
-                                                                                                                    CustomWalletDetail(label: 'Transaction Date', value: _walletController.depositDetail.value.date),
-                                                                                                                    CustomWalletDetail(label: 'Payment Type', value: _walletController.depositDetail.value.depositMethod),
+                                                                                                                    CustomWalletDetail(label: 'Transaction Id', value: value.transactionId),
+                                                                                                                    CustomWalletDetail(label: 'Transaction Date', value: value.date),
+                                                                                                                    CustomWalletDetail(label: 'Payment Type', value: value.depositMethod),
                                                                                                                     const SizedBox(height: 25.0),
                                                                                                                     CustomButton(
                                                                                                                       isDisable: false,
@@ -567,6 +561,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                                 ),
                                                                                                               ),
                                                                                                             );
+                                                                                                          });
+                                                                                                        } else {
+                                                                                                          notificationIdList.add(items.id);
+                                                                                                          _con.onReadNotification(_con.notificationList[index].id!);
+                                                                                                          setState(() {
+                                                                                                            _con.notificationList[index].readAt = '';
                                                                                                           });
                                                                                                         }
                                                                                                       }
