@@ -60,14 +60,30 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                     width: 160,
                   ),
                 ),
-                Text(S.of(context).continuePhone,
-                    style: Theme.of(context).textTheme.headline1),
-                const SizedBox(
-                  height: 20.0,
+                const Text(
+                  'Welcome to',
+                  style: TextStyle(
+                    fontSize: 26,
+                    color: AppColor.mainColor,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Montserrat',
+                  ),
                 ),
-                Text(S.of(context).password,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2),
+                const Text(
+                  'CiC Mobile App',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 26,
+                    color: AppColor.mainColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                // const SizedBox(
+                //   height: 20.0,
+                // ),
+                // Text(S.of(context).password,
+                //     textAlign: TextAlign.center,
+                //     style: Theme.of(context).textTheme.headline2),
                 const SizedBox(
                   height: 50.0,
                 ),

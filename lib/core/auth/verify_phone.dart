@@ -103,7 +103,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                   width: 100.0,
                 ),
                 Text(
-                  'Verify OTP',
+                  'Verify Phone Number',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 25,
@@ -114,10 +114,26 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                 const SizedBox(
                   height: 20.0,
                 ),
-                Text(
-                  'Code is Sent to ${widget.phoneNumber}',
-                  style: Theme.of(context).textTheme.headline2,
+                RichText(
+                  text: TextSpan(
+                    text: 'Code is Sent to ',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontWeight: FontWeight.w300,
+                        ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '${widget.phoneNumber}',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
+                // Text(
+                //   'Code is Sent to ${widget.phoneNumber}',
+                //   style: Theme.of(context).textTheme.headline2,
+                // ),
                 const SizedBox(
                   height: 20.0,
                 ),
