@@ -6,7 +6,6 @@ import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
 import 'package:cicgreenloan/widgets/mmaccount/custom_qr_card.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +22,6 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../utils/helper/digit_decimal_formarter.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
-import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
 
 class DepositFromScreen extends StatefulWidget {
@@ -166,38 +164,38 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                           }),
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      SafeArea(
-                        top: false,
-                        minimum: const EdgeInsets.only(bottom: 20),
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'By submitting you agree to ',
-                            style: textStyle.copyWith(fontSize: 12),
-                            children: [
-                              TextSpan(
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ContractTerm(
-                                          fromPage: 'agree',
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                text: 'CiC Service Agreement',
-                                style: textStyle.copyWith(
-                                    color: AppColor.mainColor,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      const SizedBox(height: 46),
+                      // SafeArea(
+                      //   top: false,
+                      //   minimum: const EdgeInsets.only(bottom: 20),
+                      //   child: RichText(
+                      //     text: TextSpan(
+                      //       text: 'By submitting you agree to ',
+                      //       style: textStyle.copyWith(fontSize: 12),
+                      //       children: [
+                      //         TextSpan(
+                      //           recognizer: TapGestureRecognizer()
+                      //             ..onTap = () {
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder: (context) =>
+                      //                       const ContractTerm(
+                      //                     fromPage: 'agree',
+                      //                   ),
+                      //                 ),
+                      //               );
+                      //             },
+                      //           text: 'CiC Service Agreement',
+                      //           style: textStyle.copyWith(
+                      //               color: AppColor.mainColor,
+                      //               fontWeight: FontWeight.w400,
+                      //               fontSize: 12),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 )

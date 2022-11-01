@@ -249,34 +249,34 @@ class _TransferToMMAState extends State<TransferToMMA> {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                readAgreement = !readAgreement;
-                debugPrint(
-                    '${_walletController.qrRecievingAmount.text.isNotEmpty}');
-                setState(() {});
-              },
-              child: Container(
-                padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        _tickIcon(readAgreement),
-                        const SizedBox(width: 20),
-                        Text(
-                          'I have read and agreed to CiC service agreement',
-                          style: textStyle.copyWith(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0XFF464646)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     readAgreement = !readAgreement;
+            //     debugPrint(
+            //         '${_walletController.qrRecievingAmount.text.isNotEmpty}');
+            //     setState(() {});
+            //   },
+            //   child: Container(
+            //     padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+            //     child: Column(
+            //       children: [
+            //         Row(
+            //           children: [
+            //             _tickIcon(readAgreement),
+            //             const SizedBox(width: 20),
+            //             Text(
+            //               'I have read and agreed to CiC service agreement',
+            //               style: textStyle.copyWith(
+            //                   fontSize: 13,
+            //                   fontWeight: FontWeight.w400,
+            //                   color: const Color(0XFF464646)),
+            //             ),
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Container(
               color: Colors.white,
               padding: const EdgeInsets.only(
@@ -292,8 +292,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
                   });
                 },
                 title: 'Proceed to pay',
-                isDisable: readAgreement &&
-                        _walletController.qrRecievingPhone.text.isNotEmpty &&
+                isDisable: _walletController.qrRecievingPhone.text.isNotEmpty &&
                         _walletController.qrRecievingAmount.text.isNotEmpty &&
                         double.tryParse(_walletController.qrRecievingAmount.text
                                 .clean())! <
@@ -311,16 +310,16 @@ class _TransferToMMAState extends State<TransferToMMA> {
     );
   }
 
-  bool readAgreement = false;
+  //bool readAgreement = false;
 
   // bool _validateButton() => ;
 
-  Widget _tickIcon(bool select, {double? width, Color? color}) => select
-      ? SvgPicture.asset('assets/images/svgfile/circle_check-selected.svg',
-          width: width, color: color)
-      : SvgPicture.asset(
-          'assets/images/svgfile/cicle_check.svg',
-          width: width,
-          color: Colors.grey,
-        );
+  // Widget _tickIcon(bool select, {double? width, Color? color}) => select
+  //     ? SvgPicture.asset('assets/images/svgfile/circle_check-selected.svg',
+  //         width: width, color: color)
+  //     : SvgPicture.asset(
+  //         'assets/images/svgfile/cicle_check.svg',
+  //         width: width,
+  //         color: Colors.grey,
+  //       );
 }

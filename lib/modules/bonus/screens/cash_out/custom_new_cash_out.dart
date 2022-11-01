@@ -340,108 +340,104 @@ class CustomNewCashOut extends StatelessWidget {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      newCashOutCon.isAgree.value =
-                          !newCashOutCon.isAgree.value;
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        left: 20.0,
-                        right: 20.0,
-                        bottom: 20.0,
-                        top: 10.0,
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              newCashOutCon.isAgree.value == false
-                                  ? SvgPicture.asset(
-                                      'assets/images/svgfile/cicle_check.svg',
-                                      color: Colors.grey,
-                                    )
-                                  : SvgPicture.asset(
-                                      'assets/images/svgfile/circle_check-selected.svg'),
-                              const SizedBox(width: 10),
-                              Text(
-                                'I have read and agreed to CIC Service Agreement',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0XFF464646)),
-                              ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     onShowCustomCupertinoModalSheet(
-                              //         context: context,
-                              //         child: ServiceAgreement(
-                              //           serviceAgreement: newCashOutCon
-                              //               .bonusSetting
-                              //               .value
-                              //               .serviceAgreement,
-                              //         ),
-                              //         title: 'Service Agreement',
-                              //         icon: const Icon(Icons.arrow_back_ios));
-                              //   },
-                              //   child: Padding(
-                              //     padding: const EdgeInsets.only(left: 5.0),
-                              //     child: Text(
-                              //       'CiC Serivce Agreement',
-                              //       style: Theme.of(context)
-                              //           .textTheme
-                              //           .headline2!
-                              //           .copyWith(
-                              //               fontSize: 13,
-                              //               fontWeight: FontWeight.normal,
-                              //               color: AppColor.mainColor),
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     newCashOutCon.isAgree.value =
+                  //         !newCashOutCon.isAgree.value;
+                  //   },
+                  //   child: Container(
+                  //     padding: const EdgeInsets.only(
+                  //       left: 20.0,
+                  //       right: 20.0,
+                  //       bottom: 20.0,
+                  //       top: 10.0,
+                  //     ),
+                  //     child: Column(
+                  //       children: [
+                  //         Row(
+                  //           children: [
+                  //             newCashOutCon.isAgree.value == false
+                  //                 ? SvgPicture.asset(
+                  //                     'assets/images/svgfile/cicle_check.svg',
+                  //                     color: Colors.grey,
+                  //                   )
+                  //                 : SvgPicture.asset(
+                  //                     'assets/images/svgfile/circle_check-selected.svg'),
+                  //             const SizedBox(width: 10),
+                  //             Text(
+                  //               'I have read and agreed to CIC Service Agreement',
+                  //               style: Theme.of(context)
+                  //                   .textTheme
+                  //                   .headline2!
+                  //                   .copyWith(
+                  //                       fontSize: 13,
+                  //                       fontWeight: FontWeight.w400,
+                  //                       color: const Color(0XFF464646)),
+                  //             ),
+                  //             // GestureDetector(
+                  //             //   onTap: () {
+                  //             //     onShowCustomCupertinoModalSheet(
+                  //             //         context: context,
+                  //             //         child: ServiceAgreement(
+                  //             //           serviceAgreement: newCashOutCon
+                  //             //               .bonusSetting
+                  //             //               .value
+                  //             //               .serviceAgreement,
+                  //             //         ),
+                  //             //         title: 'Service Agreement',
+                  //             //         icon: const Icon(Icons.arrow_back_ios));
+                  //             //   },
+                  //             //   child: Padding(
+                  //             //     padding: const EdgeInsets.only(left: 5.0),
+                  //             //     child: Text(
+                  //             //       'CiC Serivce Agreement',
+                  //             //       style: Theme.of(context)
+                  //             //           .textTheme
+                  //             //           .headline2!
+                  //             //           .copyWith(
+                  //             //               fontSize: 13,
+                  //             //               fontWeight: FontWeight.normal,
+                  //             //               color: AppColor.mainColor),
+                  //             //     ),
+                  //             //   ),
+                  //             // ),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
                       color: Colors.white,
                       padding: const EdgeInsets.only(
                           left: 20, right: 20, top: 20, bottom: 30),
                       child: CustomButton(
                         width: double.infinity,
-                        onPressed: newCashOutCon.isAgree.value
-                            ? newCashOutCon.bankName.value != "" &&
-                                    newCashOutCon.accountNumber.value != "" &&
-                                    newCashOutCon.cashoutAmount.value != 0
-                                ? () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ReviewMMATransferScreen(),
-                                      ),
-                                    );
-                                    // FirebaseAnalyticsHelper
-                                    //     .sendAnalyticsEvent(
-                                    //         'submit bonus cast out');
-                                    // newCashOutCon.isAgree.value = false;
-                                    // isValidate(context);
-                                  }
-                                : null
+                        onPressed: newCashOutCon.bankName.value != "" &&
+                                newCashOutCon.accountNumber.value != "" &&
+                                newCashOutCon.cashoutAmount.value != 0
+                            ? () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ReviewMMATransferScreen(),
+                                  ),
+                                );
+                                // FirebaseAnalyticsHelper
+                                //     .sendAnalyticsEvent(
+                                //         'submit bonus cast out');
+                                // newCashOutCon.isAgree.value = false;
+                                // isValidate(context);
+                              }
                             : null,
-                        isDisable: newCashOutCon.isAgree.value
-                            ? newCashOutCon.bankName.value != "" &&
-                                    newCashOutCon.accountNumber.value != "" &&
-                                    newCashOutCon.cashoutAmount.value != 0 &&
-                                    newCashOutCon.cashoutAmount.value <
-                                        _walletController
-                                            .walletAmount.value.wallet!.balance!
-                                ? false
-                                : true
+                        isDisable: newCashOutCon.bankName.value != "" &&
+                                newCashOutCon.accountNumber.value != "" &&
+                                newCashOutCon.cashoutAmount.value != 0 &&
+                                newCashOutCon.cashoutAmount.value <
+                                    _walletController
+                                        .walletAmount.value.wallet!.balance!
+                            ? false
                             : true,
                         isOutline: false,
                         title: 'Proceed to Pay',
