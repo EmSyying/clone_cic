@@ -71,33 +71,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 160,
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Testdddfdd:",
-                        style: Theme.of(context).textTheme.headline1,
-                        children: <InlineSpan>[
-                          const WidgetSpan(
-                              alignment: PlaceholderAlignment.belowBaseline,
-                              baseline: TextBaseline.alphabetic,
-                              child: SizedBox(width: 10)),
-                          TextSpan(
-                            text: "\n Datakkf ",
-                            style: Theme.of(context).textTheme.headline1,
-                          )
-                        ],
-                      ),
+                    Text(
+                      'Welcome to',
+                      style: Theme.of(context).textTheme.headline1,
                     ),
-                    // Text(
-                    //   'Welcome to',
-                    //   style: Theme.of(context).textTheme.headline1,
-                    // ),
-                    // Text(
-                    //   'CiC Mobile App',
-                    //   textAlign: TextAlign.center,
-                    //   style: Theme.of(context).textTheme.headline1!.copyWith(
-                    //         fontWeight: FontWeight.w600,
-                    //       ),
-                    // ),
+                    Text(
+                      'CiC Mobile App',
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            height: 1,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
                     const SizedBox(
                       height: 50.0,
                     ),
