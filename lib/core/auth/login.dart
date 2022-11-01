@@ -73,13 +73,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Text(
                       'Welcome to',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 26,
+                          ),
                     ),
                     Text(
                       'CiC Mobile App',
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             height: 1,
                             fontWeight: FontWeight.w600,
+                            fontSize: 26,
+                            color: AppColor.mainColor.withOpacity(0.8),
                           ),
                     ),
                     const SizedBox(
