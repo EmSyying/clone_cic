@@ -37,12 +37,69 @@ class NotificationWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: fromHex('#4FA30F').withOpacity(0.2),
+                  color: fromHex(notification!.data!.type == 'wallet-deposit' ||
+                              notification!.data!.type == 'receiver' ||
+                              notification!.data!.type == 'transferer'
+                          ? '#4FA30F'
+                          : notification!.data!.type == 'cash-out' ||
+                                  notification!.data!.type == 'wallet-cashout'
+                              ? '#ED1E26'
+                              : '#0F50A4')
+                      .withOpacity(0.2),
                 ),
                 alignment: Alignment.center,
-                child: SvgPicture.network(
-                    'https://cicstaging.z1central.com/uploads/files/default/icon_cic_url.svg',
-                    color: fromHex('#4FA30F')),
+                child: notification!.data!.type == 'Disbursement' ||
+                        notification!.data!.type == 'Debt' ||
+                        notification!.data!.type == 'Equity'
+                    ? SvgPicture.asset(
+                        'assets/images/svgfile/requestLoanIcon.svg')
+                    : notification!.data!.type!.toLowerCase() == 'fif' ||
+                            notification!.data!.type!.toLowerCase() ==
+                                'withdraw' ||
+                            notification!.data!.type!.toLowerCase() ==
+                                'renew' ||
+                            notification!.data!.type!.toLowerCase() ==
+                                'fif-monthly-payment'
+                        ? SvgPicture.asset(
+                            'assets/images/svgfile/fifnotification.svg',
+                          )
+                        : notification!.data!.type == 'ut-trading'
+                            ? SvgPicture.asset(
+                                'assets/images/svgfile/utNotificationIcon.svg')
+                            : notification!.data!.type == 'subscription-payment' ||
+                                    notification!.data!.type ==
+                                        'trading-payment'
+                                ? SvgPicture.asset(
+                                    'assets/images/svgfile/paymentIcon.svg')
+                                : notification!.data!.type == 'cash-out' ||
+                                        notification!.data!.type ==
+                                            'wallet-cashout'
+                                    ? SvgPicture.asset(
+                                        "assets/images/svgfile/wallet-cashout.svg")
+                                    : notification!.data!.type == 'bonus'
+                                        ? SvgPicture.asset(
+                                            "assets/images/svgfile/Bonus.svg")
+                                        : notification!.data!.type ==
+                                                'confirm-subscription'
+                                            ? SvgPicture.asset(
+                                                "assets/images/svgfile/confirmSubscription.svg")
+                                            : notification!.data!.type ==
+                                                    'confirm-payment'
+                                                ? SvgPicture.asset(
+                                                    "assets/images/svgfile/confirmSubscription.svg")
+                                                : notification!.data!.type ==
+                                                            'wallet-deposit' ||
+                                                        notification!
+                                                                .data!.type ==
+                                                            'receiver' ||
+                                                        notification!
+                                                                .data!.type ==
+                                                            'transferer'
+                                                    ? SvgPicture.asset(
+                                                        "assets/images/svgfile/deposit.svg",
+                                                      )
+                                                    : SvgPicture.asset(
+                                                        'assets/images/svgfile/announcementicons.svg'),
               ),
               // Container(
               //   width: 40,
