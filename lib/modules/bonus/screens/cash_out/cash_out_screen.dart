@@ -63,9 +63,9 @@ class _CashOutScreenState extends State<CashOutScreen>
           Container(
             color: Colors.white,
             child: TabBar(
-              onTap: (v) {
-                FocusScope.of(context).unfocus();
-              },
+              // onTap: (v) {
+              //   FocusScope.of(context).unfocus();
+              // },
               controller: cashOutCon.tabControllerCashOut,
               labelColor: AppColor.mainColor,
               indicatorColor: AppColor.mainColor,
