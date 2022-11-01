@@ -52,7 +52,7 @@ class CustomListWithTitle extends StatelessWidget {
             ),
           ),
           separatorBuilder: (context, index) => const Divider(
-            height: 0,
+            height: 1,
           ),
           itemCount: items.length,
         ),

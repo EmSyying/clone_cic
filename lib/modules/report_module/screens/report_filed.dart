@@ -91,14 +91,14 @@ List year = [
       DocumentationModel(
         title: 'ID Report 01',
         publishedAt: '10/10/2022',
-        color: '#B9F3FE',
-        cover: 'assets/images/svgfile/pdfIcon.svg',
+        color: '#DF5249',
+        cover: 'assets/images/svgfile/pdf_file.svg',
       ),
       DocumentationModel(
           title: 'ID Report 02',
-          color: '#DF5249',
+          color: '#FF9402',
           publishedAt: '10/05/2022',
-          cover: 'assets/images/svgfile/pdfIcon.svg'),
+          cover: 'assets/images/svgfile/website_icon.svg'),
     ]
   },
   {
@@ -106,14 +106,14 @@ List year = [
     'items': [
       DocumentationModel(
           title: 'ID Report 03',
-          color: '#B9F3FE',
+          color: '#02B3E7',
           publishedAt: '2/06/2022',
-          cover: 'assets/images/svgfile/pdfIcon.svg'),
+          cover: 'assets/images/svgfile/website_icon.svg'),
       DocumentationModel(
           title: 'ID Report 04',
-          color: '#EFD5FC',
+          color: '#0AB267',
           publishedAt: '1/07/2022',
-          cover: 'assets/images/svgfile/pdfIcon.svg'),
+          cover: 'assets/images/svgfile/pdf_file.svg'),
     ]
   },
 ];

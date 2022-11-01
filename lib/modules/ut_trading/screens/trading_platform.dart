@@ -429,9 +429,9 @@ class _UTtradingState extends State<UTtrading>
                           IconButton(
                             padding: EdgeInsets.zero,
                             icon: SvgPicture.asset(
-                              'assets/images/iIcon.svg',
-                              width: 45.0,
-                              height: 45.0,
+                              'assets/images/demo.svg',
+                              width: 38.0,
+                              height: 38.0,
                             ),
                             onPressed: () {
                               CiCApp.showOverlays(

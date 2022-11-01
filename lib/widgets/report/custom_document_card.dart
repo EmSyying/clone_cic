@@ -23,7 +23,7 @@ class CustomDocumentCard extends StatelessWidget {
             width: 55,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: fromHex(documentationModel!.color!).withOpacity(0.2),
+              color: fromHex(documentationModel!.color ?? '').withOpacity(0.2),
               borderRadius: BorderRadius.circular(8),
             ),
             alignment: Alignment.center,
