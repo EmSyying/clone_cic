@@ -278,7 +278,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                                               '',
                                           itemCount:
                                               _guidkey.investmentKey.length,
-                                          allowSkip: false,
+                                          allowSkip: true,
                                           overlaySetting: OverlaySetting(),
                                         )
                                       : CiCApp.showOverlays(
@@ -308,7 +308,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                                               '',
                                           itemCount:
                                               _guidkey.investmentFiF.length,
-                                          allowSkip: false,
+                                          allowSkip: true,
                                           overlaySetting: OverlaySetting(),
                                         );
                                 },
