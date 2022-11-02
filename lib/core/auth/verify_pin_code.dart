@@ -69,7 +69,7 @@ class _VerifyPINCodeState extends State<VerifyPINCode> {
                   children: [
                     Image.asset(
                       'assets/images/Logo/cic.png',
-                      width: 100.0,
+                      width: 200.0,
                     ),
                     Text(
                       widget.status == 'Current'
