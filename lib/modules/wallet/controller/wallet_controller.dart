@@ -71,55 +71,94 @@ class WalletController extends GetxController {
   }
 
   // Wallet Transaction
-  final walletTransactionList = <WalletTransaction>[].obs;
-  final isWalletTrnsaction = false.obs;
 
-  Future<List<WalletTransaction>> onFetchWalletTransaction(
-      [String? type]) async {
+  Future<List<WalletTransaction>> fetchWalletTransaction(String param) async {
     final tempList = <WalletTransaction>[];
-    isWalletTrnsaction(true);
+
     await _apiBaseHelper
         .onNetworkRequesting(
             methode: METHODE.get,
             isAuthorize: true,
-            url: 'user/wallet/transaction?type=$type')
+            url: 'user/wallet/transaction?$param')
         .then((response) {
       debugPrint('Success $response');
       response['data'].map((e) {
         tempList.add(WalletTransaction.fromJson(e));
       }).toList();
-      walletTransactionList.value = tempList;
-      isWalletTrnsaction(false);
-    }).onError((ErrorModel error, stackTrace) {
-      isWalletTrnsaction(false);
+    }).onError((ErrorModel error, _) {
       debugPrint('Error ${error.statusCode}');
     });
-    return walletTransactionList;
+    return tempList;
   }
-
-  ///all transaction
 
   // Wallet Transaction Detail
   final walletTransactionDetail = WalletTransactionDetail().obs;
-  final isWalletTransactionDetail = false.obs;
-  Future<WalletTransactionDetail> onFetchWalletTransactionDetail(int id) async {
-    isWalletTransactionDetail(true);
+  final transactionDetailLoading = false.obs;
+  Future<WalletTransactionDetail> onFetchWalletTransactionDetail(
+      int id, String model) async {
+    transactionDetailLoading(true);
     await _apiBaseHelper
         .onNetworkRequesting(
-            url: 'user/wallet/transaction/$id',
+            url: 'user/wallet/transaction/$id?model=$model',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
       walletTransactionDetail.value =
           WalletTransactionDetail.fromJson(response['data']);
-      debugPrint(
-          "Wallet TransacitonDetail:${walletTransactionDetail.value.label}");
-      isWalletTransactionDetail(false);
+
+      transactionDetailLoading(false);
     }).onError((ErrorModel error, stackTrace) {
-      isWalletTransactionDetail(false);
+      transactionDetailLoading(false);
       debugPrint('Error : ${error.statusCode} : ${error.bodyString}');
     });
     return walletTransactionDetail.value;
+  }
+
+  ///all transaction
+  final loadingTransaction = false.obs;
+  List<WalletTransaction> allTransaction = <WalletTransaction>[];
+  List<WalletTransaction> pendingTransaction = <WalletTransaction>[];
+
+  Future<Map<String, List<WalletTransaction>>> getAllTransaction() async {
+    loadingTransaction(true);
+    List<WalletTransaction> tempAllList = <WalletTransaction>[];
+    List<WalletTransaction> tempPendingList = <WalletTransaction>[];
+    tempAllList = await fetchWalletTransaction('type=all');
+    tempPendingList = await fetchWalletTransaction('pending=1');
+    loadingTransaction(false);
+    allTransaction = tempAllList;
+    pendingTransaction = tempPendingList;
+    debugPrint('Success ===> ${tempAllList.length}');
+    debugPrint('Success ===> ${tempPendingList.length}');
+
+    return {
+      'all': allTransaction,
+      'pending': pendingTransaction,
+    };
+  }
+
+  ///income transaction
+  List<WalletTransaction> incomeTransactionList = <WalletTransaction>[];
+  final loadingfetchIncome = false.obs;
+  Future<List<WalletTransaction>> getIncomeTransaction() async {
+    loadingfetchIncome(true);
+    List<WalletTransaction> tempList = <WalletTransaction>[];
+    tempList = await fetchWalletTransaction('income=1');
+    loadingfetchIncome(false);
+    incomeTransactionList = tempList;
+    return incomeTransactionList;
+  }
+
+  ///Expense transaction
+  List<WalletTransaction> expenseTransactionList = <WalletTransaction>[];
+  final loadingfetchExpense = false.obs;
+  Future<List<WalletTransaction>> getExpenseTransaction() async {
+    loadingfetchExpense(true);
+    List<WalletTransaction> tempList = <WalletTransaction>[];
+    tempList = await fetchWalletTransaction('pending=1');
+    loadingfetchExpense(false);
+    expenseTransactionList = tempList;
+    return expenseTransactionList;
   }
 
   // Wallet Transaction Pending
