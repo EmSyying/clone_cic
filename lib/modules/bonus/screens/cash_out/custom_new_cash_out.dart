@@ -60,9 +60,9 @@ class CustomNewCashOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    newCashOutCon.fetchbonusSetting();
-    newCashOutCon.fetchBankMember();
-    newCashOutCon.fetchBankInfo();
+    // newCashOutCon.fetchbonusSetting();
+    // newCashOutCon.fetchBankMember();
+    // newCashOutCon.fetchBankInfo();
 
     return CupertinoScaffold(
       body: Builder(builder: (context) {

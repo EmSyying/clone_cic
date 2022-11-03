@@ -28,6 +28,15 @@ class _CashOutScreenState extends State<CashOutScreen>
       // initialIndex: cashOutCon.tapcurrentIndex.value,
     );
 
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final router = GoRouter.of(context);
+      if (router.location.contains('new-cash-oute')) {
+        cashOutCon.tabControllerCashOut.index = 0;
+      } else {
+        cashOutCon.tabControllerCashOut.index = 1;
+      }
+    });
+
     super.initState();
   }
 
@@ -37,17 +46,18 @@ class _CashOutScreenState extends State<CashOutScreen>
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-    final router = GoRouter.of(context);
-    if (router.location.contains('new-cash-oute')) {
-      cashOutCon.tabControllerCashOut.index = 0;
-    } else {
-      cashOutCon.tabControllerCashOut.index = 1;
-    }
+  // @override
+  // void didChangeDependencies() {
+  //   debugPrint('Work Again');
+  //   final router = GoRouter.of(context);
+  //   if (router.location.contains('new-cash-oute')) {
+  //     cashOutCon.tabControllerCashOut.index = 0;
+  //   } else {
+  //     cashOutCon.tabControllerCashOut.index = 1;
+  //   }
 
-    super.didChangeDependencies();
-  }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {

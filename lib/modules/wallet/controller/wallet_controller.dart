@@ -213,26 +213,27 @@ class WalletController extends GetxController {
         'amount': onConvertToDouble(depositAmount.value),
       },
     ).then((response) {
-      Future.delayed(
-        const Duration(seconds: 1),
-        () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return CustomSucessScreen(
-                  title: 'Success',
-                  description: 'The deposit request is submitted',
-                  buttonTitle: 'Done',
-                  onPressedButton: () {
-                    context.go('/wallet');
-                  },
-                );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return CustomSucessScreen(
+              title: 'Success',
+              description: 'The deposit request is submitted',
+              buttonTitle: 'Done',
+              onPressedButton: () {
+                context.go('/wallet');
               },
-            ),
-          );
-        },
+            );
+          },
+        ),
       );
+      // Future.delayed(
+      //   const Duration(seconds: 0),
+      //   () {
+
+      //   },
+      // );
 
       depositAmount.value = '';
       isToDeposit(false);
@@ -323,27 +324,28 @@ class WalletController extends GetxController {
       },
     ).then((response) {
       debugPrint("SUCCESS$response");
-      Future.delayed(
-        const Duration(seconds: 1),
-        () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return CustomSucessScreen(
-                  title: 'Success',
-                  description: 'The Deposit is Submit successfully.',
-                  buttonTitle: 'Done',
-                  onPressedButton: () {
-                    context.go('/wallet');
-                    fetchWalletAmount();
-                  },
-                );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return CustomSucessScreen(
+              title: 'Success',
+              description: 'The Transfer request is submitted',
+              buttonTitle: 'Done',
+              onPressedButton: () {
+                context.go('/wallet');
+                fetchWalletAmount();
               },
-            ),
-          );
-        },
+            );
+          },
+        ),
       );
+      // Future.delayed(
+      //   const Duration(seconds: 1),
+      //   () {
+
+      //   },
+      // );
     }).onError(
       (ErrorModel error, _) {
         customRouterSnackbar(

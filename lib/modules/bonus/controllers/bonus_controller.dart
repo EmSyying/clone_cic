@@ -405,27 +405,28 @@ class BonusController extends GetxController {
           .then((response) {
         if (response.statusCode == 200) {
           onClear();
-          Future.delayed(
-            const Duration(seconds: 0),
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return CustomSucessScreen(
-                      title: 'Success',
-                      description: 'The cash out request has been submitted',
-                      buttonTitle: 'Done',
-                      onPressedButton: () {
-                        context.go(
-                            '/wallet/mma-transfer/mma-cash-out/history-cashout');
-                      },
-                    );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return CustomSucessScreen(
+                  title: 'Success',
+                  description: 'The cash out request has been submitted',
+                  buttonTitle: 'Done',
+                  onPressedButton: () {
+                    context.go(
+                        '/wallet/mma-transfer/mma-cash-out/history-cashout');
                   },
-                ),
-              );
-            },
+                );
+              },
+            ),
           );
+          // Future.delayed(
+          //   const Duration(seconds: 0),
+          //   () {
+
+          //   },
+          // );
         } else {
           var responseJson = json.decode(response.body)['message'];
           // debugPrint("Cash out boday:$responseJson");
@@ -461,29 +462,29 @@ class BonusController extends GetxController {
         if (response.statusCode == 200) {
           debugPrint(
               'hany test submit subscription====: ${subscriptionAmount.value}');
-          Future.delayed(
-            const Duration(seconds: 0),
-            () {
-              //
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return CustomSucessScreen(
-                      title: 'Success',
-                      description:
-                          'The UT Subscription request has been submitted',
-                      buttonTitle: 'Done',
-                      onPressedButton: () {
-                        context.go(
-                            '/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription');
-                      },
-                    );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return CustomSucessScreen(
+                  title: 'Success',
+                  description: 'The UT Subscription request has been submitted',
+                  buttonTitle: 'Done',
+                  onPressedButton: () {
+                    context.go(
+                        '/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription');
                   },
-                ),
-              );
-            },
+                );
+              },
+            ),
           );
+          // Future.delayed(
+          //   const Duration(seconds: 0),
+          //   () {
+          //     //
+
+          //   },
+          // );
 
           fectchBalance();
           fetchTransationHistory(type: 'all');

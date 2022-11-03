@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import '../../../widgets/investments/slide_button.dart';
 import '../../../widgets/wallets/custom_cash_out_and_transfer_amount_mma.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
+import '../../../Utils/helper/app_pin_code.dart' as app_pin_cod;
 
 class TransferReview extends StatelessWidget {
   const TransferReview({Key? key}) : super(key: key);
@@ -155,7 +156,16 @@ class TransferReview extends StatelessWidget {
               children: [
                 SlideButton(
                   callback: () async {
-                    await walletController.transferToOtherMMA(context);
+                    app_pin_cod.timer.cancel();
+                    await app_pin_cod
+                        .showLockScreen(enableCancel: true, context: context)
+                        .then(
+                      (value) {
+                        if (value) {
+                          walletController.transferToOtherMMA(context);
+                        }
+                      },
+                    );
                   },
                 ),
                 Padding(

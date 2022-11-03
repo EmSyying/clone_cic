@@ -229,6 +229,9 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
                               // }),
                             ],
+                            onChange: (value) {
+                              setState(() {});
+                            },
                             isRequired: true,
                             labelText: 'Amount',
                             hintText: 'Amount',
