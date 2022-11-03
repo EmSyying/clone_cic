@@ -40,8 +40,7 @@ class _WalletScreenState extends State<WalletScreen>
   void initState() {
     _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
     _walletController.fetchWalletAmount();
-    _walletController.onFetchWalletTransaction();
-    _walletController.onFetchWalletTransactionDetail(37);
+
     newCashOutCon.fetchbonusSetting();
     newCashOutCon.fectchBalance();
     priceController.onFetchPrice();
