@@ -19,6 +19,7 @@ _$_WalletTransactionDetail _$$_WalletTransactionDetailFromJson(
       depositMethod: json['deposit_method'] as String?,
       bankName: json['bank_name'] as String?,
       transactionType: json['transaction_type'] as String?,
+      model: json['model'] as String?,
       transactionId: json['transaction_id'] as String?,
       bankAccountNumber: json['bank_account_number'] as String?,
     );
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$_WalletTransactionDetailToJson(
       'deposit_method': instance.depositMethod,
       'bank_name': instance.bankName,
       'transaction_type': instance.transactionType,
+      'model': instance.model,
       'transaction_id': instance.transactionId,
       'bank_account_number': instance.bankAccountNumber,
     };

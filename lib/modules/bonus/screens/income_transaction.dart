@@ -25,7 +25,10 @@ class _IncomeTransactionState extends State<IncomeTransaction> {
   Widget build(BuildContext context) {
     return Obx(
       () => _walletController.loadingfetchIncome.value
-          ? const Center(child: ShimmerCardBonus())
+          ? const Padding(
+              padding: EdgeInsets.only(top: 15.0),
+              child: Center(child: ShimmerCardBonus()),
+            )
           : _walletController.incomeTransactionList.isEmpty
               ? const SingleChildScrollView(
                   child: CustomEmptyState(),

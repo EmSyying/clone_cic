@@ -96,6 +96,7 @@ class WalletController extends GetxController {
   final transactionDetailLoading = false.obs;
   Future<WalletTransactionDetail> onFetchWalletTransactionDetail(
       int id, String model) async {
+    debugPrint("Model:$model");
     transactionDetailLoading(true);
     await _apiBaseHelper
         .onNetworkRequesting(

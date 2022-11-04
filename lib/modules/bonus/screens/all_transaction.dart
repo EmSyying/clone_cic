@@ -30,7 +30,10 @@ class _AllTransactionState extends State<AllTransaction> {
   Widget build(BuildContext context) {
     return Obx(
       () => _walletController.loadingTransaction.value
-          ? const Center(child: ShimmerCardBonus())
+          ? const Padding(
+              padding: EdgeInsets.only(top: 15.0),
+              child: Center(child: ShimmerCardBonus()),
+            )
           : 1 == 2
               ? const SingleChildScrollView(
                   child: CustomEmptyState(),
@@ -43,17 +46,19 @@ class _AllTransactionState extends State<AllTransaction> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 20, top: 20),
-                                  child: Text(
-                                    'Pending Transactions',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(fontSize: 14),
+                                if (_walletController
+                                    .pendingTransaction.isNotEmpty)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 20),
+                                    child: Text(
+                                      'Pending Transactions',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(fontSize: 14),
+                                    ),
                                   ),
-                                ),
                                 ListView.separated(
                                   physics: const NeverScrollableScrollPhysics(),
                                   padding: const EdgeInsets.symmetric(
@@ -71,7 +76,7 @@ class _AllTransactionState extends State<AllTransaction> {
                                                   .id!,
                                               _walletController
                                                   .pendingTransaction[index]
-                                                  .transactionType!);
+                                                  .model!);
                                       WalletTran.transactionDetail(
                                           context,
                                           _walletController
@@ -120,14 +125,13 @@ class _AllTransactionState extends State<AllTransaction> {
                                         _walletController.allTransaction[index],
                                     ontap: () {
                                       debugPrint(
-                                          "Type1:${_walletController.allTransaction[index].transactionType!}id:${_walletController.allTransaction[index].id!}");
+                                          "Type1:${_walletController.allTransaction[index].transactionType!}:id:${_walletController.allTransaction[index].id!}");
                                       _walletController
                                           .onFetchWalletTransactionDetail(
                                               _walletController
                                                   .allTransaction[index].id!,
                                               _walletController
-                                                  .allTransaction[index]
-                                                  .transactionType!)
+                                                  .allTransaction[index].model!)
                                           .then(
                                             (value) =>
                                                 WalletTran.transactionDetail(

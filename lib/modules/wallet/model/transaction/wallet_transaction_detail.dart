@@ -16,6 +16,7 @@ class WalletTransactionDetail with _$WalletTransactionDetail {
     @JsonKey(name: "deposit_method") final String? depositMethod,
     @JsonKey(name: "bank_name") final String? bankName,
     @JsonKey(name: "transaction_type") final String? transactionType,
+    final String? model,
     @JsonKey(name: "transaction_id") final String? transactionId,
     @JsonKey(name: "bank_account_number") final String? bankAccountNumber,
   }) = _WalletTransactionDetail;

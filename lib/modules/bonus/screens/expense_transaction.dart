@@ -26,7 +26,10 @@ class _ExpenseTransactionState extends State<ExpenseTransaction> {
   Widget build(BuildContext context) {
     return Obx(
       () => bonusCon.isLoadingHistory.value
-          ? const Center(child: ShimmerCardBonus())
+          ? const Padding(
+              padding: EdgeInsets.only(top: 15.0),
+              child: Center(child: ShimmerCardBonus()),
+            )
           : bonusCon.historyList.isEmpty
               ? const SingleChildScrollView(child: CustomEmptyState())
               : CustomTransactionCard(hisStoryList: bonusCon.historyList),
