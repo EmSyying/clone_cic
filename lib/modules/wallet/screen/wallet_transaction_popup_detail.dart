@@ -24,11 +24,12 @@ class WalletTran {
     switch (type) {
       case 'bonus':
       case 'deposit':
+      case 'wallet-deposit':
         return 'assets/images/svgfile/deposit.svg';
       case 'cash out':
-        return 'assets/images/svgfile/cashout1.svg';
       case 'transfer':
         return 'assets/images/svgfile/cashout1.svg';
+
       case 'fif':
         return 'assets/images/svgfile/fif-transaction.svg';
       default:

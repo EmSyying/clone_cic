@@ -38,10 +38,10 @@ class NotificationWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: fromHex(notification!.data!.type == 'wallet-deposit' ||
-                              notification!.data!.type == 'receiver' ||
-                              notification!.data!.type == 'transferer'
+                              notification!.data!.type == 'receiver'
                           ? '#4FA30F'
-                          : notification!.data!.type == 'cash-out' ||
+                          : notification!.data!.type == 'transferer' ||
+                                  notification!.data!.type == 'cash-out' ||
                                   notification!.data!.type == 'wallet-cashout'
                               ? '#ED1E26'
                               : '#0F50A4')
@@ -66,14 +66,16 @@ class NotificationWidget extends StatelessWidget {
                         : notification!.data!.type == 'ut-trading'
                             ? SvgPicture.asset(
                                 'assets/images/svgfile/utNotificationIcon.svg')
-                            : notification!.data!.type == 'subscription-payment' ||
+                            : notification!.data!.type ==
+                                        'subscription-payment' ||
                                     notification!.data!.type ==
                                         'trading-payment'
                                 ? SvgPicture.asset(
                                     'assets/images/svgfile/paymentIcon.svg')
                                 : notification!.data!.type == 'cash-out' ||
                                         notification!.data!.type ==
-                                            'wallet-cashout'
+                                            'wallet-cashout' ||
+                                        notification!.data!.type == 'transferer'
                                     ? SvgPicture.asset(
                                         "assets/images/svgfile/wallet-cashout.svg")
                                     : notification!.data!.type == 'bonus'
@@ -91,10 +93,7 @@ class NotificationWidget extends StatelessWidget {
                                                             'wallet-deposit' ||
                                                         notification!
                                                                 .data!.type ==
-                                                            'receiver' ||
-                                                        notification!
-                                                                .data!.type ==
-                                                            'transferer'
+                                                            'receiver'
                                                     ? SvgPicture.asset(
                                                         "assets/images/svgfile/deposit.svg",
                                                       )
