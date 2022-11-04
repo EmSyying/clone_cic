@@ -17,6 +17,9 @@ import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/card_guests_model.dart';
+import '../models/event_check_in_model.dart';
+
 class EventController extends GetxController {
   String? tokenKey;
   dynamic isNext;
@@ -61,6 +64,53 @@ class EventController extends GetxController {
     fetchAllRegisteredMemeber("$eventID");
   }
 
+  List<EventCheckInModel> eventCheckIn = [
+    EventCheckInModel(
+      title: 'Name',
+      description: 'Suman Mcarthur',
+    ),
+    EventCheckInModel(
+      title: 'Event',
+      description: 'Real Estate Networking',
+    ),
+    EventCheckInModel(
+      title: 'Date and Time',
+      description: '07 March 2021 at 3:00 PM - 4:00 PM',
+    ),
+    EventCheckInModel(
+      title: 'Location',
+      description:
+          '#14, Floor 3th, Street 253, Phum 3, Sangkat beung Kak Khan Toul Kork, Phnom Penh',
+    )
+  ].obs;
+
+  List<CardGuestsModel> cardGuestsList = [
+    CardGuestsModel(
+      guest: 'Guest 1',
+      nameGuest: 'Kim Oan',
+      who: 'Daughter',
+    ),
+    CardGuestsModel(
+      guest: 'Guest 2',
+      nameGuest: 'Kim Oan',
+      who: 'Daughter',
+    ),
+    CardGuestsModel(
+      guest: 'Guest 3',
+      nameGuest: 'Hany Sreng',
+      who: 'Daughter',
+    ),
+    CardGuestsModel(
+      guest: 'Guest 4',
+      nameGuest: 'Srey Ying',
+      who: 'Daughter',
+    ),
+    CardGuestsModel(
+      guest: 'Guest 5',
+      nameGuest: 'Virak',
+      who: 'Daughter',
+    ),
+  ].obs;
   Future<List<EventData>> getPastEvent(int? memberId) async {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
