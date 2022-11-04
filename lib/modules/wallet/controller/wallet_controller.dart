@@ -12,7 +12,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/invest_option_model.dart';
-import '../model/transaction/wallet_transaction.dart';
 import '../model/transaction/wallet_transaction_detail.dart';
 import '../model/transfer_recieved/transfer_model.dart';
 
@@ -72,8 +71,9 @@ class WalletController extends GetxController {
 
   // Wallet Transaction
 
-  Future<List<WalletTransaction>> fetchWalletTransaction(String param) async {
-    final tempList = <WalletTransaction>[];
+  Future<List<WalletTransactionDetail>> fetchWalletTransaction(
+      String param) async {
+    final tempList = <WalletTransactionDetail>[];
 
     await _apiBaseHelper
         .onNetworkRequesting(
@@ -83,7 +83,7 @@ class WalletController extends GetxController {
         .then((response) {
       debugPrint('Success $response');
       response['data'].map((e) {
-        tempList.add(WalletTransaction.fromJson(e));
+        tempList.add(WalletTransactionDetail.fromJson(e));
       }).toList();
     }).onError((ErrorModel error, _) {
       debugPrint('Error ${error.statusCode}');
@@ -116,13 +116,14 @@ class WalletController extends GetxController {
 
   ///all transaction
   final loadingTransaction = false.obs;
-  List<WalletTransaction> allTransaction = <WalletTransaction>[];
-  List<WalletTransaction> pendingTransaction = <WalletTransaction>[];
+  List<WalletTransactionDetail> allTransaction = <WalletTransactionDetail>[];
+  List<WalletTransactionDetail> pendingTransaction =
+      <WalletTransactionDetail>[];
 
-  Future<Map<String, List<WalletTransaction>>> getAllTransaction() async {
+  Future<Map<String, List<WalletTransactionDetail>>> getAllTransaction() async {
     loadingTransaction(true);
-    List<WalletTransaction> tempAllList = <WalletTransaction>[];
-    List<WalletTransaction> tempPendingList = <WalletTransaction>[];
+    List<WalletTransactionDetail> tempAllList = <WalletTransactionDetail>[];
+    List<WalletTransactionDetail> tempPendingList = <WalletTransactionDetail>[];
     tempAllList = await fetchWalletTransaction('type=all');
     tempPendingList = await fetchWalletTransaction('pending=1');
     loadingTransaction(false);
@@ -138,11 +139,12 @@ class WalletController extends GetxController {
   }
 
   ///income transaction
-  List<WalletTransaction> incomeTransactionList = <WalletTransaction>[];
+  List<WalletTransactionDetail> incomeTransactionList =
+      <WalletTransactionDetail>[];
   final loadingfetchIncome = false.obs;
-  Future<List<WalletTransaction>> getIncomeTransaction() async {
+  Future<List<WalletTransactionDetail>> getIncomeTransaction() async {
     loadingfetchIncome(true);
-    List<WalletTransaction> tempList = <WalletTransaction>[];
+    List<WalletTransactionDetail> tempList = <WalletTransactionDetail>[];
     tempList = await fetchWalletTransaction('income=1');
     loadingfetchIncome(false);
     incomeTransactionList = tempList;
@@ -150,11 +152,12 @@ class WalletController extends GetxController {
   }
 
   ///Expense transaction
-  List<WalletTransaction> expenseTransactionList = <WalletTransaction>[];
+  List<WalletTransactionDetail> expenseTransactionList =
+      <WalletTransactionDetail>[];
   final loadingfetchExpense = false.obs;
-  Future<List<WalletTransaction>> getExpenseTransaction() async {
+  Future<List<WalletTransactionDetail>> getExpenseTransaction() async {
     loadingfetchExpense(true);
-    List<WalletTransaction> tempList = <WalletTransaction>[];
+    List<WalletTransactionDetail> tempList = <WalletTransactionDetail>[];
     tempList = await fetchWalletTransaction('pending=1');
     loadingfetchExpense(false);
     expenseTransactionList = tempList;
@@ -162,10 +165,11 @@ class WalletController extends GetxController {
   }
 
   // Wallet Transaction Pending
-  final walletTransactionPendingList = <WalletTransaction>[].obs;
+  final walletTransactionPendingList = <WalletTransactionDetail>[].obs;
   final isWalletTrnsactionPending = false.obs;
-  Future<List<WalletTransaction>> onFetchWalletTransactionPending() async {
-    final walletTransactionListPendingLocal = <WalletTransaction>[];
+  Future<List<WalletTransactionDetail>>
+      onFetchWalletTransactionPending() async {
+    final walletTransactionListPendingLocal = <WalletTransactionDetail>[];
     isWalletTrnsactionPending(true);
     await _apiBaseHelper
         .onNetworkRequesting(
@@ -176,7 +180,8 @@ class WalletController extends GetxController {
       debugPrint('Success $response');
       listFiFOption.clear();
       response['data'].map((e) {
-        walletTransactionListPendingLocal.add(WalletTransaction.fromJson(e));
+        walletTransactionListPendingLocal
+            .add(WalletTransactionDetail.fromJson(e));
       }).toList();
       walletTransactionPendingList.value = walletTransactionListPendingLocal;
 

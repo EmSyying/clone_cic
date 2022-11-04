@@ -1,43 +1,39 @@
-import 'package:cicgreenloan/modules/wallet/screen/transaction_detail/cash_out_detail.dart';
+import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
 import 'package:flutter/material.dart';
 
-import '../model/transaction/wallet_transaction.dart';
+import '../model/transaction/wallet_transaction_detail.dart';
+import 'transaction_detail/transaction_popup_detail.dart';
 
 class WalletTran {
-  static void showDetail(BuildContext context, WalletTransaction model) {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
+  static void transactionDetail(
+      BuildContext context, WalletTransactionDetail model) {
+    onShowBottomSheet(
+      label: model.label,
+      isAmountFormat: true,
+      amountFormat: model.amount,
+      type: model.transactionType,
+      time: model.time,
       context: context,
-      builder: (_) => Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              width: 45,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey[400],
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            SafeArea(
-              top: false,
-              minimum: const EdgeInsets.only(bottom: 20),
-              child: CashOutDetail(model: model),
-            ),
-          ],
-        ),
+      child: TransactionPopUpDetail(
+        model: model,
       ),
     );
+  }
+
+  static String getIcon(String type) {
+    switch (type) {
+      case 'bonus':
+      case 'deposit':
+        return 'assets/images/svgfile/deposit.svg';
+      case 'cash out':
+        return 'assets/images/svgfile/cashout1.svg';
+      case 'transfer':
+        return 'assets/images/svgfile/cashout1.svg';
+      case 'fif':
+        return 'assets/images/svgfile/fif-transaction.svg';
+      default:
+        return 'assets/images/svgfile/subscribe_card.svg';
+    }
   }
 }
 //   static Widget _type(String type) {

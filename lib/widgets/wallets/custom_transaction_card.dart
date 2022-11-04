@@ -1,12 +1,13 @@
+import 'package:cicgreenloan/modules/wallet/screen/wallet_transaction_popup_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/helper/color.dart';
-import '../../modules/wallet/model/transaction/wallet_transaction.dart';
+import '../../modules/wallet/model/transaction/wallet_transaction_detail.dart';
 
 class WalletTransactionCard extends StatelessWidget {
-  final WalletTransaction transactionModel;
+  final WalletTransactionDetail transactionModel;
   final GestureTapCallback? ontap;
   final Color? color;
   const WalletTransactionCard({
@@ -21,6 +22,7 @@ class WalletTransactionCard extends StatelessWidget {
     return GestureDetector(
       onTap: ontap,
       child: Container(
+        height: 70.0,
         margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
         width: double.infinity,
         padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -45,7 +47,7 @@ class WalletTransactionCard extends StatelessWidget {
               ),
               alignment: Alignment.center,
               child: SvgPicture.asset(
-                _getIcon(),
+                WalletTran.getIcon(transactionModel.transactionType!),
               ),
             ),
             Expanded(
@@ -62,12 +64,15 @@ class WalletTransactionCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           overflow: TextOverflow.ellipsis),
                     ),
-                    Text(
-                      transactionModel.time ?? '',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(fontSize: 12, color: Colors.grey),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        transactionModel.time ?? '',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 12,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500),
+                      ),
                     )
                   ],
                 ),
@@ -79,42 +84,47 @@ class WalletTransactionCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   if (_getStatus().isNotEmpty)
-                    Text(_getStatus(),
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color:
-                                transactionModel.transactionType ==
-                                                'subscription' &&
-                                            transactionModel
-                                                    .status ==
-                                                'partially paid' ||
-                                        transactionModel.status == 'pending'
-                                    ? AppColor.statusColor['pending']
-                                    : transactionModel
-                                                    .transactionType ==
-                                                'subscription' &&
-                                            transactionModel
-                                                    .status ==
-                                                'waiting list'
-                                        ? AppColor.mainColor
-                                        : transactionModel
-                                                            .transactionType ==
-                                                        'subscription' &&
-                                                    transactionModel
-                                                            .status ==
-                                                        'paid' ||
-                                                transactionModel
-                                                        .transactionType ==
-                                                    'cash-in' ||
-                                                transactionModel
-                                                            .transactionType ==
-                                                        'cash-out' &&
-                                                    transactionModel.status ==
-                                                        'paid' ||
-                                                transactionModel.status ==
-                                                    'confirmed'
-                                            ? AppColor.statusColor['green']
-                                            : AppColor.statusColor['late'])),
-                  _amount(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(_getStatus(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(
+                                  color: transactionModel.transactionType ==
+                                                  'subscription' &&
+                                              transactionModel.status ==
+                                                  'partially paid' ||
+                                          transactionModel.status == 'pending'
+                                      ? AppColor.statusColor['pending']
+                                      : transactionModel.transactionType ==
+                                                  'subscription' &&
+                                              transactionModel.status ==
+                                                  'waiting list'
+                                          ? AppColor.mainColor
+                                          : transactionModel.transactionType ==
+                                                          'subscription' &&
+                                                      transactionModel
+                                                              .status ==
+                                                          'paid' ||
+                                                  transactionModel
+                                                          .transactionType ==
+                                                      'cash-in' ||
+                                                  transactionModel
+                                                              .transactionType ==
+                                                          'cash-out' &&
+                                                      transactionModel.status ==
+                                                          'paid' ||
+                                                  transactionModel.status ==
+                                                      'confirmed'
+                                              ? AppColor.statusColor['green']
+                                              : AppColor.statusColor['late'])),
+                    ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: _getStatus().isNotEmpty ? 0 : 15),
+                    child: _amount(),
+                  ),
                 ],
               ),
             ),
@@ -128,18 +138,6 @@ class WalletTransactionCard extends StatelessWidget {
       transactionModel.status != null && transactionModel.status != 'approved'
           ? transactionModel.status!.capitalize!
           : '';
-
-  String _getIcon() {
-    switch (transactionModel.transactionType) {
-      case 'bonus':
-      case 'deposit':
-        return 'assets/images/svgfile/dividend.svg';
-      case 'cash out':
-        return 'assets/images/svgfile/cashout1.svg';
-      default:
-        return 'assets/images/svgfile/subscribe_card.svg';
-    }
-  }
 
   Color _getBgColor() => transactionModel.transactionType == 'bonus' ||
           transactionModel.transactionType == 'deposit'

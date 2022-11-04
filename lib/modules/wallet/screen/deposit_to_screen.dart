@@ -28,6 +28,12 @@ class _DepositToScreenState extends State<DepositToScreen> {
   }
 
   @override
+  void initState() {
+    _walletController.fetchWalletAmount();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
     return Scaffold(

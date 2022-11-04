@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../modules/bonus/controllers/bonus_controller.dart';
+import '../../modules/wallet/screen/wallet_transaction_popup_detail.dart';
 import '../../utils/helper/color.dart';
 
 class CustomHeaderBottomStyle extends StatelessWidget {
@@ -35,27 +36,15 @@ class CustomHeaderBottomStyle extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: type == 'bonus' ||
                       type == 'cash-in' ||
-                      type == 'wallet-deposit'
+                      type == 'wallet-deposit' ||
+                      type == 'deposit'
                   ? AppColor.statusColor['green']!.withOpacity(0.2)
                   : AppColor.statusColor['late']!.withOpacity(0.2)),
           child: Center(
-              child: type == 'bonus' ||
-                      type == 'cash-in' ||
-                      type == 'wallet-deposit'
-                  ? SvgPicture.asset(
-                      'assets/images/svgfile/dividend.svg',
-                    )
-                  : type == 'cash-out' || type == 'subscription'
-                      ? SvgPicture.asset(
-                          'assets/images/svgfile/cashout1.svg',
-                        )
-                      : type == 'inves-fif'
-                          ? SvgPicture.asset(
-                              'assets/images/svgfile/investfif.svg',
-                              color: AppColor.statusColor['late'],
-                            )
-                          : SvgPicture.asset(
-                              'assets/images/svgfile/subscribe_card.svg')),
+            child: SvgPicture.asset(
+              WalletTran.getIcon(type!),
+            ),
+          ),
         ),
         Expanded(
           child: Padding(
@@ -99,7 +88,8 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                                 .copyWith(
                                     color: type == 'bonus' ||
                                             type == 'cash-in' ||
-                                            type == 'wallet-deposit'
+                                            type == 'wallet-deposit' ||
+                                            type == 'deposit'
                                         ? AppColor.statusColor['green']
                                         : type == 'subscription'
                                             ? Colors.black

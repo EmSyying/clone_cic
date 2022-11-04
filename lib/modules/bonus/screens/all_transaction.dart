@@ -62,6 +62,8 @@ class _AllTransactionState extends State<AllTransaction> {
                                   itemBuilder: (_, index) =>
                                       WalletTransactionCard(
                                     ontap: () {
+                                      debugPrint(
+                                          "Type:${_walletController.pendingTransaction[index].transactionType!}");
                                       _walletController
                                           .onFetchWalletTransactionDetail(
                                               _walletController
@@ -70,7 +72,7 @@ class _AllTransactionState extends State<AllTransaction> {
                                               _walletController
                                                   .pendingTransaction[index]
                                                   .transactionType!);
-                                      WalletTran.showDetail(
+                                      WalletTran.transactionDetail(
                                           context,
                                           _walletController
                                               .pendingTransaction[index]);
@@ -116,6 +118,22 @@ class _AllTransactionState extends State<AllTransaction> {
                                       WalletTransactionCard(
                                     transactionModel:
                                         _walletController.allTransaction[index],
+                                    ontap: () {
+                                      debugPrint(
+                                          "Type1:${_walletController.allTransaction[index].transactionType!}id:${_walletController.allTransaction[index].id!}");
+                                      _walletController
+                                          .onFetchWalletTransactionDetail(
+                                              _walletController
+                                                  .allTransaction[index].id!,
+                                              _walletController
+                                                  .allTransaction[index]
+                                                  .transactionType!)
+                                          .then(
+                                            (value) =>
+                                                WalletTran.transactionDetail(
+                                                    context, value),
+                                          );
+                                    },
                                   ),
                                   itemCount:
                                       _walletController.allTransaction.length,

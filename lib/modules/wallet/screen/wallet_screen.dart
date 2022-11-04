@@ -181,7 +181,7 @@ class _WalletScreenState extends State<WalletScreen>
                                             padding:
                                                 const EdgeInsets.only(left: 20),
                                             child: Text(
-                                              "${FormatDate.eventDateTime(datetime)} | ID ${_walletController.walletAmount.value.wallet!.accountNumber}",
+                                              "${FormatDate.eventDateTime(datetime)}  |  ID ${_walletController.walletAmount.value.wallet!.accountNumber}",
                                               style: textStyle.copyWith(
                                                 fontSize: 14,
                                                 color: Colors.white70,

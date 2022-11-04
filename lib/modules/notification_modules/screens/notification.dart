@@ -546,8 +546,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                                 child: Column(
                                                                                                                   children: [
                                                                                                                     CustomWalletDetail(label: 'Transaction Id', value: value.transactionId),
-                                                                                                                    CustomWalletDetail(label: 'Transaction Date', value: value.date),
-                                                                                                                    CustomWalletDetail(label: 'Payment Type', value: value.depositMethod),
+                                                                                                                    CustomWalletDetail(label: 'Payment Method', value: value.depositMethod),
+                                                                                                                    CustomWalletDetail(label: 'Date', value: value.date),
+                                                                                                                    const CustomWalletDetail(label: 'Remark', value: "ABA"),
                                                                                                                     const SizedBox(height: 25.0),
                                                                                                                     CustomButton(
                                                                                                                       isDisable: false,
