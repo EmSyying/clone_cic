@@ -65,7 +65,7 @@ class EventController extends GetxController {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}event?member_id=$memberId&posted=past';
+        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=past';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -106,7 +106,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}event?member_id=$memberId&posted=upcoming&type=new';
+        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=upcoming&type=new';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -133,7 +133,7 @@ class EventController extends GetxController {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}event?member_id=$memberId&posted=past&search=$search';
+        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=past&search=$search';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -160,7 +160,7 @@ class EventController extends GetxController {
       int memberId, String search) async {
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}event?member_id=$memberId&posted=upcoming&search=$search';
+        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=upcoming&search=$search';
     isLoadingFeture(true);
     isLoadingNew(true);
 
@@ -201,7 +201,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}event?member_id=$memberId&posted=upcoming&type=featured';
+        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=upcoming&type=featured';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -227,7 +227,7 @@ class EventController extends GetxController {
   Future<List<RegistrationEventData>> fetchAllRegisteredMemeber(
       String eventId) async {
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}registration?event_id=$eventId';
+        '${GlobalConfiguration().getValue('api_base_urlv3')}registration?event_id=$eventId';
 
     isLoadingregisteredMember.value = true;
     try {
@@ -258,7 +258,7 @@ class EventController extends GetxController {
   }) async {
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${GlobalConfiguration().get('api_base_urlv2')}registration';
+    String url = '${GlobalConfiguration().get('api_base_urlv3')}registration';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -302,7 +302,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv2')}event/interested/$eventid';
+        '${GlobalConfiguration().get('api_base_urlv3')}event/interested/$eventid';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -326,7 +326,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv2')}event/uninterested/$eventid';
+        '${GlobalConfiguration().get('api_base_urlv3')}event/uninterested/$eventid';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -349,7 +349,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv2')}event/interested/$eventid';
+        '${GlobalConfiguration().get('api_base_urlv3')}event/interested/$eventid';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -380,7 +380,7 @@ class EventController extends GetxController {
 
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${GlobalConfiguration().get('api_base_urlv2')}event/check-in';
+    String url = '${GlobalConfiguration().get('api_base_urlv3')}event/check-in';
 
     try {
       await http
@@ -467,7 +467,7 @@ class EventController extends GetxController {
     isLoadingZoneSetting(true);
     num availableZone = 0;
     final token = await LocalData.getCurrentUser();
-    final url = '${GlobalConfiguration().get('api_base_urlv2')}event-setting';
+    final url = '${GlobalConfiguration().get('api_base_urlv3')}event-setting';
 
     try {
       await http.get(
@@ -494,7 +494,7 @@ class EventController extends GetxController {
 
   Future<EventData> fetchEventDetail(int id) async {
     isLoadingEventDetail(true);
-    final url = '${GlobalConfiguration().get('api_base_urlv2')}event/$id';
+    final url = '${GlobalConfiguration().get('api_base_urlv3')}event/$id';
     final token = await LocalData.getCurrentUser();
     try {
       await http.get(Uri.parse(url), headers: {
