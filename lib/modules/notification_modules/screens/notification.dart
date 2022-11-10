@@ -19,13 +19,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
-import '../../../widgets/custom_showbottomsheet.dart';
 import '../../../widgets/notification/accept_notification_pop_up.dart';
 import '../../../widgets/ut_tradding/notification_detail_popup.dart';
-import '../../../widgets/wallets/custom_wallet_label_detail.dart';
 import '../../event_module/models/event_detail_argument.dart';
 import '../../event_module/screen/event_detail.dart';
 import '../../get_funding/screens/debt_investment/preview_debt_form.dart';
@@ -33,6 +30,7 @@ import '../../get_funding/screens/equity_investment/preview_equity.dart';
 import '../../investment_module/screen/bullet_payment_detail.dart';
 import '../../investment_module/screen/deposit_screen.dart';
 import '../../wallet/controller/wallet_controller.dart';
+import '../../wallet/screen/wallet_transaction_popup_detail.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -526,43 +524,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                 : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment' || _con.notificationList[index].data!.type == 'receiver' || _con.notificationList[index].data!.type == 'transferer'
                                                                                                     ? () async {
                                                                                                         debugPrint("Wallet Id:${_con.notificationList[index].data!.transactionId}Type:${_con.notificationList[index].data!.type}");
-                                                                                                        if (_con.notificationList[index].data!.type == 'wallet-deposit') {
+
+                                                                                                        if (_con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'transferer' || _con.notificationList[index].data!.type == 'wallet-cashout') {
                                                                                                           notificationIdList.add(items.id);
                                                                                                           _con.onReadNotification(_con.notificationList[index].id!);
                                                                                                           setState(() {
                                                                                                             _con.notificationList[index].readAt = '';
                                                                                                           });
-                                                                                                          _walletController.onFetchDepositDetail(_con.notificationList[index].data!.transactionId!).then((value) {
-                                                                                                            onShowBottomSheet(
-                                                                                                              type: _con.notificationList[index].data!.type,
-                                                                                                              isAmountFormat: true,
-                                                                                                              context: context,
-                                                                                                              label: _con.notificationList[index].data!.title,
-                                                                                                              time: value.time!,
-                                                                                                              amountFormat: value.amount,
-                                                                                                              text: Text(value.amount!),
-                                                                                                              child: Padding(
-                                                                                                                padding: const EdgeInsets.all(20.0),
-                                                                                                                child: Column(
-                                                                                                                  children: [
-                                                                                                                    CustomWalletDetail(label: 'Transaction Id', value: value.transactionId),
-                                                                                                                    CustomWalletDetail(label: 'Payment Method', value: value.depositMethod),
-                                                                                                                    CustomWalletDetail(label: 'Date', value: value.date),
-                                                                                                                    const CustomWalletDetail(label: 'Remark', value: "ABA"),
-                                                                                                                    const SizedBox(height: 25.0),
-                                                                                                                    CustomButton(
-                                                                                                                      isDisable: false,
-                                                                                                                      isOutline: true,
-                                                                                                                      title: 'Close',
-                                                                                                                      onPressed: () {
-                                                                                                                        Navigator.pop(context);
-                                                                                                                      },
-                                                                                                                    )
-                                                                                                                  ],
-                                                                                                                ),
-                                                                                                              ),
-                                                                                                            );
-                                                                                                          });
+                                                                                                          debugPrint("is Pressed tran detail");
+                                                                                                          _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!).then(
+                                                                                                                (value) => WalletTran.transactionDetail(context, value),
+                                                                                                              );
                                                                                                         } else {
                                                                                                           notificationIdList.add(items.id);
                                                                                                           _con.onReadNotification(_con.notificationList[index].id!);

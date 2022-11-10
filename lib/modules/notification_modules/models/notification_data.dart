@@ -20,6 +20,9 @@ class NotificationData {
   bool? expired;
   String? url;
   List<Button>? button;
+  String? model;
+  String? icon;
+  String? color;
 
   NotificationData(
       {this.title,
@@ -41,7 +44,10 @@ class NotificationData {
       this.notificationId,
       this.applicationId,
       this.expired,
-      this.url});
+      this.url,
+      this.model,
+      this.icon,
+      this.color});
 
   NotificationData.fromJson(Map<String, dynamic> json) {
     title = json['title'];
@@ -70,6 +76,9 @@ class NotificationData {
         button!.add(Button.fromJson(v));
       });
     }
+    model = json['model'];
+    icon = json['icon'];
+    color = json['color'];
   }
 
   Map<String, dynamic> toJson() {
@@ -97,6 +106,9 @@ class NotificationData {
       data['button'] = button!.map((v) => v.toJson()).toList();
     }
     data['expired'] = expired;
+    data['model'] = model;
+    data['icon'] = icon;
+    data['color'] = color;
     return data;
   }
 }

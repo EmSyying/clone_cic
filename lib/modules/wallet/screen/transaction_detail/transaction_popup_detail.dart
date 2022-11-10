@@ -21,32 +21,62 @@ class TransactionPopUpDetail extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ),
             )
-          : Padding(
-              padding:
-                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
-              child: Column(
-                children: [
-                  CustomWalletDetail(
-                      label: 'Transaction ID',
-                      value: model!.transactionId ?? ""),
-                  CustomWalletDetail(
-                      label: 'Payment Method',
-                      value: model!.depositMethod ?? ""),
-                  CustomWalletDetail(label: 'Date', value: model!.date),
-                  CustomWalletDetail(
-                      label: 'Remark', value: model!.remark ?? ""),
-                  const SizedBox(height: 25.0),
-                  CustomButton(
-                    isDisable: false,
-                    isOutline: true,
-                    title: 'Close',
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
-              ),
-            ),
+          : model!.transactionType != 'cashout'
+              ? Padding(
+                  padding:
+                      const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
+                  child: Column(
+                    children: [
+                      CustomWalletDetail(
+                          label: 'Transaction ID',
+                          value: model!.transactionId ?? ""),
+                      CustomWalletDetail(
+                          label: 'Payment Method',
+                          value: model!.depositMethod ?? ""),
+                      CustomWalletDetail(label: 'Date', value: model!.date),
+                      CustomWalletDetail(
+                          label: 'Remark', value: model!.remark ?? ""),
+                      const SizedBox(height: 25.0),
+                      CustomButton(
+                        isDisable: false,
+                        isOutline: true,
+                        title: 'Close',
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
+                )
+              : Padding(
+                  padding:
+                      const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
+                  child: Column(
+                    children: [
+                      CustomWalletDetail(
+                          label: 'Payment Status', value: model!.status ?? ""),
+                      CustomWalletDetail(
+                          label: 'Payment Type',
+                          value: model!.depositMethod ?? ""),
+                      CustomWalletDetail(
+                          label: 'Bank Name', value: model!.bankName),
+                      CustomWalletDetail(
+                          label: 'Transaction Date', value: model!.date ?? ""),
+                      CustomWalletDetail(
+                          label: 'To account',
+                          value: model!.bankAccountNumber ?? ""),
+                      const SizedBox(height: 25.0),
+                      CustomButton(
+                        isDisable: false,
+                        isOutline: true,
+                        title: 'Close',
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
+                ),
     );
   }
 }

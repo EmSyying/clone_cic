@@ -139,8 +139,11 @@ class WalletTransactionCard extends StatelessWidget {
           ? transactionModel.status!.capitalize!
           : '';
 
-  Color _getBgColor() => transactionModel.transactionType == 'bonus' ||
-          transactionModel.transactionType == 'deposit'
+  Color _getBgColor() => transactionModel.transactionType!.toLowerCase() ==
+              'bonus' ||
+          transactionModel.transactionType!.toLowerCase() == 'deposit' ||
+          transactionModel.transactionType!.toLowerCase() == 'wallet-deposit' ||
+          transactionModel.transactionType!.toLowerCase() == 'receive'
       ? AppColor.statusColor['green']!.withOpacity(0.2)
       : AppColor.statusColor['late']!.withOpacity(0.2);
 
@@ -151,8 +154,12 @@ class WalletTransactionCard extends StatelessWidget {
       builder: (context) => Text(
         '${isMinus ? "-" : ''} ${transactionModel.amount}',
         style: Theme.of(context).textTheme.headline5!.copyWith(
-            color: transactionModel.transactionType == 'deposit' ||
-                    transactionModel.transactionType == 'cashin'
+            color: transactionModel.transactionType!.toLowerCase() == 'bonus' ||
+                    transactionModel.transactionType!.toLowerCase() ==
+                        'deposit' ||
+                    transactionModel.transactionType!.toLowerCase() ==
+                        'wallet-deposit' ||
+                    transactionModel.transactionType!.toLowerCase() == 'receive'
                 ? AppColor.statusColor['green']
                 : AppColor.statusColor['late'],
             fontWeight: FontWeight.bold),

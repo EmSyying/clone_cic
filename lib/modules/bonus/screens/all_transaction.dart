@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/bonus/custom_shimmer_card_bonus.dart';
+import '../../../widgets/bonus/transaction_card.dart';
 import '../../../widgets/wallets/custom_transaction_card.dart';
 import '../../wallet/controller/wallet_controller.dart';
+import '../controllers/bonus_controller.dart';
 
 class AllTransaction extends StatefulWidget {
   final bool? isStatus;
@@ -19,10 +21,14 @@ class AllTransaction extends StatefulWidget {
 
 class _AllTransactionState extends State<AllTransaction> {
   final _walletController = Get.put(WalletController());
+  final _bonusCon = Get.put(BonusController());
 
   @override
   void initState() {
-    _walletController.getAllTransaction(); //get all type
+    // Pending Subscribtion
+    _bonusCon.fetchPendingTransaction();
+    //get all type
+    _walletController.getAllTransaction();
     super.initState();
   }
 
@@ -46,58 +52,17 @@ class _AllTransactionState extends State<AllTransaction> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (_walletController
-                                    .pendingTransaction.isNotEmpty)
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20, top: 20),
-                                    child: Text(
-                                      'Pending Transactions',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(fontSize: 14),
-                                    ),
-                                  ),
-                                ListView.separated(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  shrinkWrap: true,
-                                  itemBuilder: (_, index) =>
-                                      WalletTransactionCard(
-                                    ontap: () {
-                                      debugPrint(
-                                          "Type:${_walletController.pendingTransaction[index].transactionType!}");
-                                      _walletController
-                                          .onFetchWalletTransactionDetail(
-                                              _walletController
-                                                  .pendingTransaction[index]
-                                                  .id!,
-                                              _walletController
-                                                  .pendingTransaction[index]
-                                                  .model!);
-                                      WalletTran.transactionDetail(
-                                          context,
-                                          _walletController
-                                              .pendingTransaction[index]);
-                                    },
-                                    transactionModel: _walletController
-                                        .pendingTransaction[index],
-                                  ),
-                                  itemCount: _walletController
-                                      .pendingTransaction.length,
-                                  separatorBuilder: (_, __) =>
-                                      const SizedBox.shrink(),
-                                ),
+                                if (_bonusCon.pendingtransactionList.isNotEmpty)
+                                  CustomTransactionCard(
+                                    hisStoryList:
+                                        _bonusCon.pendingtransactionList,
+                                    title: "Pending Transactions",
+                                    isTitle: true,
+                                    isStatus: true,
+                                    isPendingtransaction: true,
+                                  )
                               ],
                             )
-                          // CustomTransactionCard(
-                          //     hisStoryList: const [],
-                          //     isStatus: widget.isStatus,
-                          //     title: "Transactions",
-                          //     isTitle: true,
-                          //   )
                           : const SizedBox.shrink(),
                       _walletController.allTransaction.isNotEmpty
                           ? Column(

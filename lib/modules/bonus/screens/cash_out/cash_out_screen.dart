@@ -46,19 +46,6 @@ class _CashOutScreenState extends State<CashOutScreen>
     super.dispose();
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   debugPrint('Work Again');
-  //   final router = GoRouter.of(context);
-  //   if (router.location.contains('new-cash-oute')) {
-  //     cashOutCon.tabControllerCashOut.index = 0;
-  //   } else {
-  //     cashOutCon.tabControllerCashOut.index = 1;
-  //   }
-
-  //   super.didChangeDependencies();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
