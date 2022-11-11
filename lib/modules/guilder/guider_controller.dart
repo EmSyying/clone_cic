@@ -70,6 +70,73 @@ class CiCGuidController extends GetxController {
       description: 'Click this button then it take you to UT sell screen',
     ),
   ];
+  List<GuidelineModel> getFundingGuide = <GuidelineModel>[
+    GuidelineModel(
+      title: 'Equity Investment',
+      description: 'Check your equity investment by just switching the tab',
+    ),
+    GuidelineModel(
+      title: 'Debt Investment',
+      description: 'Check your debt investment by just switching the tab',
+    ),
+  ];
+  List<GuidelineModel> directoryGuide = <GuidelineModel>[
+    GuidelineModel(
+      title: 'Search',
+      description: 'Here vou can search for specific members of CiC',
+    ),
+    GuidelineModel(
+      title: 'Filter',
+      description: 'You can filter member directory here',
+    ),
+  ];
+  List<GuidelineModel> reportGuide = <GuidelineModel>[
+    GuidelineModel(
+      title: 'Investor',
+      description: 'Read Investor Report here',
+    ),
+    GuidelineModel(
+      title: 'Whitepaper',
+      description: 'Read Whitepaper here',
+    ),
+    GuidelineModel(
+      title: 'Publications',
+      description: 'Read Publications here',
+    ),
+    GuidelineModel(
+      title: 'Newsletter',
+      description: 'Read Newsletter here',
+    ),
+    GuidelineModel(
+      title: 'Tax & Legal',
+      description: 'Read Tax & Legal documets here',
+    ),
+    GuidelineModel(
+      title: 'Others',
+      description: 'Read other documents here',
+    ),
+  ];
+  List<GuidelineModel> walletGuide = <GuidelineModel>[
+    GuidelineModel(
+      title: 'Deposit',
+      description:
+          'Deposit fund to our MM account via wallets. banks or from other MM account',
+    ),
+    GuidelineModel(
+      title: 'Transfer',
+      description:
+          'Transfer our fund to your bank of choices, or to other MM account',
+    ),
+    GuidelineModel(
+      title: 'Invest',
+      description:
+          'Here you can invest in CiC Fixed Income Fund, or CiC Equity Fund',
+    ),
+    GuidelineModel(
+      title: 'Pay',
+      description: 'Here you can Pay to any Merchant connected with CiC',
+    ),
+  ];
 }
 
 class GuidelineModel {

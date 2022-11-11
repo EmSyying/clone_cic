@@ -10,11 +10,13 @@ import 'package:shimmer/shimmer.dart';
 import '../../../Utils/function/format_date_time.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
+import '../../../utils/helper/cic/cic_guider.dart';
 import '../../bonus/controllers/bonus_controller.dart';
 import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
 import '../../bonus/screens/income_transaction.dart';
 
+import '../../guilder/guider_controller.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../controller/wallet_controller.dart';
 
@@ -33,6 +35,7 @@ class _WalletScreenState extends State<WalletScreen>
   final _walletController = Get.put(WalletController());
   final newCashOutCon = Get.put(BonusController());
   final priceController = Get.put(PriceController());
+  final _guideController = Get.put(CiCGuidController());
 
   final String datetime = DateTime.now().toString();
 
@@ -54,6 +57,20 @@ class _WalletScreenState extends State<WalletScreen>
   void dispose() {
     _tabController?.dispose();
     super.dispose();
+  }
+
+  _showGuildLine() {
+    CiCApp.showOverlays(
+      itemCount: _guideController.walletGuide.length,
+      key: (index) => _guideController.walletGuide[index].key!,
+      titleBuilder: (index) => _guideController.walletGuide[index].title,
+      descriptionBuilder: (index) =>
+          _guideController.walletGuide[index].description,
+      objectSettingBuilder: (index) => ObjectSetting(
+        radius: BorderRadius.circular(14),
+      ),
+      context: context,
+    );
   }
 
   @override
@@ -84,6 +101,18 @@ class _WalletScreenState extends State<WalletScreen>
             isLeading: true,
             context: context,
             title: "MM Account",
+            action: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: GestureDetector(
+                  onTap: () async {
+                    _showGuildLine();
+                    // await LocalData.storeAppTou('appTour', true);
+                  },
+                  child: SvgPicture.asset('assets/images/demo.svg'),
+                ),
+              ),
+            ],
           ),
           body: NestedScrollView(
             headerSliverBuilder:
@@ -239,6 +268,8 @@ class _WalletScreenState extends State<WalletScreen>
                                     children: [
                                       _operationButton(
                                         context,
+                                        _guideController.walletGuide[0].key =
+                                            GlobalKey(),
                                         ontap: () {
                                           context.push(
                                               '/wallet/deposit-card?fromModule=Deposit');
@@ -248,6 +279,8 @@ class _WalletScreenState extends State<WalletScreen>
                                       ),
                                       _operationButton(
                                         context,
+                                        _guideController.walletGuide[1].key =
+                                            GlobalKey(),
                                         ontap: () {
                                           context.push('/wallet/mma-transfer');
                                         },
@@ -256,6 +289,8 @@ class _WalletScreenState extends State<WalletScreen>
                                       ),
                                       _operationButton(
                                         context,
+                                        _guideController.walletGuide[2].key =
+                                            GlobalKey(),
                                         ontap: () {
                                           context.push('/wallet/invest-fif');
                                           // show(context);
@@ -266,6 +301,8 @@ class _WalletScreenState extends State<WalletScreen>
                                       ),
                                       _operationButton(
                                         context,
+                                        _guideController.walletGuide[3].key =
+                                            GlobalKey(),
                                         ontap: () {
                                           show(context);
                                         },
@@ -367,7 +404,8 @@ class _WalletScreenState extends State<WalletScreen>
   }
 
   Widget _operationButton(
-    BuildContext context, {
+    BuildContext context,
+    Key? key, {
     String? text,
     String? img,
     GestureTapCallback? ontap,
@@ -379,6 +417,7 @@ class _WalletScreenState extends State<WalletScreen>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+            key: key,
             width: 60,
             height: 60,
             decoration: BoxDecoration(

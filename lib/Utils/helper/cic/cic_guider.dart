@@ -630,8 +630,8 @@ class CiCApp {
     required BuildContext context,
     required int itemCount,
     required GlobalKey Function(int index) key,
-    String Function(int index)? titleBuilder,
-    String Function(int index)? descriptionBuilder,
+    String? Function(int index)? titleBuilder,
+    String? Function(int index)? descriptionBuilder,
     ObjectSetting? Function(int index)? objectSettingBuilder,
     OverlaySetting? overlaySetting,
     bool allowSkip = true,
@@ -867,7 +867,7 @@ class CiCApp {
                         ///
                         if (descriptionBuilder != null)
                           Text(
-                            descriptionBuilder.call(i),
+                            descriptionBuilder.call(i) ?? '',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
