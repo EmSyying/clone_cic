@@ -3,10 +3,11 @@ import 'package:cicgreenloan/modules/get_funding/models/payment_model/payment.da
 import 'package:cicgreenloan/modules/get_funding/models/payment_model/payment_schedule.dart';
 import 'package:cicgreenloan/widgets/get_funding/payment/payment_info.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/flavor/flavor_configuration.dart';
 
 class ApprovePaymentController extends GetxController {
   final isLoading = true.obs;
@@ -20,7 +21,7 @@ class ApprovePaymentController extends GetxController {
         child: CircularProgressIndicator(),
       );
       String url =
-          '${GlobalConfiguration().getValue('api_base_url')}payment-detail?schedule_id=$scheduleId';
+          '${FlavorConfig.instance.values!.apiBaseUrl}payment-detail?schedule_id=$scheduleId';
       await http.get(
         Uri.parse(url),
         headers: {
@@ -52,7 +53,7 @@ class ApprovePaymentController extends GetxController {
         child: CircularProgressIndicator(),
       );
       String url =
-          '${GlobalConfiguration().getValue('api_base_url')}disbursement-detail?disbursement_id=$disbursementId';
+          '${FlavorConfig.instance.values!.apiBaseUrl}disbursement-detail?disbursement_id=$disbursementId';
       await http.get(
         Uri.parse(url),
         headers: {
@@ -85,7 +86,7 @@ class ApprovePaymentController extends GetxController {
         child: CircularProgressIndicator(),
       );
       String url =
-          '${GlobalConfiguration().getValue('api_base_url')}verify-disbursement?disbursement_id=$disbursementId&status=$status&notification_id=$notificationId';
+          '${FlavorConfig.instance.values!.apiBaseUrl}verify-disbursement?disbursement_id=$disbursementId&status=$status&notification_id=$notificationId';
       await http
           .post(
         Uri.parse(url),

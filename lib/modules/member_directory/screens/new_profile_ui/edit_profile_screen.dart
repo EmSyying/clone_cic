@@ -6,10 +6,10 @@ import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/function/upload_file_controller.dart';
 import '../../../../Utils/helper/custom_loading_button.dart';
+import '../../../../core/flavor/flavor_configuration.dart';
 import '../../controllers/customer_controller.dart';
 import '../../controllers/member_controller.dart';
 
@@ -65,7 +65,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   String defualImage =
-      '${GlobalConfiguration().get('base_url')}uploads/files/default/default-image.png';
+      '${FlavorConfig.instance.values!.baseUrl}uploads/files/default/default-image.png';
   @override
   Widget build(BuildContext context) {
     // memberCon.fetchMemberPersonProfile();

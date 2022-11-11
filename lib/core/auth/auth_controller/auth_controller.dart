@@ -2,18 +2,18 @@ import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../Utils/function/get_sharepreference_data.dart';
 import '../../../Utils/function/set_current_user.dart';
 import '../../../modules/member_directory/controllers/customer_controller.dart';
+import '../../flavor/flavor_configuration.dart';
 import '../verify_phone.dart';
 import '../verify_set_password.dart';
 
 class AuthController extends GetxController {
   final _apiBasehelper = ApiBaseHelper();
-  final mainUrl = GlobalConfiguration().getValue('main_api_url').toString();
+  final mainUrl = FlavorConfig.instance.values!.mainApiUrl;
   final _customerController = Get.put(CustomerController());
 
   ///check user

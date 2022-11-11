@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +8,7 @@ import 'package:http/http.dart' as http;
 import '../../../Utils/function/get_sharepreference_data.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../Utils/helper/custom_success_screen.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../../ut_trading/models/detail_model.dart';
 import '../models/availabale_balance_model.dart';
@@ -144,7 +144,7 @@ class BonusController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}wallet-available-balance';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}wallet-available-balance';
 
     try {
       http.get(Uri.parse(url), headers: {
@@ -170,8 +170,8 @@ class BonusController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url = type != null
-        ? '${GlobalConfiguration().get('api_base_urlv3')}history?type=$type'
-        : '${GlobalConfiguration().get('api_base_urlv3')}history';
+        ? '${FlavorConfig.instance.values!.apiBaseUrlV3}history?type=$type'
+        : '${FlavorConfig.instance.values!.apiBaseUrlV3}history';
 
     // if (type == "subscription") {
     //   isSubscriptionHistories(true);
@@ -231,7 +231,7 @@ class BonusController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     try {
       final String url =
-          '${GlobalConfiguration().get('api_base_urlv3')}pending-subscription-payment';
+          '${FlavorConfig.instance.values!.apiBaseUrlV3}pending-subscription-payment';
       await http.get(
         Uri.parse(url),
         headers: {
@@ -263,8 +263,8 @@ class BonusController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     try {
       final String url = cicBank == null
-          ? '${GlobalConfiguration().get('api_base_urlv3')}bank?member_id=1'
-          : '${GlobalConfiguration().get('api_base_urlv3')}bank?type=UT-Subscription';
+          ? '${FlavorConfig.instance.values!.apiBaseUrlV3}bank?member_id=1'
+          : '${FlavorConfig.instance.values!.apiBaseUrlV3}bank?type=UT-Subscription';
       await http.get(
         Uri.parse(url),
         headers: {
@@ -301,7 +301,7 @@ class BonusController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     try {
       final String url =
-          '${GlobalConfiguration().get('api_base_urlv3')}bank-type';
+          '${FlavorConfig.instance.values!.apiBaseUrlV3}bank-type';
       await http.get(
         Uri.parse(url),
         headers: {
@@ -336,7 +336,7 @@ class BonusController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     isCreateBank(true);
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}create-bank-account';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}create-bank-account';
     try {
       await http
           .post(Uri.parse(url),
@@ -388,7 +388,7 @@ class BonusController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     isCashout(true);
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}user/wallet/cash-out';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}user/wallet/cash-out';
     try {
       debugPrint('print amout:===${cashoutAmount.value}');
       await http
@@ -446,7 +446,7 @@ class BonusController extends GetxController {
   ) async {
     final tokenKey = await LocalData.getCurrentUser();
     isSubscription(true);
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}subscription';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}subscription';
     try {
       await http
           .post(Uri.parse(url),
@@ -512,7 +512,7 @@ class BonusController extends GetxController {
   Future<UTSubscription> fetchUTScription() async {
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}subscription';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}subscription';
 
     try {
       isUTScription(true);
@@ -537,7 +537,7 @@ class BonusController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}subscription-summary';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}subscription-summary';
 
     try {
       isPaymentSummary(true);
@@ -561,7 +561,7 @@ class BonusController extends GetxController {
   Future<BonusSetting> fetchbonusSetting() async {
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}bonus-setting';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}bonus-setting';
     isSubscriptionSetting(true);
     try {
       http.get(Uri.parse(url), headers: {
@@ -584,8 +584,7 @@ class BonusController extends GetxController {
   Future<void> onRequestPayment(BuildContext? context) async {
     final token = await LocalData.getCurrentUser();
     isLoadingRequestPayment(true);
-    String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}request-payment';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}request-payment';
     try {
       http
           .post(Uri.parse(url),

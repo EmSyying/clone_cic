@@ -13,11 +13,11 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../Utils/helper/custom_appbar.dart';
+import '../../../../core/flavor/flavor_configuration.dart';
 
 // ignore: must_be_immutable
 class ChangePassword extends StatefulWidget {
@@ -91,8 +91,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   bool isLoading = false;
   onChangePassword() async {
-    String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/set-password';
+    String url = '${FlavorConfig.instance.values!.mainApiUrl}user/set-password';
     setState(() {
       isLoading = true;
     });
@@ -146,7 +145,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   onResetPassword() async {
     var token = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/reset-password';
+        '${FlavorConfig.instance.values!.mainApiUrl}user/reset-password';
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'application/json',

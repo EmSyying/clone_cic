@@ -8,11 +8,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../core/flavor/flavor_configuration.dart';
 import '../../modules/member_directory/controllers/member_controller.dart';
 import '../../modules/member_directory/screens/new_profile_ui/view_image_profile_screen.dart';
 import '../../utils/function/get_sharepreference_data.dart';
@@ -400,8 +400,8 @@ class UploadFileController extends GetxController {
     isLoading(true);
     var tokenKey = await LocalData.getCurrentUser();
     String url = body != null && baseUrl != null
-        ? '${GlobalConfiguration().getValue('api_base_urlv3')}$baseUrl'
-        : '${GlobalConfiguration().getValue('main_api_url')}user/change-profile';
+        ? '${FlavorConfig.instance.values!.apiBaseUrlV2}$baseUrl'
+        : '${FlavorConfig.instance.values!.mainApiUrl}user/change-profile';
     // ignore: unnecessary_null_comparison
     if (imageFile == null) {
       return;

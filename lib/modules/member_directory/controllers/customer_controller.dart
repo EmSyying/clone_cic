@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'dart:convert';
 import 'package:get/get.dart';
 
 import '../../../configs/route_configuration/route.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/helper/custom_route_snackbar.dart';
 
 class CustomerController extends GetxController {
@@ -30,7 +30,7 @@ class CustomerController extends GetxController {
     dynamic responseJson;
     var token = await LocalData.getCurrentUser();
 
-    String userUrl = '${GlobalConfiguration().getValue('main_api_url')}user';
+    String userUrl = '${FlavorConfig.instance.values!.mainApiUrl}user';
     try {
       await http.get(Uri.parse(userUrl), headers: {
         'Accept': 'application/json',

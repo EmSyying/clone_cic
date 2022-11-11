@@ -33,7 +33,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_version/new_version.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,6 +42,7 @@ import '../../Utils/helper/find_widget_position.dart';
 import '../../Utils/helper/local_notification.dart';
 import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
+import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../investment_module/screen/deposit_screen.dart';
@@ -84,7 +84,7 @@ class _MainDashboardState extends State<MainDashboard> {
   storeDeviceToken() async {
     var token = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('main_api_url')}device-token-store';
+        '${FlavorConfig.instance.values!.mainApiUrl}device-token-store';
     try {
       await http.post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',

@@ -1,10 +1,10 @@
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../../../core/flavor/flavor_configuration.dart';
 import '../models/catigories_card_report_model.dart';
 
 class DocumentationController extends GetxController {
@@ -38,7 +38,7 @@ class DocumentationController extends GetxController {
     try {
       isLoading(true);
       final String url =
-          '${GlobalConfiguration().get('api_base_urlv3')}documentation-by-type?type=$docType';
+          '${FlavorConfig.instance.values!.apiBaseUrlV3}documentation-by-type?type=$docType';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -65,7 +65,7 @@ class DocumentationController extends GetxController {
       documentationList.clear();
       isLoading(true);
       final String url =
-          '${GlobalConfiguration().get('api_base_urlv3')}documentation';
+          '${FlavorConfig.instance.values!.apiBaseUrlV3}documentation';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

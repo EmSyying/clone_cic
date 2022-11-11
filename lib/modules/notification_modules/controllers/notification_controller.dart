@@ -6,13 +6,13 @@ import 'package:cicgreenloan/modules/ut_trading/models/trading_model.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../configs/route_configuration/route.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 
 class NotificationController extends GetxController {
   final notificationList = <NotificationModel>[].obs;
@@ -42,8 +42,7 @@ class NotificationController extends GetxController {
     // New Code
     // token.value = StorageUtil.getString('current_user');
 
-    String url =
-        '${GlobalConfiguration().getValue('api_base_url')}user/notification';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}user/notification';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -119,7 +118,7 @@ class NotificationController extends GetxController {
 
   Future<int> countNotification() async {
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}user/notification?only=unread&count=true';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user/notification?only=unread&count=true';
 
     // Old Code
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -140,7 +139,7 @@ class NotificationController extends GetxController {
 
   Future<void> onReadNotification(String ids) async {
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}user/notification/readordelete?to=read&ids=["$ids"]';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user/notification/readordelete?to=read&ids=["$ids"]';
     SharedPreferences pref = await SharedPreferences.getInstance();
     token.value = pref.getString('current_user')!;
     //token.value = StorageUtil.getString('current_user');
@@ -162,7 +161,7 @@ class NotificationController extends GetxController {
     var token = await LocalData.getCurrentUser();
     isFetchingDetail(true);
     String url =
-        '${GlobalConfiguration().get('api_base_urlv2')}trading?type=single-trading&member_id=${userCon.customer.value.customerId}&transaction_id=$transitionId&market_id=$marketId&operation=$operation';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}trading?type=single-trading&member_id=${userCon.customer.value.customerId}&transaction_id=$transitionId&market_id=$marketId&operation=$operation';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -188,7 +187,7 @@ class NotificationController extends GetxController {
     for (int i = 0; i < reason!.length; i++) {}
     isLoading(true);
     String url =
-        '${GlobalConfiguration().get('api_base_urlv2')}trading-accepted-declined?';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}trading-accepted-declined?';
 
     debugPrint(
         'TYPE : $type : REASON : $reason : transactionId : $transactionId : notificationId : $notificationId');
@@ -240,7 +239,7 @@ class NotificationController extends GetxController {
   }
 
   Future<List<Gender>> onGetReason() async {
-    final url = '${GlobalConfiguration().get('api_base_urlv2')}option';
+    final url = '${FlavorConfig.instance.values!.apiBaseUrlV2}option';
     try {
       isGetReason(true);
       await http.get(

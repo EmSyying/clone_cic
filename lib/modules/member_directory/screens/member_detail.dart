@@ -16,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -24,6 +23,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../Utils/helper/firebase_analytics.dart';
 import '../../../Utils/helper/screen_agrument/member_screen_argument.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 
 class MemberDetail extends StatefulWidget {
   final MemberDetailAgrument? memberDetailAgrument;
@@ -230,7 +230,7 @@ class _MemberDetailState extends State<MemberDetail> {
   startUpload() async {
     var tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/change-profile';
+        '${FlavorConfig.instance.values!.mainApiUrl}user/change-profile';
     if (imageFile == null) {
       return;
     }
@@ -263,7 +263,7 @@ class _MemberDetailState extends State<MemberDetail> {
   }
 
   String defualImage =
-      '${GlobalConfiguration().get('base_url')}uploads/files/default/default-image.png';
+      '${FlavorConfig.instance.values!.baseUrl}uploads/files/default/default-image.png';
   @override
   Widget build(BuildContext context) {
     if (widget.memberDetailAgrument != null) {

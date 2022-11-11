@@ -11,13 +11,13 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
 import '../../Utils/helper/custom_route_snackbar.dart';
 import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
+import '../flavor/flavor_configuration.dart';
 
 class StartupSlide extends StatefulWidget {
   final bool? isNavigator;
@@ -218,7 +218,7 @@ class _ScheduleState extends State<Schedule> {
 
   Future<TermAndCondition> getTermandCondition() async {
     getCurrentLocal();
-    String url = '${GlobalConfiguration().getValue('api_base_url')}support';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}support';
     await http.get(Uri.parse(url)).then((response) {
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);

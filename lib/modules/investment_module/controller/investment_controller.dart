@@ -20,7 +20,6 @@ import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +27,7 @@ import '../../../Utils/helper/firebase_analytics.dart';
 import '../../../Utils/helper/screen_agrument/member_screen_argument.dart';
 import '../../../Utils/popupannouncement/popup_announcement.dart';
 import '../../../configs/route_management/route_name.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/helper/custom_snackbar.dart';
 import '../../../utils/helper/custom_success_screen.dart';
 import '../../../utils/helper/format_number.dart';
@@ -183,7 +183,7 @@ class PriceController extends GetxController {
   Future<SharePriceData>? getSharePrice() async {
     isLoading(true);
     tokenKey.value = await getCurrentLang();
-    String url = '${GlobalConfiguration().get('api_base_url')}dashboard';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}dashboard';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -207,7 +207,7 @@ class PriceController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}return-on-investment';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}return-on-investment';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -247,7 +247,7 @@ class PriceController extends GetxController {
     isLoading(true);
     tokenKey.value = await getCurrentLang();
     String url =
-        '${GlobalConfiguration().get('api_base_url')}investment-equity-fund';
+        '${FlavorConfig.instance.values!.apiBaseUrl}investment-equity-fund';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -567,7 +567,7 @@ class PriceController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     try {
       final String url =
-          '${GlobalConfiguration().get('api_base_urlv3')}customer/certificate/download';
+          '${FlavorConfig.instance.values!.apiBaseUrlV3}customer/certificate/download';
       await http.get(
         Uri.parse(url),
         headers: {
@@ -1438,7 +1438,7 @@ class PriceController extends GetxController {
   submitPINCode(
       {String? pinCode, Function? onSuccess, BuildContext? context}) async {
     String url =
-        '${GlobalConfiguration().get('main_api_url')}user/verify-pin-code';
+        '${FlavorConfig.instance.values!.mainApiUrl}user/verify-pin-code';
     isLoadingPincode(true);
     await apiBaseHelper.onNetworkRequesting(
       url: '',
@@ -1581,7 +1581,7 @@ class PriceController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     try {
       final String url =
-          '${GlobalConfiguration().get('api_base_urlv3')}bank?type=FIF';
+          '${FlavorConfig.instance.values!.apiBaseUrlV3}bank?type=FIF';
       await http.get(
         Uri.parse(url),
         headers: {

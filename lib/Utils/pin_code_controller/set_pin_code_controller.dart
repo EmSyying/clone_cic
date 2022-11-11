@@ -8,9 +8,9 @@ import 'package:cicgreenloan/modules/event_module/models/event_detail_argument.d
 import 'package:cicgreenloan/widgets/notification/accept_notification_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
+import '../../core/flavor/flavor_configuration.dart';
 import '../helper/screen_agrument/member_screen_argument.dart';
 
 class SetPINCodeController extends GetxController {
@@ -41,7 +41,7 @@ class SetPINCodeController extends GetxController {
     isLoading(true);
 
     String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/verify-pin-code';
+        '${FlavorConfig.instance.values!.mainApiUrl}user/verify-pin-code';
 
     var body = json.encode({
       'pin_code': pinCode,

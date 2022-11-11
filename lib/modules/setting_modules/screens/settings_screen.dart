@@ -20,7 +20,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,6 +32,7 @@ import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 import '../../member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import '../../privilege_program/screen/privilege/privilege_screen.dart';
 import '../../report_module/screens/cic_app_manual.dart';
@@ -403,7 +403,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _isLoading == true ? showLoadingDialog(context) : Container();
 
     var token = await LocalData.getCurrentUser();
-    String url = '${GlobalConfiguration().getValue('main_api_url')}request-otp';
+    String url = '${FlavorConfig.instance.values!.mainApiUrl}request-otp';
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'applicatio/json',

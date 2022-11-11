@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/flavor/flavor_configuration.dart';
 import '../../modules/member_directory/models/personal_infor.dart';
 
 import '../../modules/member_directory/models/user.dart';
@@ -109,7 +110,7 @@ class RequestLoanController extends GetxController {
     final provinceListLocal = <Address>[].obs;
     final provinceLocal = Address().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale';
     try {
       await http.get(Uri.parse(url)).then((response) {
         if (response.statusCode == 200) {
@@ -138,7 +139,7 @@ class RequestLoanController extends GetxController {
     isLoading(true);
     final districtLocal = Address().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale&code=$code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale&code=$code';
     try {
       await http.get(Uri.parse(url)).then((response) {
         if (response.statusCode == 200) {
@@ -164,7 +165,7 @@ class RequestLoanController extends GetxController {
     final communeLocal = Address().obs;
     isLoading(true);
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale&code=$code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale&code=$code';
     try {
       await http.get(Uri.parse(url)).then((response) {
         if (response.statusCode == 200) {
@@ -190,7 +191,7 @@ class RequestLoanController extends GetxController {
     final villageListLocal = <Address>[].obs;
     final villageLocal = Address().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale&code=$code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale&code=$code';
     try {
       await http.get(Uri.parse(url)).then((response) {
         if (response.statusCode == 200) {
@@ -217,7 +218,7 @@ class RequestLoanController extends GetxController {
     final resProvinceListLocal = <Address>[].obs;
     final resProvinceLocal = Address().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale';
     await http.get(Uri.parse(url)).then((response) {
       if (response.statusCode == 200) {
         isSelectedDistrict.value = true;
@@ -239,7 +240,7 @@ class RequestLoanController extends GetxController {
     final residentDistrictListLocal = <Address>[].obs;
     final districtLocal = Address().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale&code=$code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale&code=$code';
     await http.get(Uri.parse(url)).then((response) {
       if (response.statusCode == 200) {
         isSelectedCommune.value = true;
@@ -260,7 +261,7 @@ class RequestLoanController extends GetxController {
     final getCommuneListLocal = <Address>[].obs;
     final communeLocal = Address().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale&code=$code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale&code=$code';
     await http.get(Uri.parse(url)).then((response) {
       if (response.statusCode == 200) {
         isSelectedVillage.value = true;
@@ -280,7 +281,7 @@ class RequestLoanController extends GetxController {
   Future<List<Purpose>> getPurposeList() async {
     final purpose = Purpose().obs;
     final purposeList = <Purpose>[].obs;
-    String url = '${GlobalConfiguration().get('api_base_url')}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}option';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -347,7 +348,7 @@ class RequestLoanController extends GetxController {
     final villageListLocal = <Address>[].obs;
     final villageLocal = Address().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}address?lang=$locale&code=$code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}address?lang=$locale&code=$code';
     await http.get(Uri.parse(url)).then((response) {
       if (response.statusCode == 200) {
         isSelectedVillage.value = true;
@@ -365,7 +366,7 @@ class RequestLoanController extends GetxController {
   }
 
   Future<List<GenderOption>> getGender() async {
-    String url = '${GlobalConfiguration().get('api_base_url')}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}option';
     final genderList = <GenderOption>[].obs;
     final gender = GenderOption().obs;
     try {
@@ -395,7 +396,7 @@ class RequestLoanController extends GetxController {
   Future<List<Currency>> getCurrency() async {
     final currency = Currency().obs;
     final currencyList = <Currency>[].obs;
-    String url = '${GlobalConfiguration().getValue('api_base_url')}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}option';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',

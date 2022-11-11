@@ -14,9 +14,9 @@ import 'package:cicgreenloan/modules/event_module/models/registered_member.dart'
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../core/flavor/flavor_configuration.dart';
 import '../models/card_guests_model.dart';
 import '../models/event_check_in_model.dart';
 
@@ -115,7 +115,7 @@ class EventController extends GetxController {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=past';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -156,7 +156,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=upcoming&type=new';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=new';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -183,7 +183,7 @@ class EventController extends GetxController {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=past&search=$search';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past&search=$search';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -210,7 +210,7 @@ class EventController extends GetxController {
       int memberId, String search) async {
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=upcoming&search=$search';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&search=$search';
     isLoadingFeture(true);
     isLoadingNew(true);
 
@@ -251,7 +251,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv3')}event?member_id=$memberId&posted=upcoming&type=featured';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=featured';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -277,7 +277,7 @@ class EventController extends GetxController {
   Future<List<RegistrationEventData>> fetchAllRegisteredMemeber(
       String eventId) async {
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv3')}registration?event_id=$eventId';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}registration?event_id=$eventId';
 
     isLoadingregisteredMember.value = true;
     try {
@@ -308,7 +308,7 @@ class EventController extends GetxController {
   }) async {
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}registration';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}registration';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -352,7 +352,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}event/interested/$eventid';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event/interested/$eventid';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -376,7 +376,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}event/uninterested/$eventid';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event/uninterested/$eventid';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -399,7 +399,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}event/interested/$eventid';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event/interested/$eventid';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -430,7 +430,7 @@ class EventController extends GetxController {
 
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}event/check-in';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}event/check-in';
 
     try {
       await http
@@ -517,7 +517,7 @@ class EventController extends GetxController {
     isLoadingZoneSetting(true);
     num availableZone = 0;
     final token = await LocalData.getCurrentUser();
-    final url = '${GlobalConfiguration().get('api_base_urlv3')}event-setting';
+    final url = '${FlavorConfig.instance.values!.apiBaseUrlV3}event-setting';
 
     try {
       await http.get(
@@ -544,7 +544,7 @@ class EventController extends GetxController {
 
   Future<EventData> fetchEventDetail(int id) async {
     isLoadingEventDetail(true);
-    final url = '${GlobalConfiguration().get('api_base_urlv3')}event/$id';
+    final url = '${FlavorConfig.instance.values!.apiBaseUrlV3}event/$id';
     final token = await LocalData.getCurrentUser();
     try {
       await http.get(Uri.parse(url), headers: {

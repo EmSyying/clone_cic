@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/about_cic/model/about_cic_model.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+
+import '../../../core/flavor/flavor_configuration.dart';
 
 class AboutCICController extends GetxController {
   AboutCICModel aboutCICModel = AboutCICModel();
@@ -12,7 +13,7 @@ class AboutCICController extends GetxController {
 
   Future<List<AboutCICModel>> fetchAboutCicList() async {
     var token = await LocalData.getCurrentUser();
-    String url = '${GlobalConfiguration().get('api_base_url')}about-company';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}about-company';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',

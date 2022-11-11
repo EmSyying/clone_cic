@@ -10,9 +10,9 @@ import 'package:cicgreenloan/modules/learning_platform_module/models/post_model.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
-
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../core/flavor/flavor_configuration.dart';
 
 class LearningController extends GetxController {
   final postModel = VideoModel().obs;
@@ -46,16 +46,16 @@ class LearningController extends GetxController {
 
     if (postId != null && memberId != null && pageName == null) {
       url =
-          '${GlobalConfiguration().getValue('api_base_urlv2')}post?member_id=$memberId&more=true&current=$postId';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&more=true&current=$postId';
     } else if (methode != null && pageName == null) {
       url =
-          '${GlobalConfiguration().getValue('api_base_urlv2')}post?member_id=$memberId&saved=true';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&saved=true';
     } else if (moduleId != null && pageName != null) {
       url =
-          '${GlobalConfiguration().getValue('api_base_urlv2')}member_id=$memberId&module=$moduleId&more=true&current=$postId';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}member_id=$memberId&module=$moduleId&more=true&current=$postId';
     } else {
       url =
-          '${GlobalConfiguration().getValue('api_base_urlv2')}post?member_id=$memberId&recommended=true';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&recommended=true';
     }
     try {
       await http.get(Uri.parse(url), headers: {
@@ -92,7 +92,7 @@ class LearningController extends GetxController {
     isLoadingChannel(true);
     final token = await LocalData.getCurrentUser();
     url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}channel?member_id=$memberId';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}channel?member_id=$memberId';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -119,8 +119,7 @@ class LearningController extends GetxController {
     isLoadingChannelDetail(true);
 
     final token = await LocalData.getCurrentUser();
-    url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}channel/$channelId';
+    url = '${FlavorConfig.instance.values!.apiBaseUrlV2}channel/$channelId';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -147,7 +146,7 @@ class LearningController extends GetxController {
     isLoadingPostByModule(true);
     final token = await LocalData.getCurrentUser();
     url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}post?member_id=$memberId&module=$moduleId';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&module=$moduleId';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -182,9 +181,9 @@ class LearningController extends GetxController {
 
     String url = '';
     if (methode != null) {
-      url = '${GlobalConfiguration().get('api_base_urlv2')}unsave-post';
+      url = '${FlavorConfig.instance.values!.apiBaseUrlV2}unsave-post';
     } else {
-      url = '${GlobalConfiguration().get('api_base_urlv2')}save-post';
+      url = '${FlavorConfig.instance.values!.apiBaseUrlV2}save-post';
     }
     try {
       await http
@@ -215,7 +214,7 @@ class LearningController extends GetxController {
     isLoadingSlide(true);
     var token = LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().get('api_base_url')}slide?type=Learning';
+        '${FlavorConfig.instance.values!.apiBaseUrl}slide?type=Learning';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',

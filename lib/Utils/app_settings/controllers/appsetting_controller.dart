@@ -9,12 +9,12 @@ import 'package:cicgreenloan/Utils/app_settings/models/contact_us.dart';
 import 'package:cicgreenloan/Utils/app_settings/models/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
+import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/helper/api_base_helper.dart';
 import '../models/app_setting.dart';
 import '../models/slide_model.dart';
@@ -94,7 +94,7 @@ class SettingController extends GetxController {
   final contactUs = ContactUs().obs;
   List<SlideModel>? slideList = <SlideModel>[];
   List<SlideModel>? splashScreen = <SlideModel>[];
-  String url = '${GlobalConfiguration().getValue('api_base_urlv3')}app-setting';
+  String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}app-setting';
 
   Future<Setting> fetchSetting() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -119,7 +119,7 @@ class SettingController extends GetxController {
   Future<UIData> onFetchUIData() async {
     isloading = true;
 
-    String url = '${GlobalConfiguration().getValue('api_base_urlv3')}ui';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}ui';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     bool biometrics = await LocalData.getAuthenValue('authen');
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}slide?module=Slide&biometrics=$biometrics';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}slide?module=Slide&biometrics=$biometrics';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -178,7 +178,7 @@ class SettingController extends GetxController {
     isLoading(true);
     var token = LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().get('api_base_url')}slide?type=Splash Screen';
+        '${FlavorConfig.instance.values!.apiBaseUrl}slide?type=Splash Screen';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ class SettingController extends GetxController {
     debugPrint("This function is work");
     isLoading(true);
     var token = await LocalData.getCurrentUser();
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}support';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}support';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -232,7 +232,7 @@ class SettingController extends GetxController {
 
   Future<TermAndConditions> fetchTermAndCondtions() async {
     var token = await LocalData.getCurrentUser();
-    String url = '${GlobalConfiguration().get('api_base_url')}support';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}support';
     try {
       isLoading(true);
       await http.get(Uri.parse(url), headers: {
@@ -255,7 +255,7 @@ class SettingController extends GetxController {
   final isPrivacyPolicy = false.obs;
   Future<PrivacyPolicy> fetchPrivacyPolicy() async {
     var token = await LocalData.getCurrentUser();
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}support';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}support';
     try {
       isPrivacyPolicy(true);
       await http.get(Uri.parse(url), headers: {
@@ -276,7 +276,7 @@ class SettingController extends GetxController {
 
   Future<AboutCiCFeature> fetchAboutCiCFeatureApp() async {
     var token = await LocalData.getCurrentUser();
-    String url = '${GlobalConfiguration().get('api_base_url')}app-setting';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}app-setting';
     try {
       isLoading(true);
       await http.get(Uri.parse(url), headers: {
@@ -296,7 +296,7 @@ class SettingController extends GetxController {
   }
 
   Future<AppSetting> fetchAppVersion() async {
-    String url = '${GlobalConfiguration().get('api_base_url')}app-setting';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}app-setting';
     isLoadingAboutCiC(true);
     try {
       await http.get(Uri.parse(url), headers: {
@@ -324,7 +324,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}service?partial=menu';
+        "${FlavorConfig.instance.values!.apiBaseUrlV3}service?partial=menu";
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -359,7 +359,7 @@ class SettingController extends GetxController {
   onSwitchNotificationSetting() async {
     final token = await LocalData.getCurrentUser();
     final url =
-        '${GlobalConfiguration().get('api_base_urlv2')}setting/toggle-notification';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}setting/toggle-notification';
     try {
       await http.post(Uri.parse(url), headers: {
         'Accept': 'application/json',

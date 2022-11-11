@@ -10,7 +10,6 @@ import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +17,7 @@ import 'package:http/http.dart' as http;
 import '../../Utils/helper/color.dart';
 import '../../Utils/helper/custom_appbar.dart';
 import '../../Utils/helper/custom_route_snackbar.dart';
+import '../flavor/flavor_configuration.dart';
 
 class VerifySetPassword extends StatefulWidget {
   final String? phone;
@@ -48,7 +48,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
 
     // var sharedPrefs = await SharedPreferences.getInstance();
     // var _userToken = '';
-    String url = '${GlobalConfiguration().getValue('main_api_url')}verify-otp';
+    String url = '${FlavorConfig.instance.values!.mainApiUrl}verify-otp';
     setState(() {
       _isVerifyLoading = true;
     });
@@ -109,7 +109,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
     });
     _isLoading ? showLoadingDialog(context) : null;
 
-    String url = '${GlobalConfiguration().getValue('main_api_url')}request-otp';
+    String url = '${FlavorConfig.instance.values!.mainApiUrl}request-otp';
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'applicatio/json',
@@ -151,7 +151,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
       _isVerifyLoading = true;
     });
 
-    String url = '${GlobalConfiguration().getValue('main_api_url')}verify-otp';
+    String url = '${FlavorConfig.instance.values!.mainApiUrl}verify-otp';
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -316,7 +316,12 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                           children: <TextSpan>[
                             TextSpan(
                               text: '${widget.phone}',
-                              style: Theme.of(context).textTheme.headline2!.copyWith(fontWeight: FontWeight.bold,),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ],
                         ),

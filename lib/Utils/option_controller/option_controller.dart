@@ -3,10 +3,10 @@ import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/utils/helper/option_model/option_form.dart';
 import 'package:cicgreenloan/utils/select_address/address_model/document_type.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../core/flavor/flavor_configuration.dart';
 import '../helper/option_model/option_data.dart';
 
 class DocumentCategory extends GetxController {
@@ -49,7 +49,7 @@ class DocumentCategory extends GetxController {
     isLoading(true);
     final documentType = DocumentTypes().obs;
 
-    String url = '${GlobalConfiguration().getValue('api_base_urlv2')}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}option';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -172,7 +172,7 @@ class DocumentCategory extends GetxController {
 
     final optionFormFilterListLocal = <OptionFormFilter>[].obs;
     isLoading(true);
-    String url = '${GlobalConfiguration().getValue('api_base_urlv2')}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}option';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -205,7 +205,7 @@ class DocumentCategory extends GetxController {
     final filterByTypeListLocal = <OptionFormFilter>[].obs;
     isLoading(true);
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}fetch-option-by-type?type=$type';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}fetch-option-by-type?type=$type';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -239,7 +239,7 @@ class DocumentCategory extends GetxController {
     final searchDataByOptionList = <OptionFormFilter>[].obs;
     final searchDataByOption = OptionFormFilter().obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}option/search?type=$type&&search=$search';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}option/search?type=$type&&search=$search';
 
     try {
       isLoading(true);
@@ -272,7 +272,7 @@ class DocumentCategory extends GetxController {
     isLoading(true);
     final optionFormList = <OptionForm>[].obs;
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}fetch-option-by-type?type=$type';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}fetch-option-by-type?type=$type';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -301,7 +301,7 @@ class DocumentCategory extends GetxController {
   Future<OptionData> fetchAllOptions() async {
     var token = await LocalData.getCurrentUser();
     isLoadingOption(true);
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}option';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',

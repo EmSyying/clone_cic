@@ -14,7 +14,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'dart:convert';
@@ -26,6 +25,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
 import '../../../Utils/helper/injection_helper/injection_helper.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 
 class HomePage extends StatefulWidget {
   final bool? isNavigator;
@@ -146,7 +146,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('current_user');
     String url =
-        '${GlobalConfiguration().getValue('main_api_url')}device-token-store';
+        '${FlavorConfig.instance.values!.mainApiUrl}device-token-store';
     try {
       await http.post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',
@@ -187,7 +187,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('current_user');
 
-    String userUrl = '${GlobalConfiguration().getValue('main_api_url')}user';
+    String userUrl = '${FlavorConfig.instance.values!.mainApiUrl}user';
     await http.get(Uri.parse(userUrl), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'

@@ -17,15 +17,14 @@ import 'package:cicgreenloan/utils/select_address/address_model/document_type.da
 import 'package:cicgreenloan/utils/select_address/address_model/full_address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
 import '../../../Utils/helper/firebase_analytics.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 import '../models/company/company_data_model.dart';
 import '../models/personal_profile_model.dart/personal_profile_model.dart';
 
@@ -247,7 +246,7 @@ class MemberController extends GetxController {
     isLoadingInvite.value = true;
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${GlobalConfiguration().get('api_base_urlv2')}registration';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}registration';
 
     try {
       await http
@@ -340,7 +339,7 @@ class MemberController extends GetxController {
   Future<void> onDeleteImageProfile(
       BuildContext? context, int? id, String? model) async {
     String url =
-        '${GlobalConfiguration().get('base_url')}uploads/files/default/default-image.png';
+        '${FlavorConfig.instance.values!.baseUrl}uploads/files/default/default-image.png';
     isDeleteComapny(true);
     await apiBaseHelper.onNetworkRequesting(
         methode: METHODE.post,
@@ -390,7 +389,7 @@ class MemberController extends GetxController {
   final isLoadingSubmitCompany = false.obs;
   Future<void> onSubmitCompany(BuildContext? context) async {
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}company/createOrUpdate';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}company/createOrUpdate';
     tokenKey = await LocalData.getCurrentUser();
     debugPrint('heloo statuscode:+++++++++');
     if (comCompanyLogo != null) {
@@ -495,161 +494,12 @@ class MemberController extends GetxController {
     });
   }
 
-  Future<void> onUpdateEducation() async {
-    String url =
-        '${GlobalConfiguration().get('api_base_url')}member-education/update';
-    tokenKey = await LocalData.getCurrentUser();
-
-    var data = json.encode({
-      "id": _customerController.customer.value.id,
-      "school": school.value,
-      "field_of_study": fieldOfstudy.value,
-      "grade": grade.value,
-      "degree": degree.value,
-      "description": description.value,
-      "end_date": endDate.value,
-      "start_date": startDate.value
-    });
-
-    try {
-      isLoading(true);
-      var response = await http.post(Uri.parse(url),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $tokenKey'
-          },
-          body: data);
-      if (response.statusCode == 200) {
-      } else {}
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  Future<bool> onSubmitEducationUserProfile(BuildContext context) async {
-    String url = '${GlobalConfiguration().get('api_base_url')}member-education';
-    tokenKey = await LocalData.getCurrentUser();
-
-    var data = json.encode({
-      "member_id": _customerController.customer.value.customerId,
-      "school": school.value,
-      "field_of_study": fieldOfstudy.value,
-      "grade": grade.value,
-      "degree": degree.value,
-      "description": description.value,
-      "end_date":
-          endDate.value != "" ? endDate.value : dateTime.format(DateTime.now()),
-      "start_date": startDate.value != ""
-          ? startDate.value
-          : dateTime.format(DateTime.now())
-    });
-
-    try {
-      isLoading(true);
-      var response = await http.post(Uri.parse(url),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $tokenKey'
-          },
-          body: data);
-      if (response.statusCode == 200) {
-        Get.snackbar("", "Education Submit Successful...!",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: const Color(0xff60AD00),
-            colorText: Colors.white,
-            icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Submit Education',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Education Submit Successful...!',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
-
-        Timer(const Duration(seconds: 1), () {
-          Navigator.pop(context, true);
-        });
-      } else {}
-    } finally {
-      isLoading(false);
-    }
-    return true;
-  }
-
-  Future<bool> onSubmitExperience(BuildContext context) async {
-    String url =
-        '${GlobalConfiguration().get('api_base_url')}member-experience';
-    tokenKey = await LocalData.getCurrentUser();
-
-    var data = json.encode({
-      "member_id": _customerController.customer.value.customerId,
-      "title": title.value,
-      "employment_type": employmentType.value,
-      "company_name": companyName.value,
-      "grade": grade.value,
-      "location": location.value,
-      "description": experienceDecription.value,
-      "end_date": experienceEndDate.value != ""
-          ? experienceEndDate.value
-          : dateTime.format(DateTime.now()),
-      "start_date": experienceStartDate.value != ""
-          ? experienceStartDate.value
-          : dateTime.format(DateTime.now())
-    });
-
-    try {
-      isLoading(true);
-      var response = await http.post(Uri.parse(url),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $tokenKey'
-          },
-          body: data);
-      if (response.statusCode == 200) {
-        Get.snackbar("", "Experience Submit Successful...!",
-            borderRadius: 8,
-            duration: const Duration(seconds: 2),
-            backgroundColor: const Color(0xff60AD00),
-            colorText: Colors.white,
-            icon: SvgPicture.asset('assets/images/svgfile/successIcon.svg'),
-            snackPosition: SnackPosition.TOP,
-            margin: const EdgeInsets.all(10),
-            overlayBlur: 3.0,
-            titleText: const Text(
-              'Submit Education',
-              style: TextStyle(color: Colors.white),
-            ),
-            messageText: const Text(
-              'Experience Submit Successful...!',
-              style: TextStyle(color: Colors.white),
-            ),
-            snackStyle: SnackStyle.FLOATING);
-
-        Timer(const Duration(seconds: 1), () {
-          Navigator.pop(context, true);
-        });
-      } else {}
-    } finally {
-      isLoading(false);
-    }
-    return true;
-  }
-
   Future<List<SubscriptionData>> fetchSubscriptionMember(int id) async {
     tokenKey = await LocalData.getCurrentUser();
     try {
       isLoading(true);
       String url =
-          '${GlobalConfiguration().get('api_base_url')}member-subscription?member_id=$id';
+          '${FlavorConfig.instance.values!.apiBaseUrl}member-subscription?member_id=$id';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -676,7 +526,7 @@ class MemberController extends GetxController {
     var token = await LocalData.getCurrentUser();
 
     String userUrl =
-        '${GlobalConfiguration().getValue('main_api_url')}user-detail?customer_id=$id';
+        '${FlavorConfig.instance.values!.mainApiUrl}user-detail?customer_id=$id';
     try {
       await http.get(Uri.parse(userUrl), headers: {
         'Accept': 'application/json',
@@ -702,7 +552,7 @@ class MemberController extends GetxController {
     isLoadingProfile(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}member-profile?member_id=$id';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}member-profile?member_id=$id';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -721,33 +571,6 @@ class MemberController extends GetxController {
     return personalProfile.value;
   }
 
-  // Future<List<EducationData>> fetchEducationMember(int id) async {
-  //   tokenKey = await LocalData.getCurrentUser();
-  //   try {
-  //     isLoading(true);
-  //     String url =
-  //         '${GlobalConfiguration().get('api_base_url')}member-education?member_id=$id';
-  //     await http.get(Uri.parse(url), headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer $tokenKey'
-  //     }).then((response) {
-  //       if (response.statusCode == 200) {
-  //         var responseJson = json.decode(response.body);
-
-  //         educationModel.value = EducationModel.fromJson(responseJson);
-  //         educationMemberData.value = educationModel.value.data!;
-  //       } else if (response.statusCode == 404) {
-  //       } else {}
-  //     });
-  //   } catch (e) {
-  //     print(e);
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  //   return educationMemberData;
-  // }
-
   Future<void> submitHiden({
     int? memberId,
     String? pages,
@@ -755,7 +578,7 @@ class MemberController extends GetxController {
     String? field,
     int? active,
   }) async {
-    String url = '${GlobalConfiguration().get('api_base_urlv3')}hidden-field';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}hidden-field';
     tokenKey = await LocalData.getCurrentUser();
 
     var data = json.encode({
@@ -781,36 +604,6 @@ class MemberController extends GetxController {
     }
   }
 
-  // final experience = ExperienceModel().obs;
-  // final experienceList = <ExperienceData>[].obs;
-
-  // Future<List<ExperienceData>> fetchExperienceMember(int id) async {
-  //   tokenKey = await LocalData.getCurrentUser();
-  //   try {
-  //     isLoading(true);
-  //     String url =
-  //         '${GlobalConfiguration().get('api_base_url')}member-experience?member_id=$id';
-  //     await http.get(Uri.parse(url), headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer $tokenKey'
-  //     }).then((response) {
-  //       if (response.statusCode == 200) {
-  //         var responseJson = json.decode(response.body);
-
-  //         experience.value = ExperienceModel.fromJson(responseJson);
-  //         experienceList.value = experience.value.data!;
-  //       } else if (response.statusCode == 404) {
-  //       } else {}
-  //     });
-  //   } catch (e) {
-  //     print(e);
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  //   return experienceList;
-  // }
-
   final company = CompanyDataModel().obs;
   final isLoadingCompanyProfile = false.obs;
   final companyDataList = <CompanyDataModel>[].obs;
@@ -835,38 +628,6 @@ class MemberController extends GetxController {
     });
     return companyDataList;
   }
-  // Future<List<CompanyData>> fetchCompanyMember({int? id}) async {
-  //   tokenKey = await LocalData.getCurrentUser();
-  //   try {
-  //     isLoadingCompanyProfile(true);
-
-  //     // if (id != null) {
-  //     String url =
-  //         '${GlobalConfiguration().get('api_base_urlv3')}member-company?member_id=$id';
-  //     // } else {
-  //     //   url = '${GlobalConfiguration().get('api_base_urlv3')}company';
-  //     // }
-
-  //     await http.get(Uri.parse(url), headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer $tokenKey'
-  //     }).then((response) {
-  //       companyDataList.clear();
-  //       if (response.statusCode == 200) {
-  //         companyDataList.clear();
-  //         var responseJson = json.decode(response.body)['data'];
-
-  //         responseJson.map((json) {
-  //           companyDataList.add(CompanyData.fromJson(json));
-  //         }).toList();
-  //       }
-  //     });
-  //   } finally {
-  //     isLoadingCompanyProfile(false);
-  //   }
-  //   return companyDataList;
-  // }
 
   final isLoadingCompany = false.obs;
   Future<List<CompanyDataModel>> fetchCompanyMemberDetail(int id) async {
@@ -876,7 +637,7 @@ class MemberController extends GetxController {
       companyDataList.clear();
 
       String url =
-          '${GlobalConfiguration().get('api_base_urlv2')}member-company?member_id=$id';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}member-company?member_id=$id';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -912,12 +673,12 @@ class MemberController extends GetxController {
       if (isShowCiCTeam != null) {
         debugPrint("is member: 1");
         url =
-            '${GlobalConfiguration().get('api_base_url')}customer?fillter=$filter&show_cic_team=1&page=$pageNumber&hide_me=1';
+            '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillter=$filter&show_cic_team=1&page=$pageNumber&hide_me=1';
       } else {
         debugPrint("is event:");
         debugPrint("is member: 2");
         url =
-            '${GlobalConfiguration().get('api_base_url')}customer?fillter=$filter&page=$pageNumber&event_id=$eventId';
+            '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillter=$filter&page=$pageNumber&event_id=$eventId';
       }
     } else if (filterJson != null) {
       if (memberCurrentPage.value != 0) {
@@ -928,33 +689,33 @@ class MemberController extends GetxController {
           if (isShowCiCTeam != null) {
             debugPrint("is member: 3");
             url =
-                '${GlobalConfiguration().getValue('api_base_url')}customer?fillters=$filterJson&show_cic_team=1&page=$memberCurrentPage&hide_me=1';
+                '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&show_cic_team=1&page=$memberCurrentPage&hide_me=1';
           } else {
             debugPrint("is member: 4");
             url =
-                '${GlobalConfiguration().getValue('api_base_url')}customer?fillters=$filterJson&page=$memberCurrentPage&event_id=$eventId';
+                '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&page=$memberCurrentPage&event_id=$eventId';
           }
         }
       } else {
         if (isShowCiCTeam != null) {
           debugPrint("is member: 5");
           url =
-              '${GlobalConfiguration().getValue('api_base_url')}customer?fillters=$filterJson&show_cic_team=1&hide_me=1';
+              '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&show_cic_team=1&hide_me=1';
         } else {
           debugPrint("is member: 6");
           url =
-              '${GlobalConfiguration().getValue('api_base_url')}customer?fillters=$filterJson&event_id=$eventId';
+              '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&event_id=$eventId';
         }
       }
     } else {
       if (isShowCiCTeam != null) {
         debugPrint("is member: 7");
         url =
-            '${GlobalConfiguration().get('api_base_url')}customer?show_cic_team=1&hide_me=1&page=$pageNumber';
+            '${FlavorConfig.instance.values!.apiBaseUrl}customer?show_cic_team=1&hide_me=1&page=$pageNumber';
       } else {
         debugPrint("is member: 8");
         url =
-            '${GlobalConfiguration().get('api_base_url')}customer?page=$pageNumber&event_id=$eventId';
+            '${FlavorConfig.instance.values!.apiBaseUrl}customer?page=$pageNumber&event_id=$eventId';
       }
     }
 
@@ -1032,7 +793,7 @@ class MemberController extends GetxController {
 
   Future<List<Member>> filterMember({String? filterOption}) async {
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}customer?fillters=$filterOption';
+        '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterOption';
     try {
       memberList.clear();
       isLoading(true);
@@ -1113,7 +874,7 @@ class MemberController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
       fullURL:
-          '${GlobalConfiguration().get('api_base_url')}customer$pageParam$filterParam$isCICmemberParam$hideMeParam$eventParam$jsonParam',
+          '${FlavorConfig.instance.values!.apiBaseUrl}customer$pageParam$filterParam$isCICmemberParam$hideMeParam$eventParam$jsonParam',
       // '${GlobalConfiguration().get('api_base_url')}customer?page=$page&hide_me=1$_filterParam',
       url: '',
       methode: METHODE.get,

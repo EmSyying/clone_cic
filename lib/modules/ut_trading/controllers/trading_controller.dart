@@ -15,10 +15,10 @@ import 'package:cicgreenloan/modules/ut_trading/models/trading_model.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/trading_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../configs/route_configuration/route.dart';
+import '../../../core/flavor/flavor_configuration.dart';
 import '../models/trading_info_url/last_trading_web_view_info.dart';
 
 class InquiryController extends GetxController {
@@ -110,7 +110,7 @@ class InquiryController extends GetxController {
 
     tokenKey = await LocalData.getCurrentUser();
     isSubmitting(true);
-    String url = '${GlobalConfiguration().get('api_base_urlv2')}trading';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}trading';
     try {
       await http.post(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -258,7 +258,7 @@ class InquiryController extends GetxController {
   onDeleteInquiry(int id) async {
     isSubmitting(true);
 
-    String url = '${GlobalConfiguration().get('api_base_urlv2')}trading/$id';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}trading/$id';
     try {
       await http.delete(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -363,7 +363,7 @@ class InquiryController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
     isSubmitting(true);
     String url =
-        '${GlobalConfiguration().get('api_base_urlv2')}trading/$inquiryId';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}trading/$inquiryId';
 
     try {
       await http.put(Uri.parse(url), headers: {
@@ -476,7 +476,7 @@ class InquiryController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
     isSubmitting(true);
     String url =
-        '${GlobalConfiguration().getValue('api_base_url')}inquiry?page=${(page.value + 1).toString()}';
+        '${FlavorConfig.instance.values!.apiBaseUrl}inquiry?page=${(page.value + 1).toString()}';
     try {
       if (page.value != 0) {
         isLoadingMore(true);
@@ -507,7 +507,7 @@ class InquiryController extends GetxController {
   getmarkt() async {
     tokenKey = await LocalData.getCurrentUser();
     try {
-      String url = '${GlobalConfiguration().getValue('api_base_urlv2')}market';
+      String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}market';
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $tokenKey'
@@ -528,7 +528,7 @@ class InquiryController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
     try {
       String url =
-          '${GlobalConfiguration().getValue('api_base_urlv2')}trading-setting';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}trading-setting';
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $tokenKey'
@@ -552,7 +552,7 @@ class InquiryController extends GetxController {
     listinquiryData.clear();
     try {
       final String url =
-          '${GlobalConfiguration().get('api_base_urlv2')}trading?type=all&member_id=$memberID';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}trading?type=all&member_id=$memberID';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -595,10 +595,10 @@ class InquiryController extends GetxController {
     listinquiryData.clear();
     try {
       final String url = type != '' && operation != ''
-          ? '${GlobalConfiguration().get('api_base_urlv2')}trading?type=$type&operation=$operation&member_id=$memberID'
+          ? '${FlavorConfig.instance.values!.apiBaseUrlV2}trading?type=$type&operation=$operation&member_id=$memberID'
           : type == ''
-              ? '${GlobalConfiguration().get('api_base_urlv2')}trading?operation=$operation&member_id=$memberID'
-              : '${GlobalConfiguration().get('api_base_urlv2')}trading?type=$type&member_id=$memberID';
+              ? '${FlavorConfig.instance.values!.apiBaseUrlV2}trading?operation=$operation&member_id=$memberID'
+              : '${FlavorConfig.instance.values!.apiBaseUrlV2}trading?type=$type&member_id=$memberID';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -632,7 +632,7 @@ class InquiryController extends GetxController {
     isLoadingPrice(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${GlobalConfiguration().get('api_base_urlv2')}investment-available-fund';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}investment-available-fund';
     try {
       await client.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -657,7 +657,7 @@ class InquiryController extends GetxController {
     isInstructionLoading.value = true;
     try {
       String url =
-          '${GlobalConfiguration().getValue('api_base_urlv2')}trading-instruction';
+          '${FlavorConfig.instance.values!.apiBaseUrlV2}trading-instruction';
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $tokenKey'
@@ -681,7 +681,7 @@ class InquiryController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
     isVideoTrading(true);
     String url =
-        '${GlobalConfiguration().getValue('api_base_urlv2')}trading-video?page=1}';
+        '${FlavorConfig.instance.values!.apiBaseUrlV2}trading-video?page=1}';
 
     try {
       // if (page.value != 0) {
@@ -715,7 +715,7 @@ class InquiryController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}trading-last-session';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}trading-last-session';
 
     try {
       islastTrading(true);
@@ -751,7 +751,7 @@ class InquiryController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${GlobalConfiguration().get('api_base_urlv3')}trading-last-session-info/$id';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}trading-last-session-info/$id';
     try {
       http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',

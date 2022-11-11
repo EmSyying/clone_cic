@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'Utils/function/get_sharepreference_data.dart';
@@ -32,12 +31,25 @@ Future<void> main() async {
   // runApp(
   //   MyApp(),
   // );
+  FlavorConfig(
+    flavor: Flavor.PRODUCTION,
+    color: Colors.deepPurpleAccent,
+    values: FlavorValues(
+        baseUrl: "https://cic.z1platform.com/",
+        apiBaseUrl: "https://cic.z1platform.com/api/v1/",
+        mainApiUrl: "https://cic.z1platform.com/api/",
+        baseUrlV2: "https://cic.z1platform.com/",
+        apiBaseUrlV2: "https://cic.z1platform.com/api/v2/",
+        mainApiUrlV2: "https://cic.z1platform.com/api/",
+        apiBaseUrlV3: "https://cic.z1platform.com/api/v3/"),
+  );
+
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     await LocalStorage.init();
     await Firebase.initializeApp();
-    await GlobalConfiguration().loadFromAsset("app_settings");
+
     setPathUrlStrategy();
     await settingCon.fetchAppSetting();
     await NotificationHelper.initial();
@@ -61,18 +73,6 @@ Future<void> main() async {
     );
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    FlavorConfig(
-      flavor: Flavor.PRODUCTION,
-      color: Colors.deepPurpleAccent,
-      values: FlavorValues(
-          baseUrl: "https://cic.z1platform.com/",
-          apiBaseUrl: "https://cic.z1platform.com/api/v1/",
-          mainApiUrl: "https://cic.z1platform.com/api/",
-          baseUrlV2: "https://cic.z1platform.com/",
-          apiBaseUrlV2: "https://cic.z1platform.com/api/v2/",
-          mainApiUrlV2: "https://cic.z1platform.com/api/",
-          apiBaseUrlV3: "https://cic.z1platform.com/api/v3/"),
-    );
 
     runApp(const MyApp());
   }, (error, stackTrace) {

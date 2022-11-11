@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect.dart';
-import 'package:global_configuration/global_configuration.dart';
 
+import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/function/get_sharepreference_data.dart';
 
 class ErrorModel {
@@ -21,7 +21,7 @@ enum METHODE {
 
 class ApiBaseHelper extends GetConnect {
   final String urlKey = 'api_base_urlv3';
-  final String? baseurl = "${GlobalConfiguration().get('api_base_urlv3')}";
+  final String? baseurl = FlavorConfig.instance.values!.apiBaseUrlV3;
 
   Future<dynamic> onNetworkRequesting(
       {String? url,

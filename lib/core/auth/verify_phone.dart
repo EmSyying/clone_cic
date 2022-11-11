@@ -6,7 +6,6 @@ import 'package:cicgreenloan/modules/member_directory/controllers/customer_contr
 import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/change_password.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +14,7 @@ import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../Utils/helper/custom_appbar.dart';
 import '../../Utils/helper/custom_snackbar.dart';
+import '../flavor/flavor_configuration.dart';
 
 class VerifyPhone extends StatefulWidget {
   final String? phoneNumber;
@@ -43,7 +43,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
     setState(() {
       isloading = true;
     });
-    String url = '${GlobalConfiguration().getValue('main_api_url')}verify-otp';
+    String url = '${FlavorConfig.instance.values!.mainApiUrl}verify-otp';
 
     try {
       await http.post(Uri.parse(url), headers: {

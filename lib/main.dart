@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,7 +65,7 @@ Future<void> main() async {
 
     await LocalStorage.init();
     await Firebase.initializeApp();
-    await GlobalConfiguration().loadFromAsset("app_settings");
+
     setPathUrlStrategy();
     await settingCon.fetchAppSetting();
     await NotificationHelper.initial();

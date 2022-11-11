@@ -4,11 +4,11 @@ import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/core/auth/set_pin_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/custom_route_snackbar.dart';
 
 class PINCodeController extends GetxController {
@@ -27,8 +27,7 @@ class PINCodeController extends GetxController {
   Future<void> onSetPINCode(String pinCode, BuildContext context) async {
     tokenKey = await LocalData.getCurrentUser();
     isLoading(true);
-    String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/set-pin-code';
+    String url = '${FlavorConfig.instance.values!.mainApiUrl}user/set-pin-code';
 
     try {
       await http
@@ -58,7 +57,7 @@ class PINCodeController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        '${GlobalConfiguration().getValue('main_api_url')}user/verify-pin-code';
+        '${FlavorConfig.instance.values!.mainApiUrl}user/verify-pin-code';
 
     try {
       await http
