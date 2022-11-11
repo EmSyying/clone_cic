@@ -93,11 +93,12 @@ class _SetPinCodeState extends State<SetPinCode> {
                           ? 'Set PIN Code'
                           : 'Verify PIN Code',
                       style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 25,
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2),
+                        fontFamily: 'DMSans',
+                        fontSize: 25,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0,
+                      ),
                     ),
                     const SizedBox(
                       height: 20.0,

@@ -66,13 +66,13 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                     fontSize: 26,
                     color: AppColor.mainColor,
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'DMSans',
                   ),
                 ),
                 const Text(
                   'CiC Mobile App',
                   style: TextStyle(
-                    fontFamily: 'Montserrat',
+                      fontFamily: 'DMSans',
                     fontSize: 26,
                     color: AppColor.mainColor,
                     fontWeight: FontWeight.w600,

@@ -272,7 +272,7 @@ class _ScheduleState extends State<Schedule> {
                   Text(
                     'Welcome to CiC app',
                     style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'DMSans',
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 2,

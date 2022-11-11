@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text(
                       'Welcome to',
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'DMSans',
                         fontSize: 26,
                         color: AppColor.mainColor,
                         fontWeight: FontWeight.w400,
@@ -82,8 +82,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const Text(
                       'CiC Mobile App',
+                      // style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      //       color: AppColor.mainColor,
+                      //     )
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'DMSans',
                         fontSize: 26,
                         color: AppColor.mainColor,
                         fontWeight: FontWeight.w600,
