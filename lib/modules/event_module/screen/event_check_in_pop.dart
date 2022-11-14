@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/color.dart';
+import '../../../widgets/events/custom_card_guest_ticket.dart';
+import '../../../widgets/events/custom_event_title_check_in.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../controller/event_controller.dart';
 
@@ -104,8 +106,7 @@ class EventCheckInPOP extends StatelessWidget {
                                 .asMap()
                                 .entries
                                 .map(
-                                  (e) => _customTitleTicket(
-                                    context,
+                                  (e) => CustomTitleEventCheckIn(
                                     title: e.value.title,
                                     descript: e.value.description,
                                   ),
@@ -128,7 +129,7 @@ class EventCheckInPOP extends StatelessWidget {
                     ),
                   ],
                 ),
-                //==========Column Contain 2====
+                //==========Column Guests card====
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.only(left: 20, right: 20),
@@ -190,8 +191,7 @@ class EventCheckInPOP extends StatelessWidget {
                         () => ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (_, e) => _customCardGuest(
-                            context,
+                          itemBuilder: (_, e) => CustomCardGuestsTicket(
                             guest: contro.cardGuestsList[e].guest,
                             nameGuest: contro.cardGuestsList[e].nameGuest,
                             who: contro.cardGuestsList[e].who,
@@ -214,8 +214,6 @@ class EventCheckInPOP extends StatelessWidget {
                           ),
                         ),
                       ),
-
-                      ///
                       // Obx(
                       //   () => Column(
                       //     children: contro.cardGuestsList
@@ -262,134 +260,6 @@ class EventCheckInPOP extends StatelessWidget {
             isDisable: false,
             isOutline: false,
             title: 'Submit',
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _customTitleTicket(BuildContext context,
-      {String? title, String? descript}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 13,
-                  color: const Color(0xff464646),
-                ),
-          ),
-          const SizedBox(
-            height: 6.0,
-          ),
-          Text(
-            descript ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.0,
-                ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _customCardGuest(
-    BuildContext context, {
-    String? guest,
-    String? nameGuest,
-    String? who,
-    bool isCheckBox = false,
-    GestureTapCallback? onTap,
-  }) {
-    return Row(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              guest ?? '',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.0,
-                    color: Colors.grey,
-                  ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              'Name',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 13,
-                    color: const Color(0xff464646),
-                  ),
-            ),
-            const SizedBox(
-              height: 6.0,
-            ),
-            Row(
-              children: [
-                Text(
-                  nameGuest ?? '',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15.0,
-                      ),
-                ),
-                const SizedBox(
-                  height: 14,
-                  child: VerticalDivider(
-                    thickness: 1,
-                    width: 30,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  who ?? '',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15.0,
-                      ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        const Spacer(),
-        //===Check Box====
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            height: 20,
-            width: 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(
-                color:
-                    isCheckBox ? AppColor.mainColor : AppColor.chartLabelColor,
-                width: 0.6,
-              ),
-              shape: BoxShape.rectangle,
-              color:
-                  isCheckBox ? AppColor.mainColor : Theme.of(context).cardColor,
-            ),
-            child: isCheckBox
-                ? Center(
-                    child: Icon(
-                      Icons.done,
-                      size: 16.0,
-                      color: isCheckBox
-                          ? AppColor.paymentBackgroundColor
-                          : AppColor.chartLabelColor,
-                    ),
-                  )
-                : Container(),
           ),
         ),
       ],

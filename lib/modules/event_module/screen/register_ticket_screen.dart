@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/color.dart';
+import '../../../widgets/events/custom_event_title_check_in.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../controller/event_controller.dart';
 
@@ -102,8 +103,7 @@ class RegisterTicketScreen extends StatelessWidget {
                                 .asMap()
                                 .entries
                                 .map(
-                                  (e) => _customTitleTicket(
-                                    context,
+                                  (e) => CustomTitleEventCheckIn(
                                     title: e.value.title,
                                     descript: e.value.description,
                                   ),
@@ -115,7 +115,7 @@ class RegisterTicketScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    //PositionedBoxShapCircle =shap border=====
+                    //====PositionedBoxShapCircle =shap border=====
                     const CustomPositionedBoxShapCircle(
                       top: 216,
                       left: 6,
@@ -149,43 +149,15 @@ class RegisterTicketScreen extends StatelessWidget {
             width: double.infinity,
             backgroundColor: Colors.white,
             colorText: AppColor.mainColor,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             isDisable: false,
             isOutline: false,
             title: 'Done',
           ),
         ),
       ],
-    );
-  }
-
-  Widget _customTitleTicket(BuildContext context,
-      {String? title, String? descript}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 13,
-                  color: const Color(0xff464646),
-                ),
-          ),
-          const SizedBox(
-            height: 6.0,
-          ),
-          Text(
-            descript ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.0,
-                ),
-          ),
-        ],
-      ),
     );
   }
 
