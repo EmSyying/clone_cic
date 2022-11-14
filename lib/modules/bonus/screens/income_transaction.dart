@@ -33,8 +33,10 @@ class _IncomeTransactionState extends State<IncomeTransaction> {
               ? const SingleChildScrollView(
                   child: CustomEmptyState(),
                 )
-              : CustomWalletTransaction(
-                  walletTransaction: _walletController.incomeTransactionList,
+              : SingleChildScrollView(
+                  child: CustomWalletTransaction(
+                    walletTransaction: _walletController.incomeTransactionList,
+                  ),
                 ),
     );
   }
