@@ -19,8 +19,8 @@ class AboutEventDescription extends StatelessWidget {
         margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20.0),
         child: ExpandableText(
           description!,
-          expandText: 'show more',
-          collapseText: 'show less',
+          expandText: 'Read more',
+          collapseText: 'Read less',
           maxLines: 3,
           style: Theme.of(context).textTheme.subtitle2,
         ),

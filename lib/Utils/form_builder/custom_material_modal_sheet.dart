@@ -84,6 +84,9 @@ onShowCustomCupertinoModalSheet({
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),
+                                  const SizedBox(
+                                    width: 40,
+                                  ),
                                   const Spacer(),
                                   if (trailing != null) trailing,
                                   const SizedBox(

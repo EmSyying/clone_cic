@@ -25,23 +25,18 @@ class CustomInviteMemberBottom extends StatelessWidget {
             margin: const EdgeInsets.only(left: 15.0, top: 20.0),
             width: 150.0,
             height: 35.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: AppColor.mainColor.withOpacity(0.1),
+            ),
             // ignore: deprecated_member_use
-            child: OutlinedButton(
-              // color: Theme.of(context).primaryColor,
-              // borderSide:
-              //     BorderSide(width: 1, color: Theme.of(context).primaryColor),
-              // shape: RoundedRectangleBorder(
-              //   borderRadius: BorderRadius.circular(
-              //     8.0,
-              //   ),
-              // ),
-              // padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: GestureDetector(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    "assets/images/svgfile/register.svg",
+                    "assets/images/svgfile/invite-member.svg",
                   ),
                   const SizedBox(
                     width: 5,
@@ -56,11 +51,10 @@ class CustomInviteMemberBottom extends StatelessWidget {
                   ),
                 ],
               ),
-              onPressed: () async {
+              onTap: () async {
                 memberController.invitedMemberList.clear();
-                memberController.memberList.clear();
-                memberController.eventId = eventId;
                 await onShowCustomCupertinoModalSheet(
+                  title: '',
                   context: context,
                   dynamicTitle: Obx(() => Text(
                         memberController.invitedMemberList.isNotEmpty
@@ -85,9 +79,42 @@ class CustomInviteMemberBottom extends StatelessWidget {
                           )
                         : Container(),
                   ),
-                  child: CustomInviteMember(eventID: eventId),
+                  child: CustomInviteMember(eventID: memberController.eventId),
                 );
               },
+
+              // onTap: () async {
+              //   memberController.invitedMemberList.clear();
+              //   memberController.memberList.clear();
+              //   memberController.eventId = eventId;
+              //   await onShowCustomCupertinoModalSheet(
+              //     context: context,
+              //     dynamicTitle: Obx(() => Text(
+              //           memberController.invitedMemberList.isNotEmpty
+              //               ? "${memberController.invitedMemberList.length} Selected"
+              //               : "Invite",
+              //         )),
+              //     icon: const Icon(Icons.clear),
+              //     trailing: Obx(
+              //       () => memberController.invitedMemberList.isNotEmpty
+              //           ? GestureDetector(
+              //               onTap: () {
+              //                 memberController.onClearInvitedMember();
+              //               },
+              //               child: Container(
+              //                 margin: const EdgeInsets.only(right: 15.0),
+              //                 child: const Text(
+              //                   "Cancel",
+              //                   style: TextStyle(
+              //                       fontSize: 17, color: AppColor.mainColor),
+              //                 ),
+              //               ),
+              //             )
+              //           : Container(),
+              //     ),
+              //     child: CustomInviteMember(eventID: eventId),
+              //   );
+              // },
             ),
           )
         : Container();

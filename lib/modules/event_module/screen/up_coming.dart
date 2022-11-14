@@ -33,87 +33,92 @@ class _UpComingState extends State<UpComing> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            !_eventController.isLoadingFeture.value
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _eventController.featureDataList.isEmpty &&
-                              _eventController.isLoadingFeture.value == false
-                          ? Container()
-                          : FeatureEvent(
-                              title: 'Featured Events',
-                              featureDataList:
-                                  _eventController.featureDataList),
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Shimmer.fromColors(
-                        baseColor: Colors.grey[100]!,
-                        highlightColor: Colors.white,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          height: 15,
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(10),
+      () => SingleChildScrollView(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              !_eventController.isLoadingFeture.value
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _eventController.featureDataList.isEmpty &&
+                                _eventController.isLoadingFeture.value == false
+                            ? Container()
+                            : FeatureEvent(
+                                title: 'Featured Events',
+                                featureDataList:
+                                    _eventController.featureDataList),
+                      ],
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[100]!,
+                          highlightColor: Colors.white,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            height: 15,
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                         ),
+                        const FeatureShimmer(),
+                        const EventShimmerCard(),
+                      ],
+                    ),
+              !_eventController.isLoadingNew.value
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          _eventController.newDataList.isEmpty &&
+                                  _eventController.isLoadingNew.value == false
+                              ? const EmptyStateProfile(
+                                  isEditable: false,
+                                  title: 'No Events Yet',
+                                  caption: '',
+                                  iconUrl: 'assets/images/emptyState.png',
+                                )
+                              : NewEvent(
+                                  title: 'New Events',
+                                  newDataList: _eventController.newDataList),
+                          const SizedBox(height: 20.0),
+                        ],
                       ),
-                      const FeatureShimmer(),
-                      const EventShimmerCard(),
-                    ],
-                  ),
-            !_eventController.isLoadingNew.value
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _eventController.newDataList.isEmpty &&
-                              _eventController.isLoadingNew.value == false
-                          ? const EmptyStateProfile(
-                              isEditable: false,
-                              title: 'No Events Yet',
-                              caption: '',
-                              iconUrl: 'assets/images/emptyState.png',
-                            )
-                          : NewEvent(
-                              title: 'New Events',
-                              newDataList: _eventController.newDataList),
-                      const SizedBox(height: 20.0),
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Shimmer.fromColors(
-                        baseColor: Colors.grey[200]!,
-                        highlightColor: Colors.white,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 15,
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(10),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[200]!,
+                          highlightColor: Colors.white,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            height: 15,
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                         ),
-                      ),
-                      const FeatureShimmer(),
-                      const EventShimmerCard(),
-                    ],
-                  ),
-          ]),
+                        const FeatureShimmer(),
+                        const EventShimmerCard(),
+                      ],
+                    ),
+            ]),
+      ),
     );
   }
 }

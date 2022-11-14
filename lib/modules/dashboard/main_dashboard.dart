@@ -579,7 +579,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                   context.go('/switch-splash-screen',
                                       extra: offset);
                                   Future.delayed(
-                                      const Duration(milliseconds: 230), () {
+                                      const Duration(milliseconds: 300), () {
                                     setState(() {
                                       dashboardType = 'QM';
                                     });
@@ -631,7 +631,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                   context.go('/switch-splash-screen',
                                       extra: offset);
                                   Future.delayed(
-                                      const Duration(milliseconds: 230), () {
+                                      const Duration(milliseconds: 300), () {
                                     setState(() {
                                       dashboardType = 'AM';
                                     });

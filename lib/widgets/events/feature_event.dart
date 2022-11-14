@@ -17,7 +17,7 @@ class FeatureEvent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 10.0, bottom: 5.0),
+          margin: const EdgeInsets.only(top: 10.0, bottom: 5.0, left: 20),
           child: Text("$title", style: Theme.of(context).textTheme.caption),
         ),
         SingleChildScrollView(
@@ -32,8 +32,11 @@ class FeatureEvent extends StatelessWidget {
                         EventDetailArgument(id: e.value.id);
                     context.go('/setting/event/event-detail/${e.value.id}');
                   },
-                  child: FeatureCard(
-                    eventData: e.value,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: FeatureCard(
+                      eventData: e.value,
+                    ),
                   ),
                 );
               }).toList()),

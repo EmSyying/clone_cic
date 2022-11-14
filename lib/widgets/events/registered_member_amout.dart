@@ -109,7 +109,7 @@ class RegisterMemberAmount extends StatelessWidget {
                       ? Container(
                           padding: const EdgeInsets.only(left: 5.0),
                           child: Text(
-                            "1 person",
+                            "1 Joined",
                             style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 14,
@@ -123,7 +123,7 @@ class RegisterMemberAmount extends StatelessWidget {
                           ? Container(
                               padding: const EdgeInsets.only(left: 30.0),
                               child: Text(
-                                "2 people",
+                                "2 Joined",
                                 style: TextStyle(
                                     fontFamily: 'DMSans',
                                     fontSize: 14,
@@ -138,7 +138,7 @@ class RegisterMemberAmount extends StatelessWidget {
                               ? Container(
                                   padding: const EdgeInsets.only(left: 50.0),
                                   child: Text(
-                                    "3 people",
+                                    "3 Joined",
                                     style: TextStyle(
                                         fontFamily: 'DMSans',
                                         fontSize: 14,
@@ -152,7 +152,7 @@ class RegisterMemberAmount extends StatelessWidget {
                               : Container(
                                   padding: const EdgeInsets.only(left: 50.0),
                                   child: Text(
-                                    "+${registerNumber - 3} people",
+                                    "+${registerNumber - 3} Joined",
                                     style: TextStyle(
                                         fontFamily: 'DMSans',
                                         fontSize: 14,

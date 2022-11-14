@@ -142,53 +142,80 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
                     child: Text(
-                      "Selected Member",
-                      style: Theme.of(context).textTheme.headline2,
+                      'Add a note to your invitation...',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                     ),
                   ),
+                  if (memberController.invitedMemberList.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Text(
+                        "Selected",
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                    ),
                   SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: memberController.invitedMemberList
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.all(10),
-                                        child: CircleAvatar(
-                                          radius: 25,
-                                          backgroundImage:
-                                              NetworkImage(e.photo.toString()),
-                                        ),
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: memberController.invitedMemberList
+                            .asMap()
+                            .entries
+                            .map((e) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.all(10),
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage: NetworkImage(
+                                            e.value.photo.toString()),
                                       ),
-                                      const Positioned(
-                                          right: 0, child: Icon(Icons.close))
-                                    ],
-                                  ),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      width: 80,
-                                      child: Text(
-                                        e.name.toString(),
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.clip,
-                                      ))
-                                ],
-                              ),
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      right: 0,
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          radius: 10,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                memberController
+                                                    .onClearInvitedMember();
+                                              });
+                                            },
+                                            child: const Icon(Icons.close,
+                                                size: 15, color: Colors.black),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    width: 80,
+                                    child: Text(
+                                      e.value.name.toString(),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.clip,
+                                    ))
+                              ],
                             ),
-                          )
-                          .toList(),
-                    ),
+                          );
+                        }).toList()),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -228,10 +255,6 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                                       memberController.memberList[index];
                                   return GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        memberController.isTicked.value =
-                                            !memberController.isTicked.value;
-                                      });
                                       memberController.onSelected(
                                           index: index, member: member);
                                     },

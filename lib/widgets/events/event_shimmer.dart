@@ -27,7 +27,7 @@ class EventShimmerCard extends StatelessWidget {
       baseColor: Colors.grey[200]!,
       highlightColor: Colors.white,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
         child: SizedBox(
           height: 135.0,
           width: double.infinity,

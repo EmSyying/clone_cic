@@ -29,42 +29,49 @@ class _PastEventState extends State<PastEvent> {
   Widget build(BuildContext context) {
     return Obx(
       () => !_eventController.isLoadingPast.value == true
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _eventController.pastDataList.isEmpty &&
-                        _eventController.isLoadingPast.value == false
-                    ? const EmptyStateProfile(
-                        isEditable: false,
-                        title: 'No Events Yet',
-                        caption: '',
-                        iconUrl: 'assets/images/emptyState.png',
-                      )
-                    : NewEvent(
-                        title: 'Past Events',
-                        newDataList: _eventController.pastDataList),
-                const SizedBox(height: 20.0),
-              ],
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _eventController.pastDataList.isEmpty &&
+                            _eventController.isLoadingPast.value == false
+                        ? const EmptyStateProfile(
+                            isEditable: false,
+                            title: 'No Events Yet',
+                            caption: '',
+                            iconUrl: 'assets/images/emptyState.png',
+                          )
+                        : NewEvent(
+                            title: 'Past Events',
+                            newDataList: _eventController.pastDataList),
+                    const SizedBox(height: 20.0),
+                  ],
+                ),
+              ),
             )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Shimmer.fromColors(
-                  baseColor: Colors.grey[100]!,
-                  highlightColor: Colors.white,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    height: 15,
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10),
+          : SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[100]!,
+                    highlightColor: Colors.white,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      height: 15,
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
-                ),
-                const EventShimmerCard(),
-              ],
+                  const EventShimmerCard(),
+                ],
+              ),
             ),
     );
   }

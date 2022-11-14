@@ -3,6 +3,7 @@ import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/link.dart';
 
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/custom_indicatior.dart';
@@ -55,8 +56,8 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
             children: [
               Container(
                 width: double.infinity,
-                height: 70,
-                margin: const EdgeInsets.only(top: 25),
+                height: 75,
+                margin: const EdgeInsets.only(top: 35),
                 decoration: const BoxDecoration(
                   color: Color(0xffF8F8F8),
                   borderRadius: BorderRadius.only(
@@ -69,9 +70,9 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 60,
-                    height: 60,
-                    margin: const EdgeInsets.only(left: 20, top: 12),
+                    width: 80,
+                    height: 80,
+                    margin: const EdgeInsets.only(left: 20),
                     padding: const EdgeInsets.all(3),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: 2),
@@ -92,7 +93,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 30),
+                    padding: const EdgeInsets.only(left: 15, top: 40),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,6 +105,9 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                               .headline5!
                               .copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 3,
                         ),
                         Text('${customerUser.customer.value.fullName}',
                             style:
@@ -129,7 +133,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: AspectRatio(
-                        aspectRatio: 7 / 2.6,
+                        aspectRatio: 7 / 2.8,
                         child: Swiper(
                           loop: true,
                           index: currentIndex,
@@ -154,58 +158,61 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                       // ),
                                       ),
                                   ///////buitton on banner slide
-                                  // Positioned(
-                                  //   bottom: 20,
-                                  //   left: 25,
-                                  //   child: settingCon.slideList![index].button !=
-                                  //           null
-                                  //       ? Row(
-                                  //           children: [
-                                  //             Link(
-                                  //               uri: Uri.tryParse(
-                                  //                   '${settingCon.slideList![index].button!.target}'),
-                                  //               builder: (context, followLink) =>
-                                  //                   GestureDetector(
-                                  //                 onTap: followLink,
-                                  //                 child: Container(
-                                  //                   padding: const EdgeInsets
-                                  //                           .symmetric(
-                                  //                       vertical: 8,
-                                  //                       horizontal: 8),
-                                  //                   decoration: BoxDecoration(
-                                  //                     borderRadius:
-                                  //                         BorderRadius.circular(
-                                  //                             8),
-                                  //                     color: Colors.white
-                                  //                         .withOpacity(0.4),
-                                  //                   ),
-                                  //                   child: Row(
-                                  //                     children: [
-                                  //                       SvgPicture.network(
-                                  //                           '${settingCon.slideList![index].button!.icon}'),
-                                  //                       const SizedBox(
-                                  //                         width: 10,
-                                  //                       ),
-                                  //                       Text(
-                                  //                         '${settingCon.slideList![index].button!.label}',
-                                  //                         style: Theme.of(context)
-                                  //                             .textTheme
-                                  //                             .headline6!
-                                  //                             .copyWith(
-                                  //                                 fontSize: 12,
-                                  //                                 fontWeight:
-                                  //                                     FontWeight
-                                  //                                         .w700),
-                                  //                       ),
-                                  //                     ],
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //             ),
-                                  //           ],
-                                  //         )
-                                  //       : Container(),
-                                  // )
+                                  Positioned(
+                                    bottom: 20,
+                                    left: 25,
+                                    child: settingCon
+                                                .slideList![index].button !=
+                                            null
+                                        ? Row(
+                                            children: [
+                                              Link(
+                                                uri: Uri.tryParse(
+                                                    '${settingCon.slideList![index].button!.target}'),
+                                                builder:
+                                                    (context, followLink) =>
+                                                        GestureDetector(
+                                                  onTap: followLink,
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 8,
+                                                        horizontal: 8),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.white
+                                                          .withOpacity(0.4),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        SvgPicture.network(
+                                                            '${settingCon.slideList![index].button!.icon}'),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                          '${settingCon.slideList![index].button!.label}',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .headline6!
+                                                              .copyWith(
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Container(),
+                                  )
                                 ],
                               ),
                             );
@@ -263,12 +270,12 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           crossAxisCount: 3,
-                          childAspectRatio: 3 / 2.20,
+                          childAspectRatio: 3 / 2.40,
                           children: menuListTest
                               .asMap()
                               .entries
                               .map((e) => Padding(
-                                    padding: const EdgeInsets.only(top: 18),
+                                    padding: const EdgeInsets.only(top: 22),
                                     child: customMenu(
                                         context: context,
                                         icon: e.value.url,
@@ -303,7 +310,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                       height: 20,
                     ),
                     SizedBox(
-                      height: 90,
+                      height: 80,
                       width: double.infinity,
                       child: ListView.builder(
                         padding: const EdgeInsets.only(left: 25, right: 15),
@@ -339,7 +346,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                               child: Row(
                                 children: [
                                   Container(
-                                    margin: const EdgeInsets.only(left: 15),
+                                    margin: const EdgeInsets.only(left: 10),
                                     height: 60,
                                     width: 60,
                                     padding: const EdgeInsets.all(12),

@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../modules/member_directory/controllers/member_controller.dart';
 
 class MemberCard extends StatelessWidget {
   final Member? member;
@@ -12,6 +15,8 @@ class MemberCard extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final memberController = Get.put(MemberController());
+
     return Container(
       height: 90,
       color: Colors.white,

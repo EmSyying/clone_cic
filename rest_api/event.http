@@ -1,34 +1,34 @@
 
 @baseUrl = https://cicstaging.z1central.com/api/
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNGJjZTlkMmMxY2UzNjE3NmNiZTE0ZjZiMWU4YTQwMTc3MGQ3MzYwMDcwMzcxZGI1YWE5NjBjMjcxNzIzMDgyMmE5YWFjMjI4Nzk4MjM5NTAiLCJpYXQiOjE2NTAzMzcxNDkuMTkwMzExLCJuYmYiOjE2NTAzMzcxNDkuMTkwMzI0LCJleHAiOjE2ODE4NzMxNDkuMTgzNDUsInN1YiI6IjE3Iiwic2NvcGVzIjpbIioiXX0.jheW6mYjcMZte_P0yyKprHL8FX9Fsmb3CtfZUU9kZGQY9ztIVPDBFRHP-jRmcGMnNMmYJ4X2wlFzOGiOdBhlxpO9dcJ-ANAi5uW_fCHilxWOjs8UTcTkXPI8_x4ZJPSf5veE9IPtB683tKX1Jf6ZelvxkGziL3yBZh1lO-74xu_54ojBAsznEiWu7yTvuudMhadoNemm4uhdi9FIa5Br7wgj4aiiyDeOI9QA28q7RllQMSAK6xODyD87VrWrvqPZnuRPdd7a7Wd5j3w4VB3n2Y0v4D7py-Zei3tslSRQnOZNXD0BrnJ0QnN5967R_3oXubwmclOTLUNtc6NvtAvure7iDgmTHd-c9p2WIl6rdYcwycO3QwuUIU9DO5rF0etHvt3FwQOwTeEKXObiJxx7aMK0sBQtwKIWf1dhqAwDxNy38CBYRnpv3U92zhsbfYYMQnqnVy9lmItH7dB5sHSufzxnyCAHN6I42EdXfRwDKIS6P-KGLubvQiK9a4b1mFdj8tWfp4vyRSXnMotP7vDDAv3DD7Gi1ZAwiXyoJkKXeA4Ffvv-k40a0DtLmKF1mhnGBcvNNiIk0R8nX1Bgtd0wfSwa9E8n5UUWHGGONVrZ_RKcIFGITEK59iuqjf6bGl9qHdAHhHD8OpL5FP_IgMHbFhuPCkj2hJbWKcdm_WTYCyM
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNzU1ZDA2MzMxNGZhZDc2NDg0NmZlNDQ5ODhlMjcwNGRhNzY2MWRhZTQ5ZGM4NzA2ZjRkZGJiNWU1YTJiOTk5ODA0ZmE1Y2VmNTUzYTUxZWIiLCJpYXQiOjE2NjczNjIwNzAuMjYzNjE2LCJuYmYiOjE2NjczNjIwNzAuMjYzNjIsImV4cCI6MTY5ODg5ODA3MC4yNTI0NjIsInN1YiI6IjExIiwic2NvcGVzIjpbIioiXX0.qEeXVa7-ReRzW4YrfVgSl9Uhv5PMHwBm2N5P33o0d9IdX6XgBZUFLRAoN35COUspwOb4qDxsX6TNAx9onvcC2KWz3zdxuYc1nW8yArAET0um7M2LgxHOK7Ds8L3fIhj6W1xsppHRMeVS7KEPbuNlLyWGvzFm4elPDRPzGySgkVP-86Mu39CS6x4NhKcToPcQbM2aRrwAZ5kG6Jg2aAcGQgTQjXDYnhISemaiBenxIE2nAwYdhI7KiCDUJ3gN06sMXglla4vi3Zx8esATFhbP9DhR7MvTnrMBBOkAvP1AyGvu5Y1Zpw80gYyIXRz80FU1TsfV38wQ5TxcjO_izpUYqQYfDJEfBolEwxZ8YDgGkOibDpJ2N3X58N34oYS90KdFhBcrJxaHzZkr1nWrr2blgdIs-oavPPfMTE7CQG5PksBuqaGqonxBJeRQf_yBn0OImsLZHSiRkNIMyAAr8uehylbCa0glLJPXqPFv4v4bmI0tAcuY1VTAfRSIhJ9Dh4z-xT2XMEWtGFVYj-I5ImfbtAXDpBb7mCeNbLKZaqoxKJe7qReUJdQzzD7MJo0M9QPtJIzukV9Tdcy0muAtCs-3vAg8207ql3Gmt8jBIcpW_6F3DG1_rcYOuqUFTm7RjGMozTyHyzA_UGP6vE_g6d8c6N3ifJYvpy63HVFYWPzQk5E
 POST {{baseUrl}}login
 Content-Type: application/json
 Accept: application/json
 
 {
-    "phone" : "+85599663857",
-    "password" : "Rak05052002"   
+    "phone" : "+85569722942",
+    "password" : "1234567Y"   
 }
 
 ###
-GET {{baseUrl}}v2/event?member_id=10&posted=upcoming&type=new
+GET {{baseUrl}}v3/event?member_id=21&posted=upcoming&type=new
 Accept: application/json
 Content-Type: application/json
 Authorization:Bearer {{token}}
 
 ###
-POST {{baseUrl}}api/v2/event/check-in
+POST {{baseUrl}}api/v3/event/check-in
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
     "event_id" : 6,
-    "member_id" : 383
+    "member_id" : 21
 }
 
 ###
-POST {{baseUrl}}v2/event/uninterested/34
+get {{baseUrl}}v3/event
 Accept: application/json
 Content-Type: application/json
 Authorization:  Bearer {{token}}
@@ -40,13 +40,37 @@ Content-Type: application/json
 Authorization:  Bearer {{token}}
 
 ###
-GET {{baseUrl}}v2/event/99
+GET {{baseUrl}}v3/event/2
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ###
-GET {{baseUrl}}v2/event?member_id=10&posted=past'
+GET {{baseUrl}}v3/event?member_id=21&posted=past
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/registration?event_id=16
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/registration
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+POST {{baseUrl}}registration
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "event_id" : 16,
+    "member_id" : 21
+}

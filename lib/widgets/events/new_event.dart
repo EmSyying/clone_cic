@@ -31,7 +31,7 @@ class NewEvent extends StatelessWidget {
                 eventData: evenData,
               ),
               onTap: () {
-                debugPrint("${evenData.id}");
+                debugPrint("wwwwww${evenData.id}");
                 context.go('/setting/event/event-detail/${evenData.id}');
               },
             );

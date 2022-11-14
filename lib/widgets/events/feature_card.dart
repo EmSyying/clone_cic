@@ -91,42 +91,58 @@ class FeatureCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        eventData!.registerProfile!.isNotEmpty
-                            ? (eventData!.registerNumber == 1
-                                ? Container(
-                                    width: 30,
-                                    height: 30,
-                                    margin: const EdgeInsets.only(right: 5),
-                                    alignment: Alignment.topLeft,
-                                    child: CustomMember(
-                                        memberList: eventData!.registerProfile!
-                                            .toList(),
-                                        registerNumber:
-                                            eventData!.registerNumber!))
-                                : eventData!.registerNumber == 2
-                                    ? Container(
-                                        width: 40,
-                                        height: 30,
-                                        margin: const EdgeInsets.only(right: 5),
-                                        alignment: Alignment.topLeft,
-                                        child: CustomMember(
-                                            memberList: eventData!
-                                                .registerProfile!
-                                                .toList(),
-                                            registerNumber:
-                                                eventData!.registerNumber!))
-                                    : Container(
-                                        width: 65,
-                                        height: 30,
-                                        margin: const EdgeInsets.only(right: 5),
-                                        alignment: Alignment.topLeft,
-                                        child: CustomMember(
-                                            memberList: eventData!
-                                                .registerProfile!
-                                                .toList(),
-                                            registerNumber:
-                                                eventData!.registerNumber!)))
-                            : Container(),
+                        CustomMember(
+                          memberList: eventData!.registerProfile!.toList(),
+                          registerNumber: eventData!.registerNumber!,
+                        ),
+                        // Container(
+                        //   width: 30,
+                        //   height: 30,
+                        //   margin: const EdgeInsets.only(right: 5),
+                        //   alignment: Alignment.topLeft,
+                        //   child: CustomMember(
+                        //       memberList: eventData!.registerProfile!.toList(),
+                        //       registerNumber: eventData!.registerNumber!),
+                        // ),
+                        // eventData!.registerProfile!.isNotEmpty
+                        //     ? (eventData!.registerNumber == 1
+                        //         ? Container(
+                        //             width: 30,
+                        //             height: 30,
+                        //             margin: const EdgeInsets.only(right: 5),
+                        //             alignment: Alignment.topLeft,
+                        //             child: CustomMember(
+                        //                 memberList: eventData!.registerProfile!
+                        //                     .toList(),
+                        //                 registerNumber:
+                        //                     eventData!.registerNumber!),
+                        //           )
+                        //         : eventData!.registerNumber == 2
+                        //             ? Container(
+                        //                 width: 30,
+                        //                 height: 30,
+                        //                 margin: const EdgeInsets.only(right: 5),
+                        //                 alignment: Alignment.topLeft,
+                        //                 child: CustomMember(
+                        //                     memberList: eventData!
+                        //                         .registerProfile!
+                        //                         .toList(),
+                        //                     registerNumber:
+                        //                         eventData!.registerNumber!),
+                        //               )
+                        //             : Container(
+                        //                 width: 65,
+                        //                 height: 30,
+                        //                 margin: const EdgeInsets.only(right: 5),
+                        //                 alignment: Alignment.topLeft,
+                        //                 child: CustomMember(
+                        //                     memberList: eventData!
+                        //                         .registerProfile!
+                        //                         .toList(),
+                        //                     registerNumber:
+                        //                         eventData!.registerNumber!),
+                        //               ))
+                        //     : Container(),
                       ],
                     ),
                   ),
