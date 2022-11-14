@@ -1,5 +1,6 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
@@ -7,20 +8,17 @@ import '../../../Utils/helper/color.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../controller/event_controller.dart';
 
-class EventCheckInPOP extends StatelessWidget {
-  const EventCheckInPOP({
-    Key? key,
-  }) : super(key: key);
+class EventSubmitDoneScreen extends StatelessWidget {
+  const EventSubmitDoneScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final contro = Get.put(EventController());
-
+    contro.onCheckSelected();
     return Column(
       children: [
         Expanded(
           child: SingleChildScrollView(
-            //  padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Column(
               children: [
                 Stack(
@@ -148,71 +146,61 @@ class EventCheckInPOP extends StatelessWidget {
                     children: [
                       Container(
                         decoration: DottedDecoration(
-                            strokeWidth: 2,
-                            shape: Shape.line,
-                            color: const Color(0xffDBDBDB)),
+                          strokeWidth: 2,
+                          shape: Shape.line,
+                          color: const Color(0xffDBDBDB),
+                        ),
                       ),
-                      const SizedBox(height: 15),
 
                       ///===
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0, bottom: 20.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Guests',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(
+                      ExpansionTile(
+                        title: Text(
+                          'Guests',
+                          style:
+                              Theme.of(context).textTheme.headline2!.copyWith(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 15.0,
                                   ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              'Select all',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 13,
-                                    color: AppColor.mainColor,
-                                  ),
-                            ),
-                          ],
                         ),
-                      ),
-
-                      ///all Guests======
-                      Obx(
-                        () => Column(
-                          children: contro.cardGuestsList
-                              .asMap()
-                              .entries
-                              .map(
-                                (e) => _customCardGuest(
+                        // subtitle: Text('Test'),
+                        children: [
+                          Obx(() => ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (_, e) => _customCardGuest(
                                   context,
-                                  guest: e.value.guest,
-                                  nameGuest: e.value.nameGuest,
-                                  who: e.value.who,
-                                  isCheckBox: e.value.isCheckBox,
-                                  onTap: () {
-                                    contro.cardGuestsList[e.key].isCheckBox =
-                                        !contro
-                                            .cardGuestsList[e.key].isCheckBox;
-
-                                    contro.cardGuestsList.refresh();
-                                  },
+                                  guest: contro.listChecked[e].guest,
+                                  nameGuest: contro.listChecked[e].nameGuest,
+                                  who: contro.listChecked[e].who,
+                                  isCheckBox: contro.listChecked[e].isCheckBox,
                                 ),
-                              )
-                              .toList(),
-                        ),
+                                itemCount: contro.listChecked.length,
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const Padding(
+                                  padding: EdgeInsets.only(top: 16, bottom: 16),
+                                  child: Divider(
+                                    height: 1,
+                                    color: Colors.black12,
+                                  ),
+                                ),
+                              )),
+                        ],
                       ),
-
-                      const SizedBox(height: 20),
                     ],
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 36.0,
+                    bottom: 10.0,
+                  ),
+                  child: _buildButton(
+                    Theme.of(context).textTheme.subtitle2,
+                    text: 'Save',
+                    icon: SvgPicture.asset('assets/images/save.svg'),
+                    onTap: () {},
                   ),
                 ),
               ],
@@ -231,7 +219,7 @@ class EventCheckInPOP extends StatelessWidget {
             onPressed: () {},
             isDisable: false,
             isOutline: false,
-            title: 'Submit',
+            title: 'Done',
           ),
         ),
       ],
@@ -276,107 +264,127 @@ class EventCheckInPOP extends StatelessWidget {
     bool isCheckBox = false,
     GestureTapCallback? onTap,
   }) {
-    return Column(
+    return Row(
       children: [
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Text(
+              guest ?? '',
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.0,
+                    color: Colors.grey,
+                  ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Name',
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                    color: const Color(0xff464646),
+                  ),
+            ),
+            const SizedBox(
+              height: 6.0,
+            ),
+            Row(
               children: [
                 Text(
-                  guest ?? '',
+                  nameGuest ?? '',
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontWeight: FontWeight.w700,
-                        fontSize: 14.0,
-                        color: Colors.grey,
+                        fontSize: 15.0,
                       ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 14,
+                  child: VerticalDivider(
+                    thickness: 1,
+                    width: 30,
+                    color: Colors.grey,
+                  ),
                 ),
                 Text(
-                  'Name',
+                  who ?? '',
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                        color: const Color(0xff464646),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15.0,
                       ),
-                ),
-                const SizedBox(
-                  height: 6.0,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      nameGuest ?? '',
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15.0,
-                          ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                      child: VerticalDivider(
-                        thickness: 1,
-                        width: 30,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      who ?? '',
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15.0,
-                          ),
-                    ),
-                  ],
                 ),
               ],
             ),
-            const Spacer(),
-            //===Check Box====
-
-            GestureDetector(
-              onTap: onTap,
-              child: Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(
-                    color: isCheckBox
-                        ? AppColor.mainColor
-                        : AppColor.chartLabelColor,
-                    width: 0.6,
-                  ),
-                  shape: BoxShape.rectangle,
-                  color: isCheckBox
-                      ? AppColor.mainColor
-                      : Theme.of(context).cardColor,
-                ),
-                child: isCheckBox
-                    ? Center(
-                        child: Icon(
-                          Icons.done,
-                          size: 16.0,
-                          color: isCheckBox
-                              ? AppColor.paymentBackgroundColor
-                              : AppColor.chartLabelColor,
-                        ),
-                      )
-                    : Container(),
-              ),
-            ),
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 16, bottom: 16),
-          child: Divider(
-            height: 1,
-            color: Colors.black12,
+        const Spacer(),
+        //===Check Box====
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
+              border: Border.all(
+                color:
+                    isCheckBox ? AppColor.mainColor : AppColor.chartLabelColor,
+                width: 0.6,
+              ),
+              shape: BoxShape.rectangle,
+              color:
+                  isCheckBox ? AppColor.mainColor : Theme.of(context).cardColor,
+            ),
+            child: isCheckBox
+                ? Center(
+                    child: Icon(
+                      Icons.done,
+                      size: 16.0,
+                      color: isCheckBox
+                          ? AppColor.paymentBackgroundColor
+                          : AppColor.chartLabelColor,
+                    ),
+                  )
+                : Container(),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildButton(
+    textStyle, {
+    String? text,
+    Widget? icon,
+    GestureTapCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+              color: AppColor.backgroundColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            alignment: Alignment.center,
+            child: icon,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            text ?? '',
+            style: textStyle.copyWith(
+              fontSize: 12.0,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

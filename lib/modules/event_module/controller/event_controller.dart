@@ -83,6 +83,12 @@ class EventController extends GetxController {
           '#14, Floor 3th, Street 253, Phum 3, Sangkat beung Kak Khan Toul Kork, Phnom Penh',
     )
   ].obs;
+  final listChecked = <CardGuestsModel>[].obs;
+
+  onCheckSelected() {
+    final guestCheck = cardGuestsList.where((v) => v.isCheckBox);
+    listChecked.value = List.from(guestCheck);
+  }
 
   final cardGuestsList = <CardGuestsModel>[
     CardGuestsModel(
