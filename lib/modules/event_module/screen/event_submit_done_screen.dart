@@ -154,6 +154,8 @@ class EventSubmitDoneScreen extends StatelessWidget {
 
                       ///===
                       ExpansionTile(
+                        tilePadding:
+                            const EdgeInsets.only(top: 10.0, bottom: 10.0),
                         title: Text(
                           'Guests',
                           style:
@@ -164,27 +166,29 @@ class EventSubmitDoneScreen extends StatelessWidget {
                         ),
                         // subtitle: Text('Test'),
                         children: [
-                          Obx(() => ListView.separated(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (_, e) => _customCardGuest(
-                                  context,
-                                  guest: contro.listChecked[e].guest,
-                                  nameGuest: contro.listChecked[e].nameGuest,
-                                  who: contro.listChecked[e].who,
-                                  isCheckBox: contro.listChecked[e].isCheckBox,
+                          Obx(
+                            () => ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (_, e) => _customCardGuest(
+                                context,
+                                guest: contro.listChecked[e].guest,
+                                nameGuest: contro.listChecked[e].nameGuest,
+                                who: contro.listChecked[e].who,
+                                isCheckBox: contro.listChecked[e].isCheckBox,
+                              ),
+                              itemCount: contro.listChecked.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Padding(
+                                padding: EdgeInsets.only(top: 16, bottom: 16),
+                                child: Divider(
+                                  height: 1,
+                                  color: Colors.black12,
                                 ),
-                                itemCount: contro.listChecked.length,
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const Padding(
-                                  padding: EdgeInsets.only(top: 16, bottom: 16),
-                                  child: Divider(
-                                    height: 1,
-                                    color: Colors.black12,
-                                  ),
-                                ),
-                              )),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -215,7 +219,8 @@ class EventSubmitDoneScreen extends StatelessWidget {
           ),
           child: CustomButton(
             width: double.infinity,
-            backgroundColor: const Color(0xffDBDBDB),
+            backgroundColor: Colors.white,
+            colorText: AppColor.mainColor,
             onPressed: () {},
             isDisable: false,
             isOutline: false,
