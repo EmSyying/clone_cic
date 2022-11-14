@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/invest_option_model.dart';
+import '../model/transaction/wallet_transaction.dart';
 import '../model/transaction/wallet_transaction_detail.dart';
 import '../model/transfer_recieved/transfer_model.dart';
 
@@ -71,9 +72,8 @@ class WalletController extends GetxController {
 
   // Wallet Transaction
 
-  Future<List<WalletTransactionDetail>> fetchWalletTransaction(
-      String param) async {
-    final tempList = <WalletTransactionDetail>[];
+  Future<List<WalletTransaction>> fetchWalletTransaction(String param) async {
+    final tempList = <WalletTransaction>[];
 
     await _apiBaseHelper
         .onNetworkRequesting(
@@ -83,7 +83,7 @@ class WalletController extends GetxController {
         .then((response) {
       debugPrint('Success $response');
       response['data'].map((e) {
-        tempList.add(WalletTransactionDetail.fromJson(e));
+        tempList.add(WalletTransaction.fromJson(e));
       }).toList();
     }).onError((ErrorModel error, _) {
       debugPrint('Error ${error.statusCode}');
@@ -92,10 +92,10 @@ class WalletController extends GetxController {
   }
 
   // Cash Out All Transaction
-  final cashoutAllTransactionList = <WalletTransactionDetail>[].obs;
+  final cashoutAllTransactionList = <WalletTransaction>[].obs;
   final isLoadingCashoutAllTran = false.obs;
-  Future<List<WalletTransactionDetail>> fetchCashOutAllTransaction() async {
-    final cashoutAllTransactionTempList = <WalletTransactionDetail>[];
+  Future<List<WalletTransaction>> fetchCashOutAllTransaction() async {
+    final cashoutAllTransactionTempList = <WalletTransaction>[];
     isLoadingCashoutAllTran(true);
     await _apiBaseHelper
         .onNetworkRequesting(
@@ -105,7 +105,7 @@ class WalletController extends GetxController {
         .then((response) {
       debugPrint('Success $response');
       response['data'].map((e) {
-        cashoutAllTransactionTempList.add(WalletTransactionDetail.fromJson(e));
+        cashoutAllTransactionTempList.add(WalletTransaction.fromJson(e));
       }).toList();
       cashoutAllTransactionList.value = cashoutAllTransactionTempList;
       isLoadingCashoutAllTran(false);
@@ -142,16 +142,15 @@ class WalletController extends GetxController {
 
   ///all transaction
   final loadingTransaction = false.obs;
-  List<WalletTransactionDetail> allTransaction = <WalletTransactionDetail>[];
-  List<WalletTransactionDetail> pendingTransaction =
-      <WalletTransactionDetail>[];
+  List<WalletTransaction> allTransaction = <WalletTransaction>[];
+  List<WalletTransaction> pendingTransaction = <WalletTransaction>[];
 
-  Future<Map<String, List<WalletTransactionDetail>>> getAllTransaction() async {
+  Future<Map<String, List<WalletTransaction>>> getAllTransaction() async {
     loadingTransaction(true);
-    List<WalletTransactionDetail> tempAllList = <WalletTransactionDetail>[];
-    List<WalletTransactionDetail> tempPendingList = <WalletTransactionDetail>[];
+    List<WalletTransaction> tempAllList = <WalletTransaction>[];
+    List<WalletTransaction> tempPendingList = <WalletTransaction>[];
     tempAllList = await fetchWalletTransaction('type=all');
-    tempPendingList = await fetchWalletTransaction('pending=1');
+    // tempPendingList = await fetchWalletTransaction('pending=1');
     loadingTransaction(false);
     allTransaction = tempAllList;
     pendingTransaction = tempPendingList;
@@ -165,12 +164,11 @@ class WalletController extends GetxController {
   }
 
   ///income transaction
-  List<WalletTransactionDetail> incomeTransactionList =
-      <WalletTransactionDetail>[];
+  List<WalletTransaction> incomeTransactionList = <WalletTransaction>[];
   final loadingfetchIncome = false.obs;
-  Future<List<WalletTransactionDetail>> getIncomeTransaction() async {
+  Future<List<WalletTransaction>> getIncomeTransaction() async {
     loadingfetchIncome(true);
-    List<WalletTransactionDetail> tempList = <WalletTransactionDetail>[];
+    List<WalletTransaction> tempList = <WalletTransaction>[];
     tempList = await fetchWalletTransaction('income=1');
     loadingfetchIncome(false);
     incomeTransactionList = tempList;
@@ -178,12 +176,11 @@ class WalletController extends GetxController {
   }
 
   ///Expense transaction
-  List<WalletTransactionDetail> expenseTransactionList =
-      <WalletTransactionDetail>[];
+  List<WalletTransaction> expenseTransactionList = <WalletTransaction>[];
   final loadingfetchExpense = false.obs;
-  Future<List<WalletTransactionDetail>> getExpenseTransaction() async {
+  Future<List<WalletTransaction>> getExpenseTransaction() async {
     loadingfetchExpense(true);
-    List<WalletTransactionDetail> tempList = <WalletTransactionDetail>[];
+    List<WalletTransaction> tempList = <WalletTransaction>[];
     tempList = await fetchWalletTransaction('expense=1');
     loadingfetchExpense(false);
     expenseTransactionList = tempList;
@@ -191,16 +188,27 @@ class WalletController extends GetxController {
   }
 
   ///Cash-Out transaction
-  List<WalletTransactionDetail> cashoutTransactionList =
-      <WalletTransactionDetail>[];
+  List<WalletTransaction> cashoutTransactionList = <WalletTransaction>[];
   final loadingfetchCashoutTransaction = false.obs;
-  Future<List<WalletTransactionDetail>> getCashoutTransaction() async {
+  Future<List<WalletTransaction>> getCashoutTransaction() async {
     loadingfetchCashoutTransaction(true);
-    List<WalletTransactionDetail> tempList = <WalletTransactionDetail>[];
+    List<WalletTransaction> tempList = <WalletTransaction>[];
     tempList = await fetchWalletTransaction('cashout=1');
     loadingfetchCashoutTransaction(false);
     cashoutTransactionList = tempList;
     return cashoutTransactionList;
+  }
+
+  ///Cash-In transaction
+  List<WalletTransaction> cashinTransactionList = <WalletTransaction>[];
+  final loadingfetchCashinTransaction = false.obs;
+  Future<List<WalletTransaction>> getCashinTransaction() async {
+    loadingfetchCashinTransaction(true);
+    List<WalletTransaction> tempList = <WalletTransaction>[];
+    tempList = await fetchWalletTransaction('cashin=1');
+    loadingfetchCashinTransaction(false);
+    cashinTransactionList = tempList;
+    return cashinTransactionList;
   }
 
   // Wallet Transaction Pending

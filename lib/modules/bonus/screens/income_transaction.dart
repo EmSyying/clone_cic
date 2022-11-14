@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/bonus/custom_shimmer_card_bonus.dart';
-import '../../../widgets/wallets/custom_transaction_card.dart';
+import '../../../widgets/wallets/custom_wallet_transaction.dart';
 import '../../wallet/controller/wallet_controller.dart';
-import '../../wallet/screen/wallet_transaction_popup_detail.dart';
 
 class IncomeTransaction extends StatefulWidget {
   const IncomeTransaction({Key? key}) : super(key: key);
@@ -34,31 +33,8 @@ class _IncomeTransactionState extends State<IncomeTransaction> {
               ? const SingleChildScrollView(
                   child: CustomEmptyState(),
                 )
-              : ListView.separated(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (_, index) => WalletTransactionCard(
-                    ontap: () {
-                      debugPrint(
-                          "transaction type:${_walletController.incomeTransactionList[index].transactionType!}");
-                      _walletController
-                          .onFetchWalletTransactionDetail(
-                              _walletController
-                                  .incomeTransactionList[index].id!,
-                              _walletController
-                                  .incomeTransactionList[index].model!)
-                          .then(
-                            (value) =>
-                                WalletTran.transactionDetail(context, value),
-                          );
-                    },
-                    transactionModel:
-                        _walletController.incomeTransactionList[index],
-                  ),
-                  itemCount: _walletController.incomeTransactionList.length,
-                  separatorBuilder: (_, __) => const SizedBox.shrink(),
+              : CustomWalletTransaction(
+                  walletTransaction: _walletController.incomeTransactionList,
                 ),
     );
   }

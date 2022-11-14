@@ -1,29 +1,28 @@
-import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/widgets/bonus/custom_empty_state.dart';
-import 'package:cicgreenloan/widgets/bonus/transaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../widgets/bonus/custom_shimmer_card_bonus.dart';
+import '../../../../widgets/wallets/custom_wallet_transaction.dart';
+import '../../../wallet/controller/wallet_controller.dart';
 
 class CashInHistories extends StatelessWidget {
-  CashInHistories({Key? key}) : super(key: key);
-  final bonusCon = Get.put(BonusController());
+  const CashInHistories({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    bonusCon.fetchTransationHistory(type: 'cash-in');
+    final walletController = Get.put(WalletController());
+    walletController.getCashinTransaction();
     return Obx(
-      () => bonusCon.isLoadingHistory.value
+      () => walletController.loadingfetchCashinTransaction.value
           ? SizedBox(
               height: MediaQuery.of(context).size.height * 0.50,
               width: double.infinity,
               child: const ShimmerCardBonus())
-          : bonusCon.cashInTransactionList.isEmpty
+          : walletController.cashinTransactionList.isEmpty
               ? const CustomEmptyState()
-              : CustomTransactionCard(
-                  hisStoryList: bonusCon.cashInTransactionList,
-                  isStatus: true,
-                  color: Colors.green,
+              : CustomWalletTransaction(
+                  walletTransaction: walletController.cashinTransactionList,
                 ),
     );
   }

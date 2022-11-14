@@ -1,11 +1,10 @@
-import 'package:cicgreenloan/modules/wallet/screen/wallet_transaction_popup_detail.dart';
 import 'package:cicgreenloan/widgets/bonus/custom_empty_state.dart';
+import 'package:cicgreenloan/widgets/wallets/custom_wallet_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/bonus/custom_shimmer_card_bonus.dart';
 import '../../../widgets/bonus/transaction_card.dart';
-import '../../../widgets/wallets/custom_transaction_card.dart';
 import '../../wallet/controller/wallet_controller.dart';
 import '../controllers/bonus_controller.dart';
 
@@ -79,45 +78,12 @@ class _AllTransactionState extends State<AllTransaction> {
                                         .copyWith(fontSize: 14),
                                   ),
                                 ),
-                                ListView.separated(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (_, index) =>
-                                      WalletTransactionCard(
-                                    transactionModel:
-                                        _walletController.allTransaction[index],
-                                    ontap: () {
-                                      debugPrint(
-                                          "Type1:${_walletController.allTransaction[index].transactionType!}:id:${_walletController.allTransaction[index].id!}");
-                                      _walletController
-                                          .onFetchWalletTransactionDetail(
-                                              _walletController
-                                                  .allTransaction[index].id!,
-                                              _walletController
-                                                  .allTransaction[index].model!)
-                                          .then(
-                                            (value) =>
-                                                WalletTran.transactionDetail(
-                                                    context, value),
-                                          );
-                                    },
-                                  ),
-                                  itemCount:
-                                      _walletController.allTransaction.length,
-                                  separatorBuilder: (_, __) =>
-                                      const SizedBox.shrink(),
-                                ),
+                                CustomWalletTransaction(
+                                  walletTransaction:
+                                      _walletController.allTransaction,
+                                )
                               ],
                             )
-                          // CustomTransactionCard(
-                          //     hisStoryList: const [],
-                          //     // isStatus: widget.isStatus,
-                          //     title: "Pending Transactions",
-                          //     isTitle: true,
-                          //     isStatus: true, isPendingtransaction: true,
-                          //   )
                           : const SizedBox.shrink(),
                       const SizedBox(height: 30.0),
                     ],
