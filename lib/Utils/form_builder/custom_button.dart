@@ -51,7 +51,7 @@ class _CustomButtonState extends State<CustomButton> {
                 borderRadius: BorderRadius.circular(8),
               ),
               padding: const EdgeInsets.symmetric(vertical: 15.0),
-              color: AppColor.mainColor,
+              color: widget.backgroundColor ?? AppColor.mainColor,
               onPressed: widget.onPressed,
               child: Text(
                 widget.title!,
@@ -87,14 +87,18 @@ class _CustomButtonState extends State<CustomButton> {
                               widget.colorText != null
                                   ? Text(
                                       widget.title!,
-                                      style: widget.isCardInvestfif == false ? Theme.of(context)
-                                          .textTheme
-                                          .button!
-                                          .copyWith(color: widget.colorText): widget.style,
+                                      style: widget.isCardInvestfif == false
+                                          ? Theme.of(context)
+                                              .textTheme
+                                              .button!
+                                              .copyWith(color: widget.colorText)
+                                          : widget.style,
                                     )
                                   : Text(
                                       widget.title!,
-                                      style:widget.isCardInvestfif == false ? Theme.of(context).textTheme.button: widget.style,
+                                      style: widget.isCardInvestfif == false
+                                          ? Theme.of(context).textTheme.button
+                                          : widget.style,
                                     ),
                             ],
                           ),
@@ -165,7 +169,8 @@ class _CustomButtonState extends State<CustomButton> {
                                     ),
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 15.0),
-                                    color: AppColor.mainColor,
+                                    color: widget.backgroundColor ??
+                                        AppColor.mainColor,
                                     onPressed: widget.onPressed,
                                     child: Row(
                                       mainAxisAlignment:
@@ -242,7 +247,7 @@ class _CustomButtonState extends State<CustomButton> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          color:
+                                          color: widget.backgroundColor ??
                                               Theme.of(context).primaryColor),
                                       borderRadius: BorderRadius.circular(8)),
                                   child: Row(
@@ -274,7 +279,8 @@ class _CustomButtonState extends State<CustomButton> {
                                 ? CupertinoButton(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 0),
-                                    color: AppColor.mainColor,
+                                    color: widget.backgroundColor ??
+                                        AppColor.mainColor,
                                     onPressed: null,
                                     child: Text(
                                       widget.title!,
@@ -284,7 +290,8 @@ class _CustomButtonState extends State<CustomButton> {
                                 : CupertinoButton(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 0),
-                                    color: AppColor.mainColor,
+                                    color: widget.backgroundColor ??
+                                        AppColor.mainColor,
                                     onPressed: null,
                                     child: Text(
                                       widget.title!,

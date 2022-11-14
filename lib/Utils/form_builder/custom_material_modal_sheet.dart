@@ -20,6 +20,9 @@ onShowCustomCupertinoModalSheet({
   bool? isNoIcon = false,
   bool? isBackgroundColor = false,
   Color? backgroundColor,
+  Color? isColorsAppBar,
+  Color? titleColors,
+  Color? backGroundColor,
 }) {
   return CupertinoScaffold.showCupertinoModalBottomSheet(
       backgroundColor: backgroundColor ?? Colors.transparent,
@@ -29,15 +32,16 @@ onShowCustomCupertinoModalSheet({
             return DefaultSizeWeb(
               child: Material(
                 child: Scaffold(
+                  backgroundColor: backGroundColor ?? Colors.transparent,
                   body: Column(
                     children: [
                       isShowAppBar!
                           ? Container(
                               height: 63,
                               width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
+                              decoration: BoxDecoration(
+                                color: isColorsAppBar ?? Colors.white,
+                                boxShadow: const [
                                   BoxShadow(
                                       offset: Offset(1.1, -1.1),
                                       blurRadius: 6,
@@ -51,32 +55,32 @@ onShowCustomCupertinoModalSheet({
                                 children: [
                                   if (!isNoIcon!)
                                     IconButton(
-                                        onPressed: isLeading == true
-                                            ? () {
-                                                Navigator.pop(context);
-                                                bonusCon.isSubmitCashOut.value =
-                                                    false;
-                                                bonusCon.isAgree.value = false;
-                                                bonusCon.onClear();
-                                              }
-                                            : () {
-                                                Navigator.pop(context);
-                                              },
-                                        icon: kIsWeb
-                                            ? icon ??
-                                                const Icon(Icons.arrow_back)
-                                            : Platform.isAndroid
-                                                ? icon ??
-                                                    const Icon(Icons.arrow_back)
-                                                : icon ??
-                                                    const Icon(
-                                                        Icons.arrow_back_ios)),
+                                      onPressed: isLeading == true
+                                          ? () {
+                                              Navigator.pop(context);
+                                              bonusCon.isSubmitCashOut.value =
+                                                  false;
+                                              bonusCon.isAgree.value = false;
+                                              bonusCon.onClear();
+                                            }
+                                          : () {
+                                              Navigator.pop(context);
+                                            },
+                                      icon: kIsWeb
+                                          ? icon ?? const Icon(Icons.arrow_back)
+                                          : Platform.isAndroid
+                                              ? icon ??
+                                                  const Icon(Icons.arrow_back)
+                                              : icon ??
+                                                  const Icon(
+                                                      Icons.arrow_back_ios),
+                                    ),
                                   const Spacer(),
                                   dynamicTitle ??
                                       Text(
                                         title!,
-                                        style: const TextStyle(
-                                            color: Colors.black,
+                                        style: TextStyle(
+                                            color: titleColors ?? Colors.black,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),

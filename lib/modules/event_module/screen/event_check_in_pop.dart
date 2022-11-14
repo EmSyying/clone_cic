@@ -9,8 +9,9 @@ import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../controller/event_controller.dart';
 
 class EventCheckInPOP extends StatelessWidget {
-  final bool isSelect;
-  const EventCheckInPOP({Key? key, this.isSelect = false}) : super(key: key);
+  const EventCheckInPOP({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class EventCheckInPOP extends StatelessWidget {
       children: [
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            //  padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Column(
               children: [
                 Stack(
@@ -90,9 +91,10 @@ class EventCheckInPOP extends StatelessWidget {
                           const SizedBox(height: 15),
                           Container(
                             decoration: DottedDecoration(
-                                strokeWidth: 2,
-                                shape: Shape.line,
-                                color: const Color(0xffDBDBDB)),
+                              strokeWidth: 2,
+                              shape: Shape.line,
+                              color: const Color(0xffDBDBDB),
+                            ),
                           ),
                           const SizedBox(height: 15),
 
@@ -103,7 +105,7 @@ class EventCheckInPOP extends StatelessWidget {
                                 .asMap()
                                 .entries
                                 .map(
-                                  (e) => customTitleTicket(
+                                  (e) => _customTitleTicket(
                                     context,
                                     title: e.value.title,
                                     descript: e.value.description,
@@ -185,16 +187,29 @@ class EventCheckInPOP extends StatelessWidget {
                       ),
 
                       ///all Guests======
-
-                      Column(
-                        children: contro.cardGuestsList
-                            .map((e) => customCardGuest(
+                      Obx(
+                        () => Column(
+                          children: contro.cardGuestsList
+                              .asMap()
+                              .entries
+                              .map(
+                                (e) => _customCardGuest(
                                   context,
-                                  guest: e.guest,
-                                  nameGuest: e.nameGuest,
-                                  who: e.who,
-                                ))
-                            .toList(),
+                                  guest: e.value.guest,
+                                  nameGuest: e.value.nameGuest,
+                                  who: e.value.who,
+                                  isCheckBox: e.value.isCheckBox,
+                                  onTap: () {
+                                    contro.cardGuestsList[e.key].isCheckBox =
+                                        !contro
+                                            .cardGuestsList[e.key].isCheckBox;
+
+                                    contro.cardGuestsList.refresh();
+                                  },
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ),
 
                       const SizedBox(height: 20),
@@ -213,8 +228,9 @@ class EventCheckInPOP extends StatelessWidget {
           ),
           child: CustomButton(
             width: double.infinity,
+            backgroundColor: const Color(0xffDBDBDB),
             onPressed: () {},
-            isDisable: true,
+            isDisable: false,
             isOutline: false,
             title: 'Submit',
           ),
@@ -223,10 +239,10 @@ class EventCheckInPOP extends StatelessWidget {
     );
   }
 
-  Widget customTitleTicket(BuildContext context,
+  Widget _customTitleTicket(BuildContext context,
       {String? title, String? descript}) {
-    return Container(
-      margin: const EdgeInsets.only(top: 12.0),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -237,6 +253,9 @@ class EventCheckInPOP extends StatelessWidget {
                   fontSize: 13,
                   color: const Color(0xff464646),
                 ),
+          ),
+          const SizedBox(
+            height: 6.0,
           ),
           Text(
             descript ?? '',
@@ -250,16 +269,17 @@ class EventCheckInPOP extends StatelessWidget {
     );
   }
 
-  Widget customCardGuest(
+  Widget _customCardGuest(
     BuildContext context, {
     String? guest,
     String? nameGuest,
     String? who,
+    bool isCheckBox = false,
+    GestureTapCallback? onTap,
   }) {
     return Column(
       children: [
         Row(
-          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +293,7 @@ class EventCheckInPOP extends StatelessWidget {
                       ),
                 ),
                 const SizedBox(
-                  height: 14.0,
+                  height: 20.0,
                 ),
                 Text(
                   'Name',
@@ -284,7 +304,7 @@ class EventCheckInPOP extends StatelessWidget {
                       ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: 6.0,
                 ),
                 Row(
                   children: [
@@ -316,31 +336,37 @@ class EventCheckInPOP extends StatelessWidget {
             ),
             const Spacer(),
             //===Check Box====
-            Container(
-              height: 20,
-              width: 20,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(
-                  color:
-                      isSelect ? AppColor.mainColor : AppColor.chartLabelColor,
-                  width: 0.6,
+
+            GestureDetector(
+              onTap: onTap,
+              child: Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  border: Border.all(
+                    color: isCheckBox
+                        ? AppColor.mainColor
+                        : AppColor.chartLabelColor,
+                    width: 0.6,
+                  ),
+                  shape: BoxShape.rectangle,
+                  color: isCheckBox
+                      ? AppColor.mainColor
+                      : Theme.of(context).cardColor,
                 ),
-                shape: BoxShape.rectangle,
-                color:
-                    isSelect ? AppColor.mainColor : Theme.of(context).cardColor,
+                child: isCheckBox
+                    ? Center(
+                        child: Icon(
+                          Icons.done,
+                          size: 16.0,
+                          color: isCheckBox
+                              ? AppColor.paymentBackgroundColor
+                              : AppColor.chartLabelColor,
+                        ),
+                      )
+                    : Container(),
               ),
-              child: isSelect
-                  ? Center(
-                      child: Icon(
-                        Icons.done,
-                        size: 16.0,
-                        color: isSelect
-                            ? AppColor.paymentBackgroundColor
-                            : AppColor.chartLabelColor,
-                      ),
-                    )
-                  : Container(),
             ),
           ],
         ),

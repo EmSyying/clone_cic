@@ -84,11 +84,12 @@ class EventController extends GetxController {
     )
   ].obs;
 
-  List<CardGuestsModel> cardGuestsList = [
+  final cardGuestsList = <CardGuestsModel>[
     CardGuestsModel(
       guest: 'Guest 1',
       nameGuest: 'Kim Oan',
       who: 'Daughter',
+      isCheckBox: true,
     ),
     CardGuestsModel(
       guest: 'Guest 2',
@@ -99,6 +100,7 @@ class EventController extends GetxController {
       guest: 'Guest 3',
       nameGuest: 'Hany Sreng',
       who: 'Daughter',
+      isCheckBox: true,
     ),
     CardGuestsModel(
       guest: 'Guest 4',
@@ -109,8 +111,10 @@ class EventController extends GetxController {
       guest: 'Guest 5',
       nameGuest: 'Virak',
       who: 'Daughter',
+      isCheckBox: true,
     ),
   ].obs;
+
   Future<List<EventData>> getPastEvent(int? memberId) async {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
