@@ -125,6 +125,15 @@ class _EventScreenState extends State<EventScreen> {
   }
 
   TextEditingController searchtextController = TextEditingController();
+
+  int monthsID = 1;
+  int selectedInd = 0;
+
+  final months = [
+    ['Jan', 'Feb', 'March', 'April'],
+    ['May', 'June', 'July', 'Aug'],
+    ['Sep', 'Oct', 'Nov', 'Dec']
+  ];
   @override
   Widget build(BuildContext context) {
     // debugPrint('Recieved : ${widgt}');
@@ -150,7 +159,70 @@ class _EventScreenState extends State<EventScreen> {
           ),
           child: Column(
             children: [
-              const DynamicEvent(),
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(14),
+                    bottomRight: Radius.circular(14),
+                  ),
+                  color: AppColor.mainColor,
+                ),
+                padding: const EdgeInsets.only(bottom: 25, left: 10, right: 3),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: months[monthsID]
+                            .asMap()
+                            .entries
+                            .map(
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedInd = e.key;
+                                  });
+                                },
+                                child: Text(
+                                  e.value,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                          color: selectedInd == e.key
+                                              ? Colors.white
+                                              : const Color(0xffffffff)
+                                                  .withOpacity(0.6),
+                                          fontSize: 20,
+                                          fontWeight: selectedInd == e.key
+                                              ? FontWeight.w500
+                                              : FontWeight.w400),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 50),
+                    IconButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        setState(() {
+                          selectedInd = 0;
+                          if (monthsID < months.length - 1) {
+                            monthsID += 1;
+                          } else {
+                            monthsID = 0;
+                          }
+                        });
+                      },
+                      icon: const Icon(Icons.arrow_forward_ios_rounded),
+                    )
+                  ],
+                ),
+              ),
+              // const DynamicEvent(),
               Expanded(
                 child: NotificationListener<ScrollNotification>(
                   onNotification: (notification) {
@@ -397,7 +469,7 @@ class _DynamicEventState extends State<DynamicEvent> {
   CalendarFormat? calenderFormat;
 
   // late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.week;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
   DateTime? _focusedDay = DateTime.now();
@@ -460,23 +532,24 @@ class _DynamicEventState extends State<DynamicEvent> {
               child: Column(
                 children: [
                   TableCalendar(
-                    headerVisible: false,
+                    headerVisible: true,
                     daysOfWeekStyle: const DaysOfWeekStyle(
-                        weekdayStyle: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                        weekendStyle: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14)),
+                      weekdayStyle: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                      weekendStyle: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
                     selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
                     formatAnimationCurve: Curves.ease,
                     focusedDay: _focusDay,
                     onPageChanged: (day) {
                       _focusDay = day;
                     },
-                    calendarFormat: _calendarFormat,
+                    calendarFormat: CalendarFormat.week,
                     startingDayOfWeek: StartingDayOfWeek.monday,
                     onFormatChanged: (CalendarFormat format) {
                       if (_calendarFormat != format) {
