@@ -594,35 +594,35 @@ class CustomTransactionCard extends StatelessWidget {
                                                     top: 10),
                                               ),
                                         Container(
-                                            margin:
-                                                const EdgeInsets.only(left: 20),
-                                            child: Text(
-                                              isPendingtransaction == false
-                                                  ? e.value.type == 'bonus' ||
-                                                          e.value.status ==
-                                                              'unpaid' ||
-                                                          e.value.type ==
-                                                              "cash-in"
-                                                      ? 'USD ${FormatToK.digitNumber(e.value.amount ?? 0)}'
-                                                      : '- USD ${FormatToK.digitNumber(e.value.amount ?? 0)}'
-                                                  : "",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline5!
-                                                  .copyWith(
-                                                      color: e.value.type ==
-                                                                  'bonus' ||
-                                                              e.value.type ==
-                                                                  'cash-in'
-                                                          ? AppColor
-                                                                  .statusColor[
-                                                              'green']
-                                                          : color ??
-                                                              AppColor.statusColor[
-                                                                  'late'],
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                            )),
+                                          margin:
+                                              const EdgeInsets.only(left: 20),
+                                          child: Text(
+                                            isPendingtransaction == false
+                                                ? e.value.type == 'bonus' ||
+                                                        e.value.status ==
+                                                            'unpaid' ||
+                                                        e.value.type ==
+                                                            "cash-in"
+                                                    ? 'USD ${FormatToK.digitNumber(e.value.amount ?? 0)}'
+                                                    : '- USD ${FormatToK.digitNumber(e.value.amount ?? 0)}'
+                                                : "",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5!
+                                                .copyWith(
+                                                    color: e.value.type ==
+                                                                'bonus' ||
+                                                            e.value.type ==
+                                                                'cash-in'
+                                                        ? AppColor.statusColor[
+                                                            'green']
+                                                        : color ??
+                                                            AppColor.statusColor[
+                                                                'late'],
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),

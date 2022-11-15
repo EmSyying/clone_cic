@@ -698,9 +698,13 @@ class CustomSubscriptionDetail extends StatelessWidget {
 
           //// subscription status partailly paid
 
-          if (paymentStatus == 'PARTIALLY PAID' || paymentStatus == 'UNPAID')
+          if (paymentStatus == 'PARTIALLY PAID' ||
+              paymentStatus == 'UNPAID' ||
+              paymentStatus == 'NOT AVAILABLE')
             const SizedBox(height: 15),
-          if (paymentStatus == 'PARTIALLY PAID' || paymentStatus == 'UNPAID')
+          if (paymentStatus == 'PARTIALLY PAID' ||
+              paymentStatus == 'UNPAID' ||
+              paymentStatus == 'NOT AVAILABLE')
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15),
