@@ -68,14 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.center,
                       child: Image.asset(
                         'assets/images/Logo/cic.png',
-                        width: 160,
+                        width: 130,
                       ),
                     ),
                     const Text(
                       'Welcome to',
                       style: TextStyle(
                         fontFamily: 'DMSans',
-                        fontSize: 26,
+                        fontSize: 15,
                         color: AppColor.mainColor,
                         fontWeight: FontWeight.w400,
                       ),
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       //     )
                       style: TextStyle(
                         fontFamily: 'DMSans',
-                        fontSize: 26,
+                        fontSize: 15,
                         color: AppColor.mainColor,
                         fontWeight: FontWeight.w600,
                       ),

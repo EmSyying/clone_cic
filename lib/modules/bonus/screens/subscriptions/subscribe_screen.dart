@@ -24,19 +24,15 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
       vsync: this,
       initialIndex: InjectionHelper.bonusController.tapcurrentIndex.value,
     );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final router = GoRouter.of(context);
+      if (router.location.contains('new-subscription')) {
+        InjectionHelper.bonusController.tabControllerSubscribe.index = 0;
+      } else {
+        InjectionHelper.bonusController.tabControllerSubscribe.index = 1;
+      }
+    });
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    final router = GoRouter.of(context);
-    if (router.location.contains('new-subscription')) {
-      InjectionHelper.bonusController.tabControllerSubscribe.index = 0;
-    } else {
-      InjectionHelper.bonusController.tabControllerSubscribe.index = 1;
-    }
-
-    super.didChangeDependencies();
   }
 
   @override
