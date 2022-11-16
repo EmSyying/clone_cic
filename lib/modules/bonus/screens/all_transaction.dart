@@ -47,7 +47,7 @@ class _AllTransactionState extends State<AllTransaction> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _walletController.pendingTransaction.isNotEmpty
+                      _bonusCon.pendingtransactionList.isNotEmpty
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

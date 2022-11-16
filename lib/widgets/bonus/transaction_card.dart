@@ -240,7 +240,7 @@ class CustomTransactionCard extends StatelessWidget {
                                   icondata: Icons.close,
                                   type: e.value.type,
                                   label: 'Subscription',
-                                  time: e.value.date,
+                                  time: e.value.time,
                                   amountFormat: 'ID: ${e.value.transactionId}',
                                   isAmountFormat: true,
                                   text: Obx(

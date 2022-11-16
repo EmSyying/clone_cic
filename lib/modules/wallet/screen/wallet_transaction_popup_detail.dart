@@ -23,6 +23,7 @@ class WalletTran {
   static String getIcon(String type) {
     switch (type) {
       case 'bonus':
+        return 'assets/images/svgfile/dividend.svg';
       case 'deposit':
       case 'DEPOSIT':
       case 'wallet-deposit':
