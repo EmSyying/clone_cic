@@ -117,10 +117,12 @@ class RegisterTicketScreen extends StatelessWidget {
                     ),
                     //====PositionedBoxShapCircle =shap border=====
                     const CustomPositionedBoxShapCircle(
+                      boxShapCircleColor: true,
                       top: 216,
                       left: 6,
                     ),
                     const CustomPositionedBoxShapCircle(
+                      boxShapCircleColor: true,
                       top: 216,
                       right: 6,
                     ),
