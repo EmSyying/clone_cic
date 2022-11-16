@@ -93,14 +93,9 @@ class CustomCardGuestsTicket extends StatelessWidget {
                   isCheckBox ? AppColor.mainColor : Theme.of(context).cardColor,
             ),
             child: isCheckBox
-                ? Center(
-                    child: Icon(
-                      Icons.done,
-                      size: 16.0,
-                      color: isCheckBox
-                          ? AppColor.paymentBackgroundColor
-                          : AppColor.chartLabelColor,
-                    ),
+                ? const Center(
+                    child: Icon(Icons.done,
+                        size: 16.0, color: AppColor.paymentBackgroundColor),
                   )
                 : Container(),
           ),

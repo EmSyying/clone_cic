@@ -202,8 +202,8 @@ class MemberController extends GetxController {
   }
 
   onClearInvitedMember() {
-    memberList.map((e) {
-      e.isTicked = false;
+    memberList.asMap().entries.map((e) {
+      e.value.isTicked = false;
     }).toList();
 
     invitedMemberList.clear();

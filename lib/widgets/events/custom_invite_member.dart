@@ -192,9 +192,15 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                                           radius: 10,
                                           child: GestureDetector(
                                             onTap: () {
+                                              /////remove invite member
                                               setState(() {
                                                 memberController
-                                                    .onClearInvitedMember();
+                                                    .invitedMemberList
+                                                    .remove(e.value);
+                                                e.value.isTicked = false;
+                                                // memberController
+                                                //     .onClearInvitedMember(
+                                                //         member: e.value);
                                               });
                                             },
                                             child: const Icon(Icons.close,
@@ -243,36 +249,41 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                               }
                               return false;
                             },
-                            child: ListView.separated(
-                                shrinkWrap: true,
-                                // physics: rNeverScrollableScrollPhysics(),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                itemBuilder: (context, index) {
-                                  memberController.member.value =
-                                      memberController.memberList[index];
-                                  Member member =
-                                      memberController.memberList[index];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      memberController.onSelected(
-                                          index: index, member: member);
-                                    },
-                                    child: MemberCard(
-                                      isInvite: true,
-                                      isTick: memberController
-                                          .memberList[index].isTicked!,
-                                      member:
-                                          memberController.memberList[index],
-                                    ),
-                                  );
-                                },
-                                separatorBuilder: (context, index) {
-                                  return const Divider(
-                                    thickness: 1,
-                                  );
-                                },
-                                itemCount: memberController.memberList.length));
+                            child: Container(
+                              color: Colors.white,
+                              child: ListView.separated(
+                                  shrinkWrap: true,
+                                  // physics: rNeverScrollableScrollPhysics(),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  itemBuilder: (context, index) {
+                                    memberController.member.value =
+                                        memberController.memberList[index];
+                                    Member member =
+                                        memberController.memberList[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        memberController.onSelected(
+                                            index: index, member: member);
+                                      },
+                                      child: MemberCard(
+                                        isInvite: true,
+                                        isTick: memberController
+                                            .memberList[index].isTicked!,
+                                        member:
+                                            memberController.memberList[index],
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return Divider(
+                                      thickness: 1,
+                                      color: Colors.grey[200],
+                                    );
+                                  },
+                                  itemCount:
+                                      memberController.memberList.length),
+                            ));
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return ListView.builder(

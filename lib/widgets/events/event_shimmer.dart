@@ -72,7 +72,7 @@ class EventShimmerCard extends StatelessWidget {
                           margin: const EdgeInsets.only(
                               top: 10.0, right: 20.0, left: 10.0),
                           height: 15,
-                          width: MediaQuery.of(context).size.width * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.3,
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(borderRaduis),
@@ -107,7 +107,7 @@ class EventShimmerCard extends StatelessWidget {
                               color: Colors.grey[300],
                               borderRadius: BorderRadius.circular(borderRaduis),
                             ),
-                            width: MediaQuery.of(context).size.width * 0.35,
+                            width: MediaQuery.of(context).size.width * 0.30,
                             margin: const EdgeInsets.only(
                                 top: 10.0, left: 10.0, right: 10.0),
                           ),

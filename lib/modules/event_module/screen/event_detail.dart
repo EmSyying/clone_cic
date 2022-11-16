@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/configs/route_management/route_name.dart';
-import 'package:cicgreenloan/modules/event_module/screen/event_check_in_pop.dart';
+import 'package:cicgreenloan/modules/event_module/screen/event_check_in_ticket.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
@@ -394,6 +394,83 @@ class _EventDetailState extends State<EventDetail> {
                                                 //   noted: "abc",
                                                 //   profileName: "Chhany",
                                                 // ),
+                                                if (eventController.eventDetail
+                                                        .value.isRegister ==
+                                                    true)
+                                                  const SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                if (eventController.eventDetail
+                                                        .value.isRegister ==
+                                                    true)
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      onShowCustomCupertinoModalSheet(
+                                                        context: context,
+                                                        icon: const Icon(
+                                                          Icons.close_rounded,
+                                                          color: Colors.white,
+                                                        ),
+                                                        isColorsAppBar:
+                                                            AppColor.mainColor,
+                                                        backgroundColor:
+                                                            AppColor.mainColor,
+                                                        title: "Check in",
+                                                        titleColors: AppColor
+                                                                .arrowforwardColor[
+                                                            'dark'],
+                                                        child:
+                                                            // const EventSubmitDoneScreen()
+                                                            const EventCheckInTicket(
+                                                          selectCheckIn:
+                                                              'view_ticket',
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      width: 120,
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 10,
+                                                          horizontal: 12),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        color: AppColor
+                                                            .mainColor
+                                                            .withOpacity(0.1),
+                                                      ),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                              'assets/images/svgfile/ticket_star.svg'),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                            'View Ticket',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .headline3!
+                                                                .copyWith(
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
                                                 Container(
                                                   margin: const EdgeInsets.only(
                                                       left: 15.0,
@@ -660,7 +737,14 @@ class _EventDetailState extends State<EventDetail> {
                                                               .hostAt ==
                                                           'online'
                                                       ? GestureDetector(
-                                                          onTap: () {},
+                                                          onTap: () {
+                                                            launchUrl(Uri.parse(
+                                                                eventController
+                                                                    .eventDetail
+                                                                    .value
+                                                                    .livestreamLink
+                                                                    .toString()));
+                                                          },
                                                           child: _customDateDetail(
                                                               context: context,
                                                               title: 'Via Zoom',
@@ -681,7 +765,7 @@ class _EventDetailState extends State<EventDetail> {
                                                               content:
                                                                   '${eventController.eventDetail.value.location}',
                                                               imageSVG:
-                                                                  'assets/images/svgfile/video.svg',
+                                                                  'assets/images/svgfile/location_border.svg',
                                                               textColor: AppColor
                                                                   .mainColor),
                                                         ),
@@ -916,7 +1000,7 @@ class _EventDetailState extends State<EventDetail> {
                                           : eventController.eventDetail.value.isCheckin ==
                                                   true
                                               ? 'View Your Ticket'
-                                              : 'Join Now',
+                                              : 'Register Now',
                                       //  eventController.eventDetail.value.hostAt == 'online' &&
                                       //         eventController.eventDetail.value.isRegister ==
                                       //             true
@@ -1192,7 +1276,10 @@ class _EventDetailState extends State<EventDetail> {
                                                                     onTap:
                                                                         () {},
                                                                     child:
-                                                                        const EventCheckInPOP(),
+                                                                        const EventCheckInTicket(
+                                                                      selectCheckIn:
+                                                                          'check_in',
+                                                                    ),
                                                                   );
 
                                                                   // showMaterialModalBottomSheet(

@@ -41,8 +41,6 @@ class _EventScreenState extends State<EventScreen> {
   String? eventLabel;
   int index = 0;
   List<Widget> transactionPage = [const UpComing(), const PastEvent()];
-  List<Widget> list = [const Text('hello1'), const Text('hello2')];
-
   List<CustomTab> tabs = [
     const CustomTab(
       title: 'Up Coming',
@@ -261,103 +259,6 @@ class _EventScreenState extends State<EventScreen> {
                                     curve: Curves.fastOutSlowIn);
                               });
                             }),
-                        // Row(
-                        //   children: [
-                        //     Expanded(
-                        //       child: GestureDetector(
-                        //         onTap: () {
-                        //           _eventController.eventTapName.value =
-                        //               'Up Coming';
-                        //           if (isSelectPastEvent == true) {
-                        //             setState(() {
-                        //               isSelectUpComing = true;
-                        //               isSelectPastEvent = false;
-                        //               index = 0;
-                        //               eventLabel = "Up Coming";
-                        //               searchtextController.text = '';
-                        //             });
-                        //           } else {
-                        //             setState(() {
-                        //               isSelectUpComing = false;
-                        //               isSelectPastEvent = true;
-                        //               index = 0;
-                        //               eventLabel = "Up Coming";
-                        //               searchtextController.text = '';
-                        //             });
-                        //           }
-                        //         },
-                        //         child: Container(
-                        //           decoration: isSelectUpComing
-                        //               ? BoxDecoration(
-                        //                   borderRadius:
-                        //                       BorderRadius.circular(10),
-                        //                   color: Theme.of(context)
-                        //                       .primaryColor
-                        //                       .withAlpha(40),
-                        //                 )
-                        //               : BoxDecoration(
-                        //                   borderRadius:
-                        //                       BorderRadius.circular(10),
-                        //                   color: Theme.of(context).cardColor),
-                        //           padding: const EdgeInsets.symmetric(
-                        //               vertical: 10),
-                        //           child: Center(
-                        //             child: Text(
-                        //               'Up Coming',
-                        //               style: isSelectUpComing
-                        //                   ? TextStyle(
-                        //                       color: Theme.of(context)
-                        //                           .primaryColor)
-                        //                   : const TextStyle(),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     const SizedBox(width: 10.0),
-                        //     Expanded(
-                        //       child: GestureDetector(
-                        //         onTap: () {
-                        //           _eventController.eventTapName.value =
-                        //               'Past Event';
-                        //           setState(() {
-                        //             isSelectUpComing = false;
-                        //             isSelectPastEvent = true;
-                        //             index = 1;
-                        //             eventLabel = "Past Event";
-                        //             searchtextController.text = '';
-                        //           });
-                        //         },
-                        //         child: Container(
-                        //           decoration: isSelectPastEvent
-                        //               ? BoxDecoration(
-                        //                   borderRadius:
-                        //                       BorderRadius.circular(10),
-                        //                   color: Theme.of(context)
-                        //                       .primaryColor
-                        //                       .withAlpha(40),
-                        //                 )
-                        //               : BoxDecoration(
-                        //                   borderRadius:
-                        //                       BorderRadius.circular(10),
-                        //                   color: Theme.of(context).cardColor),
-                        //           padding: const EdgeInsets.symmetric(
-                        //               vertical: 10),
-                        //           child: Center(
-                        //             child: Text(
-                        //               'Past Event',
-                        //               style: isSelectPastEvent
-                        //                   ? TextStyle(
-                        //                       color: Theme.of(context)
-                        //                           .primaryColor)
-                        //                   : const TextStyle(),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ),
                       Stack(
                         children: [
