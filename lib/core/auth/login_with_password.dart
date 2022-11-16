@@ -53,27 +53,25 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                     ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/images/Logo/cic.png',
-                    width: 130,
-                  ),
+                Image.asset(
+                  'assets/images/Logo/cic.png',
+                  width: 100,
                 ),
                 const Text(
                   'Welcome to',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                     color: AppColor.mainColor,
                     fontWeight: FontWeight.w400,
                     fontFamily: 'DMSans',
                   ),
                 ),
+                const SizedBox(height: 4),
                 const Text(
                   'CiC Mobile App',
                   style: TextStyle(
                     fontFamily: 'DMSans',
-                    fontSize: 15,
+                    fontSize: 14,
                     color: AppColor.mainColor,
                     fontWeight: FontWeight.w600,
                   ),

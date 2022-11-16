@@ -86,7 +86,7 @@ class _SetPinCodeState extends State<SetPinCode> {
                   children: [
                     Image.asset(
                       'assets/images/Logo/cic.png',
-                      width: 200.0,
+                      width: 150.0,
                     ),
                     Text(
                       widget.status == 'set'
@@ -94,7 +94,7 @@ class _SetPinCodeState extends State<SetPinCode> {
                           : 'Verify PIN Code',
                       style: TextStyle(
                         fontFamily: 'DMSans',
-                        fontSize: 25,
+                        fontSize: 20,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0,

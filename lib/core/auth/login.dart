@@ -64,22 +64,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        'assets/images/Logo/cic.png',
-                        width: 130,
-                      ),
+                    Image.asset(
+                      'assets/images/Logo/cic.png',
+                      width: 100,
                     ),
                     const Text(
                       'Welcome to',
                       style: TextStyle(
                         fontFamily: 'DMSans',
-                        fontSize: 15,
+                        fontSize: 14,
                         color: AppColor.mainColor,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
+                    const SizedBox(height: 4),
                     const Text(
                       'CiC Mobile App',
                       // style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -87,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       //     )
                       style: TextStyle(
                         fontFamily: 'DMSans',
-                        fontSize: 15,
+                        fontSize: 14,
                         color: AppColor.mainColor,
                         fontWeight: FontWeight.w600,
                       ),
