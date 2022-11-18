@@ -12,7 +12,6 @@ class CustomMember extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-                color: Colors.pink,
                 border: Border.all(color: Colors.white, width: 2),
                 shape: BoxShape.circle,
                 image: DecorationImage(
@@ -33,7 +32,6 @@ class CustomMember extends StatelessWidget {
                     width: 30,
                     height: 30,
                     decoration: BoxDecoration(
-                      color: Colors.orange,
                       border: Border.all(color: Colors.white, width: 2),
                       shape: BoxShape.circle,
                       image: DecorationImage(
@@ -53,7 +51,6 @@ class CustomMember extends StatelessWidget {
                     width: 30,
                     height: 30,
                     decoration: BoxDecoration(
-                      color: Colors.red,
                       border: Border.all(color: Colors.white, width: 2),
                       shape: BoxShape.circle,
                       image: DecorationImage(
@@ -77,7 +74,6 @@ class CustomMember extends StatelessWidget {
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                          color: Colors.purple,
                           border: Border.all(color: Colors.white, width: 2),
                           shape: BoxShape.circle,
                           image: DecorationImage(
@@ -97,7 +93,6 @@ class CustomMember extends StatelessWidget {
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                          color: Colors.blue,
                           border: Border.all(color: Colors.white, width: 2),
                           shape: BoxShape.circle,
                           image: DecorationImage(

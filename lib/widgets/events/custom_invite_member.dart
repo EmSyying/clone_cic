@@ -374,7 +374,6 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                                   await memberController.onInvitedEventMember(
                                     context: context,
                                   );
-
                                   Future.delayed(const Duration(seconds: 3),
                                       () {
                                     Navigator.pop(context);

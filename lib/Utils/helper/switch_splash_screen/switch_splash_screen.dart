@@ -1,5 +1,5 @@
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../app_settings/controllers/appsetting_controller.dart';
@@ -40,15 +40,42 @@ class _BooksState extends State<SwitchSplashScreen>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _settingCon.animationController,
-        child: Scaffold(
-          backgroundColor: AppColor.mainColor,
-          body: Obx(() => _settingCon.isLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                )
-              : Container()),
+        child:
+            // SvgPicture.asset('assets/images/svgfile/swich-am.svg'),
+            Scaffold(
+          // backgroundColor: AppColor.mainColor,
+          body:
+              // Stack(
+              //   children: [
+              Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff3588E8),
+                Color(0xff384593),
+              ],
+            )),
+            child: Center(
+              child:
+                  SvgPicture.asset('assets/images/svgfile/cic_Logo_switch.svg'),
+            ),
+          ),
+          // Obx(() => _settingCon.isLoading.value
+          //     ?
+          //     // SvgPicture.asset(
+          //     //     'assets/images/svgfile/swich-am.svg',)
+          //     const Center(
+          //         child: CircularProgressIndicator(
+          //           color: Colors.white,
+          //         ),
+          //       )
+          //     : Container()),
+          //   ],
+          // ),
         ),
         builder: (context, child) {
           // animationController.reverse().then((value) => Navigator.pop(context));

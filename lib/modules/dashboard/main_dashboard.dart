@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
@@ -18,6 +19,7 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
+
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/link.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
@@ -354,7 +356,7 @@ class _MainDashboardState extends State<MainDashboard> {
         // storeDeviceToken();
       });
     }
-
+    _settingCon.switchQM;
     super.initState();
   }
 
@@ -473,44 +475,7 @@ class _MainDashboardState extends State<MainDashboard> {
 //                    : Color(0xffDEE8E9).withOpacity(0.1),
               automaticallyImplyLeading: false,
               centerTitle: false,
-              title:
-                  // Row(
-                  //   children: [
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     context.push('/wallet');
-                  //   },
-                  //   child: SvgPicture.asset(
-                  //     'assets/images/svgfile/Logocic.svg',
-                  //     height: 27,
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   width: 10,
-                  // ),
-                  // const Text(
-                  //   'Mobile',
-                  //   style: TextStyle(
-                  //       fontFamily: 'DMSans',
-                  //       fontWeight: FontWeight.bold,
-                  //       fontSize: 20),
-                  // ),
-                  // Container(
-                  //   margin: const EdgeInsets.only(left: 5),
-                  //   padding:
-                  //       const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(5),
-                  //       color: Colors.white12),
-                  //   child: Text(
-                  //     dashboardType == 'AM' ? 'AM' : 'QM',
-                  //     style: Theme.of(context)
-                  //         .textTheme
-                  //         .headline6!
-                  //         .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-                  //   ),
-                  // ),
-                  Container(
+              title: Container(
                 width: double.infinity,
                 color: Colors.transparent,
                 child: PopupMenuButton(
@@ -574,6 +539,7 @@ class _MainDashboardState extends State<MainDashboard> {
                           onTap: dashboardType == 'QM'
                               ? null
                               : () {
+                                  _settingCon.onSwitchQM();
                                   Navigator.pop(context);
                                   Offset offset = getWidgetInfo(widgetKey);
                                   context.go('/switch-splash-screen',
@@ -619,6 +585,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                 ],
                               ))),
                     ),
+
                     //QM Dashboard
                     const PopupMenuDivider(height: 0),
                     PopupMenuItem(
@@ -626,6 +593,7 @@ class _MainDashboardState extends State<MainDashboard> {
                           onTap: dashboardType == 'AM'
                               ? null
                               : () {
+                                  _settingCon.onSwitchAM();
                                   Navigator.pop(context);
                                   Offset offset = getWidgetInfo(widgetKey);
                                   context.go('/switch-splash-screen',
@@ -748,11 +716,12 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),
-            body: dashboardType == 'AM'
-                ? const MainDashBoardTypeAM()
-                : Platform.isAndroid
-                    ? UpgradeAlert(child: buildBody())
-                    : buildBody(),
+            body:
+                dashboardType == 'AM' || _settingCon.switchScreen == 'switch_AM'
+                    ? const MainDashBoardTypeAM()
+                    : Platform.isAndroid
+                        ? UpgradeAlert(child: buildBody())
+                        : buildBody(),
           ),
         ),
       ),

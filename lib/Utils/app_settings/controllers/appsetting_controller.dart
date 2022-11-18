@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cicgreenloan/Utils/app_settings/models/app_data.dart';
 import 'package:cicgreenloan/Utils/app_settings/models/ui_setting_data.dart';
+import 'package:cicgreenloan/Utils/helper/local_storage.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/function/storelocal_data.dart';
 import 'package:cicgreenloan/modules/about_cic/model/about_cic_model.dart';
@@ -51,6 +52,24 @@ class SettingController extends GetxController {
   onHideBottomNavigationBar(bool isHide) {
     isHideBottomNavigation = isHide;
     update();
+  }
+
+// varaible for switch screen
+  String? switchAM = 'switch_AM';
+  String? switchQM = 'switch_QM';
+  String? switchScreen = '';
+
+  onSwitchAM() async {
+    final switchLocal = await LocalStorage.getStringValue(key: switchAM);
+    switchScreen = switchAM;
+    return switchLocal;
+  }
+
+  onSwitchQM() async {
+    final switchLocal = await LocalStorage.getStringValue(key: switchQM);
+    switchScreen = switchQM;
+
+    return switchLocal;
   }
 
   void onTap(int index) {
