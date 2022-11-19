@@ -6,10 +6,12 @@ import '../../Utils/helper/color.dart';
 class CustomNumberStoresFilter extends StatelessWidget {
   final String? titleStores;
   final GestureTapCallback? onTapFilter;
+  final GestureTapCallback? onTapSearch;
   const CustomNumberStoresFilter({
     Key? key,
     this.titleStores,
     this.onTapFilter,
+    this.onTapSearch,
   }) : super(key: key);
 
   @override
@@ -27,6 +29,27 @@ class CustomNumberStoresFilter extends StatelessWidget {
           ),
         ),
         const Spacer(),
+        GestureDetector(
+          onTap: onTapSearch,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColor.lightblue.withOpacity(0.06),
+              shape: BoxShape.circle,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                'assets/images/privilege/search.svg',
+                color: AppColor.mainColor,
+                width: 18.0,
+                height: 18.0,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
         GestureDetector(
           onTap: onTapFilter,
           child: Container(
@@ -49,7 +72,7 @@ class CustomNumberStoresFilter extends StatelessWidget {
                 Text(
                   'Filter',
                   style: Theme.of(context).textTheme.headline3!.copyWith(
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w600,
                       ),
                 ),
               ],

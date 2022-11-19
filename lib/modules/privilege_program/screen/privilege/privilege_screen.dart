@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import 'package:go_router/go_router.dart';
@@ -165,60 +164,60 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              context.go("/privilege/all-stores/search-item");
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //     children: [
+                  //       Expanded(
+                  //         child: GestureDetector(
+                  //           onTap: () {
+                  //             context.go("/privilege/all-stores/search-item");
 
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const SearchScreen(),
-                              //   ),
-                              // );
-                            },
-                            child: Container(
-                              height: 38,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 11),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/privilege/search.svg',
-                                  ),
-                                  const SizedBox(
-                                    width: 6,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'Search',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: 0.6,
-                                            color: Colors.grey,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  //             // Navigator.push(
+                  //             //   context,
+                  //             //   MaterialPageRoute(
+                  //             //     builder: (context) => const SearchScreen(),
+                  //             //   ),
+                  //             // );
+                  //           },
+                  //           child: Container(
+                  //             height: 38,
+                  //             padding:
+                  //                 const EdgeInsets.symmetric(horizontal: 11),
+                  //             decoration: BoxDecoration(
+                  //               color: Colors.grey[200],
+                  //               borderRadius: BorderRadius.circular(10),
+                  //             ),
+                  //             child: Row(
+                  //               children: [
+                  //                 SvgPicture.asset(
+                  //                   'assets/images/privilege/search.svg',
+                  //                 ),
+                  //                 const SizedBox(
+                  //                   width: 6,
+                  //                 ),
+                  //                 Expanded(
+                  //                   child: Text(
+                  //                     'Search',
+                  //                     style: Theme.of(context)
+                  //                         .textTheme
+                  //                         .headline5!
+                  //                         .copyWith(
+                  //                           fontWeight: FontWeight.w400,
+                  //                           letterSpacing: 0.6,
+                  //                           color: Colors.grey,
+                  //                         ),
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 16, bottom: 16, left: 20, right: 20),
@@ -310,6 +309,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 20.0, bottom: 8),
                           child: CustomNumberStoresFilter(
+                            onTapSearch: () {
+                              context.go("/privilege/all-stores/search-item");
+                            },
                             onTapFilter: () {
                               context.go("/privilege/all-stores/filter-item");
                               // Navigator.push(
