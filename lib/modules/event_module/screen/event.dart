@@ -145,7 +145,7 @@ class _EventScreenState extends State<EventScreen> {
           title: 'Event',
           elevation: 0,
           context: context,
-          isLeading: true,
+          isLeading: false,
         ),
         body: ConnectivityWidgetWrapper(
           stacked: false,

@@ -756,8 +756,8 @@ class _EventDetailState extends State<EventDetail> {
                                                                   .mainColor))
                                                       : GestureDetector(
                                                           onTap: () {
-                                                            context.go(
-                                                                '/setting/event/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}&latitude=${eventController.eventDetail.value.latitude}');
+                                                            context.push(
+                                                                '/event/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}&latitude=${eventController.eventDetail.value.latitude}');
                                                           },
                                                           child: _customDateDetail(
                                                               context: context,

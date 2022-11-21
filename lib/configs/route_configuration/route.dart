@@ -141,12 +141,36 @@ final router = GoRouter(
                 pageName: qparam['pageName'],
               );
             },
+          ),
+          // Event Feature
+
+          GoRoute(
+            path: 'event',
+            name: 'Event',
+            builder: (context, state) => const EventScreen(),
             routes: [
-              // GoRoute(
-              //   path: 'event',
-              //   name: 'QrEvent',
-              //   builder: (_, __) => const EventScreen(),
-              // ),
+              GoRoute(
+                path: 'event-detail/:id',
+                name: 'EventDetail',
+                builder: (context, state) => EventDetail(
+                  eventId: int.tryParse(
+                    state.params['id'].toString(),
+                  ),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'view-map',
+                    name: 'ViewMap',
+                    builder: (context, state) => GoogleMapsPage(
+                      title: state.queryParams['title'],
+                      latitude: double.tryParse(
+                          state.queryParams['latitude'].toString()),
+                      longtitude: double.tryParse(
+                          state.queryParams['longtitude'].toString()),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
           GoRoute(
@@ -795,35 +819,35 @@ final router = GoRouter(
                   ),
                 ],
               ),
-              GoRoute(
-                path: 'event',
-                name: 'Event',
-                builder: (context, state) => const EventScreen(),
-                routes: [
-                  GoRoute(
-                    path: 'event-detail/:id',
-                    name: 'EventDetail',
-                    builder: (context, state) => EventDetail(
-                      eventId: int.tryParse(
-                        state.params['id'].toString(),
-                      ),
-                    ),
-                    routes: [
-                      GoRoute(
-                        path: 'view-map',
-                        name: 'ViewMap',
-                        builder: (context, state) => GoogleMapsPage(
-                          title: state.queryParams['title'],
-                          latitude: double.tryParse(
-                              state.queryParams['latitude'].toString()),
-                          longtitude: double.tryParse(
-                              state.queryParams['longtitude'].toString()),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              // GoRoute(
+              //   path: 'event',
+              //   name: 'Event',
+              //   builder: (context, state) => const EventScreen(),
+              //   routes: [
+              //     GoRoute(
+              //       path: 'event-detail/:id',
+              //       name: 'EventDetail',
+              //       builder: (context, state) => EventDetail(
+              //         eventId: int.tryParse(
+              //           state.params['id'].toString(),
+              //         ),
+              //       ),
+              //       routes: [
+              //         GoRoute(
+              //           path: 'view-map',
+              //           name: 'ViewMap',
+              //           builder: (context, state) => GoogleMapsPage(
+              //             title: state.queryParams['title'],
+              //             latitude: double.tryParse(
+              //                 state.queryParams['latitude'].toString()),
+              //             longtitude: double.tryParse(
+              //                 state.queryParams['longtitude'].toString()),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ],
+              // ),
             ],
           ),
 

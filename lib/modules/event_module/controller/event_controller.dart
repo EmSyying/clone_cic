@@ -567,7 +567,7 @@ class EventController extends GetxController {
           debugPrint("Response Json: $responseJson");
           eventDetail.value = EventData.fromJson(responseJson);
           Uri uri = await DynamicLinkService.createDynamicLink(
-              path: '/setting/event/event-detail/${eventDetail.value.id}',
+              path: '/event/event-detail/${eventDetail.value.id}',
               description: '${eventDetail.value.title}',
               image: '${eventDetail.value.cover}');
           eventShortenUrl.value = uri.toString();
