@@ -32,6 +32,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final ScrollController scrollController = ScrollController();
   final priCon = Get.put(PrivilegeController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
+  final _settingCon = Get.put(SettingController());
   int page = 1;
   Future<void> onRefresh() async {
     page = 1;
@@ -45,24 +46,20 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final router = GoRouter.of(context);
+      if (router.location.contains('all-stores')) {
+        segmentedControlValue = 1;
+      } else {
+        segmentedControlValue = 0;
+      }
+    });
+
     priCon.onFetchAllStore(page);
     priCon.onFetchCategories();
-
     priCon.onRefreshPrivilege();
-
+    _settingCon.fetchSlidePrivilege();
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    final router = GoRouter.of(context);
-    if (router.location.contains('all-stores')) {
-      segmentedControlValue = 1;
-    } else {
-      segmentedControlValue = 0;
-    }
-
-    super.didChangeDependencies();
   }
 
   final storePages = [
@@ -73,8 +70,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   int segmentedControlValue = 0;
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
-  final _settingCon = Get.put(SettingController());
-
   File? nationalBack;
   @override
   Widget build(BuildContext context) {
@@ -109,41 +104,92 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, left: 20, right: 20),
-                    child: AspectRatio(
-                      aspectRatio: 5 / 2.3,
-                      child: Swiper(
-                          loop: true,
-                          index: currentIndex,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            if (_settingCon.slideList![index].status ==
-                                'Display') {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      _settingCon.slideList![index].image!,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            }
-                            return Container();
-                          },
-                          onIndexChanged: (value) {
-                            setState(() {
-                              currentIndex = value;
-                            });
-                          },
-                          curve: Curves.easeIn,
-                          autoplay: true,
-                          itemCount: _settingCon.slideList!.length,
-                          viewportFraction: 1,
-                          scale: 0.9),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  //   child: AspectRatio(
+                  //     aspectRatio: 5 / 2.3,
+                  //     child: Swiper(
+                  //         loop: true,
+                  //         index: currentIndex,
+                  //         scrollDirection: Axis.horizontal,
+                  //         itemBuilder: (context, index) {
+                  //           if (_settingCon.slideList![index].module ==
+                  //               'Privilege') {
+                  //             return ClipRRect(
+                  //               borderRadius: BorderRadius.circular(10),
+                  //               child: CachedNetworkImage(
+                  //                 imageUrl:
+                  //                     _settingCon.slideList![index].image!,
+                  //                 fit: BoxFit.cover,
+                  //               ),
+                  //             );
+                  //           }
+                  //           return Container();
+                  //         },
+                  //         onIndexChanged: (value) {
+                  //           setState(() {
+                  //             currentIndex = value;
+                  //           });
+                  //         },
+                  //         curve: Curves.easeIn,
+                  //         autoplay: true,
+                  //         itemCount: _settingCon.slideList!.length,
+                  //         viewportFraction: 1,
+                  //         scale: 0.9),
+                  //   ),
+                  // ),
+                  !_settingCon.isLoading.value &&
+                          _settingCon.slideListPrivilege!.isNotEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20, left: 20, right: 20),
+                          child: AspectRatio(
+                            aspectRatio: 5 / 2.3,
+                            child: Swiper(
+                              loop: true,
+                              index: currentIndex,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                if (_settingCon
+                                        .slideListPrivilege![index].module ==
+                                    'Privilege') {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          child: CachedNetworkImage(
+                                            imageUrl: _settingCon
+                                                .slideListPrivilege![index]
+                                                .image!,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                                return Container();
+                              },
+                              onIndexChanged: (value) {
+                                setState(() {
+                                  currentIndex = value;
+                                });
+                              },
+                              curve: Curves.easeIn,
+                              autoplay: true,
+                              itemCount: _settingCon.slideListPrivilege!.length,
+                              viewportFraction: 1,
+                              scale: 0.9,
+                            ),
+                          ),
+                        )
+                      : const SizedBox(
+                          height: 180,
+                          width: double.infinity,
+                        ),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -151,10 +197,11 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: _settingCon.slideList!
+                      children: _settingCon.slideListPrivilege!
                           .asMap()
                           .entries
-                          .where((element) => element.value.status == 'Display')
+                          .where(
+                              (element) => element.value.module == 'Privilege')
                           .map((e) => CustomIndicator(
                                 isSelect: e.key == currentIndex,
                               ))
