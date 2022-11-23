@@ -356,7 +356,6 @@ class _MainDashboardState extends State<MainDashboard> {
         // storeDeviceToken();
       });
     }
-    _settingCon.switchQM;
     super.initState();
   }
 
@@ -446,7 +445,6 @@ class _MainDashboardState extends State<MainDashboard> {
 
   void handleTimeout() {}
   bool? switchIcon = false;
-  String? dashboardType = 'QM';
 
   @override
   Widget build(BuildContext context) {
@@ -536,10 +534,12 @@ class _MainDashboardState extends State<MainDashboard> {
                     PopupMenuItem(
                       key: widgetKey,
                       child: GestureDetector(
-                          onTap: dashboardType == 'QM'
+                          onTap: !_settingCon.isAMMode!
                               ? null
                               : () {
-                                  _settingCon.onSwitchQM();
+                                  _settingCon.onSwitchScreen(value: false);
+                                  // _settingCon.onSwitchScreen();
+
                                   Navigator.pop(context);
                                   Offset offset = getWidgetInfo(widgetKey);
                                   context.go('/switch-splash-screen',
@@ -547,7 +547,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                   Future.delayed(
                                       const Duration(milliseconds: 300), () {
                                     setState(() {
-                                      dashboardType = 'QM';
+                                      _settingCon.isAMMode = false;
                                     });
                                   });
 
@@ -590,10 +590,12 @@ class _MainDashboardState extends State<MainDashboard> {
                     const PopupMenuDivider(height: 0),
                     PopupMenuItem(
                       child: GestureDetector(
-                          onTap: dashboardType == 'AM'
+                          onTap: _settingCon.isAMMode!
                               ? null
                               : () {
-                                  _settingCon.onSwitchAM();
+                                  _settingCon.onSwitchScreen(value: true);
+                                  // _settingCon.onSwitchScreen();
+
                                   Navigator.pop(context);
                                   Offset offset = getWidgetInfo(widgetKey);
                                   context.go('/switch-splash-screen',
@@ -601,7 +603,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                   Future.delayed(
                                       const Duration(milliseconds: 300), () {
                                     setState(() {
-                                      dashboardType = 'AM';
+                                      _settingCon.isAMMode = true;
                                     });
                                   });
                                 },
@@ -716,12 +718,11 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),
-            body:
-                dashboardType == 'AM' || _settingCon.switchScreen == 'switch_AM'
-                    ? const MainDashBoardTypeAM()
-                    : Platform.isAndroid
-                        ? UpgradeAlert(child: buildBody())
-                        : buildBody(),
+            body: _settingCon.isAMMode!
+                ? const MainDashBoardTypeAM()
+                : Platform.isAndroid
+                    ? UpgradeAlert(child: buildBody())
+                    : buildBody(),
           ),
         ),
       ),

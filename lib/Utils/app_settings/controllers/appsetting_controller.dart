@@ -55,21 +55,17 @@ class SettingController extends GetxController {
   }
 
 // varaible for switch screen
-  String? switchAM = 'switch_AM';
-  String? switchQM = 'switch_QM';
-  String? switchScreen = '';
-
-  onSwitchAM() async {
-    final switchLocal = await LocalStorage.getStringValue(key: switchAM);
-    switchScreen = switchAM;
-    return switchLocal;
+  bool? isAMMode = false;
+  String? switchlocalScreen = 'switchAMQM';
+//fuction switch am qm
+  onSwitchScreen({bool? value}) async {
+    await LocalStorage.storeData(key: 'switchAMMode', value: value);
+    isAMMode = await LocalStorage.getBooleanValue(key: 'switchAMMode');
   }
 
-  onSwitchQM() async {
-    final switchLocal = await LocalStorage.getStringValue(key: switchQM);
-    switchScreen = switchQM;
-
-    return switchLocal;
+//fuction am qm for call to bottomNavigationBar
+  onGetScreenMode() async {
+    isAMMode = await LocalStorage.getBooleanValue(key: 'switchAMMode');
   }
 
   void onTap(int index) {

@@ -128,6 +128,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     ]);
     // _initQuickAction();
     cusController.getUser();
+    appSettingCon.onGetScreenMode();
 
     LocalData.showAppTou('appTour').then((value) async {
       if (appSettingCon.cicAppSetting.enablePinCode!) {
