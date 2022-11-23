@@ -1,15 +1,19 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
-import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:cicgreenloan/widgets/report/custom_document_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../modules/report_module/models/model_detail_report/reports_group_by_year.model.dart';
 
 class CustomListWithTitle extends StatelessWidget {
   final String? year;
-  final List<DocumentationModel> items;
-  final void Function(DocumentationModel value)? onTap;
-  const CustomListWithTitle(
-      {Key? key, this.year, this.items = const [], this.onTap})
-      : super(key: key);
+  final List<ReportGroupByYearModel> items;
+  // final void Function(ReportGroupByYearModel value)? onTap;
+  const CustomListWithTitle({
+    Key? key,
+    this.year,
+    this.items = const [],
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +41,9 @@ class CustomListWithTitle extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) => GestureDetector(
             onTap: () {
-              if (onTap != null) {
-                onTap!(items[index]);
-              }
+              //  debugPrint("Url: ${items[index].attachedFile}");
+              context.push(
+                  '/setting/cic-app-manual/view-report?attachedFile=${items[index].attachedFile}&url=${items[index].attachedFile}&title=CiC App Manual');
             },
             child: CustomDocumentCard(
               documentationModel: items[index],

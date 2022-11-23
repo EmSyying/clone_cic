@@ -8,7 +8,7 @@ import '../../../widgets/report/custom_document_card.dart';
 import '../../../widgets/report/no_report_found.dart';
 import '../../../widgets/report/report_shimmer.dart';
 import '../controllers/documentation_controller.dart';
-import '../models/documentation_model.dart';
+import '../models/model_detail_report/reports_group_by_year.model.dart';
 
 class CiCAppManual extends StatefulWidget {
   const CiCAppManual({
@@ -52,7 +52,7 @@ class _CiCAppManualState extends State<CiCAppManual> {
               return RefreshIndicator(
                 key: _keyRefresh,
                 onRefresh: onRefresh,
-                child: FutureBuilder<List<DocumentationModel>>(
+                child: FutureBuilder<List<ReportGroupByYearModel>>(
                   future: controller
                       .getDocumentList(optionCon.documentTypeId.toString()),
                   builder: (context, snapshot) {

@@ -1,10 +1,11 @@
 import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
-import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../modules/report_module/models/model_detail_report/reports_group_by_year.model.dart';
+
 class CustomDocumentCard extends StatelessWidget {
-  final DocumentationModel? documentationModel;
+  final ReportGroupByYearModel? documentationModel;
   const CustomDocumentCard({Key? key, this.documentationModel})
       : super(key: key);
 
@@ -27,7 +28,7 @@ class CustomDocumentCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             alignment: Alignment.center,
-            child: SvgPicture.asset(
+            child: SvgPicture.network(
               documentationModel!.cover ?? '',
               color: documentationModel!.color != null &&
                       documentationModel!.color!.isNotEmpty

@@ -48,7 +48,7 @@ class CustomReportCatigoriesCard extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
-                  child: SvgPicture.asset(
+                  child: SvgPicture.network(
                     icons ?? '',
                     // 'assets/images/wallet/navigation_icons.svg',
                     fit: BoxFit.cover,
@@ -56,7 +56,7 @@ class CustomReportCatigoriesCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  item ?? '',
+                  item.toString(),
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 22,

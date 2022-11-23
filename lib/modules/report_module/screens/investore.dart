@@ -1,13 +1,14 @@
 import 'package:cicgreenloan/modules/report_module/controllers/documentation_controller.dart';
-import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
+// import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:cicgreenloan/widgets/report/no_report_found.dart';
-import 'package:cicgreenloan/widgets/report/custom_document_card.dart';
 import 'package:cicgreenloan/widgets/report/report_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/firebase_analytics.dart';
+import '../../../widgets/report/custom_document_card.dart';
+import '../models/model_detail_report/reports_group_by_year.model.dart';
 
 class InvestorPage extends StatefulWidget {
   final String? tabLabel;
@@ -45,7 +46,7 @@ class _InvestorPageState extends State<InvestorPage> {
           return RefreshIndicator(
             key: _keyRefresh,
             onRefresh: onRefresh,
-            child: FutureBuilder<List<DocumentationModel>>(
+            child: FutureBuilder<List<ReportGroupByYearModel>>(
               future: controller.getDocumentList(widget.tabLabel!),
               builder: (context, snapshot) {
                 var items = snapshot.data;
@@ -65,7 +66,7 @@ class _InvestorPageState extends State<InvestorPage> {
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           // padding: EdgeInsets.symmetric(vertical: 10),
-                          itemBuilder: (context, index) {
+                          itemBuilder: (_, index) {
                             return GestureDetector(
                                 onTap: () {
                                   FirebaseAnalyticsHelper.sendAnalyticsEvent(

@@ -26,8 +26,9 @@ class ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final contr = Get.put(DocumentationController());
+    final reportCon = Get.put(DocumentationController());
     final guideController = Get.put(CiCGuidController());
+    reportCon.fetchCategoriesCardReport();
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -50,34 +51,36 @@ class ReportScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: GridView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 15,
-          ),
-          itemCount: contr.listCategoriesReport.length,
-          itemBuilder: (BuildContext _, index) {
-            return CustomReportCatigoriesCard(
-              key: guideController.reportGuide[index].key = GlobalKey(),
-              onTap: () {
-                context.push(
-                    '/report_screen/report-filed?tabLabel=${contr.listCategoriesReport[index].title}');
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => FileCategoriesReport(
-                //         tabLabel: contr.listCategoriesReport[index].title,
-                //       ),
-                //     ));
-              },
-              title: contr.listCategoriesReport[index].title,
-              icons: contr.listCategoriesReport[index].icons,
-              item: contr.listCategoriesReport[index].item,
-            );
-          }),
+      body: Obx(
+        () => reportCon.loadingCardReport.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : GridView.builder(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                ),
+                itemCount: reportCon.listCategoryCardReport.length,
+                itemBuilder: (BuildContext _, index) {
+                  return CustomReportCatigoriesCard(
+                    key: guideController.reportGuide[index].key = GlobalKey(),
+                    onTap: () {
+                      context.push(
+                        '/report_screen/report-filed?tabLabel=${reportCon.listCategoryCardReport[index].category}&id=${reportCon.listCategoryCardReport[index].id}',
+                      );
+                    },
+                    title: reportCon.listCategoryCardReport[index].category,
+                    icons: reportCon.listCategoryCardReport[index].icon,
+                    item: reportCon.listCategoryCardReport[index].reportCount
+                        .toString(),
+                  );
+                }),
+      ),
     );
   }
 }

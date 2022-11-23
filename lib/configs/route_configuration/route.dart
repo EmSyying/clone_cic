@@ -982,15 +982,14 @@ final router = GoRouter(
                 name: 'ReportFiledCategory',
                 builder: (context, state) => FileCategoriesReport(
                   tabLabel: state.queryParams['tabLabel'],
+                  id: int.tryParse(state.queryParams['id']!),
                 ),
               ),
             ],
           ),
         ],
       ),
-
       // Explore More
-
       GoRoute(
         path: '/explore-more',
         name: 'Explore More',
