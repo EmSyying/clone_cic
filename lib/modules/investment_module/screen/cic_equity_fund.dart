@@ -85,6 +85,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
               key: refreshKey,
               onRefresh: onRefresh,
               child: ListView(
+                controller: priceController.cicEquityScroll,
                 padding: const EdgeInsets.only(bottom: 20),
                 children: [
                   CustomCard(

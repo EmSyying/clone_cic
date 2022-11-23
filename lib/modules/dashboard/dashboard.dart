@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 
@@ -42,8 +41,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
   ];
-  var f = NumberFormat('#,###.00', 'en_US');
-  var n = NumberFormat('#,###', 'en_US');
 
   // var priceList;
   @override
@@ -123,7 +120,43 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     super.didChangeDependencies();
   }
 
-  final GlobalKey _key = GlobalKey();
+  void _cicEquityGuide() {
+    CiCApp.showOverlays(
+      context: context,
+      key: (_) => _guidkey.investmentKey[_].key!,
+      objectSettingBuilder: (_) => ObjectSetting(
+          edgeInsets: _ == 0 || _ == 4
+              ? const EdgeInsets.symmetric(horizontal: 10)
+              : const EdgeInsets.all(10),
+          radius: _ == 2 ? BorderRadius.circular(50) : null,
+          paddingSize: _ == 0 || _ == 4
+              ? const Size(0, -5)
+              : _ == 3
+                  ? const Size(0, -10)
+                  : null),
+      titleBuilder: (_) => _guidkey.investmentKey[_].title ?? '',
+      descriptionBuilder: (_) => _guidkey.investmentKey[_].description ?? '',
+      itemCount: _guidkey.investmentKey.length,
+      allowSkip: true,
+      overlaySetting: OverlaySetting(),
+    );
+  }
+
+  void _cicFixedIncomeGuide() {
+    CiCApp.showOverlays(
+      context: context,
+      key: (_) => _guidkey.investmentFiF[_].key!,
+      objectSettingBuilder: (_) => ObjectSetting(
+          edgeInsets: _ == 0 ? const EdgeInsets.only(top: 15) : null,
+          radius: _ == 0 ? BorderRadius.circular(12) : null,
+          paddingSize: _ == 0 ? const Size(-39, -29) : null),
+      titleBuilder: (_) => _guidkey.investmentFiF[_].title ?? '',
+      descriptionBuilder: (_) => _guidkey.investmentFiF[_].description ?? '',
+      itemCount: _guidkey.investmentFiF.length,
+      allowSkip: true,
+      overlaySetting: OverlaySetting(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +186,9 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const Expanded(child: OfflineWidget()),
+                    const Expanded(
+                      child: OfflineWidget(),
+                    ),
                   ],
                 ),
                 child: Obx(
@@ -179,16 +214,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           child: TabBar(
                             onTap: (e) {
                               debugPrint(e.toString());
-                              // setState(() {
-                              //   if (priceController.tabController.index == 0) {
-                              //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                              //         'tab bar CiC EQUITY FUND');
-                              //   } else {
-                              //     FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                              //         'tab bar CiC FIXED INCOME FUND');
-                              //   }
-                              //   priceController.tabController;
-                              // });
                             },
                             padding: const EdgeInsets.only(left: 10.0),
                             controller: priceController.tabController,
@@ -248,69 +273,30 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                                 onTap: () async {
                                   // await LocalData.storeAppTou('appTour', true);
                                   priceController.tabController.index == 0
-                                      ? CiCApp.showOverlays(
-                                          context: context,
-                                          key: (_) =>
-                                              _guidkey.investmentKey[_].key!,
-                                          objectSettingBuilder: (_) =>
-                                              ObjectSetting(
-                                                  edgeInsets: _ == 0 || _ == 4
-                                                      ? const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 10)
-                                                      : const EdgeInsets.all(
-                                                          10),
-                                                  radius: _ == 2
-                                                      ? BorderRadius.circular(
-                                                          50)
-                                                      : null,
-                                                  paddingSize: _ == 0 || _ == 4
-                                                      ? const Size(0, -5)
-                                                      : _ == 3
-                                                          ? const Size(0, -10)
-                                                          : null),
-                                          titleBuilder: (_) =>
-                                              _guidkey.investmentKey[_].title ??
-                                              '',
-                                          descriptionBuilder: (_) =>
-                                              _guidkey.investmentKey[_]
-                                                  .description ??
-                                              '',
-                                          itemCount:
-                                              _guidkey.investmentKey.length,
-                                          allowSkip: true,
-                                          overlaySetting: OverlaySetting(),
-                                        )
-                                      : CiCApp.showOverlays(
-                                          context: context,
-                                          key: (_) =>
-                                              _guidkey.investmentFiF[_].key!,
-                                          objectSettingBuilder: (_) =>
-                                              ObjectSetting(
-                                                  edgeInsets: _ == 0
-                                                      ? const EdgeInsets.only(
-                                                          top: 15)
-                                                      : null,
-                                                  radius:
-                                                      _ == 0
-                                                          ? BorderRadius
-                                                              .circular(12)
-                                                          : null,
-                                                  paddingSize: _ == 0
-                                                      ? const Size(-39, -29)
-                                                      : null),
-                                          titleBuilder: (_) =>
-                                              _guidkey.investmentFiF[_].title ??
-                                              '',
-                                          descriptionBuilder: (_) =>
-                                              _guidkey.investmentFiF[_]
-                                                  .description ??
-                                              '',
-                                          itemCount:
-                                              _guidkey.investmentFiF.length,
-                                          allowSkip: true,
-                                          overlaySetting: OverlaySetting(),
-                                        );
+                                      ? priceController.cicEquityScroll
+                                          .animateTo(0,
+                                              duration: const Duration(
+                                                  milliseconds: 200),
+                                              curve: Curves.linear)
+                                          .then((value) {
+                                          Future.delayed(
+                                              const Duration(milliseconds: 500),
+                                              () {
+                                            _cicEquityGuide();
+                                          });
+                                        })
+                                      : priceController.cicFixedIncomeScroll
+                                          .animateTo(0,
+                                              duration: const Duration(
+                                                  milliseconds: 200),
+                                              curve: Curves.linear)
+                                          .then((value) {
+                                          Future.delayed(
+                                              const Duration(milliseconds: 500),
+                                              () {
+                                            _cicFixedIncomeGuide();
+                                          });
+                                        });
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 10.0),
@@ -363,13 +349,4 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       ),
     );
   }
-
-  onRefresh() {}
-}
-
-class SalesData {
-  SalesData(this.year, this.sales);
-
-  final String year;
-  final double sales;
 }

@@ -46,6 +46,9 @@ import '../model/view_agreement/view_agreement.dart';
 import '../screen/bullet_payment_detail.dart';
 
 class PriceController extends GetxController {
+  final cicEquityScroll = ScrollController();
+  final cicFixedIncomeScroll = ScrollController();
+
   final customCon = Get.put(CustomerController());
   final price = Price().obs;
   final isInvestLoading = false.obs;

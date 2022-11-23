@@ -43,7 +43,6 @@ class _WalletScreenState extends State<WalletScreen>
   void initState() {
     _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
     _walletController.fetchWalletAmount();
-
     newCashOutCon.fetchbonusSetting();
     newCashOutCon.fectchBalance();
     priceController.onFetchPrice();
@@ -52,6 +51,8 @@ class _WalletScreenState extends State<WalletScreen>
 
     super.initState();
   }
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -106,8 +107,15 @@ class _WalletScreenState extends State<WalletScreen>
                 padding: const EdgeInsets.only(right: 10.0),
                 child: GestureDetector(
                   onTap: () async {
-                    _showGuildLine();
-                    // await LocalData.storeAppTou('appTour', true);
+                    _scrollController
+                        .animateTo(0,
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.linear)
+                        .then((value) {
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        _showGuildLine();
+                      });
+                    });
                   },
                   child: SvgPicture.asset('assets/images/demo.svg'),
                 ),
@@ -115,6 +123,7 @@ class _WalletScreenState extends State<WalletScreen>
             ],
           ),
           body: NestedScrollView(
+            controller: _scrollController,
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[

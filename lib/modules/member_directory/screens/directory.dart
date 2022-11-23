@@ -201,6 +201,8 @@ class _DirectoryState extends State<Directory> {
     );
   }
 
+  final _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return DefaultSizeWeb(
@@ -236,7 +238,7 @@ class _DirectoryState extends State<Directory> {
                 },
                 child: CustomScrollView(
                   physics: const BouncingScrollPhysics(),
-                  // controller: ScrollController(),
+                  controller: _scrollController,
                   slivers: [
                     SliverAppBar(
                       elevation: 0,
@@ -459,8 +461,16 @@ class _DirectoryState extends State<Directory> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: GestureDetector(
                   onTap: () async {
+                    _scrollController
+                        .animateTo(0,
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.linear)
+                        .then((value) {
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        _showGuildLine();
+                      });
+                    });
                     // await LocalData.storeAppTou('appTour', true);
-                    _showGuildLine();
                   },
                   child: SvgPicture.asset('assets/images/demo.svg'),
                 ),

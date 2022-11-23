@@ -117,6 +117,8 @@ class _UTtradingState extends State<UTtrading>
   }
 
   final refreshkey = GlobalKey<RefreshIndicatorState>();
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
@@ -169,6 +171,7 @@ class _UTtradingState extends State<UTtrading>
                                 onRefresh: onRefresh,
                                 key: refreshkey,
                                 child: NestedScrollView(
+                                  controller: _scrollController,
                                   body: Container(
                                     color: Colors.white,
                                     padding: const EdgeInsets.only(
@@ -434,55 +437,17 @@ class _UTtradingState extends State<UTtrading>
                               height: 38.0,
                             ),
                             onPressed: () {
-                              CiCApp.showOverlays(
-                                context: context,
-                                itemCount: _guider.utTrading.length,
-                                key: (index) => _guider.utTrading[index].key!,
-                                titleBuilder: (index) =>
-                                    _guider.utTrading[index].title ?? '',
-                                descriptionBuilder: (index) =>
-                                    _guider.utTrading[index].description ?? '',
-                                objectSettingBuilder: (index) => index == 0
-                                    ? ObjectSetting(
-                                        edgeInsets:
-                                            const EdgeInsets.only(right: 7),
-                                        paddingSize: const Size(-14, 0),
-                                        radius: BorderRadius.circular(8))
-                                    : index == 0
-                                        ? ObjectSetting(
-                                            edgeInsets:
-                                                const EdgeInsets.only(right: 7),
-                                            paddingSize: const Size(0, -5),
-                                            radius: BorderRadius.circular(8))
-                                        : index == 2 || index == 3 || index == 4
-                                            ? ObjectSetting(
-                                                paddingSize:
-                                                    const Size(-20, 10),
-                                                radius:
-                                                    BorderRadius.circular(8),
-                                              )
-                                            : index == 5
-                                                ? ObjectSetting(
-                                                    paddingSize:
-                                                        const Size(-20, -10),
-                                                  )
-                                                : index == 1
-                                                    ? ObjectSetting(
-                                                        paddingSize:
-                                                            const Size(10, 5),
-                                                      )
-                                                    : ObjectSetting(
-                                                        paddingSize:
-                                                            const Size(0, 0),
-                                                      ),
-                              );
-                              // FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                              //     "General Instruction");
-                              // onShowCustomCupertinoModalSheet(
-                              //     context: context,
-                              //     child: const UTManagement(),
-                              //     title: 'General Instruction',
-                              //     icon: const Icon(Icons.clear));
+                              _scrollController
+                                  .animateTo(0,
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.linear)
+                                  .then((value) {
+                                Future.delayed(
+                                    const Duration(milliseconds: 500), () {
+                                  _showGuildLine();
+                                });
+                              });
                             },
                           ),
                           CustomCallCenter(
@@ -500,6 +465,42 @@ class _UTtradingState extends State<UTtrading>
           ),
         );
       }),
+    );
+  }
+
+  void _showGuildLine() {
+    CiCApp.showOverlays(
+      context: context,
+      itemCount: _guider.utTrading.length,
+      key: (index) => _guider.utTrading[index].key!,
+      titleBuilder: (index) => _guider.utTrading[index].title ?? '',
+      descriptionBuilder: (index) => _guider.utTrading[index].description ?? '',
+      objectSettingBuilder: (index) => index == 0
+          ? ObjectSetting(
+              edgeInsets: const EdgeInsets.only(right: 7),
+              paddingSize: const Size(-14, 0),
+              radius: BorderRadius.circular(8))
+          : index == 0
+              ? ObjectSetting(
+                  edgeInsets: const EdgeInsets.only(right: 7),
+                  paddingSize: const Size(0, -5),
+                  radius: BorderRadius.circular(8))
+              : index == 2 || index == 3 || index == 4
+                  ? ObjectSetting(
+                      paddingSize: const Size(-20, 10),
+                      radius: BorderRadius.circular(8),
+                    )
+                  : index == 5
+                      ? ObjectSetting(
+                          paddingSize: const Size(-20, -10),
+                        )
+                      : index == 1
+                          ? ObjectSetting(
+                              paddingSize: const Size(10, 5),
+                            )
+                          : ObjectSetting(
+                              paddingSize: const Size(0, 0),
+                            ),
     );
   }
 }

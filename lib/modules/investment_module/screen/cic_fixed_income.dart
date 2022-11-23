@@ -141,6 +141,8 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
             SizedBox(
               height: MediaQuery.of(context).size.height - 160,
               child: NestedScrollView(
+                controller:
+                    InjectionHelper.investmentController.cicFixedIncomeScroll,
                 physics: const AlwaysScrollableScrollPhysics(),
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   return [
