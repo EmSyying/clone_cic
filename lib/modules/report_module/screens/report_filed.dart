@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,6 +7,7 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/option_controller/option_controller.dart';
 import '../../../widgets/privilege/privilege/custom_formfield_search.dart';
 import '../../../widgets/report/custom_list_with_title.dart';
+import '../../../widgets/report/report_shimmer.dart';
 import '../controllers/documentation_controller.dart';
 
 class FileCategoriesReport extends StatefulWidget {
@@ -22,13 +25,37 @@ class FileCategoriesReport extends StatefulWidget {
 class _FileCategoriesReportState extends State<FileCategoriesReport> {
   final docTypeCon = Get.put(DocumentCategory());
   final documentCon = Get.put(DocumentationController());
+  Timer? searchOnStoppedTyping;
+  @override
+  void dispose() {
+    documentCon.onClearSearch();
+    super.dispose();
+  }
+
   @override
   void initState() {
-    documentCon.fetchReportFileByYear(widget.id);
+    documentCon.fetchReportFileByYear(widget.id, '');
+
     super.initState();
   }
 
-  int selectIndex = 0;
+  onChangeHandler(value) {
+    const duration = Duration(milliseconds: 800);
+    if (searchOnStoppedTyping != null) {
+      setState(() => searchOnStoppedTyping!.cancel());
+    }
+    setState(
+      () => searchOnStoppedTyping = Timer(duration, () => searchText(value)),
+    );
+  }
+
+  searchText(textSearch) async {
+    await documentCon
+        .fetchReportFileByYear(widget.id, textSearch)
+        .then((value) {
+      documentCon.textSearchController.text = textSearch;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +71,15 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
       ),
       body: Obx(
         () => documentCon.isLoadingReportFile.value
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+            ? ListView.builder(
+                padding: const EdgeInsets.only(top: 20),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: ReportShimmer(),
+                  );
+                })
             : SingleChildScrollView(
                 child: Column(
                   children: [
@@ -64,8 +97,10 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
                       ),
                       child: CustomFormFieldSearch(
                         onSaved: (e) {},
-                        onChanged: (v) {},
-                        //  controller: privilegController.textSearchController,
+                        onChanged: (v) {
+                          onChangeHandler(v);
+                        },
+                        controller: documentCon.textSearchController,
                         keyboardType: TextInputType.name,
                       ),
                     ),
@@ -84,7 +119,7 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
                             ),
                           )
                           .toList(),
-                    )
+                    ),
                   ],
                 ),
               ),

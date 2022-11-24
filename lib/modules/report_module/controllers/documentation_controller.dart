@@ -52,16 +52,23 @@ class DocumentationController extends GetxController {
   }
 
 //Report group by years
+  onClearSearch() {
+    modelReportGroupByYear.clear();
+
+    textSearchController.clear();
+  }
+
   final modelReportGroupByYear = <ListReportModel>[].obs;
   final getTitle = ''.obs;
   final isLoadingReportFile = false.obs;
-  Future<void> fetchReportFileByYear(int? id) async {
+  final TextEditingController textSearchController = TextEditingController();
+  Future<void> fetchReportFileByYear(int? id, String? keySearch) async {
     isLoadingReportFile(true);
     await _apiBasehelper
         .onNetworkRequesting(
       methode: METHODE.get,
       isAuthorize: true,
-      url: 'documentation/list/$id',
+      url: 'documentation/list?category_id=$id&term=$keySearch',
     )
         .then((response) {
       debugPrint('Report group by file :===${response!}');
@@ -79,8 +86,38 @@ class DocumentationController extends GetxController {
       debugPrint('Report group error:======${errorModel.bodyString}');
       isLoadingReportFile(false);
     });
-    // return listReportGroupByYear;
   }
+
+// function search report by term
+  // final searchReport = ListReportModel().obs;
+  // final searchReportList = <ListReportModel>[].obs;
+  // final searchReportLoading = false.obs;
+  // final TextEditingController textSearchController = TextEditingController();
+  // Future<List<ListReportModel>> onSearchReport() async {
+  //   searchReportLoading(true);
+  //   await _apiBasehelper
+  //       .onNetworkRequesting(
+  //     url: 'documentation/list?category_id=98&term=05',
+  //     methode: METHODE.get,
+  //     isAuthorize: true,
+  //   )
+  //       .then((response) {
+  //     debugPrint('Report Search function data:===${response!}');
+  //     var responseJson = response['data'];
+  //     searchReportList.clear();
+  //     responseJson.map((e) {
+  //       searchReport.value = ListReportModel.fromJson(e);
+  //       searchReportList.add(searchReport.value);
+  //     }).toList();
+  //     debugPrint('Report Search key reports :===${searchReportList.length}');
+  //     searchReportLoading(false);
+  //   }).onError((ErrorModel errorModel, stackTrace) {
+  //     debugPrint('Report error :===${errorModel.bodyString}');
+  //     searchReportLoading(false);
+  //   });
+
+  //   return searchReportList;
+  // }
 
   Future<List<ReportGroupByYearModel>> getDocumentList(String docType) async {
     tokenKey = await LocalData.getCurrentUser();

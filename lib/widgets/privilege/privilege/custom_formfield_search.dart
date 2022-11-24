@@ -45,7 +45,7 @@ class CustomFormFieldSearch extends StatelessWidget {
                   ),
               border: InputBorder.none,
               fillColor: AppColor.backgroundColor,
-              contentPadding: const EdgeInsets.only(bottom: 10),
+              contentPadding: const EdgeInsets.only(bottom: 12),
             ),
           ),
         ),
