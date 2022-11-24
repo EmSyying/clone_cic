@@ -109,10 +109,11 @@ class PopUpAnnouncement extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Divider(
-                  height: 0,
-                  thickness: 1,
-                ),
+                if (notificationModel!.data!.button != null)
+                  const Divider(
+                    height: 0,
+                    thickness: 1,
+                  ),
                 if (notificationModel!.data!.button != null)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
