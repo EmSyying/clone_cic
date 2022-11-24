@@ -21,6 +21,7 @@ class DocumentCategory extends GetxController {
   final positionList = <DocumentType>[].obs;
   final optionFormFilterList = <OptionFormFilter>[].obs;
   final nationalList = <DocumentType>[].obs;
+  final relationShip = <DocumentType>[].obs;
   final identityTypeList = <DocumentType>[].obs;
   final genderList = <DocumentType>[].obs;
   final shiftWorkList = <DocumentType>[].obs;
@@ -144,6 +145,14 @@ class DocumentCategory extends GetxController {
             responseJson['shift_works'].map(
               (jsonData) {
                 shiftWorkList.add(DocumentType.fromJson(jsonData));
+              },
+            ).toList();
+          }
+          relationShip.clear();
+          if (responseJson['relationship'] != null) {
+            responseJson['relationship'].map(
+              (jsonData) {
+                relationShip.add(DocumentType.fromJson(jsonData));
               },
             ).toList();
           }
