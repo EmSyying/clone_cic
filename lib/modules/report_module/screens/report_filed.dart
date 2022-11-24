@@ -116,6 +116,7 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
                               .toList(),
                         )
                       : const CustomEmptyState(
+                          colors: true,
                           title: 'Report',
                           description: 'No File Report !',
                         ),
