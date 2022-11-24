@@ -70,49 +70,42 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
         title: widget.tabLabel,
         //'Report',
       ),
-      body: Obx(
-        () => documentCon.isLoadingReportFile.value
-            ? ListView.builder(
-                padding: const EdgeInsets.only(top: 20),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: ReportShimmer(),
-                  );
-                })
-            : documentCon.modelReportGroupByYear.isNotEmpty
-                ? SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 38,
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 11,
-                          ),
-                          margin: const EdgeInsets.only(
-                              top: 20.0, right: 20.0, left: 20.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: CustomFormFieldSearch(
-                            onSaved: (e) {},
-                            onChanged: (v) {
-                              onChangeHandler(v);
-                            },
-                            controller: documentCon.textSearchController,
-                            keyboardType: TextInputType.name,
-                          ),
-                        ),
-                        // Expanded(
-                        //   child: InvestorPage(
-                        //     tabLabel: docTypeCon.documentTypeList[widget.currentTabIndex].id
-                        //         .toString(),
-                        //   ),
-                        // ),
-                        Column(
+      body: Obx(() => documentCon.isLoadingReportFile.value
+          ? ListView.builder(
+              padding: const EdgeInsets.only(top: 20),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: ReportShimmer(),
+                );
+              })
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 38,
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 11,
+                    ),
+                    margin: const EdgeInsets.only(
+                        top: 20.0, right: 20.0, left: 20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: CustomFormFieldSearch(
+                      onSaved: (e) {},
+                      onChanged: (v) {
+                        onChangeHandler(v);
+                      },
+                      controller: documentCon.textSearchController,
+                      keyboardType: TextInputType.name,
+                    ),
+                  ),
+                  documentCon.modelReportGroupByYear.isNotEmpty
+                      ? Column(
                           children: documentCon.modelReportGroupByYear
                               .map(
                                 (e) => CustomListWithTitle(
@@ -121,15 +114,14 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
                                 ),
                               )
                               .toList(),
+                        )
+                      : const CustomEmptyState(
+                          title: 'Report',
+                          description: 'No File Report !',
                         ),
-                      ],
-                    ),
-                  )
-                : const CustomEmptyState(
-                    title: 'Report',
-                    description: 'No File Report !',
-                  ),
-      ),
+                ],
+              ),
+            )),
     );
   }
 }
