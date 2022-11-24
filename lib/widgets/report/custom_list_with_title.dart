@@ -42,8 +42,9 @@ class CustomListWithTitle extends StatelessWidget {
           itemBuilder: (context, index) => GestureDetector(
             onTap: () {
               //  debugPrint("Url: ${items[index].attachedFile}");
+
               context.push(
-                  '/setting/cic-app-manual/view-report?attachedFile=${items[index].attachedFile}&url=${items[index].attachedFile}&title=CiC App Manual');
+                  '/setting/cic-app-manual/view-report?attachedFile=${items[index].attachedFile}&title=${items[index].title}&url=${items[index].url}');
             },
             child: CustomDocumentCard(
               documentationModel: items[index],
