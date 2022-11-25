@@ -34,7 +34,10 @@ import '../wallet/controller/wallet_controller.dart';
 
 class QrCodeScreen extends StatefulWidget {
   final String? pageName;
-  const QrCodeScreen({Key? key, this.pageName}) : super(key: key);
+  const QrCodeScreen({
+    Key? key,
+    this.pageName,
+  }) : super(key: key);
 
   @override
   State<QrCodeScreen> createState() => _QrCodeScreenState();
@@ -178,6 +181,21 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                             false);
                                                     _settingCon.update();
                                                   });
+                                                },
+                                              );
+                                            }
+
+                                            ///Scan from shop payment
+                                            if (resultQR != null &&
+                                                resultQR!.contains('shop')) {
+                                              cameraController.stop().then(
+                                                (value) {
+                                                  int shopId = int.parse(
+                                                    resultQR!
+                                                        .replaceAll('shop', ''),
+                                                  );
+                                                  context.push(
+                                                      '/privilege-payment/$shopId');
                                                 },
                                               );
                                             }
@@ -475,22 +493,23 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                               ),
 
                             // privilege shop
-                            if (resultQR != null && resultQR!.contains('shop'))
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5),
-                                child: CustomButton(
-                                  isDisable: false,
-                                  isOutline: false,
-                                  onPressed: () async {
-                                    int shopId = int.parse(
-                                      resultQR!.replaceAll('shop', ''),
-                                    );
-                                    context.push('/privilege-payment/$shopId');
-                                  },
-                                  title: 'Enter Amount',
-                                ),
-                              ),
+
+                            // if (resultQR != null && resultQR!.contains('shop'))
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(
+                            //       horizontal: 20, vertical: 5),
+                            //   child: CustomButton(
+                            //     isDisable: false,
+                            //     isOutline: false,
+                            //     onPressed: () async {
+                            // int shopId = int.parse(
+                            //   resultQR!.replaceAll('shop', ''),
+                            // );
+                            // context.push('/privilege-payment/$shopId');
+                            //     },
+                            //     title: 'Enter Amount',
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

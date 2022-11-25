@@ -25,6 +25,9 @@ class PaymentDoneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final priCont = Get.put(PrivilegeController());
     final settingCon = Get.put(SettingController());
+    // if (id != null) {
+    //   priCont.shopId.value = id!;
+    // }
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -46,15 +49,13 @@ class PaymentDoneScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(
-                          top: 20.0,
-                        ),
+                        color: Colors.transparent,
                         child: LottieBuilder.asset(
                           "assets/images/animation/lf30_editor_g4pvkudk.json",
-                          height: 220,
+                          height: 330,
                           repeat: false,
                           fit: BoxFit.cover,
-                          alignment: Alignment.topCenter,
+                          alignment: Alignment.center,
                           frameRate: FrameRate(100),
                         ),
                       ),
@@ -146,7 +147,7 @@ class PaymentDoneScreen extends StatelessWidget {
                         0; //change homescreen to dashboard
                     settingCon.onHideBottomNavigationBar(false);
                     settingCon.update();
-
+                    //context.go('/privilege-payment/$id');
                     context.go('/');
                   },
                   title: 'Done',
