@@ -33,7 +33,7 @@ class PaymentDoneScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          elevation: 1.0,
+          elevation: 05,
           title: const Text(
             'Member ID: CiC123456',
             style: TextStyle(
@@ -59,9 +59,6 @@ class PaymentDoneScreen extends StatelessWidget {
                           frameRate: FrameRate(100),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
                       Text(
                         "Success",
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -69,6 +66,9 @@ class PaymentDoneScreen extends StatelessWidget {
                               fontSize: 28,
                               fontWeight: FontWeight.w700,
                             ),
+                      ),
+                      const SizedBox(
+                        height: 6.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
