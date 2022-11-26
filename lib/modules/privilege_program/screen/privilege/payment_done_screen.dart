@@ -33,7 +33,7 @@ class PaymentDoneScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          elevation: 05,
+          elevation: 0.5,
           title: const Text(
             'Member ID: CiC123456',
             style: TextStyle(
