@@ -51,35 +51,21 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            sloganLogo != null && sloganLogo != ''
-                ? Container(
-                    width: 80,
-                    height: 80,
-                    padding: const EdgeInsets.all(0.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          sloganLogo!,
-                        ),
-                      ),
-                    ),
-                  )
-                : Container(
-                    width: 80,
-                    height: 80,
-                    padding: const EdgeInsets.all(0.0),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          'https://cic.fra1.cdn.digitaloceanspaces.com//cicstaging//uploads//files//original////5f61e2b4912c67f1f5700ab533b606d0.jpg',
-                        ),
-                      ),
-                    ),
+            Container(
+              width: 80,
+              height: 80,
+              padding: const EdgeInsets.all(0.0),
+              decoration: BoxDecoration(
+                color: AppColor.secondaryColor,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    sloganLogo ?? '',
                   ),
+                ),
+              ),
+            ),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.only(left: 6),

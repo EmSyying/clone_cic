@@ -182,15 +182,19 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      width: double.infinity,
-                                      color: Colors.transparent,
-                                      child: Image.network(
-                                        priController
-                                                .shopDetailModel.value.cover ??
-                                            '',
-                                        fit: BoxFit.cover,
-                                        height: 250,
-                                      ),
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      padding: const EdgeInsets.all(0.0),
+                                      decoration: BoxDecoration(
+                                          color: AppColor.secondaryColor,
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                              priController.shopDetailModel
+                                                      .value.cover ??
+                                                  '',
+                                            ),
+                                          )),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
