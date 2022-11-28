@@ -43,27 +43,26 @@ class ComponentCardCategory extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                Align(
-                  alignment: AlignmentDirectional.bottomEnd,
+                Positioned(
+                  bottom: -5,
+                  right: -5,
                   child: SvgPicture.network(
                     modelCardCategory!.image ?? '',
                   ),
-                  // Image.network(
-                  //   modelCardCategory!.image ?? '',
-                  //   width: 80,
-                  // ),
                 ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 10, bottom: 10),
-                  child: Text(
-                    modelCardCategory!.name ?? '',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                Positioned.fill(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    child: Text(
+                      modelCardCategory!.name ?? '',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
                   ),
                 ),
               ],

@@ -173,7 +173,7 @@ class PrivilegeController extends GetxController {
       isAuthorize: true,
     )
         .then((response) {
-      // debugPrint("Resonse body json privilege:$response");
+      debugPrint("Resonse body json privilege:$response");
 
       var responseJson = response['data'];
       shopDetailModel.value = PrivilegeShopModel.fromJson(responseJson);

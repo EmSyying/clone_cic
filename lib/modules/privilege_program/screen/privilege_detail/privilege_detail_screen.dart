@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/privilege_photo_views.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../Utils/image_view/image_view_file.dart';
 import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/custom_fovarite.dart';
 import '../../../../widgets/privilege/privilege_detail/custom_card_allstores_datil.dart';
 import '../../../event_module/controller/event_controller.dart';
-import '../../../event_module/screen/pop_up_dialog.dart';
 import '../../controller/privilege_controller.dart';
 
 class PrivilegeDetailScreen extends StatefulWidget {
@@ -37,15 +37,40 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
   final priController = Get.put(PrivilegeController());
   final eventController = Get.put(EventController());
 
+  final today = DateTime.now().weekday;
+
+  final dayOfWeek = {
+    'monday': 1,
+    'tuesday': 2,
+    'wednesday': 3,
+    'thursday': 4,
+    'friday': 5,
+    'saturday': 6,
+    'sunday': 7,
+  };
+
+  int? dayBeforeToday;
+
+  void _checkDay() {
+    int? todayIndex;
+    priController.shopDetailModel.value.openingDays?.asMap().entries.map((e) {
+      if (_isToday(e.value.dayName ?? '')) {
+        todayIndex = e.key;
+      }
+    }).toList();
+
+    if (todayIndex != null && todayIndex! > 0) {
+      dayBeforeToday = todayIndex! - 1;
+    }
+  }
+
+  bool _isToday(String day) => today == dayOfWeek[day.toLowerCase()];
+
   @override
   void initState() {
-    priController.onFetchShopDetail(widget.id);
-
-    if (widget.id != 0 && widget.id != null) {
-      priController.onFetchShopDetail(widget.id).then((value) {
-        debugPrint('pro code = ${priController.shopId.value}');
-      });
-    }
+    priController.onFetchShopDetail(widget.id).then((value) {
+      _checkDay();
+    });
     super.initState();
   }
 
@@ -107,32 +132,6 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   });
                                   // preController.shopDetailModel.refresh();
                                 },
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(right: 20),
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: isBoxIsScroll
-                                      ? Colors.transparent
-                                      : Colors.white.withOpacity(0.6),
-                                  shape: BoxShape.circle,
-                                ),
-                                alignment: Alignment.center,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.ios_share_outlined,
-                                    color: isBoxIsScroll
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                  onPressed: () {
-                                    onShowChoice(
-                                      context,
-                                      (value) {},
-                                    );
-                                  },
-                                ),
                               ),
                             ],
                           ),
@@ -215,9 +214,9 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                                   .value.fullAddress!,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline5!
+                                                  .subtitle2!
                                                   .copyWith(
-                                                    fontWeight: FontWeight.w200,
+                                                    fontWeight: FontWeight.w400,
                                                     color:
                                                         const Color(0xff464646),
                                                     letterSpacing: 0.2,
@@ -259,11 +258,6 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                   child: Container(
                     width: double.infinity,
                     margin: const EdgeInsets.only(top: 110),
-                    padding: const EdgeInsets.only(
-                      right: 20.0,
-                      left: 20.0,
-                      top: 20.0,
-                    ),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(14.0),
@@ -276,6 +270,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                         Container(
                           margin: const EdgeInsets.only(
                             bottom: 20.0,
+                          ),
+                          padding: const EdgeInsets.only(
+                            right: 20.0,
+                            left: 20.0,
+                            top: 20.0,
                           ),
                           width: double.infinity,
                           child: CupertinoSlidingSegmentedControl(
@@ -344,10 +343,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                           ),
                         ),
 
-                        ///
+                        ///Bottom Button
                         SafeArea(
                           top: false,
-                          minimum: const EdgeInsets.only(bottom: 20.0),
+                          minimum: const EdgeInsets.only(
+                              bottom: 20.0, left: 20, right: 20),
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -387,30 +387,31 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   onPressed: () {
                                     showCupertinoModalPopup(
                                       context: context,
-                                      builder: (BuildContext context) =>
-                                     
-                                          CupertinoActionSheet(
+                                      builder: (_) => CupertinoActionSheet(
                                         actions: priController
                                             .shopDetailModel.value.contacts!
-                                            .asMap()
-                                            .entries
                                             .map(
-                                              (e) => cupertinoActionSheet(
-                                                phone: e.value.phone,
-                                                mobile: e.value.mobile,
+                                              (e) => _cupertinoActionSheet(
+                                                phone: e.mobile ?? e.phone,
                                               ),
                                             )
                                             .toList(),
                                         cancelButton:
                                             CupertinoActionSheetAction(
-                                          child: const Text(
+                                          child: Text(
                                             'Cancel',
-                                            style: TextStyle(
-                                              color: AppColor.mainColor,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                  color:
+                                                      const Color(0xff007AFF),
+                                                ),
                                           ),
                                           onPressed: () {
-                                            Navigator.pop(context, 'Cancel');
+                                            Navigator.pop(context);
                                           },
                                         ),
                                       ),
@@ -446,110 +447,124 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
     );
   }
 
-  Widget cupertinoActionSheet({String? phone, String? mobile}) {
+  Widget _cupertinoActionSheet({String? phone}) {
     return CupertinoActionSheetAction(
-      child: Column(
-        verticalDirection: VerticalDirection.up,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: () {
-              launchUrl(Uri.parse('tel://$phone'));
-            },
-            child: Text(
-              phone ?? '',
-              style: Theme.of(context).textTheme.headline3!.copyWith(
-                    fontWeight: FontWeight.w200,
-                    fontSize: 20.0,
-                  ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              launchUrl(Uri.parse('tel://$mobile'));
-            },
-            child: Text(
-              mobile ?? '',
-              style: Theme.of(context).textTheme.headline3!.copyWith(
-                    fontWeight: FontWeight.w200,
-                    fontSize: 20.0,
-                  ),
-            ),
-          ),
-        ],
+      child: Text(
+        phone ?? '',
+        style: Theme.of(context).textTheme.headline3!.copyWith(
+            fontWeight: FontWeight.w500,
+            fontSize: 20.0,
+            color: const Color(0xff007AFF)),
       ),
-      onPressed: () {},
+      onPressed: () {
+        launchUrl(
+          Uri.parse('tel://$phone'),
+        );
+      },
     );
   }
 
   Widget buildService() => SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Description',
-              style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-            ),
-            const SizedBox(height: 10),
-            HtmlWidget(
-              priController.shopDetailModel.value.description ?? '',
-              textStyle: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                  ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Our Service',
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2!
-                  .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
-            ),
-            const SizedBox(height: 10),
-            HtmlWidget(
-              priController.shopDetailModel.value.productOrService ?? '',
-              textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Description',
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    ),
+              ),
+              const SizedBox(height: 10),
+              HtmlWidget(
+                priController.shopDetailModel.value.description ?? '',
+                textStyle: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                    ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Our Service',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2!
+                    .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+              ),
+              const SizedBox(height: 10),
+              HtmlWidget(
+                priController.shopDetailModel.value.productOrService ?? '',
+                textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
                     fontWeight: FontWeight.w400,
                     letterSpacing: 0.2,
-                  ),
-            ),
-          ],
+                    fontSize: 14),
+              ),
+            ],
+          ),
         ),
       );
 
-  Widget buildSchedule() =>
-      priController.shopDetailModel.value.openingDays!.isNotEmpty
-          ? SingleChildScrollView(
-              child: Column(
+  Widget buildSchedule() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: priController.shopDetailModel.value.openingDays!.isNotEmpty
+            ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: priController.shopDetailModel.value.openingDays!
-                    .asMap()
-                    .entries
-                    .map(
-                      (e) => openingDays(
-                        titleDay: e.value.dayName,
-                        timeMorning: e.value.shiftAHours,
-                        timeEvening: e.value.shiftBHours,
+                children: [
+                  Text(
+                    'Open Hours',
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: priController
+                              .shopDetailModel.value.openingDays?.length ??
+                          0,
+                      itemBuilder: (_, index) => _openingDays(
+                        istoday: _isToday(priController.shopDetailModel.value
+                                .openingDays?[index].dayName ??
+                            ""),
+                        titleDay: priController
+                            .shopDetailModel.value.openingDays?[index].dayName,
+                        startDate: priController.shopDetailModel.value
+                            .openingDays?[index].shiftAHours,
+                        endDate: priController.shopDetailModel.value
+                            .openingDays?[index].shiftBHours,
                       ),
-                    )
-                    .toList(),
+                      separatorBuilder: (_, index) => dayBeforeToday == index ||
+                              _isToday(priController.shopDetailModel.value
+                                      .openingDays?[index].dayName ??
+                                  '')
+                          ? const SizedBox.shrink()
+                          : const Divider(
+                              thickness: 1,
+                              height: 0,
+                            ),
+                    ),
+                  ),
+                ],
+              )
+            : const SingleChildScrollView(
+                child: CustomEmptyState(
+                  title: 'No Opending Days',
+                  description: 'It seems you have no opending days yet',
+                ),
               ),
-            )
-          : const SingleChildScrollView(
-              child: CustomEmptyState(
-                title: 'No Opending Days',
-                description: 'It seems you have no opending days yet',
-              ),
-            );
+      );
 
   Widget buildGridImage() =>
       priController.shopDetailModel.value.galleries!.isNotEmpty
           ? GridView.builder(
-              padding: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: priController.shopDetailModel.value.galleries!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -559,12 +574,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () async {
-                    await onPreviewImage(
-                      isNoIconDownload: false,
+                    await _onPreviewImage(
+                      context,
+                      id: index,
                       heroTag: 'view',
-                      context: context,
-                      imageUrl:
-                          priController.shopDetailModel.value.galleries![index],
+                      imageUrl: priController.shopDetailModel.value.galleries,
                     );
                   },
                   child: imageGalleries(
@@ -580,83 +594,84 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
               ),
             );
 
-  Widget openingDays({
+  Future<void> _onPreviewImage(
+    BuildContext context, {
+    int? id,
+    String? heroTag,
+    List<String>? imageUrl,
+  }) async {
+    await showMaterialModalBottomSheet(
+      context: context,
+      builder: (context) => PrivilegePhotoViews(
+        index: id,
+        imageUrl: imageUrl,
+      ),
+    );
+  }
+
+  Widget _openingDays({
     String? titleDay,
-    String? timeMorning,
-    String? timeEvening,
+    String? startDate,
+    String? endDate,
     bool istoday = false,
-    bool isytd = false,
   }) {
-    return Column(
-      children: [
-        Container(
-          height: 68,
-          padding: const EdgeInsets.only(
-            top: 16,
-            bottom: 16,
+    return Container(
+      height: 68,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: istoday ? Colors.grey[100] : Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Row(
+        children: [
+          istoday
+              ? const Icon(
+                  Icons.fiber_manual_record,
+                  size: 8,
+                  color: AppColor.lightblue,
+                )
+              : const SizedBox(),
+          const SizedBox(
+            width: 5,
           ),
-          decoration: BoxDecoration(
-            color: istoday ? Colors.grey[100] : Colors.white,
-            borderRadius: BorderRadius.circular(10.0),
+          Text(
+            titleDay ?? '',
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontWeight: FontWeight.w400,
+                ),
           ),
-          child: Row(
+          const Spacer(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              istoday
-                  ? const Icon(
-                      Icons.fiber_manual_record,
-                      size: 8,
-                      color: AppColor.lightblue,
-                    )
-                  : const SizedBox(),
-              const SizedBox(
-                width: 5,
-              ),
               Text(
-                titleDay ?? '',
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontWeight: FontWeight.w400,
-                    ),
+                startDate ?? '',
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-              const Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    timeMorning ?? '',
-                    style: const TextStyle(
+              if (endDate != null && endDate.isNotEmpty)
+                const Padding(
+                  padding: EdgeInsets.only(top: 6),
+                  child: Text(
+                    '',
+                    style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    timeEvening ?? '',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              )
+                ),
             ],
-          ),
-        ),
-        istoday || isytd
-            ? const SizedBox()
-            : const Divider(
-                height: 0,
-                thickness: 1,
-              ),
-      ],
+          )
+        ],
+      ),
     );
   }
 
   Widget imageGalleries(String? imgUrl) {
     return Container(
-      // height: MediaQuery.of(context).size.width / 2,
-      // width: MediaQuery.of(context).size.width / 1.4,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(
           Radius.circular(12),

@@ -113,6 +113,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
                     ),
@@ -136,8 +137,20 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.topRight,
-              child: Text(
-                discount!,
+              child: Text.rich(
+                TextSpan(
+                  text: discount?.replaceAll('%', ''),
+                  children: [
+                    TextSpan(
+                      text: '%',
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: AppColor.statusColor['pending'],
+                          ),
+                    ),
+                  ],
+                ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,

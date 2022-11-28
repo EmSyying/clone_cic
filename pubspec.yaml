@@ -158,7 +158,6 @@ flutter:
   assets:
     - assets/images/Logo/cic.png
     - assets/images/notificationicon/
-    - assets/cfg/
     - assets/images/svgfile/backgroundSlide.svg
     - assets/images/svgfile/
     - assets/images/

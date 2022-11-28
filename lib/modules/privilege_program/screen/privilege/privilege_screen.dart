@@ -267,7 +267,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   // ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 16, bottom: 16, left: 20, right: 20),
+                        top: 0, bottom: 16, left: 20, right: 20),
                     child: customCategTitle(
                       categoriesTil: 'Categories',
                       seeall: 'See All',
@@ -361,13 +361,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                             },
                             onTapFilter: () {
                               context.go("/privilege/all-stores/filter-item");
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) =>
-                              //         const PrivilegeFilters(),
-                              //   ),
-                              // );
                             },
                             titleStores: segmentedControlValue == 0
                                 ? '${preController.shopModelList.length} Stores'
@@ -430,16 +423,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                 ),
           ),
         ),
-        // GestureDetector(
-        //   onTap: onTapSeeAll,
-        //   child: Text(
-        //     seeall ?? '',
-        //     style: Theme.of(context).textTheme.headline3!.copyWith(
-        //           fontSize: 12,
-        //           fontWeight: FontWeight.w500,
-        //         ),
-        //   ),
-        // ),
       ],
     );
   }
