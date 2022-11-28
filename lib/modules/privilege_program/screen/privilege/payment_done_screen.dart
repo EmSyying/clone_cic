@@ -34,10 +34,12 @@ class PaymentDoneScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0.5,
-          title: const Text(
-            'Member ID: CiC123456',
-            style: TextStyle(
-              color: Colors.black,
+          title: const Center(
+            child: Text(
+              'SHOP PAYMENT',
+              style: TextStyle(
+                color: Colors.black,
+              ),
             ),
           ),
         ),
@@ -52,7 +54,7 @@ class PaymentDoneScreen extends StatelessWidget {
                         color: Colors.transparent,
                         child: LottieBuilder.asset(
                           "assets/images/animation/lf30_editor_g4pvkudk.json",
-                          height: 330,
+                          height: 340,
                           repeat: false,
                           fit: BoxFit.cover,
                           alignment: Alignment.center,

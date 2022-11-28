@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -209,7 +210,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   // Padding(
                   //   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -265,9 +266,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   //     ],
                   //   ),
                   // ),
+
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 0, bottom: 16, left: 20, right: 20),
+                        top: 0, bottom: 20, left: 20, right: 20),
                     child: customCategTitle(
                       categoriesTil: 'Categories',
                       seeall: 'See All',
@@ -422,6 +424,15 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   fontWeight: FontWeight.w700,
                 ),
           ),
+        ),
+        const Spacer(),
+        Text(
+          seeall ?? '',
+          style: Theme.of(context).textTheme.headline4!.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: AppColor.mainColor,
+              ),
         ),
       ],
     );
