@@ -23,7 +23,7 @@ class PrivilegePayment extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 1.0,
         title: const Text(
-          'Member ID: CiC123456',
+          'Shop Payment',
           style: TextStyle(
             color: Colors.black,
           ),

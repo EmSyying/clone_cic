@@ -36,7 +36,7 @@ class PaymentDoneScreen extends StatelessWidget {
           elevation: 0.5,
           title: const Center(
             child: Text(
-              'SHOP PAYMENT',
+              'Shop Payment',
               style: TextStyle(
                 color: Colors.black,
               ),
