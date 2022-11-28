@@ -42,6 +42,7 @@ class PaymentDoneScreen extends StatelessWidget {
               ),
             ),
           ),
+          automaticallyImplyLeading: false,
         ),
         body: Obx(
           () => Column(
