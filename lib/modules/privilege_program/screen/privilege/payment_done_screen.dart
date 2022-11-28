@@ -51,14 +51,17 @@ class PaymentDoneScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
+                        width: double.infinity,
+                        height: 280,
                         color: Colors.transparent,
-                        child: LottieBuilder.asset(
-                          "assets/images/animation/lf30_editor_g4pvkudk.json",
-                          height: 340,
-                          repeat: false,
-                          fit: BoxFit.cover,
-                          alignment: Alignment.center,
-                          frameRate: FrameRate(100),
+                        child: Center(
+                          child: LottieBuilder.asset(
+                            "assets/images/animation/lf30_editor_g4pvkudk.json",
+                            repeat: false,
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                            frameRate: FrameRate(100),
+                          ),
                         ),
                       ),
                       Text(
