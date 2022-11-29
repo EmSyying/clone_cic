@@ -33,13 +33,13 @@ Color _getColor(SnackType type) {
   }
 }
 
-customRouterSnackbar({
-  String? title,
-  String? description,
-  SnackType type = SnackType.normal,
-  bool prefix = false,
-  bool suffix = true,
-}) {
+customRouterSnackbar(
+    {String? title,
+    String? description,
+    SnackType type = SnackType.normal,
+    bool prefix = false,
+    bool suffix = true,
+    GestureTapCallback? onTap}) {
   ScaffoldMessenger.of(router.routerDelegate.navigatorKey.currentState!.context)
       .showSnackBar(
     SnackBar(
@@ -71,16 +71,25 @@ customRouterSnackbar({
                     description.isNotEmpty)
                   const SizedBox(height: 5),
                 if (description != null && description.isNotEmpty)
-                  Text(description),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(description),
+                      if (onTap != null) const Spacer(),
+                      if (onTap != null)
+                        GestureDetector(onTap: onTap, child: const Text('view'))
+                    ],
+                  ),
               ],
             ),
           ),
-          suffix
-              ? Icon(
-                  _getIcon(type),
-                  color: Colors.white,
-                )
-              : const SizedBox.shrink()
+          if (onTap == null)
+            suffix
+                ? Icon(
+                    _getIcon(type),
+                    color: Colors.white,
+                  )
+                : const SizedBox.shrink()
         ],
       ),
       backgroundColor: _getColor(type),
