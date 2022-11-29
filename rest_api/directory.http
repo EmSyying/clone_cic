@@ -22,7 +22,7 @@ Authorization: Bearer {{token}}
 
 
 ###
-GET {{baseUrl}}customer?page=1&show_cic_team=1
+GET {{baseUrl}}customer
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

@@ -1,110 +1,157 @@
-import 'package:cicgreenloan/Utils/form_builder/custom_drop_down.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import 'package:cicgreenloan/Utils/form_builder/custom_drop_down.dart';
+
 import '../../Utils/form_builder/custom_textformfield.dart';
+import '../../Utils/option_controller/option_controller.dart';
 import '../../modules/event_module/controller/event_controller.dart';
 import '../../modules/member_directory/controllers/customer_controller.dart';
 import '../../utils/form_builder/dropdow_item.dart';
 
-class CustomAddMoreGuest extends StatelessWidget {
+class CustomAddMoreGuest extends StatefulWidget {
   final GestureTapCallback? onTapDelete;
   final int? addGuest;
   final int? index;
+  final String? relationship;
+  final String? name;
+  final String? phone;
+  final Function(String)? onchangeName;
+  final Function(String)? onchangePhone;
+  final Function(Map<dynamic, dynamic>)? onchangeRelationship;
+
+  final TextEditingController? textEditing;
   const CustomAddMoreGuest({
     Key? key,
     this.onTapDelete,
     this.addGuest,
     this.index,
+    required this.relationship,
+    required this.name,
+    required this.phone,
+    this.onchangeName,
+    this.onchangePhone,
+    this.onchangeRelationship,
+    this.textEditing,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    bool? isValidatedCompanyName;
-    bool? isValidatedPhoneNubmer;
+  State<CustomAddMoreGuest> createState() => _CustomAddMoreGuestState();
+}
 
-    final customerController = Get.put(CustomerController());
-    final registerMemberController = Get.put(EventController());
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding:
-              const EdgeInsets.only(left: 20, top: 20, bottom: 10, right: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Guest $addGuest',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
-              ),
-              // if (addMoreGuest.indexWhere((element) => false) != 1)
-              GestureDetector(
-                  onTap: onTapDelete,
+class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
+  bool? isValidatedCompanyName;
+  bool? isValidatedPhoneNubmer;
+  final optionController = Get.put(DocumentCategory());
+  final customerController = Get.put(CustomerController());
+  final eventCon = Get.put(EventController());
+
+  @override
+  Widget build(BuildContext context) {
+    final nameController = TextEditingController()..text = widget.name ?? '';
+    final phoneController = TextEditingController()..text = widget.phone ?? '';
+
+    return Obx(
+      () => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 20, top: 20, bottom: 10, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Guest ${widget.addGuest}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+                // if (addMoreGuest.indexWhere((element) => false) != 1)
+                GestureDetector(
+                  onTap: widget.onTapDelete,
                   child: SvgPicture.asset(
                     'assets/images/svgfile/deleteIcon.svg',
                     width: 18,
                     height: 18,
-                  ))
-            ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        CustomTextFieldNew(
-          // key: companyNameKey,
-          isValidate: isValidatedCompanyName,
-          hintText: "Full Name",
-          labelText: "Full Name",
-          isRequired: true,
-          initialValue: '',
-          onChange: (value) {
-            if (value == "") {
-              isValidatedCompanyName = false;
-            } else {
-              customerController.customer.value.company = value;
-              isValidatedCompanyName = true;
-            }
-          },
-        ),
-        CustomTextFieldNew(
-          // key: phoneNumberKey,
-          isValidate: isValidatedPhoneNubmer,
-          hintText: "Phone Number",
-          labelText: "Phone Number",
-          isRequired: true,
-          initialValue: '',
-          onChange: (value) {
-            if (value == "") {
-              isValidatedPhoneNubmer = false;
-            } else {
-              customerController.customer.value.phone = value;
-              isValidatedPhoneNubmer = true;
-            }
-          },
-          onSave: (value) {
-            if (value == '') {
-              customerController.customer.value.phone!;
-            } else {
-              customerController.customer.value.phone = value;
-            }
-          },
-        ),
-        const CICDropdown(
-          label: 'Relationship',
-          colors: Colors.white,
-          isPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          isCompany: false,
-          item: [
-            DropDownItem(itemList: {
-              "Name": 'hello1',
-              "Code": "1",
-            })
-          ],
-        ),
-      ],
+          CustomTextFieldNew(
+            controller: nameController,
+            hintText: "Full Name",
+            labelText: "Full Name",
+            initialValue: widget.name == '' ? '' : widget.name,
+            onChange: (value) {
+              // if (value.isEmpty) {
+              //   widget.name.text = '';
+              //   isValidatedCompanyName = false;
+              // } else {
+              //   widget.name.text = value;
+              //   isValidatedCompanyName = true;
+              // }
+
+              widget.onchangeName!(value);
+            },
+          ),
+          CustomTextFieldNew(
+            controller: phoneController,
+            // key: phoneNumberKey,
+            hintText: "Phone Number",
+            labelText: "Phone Number",
+            keyboardType: TextInputType.number,
+            initialValue: widget.phone == '' ? '' : widget.phone,
+            onChange: (value) {
+              // if (value.isEmpty) {
+              //   widget.phone = '';
+              //   isValidatedPhoneNubmer = false;
+              // } else {
+              //   widget.phone = value;
+              //   isValidatedPhoneNubmer = true;
+              // }
+
+              widget.onchangePhone!(value);
+            },
+          ),
+          CICDropdown(
+            label: 'Relationship',
+            colors: Colors.white,
+            isPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            isCompany: false,
+            isNoRequired: true,
+            onChange: (value) {
+              // if (value.isEmpty) {
+              //   widget.relationship = '';
+              // } else {
+              //   widget.relationship = value["Name"];
+              // }
+              setState(() {
+                debugPrint("relationship ${widget.relationship}");
+              });
+              widget.onchangeRelationship!(value);
+            },
+            defaultValue: widget.relationship != ""
+                ? {
+                    "Code": widget.relationship,
+                    "Name": widget.relationship,
+                  }
+                : null,
+            item: optionController.relationShip.asMap().entries.map((e) {
+              return DropDownItem(itemList: {
+                "Name": e.value.display,
+                "Code": e.key,
+              });
+            }).toList(),
+          ),
+        ],
+      ),
     );
   }
 }
+
+List<int> textList = [1, 2, 3, 4, 5];

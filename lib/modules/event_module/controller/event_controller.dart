@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/Utils/helper/custom_route_snackbar.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/notify_share_pop_up.dart';
@@ -18,7 +19,6 @@ import 'package:http/http.dart' as http;
 
 import '../../../core/flavor/flavor_configuration.dart';
 import '../models/card_guests_model.dart';
-import '../models/event_check_in_model.dart';
 
 class EventController extends GetxController {
   String? tokenKey;
@@ -64,25 +64,6 @@ class EventController extends GetxController {
     fetchAllRegisteredMemeber("$eventID");
   }
 
-  List<EventCheckInModel> eventCheckIn = [
-    EventCheckInModel(
-      title: 'Name',
-      description: 'Suman Mcarthur',
-    ),
-    EventCheckInModel(
-      title: 'Event',
-      description: 'Real Estate Networking',
-    ),
-    EventCheckInModel(
-      title: 'Date and Time',
-      description: '07 March 2021 at 3:00 PM - 4:00 PM',
-    ),
-    EventCheckInModel(
-      title: 'Location',
-      description:
-          '#14, Floor 3th, Street 253, Phum 3, Sangkat beung Kak Khan Toul Kork, Phnom Penh',
-    )
-  ].obs;
   final listChecked = <CardGuestsModel>[].obs;
 
   onCheckSelected() {
@@ -460,7 +441,7 @@ class EventController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          onRefreshEventDetail(eventId);
+          onRefreshEventDetail(id: eventId);
 
           var responseJson = json.decode(response.body);
 
@@ -581,8 +562,96 @@ class EventController extends GetxController {
     return eventDetail.value;
   }
 
-  onRefreshEventDetail(int id) async {
+  onRefreshEventDetail({int? id}) async {
     eventDetail.value = EventData();
-    await fetchEventDetail(id);
+    await fetchEventDetail(id!);
   }
+
+  ApiBaseHelper apiBaseHelper = ApiBaseHelper();
+  //register with guest event
+
+  onClearGuest() {
+    guestName.value = '';
+    guestPhone.value = '';
+    guestRelationship.value = '';
+  }
+
+  final guestName = ''.obs;
+  final guestPhone = ''.obs;
+  final guestRelationship = ''.obs;
+  final isLoadingRegisterWithGuest = false.obs;
+  final guestlistmodel = <GuestModel>[GuestModel()].obs;
+  final eventTicketNum = ''.obs;
+  Future<void> onRegisterWithGuest(
+      {int? id, int? eventId, List<Map>? guest, BuildContext? context}) async {
+    isLoadingRegisterWithGuest(true);
+    await apiBaseHelper.onNetworkRequesting(
+      methode: METHODE.post,
+      isAuthorize: true,
+      url: 'registration',
+      body: {
+        "member_id": id,
+        "event_id": eventId,
+        "guest": guest
+        // !
+        //     .map((e) => {
+        //           "phone_number": '09876543',
+        //           "participant_name": 'test12',
+        //           "relationship": 'bro'
+        //         })
+        //     .toList()
+        // [
+        //   {
+        //     "phone_number": "09676543456",
+        //     "participant_name": "chammy123456",
+        //     "relationship": "1"
+        //   }
+        // ]
+      },
+    ).then((e) {
+      eventTicketNum.value = e[''];
+      fetchEventDetail(id!);
+      eventDetail.value.isRegister = true;
+      Navigator.pop(context!);
+      refresh();
+      update();
+      isLoadingRegisterWithGuest(false);
+      onClearGuest();
+    }).onError((ErrorModel error, stackTrace) {
+      isLoadingRegisterWithGuest(false);
+    });
+  }
+
+////submit check in
+  final isLoadingCheckIn = false.obs;
+  Future<void> onCheckInEvent(
+      {int? checkIn, String? dateCheckIn, int? eventId}) async {
+    isLoadingCheckIn(true);
+    await apiBaseHelper.onNetworkRequesting(
+        methode: METHODE.post,
+        isAuthorize: true,
+        url: 'checkin-guest',
+        body: {
+          "check_in": checkIn,
+          "check_in_date": dateCheckIn,
+          "event_id": eventId
+        }).then((res) {
+      isLoadingCheckIn(false);
+    }).onError((ErrorModel error, stackTrace) {
+      isLoadingCheckIn(false);
+    });
+  }
+  //Guest List
+
+  // List<String> guestList = [];
+
+  // List<Map<GuestModel, dynamic>> guestList = [];
+}
+
+class GuestModel {
+  String phone;
+  String participantName;
+  String relationship;
+  GuestModel(
+      {this.phone = '', this.participantName = '', this.relationship = ''});
 }

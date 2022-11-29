@@ -17,7 +17,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ###
-GET {{baseUrl}}v1/option
+GET {{baseUrl}}v3/option
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

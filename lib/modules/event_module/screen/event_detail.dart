@@ -148,8 +148,8 @@ class _EventDetailState extends State<EventDetail> {
                         },
                         child: RefreshIndicator(
                           key: refreshKey,
-                          onRefresh: () => eventController
-                              .onRefreshEventDetail(widget.eventId!),
+                          onRefresh: () => eventController.onRefreshEventDetail(
+                              id: widget.eventId),
                           child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -573,12 +573,11 @@ class _EventDetailState extends State<EventDetail> {
                                                                               .asset(
                                                                         "assets/images/svgfile/register.svg",
                                                                       ),
-                                                                      child: const CustomRegisterForm(
-                                                                          // eventID: eventController
-                                                                          //     .eventDetail
-                                                                          //     .value
-                                                                          //     .id,
-                                                                          ));
+                                                                      child:
+                                                                          CustomRegisterForm(
+                                                                        eventID:
+                                                                            widget.eventId,
+                                                                      ));
                                                                 }
                                                               : eventController
                                                                               .eventDetail
@@ -1044,10 +1043,9 @@ class _EventDetailState extends State<EventDetail> {
                                                     title: 'Register',
                                                     icon:
                                                         const Icon(Icons.clear),
-                                                    child: const CustomRegisterForm(
-                                                        // eventID: eventController
-                                                        //     .eventDetail.value.id,
-                                                        ),
+                                                    child: CustomRegisterForm(
+                                                      eventID: widget.eventId,
+                                                    ),
                                                   );
                                                   // onShowCustomCupertinoModalSheet(
                                                   //   context: context,

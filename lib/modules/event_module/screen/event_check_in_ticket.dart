@@ -16,6 +16,7 @@ import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../widgets/events/custom_card_guest_ticket.dart';
 import '../../../widgets/events/custom_event_title_check_in.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
+import '../../member_directory/controllers/customer_controller.dart';
 import '../controller/event_controller.dart';
 import '../../../widgets/events/custom_event_ticket_screen.dart';
 import '../models/card_guests_model.dart';
@@ -32,6 +33,7 @@ class EventCheckInTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contro = Get.put(EventController());
+    final customerCon = Get.put(CustomerController());
 
     return Container(
       padding: const EdgeInsets.only(top: 15),
@@ -125,9 +127,10 @@ class EventCheckInTicket extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const CustomTitleEventCheckIn(
+                                  CustomTitleEventCheckIn(
                                     title: 'Name',
-                                    descript: 'Syying',
+                                    descript:
+                                        customerCon.customer.value.fullName,
                                   ),
                                   CustomTitleEventCheckIn(
                                     title: 'Event',

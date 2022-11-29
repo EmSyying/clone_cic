@@ -50,7 +50,7 @@ class DocumentCategory extends GetxController {
     isLoading(true);
     final documentType = DocumentTypes().obs;
 
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}option';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -336,7 +336,6 @@ class DocumentCategory extends GetxController {
   void onInit() {
     fetchDocumentCategory();
     fetchFiltersOption();
-
     super.onInit();
   }
 }

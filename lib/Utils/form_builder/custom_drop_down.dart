@@ -18,6 +18,7 @@ import 'custom_date_time_picker.dart';
 class CICDropdown extends StatefulWidget {
   final String? otherLabel;
   final bool? isFIF;
+  final bool? isNoRequired;
   final List<DropDownItem>? item;
   final GestureTapCallback? onTap;
   final String? label;
@@ -46,6 +47,7 @@ class CICDropdown extends StatefulWidget {
   final DateTime? currentDate;
   const CICDropdown({
     Key? key,
+    this.isNoRequired = false,
     this.isFIF = false,
     this.currentDate,
     this.marginAddNew,
@@ -524,10 +526,12 @@ class _CICDropdownState extends State<CICDropdown> {
                                                 .bodyText2,
                                         overflow: TextOverflow.ellipsis),
                                 if (copyData == selectData)
-                                  const Text(
-                                    " *",
-                                    style: TextStyle(color: Colors.red),
-                                  ),
+                                  widget.isNoRequired == false
+                                      ? const Text(
+                                          " *",
+                                          style: TextStyle(color: Colors.red),
+                                        )
+                                      : const Text(''),
                                 if (widget.defaultValue == null) const Spacer(),
                                 widget.isDateTimePicker != null &&
                                         widget.isDateTimePicker!

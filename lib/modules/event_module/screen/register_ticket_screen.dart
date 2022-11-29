@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/color.dart';
-import '../../../widgets/events/custom_event_title_check_in.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../controller/event_controller.dart';
 
@@ -97,19 +96,19 @@ class RegisterTicketScreen extends StatelessWidget {
                           const SizedBox(height: 15),
 
                           ///===
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: contro.eventCheckIn
-                                .asMap()
-                                .entries
-                                .map(
-                                  (e) => CustomTitleEventCheckIn(
-                                    title: e.value.title,
-                                    descript: e.value.description,
-                                  ),
-                                )
-                                .toList(),
-                          ),
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: contro.eventCheckIn
+                          //       .asMap()
+                          //       .entries
+                          //       .map(
+                          //         (e) => CustomTitleEventCheckIn(
+                          //           title: e.value.title,
+                          //           descript: e.value.description,
+                          //         ),
+                          //       )
+                          //       .toList(),
+                          // ),
 
                           const SizedBox(height: 20),
                         ],

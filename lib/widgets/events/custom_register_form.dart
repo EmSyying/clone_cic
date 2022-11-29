@@ -318,6 +318,7 @@
 //     );
 //   }
 // }
+import 'package:cicgreenloan/Utils/helper/custom_loading_button.dart';
 import 'package:cicgreenloan/widgets/events/custom_add_more_guest.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -330,7 +331,9 @@ import '../../modules/member_directory/controllers/customer_controller.dart';
 
 class CustomRegisterForm extends StatefulWidget {
   final int? eventID;
-  const CustomRegisterForm({Key? key, this.eventID}) : super(key: key);
+  final GestureTapCallback? onTapSubmit;
+  const CustomRegisterForm({Key? key, this.eventID, this.onTapSubmit})
+      : super(key: key);
 
   @override
   State<CustomRegisterForm> createState() => _CustomRegisterFormState();
@@ -342,152 +345,215 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
   bool? isValidatedCompanyName;
   bool? isValidatedPhoneNubmer;
   bool? isValidatedEmail;
+
   final customerController = Get.put(CustomerController());
   final registerMemberController = Get.put(EventController());
+  // List<int> addMoreGuest = [1];
+  List<Map>? guest = [];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                CustomTextFieldNew(
-                  // key: fullNameKey,
-                  isValidate: isValidatefullName,
-                  hintText: "Full Name",
-                  labelText: "Full Name",
-                  isRequired: true,
-                  initialValue: customerController.customer.value.fullName!,
-                  onChange: (value) {
-                    if (value == "") {
-                      isValidatefullName = false;
-                    } else {
-                      customerController.customer.value.fullName = value;
-                      isValidatefullName = true;
-                    }
-                  },
-                  onSave: (value) {
-                    if (value! == '') {
-                      customerController.customer.value.fullName!;
-                    } else {
-                      customerController.customer.value.fullName = value;
-                    }
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 20),
-                  child: Text(
-                    'Guests',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                // Text('$listText'),
-                Column(
-                  children: addMoreGuest
-                      .asMap()
-                      .entries
-                      .map(
-                        (e) => CustomAddMoreGuest(
-                          addGuest: e.key != 0 ? e.key + 1 : 1,
-                          onTapDelete: () {
-                            setState(() {
-                              addMoreGuest.removeAt(e.key);
-                            });
-                            debugPrint(
-                                'remove index:${addMoreGuest.removeAt(e.key)}');
-                          },
-                        ),
-                      )
-                      .toList(),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      addMoreGuest.add(addMoreGuest.length + 1);
-                    });
-                    debugPrint('Add index:$addMoreGuest');
-                  },
-                  child: Container(
-                    width: 125,
-                    margin:
-                        const EdgeInsets.only(left: 20, top: 20, bottom: 30),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColor.mainColor.withOpacity(0.1)),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.add_circle, color: AppColor.mainColor),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Add More',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w700),
-                        )
-                      ],
+        GetBuilder<EventController>(
+          builder: (controller) {
+            return Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 15,
                     ),
-                  ),
-                ),
-                // SizedBox(
-                //   width: double.infinity,
-                //   height: 700,
-                //   child: ListView.builder(
-                //     itemCount: listText.length,
-                //     itemBuilder: (context, index) => Container(
-                //         width: 100,
-                //         height: 200,
-                //         color: Colors.green,
-                //         child: CustomAddMoreGuest(onTapAddMore: () {
-                //           listText.add(const Text('test list'));
-                //         })),
-                //   ),
-                // ),
 
-                // CustomTextFieldNew(
-                //   // key: positionKey,
-                //   isValidate: isValidatedPosition,
-                //   hintText: "Position",
-                //   labelText: "Position",
-                //   isRequired: true,
-                //   initialValue:
-                //       customerController.customer.value.position!.display!,
-                //   onChange: (value) {
-                //     if (value == "") {
-                //       isValidatedPosition = false;
-                //     } else {
-                //       customerController.customer.value.position!.display =
-                //           value;
-                //       isValidatedPosition = true;
-                //     }
-                //   },
-                //   onSave: (value) {
-                //     if (value! == '') {
-                //       customerController.customer.value.position!.display!;
-                //     } else {
-                //       customerController.customer.value.position!.display =
-                //           value;
-                //     }
-                //   },
-                // ),
-              ],
-            ),
-          ),
+                    CustomTextFieldNew(
+                      // key: fullNameKey,
+                      isValidate: isValidatefullName,
+                      hintText: "Full Name",
+                      labelText: "Full Name",
+                      isRequired: true,
+                      initialValue: customerController.customer.value.fullName!,
+                      onChange: (value) {
+                        if (value == "") {
+                          isValidatefullName = false;
+                        } else {
+                          customerController.customer.value.fullName = value;
+                          isValidatefullName = true;
+                        }
+                      },
+                      onSave: (value) {
+                        if (value! == '') {
+                          customerController.customer.value.fullName!;
+                        } else {
+                          customerController.customer.value.fullName = value;
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 20),
+                      child: Text(
+                        'Guests',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+
+                    Column(
+                      children: registerMemberController.guestlistmodel
+                          .asMap()
+                          .entries
+                          .map((e) => CustomAddMoreGuest(
+                                phone: e.value.phone,
+                                name: e.value.participantName,
+                                relationship: e.value.relationship,
+                                onchangeName: (value) {
+                                  e.value.participantName = value;
+                                  // controller.update();
+                                },
+                                onchangePhone: (value) {
+                                  e.value.phone = value;
+                                  // controller.update();
+                                },
+                                onchangeRelationship: (value) {
+                                  registerMemberController.guestlistmodel[e.key]
+                                      .relationship = value["Name"];
+                                  controller.update();
+                                },
+                                addGuest: e.key + 1,
+                                onTapDelete: () {
+                                  debugPrint('delete form:${e.key}');
+                                  registerMemberController.guestlistmodel
+                                      .removeAt(e.key);
+                                  controller.update();
+                                },
+                              ))
+                          .toList(),
+                    ),
+                    GestureDetector(
+                      onTap:
+                          // registerMemberController.guestName.value == '' ||
+                          //         registerMemberController.guestPhone.value == ''
+                          //     // ||
+                          //     // registerMemberController.guestRelationship.value ==
+                          //     //     ''
+                          //     ? null
+                          //     :
+                          () {
+                        setState(() {
+                          registerMemberController.guestlistmodel
+                              .add(GuestModel());
+                          debugPrint("list$guest");
+                          controller.update();
+                        });
+                      },
+                      child: Container(
+                        width: 125,
+                        margin: const EdgeInsets.only(
+                            left: 20, top: 20, bottom: 30),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:
+                                // registerMemberController.guestName.value ==
+                                //             '' ||
+                                //         registerMemberController.guestPhone.value ==
+                                //             ''
+                                //      ||
+                                // registerMemberController
+                                //         .guestRelationship.value ==
+                                //     ''
+                                // ? Colors.grey.withOpacity(0.2)
+                                // :
+                                AppColor.mainColor.withOpacity(0.1)),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.add_circle,
+                                color:
+                                    // registerMemberController.guestName.value ==
+                                    //             '' ||
+                                    //         registerMemberController
+                                    //                 .guestPhone.value ==
+                                    //     '' ||
+                                    // registerMemberController
+                                    //         .guestRelationship.value ==
+                                    // ''
+                                    // ? Colors.grey
+                                    // :
+                                    AppColor.mainColor),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Add More',
+                              style: Theme.of(context).textTheme.headline3!.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color:
+                                      // registerMemberController
+                                      //                 .guestName.value ==
+                                      //             '' ||
+                                      //         registerMemberController
+                                      //                 .guestPhone.value ==
+                                      //             //     '' ||
+                                      //             // registerMemberController
+                                      //             //         .guestRelationship.value ==
+                                      //             ''
+                                      //     ? Colors.grey
+                                      //     :
+                                      AppColor.mainColor),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   height: 700,
+                    //   child: ListView.builder(
+                    //     itemCount: listText.length,
+                    //     itemBuilder: (context, index) => Container(
+                    //         width: 100,
+                    //         height: 200,
+                    //         color: Colors.green,
+                    //         child: CustomAddMoreGuest(onTapAddMore: () {
+                    //           listText.add(const Text('test list'));
+                    //         })),
+                    //   ),
+                    // ),
+
+                    // CustomTextFieldNew(
+                    //   // key: positionKey,
+                    //   isValidate: isValidatedPosition,
+                    //   hintText: "Position",
+                    //   labelText: "Position",
+                    //   isRequired: true,
+                    //   initialValue:
+                    //       customerController.customer.value.position!.display!,
+                    //   onChange: (value) {
+                    //     if (value == "") {
+                    //       isValidatedPosition = false;
+                    //     } else {
+                    //       customerController.customer.value.position!.display =
+                    //           value;
+                    //       isValidatedPosition = true;
+                    //     }
+                    //   },
+                    //   onSave: (value) {
+                    //     if (value! == '') {
+                    //       customerController.customer.value.position!.display!;
+                    //     } else {
+                    //       customerController.customer.value.position!.display =
+                    //           value;
+                    //     }
+                    //   },
+                    // ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
         Container(
           decoration: const BoxDecoration(
@@ -501,30 +567,50 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
             width: double.infinity,
             margin: const EdgeInsets.only(
                 right: 15.0, top: 20.0, bottom: 25.0, left: 15.0),
-            child: CustomButton(
-                title: "Submit",
-                isOutline: false,
-                isDisable: false,
-                onPressed: () async {
-                  // if (isValidate()) {
-                  //   registerMemberController.onRegisterEvents(
-                  //     context: context,
-                  //     eventID: eventID!,
-                  //   );
-                  // }
+            child: registerMemberController.isLoadingRegisterWithGuest.value ==
+                    true
+                ? const CustomLoadingButton()
+                : CustomButton(
+                    title: "Submit",
+                    isOutline: false,
+                    isDisable: false,
+                    onPressed: () {
+                      registerMemberController.guestlistmodel.map((e) {
+                        guest!.add(
+                          {
+                            "phone_number": e.phone,
+                            "participant_name": e.participantName,
+                            "relationship": e.relationship
+                          },
+                        );
+                      }).toList();
 
-                  // Navigator.pop(context);
-                  registerMemberController.fullName.value = '';
-                  registerMemberController.positionMember.value = '';
-                  registerMemberController.companyNameMember.value = '';
-                  registerMemberController.phoneNumberMember.value = '';
-                  registerMemberController.emailMember.value = '';
-                }),
+                      debugPrint('add more guest:$guest');
+                      registerMemberController.onRegisterWithGuest(
+                          context: context,
+                          id: customerController.customer.value.customerId,
+                          eventId:
+                              registerMemberController.eventDetail.value.id,
+                          guest: guest);
+
+                      // if (isValidate()) {
+                      //   registerMemberController.onRegisterEvents(
+                      //     context: context,
+                      //     eventID: eventID!,
+                      //   );
+                      // }
+
+                      // Navigator.pop(context);
+
+                      // registerMemberController.fullName.value = '';
+                      // registerMemberController.positionMember.value = '';
+                      // registerMemberController.companyNameMember.value = '';
+                      // registerMemberController.phoneNumberMember.value = '';
+                      // registerMemberController.emailMember.value = '';
+                    }),
           ),
         )
       ],
     );
   }
 }
-
-List<int> addMoreGuest = [0];

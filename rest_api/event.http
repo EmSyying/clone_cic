@@ -1,6 +1,6 @@
 
 @baseUrl = https://cicstaging.z1central.com/api/
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNzU1ZDA2MzMxNGZhZDc2NDg0NmZlNDQ5ODhlMjcwNGRhNzY2MWRhZTQ5ZGM4NzA2ZjRkZGJiNWU1YTJiOTk5ODA0ZmE1Y2VmNTUzYTUxZWIiLCJpYXQiOjE2NjczNjIwNzAuMjYzNjE2LCJuYmYiOjE2NjczNjIwNzAuMjYzNjIsImV4cCI6MTY5ODg5ODA3MC4yNTI0NjIsInN1YiI6IjExIiwic2NvcGVzIjpbIioiXX0.qEeXVa7-ReRzW4YrfVgSl9Uhv5PMHwBm2N5P33o0d9IdX6XgBZUFLRAoN35COUspwOb4qDxsX6TNAx9onvcC2KWz3zdxuYc1nW8yArAET0um7M2LgxHOK7Ds8L3fIhj6W1xsppHRMeVS7KEPbuNlLyWGvzFm4elPDRPzGySgkVP-86Mu39CS6x4NhKcToPcQbM2aRrwAZ5kG6Jg2aAcGQgTQjXDYnhISemaiBenxIE2nAwYdhI7KiCDUJ3gN06sMXglla4vi3Zx8esATFhbP9DhR7MvTnrMBBOkAvP1AyGvu5Y1Zpw80gYyIXRz80FU1TsfV38wQ5TxcjO_izpUYqQYfDJEfBolEwxZ8YDgGkOibDpJ2N3X58N34oYS90KdFhBcrJxaHzZkr1nWrr2blgdIs-oavPPfMTE7CQG5PksBuqaGqonxBJeRQf_yBn0OImsLZHSiRkNIMyAAr8uehylbCa0glLJPXqPFv4v4bmI0tAcuY1VTAfRSIhJ9Dh4z-xT2XMEWtGFVYj-I5ImfbtAXDpBb7mCeNbLKZaqoxKJe7qReUJdQzzD7MJo0M9QPtJIzukV9Tdcy0muAtCs-3vAg8207ql3Gmt8jBIcpW_6F3DG1_rcYOuqUFTm7RjGMozTyHyzA_UGP6vE_g6d8c6N3ifJYvpy63HVFYWPzQk5E
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMWNhYjA4NTFkZDc5NzhjOGQyNDhjNGRhYThkMDdmOWJlZjJlNWUwYmY0MDgwOWQyMTQyNmVjMzc4YjkwNjUwNmM2YmFhYmM1MWUyMjhlMzQiLCJpYXQiOjE2NjkxOTQzNjcuNjUyMTM2LCJuYmYiOjE2NjkxOTQzNjcuNjUyMTQsImV4cCI6MTcwMDczMDM2Ny42MTA1ODgsInN1YiI6IjExIiwic2NvcGVzIjpbIioiXX0.KH4NCBxC7A58vIJ7PTjF3M1IxzcJxh16zXOnyac8R_Z8jn6-RxF9apk0RzsAx1nqlwNkbLy5ojiVPNyxy2Sqh1yJL9cZGpH4etC_TLKSjbkEU0DDLGtMuTtEVbQBKZ4rOjCf-UOTjUI_q3jv32kmCFUtSSsFjyCrsd6TspwDYOGetCH6wa1vFiwA_SM54uJOO3CF0rVvByRP3Tsy92hyluo8SiCfOS5IKuPVb2ksXu7CbeUo4-Vp9hYLH5_RG7YBvc57Hjfhjwfu5ahxWb2WWvC1tFwZUbZWeUhrYlfBr5rh4-FDHvfZgW4v4bgy7P2EdvnLRWxo0LmgriqPjJnfHzEnKL5Q5FikKSNa2slIuQqfmKNKeOYogWTt2vpJYE6A-FBWBuePPsMfOY192CaPIlQ-76S2cqR6sPa2ga7cSzBqyUs04TZ0MVhlNb6ahGCwBqGpn2M0uxUDJk94WIlP9myFDf1hFU_mu2zUgKLaj6PeVz0kJ2aDFbeAPU4E6HkVhj_s_cYV3tx9Ru-Pdrmi0TzHY5Qxs_d2QhebnIaLS-0cw16Tpg60CQG8SYWXhL54WYI9JzrAPDQebQZS0XVbetXaKY7imwFpnKq9nQAZ6iGJpEW0uH9D9SH0dzyKxcjsvCz4vBKogjnc4WXBy69drMTUQ4jk8dh8r-v3wPz0Qjc
 POST {{baseUrl}}login
 Content-Type: application/json
 Accept: application/json
@@ -74,3 +74,33 @@ Authorization: Bearer {{token}}
     "event_id" : 16,
     "member_id" : 21
 }
+
+###
+POST {{baseUrl}}v3/registration
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "member_id" : 21,
+    "event_id" : 2,
+    "guest" : 
+    [
+        {
+            "phone_number" : "098765434",
+            "participant_name" : "yyyy",
+            "relationship" :"1"
+        },
+        {
+            "phone_number" : "09876543444",
+            "participant_name" : "wwww",
+            "relationship" : "2"
+        }
+    ]
+}
+    
+###
+GET {{baseUrl}}v3/guest-register
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
