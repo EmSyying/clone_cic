@@ -332,7 +332,9 @@ import '../../modules/member_directory/controllers/customer_controller.dart';
 class CustomRegisterForm extends StatefulWidget {
   final int? eventID;
   final GestureTapCallback? onTapSubmit;
-  const CustomRegisterForm({Key? key, this.eventID, this.onTapSubmit})
+  final BuildContext? contextRegisterTicket;
+  const CustomRegisterForm(
+      {Key? key, this.eventID, this.onTapSubmit, this.contextRegisterTicket})
       : super(key: key);
 
   @override
@@ -587,14 +589,15 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
 
                       debugPrint('add more guest:$guest');
                       registerMemberController.onRegisterWithGuest(
-                          context: context,
+                          context: widget.contextRegisterTicket,
                           id: customerController.customer.value.customerId,
                           eventId:
                               registerMemberController.eventDetail.value.id,
                           guest: guest);
 
                       // if (isValidate()) {
-                      //   registerMemberController.onRegisterEvents(
+                      //
+                      // registerMemberController.onRegisterEvents(
                       //     context: context,
                       //     eventID: eventID!,
                       //   );

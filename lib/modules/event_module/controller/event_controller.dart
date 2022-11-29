@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/Utils/helper/custom_route_snackbar.dart';
+import 'package:cicgreenloan/modules/event_module/screen/event_check_in_ticket.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/notify_share_pop_up.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
@@ -18,7 +19,11 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../core/flavor/flavor_configuration.dart';
+import '../../../utils/form_builder/custom_material_modal_sheet.dart';
+import '../../../utils/helper/color.dart';
 import '../models/card_guests_model.dart';
+import '../models/event_check_in_model.dart';
+import '../models/get_register_model/get_register_model.dart';
 
 class EventController extends GetxController {
   String? tokenKey;
@@ -581,7 +586,7 @@ class EventController extends GetxController {
   final guestRelationship = ''.obs;
   final isLoadingRegisterWithGuest = false.obs;
   final guestlistmodel = <GuestModel>[GuestModel()].obs;
-  final eventTicketNum = ''.obs;
+  final getRegisterModel = GetRegisterModel().obs;
   Future<void> onRegisterWithGuest(
       {int? id, int? eventId, List<Map>? guest, BuildContext? context}) async {
     isLoadingRegisterWithGuest(true);
@@ -609,7 +614,27 @@ class EventController extends GetxController {
         // ]
       },
     ).then((e) {
-      eventTicketNum.value = e[''];
+      getRegisterModel.value = GetRegisterModel.fromJson(e['ticket']);
+      customRouterSnackbar(
+          description: "Successfully registered",
+          onTap: () {
+            onShowCustomCupertinoModalSheet(
+              context: context,
+              icon: const Icon(
+                Icons.close_rounded,
+                color: Colors.white,
+              ),
+              isColorsAppBar: AppColor.mainColor,
+              backgroundColor: AppColor.mainColor,
+              title: "Check in",
+              titleColors: AppColor.arrowforwardColor['dark'],
+              child:
+                  // const EventSubmitDoneScreen()
+                  const EventCheckInTicket(
+                selectCheckIn: 'view_ticket',
+              ),
+            );
+          });
       fetchEventDetail(id!);
       eventDetail.value.isRegister = true;
       Navigator.pop(context!);
@@ -640,6 +665,36 @@ class EventController extends GetxController {
     }).onError((ErrorModel error, stackTrace) {
       isLoadingCheckIn(false);
     });
+  }
+
+  //Get register guest
+  final isLoadingGetRegister = false.obs;
+  final checkInList = <CheckInModel>[].obs;
+  final checkInModel = CheckInModel().obs;
+  Future<List<CheckInModel>> getRegisterWithGuest() async {
+    await apiBaseHelper
+        .onNetworkRequesting(
+            methode: METHODE.get, isAuthorize: true, url: 'guest-register')
+        .then((res) {
+      debugPrint('hello++++++++$res');
+      var responseJson = res['data'];
+      debugPrint('hello++++++++11111');
+
+      checkInList.clear();
+      debugPrint('hello++++++++2222');
+
+      debugPrint('hello++++++++3333');
+      responseJson.map((e) {
+        debugPrint('hello++++++++4444');
+
+        getRegisterModel.value = GetRegisterModel.fromJson(e);
+        checkInList.add(checkInModel.value);
+        debugPrint('hello++++++++5555$e');
+      }).toList();
+    }).onError((ErrorModel error, stackTrace) {
+      isLoadingGetRegister(false);
+    });
+    return checkInList;
   }
   //Guest List
 
