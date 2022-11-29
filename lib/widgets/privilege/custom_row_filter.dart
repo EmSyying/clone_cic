@@ -30,27 +30,6 @@ class CustomNumberStoresFilter extends StatelessWidget {
         ),
         const Spacer(),
         GestureDetector(
-          onTap: onTapSearch,
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColor.lightblue.withOpacity(0.06),
-              shape: BoxShape.circle,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                'assets/images/privilege/search.svg',
-                color: AppColor.mainColor,
-                width: 18.0,
-                height: 18.0,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        GestureDetector(
           onTap: onTapFilter,
           child: Container(
             decoration: BoxDecoration(
@@ -76,6 +55,27 @@ class CustomNumberStoresFilter extends StatelessWidget {
                       ),
                 ),
               ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        GestureDetector(
+          onTap: onTapSearch,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColor.lightblue.withOpacity(0.06),
+              shape: BoxShape.circle,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                'assets/images/privilege/search.svg',
+                color: AppColor.mainColor,
+                width: 18.0,
+                height: 18.0,
+              ),
             ),
           ),
         ),

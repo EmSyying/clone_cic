@@ -3,9 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:go_router/go_router.dart';
@@ -76,19 +76,17 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
+        elevation: 0,
+        isLogo: false,
+        isLeading: true,
         context: context,
-        title: 'Privilege Program',
-        leading: IconButton(
-            onPressed: () {
-              // context.router.pop();
-              Navigator.pop(context);
-            },
-            icon: kIsWeb
-                ? const Icon(Icons.arrow_back)
-                : Platform.isIOS
-                    ? const Icon(Icons.arrow_back_ios)
-                    : const Icon(Icons.arrow_back),
-            color: Colors.white),
+        title: "Privilege Program",
+        action: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: SvgPicture.asset("assets/images/history.svg"),
+          ),
+        ],
       ),
       body: Obx(
         () => RefreshIndicator(
@@ -210,7 +208,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   // Padding(
                   //   padding: const EdgeInsets.symmetric(horizontal: 20),
