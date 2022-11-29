@@ -131,7 +131,7 @@ class _EventDetailState extends State<EventDetail> {
         () => IgnorePointer(
           ignoring: eventController.isLoadingTicket.value ? true : false,
           child: Builder(
-            builder: (BuildContext context) => CupertinoPageScaffold(
+            builder: (BuildContext contextRegisterForm) => CupertinoPageScaffold(
               child: Scaffold(
                 body: Stack(
                   // alignment: Alignment.center,
@@ -1039,12 +1039,12 @@ class _EventDetailState extends State<EventDetail> {
                                                       .value.isRegister!
                                               ? () {
                                                   onShowCustomCupertinoModalSheet(
-                                                    context: context,
+                                                    context: contextRegisterForm,
                                                     title: 'Register',
                                                     icon:
                                                         const Icon(Icons.clear),
                                                     child: CustomRegisterForm(
-                                                      eventID: widget.eventId,
+                                                      eventID: widget.eventId,contextRegisterTicket: contextRegisterForm,
                                                     ),
                                                   );
                                                   // onShowCustomCupertinoModalSheet(
