@@ -44,6 +44,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
+        elevation: 0.5,
         title: 'Filters',
       ),
       body: SingleChildScrollView(
@@ -69,6 +70,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                               padding: const EdgeInsets.only(
                                 top: 4.0,
                                 bottom: 4.0,
+                                right: 14.0,
                               ),
                               child: ComponentCardCategory(
                                 onTapCatego: () {

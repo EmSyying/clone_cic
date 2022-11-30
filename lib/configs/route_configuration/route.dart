@@ -42,10 +42,12 @@ import '../../modules/investment_module/screen/renewal_screen.dart';
 import '../../modules/investment_module/screen/saving_detail_screen.dart';
 import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/notification_modules/screens/notification.dart';
+import '../../modules/privilege_program/screen/privilege/item_category_privilege_screen.dart';
 import '../../modules/privilege_program/screen/privilege/payment_done_screen.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_filters.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_payment.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_screen.dart';
+import '../../modules/privilege_program/screen/privilege/privilege_see_all_screen.dart';
 import '../../modules/privilege_program/screen/privilege/search_screen.dart';
 import '../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
 import '../../modules/qr_code/qr_code.dart';
@@ -881,6 +883,17 @@ final router = GoRouter(
                 name: 'PaymentDoneScreen',
                 path: 'payment-done-screen',
                 builder: (context, state) => const PaymentDoneScreen(),
+              ),
+              GoRoute(
+                name: 'PrivilegeSeeAllScreen',
+                path: 'privilege-see-all',
+                builder: (context, state) => const PrivilegeSeeAllScreen(),
+              ),
+              GoRoute(
+                name: 'ItemCategoryPrivilegeScreen',
+                path: 'privilege-item-category',
+                builder: (context, state) =>
+                    const ItemCategoryPrivilegeScreen(),
               ),
             ],
           ),

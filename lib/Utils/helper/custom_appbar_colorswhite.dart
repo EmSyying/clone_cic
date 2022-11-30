@@ -14,6 +14,7 @@ CustomAppBarWhiteColor({
   String? subtitle,
   Color? backgroundColor,
   double? elevation,
+  bool? colorTitle = false,
 }) {
   return AppBar(
       centerTitle: true,
@@ -29,7 +30,7 @@ CustomAppBarWhiteColor({
                   : Platform.isAndroid
                       ? const Icon(Icons.arrow_back)
                       : const Icon(Icons.arrow_back_ios),
-              color: Colors.black,
+              color: colorTitle == false ? Colors.black : Colors.white,
               onPressed: () {
                 Navigator.pop(context!);
               }),
@@ -38,7 +39,9 @@ CustomAppBarWhiteColor({
             children: [
               Text(
                 title ?? '',
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: colorTitle == false ? Colors.black : Colors.white,
+                ),
               ),
               if (subtitle == "Rejected" ||
                   subtitle == "Approved" ||

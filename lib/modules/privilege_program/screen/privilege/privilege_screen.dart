@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/item_category_privilege_screen.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_see_all_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
@@ -82,6 +84,38 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
         context: context,
         title: "Privilege Program",
         action: [
+          Stack(
+            children: [
+              Container(
+                height: 100,
+                padding: const EdgeInsets.only(right: 18.0),
+                child: SvgPicture.asset("assets/images/svgfile/Union.svg"),
+              ),
+              Positioned(
+                right: 4,
+                bottom: 34,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red[400],
+                    borderRadius: BorderRadius.circular(3.0),
+                  ),
+                  height: 14,
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 2.0,
+                        right: 2.0,
+                      ),
+                      child: Text(
+                        '100',
+                        style: TextStyle(color: Colors.white, fontSize: 9),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: SvgPicture.asset("assets/images/history.svg"),
@@ -272,14 +306,12 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       categoriesTil: 'Categories',
                       seeall: 'See All',
                       onTapSeeAll: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => PrivilegePayment(
-                        //       id: priCon.shopId.value,
-                        //     ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PrivilegeSeeAllScreen(),
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -295,13 +327,21 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                 .entries
                                 .map((cardListCat) => Padding(
                                       padding: const EdgeInsets.only(
-                                        top: 4.0,
-                                        bottom: 4.0,
-                                      ),
+                                          top: 4.0, bottom: 4.0, right: 14.0),
                                       child: ComponentCardCategory(
                                         cardTitle: cardListCat.value.name,
                                         iconCard: cardListCat.value.image,
-                                        onTapCatego: () {},
+                                        onTapCatego: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ItemCategoryPrivilegeScreen(
+                                                  tabTitle:
+                                                      cardListCat.value.name,
+                                                ),
+                                              ));
+                                        },
                                       ),
                                     ))
                                 .toList(),
@@ -425,13 +465,16 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
           ),
         ),
         const Spacer(),
-        Text(
-          seeall ?? '',
-          style: Theme.of(context).textTheme.headline4!.copyWith(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: AppColor.mainColor,
-              ),
+        GestureDetector(
+          onTap: onTapSeeAll,
+          child: Text(
+            seeall ?? '',
+            style: Theme.of(context).textTheme.headline4!.copyWith(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.mainColor,
+                ),
+          ),
         ),
       ],
     );

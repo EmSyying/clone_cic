@@ -8,6 +8,9 @@ class ComponentCardCategory extends StatelessWidget {
   final String? iconCard;
   final String? cardTitle;
   final bool selected;
+  final bool widthTrue;
+  final bool numStoresTrue;
+  final String? numStores;
   final GestureTapCallback? onTapCatego;
   const ComponentCardCategory({
     Key? key,
@@ -16,8 +19,11 @@ class ComponentCardCategory extends StatelessWidget {
     this.onTapCatego,
     this.iconCard,
     this.cardTitle,
+    this.widthTrue = false,
+    this.numStoresTrue = false,
+    this.numStores,
   }) : super(key: key);
-
+//==
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,8 +32,8 @@ class ComponentCardCategory extends StatelessWidget {
           onTap: onTapCatego,
           child: Container(
             height: 80,
-            width: 150,
-            margin: const EdgeInsets.only(right: 14),
+            width: widthTrue == true ? double.infinity : 150,
+            // margin: const EdgeInsets.only(right: 14),
             decoration: BoxDecoration(
               border: Border.all(
                 color: selected ? AppColor.mainColor : Colors.white,
@@ -56,15 +62,37 @@ class ComponentCardCategory extends StatelessWidget {
                 Positioned.fill(
                   child: Container(
                     padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 10, bottom: 10),
-                    child: Text(
-                      cardTitle ?? '',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                        left: 14.0, right: 14.0, top: 10.0, bottom: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          cardTitle ?? '',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        numStoresTrue == true
+                            ? Text(
+                                '25 Stores',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColor.chartLabelColor,
+                                      fontSize: 12.0,
+                                    ),
+                              )
+                            : const SizedBox.shrink(),
+                      ],
                     ),
                   ),
                 ),

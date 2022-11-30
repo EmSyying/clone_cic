@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/custom_fovarite.dart';
 import '../../../../widgets/privilege/privilege_detail/custom_card_allstores_datil.dart';
+import '../../../../widgets/privilege/privilege_detail/custom_card_point.dart';
 import '../../../event_module/controller/event_controller.dart';
 import '../../controller/privilege_controller.dart';
 
@@ -99,7 +100,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                         ),
                         pinned: true,
                         floating: true,
-                        expandedHeight: 320.0,
+                        expandedHeight: 410.0,
                         elevation: 0.0,
                         actions: [
                           Row(
@@ -196,11 +197,25 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                             ),
                                           )),
                                     ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 20.0,
+                                        left: 20.0,
+                                        right: 20.0,
+                                      ),
+                                      child: CustomCardPoint(
+                                        point: '1,000',
+                                        onTap: () {},
+                                      ),
+                                    ),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                         left: 18.0,
                                         right: 18.0,
-                                        bottom: 8.0,
+                                        bottom: 20.0,
                                       ),
                                       child: Row(
                                         children: [
@@ -236,7 +251,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                 Positioned(
                                   left: 15,
                                   right: 15,
-                                  bottom: 70,
+                                  bottom: 166,
                                   child: CustomCardPrivilegeDetail(
                                     sloganLogo: priController
                                         .shopDetailModel.value.shopLogo,

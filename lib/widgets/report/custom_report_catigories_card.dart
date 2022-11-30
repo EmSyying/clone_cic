@@ -17,16 +17,17 @@ class CustomReportCatigoriesCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 160,
+        // width: 160,
+        height: 100,
         decoration: BoxDecoration(
           color: AppColor.arrowforwardColor['dark'],
           border: Border.all(
-            width: 0.3,
+            width: 0.4,
             color: AppColor.dividerBackground,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withAlpha(30),
+              color: Colors.grey.withAlpha(40),
               blurRadius: 6,
               offset: const Offset(0, 1),
             )
@@ -50,7 +51,7 @@ class CustomReportCatigoriesCard extends StatelessWidget {
               bottom: 0,
               child: SvgPicture.asset(
                 'assets/images/svgfile/static_report_icon.svg',
-                height: 70,
+                height: 60,
               ),
             ),
           ],
