@@ -21,17 +21,17 @@ class CustomReportCatigoriesCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.arrowforwardColor['dark'],
           border: Border.all(
-            width: 0.5,
+            width: 0.3,
             color: AppColor.dividerBackground,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withAlpha(40),
+              color: Colors.grey.withAlpha(30),
               blurRadius: 6,
               offset: const Offset(0, 1),
             )
           ],
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Stack(
           children: [
