@@ -27,8 +27,8 @@ class DynamicLinkService {
       socialMetaTagParameters: SocialMetaTagParameters(
           description: description, imageUrl: Uri.parse(image!), title: title),
     );
-    final ShortDynamicLink shortLink =
-        await dynamiclink.buildShortLink(parameters);
+    // final ShortDynamicLink shortLink =
+    //     await dynamiclink.buildShortLink(parameters);
 
     final linkGenerate = await dynamiclink.buildLink(parameters);
 

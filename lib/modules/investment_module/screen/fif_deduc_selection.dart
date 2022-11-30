@@ -40,7 +40,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
+  
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
           context: context,

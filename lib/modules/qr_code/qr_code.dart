@@ -436,7 +436,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                 ),
                               ),
 
-                            ///member //TODO
+                            ///member
                             // if (resultQR != null &&
                             //     resultQR!.contains(CiCQr.wallet.key))
                             // Padding(

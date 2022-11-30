@@ -119,7 +119,6 @@ class _FIFOption1State extends State<FIFOption1> {
       fifController.isValidateDuration.value = true;
     }
 
-    //TODO: here
     debugPrint('Amount : ${fifController.deductionAmount.value}');
     debugPrint('maxAmount : ${fifController.maxDeductionAmount.value}');
     debugPrint(

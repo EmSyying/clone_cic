@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/event_module/models/event_data.dart';
-import 'package:cicgreenloan/modules/event_module/models/event_detail_argument.dart';
 
 import 'package:cicgreenloan/widgets/events/feature_card.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +27,8 @@ class FeatureEvent extends StatelessWidget {
               children: featureDataList.asMap().entries.map((e) {
                 return GestureDetector(
                   onTap: () {
-                    EventDetailArgument argument =
-                        EventDetailArgument(id: e.value.id);
+                    // EventDetailArgument argument =
+                    //     EventDetailArgument(id: e.value.id);
                     context.push('/event/event-detail/${e.value.id}');
                   },
                   child: Padding(

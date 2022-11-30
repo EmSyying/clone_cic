@@ -2,7 +2,6 @@ import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 
 import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.dart';
-import 'package:cicgreenloan/configs/route_configuration/route_argument/bullet_payment_detail_arg.dart';
 import 'package:cicgreenloan/widgets/investments/custom_fif_saving_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -98,15 +97,16 @@ class CustomSavingCardList extends StatelessWidget {
                           'account fif detail');
                       fifController.investmentId.value = e.value.id!.toInt();
 
-                      final savingDetail = BulletPaymentDetailArg(
-                        paddings:
-                            const EdgeInsets.only(top: 50, left: 10, right: 0),
-                        index: e.key,
-                        hide: !e.value.hide!,
-                        id: e.value.id,
-                        code: e.value.code,
-                        accountName: e.value.accountName,
-                      );
+                      // final savingDetail = BulletPaymentDetailArg(
+                      //   paddings:
+                      //       const EdgeInsets.only(top: 50, left: 10, right: 0),
+                      //   index: e.key,
+                      //   hide: !e.value.hide!,
+                      //   id: e.value.id,
+                      //   code: e.value.code,
+                      //   accountName: e.value.accountName,
+                      // );
+
                       context.push('/investment/saving-detail', extra: {
                         "paddings":
                             const EdgeInsets.only(top: 50, left: 10, right: 0),
