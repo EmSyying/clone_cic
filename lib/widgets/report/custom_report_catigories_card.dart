@@ -49,9 +49,8 @@ class CustomReportCatigoriesCard extends StatelessWidget {
               right: 0,
               bottom: 0,
               child: SvgPicture.asset(
-                'assets/images/empty state.svg',
-                color: AppColor.mainColor.withOpacity(0.1),
-                height: 68,
+                'assets/images/svgfile/static_report_icon.svg',
+                height: 70,
               ),
             ),
           ],
