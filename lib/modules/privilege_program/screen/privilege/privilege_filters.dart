@@ -86,7 +86,8 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                                 selected: privilegeController
                                         .selectedCategFil.value ==
                                     cardListCat.value.name,
-                                modelCardCategory: cardListCat.value,
+                                cardTitle: cardListCat.value.name,
+                                iconCard: cardListCat.value.image,
                               ),
                             ))
                         .toList(),

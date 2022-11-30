@@ -20,6 +20,7 @@ class DocumentationController extends GetxController {
 
   ///Category report
   final listCategoryCardReport = <CategorieReportModel>[].obs;
+  CategorieReportModel cardCategoryReport = CategorieReportModel();
   final loadingCardReport = false.obs;
   final _apiBasehelper = ApiBaseHelper();
   Future<List<CategorieReportModel>> fetchCategoriesCardReport() async {
@@ -35,9 +36,15 @@ class DocumentationController extends GetxController {
       debugPrint('Categories card report :===${response!}');
 
       response['data'].map((e) {
-        listCategoryCardReport.add(
-          CategorieReportModel.fromJson(e),
-        );
+        cardCategoryReport = CategorieReportModel.fromJson(e);
+        if (cardCategoryReport.category?.toLowerCase() != "cic app manual") {
+          listCategoryCardReport.add(cardCategoryReport);
+        }
+
+        // listCategoryCardReport = listCategoryCardReport;
+        // listCategoryCardReport.add(
+        //   CategorieReportModel.fromJson(e),
+        // );
       }).toList();
       debugPrint(
           'Categories report name========:${listCategoryCardReport[0].category}');

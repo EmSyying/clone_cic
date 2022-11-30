@@ -299,7 +299,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                         bottom: 4.0,
                                       ),
                                       child: ComponentCardCategory(
-                                        modelCardCategory: cardListCat.value,
+                                        cardTitle: cardListCat.value.name,
+                                        iconCard: cardListCat.value.image,
                                         onTapCatego: () {},
                                       ),
                                     ))

@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../Utils/helper/color.dart';
-import '../../../modules/privilege_program/model/category_model/model_categories.dart';
 
 class ComponentCardCategory extends StatelessWidget {
-  final ModelsCategories? modelCardCategory;
+  //final ModelsCategories? modelCardCategory;
+  final String? iconCard;
+  final String? cardTitle;
   final bool selected;
   final GestureTapCallback? onTapCatego;
   const ComponentCardCategory({
     Key? key,
-    this.modelCardCategory,
+    //this.modelCardCategory,
     this.selected = false,
     this.onTapCatego,
+    this.iconCard,
+    this.cardTitle,
   }) : super(key: key);
 
   @override
@@ -47,7 +50,7 @@ class ComponentCardCategory extends StatelessWidget {
                   bottom: -5,
                   right: -5,
                   child: SvgPicture.network(
-                    modelCardCategory!.image ?? '',
+                    iconCard ?? '',
                   ),
                 ),
                 Positioned.fill(
@@ -55,7 +58,7 @@ class ComponentCardCategory extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         left: 20, right: 20, top: 10, bottom: 10),
                     child: Text(
-                      modelCardCategory!.name ?? '',
+                      cardTitle ?? '',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,

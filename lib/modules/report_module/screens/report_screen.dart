@@ -62,8 +62,8 @@ class ReportScreen extends StatelessWidget {
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
                   childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
                 ),
                 itemCount: reportCon.listCategoryCardReport.length,
                 itemBuilder: (BuildContext _, index) {
@@ -75,9 +75,9 @@ class ReportScreen extends StatelessWidget {
                       );
                     },
                     title: reportCon.listCategoryCardReport[index].category,
-                    icons: reportCon.listCategoryCardReport[index].icon,
-                    item: reportCon.listCategoryCardReport[index].reportCount
-                        .toString(),
+                    //icons: reportCon.listCategoryCardReport[index].icon,
+                    // item: reportCon.listCategoryCardReport[index].reportCount
+                    //     .toString(),
                   );
                 }),
       ),
