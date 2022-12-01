@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomCashOutAndTransferAmount extends StatelessWidget {
   final String? amountCashOutTransfer;
+  final bool pointTrue;
 
-  const CustomCashOutAndTransferAmount({Key? key, this.amountCashOutTransfer})
+  const CustomCashOutAndTransferAmount(
+      {Key? key, this.amountCashOutTransfer, this.pointTrue = false})
       : super(key: key);
 
   @override
@@ -18,9 +20,9 @@ class CustomCashOutAndTransferAmount extends StatelessWidget {
               ),
           children: [
             TextSpan(
-              text: 'USD',
+              text: pointTrue == false ? ' USD' : ' Points',
               style: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     fontSize: 20,
                   ),
             )

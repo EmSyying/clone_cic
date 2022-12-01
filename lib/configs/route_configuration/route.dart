@@ -52,6 +52,8 @@ import '../../modules/privilege_program/screen/privilege/privilege_screen.dart';
 import '../../modules/privilege_program/screen/privilege/privilege_see_all_screen.dart';
 import '../../modules/privilege_program/screen/privilege/search_screen.dart';
 import '../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
+import '../../modules/privilege_program/screen/privilege_detail/redeem_point_pay_review_screen.dart';
+import '../../modules/privilege_program/screen/privilege_detail/redeem_point_pay_screen.dart';
 import '../../modules/qr_code/qr_code.dart';
 import '../../modules/report_module/screens/cic_app_manual.dart';
 import '../../modules/report_module/screens/report.dart';
@@ -897,6 +899,16 @@ final router = GoRouter(
                 path: 'privilege-item-category',
                 builder: (context, state) =>
                     const ItemCategoryPrivilegeScreen(),
+              ),
+              GoRoute(
+                name: 'RedeemPointToPay',
+                path: 'redeem-point-to-pay',
+                builder: (context, state) => const RedeemPointToPay(),
+              ),
+              GoRoute(
+                name: ' RedeemPointPayReviewScreen',
+                path: 'redeem-point-pay-review',
+                builder: (context, state) => const RedeemPointPayReviewScreen(),
               ),
             ],
           ),

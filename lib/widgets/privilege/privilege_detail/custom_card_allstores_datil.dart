@@ -24,8 +24,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
       ),
       elevation: 0,
       child: Container(
-        padding:
-            const EdgeInsets.only(right: 10.0, left: 10.0, top: 10, bottom: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         width: double.infinity,
         height: 96,
         decoration: BoxDecoration(
@@ -52,8 +51,8 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 80,
-              height: 80,
+              width: 54,
+              height: 54,
               padding: const EdgeInsets.all(0.0),
               decoration: BoxDecoration(
                 color: AppColor.secondaryColor,
@@ -66,59 +65,59 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              width: 18,
+            ),
             Expanded(
-              child: Container(
-                margin: const EdgeInsets.only(left: 6),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        status ?? '',
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              fontSize: 10,
-                              color: status == "Closed"
-                                  ? AppColor.statusColor['late']
-                                  : status == "Permanently Closed"
-                                      ? AppColor.statusColor['warning']
-                                      : AppColor.statusColor['green'],
-                            ),
-                        // color: status == "Open Now"
-                        //     ? AppColor.statusColor['green']
-                        //     : AppColor.statusColor['late']),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      titile ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Text(
+                      status ?? '',
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontSize: 10,
+                            color: status == "Closed"
+                                ? AppColor.statusColor['late']
+                                : status == "Permanently Closed"
+                                    ? AppColor.statusColor['warning']
+                                    : AppColor.statusColor['green'],
                           ),
+                      // color: status == "Open Now"
+                      //     ? AppColor.statusColor['green']
+                      //     : AppColor.statusColor['late']),
                     ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      slogan ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.5,
-                            color: const Color(0xff848F92),
-                          ),
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    titile ?? '',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    slogan ?? '',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: 0.5,
+                          color: const Color(0xff848F92),
+                        ),
+                  ),
+                ],
               ),
             ),
             Align(

@@ -49,9 +49,9 @@ class CustomCardPoint extends StatelessWidget {
                   Text(
                     'Current Point',
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                           color: const Color(0xff464646),
-                          fontSize: 14,
+                          fontSize: 12,
                         ),
                   ),
                   const SizedBox(

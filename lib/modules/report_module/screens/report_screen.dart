@@ -75,9 +75,9 @@ class ReportScreen extends StatelessWidget {
                       );
                     },
                     title: reportCon.listCategoryCardReport[index].category,
-                    //icons: reportCon.listCategoryCardReport[index].icon,
-                    // item: reportCon.listCategoryCardReport[index].reportCount
-                    //     .toString(),
+                    icons: reportCon.listCategoryCardReport[index].icon,
+                    item: reportCon.listCategoryCardReport[index].reportCount
+                        .toString(),
                   );
                 }),
       ),

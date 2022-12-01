@@ -1,5 +1,6 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/privilege_photo_views.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/redeem_point_pay_screen.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                         ),
                         pinned: true,
                         floating: true,
-                        expandedHeight: 410.0,
+                        expandedHeight: 430.0,
                         elevation: 0.0,
                         actions: [
                           Row(
@@ -185,7 +186,6 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     Container(
                                       alignment: Alignment.center,
                                       height: 250,
-                                      padding: const EdgeInsets.all(0.0),
                                       decoration: BoxDecoration(
                                           color: AppColor.secondaryColor,
                                           image: DecorationImage(
@@ -200,23 +200,31 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     const SizedBox(
                                       height: 20.0,
                                     ),
+
+                                    ///=====Card Points
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                        top: 20.0,
                                         left: 20.0,
                                         right: 20.0,
                                       ),
-                                      child: CustomCardPoint(
-                                        point: '1,000',
-                                        onTap: () {},
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const RedeemPointToPay(),
+                                              ));
+                                        },
+                                        child: CustomCardPoint(
+                                          point: '1,000',
+                                          onTap: () {},
+                                        ),
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                        left: 18.0,
-                                        right: 18.0,
-                                        bottom: 20.0,
-                                      ),
+                                          left: 18.0, right: 18.0, bottom: 20),
                                       child: Row(
                                         children: [
                                           const Icon(
@@ -251,7 +259,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                 Positioned(
                                   left: 15,
                                   right: 15,
-                                  bottom: 166,
+                                  bottom: 185,
                                   child: CustomCardPrivilegeDetail(
                                     sloganLogo: priController
                                         .shopDetailModel.value.shopLogo,

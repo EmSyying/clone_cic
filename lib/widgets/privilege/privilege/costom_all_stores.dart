@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -148,7 +147,16 @@ class CustomCardAllStores extends StatelessWidget {
                 alignment: Alignment.center,
                 width: 50,
                 height: 22,
-                color: fromHex(privilegeShopList!.discountBgColor ?? ''),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    colors: [
+                      Color.fromRGBO(255, 200, 55, 1),
+                      Color.fromRGBO(255, 128, 8, 1),
+                    ],
+                  ),
+                ),
+                //color: fromHex(privilegeShopList!.discountBgColor ?? ''),
                 child: Center(
                   child: Text(
                     privilegeShopList!.discountRate ?? '',
@@ -160,6 +168,32 @@ class CustomCardAllStores extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+        Positioned(
+          left: 10,
+          bottom: 18,
+          child: Container(
+            // width: 57,
+            height: 16,
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(234, 63, 78, 163),
+                  Color.fromARGB(234, 53, 137, 232),
+                ],
+              ),
+            ),
+            child: Text(
+              'Point Accepted',
+              style: Theme.of(context).textTheme.headline5!.copyWith(
+                    fontWeight: FontWeight.w500,
+                    // height: 1,
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
+            ),
           ),
         ),
         Positioned(
