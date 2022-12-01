@@ -16,7 +16,6 @@ import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/widgets/events/about_event_description.dart';
 import 'package:cicgreenloan/widgets/events/custom_register_form.dart';
-import 'package:cicgreenloan/widgets/events/custom_event_status.dart';
 import 'package:cicgreenloan/widgets/events/custom_ticket_card.dart';
 import 'package:cicgreenloan/widgets/events/customevent_interested.dart';
 import 'package:cicgreenloan/widgets/events/event_shimmer.dart';
@@ -131,7 +130,8 @@ class _EventDetailState extends State<EventDetail> {
         () => IgnorePointer(
           ignoring: eventController.isLoadingTicket.value ? true : false,
           child: Builder(
-            builder: (BuildContext contextRegisterForm) => CupertinoPageScaffold(
+            builder: (BuildContext contextRegisterForm) =>
+                CupertinoPageScaffold(
               child: Scaffold(
                 body: Stack(
                   // alignment: Alignment.center,
@@ -380,52 +380,49 @@ class _EventDetailState extends State<EventDetail> {
                                                   ],
                                                 ),
                                                 if (eventController.eventDetail
-                                                        .value.posted!
-                                                        .toLowerCase() ==
-                                                    'past')
-                                                  const CustomEventStatus(
-                                                      title:
-                                                          "The Event has ended",
-                                                      icon:
-                                                          'assets/images/idea.png'),
-                                                // CustomInviteMemberProfile(
-                                                //   profileUrl: eventController
-                                                //       .eventDetail.value.cover,
-                                                //   noted: "abc",
-                                                //   profileName: "Chhany",
-                                                // ),
-                                                if (eventController.eventDetail
-                                                        .value.isRegister ==
-                                                    true)
+                                                        .value.isCheckin ==
+                                                    false)
                                                   const SizedBox(
                                                     height: 20,
                                                   ),
                                                 if (eventController.eventDetail
-                                                        .value.isRegister ==
-                                                    true)
+                                                        .value.isCheckin ==
+                                                    false)
                                                   GestureDetector(
                                                     onTap: () {
-                                                      onShowCustomCupertinoModalSheet(
-                                                        context: context,
-                                                        icon: const Icon(
-                                                          Icons.close_rounded,
-                                                          color: Colors.white,
-                                                        ),
-                                                        isColorsAppBar:
-                                                            AppColor.mainColor,
-                                                        backgroundColor:
-                                                            AppColor.mainColor,
-                                                        title: "Check in",
-                                                        titleColors: AppColor
-                                                                .arrowforwardColor[
-                                                            'dark'],
-                                                        child:
-                                                            // const EventSubmitDoneScreen()
-                                                            const EventCheckInTicket(
-                                                          selectCheckIn:
-                                                              'view_ticket',
-                                                        ),
-                                                      );
+                                                      eventController
+                                                          .getRegisterWithGuest(
+                                                              widget.eventId)
+                                                          .then(
+                                                            (value) =>
+                                                                onShowCustomCupertinoModalSheet(
+                                                              context:
+                                                                  contextRegisterForm,
+                                                              icon: const Icon(
+                                                                Icons
+                                                                    .close_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              isColorsAppBar:
+                                                                  AppColor
+                                                                      .mainColor,
+                                                              backgroundColor:
+                                                                  AppColor
+                                                                      .mainColor,
+                                                              title:
+                                                                  "Your Ticket",
+                                                              titleColors: AppColor
+                                                                      .arrowforwardColor[
+                                                                  'dark'],
+                                                              child:
+                                                                  // const EventSubmitDoneScreen()
+                                                                  const EventCheckInTicket(
+                                                                selectCheckIn:
+                                                                    'view_ticket',
+                                                              ),
+                                                            ),
+                                                          );
                                                     },
                                                     child: Container(
                                                       width: 120,
@@ -973,364 +970,295 @@ class _EventDetailState extends State<EventDetail> {
                   ],
                 ),
                 bottomNavigationBar:
-                    Obx(() => !eventController.isLoadingEventDetail.value
-                        ? eventController.eventDetail.value.posted != 'past'
-                            ? Container(
-                                decoration: const BoxDecoration(
-                                  border: BorderDirectional(
-                                    top: BorderSide(
-                                        color: Colors.grey,
-                                        width: 0.2,
-                                        style: BorderStyle.solid),
-                                  ),
-                                ),
-                                child: Container(
-                                  height: 50.0,
-                                  width: double.infinity,
-                                  margin: const EdgeInsets.only(
-                                      right: 15.0,
-                                      top: 20.0,
-                                      bottom: 30.0,
-                                      left: 15.0),
-                                  child: CustomButton(
-                                      title: eventController.eventDetail.value.isRegister ==
-                                              true
-                                          ? 'Check in'
-                                          : eventController.eventDetail.value.isCheckin ==
+                    eventController.eventDetail.value.isCheckin == false
+                        ? null
+                        : Obx(() => !eventController.isLoadingEventDetail.value
+                            ? eventController.eventDetail.value.posted != 'past'
+                                ? Container(
+                                    decoration: const BoxDecoration(
+                                      border: BorderDirectional(
+                                        top: BorderSide(
+                                            color: Colors.grey,
+                                            width: 0.2,
+                                            style: BorderStyle.solid),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      height: 50.0,
+                                      width: double.infinity,
+                                      margin: const EdgeInsets.only(
+                                          right: 15.0,
+                                          top: 20.0,
+                                          bottom: 30.0,
+                                          left: 15.0),
+                                      child: CustomButton(
+                                          title: eventController.eventDetail.value.isRegister ==
                                                   true
-                                              ? 'View Your Ticket'
-                                              : 'Register Now',
-                                      //  eventController.eventDetail.value.hostAt == 'online' &&
-                                      //         eventController.eventDetail.value.isRegister ==
-                                      //             true
-                                      //     ? "Join Now"
-                                      //     : eventController.eventDetail.value.hostAt == 'online' &&
-                                      //             !eventController.eventDetail
-                                      //                 .value.isRegister!
-                                      //         ? "Reginster Now"
-                                      //         // : eventController.eventDetail.value.hostAt != 'online' &&
-                                      //         //         !eventController
-                                      //         //             .eventDetail
-                                      //         //             .value
-                                      //         //             .isRegister!
-                                      //         //     ? "Register Now"
-                                      //         : eventController.eventDetail.value.hostAt != 'online' &&
-                                      //                 eventController
-                                      //                     .eventDetail
-                                      //                     .value
-                                      //                     .isRegister! &&
-                                      //                 eventController
-                                      //                     .eventDetail
-                                      //                     .value
-                                      //                     .isCheckin!
-                                      //             ? "View Your Ticket"
-                                      //             : "hello",
-                                      isOutline: false,
-                                      isDisable: !eventController
-                                              .eventDetail.value.isRegister!
-                                          ? false
-                                          : eventController
-                                                  .eventDetail.value.isOpen!
+                                              ? 'Check in'
+                                              : eventController.eventDetail.value.isCheckin ==
+                                                      true
+                                                  ? 'View Your Ticket'
+                                                  : 'Register Now',
+                                          //  eventController.eventDetail.value.hostAt == 'online' &&
+                                          //         eventController.eventDetail.value.isRegister ==
+                                          //             true
+                                          //     ? "Join Now"
+                                          //     : eventController.eventDetail.value.hostAt == 'online' &&
+                                          //             !eventController.eventDetail
+                                          //                 .value.isRegister!
+                                          //         ? "Reginster Now"
+                                          //         // : eventController.eventDetail.value.hostAt != 'online' &&
+                                          //         //         !eventController
+                                          //         //             .eventDetail
+                                          //         //             .value
+                                          //         //             .isRegister!
+                                          //         //     ? "Register Now"
+                                          //         : eventController.eventDetail.value.hostAt != 'online' &&
+                                          //                 eventController
+                                          //                     .eventDetail
+                                          //                     .value
+                                          //                     .isRegister! &&
+                                          //                 eventController
+                                          //                     .eventDetail
+                                          //                     .value
+                                          //                     .isCheckin!
+                                          //             ? "View Your Ticket"
+                                          //             : "hello",
+                                          isOutline: false,
+                                          isDisable: !eventController
+                                                  .eventDetail.value.isRegister!
                                               ? false
-                                              : true,
-                                      onPressed:
-                                          eventController.eventDetail.value.posted != "past" &&
-                                                  !eventController.eventDetail
-                                                      .value.isRegister!
-                                              ? () {
-                                                  onShowCustomCupertinoModalSheet(
-                                                    context: contextRegisterForm,
-                                                    title: 'Register',
-                                                    icon:
-                                                        const Icon(Icons.clear),
-                                                    child: CustomRegisterForm(
-                                                      eventID: widget.eventId,contextRegisterTicket: contextRegisterForm,
-                                                    ),
-                                                  );
-                                                  // onShowCustomCupertinoModalSheet(
-                                                  //   context: context,
-                                                  //   title: 'Register',
-                                                  //   icon:
-                                                  //       const Icon(Icons.clear),
-                                                  //   trailing: GestureDetector(
-                                                  //     onTap: () async {
-                                                  //       memberController
-                                                  //           .invitedMemberList
-                                                  //           .clear();
-                                                  //       await onShowCustomCupertinoModalSheet(
-                                                  //         title: '',
-                                                  //         context: context,
-                                                  //         dynamicTitle:
-                                                  //             Obx(() => Text(
-                                                  //                   memberController
-                                                  //                           .invitedMemberList
-                                                  //                           .isNotEmpty
-                                                  //                       ? "${memberController.invitedMemberList.length} Selected"
-                                                  //                       : "Invite",
-                                                  //                 )),
-                                                  //         icon: const Icon(
-                                                  //             Icons.clear),
-                                                  //         trailing: Obx(
-                                                  //           () => memberController
-                                                  //                   .invitedMemberList
-                                                  //                   .isNotEmpty
-                                                  //               ? GestureDetector(
-                                                  //                   onTap: () {
-                                                  //                     memberController
-                                                  //                         .onClearInvitedMember();
-                                                  //                   },
-                                                  //                   child:
-                                                  //                       Container(
-                                                  //                     margin: const EdgeInsets
-                                                  //                             .only(
-                                                  //                         right:
-                                                  //                             15.0),
-                                                  //                     child:
-                                                  //                         const Text(
-                                                  //                       "Cancel",
-                                                  //                       style: TextStyle(
-                                                  //                           fontSize:
-                                                  //                               17,
-                                                  //                           color:
-                                                  //                               AppColor.mainColor),
-                                                  //                     ),
-                                                  //                   ),
-                                                  //                 )
-                                                  //               : Container(),
-                                                  //         ),
-                                                  //         child: CustomInviteMember(
-                                                  //             eventID:
-                                                  //                 memberController
-                                                  //                     .eventId),
-                                                  //       );
-                                                  //     },
-                                                  //     child: SvgPicture.asset(
-                                                  //       "assets/images/svgfile/register.svg",
-                                                  //     ),
-                                                  //   ),
-                                                  //   child: CustomerRegisterForm(
-                                                  //     eventID: eventController
-                                                  //         .eventDetail.value.id,
-                                                  //   ),
-                                                  // );
-                                                }
-                                              : eventController.eventDetail.value.posted != "past" &&
-                                                      eventController
+                                              : eventController
+                                                      .eventDetail.value.isOpen!
+                                                  ? false
+                                                  : true,
+                                          onPressed:
+                                              eventController.eventDetail.value.posted != "past" &&
+                                                      !eventController
                                                           .eventDetail
                                                           .value
                                                           .isRegister!
-                                                  ? eventController.eventDetail.value.hostAt ==
-                                                          'online'
-                                                      ? () {
-                                                          launchUrl(Uri.parse(
-                                                              eventController
+                                                  ? () {
+                                                      onShowCustomCupertinoModalSheet(
+                                                        context:
+                                                            contextRegisterForm,
+                                                        title: 'Register',
+                                                        icon: const Icon(
+                                                            Icons.clear),
+                                                        child:
+                                                            CustomRegisterForm(
+                                                          eventID:
+                                                              widget.eventId,
+                                                          contextRegisterTicket:
+                                                              contextRegisterForm,
+                                                        ),
+                                                      );
+                                                    }
+                                                  : eventController
                                                                   .eventDetail
                                                                   .value
-                                                                  .livestreamLink
-                                                                  .toString()));
-                                                        }
-                                                      : eventController.eventDetail.value.hostAt != 'online' &&
-                                                              eventController
+                                                                  .posted !=
+                                                              "past" &&
+                                                          eventController
+                                                              .eventDetail
+                                                              .value
+                                                              .isRegister!
+                                                      ? eventController
                                                                   .eventDetail
                                                                   .value
-                                                                  .isRegister! &&
-                                                              eventController
-                                                                  .eventDetail
-                                                                  .value
-                                                                  .isCheckin!
-                                                          ? () async {
-                                                              await eventController
-                                                                  .onFetchEventTicket(
-                                                                      eventController
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .id!)
-                                                                  .then(
-                                                                (EventTicket
-                                                                    ticket) {
-                                                                  if (ticket
-                                                                          .ticket !=
-                                                                      null) {
-                                                                    onShowCustomCupertinoModalSheet(
-                                                                      context:
-                                                                          context,
-                                                                      title:
-                                                                          'Your Ticket',
-                                                                      icon: const Icon(
-                                                                          Icons
-                                                                              .clear),
-                                                                      child:
-                                                                          SizedBox(
-                                                                        width: double
-                                                                            .infinity,
-                                                                        height:
-                                                                            double.infinity,
-                                                                        child:
-                                                                            Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Expanded(
-                                                                              child: SingleChildScrollView(
-                                                                                child: Column(
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: const EdgeInsets.all(padding),
-                                                                                      child: RepaintBoundary(
-                                                                                        key: printScreenKey,
-                                                                                        child: CustomTicketCard(
-                                                                                          eventTicket: ticket,
-                                                                                          onViewMap: () {
-                                                                                            EventData eventData = EventData(latitude: ticket.ticket!.latitude, longitude: ticket.ticket!.longitude, title: ticket.ticket!.event);
-
-                                                                                            Navigator.pushNamed(context, RouteName.GOOGLEMAPPAGE, arguments: eventData);
-                                                                                          },
-                                                                                          onViewListing: () {
-                                                                                            EventDetailArgument argument = EventDetailArgument(id: eventController.eventDetail.value.id);
-                                                                                            Navigator.push(
-                                                                                              context,
-                                                                                              MaterialPageRoute(builder: (context) => const EventDetail(), settings: RouteSettings(arguments: argument)),
-                                                                                            );
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: padding),
-                                                                                      child: CustomButton(
-                                                                                        isDisable: false,
-                                                                                        isOutline: true,
-                                                                                        title: 'Save ticket as image',
-                                                                                        onPressed: () {
-                                                                                          setState(() {});
-                                                                                          onCaptureAndSave(context);
-                                                                                        },
-                                                                                      ),
-                                                                                    ),
-                                                                                    const SizedBox(height: padding - borderRaduis),
-                                                                                    SvgPicture.asset('assets/images/svgfile/cic_logo.svg'),
-                                                                                    const SizedBox(height: padding),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Container(
-                                                                              width: double.infinity,
-                                                                              margin: const EdgeInsets.only(left: 0, right: 0, bottom: 10),
-                                                                              padding: const EdgeInsets.all(padding),
-                                                                              child: CustomButton(
-                                                                                title: 'Confirm',
-                                                                                isDisable: false,
-                                                                                isOutline: false,
-                                                                                onPressed: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                },
-                                                              );
+                                                                  .hostAt ==
+                                                              'online'
+                                                          ? () {
+                                                              launchUrl(Uri.parse(
+                                                                  eventController
+                                                                      .eventDetail
+                                                                      .value
+                                                                      .livestreamLink
+                                                                      .toString()));
                                                             }
                                                           : eventController.eventDetail.value.hostAt != 'online' &&
                                                                   eventController
                                                                       .eventDetail
                                                                       .value
                                                                       .isRegister! &&
-                                                                  !eventController
+                                                                  eventController
                                                                       .eventDetail
                                                                       .value
                                                                       .isCheckin!
-                                                              ? () {
-                                                                  debugPrint(
-                                                                      "Workk===>");
+                                                              ? () async {
+                                                                  await eventController
+                                                                      .onFetchEventTicket(eventController
+                                                                          .eventDetail
+                                                                          .value
+                                                                          .id!)
+                                                                      .then(
+                                                                    (EventTicket
+                                                                        ticket) {
+                                                                      if (ticket
+                                                                              .ticket !=
+                                                                          null) {
+                                                                        onShowCustomCupertinoModalSheet(
+                                                                          context:
+                                                                              context,
+                                                                          title:
+                                                                              'Your Ticket',
+                                                                          icon:
+                                                                              const Icon(Icons.clear),
+                                                                          child:
+                                                                              SizedBox(
+                                                                            width:
+                                                                                double.infinity,
+                                                                            height:
+                                                                                double.infinity,
+                                                                            child:
+                                                                                Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: SingleChildScrollView(
+                                                                                    child: Column(
+                                                                                      children: [
+                                                                                        Padding(
+                                                                                          padding: const EdgeInsets.all(padding),
+                                                                                          child: RepaintBoundary(
+                                                                                            key: printScreenKey,
+                                                                                            child: CustomTicketCard(
+                                                                                              eventTicket: ticket,
+                                                                                              onViewMap: () {
+                                                                                                EventData eventData = EventData(latitude: ticket.ticket!.latitude, longitude: ticket.ticket!.longitude, title: ticket.ticket!.event);
 
-                                                                  onShowCustomCupertinoModalSheet(
-                                                                    context:
-                                                                        context,
-                                                                    icon:
-                                                                        const Icon(
-                                                                      Icons
-                                                                          .close_rounded,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                    isColorsAppBar:
-                                                                        AppColor
-                                                                            .mainColor,
-                                                                    backgroundColor:
-                                                                        AppColor
-                                                                            .mainColor,
-                                                                    title:
-                                                                        "Check in",
-                                                                    titleColors:
-                                                                        AppColor
-                                                                            .arrowforwardColor['dark'],
-                                                                    onTap:
-                                                                        () {},
-                                                                    child:
-                                                                        const EventCheckInTicket(
-                                                                      selectCheckIn:
-                                                                          'check_in',
-                                                                    ),
+                                                                                                Navigator.pushNamed(context, RouteName.GOOGLEMAPPAGE, arguments: eventData);
+                                                                                              },
+                                                                                              onViewListing: () {
+                                                                                                EventDetailArgument argument = EventDetailArgument(id: eventController.eventDetail.value.id);
+                                                                                                Navigator.push(
+                                                                                                  context,
+                                                                                                  MaterialPageRoute(builder: (context) => const EventDetail(), settings: RouteSettings(arguments: argument)),
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        Padding(
+                                                                                          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: padding),
+                                                                                          child: CustomButton(
+                                                                                            isDisable: false,
+                                                                                            isOutline: true,
+                                                                                            title: 'Save ticket as image',
+                                                                                            onPressed: () {
+                                                                                              setState(() {});
+                                                                                              onCaptureAndSave(context);
+                                                                                            },
+                                                                                          ),
+                                                                                        ),
+                                                                                        const SizedBox(height: padding - borderRaduis),
+                                                                                        SvgPicture.asset('assets/images/svgfile/cic_logo.svg'),
+                                                                                        const SizedBox(height: padding),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                Container(
+                                                                                  width: double.infinity,
+                                                                                  margin: const EdgeInsets.only(left: 0, right: 0, bottom: 10),
+                                                                                  padding: const EdgeInsets.all(padding),
+                                                                                  child: CustomButton(
+                                                                                    title: 'Confirm',
+                                                                                    isDisable: false,
+                                                                                    isOutline: false,
+                                                                                    onPressed: () {
+                                                                                      Navigator.pop(context);
+                                                                                    },
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                    },
                                                                   );
-
-                                                                  // showMaterialModalBottomSheet(
-                                                                  //     context:
-                                                                  //         context,
-                                                                  //     builder:
-                                                                  //         (context) {
-                                                                  //       return SingleChildScrollView(
-                                                                  //         child:
-                                                                  //             Column(
-                                                                  //           children: [
-                                                                  //             Container(
-                                                                  //               height: MediaQuery.of(context).size.height,
-                                                                  //               color: Colors.white,
-                                                                  //               child: const QrCodeScreen(
-                                                                  //                 pageName: 'eventDetail',
-                                                                  //               ),
-                                                                  //             ),
-                                                                  //           ],
-                                                                  //         ),
-                                                                  //       );
-                                                                  //     });
                                                                 }
-                                                              : () {}
-                                                  : () {
-                                                      showMaterialModalBottomSheet(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return SingleChildScrollView(
-                                                              child: Column(
-                                                                children: [
-                                                                  Container(
-                                                                    height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    child:
-                                                                        const QrCodeScreen(
-                                                                      pageName:
-                                                                          'eventDetail',
-                                                                    ),
+                                                              : eventController.eventDetail.value.hostAt != 'online' && eventController.eventDetail.value.isRegister! && !eventController.eventDetail.value.isCheckin!
+                                                                  ? () {
+                                                                      debugPrint(
+                                                                          "Workk===>");
+                                                                      eventController
+                                                                          .getRegisterWithGuest(eventController
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .id!)
+                                                                          .then(
+                                                                            (value) =>
+                                                                                onShowCustomCupertinoModalSheet(
+                                                                              context: contextRegisterForm,
+                                                                              icon: const Icon(
+                                                                                Icons.close_rounded,
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              isColorsAppBar: AppColor.mainColor,
+                                                                              backgroundColor: AppColor.mainColor,
+                                                                              title: "Check in",
+                                                                              titleColors: AppColor.arrowforwardColor['dark'],
+                                                                              child: EventCheckInTicket(
+                                                                                contextTicket: contextRegisterForm,
+                                                                                selectCheckIn: 'check_in',
+                                                                              ),
+                                                                            ),
+                                                                          );
+
+                                                                      // showMaterialModalBottomSheet(
+                                                                      //     context:
+                                                                      //         context,
+                                                                      //     builder:
+                                                                      //         (context) {
+                                                                      //       return SingleChildScrollView(
+                                                                      //         child:
+                                                                      //             Column(
+                                                                      //           children: [
+                                                                      //             Container(
+                                                                      //               height: MediaQuery.of(context).size.height,
+                                                                      //               color: Colors.white,
+                                                                      //               child: const QrCodeScreen(
+                                                                      //                 pageName: 'eventDetail',
+                                                                      //               ),
+                                                                      //             ),
+                                                                      //           ],
+                                                                      //         ),
+                                                                      //       );
+                                                                      //     });
+                                                                    }
+                                                                  : () {}
+                                                      : () {
+                                                          showMaterialModalBottomSheet(
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return SingleChildScrollView(
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Container(
+                                                                        height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .height,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        child:
+                                                                            const QrCodeScreen(
+                                                                          pageName:
+                                                                              'eventDetail',
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          });
-                                                    }),
-                                ),
-                              )
-                            : const Text('')
-                        : const Text('')),
+                                                                );
+                                                              });
+                                                        }),
+                                    ),
+                                  )
+                                : const Text('')
+                            : const Text('')),
               ),
             ),
           ),

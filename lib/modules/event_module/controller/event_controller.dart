@@ -22,8 +22,8 @@ import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/color.dart';
 import '../models/card_guests_model.dart';
-import '../models/event_check_in_model.dart';
 import '../models/get_register_model/get_register_model.dart';
+import '../models/guest_model/guest_model.dart';
 
 class EventController extends GetxController {
   String? tokenKey;
@@ -574,19 +574,21 @@ class EventController extends GetxController {
 
   ApiBaseHelper apiBaseHelper = ApiBaseHelper();
   //register with guest event
-
+  final guestModel = GuestModel().obs;
   onClearGuest() {
-    guestName.value = '';
-    guestPhone.value = '';
-    guestRelationship.value = '';
+    guestModel.value.participantName = '';
+    guestModel.value.phone = '';
+    guestModel.value.relationshipId;
   }
 
+  final currentIndex = 0.obs;
   final guestName = ''.obs;
   final guestPhone = ''.obs;
   final guestRelationship = ''.obs;
   final isLoadingRegisterWithGuest = false.obs;
   final guestlistmodel = <GuestModel>[GuestModel()].obs;
   final getRegisterModel = GetRegisterModel().obs;
+  final getListGest = <GuestListModel>[].obs;
   Future<void> onRegisterWithGuest(
       {int? id, int? eventId, List<Map>? guest, BuildContext? context}) async {
     isLoadingRegisterWithGuest(true);
@@ -626,7 +628,7 @@ class EventController extends GetxController {
               ),
               isColorsAppBar: AppColor.mainColor,
               backgroundColor: AppColor.mainColor,
-              title: "Check in",
+              title: "Your Ticket",
               titleColors: AppColor.arrowforwardColor['dark'],
               child:
                   // const EventSubmitDoneScreen()
@@ -638,10 +640,12 @@ class EventController extends GetxController {
       fetchEventDetail(id!);
       eventDetail.value.isRegister = true;
       Navigator.pop(context!);
+      onClearGuest();
+      isLoadingRegisterWithGuest(false);
+      /////clear data on textfile
+      guestlistmodel.value = <GuestModel>[GuestModel()];
       refresh();
       update();
-      isLoadingRegisterWithGuest(false);
-      onClearGuest();
     }).onError((ErrorModel error, stackTrace) {
       isLoadingRegisterWithGuest(false);
     });
@@ -650,17 +654,40 @@ class EventController extends GetxController {
 ////submit check in
   final isLoadingCheckIn = false.obs;
   Future<void> onCheckInEvent(
-      {int? checkIn, String? dateCheckIn, int? eventId}) async {
+      {List<Map>? guestList, int? eventId, BuildContext? context}) async {
     isLoadingCheckIn(true);
     await apiBaseHelper.onNetworkRequesting(
         methode: METHODE.post,
         isAuthorize: true,
         url: 'checkin-guest',
         body: {
-          "check_in": checkIn,
-          "check_in_date": dateCheckIn,
-          "event_id": eventId
+          "event_id": eventId,
+          "member_id": customerController.customer.value.customerId,
+          "guest": guestList,
         }).then((res) {
+      debugPrint("Checkin submited:$guestList");
+      debugPrint("check in successfull$res");
+      getRegisterModel.value = GetRegisterModel.fromJson(res['data']);
+      customRouterSnackbar(
+          description: "Successfully registered",
+          onTap: () {
+            onShowCustomCupertinoModalSheet(
+              context: context,
+              icon: const Icon(
+                Icons.close_rounded,
+                color: Colors.white,
+              ),
+              isColorsAppBar: AppColor.mainColor,
+              backgroundColor: AppColor.mainColor,
+              title: "Your Ticket",
+              titleColors: AppColor.arrowforwardColor['dark'],
+              child:
+                  // const EventSubmitDoneScreen()
+                  const EventCheckInTicket(
+                selectCheckIn: 'view_ticket',
+              ),
+            );
+          });
       isLoadingCheckIn(false);
     }).onError((ErrorModel error, stackTrace) {
       isLoadingCheckIn(false);
@@ -669,44 +696,41 @@ class EventController extends GetxController {
 
   //Get register guest
   final isLoadingGetRegister = false.obs;
-  final checkInList = <CheckInModel>[].obs;
-  final checkInModel = CheckInModel().obs;
-  Future<List<CheckInModel>> getRegisterWithGuest() async {
+  // final checkInList = <GetRegisterModel>[].obs;
+  // final checkInModel = GetRegisterModel().obs;
+  Future<GetRegisterModel> getRegisterWithGuest(int? id) async {
+    debugPrint("check eventid:$id");
     await apiBaseHelper
         .onNetworkRequesting(
-            methode: METHODE.get, isAuthorize: true, url: 'guest-register')
+            methode: METHODE.get,
+            isAuthorize: true,
+            url:
+                'guest-register?event_id=$id&member_id=${customerController.customer.value.customerId}')
         .then((res) {
       debugPrint('hello++++++++$res');
       var responseJson = res['data'];
       debugPrint('hello++++++++11111');
 
-      checkInList.clear();
-      debugPrint('hello++++++++2222');
-
-      debugPrint('hello++++++++3333');
-      responseJson.map((e) {
-        debugPrint('hello++++++++4444');
-
-        getRegisterModel.value = GetRegisterModel.fromJson(e);
-        checkInList.add(checkInModel.value);
-        debugPrint('hello++++++++5555$e');
+      getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
+      getListGest.clear();
+      getRegisterModel.value.guest!.map((e) {
+        getListGest.add(e);
       }).toList();
     }).onError((ErrorModel error, stackTrace) {
       isLoadingGetRegister(false);
     });
-    return checkInList;
+    return getRegisterModel.value;
   }
-  //Guest List
-
-  // List<String> guestList = [];
-
-  // List<Map<GuestModel, dynamic>> guestList = [];
 }
 
 class GuestModel {
-  String phone;
-  String participantName;
-  String relationship;
+  String? phone;
+  String? participantName;
+  int? relationshipId;
+  String? relationShipDisplay;
   GuestModel(
-      {this.phone = '', this.participantName = '', this.relationship = ''});
+      {this.phone = '',
+      this.participantName = '',
+      this.relationshipId,
+      this.relationShipDisplay});
 }

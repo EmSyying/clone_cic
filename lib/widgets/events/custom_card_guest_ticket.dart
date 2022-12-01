@@ -7,14 +7,16 @@ class CustomCardGuestsTicket extends StatelessWidget {
   final String? nameGuest;
   final String? who;
   final bool isCheckBox;
-  final GestureTapCallback? onTap;
+  final GestureTapCallback? onTapSelect;
+  final String? viewTicket;
   const CustomCardGuestsTicket({
     Key? key,
     this.guest,
     this.nameGuest,
     this.who,
-    this.onTap,
+    this.onTapSelect,
     this.isCheckBox = false,
+    this.viewTicket,
   }) : super(key: key);
 
   @override
@@ -76,30 +78,33 @@ class CustomCardGuestsTicket extends StatelessWidget {
         ),
         const Spacer(),
         //===Check Box====
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            height: 20,
-            width: 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(
-                color:
-                    isCheckBox ? AppColor.mainColor : AppColor.chartLabelColor,
-                width: 0.6,
+        if (viewTicket != null)
+          GestureDetector(
+            onTap: onTapSelect,
+            child: Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                border: Border.all(
+                  color: isCheckBox
+                      ? AppColor.mainColor
+                      : AppColor.chartLabelColor,
+                  width: 0.6,
+                ),
+                shape: BoxShape.rectangle,
+                color: isCheckBox
+                    ? AppColor.mainColor
+                    : Theme.of(context).cardColor,
               ),
-              shape: BoxShape.rectangle,
-              color:
-                  isCheckBox ? AppColor.mainColor : Theme.of(context).cardColor,
+              child: isCheckBox
+                  ? const Center(
+                      child: Icon(Icons.done,
+                          size: 16.0, color: AppColor.paymentBackgroundColor),
+                    )
+                  : Container(),
             ),
-            child: isCheckBox
-                ? const Center(
-                    child: Icon(Icons.done,
-                        size: 16.0, color: AppColor.paymentBackgroundColor),
-                  )
-                : Container(),
           ),
-        ),
       ],
     );
   }

@@ -18,115 +18,6 @@ class EventTicketScreen extends StatelessWidget {
       color: AppColor.mainColor,
       child: Column(
         children: [
-          // Column(
-          //   children: const [
-          //     // Stack(
-          //     //   children: [
-          //     //     Container(
-          //     //       margin: const EdgeInsets.symmetric(horizontal: 20),
-          //     //       padding: const EdgeInsets.only(left: 20, right: 20),
-          //     //       decoration: BoxDecoration(
-          //     //         color: Colors.white,
-          //     //         borderRadius: BorderRadius.circular(14),
-          //     //         boxShadow: [
-          //     //           BoxShadow(
-          //     //               color: Colors.black.withOpacity(0.05),
-          //     //               spreadRadius: 0.1,
-          //     //               offset: const Offset(0, 2),
-          //     //               blurRadius: 8),
-          //     //         ],
-          //     //       ),
-          //     //       child: Column(
-          //     //         crossAxisAlignment: CrossAxisAlignment.start,
-          //     //         children: [
-          //     //           Center(
-          //     //             child: Padding(
-          //     //               padding: const EdgeInsets.only(top: 20.0),
-          //     //               child: Image.asset(
-          //     //                 "assets/images/Ticket.png",
-          //     //               ),
-          //     //             ),
-          //     //           ),
-
-          //     //           Container(
-          //     //             margin: const EdgeInsets.only(
-          //     //               bottom: 10.0,
-          //     //               top: 20.0,
-          //     //             ),
-          //     //             child: Column(
-          //     //               crossAxisAlignment: CrossAxisAlignment.center,
-          //     //               children: [
-          //     //                 Container(
-          //     //                     padding: const EdgeInsets.all(10),
-          //     //                     child: Center(
-          //     //                       child: RichText(
-          //     //                         text: TextSpan(
-          //     //                             text: 'Ticket Number',
-          //     //                             style: Theme.of(context)
-          //     //                                 .textTheme
-          //     //                                 .headline2!
-          //     //                                 .copyWith(
-          //     //                                   fontWeight: FontWeight.w700,
-          //     //                                   fontSize: 18.0,
-          //     //                                 ),
-          //     //                             children: const <TextSpan>[
-          //     //                               TextSpan(
-          //     //                                 text: '\n #CiC0534532',
-          //     //                                 style: TextStyle(
-          //     //                                   color: AppColor.mainColor,
-          //     //                                   fontSize: 16,
-          //     //                                   fontWeight: FontWeight.w700,
-          //     //                                 ),
-          //     //                               )
-          //     //                             ]),
-          //     //                       ),
-          //     //                     )),
-          //     //               ],
-          //     //             ),
-          //     //           ),
-          //     //           const SizedBox(height: 15),
-          //     //           Container(
-          //     //             decoration: DottedDecoration(
-          //     //               strokeWidth: 2,
-          //     //               shape: Shape.line,
-          //     //               color: const Color(0xffDBDBDB),
-          //     //             ),
-          //     //           ),
-          //     //           const SizedBox(height: 15),
-
-          //     //           ///===
-          //     //           Column(
-          //     //             crossAxisAlignment: CrossAxisAlignment.start,
-          //     //             children: contro.eventCheckIn
-          //     //                 .asMap()
-          //     //                 .entries
-          //     //                 .map(
-          //     //                   (e) => CustomTitleEventCheckIn(
-          //     //                     title: e.value.title,
-          //     //                     descript: e.value.description,
-          //     //                   ),
-          //     //                 )
-          //     //                 .toList(),
-          //     //           ),
-
-          //     //           const SizedBox(height: 20),
-          //     //         ],
-          //     //       ),
-          //     //     ),
-          //     //     //PositionedBoxShapCircle =shap border=====
-          //     //     const CustomPositionedBoxShapCircle(
-          //     //       top: 216,
-          //     //       left: 6,
-          //     //     ),
-          //     //     const CustomPositionedBoxShapCircle(
-          //     //       top: 216,
-          //     //       right: 6,
-          //     //     ),
-          //     //   ],
-          //     // ),
-          //     //==========Column Contain 2====
-          //   ],
-          // ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             padding: const EdgeInsets.only(left: 20, right: 20),
@@ -168,12 +59,14 @@ class EventTicketScreen extends StatelessWidget {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (_, e) => CustomCardGuestsTicket(
-                          guest: contro.listChecked[e].guest,
-                          nameGuest: contro.listChecked[e].nameGuest,
-                          who: contro.listChecked[e].who,
-                          isCheckBox: contro.listChecked[e].isCheckBox,
+                          guest:
+                              'Guest ${contro.getRegisterModel.value.guest!.length}',
+                          nameGuest: contro
+                              .getRegisterModel.value.guest![e].participantName,
+                          who: contro
+                              .getRegisterModel.value.guest![e].relationship,
                         ),
-                        itemCount: contro.listChecked.length,
+                        itemCount: contro.getRegisterModel.value.guest!.length,
                         separatorBuilder: (BuildContext context, int index) =>
                             const Padding(
                           padding: EdgeInsets.only(top: 16, bottom: 16),

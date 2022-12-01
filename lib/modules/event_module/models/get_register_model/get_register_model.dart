@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../guest_model/guest_model.dart';
+
 part 'get_register_model.freezed.dart';
 part 'get_register_model.g.dart';
 
@@ -18,6 +20,7 @@ class GetRegisterModel with _$GetRegisterModel {
     double? latitude,
     double? longitude,
     @JsonKey(name: 'livestream_link') final String? livestreamLink,
+    List<GuestListModel>? guest,
   }) = _GetRegisterModel;
 
   factory GetRegisterModel.fromJson(Map<String, dynamic> json) =>

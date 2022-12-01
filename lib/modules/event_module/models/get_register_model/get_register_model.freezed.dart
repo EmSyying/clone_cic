@@ -36,6 +36,7 @@ mixin _$GetRegisterModel {
   double? get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'livestream_link')
   String? get livestreamLink => throw _privateConstructorUsedError;
+  List<GuestListModel>? get guest => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +61,8 @@ abstract class $GetRegisterModelCopyWith<$Res> {
       String? location,
       double? latitude,
       double? longitude,
-      @JsonKey(name: 'livestream_link') String? livestreamLink});
+      @JsonKey(name: 'livestream_link') String? livestreamLink,
+      List<GuestListModel>? guest});
 }
 
 /// @nodoc
@@ -86,6 +88,7 @@ class _$GetRegisterModelCopyWithImpl<$Res>
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? livestreamLink = freezed,
+    Object? guest = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -136,6 +139,10 @@ class _$GetRegisterModelCopyWithImpl<$Res>
           ? _value.livestreamLink
           : livestreamLink // ignore: cast_nullable_to_non_nullable
               as String?,
+      guest: guest == freezed
+          ? _value.guest
+          : guest // ignore: cast_nullable_to_non_nullable
+              as List<GuestListModel>?,
     ));
   }
 }
@@ -159,7 +166,8 @@ abstract class _$$_GetRegisterModelCopyWith<$Res>
       String? location,
       double? latitude,
       double? longitude,
-      @JsonKey(name: 'livestream_link') String? livestreamLink});
+      @JsonKey(name: 'livestream_link') String? livestreamLink,
+      List<GuestListModel>? guest});
 }
 
 /// @nodoc
@@ -187,6 +195,7 @@ class __$$_GetRegisterModelCopyWithImpl<$Res>
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? livestreamLink = freezed,
+    Object? guest = freezed,
   }) {
     return _then(_$_GetRegisterModel(
       id: id == freezed
@@ -237,6 +246,10 @@ class __$$_GetRegisterModelCopyWithImpl<$Res>
           ? _value.livestreamLink
           : livestreamLink // ignore: cast_nullable_to_non_nullable
               as String?,
+      guest: guest == freezed
+          ? _value._guest
+          : guest // ignore: cast_nullable_to_non_nullable
+              as List<GuestListModel>?,
     ));
   }
 }
@@ -256,7 +269,9 @@ class _$_GetRegisterModel implements _GetRegisterModel {
       this.location,
       this.latitude,
       this.longitude,
-      @JsonKey(name: 'livestream_link') this.livestreamLink});
+      @JsonKey(name: 'livestream_link') this.livestreamLink,
+      final List<GuestListModel>? guest})
+      : _guest = guest;
 
   factory _$_GetRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$$_GetRegisterModelFromJson(json);
@@ -289,10 +304,18 @@ class _$_GetRegisterModel implements _GetRegisterModel {
   @override
   @JsonKey(name: 'livestream_link')
   final String? livestreamLink;
+  final List<GuestListModel>? _guest;
+  @override
+  List<GuestListModel>? get guest {
+    final value = _guest;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'GetRegisterModel(id: $id, name: $name, event: $event, hostAt: $hostAt, date: $date, fromTime: $fromTime, toTime: $toTime, place: $place, location: $location, latitude: $latitude, longitude: $longitude, livestreamLink: $livestreamLink)';
+    return 'GetRegisterModel(id: $id, name: $name, event: $event, hostAt: $hostAt, date: $date, fromTime: $fromTime, toTime: $toTime, place: $place, location: $location, latitude: $latitude, longitude: $longitude, livestreamLink: $livestreamLink, guest: $guest)';
   }
 
   @override
@@ -312,7 +335,8 @@ class _$_GetRegisterModel implements _GetRegisterModel {
             const DeepCollectionEquality().equals(other.latitude, latitude) &&
             const DeepCollectionEquality().equals(other.longitude, longitude) &&
             const DeepCollectionEquality()
-                .equals(other.livestreamLink, livestreamLink));
+                .equals(other.livestreamLink, livestreamLink) &&
+            const DeepCollectionEquality().equals(other._guest, _guest));
   }
 
   @JsonKey(ignore: true)
@@ -330,7 +354,8 @@ class _$_GetRegisterModel implements _GetRegisterModel {
       const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(latitude),
       const DeepCollectionEquality().hash(longitude),
-      const DeepCollectionEquality().hash(livestreamLink));
+      const DeepCollectionEquality().hash(livestreamLink),
+      const DeepCollectionEquality().hash(_guest));
 
   @JsonKey(ignore: true)
   @override
@@ -345,19 +370,19 @@ class _$_GetRegisterModel implements _GetRegisterModel {
 
 abstract class _GetRegisterModel implements GetRegisterModel {
   factory _GetRegisterModel(
-          {final int? id,
-          final String? name,
-          final String? event,
-          @JsonKey(name: 'host_at') final String? hostAt,
-          final String? date,
-          @JsonKey(name: 'from_time') final String? fromTime,
-          @JsonKey(name: 'to_time') final String? toTime,
-          final String? place,
-          final String? location,
-          final double? latitude,
-          final double? longitude,
-          @JsonKey(name: 'livestream_link') final String? livestreamLink}) =
-      _$_GetRegisterModel;
+      {final int? id,
+      final String? name,
+      final String? event,
+      @JsonKey(name: 'host_at') final String? hostAt,
+      final String? date,
+      @JsonKey(name: 'from_time') final String? fromTime,
+      @JsonKey(name: 'to_time') final String? toTime,
+      final String? place,
+      final String? location,
+      final double? latitude,
+      final double? longitude,
+      @JsonKey(name: 'livestream_link') final String? livestreamLink,
+      final List<GuestListModel>? guest}) = _$_GetRegisterModel;
 
   factory _GetRegisterModel.fromJson(Map<String, dynamic> json) =
       _$_GetRegisterModel.fromJson;
@@ -390,6 +415,8 @@ abstract class _GetRegisterModel implements GetRegisterModel {
   @override
   @JsonKey(name: 'livestream_link')
   String? get livestreamLink => throw _privateConstructorUsedError;
+  @override
+  List<GuestListModel>? get guest => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_GetRegisterModelCopyWith<_$_GetRegisterModel> get copyWith =>

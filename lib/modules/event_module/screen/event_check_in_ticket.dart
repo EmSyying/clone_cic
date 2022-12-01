@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cicgreenloan/modules/event_module/models/guest_model/guest_model.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'dart:ui';
 
@@ -16,25 +17,24 @@ import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../widgets/events/custom_card_guest_ticket.dart';
 import '../../../widgets/events/custom_event_title_check_in.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
-import '../../member_directory/controllers/customer_controller.dart';
 import '../controller/event_controller.dart';
 import '../../../widgets/events/custom_event_ticket_screen.dart';
 import '../models/card_guests_model.dart';
 
 class EventCheckInTicket extends StatelessWidget {
   final String? selectCheckIn;
-
+  final BuildContext? contextTicket;
   const EventCheckInTicket({
     Key? key,
     this.selectCheckIn = '',
+    this.contextTicket,
   }) : super(key: key);
   static GlobalKey printScreenKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final contro = Get.put(EventController());
-    final customerCon = Get.put(CustomerController());
-    contro.getRegisterWithGuest();
+    List<Map>? guest = [];
     return Container(
       padding: const EdgeInsets.only(top: 15),
       color: AppColor.mainColor,
@@ -65,7 +65,7 @@ class EventCheckInTicket extends StatelessWidget {
                               ],
                             ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Center(
                                   child: Padding(
@@ -76,56 +76,58 @@ class EventCheckInTicket extends StatelessWidget {
                                   ),
                                 ),
 
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                    bottom: 10.0,
-                                    top: 20.0,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(
-                                        height: 25,
-                                      ),
-                                      Text('Ticket Number',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 18.0,
-                                              )),
-                                      Text(
-                                          '${contro.getRegisterModel.value.id}'),
-                                      // Container(
-                                      //   padding: const EdgeInsets.all(10),
-                                      //   child: Center(
-                                      //     child: RichText(
-                                      //       text: TextSpan(
-                                      //           text: 'Ticket Number',
-                                      //           style: Theme.of(context)
-                                      //               .textTheme
-                                      //               .headline2!
-                                      //               .copyWith(
-                                      //                 fontWeight: FontWeight.w700,
-                                      //                 fontSize: 18.0,
-                                      //               ),
-                                      //           children: <TextSpan>[
-                                      //             TextSpan(
-                                      //               text:
-                                      //                   '\n ${contro.getRegisterModel.value.id}',
-                                      //               style: const TextStyle(
-                                      //                 color: AppColor.mainColor,
-                                      //                 fontSize: 16,
-                                      //                 fontWeight: FontWeight.w700,
-                                      //               ),
-                                      //             )
-                                      //           ]),
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                    ],
+                                Center(
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                      bottom: 10.0,
+                                      top: 20.0,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          height: 25,
+                                        ),
+                                        Text('Ticket Number',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 18.0,
+                                                )),
+                                        Text(
+                                            '${contro.getRegisterModel.value.id}'),
+                                        // Container(
+                                        //   padding: const EdgeInsets.all(10),
+                                        //   child: Center(
+                                        //     child: RichText(
+                                        //       text: TextSpan(
+                                        //           text: 'Ticket Number',
+                                        //           style: Theme.of(context)
+                                        //               .textTheme
+                                        //               .headline2!
+                                        //               .copyWith(
+                                        //                 fontWeight: FontWeight.w700,
+                                        //                 fontSize: 18.0,
+                                        //               ),
+                                        //           children: <TextSpan>[
+                                        //             TextSpan(
+                                        //               text:
+                                        //                   '\n ${contro.getRegisterModel.value.id}',
+                                        //               style: const TextStyle(
+                                        //                 color: AppColor.mainColor,
+                                        //                 fontSize: 16,
+                                        //                 fontWeight: FontWeight.w700,
+                                        //               ),
+                                        //             )
+                                        //           ]),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 15),
@@ -139,6 +141,34 @@ class EventCheckInTicket extends StatelessWidget {
                                 const SizedBox(height: 15),
 
                                 ///===
+                                // selectCheckIn == 'view_ticket'
+                                //     ? Column(
+                                //         crossAxisAlignment:
+                                //             CrossAxisAlignment.start,
+                                //         children: [
+                                //           CustomTitleEventCheckIn(
+                                //             title: 'Name',
+                                //             descript: contro
+                                //                 .getRegisterModel.value.name,
+                                //           ),
+                                //           CustomTitleEventCheckIn(
+                                //             title: 'Event',
+                                //             descript: contro
+                                //                 .getRegisterModel.value.event,
+                                //           ),
+                                //           CustomTitleEventCheckIn(
+                                //             title: 'Date and Time',
+                                //             descript:
+                                //                 '${contro.getRegisterModel.value.date} - ${contro.getRegisterModel.value.fromTime} - ${contro.getRegisterModel.value.toTime}',
+                                //           ),
+                                //           CustomTitleEventCheckIn(
+                                //             title: 'Location',
+                                //             descript: contro.getRegisterModel
+                                //                 .value.location,
+                                //           ),
+                                //         ],
+                                //       )
+                                //     :
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -197,166 +227,246 @@ class EventCheckInTicket extends StatelessWidget {
                         ],
                       ),
                       //==========Column Guests card====
-                      selectCheckIn == 'check_in'
-                          ? Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(14),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.05),
-                                      spreadRadius: 0.1,
-                                      offset: const Offset(0, 2),
-                                      blurRadius: 8),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: DottedDecoration(
-                                        strokeWidth: 2,
-                                        shape: Shape.line,
-                                        color: const Color(0xffDBDBDB)),
-                                  ),
-                                  const SizedBox(height: 15),
+                      if (contro.getListGest.isNotEmpty)
+                        selectCheckIn == 'check_in'
+                            ? Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(14),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.05),
+                                        spreadRadius: 0.1,
+                                        offset: const Offset(0, 2),
+                                        blurRadius: 8),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: DottedDecoration(
+                                          strokeWidth: 2,
+                                          shape: Shape.line,
+                                          color: const Color(0xffDBDBDB)),
+                                    ),
+                                    const SizedBox(height: 15),
 
-                                  ///===
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        top: 10.0, bottom: 20.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Guests',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 15.0,
-                                              ),
-                                        ),
-                                        const Spacer(),
-                                        GestureDetector(
-                                          onTap: () {
-                                            // for (var e = 0;
-                                            //     e < contro.cardGuestsList.length;
-                                            //     e++) {
-                                            //   contro.cardGuestsList[e]
-                                            //       .isCheckBox = true;
-                                            //   guestList
-                                            //       .addAll(contro.cardGuestsList);
-                                            // }
-                                            contro.checkInList
-                                                .asMap()
-                                                .entries
-                                                .map((e) => contro
-                                                        .cardGuestsList[e.key]
-                                                        .isCheckBox =
-                                                    !contro
-                                                        .cardGuestsList[e.key]
-                                                        .isCheckBox)
-                                                .toList();
-                                            guestList
-                                                .addAll(contro.cardGuestsList);
-                                            contro.cardGuestsList.refresh();
-                                            //  contro.cardGuestsList[e].isCheckBox =
-                                            //   !contro
-                                            //       .cardGuestsList.isCheckBox;
-                                          },
-                                          child: Text(
-                                            'Select all',
+                                    ///===
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          top: 10.0, bottom: 20.0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Guests',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline2!
                                                 .copyWith(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 13,
-                                                  color: AppColor.mainColor,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 15.0,
                                                 ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                          const Spacer(),
+                                          GestureDetector(
+                                            onTap: () {
+                                              debugPrint("is selected all");
+                                              contro.getListGest
+                                                  .asMap()
+                                                  .entries
+                                                  .map((e) {
+                                                GuestListModel guestListModel =
+                                                    GuestListModel();
+                                                if (contro.getListGest[e.key]
+                                                        .isCheckBox ==
+                                                    true) {
+                                                  contro.getListGest[e.key] =
+                                                      guestListModel.copyWith(
+                                                          id: contro
+                                                              .getRegisterModel
+                                                              .value
+                                                              .guest![e.key]
+                                                              .id,
+                                                          participantName: contro
+                                                              .getRegisterModel
+                                                              .value
+                                                              .guest![e.key]
+                                                              .participantName,
+                                                          relationship: contro
+                                                              .getRegisterModel
+                                                              .value
+                                                              .guest![e.key]
+                                                              .relationship,
+                                                          isCheckBox: false);
+                                                } else {
+                                                  contro.getListGest[e.key] =
+                                                      guestListModel.copyWith(
+                                                          id: contro
+                                                              .getRegisterModel
+                                                              .value
+                                                              .guest![e.key]
+                                                              .id,
+                                                          participantName: contro
+                                                              .getRegisterModel
+                                                              .value
+                                                              .guest![e.key]
+                                                              .participantName,
+                                                          relationship: contro
+                                                              .getRegisterModel
+                                                              .value
+                                                              .guest![e.key]
+                                                              .relationship,
+                                                          isCheckBox: true);
+                                                }
+                                                contro.getListGest.map((e) {
+                                                  if (e.isCheckBox == true) {
+                                                    guest.add(
+                                                      {
+                                                        "check_in": '1',
+                                                        "guest_id": e.id
+                                                      },
+                                                    );
+                                                  }
+                                                }).toList();
 
-                                  ///all Guests======
-                                  Obx(
-                                    () => ListView.separated(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (_, e) =>
-                                          CustomCardGuestsTicket(
-                                        guest:
-                                            "Guest${contro.checkInList.length}",
-                                        nameGuest: contro
-                                            .checkInList[e].participantName,
-                                        who: 'sis',
-                                        // isCheckBox:
-                                        //     contro.cardGuestsList[e].isCheckBox,
-                                        // onTap: () {
-                                        //   contro.cardGuestsList[e].isCheckBox =
-                                        //       !contro
-                                        //           .cardGuestsList[e].isCheckBox;
-
-                                        //   contro.cardGuestsList.refresh();
-                                        // },
+                                                debugPrint(
+                                                    "is checkbox1${guest.length}");
+                                                contro.getRegisterModel
+                                                    .refresh();
+                                                contro.update();
+                                              }).toList();
+                                            },
+                                            child: Text(
+                                              'Select all',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline2!
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 13,
+                                                    color: AppColor.mainColor,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      itemCount: contro.checkInList.length,
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              const Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 16, bottom: 16),
-                                        child: Divider(
-                                          height: 1,
-                                          color: Colors.black12,
+                                    ),
+
+                                    ///all Guests======
+
+                                    Obx(
+                                      () => ListView.separated(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (_, e) =>
+                                            CustomCardGuestsTicket(
+                                          viewTicket: 'check_in',
+                                          guest:
+                                              "Guest ${contro.getListGest.length}",
+                                          nameGuest: contro
+                                              .getListGest[e].participantName,
+                                          who: contro
+                                              .getListGest[e].relationship,
+                                          isCheckBox:
+                                              contro.getListGest[e].isCheckBox!,
+                                          onTapSelect: () {
+                                            debugPrint("is checkbox");
+                                            GuestListModel guestListModel =
+                                                GuestListModel();
+
+                                            if (contro.getListGest[e]
+                                                    .isCheckBox ==
+                                                true) {
+                                              contro.getListGest[e] =
+                                                  guestListModel.copyWith(
+                                                      id: contro
+                                                          .getRegisterModel
+                                                          .value
+                                                          .guest![e]
+                                                          .id,
+                                                      participantName: contro
+                                                          .getRegisterModel
+                                                          .value
+                                                          .guest![e]
+                                                          .participantName,
+                                                      relationship: contro
+                                                          .getRegisterModel
+                                                          .value
+                                                          .guest![e]
+                                                          .relationship,
+                                                      isCheckBox: false);
+                                            } else {
+                                              contro.getListGest[e] =
+                                                  guestListModel.copyWith(
+                                                      id: contro
+                                                          .getRegisterModel
+                                                          .value
+                                                          .guest![e]
+                                                          .id,
+                                                      participantName: contro
+                                                          .getRegisterModel
+                                                          .value
+                                                          .guest![e]
+                                                          .participantName,
+                                                      relationship: contro
+                                                          .getRegisterModel
+                                                          .value
+                                                          .guest![e]
+                                                          .relationship,
+                                                      isCheckBox: true);
+                                            }
+
+                                            contro.getListGest
+                                                .asMap()
+                                                .entries
+                                                .map((e) {
+                                              if (e.value.isCheckBox == true) {
+                                                guest.add(
+                                                  {
+                                                    "check_in": '1',
+                                                    "guest_id": e.value.id
+                                                  },
+                                                );
+                                              } else {
+                                                guest.removeAt(e.key);
+                                              }
+                                            }).toList();
+
+                                            debugPrint("is checkbox1$guest");
+                                            contro.getRegisterModel.refresh();
+                                            contro.update();
+                                          },
+                                        ),
+                                        itemCount: contro.getListGest.length,
+                                        separatorBuilder:
+                                            (BuildContext context, int index) =>
+                                                const Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 16, bottom: 16),
+                                          child: Divider(
+                                            height: 1,
+                                            color: Colors.black12,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  // Obx(
-                                  //   () => Column(
-                                  //     children: contro.cardGuestsList
-                                  //         .asMap()
-                                  //         .entries
-                                  //         .map(
-                                  //           (e) => _customCardGuest(
-                                  //             context,
-                                  //             guest: e.value.guest,
-                                  //             nameGuest: e.value.nameGuest,
-                                  //             who: e.value.who,
-                                  //             isCheckBox: e.value.isCheckBox,
-                                  //             onTap: () {
-                                  // contro.cardGuestsList[e.key].isCheckBox =
-                                  //     !contro
-                                  //         .cardGuestsList[e.key].isCheckBox;
-
-                                  // contro.cardGuestsList.refresh();
-                                  //             },
-                                  //           ),
-                                  //         )
-                                  //         .toList(),
-                                  //   ),
-                                  // ),
-
-                                  const SizedBox(height: 20),
-                                ],
-                              ),
-                            )
-                          : selectCheckIn == 'view_ticket'
-                              ? EventTicketScreen(
-                                  onSaveTicket: () {
-                                    _onCaptureAndSave();
-                                  },
-                                )
-                              : Container(),
+                                    const SizedBox(height: 20),
+                                  ],
+                                ),
+                              )
+                            : selectCheckIn == 'view_ticket'
+                                ? EventTicketScreen(
+                                    onSaveTicket: () {
+                                      _onCaptureAndSave();
+                                    },
+                                  )
+                                : Container(),
                     ],
                   ),
                 ),
@@ -370,13 +480,22 @@ class EventCheckInTicket extends StatelessWidget {
               ),
               child: CustomButton(
                 width: double.infinity,
-                backgroundColor: guestList.isEmpty ? Colors.grey : Colors.white,
-                colorText:
-                    guestList.isEmpty ? Colors.white : AppColor.mainColor,
-                onPressed: guestList.isEmpty ? null : () {},
+                backgroundColor: Colors.white,
+                colorText: AppColor.mainColor,
+                onPressed: selectCheckIn == 'view_ticket'
+                    ? () {
+                        Navigator.pop(context);
+                      }
+                    : () {
+                        Navigator.pop(context);
+                        contro.onCheckInEvent(
+                            context: contextTicket,
+                            eventId: contro.eventDetail.value.id,
+                            guestList: guest);
+                      },
                 isDisable: false,
                 isOutline: false,
-                title: 'Submit',
+                title: selectCheckIn == 'view_ticket' ? 'Done' : 'Submit',
               ),
             ),
           ],

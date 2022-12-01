@@ -20,6 +20,9 @@ _$_GetRegisterModel _$$_GetRegisterModelFromJson(Map<String, dynamic> json) =>
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       livestreamLink: json['livestream_link'] as String?,
+      guest: (json['guest'] as List<dynamic>?)
+          ?.map((e) => GuestListModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_GetRegisterModelToJson(_$_GetRegisterModel instance) =>
@@ -36,4 +39,5 @@ Map<String, dynamic> _$$_GetRegisterModelToJson(_$_GetRegisterModel instance) =>
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'livestream_link': instance.livestreamLink,
+      'guest': instance.guest,
     };

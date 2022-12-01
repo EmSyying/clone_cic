@@ -15,7 +15,8 @@ class CustomAddMoreGuest extends StatefulWidget {
   final GestureTapCallback? onTapDelete;
   final int? addGuest;
   final int? index;
-  final String? relationship;
+  final int? relationship;
+  final String? relationshipDisplay;
   final String? name;
   final String? phone;
   final Function(String)? onchangeName;
@@ -34,6 +35,7 @@ class CustomAddMoreGuest extends StatefulWidget {
     this.onchangeName,
     this.onchangePhone,
     this.onchangeRelationship,
+    this.relationshipDisplay,
     this.textEditing,
   }) : super(key: key);
 
@@ -135,16 +137,16 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
               });
               widget.onchangeRelationship!(value);
             },
-            defaultValue: widget.relationship != ""
+            defaultValue: widget.relationship != null
                 ? {
                     "Code": widget.relationship,
-                    "Name": widget.relationship,
+                    "Name": widget.relationshipDisplay,
                   }
                 : null,
             item: optionController.relationShip.asMap().entries.map((e) {
               return DropDownItem(itemList: {
                 "Name": e.value.display,
-                "Code": e.key,
+                "Code": e.value.id,
               });
             }).toList(),
           ),

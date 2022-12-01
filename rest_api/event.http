@@ -89,12 +89,12 @@ Authorization: Bearer {{token}}
         {
             "phone_number" : "098765434",
             "participant_name" : "yyyy",
-            "relationship" :"1"
+            "relationship" :"sister"
         },
         {
             "phone_number" : "09876543444",
             "participant_name" : "wwww",
-            "relationship" : "2"
+            "relationship" : "brother"
         }
     ]
 }
