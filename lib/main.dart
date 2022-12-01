@@ -97,6 +97,9 @@ Future<void> main() async {
 }
 
 // ignore: must_be_immutable
+
+bool isLoginSuccess = false;
+
 class MyApp extends StatefulWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
@@ -114,6 +117,40 @@ class _MyAppState extends State<MyApp> {
   Setting? setting;
 
   String? token;
+  void onNavigator() async {
+    try {
+      await LocalData.getCurrentUser().then((value) {
+        if (value != null) {
+          setState(() {
+            isLoginSuccess = true;
+          });
+
+          // Future.delayed(const Duration(seconds: 3), () {
+
+          //   // context.go('/');
+          // });
+        } else {
+          setState(() {
+            isLoginSuccess = false;
+          });
+
+          // Future.delayed(const Duration(seconds: 3), () {
+
+          //   // Navigator.push(context,
+          //   //     MaterialPageRoute(builder: (context) => const StartupSlide()));
+          // });
+        }
+      });
+      // await _googleMapCon.determinePosition().then((value) {
+      //   _googleMapCon.latitute = value.latitude;
+      //   _googleMapCon.longtitute = value.longitude;
+
+      //   _googleMapCon.update();
+      // });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   final isLocal = true;
 
@@ -538,8 +575,11 @@ class _MyAppState extends State<MyApp> {
     debugPrint("UUID:$uuid");
   }
 
+  final settingCon = Get.put(SettingController());
+
   @override
   void initState() {
+    onNavigator();
     initAppTracking();
     super.initState();
   }
@@ -557,6 +597,9 @@ class _MyAppState extends State<MyApp> {
     return ConnectivityAppWrapper(
       app: GetBuilder<SettingController>(
         init: SettingController(),
+        initState: (_) {
+          settingCon.onCheckAuthentication();
+        },
         builder: (controller) {
           return Listener(
             onPointerDown: (tapdown) {

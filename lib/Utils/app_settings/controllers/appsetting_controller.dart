@@ -28,6 +28,7 @@ class SettingController extends GetxController {
   final appSetting = Setting().obs;
   Setting cicAppSetting = Setting();
   final isAutoDarkMode = true.obs;
+  bool isLogin = false;
   final token = ''.obs;
 
   final isLoading = false.obs;
@@ -52,6 +53,20 @@ class SettingController extends GetxController {
   onHideBottomNavigationBar(bool isHide) {
     isHideBottomNavigation = isHide;
     update();
+  }
+
+  onCheckAuthentication() async {
+    await LocalData.getCurrentUser().then((value) {
+      if (value != null) {
+        isLogin = true;
+        debugPrint("Is Login Success...........");
+        update();
+      } else {
+        isLogin = false;
+        debugPrint("Is Login Failed...........");
+        update();
+      }
+    });
   }
 
 // varaible for switch screen

@@ -3,8 +3,10 @@ import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
 import 'package:cicgreenloan/modules/google_map_module/google_map.dart';
 import 'package:cicgreenloan/modules/wallet/screen/wallet_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/helper/switch_splash_screen/switch_splash_screen.dart';
 import '../../Utils/web_view/web_view.dart';
 import '../../core/auth/login.dart';
@@ -118,6 +120,7 @@ class CICRoute extends MainRoute {
       );
 }
 
+final settingCon = Get.put(SettingController());
 final router = GoRouter(
     // debugLogDiagnostics: true,
     initialLocation: '/splashscreen',
