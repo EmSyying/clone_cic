@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/core/flavor/flavor_configuration.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,8 +20,8 @@ class DynamicLinkService {
         packageName: 'com.cambodianinvestorscorporation',
         minimumVersion: 1,
       ),
-      iosParameters: const IOSParameters(
-        bundleId: 'com.cambodianinvestorscorporation',
+      iosParameters: IOSParameters(
+        bundleId: FlavorConfig.instance.values!.iOSBundleName,
         minimumVersion: '1',
         appStoreId: '1553871408',
       ),

@@ -199,8 +199,21 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                 },
                                               );
                                             }
+                                            // Scan to subsription
+                                            if (resultQR != null &&
+                                                resultQR!
+                                                    .contains('subscription')) {
+                                              cameraController.stop().then(
+                                                (value) {
+                                                  context.push(
+                                                      "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                                                },
+                                              );
+                                            }
 
                                             if (!resultQR!.contains('event') &&
+                                                !resultQR!
+                                                    .contains('subsription') &&
                                                 !resultQR!.contains('member') &&
                                                 !resultQR!.contains('shop') &&
                                                 !resultQR!.contains('WALLET')) {

@@ -24,7 +24,9 @@ Future<void> main() async {
         baseUrlV2: "https://pre-cic.z1platform.com/",
         apiBaseUrlV2: "https://pre-cic.z1platform.com/api/v2/",
         mainApiUrlV2: "https://pre-cic.z1platform.com/api/",
-        apiBaseUrlV3: "https://pre-cic.z1platform.com/api/v3/"),
+        apiBaseUrlV3: "https://pre-cic.z1platform.com/api/v3/",
+        androidBundleId: 'com.cambodianinvestorscorporation',
+        iOSBundleName: 'com.cambodianinvestorscorporation.pre'),
   );
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();

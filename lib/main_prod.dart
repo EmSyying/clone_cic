@@ -41,7 +41,9 @@ Future<void> main() async {
         baseUrlV2: "https://cic.z1platform.com/",
         apiBaseUrlV2: "https://cic.z1platform.com/api/v2/",
         mainApiUrlV2: "https://cic.z1platform.com/api/",
-        apiBaseUrlV3: "https://cic.z1platform.com/api/v3/"),
+        apiBaseUrlV3: "https://cic.z1platform.com/api/v3/",
+        androidBundleId: 'com.cambodianinvestorscorporation',
+        iOSBundleName: 'com.cambodianinvestorscorporation'),
   );
 
   await runZonedGuarded(() async {
