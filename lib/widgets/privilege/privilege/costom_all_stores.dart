@@ -174,7 +174,6 @@ class CustomCardAllStores extends StatelessWidget {
           left: 10,
           bottom: 18,
           child: Container(
-            // width: 57,
             height: 16,
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
             decoration: const BoxDecoration(
@@ -188,11 +187,17 @@ class CustomCardAllStores extends StatelessWidget {
             child: Text(
               'Point Accepted',
               style: Theme.of(context).textTheme.headline5!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    // height: 1,
-                    fontSize: 8,
-                    color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 8,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(0.0, 1),
+                    blurRadius: 10.0,
+                    color: Colors.black.withOpacity(0.2),
                   ),
+                ],
+              ),
             ),
           ),
         ),

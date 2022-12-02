@@ -1,7 +1,7 @@
 import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/item_category_privilege_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
@@ -52,7 +52,7 @@ class PrivilegeSeeAllScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 20.0,
+                        height: 24.0,
                       ),
                       Column(
                         children: priCon.categoriesModelList
@@ -63,19 +63,17 @@ class PrivilegeSeeAllScreen extends StatelessWidget {
                                     bottom: 14.0,
                                   ),
                                   child: ComponentCardCategory(
+                                    height: 96,
+                                    isHeight: true,
                                     widthTrue: true,
                                     numStoresTrue: true,
                                     cardTitle: cardListCat.value.name,
                                     iconCard: cardListCat.value.image,
                                     onTapCatego: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ItemCategoryPrivilegeScreen(
-                                              tabTitle: cardListCat.value.name,
-                                            ),
-                                          ));
+                                      context.push(
+                                        '/privilege/all-store/privilege-item-category?tabTitle=${cardListCat.value.name}',
+                                      );
+                                      
                                     },
                                   ),
                                 ))

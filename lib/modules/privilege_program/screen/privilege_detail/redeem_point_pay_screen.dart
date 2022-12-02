@@ -1,8 +1,8 @@
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/redeem_point_pay_review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
@@ -157,11 +157,8 @@ class RedeemPointToPay extends StatelessWidget {
             child: CustomButton(
               width: double.infinity,
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const RedeemPointPayReviewScreen(),
-                    ));
+                context.push('/privilege/all-store/redeem-point-pay-review');
+
                 // _walletController.checkValidateAccount().then((value) {
                 //   if (_walletController.userFound.value) {
                 //     context.push(

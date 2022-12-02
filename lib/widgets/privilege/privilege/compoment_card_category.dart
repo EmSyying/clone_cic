@@ -11,6 +11,8 @@ class ComponentCardCategory extends StatelessWidget {
   final bool widthTrue;
   final bool numStoresTrue;
   final String? numStores;
+  final double? height;
+  final bool isHeight;
   final GestureTapCallback? onTapCatego;
   const ComponentCardCategory({
     Key? key,
@@ -22,6 +24,8 @@ class ComponentCardCategory extends StatelessWidget {
     this.widthTrue = false,
     this.numStoresTrue = false,
     this.numStores,
+    this.height,
+    this.isHeight = false,
   }) : super(key: key);
 //==
   @override
@@ -31,7 +35,7 @@ class ComponentCardCategory extends StatelessWidget {
         GestureDetector(
           onTap: onTapCatego,
           child: Container(
-            height: 80,
+            height: isHeight == false ? 80 : height,
             width: widthTrue == true ? double.infinity : 150,
             // margin: const EdgeInsets.only(right: 14),
             decoration: BoxDecoration(

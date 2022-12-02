@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/item_category_privilege_screen.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_see_all_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
@@ -244,60 +242,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //     children: [
-                  //       Expanded(
-                  //         child: GestureDetector(
-                  //           onTap: () {
-                  //             context.go("/privilege/all-stores/search-item");
-
-                  //             // Navigator.push(
-                  //             //   context,
-                  //             //   MaterialPageRoute(
-                  //             //     builder: (context) => const SearchScreen(),
-                  //             //   ),
-                  //             // );
-                  //           },
-                  //           child: Container(
-                  //             height: 38,
-                  //             padding:
-                  //                 const EdgeInsets.symmetric(horizontal: 11),
-                  //             decoration: BoxDecoration(
-                  //               color: Colors.grey[200],
-                  //               borderRadius: BorderRadius.circular(10),
-                  //             ),
-                  //             child: Row(
-                  //               children: [
-                  //                 SvgPicture.asset(
-                  //                   'assets/images/privilege/search.svg',
-                  //                 ),
-                  //                 const SizedBox(
-                  //                   width: 6,
-                  //                 ),
-                  //                 Expanded(
-                  //                   child: Text(
-                  //                     'Search',
-                  //                     style: Theme.of(context)
-                  //                         .textTheme
-                  //                         .headline5!
-                  //                         .copyWith(
-                  //                           fontWeight: FontWeight.w400,
-                  //                           letterSpacing: 0.6,
-                  //                           color: Colors.grey,
-                  //                         ),
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
 
                   Padding(
                     padding: const EdgeInsets.only(
@@ -306,12 +250,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       categoriesTil: 'Categories',
                       seeall: 'See All',
                       onTapSeeAll: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PrivilegeSeeAllScreen(),
-                          ),
-                        );
+                        context.push('/privilege/all-store/privilege-see-all');
                       },
                     ),
                   ),
@@ -332,15 +271,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                         cardTitle: cardListCat.value.name,
                                         iconCard: cardListCat.value.image,
                                         onTapCatego: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ItemCategoryPrivilegeScreen(
-                                                  tabTitle:
-                                                      cardListCat.value.name,
-                                                ),
-                                              ));
+                                          context.push(
+                                            '/privilege/all-store/privilege-item-category?tabTitle=${cardListCat.value.name}',
+                                          );
                                         },
                                       ),
                                     ))

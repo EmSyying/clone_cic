@@ -897,8 +897,9 @@ final router = GoRouter(
               GoRoute(
                 name: 'ItemCategoryPrivilegeScreen',
                 path: 'privilege-item-category',
-                builder: (context, state) =>
-                    const ItemCategoryPrivilegeScreen(),
+                builder: (context, state) => ItemCategoryPrivilegeScreen(
+                  tabTitle: state.queryParams['tabTitle'],
+                ),
               ),
               GoRoute(
                 name: 'RedeemPointToPay',

@@ -1,6 +1,5 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/privilege_photo_views.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege_detail/redeem_point_pay_screen.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -73,9 +73,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
     priController.onFetchShopDetail(widget.id).then((value) {
       _checkDay();
     });
+    _controller.addListener(() {});
     super.initState();
   }
 
+  final _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,147 +86,190 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             ? const SafeArea(
                 child: LinearProgressIndicator(),
               )
-            : NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool isBoxIsScroll) {
-                  innerBoxIsScrolled = isBoxIsScroll;
+            : NotificationListener(
+                // onNotification: (value){
 
-                  return <Widget>[
-                    SliverOverlapAbsorber(
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          context),
-                      sliver: SliverAppBar(
-                        backgroundColor: AppColor.mainColor,
-                        centerTitle: true,
-                        systemOverlayStyle: const SystemUiOverlayStyle(
-                          statusBarBrightness: Brightness.dark,
-                        ),
-                        pinned: true,
-                        floating: true,
-                        expandedHeight: 430.0,
-                        elevation: 0.0,
-                        actions: [
-                          Row(
-                            children: [
-                              CustomFovarite(
-                                isFav: priController
-                                    .shopDetailModel.value.isFavorite!,
-                                isBoxIsScrolled: isBoxIsScroll,
-                                onPressed: () {
+                // },
+                child: NestedScrollView(
+                  controller: _controller,
+                  headerSliverBuilder:
+                      (BuildContext context, bool isBoxIsScroll) {
+                    innerBoxIsScrolled = isBoxIsScroll;
+                    debugPrint("is Scroll :$_controller");
+
+                    return <Widget>[
+                      SliverOverlapAbsorber(
+                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                            context),
+                        sliver: SliverAppBar(
+                          forceElevated: innerBoxIsScrolled,
+                          title: isBoxIsScroll
+                              ? Text(
                                   priController
-                                      .setFavouriteStore(
-                                          id: widget.id!,
-                                          boolFav: priController.shopDetailModel
-                                              .value.isFavorite!)
-                                      .then((value) {
-                                    if (priController
-                                        .shopDetailModel.value.isFavorite!) {
-                                      priController.shopDetailModel.value =
-                                          priController.shopDetailModel.value
-                                              .copyWith(isFavorite: false);
-                                    } else {
-                                      priController.shopDetailModel.value =
-                                          priController.shopDetailModel.value
-                                              .copyWith(isFavorite: true);
-                                    }
-                                    priController.onFetchAllStore(1);
-                                    priController.onFetchFavouriteStore();
+                                      .shopDetailModel.value.shopNameInEnglish!,
+                                  textScaleFactor: 1,
+                                )
+                              : null,
+                          backgroundColor: AppColor.mainColor,
+                          centerTitle: true,
+                          systemOverlayStyle: const SystemUiOverlayStyle(
+                            statusBarBrightness: Brightness.dark,
+                          ),
+                          pinned: true,
+                          floating: true,
+                          expandedHeight: 400.0,
+                          elevation: 0.0,
+                          actions: [
+                            Row(
+                              children: [
+                                CustomFovarite(
+                                  isFav: priController
+                                      .shopDetailModel.value.isFavorite!,
+                                  isBoxIsScrolled: isBoxIsScroll,
+                                  onPressed: () {
+                                    priController
+                                        .setFavouriteStore(
+                                            id: widget.id!,
+                                            boolFav: priController
+                                                .shopDetailModel
+                                                .value
+                                                .isFavorite!)
+                                        .then((value) {
+                                      if (priController
+                                          .shopDetailModel.value.isFavorite!) {
+                                        priController.shopDetailModel.value =
+                                            priController.shopDetailModel.value
+                                                .copyWith(isFavorite: false);
+                                      } else {
+                                        priController.shopDetailModel.value =
+                                            priController.shopDetailModel.value
+                                                .copyWith(isFavorite: true);
+                                      }
+                                      priController.onFetchAllStore(1);
+                                      priController.onFetchFavouriteStore();
 
-                                    priController.update();
-                                  });
-                                  // preController.shopDetailModel.refresh();
+                                      priController.update();
+                                    });
+                                    // preController.shopDetailModel.refresh();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                          leading: Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              padding: const EdgeInsets.only(left: 5),
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: isBoxIsScroll
+                                    ? Colors.transparent
+                                    : Colors.white.withOpacity(0.8),
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.arrow_back_ios,
+                                  color: isBoxIsScroll
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+
+                                  if (priController.categoriesId.value != 0 ||
+                                      priController.locationCode.value != "") {
+                                    priController
+                                        .onFilterByCategoriesByLocation(
+                                            location: priController
+                                                .locationCode.value,
+                                            categoryId: priController
+                                                .categoriesId.value);
+                                  }
+                                  priController.onRefreshPrivilege();
                                 },
                               ),
-                            ],
-                          ),
-                        ],
-                        leading: Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 5),
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: isBoxIsScroll
-                                  ? Colors.transparent
-                                  : Colors.white.withOpacity(0.8),
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.arrow_back_ios,
-                                color:
-                                    isBoxIsScroll ? Colors.white : Colors.black,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-
-                                if (priController.categoriesId.value != 0 ||
-                                    priController.locationCode.value != "") {
-                                  priController.onFilterByCategoriesByLocation(
-                                      location:
-                                          priController.locationCode.value,
-                                      categoryId:
-                                          priController.categoriesId.value);
-                                }
-                                priController.onRefreshPrivilege();
-                              },
                             ),
                           ),
-                        ),
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: Container(
-                            width: double.infinity,
-                            color: Colors.grey[50],
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: 250,
-                                      decoration: BoxDecoration(
-                                          color: AppColor.secondaryColor,
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                              priController.shopDetailModel
-                                                      .value.cover ??
-                                                  '',
+                          flexibleSpace: FlexibleSpaceBar(
+                            background: Container(
+                              width: double.infinity,
+                              color: Colors.grey[50],
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height: 250,
+                                        decoration: BoxDecoration(
+                                            color: AppColor.secondaryColor,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                8.0,
+                                              ),
+                                              bottomRight: Radius.circular(
+                                                8.0,
+                                              ),
                                             ),
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-
-                                    ///=====Card Points
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 20.0,
-                                        right: 20.0,
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                priController.shopDetailModel
+                                                        .value.cover ??
+                                                    '',
+                                              ),
+                                            )),
                                       ),
-                                      child: GestureDetector(
+                                    ],
+                                  ),
+                                  Positioned(
+                                    left: 15,
+                                    right: 15,
+                                    top: 190,
+                                    child: CustomCardPrivilegeDetail(
+                                      sloganLogo: priController
+                                          .shopDetailModel.value.shopLogo,
+                                      status: priController
+                                          .shopDetailModel.value.status,
+                                      titile: priController.shopDetailModel
+                                          .value.shopNameInEnglish,
+                                      slogan: priController
+                                          .shopDetailModel.value.slogan,
+                                      discount: priController
+                                          .shopDetailModel.value.discountRate,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 20,
+                                    right: 20,
+                                    bottom: 58,
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                        bottom: 20.0,
+                                      ),
+                                      child: CustomCardPoint(
+                                        point: '1,000',
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const RedeemPointToPay(),
-                                              ));
+                                          context.push(
+                                              '/privilege/all-store/redeem-point-to-pay');
                                         },
-                                        child: CustomCardPoint(
-                                          point: '1,000',
-                                          onTap: () {},
-                                        ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 18.0, right: 18.0, bottom: 20),
+                                  ),
+                                  Positioned(
+                                    left: 20,
+                                    right: 20,
+                                    bottom: 0,
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                        bottom: 20.0,
+                                      ),
                                       child: Row(
                                         children: [
                                           const Icon(
@@ -233,12 +278,14 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                             color: Colors.grey,
                                           ),
                                           const SizedBox(
-                                            width: 8,
+                                            width: 14,
                                           ),
                                           Expanded(
                                             child: Text(
                                               priController.shopDetailModel
                                                   .value.fullAddress!,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .subtitle2!
@@ -254,218 +301,203 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                                Positioned(
-                                  left: 15,
-                                  right: 15,
-                                  bottom: 185,
-                                  child: CustomCardPrivilegeDetail(
-                                    sloganLogo: priController
-                                        .shopDetailModel.value.shopLogo,
-                                    status: priController
-                                        .shopDetailModel.value.status,
-                                    titile: priController.shopDetailModel.value
-                                        .shopNameInEnglish,
-                                    slogan: priController
-                                        .shopDetailModel.value.slogan,
-                                    discount: priController
-                                        .shopDetailModel.value.discountRate,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ];
-                },
-                body: Center(
-                  child: Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(top: 110),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(14.0),
-                        topLeft: Radius.circular(14.0),
+                    ];
+                  },
+                  body: Center(
+                    child: Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 110),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(14.0),
+                          topLeft: Radius.circular(14.0),
+                        ),
+                        color: Colors.white,
                       ),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(
-                            bottom: 20.0,
-                          ),
-                          padding: const EdgeInsets.only(
-                            right: 20.0,
-                            left: 20.0,
-                            top: 20.0,
-                          ),
-                          width: double.infinity,
-                          child: CupertinoSlidingSegmentedControl(
-                              groupValue: segmentedControlValue,
-                              backgroundColor:
-                                  const Color(0xff252552).withOpacity(0.1),
-                              children: <int, Widget>{
-                                0: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Service',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                                1: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Info',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                                2: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Photo',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                              },
-                              onValueChanged: (int? value) {
-                                segmentedControlValue = value!;
-                                pageController.animateToPage(
-                                    segmentedControlValue,
-                                    duration: const Duration(milliseconds: 200),
-                                    curve: Curves.fastOutSlowIn);
-                                setState(() {});
-                              }),
-                        ),
-                        Expanded(
-                          child: PageView(
-                            controller: pageController,
-                            onPageChanged: (page) {
-                              segmentedControlValue = page;
-                              setState(() {});
-                            },
-                            children: [
-                              buildService(),
-                              buildSchedule(),
-                              buildGridImage(),
-                            ],
-                          ),
-                        ),
-
-                        ///Bottom Button
-                        SafeArea(
-                          top: false,
-                          minimum: const EdgeInsets.only(
-                              bottom: 20.0, left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey[200]!,
-                                  blurRadius: 6.0,
-                                  spreadRadius: 2.0,
-                                  offset: const Offset(
-                                    4.0,
-                                    2.0,
-                                  ),
-                                )
-                              ],
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(
+                              bottom: 20.0,
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: const Icon(Icons.location_on_rounded),
-                                  color: AppColor.mainColor,
-                                  onPressed: () async {
-                                    await launchUrl(
-                                      Uri.parse(
-                                          'https://maps.google.com/?q=${priController.shopDetailModel.value.latitude},${priController.shopDetailModel.value.longitude}'),
-                                      mode: LaunchMode.platformDefault,
-                                    );
-                                  },
-                                ),
-                                IconButton(
-                                  icon: SvgPicture.asset(
-                                    'assets/images/privilege/calling.svg',
-                                  ),
-                                  color: AppColor.mainColor,
-                                  onPressed: () {
-                                    showCupertinoModalPopup(
-                                      context: context,
-                                      builder: (_) => CupertinoActionSheet(
-                                        actions: priController
-                                            .shopDetailModel.value.contacts!
-                                            .map(
-                                              (e) => _cupertinoActionSheet(
-                                                phone: e.mobile ?? e.phone,
-                                              ),
-                                            )
-                                            .toList(),
-                                        cancelButton:
-                                            CupertinoActionSheetAction(
-                                          child: Text(
-                                            'Cancel',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2!
-                                                .copyWith(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w500,
-                                                  color:
-                                                      const Color(0xff007AFF),
-                                                ),
+                            padding: const EdgeInsets.only(
+                              right: 20.0,
+                              left: 20.0,
+                              top: 20.0,
+                            ),
+                            width: double.infinity,
+                            child: CupertinoSlidingSegmentedControl(
+                                groupValue: segmentedControlValue,
+                                backgroundColor:
+                                    const Color(0xff252552).withOpacity(0.1),
+                                children: <int, Widget>{
+                                  0: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      'Service',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                            fontWeight: FontWeight.w500,
                                           ),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                IconButton(
-                                  icon: SvgPicture.asset(
-                                    'assets/images/privilege/telegram.svg',
+                                    ),
                                   ),
-                                  color: AppColor.mainColor,
-                                  onPressed: () async {
-                                    await launchUrl(
-                                      Uri.parse(
-                                        priController.shopDetailModel.value
-                                                .telegramLink ??
-                                            '',
-                                      ),
-                                      mode: LaunchMode.externalApplication,
-                                    );
-                                  },
-                                ),
+                                  1: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      'Info',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  2: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      'Photo',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                },
+                                onValueChanged: (int? value) {
+                                  segmentedControlValue = value!;
+                                  pageController.animateToPage(
+                                      segmentedControlValue,
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.fastOutSlowIn);
+                                  setState(() {});
+                                }),
+                          ),
+                          Expanded(
+                            child: PageView(
+                              controller: pageController,
+                              onPageChanged: (page) {
+                                segmentedControlValue = page;
+                                setState(() {});
+                              },
+                              children: [
+                                buildService(),
+                                buildSchedule(),
+                                buildGridImage(),
                               ],
                             ),
                           ),
-                        ),
-                      ],
+
+                          ///Bottom Button
+                          SafeArea(
+                            top: false,
+                            minimum: const EdgeInsets.only(
+                                bottom: 20.0, left: 20, right: 20),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(14),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey[200]!,
+                                    blurRadius: 6.0,
+                                    spreadRadius: 2.0,
+                                    offset: const Offset(
+                                      4.0,
+                                      2.0,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: const Icon(Icons.location_on_rounded),
+                                    color: AppColor.mainColor,
+                                    onPressed: () async {
+                                      await launchUrl(
+                                        Uri.parse(
+                                            'https://maps.google.com/?q=${priController.shopDetailModel.value.latitude},${priController.shopDetailModel.value.longitude}'),
+                                        mode: LaunchMode.platformDefault,
+                                      );
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: SvgPicture.asset(
+                                      'assets/images/privilege/calling.svg',
+                                    ),
+                                    color: AppColor.mainColor,
+                                    onPressed: () {
+                                      showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (_) => CupertinoActionSheet(
+                                          actions: priController
+                                              .shopDetailModel.value.contacts!
+                                              .map(
+                                                (e) => _cupertinoActionSheet(
+                                                  phone: e.mobile ?? e.phone,
+                                                ),
+                                              )
+                                              .toList(),
+                                          cancelButton:
+                                              CupertinoActionSheetAction(
+                                            child: Text(
+                                              'Cancel',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2!
+                                                  .copyWith(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff007AFF),
+                                                  ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: SvgPicture.asset(
+                                      'assets/images/privilege/telegram.svg',
+                                    ),
+                                    color: AppColor.mainColor,
+                                    onPressed: () async {
+                                      await launchUrl(
+                                        Uri.parse(
+                                          priController.shopDetailModel.value
+                                                  .telegramLink ??
+                                              '',
+                                        ),
+                                        mode: LaunchMode.externalApplication,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
