@@ -5,11 +5,15 @@ class CustomFovarite extends StatelessWidget {
   final bool isBoxIsScrolled;
   final VoidCallback? onPressed;
   final bool isFav;
+  final Color? backgroundColor;
+  final Color? iconColor;
   const CustomFovarite({
     Key? key,
     this.isBoxIsScrolled = false,
     this.onPressed,
     this.isFav = false,
+    this.backgroundColor,
+    this.iconColor,
   }) : super(key: key);
 
   @override
@@ -19,9 +23,7 @@ class CustomFovarite extends StatelessWidget {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: isBoxIsScrolled
-            ? Colors.transparent
-            : Colors.white.withOpacity(0.6),
+        color: backgroundColor ?? Colors.black.withOpacity(0.3),
         shape: BoxShape.circle,
       ),
       alignment: Alignment.center,
@@ -31,9 +33,11 @@ class CustomFovarite extends StatelessWidget {
                 'assets/images/privilege/favorite.svg',
                 height: 20,
               )
-            : SvgPicture.asset('assets/images/privilege/heart.svg',
+            : SvgPicture.asset(
+                'assets/images/privilege/heart.svg',
                 height: 20,
-                color: isBoxIsScrolled ? Colors.white : Colors.black),
+                color: iconColor ?? Colors.white,
+              ),
         onPressed: onPressed,
       ),
     );

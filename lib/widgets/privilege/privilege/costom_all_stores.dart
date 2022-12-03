@@ -145,8 +145,8 @@ class CustomCardAllStores extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                width: 50,
-                height: 22,
+                width: 44,
+                height: 20,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,

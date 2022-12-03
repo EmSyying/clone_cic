@@ -77,6 +77,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
     super.initState();
   }
 
+  bool get _isAppBarExpanded {
+    return _controller.hasClients &&
+        _controller.offset > (300 - kToolbarHeight);
+  }
+
   final _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -86,30 +91,46 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             ? const SafeArea(
                 child: LinearProgressIndicator(),
               )
-            : NotificationListener(
-                // onNotification: (value){
-
-                // },
+            : NotificationListener<ScrollUpdateNotification>(
+                onNotification: ((scrollNotification) {
+                  setState(() {
+                    _controller.addListener(() {
+                      priController.update(['title']);
+                    });
+                  });
+                  return false;
+                }),
                 child: NestedScrollView(
                   controller: _controller,
                   headerSliverBuilder:
                       (BuildContext context, bool isBoxIsScroll) {
                     innerBoxIsScrolled = isBoxIsScroll;
-                    debugPrint("is Scroll :$_controller");
-
                     return <Widget>[
                       SliverOverlapAbsorber(
                         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
                             context),
                         sliver: SliverAppBar(
                           forceElevated: innerBoxIsScrolled,
-                          title: isBoxIsScroll
-                              ? Text(
-                                  priController
-                                      .shopDetailModel.value.shopNameInEnglish!,
-                                  textScaleFactor: 1,
-                                )
-                              : null,
+                          title: GetBuilder(
+                            id: 'title',
+                            init: PrivilegeController(),
+                            builder: (controller) => Text(
+                              _isAppBarExpanded
+                                  ? priController
+                                      .shopDetailModel.value.shopNameInEnglish!
+                                  : '',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                            ),
+                          ),
                           backgroundColor: AppColor.mainColor,
                           centerTitle: true,
                           systemOverlayStyle: const SystemUiOverlayStyle(
@@ -123,9 +144,15 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                             Row(
                               children: [
                                 CustomFovarite(
+                                  iconColor: _isAppBarExpanded
+                                      ? Colors.white
+                                      : Colors.black,
+                                  backgroundColor: _isAppBarExpanded
+                                      ? Colors.transparent
+                                      : Colors.white.withOpacity(0.6),
                                   isFav: priController
                                       .shopDetailModel.value.isFavorite!,
-                                  isBoxIsScrolled: isBoxIsScroll,
+                                  // isBoxIsScrolled: isBoxIsScroll,
                                   onPressed: () {
                                     priController
                                         .setFavouriteStore(
@@ -163,7 +190,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                               width: 40,
                               height: 40,
                               decoration: BoxDecoration(
-                                color: isBoxIsScroll
+                                color: _isAppBarExpanded
                                     ? Colors.transparent
                                     : Colors.white.withOpacity(0.8),
                                 shape: BoxShape.circle,
@@ -171,7 +198,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                               child: IconButton(
                                 icon: Icon(
                                   Icons.arrow_back_ios,
-                                  color: isBoxIsScroll
+                                  color: _isAppBarExpanded
                                       ? Colors.white
                                       : Colors.black,
                                 ),
