@@ -116,7 +116,7 @@ Future<bool> showLockScreen(
     BuildContext? context}) async {
   timer.cancel();
   isSuccess = await Navigator.push(
-    router.navigator!.context,
+    context!,
     PageRouteBuilder(
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) {

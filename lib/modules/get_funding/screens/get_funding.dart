@@ -18,7 +18,7 @@ import 'package:http/http.dart' as http;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:connectivity/connectivity.dart';
+
 import 'package:showcaseview/showcaseview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -76,7 +76,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
   bool? isEmty = false;
   String? buttonTitle = 'Test Clear Data';
   String? userToken;
-  ConnectivityResult? result;
+  // ConnectivityResult? result;
   String? _deviceToken;
   User? userInfo;
   int? userID;
@@ -89,8 +89,8 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
     isFirst = await LocalStorage.getBooleanValue(key: 'ISFIRST_GET_FUNDING');
     isFirst == false
         ? Future.delayed(const Duration(milliseconds: 500), () {
-            WidgetsBinding.instance.addPostFrameCallback((duration) =>
-                ShowCaseWidget.of(context)!.startShowCase([_one]));
+            WidgetsBinding.instance.addPostFrameCallback(
+                (duration) => ShowCaseWidget.of(context).startShowCase([_one]));
           })
         : null;
   }
@@ -256,8 +256,10 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                                   },
                                   disposeOnTap: true,
                                   overlayOpacity: 0.5,
-                                  showcaseBackgroundColor:
+                                  tooltipBackgroundColor:
                                       Theme.of(context).primaryColor,
+                                  // showcaseBackgroundColor:
+                                  // Theme.of(context).primaryColor,
                                   textColor: Colors.white,
                                   key: _one,
                                   description: 'Need help?    x',
@@ -267,11 +269,12 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                                       .copyWith(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500),
-                                  contentPadding: const EdgeInsets.symmetric(
+
+                                  tooltipPadding: const EdgeInsets.symmetric(
                                       vertical: 15, horizontal: 5),
-                                  overlayPadding: const EdgeInsets.symmetric(
+                                  targetPadding: const EdgeInsets.symmetric(
                                       horizontal: 18),
-                                  shapeBorder: const CircleBorder(),
+                                  targetShapeBorder: const CircleBorder(),
                                   child: SvgPicture.asset(
                                     "assets/images/svgfile/telegram-icons.svg",
                                     height: 35.0,

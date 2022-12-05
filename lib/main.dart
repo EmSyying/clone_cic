@@ -13,8 +13,8 @@ import 'package:cicgreenloan/modules/member_directory/controllers/customer_contr
 import 'package:cicgreenloan/Utils/app_settings/models/settings.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
-import 'package:country_code_picker/country_localizations.dart';
-import 'package:device_info/device_info.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -204,7 +204,7 @@ class _MyAppState extends State<MyApp> {
     deviceData = deviceData;
   }
 
-  Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
+  Map<String, dynamic> _readAndroidBuildData(build) {
     return <String, dynamic>{
       'version.securityPatch': build.version.securityPatch,
       'version.sdkInt': build.version.sdkInt,
@@ -236,7 +236,7 @@ class _MyAppState extends State<MyApp> {
     };
   }
 
-  Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
+  Map<String, dynamic> _readIosDeviceInfo(data) {
     return <String, dynamic>{
       'name': data.name,
       'systemName': data.systemName,
@@ -531,7 +531,7 @@ class _MyAppState extends State<MyApp> {
       );
       if (authenticated) {
         setPinCon.isLogin(true);
-        Navigator.pop(router.navigator!.context);
+        Navigator.pop(context);
       }
 
       _con.isAuthenticating.value = false;
@@ -833,7 +833,6 @@ ThemeData buildTheme(Brightness brightness) {
           brightness: Brightness.dark,
           primaryColor: AppColor.mainColor,
           cardColor: const Color(0xff424343),
-          textSelectionColor: Colors.white,
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
               unselectedItemColor: Colors.white60,
               selectedItemColor: Colors.white),
@@ -904,7 +903,6 @@ ThemeData buildTheme(Brightness brightness) {
           primaryColor: AppColor.mainColor,
           secondaryHeaderColor: AppColor.secondaryColor,
           cardColor: Colors.white,
-          textSelectionColor: AppColor.mainColor,
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
               unselectedItemColor: Colors.black,
               selectedItemColor: AppColor.mainColor),

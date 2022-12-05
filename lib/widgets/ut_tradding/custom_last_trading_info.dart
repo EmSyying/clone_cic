@@ -93,7 +93,7 @@ customAlertLastTradingInfo({
                             GestureDetector(
                               onTap: () {
                                 dateRangDialog(
-                                  context: router.navigator!.context,
+                                  context: context,
                                   contents: 'Date Range Presets',
                                   tradingOptionList:
                                       lastTradingCon.lastTradingOptionModelList,
@@ -364,7 +364,7 @@ class _CustomLastTradingTapState extends State<CustomLastTradingTap>
                   children: [
                     IconButton(
                         onPressed: () {
-                          Navigator.pop(router.navigator!.context);
+                          Navigator.pop(context);
                         },
                         icon: Icon(widget.icon),
                         iconSize: 24),

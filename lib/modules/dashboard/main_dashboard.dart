@@ -16,11 +16,13 @@ import 'package:cicgreenloan/modules/notification_modules/controllers/notificati
 import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:cicgreenloan/widgets/dashboard/custom_associate_member.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 
-import 'package:upgrader/upgrader.dart';
+// import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/link.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:cicgreenloan/Utils/custom_indicatior.dart';
@@ -38,7 +40,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_version/new_version.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+// import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import '../../Utils/function/convert_fromhex_color.dart';
 import '../../Utils/helper/find_widget_position.dart';
 import '../../Utils/helper/local_notification.dart';
@@ -721,7 +723,7 @@ class _MainDashboardState extends State<MainDashboard> {
             body: _settingCon.isAMMode!
                 ? const MainDashBoardTypeAM()
                 : Platform.isAndroid
-                    ? UpgradeAlert(child: buildBody())
+                    ? buildBody()
                     : buildBody(),
           ),
         ),
@@ -756,127 +758,137 @@ class _MainDashboardState extends State<MainDashboard> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // ElevatedButton(
+            //     onPressed: () async {
+            //       final shortlink = await DynamicLinkService.createDynamicLink(
+            //         path:
+            //             'report/0/view-report?attachedFile=https://cic.fra1.cdn.digitaloceanspaces.com/cic/uploads/files/original/286e406a0f212493a296ee6346b8864c.pdf&title=CiC%20Investor%20Report%20-%20Q3%202022',
+            //         image:
+            //             'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEXp7vG6vsG3u77s8fTCxsnn7O/f5OfFyczP09bM0dO8wMPk6ezY3eDd4uXR1tnJzdBvAX/cAAACVElEQVR4nO3b23KDIBRA0ShGU0n0//+2KmO94gWZ8Zxmr7fmwWEHJsJUHw8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwO1MHHdn+L3rIoK6eshsNJ8kTaJI07fERPOO1Nc1vgQm2oiBTWJ+d8+CqV1heplLzMRNonED+4mg7L6p591FC+133/xCRNCtd3nL9BlxWP++MOaXFdEXFjZ7r8D9l45C8y6aG0cWtP/SUGhs2d8dA/ZfGgrzYX+TVqcTNRRO9l+fS5eSYzQs85psUcuzk6igcLoHPz2J8gvzWaH/JLS+95RfOD8o1p5CU5R7l5LkfKEp0mQ1UX7hsVXqDpRrifILD/3S9CfmlUQFhQfuFu0STTyJ8gsP3PH7GVxN1FC4t2sbBy4TNRTu7LyHJbqaqKFw+/Q0ncFloo7CjRPwMnCWqKXQZ75El4nKC9dmcJaou9AXOE5UXbi+RGeJygrz8Uf+GewSn9uXuplnWDZJ7d8f24F/s6iq0LYf9olbS3Q8i5oKrRu4S9ybwaQ/aCkqtP3I28QDgeoK7TBya/aXqL5COx67PTCD2grtdOwH+pQV2r0a7YVBgZoKwwIVFQYG6ikMDVRTGByopjD8ATcKb0UhhRTe77sKs2DV7FKSjId18TUEBYVyLhUThWfILHTDqmI85/2RWWjcE/bhP6OD7maT3h20MHsA47JC3PsW0wcwLhv9t0OOPOIkCn21y2bXXwlyylxiYMPk1SuCSmpfK8bNQvIrpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwNX4BCbAju9/X67UAAAAASUVORK5CYII=',
+            //         title: 'CiC Investor Report - Q3 2022',
+            //       );
+
+            //       debugPrint("Short Link: ================ $shortlink");
+            //     },
+            //     child: Text("Create Link")),
             Obx(() => !_settingCon.isLoading.value &&
                     _settingCon.slideList!.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 20),
                     child: AspectRatio(
-                        aspectRatio: 5 / 2.3,
-                        child: Swiper(
-                            loop: true,
-                            index: currentIndex,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              if (_settingCon.slideList![index].status ==
-                                  'Display') {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Stack(
-                                    children: [
-                                      Positioned.fill(
-                                        child: CachedNetworkImage(
-                                          imageUrl: _settingCon
-                                              .slideList![index].image!,
-                                          fit: BoxFit.cover,
-                                        ),
+                      aspectRatio: 5 / 2.3,
+                      child: Swiper(
+                          loop: true,
+                          index: currentIndex,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            if (_settingCon.slideList![index].status ==
+                                'Display') {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: CachedNetworkImage(
+                                        imageUrl: _settingCon
+                                            .slideList![index].image!,
+                                        fit: BoxFit.cover,
                                       ),
-                                      Positioned(
-                                        bottom: 20,
-                                        left: 25,
-                                        child: _settingCon
-                                                    .slideList![index].button !=
-                                                null
-                                            ? Row(
-                                                children: [
-                                                  Link(
-                                                    uri: Uri.tryParse(
-                                                        '${_settingCon.slideList![index].button!.target}'),
-                                                    builder:
-                                                        (context, followLink) =>
-                                                            GestureDetector(
-                                                      onTap: _settingCon
-                                                                  .slideList![
-                                                                      index]
-                                                                  .type ==
-                                                              'Biometrics'
-                                                          ? () {
-                                                              _authenticate()
-                                                                  .then(
-                                                                      (value) {
-                                                                if (authenticated) {
-                                                                  LocalData
-                                                                      .storeAuthenthicationKey(
-                                                                          'authen',
-                                                                          value);
+                                    ),
+                                    Positioned(
+                                      bottom: 20,
+                                      left: 25,
+                                      child: _settingCon
+                                                  .slideList![index].button !=
+                                              null
+                                          ? Row(
+                                              children: [
+                                                Link(
+                                                  uri: Uri.tryParse(
+                                                      '${_settingCon.slideList![index].button!.target}'),
+                                                  builder:
+                                                      (context, followLink) =>
+                                                          GestureDetector(
+                                                    onTap: _settingCon
+                                                                .slideList![
+                                                                    index]
+                                                                .type ==
+                                                            'Biometrics'
+                                                        ? () {
+                                                            _authenticate()
+                                                                .then((value) {
+                                                              if (authenticated) {
+                                                                LocalData
+                                                                    .storeAuthenthicationKey(
+                                                                        'authen',
+                                                                        value);
 
-                                                                  // if (!isOnFingerPrint)
-                                                                  setState(
-                                                                      () {});
-                                                                }
-                                                              });
-                                                              setState(() {});
-                                                            }
-                                                          : followLink,
-                                                      child: Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                vertical: 8,
-                                                                horizontal: 8),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          color: Colors.white
-                                                              .withOpacity(0.4),
-                                                        ),
-                                                        child: Row(
-                                                          children: [
-                                                            SvgPicture.network(
-                                                                '${_settingCon.slideList![index].button!.icon}'),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text(
-                                                              '${_settingCon.slideList![index].button!.label}',
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .headline6!
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                                // if (!isOnFingerPrint)
+                                                                setState(() {});
+                                                              }
+                                                            });
+                                                            setState(() {});
+                                                          }
+                                                        : followLink,
+                                                    child: Container(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 8,
+                                                          horizontal: 8),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        color: Colors.white
+                                                            .withOpacity(0.4),
+                                                      ),
+                                                      child: Row(
+                                                        children: [
+                                                          SvgPicture.network(
+                                                              '${_settingCon.slideList![index].button!.icon}'),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                            '${_settingCon.slideList![index].button!.label}',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .headline6!
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   ),
-                                                ],
-                                              )
-                                            : Container(),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                              return Container();
-                            },
-                            onIndexChanged: (value) {
-                              setState(() {
-                                currentIndex = value;
-                              });
-                            },
-                            curve: Curves.easeIn,
-                            autoplay: true,
-                            itemCount: _settingCon.slideList!.length,
-                            viewportFraction: 1,
-                            scale: 0.9)),
+                                                ),
+                                              ],
+                                            )
+                                          : Container(),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                            return Container();
+                          },
+                          onIndexChanged: (value) {
+                            setState(() {
+                              currentIndex = value;
+                            });
+                          },
+                          curve: Curves.easeIn,
+                          autoplay: true,
+                          itemCount: _settingCon.slideList!.length,
+                          viewportFraction: 1,
+                          scale: 0.9),
+                    ),
                   )
                 : const SizedBox(
                     height: 180,

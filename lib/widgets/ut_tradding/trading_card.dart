@@ -346,7 +346,7 @@ class _InquiryCardState extends State<InquiryCard> {
                                                                   .headline2,
                                                         ),
                                                         actions: [
-                                                          FlatButton(
+                                                          ElevatedButton(
                                                             onPressed: () {
                                                               Navigator.pop(
                                                                   context);
@@ -357,7 +357,7 @@ class _InquiryCardState extends State<InquiryCard> {
                                                                     fontFamily:
                                                                         'DMSans')),
                                                           ),
-                                                          FlatButton(
+                                                          ElevatedButton(
                                                             onPressed:
                                                                 () async {
                                                               Navigator.pop(
@@ -439,7 +439,7 @@ class _InquiryCardState extends State<InquiryCard> {
                                                                   .headline2,
                                                             ),
                                                             actions: [
-                                                              FlatButton(
+                                                              ElevatedButton(
                                                                 onPressed: () {
                                                                   Navigator.pop(
                                                                       context);
@@ -450,7 +450,7 @@ class _InquiryCardState extends State<InquiryCard> {
                                                                         fontFamily:
                                                                             'DMSans')),
                                                               ),
-                                                              FlatButton(
+                                                              ElevatedButton(
                                                                 onPressed:
                                                                     () async {
                                                                   Navigator.pop(

@@ -10,8 +10,8 @@ import 'package:cicgreenloan/widgets/marketplace/custom_category.dart';
 import 'package:cicgreenloan/widgets/marketplace/custom_list_item.dart';
 import 'package:cicgreenloan/widgets/marketplace/custom_shop_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';

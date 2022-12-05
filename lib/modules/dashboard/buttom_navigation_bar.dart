@@ -74,7 +74,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         );
         if (authenticated) {
           setPinCon.isLogin(true);
-          Navigator.pop(router.navigator!.context);
+          // Navigator.pop(router.navigator.context);
         }
 
         _settingCon.isAuthenticating.value = false;

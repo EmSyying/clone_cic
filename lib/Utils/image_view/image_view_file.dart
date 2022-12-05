@@ -34,11 +34,13 @@ class ImageViewerFile extends StatelessWidget {
                 content: const Text('PDF loading failed'),
                 actions: [
                   // ignore: deprecated_member_use
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    shape: const RoundedRectangleBorder(),
+                    style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(),
+                    ),
                     child: const Text('OK'),
                   ),
                 ],
@@ -76,11 +78,13 @@ class ImageViewerFile extends StatelessWidget {
                     content: const Text('PDF loading failed'),
                     actions: [
                       // ignore: deprecated_member_use
-                      RaisedButton(
+                      ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        shape: const RoundedRectangleBorder(),
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(),
+                        ),
                         child: const Text('OK'),
                       ),
                     ],

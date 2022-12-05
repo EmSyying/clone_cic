@@ -111,13 +111,16 @@ class _PaymentDetailState extends State<PaymentDetail> {
                       ),
                       Container(
                         margin: const EdgeInsets.all(0.0),
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          color:
-                              widget.payment!.payNow!.rebate!.status == 'Reject'
-                                  ? Colors.red
-                                  : Theme.of(context).primaryColor,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            backgroundColor:
+                                widget.payment!.payNow!.rebate!.status ==
+                                        'Reject'
+                                    ? Colors.red
+                                    : Theme.of(context).primaryColor,
+                          ),
                           child: Text(
                             widget.payment!.payNow!.rebate!.status == 'Pending'
                                 ? S.of(context).pending
@@ -328,13 +331,16 @@ class _PaymentDetailState extends State<PaymentDetail> {
                       ),
                       Container(
                         margin: const EdgeInsets.all(0.0),
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          color:
-                              widget.payment!.payOff!.rebate!.status == 'Reject'
-                                  ? Colors.red
-                                  : Theme.of(context).primaryColor,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            backgroundColor:
+                                widget.payment!.payOff!.rebate!.status ==
+                                        'Reject'
+                                    ? Colors.red
+                                    : Theme.of(context).primaryColor,
+                          ),
                           child: widget.payment!.payOff!.rebate!.status ==
                                   'Pending'
                               ? Text(S.of(context).pending,

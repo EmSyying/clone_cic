@@ -16,7 +16,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
@@ -264,7 +264,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
       //         'https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr');
       // debugPrint("Shot Url: $url");
 
-      Share.shareFiles(['${directory.path}/transferqr.png'],
+      Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
           text:
               'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: https://cicapp.page.link/wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);

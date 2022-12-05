@@ -47,12 +47,14 @@ class _CustomButtonState extends State<CustomButton> {
             height: 50,
             width: double.infinity,
             // ignore: deprecated_member_use
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                backgroundColor: widget.backgroundColor ?? AppColor.mainColor,
               ),
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
-              color: widget.backgroundColor ?? AppColor.mainColor,
               onPressed: widget.onPressed,
               child: Text(
                 widget.title!,
@@ -139,13 +141,15 @@ class _CustomButtonState extends State<CustomButton> {
                           )
                         : widget.isDisable! && !widget.isOutline!
                             // ignore: deprecated_member_use
-                            ? RaisedButton(
+                            ? ElevatedButton(
                                 onPressed: null,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 15.0),
                                 ),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15.0),
                                 child: Text(widget.title!,
                                     style: Theme.of(context).textTheme.button),
                               )
@@ -164,14 +168,16 @@ class _CustomButtonState extends State<CustomButton> {
                                     child: const Text('Save Draft'),
                                   )
                                 // ignore: deprecated_member_use
-                                : RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
+                                : ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15.0),
+                                      backgroundColor: widget.backgroundColor ??
+                                          AppColor.mainColor,
                                     ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15.0),
-                                    color: widget.backgroundColor ??
-                                        AppColor.mainColor,
                                     onPressed: widget.onPressed,
                                     child: Row(
                                       mainAxisAlignment:

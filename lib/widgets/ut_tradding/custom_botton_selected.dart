@@ -36,12 +36,14 @@ class _CustomButtonSelectedState extends State<CustomButtonSelected> {
         ? SizedBox(
             height: 60,
             width: double.infinity,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                backgroundColor: AppColor.mainColor,
               ),
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
-              color: AppColor.mainColor,
               onPressed: widget.onPressed!,
               child: Text(
                 widget.title!,
@@ -55,13 +57,15 @@ class _CustomButtonSelectedState extends State<CustomButtonSelected> {
                 width: double.infinity,
                 //outline False---------------------
                 child: !widget.isOutline!
-                    ? RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                    ? ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 20),
+                          backgroundColor: AppColor.mainColor,
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 20),
-                        color: AppColor.mainColor,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -269,13 +273,15 @@ class _CustomButtonSelectedState extends State<CustomButtonSelected> {
                     width: double.infinity,
                     //outline False---------------------
                     child: !widget.isOutline!
-                        ? RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                        ? ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15.0, horizontal: 20),
+                              backgroundColor: AppColor.mainColor,
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 20),
-                            color: AppColor.mainColor,
                             onPressed: widget.onPressed!,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

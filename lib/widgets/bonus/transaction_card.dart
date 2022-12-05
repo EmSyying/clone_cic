@@ -312,8 +312,7 @@ class CustomTransactionCard extends StatelessWidget {
                                                     onPressed: () {
                                                       // Navigator.pop(context);
 
-                                                      Navigator.pop(router
-                                                          .navigator!.context);
+                                                      Navigator.pop(context);
                                                     },
                                                     icon:
                                                         const Icon(Icons.close),

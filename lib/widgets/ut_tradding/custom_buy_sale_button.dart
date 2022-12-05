@@ -26,10 +26,13 @@ class CustomTradingButton extends StatelessWidget {
     return SizedBox(
       height: 37,
       width: MediaQuery.of(context).size.width,
-      child: FlatButton.icon(
-          color: color ?? AppColor.mainColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            backgroundColor: color ?? AppColor.mainColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+          ),
           onPressed: onTap,
           icon: icon ?? Container(),
           label: Row(

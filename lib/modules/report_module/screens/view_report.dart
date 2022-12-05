@@ -52,11 +52,12 @@ class _ViewReportState extends State<ViewReport> {
               return AlertDialog(
                 content: const Text('PDF loading failed'),
                 actions: [
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    shape: const RoundedRectangleBorder(),
+                    style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder()),
                     child: const Text('OK'),
                   ),
                 ],
@@ -93,11 +94,13 @@ class _ViewReportState extends State<ViewReport> {
                   return AlertDialog(
                     content: const Text('PDF loading failed'),
                     actions: [
-                      RaisedButton(
+                      ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        shape: const RoundedRectangleBorder(),
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(),
+                        ),
                         child: const Text('OK'),
                       ),
                     ],

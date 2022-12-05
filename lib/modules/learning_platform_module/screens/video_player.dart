@@ -118,7 +118,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
                             controller: _controller!,
                             onReady: () {},
                             onEnded: (value) {
-                              Navigator.pop(router.navigator!.context);
+                              Navigator.pop(context);
                               customPlayerBottomSheet(
                                   context: context,
                                   video: _learningCon.moreVideo.value.data![0]);
@@ -133,9 +133,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                 LocalData.userLogin('userLogin', true);
                                 if (widget.pageName != null &&
                                     widget.pageName == 'modulePage') {
-                                  Navigator.pop(router.navigator!.context);
+                                  Navigator.pop(context);
                                 } else {
-                                  Navigator.pop(router.navigator!.context);
+                                  Navigator.pop(context);
                                 }
                               },
                               child: Container(
@@ -188,8 +188,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                                 videoList: _learningCon
                                                     .moreVideo.value.data!,
                                                 onTap: (VideoPost value) async {
-                                                  Navigator.pop(router
-                                                      .navigator!.context);
+                                                  Navigator.pop(context);
                                                   customPlayerBottomSheet(
                                                       context: context,
                                                       video: value);
@@ -214,8 +213,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                                     .value
                                                     .data!,
                                                 onTap: (VideoPost value) async {
-                                                  Navigator.pop(router
-                                                      .navigator!.context);
+                                                  Navigator.pop(context);
                                                   customPlayerBottomSheet(
                                                       context: context,
                                                       video: value);

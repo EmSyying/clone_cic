@@ -25,7 +25,7 @@ class NotificationPlugin {
   initializePlatformSpecifics() {
     var initializationSettingsAndroid =
         const AndroidInitializationSettings('app_notf_icon');
-    var initializationSettingsIOS = IOSInitializationSettings(
+    var initializationSettingsIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: false,
@@ -63,9 +63,14 @@ class NotificationPlugin {
     //   onNotificationClick(payload);
     // });
     await flutterLocalNotificationsPlugin!.initialize(initializationSettings!,
-        onSelectNotification: (String? payload) async {
-      onNotificationClick(payload);
-    });
+        onDidReceiveNotificationResponse:
+            (NotificationResponse notificationResponse) {
+      onNotificationClick(notificationResponse.payload);
+    }
+        //  onSelectNotification: (String? payload) async {
+        //   onNotificationClick(payload);
+        // }
+        );
   }
 
   Future<void> showNotification(
@@ -80,7 +85,7 @@ class NotificationPlugin {
       styleInformation: DefaultStyleInformation(true, true),
     );
     // var macOSNotificationDetails = const MacOSNotificationDetails();
-    var iosChannelSpecifics = const IOSNotificationDetails();
+    var iosChannelSpecifics = const DarwinNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         android: androidChannelSpecifics, iOS: iosChannelSpecifics);
     await flutterLocalNotificationsPlugin!.show(
@@ -100,7 +105,7 @@ class NotificationPlugin {
       importance: Importance.max,
       priority: Priority.high,
     );
-    var iosChannelSpecifics = const IOSNotificationDetails();
+    var iosChannelSpecifics = const DarwinNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         android: androidChannelSpecifics, iOS: iosChannelSpecifics);
     await flutterLocalNotificationsPlugin!.show(

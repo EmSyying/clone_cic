@@ -40,8 +40,8 @@ class NotificationHelper {
   static Future<void> initial() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('app_notf_icon');
-    IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
+    DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
             onDidReceiveLocalNotification: (id, title, body, payload) async {
       didReceiveLocalNotificationSubject.add(
         ReceivedNotification(
@@ -52,8 +52,8 @@ class NotificationHelper {
         ),
       );
     });
-    const MacOSInitializationSettings initializationSettingsMacOS =
-        MacOSInitializationSettings();
+    const DarwinInitializationSettings initializationSettingsMacOS =
+        DarwinInitializationSettings();
     InitializationSettings initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid,
         iOS: initializationSettingsIOS,
@@ -62,16 +62,28 @@ class NotificationHelper {
         await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
     if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {}
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String? payload) async {
-      onMessageOpenApp.onMessageOpenApp(
-          router.routerDelegate.navigatorKey.currentState!.context,
-          selectedNotificationPayload!);
-      debugPrint(
-          "on Messaging:${selectedNotificationPayload!.notification!.title}");
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) {
+        onMessageOpenApp.onMessageOpenApp(
+            router.routerDelegate.navigatorKey.currentState!.context,
+            selectedNotificationPayload!);
+        debugPrint(
+            "on Messaging:${selectedNotificationPayload!.notification!.title}");
 
-      selectNotificationSubject.add(payload);
-    });
+        selectNotificationSubject.add(notificationResponse.payload);
+      },
+      //  onSelectNotification: (String? payload) async {
+      //   onMessageOpenApp.onMessageOpenApp(
+      //       router.routerDelegate.navigatorKey.currentState!.context,
+      //       selectedNotificationPayload!);
+      //   debugPrint(
+      //       "on Messaging:${selectedNotificationPayload!.notification!.title}");
+
+      //   selectNotificationSubject.add(payload);
+      // }
+    );
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
       selectedNotificationPayload = remoteMessage;
       NotificationHelper.showNotification(
