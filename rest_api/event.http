@@ -40,7 +40,7 @@ Content-Type: application/json
 Authorization:  Bearer {{token}}
 
 ###
-GET {{baseUrl}}v3/event/2
+GET {{baseUrl}}v3/event/17
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -58,7 +58,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ###
-GET {{baseUrl}}v3/registration
+GET {{baseUrl}}v3/event/registration/17
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -76,31 +76,37 @@ Authorization: Bearer {{token}}
 }
 
 ###
-POST {{baseUrl}}v3/registration
+POST {{baseUrl}}v3/event/registration
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
     "member_id" : 21,
-    "event_id" : 2,
-    "guest" : 
-    [
-        {
-            "phone_number" : "098765434",
-            "participant_name" : "yyyy",
-            "relationship" :"sister"
+    "event_id" : 20,
+     "guest" : [
+    {
+        "phone_number" : "098765434",
+        "participant_name" : "yy",
+        "relationship" :"1"
         },
         {
             "phone_number" : "09876543444",
-            "participant_name" : "wwww",
-            "relationship" : "brother"
+            "participant_name" : "rr",
+            "relationship" : "2"
         }
     ]
+
 }
     
 ###
-GET {{baseUrl}}v3/guest-register
+GET {{baseUrl}}v3/event/guest-register?event_id=20&member_id=21
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}v3/chec
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

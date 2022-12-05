@@ -594,14 +594,15 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                             },
                           );
                         }).toList();
-
-                        debugPrint('add more guest:$guest');
                         registerMemberController.onRegisterWithGuest(
                             context: widget.contextRegisterTicket,
-                            id: customerController.customer.value.customerId,
+                            memberId:
+                                customerController.customer.value.customerId,
                             eventId:
                                 registerMemberController.eventDetail.value.id,
                             guest: guest);
+
+                        debugPrint('add more guest:$guest');
 
                         // if (isValidate()) {
                         //

@@ -10,7 +10,7 @@ class GuestListModel with _$GuestListModel {
     @JsonKey(name: 'participant_name') final String? participantName,
     @JsonKey(name: 'phone_number') final String? phoneNumber,
     final String? relationship,
-    @Default(false) final bool? isCheckBox,
+    @Default(false) bool? isCheckBox,
   }) = _GuestListModel;
 
   factory GuestListModel.fromJson(Map<String, dynamic> json) =>

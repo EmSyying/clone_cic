@@ -1,6 +1,7 @@
 class EventData {
   int? id;
   String? title;
+  String? eventBy;
   String? startDate;
   String? endDate;
   String? date;
@@ -31,6 +32,7 @@ class EventData {
   EventData(
       {this.id,
       this.title,
+      this.eventBy,
       this.startDate,
       this.endDate,
       this.date,
@@ -61,6 +63,7 @@ class EventData {
   EventData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'] ?? '';
+    eventBy = json['event_by'];
     startDate = json['start_date'] ?? '';
     endDate = json['end_date'] ?? '';
     date = json['date'] ?? '';
@@ -93,6 +96,7 @@ class EventData {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
+    data['event_by'] = eventBy;
     data['start_date'] = startDate;
     data['end_date'] = endDate;
     data['date'] = date;

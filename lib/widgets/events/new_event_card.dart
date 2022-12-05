@@ -13,7 +13,7 @@ class NewEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        height: 110.0,
+        height: 120.0,
         margin: const EdgeInsets.only(bottom: 15.0),
         width: double.infinity,
         decoration: containerCiCPartern,
@@ -65,7 +65,7 @@ class NewEventCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(top: 10, left: 10.0),
+                        margin: const EdgeInsets.only(top: 5, left: 10.0),
                         child: Text(
                           eventData!.date!,
                           style: const TextStyle(
@@ -126,7 +126,7 @@ class NewEventCard extends StatelessWidget {
                               flex: 4,
                               child: Container(
                                 margin: const EdgeInsets.only(
-                                    left: 10.0, right: 5, top: 15),
+                                    left: 10.0, right: 5, top: 12),
                                 child: Text(
                                   eventData!.interested != null
                                       ? "${eventData!.interested.toString()} interested"

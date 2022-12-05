@@ -1,15 +1,14 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/helper/color.dart';
 import 'custom_card_guest_ticket.dart';
 import '../../modules/event_module/controller/event_controller.dart';
 
-class EventTicketScreen extends StatelessWidget {
+class CustomViewTicket extends StatelessWidget {
   final GestureTapCallback? onSaveTicket;
-  const EventTicketScreen({Key? key, this.onSaveTicket}) : super(key: key);
+  const CustomViewTicket({Key? key, this.onSaveTicket}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final contro = Get.put(EventController());
@@ -82,37 +81,19 @@ class EventTicketScreen extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 36.0,
-              bottom: 10.0,
-            ),
-            child: _buildButton(
-              Theme.of(context).textTheme.subtitle2,
-              text: 'Save',
-              icon: SvgPicture.asset('assets/images/save.svg'),
-              onTap: onSaveTicket,
-              // () {
-              //   _onCaptureAndSave();
-              // },
-            ),
-          ),
-          // SafeArea(
-          //   top: false,
-          //   minimum: const EdgeInsets.symmetric(
-          //     horizontal: 20,
-          //     vertical: 20,
+          // Padding(
+          //   padding: const EdgeInsets.only(
+          //     top: 36.0,
+          //     bottom: 10.0,
           //   ),
-          //   child: CustomButton(
-          //     width: double.infinity,
-          //     backgroundColor: Colors.white,
-          //     colorText: AppColor.mainColor,
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //     },
-          //     isDisable: false,
-          //     isOutline: false,
-          //     title: 'Done',
+          //   child: _buildButton(
+          //     Theme.of(context).textTheme.subtitle2,
+          //     text: 'Save',
+          //     icon: SvgPicture.asset('assets/images/save.svg'),
+          //     onTap: onSaveTicket,
+          //     // () {
+          //     //   _onCaptureAndSave();
+          //     // },
           //   ),
           // ),
         ],

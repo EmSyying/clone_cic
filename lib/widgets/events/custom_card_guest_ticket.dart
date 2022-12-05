@@ -79,30 +79,19 @@ class CustomCardGuestsTicket extends StatelessWidget {
         const Spacer(),
         //===Check Box====
         if (viewTicket != null)
-          GestureDetector(
-            onTap: onTapSelect,
-            child: Container(
-              height: 20,
-              width: 20,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.0),
-                border: Border.all(
-                  color: isCheckBox
-                      ? AppColor.mainColor
-                      : AppColor.chartLabelColor,
-                  width: 0.6,
-                ),
-                shape: BoxShape.rectangle,
-                color: isCheckBox
-                    ? AppColor.mainColor
-                    : Theme.of(context).cardColor,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: GestureDetector(
+              onTap: onTapSelect,
               child: isCheckBox
-                  ? const Center(
-                      child: Icon(Icons.done,
-                          size: 16.0, color: AppColor.paymentBackgroundColor),
+                  ? const Icon(
+                      Icons.check_box_rounded,
+                      color: AppColor.mainColor,
                     )
-                  : Container(),
+                  : Icon(
+                      Icons.check_box_outline_blank,
+                      color: Colors.grey[400],
+                    ),
             ),
           ),
       ],
