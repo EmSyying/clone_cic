@@ -403,7 +403,7 @@ class EquityInvestmentController extends GetxController {
                 )
               : null;
 
-          context.go("/get-funding/equity-investment");
+          context.go("/get_funding");
           Future.delayed(const Duration(milliseconds: 985), () {
             fetchOnEquityApplicationList(1);
           });

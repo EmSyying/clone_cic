@@ -21,6 +21,7 @@ import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/format_number.dart';
 import '../../../../widgets/investments/slide_button.dart';
 import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
+import '../../../wallet/controller/wallet_controller.dart';
 
 class CustomNewSubscription extends StatefulWidget {
   const CustomNewSubscription({Key? key}) : super(key: key);
@@ -31,9 +32,8 @@ class CustomNewSubscription extends StatefulWidget {
 
 class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
   final subscribeCon = Get.put(BonusController());
-
   final priceController = Get.put(PriceController());
-
+  final _walletController = Get.put(WalletController());
   final userCon = Get.put(CustomerController());
 
   bool isValidate() {
@@ -56,6 +56,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
     subscribeCon.fetchUTScription();
     subscribeCon.fetchPaymentSummary();
     subscribeCon.fetchbonusSetting();
+    _walletController.fetchWalletAmount();
     Future.delayed(const Duration(seconds: 1), () async {
       subscribeCon.utPrice.value = priceController.price.value.price!;
       subscribeCon.utPriceController.text = priceController.price.value.price!;
@@ -88,9 +89,8 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                       top: 20.0,
                                     ),
                                     child: WalletTotalCard(
-                                      amount: subscribeCon
-                                          .balanceModel.value.balance
-                                          .toString(),
+                                      amount: _walletController.walletAmount
+                                          .value.wallet!.balanceFormat,
                                     ),
                                   ),
                                   Container(

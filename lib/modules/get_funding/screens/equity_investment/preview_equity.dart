@@ -929,9 +929,12 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                               ),
                                               Expanded(
                                                 child: CustomButton(
-                                                  isDisable: !checkEqual()
-                                                      ? true
-                                                      : false,
+                                                  isDisable: InjectionHelper
+                                                          .equityInvestmentController
+                                                          .isAgree
+                                                          .value
+                                                      ? false
+                                                      : true,
                                                   isOutline: false,
                                                   onPressed: InjectionHelper
                                                           .equityInvestmentController

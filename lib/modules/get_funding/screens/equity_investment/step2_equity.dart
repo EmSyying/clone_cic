@@ -36,8 +36,6 @@ class Step2Equity extends StatefulWidget {
 }
 
 class _Step2EquityState extends State<Step2Equity> {
-  
-
   final addressFocus = FocusNode();
   final yearofFocus = FocusNode();
   final taxFocus = FocusNode();
@@ -123,7 +121,8 @@ class _Step2EquityState extends State<Step2Equity> {
         InjectionHelper.equityInvestmentController.companyName.value != '') {
       if (InjectionHelper.equityInvestmentController.purposeOfFund.value == 1) {
         InjectionHelper.equityInvestmentController.purposeOfFund.value =
-            InjectionHelper.optionController.optionData.value.riaseuseoffund![0].id!;
+            InjectionHelper
+                .optionController.optionData.value.riaseuseoffund![0].id!;
       }
       context
           .go("/get_funding/equity-step3?id=${widget.id}&&step=${widget.step}");
@@ -321,40 +320,39 @@ class _Step2EquityState extends State<Step2Equity> {
   }
 
   bool checkdisablesavedraf() {
-    return InjectionHelper.equityInvestmentController.companyName.value == InjectionHelper.equityInvestmentController.applicationData.value.company!.companyName &&
-        InjectionHelper.equityInvestmentController.address.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .company!.address! &&
-        InjectionHelper.equityInvestmentController.yearOfEstablishment.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .company!.yearFounded &&
-        InjectionHelper.equityInvestmentController.typeOfOrganization.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .company!.typeOfOrganization &&
-        InjectionHelper.equityInvestmentController.taxIdentificationNumber.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .company!.taxIdentificationNumber &&
-        InjectionHelper.equityInvestmentController.industry.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .company!.industry &&
-        InjectionHelper.equityInvestmentController.numberOfStaff.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .company!.numberOfStaff
-                .toString() &&
-        InjectionHelper.equityInvestmentController.ownerName.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .company!.ownerName &&
-        InjectionHelper.equityInvestmentController.patentDocument.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .companyPatentDoc! &&
-        InjectionHelper.equityInvestmentController.certificatioDoc.value ==
-            InjectionHelper.equityInvestmentController.applicationData.value
-                .companyMoCCertificate! &&
-        InjectionHelper.equityInvestmentController.licenseDoc.value == InjectionHelper.equityInvestmentController.applicationData.value.companyLicenceDoc! &&
-        InjectionHelper.equityInvestmentController.memorandumDoc.value == InjectionHelper.equityInvestmentController.applicationData.value.companyMAA! &&
-        InjectionHelper.equityInvestmentController.typeOfOrganization.value.display == InjectionHelper.equityInvestmentController.applicationData.value.company!.typeOfOrganization!.display &&
-        InjectionHelper.equityInvestmentController.industry.value.display == InjectionHelper.equityInvestmentController.applicationData.value.company!.industry!.display &&
-        InjectionHelper.equityInvestmentController.productSevice.value == InjectionHelper.equityInvestmentController.applicationData.value.company!.companyProductAndService;
+    return InjectionHelper.equityInvestmentController.applicationData.value.company != null
+        ? InjectionHelper.equityInvestmentController.companyName.value == InjectionHelper.equityInvestmentController.applicationData.value.company!.companyName &&
+            InjectionHelper.equityInvestmentController.address.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.address! &&
+            InjectionHelper.equityInvestmentController.yearOfEstablishment.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.yearFounded &&
+            InjectionHelper.equityInvestmentController.typeOfOrganization.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.typeOfOrganization &&
+            InjectionHelper.equityInvestmentController.taxIdentificationNumber.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.taxIdentificationNumber &&
+            InjectionHelper.equityInvestmentController.industry.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.industry &&
+            InjectionHelper.equityInvestmentController.numberOfStaff.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.numberOfStaff
+                    .toString() &&
+            InjectionHelper.equityInvestmentController.ownerName.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value
+                    .company!.ownerName &&
+            InjectionHelper.equityInvestmentController.patentDocument.value ==
+                InjectionHelper.equityInvestmentController.applicationData.value.companyPatentDoc! &&
+            InjectionHelper.equityInvestmentController.certificatioDoc.value == InjectionHelper.equityInvestmentController.applicationData.value.companyMoCCertificate! &&
+            InjectionHelper.equityInvestmentController.licenseDoc.value == InjectionHelper.equityInvestmentController.applicationData.value.companyLicenceDoc! &&
+            InjectionHelper.equityInvestmentController.memorandumDoc.value == InjectionHelper.equityInvestmentController.applicationData.value.companyMAA! &&
+            InjectionHelper.equityInvestmentController.typeOfOrganization.value.display == InjectionHelper.equityInvestmentController.applicationData.value.company!.typeOfOrganization!.display &&
+            InjectionHelper.equityInvestmentController.industry.value.display == InjectionHelper.equityInvestmentController.applicationData.value.company!.industry!.display &&
+            InjectionHelper.equityInvestmentController.productSevice.value == InjectionHelper.equityInvestmentController.applicationData.value.company!.companyProductAndService
+        : false;
   }
 
   TextEditingController addNewOtherType = TextEditingController();
@@ -1106,8 +1104,11 @@ class _Step2EquityState extends State<Step2Equity> {
                                                   .equityInvestmentController
                                                   .isValTypeOfOrganization
                                                   .value,
-                                              item: InjectionHelper.optionController.optionData
-                                                  .value.organization!
+                                              item: InjectionHelper
+                                                  .optionController
+                                                  .optionData
+                                                  .value
+                                                  .organization!
                                                   .asMap()
                                                   .entries
                                                   .map((e) {
@@ -1145,7 +1146,14 @@ class _Step2EquityState extends State<Step2Equity> {
                                                               .value
                                                               .display!
                                                               .toLowerCase() !=
-                                                          'null'
+                                                          'null' &&
+                                                      InjectionHelper
+                                                              .equityInvestmentController
+                                                              .typeOfOrganization
+                                                              .value
+                                                              .display!
+                                                              .toLowerCase() !=
+                                                          ''
                                                   ? {
                                                       "Name": InjectionHelper
                                                           .equityInvestmentController
@@ -1250,6 +1258,12 @@ class _Step2EquityState extends State<Step2Equity> {
                                                               .equityInvestmentController
                                                               .industry
                                                               .value
+                                                              .display !=
+                                                          "" &&
+                                                      InjectionHelper
+                                                              .equityInvestmentController
+                                                              .industry
+                                                              .value
                                                               .display!
                                                               .toLowerCase() !=
                                                           'null'
@@ -1270,8 +1284,11 @@ class _Step2EquityState extends State<Step2Equity> {
                                                   .equityInvestmentController
                                                   .isValIndustry
                                                   .value,
-                                              item: InjectionHelper.optionController
-                                                  .optionData.value.industry!
+                                              item: InjectionHelper
+                                                  .optionController
+                                                  .optionData
+                                                  .value
+                                                  .industry!
                                                   .asMap()
                                                   .entries
                                                   .map((e) {
