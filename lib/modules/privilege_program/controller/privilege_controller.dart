@@ -187,8 +187,7 @@ class PrivilegeController extends GetxController {
     return shopDetailModel.value;
   }
 
-  ////function onFetchCategories
-
+  ///onFetch Categories shop
   final categoriesModelList = <ModelsCategories>[].obs;
   final isLoadingCategories = false.obs;
   Future<List<ModelsCategories>> onFetchCategories() async {
@@ -208,7 +207,7 @@ class PrivilegeController extends GetxController {
         categoriesModelList.add(
           ModelsCategories.fromJson(e),
         );
-        debugPrint('Categories name========:${categoriesModelList[0].name}');
+        // debugPrint('Categories name========:${categoriesModelList[0].name}');
       }).toList();
       debugPrint('Categories data:===2');
 
@@ -219,6 +218,35 @@ class PrivilegeController extends GetxController {
     });
 
     return categoriesModelList;
+  }
+
+  /////search categories shop
+  final categoriesListSeeAll = <ModelsCategories>[].obs;
+  final isLoadingSearchCate = false.obs;
+  Future<List<ModelsCategories>> onSearchCategories(String? keySearch) async {
+    isLoadingSearchCate(true);
+
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/category?term=$keySearch',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      var responseJson = response['data'];
+      categoriesListSeeAll.clear();
+
+      responseJson.map((e) {
+        categoriesListSeeAll.add(
+          ModelsCategories.fromJson(e),
+        );
+      }).toList();
+
+      isLoadingSearchCate(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingSearchCate(false);
+    });
+    return categoriesListSeeAll;
   }
 
   // category & location filter

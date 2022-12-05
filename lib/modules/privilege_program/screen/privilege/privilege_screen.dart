@@ -135,41 +135,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // Padding(
-                  //   padding:
-                  //       const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  //   child: AspectRatio(
-                  //     aspectRatio: 5 / 2.3,
-                  //     child: Swiper(
-                  //         loop: true,
-                  //         index: currentIndex,
-                  //         scrollDirection: Axis.horizontal,
-                  //         itemBuilder: (context, index) {
-                  //           if (_settingCon.slideList![index].module ==
-                  //               'Privilege') {
-                  //             return ClipRRect(
-                  //               borderRadius: BorderRadius.circular(10),
-                  //               child: CachedNetworkImage(
-                  //                 imageUrl:
-                  //                     _settingCon.slideList![index].image!,
-                  //                 fit: BoxFit.cover,
-                  //               ),
-                  //             );
-                  //           }
-                  //           return Container();
-                  //         },
-                  //         onIndexChanged: (value) {
-                  //           setState(() {
-                  //             currentIndex = value;
-                  //           });
-                  //         },
-                  //         curve: Curves.easeIn,
-                  //         autoplay: true,
-                  //         itemCount: _settingCon.slideList!.length,
-                  //         viewportFraction: 1,
-                  //         scale: 0.9),
-                  //   ),
-                  // ),
                   !_settingCon.isLoading.value &&
                           _settingCon.slideListPrivilege!.isNotEmpty
                       ? Padding(

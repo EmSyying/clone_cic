@@ -9,6 +9,8 @@ class ModelsCategories with _$ModelsCategories {
     int? id,
     String? name,
     String? image,
+    @JsonKey(name: 'count_shop') final int? countShop,
+    
   }) = _ModelsCategories;
 
   factory ModelsCategories.fromJson(Map<String, dynamic> json) =>

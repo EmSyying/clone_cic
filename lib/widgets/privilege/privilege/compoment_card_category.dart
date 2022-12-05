@@ -13,6 +13,10 @@ class ComponentCardCategory extends StatelessWidget {
   final String? numStores;
   final double? height;
   final bool isHeight;
+  final String? countShop;
+  final double? heightIcon;
+  final double? widthIcon;
+
   final GestureTapCallback? onTapCatego;
   const ComponentCardCategory({
     Key? key,
@@ -26,6 +30,9 @@ class ComponentCardCategory extends StatelessWidget {
     this.numStores,
     this.height,
     this.isHeight = false,
+    this.countShop,
+    this.heightIcon,
+    this.widthIcon,
   }) : super(key: key);
 //==
   @override
@@ -57,12 +64,21 @@ class ComponentCardCategory extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                  bottom: -5,
-                  right: -5,
-                  child: SvgPicture.network(
-                    iconCard ?? '',
-                  ),
-                ),
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: isHeight == false ? 42 : heightIcon,
+                      width: isHeight == false ? 94 : widthIcon,
+                      child: SvgPicture.network(
+                        iconCard ?? '',
+                      ),
+                    )
+                    //  Image.asset(
+                    //     'assets/images/svgfile/retail_baby_product.png',
+                    //   ),
+
+                    ),
                 Positioned.fill(
                   child: Container(
                     padding: const EdgeInsets.only(
@@ -78,6 +94,7 @@ class ComponentCardCategory extends StatelessWidget {
                           style:
                               Theme.of(context).textTheme.bodyText2!.copyWith(
                                     fontWeight: FontWeight.w700,
+                                    fontSize: 14,
                                   ),
                         ),
                         const SizedBox(
@@ -85,7 +102,7 @@ class ComponentCardCategory extends StatelessWidget {
                         ),
                         numStoresTrue == true
                             ? Text(
-                                '25 Stores',
+                                countShop.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!

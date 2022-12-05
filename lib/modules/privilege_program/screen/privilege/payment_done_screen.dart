@@ -36,7 +36,7 @@ class PaymentDoneScreen extends StatelessWidget {
           elevation: 0.5,
           title: const Center(
             child: Text(
-              'Shop Payment',
+              'Claim Discount',
               style: TextStyle(
                 color: Colors.black,
               ),

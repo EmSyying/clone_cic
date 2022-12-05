@@ -23,7 +23,7 @@ class PrivilegePayment extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 1.0,
         title: const Text(
-          'Shop Payment',
+          'Claim Discount',
           style: TextStyle(
             color: Colors.black,
           ),
