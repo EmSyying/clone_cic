@@ -145,6 +145,8 @@ class EventController extends GetxController {
   onRefreshPassEvent() async {
     getPastEvent(customerController.customer.value.customerId!);
   }
+  
+  String currentMonth = '';
 
   Future<List<EventData>> getNewEvent(int memberId) async {
     // debugPrint("is working new event");
@@ -153,7 +155,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=new';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=new&month=$currentMonth';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -248,7 +250,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=featured';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=featured&month=$currentMonth';
 
     try {
       await http.get(Uri.parse(url), headers: {

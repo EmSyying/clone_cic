@@ -124,14 +124,46 @@ class _EventScreenState extends State<EventScreen> {
 
   TextEditingController searchtextController = TextEditingController();
 
-  int monthsID = 1;
   int selectedInd = 0;
+  final today = DateTime.now();
 
-  final months = [
-    ['Jan', 'Feb', 'March', 'April'],
-    ['May', 'June', 'July', 'Aug'],
-    ['Sep', 'Oct', 'Nov', 'Dec']
+  List<MonthAndYear> months = <MonthAndYear>[
+    MonthAndYear(month: 'Jan'),
+    MonthAndYear(month: 'Feb'),
+    MonthAndYear(month: 'Mar'),
+    MonthAndYear(month: 'Apr'),
+    MonthAndYear(month: 'May'),
+    MonthAndYear(month: 'Jun'),
+    MonthAndYear(month: 'Jul'),
+    MonthAndYear(month: 'Aug'),
+    MonthAndYear(month: 'Sep'),
+    MonthAndYear(month: 'Oct'),
+    MonthAndYear(month: 'Nov'),
+    MonthAndYear(month: 'Dec'),
   ];
+
+  void _checkDate() {
+    _eventController.currentMonth = '${today.month}';
+    selectedInd = today.month - 1;
+
+    Future.delayed(const Duration(seconds: 1), () {
+      if (months[selectedInd].key != null &&
+          months[selectedInd].key!.currentContext != null) {
+        Scrollable.ensureVisible(
+          months[selectedInd].key!.currentContext!,
+          alignment: 0.5,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    _checkDate();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // debugPrint('Recieved : ${widgt}');
@@ -165,55 +197,71 @@ class _EventScreenState extends State<EventScreen> {
                   ),
                   color: AppColor.mainColor,
                 ),
-                padding: const EdgeInsets.only(bottom: 25, left: 10, right: 3),
+                padding: const EdgeInsets.only(bottom: 25, right: 3),
                 child: Row(
                   children: [
-                    const SizedBox(width: 10),
                     Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: months[monthsID]
-                            .asMap()
-                            .entries
-                            .map(
-                              (e) => GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedInd = e.key;
-                                  });
-                                },
-                                child: Text(
-                                  e.value,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          color: selectedInd == e.key
-                                              ? Colors.white
-                                              : const Color(0xffffffff)
-                                                  .withOpacity(0.6),
-                                          fontSize: 20,
-                                          fontWeight: selectedInd == e.key
-                                              ? FontWeight.w500
-                                              : FontWeight.w400),
+                      child: SingleChildScrollView(
+                        // physics: const ClampingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: months
+                              .asMap()
+                              .entries
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      selectedInd = e.key;
+                                      setState(() {});
+                                      _eventController.currentMonth =
+                                          '${selectedInd + 1}';
+                                      _eventController
+                                          .onRefreshUpCommingEvent();
+                                    },
+                                    child: Text(
+                                      e.value.month,
+                                      key: months[e.key].key = GlobalKey(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                              color: selectedInd == e.key
+                                                  ? Colors.white
+                                                  : const Color(0xffffffff)
+                                                      .withOpacity(0.6),
+                                              fontSize: 20,
+                                              fontWeight: selectedInd == e.key
+                                                  ? FontWeight.w500
+                                                  : FontWeight.w400),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            )
-                            .toList(),
+                              )
+                              .toList(),
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 50),
+                    // const SizedBox(width: 50),
                     IconButton(
                       color: Colors.white,
                       onPressed: () {
-                        setState(() {
+                        if (selectedInd < months.length - 1) {
+                          selectedInd += 1;
+                        } else {
                           selectedInd = 0;
-                          if (monthsID < months.length - 1) {
-                            monthsID += 1;
-                          } else {
-                            monthsID = 0;
-                          }
-                        });
+                        }
+                        Scrollable.ensureVisible(
+                          months[selectedInd].key!.currentContext!,
+                          alignment: 0.5,
+                          duration: const Duration(milliseconds: 500),
+                        );
+
+                        _eventController.currentMonth = '${selectedInd + 1}';
+                        _eventController.onRefreshUpCommingEvent();
+                        setState(() {});
                       },
                       icon: const Icon(Icons.arrow_forward_ios_rounded),
                     )
@@ -577,4 +625,10 @@ class _DynamicEventState extends State<DynamicEvent> {
               ],
             ));
   }
+}
+
+class MonthAndYear {
+  String month;
+  GlobalKey? key;
+  MonthAndYear({required this.month, this.key});
 }
