@@ -102,6 +102,7 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                                         isHeight: true,
                                         widthTrue: true,
                                         numStoresTrue: true,
+                                        mineTye: cardListCat.value.mimeTypeImag,
                                         cardTitle: cardListCat.value.name,
                                         iconCard: cardListCat.value.image,
                                         countShop: cardListCat.value.countShop

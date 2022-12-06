@@ -12,6 +12,7 @@ _$_ModelsCategories _$$_ModelsCategoriesFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       image: json['image'] as String?,
       countShop: json['count_shop'] as int?,
+      mimeTypeImag: json['mime_type'] as String?,
     );
 
 Map<String, dynamic> _$$_ModelsCategoriesToJson(_$_ModelsCategories instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_ModelsCategoriesToJson(_$_ModelsCategories instance) =>
       'name': instance.name,
       'image': instance.image,
       'count_shop': instance.countShop,
+      'mime_type': instance.mimeTypeImag,
     };

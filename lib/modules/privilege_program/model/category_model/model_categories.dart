@@ -9,8 +9,8 @@ class ModelsCategories with _$ModelsCategories {
     int? id,
     String? name,
     String? image,
-    @JsonKey(name: 'count_shop') final int? countShop,
-    
+    @JsonKey(name: 'count_shop') int? countShop,
+    @JsonKey(name: 'mime_type') String? mimeTypeImag,
   }) = _ModelsCategories;
 
   factory ModelsCategories.fromJson(Map<String, dynamic> json) =>

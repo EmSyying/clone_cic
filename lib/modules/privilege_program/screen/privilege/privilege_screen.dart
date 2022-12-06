@@ -233,6 +233,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                       padding: const EdgeInsets.only(
                                           top: 4.0, bottom: 4.0, right: 14.0),
                                       child: ComponentCardCategory(
+                                        mineTye: cardListCat.value.mimeTypeImag,
                                         cardTitle: cardListCat.value.name,
                                         iconCard: cardListCat.value.image,
                                         onTapCatego: () {

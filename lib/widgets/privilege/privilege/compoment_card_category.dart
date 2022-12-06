@@ -16,11 +16,12 @@ class ComponentCardCategory extends StatelessWidget {
   final String? countShop;
   final double? heightIcon;
   final double? widthIcon;
+  final String? mineTye;
 
   final GestureTapCallback? onTapCatego;
   const ComponentCardCategory({
     Key? key,
-    //this.modelCardCategory,
+    // this.modelCardCategory,
     this.selected = false,
     this.onTapCatego,
     this.iconCard,
@@ -33,8 +34,9 @@ class ComponentCardCategory extends StatelessWidget {
     this.countShop,
     this.heightIcon,
     this.widthIcon,
+    this.mineTye,
   }) : super(key: key);
-//==
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -64,21 +66,21 @@ class ComponentCardCategory extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: isHeight == false ? 42 : heightIcon,
-                      width: isHeight == false ? 94 : widthIcon,
-                      child: SvgPicture.network(
-                        iconCard ?? '',
-                      ),
-                    )
-                    //  Image.asset(
-                    //     'assets/images/svgfile/retail_baby_product.png',
-                    //   ),
-
-                    ),
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: isHeight == false ? 42 : heightIcon,
+                    width: isHeight == false ? 94 : widthIcon,
+                    child: mineTye != null && mineTye!.contains('svg')
+                        ? SvgPicture.network(
+                            iconCard ?? '',
+                          )
+                        : Image.network(
+                            iconCard ?? '',
+                          ),
+                  ),
+                ),
                 Positioned.fill(
                   child: Container(
                     padding: const EdgeInsets.only(
