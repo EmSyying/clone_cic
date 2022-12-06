@@ -154,7 +154,7 @@ final router = GoRouter(
           GoRoute(
             path: 'event',
             name: 'Event',
-            builder: (context, state) => const EventScreen(),
+            builder: (context, state) => EventScreen(key: state.pageKey),
             routes: [
               GoRoute(
                 path: 'event-detail/:id',
@@ -493,12 +493,14 @@ final router = GoRouter(
               path: 'bonus',
               name: 'Bonus',
               builder: (context, state) => BonusScreen(
+                    key: state.pageKey,
                     tapName: state.queryParams['tapName'],
                   )),
           GoRoute(
               path: 'get_funding',
               name: 'GetFunding',
               builder: (context, state) => HomePage(
+                    key: state.pageKey,
                     tabName: state.params['tabName'],
                   ),
               routes: [
@@ -594,6 +596,7 @@ final router = GoRouter(
               path: 'ut_trading',
               name: 'UT-Trading',
               builder: (context, state) => UTtrading(
+                    key: state.pageKey,
                     tradeId: int.tryParse(
                       state.queryParams['tradeId'].toString(),
                     ),
@@ -670,11 +673,14 @@ final router = GoRouter(
           GoRoute(
               path: 'directory',
               name: 'Directory',
-              builder: (context, state) => const Directory()),
+              builder: (context, state) => Directory(
+                    key: state.pageKey,
+                  )),
           GoRoute(
               path: 'report/:id',
               name: 'Report',
               builder: (context, state) => Report(
+                    key: state.pageKey,
                     currentTabIndex: int.tryParse(state.params['id']!),
                   ),
               routes: [

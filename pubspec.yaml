@@ -37,7 +37,7 @@ dependencies:
   rxdart: ^0.27.3
 
   # Route Management
-  go_router: ^5.2.1
+  go_router: ^4.2.7
   beamer: ^1.3.0
 
   # Network Request
