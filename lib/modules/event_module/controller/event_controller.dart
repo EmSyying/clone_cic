@@ -145,7 +145,7 @@ class EventController extends GetxController {
   onRefreshPassEvent() async {
     getPastEvent(customerController.customer.value.customerId!);
   }
-  
+
   String currentMonth = '';
 
   Future<List<EventData>> getNewEvent(int memberId) async {

@@ -84,59 +84,6 @@ class CustomCheckInGuest extends StatelessWidget {
                         debugPrint(
                             'After Added = ${contro.selectCheckInModel.length}');
                       }
-
-                      //===============ying code
-                      // if (e.value.isCheckBox == true) {
-                      //   contro.guestListModel.value =
-                      //       e.value.copyWith(isCheckBox: false);
-
-                      //   contro.selectCheckInModel
-                      //       .removeWhere((v) => v.guestId == e.value.id);
-                      //   debugPrint(
-                      //       'After removeeeee = ${contro.selectCheckInModel.length}');
-                      // } else {
-                      //   contro.guestListModel.value = e.value.copyWith(
-                      //     isCheckBox: true,
-                      //   );
-                      //   contro.selectCheckInModel
-                      //       .add(SelectCheckInModel(guestId: e.value.id));
-                      //   debugPrint(
-                      //       'After Addedddddd = ${contro.selectCheckInModel.length}');
-                      // }
-                      //=======================
-                      // debugPrint(
-                      //     'remove====:${contro.selectCheckInModel.length}');
-                      // contro.getListGest.map((e) {
-                      //   if (e.isCheckBox == true) {
-                      //     guest.add(
-                      //       {"guest_id": e.id},
-                      //     );
-                      //   }
-                      // }).toList();
-                      //=====================
-                      //
-                      //   contro.getRegisterModel.refresh();
-                      //   contro.update();
-                      // }).toList();
-                      //=====================
-
-                      // contro.getListGest.asMap().entries.map((e) {
-                      //   if (e.value.isCheckBox == true) {
-                      //     e.value = e.value.copyWith(isCheckBox: false);
-                      //     contro.selectCheckInModel
-                      //         .removeWhere((v) => v.guestId == e.value.id);
-
-                      //     debugPrint(
-                      //         'After Removed = ${contro.selectCheckInModel.length}');
-                      //   } else {
-                      //     e.key = e.value.copyWith(
-                      //       isCheckBox: true,
-                      //     );
-                      //     contro.selectCheckInModel
-                      //         .add(SelectCheckInModel(guestId: e.value.id));
-                      //     debugPrint(
-                      //         'After Added = ${contro.selectCheckInModel.length}');
-                      //   }
                     }).toList();
                   },
                   child: Text(
@@ -165,41 +112,6 @@ class CustomCheckInGuest extends StatelessWidget {
                 who: contro.getListGest[e].relationship,
                 isCheckBox: contro.getListGest[e].isCheckBox!,
                 onTapSelect: () {
-                  // GuestListModel guestListModel = GuestListModel();
-
-                  // if (contro.getListGest[e].isCheckBox == true) {
-                  //   contro.getListGest[e] = guestListModel.copyWith(
-                  //       id: contro.getRegisterModel.value.guest![e].id,
-                  //       participantName: contro
-                  //           .getRegisterModel.value.guest![e].participantName,
-                  //       relationship: contro
-                  //           .getRegisterModel.value.guest![e].relationship,
-                  //       isCheckBox: false);
-                  // } else {
-                  //   contro.getListGest[e] = guestListModel.copyWith(
-                  //       id: contro.getRegisterModel.value.guest![e].id,
-                  //       participantName: contro
-                  //           .getRegisterModel.value.guest![e].participantName,
-                  //       relationship: contro
-                  //           .getRegisterModel.value.guest![e].relationship,
-                  //       isCheckBox: true);
-                  // }
-                  // contro.getListGest.asMap().entries.map((e) {
-                  //   if (e.value.isCheckBox == true) {
-                  //     guest.add(
-                  //       {"check_id": '1', "guest_id": e.value.id},
-                  //     );
-                  //   } else {
-                  //     guest.removeAt(e.key);
-                  //   }
-                  // }).toList();
-
-                  // debugPrint("is checkbox1$guest");
-                  // contro.getRegisterModel.refresh();
-                  // contro.update();
-                  // ====================================+======>
-                  debugPrint('Test id : ${contro.getListGest[e].id}');
-
                   if (contro.getListGest[e].isCheckBox == true) {
                     contro.getListGest[e] =
                         contro.getListGest[e].copyWith(isCheckBox: false);

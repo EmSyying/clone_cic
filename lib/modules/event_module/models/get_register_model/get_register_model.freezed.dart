@@ -23,6 +23,8 @@ mixin _$GetRegisterModel {
   int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get event => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ticket_number')
+  String? get ticketNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'host_at')
   String? get hostAt => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
@@ -53,6 +55,7 @@ abstract class $GetRegisterModelCopyWith<$Res> {
       {int? id,
       String? name,
       String? event,
+      @JsonKey(name: 'ticket_number') String? ticketNumber,
       @JsonKey(name: 'host_at') String? hostAt,
       String? date,
       @JsonKey(name: 'from_time') String? fromTime,
@@ -79,6 +82,7 @@ class _$GetRegisterModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? event = freezed,
+    Object? ticketNumber = freezed,
     Object? hostAt = freezed,
     Object? date = freezed,
     Object? fromTime = freezed,
@@ -102,6 +106,10 @@ class _$GetRegisterModelCopyWithImpl<$Res>
       event: event == freezed
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ticketNumber: ticketNumber == freezed
+          ? _value.ticketNumber
+          : ticketNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       hostAt: hostAt == freezed
           ? _value.hostAt
@@ -158,6 +166,7 @@ abstract class _$$_GetRegisterModelCopyWith<$Res>
       {int? id,
       String? name,
       String? event,
+      @JsonKey(name: 'ticket_number') String? ticketNumber,
       @JsonKey(name: 'host_at') String? hostAt,
       String? date,
       @JsonKey(name: 'from_time') String? fromTime,
@@ -186,6 +195,7 @@ class __$$_GetRegisterModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? event = freezed,
+    Object? ticketNumber = freezed,
     Object? hostAt = freezed,
     Object? date = freezed,
     Object? fromTime = freezed,
@@ -209,6 +219,10 @@ class __$$_GetRegisterModelCopyWithImpl<$Res>
       event: event == freezed
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ticketNumber: ticketNumber == freezed
+          ? _value.ticketNumber
+          : ticketNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       hostAt: hostAt == freezed
           ? _value.hostAt
@@ -261,6 +275,7 @@ class _$_GetRegisterModel implements _GetRegisterModel {
       {this.id,
       this.name,
       this.event,
+      @JsonKey(name: 'ticket_number') this.ticketNumber,
       @JsonKey(name: 'host_at') this.hostAt,
       this.date,
       @JsonKey(name: 'from_time') this.fromTime,
@@ -282,6 +297,9 @@ class _$_GetRegisterModel implements _GetRegisterModel {
   final String? name;
   @override
   final String? event;
+  @override
+  @JsonKey(name: 'ticket_number')
+  final String? ticketNumber;
   @override
   @JsonKey(name: 'host_at')
   final String? hostAt;
@@ -315,7 +333,7 @@ class _$_GetRegisterModel implements _GetRegisterModel {
 
   @override
   String toString() {
-    return 'GetRegisterModel(id: $id, name: $name, event: $event, hostAt: $hostAt, date: $date, fromTime: $fromTime, toTime: $toTime, place: $place, location: $location, latitude: $latitude, longitude: $longitude, livestreamLink: $livestreamLink, guest: $guest)';
+    return 'GetRegisterModel(id: $id, name: $name, event: $event, ticketNumber: $ticketNumber, hostAt: $hostAt, date: $date, fromTime: $fromTime, toTime: $toTime, place: $place, location: $location, latitude: $latitude, longitude: $longitude, livestreamLink: $livestreamLink, guest: $guest)';
   }
 
   @override
@@ -326,6 +344,8 @@ class _$_GetRegisterModel implements _GetRegisterModel {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.event, event) &&
+            const DeepCollectionEquality()
+                .equals(other.ticketNumber, ticketNumber) &&
             const DeepCollectionEquality().equals(other.hostAt, hostAt) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.fromTime, fromTime) &&
@@ -346,6 +366,7 @@ class _$_GetRegisterModel implements _GetRegisterModel {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(event),
+      const DeepCollectionEquality().hash(ticketNumber),
       const DeepCollectionEquality().hash(hostAt),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(fromTime),
@@ -373,6 +394,7 @@ abstract class _GetRegisterModel implements GetRegisterModel {
       {final int? id,
       final String? name,
       final String? event,
+      @JsonKey(name: 'ticket_number') final String? ticketNumber,
       @JsonKey(name: 'host_at') final String? hostAt,
       final String? date,
       @JsonKey(name: 'from_time') final String? fromTime,
@@ -393,6 +415,9 @@ abstract class _GetRegisterModel implements GetRegisterModel {
   String? get name => throw _privateConstructorUsedError;
   @override
   String? get event => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ticket_number')
+  String? get ticketNumber => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'host_at')
   String? get hostAt => throw _privateConstructorUsedError;

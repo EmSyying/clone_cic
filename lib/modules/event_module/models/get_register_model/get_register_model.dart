@@ -11,6 +11,7 @@ class GetRegisterModel with _$GetRegisterModel {
     int? id,
     String? name,
     String? event,
+    @JsonKey(name: 'ticket_number') final String? ticketNumber,
     @JsonKey(name: 'host_at') final String? hostAt,
     String? date,
     @JsonKey(name: 'from_time') final String? fromTime,

@@ -103,7 +103,7 @@ class EventCheckInTicket extends StatelessWidget {
                                                     fontSize: 18.0,
                                                   )),
                                           Text(
-                                            '${contro.getRegisterModel.value.id}',
+                                            '${contro.getRegisterModel.value.ticketNumber}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline3!
