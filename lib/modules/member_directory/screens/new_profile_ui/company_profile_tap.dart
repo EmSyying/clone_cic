@@ -118,125 +118,146 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                               .asMap()
                               .entries
                               .map((e) {
-                            return CustomCompanyTap(
-                              imageProfile: e.value.companyLogo,
-                              companyName: e.value.companyName,
-                              slogan: e.value.companySlogan,
-                              description: e.value.companyProfile ?? '',
-                              image: e.value.companyActivityImages,
-                              phone: e.value.phoneNumber ?? '',
-                              email: e.value.email ?? '',
-                              address: e.value.address ?? '',
-                              website: e.value.website ?? '',
-                              productService: e.value.companyProductAndService,
-                              isDirectories: widget.isDirectories,
-                              onTapPhone: () async {
-                                final Uri launchUri = Uri(
-                                  scheme: 'tel',
-                                  path: '${e.value.phoneNumber}',
-                                );
-                                await launchUrl(launchUri);
-                              },
-                              onTapEmail: () async {
-                                final Uri launchUri = Uri(
-                                  scheme: 'mailto',
-                                  path: '${e.value.email}',
-                                );
-                                await launchUrl(launchUri);
-                              },
-                              onTapAssociate: () async {
-                                await launchUrl(
-                                  Uri.parse('${e.value.website}'),
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              },
-                              editCompany: 'Edit company info',
-                              onTapEdit: () {
-                                memberCon.companyData.value = e.value;
-                                memberCon.copyCompanyData.value = e.value;
-                                memberCon.companyLogoUrl.value =
-                                    e.value.companyLogo!;
-
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return EditProfileScreen(
-                                    isComapny: true,
-                                    titleDone: 'Done',
-                                    appBarTitle: 'Edit Company',
-                                    id: e.value.id,
-                                    onTapPhotoProfile: () {
-                                      uploadImageCon.uploadImage(
-                                        context,
-                                        isCompany: true,
-                                        onRemove: () {
-                                          memberCon.onDeleteImageProfile(
-                                              context, e.value.id, 'company');
-                                        },
+                            return e.value.companyName == ""
+                                ? Column(
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 20.0, right: 20.0),
+                                        child: CustomEmptyState(
+                                          title: 'No Description Yet!',
+                                          description:
+                                              'You have not completed your personal company yet,please presse on add company to fill in your company profile.',
+                                        ),
+                                      ),
+                                      widget.isDirectories == false
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 20, right: 20, top: 30),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  // memberCon.isCompanyName.value = true;
+                                                  uploadImageCon.imageFile
+                                                      .value = File('');
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                                      return EditProfileScreen(
+                                                        appBarTitle:
+                                                            'Add Company',
+                                                        // isCreateCompany: true,
+                                                        isComapny: true,
+                                                        // companyData: memberCon.company.value,
+                                                        onTapPhotoProfile: () {
+                                                          uploadImageCon
+                                                              .uploadImage(
+                                                                  context,
+                                                                  isCompany:
+                                                                      true);
+                                                        },
+                                                      );
+                                                    }),
+                                                  );
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                        'assets/images/svgfile/add.svg'),
+                                                    const SizedBox(width: 10),
+                                                    Text(
+                                                      'Add Company',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline3,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          : Container(),
+                                    ],
+                                  )
+                                : CustomCompanyTap(
+                                    imageProfile: e.value.companyLogo,
+                                    companyName: e.value.companyName,
+                                    slogan: e.value.companySlogan,
+                                    description: e.value.companyProfile ?? '',
+                                    image: e.value.companyActivityImages,
+                                    phone: e.value.phoneNumber ?? '',
+                                    email: e.value.email ?? '',
+                                    address: e.value.address ?? '',
+                                    website: e.value.website ?? '',
+                                    productService:
+                                        e.value.companyProductAndService,
+                                    isDirectories: widget.isDirectories,
+                                    onTapPhone: () async {
+                                      final Uri launchUri = Uri(
+                                        scheme: 'tel',
+                                        path: '${e.value.phoneNumber}',
+                                      );
+                                      await launchUrl(launchUri);
+                                    },
+                                    onTapEmail: () async {
+                                      final Uri launchUri = Uri(
+                                        scheme: 'mailto',
+                                        path: '${e.value.email}',
+                                      );
+                                      await launchUrl(launchUri);
+                                    },
+                                    onTapAssociate: () async {
+                                      await launchUrl(
+                                        Uri.parse('${e.value.website}'),
+                                        mode: LaunchMode.externalApplication,
                                       );
                                     },
-                                    onTapDone: () {
-                                      memberCon.onUpdateCompany(
-                                          context, e.value.id!);
+                                    editCompany: 'Edit company info',
+                                    onTapEdit: () {
+                                      memberCon.companyData.value = e.value;
+                                      memberCon.copyCompanyData.value = e.value;
+                                      memberCon.companyLogoUrl.value =
+                                          e.value.companyLogo!;
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return EditProfileScreen(
+                                            isComapny: true,
+                                            titleDone: 'Done',
+                                            appBarTitle: 'Edit Company',
+                                            id: e.value.id,
+                                            onTapPhotoProfile: () {
+                                              uploadImageCon.uploadImage(
+                                                context,
+                                                isCompany: true,
+                                                onRemove: () {
+                                                  memberCon
+                                                      .onDeleteImageProfile(
+                                                          context,
+                                                          e.value.id,
+                                                          'company');
+                                                },
+                                              );
+                                            },
+                                            onTapDone: () {
+                                              memberCon.onUpdateCompany(
+                                                  context, e.value.id!);
+                                            },
+                                            // isCreateCompany: true,
+                                            isEditCompany: true,
+                                          );
+                                        }),
+                                      );
+                                      memberCon.isDisableDoneButton.value =
+                                          false;
                                     },
-                                    // isCreateCompany: true,
-                                    isEditCompany: true,
                                   );
-                                }));
-                                memberCon.isDisableDoneButton.value = false;
-                              },
-                            );
                           }).toList(),
                         ),
-                        // widget.isDirectories == false
-                        //     ? Padding(
-                        //         padding: const EdgeInsets.only(
-                        //             left: 20, right: 20, bottom: 20),
-                        //         child: GestureDetector(
-                        //           onTap: () {
-                        //             // memberCon.isCompanyName.value = true;
-                        //             uploadImageCon.imageFile.value = File('');
-                        //             memberCon.onClearCompany();
-                        //             Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(builder: (context) {
-                        //                 return EditProfileScreen(
-                        //                   appBarTitle: 'Add Company',
-                        //                   // isCreateCompany: true,
-                        //                   isComapny: true,
-                        //                   // companyData: memberCon.company.value,
-                        //                   onTapPhotoProfile: () {
-                        //                     memberCon
-                        //                             .copyPersonalProfile.value =
-                        //                         memberCon.personalProfile.value;
-                        //                     uploadImageCon.uploadImage(context,
-                        //                         isCompany: true);
-                        //                   },
-                        //                 );
-                        //               }),
-                        //             );
-                        //           },
-                        //           child: Row(
-                        //             mainAxisAlignment: MainAxisAlignment.center,
-                        //             children: [
-                        //               SvgPicture.asset(
-                        //                   'assets/images/svgfile/add.svg'),
-                        //               const SizedBox(width: 10),
-                        //               Text(
-                        //                 'Add Company',
-                        //                 style: Theme.of(context)
-                        //                     .textTheme
-                        //                     .headline3,
-                        //               )
-                        //             ],
-                        //           ),
-                        //         ),
-                        //       )
-                        //     : Container()
                       ],
                     ),
-
-              //   ),
-              // ),
             ),
     );
   }

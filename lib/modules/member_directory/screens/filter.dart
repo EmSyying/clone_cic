@@ -141,7 +141,7 @@ class _FilterState extends State<Filter> {
                 Navigator.pop(context, true);
               })),
       body: Obx(
-        () => !_filterOption.isLoading.value
+        () => !_filterOption.isLoadingOptionFilter.value
             ? RefreshIndicator(
                 onRefresh: loadDataFilter,
                 key: refreshKey,

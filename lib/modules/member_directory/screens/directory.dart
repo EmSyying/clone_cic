@@ -259,64 +259,6 @@ class _DirectoryState extends State<Directory> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // if (simpleListFilter.isNotEmpty)
-                            //   Container(
-                            //     width: double.infinity,
-                            //     padding:
-                            //         const EdgeInsets.only(left: 20, right: 20),
-                            //     child: Wrap(
-                            //       runSpacing: 10,
-                            //       spacing: 10,
-                            //       children: List.generate(
-                            //         simpleListFilter.length + 1,
-                            //         (index) => index == simpleListFilter.length
-                            //             ? GestureDetector(
-                            //                 onTap: () {
-                            //                   simpleListFilter.clear();
-                            //                   setState(() {});
-                            //                 },
-                            //                 child: Container(
-                            //                   width: 55,
-                            //                   height: 36,
-                            //                   alignment: Alignment.center,
-                            //                   child: Text(
-                            //                     'Clear All',
-                            //                     style: Theme.of(context)
-                            //                         .textTheme
-                            //                         .subtitle2!
-                            //                         .copyWith(
-                            //                             fontWeight:
-                            //                                 FontWeight.w400,
-                            //                             color: AppColor
-                            //                                 .newRedStatus),
-                            //                   ),
-                            //                 ),
-                            //               )
-                            //             : _buildFilterChip(
-                            //                 onTap: () {
-                            //                   simpleListFilter.removeAt(index);
-                            //                   setState(() {});
-                            //                 },
-                            //                 text: simpleListFilter[index],
-                            //               ),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // Padding(
-                            //   padding: const EdgeInsets.all(20),
-                            //   child: Text(
-                            //     simpleListFilter.isNotEmpty
-                            //         ? '${simpleListFilter.length} Results'
-                            //         : 'All Directory',
-                            //     style: Theme.of(context)
-                            //         .textTheme
-                            //         .subtitle2!
-                            //         .copyWith(
-                            //             fontSize: 14,
-                            //             fontWeight: FontWeight.w500,
-                            //             color: AppColor.chartLabelColor),
-                            //   ),
-                            // ),
                             memberController.fetchAllMemberLoading.value
                                 ? _showShimmer()
                                 : memberController.listAllMember.isEmpty
@@ -407,7 +349,7 @@ class _DirectoryState extends State<Directory> {
     );
   }
 
-  Widget _buildFilterChip({String? text, GestureTapCallback? onTap}) =>
+  Widget buildFilterChip({String? text, GestureTapCallback? onTap}) =>
       GestureDetector(
         onTap: onTap,
         child: Container(
@@ -461,6 +403,7 @@ class _DirectoryState extends State<Directory> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: GestureDetector(
                   onTap: () async {
+                    FocusScope.of(context).unfocus();
                     _scrollController
                         .animateTo(0,
                             duration: const Duration(milliseconds: 200),
@@ -480,53 +423,72 @@ class _DirectoryState extends State<Directory> {
         : null;
   }
 
-  Widget _showSearchFromDirectory() => Container(
-        width: double.infinity,
-        height: 40,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        margin: const EdgeInsets.only(top: 20, bottom: 20),
-        child: TextFormField(
-          key: _guideController.directoryGuide[0].key = GlobalKey(),
-          controller: memberController.searchTextFieldController.value,
-          onChanged: _onChangeHandler,
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: SvgPicture.asset(
-                'assets/images/svgfile/directory_search.svg',
+  Widget _showSearchFromDirectory() => Obx(
+        () => Container(
+          width: double.infinity,
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          margin: const EdgeInsets.only(top: 20, bottom: 20),
+          child: FocusScope(
+            child: Focus(
+              onFocusChange: (focus) {
+                // this code use for user focus on textfield
+                Future.delayed(const Duration(seconds: 1), () {
+                  _guideController.isFocus.value = focus;
+                });
+                _guideController.update();
+                debugPrint("is Focus:${_guideController.isFocus.value}");
+                debugPrint("is Focus1:${_guideController.isFocus.value}");
+              },
+              child: TextFormField(
+                key: _guideController.isFocus.value
+                    ? null
+                    : _guideController.directoryGuide[0].key =
+                        GlobalKey<FormFieldState>(),
+                controller: memberController.searchTextFieldController.value,
+                onChanged: _onChangeHandler,
+                decoration: InputDecoration(
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: SvgPicture.asset(
+                      'assets/images/svgfile/directory_search.svg',
+                    ),
+                  ),
+                  prefixIconConstraints: const BoxConstraints(minWidth: 35),
+                  suffixIconConstraints: const BoxConstraints(minWidth: 46),
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 1,
+                        color: const Color(0xffafafaf).withOpacity(0.25),
+                      ),
+                      _showFilter(),
+                    ],
+                  ),
+
+                  hintText: 'Search By First Name , Last Name, . . . ',
+                  hintStyle: const TextStyle(color: AppColor.chartLabelColor),
+                  border: InputBorder.none,
+                  fillColor: const Color(0xffAFAFAF).withOpacity(0.25),
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  // contentPadding: const EdgeInsets.all(10),
+                ),
               ),
             ),
-            prefixIconConstraints: const BoxConstraints(minWidth: 35),
-            suffixIconConstraints: const BoxConstraints(minWidth: 46),
-            suffixIcon: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  height: 20,
-                  width: 1,
-                  color: const Color(0xffafafaf).withOpacity(0.25),
-                ),
-                _showFilter(),
-              ],
-            ),
-
-            hintText: 'Search By First Name , Last Name, . . . ',
-            hintStyle: const TextStyle(color: AppColor.chartLabelColor),
-            border: InputBorder.none,
-            fillColor: const Color(0xffAFAFAF).withOpacity(0.25),
-            filled: true,
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            // contentPadding: const EdgeInsets.all(10),
           ),
         ),
       );

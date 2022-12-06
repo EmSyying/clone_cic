@@ -1356,6 +1356,12 @@ class _Step3DebtState extends State<Step3Debt> {
                                                                 .debtInvestmentController
                                                                 .typeOfOrganization
                                                                 .value
+                                                                .display !=
+                                                            '' &&
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .typeOfOrganization
+                                                                .value
                                                                 .display!
                                                                 .toLowerCase() !=
                                                             'null'
@@ -1513,6 +1519,12 @@ class _Step3DebtState extends State<Step3Debt> {
                                                                 .value
                                                                 .display !=
                                                             null &&
+                                                        InjectionHelper
+                                                                .debtInvestmentController
+                                                                .industry
+                                                                .value
+                                                                .display !=
+                                                            '' &&
                                                         InjectionHelper
                                                                 .debtInvestmentController
                                                                 .industry

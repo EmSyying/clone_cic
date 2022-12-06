@@ -206,26 +206,29 @@ class CustomMaketTradingCar extends StatelessWidget {
           ),
           GestureDetector(
             onTap: onViewLastTrading,
-            child: Padding(
-              key: guider.utTrading[5].key = GlobalKey(),
-              padding: const EdgeInsets.only(
-                  top: 12.0, left: 20.0, bottom: 12.0, right: 20.0),
-              child: Row(
-                children: [
-                  Text(
-                    "View Last Trading",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontSize: 14.0),
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
-                    size: 14,
-                  )
-                ],
+            child: Container(
+              color: Colors.transparent,
+              child: Padding(
+                key: guider.utTrading[5].key = GlobalKey(),
+                padding: const EdgeInsets.only(
+                    top: 12.0, left: 20.0, bottom: 12.0, right: 20.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "View Last Trading",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                          fontSize: 14.0),
+                    ),
+                    const Spacer(),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                      size: 14,
+                    )
+                  ],
+                ),
               ),
             ),
           )

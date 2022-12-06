@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CiCGuidController extends GetxController {
+  final isFocus = false.obs;
   List<GuidelineModel> investmentFiF = <GuidelineModel>[
     GuidelineModel(
         title: 'Total Investment in USD',
