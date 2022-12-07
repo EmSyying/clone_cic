@@ -22,7 +22,7 @@ class CustomHistoryCashOut extends StatelessWidget {
 
     List<Widget> pageView = [
       CashInOutTransaction(),
-      CashInHistories(),
+      const CashInHistories(),
       CashoutHistories()
     ];
 

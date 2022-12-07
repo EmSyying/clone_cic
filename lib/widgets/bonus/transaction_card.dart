@@ -8,7 +8,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/helper/color.dart';
-import '../../configs/route_configuration/route.dart';
 import '../../modules/bonus/models/history_model.dart';
 import '../../utils/helper/firebase_analytics.dart';
 

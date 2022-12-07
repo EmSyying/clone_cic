@@ -34,7 +34,6 @@ import 'Utils/option_controller/option_controller.dart';
 // import 'configs/auto_route/auto_route.gr.dart';
 import 'configs/route_configuration/route.dart';
 import 'generated/l10n.dart';
-import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 
 final optionCon = Get.put(DocumentCategory());

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Utils/helper/api_base_helper.dart';
+import 'model/guide_model.dart';
+
 class CiCGuidController extends GetxController {
   final isFocus = false.obs;
   List<GuidelineModel> investmentFiF = <GuidelineModel>[
@@ -138,7 +141,60 @@ class CiCGuidController extends GetxController {
       description: 'Here you can Pay to any Merchant connected with CiC',
     ),
   ];
+
+  final _apibasehelper = ApiBaseHelper();
+
+  Future<List<GuideModel>> fetchGuide({
+    required AppModuls module,
+  }) async {
+    List<GuideModel> guideList = [];
+    await _apibasehelper
+        .onNetworkRequesting(
+      url: 'guideline?module=${module.route}',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      response['data'].map((e) {
+        guideList.add(GuideModel.fromJson(e));
+        debugPrint('DATA => $e');
+      }).toList();
+    }).onError((ErrorModel error, _) {
+      debugPrint('Error Guide ${error.bodyString}');
+    });
+
+    return guideList;
+  }
+
+  List<GuideModel> equityFundGuide = <GuideModel>[];
+
+  Future<void> fetchAllGuide() async {
+    equityFundGuide = await fetchGuide(module: AppModuls.investment);
+  }
 }
+
+extension CheckList<T> on List<T> {
+  T? at(int index) {
+    T? value;
+    if (isNotEmpty && index < length) {
+      value = this[index];
+    }
+    return value;
+  }
+}
+
+enum AppModuls {
+  investment(route: 'investment'),
+  uttrading(route: 'ut_trading'),
+  getfunding(route: 'get_funding'),
+  directory(route: 'directory'),
+  report(route: 'report'),
+  wallet(route: 'bonus');
+
+  final String route;
+  const AppModuls({required this.route});
+}
+
 
 class GuidelineModel {
   GlobalKey? key;

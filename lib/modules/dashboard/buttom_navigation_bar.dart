@@ -18,9 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 import '../../Utils/helper/color.dart';
-import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
-import '../../configs/route_configuration/route.dart';
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 import '../event_module/screen/event.dart';
@@ -228,7 +226,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     // if (router.location.contains('event')) {
     //   _settingCon.selectedIndex = 2;
     // }
-    debugPrint("Build from BottomNavigationbar");
+
     // saveUserToken = StorageUtil.getString('current_user');
 
     return GetBuilder(

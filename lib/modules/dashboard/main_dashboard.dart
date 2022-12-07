@@ -16,7 +16,6 @@ import 'package:cicgreenloan/modules/notification_modules/controllers/notificati
 import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:cicgreenloan/widgets/dashboard/custom_associate_member.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:go_router/go_router.dart';

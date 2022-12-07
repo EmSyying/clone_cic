@@ -11,7 +11,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/helper/color.dart';
-import '../../configs/route_configuration/route.dart';
 import '../bonus/custom_empty_state.dart';
 
 enum BorderType {

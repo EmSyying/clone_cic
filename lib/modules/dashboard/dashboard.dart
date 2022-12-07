@@ -123,7 +123,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   void _cicEquityGuide() {
     CiCApp.showOverlays(
       context: context,
-      key: (_) => _guidkey.investmentKey[_].key!,
+      key: (_) => _guidkey.equityFundGuide[_].key!,
       objectSettingBuilder: (_) => ObjectSetting(
           edgeInsets: _ == 0 || _ == 4
               ? const EdgeInsets.symmetric(horizontal: 10)
@@ -134,9 +134,9 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
               : _ == 3
                   ? const Size(0, -10)
                   : null),
-      titleBuilder: (_) => _guidkey.investmentKey[_].title ?? '',
-      descriptionBuilder: (_) => _guidkey.investmentKey[_].description ?? '',
-      itemCount: _guidkey.investmentKey.length,
+      titleBuilder: (_) => _guidkey.equityFundGuide[_].title ?? '',
+      descriptionBuilder: (_) => _guidkey.equityFundGuide[_].description ?? '',
+      itemCount: _guidkey.equityFundGuide.length,
       allowSkip: true,
       overlaySetting: OverlaySetting(),
     );
@@ -222,14 +222,19 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             indicatorSize: TabBarIndicatorSize.label,
                             tabs: [
                               Tab(
-                                key: _guidkey.investmentKey[0].key =
-                                    GlobalKey(),
+                                key: _guidkey.equityFundGuide.at(1) != null
+                                    ? _guidkey.equityFundGuide[1] = _guidkey
+                                        .equityFundGuide[1]
+                                        .copyWith(key: GlobalKey())
+                                        .key
+                                    : null,
                                 child: const Text('CiC EQUITY FUND'),
                               ),
 
                               Tab(
-                                key: _guidkey.investmentKey[4].key =
-                                    GlobalKey(),
+                                key: _guidkey.equityFundGuide[4]
+                                    .copyWith(key: GlobalKey())
+                                    .key,
                                 child: const Text('CiC FIXED INCOME FUND'),
                               )
 
@@ -271,32 +276,34 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
                               GestureDetector(
                                 onTap: () async {
+                                  _guidkey.fetchAllGuide().then((value) {
+                                    priceController.tabController.index == 0
+                                        ? priceController.cicEquityScroll
+                                            .animateTo(0,
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                curve: Curves.linear)
+                                            .then((value) {
+                                            Future.delayed(
+                                                const Duration(
+                                                    milliseconds: 500), () {
+                                              _cicEquityGuide();
+                                            });
+                                          })
+                                        : priceController.cicFixedIncomeScroll
+                                            .animateTo(0,
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                curve: Curves.linear)
+                                            .then((value) {
+                                            Future.delayed(
+                                                const Duration(
+                                                    milliseconds: 500), () {
+                                              _cicFixedIncomeGuide();
+                                            });
+                                          });
+                                  });
                                   // await LocalData.storeAppTou('appTour', true);
-                                  priceController.tabController.index == 0
-                                      ? priceController.cicEquityScroll
-                                          .animateTo(0,
-                                              duration: const Duration(
-                                                  milliseconds: 200),
-                                              curve: Curves.linear)
-                                          .then((value) {
-                                          Future.delayed(
-                                              const Duration(milliseconds: 500),
-                                              () {
-                                            _cicEquityGuide();
-                                          });
-                                        })
-                                      : priceController.cicFixedIncomeScroll
-                                          .animateTo(0,
-                                              duration: const Duration(
-                                                  milliseconds: 200),
-                                              curve: Curves.linear)
-                                          .then((value) {
-                                          Future.delayed(
-                                              const Duration(milliseconds: 500),
-                                              () {
-                                            _cicFixedIncomeGuide();
-                                          });
-                                        });
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 10.0),

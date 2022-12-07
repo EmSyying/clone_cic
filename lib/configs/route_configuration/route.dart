@@ -1050,7 +1050,7 @@ final router = GoRouter(
         builder: (_, __) {
           return const LoginScreen();
         },
-        routes: [],
+        routes: const [],
       ),
       GoRoute(
         path: '/password',
