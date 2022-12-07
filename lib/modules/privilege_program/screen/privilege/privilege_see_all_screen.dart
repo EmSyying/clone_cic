@@ -108,8 +108,11 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                                         countShop: cardListCat.value.countShop
                                             .toString(),
                                         onTapCatego: () {
+                                          final titleName = cardListCat
+                                              .value.name
+                                              ?.replaceAll('&', '%26');
                                           context.push(
-                                            '/privilege/all-store/privilege-item-category?tabTitle=${cardListCat.value.name}',
+                                            '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
                                           );
                                         },
                                       ),
