@@ -51,8 +51,9 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+
 ###
-GET {{baseUrl}}v3/registration?event_id=16
+GET {{baseUrl}}v3/event-registration?event_id=19
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

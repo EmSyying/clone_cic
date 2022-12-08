@@ -59,11 +59,11 @@ class CustomCheckInGuest extends StatelessWidget {
                     contro.getListGest.asMap().entries.map((e) {
                       if (contro.getListGest[e.key].isCheckBox == true) {
                         contro.getListGest[e.key] = guestListModel.copyWith(
-                            // id: contro.getRegisterModel.value.guest![e.key].id,
-                            // participantName: contro.getRegisterModel.value
-                            //     .guest![e.key].participantName,
-                            // relationship: contro.getRegisterModel.value
-                            //     .guest![e.key].relationship,
+                            id: contro.getRegisterModel.value.guest![e.key].id,
+                            participantName: contro.getRegisterModel.value
+                                .guest![e.key].participantName,
+                            relationship: contro.getRegisterModel.value
+                                .guest![e.key].relationship,
                             isCheckBox: false);
 
                         contro.selectCheckInModel
@@ -72,13 +72,12 @@ class CustomCheckInGuest extends StatelessWidget {
                             'After remove = ${contro.selectCheckInModel.length}');
                       } else {
                         contro.getListGest[e.key] = guestListModel.copyWith(
-                            // id: contro.getRegisterModel.value.guest![e.key].id,
-                            // participantName: contro.getRegisterModel.value
-                            //     .guest![e.key].participantName,
-                            // relationship: contro.getRegisterModel.value
-                            //     .guest![e.key].relationship,
+                            id: contro.getRegisterModel.value.guest![e.key].id,
+                            participantName: contro.getRegisterModel.value
+                                .guest![e.key].participantName,
+                            relationship: contro.getRegisterModel.value
+                                .guest![e.key].relationship,
                             isCheckBox: true);
-
                         contro.selectCheckInModel
                             .add(SelectCheckInModel(guestId: e.value.id));
                         debugPrint(

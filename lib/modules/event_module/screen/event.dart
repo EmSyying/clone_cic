@@ -10,7 +10,6 @@ import 'package:cicgreenloan/widgets/ut_tradding/custom_tab.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -283,7 +282,7 @@ class _EventScreenState extends State<EventScreen> {
                       Container(
                         width: double.infinity,
                         margin: const EdgeInsets.only(
-                            left: 15.0, right: 15.0, top: 20.0),
+                            left: 15.0, right: 15.0, top: 10.0),
                         child: CupertinoSlidingSegmentedControl(
                             groupValue: segmentedControlValue,
                             backgroundColor:
@@ -308,57 +307,61 @@ class _EventScreenState extends State<EventScreen> {
                               });
                             }),
                       ),
-                      Stack(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                                left: 15.0, right: 60, top: 20.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              //              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 13.0,
-                                  left: 10.0,
-                                  child: SvgPicture.asset(
-                                    'assets/images/svgfile/search.svg',
-                                    height: 20,
-                                  ),
-                                ),
-                                TextFormField(
-                                  controller: searchtextController,
-                                  onChanged: (v) {
-                                    _onChangeHandler(v);
-                                  },
-                                  decoration: InputDecoration(
-                                      hintText: 'Search',
-                                      hintStyle:
-                                          const TextStyle(color: Colors.grey),
-                                      border: InputBorder.none,
-                                      fillColor: Colors.grey[300],
-                                      contentPadding:
-                                          const EdgeInsets.only(left: 40)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 15,
-                            right: 15,
-                            child: SizedBox(
-                              height: 50.0,
-                              child: SvgPicture.asset(
-                                'assets/images/svgfile/eventFilter.svg',
-                                height: 18,
-                              ),
-                            ),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 10,
                       ),
+                      // Stack(
+                      //   children: [
+                      //     Container(
+                      //       margin: const EdgeInsets.only(
+                      //           left: 15.0, right: 60, top: 20.0),
+                      //       alignment: Alignment.center,
+                      //       decoration: BoxDecoration(
+                      //         color: Colors.grey[200],
+                      //         //              color: Colors.red,
+                      //         borderRadius: BorderRadius.circular(10.0),
+                      //       ),
+                      //       child: Stack(
+                      //         children: [
+                      //           Positioned(
+                      //             top: 13.0,
+                      //             left: 10.0,
+                      //             child: SvgPicture.asset(
+                      //               'assets/images/svgfile/search.svg',
+                      //               height: 20,
+                      //             ),
+                      //           ),
+                      //           TextFormField(
+                      //             controller: searchtextController,
+                      //             onChanged: (v) {
+                      //               _onChangeHandler(v);
+                      //             },
+                      //             decoration: InputDecoration(
+                      //                 hintText: 'Search',
+                      //                 hintStyle:
+                      //                     const TextStyle(color: Colors.grey),
+                      //                 border: InputBorder.none,
+                      //                 fillColor: Colors.grey[300],
+                      //                 contentPadding:
+                      //                     const EdgeInsets.only(left: 40)),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     Positioned(
+                      //       top: 15,
+                      //       right: 15,
+                      //       child: SizedBox(
+                      //         height: 50.0,
+                      //         child: SvgPicture.asset(
+                      //           'assets/images/svgfile/eventFilter.svg',
+                      //           height: 18,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      /////////////=============
                       // Container(
                       //   margin: EdgeInsets.only(
                       //       left: 15.0, right: 15.0, top: 15.0),

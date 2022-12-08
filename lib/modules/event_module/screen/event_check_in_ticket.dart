@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cicgreenloan/widgets/events/custom_checkin_guest.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'dart:ui';
 
@@ -18,7 +17,6 @@ import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../widgets/events/custom_event_title_check_in.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../controller/event_controller.dart';
-import '../../../widgets/events/custom_view_ticket.dart';
 import '../models/card_guests_model.dart';
 
 class EventCheckInTicket extends StatelessWidget {
@@ -187,17 +185,17 @@ class EventCheckInTicket extends StatelessWidget {
                           ],
                         ),
                         //==========Column Guests card====
-                        selectCheckIn == 'check_in' &&
-                                contro.getListGest.isNotEmpty
-                            ? const CustomCheckInGuest()
-                            : selectCheckIn == 'view_ticket' &&
-                                    contro.getListGest.isNotEmpty
-                                ? CustomViewTicket(
-                                    onSaveTicket: () {
-                                      _onCaptureAndSave();
-                                    },
-                                  )
-                                : Container(),
+                        // selectCheckIn == 'check_in' &&
+                        //         contro.getListGest.isNotEmpty
+                        //     ? const CustomCheckInGuest()
+                        //     : selectCheckIn == 'view_ticket' &&
+                        //             contro.getListGest.isNotEmpty
+                        //         ? CustomViewTicket(
+                        //             onSaveTicket: () {
+                        //               _onCaptureAndSave();
+                        //             },
+                        //           )
+                        //         : Container(),
                       ],
                     ),
                   ),

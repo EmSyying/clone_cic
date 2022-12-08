@@ -205,6 +205,7 @@ class EventController extends GetxController {
     return pastDataList;
   }
 
+  final searchResultNewEvent = <EventData>[].obs;
   Future<List<EventData>> onSearchUpComingEvent(
       int memberId, String search) async {
     tokenKey = await LocalData.getCurrentUser();
@@ -223,11 +224,12 @@ class EventController extends GetxController {
           var responseJson = json.decode(response.body)['data'];
           featureDataList.clear();
           newDataList.clear();
+          searchResultNewEvent.clear();
           responseJson.map((e) {
             newEvent.value = EventData.fromJson(e);
             newDataList.add(newEvent.value);
+            searchResultNewEvent.add(newEvent.value);
           }).toList();
-
           // featureDataList.clear();
           // if (!featureDataList.contains(featureEvent.value)) {
           //   featureDataList.add(featureEvent.value);
@@ -276,7 +278,7 @@ class EventController extends GetxController {
   Future<List<RegistrationEventData>> fetchAllRegisteredMemeber(
       String eventId) async {
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}registration?event_id=$eventId';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event-registration?event_id=$eventId';
 
     isLoadingregisteredMember.value = true;
     try {
@@ -603,14 +605,10 @@ class EventController extends GetxController {
     await apiBaseHelper.onNetworkRequesting(
       methode: METHODE.post,
       isAuthorize: true,
-      url: 'event/registration',
+      url: 'event-registration',
       body: {"member_id": memberId, "event_id": eventId, "guest": guest},
     ).then((e) {
       getRegisterModel.value = GetRegisterModel.fromJson(e['ticket']);
-      debugPrint('member id+++++++$memberId');
-      debugPrint('event id+++++++$eventId');
-      debugPrint('guest id+++++++$guest');
-
       customRouterSnackbar(
           description: "Successfully registered",
           onTap: () {
@@ -664,7 +662,7 @@ class EventController extends GetxController {
     await apiBaseHelper.onNetworkRequesting(
         methode: METHODE.post,
         isAuthorize: true,
-        url: 'event/checkin-guest',
+        url: 'event-checkin-guest',
         body: {
           "event_id": eventId,
           "member_id": customerController.customer.value.customerId,
@@ -711,12 +709,9 @@ class EventController extends GetxController {
             methode: METHODE.get,
             isAuthorize: true,
             url:
-                'event/guest/register?event_id=$id&member_id=${customerController.customer.value.customerId}')
+                'event-guest/register?event_id=$id&member_id=${customerController.customer.value.customerId}')
         .then((res) {
-      debugPrint('hello++++++++$res');
       var responseJson = res['data'];
-      debugPrint('hello++++++++11111');
-
       getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
       getListGest.clear();
       getRegisterModel.value.guest!.map((e) {
@@ -739,7 +734,7 @@ class EventController extends GetxController {
         .onNetworkRequesting(
             methode: METHODE.get,
             isAuthorize: true,
-            url: 'event/view/ticket?event_id=$eventId&member_id=$memberId')
+            url: 'event-view/ticket?event_id=$eventId&member_id=$memberId')
         .then((res) {
       debugPrint('hello++++++++7777777$res');
       debugPrint('hello++++++++77777778888:$eventId : $memberId');

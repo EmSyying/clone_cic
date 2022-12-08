@@ -1301,23 +1301,28 @@ Widget _customDateDetail({
       const SizedBox(
         width: 10,
       ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '$title',
-            style: Theme.of(context!).textTheme.headline5!.copyWith(
-                fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey),
-          ),
-          Text(
-            '$content',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: textColor ?? Colors.black),
-            maxLines: 2,
-          )
-        ],
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '$title',
+              style: Theme.of(context!).textTheme.headline5!.copyWith(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey),
+            ),
+            Text(
+              '$content',
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: textColor ?? Colors.black),
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+            )
+          ],
+        ),
       ),
     ],
   );

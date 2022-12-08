@@ -15,8 +15,8 @@ class FeatureCard extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(
-              top: 45.0, right: 20.0, bottom: 10, left: 3),
+          padding:
+              const EdgeInsets.only(top: 45.0, right: 5.0, bottom: 10, left: 3),
           child: Container(
             height: 260.0,
             width: 290.0,
@@ -154,7 +154,7 @@ class FeatureCard extends StatelessWidget {
         Positioned(
           bottom: 140.0,
           left: 20.0,
-          right: 35.0,
+          right: 18.0,
           child: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             child: SizedBox(
