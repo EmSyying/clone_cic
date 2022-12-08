@@ -38,7 +38,7 @@ onShowChoice(BuildContext context, Function onTap) {
                   const Divider(
                     height: 0,
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
                       onTap('Add to calendar');
                       Navigator.pop(context);
@@ -116,7 +116,7 @@ onShowChoice(BuildContext context, Function onTap) {
                   width: double.infinity,
                   child: Column(
                     children: [
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           onTap('share event');
                           Navigator.pop(context);
@@ -139,7 +139,7 @@ onShowChoice(BuildContext context, Function onTap) {
                       const Divider(
                         height: 0,
                       ),
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           onTap('Add to calendar');
                           Navigator.pop(context);
@@ -162,7 +162,7 @@ onShowChoice(BuildContext context, Function onTap) {
                       const Divider(
                         height: 0,
                       ),
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           onTap('Contact to organiser');
                           Navigator.pop(context);
@@ -185,7 +185,7 @@ onShowChoice(BuildContext context, Function onTap) {
                       const Divider(
                         height: 0,
                       ),
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           Navigator.pop(context);
                         },

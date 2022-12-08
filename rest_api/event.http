@@ -66,18 +66,22 @@ Authorization: Bearer {{token}}
 
 
 ###
-POST {{baseUrl}}registration
+POST {{baseUrl}}v3/event-registration
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "event_id" : 16,
-    "member_id" : 21
+    "event_id" : 23,
+    "member_id" : 27,
+    "invite_id":
+        [
+        21
+        ]
 }
 
 ###
-POST {{baseUrl}}v3/event/registration
+POST {{baseUrl}}v3/event-registration
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

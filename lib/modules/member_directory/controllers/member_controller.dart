@@ -227,13 +227,12 @@ class MemberController extends GetxController {
   }
 
   final customerController = Get.put(CustomerController());
-  Future<void> onInvitedEventMember({
-    required BuildContext context,
-  }) async {
+  Future<void> onInvitedEventMember(
+      {required BuildContext context, int? eventID}) async {
     List<dynamic>? inviteId = memberIdList;
 
     Map<String, dynamic> arqument = {
-      "event_id": "$eventId",
+      "event_id": eventID,
       "invite_id": "$inviteId",
       "member_id": "${customerController.customer.value.customerId}",
       "name": "${customerController.customer.value.fullName}",
@@ -246,7 +245,8 @@ class MemberController extends GetxController {
     isLoadingInvite.value = true;
     tokenKey = await LocalData.getCurrentUser();
 
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}registration';
+    String url =
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event-registration';
 
     try {
       await http
@@ -262,7 +262,7 @@ class MemberController extends GetxController {
           customRouterSnackbar(
               title: 'Event Invitation',
               description: "Your Invite was Submit Successful...!",
-              type: SnackType.error);
+              type: SnackType.done);
         } else {}
       });
     } finally {

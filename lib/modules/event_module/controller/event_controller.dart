@@ -579,11 +579,11 @@ class EventController extends GetxController {
 
   ApiBaseHelper apiBaseHelper = ApiBaseHelper();
   //register with guest event
-  final guestModel = GuestModel().obs;
+  final guestModel = RegisterModel().obs;
   onClearGuest() {
-    guestModel.value.participantName = '';
-    guestModel.value.phone = '';
-    guestModel.value.relationshipId;
+    // guestModel.value.participantName = '';
+    // guestModel.value.phone = '';
+    // guestModel.value.relationshipId;
   }
 
   final currentIndex = 0.obs;
@@ -591,24 +591,93 @@ class EventController extends GetxController {
   final guestPhone = ''.obs;
   final guestRelationship = ''.obs;
   final isLoadingRegisterWithGuest = false.obs;
-  final guestlistmodel = <GuestModel>[GuestModel()].obs;
+  // final guestlistmodel = <GuestModel>[GuestModel()].obs;
   final getRegisterModel = GetRegisterModel().obs;
   final getListGest = <GuestListModel>[].obs;
   final guestListModel = GuestListModel().obs;
+  final addGuestList = <Map>[].obs;
+  final registerModel = RegisterModel().obs;
+  final guestAddList = <Guest>[].obs;
 
+  // Future<void> onRegisterWithGuest(
+  //     {int? memberId,
+  //     int? eventId,
+  //     List<Map>? guest,
+  //     BuildContext? context}) async {
+  //   isLoadingRegisterWithGuest.value = true;
+  //   tokenKey = await LocalData.getCurrentUser();
+
+  //   String url =
+  //       '${FlavorConfig.instance.values!.apiBaseUrlV3}event-registration';
+
+  //   try {
+  //     await http.post(Uri.parse(url), headers: {
+  //       'Accept': 'application/json',
+  //       'Authorization': 'Bearer $tokenKey'
+  //     }, body: {
+  //       "member_id": memberId,
+  //       "event_id": eventId,
+  //       "guest": addGuestList
+  //     }).then((response) {
+  //       if (response.statusCode == 200) {
+  //         onAddGuest();
+  //         debugPrint('hiiiiiiiii++++++++++++%%%%%${response.body}');
+  //         customRouterSnackbar(
+  //             description: "Successfully registered",
+  //             onTap: () {
+  //               onShowCustomCupertinoModalSheet(
+  //                 context: context,
+  //                 icon: const Icon(
+  //                   Icons.close_rounded,
+  //                   color: Colors.white,
+  //                 ),
+  //                 isColorsAppBar: AppColor.mainColor,
+  //                 backgroundColor: AppColor.mainColor,
+  //                 title: "Your Ticket",
+  //                 titleColors: AppColor.arrowforwardColor['dark'],
+  //                 child:
+  //                     // const EventSubmitDoneScreen()
+  //                     const EventCheckInTicket(
+  //                   selectCheckIn: 'view_ticket',
+  //                 ),
+  //               );
+  //             });
+  //         fetchEventDetail(memberId!);
+  //         eventDetail.value.isRegister = true;
+  //         Navigator.pop(context!);
+  //         onClearGuest();
+
+  //         /////clear data on textfile
+  //         guestlistmodel.value = <GuestModel>[GuestModel()];
+  //         refresh();
+  //         update();
+  //         debugPrint('add guest+++++++:$guest');
+  //         isLoadingRegisterWithGuest(false);
+  //       } else {}
+  //     });
+  //   } finally {
+  //     isLoadingRegisterWithGuest.value = false;
+  //   }
+  // }
+
+  ////===================
   Future<void> onRegisterWithGuest(
-      {int? memberId,
-      int? eventId,
-      List<Map>? guest,
-      BuildContext? context}) async {
+      {RegisterModel? registerModel, BuildContext? context}) async {
     isLoadingRegisterWithGuest(true);
-    await apiBaseHelper.onNetworkRequesting(
-      methode: METHODE.post,
-      isAuthorize: true,
-      url: 'event-registration',
-      body: {"member_id": memberId, "event_id": eventId, "guest": guest},
-    ).then((e) {
+    List<Map<String, dynamic>> addGuestList = [];
+    // guestlistmodel.map((e) {
+    //   addGuestList.add(e);
+    // }).toList();
+    final addGuest = json.encode(addGuestList);
+    await apiBaseHelper
+        .onNetworkRequesting(
+            methode: METHODE.post,
+            isAuthorize: true,
+            url: 'event-registration',
+            body: registerModel!.toJson())
+        .then((e) {
       getRegisterModel.value = GetRegisterModel.fromJson(e['ticket']);
+      debugPrint('heiiiiiiii yyyyyyytttttttt:$e');
       customRouterSnackbar(
           description: "Successfully registered",
           onTap: () {
@@ -629,16 +698,18 @@ class EventController extends GetxController {
               ),
             );
           });
-      fetchEventDetail(memberId!);
+      // fetchEventDetail(memberId!);
       eventDetail.value.isRegister = true;
       Navigator.pop(context!);
       onClearGuest();
-      isLoadingRegisterWithGuest(false);
+
       /////clear data on textfile
-      guestlistmodel.value = <GuestModel>[GuestModel()];
+      // guestlistmodel.value = <GuestModel>[GuestModel()];
       refresh();
       update();
+      isLoadingRegisterWithGuest(false);
     }).onError((ErrorModel error, stackTrace) {
+      debugPrint('heiiiiiiii yyyyyyy:${error.bodyString}');
       isLoadingRegisterWithGuest(false);
     });
   }
@@ -751,20 +822,53 @@ class EventController extends GetxController {
   var selectCheckInModel = <SelectCheckInModel>[].obs;
 }
 
-class GuestModel {
-  String? phone;
-  String? participantName;
-  int? relationshipId;
-  String? relationShipDisplay;
-  GuestModel(
-      {this.phone = '',
-      this.participantName = '',
-      this.relationshipId,
-      this.relationShipDisplay});
+class RegisterModel {
+  int? memberId;
+  int? eventId;
+  List<Guest>? guest;
+
+  RegisterModel({this.memberId, this.eventId, this.guest});
+
+  RegisterModel.fromJson(Map<String, dynamic> json) {
+    memberId = json['member_id'];
+    eventId = json['event_id'];
+    if (json['guest'] != null) {
+      guest = <Guest>[];
+      json['guest'].forEach((v) {
+        guest!.add(Guest.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['member_id'] = memberId;
+    data['event_id'] = eventId;
+    if (guest != null) {
+      data['guest'] = guest!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-// class SelectCheckInModel {
-//   String? checkId;
-//   int? guestId;
-//   SelectCheckInModel({this.checkId, this.guestId});
-// }
+class Guest {
+  String? phoneNumber;
+  String? participantName;
+  String? relationship;
+
+  Guest({this.phoneNumber, this.participantName, this.relationship});
+
+  Guest.fromJson(Map<String, dynamic> json) {
+    phoneNumber = json['phone_number'];
+    participantName = json['participant_name'];
+    relationship = json['relationship'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phone_number'] = phoneNumber;
+    data['participant_name'] = participantName;
+    data['relationship'] = relationship;
+    return data;
+  }
+}

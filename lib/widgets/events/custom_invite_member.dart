@@ -120,7 +120,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(
-                        left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
+                        left: 15.0, right: 15.0, top: 5.0),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         color: Colors.grey[200],
@@ -140,7 +140,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
+                        horizontal: 20, vertical: 15),
                     child: Text(
                       'Add a note to your invitation...',
                       style: Theme.of(context)
@@ -151,8 +151,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                   ),
                   if (memberController.invitedMemberList.isNotEmpty)
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         "Selected",
                         style: Theme.of(context).textTheme.headline2,
@@ -177,9 +176,10 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                                 Stack(
                                   children: [
                                     Container(
-                                      margin: const EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(
+                                          top: 10, right: 10),
                                       child: CircleAvatar(
-                                        radius: 25,
+                                        radius: 28,
                                         backgroundImage: NetworkImage(
                                             e.value.photo.toString()),
                                       ),
@@ -210,13 +210,19 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                                   ],
                                 ),
                                 Container(
-                                    margin: const EdgeInsets.only(top: 10),
+                                    margin: const EdgeInsets.only(top: 5),
                                     width: 80,
                                     child: Text(
                                       e.value.name.toString(),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       overflow: TextOverflow.clip,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
                                     ))
                               ],
                             ),
@@ -224,8 +230,8 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                         }).toList()),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: Text(
                       "Suggested",
                       style: Theme.of(context).textTheme.headline2,
@@ -372,8 +378,9 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                                   .invitedMemberList.isNotEmpty
                               ? () async {
                                   await memberController.onInvitedEventMember(
-                                    context: context,
-                                  );
+                                      context: context,
+                                      eventID:
+                                          eventController.eventDetail.value.id);
                                   Future.delayed(const Duration(seconds: 3),
                                       () {
                                     Navigator.pop(context);
