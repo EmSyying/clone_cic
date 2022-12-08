@@ -76,8 +76,11 @@ class ReportScreen extends StatelessWidget {
                   return CustomReportCatigoriesCard(
                     key: guideController.reportGuide[index].key = GlobalKey(),
                     onTap: () {
+                      final reportName = reportCon
+                          .listCategoryCardReport[index].category
+                          ?.replaceAll('&', '%26');
                       context.push(
-                        '/report_screen/report-filed?tabLabel=${reportCon.listCategoryCardReport[index].category}&id=${reportCon.listCategoryCardReport[index].id}',
+                        '/report_screen/report-filed?tabLabel=$reportName&id=${reportCon.listCategoryCardReport[index].id}',
                       );
                     },
                     title: reportCon.listCategoryCardReport[index].category,
