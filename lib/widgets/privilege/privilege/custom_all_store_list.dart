@@ -38,43 +38,46 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                   .asMap()
                   .entries
                   .map(
-                    (e) => GestureDetector(
-                      onTap: () {
-                        context.push(
-                            "/privilege/all-store/privilege-detail/${priCont.shopModelList[e.key].id}");
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => PrivilegeDetailScreen(
-                        //       id: e.value.id,
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                      child: CustomCardAllStores(
-                        isFav: e.value.isFavorite!,
-                        privilegeShopList: e.value,
-                        onTapFav: () {
-                          priCont
-                              .setFavouriteStore(
-                            id: priCont.shopModelList[e.key].id!,
-                            boolFav: priCont.shopModelList[e.key].isFavorite!,
-                          )
-                              .then((value) {
-                            if (priCont.shopModelList[e.key].isFavorite!) {
-                              priCont.shopModelList[e.key] = priCont
-                                  .shopModelList[e.key]
-                                  .copyWith(isFavorite: false);
-                            } else {
-                              priCont.shopModelList[e.key] = priCont
-                                  .shopModelList[e.key]
-                                  .copyWith(isFavorite: true);
-                            }
-                          });
-
-                          setState(() {});
-                          // preCont.shopModelList.refresh();
+                    (e) => Padding(
+                      padding: const EdgeInsets.only(bottom: 18.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          context.push(
+                              "/privilege/all-store/privilege-detail/${priCont.shopModelList[e.key].id}");
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => PrivilegeDetailScreen(
+                          //       id: e.value.id,
+                          //     ),
+                          //   ),
+                          // );
                         },
+                        child: CustomCardAllStores(
+                          isFav: e.value.isFavorite!,
+                          privilegeShopList: e.value,
+                          onTapFav: () {
+                            priCont
+                                .setFavouriteStore(
+                              id: priCont.shopModelList[e.key].id!,
+                              boolFav: priCont.shopModelList[e.key].isFavorite!,
+                            )
+                                .then((value) {
+                              if (priCont.shopModelList[e.key].isFavorite!) {
+                                priCont.shopModelList[e.key] = priCont
+                                    .shopModelList[e.key]
+                                    .copyWith(isFavorite: false);
+                              } else {
+                                priCont.shopModelList[e.key] = priCont
+                                    .shopModelList[e.key]
+                                    .copyWith(isFavorite: true);
+                              }
+                            });
+
+                            setState(() {});
+                            // preCont.shopModelList.refresh();
+                          },
+                        ),
                       ),
                     ),
                   )

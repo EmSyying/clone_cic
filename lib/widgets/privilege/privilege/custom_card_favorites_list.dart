@@ -34,47 +34,50 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
                   .asMap()
                   .entries
                   .map(
-                    (e) => GestureDetector(
-                      onTap: () {
-                        context.go(
-                            "/privilege/all-store/privilege-detail/${privillageCon.favshopModelList[e.key].id}");
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => PrivilegeDetailScreen(
-                        //       id: e.value.id,
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                      child: CustomCardAllStores(
-                        isFav: e.value.isFavorite!,
-                        privilegeShopList: e.value,
-                        onTapFav: () {
-                          privillageCon
-                              .setFavouriteStore(
-                            id: privillageCon.favshopModelList[e.key].id!,
-                            boolFav: privillageCon
-                                .favshopModelList[e.key].isFavorite!,
-                          )
-                              .then((value) {
-                            if (privillageCon
-                                .favshopModelList[e.key].isFavorite!) {
-                              privillageCon.favshopModelList[e.key] =
-                                  privillageCon.favshopModelList[e.key]
-                                      .copyWith(isFavorite: false);
-                              privillageCon.favshopModelList.removeAt(e.key);
-                            } else {
-                              privillageCon.favshopModelList[e.key] =
-                                  privillageCon.favshopModelList[e.key]
-                                      .copyWith(isFavorite: true);
-                            }
-                          });
-
-                          // privillageCon.favshopModelList.refresh();
-
-                          // privillageCon.favshopModelList.refresh();
+                    (e) => Padding(
+                      padding: const EdgeInsets.only(bottom: 18.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          context.go(
+                              "/privilege/all-store/privilege-detail/${privillageCon.favshopModelList[e.key].id}");
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => PrivilegeDetailScreen(
+                          //       id: e.value.id,
+                          //     ),
+                          //   ),
+                          // );
                         },
+                        child: CustomCardAllStores(
+                          isFav: e.value.isFavorite!,
+                          privilegeShopList: e.value,
+                          onTapFav: () {
+                            privillageCon
+                                .setFavouriteStore(
+                              id: privillageCon.favshopModelList[e.key].id!,
+                              boolFav: privillageCon
+                                  .favshopModelList[e.key].isFavorite!,
+                            )
+                                .then((value) {
+                              if (privillageCon
+                                  .favshopModelList[e.key].isFavorite!) {
+                                privillageCon.favshopModelList[e.key] =
+                                    privillageCon.favshopModelList[e.key]
+                                        .copyWith(isFavorite: false);
+                                privillageCon.favshopModelList.removeAt(e.key);
+                              } else {
+                                privillageCon.favshopModelList[e.key] =
+                                    privillageCon.favshopModelList[e.key]
+                                        .copyWith(isFavorite: true);
+                              }
+                            });
+
+                            // privillageCon.favshopModelList.refresh();
+
+                            // privillageCon.favshopModelList.refresh();
+                          },
+                        ),
                       ),
                     ),
                   )

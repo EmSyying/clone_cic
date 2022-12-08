@@ -297,7 +297,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         ),
 
                         Padding(
-                          padding: const EdgeInsets.only(top: 20.0, bottom: 8),
+                          padding:
+                              const EdgeInsets.only(top: 20.0, bottom: 20.0),
                           child: CustomNumberStoresFilter(
                             onTapSearch: () {
                               context.go("/privilege/all-stores/search-item");

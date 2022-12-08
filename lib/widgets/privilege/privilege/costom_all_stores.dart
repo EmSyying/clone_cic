@@ -26,9 +26,6 @@ class CustomCardAllStores extends StatelessWidget {
             top: 10.0,
             bottom: 10.0,
           ),
-          margin: const EdgeInsets.only(
-            top: 12.0,
-          ),
           width: double.infinity,
           height: 104,
           decoration: BoxDecoration(
