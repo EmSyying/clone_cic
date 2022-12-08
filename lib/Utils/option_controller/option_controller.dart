@@ -174,13 +174,13 @@ class DocumentCategory extends GetxController {
   }
 
 //  FetchFilterOption
-
+  final isLoadingOptionFilter = false.obs;
   Future<List<OptionFormFilter>> fetchFiltersOption() async {
     // var _token = await LocalData.getCurrentUser();
     final optionFormFilterLocal = OptionFormFilter().obs;
 
     final optionFormFilterListLocal = <OptionFormFilter>[].obs;
-    isLoading(true);
+    isLoadingOptionFilter(true);
     String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}option';
     try {
       await http.get(Uri.parse(url), headers: {
@@ -202,7 +202,7 @@ class DocumentCategory extends GetxController {
         } else {}
       });
     } finally {
-      isLoading(false);
+      isLoadingOptionFilter(false);
     }
     return optionFormFilterList;
   }
