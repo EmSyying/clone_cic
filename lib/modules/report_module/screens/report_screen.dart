@@ -19,7 +19,10 @@ class ReportScreen extends StatelessWidget {
       titleBuilder: (index) => guideController.reportGuide[index].title,
       descriptionBuilder: (index) =>
           guideController.reportGuide[index].description,
-      objectSettingBuilder: (index) => ObjectSetting(),
+      objectSettingBuilder: (index) => ObjectSetting(
+        paddingSize: const Size(-22, -22),
+        edgeInsets: const EdgeInsets.only(top: 10, bottom: 4),
+      ),
       context: context,
     );
   }
@@ -44,6 +47,7 @@ class ReportScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: () async {
                 _showGuildLine(context, guideController);
+
                 // await LocalData.storeAppTou('appTour', true);
               },
               child: SvgPicture.asset('assets/images/demo.svg'),

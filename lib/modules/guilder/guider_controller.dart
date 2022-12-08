@@ -100,12 +100,12 @@ class CiCGuidController extends GetxController {
       description: 'Read Investor Report here',
     ),
     GuidelineModel(
-      title: 'Whitepaper',
-      description: 'Read Whitepaper here',
-    ),
-    GuidelineModel(
       title: 'Publications',
       description: 'Read Publications here',
+    ),
+    GuidelineModel(
+      title: 'Others',
+      description: 'Read other documents here',
     ),
     GuidelineModel(
       title: 'Newsletter',
@@ -116,8 +116,8 @@ class CiCGuidController extends GetxController {
       description: 'Read Tax & Legal documets here',
     ),
     GuidelineModel(
-      title: 'Others',
-      description: 'Read other documents here',
+      title: 'Whitepaper',
+      description: 'Read Whitepaper here',
     ),
   ];
   List<GuidelineModel> walletGuide = <GuidelineModel>[
@@ -194,7 +194,6 @@ enum AppModuls {
   final String route;
   const AppModuls({required this.route});
 }
-
 
 class GuidelineModel {
   GlobalKey? key;
