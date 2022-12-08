@@ -30,10 +30,10 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
-            end: Alignment(0.2, 0.1),
+            // end: Alignment(0.2, 0.1),
             colors: <Color>[
-              Color.fromARGB(255, 241, 241, 225),
-              Color.fromARGB(139, 255, 255, 255),
+              Color.fromARGB(234, 248, 248, 228),
+              Color.fromARGB(234, 255, 255, 255),
             ],
             tileMode: TileMode.mirror,
           ),
@@ -41,9 +41,9 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 6,
-              offset: const Offset(0, 1),
+              spreadRadius: 0.5,
+              blurRadius: 0.5,
+              // offset: const Offset(0.0, 0.0),
             ),
           ],
         ),
