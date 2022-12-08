@@ -616,20 +616,24 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                               .shopDetailModel.value.openingDays?.length ??
                           0,
                       itemBuilder: (_, index) => _openingDays(
-                        istoday: _isToday(priController.shopDetailModel.value
-                                .openingDays?[index].dayName ??
-                            ""),
+                        istoday: _isToday(
+                          priController.shopDetailModel.value
+                                  .openingDays?[index].dayName ??
+                              "",
+                        ),
                         titleDay: priController
                             .shopDetailModel.value.openingDays?[index].dayName,
-                        startDate: priController.shopDetailModel.value
+                        shiftAhours: priController.shopDetailModel.value
                             .openingDays?[index].shiftAHours,
-                        endDate: priController.shopDetailModel.value
+                        shiftBhours: priController.shopDetailModel.value
                             .openingDays?[index].shiftBHours,
                       ),
                       separatorBuilder: (_, index) => dayBeforeToday == index ||
-                              _isToday(priController.shopDetailModel.value
-                                      .openingDays?[index].dayName ??
-                                  '')
+                              _isToday(
+                                priController.shopDetailModel.value
+                                        .openingDays?[index].dayName ??
+                                    '',
+                              )
                           ? const SizedBox.shrink()
                           : const Divider(
                               thickness: 1,
@@ -697,13 +701,13 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
 
   Widget _openingDays({
     String? titleDay,
-    String? startDate,
-    String? endDate,
+    String? shiftAhours,
+    String? shiftBhours,
     bool istoday = false,
   }) {
     return Container(
       height: 68,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: istoday ? Colors.grey[100] : Colors.white,
         borderRadius: BorderRadius.circular(10.0),
@@ -732,21 +736,21 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                startDate ?? '',
+                shiftAhours ?? '',
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              if (endDate != null && endDate.isNotEmpty)
-                const Padding(
-                  padding: EdgeInsets.only(top: 6),
-                  child: Text(
-                    '',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
+              const SizedBox(
+                height: 6,
+              ),
+              if (shiftBhours != null && shiftBhours.isNotEmpty)
+                Text(
+                  shiftBhours,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
             ],
