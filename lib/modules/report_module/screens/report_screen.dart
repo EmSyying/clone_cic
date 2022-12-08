@@ -58,7 +58,7 @@ class ReportScreen extends StatelessWidget {
               )
             : GridView.builder(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
+                  horizontal: 10.0,
                   vertical: 20.0,
                 ),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
