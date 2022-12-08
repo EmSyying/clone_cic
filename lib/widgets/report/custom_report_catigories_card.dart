@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../Utils/helper/color.dart';
 
@@ -16,114 +15,79 @@ class CustomReportCatigoriesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
-        width: 160,
-        decoration: BoxDecoration(
-          color: AppColor.arrowforwardColor['dark'],
-          border: Border.all(
-            width: 0.6,
-            color: AppColor.dividerBackground,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withAlpha(40),
-              blurRadius: 6,
-              offset: const Offset(0, 1),
-            )
-          ],
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Container(
+            width: 160,
+            height: 86,
+            decoration: BoxDecoration(
+              color: AppColor.arrowforwardColor['dark'],
+              border: Border.all(
+                width: 0.6,
+                color: AppColor.dividerBackground,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withAlpha(40),
+                  blurRadius: 6,
+                  offset: const Offset(0, 1),
+                )
+              ],
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Stack(
+              //mainAxisSize: MainAxisSize.min,
+              //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: AppColor.lightblue.withOpacity(0.06),
-                    shape: BoxShape.circle,
-                  ),
-                  alignment: Alignment.center,
-                  child: SvgPicture.network(
-                    icons ?? '',
-                    // 'assets/images/wallet/navigation_icons.svg',
-                    fit: BoxFit.cover,
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: SizedBox(
+                    width: 85,
+                    height: 48,
+                    child: Image.network(
+                      icons ?? '',
+                      // 'assets/images/wallet/navigation_icons.svg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                const Spacer(),
-                Text(
-                  item.toString(),
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 22,
+                Positioned.fill(
+                    child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 14, right: 14, top: 14, bottom: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title ?? '',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
                       ),
-                ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        '${item.toString()} Document',
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.chartLabelColor,
+                              fontSize: 12.0,
+                            ),
+                      ),
+                    ],
+                  ),
+                )),
               ],
             ),
-            const Spacer(),
-            // const SizedBox(
-            //   height: 12.0,
-            // ),
-            Text(
-              title ?? '',
-              style: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                    color: AppColor.chartLabelColor,
-                    letterSpacing: 0.2,
-                  ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
-    //  GestureDetector(
-    //   onTap: onTap,
-    //   child: Container(
-    //     // width: 160,
-    //     height: 100,
-    //     decoration: BoxDecoration(
-    //       color: AppColor.arrowforwardColor['dark'],
-    //       border: Border.all(
-    //         width: 0.4,
-    //         color: AppColor.dividerBackground,
-    //       ),
-    //       boxShadow: [
-    //         BoxShadow(
-    //           color: Colors.grey.withAlpha(40),
-    //           blurRadius: 6,
-    //           offset: const Offset(0, 1),
-    //         )
-    //       ],
-    //       borderRadius: BorderRadius.circular(10.0),
-    //     ),
-    //     child: Stack(
-    //       children: [
-    //         Container(
-    //           padding:
-    //               const EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
-    //           child: Text(
-    //             title ?? '',
-    //             style: Theme.of(context).textTheme.bodyText2!.copyWith(
-    //                   fontWeight: FontWeight.w700,
-    //                 ),
-    //           ),
-    //         ),
-    //         Positioned(
-    //           right: 0,
-    //           bottom: 0,
-    //           child: SvgPicture.asset(
-    //             'assets/images/svgfile/static_report_icon.svg',
-    //             height: 60,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
