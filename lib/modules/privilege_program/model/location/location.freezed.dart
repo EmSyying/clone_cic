@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'location.dart';
 
@@ -37,7 +37,8 @@ mixin _$PrivilageLocation {
 abstract class $PrivilageLocationCopyWith<$Res> {
   factory $PrivilageLocationCopyWith(
           PrivilageLocation value, $Res Function(PrivilageLocation) then) =
-      _$PrivilageLocationCopyWithImpl<$Res>;
+      _$PrivilageLocationCopyWithImpl<$Res, PrivilageLocation>;
+  @useResult
   $Res call(
       {String? code,
       @JsonKey(name: 'name_kh') String? nameKh,
@@ -46,14 +47,16 @@ abstract class $PrivilageLocationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PrivilageLocationCopyWithImpl<$Res>
+class _$PrivilageLocationCopyWithImpl<$Res, $Val extends PrivilageLocation>
     implements $PrivilageLocationCopyWith<$Res> {
   _$PrivilageLocationCopyWithImpl(this._value, this._then);
 
-  final PrivilageLocation _value;
   // ignore: unused_field
-  final $Res Function(PrivilageLocation) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? code = freezed,
@@ -62,23 +65,23 @@ class _$PrivilageLocationCopyWithImpl<$Res>
     Object? isSelected = freezed,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      nameKh: nameKh == freezed
+      nameKh: freezed == nameKh
           ? _value.nameKh
           : nameKh // ignore: cast_nullable_to_non_nullable
               as String?,
-      nameEn: nameEn == freezed
+      nameEn: freezed == nameEn
           ? _value.nameEn
           : nameEn // ignore: cast_nullable_to_non_nullable
               as String?,
-      isSelected: isSelected == freezed
+      isSelected: freezed == isSelected
           ? _value.isSelected
           : isSelected // ignore: cast_nullable_to_non_nullable
               as bool?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -89,6 +92,7 @@ abstract class _$$_PrivilageLocationCopyWith<$Res>
           $Res Function(_$_PrivilageLocation) then) =
       __$$_PrivilageLocationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? code,
       @JsonKey(name: 'name_kh') String? nameKh,
@@ -98,15 +102,13 @@ abstract class _$$_PrivilageLocationCopyWith<$Res>
 
 /// @nodoc
 class __$$_PrivilageLocationCopyWithImpl<$Res>
-    extends _$PrivilageLocationCopyWithImpl<$Res>
+    extends _$PrivilageLocationCopyWithImpl<$Res, _$_PrivilageLocation>
     implements _$$_PrivilageLocationCopyWith<$Res> {
   __$$_PrivilageLocationCopyWithImpl(
       _$_PrivilageLocation _value, $Res Function(_$_PrivilageLocation) _then)
-      : super(_value, (v) => _then(v as _$_PrivilageLocation));
+      : super(_value, _then);
 
-  @override
-  _$_PrivilageLocation get _value => super._value as _$_PrivilageLocation;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? code = freezed,
@@ -115,19 +117,19 @@ class __$$_PrivilageLocationCopyWithImpl<$Res>
     Object? isSelected = freezed,
   }) {
     return _then(_$_PrivilageLocation(
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      nameKh: nameKh == freezed
+      nameKh: freezed == nameKh
           ? _value.nameKh
           : nameKh // ignore: cast_nullable_to_non_nullable
               as String?,
-      nameEn: nameEn == freezed
+      nameEn: freezed == nameEn
           ? _value.nameEn
           : nameEn // ignore: cast_nullable_to_non_nullable
               as String?,
-      isSelected: isSelected == freezed
+      isSelected: freezed == isSelected
           ? _value.isSelected
           : isSelected // ignore: cast_nullable_to_non_nullable
               as bool?,
@@ -169,31 +171,30 @@ class _$_PrivilageLocation implements _PrivilageLocation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PrivilageLocation &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.nameKh, nameKh) &&
-            const DeepCollectionEquality().equals(other.nameEn, nameEn) &&
-            const DeepCollectionEquality()
-                .equals(other.isSelected, isSelected));
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.nameKh, nameKh) || other.nameKh == nameKh) &&
+            (identical(other.nameEn, nameEn) || other.nameEn == nameEn) &&
+            (identical(other.isSelected, isSelected) ||
+                other.isSelected == isSelected));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(nameKh),
-      const DeepCollectionEquality().hash(nameEn),
-      const DeepCollectionEquality().hash(isSelected));
+  int get hashCode =>
+      Object.hash(runtimeType, code, nameKh, nameEn, isSelected);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PrivilageLocationCopyWith<_$_PrivilageLocation> get copyWith =>
       __$$_PrivilageLocationCopyWithImpl<_$_PrivilageLocation>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PrivilageLocationToJson(this);
+    return _$$_PrivilageLocationToJson(
+      this,
+    );
   }
 }
 
@@ -208,15 +209,15 @@ abstract class _PrivilageLocation implements PrivilageLocation {
       _$_PrivilageLocation.fromJson;
 
   @override
-  String? get code => throw _privateConstructorUsedError;
+  String? get code;
   @override
   @JsonKey(name: 'name_kh')
-  String? get nameKh => throw _privateConstructorUsedError;
+  String? get nameKh;
   @override
   @JsonKey(name: 'name_en')
-  String? get nameEn => throw _privateConstructorUsedError;
+  String? get nameEn;
   @override
-  bool? get isSelected => throw _privateConstructorUsedError;
+  bool? get isSelected;
   @override
   @JsonKey(ignore: true)
   _$$_PrivilageLocationCopyWith<_$_PrivilageLocation> get copyWith =>

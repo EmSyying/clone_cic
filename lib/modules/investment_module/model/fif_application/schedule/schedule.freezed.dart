@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'schedule.dart';
 
@@ -37,7 +37,8 @@ mixin _$ScheduleModelList {
 abstract class $ScheduleModelListCopyWith<$Res> {
   factory $ScheduleModelListCopyWith(
           ScheduleModelList value, $Res Function(ScheduleModelList) then) =
-      _$ScheduleModelListCopyWithImpl<$Res>;
+      _$ScheduleModelListCopyWithImpl<$Res, ScheduleModelList>;
+  @useResult
   $Res call(
       {String? titel,
       @JsonKey(name: 'payment_date') String? paymentDate,
@@ -47,14 +48,16 @@ abstract class $ScheduleModelListCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ScheduleModelListCopyWithImpl<$Res>
+class _$ScheduleModelListCopyWithImpl<$Res, $Val extends ScheduleModelList>
     implements $ScheduleModelListCopyWith<$Res> {
   _$ScheduleModelListCopyWithImpl(this._value, this._then);
 
-  final ScheduleModelList _value;
   // ignore: unused_field
-  final $Res Function(ScheduleModelList) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? titel = freezed,
@@ -64,27 +67,27 @@ class _$ScheduleModelListCopyWithImpl<$Res>
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      titel: titel == freezed
+      titel: freezed == titel
           ? _value.titel
           : titel // ignore: cast_nullable_to_non_nullable
               as String?,
-      paymentDate: paymentDate == freezed
+      paymentDate: freezed == paymentDate
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      time: time == freezed
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      interest: interest == freezed
+      interest: freezed == interest
           ? _value.interest
           : interest // ignore: cast_nullable_to_non_nullable
               as String?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -95,6 +98,7 @@ abstract class _$$_ScheduleModelListCopyWith<$Res>
           $Res Function(_$_ScheduleModelList) then) =
       __$$_ScheduleModelListCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? titel,
       @JsonKey(name: 'payment_date') String? paymentDate,
@@ -105,15 +109,13 @@ abstract class _$$_ScheduleModelListCopyWith<$Res>
 
 /// @nodoc
 class __$$_ScheduleModelListCopyWithImpl<$Res>
-    extends _$ScheduleModelListCopyWithImpl<$Res>
+    extends _$ScheduleModelListCopyWithImpl<$Res, _$_ScheduleModelList>
     implements _$$_ScheduleModelListCopyWith<$Res> {
   __$$_ScheduleModelListCopyWithImpl(
       _$_ScheduleModelList _value, $Res Function(_$_ScheduleModelList) _then)
-      : super(_value, (v) => _then(v as _$_ScheduleModelList));
+      : super(_value, _then);
 
-  @override
-  _$_ScheduleModelList get _value => super._value as _$_ScheduleModelList;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? titel = freezed,
@@ -123,23 +125,23 @@ class __$$_ScheduleModelListCopyWithImpl<$Res>
     Object? status = freezed,
   }) {
     return _then(_$_ScheduleModelList(
-      titel: titel == freezed
+      titel: freezed == titel
           ? _value.titel
           : titel // ignore: cast_nullable_to_non_nullable
               as String?,
-      paymentDate: paymentDate == freezed
+      paymentDate: freezed == paymentDate
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      time: time == freezed
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      interest: interest == freezed
+      interest: freezed == interest
           ? _value.interest
           : interest // ignore: cast_nullable_to_non_nullable
               as String?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -182,33 +184,32 @@ class _$_ScheduleModelList implements _ScheduleModelList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ScheduleModelList &&
-            const DeepCollectionEquality().equals(other.titel, titel) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentDate, paymentDate) &&
-            const DeepCollectionEquality().equals(other.time, time) &&
-            const DeepCollectionEquality().equals(other.interest, interest) &&
-            const DeepCollectionEquality().equals(other.status, status));
+            (identical(other.titel, titel) || other.titel == titel) &&
+            (identical(other.paymentDate, paymentDate) ||
+                other.paymentDate == paymentDate) &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.interest, interest) ||
+                other.interest == interest) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(titel),
-      const DeepCollectionEquality().hash(paymentDate),
-      const DeepCollectionEquality().hash(time),
-      const DeepCollectionEquality().hash(interest),
-      const DeepCollectionEquality().hash(status));
+  int get hashCode =>
+      Object.hash(runtimeType, titel, paymentDate, time, interest, status);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ScheduleModelListCopyWith<_$_ScheduleModelList> get copyWith =>
       __$$_ScheduleModelListCopyWithImpl<_$_ScheduleModelList>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ScheduleModelListToJson(this);
+    return _$$_ScheduleModelListToJson(
+      this,
+    );
   }
 }
 
@@ -224,16 +225,16 @@ abstract class _ScheduleModelList implements ScheduleModelList {
       _$_ScheduleModelList.fromJson;
 
   @override
-  String? get titel => throw _privateConstructorUsedError;
+  String? get titel;
   @override
   @JsonKey(name: 'payment_date')
-  String? get paymentDate => throw _privateConstructorUsedError;
+  String? get paymentDate;
   @override
-  String? get time => throw _privateConstructorUsedError;
+  String? get time;
   @override
-  String? get interest => throw _privateConstructorUsedError;
+  String? get interest;
   @override
-  String? get status => throw _privateConstructorUsedError;
+  String? get status;
   @override
   @JsonKey(ignore: true)
   _$$_ScheduleModelListCopyWith<_$_ScheduleModelList> get copyWith =>

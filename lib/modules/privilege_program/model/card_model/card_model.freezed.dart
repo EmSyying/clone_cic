@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'card_model.dart';
 
@@ -36,7 +36,8 @@ mixin _$CardDetailModel {
 abstract class $CardDetailModelCopyWith<$Res> {
   factory $CardDetailModelCopyWith(
           CardDetailModel value, $Res Function(CardDetailModel) then) =
-      _$CardDetailModelCopyWithImpl<$Res>;
+      _$CardDetailModelCopyWithImpl<$Res, CardDetailModel>;
+  @useResult
   $Res call(
       {String? stausTitle,
       String? title,
@@ -46,14 +47,16 @@ abstract class $CardDetailModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CardDetailModelCopyWithImpl<$Res>
+class _$CardDetailModelCopyWithImpl<$Res, $Val extends CardDetailModel>
     implements $CardDetailModelCopyWith<$Res> {
   _$CardDetailModelCopyWithImpl(this._value, this._then);
 
-  final CardDetailModel _value;
   // ignore: unused_field
-  final $Res Function(CardDetailModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? stausTitle = freezed,
@@ -63,27 +66,27 @@ class _$CardDetailModelCopyWithImpl<$Res>
     Object? imageCard = freezed,
   }) {
     return _then(_value.copyWith(
-      stausTitle: stausTitle == freezed
+      stausTitle: freezed == stausTitle
           ? _value.stausTitle
           : stausTitle // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      paragraph: paragraph == freezed
+      paragraph: freezed == paragraph
           ? _value.paragraph
           : paragraph // ignore: cast_nullable_to_non_nullable
               as String?,
-      number: number == freezed
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as int?,
-      imageCard: imageCard == freezed
+      imageCard: freezed == imageCard
           ? _value.imageCard
           : imageCard // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -94,6 +97,7 @@ abstract class _$$_CardDetailModelCopyWith<$Res>
           _$_CardDetailModel value, $Res Function(_$_CardDetailModel) then) =
       __$$_CardDetailModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? stausTitle,
       String? title,
@@ -104,15 +108,13 @@ abstract class _$$_CardDetailModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_CardDetailModelCopyWithImpl<$Res>
-    extends _$CardDetailModelCopyWithImpl<$Res>
+    extends _$CardDetailModelCopyWithImpl<$Res, _$_CardDetailModel>
     implements _$$_CardDetailModelCopyWith<$Res> {
   __$$_CardDetailModelCopyWithImpl(
       _$_CardDetailModel _value, $Res Function(_$_CardDetailModel) _then)
-      : super(_value, (v) => _then(v as _$_CardDetailModel));
+      : super(_value, _then);
 
-  @override
-  _$_CardDetailModel get _value => super._value as _$_CardDetailModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? stausTitle = freezed,
@@ -122,23 +124,23 @@ class __$$_CardDetailModelCopyWithImpl<$Res>
     Object? imageCard = freezed,
   }) {
     return _then(_$_CardDetailModel(
-      stausTitle: stausTitle == freezed
+      stausTitle: freezed == stausTitle
           ? _value.stausTitle
           : stausTitle // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      paragraph: paragraph == freezed
+      paragraph: freezed == paragraph
           ? _value.paragraph
           : paragraph // ignore: cast_nullable_to_non_nullable
               as String?,
-      number: number == freezed
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as int?,
-      imageCard: imageCard == freezed
+      imageCard: freezed == imageCard
           ? _value.imageCard
           : imageCard // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -180,32 +182,32 @@ class _$_CardDetailModel implements _CardDetailModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CardDetailModel &&
-            const DeepCollectionEquality()
-                .equals(other.stausTitle, stausTitle) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.paragraph, paragraph) &&
-            const DeepCollectionEquality().equals(other.number, number) &&
-            const DeepCollectionEquality().equals(other.imageCard, imageCard));
+            (identical(other.stausTitle, stausTitle) ||
+                other.stausTitle == stausTitle) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.paragraph, paragraph) ||
+                other.paragraph == paragraph) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.imageCard, imageCard) ||
+                other.imageCard == imageCard));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(stausTitle),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(paragraph),
-      const DeepCollectionEquality().hash(number),
-      const DeepCollectionEquality().hash(imageCard));
+  int get hashCode =>
+      Object.hash(runtimeType, stausTitle, title, paragraph, number, imageCard);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CardDetailModelCopyWith<_$_CardDetailModel> get copyWith =>
       __$$_CardDetailModelCopyWithImpl<_$_CardDetailModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CardDetailModelToJson(this);
+    return _$$_CardDetailModelToJson(
+      this,
+    );
   }
 }
 
@@ -221,15 +223,15 @@ abstract class _CardDetailModel implements CardDetailModel {
       _$_CardDetailModel.fromJson;
 
   @override
-  String? get stausTitle => throw _privateConstructorUsedError;
+  String? get stausTitle;
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
-  String? get paragraph => throw _privateConstructorUsedError;
+  String? get paragraph;
   @override
-  int? get number => throw _privateConstructorUsedError;
+  int? get number;
   @override
-  String? get imageCard => throw _privateConstructorUsedError;
+  String? get imageCard;
   @override
   @JsonKey(ignore: true)
   _$$_CardDetailModelCopyWith<_$_CardDetailModel> get copyWith =>

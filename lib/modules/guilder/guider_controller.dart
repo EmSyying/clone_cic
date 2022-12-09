@@ -166,10 +166,10 @@ class CiCGuidController extends GetxController {
     return guideList;
   }
 
-  List<GuideModel> equityFundGuide = <GuideModel>[];
+  // List<GuideModel> equityFundGuide = <GuideModel>[];
 
   Future<void> fetchAllGuide() async {
-    equityFundGuide = await fetchGuide(module: AppModuls.investment);
+    // equityFundGuide = await fetchGuide(module: AppModuls.investment);
   }
 }
 

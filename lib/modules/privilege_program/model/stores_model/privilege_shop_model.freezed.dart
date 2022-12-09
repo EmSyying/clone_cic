@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'privilege_shop_model.dart';
 
@@ -86,7 +86,8 @@ mixin _$PrivilegeShopModel {
 abstract class $PrivilegeShopModelCopyWith<$Res> {
   factory $PrivilegeShopModelCopyWith(
           PrivilegeShopModel value, $Res Function(PrivilegeShopModel) then) =
-      _$PrivilegeShopModelCopyWithImpl<$Res>;
+      _$PrivilegeShopModelCopyWithImpl<$Res, PrivilegeShopModel>;
+  @useResult
   $Res call(
       {num? id,
       String? status,
@@ -146,14 +147,16 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PrivilegeShopModelCopyWithImpl<$Res>
+class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
     implements $PrivilegeShopModelCopyWith<$Res> {
   _$PrivilegeShopModelCopyWithImpl(this._value, this._then);
 
-  final PrivilegeShopModel _value;
   // ignore: unused_field
-  final $Res Function(PrivilegeShopModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -191,139 +194,139 @@ class _$PrivilegeShopModelCopyWithImpl<$Res>
     Object? galleries = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      isOpen: isOpen == freezed
+      isOpen: freezed == isOpen
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
               as String?,
-      isFavorite: isFavorite == freezed
+      isFavorite: freezed == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool?,
-      slogan: slogan == freezed
+      slogan: freezed == slogan
           ? _value.slogan
           : slogan // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountBgColor: discountBgColor == freezed
+      discountBgColor: freezed == discountBgColor
           ? _value.discountBgColor
           : discountBgColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      shopNameInKhmer: shopNameInKhmer == freezed
+      shopNameInKhmer: freezed == shopNameInKhmer
           ? _value.shopNameInKhmer
           : shopNameInKhmer // ignore: cast_nullable_to_non_nullable
               as String?,
-      shopNameInEnglish: shopNameInEnglish == freezed
+      shopNameInEnglish: freezed == shopNameInEnglish
           ? _value.shopNameInEnglish
           : shopNameInEnglish // ignore: cast_nullable_to_non_nullable
               as String?,
-      fullAddress: fullAddress == freezed
+      fullAddress: freezed == fullAddress
           ? _value.fullAddress
           : fullAddress // ignore: cast_nullable_to_non_nullable
               as String?,
-      shopLogo: shopLogo == freezed
+      shopLogo: freezed == shopLogo
           ? _value.shopLogo
           : shopLogo // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountRate: discountRate == freezed
+      discountRate: freezed == discountRate
           ? _value.discountRate
           : discountRate // ignore: cast_nullable_to_non_nullable
               as String?,
-      legalCompanyName: legalCompanyName == freezed
+      legalCompanyName: freezed == legalCompanyName
           ? _value.legalCompanyName
           : legalCompanyName // ignore: cast_nullable_to_non_nullable
               as String?,
-      businessRegistrationNumber: businessRegistrationNumber == freezed
+      businessRegistrationNumber: freezed == businessRegistrationNumber
           ? _value.businessRegistrationNumber
           : businessRegistrationNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      productOrService: productOrService == freezed
+      productOrService: freezed == productOrService
           ? _value.productOrService
           : productOrService // ignore: cast_nullable_to_non_nullable
               as String?,
-      openingDays: openingDays == freezed
+      openingDays: freezed == openingDays
           ? _value.openingDays
           : openingDays // ignore: cast_nullable_to_non_nullable
               as List<OpeningDaysModel>?,
-      contactName: contactName == freezed
+      contactName: freezed == contactName
           ? _value.contactName
           : contactName // ignore: cast_nullable_to_non_nullable
               as String?,
-      contactPhone: contactPhone == freezed
+      contactPhone: freezed == contactPhone
           ? _value.contactPhone
           : contactPhone // ignore: cast_nullable_to_non_nullable
               as String?,
-      contactMobile: contactMobile == freezed
+      contactMobile: freezed == contactMobile
           ? _value.contactMobile
           : contactMobile // ignore: cast_nullable_to_non_nullable
               as String?,
-      contactEmail: contactEmail == freezed
+      contactEmail: freezed == contactEmail
           ? _value.contactEmail
           : contactEmail // ignore: cast_nullable_to_non_nullable
               as String?,
-      telegramLink: telegramLink == freezed
+      telegramLink: freezed == telegramLink
           ? _value.telegramLink
           : telegramLink // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: latitude == freezed
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as String?,
-      longitude: longitude == freezed
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountPeriod: discountPeriod == freezed
+      discountPeriod: freezed == discountPeriod
           ? _value.discountPeriod
           : discountPeriod // ignore: cast_nullable_to_non_nullable
               as int?,
-      discountCondition: discountCondition == freezed
+      discountCondition: freezed == discountCondition
           ? _value.discountCondition
           : discountCondition // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountStartDate: discountStartDate == freezed
+      discountStartDate: freezed == discountStartDate
           ? _value.discountStartDate
           : discountStartDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountEndDate: discountEndDate == freezed
+      discountEndDate: freezed == discountEndDate
           ? _value.discountEndDate
           : discountEndDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      vatNumber: vatNumber == freezed
+      vatNumber: freezed == vatNumber
           ? _value.vatNumber
           : vatNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      logo: logo == freezed
+      logo: freezed == logo
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as String?,
-      thumbnail: thumbnail == freezed
+      thumbnail: freezed == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      cover: cover == freezed
+      cover: freezed == cover
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
               as String?,
-      contacts: contacts == freezed
+      contacts: freezed == contacts
           ? _value.contacts
           : contacts // ignore: cast_nullable_to_non_nullable
               as List<Contacts>?,
-      galleries: galleries == freezed
+      galleries: freezed == galleries
           ? _value.galleries
           : galleries // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -334,6 +337,7 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
           $Res Function(_$_PrivilegeShopModel) then) =
       __$$_PrivilegeShopModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {num? id,
       String? status,
@@ -394,15 +398,13 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_PrivilegeShopModelCopyWithImpl<$Res>
-    extends _$PrivilegeShopModelCopyWithImpl<$Res>
+    extends _$PrivilegeShopModelCopyWithImpl<$Res, _$_PrivilegeShopModel>
     implements _$$_PrivilegeShopModelCopyWith<$Res> {
   __$$_PrivilegeShopModelCopyWithImpl(
       _$_PrivilegeShopModel _value, $Res Function(_$_PrivilegeShopModel) _then)
-      : super(_value, (v) => _then(v as _$_PrivilegeShopModel));
+      : super(_value, _then);
 
-  @override
-  _$_PrivilegeShopModel get _value => super._value as _$_PrivilegeShopModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -440,135 +442,135 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
     Object? galleries = freezed,
   }) {
     return _then(_$_PrivilegeShopModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      isOpen: isOpen == freezed
+      isOpen: freezed == isOpen
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
               as String?,
-      isFavorite: isFavorite == freezed
+      isFavorite: freezed == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool?,
-      slogan: slogan == freezed
+      slogan: freezed == slogan
           ? _value.slogan
           : slogan // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountBgColor: discountBgColor == freezed
+      discountBgColor: freezed == discountBgColor
           ? _value.discountBgColor
           : discountBgColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      shopNameInKhmer: shopNameInKhmer == freezed
+      shopNameInKhmer: freezed == shopNameInKhmer
           ? _value.shopNameInKhmer
           : shopNameInKhmer // ignore: cast_nullable_to_non_nullable
               as String?,
-      shopNameInEnglish: shopNameInEnglish == freezed
+      shopNameInEnglish: freezed == shopNameInEnglish
           ? _value.shopNameInEnglish
           : shopNameInEnglish // ignore: cast_nullable_to_non_nullable
               as String?,
-      fullAddress: fullAddress == freezed
+      fullAddress: freezed == fullAddress
           ? _value.fullAddress
           : fullAddress // ignore: cast_nullable_to_non_nullable
               as String?,
-      shopLogo: shopLogo == freezed
+      shopLogo: freezed == shopLogo
           ? _value.shopLogo
           : shopLogo // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountRate: discountRate == freezed
+      discountRate: freezed == discountRate
           ? _value.discountRate
           : discountRate // ignore: cast_nullable_to_non_nullable
               as String?,
-      legalCompanyName: legalCompanyName == freezed
+      legalCompanyName: freezed == legalCompanyName
           ? _value.legalCompanyName
           : legalCompanyName // ignore: cast_nullable_to_non_nullable
               as String?,
-      businessRegistrationNumber: businessRegistrationNumber == freezed
+      businessRegistrationNumber: freezed == businessRegistrationNumber
           ? _value.businessRegistrationNumber
           : businessRegistrationNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      productOrService: productOrService == freezed
+      productOrService: freezed == productOrService
           ? _value.productOrService
           : productOrService // ignore: cast_nullable_to_non_nullable
               as String?,
-      openingDays: openingDays == freezed
+      openingDays: freezed == openingDays
           ? _value._openingDays
           : openingDays // ignore: cast_nullable_to_non_nullable
               as List<OpeningDaysModel>?,
-      contactName: contactName == freezed
+      contactName: freezed == contactName
           ? _value.contactName
           : contactName // ignore: cast_nullable_to_non_nullable
               as String?,
-      contactPhone: contactPhone == freezed
+      contactPhone: freezed == contactPhone
           ? _value.contactPhone
           : contactPhone // ignore: cast_nullable_to_non_nullable
               as String?,
-      contactMobile: contactMobile == freezed
+      contactMobile: freezed == contactMobile
           ? _value.contactMobile
           : contactMobile // ignore: cast_nullable_to_non_nullable
               as String?,
-      contactEmail: contactEmail == freezed
+      contactEmail: freezed == contactEmail
           ? _value.contactEmail
           : contactEmail // ignore: cast_nullable_to_non_nullable
               as String?,
-      telegramLink: telegramLink == freezed
+      telegramLink: freezed == telegramLink
           ? _value.telegramLink
           : telegramLink // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: latitude == freezed
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as String?,
-      longitude: longitude == freezed
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountPeriod: discountPeriod == freezed
+      discountPeriod: freezed == discountPeriod
           ? _value.discountPeriod
           : discountPeriod // ignore: cast_nullable_to_non_nullable
               as int?,
-      discountCondition: discountCondition == freezed
+      discountCondition: freezed == discountCondition
           ? _value.discountCondition
           : discountCondition // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountStartDate: discountStartDate == freezed
+      discountStartDate: freezed == discountStartDate
           ? _value.discountStartDate
           : discountStartDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      discountEndDate: discountEndDate == freezed
+      discountEndDate: freezed == discountEndDate
           ? _value.discountEndDate
           : discountEndDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      vatNumber: vatNumber == freezed
+      vatNumber: freezed == vatNumber
           ? _value.vatNumber
           : vatNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      logo: logo == freezed
+      logo: freezed == logo
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as String?,
-      thumbnail: thumbnail == freezed
+      thumbnail: freezed == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      cover: cover == freezed
+      cover: freezed == cover
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
               as String?,
-      contacts: contacts == freezed
+      contacts: freezed == contacts
           ? _value._contacts
           : contacts // ignore: cast_nullable_to_non_nullable
               as List<Contacts>?,
-      galleries: galleries == freezed
+      galleries: freezed == galleries
           ? _value._galleries
           : galleries // ignore: cast_nullable_to_non_nullable
               as List<String>?,
@@ -689,6 +691,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   List<OpeningDaysModel>? get openingDays {
     final value = _openingDays;
     if (value == null) return null;
+    if (_openingDays is EqualUnmodifiableListView) return _openingDays;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -738,6 +741,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   List<Contacts>? get contacts {
     final value = _contacts;
     if (value == null) return null;
+    if (_contacts is EqualUnmodifiableListView) return _contacts;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -747,6 +751,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   List<String>? get galleries {
     final value = _galleries;
     if (value == null) return null;
+    if (_galleries is EqualUnmodifiableListView) return _galleries;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -761,57 +766,64 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PrivilegeShopModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(other.isOpen, isOpen) &&
-            const DeepCollectionEquality()
-                .equals(other.isFavorite, isFavorite) &&
-            const DeepCollectionEquality().equals(other.slogan, slogan) &&
-            const DeepCollectionEquality()
-                .equals(other.discountBgColor, discountBgColor) &&
-            const DeepCollectionEquality()
-                .equals(other.shopNameInKhmer, shopNameInKhmer) &&
-            const DeepCollectionEquality()
-                .equals(other.shopNameInEnglish, shopNameInEnglish) &&
-            const DeepCollectionEquality()
-                .equals(other.fullAddress, fullAddress) &&
-            const DeepCollectionEquality().equals(other.shopLogo, shopLogo) &&
-            const DeepCollectionEquality()
-                .equals(other.discountRate, discountRate) &&
-            const DeepCollectionEquality()
-                .equals(other.legalCompanyName, legalCompanyName) &&
-            const DeepCollectionEquality().equals(
-                other.businessRegistrationNumber, businessRegistrationNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.productOrService, productOrService) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.isOpen, isOpen) || other.isOpen == isOpen) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite) &&
+            (identical(other.slogan, slogan) || other.slogan == slogan) &&
+            (identical(other.discountBgColor, discountBgColor) ||
+                other.discountBgColor == discountBgColor) &&
+            (identical(other.shopNameInKhmer, shopNameInKhmer) ||
+                other.shopNameInKhmer == shopNameInKhmer) &&
+            (identical(other.shopNameInEnglish, shopNameInEnglish) ||
+                other.shopNameInEnglish == shopNameInEnglish) &&
+            (identical(other.fullAddress, fullAddress) ||
+                other.fullAddress == fullAddress) &&
+            (identical(other.shopLogo, shopLogo) ||
+                other.shopLogo == shopLogo) &&
+            (identical(other.discountRate, discountRate) ||
+                other.discountRate == discountRate) &&
+            (identical(other.legalCompanyName, legalCompanyName) ||
+                other.legalCompanyName == legalCompanyName) &&
+            (identical(other.businessRegistrationNumber,
+                    businessRegistrationNumber) ||
+                other.businessRegistrationNumber ==
+                    businessRegistrationNumber) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.productOrService, productOrService) ||
+                other.productOrService == productOrService) &&
             const DeepCollectionEquality()
                 .equals(other._openingDays, _openingDays) &&
-            const DeepCollectionEquality()
-                .equals(other.contactName, contactName) &&
-            const DeepCollectionEquality()
-                .equals(other.contactPhone, contactPhone) &&
-            const DeepCollectionEquality()
-                .equals(other.contactMobile, contactMobile) &&
-            const DeepCollectionEquality()
-                .equals(other.contactEmail, contactEmail) &&
-            const DeepCollectionEquality()
-                .equals(other.telegramLink, telegramLink) &&
-            const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality().equals(other.longitude, longitude) &&
-            const DeepCollectionEquality()
-                .equals(other.discountPeriod, discountPeriod) &&
-            const DeepCollectionEquality()
-                .equals(other.discountCondition, discountCondition) &&
-            const DeepCollectionEquality()
-                .equals(other.discountStartDate, discountStartDate) &&
-            const DeepCollectionEquality()
-                .equals(other.discountEndDate, discountEndDate) &&
-            const DeepCollectionEquality().equals(other.vatNumber, vatNumber) &&
-            const DeepCollectionEquality().equals(other.logo, logo) &&
-            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
-            const DeepCollectionEquality().equals(other.cover, cover) &&
+            (identical(other.contactName, contactName) ||
+                other.contactName == contactName) &&
+            (identical(other.contactPhone, contactPhone) ||
+                other.contactPhone == contactPhone) &&
+            (identical(other.contactMobile, contactMobile) ||
+                other.contactMobile == contactMobile) &&
+            (identical(other.contactEmail, contactEmail) ||
+                other.contactEmail == contactEmail) &&
+            (identical(other.telegramLink, telegramLink) ||
+                other.telegramLink == telegramLink) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.discountPeriod, discountPeriod) ||
+                other.discountPeriod == discountPeriod) &&
+            (identical(other.discountCondition, discountCondition) ||
+                other.discountCondition == discountCondition) &&
+            (identical(other.discountStartDate, discountStartDate) ||
+                other.discountStartDate == discountStartDate) &&
+            (identical(other.discountEndDate, discountEndDate) ||
+                other.discountEndDate == discountEndDate) &&
+            (identical(other.vatNumber, vatNumber) ||
+                other.vatNumber == vatNumber) &&
+            (identical(other.logo, logo) || other.logo == logo) &&
+            (identical(other.thumbnail, thumbnail) ||
+                other.thumbnail == thumbnail) &&
+            (identical(other.cover, cover) || other.cover == cover) &&
             const DeepCollectionEquality().equals(other._contacts, _contacts) &&
             const DeepCollectionEquality()
                 .equals(other._galleries, _galleries));
@@ -821,50 +833,53 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        const DeepCollectionEquality().hash(id),
-        const DeepCollectionEquality().hash(status),
-        const DeepCollectionEquality().hash(isOpen),
-        const DeepCollectionEquality().hash(isFavorite),
-        const DeepCollectionEquality().hash(slogan),
-        const DeepCollectionEquality().hash(discountBgColor),
-        const DeepCollectionEquality().hash(shopNameInKhmer),
-        const DeepCollectionEquality().hash(shopNameInEnglish),
-        const DeepCollectionEquality().hash(fullAddress),
-        const DeepCollectionEquality().hash(shopLogo),
-        const DeepCollectionEquality().hash(discountRate),
-        const DeepCollectionEquality().hash(legalCompanyName),
-        const DeepCollectionEquality().hash(businessRegistrationNumber),
-        const DeepCollectionEquality().hash(description),
-        const DeepCollectionEquality().hash(productOrService),
+        id,
+        status,
+        isOpen,
+        isFavorite,
+        slogan,
+        discountBgColor,
+        shopNameInKhmer,
+        shopNameInEnglish,
+        fullAddress,
+        shopLogo,
+        discountRate,
+        legalCompanyName,
+        businessRegistrationNumber,
+        description,
+        productOrService,
         const DeepCollectionEquality().hash(_openingDays),
-        const DeepCollectionEquality().hash(contactName),
-        const DeepCollectionEquality().hash(contactPhone),
-        const DeepCollectionEquality().hash(contactMobile),
-        const DeepCollectionEquality().hash(contactEmail),
-        const DeepCollectionEquality().hash(telegramLink),
-        const DeepCollectionEquality().hash(latitude),
-        const DeepCollectionEquality().hash(longitude),
-        const DeepCollectionEquality().hash(discountPeriod),
-        const DeepCollectionEquality().hash(discountCondition),
-        const DeepCollectionEquality().hash(discountStartDate),
-        const DeepCollectionEquality().hash(discountEndDate),
-        const DeepCollectionEquality().hash(vatNumber),
-        const DeepCollectionEquality().hash(logo),
-        const DeepCollectionEquality().hash(thumbnail),
-        const DeepCollectionEquality().hash(cover),
+        contactName,
+        contactPhone,
+        contactMobile,
+        contactEmail,
+        telegramLink,
+        latitude,
+        longitude,
+        discountPeriod,
+        discountCondition,
+        discountStartDate,
+        discountEndDate,
+        vatNumber,
+        logo,
+        thumbnail,
+        cover,
         const DeepCollectionEquality().hash(_contacts),
         const DeepCollectionEquality().hash(_galleries)
       ]);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PrivilegeShopModelCopyWith<_$_PrivilegeShopModel> get copyWith =>
       __$$_PrivilegeShopModelCopyWithImpl<_$_PrivilegeShopModel>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PrivilegeShopModelToJson(this);
+    return _$$_PrivilegeShopModelToJson(
+      this,
+    );
   }
 }
 
@@ -930,93 +945,93 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
       _$_PrivilegeShopModel.fromJson;
 
   @override
-  num? get id => throw _privateConstructorUsedError;
+  num? get id;
   @override
-  String? get status => throw _privateConstructorUsedError;
+  String? get status;
   @override
   @JsonKey(name: 'is_open')
-  String? get isOpen => throw _privateConstructorUsedError;
+  String? get isOpen;
   @override
   @JsonKey(name: 'is_favorite')
-  bool? get isFavorite => throw _privateConstructorUsedError;
+  bool? get isFavorite;
   @override
-  String? get slogan => throw _privateConstructorUsedError;
+  String? get slogan;
   @override
   @JsonKey(name: 'discount_bg_color')
-  String? get discountBgColor => throw _privateConstructorUsedError;
+  String? get discountBgColor;
   @override
   @JsonKey(name: 'shop_name_in_khmer')
-  String? get shopNameInKhmer => throw _privateConstructorUsedError;
+  String? get shopNameInKhmer;
   @override
   @JsonKey(name: 'shop_name_in_english')
-  String? get shopNameInEnglish => throw _privateConstructorUsedError;
+  String? get shopNameInEnglish;
   @override
   @JsonKey(name: 'full_address')
-  String? get fullAddress => throw _privateConstructorUsedError;
+  String? get fullAddress;
   @override
   @JsonKey(name: 'shop_logo')
-  String? get shopLogo => throw _privateConstructorUsedError;
+  String? get shopLogo;
   @override
   @JsonKey(name: 'discount_rate')
-  String? get discountRate => throw _privateConstructorUsedError;
+  String? get discountRate;
   @override
   @JsonKey(name: 'legal_company_name')
-  String? get legalCompanyName => throw _privateConstructorUsedError;
+  String? get legalCompanyName;
   @override
   @JsonKey(name: 'business_registration_number')
-  String? get businessRegistrationNumber => throw _privateConstructorUsedError;
+  String? get businessRegistrationNumber;
   @override
-  String? get description => throw _privateConstructorUsedError;
+  String? get description;
   @override
   @JsonKey(name: 'product_or_service')
-  String? get productOrService => throw _privateConstructorUsedError;
+  String? get productOrService;
   @override
   @JsonKey(name: 'opening_days')
-  List<OpeningDaysModel>? get openingDays => throw _privateConstructorUsedError;
+  List<OpeningDaysModel>? get openingDays;
   @override
   @JsonKey(name: 'contact_name')
-  String? get contactName => throw _privateConstructorUsedError;
+  String? get contactName;
   @override
   @JsonKey(name: 'contact_phone')
-  String? get contactPhone => throw _privateConstructorUsedError;
+  String? get contactPhone;
   @override
   @JsonKey(name: 'contact_mobile')
-  String? get contactMobile => throw _privateConstructorUsedError;
+  String? get contactMobile;
   @override
   @JsonKey(name: 'contact_email')
-  String? get contactEmail => throw _privateConstructorUsedError;
+  String? get contactEmail;
   @override
   @JsonKey(name: 'telegram_link')
-  String? get telegramLink => throw _privateConstructorUsedError;
+  String? get telegramLink;
   @override
-  String? get latitude => throw _privateConstructorUsedError;
+  String? get latitude;
   @override
-  String? get longitude => throw _privateConstructorUsedError;
+  String? get longitude;
   @override
   @JsonKey(name: 'discount_period')
-  int? get discountPeriod => throw _privateConstructorUsedError;
+  int? get discountPeriod;
   @override
   @JsonKey(name: 'discount_condition')
-  String? get discountCondition => throw _privateConstructorUsedError;
+  String? get discountCondition;
   @override
   @JsonKey(name: 'discount_start_date')
-  String? get discountStartDate => throw _privateConstructorUsedError;
+  String? get discountStartDate;
   @override
   @JsonKey(name: 'discount_end_date')
-  String? get discountEndDate => throw _privateConstructorUsedError;
+  String? get discountEndDate;
   @override
   @JsonKey(name: 'vat_number')
-  String? get vatNumber => throw _privateConstructorUsedError;
+  String? get vatNumber;
   @override
-  String? get logo => throw _privateConstructorUsedError;
+  String? get logo;
   @override
-  String? get thumbnail => throw _privateConstructorUsedError;
+  String? get thumbnail;
   @override
-  String? get cover => throw _privateConstructorUsedError;
+  String? get cover;
   @override
-  List<Contacts>? get contacts => throw _privateConstructorUsedError;
+  List<Contacts>? get contacts;
   @override
-  List<String>? get galleries => throw _privateConstructorUsedError;
+  List<String>? get galleries;
   @override
   @JsonKey(ignore: true)
   _$$_PrivilegeShopModelCopyWith<_$_PrivilegeShopModel> get copyWith =>

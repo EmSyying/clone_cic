@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'withdraw_notice.dart';
 
@@ -34,19 +34,22 @@ mixin _$WithdrawNotice {
 abstract class $WithdrawNoticeCopyWith<$Res> {
   factory $WithdrawNoticeCopyWith(
           WithdrawNotice value, $Res Function(WithdrawNotice) then) =
-      _$WithdrawNoticeCopyWithImpl<$Res>;
+      _$WithdrawNoticeCopyWithImpl<$Res, WithdrawNotice>;
+  @useResult
   $Res call({String? title, String? description, List<OptionNotice>? options});
 }
 
 /// @nodoc
-class _$WithdrawNoticeCopyWithImpl<$Res>
+class _$WithdrawNoticeCopyWithImpl<$Res, $Val extends WithdrawNotice>
     implements $WithdrawNoticeCopyWith<$Res> {
   _$WithdrawNoticeCopyWithImpl(this._value, this._then);
 
-  final WithdrawNotice _value;
   // ignore: unused_field
-  final $Res Function(WithdrawNotice) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? title = freezed,
@@ -54,19 +57,19 @@ class _$WithdrawNoticeCopyWithImpl<$Res>
     Object? options = freezed,
   }) {
     return _then(_value.copyWith(
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      options: options == freezed
+      options: freezed == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
               as List<OptionNotice>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -77,20 +80,19 @@ abstract class _$$_WithdrawNoticeCopyWith<$Res>
           _$_WithdrawNotice value, $Res Function(_$_WithdrawNotice) then) =
       __$$_WithdrawNoticeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? title, String? description, List<OptionNotice>? options});
 }
 
 /// @nodoc
 class __$$_WithdrawNoticeCopyWithImpl<$Res>
-    extends _$WithdrawNoticeCopyWithImpl<$Res>
+    extends _$WithdrawNoticeCopyWithImpl<$Res, _$_WithdrawNotice>
     implements _$$_WithdrawNoticeCopyWith<$Res> {
   __$$_WithdrawNoticeCopyWithImpl(
       _$_WithdrawNotice _value, $Res Function(_$_WithdrawNotice) _then)
-      : super(_value, (v) => _then(v as _$_WithdrawNotice));
+      : super(_value, _then);
 
-  @override
-  _$_WithdrawNotice get _value => super._value as _$_WithdrawNotice;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? title = freezed,
@@ -98,15 +100,15 @@ class __$$_WithdrawNoticeCopyWithImpl<$Res>
     Object? options = freezed,
   }) {
     return _then(_$_WithdrawNotice(
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      options: options == freezed
+      options: freezed == options
           ? _value._options
           : options // ignore: cast_nullable_to_non_nullable
               as List<OptionNotice>?,
@@ -133,6 +135,7 @@ class _$_WithdrawNotice implements _WithdrawNotice {
   List<OptionNotice>? get options {
     final value = _options;
     if (value == null) return null;
+    if (_options is EqualUnmodifiableListView) return _options;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -147,28 +150,28 @@ class _$_WithdrawNotice implements _WithdrawNotice {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WithdrawNotice &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             const DeepCollectionEquality().equals(other._options, _options));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(description),
+  int get hashCode => Object.hash(runtimeType, title, description,
       const DeepCollectionEquality().hash(_options));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_WithdrawNoticeCopyWith<_$_WithdrawNotice> get copyWith =>
       __$$_WithdrawNoticeCopyWithImpl<_$_WithdrawNotice>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WithdrawNoticeToJson(this);
+    return _$$_WithdrawNoticeToJson(
+      this,
+    );
   }
 }
 
@@ -182,11 +185,11 @@ abstract class _WithdrawNotice implements WithdrawNotice {
       _$_WithdrawNotice.fromJson;
 
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
-  String? get description => throw _privateConstructorUsedError;
+  String? get description;
   @override
-  List<OptionNotice>? get options => throw _privateConstructorUsedError;
+  List<OptionNotice>? get options;
   @override
   @JsonKey(ignore: true)
   _$$_WithdrawNoticeCopyWith<_$_WithdrawNotice> get copyWith =>

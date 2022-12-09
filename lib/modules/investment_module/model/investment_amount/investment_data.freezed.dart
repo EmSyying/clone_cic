@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'investment_data.dart';
 
@@ -37,7 +37,8 @@ mixin _$InvestmentDataModel {
 abstract class $InvestmentDataModelCopyWith<$Res> {
   factory $InvestmentDataModelCopyWith(
           InvestmentDataModel value, $Res Function(InvestmentDataModel) then) =
-      _$InvestmentDataModelCopyWithImpl<$Res>;
+      _$InvestmentDataModelCopyWithImpl<$Res, InvestmentDataModel>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'total_investment') String? totalInvestment,
       @JsonKey(name: 'about_fif') String? aboutFif,
@@ -46,14 +47,16 @@ abstract class $InvestmentDataModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$InvestmentDataModelCopyWithImpl<$Res>
+class _$InvestmentDataModelCopyWithImpl<$Res, $Val extends InvestmentDataModel>
     implements $InvestmentDataModelCopyWith<$Res> {
   _$InvestmentDataModelCopyWithImpl(this._value, this._then);
 
-  final InvestmentDataModel _value;
   // ignore: unused_field
-  final $Res Function(InvestmentDataModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? totalInvestment = freezed,
@@ -62,23 +65,23 @@ class _$InvestmentDataModelCopyWithImpl<$Res>
     Object? hide = freezed,
   }) {
     return _then(_value.copyWith(
-      totalInvestment: totalInvestment == freezed
+      totalInvestment: freezed == totalInvestment
           ? _value.totalInvestment
           : totalInvestment // ignore: cast_nullable_to_non_nullable
               as String?,
-      aboutFif: aboutFif == freezed
+      aboutFif: freezed == aboutFif
           ? _value.aboutFif
           : aboutFif // ignore: cast_nullable_to_non_nullable
               as String?,
-      currency: currency == freezed
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
               as String?,
-      hide: hide == freezed
+      hide: freezed == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -89,6 +92,7 @@ abstract class _$$_InvestmentDataModelCopyWith<$Res>
           $Res Function(_$_InvestmentDataModel) then) =
       __$$_InvestmentDataModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'total_investment') String? totalInvestment,
       @JsonKey(name: 'about_fif') String? aboutFif,
@@ -98,15 +102,13 @@ abstract class _$$_InvestmentDataModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_InvestmentDataModelCopyWithImpl<$Res>
-    extends _$InvestmentDataModelCopyWithImpl<$Res>
+    extends _$InvestmentDataModelCopyWithImpl<$Res, _$_InvestmentDataModel>
     implements _$$_InvestmentDataModelCopyWith<$Res> {
   __$$_InvestmentDataModelCopyWithImpl(_$_InvestmentDataModel _value,
       $Res Function(_$_InvestmentDataModel) _then)
-      : super(_value, (v) => _then(v as _$_InvestmentDataModel));
+      : super(_value, _then);
 
-  @override
-  _$_InvestmentDataModel get _value => super._value as _$_InvestmentDataModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? totalInvestment = freezed,
@@ -115,19 +117,19 @@ class __$$_InvestmentDataModelCopyWithImpl<$Res>
     Object? hide = freezed,
   }) {
     return _then(_$_InvestmentDataModel(
-      totalInvestment: totalInvestment == freezed
+      totalInvestment: freezed == totalInvestment
           ? _value.totalInvestment
           : totalInvestment // ignore: cast_nullable_to_non_nullable
               as String?,
-      aboutFif: aboutFif == freezed
+      aboutFif: freezed == aboutFif
           ? _value.aboutFif
           : aboutFif // ignore: cast_nullable_to_non_nullable
               as String?,
-      currency: currency == freezed
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
               as String?,
-      hide: hide == freezed
+      hide: freezed == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool?,
@@ -168,31 +170,32 @@ class _$_InvestmentDataModel implements _InvestmentDataModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_InvestmentDataModel &&
-            const DeepCollectionEquality()
-                .equals(other.totalInvestment, totalInvestment) &&
-            const DeepCollectionEquality().equals(other.aboutFif, aboutFif) &&
-            const DeepCollectionEquality().equals(other.currency, currency) &&
-            const DeepCollectionEquality().equals(other.hide, hide));
+            (identical(other.totalInvestment, totalInvestment) ||
+                other.totalInvestment == totalInvestment) &&
+            (identical(other.aboutFif, aboutFif) ||
+                other.aboutFif == aboutFif) &&
+            (identical(other.currency, currency) ||
+                other.currency == currency) &&
+            (identical(other.hide, hide) || other.hide == hide));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(totalInvestment),
-      const DeepCollectionEquality().hash(aboutFif),
-      const DeepCollectionEquality().hash(currency),
-      const DeepCollectionEquality().hash(hide));
+  int get hashCode =>
+      Object.hash(runtimeType, totalInvestment, aboutFif, currency, hide);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_InvestmentDataModelCopyWith<_$_InvestmentDataModel> get copyWith =>
       __$$_InvestmentDataModelCopyWithImpl<_$_InvestmentDataModel>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_InvestmentDataModelToJson(this);
+    return _$$_InvestmentDataModelToJson(
+      this,
+    );
   }
 }
 
@@ -208,14 +211,14 @@ abstract class _InvestmentDataModel implements InvestmentDataModel {
 
   @override
   @JsonKey(name: 'total_investment')
-  String? get totalInvestment => throw _privateConstructorUsedError;
+  String? get totalInvestment;
   @override
   @JsonKey(name: 'about_fif')
-  String? get aboutFif => throw _privateConstructorUsedError;
+  String? get aboutFif;
   @override
-  String? get currency => throw _privateConstructorUsedError;
+  String? get currency;
   @override
-  bool? get hide => throw _privateConstructorUsedError;
+  bool? get hide;
   @override
   @JsonKey(ignore: true)
   _$$_InvestmentDataModelCopyWith<_$_InvestmentDataModel> get copyWith =>

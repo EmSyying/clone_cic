@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'get_register_model.dart';
 
@@ -50,7 +50,8 @@ mixin _$GetRegisterModel {
 abstract class $GetRegisterModelCopyWith<$Res> {
   factory $GetRegisterModelCopyWith(
           GetRegisterModel value, $Res Function(GetRegisterModel) then) =
-      _$GetRegisterModelCopyWithImpl<$Res>;
+      _$GetRegisterModelCopyWithImpl<$Res, GetRegisterModel>;
+  @useResult
   $Res call(
       {int? id,
       String? name,
@@ -69,14 +70,16 @@ abstract class $GetRegisterModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$GetRegisterModelCopyWithImpl<$Res>
+class _$GetRegisterModelCopyWithImpl<$Res, $Val extends GetRegisterModel>
     implements $GetRegisterModelCopyWith<$Res> {
   _$GetRegisterModelCopyWithImpl(this._value, this._then);
 
-  final GetRegisterModel _value;
   // ignore: unused_field
-  final $Res Function(GetRegisterModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -95,63 +98,63 @@ class _$GetRegisterModelCopyWithImpl<$Res>
     Object? guest = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      event: event == freezed
+      event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as String?,
-      ticketNumber: ticketNumber == freezed
+      ticketNumber: freezed == ticketNumber
           ? _value.ticketNumber
           : ticketNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      hostAt: hostAt == freezed
+      hostAt: freezed == hostAt
           ? _value.hostAt
           : hostAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      fromTime: fromTime == freezed
+      fromTime: freezed == fromTime
           ? _value.fromTime
           : fromTime // ignore: cast_nullable_to_non_nullable
               as String?,
-      toTime: toTime == freezed
+      toTime: freezed == toTime
           ? _value.toTime
           : toTime // ignore: cast_nullable_to_non_nullable
               as String?,
-      place: place == freezed
+      place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
               as String?,
-      location: location == freezed
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: latitude == freezed
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      longitude: longitude == freezed
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      livestreamLink: livestreamLink == freezed
+      livestreamLink: freezed == livestreamLink
           ? _value.livestreamLink
           : livestreamLink // ignore: cast_nullable_to_non_nullable
               as String?,
-      guest: guest == freezed
+      guest: freezed == guest
           ? _value.guest
           : guest // ignore: cast_nullable_to_non_nullable
               as List<GuestListModel>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -162,6 +165,7 @@ abstract class _$$_GetRegisterModelCopyWith<$Res>
           _$_GetRegisterModel value, $Res Function(_$_GetRegisterModel) then) =
       __$$_GetRegisterModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       String? name,
@@ -181,15 +185,13 @@ abstract class _$$_GetRegisterModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_GetRegisterModelCopyWithImpl<$Res>
-    extends _$GetRegisterModelCopyWithImpl<$Res>
+    extends _$GetRegisterModelCopyWithImpl<$Res, _$_GetRegisterModel>
     implements _$$_GetRegisterModelCopyWith<$Res> {
   __$$_GetRegisterModelCopyWithImpl(
       _$_GetRegisterModel _value, $Res Function(_$_GetRegisterModel) _then)
-      : super(_value, (v) => _then(v as _$_GetRegisterModel));
+      : super(_value, _then);
 
-  @override
-  _$_GetRegisterModel get _value => super._value as _$_GetRegisterModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -208,59 +210,59 @@ class __$$_GetRegisterModelCopyWithImpl<$Res>
     Object? guest = freezed,
   }) {
     return _then(_$_GetRegisterModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      event: event == freezed
+      event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as String?,
-      ticketNumber: ticketNumber == freezed
+      ticketNumber: freezed == ticketNumber
           ? _value.ticketNumber
           : ticketNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      hostAt: hostAt == freezed
+      hostAt: freezed == hostAt
           ? _value.hostAt
           : hostAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      fromTime: fromTime == freezed
+      fromTime: freezed == fromTime
           ? _value.fromTime
           : fromTime // ignore: cast_nullable_to_non_nullable
               as String?,
-      toTime: toTime == freezed
+      toTime: freezed == toTime
           ? _value.toTime
           : toTime // ignore: cast_nullable_to_non_nullable
               as String?,
-      place: place == freezed
+      place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
               as String?,
-      location: location == freezed
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: latitude == freezed
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      longitude: longitude == freezed
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      livestreamLink: livestreamLink == freezed
+      livestreamLink: freezed == livestreamLink
           ? _value.livestreamLink
           : livestreamLink // ignore: cast_nullable_to_non_nullable
               as String?,
-      guest: guest == freezed
+      guest: freezed == guest
           ? _value._guest
           : guest // ignore: cast_nullable_to_non_nullable
               as List<GuestListModel>?,
@@ -327,6 +329,7 @@ class _$_GetRegisterModel implements _GetRegisterModel {
   List<GuestListModel>? get guest {
     final value = _guest;
     if (value == null) return null;
+    if (_guest is EqualUnmodifiableListView) return _guest;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -341,21 +344,25 @@ class _$_GetRegisterModel implements _GetRegisterModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetRegisterModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.event, event) &&
-            const DeepCollectionEquality()
-                .equals(other.ticketNumber, ticketNumber) &&
-            const DeepCollectionEquality().equals(other.hostAt, hostAt) &&
-            const DeepCollectionEquality().equals(other.date, date) &&
-            const DeepCollectionEquality().equals(other.fromTime, fromTime) &&
-            const DeepCollectionEquality().equals(other.toTime, toTime) &&
-            const DeepCollectionEquality().equals(other.place, place) &&
-            const DeepCollectionEquality().equals(other.location, location) &&
-            const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality().equals(other.longitude, longitude) &&
-            const DeepCollectionEquality()
-                .equals(other.livestreamLink, livestreamLink) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.event, event) || other.event == event) &&
+            (identical(other.ticketNumber, ticketNumber) ||
+                other.ticketNumber == ticketNumber) &&
+            (identical(other.hostAt, hostAt) || other.hostAt == hostAt) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.fromTime, fromTime) ||
+                other.fromTime == fromTime) &&
+            (identical(other.toTime, toTime) || other.toTime == toTime) &&
+            (identical(other.place, place) || other.place == place) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.livestreamLink, livestreamLink) ||
+                other.livestreamLink == livestreamLink) &&
             const DeepCollectionEquality().equals(other._guest, _guest));
   }
 
@@ -363,29 +370,32 @@ class _$_GetRegisterModel implements _GetRegisterModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(event),
-      const DeepCollectionEquality().hash(ticketNumber),
-      const DeepCollectionEquality().hash(hostAt),
-      const DeepCollectionEquality().hash(date),
-      const DeepCollectionEquality().hash(fromTime),
-      const DeepCollectionEquality().hash(toTime),
-      const DeepCollectionEquality().hash(place),
-      const DeepCollectionEquality().hash(location),
-      const DeepCollectionEquality().hash(latitude),
-      const DeepCollectionEquality().hash(longitude),
-      const DeepCollectionEquality().hash(livestreamLink),
+      id,
+      name,
+      event,
+      ticketNumber,
+      hostAt,
+      date,
+      fromTime,
+      toTime,
+      place,
+      location,
+      latitude,
+      longitude,
+      livestreamLink,
       const DeepCollectionEquality().hash(_guest));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GetRegisterModelCopyWith<_$_GetRegisterModel> get copyWith =>
       __$$_GetRegisterModelCopyWithImpl<_$_GetRegisterModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GetRegisterModelToJson(this);
+    return _$$_GetRegisterModelToJson(
+      this,
+    );
   }
 }
 
@@ -410,38 +420,38 @@ abstract class _GetRegisterModel implements GetRegisterModel {
       _$_GetRegisterModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get name => throw _privateConstructorUsedError;
+  String? get name;
   @override
-  String? get event => throw _privateConstructorUsedError;
+  String? get event;
   @override
   @JsonKey(name: 'ticket_number')
-  String? get ticketNumber => throw _privateConstructorUsedError;
+  String? get ticketNumber;
   @override
   @JsonKey(name: 'host_at')
-  String? get hostAt => throw _privateConstructorUsedError;
+  String? get hostAt;
   @override
-  String? get date => throw _privateConstructorUsedError;
+  String? get date;
   @override
   @JsonKey(name: 'from_time')
-  String? get fromTime => throw _privateConstructorUsedError;
+  String? get fromTime;
   @override
   @JsonKey(name: 'to_time')
-  String? get toTime => throw _privateConstructorUsedError;
+  String? get toTime;
   @override
-  String? get place => throw _privateConstructorUsedError;
+  String? get place;
   @override
-  String? get location => throw _privateConstructorUsedError;
+  String? get location;
   @override
-  double? get latitude => throw _privateConstructorUsedError;
+  double? get latitude;
   @override
-  double? get longitude => throw _privateConstructorUsedError;
+  double? get longitude;
   @override
   @JsonKey(name: 'livestream_link')
-  String? get livestreamLink => throw _privateConstructorUsedError;
+  String? get livestreamLink;
   @override
-  List<GuestListModel>? get guest => throw _privateConstructorUsedError;
+  List<GuestListModel>? get guest;
   @override
   @JsonKey(ignore: true)
   _$$_GetRegisterModelCopyWith<_$_GetRegisterModel> get copyWith =>

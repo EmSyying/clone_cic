@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'search_location_list.dart';
 
@@ -36,7 +36,8 @@ mixin _$SearchLocationListModel {
 abstract class $SearchLocationListModelCopyWith<$Res> {
   factory $SearchLocationListModelCopyWith(SearchLocationListModel value,
           $Res Function(SearchLocationListModel) then) =
-      _$SearchLocationListModelCopyWithImpl<$Res>;
+      _$SearchLocationListModelCopyWithImpl<$Res, SearchLocationListModel>;
+  @useResult
   $Res call(
       {String? code,
       String? province,
@@ -44,14 +45,17 @@ abstract class $SearchLocationListModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SearchLocationListModelCopyWithImpl<$Res>
+class _$SearchLocationListModelCopyWithImpl<$Res,
+        $Val extends SearchLocationListModel>
     implements $SearchLocationListModelCopyWith<$Res> {
   _$SearchLocationListModelCopyWithImpl(this._value, this._then);
 
-  final SearchLocationListModel _value;
   // ignore: unused_field
-  final $Res Function(SearchLocationListModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? code = freezed,
@@ -59,19 +63,19 @@ class _$SearchLocationListModelCopyWithImpl<$Res>
     Object? fullAdress = freezed,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      province: province == freezed
+      province: freezed == province
           ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
               as String?,
-      fullAdress: fullAdress == freezed
+      fullAdress: freezed == fullAdress
           ? _value.fullAdress
           : fullAdress // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,6 +86,7 @@ abstract class _$$_SearchLocationListModelCopyWith<$Res>
           $Res Function(_$_SearchLocationListModel) then) =
       __$$_SearchLocationListModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? code,
       String? province,
@@ -90,16 +95,14 @@ abstract class _$$_SearchLocationListModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_SearchLocationListModelCopyWithImpl<$Res>
-    extends _$SearchLocationListModelCopyWithImpl<$Res>
+    extends _$SearchLocationListModelCopyWithImpl<$Res,
+        _$_SearchLocationListModel>
     implements _$$_SearchLocationListModelCopyWith<$Res> {
   __$$_SearchLocationListModelCopyWithImpl(_$_SearchLocationListModel _value,
       $Res Function(_$_SearchLocationListModel) _then)
-      : super(_value, (v) => _then(v as _$_SearchLocationListModel));
+      : super(_value, _then);
 
-  @override
-  _$_SearchLocationListModel get _value =>
-      super._value as _$_SearchLocationListModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? code = freezed,
@@ -107,15 +110,15 @@ class __$$_SearchLocationListModelCopyWithImpl<$Res>
     Object? fullAdress = freezed,
   }) {
     return _then(_$_SearchLocationListModel(
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      province: province == freezed
+      province: freezed == province
           ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
               as String?,
-      fullAdress: fullAdress == freezed
+      fullAdress: freezed == fullAdress
           ? _value.fullAdress
           : fullAdress // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -152,22 +155,20 @@ class _$_SearchLocationListModel implements _SearchLocationListModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SearchLocationListModel &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.province, province) &&
-            const DeepCollectionEquality()
-                .equals(other.fullAdress, fullAdress));
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.fullAdress, fullAdress) ||
+                other.fullAdress == fullAdress));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(province),
-      const DeepCollectionEquality().hash(fullAdress));
+  int get hashCode => Object.hash(runtimeType, code, province, fullAdress);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SearchLocationListModelCopyWith<_$_SearchLocationListModel>
       get copyWith =>
           __$$_SearchLocationListModelCopyWithImpl<_$_SearchLocationListModel>(
@@ -175,7 +176,9 @@ class _$_SearchLocationListModel implements _SearchLocationListModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SearchLocationListModelToJson(this);
+    return _$$_SearchLocationListModelToJson(
+      this,
+    );
   }
 }
 
@@ -190,12 +193,12 @@ abstract class _SearchLocationListModel implements SearchLocationListModel {
       _$_SearchLocationListModel.fromJson;
 
   @override
-  String? get code => throw _privateConstructorUsedError;
+  String? get code;
   @override
-  String? get province => throw _privateConstructorUsedError;
+  String? get province;
   @override
   @JsonKey(name: 'full_address')
-  String? get fullAdress => throw _privateConstructorUsedError;
+  String? get fullAdress;
   @override
   @JsonKey(ignore: true)
   _$$_SearchLocationListModelCopyWith<_$_SearchLocationListModel>

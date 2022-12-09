@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'event_check_in_model.dart';
 
@@ -52,7 +52,8 @@ mixin _$CheckInModel {
 abstract class $CheckInModelCopyWith<$Res> {
   factory $CheckInModelCopyWith(
           CheckInModel value, $Res Function(CheckInModel) then) =
-      _$CheckInModelCopyWithImpl<$Res>;
+      _$CheckInModelCopyWithImpl<$Res, CheckInModel>;
+  @useResult
   $Res call(
       {int? id,
       String? value,
@@ -69,13 +70,16 @@ abstract class $CheckInModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CheckInModelCopyWithImpl<$Res> implements $CheckInModelCopyWith<$Res> {
+class _$CheckInModelCopyWithImpl<$Res, $Val extends CheckInModel>
+    implements $CheckInModelCopyWith<$Res> {
   _$CheckInModelCopyWithImpl(this._value, this._then);
 
-  final CheckInModel _value;
   // ignore: unused_field
-  final $Res Function(CheckInModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -92,55 +96,55 @@ class _$CheckInModelCopyWithImpl<$Res> implements $CheckInModelCopyWith<$Res> {
     Object? checkInDate = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      value: value == freezed
+      value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String?,
-      display: display == freezed
+      display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
               as String?,
-      event: event == freezed
+      event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as String?,
-      startDate: startDate == freezed
+      startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      endDate: endDate == freezed
+      endDate: freezed == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      isCicMember: isCicMember == freezed
+      isCicMember: freezed == isCicMember
           ? _value.isCicMember
           : isCicMember // ignore: cast_nullable_to_non_nullable
               as bool?,
-      participantName: participantName == freezed
+      participantName: freezed == participantName
           ? _value.participantName
           : participantName // ignore: cast_nullable_to_non_nullable
               as String?,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      referralMember: referralMember == freezed
+      referralMember: freezed == referralMember
           ? _value.referralMember
           : referralMember // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkIn: checkIn == freezed
+      checkIn: freezed == checkIn
           ? _value.checkIn
           : checkIn // ignore: cast_nullable_to_non_nullable
               as bool?,
-      checkInDate: checkInDate == freezed
+      checkInDate: freezed == checkInDate
           ? _value.checkInDate
           : checkInDate // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -151,6 +155,7 @@ abstract class _$$_CheckInModelCopyWith<$Res>
           _$_CheckInModel value, $Res Function(_$_CheckInModel) then) =
       __$$_CheckInModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       String? value,
@@ -168,15 +173,13 @@ abstract class _$$_CheckInModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_CheckInModelCopyWithImpl<$Res>
-    extends _$CheckInModelCopyWithImpl<$Res>
+    extends _$CheckInModelCopyWithImpl<$Res, _$_CheckInModel>
     implements _$$_CheckInModelCopyWith<$Res> {
   __$$_CheckInModelCopyWithImpl(
       _$_CheckInModel _value, $Res Function(_$_CheckInModel) _then)
-      : super(_value, (v) => _then(v as _$_CheckInModel));
+      : super(_value, _then);
 
-  @override
-  _$_CheckInModel get _value => super._value as _$_CheckInModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -193,51 +196,51 @@ class __$$_CheckInModelCopyWithImpl<$Res>
     Object? checkInDate = freezed,
   }) {
     return _then(_$_CheckInModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      value: value == freezed
+      value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String?,
-      display: display == freezed
+      display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
               as String?,
-      event: event == freezed
+      event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as String?,
-      startDate: startDate == freezed
+      startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      endDate: endDate == freezed
+      endDate: freezed == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      isCicMember: isCicMember == freezed
+      isCicMember: freezed == isCicMember
           ? _value.isCicMember
           : isCicMember // ignore: cast_nullable_to_non_nullable
               as bool?,
-      participantName: participantName == freezed
+      participantName: freezed == participantName
           ? _value.participantName
           : participantName // ignore: cast_nullable_to_non_nullable
               as String?,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      referralMember: referralMember == freezed
+      referralMember: freezed == referralMember
           ? _value.referralMember
           : referralMember // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkIn: checkIn == freezed
+      checkIn: freezed == checkIn
           ? _value.checkIn
           : checkIn // ignore: cast_nullable_to_non_nullable
               as bool?,
-      checkInDate: checkInDate == freezed
+      checkInDate: freezed == checkInDate
           ? _value.checkInDate
           : checkInDate // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -309,50 +312,54 @@ class _$_CheckInModel implements _CheckInModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CheckInModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.value, value) &&
-            const DeepCollectionEquality().equals(other.display, display) &&
-            const DeepCollectionEquality().equals(other.event, event) &&
-            const DeepCollectionEquality().equals(other.startDate, startDate) &&
-            const DeepCollectionEquality().equals(other.endDate, endDate) &&
-            const DeepCollectionEquality()
-                .equals(other.isCicMember, isCicMember) &&
-            const DeepCollectionEquality()
-                .equals(other.participantName, participantName) &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.referralMember, referralMember) &&
-            const DeepCollectionEquality().equals(other.checkIn, checkIn) &&
-            const DeepCollectionEquality()
-                .equals(other.checkInDate, checkInDate));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.display, display) || other.display == display) &&
+            (identical(other.event, event) || other.event == event) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.isCicMember, isCicMember) ||
+                other.isCicMember == isCicMember) &&
+            (identical(other.participantName, participantName) ||
+                other.participantName == participantName) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.referralMember, referralMember) ||
+                other.referralMember == referralMember) &&
+            (identical(other.checkIn, checkIn) || other.checkIn == checkIn) &&
+            (identical(other.checkInDate, checkInDate) ||
+                other.checkInDate == checkInDate));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(value),
-      const DeepCollectionEquality().hash(display),
-      const DeepCollectionEquality().hash(event),
-      const DeepCollectionEquality().hash(startDate),
-      const DeepCollectionEquality().hash(endDate),
-      const DeepCollectionEquality().hash(isCicMember),
-      const DeepCollectionEquality().hash(participantName),
-      const DeepCollectionEquality().hash(phoneNumber),
-      const DeepCollectionEquality().hash(referralMember),
-      const DeepCollectionEquality().hash(checkIn),
-      const DeepCollectionEquality().hash(checkInDate));
+      id,
+      value,
+      display,
+      event,
+      startDate,
+      endDate,
+      isCicMember,
+      participantName,
+      phoneNumber,
+      referralMember,
+      checkIn,
+      checkInDate);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CheckInModelCopyWith<_$_CheckInModel> get copyWith =>
       __$$_CheckInModelCopyWithImpl<_$_CheckInModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CheckInModelToJson(this);
+    return _$$_CheckInModelToJson(
+      this,
+    );
   }
 }
 
@@ -376,37 +383,37 @@ abstract class _CheckInModel implements CheckInModel {
       _$_CheckInModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get value => throw _privateConstructorUsedError;
+  String? get value;
   @override
-  String? get display => throw _privateConstructorUsedError;
+  String? get display;
   @override
-  String? get event => throw _privateConstructorUsedError;
+  String? get event;
   @override // final Location? location,
   @JsonKey(name: 'start_date')
-  String? get startDate => throw _privateConstructorUsedError;
+  String? get startDate;
   @override
   @JsonKey(name: 'end_date')
-  String? get endDate => throw _privateConstructorUsedError;
+  String? get endDate;
   @override
   @JsonKey(name: 'is_cic_member')
-  bool? get isCicMember => throw _privateConstructorUsedError;
+  bool? get isCicMember;
   @override
   @JsonKey(name: 'participant_name')
-  String? get participantName => throw _privateConstructorUsedError;
+  String? get participantName;
   @override
   @JsonKey(name: 'phone_number')
-  String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get phoneNumber;
   @override
   @JsonKey(name: 'referral_member')
-  String? get referralMember => throw _privateConstructorUsedError;
+  String? get referralMember;
   @override
   @JsonKey(name: 'check_in')
-  bool? get checkIn => throw _privateConstructorUsedError;
+  bool? get checkIn;
   @override
   @JsonKey(name: 'check_in_date')
-  String? get checkInDate => throw _privateConstructorUsedError;
+  String? get checkInDate;
   @override
   @JsonKey(ignore: true)
   _$$_CheckInModelCopyWith<_$_CheckInModel> get copyWith =>

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'bank_type.dart';
 
@@ -33,33 +33,37 @@ mixin _$BankType {
 /// @nodoc
 abstract class $BankTypeCopyWith<$Res> {
   factory $BankTypeCopyWith(BankType value, $Res Function(BankType) then) =
-      _$BankTypeCopyWithImpl<$Res>;
+      _$BankTypeCopyWithImpl<$Res, BankType>;
+  @useResult
   $Res call({int? id, @JsonKey(name: 'bank_name') String? bankName});
 }
 
 /// @nodoc
-class _$BankTypeCopyWithImpl<$Res> implements $BankTypeCopyWith<$Res> {
+class _$BankTypeCopyWithImpl<$Res, $Val extends BankType>
+    implements $BankTypeCopyWith<$Res> {
   _$BankTypeCopyWithImpl(this._value, this._then);
 
-  final BankType _value;
   // ignore: unused_field
-  final $Res Function(BankType) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? bankName = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      bankName: bankName == freezed
+      bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -69,30 +73,30 @@ abstract class _$$_BankTypeCopyWith<$Res> implements $BankTypeCopyWith<$Res> {
           _$_BankType value, $Res Function(_$_BankType) then) =
       __$$_BankTypeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int? id, @JsonKey(name: 'bank_name') String? bankName});
 }
 
 /// @nodoc
-class __$$_BankTypeCopyWithImpl<$Res> extends _$BankTypeCopyWithImpl<$Res>
+class __$$_BankTypeCopyWithImpl<$Res>
+    extends _$BankTypeCopyWithImpl<$Res, _$_BankType>
     implements _$$_BankTypeCopyWith<$Res> {
   __$$_BankTypeCopyWithImpl(
       _$_BankType _value, $Res Function(_$_BankType) _then)
-      : super(_value, (v) => _then(v as _$_BankType));
+      : super(_value, _then);
 
-  @override
-  _$_BankType get _value => super._value as _$_BankType;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? bankName = freezed,
   }) {
     return _then(_$_BankType(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      bankName: bankName == freezed
+      bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -124,25 +128,26 @@ class _$_BankType implements _BankType {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BankType &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.bankName, bankName));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.bankName, bankName) ||
+                other.bankName == bankName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(bankName));
+  int get hashCode => Object.hash(runtimeType, id, bankName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BankTypeCopyWith<_$_BankType> get copyWith =>
       __$$_BankTypeCopyWithImpl<_$_BankType>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BankTypeToJson(this);
+    return _$$_BankTypeToJson(
+      this,
+    );
   }
 }
 
@@ -154,10 +159,10 @@ abstract class _BankType implements BankType {
   factory _BankType.fromJson(Map<String, dynamic> json) = _$_BankType.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
   @JsonKey(name: 'bank_name')
-  String? get bankName => throw _privateConstructorUsedError;
+  String? get bankName;
   @override
   @JsonKey(ignore: true)
   _$$_BankTypeCopyWith<_$_BankType> get copyWith =>

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'contact_model.dart';
 
@@ -32,33 +32,37 @@ mixin _$Contacts {
 /// @nodoc
 abstract class $ContactsCopyWith<$Res> {
   factory $ContactsCopyWith(Contacts value, $Res Function(Contacts) then) =
-      _$ContactsCopyWithImpl<$Res>;
+      _$ContactsCopyWithImpl<$Res, Contacts>;
+  @useResult
   $Res call({String? phone, String? mobile});
 }
 
 /// @nodoc
-class _$ContactsCopyWithImpl<$Res> implements $ContactsCopyWith<$Res> {
+class _$ContactsCopyWithImpl<$Res, $Val extends Contacts>
+    implements $ContactsCopyWith<$Res> {
   _$ContactsCopyWithImpl(this._value, this._then);
 
-  final Contacts _value;
   // ignore: unused_field
-  final $Res Function(Contacts) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? phone = freezed,
     Object? mobile = freezed,
   }) {
     return _then(_value.copyWith(
-      phone: phone == freezed
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      mobile: mobile == freezed
+      mobile: freezed == mobile
           ? _value.mobile
           : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -68,30 +72,30 @@ abstract class _$$_ContactsCopyWith<$Res> implements $ContactsCopyWith<$Res> {
           _$_Contacts value, $Res Function(_$_Contacts) then) =
       __$$_ContactsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? phone, String? mobile});
 }
 
 /// @nodoc
-class __$$_ContactsCopyWithImpl<$Res> extends _$ContactsCopyWithImpl<$Res>
+class __$$_ContactsCopyWithImpl<$Res>
+    extends _$ContactsCopyWithImpl<$Res, _$_Contacts>
     implements _$$_ContactsCopyWith<$Res> {
   __$$_ContactsCopyWithImpl(
       _$_Contacts _value, $Res Function(_$_Contacts) _then)
-      : super(_value, (v) => _then(v as _$_Contacts));
+      : super(_value, _then);
 
-  @override
-  _$_Contacts get _value => super._value as _$_Contacts;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? phone = freezed,
     Object? mobile = freezed,
   }) {
     return _then(_$_Contacts(
-      phone: phone == freezed
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      mobile: mobile == freezed
+      mobile: freezed == mobile
           ? _value.mobile
           : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -122,25 +126,25 @@ class _$_Contacts implements _Contacts {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Contacts &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.mobile, mobile));
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.mobile, mobile) || other.mobile == mobile));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(phone),
-      const DeepCollectionEquality().hash(mobile));
+  int get hashCode => Object.hash(runtimeType, phone, mobile);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ContactsCopyWith<_$_Contacts> get copyWith =>
       __$$_ContactsCopyWithImpl<_$_Contacts>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ContactsToJson(this);
+    return _$$_ContactsToJson(
+      this,
+    );
   }
 }
 
@@ -150,9 +154,9 @@ abstract class _Contacts implements Contacts {
   factory _Contacts.fromJson(Map<String, dynamic> json) = _$_Contacts.fromJson;
 
   @override
-  String? get phone => throw _privateConstructorUsedError;
+  String? get phone;
   @override
-  String? get mobile => throw _privateConstructorUsedError;
+  String? get mobile;
   @override
   @JsonKey(ignore: true)
   _$$_ContactsCopyWith<_$_Contacts> get copyWith =>

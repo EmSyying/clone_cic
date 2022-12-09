@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'guide_model.dart';
 
@@ -42,7 +42,8 @@ mixin _$GuideModel {
 abstract class $GuideModelCopyWith<$Res> {
   factory $GuideModelCopyWith(
           GuideModel value, $Res Function(GuideModel) then) =
-      _$GuideModelCopyWithImpl<$Res>;
+      _$GuideModelCopyWithImpl<$Res, GuideModel>;
+  @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "title_en") String? title,
@@ -53,13 +54,16 @@ abstract class $GuideModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$GuideModelCopyWithImpl<$Res> implements $GuideModelCopyWith<$Res> {
+class _$GuideModelCopyWithImpl<$Res, $Val extends GuideModel>
+    implements $GuideModelCopyWith<$Res> {
   _$GuideModelCopyWithImpl(this._value, this._then);
 
-  final GuideModel _value;
   // ignore: unused_field
-  final $Res Function(GuideModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -70,31 +74,31 @@ class _$GuideModelCopyWithImpl<$Res> implements $GuideModelCopyWith<$Res> {
     Object? key = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      titleKh: titleKh == freezed
+      titleKh: freezed == titleKh
           ? _value.titleKh
           : titleKh // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      contentKh: contentKh == freezed
+      contentKh: freezed == contentKh
           ? _value.contentKh
           : contentKh // ignore: cast_nullable_to_non_nullable
               as String?,
-      key: key == freezed
+      key: freezed == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as dynamic,
-    ));
+    ) as $Val);
   }
 }
 
@@ -105,6 +109,7 @@ abstract class _$$_GuideModelCopyWith<$Res>
           _$_GuideModel value, $Res Function(_$_GuideModel) then) =
       __$$_GuideModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "title_en") String? title,
@@ -115,15 +120,14 @@ abstract class _$$_GuideModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_GuideModelCopyWithImpl<$Res> extends _$GuideModelCopyWithImpl<$Res>
+class __$$_GuideModelCopyWithImpl<$Res>
+    extends _$GuideModelCopyWithImpl<$Res, _$_GuideModel>
     implements _$$_GuideModelCopyWith<$Res> {
   __$$_GuideModelCopyWithImpl(
       _$_GuideModel _value, $Res Function(_$_GuideModel) _then)
-      : super(_value, (v) => _then(v as _$_GuideModel));
+      : super(_value, _then);
 
-  @override
-  _$_GuideModel get _value => super._value as _$_GuideModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -134,27 +138,27 @@ class __$$_GuideModelCopyWithImpl<$Res> extends _$GuideModelCopyWithImpl<$Res>
     Object? key = freezed,
   }) {
     return _then(_$_GuideModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      titleKh: titleKh == freezed
+      titleKh: freezed == titleKh
           ? _value.titleKh
           : titleKh // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      contentKh: contentKh == freezed
+      contentKh: freezed == contentKh
           ? _value.contentKh
           : contentKh // ignore: cast_nullable_to_non_nullable
               as String?,
-      key: key == freezed
+      key: freezed == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as dynamic,
@@ -204,34 +208,32 @@ class _$_GuideModel implements _GuideModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GuideModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.titleKh, titleKh) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.contentKh, contentKh) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.titleKh, titleKh) || other.titleKh == titleKh) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.contentKh, contentKh) ||
+                other.contentKh == contentKh) &&
             const DeepCollectionEquality().equals(other.key, key));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(titleKh),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(contentKh),
-      const DeepCollectionEquality().hash(key));
+  int get hashCode => Object.hash(runtimeType, id, title, titleKh, description,
+      contentKh, const DeepCollectionEquality().hash(key));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GuideModelCopyWith<_$_GuideModel> get copyWith =>
       __$$_GuideModelCopyWithImpl<_$_GuideModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GuideModelToJson(this);
+    return _$$_GuideModelToJson(
+      this,
+    );
   }
 }
 
@@ -249,21 +251,21 @@ abstract class _GuideModel implements GuideModel {
 
   @override
   @JsonKey(name: "id")
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
   @JsonKey(name: "title_en")
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
   @JsonKey(name: "title_kh")
-  String? get titleKh => throw _privateConstructorUsedError;
+  String? get titleKh;
   @override
   @JsonKey(name: "content_en")
-  String? get description => throw _privateConstructorUsedError;
+  String? get description;
   @override
   @JsonKey(name: "content_kh")
-  String? get contentKh => throw _privateConstructorUsedError;
+  String? get contentKh;
   @override
-  dynamic get key => throw _privateConstructorUsedError;
+  dynamic get key;
   @override
   @JsonKey(ignore: true)
   _$$_GuideModelCopyWith<_$_GuideModel> get copyWith =>

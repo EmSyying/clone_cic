@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'bank_account.dart';
 
@@ -33,33 +33,37 @@ mixin _$BankAccount {
 abstract class $BankAccountCopyWith<$Res> {
   factory $BankAccountCopyWith(
           BankAccount value, $Res Function(BankAccount) then) =
-      _$BankAccountCopyWithImpl<$Res>;
+      _$BankAccountCopyWithImpl<$Res, BankAccount>;
+  @useResult
   $Res call({int? id, String? account});
 }
 
 /// @nodoc
-class _$BankAccountCopyWithImpl<$Res> implements $BankAccountCopyWith<$Res> {
+class _$BankAccountCopyWithImpl<$Res, $Val extends BankAccount>
+    implements $BankAccountCopyWith<$Res> {
   _$BankAccountCopyWithImpl(this._value, this._then);
 
-  final BankAccount _value;
   // ignore: unused_field
-  final $Res Function(BankAccount) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? account = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      account: account == freezed
+      account: freezed == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -70,30 +74,30 @@ abstract class _$$_BankAccountCopyWith<$Res>
           _$_BankAccount value, $Res Function(_$_BankAccount) then) =
       __$$_BankAccountCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int? id, String? account});
 }
 
 /// @nodoc
-class __$$_BankAccountCopyWithImpl<$Res> extends _$BankAccountCopyWithImpl<$Res>
+class __$$_BankAccountCopyWithImpl<$Res>
+    extends _$BankAccountCopyWithImpl<$Res, _$_BankAccount>
     implements _$$_BankAccountCopyWith<$Res> {
   __$$_BankAccountCopyWithImpl(
       _$_BankAccount _value, $Res Function(_$_BankAccount) _then)
-      : super(_value, (v) => _then(v as _$_BankAccount));
+      : super(_value, _then);
 
-  @override
-  _$_BankAccount get _value => super._value as _$_BankAccount;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? account = freezed,
   }) {
     return _then(_$_BankAccount(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      account: account == freezed
+      account: freezed == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -124,25 +128,25 @@ class _$_BankAccount implements _BankAccount {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BankAccount &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.account, account));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.account, account) || other.account == account));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(account));
+  int get hashCode => Object.hash(runtimeType, id, account);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BankAccountCopyWith<_$_BankAccount> get copyWith =>
       __$$_BankAccountCopyWithImpl<_$_BankAccount>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BankAccountToJson(this);
+    return _$$_BankAccountToJson(
+      this,
+    );
   }
 }
 
@@ -153,9 +157,9 @@ abstract class _BankAccount implements BankAccount {
       _$_BankAccount.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get account => throw _privateConstructorUsedError;
+  String? get account;
   @override
   @JsonKey(ignore: true)
   _$$_BankAccountCopyWith<_$_BankAccount> get copyWith =>

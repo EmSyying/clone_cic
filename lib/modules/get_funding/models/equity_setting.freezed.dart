@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'equity_setting.dart';
 
@@ -37,7 +37,8 @@ mixin _$EquitySetting {
 abstract class $EquitySettingCopyWith<$Res> {
   factory $EquitySettingCopyWith(
           EquitySetting value, $Res Function(EquitySetting) then) =
-      _$EquitySettingCopyWithImpl<$Res>;
+      _$EquitySettingCopyWithImpl<$Res, EquitySetting>;
+  @useResult
   $Res call(
       {@JsonKey(name: "min_equity_amount") int? minEquityAmount,
       @JsonKey(name: "max_equity_amount") int? maxEquityAmount,
@@ -45,14 +46,16 @@ abstract class $EquitySettingCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EquitySettingCopyWithImpl<$Res>
+class _$EquitySettingCopyWithImpl<$Res, $Val extends EquitySetting>
     implements $EquitySettingCopyWith<$Res> {
   _$EquitySettingCopyWithImpl(this._value, this._then);
 
-  final EquitySetting _value;
   // ignore: unused_field
-  final $Res Function(EquitySetting) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? minEquityAmount = freezed,
@@ -60,19 +63,19 @@ class _$EquitySettingCopyWithImpl<$Res>
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
-      minEquityAmount: minEquityAmount == freezed
+      minEquityAmount: freezed == minEquityAmount
           ? _value.minEquityAmount
           : minEquityAmount // ignore: cast_nullable_to_non_nullable
               as int?,
-      maxEquityAmount: maxEquityAmount == freezed
+      maxEquityAmount: freezed == maxEquityAmount
           ? _value.maxEquityAmount
           : maxEquityAmount // ignore: cast_nullable_to_non_nullable
               as int?,
-      message: message == freezed
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +86,7 @@ abstract class _$$_EquitySettingCopyWith<$Res>
           _$_EquitySetting value, $Res Function(_$_EquitySetting) then) =
       __$$_EquitySettingCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: "min_equity_amount") int? minEquityAmount,
       @JsonKey(name: "max_equity_amount") int? maxEquityAmount,
@@ -91,15 +95,13 @@ abstract class _$$_EquitySettingCopyWith<$Res>
 
 /// @nodoc
 class __$$_EquitySettingCopyWithImpl<$Res>
-    extends _$EquitySettingCopyWithImpl<$Res>
+    extends _$EquitySettingCopyWithImpl<$Res, _$_EquitySetting>
     implements _$$_EquitySettingCopyWith<$Res> {
   __$$_EquitySettingCopyWithImpl(
       _$_EquitySetting _value, $Res Function(_$_EquitySetting) _then)
-      : super(_value, (v) => _then(v as _$_EquitySetting));
+      : super(_value, _then);
 
-  @override
-  _$_EquitySetting get _value => super._value as _$_EquitySetting;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? minEquityAmount = freezed,
@@ -107,15 +109,15 @@ class __$$_EquitySettingCopyWithImpl<$Res>
     Object? message = freezed,
   }) {
     return _then(_$_EquitySetting(
-      minEquityAmount: minEquityAmount == freezed
+      minEquityAmount: freezed == minEquityAmount
           ? _value.minEquityAmount
           : minEquityAmount // ignore: cast_nullable_to_non_nullable
               as int?,
-      maxEquityAmount: maxEquityAmount == freezed
+      maxEquityAmount: freezed == maxEquityAmount
           ? _value.maxEquityAmount
           : maxEquityAmount // ignore: cast_nullable_to_non_nullable
               as int?,
-      message: message == freezed
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -154,29 +156,29 @@ class _$_EquitySetting implements _EquitySetting {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_EquitySetting &&
-            const DeepCollectionEquality()
-                .equals(other.minEquityAmount, minEquityAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.maxEquityAmount, maxEquityAmount) &&
-            const DeepCollectionEquality().equals(other.message, message));
+            (identical(other.minEquityAmount, minEquityAmount) ||
+                other.minEquityAmount == minEquityAmount) &&
+            (identical(other.maxEquityAmount, maxEquityAmount) ||
+                other.maxEquityAmount == maxEquityAmount) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(minEquityAmount),
-      const DeepCollectionEquality().hash(maxEquityAmount),
-      const DeepCollectionEquality().hash(message));
+  int get hashCode =>
+      Object.hash(runtimeType, minEquityAmount, maxEquityAmount, message);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_EquitySettingCopyWith<_$_EquitySetting> get copyWith =>
       __$$_EquitySettingCopyWithImpl<_$_EquitySetting>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EquitySettingToJson(this);
+    return _$$_EquitySettingToJson(
+      this,
+    );
   }
 }
 
@@ -192,13 +194,13 @@ abstract class _EquitySetting implements EquitySetting {
 
   @override
   @JsonKey(name: "min_equity_amount")
-  int? get minEquityAmount => throw _privateConstructorUsedError;
+  int? get minEquityAmount;
   @override
   @JsonKey(name: "max_equity_amount")
-  int? get maxEquityAmount => throw _privateConstructorUsedError;
+  int? get maxEquityAmount;
   @override
   @JsonKey(name: "equity_message")
-  String? get message => throw _privateConstructorUsedError;
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$$_EquitySettingCopyWith<_$_EquitySetting> get copyWith =>

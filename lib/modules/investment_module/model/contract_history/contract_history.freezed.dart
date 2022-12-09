@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'contract_history.dart';
 
@@ -50,7 +50,8 @@ mixin _$ContractHistory {
 abstract class $ContractHistoryCopyWith<$Res> {
   factory $ContractHistoryCopyWith(
           ContractHistory value, $Res Function(ContractHistory) then) =
-      _$ContractHistoryCopyWithImpl<$Res>;
+      _$ContractHistoryCopyWithImpl<$Res, ContractHistory>;
+  @useResult
   $Res call(
       {num? id,
       @JsonKey(name: 'account_name') String? accountName,
@@ -67,14 +68,16 @@ abstract class $ContractHistoryCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ContractHistoryCopyWithImpl<$Res>
+class _$ContractHistoryCopyWithImpl<$Res, $Val extends ContractHistory>
     implements $ContractHistoryCopyWith<$Res> {
   _$ContractHistoryCopyWithImpl(this._value, this._then);
 
-  final ContractHistory _value;
   // ignore: unused_field
-  final $Res Function(ContractHistory) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -91,55 +94,55 @@ class _$ContractHistoryCopyWithImpl<$Res>
     Object? bankId = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      accountName: accountName == freezed
+      accountName: freezed == accountName
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      hide: hide == freezed
+      hide: freezed == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstPaymentDate: firstPaymentDate == freezed
+      firstPaymentDate: freezed == firstPaymentDate
           ? _value.firstPaymentDate
           : firstPaymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalAmount: originalAmount == freezed
+      originalAmount: freezed == originalAmount
           ? _value.originalAmount
           : originalAmount // ignore: cast_nullable_to_non_nullable
               as num?,
-      returnPaymentMethod: returnPaymentMethod == freezed
+      returnPaymentMethod: freezed == returnPaymentMethod
           ? _value.returnPaymentMethod
           : returnPaymentMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      mmaAccountId: mmaAccountId == freezed
+      mmaAccountId: freezed == mmaAccountId
           ? _value.mmaAccountId
           : mmaAccountId // ignore: cast_nullable_to_non_nullable
               as num?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as num?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -150,6 +153,7 @@ abstract class _$$_ContractHistoryCopyWith<$Res>
           _$_ContractHistory value, $Res Function(_$_ContractHistory) then) =
       __$$_ContractHistoryCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {num? id,
       @JsonKey(name: 'account_name') String? accountName,
@@ -167,15 +171,13 @@ abstract class _$$_ContractHistoryCopyWith<$Res>
 
 /// @nodoc
 class __$$_ContractHistoryCopyWithImpl<$Res>
-    extends _$ContractHistoryCopyWithImpl<$Res>
+    extends _$ContractHistoryCopyWithImpl<$Res, _$_ContractHistory>
     implements _$$_ContractHistoryCopyWith<$Res> {
   __$$_ContractHistoryCopyWithImpl(
       _$_ContractHistory _value, $Res Function(_$_ContractHistory) _then)
-      : super(_value, (v) => _then(v as _$_ContractHistory));
+      : super(_value, _then);
 
-  @override
-  _$_ContractHistory get _value => super._value as _$_ContractHistory;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -192,51 +194,51 @@ class __$$_ContractHistoryCopyWithImpl<$Res>
     Object? bankId = freezed,
   }) {
     return _then(_$_ContractHistory(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      accountName: accountName == freezed
+      accountName: freezed == accountName
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      hide: hide == freezed
+      hide: freezed == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstPaymentDate: firstPaymentDate == freezed
+      firstPaymentDate: freezed == firstPaymentDate
           ? _value.firstPaymentDate
           : firstPaymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalAmount: originalAmount == freezed
+      originalAmount: freezed == originalAmount
           ? _value.originalAmount
           : originalAmount // ignore: cast_nullable_to_non_nullable
               as num?,
-      returnPaymentMethod: returnPaymentMethod == freezed
+      returnPaymentMethod: freezed == returnPaymentMethod
           ? _value.returnPaymentMethod
           : returnPaymentMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      mmaAccountId: mmaAccountId == freezed
+      mmaAccountId: freezed == mmaAccountId
           ? _value.mmaAccountId
           : mmaAccountId // ignore: cast_nullable_to_non_nullable
               as num?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as num?,
@@ -306,51 +308,54 @@ class _$_ContractHistory implements _ContractHistory {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ContractHistory &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.accountName, accountName) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentAmount, investmentAmount) &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.hide, hide) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.firstPaymentDate, firstPaymentDate) &&
-            const DeepCollectionEquality()
-                .equals(other.originalAmount, originalAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.returnPaymentMethod, returnPaymentMethod) &&
-            const DeepCollectionEquality()
-                .equals(other.mmaAccountId, mmaAccountId) &&
-            const DeepCollectionEquality().equals(other.bankId, bankId));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.accountName, accountName) ||
+                other.accountName == accountName) &&
+            (identical(other.investmentAmount, investmentAmount) ||
+                other.investmentAmount == investmentAmount) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.hide, hide) || other.hide == hide) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.firstPaymentDate, firstPaymentDate) ||
+                other.firstPaymentDate == firstPaymentDate) &&
+            (identical(other.originalAmount, originalAmount) ||
+                other.originalAmount == originalAmount) &&
+            (identical(other.returnPaymentMethod, returnPaymentMethod) ||
+                other.returnPaymentMethod == returnPaymentMethod) &&
+            (identical(other.mmaAccountId, mmaAccountId) ||
+                other.mmaAccountId == mmaAccountId) &&
+            (identical(other.bankId, bankId) || other.bankId == bankId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(accountName),
-      const DeepCollectionEquality().hash(investmentAmount),
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(hide),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(firstPaymentDate),
-      const DeepCollectionEquality().hash(originalAmount),
-      const DeepCollectionEquality().hash(returnPaymentMethod),
-      const DeepCollectionEquality().hash(mmaAccountId),
-      const DeepCollectionEquality().hash(bankId));
+      id,
+      accountName,
+      investmentAmount,
+      code,
+      hide,
+      color,
+      status,
+      firstPaymentDate,
+      originalAmount,
+      returnPaymentMethod,
+      mmaAccountId,
+      bankId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ContractHistoryCopyWith<_$_ContractHistory> get copyWith =>
       __$$_ContractHistoryCopyWithImpl<_$_ContractHistory>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ContractHistoryToJson(this);
+    return _$$_ContractHistoryToJson(
+      this,
+    );
   }
 }
 
@@ -373,36 +378,36 @@ abstract class _ContractHistory implements ContractHistory {
       _$_ContractHistory.fromJson;
 
   @override
-  num? get id => throw _privateConstructorUsedError;
+  num? get id;
   @override
   @JsonKey(name: 'account_name')
-  String? get accountName => throw _privateConstructorUsedError;
+  String? get accountName;
   @override
   @JsonKey(name: 'investment_amount')
-  String? get investmentAmount => throw _privateConstructorUsedError;
+  String? get investmentAmount;
   @override
-  String? get code => throw _privateConstructorUsedError;
+  String? get code;
   @override
-  bool? get hide => throw _privateConstructorUsedError;
+  bool? get hide;
   @override
-  String? get color => throw _privateConstructorUsedError;
+  String? get color;
   @override
-  String? get status => throw _privateConstructorUsedError;
+  String? get status;
   @override
   @JsonKey(name: 'date')
-  String? get firstPaymentDate => throw _privateConstructorUsedError;
+  String? get firstPaymentDate;
   @override
   @JsonKey(name: 'original_amount')
-  num? get originalAmount => throw _privateConstructorUsedError;
+  num? get originalAmount;
   @override
   @JsonKey(name: 'return_payment_method')
-  String? get returnPaymentMethod => throw _privateConstructorUsedError;
+  String? get returnPaymentMethod;
   @override
   @JsonKey(name: 'mma_account_id')
-  num? get mmaAccountId => throw _privateConstructorUsedError;
+  num? get mmaAccountId;
   @override
   @JsonKey(name: 'bank_id')
-  num? get bankId => throw _privateConstructorUsedError;
+  num? get bankId;
   @override
   @JsonKey(ignore: true)
   _$$_ContractHistoryCopyWith<_$_ContractHistory> get copyWith =>

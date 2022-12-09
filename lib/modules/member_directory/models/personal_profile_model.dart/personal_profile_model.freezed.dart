@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'personal_profile_model.dart';
 
@@ -92,7 +92,8 @@ mixin _$PersonalProfile {
 abstract class $PersonalProfileCopyWith<$Res> {
   factory $PersonalProfileCopyWith(
           PersonalProfile value, $Res Function(PersonalProfile) then) =
-      _$PersonalProfileCopyWithImpl<$Res>;
+      _$PersonalProfileCopyWithImpl<$Res, PersonalProfile>;
+  @useResult
   $Res call(
       {int? id,
       String? display,
@@ -157,14 +158,16 @@ abstract class $PersonalProfileCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PersonalProfileCopyWithImpl<$Res>
+class _$PersonalProfileCopyWithImpl<$Res, $Val extends PersonalProfile>
     implements $PersonalProfileCopyWith<$Res> {
   _$PersonalProfileCopyWithImpl(this._value, this._then);
 
-  final PersonalProfile _value;
   // ignore: unused_field
-  final $Res Function(PersonalProfile) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -209,167 +212,167 @@ class _$PersonalProfileCopyWithImpl<$Res>
     Object? profile = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      display: display == freezed
+      display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerName: customerName == freezed
+      customerName: freezed == customerName
           ? _value.customerName
           : customerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerLatinName: customerLatinName == freezed
+      customerLatinName: freezed == customerLatinName
           ? _value.customerLatinName
           : customerLatinName // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerDateOfBirth: customerDateOfBirth == freezed
+      customerDateOfBirth: freezed == customerDateOfBirth
           ? _value.customerDateOfBirth
           : customerDateOfBirth // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerGender: customerGender == freezed
+      customerGender: freezed == customerGender
           ? _value.customerGender
           : customerGender // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      customerNationality: customerNationality == freezed
+      customerNationality: freezed == customerNationality
           ? _value.customerNationality
           : customerNationality // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      position: position == freezed
+      position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      recommended: recommended == freezed
+      recommended: freezed == recommended
           ? _value.recommended
           : recommended // ignore: cast_nullable_to_non_nullable
               as String?,
-      numberShare: numberShare == freezed
+      numberShare: freezed == numberShare
           ? _value.numberShare
           : numberShare // ignore: cast_nullable_to_non_nullable
               as int?,
-      expertise: expertise == freezed
+      expertise: freezed == expertise
           ? _value.expertise
           : expertise // ignore: cast_nullable_to_non_nullable
               as String?,
-      memberType: memberType == freezed
+      memberType: freezed == memberType
           ? _value.memberType
           : memberType // ignore: cast_nullable_to_non_nullable
               as String?,
-      yearJoined: yearJoined == freezed
+      yearJoined: freezed == yearJoined
           ? _value.yearJoined
           : yearJoined // ignore: cast_nullable_to_non_nullable
               as String?,
-      profileBiography: profileBiography == freezed
+      profileBiography: freezed == profileBiography
           ? _value.profileBiography
           : profileBiography // ignore: cast_nullable_to_non_nullable
               as String?,
-      about: about == freezed
+      about: freezed == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String?,
-      other: other == freezed
+      other: freezed == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerIdentityType: customerIdentityType == freezed
+      customerIdentityType: freezed == customerIdentityType
           ? _value.customerIdentityType
           : customerIdentityType // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      customerIdentityNumber: customerIdentityNumber == freezed
+      customerIdentityNumber: freezed == customerIdentityNumber
           ? _value.customerIdentityNumber
           : customerIdentityNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerIdentityDate: customerIdentityDate == freezed
+      customerIdentityDate: freezed == customerIdentityDate
           ? _value.customerIdentityDate
           : customerIdentityDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerIdentityExpiredDate: customerIdentityExpiredDate == freezed
+      customerIdentityExpiredDate: freezed == customerIdentityExpiredDate
           ? _value.customerIdentityExpiredDate
           : customerIdentityExpiredDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      currentAddress: currentAddress == freezed
+      currentAddress: freezed == currentAddress
           ? _value.currentAddress
           : currentAddress // ignore: cast_nullable_to_non_nullable
               as CurrentAddress?,
-      streetNo: streetNo == freezed
+      streetNo: freezed == streetNo
           ? _value.streetNo
           : streetNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      houseNo: houseNo == freezed
+      houseNo: freezed == houseNo
           ? _value.houseNo
           : houseNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      permanentAddress: permanentAddress == freezed
+      permanentAddress: freezed == permanentAddress
           ? _value.permanentAddress
           : permanentAddress // ignore: cast_nullable_to_non_nullable
               as CurrentAddress?,
-      permanentStreetNo: permanentStreetNo == freezed
+      permanentStreetNo: freezed == permanentStreetNo
           ? _value.permanentStreetNo
           : permanentStreetNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      permanentHouseNo: permanentHouseNo == freezed
+      permanentHouseNo: freezed == permanentHouseNo
           ? _value.permanentHouseNo
           : permanentHouseNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      phone: phone == freezed
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      whatapp: whatapp == freezed
+      whatapp: freezed == whatapp
           ? _value.whatapp
           : whatapp // ignore: cast_nullable_to_non_nullable
               as String?,
-      telegram: telegram == freezed
+      telegram: freezed == telegram
           ? _value.telegram
           : telegram // ignore: cast_nullable_to_non_nullable
               as String?,
-      messenger: messenger == freezed
+      messenger: freezed == messenger
           ? _value.messenger
           : messenger // ignore: cast_nullable_to_non_nullable
               as String?,
-      skype: skype == freezed
+      skype: freezed == skype
           ? _value.skype
           : skype // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
-      facebook: facebook == freezed
+      facebook: freezed == facebook
           ? _value.facebook
           : facebook // ignore: cast_nullable_to_non_nullable
               as String?,
-      linkedin: linkedin == freezed
+      linkedin: freezed == linkedin
           ? _value.linkedin
           : linkedin // ignore: cast_nullable_to_non_nullable
               as String?,
-      twitter: twitter == freezed
+      twitter: freezed == twitter
           ? _value.twitter
           : twitter // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyName: companyName == freezed
+      companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      location: location == freezed
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String?,
-      profile: profile == freezed
+      profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -380,6 +383,7 @@ abstract class _$$_PersonalProfileCopyWith<$Res>
           _$_PersonalProfile value, $Res Function(_$_PersonalProfile) then) =
       __$$_PersonalProfileCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       String? display,
@@ -445,15 +449,13 @@ abstract class _$$_PersonalProfileCopyWith<$Res>
 
 /// @nodoc
 class __$$_PersonalProfileCopyWithImpl<$Res>
-    extends _$PersonalProfileCopyWithImpl<$Res>
+    extends _$PersonalProfileCopyWithImpl<$Res, _$_PersonalProfile>
     implements _$$_PersonalProfileCopyWith<$Res> {
   __$$_PersonalProfileCopyWithImpl(
       _$_PersonalProfile _value, $Res Function(_$_PersonalProfile) _then)
-      : super(_value, (v) => _then(v as _$_PersonalProfile));
+      : super(_value, _then);
 
-  @override
-  _$_PersonalProfile get _value => super._value as _$_PersonalProfile;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -498,163 +500,163 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
     Object? profile = freezed,
   }) {
     return _then(_$_PersonalProfile(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      display: display == freezed
+      display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerName: customerName == freezed
+      customerName: freezed == customerName
           ? _value.customerName
           : customerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerLatinName: customerLatinName == freezed
+      customerLatinName: freezed == customerLatinName
           ? _value.customerLatinName
           : customerLatinName // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerDateOfBirth: customerDateOfBirth == freezed
+      customerDateOfBirth: freezed == customerDateOfBirth
           ? _value.customerDateOfBirth
           : customerDateOfBirth // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerGender: customerGender == freezed
+      customerGender: freezed == customerGender
           ? _value.customerGender
           : customerGender // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      customerNationality: customerNationality == freezed
+      customerNationality: freezed == customerNationality
           ? _value.customerNationality
           : customerNationality // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      position: position == freezed
+      position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      recommended: recommended == freezed
+      recommended: freezed == recommended
           ? _value.recommended
           : recommended // ignore: cast_nullable_to_non_nullable
               as String?,
-      numberShare: numberShare == freezed
+      numberShare: freezed == numberShare
           ? _value.numberShare
           : numberShare // ignore: cast_nullable_to_non_nullable
               as int?,
-      expertise: expertise == freezed
+      expertise: freezed == expertise
           ? _value.expertise
           : expertise // ignore: cast_nullable_to_non_nullable
               as String?,
-      memberType: memberType == freezed
+      memberType: freezed == memberType
           ? _value.memberType
           : memberType // ignore: cast_nullable_to_non_nullable
               as String?,
-      yearJoined: yearJoined == freezed
+      yearJoined: freezed == yearJoined
           ? _value.yearJoined
           : yearJoined // ignore: cast_nullable_to_non_nullable
               as String?,
-      profileBiography: profileBiography == freezed
+      profileBiography: freezed == profileBiography
           ? _value.profileBiography
           : profileBiography // ignore: cast_nullable_to_non_nullable
               as String?,
-      about: about == freezed
+      about: freezed == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String?,
-      other: other == freezed
+      other: freezed == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerIdentityType: customerIdentityType == freezed
+      customerIdentityType: freezed == customerIdentityType
           ? _value.customerIdentityType
           : customerIdentityType // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
-      customerIdentityNumber: customerIdentityNumber == freezed
+      customerIdentityNumber: freezed == customerIdentityNumber
           ? _value.customerIdentityNumber
           : customerIdentityNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerIdentityDate: customerIdentityDate == freezed
+      customerIdentityDate: freezed == customerIdentityDate
           ? _value.customerIdentityDate
           : customerIdentityDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerIdentityExpiredDate: customerIdentityExpiredDate == freezed
+      customerIdentityExpiredDate: freezed == customerIdentityExpiredDate
           ? _value.customerIdentityExpiredDate
           : customerIdentityExpiredDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      currentAddress: currentAddress == freezed
+      currentAddress: freezed == currentAddress
           ? _value.currentAddress
           : currentAddress // ignore: cast_nullable_to_non_nullable
               as CurrentAddress?,
-      streetNo: streetNo == freezed
+      streetNo: freezed == streetNo
           ? _value.streetNo
           : streetNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      houseNo: houseNo == freezed
+      houseNo: freezed == houseNo
           ? _value.houseNo
           : houseNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      permanentAddress: permanentAddress == freezed
+      permanentAddress: freezed == permanentAddress
           ? _value.permanentAddress
           : permanentAddress // ignore: cast_nullable_to_non_nullable
               as CurrentAddress?,
-      permanentStreetNo: permanentStreetNo == freezed
+      permanentStreetNo: freezed == permanentStreetNo
           ? _value.permanentStreetNo
           : permanentStreetNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      permanentHouseNo: permanentHouseNo == freezed
+      permanentHouseNo: freezed == permanentHouseNo
           ? _value.permanentHouseNo
           : permanentHouseNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      phone: phone == freezed
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      whatapp: whatapp == freezed
+      whatapp: freezed == whatapp
           ? _value.whatapp
           : whatapp // ignore: cast_nullable_to_non_nullable
               as String?,
-      telegram: telegram == freezed
+      telegram: freezed == telegram
           ? _value.telegram
           : telegram // ignore: cast_nullable_to_non_nullable
               as String?,
-      messenger: messenger == freezed
+      messenger: freezed == messenger
           ? _value.messenger
           : messenger // ignore: cast_nullable_to_non_nullable
               as String?,
-      skype: skype == freezed
+      skype: freezed == skype
           ? _value.skype
           : skype // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
-      facebook: facebook == freezed
+      facebook: freezed == facebook
           ? _value.facebook
           : facebook // ignore: cast_nullable_to_non_nullable
               as String?,
-      linkedin: linkedin == freezed
+      linkedin: freezed == linkedin
           ? _value.linkedin
           : linkedin // ignore: cast_nullable_to_non_nullable
               as String?,
-      twitter: twitter == freezed
+      twitter: freezed == twitter
           ? _value.twitter
           : twitter // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyName: companyName == freezed
+      companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      location: location == freezed
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String?,
-      profile: profile == freezed
+      profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -841,122 +843,134 @@ class _$_PersonalProfile implements _PersonalProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PersonalProfile &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.display, display) &&
-            const DeepCollectionEquality()
-                .equals(other.customerName, customerName) &&
-            const DeepCollectionEquality()
-                .equals(other.customerLatinName, customerLatinName) &&
-            const DeepCollectionEquality()
-                .equals(other.customerDateOfBirth, customerDateOfBirth) &&
-            const DeepCollectionEquality()
-                .equals(other.customerGender, customerGender) &&
-            const DeepCollectionEquality()
-                .equals(other.customerNationality, customerNationality) &&
-            const DeepCollectionEquality().equals(other.position, position) &&
-            const DeepCollectionEquality()
-                .equals(other.recommended, recommended) &&
-            const DeepCollectionEquality()
-                .equals(other.numberShare, numberShare) &&
-            const DeepCollectionEquality().equals(other.expertise, expertise) &&
-            const DeepCollectionEquality()
-                .equals(other.memberType, memberType) &&
-            const DeepCollectionEquality()
-                .equals(other.yearJoined, yearJoined) &&
-            const DeepCollectionEquality()
-                .equals(other.profileBiography, profileBiography) &&
-            const DeepCollectionEquality().equals(other.about, about) &&
-            const DeepCollectionEquality().equals(other.other, this.other) &&
-            const DeepCollectionEquality()
-                .equals(other.customerIdentityType, customerIdentityType) &&
-            const DeepCollectionEquality()
-                .equals(other.customerIdentityNumber, customerIdentityNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.customerIdentityDate, customerIdentityDate) &&
-            const DeepCollectionEquality().equals(
-                other.customerIdentityExpiredDate,
-                customerIdentityExpiredDate) &&
-            const DeepCollectionEquality()
-                .equals(other.currentAddress, currentAddress) &&
-            const DeepCollectionEquality().equals(other.streetNo, streetNo) &&
-            const DeepCollectionEquality().equals(other.houseNo, houseNo) &&
-            const DeepCollectionEquality()
-                .equals(other.permanentAddress, permanentAddress) &&
-            const DeepCollectionEquality()
-                .equals(other.permanentStreetNo, permanentStreetNo) &&
-            const DeepCollectionEquality()
-                .equals(other.permanentHouseNo, permanentHouseNo) &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.whatapp, whatapp) &&
-            const DeepCollectionEquality().equals(other.telegram, telegram) &&
-            const DeepCollectionEquality().equals(other.messenger, messenger) &&
-            const DeepCollectionEquality().equals(other.skype, skype) &&
-            const DeepCollectionEquality().equals(other.website, website) &&
-            const DeepCollectionEquality().equals(other.facebook, facebook) &&
-            const DeepCollectionEquality().equals(other.linkedin, linkedin) &&
-            const DeepCollectionEquality().equals(other.twitter, twitter) &&
-            const DeepCollectionEquality()
-                .equals(other.companyName, companyName) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.location, location) &&
-            const DeepCollectionEquality().equals(other.profile, profile));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.display, display) || other.display == display) &&
+            (identical(other.customerName, customerName) ||
+                other.customerName == customerName) &&
+            (identical(other.customerLatinName, customerLatinName) ||
+                other.customerLatinName == customerLatinName) &&
+            (identical(other.customerDateOfBirth, customerDateOfBirth) ||
+                other.customerDateOfBirth == customerDateOfBirth) &&
+            (identical(other.customerGender, customerGender) ||
+                other.customerGender == customerGender) &&
+            (identical(other.customerNationality, customerNationality) ||
+                other.customerNationality == customerNationality) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
+            (identical(other.recommended, recommended) ||
+                other.recommended == recommended) &&
+            (identical(other.numberShare, numberShare) ||
+                other.numberShare == numberShare) &&
+            (identical(other.expertise, expertise) ||
+                other.expertise == expertise) &&
+            (identical(other.memberType, memberType) ||
+                other.memberType == memberType) &&
+            (identical(other.yearJoined, yearJoined) ||
+                other.yearJoined == yearJoined) &&
+            (identical(other.profileBiography, profileBiography) ||
+                other.profileBiography == profileBiography) &&
+            (identical(other.about, about) || other.about == about) &&
+            (identical(other.other, this.other) || other.other == this.other) &&
+            (identical(other.customerIdentityType, customerIdentityType) ||
+                other.customerIdentityType == customerIdentityType) &&
+            (identical(other.customerIdentityNumber, customerIdentityNumber) ||
+                other.customerIdentityNumber == customerIdentityNumber) &&
+            (identical(other.customerIdentityDate, customerIdentityDate) ||
+                other.customerIdentityDate == customerIdentityDate) &&
+            (identical(other.customerIdentityExpiredDate,
+                    customerIdentityExpiredDate) ||
+                other.customerIdentityExpiredDate ==
+                    customerIdentityExpiredDate) &&
+            (identical(other.currentAddress, currentAddress) ||
+                other.currentAddress == currentAddress) &&
+            (identical(other.streetNo, streetNo) ||
+                other.streetNo == streetNo) &&
+            (identical(other.houseNo, houseNo) || other.houseNo == houseNo) &&
+            (identical(other.permanentAddress, permanentAddress) ||
+                other.permanentAddress == permanentAddress) &&
+            (identical(other.permanentStreetNo, permanentStreetNo) ||
+                other.permanentStreetNo == permanentStreetNo) &&
+            (identical(other.permanentHouseNo, permanentHouseNo) ||
+                other.permanentHouseNo == permanentHouseNo) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.whatapp, whatapp) || other.whatapp == whatapp) &&
+            (identical(other.telegram, telegram) ||
+                other.telegram == telegram) &&
+            (identical(other.messenger, messenger) ||
+                other.messenger == messenger) &&
+            (identical(other.skype, skype) || other.skype == skype) &&
+            (identical(other.website, website) || other.website == website) &&
+            (identical(other.facebook, facebook) ||
+                other.facebook == facebook) &&
+            (identical(other.linkedin, linkedin) ||
+                other.linkedin == linkedin) &&
+            (identical(other.twitter, twitter) || other.twitter == twitter) &&
+            (identical(other.companyName, companyName) ||
+                other.companyName == companyName) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.profile, profile) || other.profile == profile));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        const DeepCollectionEquality().hash(id),
-        const DeepCollectionEquality().hash(display),
-        const DeepCollectionEquality().hash(customerName),
-        const DeepCollectionEquality().hash(customerLatinName),
-        const DeepCollectionEquality().hash(customerDateOfBirth),
-        const DeepCollectionEquality().hash(customerGender),
-        const DeepCollectionEquality().hash(customerNationality),
-        const DeepCollectionEquality().hash(position),
-        const DeepCollectionEquality().hash(recommended),
-        const DeepCollectionEquality().hash(numberShare),
-        const DeepCollectionEquality().hash(expertise),
-        const DeepCollectionEquality().hash(memberType),
-        const DeepCollectionEquality().hash(yearJoined),
-        const DeepCollectionEquality().hash(profileBiography),
-        const DeepCollectionEquality().hash(about),
-        const DeepCollectionEquality().hash(other),
-        const DeepCollectionEquality().hash(customerIdentityType),
-        const DeepCollectionEquality().hash(customerIdentityNumber),
-        const DeepCollectionEquality().hash(customerIdentityDate),
-        const DeepCollectionEquality().hash(customerIdentityExpiredDate),
-        const DeepCollectionEquality().hash(currentAddress),
-        const DeepCollectionEquality().hash(streetNo),
-        const DeepCollectionEquality().hash(houseNo),
-        const DeepCollectionEquality().hash(permanentAddress),
-        const DeepCollectionEquality().hash(permanentStreetNo),
-        const DeepCollectionEquality().hash(permanentHouseNo),
-        const DeepCollectionEquality().hash(phone),
-        const DeepCollectionEquality().hash(email),
-        const DeepCollectionEquality().hash(whatapp),
-        const DeepCollectionEquality().hash(telegram),
-        const DeepCollectionEquality().hash(messenger),
-        const DeepCollectionEquality().hash(skype),
-        const DeepCollectionEquality().hash(website),
-        const DeepCollectionEquality().hash(facebook),
-        const DeepCollectionEquality().hash(linkedin),
-        const DeepCollectionEquality().hash(twitter),
-        const DeepCollectionEquality().hash(companyName),
-        const DeepCollectionEquality().hash(title),
-        const DeepCollectionEquality().hash(location),
-        const DeepCollectionEquality().hash(profile)
+        id,
+        display,
+        customerName,
+        customerLatinName,
+        customerDateOfBirth,
+        customerGender,
+        customerNationality,
+        position,
+        recommended,
+        numberShare,
+        expertise,
+        memberType,
+        yearJoined,
+        profileBiography,
+        about,
+        other,
+        customerIdentityType,
+        customerIdentityNumber,
+        customerIdentityDate,
+        customerIdentityExpiredDate,
+        currentAddress,
+        streetNo,
+        houseNo,
+        permanentAddress,
+        permanentStreetNo,
+        permanentHouseNo,
+        phone,
+        email,
+        whatapp,
+        telegram,
+        messenger,
+        skype,
+        website,
+        facebook,
+        linkedin,
+        twitter,
+        companyName,
+        title,
+        location,
+        profile
       ]);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PersonalProfileCopyWith<_$_PersonalProfile> get copyWith =>
       __$$_PersonalProfileCopyWithImpl<_$_PersonalProfile>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PersonalProfileToJson(this);
+    return _$$_PersonalProfileToJson(
+      this,
+    );
   }
 }
 
@@ -1027,106 +1041,105 @@ abstract class _PersonalProfile implements PersonalProfile {
       _$_PersonalProfile.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get display => throw _privateConstructorUsedError;
+  String? get display;
   @override
   @JsonKey(name: 'customer_name')
-  String? get customerName => throw _privateConstructorUsedError;
+  String? get customerName;
   @override
   @JsonKey(name: 'customer_latin_name')
-  String? get customerLatinName => throw _privateConstructorUsedError;
+  String? get customerLatinName;
   @override
   @JsonKey(name: 'customer_date_of_birth')
-  String? get customerDateOfBirth => throw _privateConstructorUsedError;
+  String? get customerDateOfBirth;
   @override
   @JsonKey(name: 'customer_gender')
-  CustomerGender? get customerGender => throw _privateConstructorUsedError;
+  CustomerGender? get customerGender;
   @override
   @JsonKey(name: 'customer_nationality')
-  CustomerGender? get customerNationality => throw _privateConstructorUsedError;
+  CustomerGender? get customerNationality;
   @override
-  CustomerGender? get position => throw _privateConstructorUsedError;
+  CustomerGender? get position;
   @override
-  String? get recommended => throw _privateConstructorUsedError;
+  String? get recommended;
   @override
   @JsonKey(name: 'number_share')
-  int? get numberShare => throw _privateConstructorUsedError;
+  int? get numberShare;
   @override
-  String? get expertise => throw _privateConstructorUsedError;
+  String? get expertise;
   @override
   @JsonKey(name: 'member_type')
-  String? get memberType => throw _privateConstructorUsedError;
+  String? get memberType;
   @override
   @JsonKey(name: 'year_joined')
-  String? get yearJoined => throw _privateConstructorUsedError;
+  String? get yearJoined;
   @override
   @JsonKey(name: 'profile_biography')
-  String? get profileBiography => throw _privateConstructorUsedError;
+  String? get profileBiography;
   @override
-  String? get about => throw _privateConstructorUsedError;
+  String? get about;
   @override
-  String? get other => throw _privateConstructorUsedError;
+  String? get other;
   @override
   @JsonKey(name: 'customer_identity_type')
-  CustomerGender? get customerIdentityType =>
-      throw _privateConstructorUsedError;
+  CustomerGender? get customerIdentityType;
   @override
   @JsonKey(name: 'customer_identity_number')
-  String? get customerIdentityNumber => throw _privateConstructorUsedError;
+  String? get customerIdentityNumber;
   @override
   @JsonKey(name: 'customer_identity_date')
-  String? get customerIdentityDate => throw _privateConstructorUsedError;
+  String? get customerIdentityDate;
   @override
   @JsonKey(name: 'customer_identity_expired_date')
-  String? get customerIdentityExpiredDate => throw _privateConstructorUsedError;
+  String? get customerIdentityExpiredDate;
   @override
   @JsonKey(name: 'current_address')
-  CurrentAddress? get currentAddress => throw _privateConstructorUsedError;
+  CurrentAddress? get currentAddress;
   @override
   @JsonKey(name: 'street_no')
-  String? get streetNo => throw _privateConstructorUsedError;
+  String? get streetNo;
   @override
   @JsonKey(name: 'house_no')
-  String? get houseNo => throw _privateConstructorUsedError;
+  String? get houseNo;
   @override
   @JsonKey(name: 'permanent_address')
-  CurrentAddress? get permanentAddress => throw _privateConstructorUsedError;
+  CurrentAddress? get permanentAddress;
   @override
   @JsonKey(name: 'permanent_street_no')
-  String? get permanentStreetNo => throw _privateConstructorUsedError;
+  String? get permanentStreetNo;
   @override
   @JsonKey(name: 'permanent_house_no')
-  String? get permanentHouseNo => throw _privateConstructorUsedError;
+  String? get permanentHouseNo;
   @override
-  String? get phone => throw _privateConstructorUsedError;
+  String? get phone;
   @override
-  String? get email => throw _privateConstructorUsedError;
+  String? get email;
   @override
-  String? get whatapp => throw _privateConstructorUsedError;
+  String? get whatapp;
   @override
-  String? get telegram => throw _privateConstructorUsedError;
+  String? get telegram;
   @override
-  String? get messenger => throw _privateConstructorUsedError;
+  String? get messenger;
   @override
-  String? get skype => throw _privateConstructorUsedError;
+  String? get skype;
   @override
-  String? get website => throw _privateConstructorUsedError;
+  String? get website;
   @override
-  String? get facebook => throw _privateConstructorUsedError;
+  String? get facebook;
   @override
-  String? get linkedin => throw _privateConstructorUsedError;
+  String? get linkedin;
   @override
-  String? get twitter => throw _privateConstructorUsedError;
+  String? get twitter;
   @override
   @JsonKey(name: 'company_name')
-  String? get companyName => throw _privateConstructorUsedError;
+  String? get companyName;
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
-  String? get location => throw _privateConstructorUsedError;
+  String? get location;
   @override
-  String? get profile => throw _privateConstructorUsedError;
+  String? get profile;
   @override
   @JsonKey(ignore: true)
   _$$_PersonalProfileCopyWith<_$_PersonalProfile> get copyWith =>

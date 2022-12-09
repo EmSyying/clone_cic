@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'wallet_data_model.dart';
 
@@ -33,7 +33,8 @@ mixin _$WalletDataModel {
 abstract class $WalletDataModelCopyWith<$Res> {
   factory $WalletDataModelCopyWith(
           WalletDataModel value, $Res Function(WalletDataModel) then) =
-      _$WalletDataModelCopyWithImpl<$Res>;
+      _$WalletDataModelCopyWithImpl<$Res, WalletDataModel>;
+  @useResult
   $Res call({WalletAmountModel? wallet, InvesterModel? invester});
 
   $WalletAmountModelCopyWith<$Res>? get wallet;
@@ -41,50 +42,54 @@ abstract class $WalletDataModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$WalletDataModelCopyWithImpl<$Res>
+class _$WalletDataModelCopyWithImpl<$Res, $Val extends WalletDataModel>
     implements $WalletDataModelCopyWith<$Res> {
   _$WalletDataModelCopyWithImpl(this._value, this._then);
 
-  final WalletDataModel _value;
   // ignore: unused_field
-  final $Res Function(WalletDataModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? wallet = freezed,
     Object? invester = freezed,
   }) {
     return _then(_value.copyWith(
-      wallet: wallet == freezed
+      wallet: freezed == wallet
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
               as WalletAmountModel?,
-      invester: invester == freezed
+      invester: freezed == invester
           ? _value.invester
           : invester // ignore: cast_nullable_to_non_nullable
               as InvesterModel?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $WalletAmountModelCopyWith<$Res>? get wallet {
     if (_value.wallet == null) {
       return null;
     }
 
     return $WalletAmountModelCopyWith<$Res>(_value.wallet!, (value) {
-      return _then(_value.copyWith(wallet: value));
+      return _then(_value.copyWith(wallet: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $InvesterModelCopyWith<$Res>? get invester {
     if (_value.invester == null) {
       return null;
     }
 
     return $InvesterModelCopyWith<$Res>(_value.invester!, (value) {
-      return _then(_value.copyWith(invester: value));
+      return _then(_value.copyWith(invester: value) as $Val);
     });
   }
 }
@@ -96,6 +101,7 @@ abstract class _$$_WalletDataModelCopyWith<$Res>
           _$_WalletDataModel value, $Res Function(_$_WalletDataModel) then) =
       __$$_WalletDataModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({WalletAmountModel? wallet, InvesterModel? invester});
 
   @override
@@ -106,26 +112,24 @@ abstract class _$$_WalletDataModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_WalletDataModelCopyWithImpl<$Res>
-    extends _$WalletDataModelCopyWithImpl<$Res>
+    extends _$WalletDataModelCopyWithImpl<$Res, _$_WalletDataModel>
     implements _$$_WalletDataModelCopyWith<$Res> {
   __$$_WalletDataModelCopyWithImpl(
       _$_WalletDataModel _value, $Res Function(_$_WalletDataModel) _then)
-      : super(_value, (v) => _then(v as _$_WalletDataModel));
+      : super(_value, _then);
 
-  @override
-  _$_WalletDataModel get _value => super._value as _$_WalletDataModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? wallet = freezed,
     Object? invester = freezed,
   }) {
     return _then(_$_WalletDataModel(
-      wallet: wallet == freezed
+      wallet: freezed == wallet
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
               as WalletAmountModel?,
-      invester: invester == freezed
+      invester: freezed == invester
           ? _value.invester
           : invester // ignore: cast_nullable_to_non_nullable
               as InvesterModel?,
@@ -156,25 +160,26 @@ class _$_WalletDataModel implements _WalletDataModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WalletDataModel &&
-            const DeepCollectionEquality().equals(other.wallet, wallet) &&
-            const DeepCollectionEquality().equals(other.invester, invester));
+            (identical(other.wallet, wallet) || other.wallet == wallet) &&
+            (identical(other.invester, invester) ||
+                other.invester == invester));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(wallet),
-      const DeepCollectionEquality().hash(invester));
+  int get hashCode => Object.hash(runtimeType, wallet, invester);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_WalletDataModelCopyWith<_$_WalletDataModel> get copyWith =>
       __$$_WalletDataModelCopyWithImpl<_$_WalletDataModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WalletDataModelToJson(this);
+    return _$$_WalletDataModelToJson(
+      this,
+    );
   }
 }
 
@@ -187,9 +192,9 @@ abstract class _WalletDataModel implements WalletDataModel {
       _$_WalletDataModel.fromJson;
 
   @override
-  WalletAmountModel? get wallet => throw _privateConstructorUsedError;
+  WalletAmountModel? get wallet;
   @override
-  InvesterModel? get invester => throw _privateConstructorUsedError;
+  InvesterModel? get invester;
   @override
   @JsonKey(ignore: true)
   _$$_WalletDataModelCopyWith<_$_WalletDataModel> get copyWith =>

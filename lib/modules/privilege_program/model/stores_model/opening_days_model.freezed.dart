@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'opening_days_model.dart';
 
@@ -37,7 +37,8 @@ mixin _$OpeningDaysModel {
 abstract class $OpeningDaysModelCopyWith<$Res> {
   factory $OpeningDaysModelCopyWith(
           OpeningDaysModel value, $Res Function(OpeningDaysModel) then) =
-      _$OpeningDaysModelCopyWithImpl<$Res>;
+      _$OpeningDaysModelCopyWithImpl<$Res, OpeningDaysModel>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'day_name') String? dayName,
       @JsonKey(name: 'shift_a_hours') String? shiftAHours,
@@ -45,14 +46,16 @@ abstract class $OpeningDaysModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$OpeningDaysModelCopyWithImpl<$Res>
+class _$OpeningDaysModelCopyWithImpl<$Res, $Val extends OpeningDaysModel>
     implements $OpeningDaysModelCopyWith<$Res> {
   _$OpeningDaysModelCopyWithImpl(this._value, this._then);
 
-  final OpeningDaysModel _value;
   // ignore: unused_field
-  final $Res Function(OpeningDaysModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dayName = freezed,
@@ -60,19 +63,19 @@ class _$OpeningDaysModelCopyWithImpl<$Res>
     Object? shiftBHours = freezed,
   }) {
     return _then(_value.copyWith(
-      dayName: dayName == freezed
+      dayName: freezed == dayName
           ? _value.dayName
           : dayName // ignore: cast_nullable_to_non_nullable
               as String?,
-      shiftAHours: shiftAHours == freezed
+      shiftAHours: freezed == shiftAHours
           ? _value.shiftAHours
           : shiftAHours // ignore: cast_nullable_to_non_nullable
               as String?,
-      shiftBHours: shiftBHours == freezed
+      shiftBHours: freezed == shiftBHours
           ? _value.shiftBHours
           : shiftBHours // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +86,7 @@ abstract class _$$_OpeningDaysModelCopyWith<$Res>
           _$_OpeningDaysModel value, $Res Function(_$_OpeningDaysModel) then) =
       __$$_OpeningDaysModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'day_name') String? dayName,
       @JsonKey(name: 'shift_a_hours') String? shiftAHours,
@@ -91,15 +95,13 @@ abstract class _$$_OpeningDaysModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_OpeningDaysModelCopyWithImpl<$Res>
-    extends _$OpeningDaysModelCopyWithImpl<$Res>
+    extends _$OpeningDaysModelCopyWithImpl<$Res, _$_OpeningDaysModel>
     implements _$$_OpeningDaysModelCopyWith<$Res> {
   __$$_OpeningDaysModelCopyWithImpl(
       _$_OpeningDaysModel _value, $Res Function(_$_OpeningDaysModel) _then)
-      : super(_value, (v) => _then(v as _$_OpeningDaysModel));
+      : super(_value, _then);
 
-  @override
-  _$_OpeningDaysModel get _value => super._value as _$_OpeningDaysModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dayName = freezed,
@@ -107,15 +109,15 @@ class __$$_OpeningDaysModelCopyWithImpl<$Res>
     Object? shiftBHours = freezed,
   }) {
     return _then(_$_OpeningDaysModel(
-      dayName: dayName == freezed
+      dayName: freezed == dayName
           ? _value.dayName
           : dayName // ignore: cast_nullable_to_non_nullable
               as String?,
-      shiftAHours: shiftAHours == freezed
+      shiftAHours: freezed == shiftAHours
           ? _value.shiftAHours
           : shiftAHours // ignore: cast_nullable_to_non_nullable
               as String?,
-      shiftBHours: shiftBHours == freezed
+      shiftBHours: freezed == shiftBHours
           ? _value.shiftBHours
           : shiftBHours // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -154,29 +156,29 @@ class _$_OpeningDaysModel implements _OpeningDaysModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpeningDaysModel &&
-            const DeepCollectionEquality().equals(other.dayName, dayName) &&
-            const DeepCollectionEquality()
-                .equals(other.shiftAHours, shiftAHours) &&
-            const DeepCollectionEquality()
-                .equals(other.shiftBHours, shiftBHours));
+            (identical(other.dayName, dayName) || other.dayName == dayName) &&
+            (identical(other.shiftAHours, shiftAHours) ||
+                other.shiftAHours == shiftAHours) &&
+            (identical(other.shiftBHours, shiftBHours) ||
+                other.shiftBHours == shiftBHours));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(dayName),
-      const DeepCollectionEquality().hash(shiftAHours),
-      const DeepCollectionEquality().hash(shiftBHours));
+  int get hashCode =>
+      Object.hash(runtimeType, dayName, shiftAHours, shiftBHours);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OpeningDaysModelCopyWith<_$_OpeningDaysModel> get copyWith =>
       __$$_OpeningDaysModelCopyWithImpl<_$_OpeningDaysModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OpeningDaysModelToJson(this);
+    return _$$_OpeningDaysModelToJson(
+      this,
+    );
   }
 }
 
@@ -192,13 +194,13 @@ abstract class _OpeningDaysModel implements OpeningDaysModel {
 
   @override
   @JsonKey(name: 'day_name')
-  String? get dayName => throw _privateConstructorUsedError;
+  String? get dayName;
   @override
   @JsonKey(name: 'shift_a_hours')
-  String? get shiftAHours => throw _privateConstructorUsedError;
+  String? get shiftAHours;
   @override
   @JsonKey(name: 'shift_b_hours')
-  String? get shiftBHours => throw _privateConstructorUsedError;
+  String? get shiftBHours;
   @override
   @JsonKey(ignore: true)
   _$$_OpeningDaysModelCopyWith<_$_OpeningDaysModel> get copyWith =>

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'categories_report_model.dart';
 
@@ -37,7 +37,8 @@ mixin _$CategorieReportModel {
 abstract class $CategorieReportModelCopyWith<$Res> {
   factory $CategorieReportModelCopyWith(CategorieReportModel value,
           $Res Function(CategorieReportModel) then) =
-      _$CategorieReportModelCopyWithImpl<$Res>;
+      _$CategorieReportModelCopyWithImpl<$Res, CategorieReportModel>;
+  @useResult
   $Res call(
       {int? id,
       String? category,
@@ -47,14 +48,17 @@ abstract class $CategorieReportModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CategorieReportModelCopyWithImpl<$Res>
+class _$CategorieReportModelCopyWithImpl<$Res,
+        $Val extends CategorieReportModel>
     implements $CategorieReportModelCopyWith<$Res> {
   _$CategorieReportModelCopyWithImpl(this._value, this._then);
 
-  final CategorieReportModel _value;
   // ignore: unused_field
-  final $Res Function(CategorieReportModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -64,27 +68,27 @@ class _$CategorieReportModelCopyWithImpl<$Res>
     Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      category: category == freezed
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String?,
-      reportCount: reportCount == freezed
+      reportCount: freezed == reportCount
           ? _value.reportCount
           : reportCount // ignore: cast_nullable_to_non_nullable
               as int?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      icon: icon == freezed
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -95,6 +99,7 @@ abstract class _$$_CategorieReportModelCopyWith<$Res>
           $Res Function(_$_CategorieReportModel) then) =
       __$$_CategorieReportModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       String? category,
@@ -105,15 +110,13 @@ abstract class _$$_CategorieReportModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_CategorieReportModelCopyWithImpl<$Res>
-    extends _$CategorieReportModelCopyWithImpl<$Res>
+    extends _$CategorieReportModelCopyWithImpl<$Res, _$_CategorieReportModel>
     implements _$$_CategorieReportModelCopyWith<$Res> {
   __$$_CategorieReportModelCopyWithImpl(_$_CategorieReportModel _value,
       $Res Function(_$_CategorieReportModel) _then)
-      : super(_value, (v) => _then(v as _$_CategorieReportModel));
+      : super(_value, _then);
 
-  @override
-  _$_CategorieReportModel get _value => super._value as _$_CategorieReportModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -123,23 +126,23 @@ class __$$_CategorieReportModelCopyWithImpl<$Res>
     Object? icon = freezed,
   }) {
     return _then(_$_CategorieReportModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      category: category == freezed
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String?,
-      reportCount: reportCount == freezed
+      reportCount: freezed == reportCount
           ? _value.reportCount
           : reportCount // ignore: cast_nullable_to_non_nullable
               as int?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      icon: icon == freezed
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -182,33 +185,32 @@ class _$_CategorieReportModel implements _CategorieReportModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CategorieReportModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.category, category) &&
-            const DeepCollectionEquality()
-                .equals(other.reportCount, reportCount) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality().equals(other.icon, icon));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.reportCount, reportCount) ||
+                other.reportCount == reportCount) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.icon, icon) || other.icon == icon));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(category),
-      const DeepCollectionEquality().hash(reportCount),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(icon));
+  int get hashCode =>
+      Object.hash(runtimeType, id, category, reportCount, color, icon);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CategorieReportModelCopyWith<_$_CategorieReportModel> get copyWith =>
       __$$_CategorieReportModelCopyWithImpl<_$_CategorieReportModel>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CategorieReportModelToJson(this);
+    return _$$_CategorieReportModelToJson(
+      this,
+    );
   }
 }
 
@@ -224,16 +226,16 @@ abstract class _CategorieReportModel implements CategorieReportModel {
       _$_CategorieReportModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get category => throw _privateConstructorUsedError;
+  String? get category;
   @override
   @JsonKey(name: 'report_count')
-  int? get reportCount => throw _privateConstructorUsedError;
+  int? get reportCount;
   @override
-  String? get color => throw _privateConstructorUsedError;
+  String? get color;
   @override
-  String? get icon => throw _privateConstructorUsedError;
+  String? get icon;
   @override
   @JsonKey(ignore: true)
   _$$_CategorieReportModelCopyWith<_$_CategorieReportModel> get copyWith =>

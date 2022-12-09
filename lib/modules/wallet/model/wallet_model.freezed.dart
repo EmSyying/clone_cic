@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'wallet_model.dart';
 
@@ -37,7 +37,8 @@ mixin _$WalletAmountModel {
 abstract class $WalletAmountModelCopyWith<$Res> {
   factory $WalletAmountModelCopyWith(
           WalletAmountModel value, $Res Function(WalletAmountModel) then) =
-      _$WalletAmountModelCopyWithImpl<$Res>;
+      _$WalletAmountModelCopyWithImpl<$Res, WalletAmountModel>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'balance') num? balance,
       @JsonKey(name: 'balance_format') String? balanceFormat,
@@ -45,14 +46,16 @@ abstract class $WalletAmountModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$WalletAmountModelCopyWithImpl<$Res>
+class _$WalletAmountModelCopyWithImpl<$Res, $Val extends WalletAmountModel>
     implements $WalletAmountModelCopyWith<$Res> {
   _$WalletAmountModelCopyWithImpl(this._value, this._then);
 
-  final WalletAmountModel _value;
   // ignore: unused_field
-  final $Res Function(WalletAmountModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? balance = freezed,
@@ -60,19 +63,19 @@ class _$WalletAmountModelCopyWithImpl<$Res>
     Object? accountNumber = freezed,
   }) {
     return _then(_value.copyWith(
-      balance: balance == freezed
+      balance: freezed == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as num?,
-      balanceFormat: balanceFormat == freezed
+      balanceFormat: freezed == balanceFormat
           ? _value.balanceFormat
           : balanceFormat // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountNumber: accountNumber == freezed
+      accountNumber: freezed == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +86,7 @@ abstract class _$$_WalletAmountModelCopyWith<$Res>
           $Res Function(_$_WalletAmountModel) then) =
       __$$_WalletAmountModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'balance') num? balance,
       @JsonKey(name: 'balance_format') String? balanceFormat,
@@ -91,15 +95,13 @@ abstract class _$$_WalletAmountModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_WalletAmountModelCopyWithImpl<$Res>
-    extends _$WalletAmountModelCopyWithImpl<$Res>
+    extends _$WalletAmountModelCopyWithImpl<$Res, _$_WalletAmountModel>
     implements _$$_WalletAmountModelCopyWith<$Res> {
   __$$_WalletAmountModelCopyWithImpl(
       _$_WalletAmountModel _value, $Res Function(_$_WalletAmountModel) _then)
-      : super(_value, (v) => _then(v as _$_WalletAmountModel));
+      : super(_value, _then);
 
-  @override
-  _$_WalletAmountModel get _value => super._value as _$_WalletAmountModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? balance = freezed,
@@ -107,15 +109,15 @@ class __$$_WalletAmountModelCopyWithImpl<$Res>
     Object? accountNumber = freezed,
   }) {
     return _then(_$_WalletAmountModel(
-      balance: balance == freezed
+      balance: freezed == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as num?,
-      balanceFormat: balanceFormat == freezed
+      balanceFormat: freezed == balanceFormat
           ? _value.balanceFormat
           : balanceFormat // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountNumber: accountNumber == freezed
+      accountNumber: freezed == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -154,30 +156,30 @@ class _$_WalletAmountModel implements _WalletAmountModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WalletAmountModel &&
-            const DeepCollectionEquality().equals(other.balance, balance) &&
-            const DeepCollectionEquality()
-                .equals(other.balanceFormat, balanceFormat) &&
-            const DeepCollectionEquality()
-                .equals(other.accountNumber, accountNumber));
+            (identical(other.balance, balance) || other.balance == balance) &&
+            (identical(other.balanceFormat, balanceFormat) ||
+                other.balanceFormat == balanceFormat) &&
+            (identical(other.accountNumber, accountNumber) ||
+                other.accountNumber == accountNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(balance),
-      const DeepCollectionEquality().hash(balanceFormat),
-      const DeepCollectionEquality().hash(accountNumber));
+  int get hashCode =>
+      Object.hash(runtimeType, balance, balanceFormat, accountNumber);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_WalletAmountModelCopyWith<_$_WalletAmountModel> get copyWith =>
       __$$_WalletAmountModelCopyWithImpl<_$_WalletAmountModel>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WalletAmountModelToJson(this);
+    return _$$_WalletAmountModelToJson(
+      this,
+    );
   }
 }
 
@@ -193,13 +195,13 @@ abstract class _WalletAmountModel implements WalletAmountModel {
 
   @override
   @JsonKey(name: 'balance')
-  num? get balance => throw _privateConstructorUsedError;
+  num? get balance;
   @override
   @JsonKey(name: 'balance_format')
-  String? get balanceFormat => throw _privateConstructorUsedError;
+  String? get balanceFormat;
   @override
   @JsonKey(name: 'account_number')
-  String? get accountNumber => throw _privateConstructorUsedError;
+  String? get accountNumber;
   @override
   @JsonKey(ignore: true)
   _$$_WalletAmountModelCopyWith<_$_WalletAmountModel> get copyWith =>

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'principal_history.dart';
 
@@ -38,7 +38,8 @@ mixin _$PrincipalHistory {
 abstract class $PrincipalHistoryCopyWith<$Res> {
   factory $PrincipalHistoryCopyWith(
           PrincipalHistory value, $Res Function(PrincipalHistory) then) =
-      _$PrincipalHistoryCopyWithImpl<$Res>;
+      _$PrincipalHistoryCopyWithImpl<$Res, PrincipalHistory>;
+  @useResult
   $Res call(
       {String? type,
       String? label,
@@ -48,14 +49,16 @@ abstract class $PrincipalHistoryCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PrincipalHistoryCopyWithImpl<$Res>
+class _$PrincipalHistoryCopyWithImpl<$Res, $Val extends PrincipalHistory>
     implements $PrincipalHistoryCopyWith<$Res> {
   _$PrincipalHistoryCopyWithImpl(this._value, this._then);
 
-  final PrincipalHistory _value;
   // ignore: unused_field
-  final $Res Function(PrincipalHistory) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = freezed,
@@ -65,27 +68,27 @@ class _$PrincipalHistoryCopyWithImpl<$Res>
     Object? investmentAmount = freezed,
   }) {
     return _then(_value.copyWith(
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      label: label == freezed
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      colorCode: colorCode == freezed
+      colorCode: freezed == colorCode
           ? _value.colorCode
           : colorCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -96,6 +99,7 @@ abstract class _$$_PrincipalHistoryCopyWith<$Res>
           _$_PrincipalHistory value, $Res Function(_$_PrincipalHistory) then) =
       __$$_PrincipalHistoryCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? type,
       String? label,
@@ -106,15 +110,13 @@ abstract class _$$_PrincipalHistoryCopyWith<$Res>
 
 /// @nodoc
 class __$$_PrincipalHistoryCopyWithImpl<$Res>
-    extends _$PrincipalHistoryCopyWithImpl<$Res>
+    extends _$PrincipalHistoryCopyWithImpl<$Res, _$_PrincipalHistory>
     implements _$$_PrincipalHistoryCopyWith<$Res> {
   __$$_PrincipalHistoryCopyWithImpl(
       _$_PrincipalHistory _value, $Res Function(_$_PrincipalHistory) _then)
-      : super(_value, (v) => _then(v as _$_PrincipalHistory));
+      : super(_value, _then);
 
-  @override
-  _$_PrincipalHistory get _value => super._value as _$_PrincipalHistory;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = freezed,
@@ -124,23 +126,23 @@ class __$$_PrincipalHistoryCopyWithImpl<$Res>
     Object? investmentAmount = freezed,
   }) {
     return _then(_$_PrincipalHistory(
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      label: label == freezed
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      colorCode: colorCode == freezed
+      colorCode: freezed == colorCode
           ? _value.colorCode
           : colorCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -184,32 +186,31 @@ class _$_PrincipalHistory implements _PrincipalHistory {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PrincipalHistory &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.label, label) &&
-            const DeepCollectionEquality().equals(other.date, date) &&
-            const DeepCollectionEquality().equals(other.colorCode, colorCode) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentAmount, investmentAmount));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.colorCode, colorCode) ||
+                other.colorCode == colorCode) &&
+            (identical(other.investmentAmount, investmentAmount) ||
+                other.investmentAmount == investmentAmount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(label),
-      const DeepCollectionEquality().hash(date),
-      const DeepCollectionEquality().hash(colorCode),
-      const DeepCollectionEquality().hash(investmentAmount));
+  int get hashCode =>
+      Object.hash(runtimeType, type, label, date, colorCode, investmentAmount);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PrincipalHistoryCopyWith<_$_PrincipalHistory> get copyWith =>
       __$$_PrincipalHistoryCopyWithImpl<_$_PrincipalHistory>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PrincipalHistoryToJson(this);
+    return _$$_PrincipalHistoryToJson(
+      this,
+    );
   }
 }
 
@@ -226,17 +227,17 @@ abstract class _PrincipalHistory implements PrincipalHistory {
       _$_PrincipalHistory.fromJson;
 
   @override
-  String? get type => throw _privateConstructorUsedError;
+  String? get type;
   @override
-  String? get label => throw _privateConstructorUsedError;
+  String? get label;
   @override
-  String? get date => throw _privateConstructorUsedError;
+  String? get date;
   @override
   @JsonKey(name: 'color_code')
-  String? get colorCode => throw _privateConstructorUsedError;
+  String? get colorCode;
   @override
   @JsonKey(name: 'investment_amount')
-  String? get investmentAmount => throw _privateConstructorUsedError;
+  String? get investmentAmount;
   @override
   @JsonKey(ignore: true)
   _$$_PrincipalHistoryCopyWith<_$_PrincipalHistory> get copyWith =>

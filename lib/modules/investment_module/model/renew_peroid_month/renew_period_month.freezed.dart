@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'renew_period_month.dart';
 
@@ -32,29 +32,32 @@ mixin _$RenewPeroidMonth {
 abstract class $RenewPeroidMonthCopyWith<$Res> {
   factory $RenewPeroidMonthCopyWith(
           RenewPeroidMonth value, $Res Function(RenewPeroidMonth) then) =
-      _$RenewPeroidMonthCopyWithImpl<$Res>;
+      _$RenewPeroidMonthCopyWithImpl<$Res, RenewPeroidMonth>;
+  @useResult
   $Res call({List<String>? renewPeriodList});
 }
 
 /// @nodoc
-class _$RenewPeroidMonthCopyWithImpl<$Res>
+class _$RenewPeroidMonthCopyWithImpl<$Res, $Val extends RenewPeroidMonth>
     implements $RenewPeroidMonthCopyWith<$Res> {
   _$RenewPeroidMonthCopyWithImpl(this._value, this._then);
 
-  final RenewPeroidMonth _value;
   // ignore: unused_field
-  final $Res Function(RenewPeroidMonth) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? renewPeriodList = freezed,
   }) {
     return _then(_value.copyWith(
-      renewPeriodList: renewPeriodList == freezed
+      renewPeriodList: freezed == renewPeriodList
           ? _value.renewPeriodList
           : renewPeriodList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +68,25 @@ abstract class _$$_RenewPeroidMonthCopyWith<$Res>
           _$_RenewPeroidMonth value, $Res Function(_$_RenewPeroidMonth) then) =
       __$$_RenewPeroidMonthCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<String>? renewPeriodList});
 }
 
 /// @nodoc
 class __$$_RenewPeroidMonthCopyWithImpl<$Res>
-    extends _$RenewPeroidMonthCopyWithImpl<$Res>
+    extends _$RenewPeroidMonthCopyWithImpl<$Res, _$_RenewPeroidMonth>
     implements _$$_RenewPeroidMonthCopyWith<$Res> {
   __$$_RenewPeroidMonthCopyWithImpl(
       _$_RenewPeroidMonth _value, $Res Function(_$_RenewPeroidMonth) _then)
-      : super(_value, (v) => _then(v as _$_RenewPeroidMonth));
+      : super(_value, _then);
 
-  @override
-  _$_RenewPeroidMonth get _value => super._value as _$_RenewPeroidMonth;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? renewPeriodList = freezed,
   }) {
     return _then(_$_RenewPeroidMonth(
-      renewPeriodList: renewPeriodList == freezed
+      renewPeriodList: freezed == renewPeriodList
           ? _value._renewPeriodList
           : renewPeriodList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
@@ -106,6 +108,7 @@ class _$_RenewPeroidMonth implements _RenewPeroidMonth {
   List<String>? get renewPeriodList {
     final value = _renewPeriodList;
     if (value == null) return null;
+    if (_renewPeriodList is EqualUnmodifiableListView) return _renewPeriodList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -131,12 +134,15 @@ class _$_RenewPeroidMonth implements _RenewPeroidMonth {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RenewPeroidMonthCopyWith<_$_RenewPeroidMonth> get copyWith =>
       __$$_RenewPeroidMonthCopyWithImpl<_$_RenewPeroidMonth>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RenewPeroidMonthToJson(this);
+    return _$$_RenewPeroidMonthToJson(
+      this,
+    );
   }
 }
 
@@ -148,7 +154,7 @@ abstract class _RenewPeroidMonth implements RenewPeroidMonth {
       _$_RenewPeroidMonth.fromJson;
 
   @override
-  List<String>? get renewPeriodList => throw _privateConstructorUsedError;
+  List<String>? get renewPeriodList;
   @override
   @JsonKey(ignore: true)
   _$$_RenewPeroidMonthCopyWith<_$_RenewPeroidMonth> get copyWith =>

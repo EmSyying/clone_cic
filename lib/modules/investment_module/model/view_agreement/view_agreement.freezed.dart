@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'view_agreement.dart';
 
@@ -37,7 +37,8 @@ mixin _$ViewAgreement {
 abstract class $ViewAgreementCopyWith<$Res> {
   factory $ViewAgreementCopyWith(
           ViewAgreement value, $Res Function(ViewAgreement) then) =
-      _$ViewAgreementCopyWithImpl<$Res>;
+      _$ViewAgreementCopyWithImpl<$Res, ViewAgreement>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'url') String? url,
       @JsonKey(name: 'color_code') String? color,
@@ -45,14 +46,16 @@ abstract class $ViewAgreementCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ViewAgreementCopyWithImpl<$Res>
+class _$ViewAgreementCopyWithImpl<$Res, $Val extends ViewAgreement>
     implements $ViewAgreementCopyWith<$Res> {
   _$ViewAgreementCopyWithImpl(this._value, this._then);
 
-  final ViewAgreement _value;
   // ignore: unused_field
-  final $Res Function(ViewAgreement) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? url = freezed,
@@ -60,19 +63,19 @@ class _$ViewAgreementCopyWithImpl<$Res>
     Object? title = freezed,
   }) {
     return _then(_value.copyWith(
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +86,7 @@ abstract class _$$_ViewAgreementCopyWith<$Res>
           _$_ViewAgreement value, $Res Function(_$_ViewAgreement) then) =
       __$$_ViewAgreementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'url') String? url,
       @JsonKey(name: 'color_code') String? color,
@@ -91,15 +95,13 @@ abstract class _$$_ViewAgreementCopyWith<$Res>
 
 /// @nodoc
 class __$$_ViewAgreementCopyWithImpl<$Res>
-    extends _$ViewAgreementCopyWithImpl<$Res>
+    extends _$ViewAgreementCopyWithImpl<$Res, _$_ViewAgreement>
     implements _$$_ViewAgreementCopyWith<$Res> {
   __$$_ViewAgreementCopyWithImpl(
       _$_ViewAgreement _value, $Res Function(_$_ViewAgreement) _then)
-      : super(_value, (v) => _then(v as _$_ViewAgreement));
+      : super(_value, _then);
 
-  @override
-  _$_ViewAgreement get _value => super._value as _$_ViewAgreement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? url = freezed,
@@ -107,15 +109,15 @@ class __$$_ViewAgreementCopyWithImpl<$Res>
     Object? title = freezed,
   }) {
     return _then(_$_ViewAgreement(
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -154,27 +156,26 @@ class _$_ViewAgreement implements _ViewAgreement {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ViewAgreement &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality().equals(other.title, title));
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.title, title) || other.title == title));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(title));
+  int get hashCode => Object.hash(runtimeType, url, color, title);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ViewAgreementCopyWith<_$_ViewAgreement> get copyWith =>
       __$$_ViewAgreementCopyWithImpl<_$_ViewAgreement>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ViewAgreementToJson(this);
+    return _$$_ViewAgreementToJson(
+      this,
+    );
   }
 }
 
@@ -189,13 +190,13 @@ abstract class _ViewAgreement implements ViewAgreement {
 
   @override
   @JsonKey(name: 'url')
-  String? get url => throw _privateConstructorUsedError;
+  String? get url;
   @override
   @JsonKey(name: 'color_code')
-  String? get color => throw _privateConstructorUsedError;
+  String? get color;
   @override
   @JsonKey(name: 'title')
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
   @JsonKey(ignore: true)
   _$$_ViewAgreementCopyWith<_$_ViewAgreement> get copyWith =>

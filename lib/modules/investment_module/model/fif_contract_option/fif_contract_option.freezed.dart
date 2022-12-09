@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'fif_contract_option.dart';
 
@@ -64,7 +64,8 @@ mixin _$FIFoptionModel {
 abstract class $FIFoptionModelCopyWith<$Res> {
   factory $FIFoptionModelCopyWith(
           FIFoptionModel value, $Res Function(FIFoptionModel) then) =
-      _$FIFoptionModelCopyWithImpl<$Res>;
+      _$FIFoptionModelCopyWithImpl<$Res, FIFoptionModel>;
+  @useResult
   $Res call(
       {int? id,
       @JsonKey(name: "product_name") String? productName,
@@ -87,14 +88,16 @@ abstract class $FIFoptionModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FIFoptionModelCopyWithImpl<$Res>
+class _$FIFoptionModelCopyWithImpl<$Res, $Val extends FIFoptionModel>
     implements $FIFoptionModelCopyWith<$Res> {
   _$FIFoptionModelCopyWithImpl(this._value, this._then);
 
-  final FIFoptionModel _value;
   // ignore: unused_field
-  final $Res Function(FIFoptionModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -117,79 +120,79 @@ class _$FIFoptionModelCopyWithImpl<$Res>
     Object? options = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      productName: productName == freezed
+      productName: freezed == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
               as String?,
-      productCode: productCode == freezed
+      productCode: freezed == productCode
           ? _value.productCode
           : productCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      subid: subid == freezed
+      subid: freezed == subid
           ? _value.subid
           : subid // ignore: cast_nullable_to_non_nullable
               as int?,
-      subproductName: subproductName == freezed
+      subproductName: freezed == subproductName
           ? _value.subproductName
           : subproductName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subproductCode: subproductCode == freezed
+      subproductCode: freezed == subproductCode
           ? _value.subproductCode
           : subproductCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      annuallyInterestRate: annuallyInterestRate == freezed
+      annuallyInterestRate: freezed == annuallyInterestRate
           ? _value.annuallyInterestRate
           : annuallyInterestRate // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      urlWebview: urlWebview == freezed
+      urlWebview: freezed == urlWebview
           ? _value.urlWebview
           : urlWebview // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentMinimum: investmentMinimum == freezed
+      investmentMinimum: freezed == investmentMinimum
           ? _value.investmentMinimum
           : investmentMinimum // ignore: cast_nullable_to_non_nullable
               as num?,
-      investmentDefault: investmentDefault == freezed
+      investmentDefault: freezed == investmentDefault
           ? _value.investmentDefault
           : investmentDefault // ignore: cast_nullable_to_non_nullable
               as num?,
-      investmentMaximum: investmentMaximum == freezed
+      investmentMaximum: freezed == investmentMaximum
           ? _value.investmentMaximum
           : investmentMaximum // ignore: cast_nullable_to_non_nullable
               as num?,
-      investmentMessage: investmentMessage == freezed
+      investmentMessage: freezed == investmentMessage
           ? _value.investmentMessage
           : investmentMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      durationMinimum: durationMinimum == freezed
+      durationMinimum: freezed == durationMinimum
           ? _value.durationMinimum
           : durationMinimum // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationDefault: durationDefault == freezed
+      durationDefault: freezed == durationDefault
           ? _value.durationDefault
           : durationDefault // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationMaximum: durationMaximum == freezed
+      durationMaximum: freezed == durationMaximum
           ? _value.durationMaximum
           : durationMaximum // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationMessage: durationMessage == freezed
+      durationMessage: freezed == durationMessage
           ? _value.durationMessage
           : durationMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      options: options == freezed
+      options: freezed == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
               as List<FIFoptionModel>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -200,6 +203,7 @@ abstract class _$$_FIFoptionModelCopyWith<$Res>
           _$_FIFoptionModel value, $Res Function(_$_FIFoptionModel) then) =
       __$$_FIFoptionModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       @JsonKey(name: "product_name") String? productName,
@@ -223,15 +227,13 @@ abstract class _$$_FIFoptionModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_FIFoptionModelCopyWithImpl<$Res>
-    extends _$FIFoptionModelCopyWithImpl<$Res>
+    extends _$FIFoptionModelCopyWithImpl<$Res, _$_FIFoptionModel>
     implements _$$_FIFoptionModelCopyWith<$Res> {
   __$$_FIFoptionModelCopyWithImpl(
       _$_FIFoptionModel _value, $Res Function(_$_FIFoptionModel) _then)
-      : super(_value, (v) => _then(v as _$_FIFoptionModel));
+      : super(_value, _then);
 
-  @override
-  _$_FIFoptionModel get _value => super._value as _$_FIFoptionModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -254,75 +256,75 @@ class __$$_FIFoptionModelCopyWithImpl<$Res>
     Object? options = freezed,
   }) {
     return _then(_$_FIFoptionModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      productName: productName == freezed
+      productName: freezed == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
               as String?,
-      productCode: productCode == freezed
+      productCode: freezed == productCode
           ? _value.productCode
           : productCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      subid: subid == freezed
+      subid: freezed == subid
           ? _value.subid
           : subid // ignore: cast_nullable_to_non_nullable
               as int?,
-      subproductName: subproductName == freezed
+      subproductName: freezed == subproductName
           ? _value.subproductName
           : subproductName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subproductCode: subproductCode == freezed
+      subproductCode: freezed == subproductCode
           ? _value.subproductCode
           : subproductCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      annuallyInterestRate: annuallyInterestRate == freezed
+      annuallyInterestRate: freezed == annuallyInterestRate
           ? _value.annuallyInterestRate
           : annuallyInterestRate // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      urlWebview: urlWebview == freezed
+      urlWebview: freezed == urlWebview
           ? _value.urlWebview
           : urlWebview // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentMinimum: investmentMinimum == freezed
+      investmentMinimum: freezed == investmentMinimum
           ? _value.investmentMinimum
           : investmentMinimum // ignore: cast_nullable_to_non_nullable
               as num?,
-      investmentDefault: investmentDefault == freezed
+      investmentDefault: freezed == investmentDefault
           ? _value.investmentDefault
           : investmentDefault // ignore: cast_nullable_to_non_nullable
               as num?,
-      investmentMaximum: investmentMaximum == freezed
+      investmentMaximum: freezed == investmentMaximum
           ? _value.investmentMaximum
           : investmentMaximum // ignore: cast_nullable_to_non_nullable
               as num?,
-      investmentMessage: investmentMessage == freezed
+      investmentMessage: freezed == investmentMessage
           ? _value.investmentMessage
           : investmentMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      durationMinimum: durationMinimum == freezed
+      durationMinimum: freezed == durationMinimum
           ? _value.durationMinimum
           : durationMinimum // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationDefault: durationDefault == freezed
+      durationDefault: freezed == durationDefault
           ? _value.durationDefault
           : durationDefault // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationMaximum: durationMaximum == freezed
+      durationMaximum: freezed == durationMaximum
           ? _value.durationMaximum
           : durationMaximum // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationMessage: durationMessage == freezed
+      durationMessage: freezed == durationMessage
           ? _value.durationMessage
           : durationMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      options: options == freezed
+      options: freezed == options
           ? _value._options
           : options // ignore: cast_nullable_to_non_nullable
               as List<FIFoptionModel>?,
@@ -411,6 +413,7 @@ class _$_FIFoptionModel implements _FIFoptionModel {
   List<FIFoptionModel>? get options {
     final value = _options;
     if (value == null) return null;
+    if (_options is EqualUnmodifiableListView) return _options;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -425,38 +428,38 @@ class _$_FIFoptionModel implements _FIFoptionModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FIFoptionModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.productName, productName) &&
-            const DeepCollectionEquality()
-                .equals(other.productCode, productCode) &&
-            const DeepCollectionEquality().equals(other.subid, subid) &&
-            const DeepCollectionEquality()
-                .equals(other.subproductName, subproductName) &&
-            const DeepCollectionEquality()
-                .equals(other.subproductCode, subproductCode) &&
-            const DeepCollectionEquality()
-                .equals(other.annuallyInterestRate, annuallyInterestRate) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.urlWebview, urlWebview) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentMinimum, investmentMinimum) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentDefault, investmentDefault) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentMaximum, investmentMaximum) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentMessage, investmentMessage) &&
-            const DeepCollectionEquality()
-                .equals(other.durationMinimum, durationMinimum) &&
-            const DeepCollectionEquality()
-                .equals(other.durationDefault, durationDefault) &&
-            const DeepCollectionEquality()
-                .equals(other.durationMaximum, durationMaximum) &&
-            const DeepCollectionEquality()
-                .equals(other.durationMessage, durationMessage) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
+            (identical(other.productCode, productCode) ||
+                other.productCode == productCode) &&
+            (identical(other.subid, subid) || other.subid == subid) &&
+            (identical(other.subproductName, subproductName) ||
+                other.subproductName == subproductName) &&
+            (identical(other.subproductCode, subproductCode) ||
+                other.subproductCode == subproductCode) &&
+            (identical(other.annuallyInterestRate, annuallyInterestRate) ||
+                other.annuallyInterestRate == annuallyInterestRate) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.urlWebview, urlWebview) ||
+                other.urlWebview == urlWebview) &&
+            (identical(other.investmentMinimum, investmentMinimum) ||
+                other.investmentMinimum == investmentMinimum) &&
+            (identical(other.investmentDefault, investmentDefault) ||
+                other.investmentDefault == investmentDefault) &&
+            (identical(other.investmentMaximum, investmentMaximum) ||
+                other.investmentMaximum == investmentMaximum) &&
+            (identical(other.investmentMessage, investmentMessage) ||
+                other.investmentMessage == investmentMessage) &&
+            (identical(other.durationMinimum, durationMinimum) ||
+                other.durationMinimum == durationMinimum) &&
+            (identical(other.durationDefault, durationDefault) ||
+                other.durationDefault == durationDefault) &&
+            (identical(other.durationMaximum, durationMaximum) ||
+                other.durationMaximum == durationMaximum) &&
+            (identical(other.durationMessage, durationMessage) ||
+                other.durationMessage == durationMessage) &&
             const DeepCollectionEquality().equals(other._options, _options));
   }
 
@@ -464,33 +467,36 @@ class _$_FIFoptionModel implements _FIFoptionModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(productName),
-      const DeepCollectionEquality().hash(productCode),
-      const DeepCollectionEquality().hash(subid),
-      const DeepCollectionEquality().hash(subproductName),
-      const DeepCollectionEquality().hash(subproductCode),
-      const DeepCollectionEquality().hash(annuallyInterestRate),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(urlWebview),
-      const DeepCollectionEquality().hash(investmentMinimum),
-      const DeepCollectionEquality().hash(investmentDefault),
-      const DeepCollectionEquality().hash(investmentMaximum),
-      const DeepCollectionEquality().hash(investmentMessage),
-      const DeepCollectionEquality().hash(durationMinimum),
-      const DeepCollectionEquality().hash(durationDefault),
-      const DeepCollectionEquality().hash(durationMaximum),
-      const DeepCollectionEquality().hash(durationMessage),
+      id,
+      productName,
+      productCode,
+      subid,
+      subproductName,
+      subproductCode,
+      annuallyInterestRate,
+      description,
+      urlWebview,
+      investmentMinimum,
+      investmentDefault,
+      investmentMaximum,
+      investmentMessage,
+      durationMinimum,
+      durationDefault,
+      durationMaximum,
+      durationMessage,
       const DeepCollectionEquality().hash(_options));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FIFoptionModelCopyWith<_$_FIFoptionModel> get copyWith =>
       __$$_FIFoptionModelCopyWithImpl<_$_FIFoptionModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FIFoptionModelToJson(this);
+    return _$$_FIFoptionModelToJson(
+      this,
+    );
   }
 }
 
@@ -534,56 +540,56 @@ abstract class _FIFoptionModel implements FIFoptionModel {
       _$_FIFoptionModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
   @JsonKey(name: "product_name")
-  String? get productName => throw _privateConstructorUsedError;
+  String? get productName;
   @override
   @JsonKey(name: "product_code")
-  String? get productCode => throw _privateConstructorUsedError;
+  String? get productCode;
   @override
   @JsonKey(name: "sub_product_id")
-  int? get subid => throw _privateConstructorUsedError;
+  int? get subid;
   @override
   @JsonKey(name: "sub_product_name")
-  String? get subproductName => throw _privateConstructorUsedError;
+  String? get subproductName;
   @override
   @JsonKey(name: "sub_product_code")
-  String? get subproductCode => throw _privateConstructorUsedError;
+  String? get subproductCode;
   @override
   @JsonKey(name: "annually_interest_rate")
-  String? get annuallyInterestRate => throw _privateConstructorUsedError;
+  String? get annuallyInterestRate;
   @override
-  String? get description => throw _privateConstructorUsedError;
+  String? get description;
   @override
   @JsonKey(name: "url_webview")
-  String? get urlWebview => throw _privateConstructorUsedError;
+  String? get urlWebview;
   @override
   @JsonKey(name: "investment_minimum")
-  num? get investmentMinimum => throw _privateConstructorUsedError;
+  num? get investmentMinimum;
   @override
   @JsonKey(name: "investment_default")
-  num? get investmentDefault => throw _privateConstructorUsedError;
+  num? get investmentDefault;
   @override
   @JsonKey(name: "investment_maximum")
-  num? get investmentMaximum => throw _privateConstructorUsedError;
+  num? get investmentMaximum;
   @override
   @JsonKey(name: "investment_message")
-  String? get investmentMessage => throw _privateConstructorUsedError;
+  String? get investmentMessage;
   @override
   @JsonKey(name: "duration_minimum")
-  num? get durationMinimum => throw _privateConstructorUsedError;
+  num? get durationMinimum;
   @override
   @JsonKey(name: "duration_default")
-  num? get durationDefault => throw _privateConstructorUsedError;
+  num? get durationDefault;
   @override
   @JsonKey(name: "duration_maximum")
-  num? get durationMaximum => throw _privateConstructorUsedError;
+  num? get durationMaximum;
   @override
   @JsonKey(name: "duration_message")
-  String? get durationMessage => throw _privateConstructorUsedError;
+  String? get durationMessage;
   @override
-  List<FIFoptionModel>? get options => throw _privateConstructorUsedError;
+  List<FIFoptionModel>? get options;
   @override
   @JsonKey(ignore: true)
   _$$_FIFoptionModelCopyWith<_$_FIFoptionModel> get copyWith =>

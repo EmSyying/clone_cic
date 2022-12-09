@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'company_data_model.dart';
 
@@ -105,7 +105,8 @@ mixin _$CompanyDataModel {
 abstract class $CompanyDataModelCopyWith<$Res> {
   factory $CompanyDataModelCopyWith(
           CompanyDataModel value, $Res Function(CompanyDataModel) then) =
-      _$CompanyDataModelCopyWithImpl<$Res>;
+      _$CompanyDataModelCopyWithImpl<$Res, CompanyDataModel>;
+  @useResult
   $Res call(
       {int? id,
       @JsonKey(name: 'member_id')
@@ -182,14 +183,16 @@ abstract class $CompanyDataModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CompanyDataModelCopyWithImpl<$Res>
+class _$CompanyDataModelCopyWithImpl<$Res, $Val extends CompanyDataModel>
     implements $CompanyDataModelCopyWith<$Res> {
   _$CompanyDataModelCopyWithImpl(this._value, this._then);
 
-  final CompanyDataModel _value;
   // ignore: unused_field
-  final $Res Function(CompanyDataModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -236,175 +239,175 @@ class _$CompanyDataModelCopyWithImpl<$Res>
     Object? companyFiles = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      memberId: memberId == freezed
+      memberId: freezed == memberId
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int?,
-      companyName: companyName == freezed
+      companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
               as String?,
-      khmerName: khmerName == freezed
+      khmerName: freezed == khmerName
           ? _value.khmerName
           : khmerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      majorOfBusiness: majorOfBusiness == freezed
+      majorOfBusiness: freezed == majorOfBusiness
           ? _value.majorOfBusiness
           : majorOfBusiness // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      position: position == freezed
+      position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as String?,
-      legalStatus: legalStatus == freezed
+      legalStatus: freezed == legalStatus
           ? _value.legalStatus
           : legalStatus // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      registeredBusiness: registeredBusiness == freezed
+      registeredBusiness: freezed == registeredBusiness
           ? _value.registeredBusiness
           : registeredBusiness // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      companySize: companySize == freezed
+      companySize: freezed == companySize
           ? _value.companySize
           : companySize // ignore: cast_nullable_to_non_nullable
               as int?,
-      numberOfBranches: numberOfBranches == freezed
+      numberOfBranches: freezed == numberOfBranches
           ? _value.numberOfBranches
           : numberOfBranches // ignore: cast_nullable_to_non_nullable
               as int?,
-      businessModel: businessModel == freezed
+      businessModel: freezed == businessModel
           ? _value.businessModel
           : businessModel // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      capitalInvestment: capitalInvestment == freezed
+      capitalInvestment: freezed == capitalInvestment
           ? _value.capitalInvestment
           : capitalInvestment // ignore: cast_nullable_to_non_nullable
               as String?,
-      yearFounded: yearFounded == freezed
+      yearFounded: freezed == yearFounded
           ? _value.yearFounded
           : yearFounded // ignore: cast_nullable_to_non_nullable
               as String?,
-      isPrimary: isPrimary == freezed
+      isPrimary: freezed == isPrimary
           ? _value.isPrimary
           : isPrimary // ignore: cast_nullable_to_non_nullable
               as int?,
-      companyDiagnosticReport: companyDiagnosticReport == freezed
+      companyDiagnosticReport: freezed == companyDiagnosticReport
           ? _value.companyDiagnosticReport
           : companyDiagnosticReport // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyMilestones: companyMilestones == freezed
+      companyMilestones: freezed == companyMilestones
           ? _value.companyMilestones
           : companyMilestones // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyLogo: companyLogo == freezed
+      companyLogo: freezed == companyLogo
           ? _value.companyLogo
           : companyLogo // ignore: cast_nullable_to_non_nullable
               as String?,
-      personalInterest: personalInterest == freezed
+      personalInterest: freezed == personalInterest
           ? _value.personalInterest
           : personalInterest // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyProfile: companyProfile == freezed
+      companyProfile: freezed == companyProfile
           ? _value.companyProfile
           : companyProfile // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyProductAndService: companyProductAndService == freezed
+      companyProductAndService: freezed == companyProductAndService
           ? _value.companyProductAndService
           : companyProductAndService // ignore: cast_nullable_to_non_nullable
               as String?,
-      houseNo: houseNo == freezed
+      houseNo: freezed == houseNo
           ? _value.houseNo
           : houseNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      streetNo: streetNo == freezed
+      streetNo: freezed == streetNo
           ? _value.streetNo
           : streetNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      address: address == freezed
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      whatApp: whatApp == freezed
+      whatApp: freezed == whatApp
           ? _value.whatApp
           : whatApp // ignore: cast_nullable_to_non_nullable
               as String?,
-      telegram: telegram == freezed
+      telegram: freezed == telegram
           ? _value.telegram
           : telegram // ignore: cast_nullable_to_non_nullable
               as String?,
-      messenger: messenger == freezed
+      messenger: freezed == messenger
           ? _value.messenger
           : messenger // ignore: cast_nullable_to_non_nullable
               as String?,
-      skype: skype == freezed
+      skype: freezed == skype
           ? _value.skype
           : skype // ignore: cast_nullable_to_non_nullable
               as String?,
-      weChat: weChat == freezed
+      weChat: freezed == weChat
           ? _value.weChat
           : weChat // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
-      facebook: facebook == freezed
+      facebook: freezed == facebook
           ? _value.facebook
           : facebook // ignore: cast_nullable_to_non_nullable
               as String?,
-      linkedin: linkedin == freezed
+      linkedin: freezed == linkedin
           ? _value.linkedin
           : linkedin // ignore: cast_nullable_to_non_nullable
               as String?,
-      twitter: twitter == freezed
+      twitter: freezed == twitter
           ? _value.twitter
           : twitter // ignore: cast_nullable_to_non_nullable
               as String?,
-      companySlogan: companySlogan == freezed
+      companySlogan: freezed == companySlogan
           ? _value.companySlogan
           : companySlogan // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyActivityImages: companyActivityImages == freezed
+      companyActivityImages: freezed == companyActivityImages
           ? _value.companyActivityImages
           : companyActivityImages // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      typeOfOrganization: typeOfOrganization == freezed
+      typeOfOrganization: freezed == typeOfOrganization
           ? _value.typeOfOrganization
           : typeOfOrganization // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      industry: industry == freezed
+      industry: freezed == industry
           ? _value.industry
           : industry // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      taxIdentificationNumber: taxIdentificationNumber == freezed
+      taxIdentificationNumber: freezed == taxIdentificationNumber
           ? _value.taxIdentificationNumber
           : taxIdentificationNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      numberOfStaff: numberOfStaff == freezed
+      numberOfStaff: freezed == numberOfStaff
           ? _value.numberOfStaff
           : numberOfStaff // ignore: cast_nullable_to_non_nullable
               as int?,
-      ownerName: ownerName == freezed
+      ownerName: freezed == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyFiles: companyFiles == freezed
+      companyFiles: freezed == companyFiles
           ? _value.companyFiles
           : companyFiles // ignore: cast_nullable_to_non_nullable
               as CompanyFiles?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -415,6 +418,7 @@ abstract class _$$_CompanyDataModelCopyWith<$Res>
           _$_CompanyDataModel value, $Res Function(_$_CompanyDataModel) then) =
       __$$_CompanyDataModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       @JsonKey(name: 'member_id')
@@ -492,15 +496,13 @@ abstract class _$$_CompanyDataModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_CompanyDataModelCopyWithImpl<$Res>
-    extends _$CompanyDataModelCopyWithImpl<$Res>
+    extends _$CompanyDataModelCopyWithImpl<$Res, _$_CompanyDataModel>
     implements _$$_CompanyDataModelCopyWith<$Res> {
   __$$_CompanyDataModelCopyWithImpl(
       _$_CompanyDataModel _value, $Res Function(_$_CompanyDataModel) _then)
-      : super(_value, (v) => _then(v as _$_CompanyDataModel));
+      : super(_value, _then);
 
-  @override
-  _$_CompanyDataModel get _value => super._value as _$_CompanyDataModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -547,171 +549,171 @@ class __$$_CompanyDataModelCopyWithImpl<$Res>
     Object? companyFiles = freezed,
   }) {
     return _then(_$_CompanyDataModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      memberId: memberId == freezed
+      memberId: freezed == memberId
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int?,
-      companyName: companyName == freezed
+      companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
               as String?,
-      khmerName: khmerName == freezed
+      khmerName: freezed == khmerName
           ? _value.khmerName
           : khmerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      majorOfBusiness: majorOfBusiness == freezed
+      majorOfBusiness: freezed == majorOfBusiness
           ? _value.majorOfBusiness
           : majorOfBusiness // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      position: position == freezed
+      position: freezed == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as String?,
-      legalStatus: legalStatus == freezed
+      legalStatus: freezed == legalStatus
           ? _value.legalStatus
           : legalStatus // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      registeredBusiness: registeredBusiness == freezed
+      registeredBusiness: freezed == registeredBusiness
           ? _value.registeredBusiness
           : registeredBusiness // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      companySize: companySize == freezed
+      companySize: freezed == companySize
           ? _value.companySize
           : companySize // ignore: cast_nullable_to_non_nullable
               as int?,
-      numberOfBranches: numberOfBranches == freezed
+      numberOfBranches: freezed == numberOfBranches
           ? _value.numberOfBranches
           : numberOfBranches // ignore: cast_nullable_to_non_nullable
               as int?,
-      businessModel: businessModel == freezed
+      businessModel: freezed == businessModel
           ? _value.businessModel
           : businessModel // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      capitalInvestment: capitalInvestment == freezed
+      capitalInvestment: freezed == capitalInvestment
           ? _value.capitalInvestment
           : capitalInvestment // ignore: cast_nullable_to_non_nullable
               as String?,
-      yearFounded: yearFounded == freezed
+      yearFounded: freezed == yearFounded
           ? _value.yearFounded
           : yearFounded // ignore: cast_nullable_to_non_nullable
               as String?,
-      isPrimary: isPrimary == freezed
+      isPrimary: freezed == isPrimary
           ? _value.isPrimary
           : isPrimary // ignore: cast_nullable_to_non_nullable
               as int?,
-      companyDiagnosticReport: companyDiagnosticReport == freezed
+      companyDiagnosticReport: freezed == companyDiagnosticReport
           ? _value.companyDiagnosticReport
           : companyDiagnosticReport // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyMilestones: companyMilestones == freezed
+      companyMilestones: freezed == companyMilestones
           ? _value.companyMilestones
           : companyMilestones // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyLogo: companyLogo == freezed
+      companyLogo: freezed == companyLogo
           ? _value.companyLogo
           : companyLogo // ignore: cast_nullable_to_non_nullable
               as String?,
-      personalInterest: personalInterest == freezed
+      personalInterest: freezed == personalInterest
           ? _value.personalInterest
           : personalInterest // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyProfile: companyProfile == freezed
+      companyProfile: freezed == companyProfile
           ? _value.companyProfile
           : companyProfile // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyProductAndService: companyProductAndService == freezed
+      companyProductAndService: freezed == companyProductAndService
           ? _value.companyProductAndService
           : companyProductAndService // ignore: cast_nullable_to_non_nullable
               as String?,
-      houseNo: houseNo == freezed
+      houseNo: freezed == houseNo
           ? _value.houseNo
           : houseNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      streetNo: streetNo == freezed
+      streetNo: freezed == streetNo
           ? _value.streetNo
           : streetNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      address: address == freezed
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      whatApp: whatApp == freezed
+      whatApp: freezed == whatApp
           ? _value.whatApp
           : whatApp // ignore: cast_nullable_to_non_nullable
               as String?,
-      telegram: telegram == freezed
+      telegram: freezed == telegram
           ? _value.telegram
           : telegram // ignore: cast_nullable_to_non_nullable
               as String?,
-      messenger: messenger == freezed
+      messenger: freezed == messenger
           ? _value.messenger
           : messenger // ignore: cast_nullable_to_non_nullable
               as String?,
-      skype: skype == freezed
+      skype: freezed == skype
           ? _value.skype
           : skype // ignore: cast_nullable_to_non_nullable
               as String?,
-      weChat: weChat == freezed
+      weChat: freezed == weChat
           ? _value.weChat
           : weChat // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
-      facebook: facebook == freezed
+      facebook: freezed == facebook
           ? _value.facebook
           : facebook // ignore: cast_nullable_to_non_nullable
               as String?,
-      linkedin: linkedin == freezed
+      linkedin: freezed == linkedin
           ? _value.linkedin
           : linkedin // ignore: cast_nullable_to_non_nullable
               as String?,
-      twitter: twitter == freezed
+      twitter: freezed == twitter
           ? _value.twitter
           : twitter // ignore: cast_nullable_to_non_nullable
               as String?,
-      companySlogan: companySlogan == freezed
+      companySlogan: freezed == companySlogan
           ? _value.companySlogan
           : companySlogan // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyActivityImages: companyActivityImages == freezed
+      companyActivityImages: freezed == companyActivityImages
           ? _value._companyActivityImages
           : companyActivityImages // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      typeOfOrganization: typeOfOrganization == freezed
+      typeOfOrganization: freezed == typeOfOrganization
           ? _value.typeOfOrganization
           : typeOfOrganization // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      industry: industry == freezed
+      industry: freezed == industry
           ? _value.industry
           : industry // ignore: cast_nullable_to_non_nullable
               as FinancialPurpose?,
-      taxIdentificationNumber: taxIdentificationNumber == freezed
+      taxIdentificationNumber: freezed == taxIdentificationNumber
           ? _value.taxIdentificationNumber
           : taxIdentificationNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      numberOfStaff: numberOfStaff == freezed
+      numberOfStaff: freezed == numberOfStaff
           ? _value.numberOfStaff
           : numberOfStaff // ignore: cast_nullable_to_non_nullable
               as int?,
-      ownerName: ownerName == freezed
+      ownerName: freezed == ownerName
           ? _value.ownerName
           : ownerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyFiles: companyFiles == freezed
+      companyFiles: freezed == companyFiles
           ? _value.companyFiles
           : companyFiles // ignore: cast_nullable_to_non_nullable
               as CompanyFiles?,
@@ -900,6 +902,8 @@ class _$_CompanyDataModel implements _CompanyDataModel {
   List<String>? get companyActivityImages {
     final value = _companyActivityImages;
     if (value == null) return null;
+    if (_companyActivityImages is EqualUnmodifiableListView)
+      return _companyActivityImages;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -932,128 +936,142 @@ class _$_CompanyDataModel implements _CompanyDataModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CompanyDataModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.memberId, memberId) &&
-            const DeepCollectionEquality()
-                .equals(other.companyName, companyName) &&
-            const DeepCollectionEquality().equals(other.khmerName, khmerName) &&
-            const DeepCollectionEquality()
-                .equals(other.majorOfBusiness, majorOfBusiness) &&
-            const DeepCollectionEquality().equals(other.position, position) &&
-            const DeepCollectionEquality()
-                .equals(other.legalStatus, legalStatus) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredBusiness, registeredBusiness) &&
-            const DeepCollectionEquality()
-                .equals(other.companySize, companySize) &&
-            const DeepCollectionEquality()
-                .equals(other.numberOfBranches, numberOfBranches) &&
-            const DeepCollectionEquality()
-                .equals(other.businessModel, businessModel) &&
-            const DeepCollectionEquality()
-                .equals(other.capitalInvestment, capitalInvestment) &&
-            const DeepCollectionEquality()
-                .equals(other.yearFounded, yearFounded) &&
-            const DeepCollectionEquality().equals(other.isPrimary, isPrimary) &&
-            const DeepCollectionEquality().equals(
-                other.companyDiagnosticReport, companyDiagnosticReport) &&
-            const DeepCollectionEquality()
-                .equals(other.companyMilestones, companyMilestones) &&
-            const DeepCollectionEquality()
-                .equals(other.companyLogo, companyLogo) &&
-            const DeepCollectionEquality()
-                .equals(other.personalInterest, personalInterest) &&
-            const DeepCollectionEquality()
-                .equals(other.companyProfile, companyProfile) &&
-            const DeepCollectionEquality().equals(
-                other.companyProductAndService, companyProductAndService) &&
-            const DeepCollectionEquality().equals(other.houseNo, houseNo) &&
-            const DeepCollectionEquality().equals(other.streetNo, streetNo) &&
-            const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.whatApp, whatApp) &&
-            const DeepCollectionEquality().equals(other.telegram, telegram) &&
-            const DeepCollectionEquality().equals(other.messenger, messenger) &&
-            const DeepCollectionEquality().equals(other.skype, skype) &&
-            const DeepCollectionEquality().equals(other.weChat, weChat) &&
-            const DeepCollectionEquality().equals(other.website, website) &&
-            const DeepCollectionEquality().equals(other.facebook, facebook) &&
-            const DeepCollectionEquality().equals(other.linkedin, linkedin) &&
-            const DeepCollectionEquality().equals(other.twitter, twitter) &&
-            const DeepCollectionEquality()
-                .equals(other.companySlogan, companySlogan) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.memberId, memberId) ||
+                other.memberId == memberId) &&
+            (identical(other.companyName, companyName) ||
+                other.companyName == companyName) &&
+            (identical(other.khmerName, khmerName) ||
+                other.khmerName == khmerName) &&
+            (identical(other.majorOfBusiness, majorOfBusiness) ||
+                other.majorOfBusiness == majorOfBusiness) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
+            (identical(other.legalStatus, legalStatus) ||
+                other.legalStatus == legalStatus) &&
+            (identical(other.registeredBusiness, registeredBusiness) ||
+                other.registeredBusiness == registeredBusiness) &&
+            (identical(other.companySize, companySize) ||
+                other.companySize == companySize) &&
+            (identical(other.numberOfBranches, numberOfBranches) ||
+                other.numberOfBranches == numberOfBranches) &&
+            (identical(other.businessModel, businessModel) ||
+                other.businessModel == businessModel) &&
+            (identical(other.capitalInvestment, capitalInvestment) ||
+                other.capitalInvestment == capitalInvestment) &&
+            (identical(other.yearFounded, yearFounded) ||
+                other.yearFounded == yearFounded) &&
+            (identical(other.isPrimary, isPrimary) ||
+                other.isPrimary == isPrimary) &&
+            (identical(other.companyDiagnosticReport, companyDiagnosticReport) ||
+                other.companyDiagnosticReport == companyDiagnosticReport) &&
+            (identical(other.companyMilestones, companyMilestones) ||
+                other.companyMilestones == companyMilestones) &&
+            (identical(other.companyLogo, companyLogo) ||
+                other.companyLogo == companyLogo) &&
+            (identical(other.personalInterest, personalInterest) ||
+                other.personalInterest == personalInterest) &&
+            (identical(other.companyProfile, companyProfile) ||
+                other.companyProfile == companyProfile) &&
+            (identical(other.companyProductAndService, companyProductAndService) ||
+                other.companyProductAndService == companyProductAndService) &&
+            (identical(other.houseNo, houseNo) || other.houseNo == houseNo) &&
+            (identical(other.streetNo, streetNo) ||
+                other.streetNo == streetNo) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.whatApp, whatApp) || other.whatApp == whatApp) &&
+            (identical(other.telegram, telegram) ||
+                other.telegram == telegram) &&
+            (identical(other.messenger, messenger) ||
+                other.messenger == messenger) &&
+            (identical(other.skype, skype) || other.skype == skype) &&
+            (identical(other.weChat, weChat) || other.weChat == weChat) &&
+            (identical(other.website, website) || other.website == website) &&
+            (identical(other.facebook, facebook) ||
+                other.facebook == facebook) &&
+            (identical(other.linkedin, linkedin) ||
+                other.linkedin == linkedin) &&
+            (identical(other.twitter, twitter) || other.twitter == twitter) &&
+            (identical(other.companySlogan, companySlogan) ||
+                other.companySlogan == companySlogan) &&
             const DeepCollectionEquality()
                 .equals(other._companyActivityImages, _companyActivityImages) &&
-            const DeepCollectionEquality()
-                .equals(other.typeOfOrganization, typeOfOrganization) &&
-            const DeepCollectionEquality().equals(other.industry, industry) &&
-            const DeepCollectionEquality().equals(
-                other.taxIdentificationNumber, taxIdentificationNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.numberOfStaff, numberOfStaff) &&
-            const DeepCollectionEquality().equals(other.ownerName, ownerName) &&
-            const DeepCollectionEquality()
-                .equals(other.companyFiles, companyFiles));
+            (identical(other.typeOfOrganization, typeOfOrganization) ||
+                other.typeOfOrganization == typeOfOrganization) &&
+            (identical(other.industry, industry) ||
+                other.industry == industry) &&
+            (identical(other.taxIdentificationNumber, taxIdentificationNumber) ||
+                other.taxIdentificationNumber == taxIdentificationNumber) &&
+            (identical(other.numberOfStaff, numberOfStaff) ||
+                other.numberOfStaff == numberOfStaff) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.companyFiles, companyFiles) ||
+                other.companyFiles == companyFiles));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        const DeepCollectionEquality().hash(id),
-        const DeepCollectionEquality().hash(memberId),
-        const DeepCollectionEquality().hash(companyName),
-        const DeepCollectionEquality().hash(khmerName),
-        const DeepCollectionEquality().hash(majorOfBusiness),
-        const DeepCollectionEquality().hash(position),
-        const DeepCollectionEquality().hash(legalStatus),
-        const DeepCollectionEquality().hash(registeredBusiness),
-        const DeepCollectionEquality().hash(companySize),
-        const DeepCollectionEquality().hash(numberOfBranches),
-        const DeepCollectionEquality().hash(businessModel),
-        const DeepCollectionEquality().hash(capitalInvestment),
-        const DeepCollectionEquality().hash(yearFounded),
-        const DeepCollectionEquality().hash(isPrimary),
-        const DeepCollectionEquality().hash(companyDiagnosticReport),
-        const DeepCollectionEquality().hash(companyMilestones),
-        const DeepCollectionEquality().hash(companyLogo),
-        const DeepCollectionEquality().hash(personalInterest),
-        const DeepCollectionEquality().hash(companyProfile),
-        const DeepCollectionEquality().hash(companyProductAndService),
-        const DeepCollectionEquality().hash(houseNo),
-        const DeepCollectionEquality().hash(streetNo),
-        const DeepCollectionEquality().hash(address),
-        const DeepCollectionEquality().hash(phoneNumber),
-        const DeepCollectionEquality().hash(email),
-        const DeepCollectionEquality().hash(whatApp),
-        const DeepCollectionEquality().hash(telegram),
-        const DeepCollectionEquality().hash(messenger),
-        const DeepCollectionEquality().hash(skype),
-        const DeepCollectionEquality().hash(weChat),
-        const DeepCollectionEquality().hash(website),
-        const DeepCollectionEquality().hash(facebook),
-        const DeepCollectionEquality().hash(linkedin),
-        const DeepCollectionEquality().hash(twitter),
-        const DeepCollectionEquality().hash(companySlogan),
+        id,
+        memberId,
+        companyName,
+        khmerName,
+        majorOfBusiness,
+        position,
+        legalStatus,
+        registeredBusiness,
+        companySize,
+        numberOfBranches,
+        businessModel,
+        capitalInvestment,
+        yearFounded,
+        isPrimary,
+        companyDiagnosticReport,
+        companyMilestones,
+        companyLogo,
+        personalInterest,
+        companyProfile,
+        companyProductAndService,
+        houseNo,
+        streetNo,
+        address,
+        phoneNumber,
+        email,
+        whatApp,
+        telegram,
+        messenger,
+        skype,
+        weChat,
+        website,
+        facebook,
+        linkedin,
+        twitter,
+        companySlogan,
         const DeepCollectionEquality().hash(_companyActivityImages),
-        const DeepCollectionEquality().hash(typeOfOrganization),
-        const DeepCollectionEquality().hash(industry),
-        const DeepCollectionEquality().hash(taxIdentificationNumber),
-        const DeepCollectionEquality().hash(numberOfStaff),
-        const DeepCollectionEquality().hash(ownerName),
-        const DeepCollectionEquality().hash(companyFiles)
+        typeOfOrganization,
+        industry,
+        taxIdentificationNumber,
+        numberOfStaff,
+        ownerName,
+        companyFiles
       ]);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CompanyDataModelCopyWith<_$_CompanyDataModel> get copyWith =>
       __$$_CompanyDataModelCopyWithImpl<_$_CompanyDataModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CompanyDataModelToJson(this);
+    return _$$_CompanyDataModelToJson(
+      this,
+    );
   }
 }
 
@@ -1136,121 +1154,119 @@ abstract class _CompanyDataModel implements CompanyDataModel {
       _$_CompanyDataModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
   @JsonKey(name: 'member_id')
-  int? get memberId => throw _privateConstructorUsedError;
+  int? get memberId;
   @override
   @JsonKey(name: 'company_name')
-  String? get companyName => throw _privateConstructorUsedError;
+  String? get companyName;
   @override
   @JsonKey(name: 'khmer_name')
-  String? get khmerName => throw _privateConstructorUsedError;
+  String? get khmerName;
   @override
   @JsonKey(name: 'major_of_business')
-  FinancialPurpose? get majorOfBusiness => throw _privateConstructorUsedError;
+  FinancialPurpose? get majorOfBusiness;
   @override
-  String? get position => throw _privateConstructorUsedError;
+  String? get position;
   @override
   @JsonKey(name: 'legal_status')
-  FinancialPurpose? get legalStatus => throw _privateConstructorUsedError;
+  FinancialPurpose? get legalStatus;
   @override
   @JsonKey(name: 'registered_business')
-  FinancialPurpose? get registeredBusiness =>
-      throw _privateConstructorUsedError;
+  FinancialPurpose? get registeredBusiness;
   @override
   @JsonKey(name: 'company_size')
-  int? get companySize => throw _privateConstructorUsedError;
+  int? get companySize;
   @override
   @JsonKey(name: 'number_of_branches')
-  int? get numberOfBranches => throw _privateConstructorUsedError;
+  int? get numberOfBranches;
   @override
   @JsonKey(name: 'business_model')
-  FinancialPurpose? get businessModel => throw _privateConstructorUsedError;
+  FinancialPurpose? get businessModel;
   @override
   @JsonKey(name: 'capital_investment')
-  String? get capitalInvestment => throw _privateConstructorUsedError;
+  String? get capitalInvestment;
   @override
   @JsonKey(name: 'year_founded')
-  String? get yearFounded => throw _privateConstructorUsedError;
+  String? get yearFounded;
   @override
   @JsonKey(name: 'is_primary')
-  int? get isPrimary => throw _privateConstructorUsedError;
+  int? get isPrimary;
   @override
   @JsonKey(name: 'company_diagnostic_report')
-  String? get companyDiagnosticReport => throw _privateConstructorUsedError;
+  String? get companyDiagnosticReport;
   @override
   @JsonKey(name: 'company_milestones')
-  String? get companyMilestones => throw _privateConstructorUsedError;
+  String? get companyMilestones;
   @override
   @JsonKey(name: 'company_logo')
-  String? get companyLogo => throw _privateConstructorUsedError;
+  String? get companyLogo;
   @override
   @JsonKey(name: 'personal_interest')
-  String? get personalInterest => throw _privateConstructorUsedError;
+  String? get personalInterest;
   @override
   @JsonKey(name: 'company_profile')
-  String? get companyProfile => throw _privateConstructorUsedError;
+  String? get companyProfile;
   @override
   @JsonKey(name: 'company_product_and_service')
-  String? get companyProductAndService => throw _privateConstructorUsedError;
+  String? get companyProductAndService;
   @override
   @JsonKey(name: 'house_no')
-  String? get houseNo => throw _privateConstructorUsedError;
+  String? get houseNo;
   @override
   @JsonKey(name: 'street_no')
-  String? get streetNo => throw _privateConstructorUsedError;
+  String? get streetNo;
   @override
-  String? get address => throw _privateConstructorUsedError;
+  String? get address;
   @override
   @JsonKey(name: 'phone_number')
-  String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get phoneNumber;
   @override
-  String? get email => throw _privateConstructorUsedError;
+  String? get email;
   @override
   @JsonKey(name: 'what_app')
-  String? get whatApp => throw _privateConstructorUsedError;
+  String? get whatApp;
   @override
-  String? get telegram => throw _privateConstructorUsedError;
+  String? get telegram;
   @override
-  String? get messenger => throw _privateConstructorUsedError;
+  String? get messenger;
   @override
-  String? get skype => throw _privateConstructorUsedError;
+  String? get skype;
   @override
   @JsonKey(name: 'we_chat')
-  String? get weChat => throw _privateConstructorUsedError;
+  String? get weChat;
   @override
-  String? get website => throw _privateConstructorUsedError;
+  String? get website;
   @override
-  String? get facebook => throw _privateConstructorUsedError;
+  String? get facebook;
   @override
-  String? get linkedin => throw _privateConstructorUsedError;
+  String? get linkedin;
   @override
-  String? get twitter => throw _privateConstructorUsedError;
+  String? get twitter;
   @override
   @JsonKey(name: 'company_slogan')
-  String? get companySlogan => throw _privateConstructorUsedError;
+  String? get companySlogan;
   @override
   @JsonKey(name: 'company_activity_images', defaultValue: [])
-  List<String>? get companyActivityImages => throw _privateConstructorUsedError;
+  List<String>? get companyActivityImages;
   @override
   @JsonKey(name: 'type_of_organization')
-  FinancialPurpose? get typeOfOrganization =>
-      throw _privateConstructorUsedError;
+  FinancialPurpose? get typeOfOrganization;
   @override
-  FinancialPurpose? get industry => throw _privateConstructorUsedError;
+  FinancialPurpose? get industry;
   @override
   @JsonKey(name: 'tax_identification_number')
-  String? get taxIdentificationNumber => throw _privateConstructorUsedError;
+  String? get taxIdentificationNumber;
   @override
   @JsonKey(name: 'number_of_staff')
-  int? get numberOfStaff => throw _privateConstructorUsedError;
+  int? get numberOfStaff;
   @override
   @JsonKey(name: 'owner_name')
-  String? get ownerName => throw _privateConstructorUsedError;
+  String? get ownerName;
   @override
   @JsonKey(name: 'company_files')
-  CompanyFiles? get companyFiles => throw _privateConstructorUsedError;
+  CompanyFiles? get companyFiles;
   @override
   @JsonKey(ignore: true)
   _$$_CompanyDataModelCopyWith<_$_CompanyDataModel> get copyWith =>

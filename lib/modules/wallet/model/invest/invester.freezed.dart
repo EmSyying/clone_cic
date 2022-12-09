@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'invester.dart';
 
@@ -35,36 +35,39 @@ mixin _$InvesterModel {
 abstract class $InvesterModelCopyWith<$Res> {
   factory $InvesterModelCopyWith(
           InvesterModel value, $Res Function(InvesterModel) then) =
-      _$InvesterModelCopyWithImpl<$Res>;
+      _$InvesterModelCopyWithImpl<$Res, InvesterModel>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'invester_id') String? investerId,
       @JsonKey(name: 'invester_name') String? investerName});
 }
 
 /// @nodoc
-class _$InvesterModelCopyWithImpl<$Res>
+class _$InvesterModelCopyWithImpl<$Res, $Val extends InvesterModel>
     implements $InvesterModelCopyWith<$Res> {
   _$InvesterModelCopyWithImpl(this._value, this._then);
 
-  final InvesterModel _value;
   // ignore: unused_field
-  final $Res Function(InvesterModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? investerId = freezed,
     Object? investerName = freezed,
   }) {
     return _then(_value.copyWith(
-      investerId: investerId == freezed
+      investerId: freezed == investerId
           ? _value.investerId
           : investerId // ignore: cast_nullable_to_non_nullable
               as String?,
-      investerName: investerName == freezed
+      investerName: freezed == investerName
           ? _value.investerName
           : investerName // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -75,6 +78,7 @@ abstract class _$$_InvesterModelCopyWith<$Res>
           _$_InvesterModel value, $Res Function(_$_InvesterModel) then) =
       __$$_InvesterModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'invester_id') String? investerId,
       @JsonKey(name: 'invester_name') String? investerName});
@@ -82,26 +86,24 @@ abstract class _$$_InvesterModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_InvesterModelCopyWithImpl<$Res>
-    extends _$InvesterModelCopyWithImpl<$Res>
+    extends _$InvesterModelCopyWithImpl<$Res, _$_InvesterModel>
     implements _$$_InvesterModelCopyWith<$Res> {
   __$$_InvesterModelCopyWithImpl(
       _$_InvesterModel _value, $Res Function(_$_InvesterModel) _then)
-      : super(_value, (v) => _then(v as _$_InvesterModel));
+      : super(_value, _then);
 
-  @override
-  _$_InvesterModel get _value => super._value as _$_InvesterModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? investerId = freezed,
     Object? investerName = freezed,
   }) {
     return _then(_$_InvesterModel(
-      investerId: investerId == freezed
+      investerId: freezed == investerId
           ? _value.investerId
           : investerId // ignore: cast_nullable_to_non_nullable
               as String?,
-      investerName: investerName == freezed
+      investerName: freezed == investerName
           ? _value.investerName
           : investerName // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -136,27 +138,27 @@ class _$_InvesterModel implements _InvesterModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_InvesterModel &&
-            const DeepCollectionEquality()
-                .equals(other.investerId, investerId) &&
-            const DeepCollectionEquality()
-                .equals(other.investerName, investerName));
+            (identical(other.investerId, investerId) ||
+                other.investerId == investerId) &&
+            (identical(other.investerName, investerName) ||
+                other.investerName == investerName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(investerId),
-      const DeepCollectionEquality().hash(investerName));
+  int get hashCode => Object.hash(runtimeType, investerId, investerName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_InvesterModelCopyWith<_$_InvesterModel> get copyWith =>
       __$$_InvesterModelCopyWithImpl<_$_InvesterModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_InvesterModelToJson(this);
+    return _$$_InvesterModelToJson(
+      this,
+    );
   }
 }
 
@@ -171,10 +173,10 @@ abstract class _InvesterModel implements InvesterModel {
 
   @override
   @JsonKey(name: 'invester_id')
-  String? get investerId => throw _privateConstructorUsedError;
+  String? get investerId;
   @override
   @JsonKey(name: 'invester_name')
-  String? get investerName => throw _privateConstructorUsedError;
+  String? get investerName;
   @override
   @JsonKey(ignore: true)
   _$$_InvesterModelCopyWith<_$_InvesterModel> get copyWith =>

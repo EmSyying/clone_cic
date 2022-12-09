@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'fif_application.dart';
 
@@ -112,7 +112,8 @@ mixin _$FiFApplicationDetailModel {
 abstract class $FiFApplicationDetailModelCopyWith<$Res> {
   factory $FiFApplicationDetailModelCopyWith(FiFApplicationDetailModel value,
           $Res Function(FiFApplicationDetailModel) then) =
-      _$FiFApplicationDetailModelCopyWithImpl<$Res>;
+      _$FiFApplicationDetailModelCopyWithImpl<$Res, FiFApplicationDetailModel>;
+  @useResult
   $Res call(
       {String? code,
       @JsonKey(name: 'product_id')
@@ -199,14 +200,17 @@ abstract class $FiFApplicationDetailModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FiFApplicationDetailModelCopyWithImpl<$Res>
+class _$FiFApplicationDetailModelCopyWithImpl<$Res,
+        $Val extends FiFApplicationDetailModel>
     implements $FiFApplicationDetailModelCopyWith<$Res> {
   _$FiFApplicationDetailModelCopyWithImpl(this._value, this._then);
 
-  final FiFApplicationDetailModel _value;
   // ignore: unused_field
-  final $Res Function(FiFApplicationDetailModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? code = freezed,
@@ -253,196 +257,198 @@ class _$FiFApplicationDetailModelCopyWithImpl<$Res>
     Object? withdrawalNotice = freezed,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      productId: productId == freezed
+      productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as int?,
-      productCode: productCode == freezed
+      productCode: freezed == productCode
           ? _value.productCode
           : productCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      subid: subid == freezed
+      subid: freezed == subid
           ? _value.subid
           : subid // ignore: cast_nullable_to_non_nullable
               as int?,
-      subproductName: subproductName == freezed
+      subproductName: freezed == subproductName
           ? _value.subproductName
           : subproductName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subproductCode: subproductCode == freezed
+      subproductCode: freezed == subproductCode
           ? _value.subproductCode
           : subproductCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountName: accountName == freezed
+      accountName: freezed == accountName
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalAmount: originalAmount == freezed
+      originalAmount: freezed == originalAmount
           ? _value.originalAmount
           : originalAmount // ignore: cast_nullable_to_non_nullable
               as num?,
-      deductionAmount: deductionAmount == freezed
+      deductionAmount: freezed == deductionAmount
           ? _value.deductionAmount
           : deductionAmount // ignore: cast_nullable_to_non_nullable
               as num?,
-      totalInterestEarned: totalInterestEarned == freezed
+      totalInterestEarned: freezed == totalInterestEarned
           ? _value.totalInterestEarned
           : totalInterestEarned // ignore: cast_nullable_to_non_nullable
               as String?,
-      monthlyInterestEarned: monthlyInterestEarned == freezed
+      monthlyInterestEarned: freezed == monthlyInterestEarned
           ? _value.monthlyInterestEarned
           : monthlyInterestEarned // ignore: cast_nullable_to_non_nullable
               as String?,
-      productName: productName == freezed
+      productName: freezed == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
               as String?,
-      annuallyInterestRate: annuallyInterestRate == freezed
+      annuallyInterestRate: freezed == annuallyInterestRate
           ? _value.annuallyInterestRate
           : annuallyInterestRate // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentDate: investmentDate == freezed
+      investmentDate: freezed == investmentDate
           ? _value.investmentDate
           : investmentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstPaymentDate: firstPaymentDate == freezed
+      firstPaymentDate: freezed == firstPaymentDate
           ? _value.firstPaymentDate
           : firstPaymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmountFormat: investmentAmountFormat == freezed
+      investmentAmountFormat: freezed == investmentAmountFormat
           ? _value.investmentAmountFormat
           : investmentAmountFormat // ignore: cast_nullable_to_non_nullable
               as String?,
-      maturityDate: maturityDate == freezed
+      maturityDate: freezed == maturityDate
           ? _value.maturityDate
           : maturityDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      duration: duration == freezed
+      duration: freezed == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalDuration: originalDuration == freezed
+      originalDuration: freezed == originalDuration
           ? _value.originalDuration
           : originalDuration // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationPeriod: durationPeriod == freezed
+      durationPeriod: freezed == durationPeriod
           ? _value.durationPeriod
           : durationPeriod // ignore: cast_nullable_to_non_nullable
               as String?,
-      paid: paid == freezed
+      paid: freezed == paid
           ? _value.paid
           : paid // ignore: cast_nullable_to_non_nullable
               as num?,
-      returnPaymenMethod: returnPaymenMethod == freezed
+      returnPaymenMethod: freezed == returnPaymenMethod
           ? _value.returnPaymenMethod
           : returnPaymenMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      mmaAccountid: mmaAccountid == freezed
+      mmaAccountid: freezed == mmaAccountid
           ? _value.mmaAccountid
           : mmaAccountid // ignore: cast_nullable_to_non_nullable
               as num?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as num?,
-      investorName: investorName == freezed
+      investorName: freezed == investorName
           ? _value.investorName
           : investorName // ignore: cast_nullable_to_non_nullable
               as String?,
-      endMaturity: endMaturity == freezed
+      endMaturity: freezed == endMaturity
           ? _value.endMaturity
           : endMaturity // ignore: cast_nullable_to_non_nullable
               as String?,
-      currentPrincipal: currentPrincipal == freezed
+      currentPrincipal: freezed == currentPrincipal
           ? _value.currentPrincipal
           : currentPrincipal // ignore: cast_nullable_to_non_nullable
               as String?,
-      interestType: interestType == freezed
+      interestType: freezed == interestType
           ? _value.interestType
           : interestType // ignore: cast_nullable_to_non_nullable
               as String?,
-      allowWithdrawal: allowWithdrawal == freezed
+      allowWithdrawal: freezed == allowWithdrawal
           ? _value.allowWithdrawal
           : allowWithdrawal // ignore: cast_nullable_to_non_nullable
               as String?,
-      minimumWithdrawal: minimumWithdrawal == freezed
+      minimumWithdrawal: freezed == minimumWithdrawal
           ? _value.minimumWithdrawal
           : minimumWithdrawal // ignore: cast_nullable_to_non_nullable
               as num?,
-      withdrawalMessage: withdrawalMessage == freezed
+      withdrawalMessage: freezed == withdrawalMessage
           ? _value.withdrawalMessage
           : withdrawalMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      paidFormat: paidFormat == freezed
+      paidFormat: freezed == paidFormat
           ? _value.paidFormat
           : paidFormat // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankType: bankType == freezed
+      bankType: freezed == bankType
           ? _value.bankType
           : bankType // ignore: cast_nullable_to_non_nullable
               as BankType?,
-      paymentProgressBar: paymentProgressBar == freezed
+      paymentProgressBar: freezed == paymentProgressBar
           ? _value.paymentProgressBar
           : paymentProgressBar // ignore: cast_nullable_to_non_nullable
               as num?,
-      currencyCode: currencyCode == freezed
+      currencyCode: freezed == currencyCode
           ? _value.currencyCode
           : currencyCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalCurrentPrincipal: originalCurrentPrincipal == freezed
+      originalCurrentPrincipal: freezed == originalCurrentPrincipal
           ? _value.originalCurrentPrincipal
           : originalCurrentPrincipal // ignore: cast_nullable_to_non_nullable
               as String?,
-      autoRenewal: autoRenewal == freezed
+      autoRenewal: freezed == autoRenewal
           ? _value.autoRenewal
           : autoRenewal // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankAccount: bankAccount == freezed
+      bankAccount: freezed == bankAccount
           ? _value.bankAccount
           : bankAccount // ignore: cast_nullable_to_non_nullable
               as BankAccount?,
-      schedule: schedule == freezed
+      schedule: freezed == schedule
           ? _value.schedule
           : schedule // ignore: cast_nullable_to_non_nullable
               as List<ScheduleModelList>?,
-      withdrawalNotice: withdrawalNotice == freezed
+      withdrawalNotice: freezed == withdrawalNotice
           ? _value.withdrawalNotice
           : withdrawalNotice // ignore: cast_nullable_to_non_nullable
               as List<WithdrawNotice>?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BankTypeCopyWith<$Res>? get bankType {
     if (_value.bankType == null) {
       return null;
     }
 
     return $BankTypeCopyWith<$Res>(_value.bankType!, (value) {
-      return _then(_value.copyWith(bankType: value));
+      return _then(_value.copyWith(bankType: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BankAccountCopyWith<$Res>? get bankAccount {
     if (_value.bankAccount == null) {
       return null;
     }
 
     return $BankAccountCopyWith<$Res>(_value.bankAccount!, (value) {
-      return _then(_value.copyWith(bankAccount: value));
+      return _then(_value.copyWith(bankAccount: value) as $Val);
     });
   }
 }
@@ -455,6 +461,7 @@ abstract class _$$_FiFApplicationDetailModelCopyWith<$Res>
           $Res Function(_$_FiFApplicationDetailModel) then) =
       __$$_FiFApplicationDetailModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? code,
       @JsonKey(name: 'product_id')
@@ -544,17 +551,15 @@ abstract class _$$_FiFApplicationDetailModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_FiFApplicationDetailModelCopyWithImpl<$Res>
-    extends _$FiFApplicationDetailModelCopyWithImpl<$Res>
+    extends _$FiFApplicationDetailModelCopyWithImpl<$Res,
+        _$_FiFApplicationDetailModel>
     implements _$$_FiFApplicationDetailModelCopyWith<$Res> {
   __$$_FiFApplicationDetailModelCopyWithImpl(
       _$_FiFApplicationDetailModel _value,
       $Res Function(_$_FiFApplicationDetailModel) _then)
-      : super(_value, (v) => _then(v as _$_FiFApplicationDetailModel));
+      : super(_value, _then);
 
-  @override
-  _$_FiFApplicationDetailModel get _value =>
-      super._value as _$_FiFApplicationDetailModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? code = freezed,
@@ -601,171 +606,171 @@ class __$$_FiFApplicationDetailModelCopyWithImpl<$Res>
     Object? withdrawalNotice = freezed,
   }) {
     return _then(_$_FiFApplicationDetailModel(
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      productId: productId == freezed
+      productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as int?,
-      productCode: productCode == freezed
+      productCode: freezed == productCode
           ? _value.productCode
           : productCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      subid: subid == freezed
+      subid: freezed == subid
           ? _value.subid
           : subid // ignore: cast_nullable_to_non_nullable
               as int?,
-      subproductName: subproductName == freezed
+      subproductName: freezed == subproductName
           ? _value.subproductName
           : subproductName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subproductCode: subproductCode == freezed
+      subproductCode: freezed == subproductCode
           ? _value.subproductCode
           : subproductCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountName: accountName == freezed
+      accountName: freezed == accountName
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalAmount: originalAmount == freezed
+      originalAmount: freezed == originalAmount
           ? _value.originalAmount
           : originalAmount // ignore: cast_nullable_to_non_nullable
               as num?,
-      deductionAmount: deductionAmount == freezed
+      deductionAmount: freezed == deductionAmount
           ? _value.deductionAmount
           : deductionAmount // ignore: cast_nullable_to_non_nullable
               as num?,
-      totalInterestEarned: totalInterestEarned == freezed
+      totalInterestEarned: freezed == totalInterestEarned
           ? _value.totalInterestEarned
           : totalInterestEarned // ignore: cast_nullable_to_non_nullable
               as String?,
-      monthlyInterestEarned: monthlyInterestEarned == freezed
+      monthlyInterestEarned: freezed == monthlyInterestEarned
           ? _value.monthlyInterestEarned
           : monthlyInterestEarned // ignore: cast_nullable_to_non_nullable
               as String?,
-      productName: productName == freezed
+      productName: freezed == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
               as String?,
-      annuallyInterestRate: annuallyInterestRate == freezed
+      annuallyInterestRate: freezed == annuallyInterestRate
           ? _value.annuallyInterestRate
           : annuallyInterestRate // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentDate: investmentDate == freezed
+      investmentDate: freezed == investmentDate
           ? _value.investmentDate
           : investmentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstPaymentDate: firstPaymentDate == freezed
+      firstPaymentDate: freezed == firstPaymentDate
           ? _value.firstPaymentDate
           : firstPaymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmountFormat: investmentAmountFormat == freezed
+      investmentAmountFormat: freezed == investmentAmountFormat
           ? _value.investmentAmountFormat
           : investmentAmountFormat // ignore: cast_nullable_to_non_nullable
               as String?,
-      maturityDate: maturityDate == freezed
+      maturityDate: freezed == maturityDate
           ? _value.maturityDate
           : maturityDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      duration: duration == freezed
+      duration: freezed == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalDuration: originalDuration == freezed
+      originalDuration: freezed == originalDuration
           ? _value.originalDuration
           : originalDuration // ignore: cast_nullable_to_non_nullable
               as num?,
-      durationPeriod: durationPeriod == freezed
+      durationPeriod: freezed == durationPeriod
           ? _value.durationPeriod
           : durationPeriod // ignore: cast_nullable_to_non_nullable
               as String?,
-      paid: paid == freezed
+      paid: freezed == paid
           ? _value.paid
           : paid // ignore: cast_nullable_to_non_nullable
               as num?,
-      returnPaymenMethod: returnPaymenMethod == freezed
+      returnPaymenMethod: freezed == returnPaymenMethod
           ? _value.returnPaymenMethod
           : returnPaymenMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      mmaAccountid: mmaAccountid == freezed
+      mmaAccountid: freezed == mmaAccountid
           ? _value.mmaAccountid
           : mmaAccountid // ignore: cast_nullable_to_non_nullable
               as num?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as num?,
-      investorName: investorName == freezed
+      investorName: freezed == investorName
           ? _value.investorName
           : investorName // ignore: cast_nullable_to_non_nullable
               as String?,
-      endMaturity: endMaturity == freezed
+      endMaturity: freezed == endMaturity
           ? _value.endMaturity
           : endMaturity // ignore: cast_nullable_to_non_nullable
               as String?,
-      currentPrincipal: currentPrincipal == freezed
+      currentPrincipal: freezed == currentPrincipal
           ? _value.currentPrincipal
           : currentPrincipal // ignore: cast_nullable_to_non_nullable
               as String?,
-      interestType: interestType == freezed
+      interestType: freezed == interestType
           ? _value.interestType
           : interestType // ignore: cast_nullable_to_non_nullable
               as String?,
-      allowWithdrawal: allowWithdrawal == freezed
+      allowWithdrawal: freezed == allowWithdrawal
           ? _value.allowWithdrawal
           : allowWithdrawal // ignore: cast_nullable_to_non_nullable
               as String?,
-      minimumWithdrawal: minimumWithdrawal == freezed
+      minimumWithdrawal: freezed == minimumWithdrawal
           ? _value.minimumWithdrawal
           : minimumWithdrawal // ignore: cast_nullable_to_non_nullable
               as num?,
-      withdrawalMessage: withdrawalMessage == freezed
+      withdrawalMessage: freezed == withdrawalMessage
           ? _value.withdrawalMessage
           : withdrawalMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      paidFormat: paidFormat == freezed
+      paidFormat: freezed == paidFormat
           ? _value.paidFormat
           : paidFormat // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankType: bankType == freezed
+      bankType: freezed == bankType
           ? _value.bankType
           : bankType // ignore: cast_nullable_to_non_nullable
               as BankType?,
-      paymentProgressBar: paymentProgressBar == freezed
+      paymentProgressBar: freezed == paymentProgressBar
           ? _value.paymentProgressBar
           : paymentProgressBar // ignore: cast_nullable_to_non_nullable
               as num?,
-      currencyCode: currencyCode == freezed
+      currencyCode: freezed == currencyCode
           ? _value.currencyCode
           : currencyCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalCurrentPrincipal: originalCurrentPrincipal == freezed
+      originalCurrentPrincipal: freezed == originalCurrentPrincipal
           ? _value.originalCurrentPrincipal
           : originalCurrentPrincipal // ignore: cast_nullable_to_non_nullable
               as String?,
-      autoRenewal: autoRenewal == freezed
+      autoRenewal: freezed == autoRenewal
           ? _value.autoRenewal
           : autoRenewal // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankAccount: bankAccount == freezed
+      bankAccount: freezed == bankAccount
           ? _value.bankAccount
           : bankAccount // ignore: cast_nullable_to_non_nullable
               as BankAccount?,
-      schedule: schedule == freezed
+      schedule: freezed == schedule
           ? _value._schedule
           : schedule // ignore: cast_nullable_to_non_nullable
               as List<ScheduleModelList>?,
-      withdrawalNotice: withdrawalNotice == freezed
+      withdrawalNotice: freezed == withdrawalNotice
           ? _value._withdrawalNotice
           : withdrawalNotice // ignore: cast_nullable_to_non_nullable
               as List<WithdrawNotice>?,
@@ -983,6 +988,7 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
   List<ScheduleModelList>? get schedule {
     final value = _schedule;
     if (value == null) return null;
+    if (_schedule is EqualUnmodifiableListView) return _schedule;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -993,6 +999,8 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
   List<WithdrawNotice>? get withdrawalNotice {
     final value = _withdrawalNotice;
     if (value == null) return null;
+    if (_withdrawalNotice is EqualUnmodifiableListView)
+      return _withdrawalNotice;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1007,79 +1015,83 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FiFApplicationDetailModel &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.productId, productId) &&
-            const DeepCollectionEquality()
-                .equals(other.productCode, productCode) &&
-            const DeepCollectionEquality().equals(other.subid, subid) &&
-            const DeepCollectionEquality()
-                .equals(other.subproductName, subproductName) &&
-            const DeepCollectionEquality()
-                .equals(other.subproductCode, subproductCode) &&
-            const DeepCollectionEquality()
-                .equals(other.accountName, accountName) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentAmount, investmentAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.originalAmount, originalAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.deductionAmount, deductionAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.totalInterestEarned, totalInterestEarned) &&
-            const DeepCollectionEquality()
-                .equals(other.monthlyInterestEarned, monthlyInterestEarned) &&
-            const DeepCollectionEquality()
-                .equals(other.productName, productName) &&
-            const DeepCollectionEquality()
-                .equals(other.annuallyInterestRate, annuallyInterestRate) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentDate, investmentDate) &&
-            const DeepCollectionEquality()
-                .equals(other.firstPaymentDate, firstPaymentDate) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentAmountFormat, investmentAmountFormat) &&
-            const DeepCollectionEquality()
-                .equals(other.maturityDate, maturityDate) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.duration, duration) &&
-            const DeepCollectionEquality()
-                .equals(other.originalDuration, originalDuration) &&
-            const DeepCollectionEquality()
-                .equals(other.durationPeriod, durationPeriod) &&
-            const DeepCollectionEquality().equals(other.paid, paid) &&
-            const DeepCollectionEquality()
-                .equals(other.returnPaymenMethod, returnPaymenMethod) &&
-            const DeepCollectionEquality()
-                .equals(other.mmaAccountid, mmaAccountid) &&
-            const DeepCollectionEquality().equals(other.bankId, bankId) &&
-            const DeepCollectionEquality()
-                .equals(other.investorName, investorName) &&
-            const DeepCollectionEquality()
-                .equals(other.endMaturity, endMaturity) &&
-            const DeepCollectionEquality()
-                .equals(other.currentPrincipal, currentPrincipal) &&
-            const DeepCollectionEquality()
-                .equals(other.interestType, interestType) &&
-            const DeepCollectionEquality()
-                .equals(other.allowWithdrawal, allowWithdrawal) &&
-            const DeepCollectionEquality()
-                .equals(other.minimumWithdrawal, minimumWithdrawal) &&
-            const DeepCollectionEquality()
-                .equals(other.withdrawalMessage, withdrawalMessage) &&
-            const DeepCollectionEquality()
-                .equals(other.paidFormat, paidFormat) &&
-            const DeepCollectionEquality().equals(other.bankType, bankType) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentProgressBar, paymentProgressBar) &&
-            const DeepCollectionEquality()
-                .equals(other.currencyCode, currencyCode) &&
-            const DeepCollectionEquality().equals(
-                other.originalCurrentPrincipal, originalCurrentPrincipal) &&
-            const DeepCollectionEquality()
-                .equals(other.autoRenewal, autoRenewal) &&
-            const DeepCollectionEquality()
-                .equals(other.bankAccount, bankAccount) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
+            (identical(other.productCode, productCode) ||
+                other.productCode == productCode) &&
+            (identical(other.subid, subid) || other.subid == subid) &&
+            (identical(other.subproductName, subproductName) ||
+                other.subproductName == subproductName) &&
+            (identical(other.subproductCode, subproductCode) ||
+                other.subproductCode == subproductCode) &&
+            (identical(other.accountName, accountName) ||
+                other.accountName == accountName) &&
+            (identical(other.investmentAmount, investmentAmount) ||
+                other.investmentAmount == investmentAmount) &&
+            (identical(other.originalAmount, originalAmount) ||
+                other.originalAmount == originalAmount) &&
+            (identical(other.deductionAmount, deductionAmount) ||
+                other.deductionAmount == deductionAmount) &&
+            (identical(other.totalInterestEarned, totalInterestEarned) ||
+                other.totalInterestEarned == totalInterestEarned) &&
+            (identical(other.monthlyInterestEarned, monthlyInterestEarned) ||
+                other.monthlyInterestEarned == monthlyInterestEarned) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
+            (identical(other.annuallyInterestRate, annuallyInterestRate) ||
+                other.annuallyInterestRate == annuallyInterestRate) &&
+            (identical(other.investmentDate, investmentDate) ||
+                other.investmentDate == investmentDate) &&
+            (identical(other.firstPaymentDate, firstPaymentDate) ||
+                other.firstPaymentDate == firstPaymentDate) &&
+            (identical(other.investmentAmountFormat, investmentAmountFormat) ||
+                other.investmentAmountFormat == investmentAmountFormat) &&
+            (identical(other.maturityDate, maturityDate) ||
+                other.maturityDate == maturityDate) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.originalDuration, originalDuration) ||
+                other.originalDuration == originalDuration) &&
+            (identical(other.durationPeriod, durationPeriod) ||
+                other.durationPeriod == durationPeriod) &&
+            (identical(other.paid, paid) || other.paid == paid) &&
+            (identical(other.returnPaymenMethod, returnPaymenMethod) ||
+                other.returnPaymenMethod == returnPaymenMethod) &&
+            (identical(other.mmaAccountid, mmaAccountid) ||
+                other.mmaAccountid == mmaAccountid) &&
+            (identical(other.bankId, bankId) || other.bankId == bankId) &&
+            (identical(other.investorName, investorName) ||
+                other.investorName == investorName) &&
+            (identical(other.endMaturity, endMaturity) ||
+                other.endMaturity == endMaturity) &&
+            (identical(other.currentPrincipal, currentPrincipal) ||
+                other.currentPrincipal == currentPrincipal) &&
+            (identical(other.interestType, interestType) ||
+                other.interestType == interestType) &&
+            (identical(other.allowWithdrawal, allowWithdrawal) ||
+                other.allowWithdrawal == allowWithdrawal) &&
+            (identical(other.minimumWithdrawal, minimumWithdrawal) ||
+                other.minimumWithdrawal == minimumWithdrawal) &&
+            (identical(other.withdrawalMessage, withdrawalMessage) ||
+                other.withdrawalMessage == withdrawalMessage) &&
+            (identical(other.paidFormat, paidFormat) ||
+                other.paidFormat == paidFormat) &&
+            (identical(other.bankType, bankType) ||
+                other.bankType == bankType) &&
+            (identical(other.paymentProgressBar, paymentProgressBar) ||
+                other.paymentProgressBar == paymentProgressBar) &&
+            (identical(other.currencyCode, currencyCode) ||
+                other.currencyCode == currencyCode) &&
+            (identical(
+                    other.originalCurrentPrincipal, originalCurrentPrincipal) ||
+                other.originalCurrentPrincipal == originalCurrentPrincipal) &&
+            (identical(other.autoRenewal, autoRenewal) ||
+                other.autoRenewal == autoRenewal) &&
+            (identical(other.bankAccount, bankAccount) ||
+                other.bankAccount == bankAccount) &&
             const DeepCollectionEquality().equals(other._schedule, _schedule) &&
             const DeepCollectionEquality()
                 .equals(other._withdrawalNotice, _withdrawalNotice));
@@ -1089,59 +1101,62 @@ class _$_FiFApplicationDetailModel implements _FiFApplicationDetailModel {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        const DeepCollectionEquality().hash(code),
-        const DeepCollectionEquality().hash(productId),
-        const DeepCollectionEquality().hash(productCode),
-        const DeepCollectionEquality().hash(subid),
-        const DeepCollectionEquality().hash(subproductName),
-        const DeepCollectionEquality().hash(subproductCode),
-        const DeepCollectionEquality().hash(accountName),
-        const DeepCollectionEquality().hash(investmentAmount),
-        const DeepCollectionEquality().hash(originalAmount),
-        const DeepCollectionEquality().hash(deductionAmount),
-        const DeepCollectionEquality().hash(totalInterestEarned),
-        const DeepCollectionEquality().hash(monthlyInterestEarned),
-        const DeepCollectionEquality().hash(productName),
-        const DeepCollectionEquality().hash(annuallyInterestRate),
-        const DeepCollectionEquality().hash(investmentDate),
-        const DeepCollectionEquality().hash(firstPaymentDate),
-        const DeepCollectionEquality().hash(investmentAmountFormat),
-        const DeepCollectionEquality().hash(maturityDate),
-        const DeepCollectionEquality().hash(description),
-        const DeepCollectionEquality().hash(duration),
-        const DeepCollectionEquality().hash(originalDuration),
-        const DeepCollectionEquality().hash(durationPeriod),
-        const DeepCollectionEquality().hash(paid),
-        const DeepCollectionEquality().hash(returnPaymenMethod),
-        const DeepCollectionEquality().hash(mmaAccountid),
-        const DeepCollectionEquality().hash(bankId),
-        const DeepCollectionEquality().hash(investorName),
-        const DeepCollectionEquality().hash(endMaturity),
-        const DeepCollectionEquality().hash(currentPrincipal),
-        const DeepCollectionEquality().hash(interestType),
-        const DeepCollectionEquality().hash(allowWithdrawal),
-        const DeepCollectionEquality().hash(minimumWithdrawal),
-        const DeepCollectionEquality().hash(withdrawalMessage),
-        const DeepCollectionEquality().hash(paidFormat),
-        const DeepCollectionEquality().hash(bankType),
-        const DeepCollectionEquality().hash(paymentProgressBar),
-        const DeepCollectionEquality().hash(currencyCode),
-        const DeepCollectionEquality().hash(originalCurrentPrincipal),
-        const DeepCollectionEquality().hash(autoRenewal),
-        const DeepCollectionEquality().hash(bankAccount),
+        code,
+        productId,
+        productCode,
+        subid,
+        subproductName,
+        subproductCode,
+        accountName,
+        investmentAmount,
+        originalAmount,
+        deductionAmount,
+        totalInterestEarned,
+        monthlyInterestEarned,
+        productName,
+        annuallyInterestRate,
+        investmentDate,
+        firstPaymentDate,
+        investmentAmountFormat,
+        maturityDate,
+        description,
+        duration,
+        originalDuration,
+        durationPeriod,
+        paid,
+        returnPaymenMethod,
+        mmaAccountid,
+        bankId,
+        investorName,
+        endMaturity,
+        currentPrincipal,
+        interestType,
+        allowWithdrawal,
+        minimumWithdrawal,
+        withdrawalMessage,
+        paidFormat,
+        bankType,
+        paymentProgressBar,
+        currencyCode,
+        originalCurrentPrincipal,
+        autoRenewal,
+        bankAccount,
         const DeepCollectionEquality().hash(_schedule),
         const DeepCollectionEquality().hash(_withdrawalNotice)
       ]);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FiFApplicationDetailModelCopyWith<_$_FiFApplicationDetailModel>
       get copyWith => __$$_FiFApplicationDetailModelCopyWithImpl<
           _$_FiFApplicationDetailModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FiFApplicationDetailModelToJson(this);
+    return _$$_FiFApplicationDetailModelToJson(
+      this,
+    );
   }
 }
 
@@ -1232,127 +1247,126 @@ abstract class _FiFApplicationDetailModel implements FiFApplicationDetailModel {
       _$_FiFApplicationDetailModel.fromJson;
 
   @override
-  String? get code => throw _privateConstructorUsedError;
+  String? get code;
   @override
   @JsonKey(name: 'product_id')
-  int? get productId => throw _privateConstructorUsedError;
+  int? get productId;
   @override
   @JsonKey(name: 'product_code')
-  String? get productCode => throw _privateConstructorUsedError;
+  String? get productCode;
   @override
   @JsonKey(name: "sub_product_id")
-  int? get subid => throw _privateConstructorUsedError;
+  int? get subid;
   @override
   @JsonKey(name: "sub_product_name")
-  String? get subproductName => throw _privateConstructorUsedError;
+  String? get subproductName;
   @override
   @JsonKey(name: "sub_product_code")
-  String? get subproductCode => throw _privateConstructorUsedError;
+  String? get subproductCode;
   @override
   @JsonKey(name: 'account_name')
-  String? get accountName => throw _privateConstructorUsedError;
+  String? get accountName;
   @override
   @JsonKey(name: 'investment_amount')
-  String? get investmentAmount => throw _privateConstructorUsedError;
+  String? get investmentAmount;
   @override
   @JsonKey(name: 'original_amount')
-  num? get originalAmount => throw _privateConstructorUsedError;
+  num? get originalAmount;
   @override
   @JsonKey(name: 'deduction_amount')
-  num? get deductionAmount => throw _privateConstructorUsedError;
+  num? get deductionAmount;
   @override
   @JsonKey(name: 'total_interest_earned')
-  String? get totalInterestEarned => throw _privateConstructorUsedError;
+  String? get totalInterestEarned;
   @override
   @JsonKey(name: 'monthly_interest_earned')
-  String? get monthlyInterestEarned => throw _privateConstructorUsedError;
+  String? get monthlyInterestEarned;
   @override
   @JsonKey(name: 'product_name')
-  String? get productName => throw _privateConstructorUsedError;
+  String? get productName;
   @override
   @JsonKey(name: 'annually_interest_rate')
-  String? get annuallyInterestRate => throw _privateConstructorUsedError;
+  String? get annuallyInterestRate;
   @override
   @JsonKey(name: 'investment_date')
-  String? get investmentDate => throw _privateConstructorUsedError;
+  String? get investmentDate;
   @override
   @JsonKey(name: 'first_payment_date')
-  String? get firstPaymentDate => throw _privateConstructorUsedError;
+  String? get firstPaymentDate;
   @override
   @JsonKey(name: 'investment_amount_format')
-  String? get investmentAmountFormat => throw _privateConstructorUsedError;
+  String? get investmentAmountFormat;
   @override
   @JsonKey(name: 'maturity_date')
-  String? get maturityDate => throw _privateConstructorUsedError;
+  String? get maturityDate;
   @override
-  String? get description => throw _privateConstructorUsedError;
+  String? get description;
   @override
-  String? get duration => throw _privateConstructorUsedError;
+  String? get duration;
   @override
   @JsonKey(name: 'original_duration')
-  num? get originalDuration => throw _privateConstructorUsedError;
+  num? get originalDuration;
   @override
   @JsonKey(name: 'duration_period')
-  String? get durationPeriod => throw _privateConstructorUsedError;
+  String? get durationPeriod;
   @override
-  num? get paid => throw _privateConstructorUsedError;
+  num? get paid;
   @override
   @JsonKey(name: 'return_payment_method')
-  String? get returnPaymenMethod => throw _privateConstructorUsedError;
+  String? get returnPaymenMethod;
   @override
   @JsonKey(name: 'mma_account_id')
-  num? get mmaAccountid => throw _privateConstructorUsedError;
+  num? get mmaAccountid;
   @override
   @JsonKey(name: 'bank_id')
-  num? get bankId => throw _privateConstructorUsedError;
+  num? get bankId;
   @override
   @JsonKey(name: 'investor_name')
-  String? get investorName => throw _privateConstructorUsedError;
+  String? get investorName;
   @override
   @JsonKey(name: 'end_maturity')
-  String? get endMaturity => throw _privateConstructorUsedError;
+  String? get endMaturity;
   @override
   @JsonKey(name: 'current_principal')
-  String? get currentPrincipal => throw _privateConstructorUsedError;
+  String? get currentPrincipal;
   @override
   @JsonKey(name: 'interest_type')
-  String? get interestType => throw _privateConstructorUsedError;
+  String? get interestType;
   @override
   @JsonKey(name: 'allow_withdrawal')
-  String? get allowWithdrawal => throw _privateConstructorUsedError;
+  String? get allowWithdrawal;
   @override
   @JsonKey(name: 'minimum_withdrawal')
-  num? get minimumWithdrawal => throw _privateConstructorUsedError;
+  num? get minimumWithdrawal;
   @override
   @JsonKey(name: 'withdrawal_message')
-  String? get withdrawalMessage => throw _privateConstructorUsedError;
+  String? get withdrawalMessage;
   @override
   @JsonKey(name: 'paid_format')
-  String? get paidFormat => throw _privateConstructorUsedError;
+  String? get paidFormat;
   @override
   @JsonKey(name: 'bank_type')
-  BankType? get bankType => throw _privateConstructorUsedError;
+  BankType? get bankType;
   @override
   @JsonKey(name: 'payment_progress_bar')
-  num? get paymentProgressBar => throw _privateConstructorUsedError;
+  num? get paymentProgressBar;
   @override
   @JsonKey(name: 'currency_code')
-  String? get currencyCode => throw _privateConstructorUsedError;
+  String? get currencyCode;
   @override
   @JsonKey(name: 'original_current_principal')
-  String? get originalCurrentPrincipal => throw _privateConstructorUsedError;
+  String? get originalCurrentPrincipal;
   @override
   @JsonKey(name: 'auto_renewal')
-  String? get autoRenewal => throw _privateConstructorUsedError;
+  String? get autoRenewal;
   @override
   @JsonKey(name: 'bank_account')
-  BankAccount? get bankAccount => throw _privateConstructorUsedError;
+  BankAccount? get bankAccount;
   @override
-  List<ScheduleModelList>? get schedule => throw _privateConstructorUsedError;
+  List<ScheduleModelList>? get schedule;
   @override
   @JsonKey(name: 'withdrawal_notice')
-  List<WithdrawNotice>? get withdrawalNotice =>
-      throw _privateConstructorUsedError;
+  List<WithdrawNotice>? get withdrawalNotice;
   @override
   @JsonKey(ignore: true)
   _$$_FiFApplicationDetailModelCopyWith<_$_FiFApplicationDetailModel>

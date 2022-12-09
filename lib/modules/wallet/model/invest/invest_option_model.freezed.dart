@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'invest_option_model.dart';
 
@@ -39,7 +39,8 @@ mixin _$InvestOptionModel {
 abstract class $InvestOptionModelCopyWith<$Res> {
   factory $InvestOptionModelCopyWith(
           InvestOptionModel value, $Res Function(InvestOptionModel) then) =
-      _$InvestOptionModelCopyWithImpl<$Res>;
+      _$InvestOptionModelCopyWithImpl<$Res, InvestOptionModel>;
+  @useResult
   $Res call(
       {int? id,
       String? title,
@@ -50,14 +51,16 @@ abstract class $InvestOptionModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$InvestOptionModelCopyWithImpl<$Res>
+class _$InvestOptionModelCopyWithImpl<$Res, $Val extends InvestOptionModel>
     implements $InvestOptionModelCopyWith<$Res> {
   _$InvestOptionModelCopyWithImpl(this._value, this._then);
 
-  final InvestOptionModel _value;
   // ignore: unused_field
-  final $Res Function(InvestOptionModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -68,31 +71,31 @@ class _$InvestOptionModelCopyWithImpl<$Res>
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      background: background == freezed
+      background: freezed == background
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
               as String?,
-      exploreMore: exploreMore == freezed
+      exploreMore: freezed == exploreMore
           ? _value.exploreMore
           : exploreMore // ignore: cast_nullable_to_non_nullable
               as String?,
-      route: route == freezed
+      route: freezed == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
               as String?,
-      details: details == freezed
+      details: freezed == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as List<FiFDetailModel>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -103,6 +106,7 @@ abstract class _$$_InvestOptionModelCopyWith<$Res>
           $Res Function(_$_InvestOptionModel) then) =
       __$$_InvestOptionModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       String? title,
@@ -114,15 +118,13 @@ abstract class _$$_InvestOptionModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_InvestOptionModelCopyWithImpl<$Res>
-    extends _$InvestOptionModelCopyWithImpl<$Res>
+    extends _$InvestOptionModelCopyWithImpl<$Res, _$_InvestOptionModel>
     implements _$$_InvestOptionModelCopyWith<$Res> {
   __$$_InvestOptionModelCopyWithImpl(
       _$_InvestOptionModel _value, $Res Function(_$_InvestOptionModel) _then)
-      : super(_value, (v) => _then(v as _$_InvestOptionModel));
+      : super(_value, _then);
 
-  @override
-  _$_InvestOptionModel get _value => super._value as _$_InvestOptionModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -133,27 +135,27 @@ class __$$_InvestOptionModelCopyWithImpl<$Res>
     Object? details = freezed,
   }) {
     return _then(_$_InvestOptionModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      background: background == freezed
+      background: freezed == background
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
               as String?,
-      exploreMore: exploreMore == freezed
+      exploreMore: freezed == exploreMore
           ? _value.exploreMore
           : exploreMore // ignore: cast_nullable_to_non_nullable
               as String?,
-      route: route == freezed
+      route: freezed == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
               as String?,
-      details: details == freezed
+      details: freezed == details
           ? _value._details
           : details // ignore: cast_nullable_to_non_nullable
               as List<FiFDetailModel>?,
@@ -193,6 +195,7 @@ class _$_InvestOptionModel implements _InvestOptionModel {
   List<FiFDetailModel>? get details {
     final value = _details;
     if (value == null) return null;
+    if (_details is EqualUnmodifiableListView) return _details;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -207,36 +210,33 @@ class _$_InvestOptionModel implements _InvestOptionModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_InvestOptionModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.background, background) &&
-            const DeepCollectionEquality()
-                .equals(other.exploreMore, exploreMore) &&
-            const DeepCollectionEquality().equals(other.route, route) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.background, background) ||
+                other.background == background) &&
+            (identical(other.exploreMore, exploreMore) ||
+                other.exploreMore == exploreMore) &&
+            (identical(other.route, route) || other.route == route) &&
             const DeepCollectionEquality().equals(other._details, _details));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(background),
-      const DeepCollectionEquality().hash(exploreMore),
-      const DeepCollectionEquality().hash(route),
-      const DeepCollectionEquality().hash(_details));
+  int get hashCode => Object.hash(runtimeType, id, title, background,
+      exploreMore, route, const DeepCollectionEquality().hash(_details));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_InvestOptionModelCopyWith<_$_InvestOptionModel> get copyWith =>
       __$$_InvestOptionModelCopyWithImpl<_$_InvestOptionModel>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_InvestOptionModelToJson(this);
+    return _$$_InvestOptionModelToJson(
+      this,
+    );
   }
 }
 
@@ -254,19 +254,19 @@ abstract class _InvestOptionModel implements InvestOptionModel {
       _$_InvestOptionModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
-  String? get background => throw _privateConstructorUsedError;
+  String? get background;
   @override
   @JsonKey(name: 'explore_more')
-  String? get exploreMore => throw _privateConstructorUsedError;
+  String? get exploreMore;
   @override
-  String? get route => throw _privateConstructorUsedError;
+  String? get route;
   @override
   @JsonKey(name: 'detail')
-  List<FiFDetailModel>? get details => throw _privateConstructorUsedError;
+  List<FiFDetailModel>? get details;
   @override
   @JsonKey(ignore: true)
   _$$_InvestOptionModelCopyWith<_$_InvestOptionModel> get copyWith =>

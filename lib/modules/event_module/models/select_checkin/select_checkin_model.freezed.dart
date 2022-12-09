@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'select_checkin_model.dart';
 
@@ -33,29 +33,32 @@ mixin _$SelectCheckInModel {
 abstract class $SelectCheckInModelCopyWith<$Res> {
   factory $SelectCheckInModelCopyWith(
           SelectCheckInModel value, $Res Function(SelectCheckInModel) then) =
-      _$SelectCheckInModelCopyWithImpl<$Res>;
+      _$SelectCheckInModelCopyWithImpl<$Res, SelectCheckInModel>;
+  @useResult
   $Res call({@JsonKey(name: "guest_id") int? guestId});
 }
 
 /// @nodoc
-class _$SelectCheckInModelCopyWithImpl<$Res>
+class _$SelectCheckInModelCopyWithImpl<$Res, $Val extends SelectCheckInModel>
     implements $SelectCheckInModelCopyWith<$Res> {
   _$SelectCheckInModelCopyWithImpl(this._value, this._then);
 
-  final SelectCheckInModel _value;
   // ignore: unused_field
-  final $Res Function(SelectCheckInModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? guestId = freezed,
   }) {
     return _then(_value.copyWith(
-      guestId: guestId == freezed
+      guestId: freezed == guestId
           ? _value.guestId
           : guestId // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,26 +69,25 @@ abstract class _$$_SelectCheckInModelCopyWith<$Res>
           $Res Function(_$_SelectCheckInModel) then) =
       __$$_SelectCheckInModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@JsonKey(name: "guest_id") int? guestId});
 }
 
 /// @nodoc
 class __$$_SelectCheckInModelCopyWithImpl<$Res>
-    extends _$SelectCheckInModelCopyWithImpl<$Res>
+    extends _$SelectCheckInModelCopyWithImpl<$Res, _$_SelectCheckInModel>
     implements _$$_SelectCheckInModelCopyWith<$Res> {
   __$$_SelectCheckInModelCopyWithImpl(
       _$_SelectCheckInModel _value, $Res Function(_$_SelectCheckInModel) _then)
-      : super(_value, (v) => _then(v as _$_SelectCheckInModel));
+      : super(_value, _then);
 
-  @override
-  _$_SelectCheckInModel get _value => super._value as _$_SelectCheckInModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? guestId = freezed,
   }) {
     return _then(_$_SelectCheckInModel(
-      guestId: guestId == freezed
+      guestId: freezed == guestId
           ? _value.guestId
           : guestId // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -115,23 +117,25 @@ class _$_SelectCheckInModel implements _SelectCheckInModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SelectCheckInModel &&
-            const DeepCollectionEquality().equals(other.guestId, guestId));
+            (identical(other.guestId, guestId) || other.guestId == guestId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(guestId));
+  int get hashCode => Object.hash(runtimeType, guestId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SelectCheckInModelCopyWith<_$_SelectCheckInModel> get copyWith =>
       __$$_SelectCheckInModelCopyWithImpl<_$_SelectCheckInModel>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SelectCheckInModelToJson(this);
+    return _$$_SelectCheckInModelToJson(
+      this,
+    );
   }
 }
 
@@ -144,7 +148,7 @@ abstract class _SelectCheckInModel implements SelectCheckInModel {
 
   @override
   @JsonKey(name: "guest_id")
-  int? get guestId => throw _privateConstructorUsedError;
+  int? get guestId;
   @override
   @JsonKey(ignore: true)
   _$$_SelectCheckInModelCopyWith<_$_SelectCheckInModel> get copyWith =>

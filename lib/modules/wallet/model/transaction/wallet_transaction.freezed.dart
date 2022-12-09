@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'wallet_transaction.dart';
 
@@ -34,34 +34,37 @@ mixin _$WalletTransaction {
 abstract class $WalletTransactionCopyWith<$Res> {
   factory $WalletTransactionCopyWith(
           WalletTransaction value, $Res Function(WalletTransaction) then) =
-      _$WalletTransactionCopyWithImpl<$Res>;
+      _$WalletTransactionCopyWithImpl<$Res, WalletTransaction>;
+  @useResult
   $Res call({String? date, List<WalletTransactionDetail>? transaction});
 }
 
 /// @nodoc
-class _$WalletTransactionCopyWithImpl<$Res>
+class _$WalletTransactionCopyWithImpl<$Res, $Val extends WalletTransaction>
     implements $WalletTransactionCopyWith<$Res> {
   _$WalletTransactionCopyWithImpl(this._value, this._then);
 
-  final WalletTransaction _value;
   // ignore: unused_field
-  final $Res Function(WalletTransaction) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? date = freezed,
     Object? transaction = freezed,
   }) {
     return _then(_value.copyWith(
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      transaction: transaction == freezed
+      transaction: freezed == transaction
           ? _value.transaction
           : transaction // ignore: cast_nullable_to_non_nullable
               as List<WalletTransactionDetail>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -72,31 +75,30 @@ abstract class _$$_WalletTransactionCopyWith<$Res>
           $Res Function(_$_WalletTransaction) then) =
       __$$_WalletTransactionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? date, List<WalletTransactionDetail>? transaction});
 }
 
 /// @nodoc
 class __$$_WalletTransactionCopyWithImpl<$Res>
-    extends _$WalletTransactionCopyWithImpl<$Res>
+    extends _$WalletTransactionCopyWithImpl<$Res, _$_WalletTransaction>
     implements _$$_WalletTransactionCopyWith<$Res> {
   __$$_WalletTransactionCopyWithImpl(
       _$_WalletTransaction _value, $Res Function(_$_WalletTransaction) _then)
-      : super(_value, (v) => _then(v as _$_WalletTransaction));
+      : super(_value, _then);
 
-  @override
-  _$_WalletTransaction get _value => super._value as _$_WalletTransaction;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? date = freezed,
     Object? transaction = freezed,
   }) {
     return _then(_$_WalletTransaction(
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      transaction: transaction == freezed
+      transaction: freezed == transaction
           ? _value._transaction
           : transaction // ignore: cast_nullable_to_non_nullable
               as List<WalletTransactionDetail>?,
@@ -121,6 +123,7 @@ class _$_WalletTransaction implements _WalletTransaction {
   List<WalletTransactionDetail>? get transaction {
     final value = _transaction;
     if (value == null) return null;
+    if (_transaction is EqualUnmodifiableListView) return _transaction;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -135,7 +138,7 @@ class _$_WalletTransaction implements _WalletTransaction {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WalletTransaction &&
-            const DeepCollectionEquality().equals(other.date, date) &&
+            (identical(other.date, date) || other.date == date) &&
             const DeepCollectionEquality()
                 .equals(other._transaction, _transaction));
   }
@@ -143,19 +146,20 @@ class _$_WalletTransaction implements _WalletTransaction {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(date),
-      const DeepCollectionEquality().hash(_transaction));
+      runtimeType, date, const DeepCollectionEquality().hash(_transaction));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_WalletTransactionCopyWith<_$_WalletTransaction> get copyWith =>
       __$$_WalletTransactionCopyWithImpl<_$_WalletTransaction>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WalletTransactionToJson(this);
+    return _$$_WalletTransactionToJson(
+      this,
+    );
   }
 }
 
@@ -168,10 +172,9 @@ abstract class _WalletTransaction implements WalletTransaction {
       _$_WalletTransaction.fromJson;
 
   @override
-  String? get date => throw _privateConstructorUsedError;
+  String? get date;
   @override
-  List<WalletTransactionDetail>? get transaction =>
-      throw _privateConstructorUsedError;
+  List<WalletTransactionDetail>? get transaction;
   @override
   @JsonKey(ignore: true)
   _$$_WalletTransactionCopyWith<_$_WalletTransaction> get copyWith =>

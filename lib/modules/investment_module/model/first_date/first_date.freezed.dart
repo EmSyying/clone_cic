@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'first_date.dart';
 
@@ -49,7 +49,8 @@ mixin _$FIFApplicationListModel {
 abstract class $FIFApplicationListModelCopyWith<$Res> {
   factory $FIFApplicationListModelCopyWith(FIFApplicationListModel value,
           $Res Function(FIFApplicationListModel) then) =
-      _$FIFApplicationListModelCopyWithImpl<$Res>;
+      _$FIFApplicationListModelCopyWithImpl<$Res, FIFApplicationListModel>;
+  @useResult
   $Res call(
       {num? id,
       String? code,
@@ -65,14 +66,17 @@ abstract class $FIFApplicationListModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FIFApplicationListModelCopyWithImpl<$Res>
+class _$FIFApplicationListModelCopyWithImpl<$Res,
+        $Val extends FIFApplicationListModel>
     implements $FIFApplicationListModelCopyWith<$Res> {
   _$FIFApplicationListModelCopyWithImpl(this._value, this._then);
 
-  final FIFApplicationListModel _value;
   // ignore: unused_field
-  final $Res Function(FIFApplicationListModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -88,51 +92,51 @@ class _$FIFApplicationListModelCopyWithImpl<$Res>
     Object? bankId = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountName: accountName == freezed
+      accountName: freezed == accountName
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstPaymentDate: firstPaymentDate == freezed
+      firstPaymentDate: freezed == firstPaymentDate
           ? _value.firstPaymentDate
           : firstPaymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      hide: hide == freezed
+      hide: freezed == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      returnPaymentMethod: returnPaymentMethod == freezed
+      returnPaymentMethod: freezed == returnPaymentMethod
           ? _value.returnPaymentMethod
           : returnPaymentMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      mmaAccountId: mmaAccountId == freezed
+      mmaAccountId: freezed == mmaAccountId
           ? _value.mmaAccountId
           : mmaAccountId // ignore: cast_nullable_to_non_nullable
               as num?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as num?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -143,6 +147,7 @@ abstract class _$$_FIFApplicationListModelCopyWith<$Res>
           $Res Function(_$_FIFApplicationListModel) then) =
       __$$_FIFApplicationListModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {num? id,
       String? code,
@@ -159,16 +164,14 @@ abstract class _$$_FIFApplicationListModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_FIFApplicationListModelCopyWithImpl<$Res>
-    extends _$FIFApplicationListModelCopyWithImpl<$Res>
+    extends _$FIFApplicationListModelCopyWithImpl<$Res,
+        _$_FIFApplicationListModel>
     implements _$$_FIFApplicationListModelCopyWith<$Res> {
   __$$_FIFApplicationListModelCopyWithImpl(_$_FIFApplicationListModel _value,
       $Res Function(_$_FIFApplicationListModel) _then)
-      : super(_value, (v) => _then(v as _$_FIFApplicationListModel));
+      : super(_value, _then);
 
-  @override
-  _$_FIFApplicationListModel get _value =>
-      super._value as _$_FIFApplicationListModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -184,47 +187,47 @@ class __$$_FIFApplicationListModelCopyWithImpl<$Res>
     Object? bankId = freezed,
   }) {
     return _then(_$_FIFApplicationListModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountName: accountName == freezed
+      accountName: freezed == accountName
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
               as String?,
-      investmentAmount: investmentAmount == freezed
+      investmentAmount: freezed == investmentAmount
           ? _value.investmentAmount
           : investmentAmount // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstPaymentDate: firstPaymentDate == freezed
+      firstPaymentDate: freezed == firstPaymentDate
           ? _value.firstPaymentDate
           : firstPaymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      hide: hide == freezed
+      hide: freezed == hide
           ? _value.hide
           : hide // ignore: cast_nullable_to_non_nullable
               as bool?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      returnPaymentMethod: returnPaymentMethod == freezed
+      returnPaymentMethod: freezed == returnPaymentMethod
           ? _value.returnPaymentMethod
           : returnPaymentMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      mmaAccountId: mmaAccountId == freezed
+      mmaAccountId: freezed == mmaAccountId
           ? _value.mmaAccountId
           : mmaAccountId // ignore: cast_nullable_to_non_nullable
               as num?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as num?,
@@ -290,42 +293,43 @@ class _$_FIFApplicationListModel implements _FIFApplicationListModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FIFApplicationListModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality()
-                .equals(other.accountName, accountName) &&
-            const DeepCollectionEquality()
-                .equals(other.investmentAmount, investmentAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.firstPaymentDate, firstPaymentDate) &&
-            const DeepCollectionEquality().equals(other.hide, hide) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.returnPaymentMethod, returnPaymentMethod) &&
-            const DeepCollectionEquality()
-                .equals(other.mmaAccountId, mmaAccountId) &&
-            const DeepCollectionEquality().equals(other.bankId, bankId));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.accountName, accountName) ||
+                other.accountName == accountName) &&
+            (identical(other.investmentAmount, investmentAmount) ||
+                other.investmentAmount == investmentAmount) &&
+            (identical(other.firstPaymentDate, firstPaymentDate) ||
+                other.firstPaymentDate == firstPaymentDate) &&
+            (identical(other.hide, hide) || other.hide == hide) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.returnPaymentMethod, returnPaymentMethod) ||
+                other.returnPaymentMethod == returnPaymentMethod) &&
+            (identical(other.mmaAccountId, mmaAccountId) ||
+                other.mmaAccountId == mmaAccountId) &&
+            (identical(other.bankId, bankId) || other.bankId == bankId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(accountName),
-      const DeepCollectionEquality().hash(investmentAmount),
-      const DeepCollectionEquality().hash(firstPaymentDate),
-      const DeepCollectionEquality().hash(hide),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(returnPaymentMethod),
-      const DeepCollectionEquality().hash(mmaAccountId),
-      const DeepCollectionEquality().hash(bankId));
+      id,
+      code,
+      color,
+      accountName,
+      investmentAmount,
+      firstPaymentDate,
+      hide,
+      status,
+      returnPaymentMethod,
+      mmaAccountId,
+      bankId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FIFApplicationListModelCopyWith<_$_FIFApplicationListModel>
       get copyWith =>
           __$$_FIFApplicationListModelCopyWithImpl<_$_FIFApplicationListModel>(
@@ -333,7 +337,9 @@ class _$_FIFApplicationListModel implements _FIFApplicationListModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FIFApplicationListModelToJson(this);
+    return _$$_FIFApplicationListModelToJson(
+      this,
+    );
   }
 }
 
@@ -361,33 +367,33 @@ abstract class _FIFApplicationListModel implements FIFApplicationListModel {
       _$_FIFApplicationListModel.fromJson;
 
   @override
-  num? get id => throw _privateConstructorUsedError;
+  num? get id;
   @override
-  String? get code => throw _privateConstructorUsedError;
+  String? get code;
   @override
-  String? get color => throw _privateConstructorUsedError;
+  String? get color;
   @override
   @JsonKey(name: 'account_name')
-  String? get accountName => throw _privateConstructorUsedError;
+  String? get accountName;
   @override
   @JsonKey(name: 'investment_amount')
-  String? get investmentAmount => throw _privateConstructorUsedError;
+  String? get investmentAmount;
   @override
   @JsonKey(name: 'first_payment_date')
-  String? get firstPaymentDate => throw _privateConstructorUsedError;
+  String? get firstPaymentDate;
   @override
-  bool? get hide => throw _privateConstructorUsedError;
+  bool? get hide;
   @override
-  String? get status => throw _privateConstructorUsedError;
+  String? get status;
   @override
   @JsonKey(name: 'return_payment_method')
-  String? get returnPaymentMethod => throw _privateConstructorUsedError;
+  String? get returnPaymentMethod;
   @override
   @JsonKey(name: 'mma_account_id')
-  num? get mmaAccountId => throw _privateConstructorUsedError;
+  num? get mmaAccountId;
   @override
   @JsonKey(name: 'bank_id')
-  num? get bankId => throw _privateConstructorUsedError;
+  num? get bankId;
   @override
   @JsonKey(ignore: true)
   _$$_FIFApplicationListModelCopyWith<_$_FIFApplicationListModel>

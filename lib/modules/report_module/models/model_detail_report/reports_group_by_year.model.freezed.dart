@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reports_group_by_year.model.dart';
 
@@ -45,7 +45,8 @@ mixin _$ReportGroupByYearModel {
 abstract class $ReportGroupByYearModelCopyWith<$Res> {
   factory $ReportGroupByYearModelCopyWith(ReportGroupByYearModel value,
           $Res Function(ReportGroupByYearModel) then) =
-      _$ReportGroupByYearModelCopyWithImpl<$Res>;
+      _$ReportGroupByYearModelCopyWithImpl<$Res, ReportGroupByYearModel>;
+  @useResult
   $Res call(
       {int? id,
       String? type,
@@ -60,14 +61,17 @@ abstract class $ReportGroupByYearModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ReportGroupByYearModelCopyWithImpl<$Res>
+class _$ReportGroupByYearModelCopyWithImpl<$Res,
+        $Val extends ReportGroupByYearModel>
     implements $ReportGroupByYearModelCopyWith<$Res> {
   _$ReportGroupByYearModelCopyWithImpl(this._value, this._then);
 
-  final ReportGroupByYearModel _value;
   // ignore: unused_field
-  final $Res Function(ReportGroupByYearModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -82,47 +86,47 @@ class _$ReportGroupByYearModelCopyWithImpl<$Res>
     Object? url = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      category: category == freezed
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      shortDescription: shortDescription == freezed
+      shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      publishedAt: publishedAt == freezed
+      publishedAt: freezed == publishedAt
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      cover: cover == freezed
+      cover: freezed == cover
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
               as String?,
-      attachedFile: attachedFile == freezed
+      attachedFile: freezed == attachedFile
           ? _value.attachedFile
           : attachedFile // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -133,6 +137,7 @@ abstract class _$$_ReportGroupByYearModelCopyWith<$Res>
           $Res Function(_$_ReportGroupByYearModel) then) =
       __$$_ReportGroupByYearModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       String? type,
@@ -148,16 +153,14 @@ abstract class _$$_ReportGroupByYearModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_ReportGroupByYearModelCopyWithImpl<$Res>
-    extends _$ReportGroupByYearModelCopyWithImpl<$Res>
+    extends _$ReportGroupByYearModelCopyWithImpl<$Res,
+        _$_ReportGroupByYearModel>
     implements _$$_ReportGroupByYearModelCopyWith<$Res> {
   __$$_ReportGroupByYearModelCopyWithImpl(_$_ReportGroupByYearModel _value,
       $Res Function(_$_ReportGroupByYearModel) _then)
-      : super(_value, (v) => _then(v as _$_ReportGroupByYearModel));
+      : super(_value, _then);
 
-  @override
-  _$_ReportGroupByYearModel get _value =>
-      super._value as _$_ReportGroupByYearModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -172,43 +175,43 @@ class __$$_ReportGroupByYearModelCopyWithImpl<$Res>
     Object? url = freezed,
   }) {
     return _then(_$_ReportGroupByYearModel(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      category: category == freezed
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      shortDescription: shortDescription == freezed
+      shortDescription: freezed == shortDescription
           ? _value.shortDescription
           : shortDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      publishedAt: publishedAt == freezed
+      publishedAt: freezed == publishedAt
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      cover: cover == freezed
+      cover: freezed == cover
           ? _value.cover
           : cover // ignore: cast_nullable_to_non_nullable
               as String?,
-      attachedFile: attachedFile == freezed
+      attachedFile: freezed == attachedFile
           ? _value.attachedFile
           : attachedFile // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -268,45 +271,39 @@ class _$_ReportGroupByYearModel implements _ReportGroupByYearModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReportGroupByYearModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.category, category) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.shortDescription, shortDescription) &&
-            const DeepCollectionEquality()
-                .equals(other.publishedAt, publishedAt) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality().equals(other.cover, cover) &&
-            const DeepCollectionEquality()
-                .equals(other.attachedFile, attachedFile) &&
-            const DeepCollectionEquality().equals(other.url, url));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.shortDescription, shortDescription) ||
+                other.shortDescription == shortDescription) &&
+            (identical(other.publishedAt, publishedAt) ||
+                other.publishedAt == publishedAt) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.cover, cover) || other.cover == cover) &&
+            (identical(other.attachedFile, attachedFile) ||
+                other.attachedFile == attachedFile) &&
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(category),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(shortDescription),
-      const DeepCollectionEquality().hash(publishedAt),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(cover),
-      const DeepCollectionEquality().hash(attachedFile),
-      const DeepCollectionEquality().hash(url));
+  int get hashCode => Object.hash(runtimeType, id, type, category, title,
+      shortDescription, publishedAt, color, cover, attachedFile, url);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReportGroupByYearModelCopyWith<_$_ReportGroupByYearModel> get copyWith =>
       __$$_ReportGroupByYearModelCopyWithImpl<_$_ReportGroupByYearModel>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReportGroupByYearModelToJson(this);
+    return _$$_ReportGroupByYearModelToJson(
+      this,
+    );
   }
 }
 
@@ -327,28 +324,28 @@ abstract class _ReportGroupByYearModel implements ReportGroupByYearModel {
       _$_ReportGroupByYearModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get type => throw _privateConstructorUsedError;
+  String? get type;
   @override
-  String? get category => throw _privateConstructorUsedError;
+  String? get category;
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
   @JsonKey(name: 'short_description')
-  String? get shortDescription => throw _privateConstructorUsedError;
+  String? get shortDescription;
   @override
   @JsonKey(name: 'published_at')
-  String? get publishedAt => throw _privateConstructorUsedError;
+  String? get publishedAt;
   @override
-  String? get color => throw _privateConstructorUsedError;
+  String? get color;
   @override
-  String? get cover => throw _privateConstructorUsedError;
+  String? get cover;
   @override
   @JsonKey(name: 'attached_file')
-  String? get attachedFile => throw _privateConstructorUsedError;
+  String? get attachedFile;
   @override
-  String? get url => throw _privateConstructorUsedError;
+  String? get url;
   @override
   @JsonKey(ignore: true)
   _$$_ReportGroupByYearModelCopyWith<_$_ReportGroupByYearModel> get copyWith =>

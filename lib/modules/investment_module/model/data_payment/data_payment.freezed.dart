@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'data_payment.dart';
 
@@ -40,7 +40,8 @@ mixin _$PaymentData {
 abstract class $PaymentDataCopyWith<$Res> {
   factory $PaymentDataCopyWith(
           PaymentData value, $Res Function(PaymentData) then) =
-      _$PaymentDataCopyWithImpl<$Res>;
+      _$PaymentDataCopyWithImpl<$Res, PaymentData>;
+  @useResult
   $Res call(
       {num? id,
       String? type,
@@ -51,13 +52,16 @@ abstract class $PaymentDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PaymentDataCopyWithImpl<$Res> implements $PaymentDataCopyWith<$Res> {
+class _$PaymentDataCopyWithImpl<$Res, $Val extends PaymentData>
+    implements $PaymentDataCopyWith<$Res> {
   _$PaymentDataCopyWithImpl(this._value, this._then);
 
-  final PaymentData _value;
   // ignore: unused_field
-  final $Res Function(PaymentData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -68,31 +72,31 @@ class _$PaymentDataCopyWithImpl<$Res> implements $PaymentDataCopyWith<$Res> {
     Object? image = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankName: bankName == freezed
+      bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
               as String?,
-      accounName: accounName == freezed
+      accounName: freezed == accounName
           ? _value.accounName
           : accounName // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountNumber: accountNumber == freezed
+      accountNumber: freezed == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      image: image == freezed
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -103,6 +107,7 @@ abstract class _$$_PaymentDataCopyWith<$Res>
           _$_PaymentData value, $Res Function(_$_PaymentData) then) =
       __$$_PaymentDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {num? id,
       String? type,
@@ -113,15 +118,14 @@ abstract class _$$_PaymentDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PaymentDataCopyWithImpl<$Res> extends _$PaymentDataCopyWithImpl<$Res>
+class __$$_PaymentDataCopyWithImpl<$Res>
+    extends _$PaymentDataCopyWithImpl<$Res, _$_PaymentData>
     implements _$$_PaymentDataCopyWith<$Res> {
   __$$_PaymentDataCopyWithImpl(
       _$_PaymentData _value, $Res Function(_$_PaymentData) _then)
-      : super(_value, (v) => _then(v as _$_PaymentData));
+      : super(_value, _then);
 
-  @override
-  _$_PaymentData get _value => super._value as _$_PaymentData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -132,27 +136,27 @@ class __$$_PaymentDataCopyWithImpl<$Res> extends _$PaymentDataCopyWithImpl<$Res>
     Object? image = freezed,
   }) {
     return _then(_$_PaymentData(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as num?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankName: bankName == freezed
+      bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
               as String?,
-      accounName: accounName == freezed
+      accounName: freezed == accounName
           ? _value.accounName
           : accounName // ignore: cast_nullable_to_non_nullable
               as String?,
-      accountNumber: accountNumber == freezed
+      accountNumber: freezed == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      image: image == freezed
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -200,35 +204,33 @@ class _$_PaymentData implements _PaymentData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PaymentData &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.bankName, bankName) &&
-            const DeepCollectionEquality()
-                .equals(other.accounName, accounName) &&
-            const DeepCollectionEquality()
-                .equals(other.accountNumber, accountNumber) &&
-            const DeepCollectionEquality().equals(other.image, image));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.bankName, bankName) ||
+                other.bankName == bankName) &&
+            (identical(other.accounName, accounName) ||
+                other.accounName == accounName) &&
+            (identical(other.accountNumber, accountNumber) ||
+                other.accountNumber == accountNumber) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(bankName),
-      const DeepCollectionEquality().hash(accounName),
-      const DeepCollectionEquality().hash(accountNumber),
-      const DeepCollectionEquality().hash(image));
+      runtimeType, id, type, bankName, accounName, accountNumber, image);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PaymentDataCopyWith<_$_PaymentData> get copyWith =>
       __$$_PaymentDataCopyWithImpl<_$_PaymentData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PaymentDataToJson(this);
+    return _$$_PaymentDataToJson(
+      this,
+    );
   }
 }
 
@@ -245,20 +247,20 @@ abstract class _PaymentData implements PaymentData {
       _$_PaymentData.fromJson;
 
   @override
-  num? get id => throw _privateConstructorUsedError;
+  num? get id;
   @override
-  String? get type => throw _privateConstructorUsedError;
+  String? get type;
   @override
   @JsonKey(name: 'bank_name')
-  String? get bankName => throw _privateConstructorUsedError;
+  String? get bankName;
   @override
   @JsonKey(name: 'account_name')
-  String? get accounName => throw _privateConstructorUsedError;
+  String? get accounName;
   @override
   @JsonKey(name: 'account_number')
-  String? get accountNumber => throw _privateConstructorUsedError;
+  String? get accountNumber;
   @override
-  String? get image => throw _privateConstructorUsedError;
+  String? get image;
   @override
   @JsonKey(ignore: true)
   _$$_PaymentDataCopyWith<_$_PaymentData> get copyWith =>

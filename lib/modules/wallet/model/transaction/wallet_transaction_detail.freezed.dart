@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'wallet_transaction_detail.dart';
 
@@ -57,7 +57,8 @@ mixin _$WalletTransactionDetail {
 abstract class $WalletTransactionDetailCopyWith<$Res> {
   factory $WalletTransactionDetailCopyWith(WalletTransactionDetail value,
           $Res Function(WalletTransactionDetail) then) =
-      _$WalletTransactionDetailCopyWithImpl<$Res>;
+      _$WalletTransactionDetailCopyWithImpl<$Res, WalletTransactionDetail>;
+  @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "label") String? label,
@@ -75,14 +76,17 @@ abstract class $WalletTransactionDetailCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$WalletTransactionDetailCopyWithImpl<$Res>
+class _$WalletTransactionDetailCopyWithImpl<$Res,
+        $Val extends WalletTransactionDetail>
     implements $WalletTransactionDetailCopyWith<$Res> {
   _$WalletTransactionDetailCopyWithImpl(this._value, this._then);
 
-  final WalletTransactionDetail _value;
   // ignore: unused_field
-  final $Res Function(WalletTransactionDetail) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -100,59 +104,59 @@ class _$WalletTransactionDetailCopyWithImpl<$Res>
     Object? bankAccountNumber = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      label: label == freezed
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      amount: amount == freezed
+      amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as String?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      remark: remark == freezed
+      remark: freezed == remark
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      time: time == freezed
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      depositMethod: depositMethod == freezed
+      depositMethod: freezed == depositMethod
           ? _value.depositMethod
           : depositMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankName: bankName == freezed
+      bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
               as String?,
-      transactionType: transactionType == freezed
+      transactionType: freezed == transactionType
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as String?,
-      model: model == freezed
+      model: freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as String?,
-      transactionId: transactionId == freezed
+      transactionId: freezed == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankAccountNumber: bankAccountNumber == freezed
+      bankAccountNumber: freezed == bankAccountNumber
           ? _value.bankAccountNumber
           : bankAccountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -163,6 +167,7 @@ abstract class _$$_WalletTransactionDetailCopyWith<$Res>
           $Res Function(_$_WalletTransactionDetail) then) =
       __$$_WalletTransactionDetailCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "label") String? label,
@@ -181,16 +186,14 @@ abstract class _$$_WalletTransactionDetailCopyWith<$Res>
 
 /// @nodoc
 class __$$_WalletTransactionDetailCopyWithImpl<$Res>
-    extends _$WalletTransactionDetailCopyWithImpl<$Res>
+    extends _$WalletTransactionDetailCopyWithImpl<$Res,
+        _$_WalletTransactionDetail>
     implements _$$_WalletTransactionDetailCopyWith<$Res> {
   __$$_WalletTransactionDetailCopyWithImpl(_$_WalletTransactionDetail _value,
       $Res Function(_$_WalletTransactionDetail) _then)
-      : super(_value, (v) => _then(v as _$_WalletTransactionDetail));
+      : super(_value, _then);
 
-  @override
-  _$_WalletTransactionDetail get _value =>
-      super._value as _$_WalletTransactionDetail;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -208,55 +211,55 @@ class __$$_WalletTransactionDetailCopyWithImpl<$Res>
     Object? bankAccountNumber = freezed,
   }) {
     return _then(_$_WalletTransactionDetail(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      label: label == freezed
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String?,
-      amount: amount == freezed
+      amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as String?,
-      status: status == freezed
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      remark: remark == freezed
+      remark: freezed == remark
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      time: time == freezed
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      depositMethod: depositMethod == freezed
+      depositMethod: freezed == depositMethod
           ? _value.depositMethod
           : depositMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankName: bankName == freezed
+      bankName: freezed == bankName
           ? _value.bankName
           : bankName // ignore: cast_nullable_to_non_nullable
               as String?,
-      transactionType: transactionType == freezed
+      transactionType: freezed == transactionType
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as String?,
-      model: model == freezed
+      model: freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as String?,
-      transactionId: transactionId == freezed
+      transactionId: freezed == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankAccountNumber: bankAccountNumber == freezed
+      bankAccountNumber: freezed == bankAccountNumber
           ? _value.bankAccountNumber
           : bankAccountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -334,45 +337,47 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WalletTransactionDetail &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.label, label) &&
-            const DeepCollectionEquality().equals(other.amount, amount) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(other.remark, remark) &&
-            const DeepCollectionEquality().equals(other.date, date) &&
-            const DeepCollectionEquality().equals(other.time, time) &&
-            const DeepCollectionEquality()
-                .equals(other.depositMethod, depositMethod) &&
-            const DeepCollectionEquality().equals(other.bankName, bankName) &&
-            const DeepCollectionEquality()
-                .equals(other.transactionType, transactionType) &&
-            const DeepCollectionEquality().equals(other.model, model) &&
-            const DeepCollectionEquality()
-                .equals(other.transactionId, transactionId) &&
-            const DeepCollectionEquality()
-                .equals(other.bankAccountNumber, bankAccountNumber));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.remark, remark) || other.remark == remark) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.depositMethod, depositMethod) ||
+                other.depositMethod == depositMethod) &&
+            (identical(other.bankName, bankName) ||
+                other.bankName == bankName) &&
+            (identical(other.transactionType, transactionType) ||
+                other.transactionType == transactionType) &&
+            (identical(other.model, model) || other.model == model) &&
+            (identical(other.transactionId, transactionId) ||
+                other.transactionId == transactionId) &&
+            (identical(other.bankAccountNumber, bankAccountNumber) ||
+                other.bankAccountNumber == bankAccountNumber));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(label),
-      const DeepCollectionEquality().hash(amount),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(remark),
-      const DeepCollectionEquality().hash(date),
-      const DeepCollectionEquality().hash(time),
-      const DeepCollectionEquality().hash(depositMethod),
-      const DeepCollectionEquality().hash(bankName),
-      const DeepCollectionEquality().hash(transactionType),
-      const DeepCollectionEquality().hash(model),
-      const DeepCollectionEquality().hash(transactionId),
-      const DeepCollectionEquality().hash(bankAccountNumber));
+      id,
+      label,
+      amount,
+      status,
+      remark,
+      date,
+      time,
+      depositMethod,
+      bankName,
+      transactionType,
+      model,
+      transactionId,
+      bankAccountNumber);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_WalletTransactionDetailCopyWith<_$_WalletTransactionDetail>
       get copyWith =>
           __$$_WalletTransactionDetailCopyWithImpl<_$_WalletTransactionDetail>(
@@ -380,7 +385,9 @@ class _$_WalletTransactionDetail implements _WalletTransactionDetail {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WalletTransactionDetailToJson(this);
+    return _$$_WalletTransactionDetailToJson(
+      this,
+    );
   }
 }
 
@@ -417,42 +424,42 @@ abstract class _WalletTransactionDetail implements WalletTransactionDetail {
 
   @override
   @JsonKey(name: "id")
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
   @JsonKey(name: "label")
-  String? get label => throw _privateConstructorUsedError;
+  String? get label;
   @override
   @JsonKey(name: "amount")
-  String? get amount => throw _privateConstructorUsedError;
+  String? get amount;
   @override
   @JsonKey(name: "status")
-  String? get status => throw _privateConstructorUsedError;
+  String? get status;
   @override
   @JsonKey(name: "remark")
-  String? get remark => throw _privateConstructorUsedError;
+  String? get remark;
   @override
   @JsonKey(name: "date")
-  String? get date => throw _privateConstructorUsedError;
+  String? get date;
   @override
   @JsonKey(name: "time")
-  String? get time => throw _privateConstructorUsedError;
+  String? get time;
   @override
   @JsonKey(name: "deposit_method")
-  String? get depositMethod => throw _privateConstructorUsedError;
+  String? get depositMethod;
   @override
   @JsonKey(name: "bank_name")
-  String? get bankName => throw _privateConstructorUsedError;
+  String? get bankName;
   @override
   @JsonKey(name: "transaction_type")
-  String? get transactionType => throw _privateConstructorUsedError;
+  String? get transactionType;
   @override
-  String? get model => throw _privateConstructorUsedError;
+  String? get model;
   @override
   @JsonKey(name: "transaction_id")
-  String? get transactionId => throw _privateConstructorUsedError;
+  String? get transactionId;
   @override
   @JsonKey(name: "bank_account_number")
-  String? get bankAccountNumber => throw _privateConstructorUsedError;
+  String? get bankAccountNumber;
   @override
   @JsonKey(ignore: true)
   _$$_WalletTransactionDetailCopyWith<_$_WalletTransactionDetail>

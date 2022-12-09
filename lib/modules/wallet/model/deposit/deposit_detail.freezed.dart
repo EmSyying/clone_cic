@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'deposit_detail.dart';
 
@@ -40,7 +40,8 @@ mixin _$DepositDetail {
 abstract class $DepositDetailCopyWith<$Res> {
   factory $DepositDetailCopyWith(
           DepositDetail value, $Res Function(DepositDetail) then) =
-      _$DepositDetailCopyWithImpl<$Res>;
+      _$DepositDetailCopyWithImpl<$Res, DepositDetail>;
+  @useResult
   $Res call(
       {int? id,
       String? title,
@@ -52,14 +53,16 @@ abstract class $DepositDetailCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DepositDetailCopyWithImpl<$Res>
+class _$DepositDetailCopyWithImpl<$Res, $Val extends DepositDetail>
     implements $DepositDetailCopyWith<$Res> {
   _$DepositDetailCopyWithImpl(this._value, this._then);
 
-  final DepositDetail _value;
   // ignore: unused_field
-  final $Res Function(DepositDetail) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -71,35 +74,35 @@ class _$DepositDetailCopyWithImpl<$Res>
     Object? amount = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      transactionId: transactionId == freezed
+      transactionId: freezed == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
               as String?,
-      depositMethod: depositMethod == freezed
+      depositMethod: freezed == depositMethod
           ? _value.depositMethod
           : depositMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      time: time == freezed
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      amount: amount == freezed
+      amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -110,6 +113,7 @@ abstract class _$$_DepositDetailCopyWith<$Res>
           _$_DepositDetail value, $Res Function(_$_DepositDetail) then) =
       __$$_DepositDetailCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? id,
       String? title,
@@ -122,15 +126,13 @@ abstract class _$$_DepositDetailCopyWith<$Res>
 
 /// @nodoc
 class __$$_DepositDetailCopyWithImpl<$Res>
-    extends _$DepositDetailCopyWithImpl<$Res>
+    extends _$DepositDetailCopyWithImpl<$Res, _$_DepositDetail>
     implements _$$_DepositDetailCopyWith<$Res> {
   __$$_DepositDetailCopyWithImpl(
       _$_DepositDetail _value, $Res Function(_$_DepositDetail) _then)
-      : super(_value, (v) => _then(v as _$_DepositDetail));
+      : super(_value, _then);
 
-  @override
-  _$_DepositDetail get _value => super._value as _$_DepositDetail;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
@@ -142,31 +144,31 @@ class __$$_DepositDetailCopyWithImpl<$Res>
     Object? amount = freezed,
   }) {
     return _then(_$_DepositDetail(
-      id: id == freezed
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      transactionId: transactionId == freezed
+      transactionId: freezed == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
               as String?,
-      depositMethod: depositMethod == freezed
+      depositMethod: freezed == depositMethod
           ? _value.depositMethod
           : depositMethod // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      time: time == freezed
+      time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      amount: amount == freezed
+      amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -216,37 +218,33 @@ class _$_DepositDetail implements _DepositDetail {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DepositDetail &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.transactionId, transactionId) &&
-            const DeepCollectionEquality()
-                .equals(other.depositMethod, depositMethod) &&
-            const DeepCollectionEquality().equals(other.date, date) &&
-            const DeepCollectionEquality().equals(other.time, time) &&
-            const DeepCollectionEquality().equals(other.amount, amount));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.transactionId, transactionId) ||
+                other.transactionId == transactionId) &&
+            (identical(other.depositMethod, depositMethod) ||
+                other.depositMethod == depositMethod) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.amount, amount) || other.amount == amount));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(transactionId),
-      const DeepCollectionEquality().hash(depositMethod),
-      const DeepCollectionEquality().hash(date),
-      const DeepCollectionEquality().hash(time),
-      const DeepCollectionEquality().hash(amount));
+      runtimeType, id, title, transactionId, depositMethod, date, time, amount);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DepositDetailCopyWith<_$_DepositDetail> get copyWith =>
       __$$_DepositDetailCopyWithImpl<_$_DepositDetail>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DepositDetailToJson(this);
+    return _$$_DepositDetailToJson(
+      this,
+    );
   }
 }
 
@@ -264,21 +262,21 @@ abstract class _DepositDetail implements DepositDetail {
       _$_DepositDetail.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
   @JsonKey(name: 'transaction_id')
-  String? get transactionId => throw _privateConstructorUsedError;
+  String? get transactionId;
   @override
   @JsonKey(name: 'deposit_method')
-  String? get depositMethod => throw _privateConstructorUsedError;
+  String? get depositMethod;
   @override
-  String? get date => throw _privateConstructorUsedError;
+  String? get date;
   @override
-  String? get time => throw _privateConstructorUsedError;
+  String? get time;
   @override
-  String? get amount => throw _privateConstructorUsedError;
+  String? get amount;
   @override
   @JsonKey(ignore: true)
   _$$_DepositDetailCopyWith<_$_DepositDetail> get copyWith =>

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'list_report_model.dart';
 
@@ -34,34 +34,37 @@ mixin _$ListReportModel {
 abstract class $ListReportModelCopyWith<$Res> {
   factory $ListReportModelCopyWith(
           ListReportModel value, $Res Function(ListReportModel) then) =
-      _$ListReportModelCopyWithImpl<$Res>;
+      _$ListReportModelCopyWithImpl<$Res, ListReportModel>;
+  @useResult
   $Res call({int? date, List<ReportGroupByYearModel>? reports});
 }
 
 /// @nodoc
-class _$ListReportModelCopyWithImpl<$Res>
+class _$ListReportModelCopyWithImpl<$Res, $Val extends ListReportModel>
     implements $ListReportModelCopyWith<$Res> {
   _$ListReportModelCopyWithImpl(this._value, this._then);
 
-  final ListReportModel _value;
   // ignore: unused_field
-  final $Res Function(ListReportModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? date = freezed,
     Object? reports = freezed,
   }) {
     return _then(_value.copyWith(
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as int?,
-      reports: reports == freezed
+      reports: freezed == reports
           ? _value.reports
           : reports // ignore: cast_nullable_to_non_nullable
               as List<ReportGroupByYearModel>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -72,31 +75,30 @@ abstract class _$$_ListReportModelCopyWith<$Res>
           _$_ListReportModel value, $Res Function(_$_ListReportModel) then) =
       __$$_ListReportModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int? date, List<ReportGroupByYearModel>? reports});
 }
 
 /// @nodoc
 class __$$_ListReportModelCopyWithImpl<$Res>
-    extends _$ListReportModelCopyWithImpl<$Res>
+    extends _$ListReportModelCopyWithImpl<$Res, _$_ListReportModel>
     implements _$$_ListReportModelCopyWith<$Res> {
   __$$_ListReportModelCopyWithImpl(
       _$_ListReportModel _value, $Res Function(_$_ListReportModel) _then)
-      : super(_value, (v) => _then(v as _$_ListReportModel));
+      : super(_value, _then);
 
-  @override
-  _$_ListReportModel get _value => super._value as _$_ListReportModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? date = freezed,
     Object? reports = freezed,
   }) {
     return _then(_$_ListReportModel(
-      date: date == freezed
+      date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as int?,
-      reports: reports == freezed
+      reports: freezed == reports
           ? _value._reports
           : reports // ignore: cast_nullable_to_non_nullable
               as List<ReportGroupByYearModel>?,
@@ -120,6 +122,7 @@ class _$_ListReportModel implements _ListReportModel {
   List<ReportGroupByYearModel>? get reports {
     final value = _reports;
     if (value == null) return null;
+    if (_reports is EqualUnmodifiableListView) return _reports;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -134,25 +137,26 @@ class _$_ListReportModel implements _ListReportModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ListReportModel &&
-            const DeepCollectionEquality().equals(other.date, date) &&
+            (identical(other.date, date) || other.date == date) &&
             const DeepCollectionEquality().equals(other._reports, _reports));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(date),
-      const DeepCollectionEquality().hash(_reports));
+      runtimeType, date, const DeepCollectionEquality().hash(_reports));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ListReportModelCopyWith<_$_ListReportModel> get copyWith =>
       __$$_ListReportModelCopyWithImpl<_$_ListReportModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ListReportModelToJson(this);
+    return _$$_ListReportModelToJson(
+      this,
+    );
   }
 }
 
@@ -165,10 +169,9 @@ abstract class _ListReportModel implements ListReportModel {
       _$_ListReportModel.fromJson;
 
   @override
-  int? get date => throw _privateConstructorUsedError;
+  int? get date;
   @override
-  List<ReportGroupByYearModel>? get reports =>
-      throw _privateConstructorUsedError;
+  List<ReportGroupByYearModel>? get reports;
   @override
   @JsonKey(ignore: true)
   _$$_ListReportModelCopyWith<_$_ListReportModel> get copyWith =>

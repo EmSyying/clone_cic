@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'fif_detail_model.dart';
 
@@ -32,29 +32,32 @@ mixin _$FiFDetailModel {
 abstract class $FiFDetailModelCopyWith<$Res> {
   factory $FiFDetailModelCopyWith(
           FiFDetailModel value, $Res Function(FiFDetailModel) then) =
-      _$FiFDetailModelCopyWithImpl<$Res>;
+      _$FiFDetailModelCopyWithImpl<$Res, FiFDetailModel>;
+  @useResult
   $Res call({String? list});
 }
 
 /// @nodoc
-class _$FiFDetailModelCopyWithImpl<$Res>
+class _$FiFDetailModelCopyWithImpl<$Res, $Val extends FiFDetailModel>
     implements $FiFDetailModelCopyWith<$Res> {
   _$FiFDetailModelCopyWithImpl(this._value, this._then);
 
-  final FiFDetailModel _value;
   // ignore: unused_field
-  final $Res Function(FiFDetailModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? list = freezed,
   }) {
     return _then(_value.copyWith(
-      list: list == freezed
+      list: freezed == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +68,25 @@ abstract class _$$_FiFDetailModelCopyWith<$Res>
           _$_FiFDetailModel value, $Res Function(_$_FiFDetailModel) then) =
       __$$_FiFDetailModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? list});
 }
 
 /// @nodoc
 class __$$_FiFDetailModelCopyWithImpl<$Res>
-    extends _$FiFDetailModelCopyWithImpl<$Res>
+    extends _$FiFDetailModelCopyWithImpl<$Res, _$_FiFDetailModel>
     implements _$$_FiFDetailModelCopyWith<$Res> {
   __$$_FiFDetailModelCopyWithImpl(
       _$_FiFDetailModel _value, $Res Function(_$_FiFDetailModel) _then)
-      : super(_value, (v) => _then(v as _$_FiFDetailModel));
+      : super(_value, _then);
 
-  @override
-  _$_FiFDetailModel get _value => super._value as _$_FiFDetailModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? list = freezed,
   }) {
     return _then(_$_FiFDetailModel(
-      list: list == freezed
+      list: freezed == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -113,22 +115,24 @@ class _$_FiFDetailModel implements _FiFDetailModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FiFDetailModel &&
-            const DeepCollectionEquality().equals(other.list, list));
+            (identical(other.list, list) || other.list == list));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(list));
+  int get hashCode => Object.hash(runtimeType, list);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FiFDetailModelCopyWith<_$_FiFDetailModel> get copyWith =>
       __$$_FiFDetailModelCopyWithImpl<_$_FiFDetailModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FiFDetailModelToJson(this);
+    return _$$_FiFDetailModelToJson(
+      this,
+    );
   }
 }
 
@@ -139,7 +143,7 @@ abstract class _FiFDetailModel implements FiFDetailModel {
       _$_FiFDetailModel.fromJson;
 
   @override
-  String? get list => throw _privateConstructorUsedError;
+  String? get list;
   @override
   @JsonKey(ignore: true)
   _$$_FiFDetailModelCopyWith<_$_FiFDetailModel> get copyWith =>
