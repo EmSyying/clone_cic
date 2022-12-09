@@ -726,9 +726,14 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
           ),
           Text(
             titleDay ?? '',
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  fontWeight: FontWeight.w400,
-                ),
+            style: istoday
+                ? Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    )
+                : Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontWeight: FontWeight.w400,
+                    ),
           ),
           const Spacer(),
           Column(
@@ -737,10 +742,15 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             children: [
               Text(
                 shiftAhours ?? '',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: istoday
+                    ? const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black)
+                    : const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
               ),
               const SizedBox(
                 height: 6,
@@ -748,10 +758,15 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
               if (shiftBhours != null && shiftBhours.isNotEmpty)
                 Text(
                   shiftBhours,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: istoday
+                      ? const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black)
+                      : const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
                 ),
             ],
           )
