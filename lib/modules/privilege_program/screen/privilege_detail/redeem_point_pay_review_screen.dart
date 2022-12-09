@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/custom_appbar.dart';
+import '../../../../Utils/helper/custom_success_screen.dart';
 import '../../../../widgets/investments/slide_button.dart';
 import '../../../../widgets/wallets/custom_cash_out_and_transfer_amount_mma.dart';
 import '../../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
@@ -161,7 +162,24 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
             child: Column(
               children: [
                 SlideButton(
-                  callback: () {},
+                  callback: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CustomSucessScreen(
+                            title: 'Success',
+                            description: 'Point redeem successfully',
+                            buttonTitle: 'Done',
+                            onPressedButton: () {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 16,
