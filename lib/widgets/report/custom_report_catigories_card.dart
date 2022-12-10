@@ -19,7 +19,7 @@ class CustomReportCatigoriesCard extends StatelessWidget {
         children: [
           Container(
             width: 160,
-            height: 86,
+            height: 96,
             decoration: BoxDecoration(
               color: AppColor.arrowforwardColor['dark'],
               border: Border.all(

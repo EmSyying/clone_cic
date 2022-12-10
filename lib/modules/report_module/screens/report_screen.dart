@@ -62,14 +62,14 @@ class ReportScreen extends StatelessWidget {
               )
             : GridView.builder(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
+                  horizontal: 20.0,
                   vertical: 20.0,
                 ),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
-                  childAspectRatio: 2,
-                  crossAxisSpacing: 0,
-                  mainAxisSpacing: 15,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 5,
                 ),
                 itemCount: reportCon.listCategoryCardReport.length,
                 itemBuilder: (BuildContext _, index) {
