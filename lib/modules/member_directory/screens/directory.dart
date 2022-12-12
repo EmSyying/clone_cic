@@ -314,9 +314,16 @@ class _DirectoryState extends State<Directory> {
                                                             ),
                                                           );
                                                         },
-                                                  child: MemberCard(
-                                                    // isSelected: false,
-                                                    member: e.value,
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 15,
+                                                            bottom: 15),
+                                                    child: MemberCard(
+                                                      // isSelected: false,
+                                                      member: e.value,
+                                                    ),
                                                   ),
                                                 ),
 
