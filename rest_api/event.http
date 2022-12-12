@@ -28,7 +28,7 @@ Authorization: Bearer {{token}}
 }
 
 ###
-get {{baseUrl}}v3/event
+get {{baseUrl}}v3/event/25
 Accept: application/json
 Content-Type: application/json
 Authorization:  Bearer {{token}}
