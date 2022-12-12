@@ -13,6 +13,7 @@ import '../../Utils/helper/color.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../report_module/controllers/documentation_controller.dart';
 import '../report_module/models/documentation_model.dart';
+import '../report_module/screens/report_screen.dart';
 import '../report_module/screens/view_report.dart';
 
 class MainDashBoardTypeAM extends StatefulWidget {
@@ -259,50 +260,92 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 20, right: 20),
-                        // height: 200,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey[200]!),
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
+                      AspectRatio(
+                        aspectRatio: 3 / 3.37,
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            top: 10,
+                            right: 20,
+                            left: 20,
+                            bottom: 20,
+                          ),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey[200]!),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
                                 blurRadius: 5,
                                 spreadRadius: 4,
                                 offset: const Offset(0, 1),
-                                color: Colors.grey[100]!)
-                          ],
-                        ),
-                        child: GridView.count(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            crossAxisCount: 3,
-                            childAspectRatio: 3 / 2.40,
-                            children: menuListTest
-                                .asMap()
-                                .entries
-                                .map((e) => Padding(
-                                      padding: const EdgeInsets.only(top: 22),
-                                      child: customMenu(
-                                          context: context,
-                                          icon: e.value.url,
-                                          label: e.value.title),
-                                    ))
-                                .toList()
-                            // settingCon.appSettingDataList
-                            //     .asMap()
-                            //     .entries
-                            //     .map((e) => Padding(
-                            //           padding: const EdgeInsets.only(top: 16),
-                            //           child: customMenu(
-                            //               context: context,
-                            //               icon: e.value.icon,
-                            //               label: e.value.label),
-                            //         ))
-                            //     .toList(),
+                                color: Colors.grey[100]!,
+                              )
+                            ],
+                          ),
+                          child: ClipRRect(
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                GridView.count(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 3 / 2.35,
+                                  children: menuListTest
+                                      .asMap()
+                                      .entries
+                                      .map((e) => Center(
+                                            child: customMenu(
+                                                context: context,
+                                                icon: e.value.url,
+                                                label: e.value.title,
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const ReportScreen()),
+                                                  );
+                                                }),
+                                          ))
+                                      .toList(),
+                                ),
+                                AspectRatio(
+                                  aspectRatio: 6.20 / 7,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      AspectRatio(
+                                        aspectRatio: 3 / 0.1,
+                                        child: SvgPicture.asset(
+                                          'assets/images/svgfile/horizontal_divider.svg',
+                                        ),
+                                      ),
+                                      AspectRatio(
+                                        aspectRatio: 3 / 0.1,
+                                        child: SvgPicture.asset(
+                                          'assets/images/svgfile/horizontal_divider.svg',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    AspectRatio(
+                                      aspectRatio: 5.11 / 6,
+                                      child: SvgPicture.asset(
+                                        'assets/images/svgfile/vertical_divider.svg',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -445,25 +488,30 @@ customMenu({
   String? icon,
   String? label,
   BuildContext? context,
+  GestureTapCallback? onTap,
 }) {
-  return Column(
-    children: [
-      SvgPicture.asset(
-        '$icon',
-        width: 30,
-        height: 30,
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      Text(
-        '$label',
-        style: Theme.of(context!)
-            .textTheme
-            .headline2!
-            .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-      ),
-    ],
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(
+          '$icon',
+          width: 32,
+          height: 32,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          '$label',
+          style: Theme.of(context!)
+              .textTheme
+              .headline2!
+              .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+        ),
+      ],
+    ),
   );
 }
 
@@ -471,6 +519,7 @@ List<String> documentListTest = [
   'assets/images/banner1.png',
   'assets/images/banner2.png',
 ];
+
 List<DocumentationModel> menuListTest = [
   DocumentationModel(
     title: 'My Investment',
