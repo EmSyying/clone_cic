@@ -20,8 +20,7 @@ class ReportScreen extends StatelessWidget {
       descriptionBuilder: (index) =>
           guideController.reportGuide[index].description,
       objectSettingBuilder: (index) => ObjectSetting(
-        paddingSize: const Size(-22, -22),
-        edgeInsets: const EdgeInsets.only(top: 10, bottom: 4),
+        paddingSize: const Size(-2, 2),
       ),
       context: context,
     );
@@ -66,10 +65,10 @@ class ReportScreen extends StatelessWidget {
                   vertical: 20.0,
                 ),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 5,
+                  maxCrossAxisExtent: 300,
+                  childAspectRatio: 4 / 2.5,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
                 ),
                 itemCount: reportCon.listCategoryCardReport.length,
                 itemBuilder: (BuildContext _, index) {
