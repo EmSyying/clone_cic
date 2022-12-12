@@ -19,6 +19,7 @@ class CustomAddMoreGuest extends StatefulWidget {
   final String? relationshipDisplay;
   final String? name;
   final String? phone;
+  final String? svgDelete;
   final Function(String)? onchangeName;
   final Function(String)? onchangePhone;
   final Function(Map<dynamic, dynamic>)? onchangeRelationship;
@@ -37,6 +38,7 @@ class CustomAddMoreGuest extends StatefulWidget {
     this.onchangeRelationship,
     this.relationshipDisplay,
     this.textEditing,
+    this.svgDelete,
   }) : super(key: key);
 
   @override
@@ -72,11 +74,10 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                       .headline5!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
-                // if (addMoreGuest.indexWhere((element) => false) != 1)
                 GestureDetector(
                   onTap: widget.onTapDelete,
                   child: SvgPicture.asset(
-                    'assets/images/svgfile/deleteIcon.svg',
+                    ' ${widget.svgDelete}',
                     width: 18,
                     height: 18,
                   ),

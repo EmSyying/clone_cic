@@ -40,7 +40,7 @@ Content-Type: application/json
 Authorization:  Bearer {{token}}
 
 ###
-GET {{baseUrl}}v3/event/17
+GET {{baseUrl}}v3/event/25
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -87,17 +87,17 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "member_id" : 21,
-    "event_id" : 20,
+    "member_id" : 16,
+    "event_id" : 25,
      "guest" : [
     {
         "phone_number" : "098765434",
-        "participant_name" : "yy",
+        "participant_name" : "yyff",
         "relationship" :"1"
         },
         {
             "phone_number" : "09876543444",
-            "participant_name" : "rr",
+            "participant_name" : "rrss",
             "relationship" : "2"
         }
     ]

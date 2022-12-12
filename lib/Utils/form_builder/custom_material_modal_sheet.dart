@@ -76,14 +76,18 @@ onShowCustomCupertinoModalSheet({
                                                       Icons.arrow_back_ios),
                                     ),
                                   const Spacer(),
-                                  dynamicTitle ??
-                                      Text(
-                                        title!,
-                                        style: TextStyle(
-                                            color: titleColors ?? Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 40),
+                                    child: dynamicTitle ??
+                                        Text(
+                                          title!,
+                                          style: TextStyle(
+                                              color:
+                                                  titleColors ?? Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                  ),
                                   const SizedBox(
                                     width: 40,
                                   ),

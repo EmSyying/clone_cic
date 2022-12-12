@@ -8,7 +8,8 @@ import '../../modules/event_module/controller/event_controller.dart';
 
 class CustomViewTicket extends StatelessWidget {
   final GestureTapCallback? onSaveTicket;
-  const CustomViewTicket({Key? key, this.onSaveTicket}) : super(key: key);
+  int countNum = 0;
+  CustomViewTicket({Key? key, this.onSaveTicket}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final contro = Get.put(EventController());
@@ -57,14 +58,16 @@ class CustomViewTicket extends StatelessWidget {
                       () => ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (_, e) => CustomCardGuestsTicket(
-                          guest:
-                              'Guest ${contro.getRegisterModel.value.guest!.length}',
-                          nameGuest: contro
-                              .getRegisterModel.value.guest![e].participantName,
-                          who: contro
-                              .getRegisterModel.value.guest![e].relationship,
-                        ),
+                        itemBuilder: (_, e) {
+                          countNum += 1;
+                          return CustomCardGuestsTicket(
+                            guest: 'Guest $countNum',
+                            nameGuest: contro.getRegisterModel.value.guest![e]
+                                .participantName,
+                            who: contro
+                                .getRegisterModel.value.guest![e].relationship,
+                          );
+                        },
                         itemCount: contro.getRegisterModel.value.guest!.length,
                         separatorBuilder: (BuildContext context, int index) =>
                             const Padding(

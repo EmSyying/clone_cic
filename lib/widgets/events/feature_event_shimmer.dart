@@ -85,7 +85,7 @@ class FeatureShimmer extends StatelessWidget {
         Positioned(
           bottom: 115.0,
           left: 20.0,
-          right: 35.0,
+          right: 20.0,
           child: Shimmer.fromColors(
             enabled: true,
             baseColor: Colors.grey[200]!,

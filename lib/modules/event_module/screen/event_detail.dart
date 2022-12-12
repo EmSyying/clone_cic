@@ -365,9 +365,9 @@ class _EventDetailState extends State<EventDetail> {
                                                                             .posted!
                                                                             .capitalize
                                                                             .toString() ==
-                                                                        'open'
-                                                                    ? Colors
-                                                                        .green
+                                                                        'today'
+                                                                    ? AppColor
+                                                                        .mainColor
                                                                     : eventController.eventDetail.value.posted ==
                                                                             'upcoming'
                                                                         ? const Color(
@@ -556,23 +556,30 @@ class _EventDetailState extends State<EventDetail> {
                                                                           .value
                                                                           .isRegister ==
                                                                       true
-                                                                  ? onShowCustomCupertinoModalSheet(
-                                                                      context:
-                                                                          contextRegisterForm,
-                                                                      title:
-                                                                          'Register',
-                                                                      icon: const Icon(Icons
-                                                                          .clear),
-                                                                      trailing:
-                                                                          SvgPicture
-                                                                              .asset(
-                                                                        "assets/images/svgfile/register.svg",
-                                                                      ),
-                                                                      child:
-                                                                          const EventCheckInTicket(
-                                                            selectCheckIn:
-                                                                'view_ticket',
-                                                          ),)
+                                                                  ? eventController
+                                                                      .getCheckInGuest(
+                                                                          eventId: widget
+                                                                              .eventId,
+                                                                          memberId: customerController
+                                                                              .customer
+                                                                              .value
+                                                                              .customerId)
+                                                                      .then(
+                                                                          (value) {
+                                                                      onShowCustomCupertinoModalSheet(
+                                                                        context:
+                                                                            contextRegisterForm,
+                                                                        title:
+                                                                            'Register',
+                                                                        icon: const Icon(
+                                                                            Icons.clear),
+                                                                        child:
+                                                                            const EventCheckInTicket(
+                                                                          selectCheckIn:
+                                                                              'view_ticket',
+                                                                        ),
+                                                                      );
+                                                                    })
                                                                   : onShowCustomCupertinoModalSheet(
                                                                       context:
                                                                           contextRegisterForm,
@@ -581,11 +588,6 @@ class _EventDetailState extends State<EventDetail> {
                                                                       icon: const Icon(
                                                                           Icons
                                                                               .clear),
-                                                                      trailing:
-                                                                          SvgPicture
-                                                                              .asset(
-                                                                        "assets/images/svgfile/register.svg",
-                                                                      ),
                                                                       child:
                                                                           CustomRegisterForm(
                                                                         eventID:

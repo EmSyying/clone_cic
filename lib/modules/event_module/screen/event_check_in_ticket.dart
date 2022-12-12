@@ -14,7 +14,9 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
+import '../../../widgets/events/custom_checkin_guest.dart';
 import '../../../widgets/events/custom_event_title_check_in.dart';
+import '../../../widgets/events/custom_view_ticket.dart';
 import '../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../controller/event_controller.dart';
 import '../models/card_guests_model.dart';
@@ -185,17 +187,17 @@ class EventCheckInTicket extends StatelessWidget {
                           ],
                         ),
                         //==========Column Guests card====
-                        // selectCheckIn == 'check_in' &&
-                        //         contro.getListGest.isNotEmpty
-                        //     ? const CustomCheckInGuest()
-                        //     : selectCheckIn == 'view_ticket' &&
-                        //             contro.getListGest.isNotEmpty
-                        //         ? CustomViewTicket(
-                        //             onSaveTicket: () {
-                        //               _onCaptureAndSave();
-                        //             },
-                        //           )
-                        //         : Container(),
+                        selectCheckIn == 'check_in' ||
+                                contro.getListGest.isNotEmpty
+                            ? CustomCheckInGuest()
+                            : selectCheckIn == 'view_ticket' ||
+                                    contro.getListGest.isNotEmpty
+                                ? CustomViewTicket(
+                                    onSaveTicket: () {
+                                      _onCaptureAndSave();
+                                    },
+                                  )
+                                : const Text('hh'),
                       ],
                     ),
                   ),
@@ -240,6 +242,7 @@ class EventCheckInTicket extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // if (contro.getListGest.isEmpty)
                   CustomButton(
                     width: double.infinity,
                     backgroundColor: Colors.white,
@@ -248,14 +251,15 @@ class EventCheckInTicket extends StatelessWidget {
                         ? () {
                             Navigator.pop(context);
                           }
-                        : () {
-                            Navigator.pop(context);
-
-                            contro.onCheckInEvent(
-                              context: contextTicket,
-                              eventId: contro.eventDetail.value.id,
-                            );
-                          },
+                        : contro.getListGest.isEmpty
+                            ? null
+                            : () {
+                                Navigator.pop(context);
+                                contro.onCheckInEvent(
+                                  context: contextTicket,
+                                  eventId: contro.eventDetail.value.id,
+                                );
+                              },
                     isDisable: false,
                     isOutline: false,
                     title: selectCheckIn == 'view_ticket' ? 'Done' : 'Submit',

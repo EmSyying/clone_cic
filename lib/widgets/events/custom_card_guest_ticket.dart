@@ -23,58 +23,61 @@ class CustomCardGuestsTicket extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              guest ?? '',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.0,
-                    color: Colors.grey,
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                guest ?? '',
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14.0,
+                      color: Colors.grey,
+                    ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                'Name',
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
+                      color: const Color(0xff464646),
+                    ),
+              ),
+              const SizedBox(
+                height: 6.0,
+              ),
+              Row(
+                children: [
+                  Text(
+                    nameGuest ?? '',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15.0,
+                        ),
                   ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              'Name',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 13,
-                    color: const Color(0xff464646),
+                  const SizedBox(
+                    height: 14,
+                    child: VerticalDivider(
+                      thickness: 1,
+                      width: 30,
+                      color: Colors.grey,
+                    ),
                   ),
-            ),
-            const SizedBox(
-              height: 6.0,
-            ),
-            Row(
-              children: [
-                Text(
-                  nameGuest ?? '',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15.0,
-                      ),
-                ),
-                const SizedBox(
-                  height: 14,
-                  child: VerticalDivider(
-                    thickness: 1,
-                    width: 30,
-                    color: Colors.grey,
+                  Text(
+                    who ?? '',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15.0,
+                        ),
                   ),
-                ),
-                Text(
-                  who ?? '',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15.0,
-                      ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
         const Spacer(),
         //===Check Box====

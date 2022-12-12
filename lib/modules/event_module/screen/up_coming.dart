@@ -1,13 +1,14 @@
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
-import 'package:cicgreenloan/widgets/events/event_shimmer.dart';
 import 'package:cicgreenloan/widgets/events/feature_event.dart';
-import 'package:cicgreenloan/widgets/events/feature_event_shimmer.dart';
 import 'package:cicgreenloan/widgets/events/new_event.dart';
 import 'package:cicgreenloan/widgets/member_directory/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../widgets/events/event_shimmer.dart';
+import '../../../widgets/events/feature_event_shimmer.dart';
 
 class UpComing extends StatefulWidget {
   const UpComing({Key? key}) : super(key: key);
@@ -69,7 +70,17 @@ class _UpComingState extends State<UpComing> {
                             ),
                           ),
                         ),
-                        const FeatureShimmer(),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: simmerList
+                                .asMap()
+                                .entries
+                                .map((e) => const FeatureShimmer())
+                                .toList(),
+                          ),
+                        ),
+                        // const FeatureShimmer(),
                         const EventShimmerCard(),
                       ],
                     ),
@@ -122,3 +133,5 @@ class _UpComingState extends State<UpComing> {
     );
   }
 }
+
+List<int> simmerList = [1, 2, 3];

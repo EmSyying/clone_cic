@@ -747,7 +747,7 @@ class MemberController extends GetxController {
             } else {
               isEmty(false);
             }
-            debugPrint("working 3");
+            debugPrint("working 3 ${memberList.length}");
 
             ///
             // memberList.clear();

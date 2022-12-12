@@ -9,8 +9,8 @@ import '../../modules/event_module/models/select_checkin/select_checkin_model.da
 import 'custom_card_guest_ticket.dart';
 
 class CustomCheckInGuest extends StatelessWidget {
-  const CustomCheckInGuest({Key? key}) : super(key: key);
-
+  CustomCheckInGuest({Key? key}) : super(key: key);
+  int num = 0;
   @override
   Widget build(BuildContext context) {
     final contro = Get.put(EventController());
@@ -104,31 +104,34 @@ class CustomCheckInGuest extends StatelessWidget {
             () => ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (_, e) => CustomCardGuestsTicket(
-                viewTicket: 'check_in',
-                guest: "Guest ${contro.getListGest.length}",
-                nameGuest: contro.getListGest[e].participantName,
-                who: contro.getListGest[e].relationship,
-                isCheckBox: contro.getListGest[e].isCheckBox!,
-                onTapSelect: () {
-                  if (contro.getListGest[e].isCheckBox == true) {
-                    contro.getListGest[e] =
-                        contro.getListGest[e].copyWith(isCheckBox: false);
+              itemBuilder: (_, e) {
+                num += 1;
+                return CustomCardGuestsTicket(
+                  viewTicket: 'check_in',
+                  guest: "Guest $num",
+                  nameGuest: contro.getListGest[e].participantName,
+                  who: contro.getListGest[e].relationship,
+                  isCheckBox: contro.getListGest[e].isCheckBox!,
+                  onTapSelect: () {
+                    if (contro.getListGest[e].isCheckBox == true) {
+                      contro.getListGest[e] =
+                          contro.getListGest[e].copyWith(isCheckBox: false);
 
-                    contro.selectCheckInModel.removeWhere(
-                        (v) => v.guestId == contro.getListGest[e].id);
-                  } else {
-                    contro.getListGest[e] = contro.getListGest[e].copyWith(
-                      isCheckBox: true,
-                    );
-                    contro.selectCheckInModel.add(
-                        SelectCheckInModel(guestId: contro.getListGest[e].id));
-                    debugPrint(
-                        'After Added = ${contro.selectCheckInModel.length}');
-                  }
-                  // debugPrint(contro.selectCheckInModel.length.toString());
-                },
-              ),
+                      contro.selectCheckInModel.removeWhere(
+                          (v) => v.guestId == contro.getListGest[e].id);
+                    } else {
+                      contro.getListGest[e] = contro.getListGest[e].copyWith(
+                        isCheckBox: true,
+                      );
+                      contro.selectCheckInModel.add(SelectCheckInModel(
+                          guestId: contro.getListGest[e].id));
+                      debugPrint(
+                          'After Added = ${contro.selectCheckInModel.length}');
+                    }
+                    // debugPrint(contro.selectCheckInModel.length.toString());
+                  },
+                );
+              },
               itemCount: contro.getListGest.length,
               separatorBuilder: (BuildContext context, int index) =>
                   const Padding(

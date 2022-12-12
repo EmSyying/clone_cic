@@ -319,6 +319,7 @@
 //   }
 // }
 import 'package:cicgreenloan/Utils/helper/custom_loading_button.dart';
+import 'package:cicgreenloan/widgets/events/custom_add_more_guest.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -351,7 +352,6 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
   final registerMemberController = Get.put(EventController());
   // List<int> addMoreGuest = [1];
   List<Map>? guest = [];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -400,122 +400,123 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                             fontSize: 18, fontWeight: FontWeight.w700),
                       ),
                     ),
-/////note========
-                    // Column(
-                    //   children: registerMemberController.guestlistmodel
-                    //       .asMap()
-                    //       .entries
-                    //       .map((e) => CustomAddMoreGuest(
-                    //             relationshipDisplay:
-                    //                 e.value.relationShipDisplay,
-                    //             phone: e.value.phone,
-                    //             name: e.value.participantName,
-                    //             relationship: e.value.relationshipId,
-                    //             onchangeName: (value) {
-                    //               e.value.participantName = value;
-                    //               // controller.update();
-                    //             },
-                    //             onchangePhone: (value) {
-                    //               e.value.phone = value;
-                    //               // controller.update();
-                    //             },
-                    //             onchangeRelationship: (value) {
-                    //               registerMemberController.guestlistmodel[e.key]
-                    //                   .relationshipId = value["Code"];
-                    //               registerMemberController.guestlistmodel[e.key]
-                    //                   .relationShipDisplay = value["Name"];
-                    //               debugPrint("relationshipid:${value['Code']}");
-                    //               controller.update();
-                    //             },
-                    //             addGuest: e.key + 1,
-                    //             onTapDelete: () {
-                    //               debugPrint('delete form:${e.key}');
-                    //               registerMemberController.guestlistmodel
-                    //                   .removeAt(e.key);
-                    //               controller.update();
-                    //             },
-                    //           ))
-                    //       .toList(),
-                    // ),
-                    GestureDetector(
-                      onTap:
-                          // registerMemberController.guestName.value == '' ||
-                          //         registerMemberController.guestPhone.value == ''
-                          //     // ||
-                          //     // registerMemberController.guestRelationship.value ==
-                          //     //     ''
-                          //     ? null
-                          //     :
-                          () {
-                        //======note
-                        // setState(() {
-                        //   registerMemberController.guestlistmodel
-                        //       .add(GuestModel());
-                        //   debugPrint("list$guest");
-                        //   controller.update();
-                        // });
-                      },
-                      child: Container(
-                        width: 125,
-                        margin: const EdgeInsets.only(
-                            left: 20, top: 20, bottom: 30),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color:
-                                // registerMemberController.guestName.value ==
-                                //             '' ||
-                                //         registerMemberController.guestPhone.value ==
-                                //             ''
-                                //      ||
-                                // registerMemberController
-                                //         .guestRelationship.value ==
-                                //     ''
-                                // ? Colors.grey.withOpacity(0.2)
-                                // :
-                                AppColor.mainColor.withOpacity(0.1)),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.add_circle,
-                                color:
-                                    // registerMemberController.guestName.value ==
-                                    //             '' ||
-                                    //         registerMemberController
-                                    //                 .guestPhone.value ==
-                                    //     '' ||
-                                    // registerMemberController
-                                    //         .guestRelationship.value ==
-                                    // ''
-                                    // ? Colors.grey
-                                    // :
-                                    AppColor.mainColor),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Add More',
-                              style: Theme.of(context).textTheme.headline3!.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color:
-                                      // registerMemberController
-                                      //                 .guestName.value ==
-                                      //             '' ||
-                                      //         registerMemberController
-                                      //                 .guestPhone.value ==
-                                      //             //     '' ||
-                                      //             // registerMemberController
-                                      //             //         .guestRelationship.value ==
-                                      //             ''
-                                      //     ? Colors.grey
-                                      //     :
-                                      AppColor.mainColor),
-                            )
-                          ],
-                        ),
-                      ),
+
+                    Column(
+                      children: registerMemberController.guestlistmodel
+                          .asMap()
+                          .entries
+                          .map((e) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomAddMoreGuest(
+                                    svgDelete:
+                                        'assets/images/svgfile/deleteIcon.svg',
+                                    relationshipDisplay:
+                                        e.value.relationShipDisplay,
+                                    phone: e.value.phone,
+                                    name: e.value.participantName,
+                                    relationship: e.value.relationshipId,
+                                    onchangeName: (value) {
+                                      e.value.participantName = value;
+                                      // controller.update();
+                                    },
+                                    onchangePhone: (value) {
+                                      e.value.phone = value;
+                                      // controller.update();
+                                    },
+                                    onchangeRelationship: (value) {
+                                      registerMemberController
+                                          .guestlistmodel[e.key]
+                                          .relationshipId = value["Code"];
+                                      registerMemberController
+                                          .guestlistmodel[e.key]
+                                          .relationShipDisplay = value["Name"];
+                                      debugPrint(
+                                          "relationshipid:${value['Code']}");
+                                      controller.update();
+                                    },
+                                    addGuest: e.key + 1,
+                                    onTapDelete: () {
+                                      debugPrint('delete form:${e.key}');
+                                      registerMemberController.guestlistmodel
+                                          .removeAt(e.key);
+                                      controller.update();
+                                    },
+                                  ),
+                                  if (e.value ==
+                                      registerMemberController
+                                          .guestlistmodel.last)
+                                    GestureDetector(
+                                      onTap: e.value.participantName == '' ||
+                                              e.value.phone == '' ||
+                                              e.value.relationShipDisplay == ''
+                                          ? null
+                                          : () {
+                                              setState(() {
+                                                registerMemberController
+                                                    .guestlistmodel
+                                                    .add(GuestModel());
+                                                debugPrint("list$guest");
+                                                controller.update();
+                                              });
+                                            },
+                                      child: Container(
+                                        width: 125,
+                                        margin: const EdgeInsets.only(
+                                            left: 20, top: 20, bottom: 30),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 8),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: e.value.participantName ==
+                                                        '' ||
+                                                    e.value.phone == '' ||
+                                                    e.value.relationShipDisplay ==
+                                                        ''
+                                                ? Colors.grey.withOpacity(0.2)
+                                                : AppColor.mainColor
+                                                    .withOpacity(0.1)),
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.add_circle,
+                                                color: e.value.participantName ==
+                                                            '' ||
+                                                        e.value.phone == '' ||
+                                                        e.value.relationShipDisplay ==
+                                                            ''
+                                                    ? Colors.grey
+                                                    : AppColor.mainColor),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              'Add More',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: e.value.participantName ==
+                                                                  '' ||
+                                                              e.value.phone ==
+                                                                  '' ||
+                                                              e.value.relationShipDisplay ==
+                                                                  ''
+                                                          ? Colors.grey
+                                                          : AppColor.mainColor),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ))
+                          .toList(),
                     ),
+
                     // SizedBox(
                     //   width: double.infinity,
                     //   height: 700,
@@ -576,49 +577,48 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
               width: double.infinity,
               margin: const EdgeInsets.only(
                   right: 15.0, top: 20.0, bottom: 25.0, left: 15.0),
-              child:
-                  registerMemberController.isLoadingRegisterWithGuest.value ==
-                          true
-                      ? const CustomLoadingButton()
-                      : CustomButton(
-                          title: "Submit",
-                          isOutline: false,
-                          isDisable: false,
-                          onPressed: () {
-                            registerMemberController.guestAddList.map((e) {
-                              guest!.add(
-                                {
-                                  "phone_number": e.phoneNumber,
-                                  "participant_name": e.participantName,
-                                  "relationship": e.relationship
-                                },
-                              );
-                            }).toList();
-                            registerMemberController.onRegisterWithGuest(
-                                context: widget.contextRegisterTicket,
-                                registerModel: RegisterModel(
-                                    memberId: customerController
-                                        .customer.value.customerId,
-                                    eventId: registerMemberController
-                                        .eventDetail.value.id,
-                                    guest: []));
+              child: registerMemberController
+                          .isLoadingRegisterWithGuest.value ==
+                      true
+                  ? const CustomLoadingButton()
+                  : CustomButton(
+                      title: "Submit",
+                      isOutline: false,
+                      isDisable: false,
+                      onPressed: () {
+                        registerMemberController.guestlistmodel.map((e) {
+                          guest!.add({
+                            "phone_number": e.phone,
+                            "participant_name": e.participantName,
+                            "relationship": e.relationshipId
+                          });
+                        }).toList();
+                        registerMemberController.onRegisterWithGuest(
+                            context: widget.contextRegisterTicket,
+                            memberId:
+                                customerController.customer.value.customerId,
+                            eventId:
+                                registerMemberController.eventDetail.value.id,
+                            guest: guest);
 
-                            // if (isValidate()) {
-                            //
-                            // registerMemberController.onRegisterEvents(
-                            //     context: context,
-                            //     eventID: eventID!,
-                            //   );
-                            // }
+                        debugPrint('add more guest:$guest');
 
-                            // Navigator.pop(context);
+                        // if (isValidate()) {
+                        //
+                        // registerMemberController.onRegisterEvents(
+                        //     context: context,
+                        //     eventID: eventID!,
+                        //   );
+                        // }
 
-                            // registerMemberController.fullName.value = '';
-                            // registerMemberController.positionMember.value = '';
-                            // registerMemberController.companyNameMember.value = '';
-                            // registerMemberController.phoneNumberMember.value = '';
-                            // registerMemberController.emailMember.value = '';
-                          }),
+                        // Navigator.pop(context);
+
+                        // registerMemberController.fullName.value = '';
+                        // registerMemberController.positionMember.value = '';
+                        // registerMemberController.companyNameMember.value = '';
+                        // registerMemberController.phoneNumberMember.value = '';
+                        // registerMemberController.emailMember.value = '';
+                      }),
             ),
           ),
         )
