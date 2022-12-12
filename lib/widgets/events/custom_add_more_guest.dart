@@ -77,7 +77,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                 GestureDetector(
                   onTap: widget.onTapDelete,
                   child: SvgPicture.asset(
-                    ' ${widget.svgDelete}',
+                    '${widget.svgDelete}',
                     width: 18,
                     height: 18,
                   ),

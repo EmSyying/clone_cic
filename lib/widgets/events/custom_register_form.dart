@@ -352,6 +352,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
   final registerMemberController = Get.put(EventController());
   // List<int> addMoreGuest = [1];
   List<Map>? guest = [];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -410,7 +411,10 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                 children: [
                                   CustomAddMoreGuest(
                                     svgDelete:
+                                        // e.key != 0
+                                        //     ?
                                         'assets/images/svgfile/deleteIcon.svg',
+                                    // : null,
                                     relationshipDisplay:
                                         e.value.relationShipDisplay,
                                     phone: e.value.phone,
