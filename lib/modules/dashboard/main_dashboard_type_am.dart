@@ -287,29 +287,35 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                GridView.count(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 3 / 2.35,
-                                  children: menuListTest
-                                      .asMap()
-                                      .entries
-                                      .map((e) => Center(
-                                            child: customMenu(
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ReportScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: GridView.count(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 3 / 2.35,
+                                    children: menuListTest
+                                        .asMap()
+                                        .entries
+                                        .map((e) => Center(
+                                              child: customMenu(
                                                 context: context,
                                                 icon: e.value.url,
                                                 label: e.value.title,
-                                                onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ReportScreen()),
-                                                  );
-                                                }),
-                                          ))
-                                      .toList(),
+                                                onTap: () {},
+                                              ),
+                                            ))
+                                        .toList(),
+                                  ),
                                 ),
                                 AspectRatio(
                                   aspectRatio: 6.20 / 7,
