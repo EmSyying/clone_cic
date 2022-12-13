@@ -104,7 +104,7 @@ class ComponentCardCategory extends StatelessWidget {
                         ),
                         numStoresTrue == true
                             ? Text(
-                                countShop.toString(),
+                                '${countShop.toString()} Stores',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!

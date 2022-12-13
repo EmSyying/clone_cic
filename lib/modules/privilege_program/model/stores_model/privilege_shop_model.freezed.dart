@@ -29,6 +29,12 @@ mixin _$PrivilegeShopModel {
   String? get slogan => throw _privateConstructorUsedError;
   @JsonKey(name: 'discount_bg_color')
   String? get discountBgColor => throw _privateConstructorUsedError;
+  @JsonKey(name: 'discount_bg_color_end')
+  String? get discountBgColorEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'point_accepted')
+  bool? get pointAccepted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'current_point')
+  int? get currentPoint => throw _privateConstructorUsedError;
   @JsonKey(name: 'shop_name_in_khmer')
   String? get shopNameInKhmer => throw _privateConstructorUsedError;
   @JsonKey(name: 'shop_name_in_english')
@@ -98,6 +104,12 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
       String? slogan,
       @JsonKey(name: 'discount_bg_color')
           String? discountBgColor,
+      @JsonKey(name: 'discount_bg_color_end')
+          String? discountBgColorEnd,
+      @JsonKey(name: 'point_accepted')
+          bool? pointAccepted,
+      @JsonKey(name: 'current_point')
+          int? currentPoint,
       @JsonKey(name: 'shop_name_in_khmer')
           String? shopNameInKhmer,
       @JsonKey(name: 'shop_name_in_english')
@@ -165,6 +177,9 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
     Object? isFavorite = freezed,
     Object? slogan = freezed,
     Object? discountBgColor = freezed,
+    Object? discountBgColorEnd = freezed,
+    Object? pointAccepted = freezed,
+    Object? currentPoint = freezed,
     Object? shopNameInKhmer = freezed,
     Object? shopNameInEnglish = freezed,
     Object? fullAddress = freezed,
@@ -218,6 +233,18 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
           ? _value.discountBgColor
           : discountBgColor // ignore: cast_nullable_to_non_nullable
               as String?,
+      discountBgColorEnd: freezed == discountBgColorEnd
+          ? _value.discountBgColorEnd
+          : discountBgColorEnd // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pointAccepted: freezed == pointAccepted
+          ? _value.pointAccepted
+          : pointAccepted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      currentPoint: freezed == currentPoint
+          ? _value.currentPoint
+          : currentPoint // ignore: cast_nullable_to_non_nullable
+              as int?,
       shopNameInKhmer: freezed == shopNameInKhmer
           ? _value.shopNameInKhmer
           : shopNameInKhmer // ignore: cast_nullable_to_non_nullable
@@ -348,6 +375,12 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
       String? slogan,
       @JsonKey(name: 'discount_bg_color')
           String? discountBgColor,
+      @JsonKey(name: 'discount_bg_color_end')
+          String? discountBgColorEnd,
+      @JsonKey(name: 'point_accepted')
+          bool? pointAccepted,
+      @JsonKey(name: 'current_point')
+          int? currentPoint,
       @JsonKey(name: 'shop_name_in_khmer')
           String? shopNameInKhmer,
       @JsonKey(name: 'shop_name_in_english')
@@ -413,6 +446,9 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
     Object? isFavorite = freezed,
     Object? slogan = freezed,
     Object? discountBgColor = freezed,
+    Object? discountBgColorEnd = freezed,
+    Object? pointAccepted = freezed,
+    Object? currentPoint = freezed,
     Object? shopNameInKhmer = freezed,
     Object? shopNameInEnglish = freezed,
     Object? fullAddress = freezed,
@@ -466,6 +502,18 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
           ? _value.discountBgColor
           : discountBgColor // ignore: cast_nullable_to_non_nullable
               as String?,
+      discountBgColorEnd: freezed == discountBgColorEnd
+          ? _value.discountBgColorEnd
+          : discountBgColorEnd // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pointAccepted: freezed == pointAccepted
+          ? _value.pointAccepted
+          : pointAccepted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      currentPoint: freezed == currentPoint
+          ? _value.currentPoint
+          : currentPoint // ignore: cast_nullable_to_non_nullable
+              as int?,
       shopNameInKhmer: freezed == shopNameInKhmer
           ? _value.shopNameInKhmer
           : shopNameInKhmer // ignore: cast_nullable_to_non_nullable
@@ -591,6 +639,12 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
       this.slogan,
       @JsonKey(name: 'discount_bg_color')
           this.discountBgColor,
+      @JsonKey(name: 'discount_bg_color_end')
+          this.discountBgColorEnd,
+      @JsonKey(name: 'point_accepted')
+          this.pointAccepted,
+      @JsonKey(name: 'current_point')
+          this.currentPoint,
       @JsonKey(name: 'shop_name_in_khmer')
           this.shopNameInKhmer,
       @JsonKey(name: 'shop_name_in_english')
@@ -659,6 +713,15 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   @override
   @JsonKey(name: 'discount_bg_color')
   final String? discountBgColor;
+  @override
+  @JsonKey(name: 'discount_bg_color_end')
+  final String? discountBgColorEnd;
+  @override
+  @JsonKey(name: 'point_accepted')
+  final bool? pointAccepted;
+  @override
+  @JsonKey(name: 'current_point')
+  final int? currentPoint;
   @override
   @JsonKey(name: 'shop_name_in_khmer')
   final String? shopNameInKhmer;
@@ -758,7 +821,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
 
   @override
   String toString() {
-    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, logo: $logo, thumbnail: $thumbnail, cover: $cover, contacts: $contacts, galleries: $galleries)';
+    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, discountBgColorEnd: $discountBgColorEnd, pointAccepted: $pointAccepted, currentPoint: $currentPoint, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, logo: $logo, thumbnail: $thumbnail, cover: $cover, contacts: $contacts, galleries: $galleries)';
   }
 
   @override
@@ -774,6 +837,12 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
             (identical(other.slogan, slogan) || other.slogan == slogan) &&
             (identical(other.discountBgColor, discountBgColor) ||
                 other.discountBgColor == discountBgColor) &&
+            (identical(other.discountBgColorEnd, discountBgColorEnd) ||
+                other.discountBgColorEnd == discountBgColorEnd) &&
+            (identical(other.pointAccepted, pointAccepted) ||
+                other.pointAccepted == pointAccepted) &&
+            (identical(other.currentPoint, currentPoint) ||
+                other.currentPoint == currentPoint) &&
             (identical(other.shopNameInKhmer, shopNameInKhmer) ||
                 other.shopNameInKhmer == shopNameInKhmer) &&
             (identical(other.shopNameInEnglish, shopNameInEnglish) ||
@@ -839,6 +908,9 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
         isFavorite,
         slogan,
         discountBgColor,
+        discountBgColorEnd,
+        pointAccepted,
+        currentPoint,
         shopNameInKhmer,
         shopNameInEnglish,
         fullAddress,
@@ -894,6 +966,12 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
       final String? slogan,
       @JsonKey(name: 'discount_bg_color')
           final String? discountBgColor,
+      @JsonKey(name: 'discount_bg_color_end')
+          final String? discountBgColorEnd,
+      @JsonKey(name: 'point_accepted')
+          final bool? pointAccepted,
+      @JsonKey(name: 'current_point')
+          final int? currentPoint,
       @JsonKey(name: 'shop_name_in_khmer')
           final String? shopNameInKhmer,
       @JsonKey(name: 'shop_name_in_english')
@@ -959,6 +1037,15 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
   @override
   @JsonKey(name: 'discount_bg_color')
   String? get discountBgColor;
+  @override
+  @JsonKey(name: 'discount_bg_color_end')
+  String? get discountBgColorEnd;
+  @override
+  @JsonKey(name: 'point_accepted')
+  bool? get pointAccepted;
+  @override
+  @JsonKey(name: 'current_point')
+  int? get currentPoint;
   @override
   @JsonKey(name: 'shop_name_in_khmer')
   String? get shopNameInKhmer;

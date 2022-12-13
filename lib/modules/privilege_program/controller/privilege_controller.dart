@@ -225,7 +225,6 @@ class PrivilegeController extends GetxController {
   final isLoadingSearchCate = false.obs;
   Future<List<ModelsCategories>> onSearchCategories(String? keySearch) async {
     isLoadingSearchCate(true);
-
     await apiBaseHelper
         .onNetworkRequesting(
       url: 'privilege/category?term=$keySearch',
@@ -393,6 +392,35 @@ class PrivilegeController extends GetxController {
     //validationPayment.value = false;
     privilegeAmount.value = '';
     amountcontroller.value.text = '';
+  }
+
+  ////function onFetch categorh item
+  final shopCategoryItemList = <PrivilegeShopModel>[].obs;
+  final isLoadingCateItem = false.obs;
+  final shopCategoryItem = PrivilegeShopModel().obs;
+  Future<List<PrivilegeShopModel>> onFetchCategoryItem() async {
+    isLoadingCateItem(true);
+    apiBaseHelper
+        .onNetworkRequesting(
+            url: 'privilege/shop-by?category_id=18',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((response) {
+      var responeJson = response['data'];
+      shopCategoryItemList.clear();
+      debugPrint("category item===:$responeJson");
+      responeJson.map((e) {
+        shopCategoryItem.value = PrivilegeShopModel.fromJson(e);
+        shopCategoryItemList.add(shopCategoryItem.value);
+        isLoadingCateItem(false);
+      }).toList();
+      debugPrint("category item===add=:${shopCategoryItemList.length}");
+    }).onError((ErrorModel errorModel, stackTrace) {
+      debugPrint("category item===error");
+      isLoadingCateItem(false);
+    });
+
+    return shopCategoryItemList;
   }
 
   ///OnPaymentPrivilege=====================

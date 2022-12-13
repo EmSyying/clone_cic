@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
+import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/custom_shimmer_allshop.dart';
 import '../../../../widgets/privilege/privilege/costom_all_stores.dart';
 
@@ -26,8 +27,7 @@ class _ItemCategoryPrivilegeScreenState
 
   @override
   void initState() {
-    // priCont.onFetchAllStore(1);
-    //priCont.onFetchShopDetail(widget.id);
+    priCont.onFetchCategoryItem();
 
     super.initState();
   }
@@ -41,70 +41,88 @@ class _ItemCategoryPrivilegeScreenState
         title: widget.tabTitle,
       ),
       body: Obx(
-        () => priCont.isLoadingShopList.value
+        () => priCont.isLoadingCateItem.value
             ? const Padding(
                 padding: EdgeInsets.all(20.0),
                 child: CustomShimmerAllShop(),
               )
-            : Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${priCont.shopModelList.length} Stores',
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.chartLabelColor,
-                          ),
+            : priCont.shopCategoryItemList.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${priCont.shopCategoryItemList.length} Stores',
+                          style:
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.chartLabelColor,
+                                  ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Column(
+                          children: priCont.shopCategoryItemList
+                              .asMap()
+                              .entries
+                              .map(
+                                (e) => GestureDetector(
+                                  onTap: () {
+                                    context.push(
+                                        "/privilege/all-store/privilege-detail/${priCont.shopCategoryItemList[e.key].id}");
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 18.0),
+                                    child: CustomCardAllStores(
+                                      isFav: e.value.isFavorite!,
+                                      privilegeShopList: e.value,
+                                      onTapFav: () {
+                                        priCont
+                                            .setFavouriteStore(
+                                          id: priCont
+                                              .shopCategoryItemList[e.key].id!,
+                                          boolFav: priCont
+                                              .shopCategoryItemList[e.key]
+                                              .isFavorite!,
+                                        )
+                                            .then((value) {
+                                          if (priCont
+                                              .shopCategoryItemList[e.key]
+                                              .isFavorite!) {
+                                            priCont.shopCategoryItemList[
+                                                e
+                                                    .key] = priCont
+                                                .shopCategoryItemList[e.key]
+                                                .copyWith(isFavorite: false);
+                                          } else {
+                                            priCont.shopCategoryItemList[
+                                                    e.key] =
+                                                priCont
+                                                    .shopCategoryItemList[e.key]
+                                                    .copyWith(isFavorite: true);
+                                          }
+                                        });
+                                        priCont.shopCategoryItemList.clear;
+                                        // setState(() {});
+                                        // preCont.shopModelList.refresh();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      children: priCont.shopModelList
-                          .asMap()
-                          .entries
-                          .map(
-                            (e) => GestureDetector(
-                              onTap: () {
-                                context.push(
-                                    "/privilege/all-store/privilege-detail/${priCont.shopModelList[e.key].id}");
-                              },
-                              child: CustomCardAllStores(
-                                isFav: e.value.isFavorite!,
-                                privilegeShopList: e.value,
-                                onTapFav: () {
-                                  priCont
-                                      .setFavouriteStore(
-                                    id: priCont.shopModelList[e.key].id!,
-                                    boolFav: priCont
-                                        .shopModelList[e.key].isFavorite!,
-                                  )
-                                      .then((value) {
-                                    if (priCont
-                                        .shopModelList[e.key].isFavorite!) {
-                                      priCont.shopModelList[e.key] = priCont
-                                          .shopModelList[e.key]
-                                          .copyWith(isFavorite: false);
-                                    } else {
-                                      priCont.shopModelList[e.key] = priCont
-                                          .shopModelList[e.key]
-                                          .copyWith(isFavorite: true);
-                                    }
-                                  });
-                                  priCont.shopModelList.clear;
-                                  // setState(() {});
-                                  // preCont.shopModelList.refresh();
-                                },
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ],
-                ),
-              ),
+                  )
+                : const CustomEmptyState(
+                    colors: true,
+                    title: 'Item Categories',
+                    description: 'No Item Categories !',
+                  ),
       ),
     );
   }

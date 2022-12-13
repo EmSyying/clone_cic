@@ -368,7 +368,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
           ),
         ),
         const Spacer(),
-        GestureDetector(
+        InkWell(
           onTap: onTapSeeAll,
           child: Text(
             seeall ?? '',
