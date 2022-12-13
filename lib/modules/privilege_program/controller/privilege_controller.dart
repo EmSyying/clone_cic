@@ -398,22 +398,24 @@ class PrivilegeController extends GetxController {
   final shopCategoryItemList = <PrivilegeShopModel>[].obs;
   final isLoadingCateItem = false.obs;
   final shopCategoryItem = PrivilegeShopModel().obs;
-  Future<List<PrivilegeShopModel>> onFetchCategoryItem() async {
+  Future<List<PrivilegeShopModel>> onFetchCategoryItem(int? id) async {
     isLoadingCateItem(true);
-    apiBaseHelper
+    debugPrint("catagories id:$id");
+    await apiBaseHelper
         .onNetworkRequesting(
-            url: 'privilege/shop-by?category_id=18',
+            url: 'privilege/shop-by?category_id=$id',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
-      var responeJson = response['data'];
+      debugPrint("Shop Categories item:$response");
+      // var responeJson = jsonDecode(response['data']);
       shopCategoryItemList.clear();
-      debugPrint("category item===:$responeJson");
-      responeJson.map((e) {
+      // debugPrint("category item===:$responeJson");
+      response['data'].map((e) {
         shopCategoryItem.value = PrivilegeShopModel.fromJson(e);
         shopCategoryItemList.add(shopCategoryItem.value);
-        isLoadingCateItem(false);
       }).toList();
+      isLoadingCateItem(false);
       debugPrint("category item===add=:${shopCategoryItemList.length}");
     }).onError((ErrorModel errorModel, stackTrace) {
       debugPrint("category item===error");

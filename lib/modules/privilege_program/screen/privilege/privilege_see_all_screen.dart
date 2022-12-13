@@ -111,9 +111,14 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                                           final titleName = cardListCat
                                               .value.name
                                               ?.replaceAll('&', '%26');
-                                          context.push(
-                                            '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
-                                          );
+                                          priCon
+                                              .onFetchCategoryItem(
+                                                  cardListCat.value.id)
+                                              .then((value) {
+                                            context.push(
+                                              '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
+                                            );
+                                          });
                                         },
                                       ),
                                     ))

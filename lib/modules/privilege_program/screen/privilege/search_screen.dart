@@ -221,8 +221,10 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         SingleChildScrollView(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 20.0, right: 20.0),
+                            padding: const EdgeInsets.only(
+                              left: 20.0,
+                              right: 20.0,
+                            ),
                             child: Column(
                               children: privilegController.categoryFilterList
                                   .asMap()
@@ -230,56 +232,55 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .map(
                                     (e) => GestureDetector(
                                       onTap: () {
-                                        // context.go(
-                                        //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         PrivilegeDetailScreen(
-                                        //       id: e.value.id,
-                                        //     ),
-                                        //   ),
-                                        // );
                                         context.push(
                                             "/privilege/all-store/privilege-detail/${privilegController.categoryFilterList[e.key].id}");
                                       },
-                                      child: CustomCardAllStores(
-                                        isFav: e.value.isFavorite!,
-                                        privilegeShopList: e.value,
-                                        onTapFav: () {
-                                          privilegController
-                                              .setFavouriteStore(
-                                                  id: privilegController
-                                                      .categoryFilterList[e.key]
-                                                      .id!,
-                                                  boolFav: privilegController
-                                                      .categoryFilterList[e.key]
-                                                      .isFavorite!)
-                                              .then((value) {
-                                            if (privilegController
-                                                .categoryFilterList[e.key]
-                                                .isFavorite!) {
-                                              privilegController
-                                                      .categoryFilterList[
-                                                  e
-                                                      .key] = privilegController
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 18.0),
+                                        child: CustomCardAllStores(
+                                          isFav: e.value.isFavorite!,
+                                          privilegeShopList: e.value,
+                                          onTapFav: () {
+                                            privilegController
+                                                .setFavouriteStore(
+                                                    id: privilegController
+                                                        .categoryFilterList[
+                                                            e.key]
+                                                        .id!,
+                                                    boolFav: privilegController
+                                                        .categoryFilterList[
+                                                            e.key]
+                                                        .isFavorite!)
+                                                .then((value) {
+                                              if (privilegController
                                                   .categoryFilterList[e.key]
-                                                  .copyWith(isFavorite: false);
-                                            } else {
-                                              privilegController
-                                                      .categoryFilterList[
-                                                  e
-                                                      .key] = privilegController
-                                                  .categoryFilterList[e.key]
-                                                  .copyWith(isFavorite: true);
-                                            }
-                                            // privilegController.onFetchAllStore(1);
-                                            // privilegController
-                                            //     .onFetchFavouriteStore();
-                                            // privilegController.update();
-                                          });
-                                        },
+                                                  .isFavorite!) {
+                                                privilegController
+                                                            .categoryFilterList[
+                                                        e.key] =
+                                                    privilegController
+                                                        .categoryFilterList[
+                                                            e.key]
+                                                        .copyWith(
+                                                            isFavorite: false);
+                                              } else {
+                                                privilegController
+                                                            .categoryFilterList[
+                                                        e.key] =
+                                                    privilegController
+                                                        .categoryFilterList[
+                                                            e.key]
+                                                        .copyWith(
+                                                            isFavorite: true);
+                                              }
+                                              // privilegController.onFetchAllStore(1);
+                                              // privilegController
+                                              //     .onFetchFavouriteStore();
+                                              // privilegController.update();
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ),
                                   )

@@ -27,7 +27,7 @@ class _ItemCategoryPrivilegeScreenState
 
   @override
   void initState() {
-    priCont.onFetchCategoryItem();
+    // priCont.onFetchCategoryItem(widget.id);
 
     super.initState();
   }
