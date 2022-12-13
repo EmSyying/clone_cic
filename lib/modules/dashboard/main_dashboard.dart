@@ -261,8 +261,6 @@ class _MainDashboardState extends State<MainDashboard> {
           if (e.value.readAt == null &&
               e.value.data!.type == 'Announcement' &&
               !e.value.data!.expired!) {
-            debugPrint(
-                "Notification Button:${e.value.data!.button![e.key].label}");
             return showDialog(
               barrierDismissible: false,
               context: context,

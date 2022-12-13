@@ -30,8 +30,11 @@ class _IncomeTransactionState extends State<IncomeTransaction> {
               child: Center(child: ShimmerCardBonus()),
             )
           : _walletController.incomeTransactionList.isEmpty
-              ? const SingleChildScrollView(
-                  child: CustomEmptyState(),
+              ? Container(
+                  color: Colors.white,
+                  child: const SingleChildScrollView(
+                    child: CustomEmptyState(),
+                  ),
                 )
               : SingleChildScrollView(
                   child: CustomWalletTransaction(

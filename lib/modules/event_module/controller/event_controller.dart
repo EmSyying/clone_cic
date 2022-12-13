@@ -597,54 +597,41 @@ class EventController extends GetxController {
   final guestListModel = GuestListModel().obs;
   final modelGuest = GuestModel().obs;
 
-  // Future<void> onRegisterWithGuest(
-  //     {int? memberId,
-  //     int? eventId,
-  //     List<Map>? guest,
-  //     BuildContext? context}) async {
-  //   final url =
-  //       '${FlavorConfig.instance.values!.apiBaseUrlV3}event-registration';
-  //   final token = await LocalData.getCurrentUser();
-  //   isLoadingRegisterWithGuest(true);
-  //   try {
-  //     await http.post(Uri.parse(url), headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'Authorization': 'Bearer $token'
-  //     }, body: {
-  //       "member_id": memberId,
-  //       "event_id": eventId,
-  //       "guest": guest
-  //     }).then((response) {
-  //       if (response.statusCode == 200) {
-  //         //  getRegisterModel.value = GetRegisterModel.fromJson(response.body)[''];
-
-  //       } else {}
-  //     });
-  //   } catch (e) {
-  //     return Future.error('Error: $e');
-  //   } finally {
-  //     isLoadingRegisterWithGuest(false);
-  //   }
-  // }
-//=================================
+// Register Guest updated by Chhany
   Future<void> onRegisterWithGuest(
       {int? memberId,
       int? eventId,
-      List<Map>? guest,
+      // List<Map>? guest,
       BuildContext? context}) async {
-    debugPrint('heiiiiiiiiiii++++++:$memberId $eventId $guest');
+    debugPrint("on register is work1");
 
     isLoadingRegisterWithGuest(true);
     await apiBaseHelper.onNetworkRequesting(
       methode: METHODE.post,
       isAuthorize: true,
       url: 'event-registration',
-      body: {"member_id": memberId, "event_id": eventId, "guest": guest},
+      body: {
+        "member_id": memberId,
+        "event_id": eventId,
+        "guest": guestlistmodel.map((e) {
+          return {
+            "phone_number": e.phone,
+            "participant_name": e.participantName,
+            "relationship": e.relationshipId
+          };
+        }).toList()
+      },
     ).then((res) {
+      debugPrint("on register is work2");
+      registermemberList.clear();
       var responseJson = res['ticket'];
       getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
-      debugPrint('hiii respose:${getRegisterModel.value.toString()}');
+      // updated by Chhany
+      getListGest.clear();
+      getRegisterModel.value.guest!.map((e) {
+        getListGest.add(e);
+      }).toList();
+
       customRouterSnackbar(
           description: "Successfully registered",
           onTap: () {
@@ -675,8 +662,6 @@ class EventController extends GetxController {
       refresh();
       update();
     }).onError((ErrorModel error, stackTrace) {
-      debugPrint('heiiiiiiiiiii++++++error:${error.bodyString}');
-
       isLoadingRegisterWithGuest(false);
     });
   }
@@ -694,9 +679,6 @@ class EventController extends GetxController {
 
     final submitguest = json.encode(submitList);
 
-    debugPrint(
-        'List Submit Length = ${selectCheckInModel.length} => $submitguest');
-
     await apiBaseHelper.onNetworkRequesting(
         methode: METHODE.post,
         isAuthorize: true,
@@ -708,8 +690,13 @@ class EventController extends GetxController {
         }).then((res) {
       debugPrint("check in successfull$res");
       getRegisterModel.value = GetRegisterModel.fromJson(res['data']);
+      // updated by Chhany
+      getListGest.clear();
+      getRegisterModel.value.guest!.map((e) {
+        getListGest.add(e);
+      }).toList();
       customRouterSnackbar(
-          description: "Successfully registered",
+          description: "Successfully Check in.",
           onTap: () {
             onShowCustomCupertinoModalSheet(
               context: context,
@@ -736,12 +723,18 @@ class EventController extends GetxController {
     selectCheckInModel.clear();
   }
 
-  //Get register guest
+  //Get register guest updated by Chhany
   final isLoadingGetRegister = false.obs;
-  // final checkInList = <GetRegisterModel>[].obs;
-  // final checkInModel = GetRegisterModel().obs;
-  Future<GetRegisterModel> getRegisterWithGuest(int? id) async {
-    debugPrint("check eventid:$id");
+  final isLoadingGetRegisterCheckIn = false.obs;
+  Future<GetRegisterModel> getRegisterWithGuest(int? id,
+      {bool? isCheckIn = false}) async {
+    //  is check in use for disable loading
+    if (isCheckIn == false) {
+      isLoadingGetRegister(true);
+    } else {
+      isLoadingGetRegisterCheckIn(true);
+    }
+
     await apiBaseHelper
         .onNetworkRequesting(
             methode: METHODE.get,
@@ -755,8 +748,19 @@ class EventController extends GetxController {
       getRegisterModel.value.guest!.map((e) {
         getListGest.add(e);
       }).toList();
+      //  is check in use for disable loading
+      if (isCheckIn == false) {
+        isLoadingGetRegister(false);
+      } else {
+        isLoadingGetRegisterCheckIn(false);
+      }
     }).onError((ErrorModel error, stackTrace) {
-      isLoadingGetRegister(false);
+      //  is check in use for disable loading
+      if (isCheckIn == false) {
+        isLoadingGetRegister(false);
+      } else {
+        isLoadingGetRegisterCheckIn(false);
+      }
     });
 
     return getRegisterModel.value;
@@ -774,11 +778,12 @@ class EventController extends GetxController {
             isAuthorize: true,
             url: 'event-view/ticket?event_id=$eventId&member_id=$memberId')
         .then((res) {
-      debugPrint('hello++++++++7777777$res');
-      debugPrint('hello++++++++77777778888:$eventId : $memberId');
       var responseJson = res['data'];
       getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
-      debugPrint('hello++++++++1111166666666');
+      getListGest.clear();
+      getRegisterModel.value.guest!.map((e) {
+        getListGest.add(e);
+      }).toList();
       isLoadingCheckInGuest(false);
     }).onError((ErrorModel error, stackTrace) {
       isLoadingCheckInGuest(false);

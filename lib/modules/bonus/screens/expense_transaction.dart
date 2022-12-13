@@ -31,8 +31,11 @@ class _ExpenseTransactionState extends State<ExpenseTransaction> {
               child: Center(child: ShimmerCardBonus()),
             )
           : _walletController.expenseTransactionList.isEmpty
-              ? const SingleChildScrollView(
-                  child: CustomEmptyState(),
+              ? Container(
+                  color: Colors.white,
+                  child: const SingleChildScrollView(
+                    child: CustomEmptyState(),
+                  ),
                 )
               : CustomWalletTransaction(
                   walletTransaction: _walletController.expenseTransactionList,

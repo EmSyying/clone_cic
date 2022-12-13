@@ -368,7 +368,6 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                     const SizedBox(
                       height: 15,
                     ),
-
                     CustomTextFieldNew(
                       // key: fullNameKey,
                       isValidate: isValidatefullName,
@@ -401,7 +400,6 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                             fontSize: 18, fontWeight: FontWeight.w700),
                       ),
                     ),
-
                     Column(
                       children: registerMemberController.guestlistmodel
                           .asMap()
@@ -520,48 +518,6 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                               ))
                           .toList(),
                     ),
-
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   height: 700,
-                    //   child: ListView.builder(
-                    //     itemCount: listText.length,
-                    //     itemBuilder: (context, index) => Container(
-                    //         width: 100,
-                    //         height: 200,
-                    //         color: Colors.green,
-                    //         child: CustomAddMoreGuest(onTapAddMore: () {
-                    //           listText.add(const Text('test list'));
-                    //         })),
-                    //   ),
-                    // ),
-
-                    // CustomTextFieldNew(
-                    //   // key: positionKey,
-                    //   isValidate: isValidatedPosition,
-                    //   hintText: "Position",
-                    //   labelText: "Position",
-                    //   isRequired: true,
-                    //   initialValue:
-                    //       customerController.customer.value.position!.display!,
-                    //   onChange: (value) {
-                    //     if (value == "") {
-                    //       isValidatedPosition = false;
-                    //     } else {
-                    //       customerController.customer.value.position!.display =
-                    //           value;
-                    //       isValidatedPosition = true;
-                    //     }
-                    //   },
-                    //   onSave: (value) {
-                    //     if (value! == '') {
-                    //       customerController.customer.value.position!.display!;
-                    //     } else {
-                    //       customerController.customer.value.position!.display =
-                    //           value;
-                    //     }
-                    //   },
-                    // ),
                   ],
                 ),
               ),
@@ -581,48 +537,31 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
               width: double.infinity,
               margin: const EdgeInsets.only(
                   right: 15.0, top: 20.0, bottom: 25.0, left: 15.0),
-              child: registerMemberController
-                          .isLoadingRegisterWithGuest.value ==
-                      true
-                  ? const CustomLoadingButton()
-                  : CustomButton(
-                      title: "Submit",
-                      isOutline: false,
-                      isDisable: false,
-                      onPressed: () {
-                        registerMemberController.guestlistmodel.map((e) {
-                          guest!.add({
-                            "phone_number": e.phone,
-                            "participant_name": e.participantName,
-                            "relationship": e.relationshipId
-                          });
-                        }).toList();
-                        registerMemberController.onRegisterWithGuest(
-                            context: widget.contextRegisterTicket,
-                            memberId:
-                                customerController.customer.value.customerId,
-                            eventId:
-                                registerMemberController.eventDetail.value.id,
-                            guest: guest);
-
-                        debugPrint('add more guest:$guest');
-
-                        // if (isValidate()) {
-                        //
-                        // registerMemberController.onRegisterEvents(
-                        //     context: context,
-                        //     eventID: eventID!,
-                        //   );
-                        // }
-
-                        // Navigator.pop(context);
-
-                        // registerMemberController.fullName.value = '';
-                        // registerMemberController.positionMember.value = '';
-                        // registerMemberController.companyNameMember.value = '';
-                        // registerMemberController.phoneNumberMember.value = '';
-                        // registerMemberController.emailMember.value = '';
-                      }),
+              child:
+                  registerMemberController.isLoadingRegisterWithGuest.value ==
+                          true
+                      ? const CustomLoadingButton()
+                      : CustomButton(
+                          title: "Submit",
+                          isOutline: false,
+                          isDisable: false,
+                          onPressed: () {
+                            // registerMemberController.guestlistmodel.map((e) {
+                            //   guest!.add({
+                            //     "phone_number": e.phone,
+                            //     "participant_name": e.participantName,
+                            //     "relationship": e.relationshipId
+                            //   });
+                            // }).toList();
+                            registerMemberController.onRegisterWithGuest(
+                              context: widget.contextRegisterTicket,
+                              memberId:
+                                  customerController.customer.value.customerId,
+                              eventId:
+                                  registerMemberController.eventDetail.value.id,
+                              // guest: guest
+                            );
+                          }),
             ),
           ),
         )

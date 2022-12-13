@@ -8,6 +8,7 @@ import '../../modules/event_module/models/guest_model/guest_model.dart';
 import '../../modules/event_module/models/select_checkin/select_checkin_model.dart';
 import 'custom_card_guest_ticket.dart';
 
+// ignore: must_be_immutable
 class CustomCheckInGuest extends StatelessWidget {
   CustomCheckInGuest({Key? key}) : super(key: key);
   int num = 0;

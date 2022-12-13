@@ -6,6 +6,7 @@ import '../../Utils/helper/color.dart';
 import 'custom_card_guest_ticket.dart';
 import '../../modules/event_module/controller/event_controller.dart';
 
+// ignore: must_be_immutable
 class CustomViewTicket extends StatelessWidget {
   final GestureTapCallback? onSaveTicket;
   int countNum = 0;
@@ -45,6 +46,8 @@ class CustomViewTicket extends StatelessWidget {
 
                 ///===
                 ExpansionTile(
+                  iconColor: Theme.of(context).primaryColor,
+                  collapsedIconColor: Theme.of(context).primaryColor,
                   tilePadding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   title: Text(
                     'Guests',

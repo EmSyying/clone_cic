@@ -33,68 +33,71 @@ class CustomHistoryCashOut extends StatelessWidget {
     ];
 
     return Obx(
-      () => (SingleChildScrollView(
-        child: Container(
-          color: Colors.grey[100],
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: WalletTotalCard(
-                  amount: _walletController
-                      .walletAmount.value.wallet!.balanceFormat,
+      () => Container(
+        color: Colors.white,
+        child: (SingleChildScrollView(
+          child: Container(
+            color: Colors.grey[100],
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: WalletTotalCard(
+                    amount: _walletController
+                        .walletAmount.value.wallet!.balanceFormat,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20.0),
-              Container(
-                padding: const EdgeInsets.only(bottom: 30),
-                color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-                      child: Text(
-                        'Transaction',
-                        style: Theme.of(context).textTheme.headline2,
+                const SizedBox(height: 20.0),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 30),
+                  color: Colors.white,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, top: 20, bottom: 20),
+                        child: Text(
+                          'Transaction',
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
                       ),
-                    ),
-                    SingleChildScrollView(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: pageName.asMap().entries.map((e) {
-                          return GestureDetector(
-                            onTap: () {
-                              historyCashOutCon.selectIndex.value = e.key;
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: CustomChips(
-                                title: e.value.title,
-                                selectIndex:
-                                    historyCashOutCon.selectIndex.value,
-                                currentIndex: e.key,
+                      SingleChildScrollView(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: pageName.asMap().entries.map((e) {
+                            return GestureDetector(
+                              onTap: () {
+                                historyCashOutCon.selectIndex.value = e.key;
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: CustomChips(
+                                  title: e.value.title,
+                                  selectIndex:
+                                      historyCashOutCon.selectIndex.value,
+                                  currentIndex: e.key,
+                                ),
                               ),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(top: 20, bottom: 20),
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: pageView
-                            .elementAt(historyCashOutCon.selectIndex.value)),
-                  ],
+                      Container(
+                          margin: const EdgeInsets.only(top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: pageView
+                              .elementAt(historyCashOutCon.selectIndex.value)),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }

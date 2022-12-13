@@ -14,50 +14,46 @@ class CustomWalletTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final walletController = Get.put(WalletController());
-    return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      child: Column(
-        children: walletTransaction!
-            .map(
-              (e) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, bottom: 10, left: 10),
-                    child: Text(
-                      e.date!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: 11),
-                    ),
+    return Column(
+      children: walletTransaction!
+          .map(
+            (e) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10),
+                  child: Text(
+                    e.date!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(fontSize: 11),
                   ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: e.transaction!
-                          .asMap()
-                          .entries
-                          .map(
-                            (data) => WalletTransactionCard(
-                              transactionModel: data.value,
-                              ontap: () {
-                                walletController
-                                    .onFetchWalletTransactionDetail(
-                                        data.value.id!, data.value.model!)
-                                    .then(
-                                      (value) => WalletTran.transactionDetail(
-                                          context, value),
-                                    );
-                              },
-                            ),
-                          )
-                          .toList())
-                ],
-              ),
-            )
-            .toList(),
-      ),
+                ),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: e.transaction!
+                        .asMap()
+                        .entries
+                        .map(
+                          (data) => WalletTransactionCard(
+                            transactionModel: data.value,
+                            ontap: () {
+                              walletController
+                                  .onFetchWalletTransactionDetail(
+                                      data.value.id!, data.value.model!)
+                                  .then(
+                                    (value) => WalletTran.transactionDetail(
+                                        context, value),
+                                  );
+                            },
+                          ),
+                        )
+                        .toList())
+              ],
+            ),
+          )
+          .toList(),
     );
   }
 }

@@ -10,6 +10,7 @@ import '../../Utils/option_controller/option_controller.dart';
 import '../../modules/event_module/controller/event_controller.dart';
 import '../../modules/member_directory/controllers/customer_controller.dart';
 import '../../utils/form_builder/dropdow_item.dart';
+import '../get_funding/custom_add_other_label.dart';
 
 class CustomAddMoreGuest extends StatefulWidget {
   final GestureTapCallback? onTapDelete;
@@ -51,6 +52,8 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
   final optionController = Get.put(DocumentCategory());
   final customerController = Get.put(CustomerController());
   final eventCon = Get.put(EventController());
+  TextEditingController addNewOtherType = TextEditingController();
+  TextEditingController addNewOtherRelationShip = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -122,35 +125,58 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
             },
           ),
           CICDropdown(
-            label: 'Relationship',
-            colors: Colors.white,
-            isPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            isCompany: false,
-            isNoRequired: true,
-            onChange: (value) {
-              // if (value.isEmpty) {
-              //   widget.relationship = '';
-              // } else {
-              //   widget.relationship = value["Name"];
-              // }
-              setState(() {
-                debugPrint("relationship ${widget.relationship}");
-              });
-              widget.onchangeRelationship!(value);
-            },
-            defaultValue: widget.relationship != null
-                ? {
-                    "Code": widget.relationship,
-                    "Name": widget.relationshipDisplay,
-                  }
-                : null,
-            item: optionController.relationShip.asMap().entries.map((e) {
-              return DropDownItem(itemList: {
-                "Name": e.value.display,
-                "Code": e.value.id,
-              });
-            }).toList(),
-          ),
+              label: 'Relationship',
+              isCompany: true,
+              otherLabel: "Add Other",
+              colors: Colors.white,
+              isPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              isNoRequired: true,
+              onChange: (value) {
+                // if (value.isEmpty) {
+                //   widget.relationship = '';
+                // } else {
+                //   widget.relationship = value["Name"];
+                // }
+                setState(() {
+                  debugPrint("relationship ${widget.relationship}");
+                });
+                widget.onchangeRelationship!(value);
+              },
+              defaultValue: widget.relationship != null
+                  ? {
+                      "Code": widget.relationship,
+                      "Name": widget.relationshipDisplay,
+                    }
+                  : null,
+              item: optionController.relationShip.asMap().entries.map((e) {
+                return DropDownItem(itemList: {
+                  "Name": e.value.display,
+                  "Code": e.value.id,
+                });
+              }).toList(),
+              onCreateCompany: () {
+                onShowAddOtherLabel(
+                  title: "Add Other",
+                  onBack: () {
+                    Navigator.pop(context);
+                  },
+                  onCancel: () {
+                    Navigator.pop(context);
+                  },
+                  onSave: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  context: context,
+                  textFieldHere: CustomTextFieldNew(
+                    autoFocus: true,
+                    controller: addNewOtherRelationShip,
+                    hintText: 'Relation Ship',
+                    labelText: 'Relation Ship',
+                  ),
+                );
+              }),
         ],
       ),
     );

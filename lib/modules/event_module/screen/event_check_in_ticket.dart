@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -34,7 +35,7 @@ class EventCheckInTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contro = Get.put(EventController());
-    List<Map>? guest = [];
+
     return Container(
       // padding: const EdgeInsets.only(top: 15),
       color: AppColor.mainColor,
@@ -154,25 +155,11 @@ class EventCheckInTicket extends StatelessWidget {
                                     ],
                                   ),
 
-                                  // Column(
-                                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                                  //   children: contro.eventCheckIn
-                                  //       .asMap()
-                                  //       .entries
-                                  //       .map(
-                                  //         (e) => CustomTitleEventCheckIn(
-                                  //           title: e.value.title,
-                                  //           descript: e.value.description,
-                                  //         ),
-                                  //       )
-                                  //       .toList(),
-                                  // ),
-
                                   const SizedBox(height: 30),
                                 ],
                               ),
                             ),
-                            //PositionedBoxShapCircle =shap border=====
+                            //PositionedBoxShapCircle shap border
 
                             const CustomPositionedBoxShapCircle(
                               boxShapCircleColor: true,
@@ -186,18 +173,17 @@ class EventCheckInTicket extends StatelessWidget {
                             ),
                           ],
                         ),
-                        //==========Column Guests card====
-                        selectCheckIn == 'check_in' ||
+                        //Guests List(updated by Chhany)
+                        selectCheckIn == 'check_in' &&
                                 contro.getListGest.isNotEmpty
                             ? CustomCheckInGuest()
-                            : selectCheckIn == 'view_ticket' ||
-                                    contro.getListGest.isNotEmpty
+                            : contro.getListGest.isNotEmpty
                                 ? CustomViewTicket(
                                     onSaveTicket: () {
                                       _onCaptureAndSave();
                                     },
                                   )
-                                : const Text('hh'),
+                                : const SizedBox.shrink(),
                       ],
                     ),
                   ),
@@ -242,28 +228,43 @@ class EventCheckInTicket extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // if (contro.getListGest.isEmpty)
-                  CustomButton(
-                    width: double.infinity,
-                    backgroundColor: Colors.white,
-                    colorText: AppColor.mainColor,
-                    onPressed: selectCheckIn == 'view_ticket'
-                        ? () {
-                            Navigator.pop(context);
-                          }
-                        : contro.getListGest.isEmpty
-                            ? null
-                            : () {
-                                Navigator.pop(context);
-                                contro.onCheckInEvent(
-                                  context: contextTicket,
-                                  eventId: contro.eventDetail.value.id,
-                                );
-                              },
-                    isDisable: false,
-                    isOutline: false,
-                    title: selectCheckIn == 'view_ticket' ? 'Done' : 'Submit',
-                  ),
+                  // loading while user sumitting updated by Chhany
+                  contro.isLoadingCheckIn.value == true
+                      ? Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const SpinKitThreeBounce(
+                            size: 20,
+                            color: AppColor.mainColor,
+                          ),
+                        )
+                      : CustomButton(
+                          width: double.infinity,
+                          backgroundColor: Colors.white,
+                          colorText: AppColor.mainColor,
+                          onPressed: selectCheckIn == 'view_ticket'
+                              ? () {
+                                  Navigator.pop(context);
+                                }
+                              : contro.getListGest.isEmpty
+                                  ? null
+                                  : () {
+                                      Navigator.pop(context);
+                                      contro.onCheckInEvent(
+                                        context: contextTicket,
+                                        eventId: contro.eventDetail.value.id,
+                                      );
+                                    },
+                          isDisable: false,
+                          isOutline: false,
+                          title: selectCheckIn == 'view_ticket'
+                              ? 'Done'
+                              : 'Submit',
+                        ),
                 ],
               ),
             ),

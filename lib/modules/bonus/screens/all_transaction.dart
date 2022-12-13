@@ -43,50 +43,54 @@ class _AllTransactionState extends State<AllTransaction> {
               ? const SingleChildScrollView(
                   child: CustomEmptyState(),
                 )
-              : SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _bonusCon.pendingtransactionList.isNotEmpty
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (_bonusCon.pendingtransactionList.isNotEmpty)
-                                  CustomTransactionCard(
-                                    hisStoryList:
-                                        _bonusCon.pendingtransactionList,
-                                    title: "Pending Transactions",
-                                    isTitle: true,
-                                    isStatus: true,
-                                    isPendingtransaction: true,
-                                  )
-                              ],
-                            )
-                          : const SizedBox.shrink(),
-                      _walletController.allTransaction.isNotEmpty
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 20, top: 20),
-                                  child: Text(
-                                    'Transactions',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(fontSize: 14),
+              : Container(
+                  color: Colors.white,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _bonusCon.pendingtransactionList.isNotEmpty
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (_bonusCon
+                                      .pendingtransactionList.isNotEmpty)
+                                    CustomTransactionCard(
+                                      hisStoryList:
+                                          _bonusCon.pendingtransactionList,
+                                      title: "Pending Transactions",
+                                      isTitle: true,
+                                      isStatus: true,
+                                      isPendingtransaction: true,
+                                    )
+                                ],
+                              )
+                            : const SizedBox.shrink(),
+                        _walletController.allTransaction.isNotEmpty
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 20),
+                                    child: Text(
+                                      'Transactions',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(fontSize: 14),
+                                    ),
                                   ),
-                                ),
-                                CustomWalletTransaction(
-                                  walletTransaction:
-                                      _walletController.allTransaction,
-                                )
-                              ],
-                            )
-                          : const SizedBox.shrink(),
-                      const SizedBox(height: 30.0),
-                    ],
+                                  CustomWalletTransaction(
+                                    walletTransaction:
+                                        _walletController.allTransaction,
+                                  )
+                                ],
+                              )
+                            : const CustomEmptyState(),
+                        const SizedBox(height: 30.0),
+                      ],
+                    ),
                   ),
                 ),
     );
