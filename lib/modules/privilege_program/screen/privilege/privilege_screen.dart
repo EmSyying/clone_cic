@@ -241,7 +241,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                               .value.name
                                               ?.replaceAll('&', '%26');
                                           context.push(
-                                            "/privilege/all-store/privilege-item-category?tabTitle=$titleName",
+                                            "/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}",
                                           );
                                         },
                                       ),
