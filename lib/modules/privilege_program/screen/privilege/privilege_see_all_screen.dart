@@ -82,13 +82,13 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                 const SizedBox(
                   height: 24.0,
                 ),
-                priCon.isLoadingSearchCate.value
+                priCon.isLoadingCategories.value
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : priCon.categoriesListSeeAll.isNotEmpty
+                    : priCon.categoriesModelList.isNotEmpty
                         ? Column(
-                            children: priCon.categoriesListSeeAll
+                            children: priCon.categoriesModelList
                                 .asMap()
                                 .entries
                                 .map((cardListCat) => Padding(
