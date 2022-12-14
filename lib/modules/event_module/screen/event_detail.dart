@@ -514,51 +514,51 @@ class _EventDetailState extends State<EventDetail> {
                                                                 controller) {
                                                           return CustomEventInterested(
                                                             title: 'Interested',
-                                                            widget: IconButton(
-                                                                icon: Icon(
-                                                                  !controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isInterested!
-                                                                      ? Icons
-                                                                          .star_border_outlined
-                                                                      : Icons
-                                                                          .star_rate,
-                                                                  color: const Color(
-                                                                      0XFF0F50A4),
-                                                                  size: 20.0,
-                                                                ),
-                                                                onPressed:
-                                                                    () async {
-                                                                  controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isInterested =
-                                                                      !controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isInterested!;
-                                                                  if (controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isUnterest ==
-                                                                      true) {
-                                                                    controller
-                                                                        .eventDetail
-                                                                        .value
-                                                                        .isUnterest = false;
-                                                                  }
-                                                                  controller
-                                                                      .update();
+                                                            widget:
+                                                                GestureDetector(
+                                                                    child: controller
+                                                                            .eventDetail
+                                                                            .value
+                                                                            .isInterested!
+                                                                        ? SvgPicture.asset(
+                                                                            'assets/images/svgfile/interest_fill.svg')
+                                                                        : SvgPicture
+                                                                            .asset(
+                                                                            'assets/images/svgfile/interest.svg',
+                                                                            color:
+                                                                                const Color(0XFF0F50A4),
+                                                                          ),
+                                                                    onTap:
+                                                                        () async {
+                                                                      controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .isInterested =
+                                                                          !controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .isInterested!;
+                                                                      if (controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .isUnterest ==
+                                                                          true) {
+                                                                        controller
+                                                                            .eventDetail
+                                                                            .value
+                                                                            .isUnterest = false;
+                                                                      }
+                                                                      controller
+                                                                          .update();
 
-                                                                  controller.onInterested(
-                                                                      context:
-                                                                          context,
-                                                                      eventid: controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .id);
-                                                                }),
+                                                                      controller.onInterested(
+                                                                          context:
+                                                                              context,
+                                                                          eventid: controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .id);
+                                                                    }),
                                                           );
                                                         },
                                                         init: EventController(),
@@ -596,7 +596,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                         context:
                                                                             contextRegisterForm,
                                                                         title:
-                                                                            'Register',
+                                                                            'Your Ticket',
                                                                         icon: const Icon(
                                                                             Icons.clear),
                                                                         child:
