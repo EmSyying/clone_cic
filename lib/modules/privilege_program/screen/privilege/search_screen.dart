@@ -70,7 +70,7 @@ class _SearchScreenState extends State<SearchScreen> {
       await privilegController
           .onSearchStores(keySearch: textSearch)
           .then((value) {
-        privilegController.textSearchController.text = textSearch;
+        // privilegController.textSearchController.text = textSearch;
         searchChangeFov = textSearch;
       });
       showData = true;
@@ -127,7 +127,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onChanged: (v) {
               onChangeHandler(v);
             },
-            controller: privilegController.textSearchController,
+            //controller: privilegController.textSearchController,
             keyboardType: TextInputType.name,
           ),
         ),
@@ -398,49 +398,55 @@ class _SearchScreenState extends State<SearchScreen> {
                                                             searchChangeFov);
                                                       });
                                                     },
-                                                    child: CustomCardAllStores(
-                                                      isFav:
-                                                          e.value.isFavorite!,
-                                                      privilegeShopList:
-                                                          e.value,
-                                                      onTapFav: () {
-                                                        privilegController
-                                                            .setFavouriteStore(
-                                                                id: privilegController
-                                                                    .searchShopList[
-                                                                        e.key]
-                                                                    .id!,
-                                                                boolFav: privilegController
-                                                                    .searchShopList[
-                                                                        e.key]
-                                                                    .isFavorite!)
-                                                            .then((value) {
-                                                          if (privilegController
-                                                              .searchShopList[
-                                                                  e.key]
-                                                              .isFavorite!) {
-                                                            privilegController
-                                                                    .searchShopList[
-                                                                e
-                                                                    .key] = privilegController
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 18.0),
+                                                      child:
+                                                          CustomCardAllStores(
+                                                        isFav:
+                                                            e.value.isFavorite!,
+                                                        privilegeShopList:
+                                                            e.value,
+                                                        onTapFav: () {
+                                                          privilegController
+                                                              .setFavouriteStore(
+                                                                  id: privilegController
+                                                                      .searchShopList[
+                                                                          e.key]
+                                                                      .id!,
+                                                                  boolFav: privilegController
+                                                                      .searchShopList[
+                                                                          e.key]
+                                                                      .isFavorite!)
+                                                              .then((value) {
+                                                            if (privilegController
                                                                 .searchShopList[
                                                                     e.key]
-                                                                .copyWith(
-                                                                    isFavorite:
-                                                                        false);
-                                                          } else {
-                                                            privilegController
-                                                                    .searchShopList[
-                                                                e
-                                                                    .key] = privilegController
-                                                                .searchShopList[
-                                                                    e.key]
-                                                                .copyWith(
-                                                                    isFavorite:
-                                                                        true);
-                                                          }
-                                                        });
-                                                      },
+                                                                .isFavorite!) {
+                                                              privilegController
+                                                                      .searchShopList[
+                                                                  e
+                                                                      .key] = privilegController
+                                                                  .searchShopList[
+                                                                      e.key]
+                                                                  .copyWith(
+                                                                      isFavorite:
+                                                                          false);
+                                                            } else {
+                                                              privilegController
+                                                                      .searchShopList[
+                                                                  e
+                                                                      .key] = privilegController
+                                                                  .searchShopList[
+                                                                      e.key]
+                                                                  .copyWith(
+                                                                      isFavorite:
+                                                                          true);
+                                                            }
+                                                          });
+                                                        },
+                                                      ),
                                                     ),
                                                   ),
                                                 )
