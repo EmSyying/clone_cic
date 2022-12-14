@@ -40,16 +40,14 @@ class FeatureEvent extends StatelessWidget {
                       height: 20,
                     ),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                      'assets/images/svgfile/eventFilter.svg',
-                      height: 18,
-                    ),
-                  ),
+
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: SvgPicture.asset(
+                  //     'assets/images/svgfile/eventFilter.svg',
+                  //     height: 18,
+                  //   ),
+                  // ),
                 ],
               )
             ],
