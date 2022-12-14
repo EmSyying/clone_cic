@@ -240,17 +240,17 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                           final titleName = cardListCat
                                               .value.name
                                               ?.replaceAll('&', '%26');
-                                          priCon
-                                              .onFetchCategoryItem(
-                                                  cardListCat.value.id)
-                                              .then((value) {
-                                            context.push(
-                                              '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
-                                            );
-                                          });
-                                          // context.push(
-                                          //   "/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}",
-                                          // );
+                                          // priCon
+                                          //     .onFetchCategoryItem(
+                                          //         cardListCat.value.id)
+                                          //     .then((value) {
+                                          //   context.push(
+                                          //     '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
+                                          //   );
+                                          // });
+                                          context.push(
+                                            '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}',
+                                          );
                                         },
                                       ),
                                     ))

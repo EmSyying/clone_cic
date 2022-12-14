@@ -188,6 +188,7 @@ class PrivilegeController extends GetxController {
   }
 
   ///onFetch Categories shop
+
   final categoriesModelList = <ModelsCategories>[].obs;
   final isLoadingCategories = false.obs;
   Future<List<ModelsCategories>> onFetchCategories() async {
@@ -400,7 +401,7 @@ class PrivilegeController extends GetxController {
   final shopCategoryItem = PrivilegeShopModel().obs;
   Future<List<PrivilegeShopModel>> onFetchCategoryItem(int? id) async {
     isLoadingCateItem(true);
-    debugPrint("catagories id:$id");
+    debugPrint("catagories id====:$id");
     await apiBaseHelper
         .onNetworkRequesting(
             url: 'privilege/shop-by?category_id=$id',
