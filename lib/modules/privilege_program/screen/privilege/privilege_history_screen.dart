@@ -13,14 +13,26 @@ class PrivilegeHistory extends StatelessWidget {
     priviegeCont.onFetchPrivilegeHistory();
     return Obx(
       () => SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            priviegeCont.isLoadingHistory.value
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
+        child: priviegeCont.isLoadingHistory.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Past transactions ',
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff848F92),
+                          fontSize: 14,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  Column(
                     children: priviegeCont.privilegeHistoryList
                         .asMap()
                         .entries
@@ -38,8 +50,8 @@ class PrivilegeHistory extends StatelessWidget {
                         )
                         .toList(),
                   ),
-          ],
-        ),
+                ],
+              ),
       ),
     );
   }

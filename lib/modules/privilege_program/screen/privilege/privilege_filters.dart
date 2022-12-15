@@ -195,7 +195,10 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                 child: (CustomButton(
                   title: "Clear All",
                   isOutline: true,
-                  isDisable: false,
+                  isDisable: privilegeController.selectedCategFil.isEmpty &&
+                          privilegeController.locationCodeList.isEmpty
+                      ? true
+                      : false,
                   onPressed: () {
                     privilegeController.onClearSelected();
                   },
