@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/search_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -46,6 +49,17 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
         context: context,
         elevation: 0.5,
         title: 'Filters',
+        leading: IconButton(
+            icon: kIsWeb
+                ? const Icon(Icons.arrow_back)
+                : Platform.isAndroid
+                    ? const Icon(Icons.arrow_back)
+                    : const Icon(Icons.arrow_back_ios),
+            color: Colors.black,
+            onPressed: () {
+              privilegeController.onFetchAllStore(1);
+              Navigator.pop(context);
+            }),
       ),
       body: SingleChildScrollView(
         child: Obx(

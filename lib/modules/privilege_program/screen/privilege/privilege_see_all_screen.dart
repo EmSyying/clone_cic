@@ -102,9 +102,9 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                                         bottom: 14.0,
                                       ),
                                       child: ComponentCardCategory(
-                                        height: 96,
-                                        heightIcon: 48,
-                                        widthIcon: 109,
+                                        height: 96, //hieght card category
+                                        heightIcon: 48, //height icon
+                                        widthIcon: 109, //width icon
                                         isHeight: true,
                                         widthTrue: true,
                                         numStoresTrue: true,

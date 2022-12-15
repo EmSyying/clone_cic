@@ -44,9 +44,8 @@ class ComponentCardCategory extends StatelessWidget {
         GestureDetector(
           onTap: onTapCatego,
           child: Container(
-            height: isHeight == false ? 86 : height,
+            height: isHeight == false ? 80 : height,
             width: widthTrue == true ? double.infinity : 160,
-            // margin: const EdgeInsets.only(right: 14),
             decoration: BoxDecoration(
               border: Border.all(
                 color: selected ? AppColor.mainColor : Colors.white,
@@ -70,8 +69,8 @@ class ComponentCardCategory extends StatelessWidget {
                   right: 0,
                   child: Container(
                     alignment: Alignment.center,
-                    height: isHeight == false ? 42 : heightIcon,
-                    width: isHeight == false ? 94 : widthIcon,
+                    height: isHeight == false ? 40 : heightIcon,
+                    width: isHeight == false ? 90 : widthIcon,
                     child: mineTye != null && mineTye!.contains('svg')
                         ? SvgPicture.network(
                             iconCard ?? '',
@@ -88,16 +87,19 @@ class ComponentCardCategory extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          cardTitle ?? '',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: false,
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                  ),
+                        SizedBox(
+                          width: 124,
+                          child: Text(
+                            cardTitle ?? '',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            style:
+                                Theme.of(context).textTheme.bodyText2!.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: isHeight == false ? 12 : 14,
+                                    ),
+                          ),
                         ),
                         const SizedBox(
                           height: 4,

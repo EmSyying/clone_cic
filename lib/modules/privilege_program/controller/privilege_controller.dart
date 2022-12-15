@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/option_model/option_form.dart';
 import '../model/category_model/model_categories.dart';
+import '../model/history/model_history_privilege.dart';
 import '../model/location/location.dart';
 import '../model/search_loation_list/search_location_list.dart';
 import '../model/stores_model/model_pre.dart';
@@ -219,6 +220,35 @@ class PrivilegeController extends GetxController {
     });
 
     return categoriesModelList;
+  }
+
+  ///History privilege
+  final privilegeHistoryList = <PrivilegeHistoryModel>[].obs;
+  final isLoadingHistory = false.obs;
+  Future<List<PrivilegeHistoryModel>> onFetchPrivilegeHistory() async {
+    isLoadingHistory(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/payment-history',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      debugPrint('status 200-===history:');
+
+      var responseJson = response['data'];
+      privilegeHistoryList.clear();
+      debugPrint('data history=====:$responseJson');
+      responseJson.map((e) {
+        privilegeHistoryList.add(PrivilegeHistoryModel.fromJson(e));
+      }).toList();
+      debugPrint('history work===:');
+      isLoadingHistory(false);
+    }).onError((error, stackTrace) {
+      debugPrint('error history===:');
+      isLoadingHistory(false);
+    });
+    return privilegeHistoryList;
   }
 
   /////search categories shop
