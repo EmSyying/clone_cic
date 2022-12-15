@@ -504,7 +504,7 @@ customMenu({
         SvgPicture.asset(
           '$icon',
           width: 32,
-          height: 32,
+          height: 23,
         ),
         const SizedBox(
           height: 10,

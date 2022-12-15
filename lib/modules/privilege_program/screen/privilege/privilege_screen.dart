@@ -134,7 +134,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         icon: const Icon(Icons.close_rounded),
                         title: "History",
                         onTap: () {},
-                        child: const PrivilegeHistory(),
+                        child: const Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: PrivilegeHistory(),
+                        ),
                       );
                     },
                     child: SvgPicture.asset("assets/images/history.svg"),
@@ -155,7 +158,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     return false;
                   },
                   child: SingleChildScrollView(
-                   
                     child: Column(
                       children: [
                         !_settingCon.isLoading.value &&

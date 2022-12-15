@@ -234,18 +234,18 @@ class PrivilegeController extends GetxController {
       isAuthorize: true,
     )
         .then((response) {
-      debugPrint('status 200-===history:');
+      // debugPrint('status 200-===history:');
 
       var responseJson = response['data'];
       privilegeHistoryList.clear();
-      debugPrint('data history=====:$responseJson');
+      //debugPrint('data history=====:$responseJson');
       responseJson.map((e) {
         privilegeHistoryList.add(PrivilegeHistoryModel.fromJson(e));
       }).toList();
-      debugPrint('history work===:');
+      //debugPrint('history work===:');
       isLoadingHistory(false);
     }).onError((error, stackTrace) {
-      debugPrint('error history===:');
+      // debugPrint('error history===:');
       isLoadingHistory(false);
     });
     return privilegeHistoryList;

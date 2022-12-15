@@ -13,36 +13,32 @@ class PrivilegeHistory extends StatelessWidget {
     priviegeCont.onFetchPrivilegeHistory();
     return Obx(
       () => SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(
-              left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              priviegeCont.isLoadingHistory.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Column(
-                      children: priviegeCont.privilegeHistoryList
-                          .asMap()
-                          .entries
-                          .map(
-                            (history) => Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: CustomCardHistoryPri(
-                                shopName: history.value.shopName,
-                                code: history.value.code,
-                                paymentDate: history.value.paymentDate,
-                                amount: history.value.amount,
-                                image: history.value.thumbnail,
-                              ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            priviegeCont.isLoadingHistory.value
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: priviegeCont.privilegeHistoryList
+                        .asMap()
+                        .entries
+                        .map(
+                          (history) => Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: CustomCardHistoryPri(
+                              shopName: history.value.shopName,
+                              code: history.value.code,
+                              paymentDate: history.value.paymentDate,
+                              amount: history.value.amount,
+                              image: history.value.thumbnail,
                             ),
-                          )
-                          .toList(),
-                    ),
-            ],
-          ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+          ],
         ),
       ),
     );
