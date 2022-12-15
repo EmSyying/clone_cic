@@ -12,7 +12,9 @@ import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
 import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
 
 class PrivilegeSeeAllScreen extends StatefulWidget {
-  const PrivilegeSeeAllScreen({Key? key}) : super(key: key);
+  const PrivilegeSeeAllScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<PrivilegeSeeAllScreen> createState() => _PrivilegeSeeAllScreenState();
@@ -24,6 +26,7 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
   @override
   void initState() {
     priCon.onSearchCategories('');
+
     super.initState();
   }
 
@@ -54,12 +57,15 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
         backgroundColor: AppColor.mainColor,
       ),
       body: Obx(
-        () => Padding(
-          padding: const EdgeInsets.only(
-              left: 20.0, top: 20.0, right: 20.0, bottom: 20.0),
-          child: SingleChildScrollView(
+        () => SingleChildScrollView(
+          child: Padding(
+            padding:
+                const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
             child: Column(
               children: [
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Container(
                   height: 38,
                   width: double.infinity,
@@ -91,7 +97,7 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                             children: priCon.categoriesListSeeAll
                                 .asMap()
                                 .entries
-                                .map((cardListCat) => Padding(
+                                .map((seeall) => Padding(
                                       padding: const EdgeInsets.only(
                                         bottom: 14.0,
                                       ),
@@ -102,23 +108,25 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                                         isHeight: true,
                                         widthTrue: true,
                                         numStoresTrue: true,
-                                        mineTye: cardListCat.value.mimeTypeImag,
-                                        cardTitle: cardListCat.value.name,
-                                        iconCard: cardListCat.value.image,
-                                        countShop: cardListCat.value.countShop
-                                            .toString(),
+                                        mineTye: seeall.value.mimeTypeImag,
+                                        cardTitle: seeall.value.name,
+                                        iconCard: seeall.value.image,
+                                        countShop:
+                                            seeall.value.countShop.toString(),
                                         onTapCatego: () {
-                                          final titleName = cardListCat
-                                              .value.name
+                                          final titleName = seeall.value.name
                                               ?.replaceAll('&', '%26');
-                                          priCon
-                                              .onFetchCategoryItem(
-                                                  cardListCat.value.id)
-                                              .then((value) {
-                                            context.push(
-                                              '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
-                                            );
-                                          });
+                                          context.push(
+                                            '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${seeall.value.id}',
+                                          );
+                                          // priCon
+                                          //     .onFetchCategoryItem(
+                                          //         cardListCat.value.id)
+                                          //     .then((value) {
+                                          //   context.push(
+                                          //     '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
+                                          //   );
+                                          // });
                                         },
                                       ),
                                     ))

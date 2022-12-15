@@ -905,6 +905,7 @@ final router = GoRouter(
                 path: 'privilege-item-category',
                 builder: (context, state) => ItemCategoryPrivilegeScreen(
                   tabTitle: state.queryParams['tabTitle'],
+                  id: int.tryParse(state.queryParams['id']!),
                 ),
               ),
               GoRoute(

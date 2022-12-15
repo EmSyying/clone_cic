@@ -44,8 +44,8 @@ class ComponentCardCategory extends StatelessWidget {
         GestureDetector(
           onTap: onTapCatego,
           child: Container(
-            height: isHeight == false ? 80 : height,
-            width: widthTrue == true ? double.infinity : 150,
+            height: isHeight == false ? 86 : height,
+            width: widthTrue == true ? double.infinity : 160,
             // margin: const EdgeInsets.only(right: 14),
             decoration: BoxDecoration(
               border: Border.all(
