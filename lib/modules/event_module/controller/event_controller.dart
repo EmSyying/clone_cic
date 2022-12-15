@@ -5,7 +5,6 @@ import 'package:cicgreenloan/Utils/helper/custom_route_snackbar.dart';
 import 'package:cicgreenloan/modules/event_module/screen/event_check_in_ticket.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/notify_share_pop_up.dart';
-import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/configs/route_management/route_name.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/google_map_module/controllers/google_map_controller.dart';
@@ -18,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../Utils/option_controller/option_controller.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/color.dart';
@@ -66,6 +66,7 @@ class EventController extends GetxController {
   final isAfterRegister = false.obs;
   final isAfterUnInterest = false.obs;
   final isAfterInterest = false.obs;
+
   onRefresh(int eventID) {
     fetchAllRegisteredMemeber("$eventID");
   }
@@ -590,7 +591,7 @@ class EventController extends GetxController {
   final currentIndex = 0.obs;
   final guestName = ''.obs;
   final guestPhone = ''.obs;
-  final guestRelationship = ''.obs;
+  // final guestRelationship = ''.obs;
   final isLoadingRegisterWithGuest = false.obs;
   final guestlistmodel = <GuestModel>[GuestModel()].obs;
   final getRegisterModel = GetRegisterModel().obs;
@@ -768,6 +769,7 @@ class EventController extends GetxController {
   }
 
   final isLoadingCheckInGuest = false.obs;
+
   Future<GetRegisterModel> getCheckInGuest({
     int? eventId,
     int? memberId,
@@ -794,6 +796,30 @@ class EventController extends GetxController {
   }
 
   var selectCheckInModel = <SelectCheckInModel>[].obs;
+////====================Add more relationship
+  final optionCon = Get.put(DocumentCategory());
+  // final int? guestRelationship;
+  String? relationshipDisplay;
+  TextEditingController addNewOtherRelationShip = TextEditingController();
+  final isCreateNew = false.obs;
+  final isLoadingMoreRelationship = false.obs;
+  Future<void> onAddMoreRelationship(BuildContext context) async {
+    isLoadingMoreRelationship(true);
+    await apiBaseHelper.onNetworkRequesting(
+        methode: METHODE.post,
+        isAuthorize: true,
+        url: 'option',
+        body: {'relationship': addNewOtherRelationShip.text}).then((response) {
+      debugPrint('option+++++++++:$response');
+      isLoadingMoreRelationship(false);
+      addNewOtherRelationShip.text = '';
+      Navigator.pop(context);
+      optionCon.fetchDocumentCategory();
+    }).onError((ErrorModel error, stackTrace) {
+      isLoadingMoreRelationship(false);
+      debugPrint('option error+++++++++:${error.bodyString}');
+    });
+  }
 }
 
 class GuestModel {

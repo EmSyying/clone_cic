@@ -570,18 +570,17 @@ class _EventDetailState extends State<EventDetail> {
                                                       ),
                                                       CustomEventInterested(
                                                         title: 'Going',
-                                                        widget: IconButton(
-                                                            icon: Icon(
-                                                              isGoing == false
-                                                                  ? Icons
-                                                                      .check_circle_outlined
-                                                                  : Icons
-                                                                      .check_circle,
-                                                              color: const Color(
-                                                                  0XFF0F50A4),
-                                                              size: 20.0,
-                                                            ),
-                                                            onPressed: () {
+                                                        widget: GestureDetector(
+                                                            child: eventController
+                                                                        .eventDetail
+                                                                        .value
+                                                                        .isRegister ==
+                                                                    false
+                                                                ? SvgPicture.asset(
+                                                                    'assets/images/svgfile/going.svg')
+                                                                : SvgPicture.asset(
+                                                                    'assets/images/svgfile/going_fill.svg'),
+                                                            onTap: () {
                                                               eventController
                                                                           .eventDetail
                                                                           .value
@@ -710,49 +709,45 @@ class _EventDetailState extends State<EventDetail> {
                                                           return CustomEventInterested(
                                                             title:
                                                                 'Not Interested',
-                                                            widget: IconButton(
-                                                                icon: Icon(
-                                                                  !controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isUnterest!
-                                                                      ? Icons
-                                                                          .cancel_outlined
-                                                                      : Icons
-                                                                          .cancel,
-                                                                  color: const Color(
-                                                                      0XFF0F50A4),
-                                                                  size: 20.0,
-                                                                ),
-                                                                onPressed:
-                                                                    () async {
-                                                                  controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isUnterest =
-                                                                      !controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isUnterest!;
-                                                                  if (controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isInterested ==
-                                                                      true) {
-                                                                    controller
-                                                                        .eventDetail
-                                                                        .value
-                                                                        .isInterested = false;
-                                                                  }
+                                                            widget:
+                                                                GestureDetector(
+                                                                    child: !controller
+                                                                            .eventDetail
+                                                                            .value
+                                                                            .isUnterest!
+                                                                        ? SvgPicture.asset(
+                                                                            'assets/images/svgfile/not_interest.svg')
+                                                                        : SvgPicture.asset(
+                                                                            'assets/images/svgfile/not_interest_fill.svg'),
+                                                                    onTap:
+                                                                        () async {
+                                                                      controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .isUnterest =
+                                                                          !controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .isUnterest!;
+                                                                      if (controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .isInterested ==
+                                                                          true) {
+                                                                        controller
+                                                                            .eventDetail
+                                                                            .value
+                                                                            .isInterested = false;
+                                                                      }
 
-                                                                  await controller.onUninterested(
-                                                                      context:
-                                                                          context,
-                                                                      eventid: controller
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .id);
-                                                                }),
+                                                                      await controller.onUninterested(
+                                                                          context:
+                                                                              context,
+                                                                          eventid: controller
+                                                                              .eventDetail
+                                                                              .value
+                                                                              .id);
+                                                                    }),
                                                           );
                                                         },
                                                       ),

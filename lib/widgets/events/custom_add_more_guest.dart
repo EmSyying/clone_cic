@@ -17,7 +17,7 @@ class CustomAddMoreGuest extends StatefulWidget {
   final int? addGuest;
   final int? index;
   final int? relationship;
-  final String? relationshipDisplay;
+  String? relationshipDisplay;
   final String? name;
   final String? phone;
   final String? svgDelete;
@@ -26,7 +26,7 @@ class CustomAddMoreGuest extends StatefulWidget {
   final Function(Map<dynamic, dynamic>)? onchangeRelationship;
 
   final TextEditingController? textEditing;
-  const CustomAddMoreGuest({
+  CustomAddMoreGuest({
     Key? key,
     this.onTapDelete,
     this.addGuest,
@@ -52,8 +52,6 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
   final optionController = Get.put(DocumentCategory());
   final customerController = Get.put(CustomerController());
   final eventCon = Get.put(EventController());
-  TextEditingController addNewOtherType = TextEditingController();
-  TextEditingController addNewOtherRelationShip = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +146,12 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                       "Code": widget.relationship,
                       "Name": widget.relationshipDisplay,
                     }
-                  : null,
+                  : eventCon.addNewOtherRelationShip.text != ''
+                      ? {
+                          "Code": '',
+                          "Name": eventCon.addNewOtherRelationShip.text,
+                        }
+                      : null,
               item: optionController.relationShip.asMap().entries.map((e) {
                 return DropDownItem(itemList: {
                   "Name": e.value.display,
@@ -165,15 +168,23 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                     Navigator.pop(context);
                   },
                   onSave: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    eventCon
+                        .onAddMoreRelationship(context)
+                        .then((value) => Navigator.pop(context));
                   },
                   context: context,
                   textFieldHere: CustomTextFieldNew(
                     autoFocus: true,
-                    controller: addNewOtherRelationShip,
+                    controller: eventCon.addNewOtherRelationShip,
                     hintText: 'Relation Ship',
                     labelText: 'Relation Ship',
+                    // onChange: (e) {
+                    //   if (widget.relationshipDisplay == '') {
+                    //     widget.relationshipDisplay = '';
+                    //   } else {
+                    //     widget.relationshipDisplay = e;
+                    //   }
+                    // },
                   ),
                 );
               }),

@@ -408,11 +408,9 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CustomAddMoreGuest(
-                                    svgDelete:
-                                        // e.key != 0
-                                        //     ?
-                                        'assets/images/svgfile/deleteIcon.svg',
-                                    // : null,
+                                    svgDelete: e.key != 0
+                                        ? 'assets/images/svgfile/deleteIcon.svg'
+                                        : null,
                                     relationshipDisplay:
                                         e.value.relationShipDisplay,
                                     phone: e.value.phone,
