@@ -91,11 +91,14 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1.0,
-        leading: SizedBox(
-          width: 22,
-          height: 22,
-          child: GestureDetector(
-            child: const Padding(
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const SizedBox(
+            width: 22,
+            height: 22,
+            child: Padding(
               padding: EdgeInsets.only(
                 left: 20.0,
               ),
@@ -105,12 +108,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 size: 22,
               ),
             ),
-            onTap: () {
-              Navigator.pop(context);
-            },
           ),
         ),
-        leadingWidth: 30,
+        leadingWidth: 36,
         // titleSpacing: 0,
         title: Container(
           height: 38,

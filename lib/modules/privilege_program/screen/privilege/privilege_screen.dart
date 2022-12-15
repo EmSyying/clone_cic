@@ -48,6 +48,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      debugPrint('Privilege Inistate');
       final router = GoRouter.of(context);
       if (router.location.contains('all-stores')) {
         segmentedControlValue = 1;
@@ -63,7 +64,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     super.initState();
   }
 
-  final storePages = [
+  List<Widget> storePages = [
     const CustomAllStoreList(),
     const CustomCardFavoriesList(),
   ];
@@ -133,6 +134,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               return false;
             },
             child: SingleChildScrollView(
+              //======
               child: Column(
                 children: [
                   !_settingCon.isLoading.value &&
@@ -150,19 +152,25 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                 if (_settingCon
                                         .slideListPrivilege![index].module ==
                                     'Privilege') {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Stack(
-                                      children: [
-                                        Positioned.fill(
-                                          child: CachedNetworkImage(
-                                            imageUrl: _settingCon
-                                                .slideListPrivilege![index]
-                                                .image!,
-                                            fit: BoxFit.cover,
+                                  return InkWell(
+                                    onTap: () {
+                                      context.push(
+                                          "/privilege/all-store/privilege-detail/4}");
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Stack(
+                                        children: [
+                                          Positioned.fill(
+                                            child: CachedNetworkImage(
+                                              imageUrl: _settingCon
+                                                  .slideListPrivilege![index]
+                                                  .image!,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }
@@ -309,10 +317,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                               const EdgeInsets.only(top: 20.0, bottom: 20.0),
                           child: CustomNumberStoresFilter(
                             onTapSearch: () {
-                              context.go("/privilege/all-stores/search-item");
+                              context.push("/privilege/all-stores/search-item");
                             },
                             onTapFilter: () {
-                              context.go("/privilege/all-stores/filter-item");
+                              context.push("/privilege/all-stores/filter-item");
                             },
                             titleStores: segmentedControlValue == 0
                                 ? '${preController.shopModelList.length} Stores'
