@@ -245,7 +245,6 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                       if (snapshot.hasData &&
                           memberController.memberList.isNotEmpty &&
                           snapshot.connectionState == ConnectionState.done) {
-                        debugPrint('Length = ${memberController.memberList}');
                         return NotificationListener<ScrollNotification>(
                             onNotification: (ScrollNotification scrollInfo) {
                               if (scrollInfo.metrics.pixels ==

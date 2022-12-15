@@ -250,15 +250,13 @@ class EventCheckInTicket extends StatelessWidget {
                               ? () {
                                   Navigator.pop(context);
                                 }
-                              : contro.getListGest.isEmpty
-                                  ? null
-                                  : () {
-                                      Navigator.pop(context);
-                                      contro.onCheckInEvent(
-                                        context: contextTicket,
-                                        eventId: contro.eventDetail.value.id,
-                                      );
-                                    },
+                              : () {
+                                  Navigator.pop(context);
+                                  contro.onCheckInEvent(
+                                    context: contextTicket,
+                                    eventId: contro.eventDetail.value.id,
+                                  );
+                                },
                           isDisable: false,
                           isOutline: false,
                           title: selectCheckIn == 'view_ticket'

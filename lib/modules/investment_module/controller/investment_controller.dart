@@ -642,7 +642,6 @@ class PriceController extends GetxController {
             isAuthorize: true)
         .then((response) {
       var responseJson = response['data'];
-      debugPrint("Application body:$responseJson");
 
       fiFApplicationDetailPending.value =
           FiFApplicationDetailModel.fromJson(responseJson);
@@ -759,7 +758,7 @@ class PriceController extends GetxController {
   final isFromWallet = false.obs;
   Future<void> onCreateFiF(
       {num? id, required BuildContext? buildcontext}) async {
-    debugPrint("is from page:${isFromWallet.value}");
+    debugPrint("ReceivingAccount.value:${textReceivingAccount.value}");
 
     isLoadingPostFiF(true);
 
@@ -768,16 +767,6 @@ class PriceController extends GetxController {
         methode: id != null ? METHODE.update : METHODE.post,
         isAuthorize: true,
         body: {
-          // "account_name": id != null || id != 0 ? accounName.value : '',
-          // "product_id": fiFApplicationDetailPending.value.productId,
-          // "duration": 10,
-          // "invest_amount": 1000,
-          // "deduction_amount": 10,
-          // "investment_date":
-          //     FormatDate.investmentDateDropDown(textInvestDate.toString()),
-          // "interest_receiving_account_type": "BANK",
-          // "bank_id": bankId.value,
-          // "mma_account_id": "",
           "account_name": id != null ? accounName.value : '',
           "product_id": fiFApplicationDetailPending.value.productId,
           "duration": textDuration.value,

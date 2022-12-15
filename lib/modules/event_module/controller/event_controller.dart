@@ -52,7 +52,7 @@ class EventController extends GetxController {
   final companyNameMember = ''.obs;
   final phoneNumberMember = ''.obs;
   final isGenerateLink = false.obs;
-  final eventShortenUrl = ''.obs;
+  // final eventShortenUrl = ''.obs;
   final emailMember = ''.obs;
   final isLoadingTicket = false.obs;
   final customerController = Get.put(CustomerController());
@@ -555,13 +555,14 @@ class EventController extends GetxController {
       }).then((response) async {
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['data'];
-          debugPrint("Response Json: $responseJson");
+
           eventDetail.value = EventData.fromJson(responseJson);
-          Uri uri = await DynamicLinkService.createDynamicLink(
-              path: '/event/event-detail/${eventDetail.value.id}',
-              description: '${eventDetail.value.title}',
-              image: '${eventDetail.value.cover}');
-          eventShortenUrl.value = uri.toString();
+          // DynamicLinkService  not work so i command
+          // Uri uri = await DynamicLinkService.createDynamicLink(
+          //     path: '/event/event-detail/${eventDetail.value.id}',
+          //     description: '${eventDetail.value.title}',
+          //     image: '${eventDetail.value.cover}');
+          // eventShortenUrl.value = uri.toString();
         } else {}
       });
     } catch (e) {

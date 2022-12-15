@@ -260,9 +260,9 @@ class MemberController extends GetxController {
           .then((response) {
         if (response.statusCode == 200) {
           customRouterSnackbar(
-              title: 'Event Invitation',
-              description: "Your Invite was Submit Successful...!",
-              type: SnackType.done);
+            title: 'Event Invitation',
+            description: "Your Invite was Submit Successful...!",
+          );
         } else {}
       });
     } finally {

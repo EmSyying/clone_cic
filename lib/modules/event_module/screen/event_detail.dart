@@ -224,9 +224,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                 as RenderBox;
 
                                                         Share.share(
-                                                            eventController
-                                                                .eventShortenUrl
-                                                                .value,
+                                                            'https://cicapp.page.link/event/event-detail/${widget.eventId}',
                                                             subject: '',
                                                             sharePositionOrigin:
                                                                 box.localToGlobal(
@@ -427,8 +425,14 @@ class _EventDetailState extends State<EventDetail> {
                                                                 .value ==
                                                             true
                                                         ? Container(
-                                                            width: 120.0,
-                                                            height: 35.0,
+                                                            width: 120,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical:
+                                                                        10,
+                                                                    horizontal:
+                                                                        12),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: AppColor
@@ -441,10 +445,11 @@ class _EventDetailState extends State<EventDetail> {
                                                                           8),
                                                             ),
                                                             child:
-                                                                const SpinKitThreeBounce(
-                                                              size: 20,
-                                                              color:
-                                                                  Colors.white,
+                                                                SpinKitThreeBounce(
+                                                              size: 17,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
                                                             ),
                                                           )
                                                         : Container(
@@ -840,43 +845,6 @@ class _EventDetailState extends State<EventDetail> {
                                                                   .mainColor),
                                                         ),
                                                 ),
-                                                // Row(
-                                                //   crossAxisAlignment:
-                                                //       CrossAxisAlignment.start,
-                                                //   children: [
-                                                //     Expanded(
-                                                //       child: DateTimeEventCard(
-                                                //         isDate: true,
-                                                //         title: 'Date',
-                                                //         date: FormatDate
-                                                //             .eventDateTime(
-                                                //                 eventController
-                                                //                     .eventDetail
-                                                //                     .value
-                                                //                     .startDate!),
-                                                //         imgUrl:
-                                                //             'assets/images/svgfile/dateIcon.svg',
-                                                //       ),
-                                                //     ),
-                                                //     const SizedBox(width: 10.0),
-                                                //     Expanded(
-                                                //       child: DateTimeEventCard(
-                                                //         title: 'Time',
-                                                //         fromTime:
-                                                //             eventController
-                                                //                 .eventDetail
-                                                //                 .value
-                                                //                 .fromTime!,
-                                                //         toTime: eventController
-                                                //             .eventDetail
-                                                //             .value
-                                                //             .toTime!,
-                                                //         imgUrl:
-                                                //             'assets/images/svgfile/eventdateIcon.svg',
-                                                //       ),
-                                                //     ),
-                                                //   ],
-                                                // )
                                               ],
                                             ),
                                           ),
@@ -1001,11 +969,10 @@ class _EventDetailState extends State<EventDetail> {
                                                   final RenderBox box =
                                                       context.findRenderObject()
                                                           as RenderBox;
-
+                                                  debugPrint(
+                                                      'Is Link share link');
                                                   Share.share(
-                                                      eventController
-                                                          .eventShortenUrl
-                                                          .value,
+                                                      'https://cicapp.page.link/event/event-detail/${widget.eventId}',
                                                       subject: '',
                                                       sharePositionOrigin:
                                                           box.localToGlobal(

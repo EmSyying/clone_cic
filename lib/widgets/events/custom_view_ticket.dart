@@ -87,27 +87,12 @@ class CustomViewTicket extends StatelessWidget {
               ],
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(
-          //     top: 36.0,
-          //     bottom: 10.0,
-          //   ),
-          //   child: _buildButton(
-          //     Theme.of(context).textTheme.subtitle2,
-          //     text: 'Save',
-          //     icon: SvgPicture.asset('assets/images/save.svg'),
-          //     onTap: onSaveTicket,
-          //     // () {
-          //     //   _onCaptureAndSave();
-          //     // },
-          //   ),
-          // ),
         ],
       ),
     );
   }
 
-  Widget _buildButton(
+  Widget buildButton(
     textStyle, {
     String? text,
     Widget? icon,

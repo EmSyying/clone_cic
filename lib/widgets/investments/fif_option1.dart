@@ -119,10 +119,6 @@ class _FIFOption1State extends State<FIFOption1> {
       fifController.isValidateDuration.value = true;
     }
 
-    debugPrint('Amount : ${fifController.deductionAmount.value}');
-    debugPrint('maxAmount : ${fifController.maxDeductionAmount.value}');
-    debugPrint(
-        'maxAmount productNameType: ${fifController.productNameType.value}');
     if (fifController.fiFApplicationDetailPending.value.subproductCode ==
             "MPD-0002" &&
         (fifController.deductionAmount.value == 0 ||
@@ -159,6 +155,7 @@ class _FIFOption1State extends State<FIFOption1> {
       debugPrint('All Form Validation = true');
 
       if (widget.options!.isNotEmpty) {
+        debugPrint("is slide work0");
         fifController.validateFIF().then((value) {
           if (fifController.fiFApplicationDetailPending.value.subproductName !=
               '') {
@@ -169,8 +166,6 @@ class _FIFOption1State extends State<FIFOption1> {
                   fifController.maxDeductionAmount.value != 0 &&
                   fifController.deductionAmount.value <=
                       fifController.maxDeductionAmount.value) {
-                debugPrint(
-                    'All Form Validation = true with : ${fifController.maxDeductionAmount.value}');
                 Navigator.push(
                   context!,
                   MaterialPageRoute(
@@ -180,9 +175,11 @@ class _FIFOption1State extends State<FIFOption1> {
                         oncallBack: () async {
                           FirebaseAnalyticsHelper.sendAnalyticsEvent(
                               'Submit create fif application');
+                          debugPrint("is slide work1");
 
                           apppincode
-                              .showLockScreen(enableCancel: true)
+                              .showLockScreen(
+                                  enableCancel: true, context: context)
                               .then((value) {
                             debugPrint('Success hx $value');
                             if (value) {
@@ -216,11 +213,13 @@ class _FIFOption1State extends State<FIFOption1> {
                     return BulletPaymentDetail(
                       isAnnullyRate: true,
                       oncallBack: () async {
+                        debugPrint("is slide work2");
                         FirebaseAnalyticsHelper.sendAnalyticsEvent(
                             'Submit create fif application');
 
                         await apppincode
-                            .showLockScreen(enableCancel: true)
+                            .showLockScreen(
+                                enableCancel: true, context: context)
                             .then((value) async {
                           if (value) {
                             debugPrint('Make Request');
@@ -247,8 +246,6 @@ class _FIFOption1State extends State<FIFOption1> {
             }
           }
         });
-
-        debugPrint('Deduction Amount = ${fifController.deductionAmount.value}');
       } else {
         // fifController.onCreateFiF(buildcontext: context, id: widget.id);
         debugPrint('All Form Validation = No Deduction Amount Can Route Here');
@@ -259,11 +256,12 @@ class _FIFOption1State extends State<FIFOption1> {
               return BulletPaymentDetail(
                 isAnnullyRate: true,
                 oncallBack: () async {
+                  debugPrint("is slide work3");
                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
                       'Submit create fif application');
 
                   await apppincode
-                      .showLockScreen(enableCancel: true)
+                      .showLockScreen(enableCancel: true, context: context)
                       .then((value) {
                     if (value) {
                       debugPrint('Make Request');
