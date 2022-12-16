@@ -810,9 +810,11 @@ class EventController extends GetxController {
         isAuthorize: true,
         url: 'option',
         body: {'relationship': addNewOtherRelationShip.text}).then((response) {
-      debugPrint('option+++++++++:$response');
+      debugPrint('option+++++++++:${addNewOtherRelationShip.text}');
+      debugPrint('option+++++++++:${addNewOtherRelationShip.text}');
+
       isLoadingMoreRelationship(false);
-      addNewOtherRelationShip.text = '';
+      // addNewOtherRelationShip.text = '';
       Navigator.pop(context);
       optionCon.fetchDocumentCategory();
     }).onError((ErrorModel error, stackTrace) {

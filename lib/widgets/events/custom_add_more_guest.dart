@@ -159,6 +159,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                 });
               }).toList(),
               onCreateCompany: () {
+                eventCon.addNewOtherRelationShip.text = '';
                 onShowAddOtherLabel(
                   title: "Add Other",
                   onBack: () {
@@ -167,11 +168,13 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                   onCancel: () {
                     Navigator.pop(context);
                   },
-                  onSave: () {
-                    eventCon
-                        .onAddMoreRelationship(context)
-                        .then((value) => Navigator.pop(context));
-                  },
+                  onSave: eventCon.isLoadingMoreRelationship.value == true
+                      ? null
+                      : () {
+                          eventCon
+                              .onAddMoreRelationship(context)
+                              .then((value) => Navigator.pop(context));
+                        },
                   context: context,
                   textFieldHere: CustomTextFieldNew(
                     autoFocus: true,

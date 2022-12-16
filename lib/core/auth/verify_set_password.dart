@@ -447,7 +447,6 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                                       : () {
                                           controller!.reverse(
                                               from: controller!.value = 1.0);
-
                                           requestOtpAgain();
                                         },
                                   child: Text(

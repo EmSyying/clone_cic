@@ -773,8 +773,11 @@ class _EventDetailState extends State<EventDetail> {
                                                 _customDateDetail(
                                                   context: context,
                                                   title: 'Event by',
-                                                  content:
-                                                      '${eventController.eventDetail.value.eventBy}',
+                                                  content: eventController
+                                                          .eventDetail
+                                                          .value
+                                                          .eventBy ??
+                                                      '',
                                                   imageSVG:
                                                       'assets/images/svgfile/profile-border.svg',
                                                 ),
@@ -833,7 +836,7 @@ class _EventDetailState extends State<EventDetail> {
                                                               context: context,
                                                               title: 'Location',
                                                               content:
-                                                                  '${eventController.eventDetail.value.location}',
+                                                                  '${eventController.eventDetail.value.place}',
                                                               imageSVG:
                                                                   'assets/images/svgfile/location_border.svg',
                                                               textColor: AppColor
@@ -1099,6 +1102,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                 <GuestModel>[
                                                               GuestModel()
                                                             ];
+
                                                             onShowCustomCupertinoModalSheet(
                                                               context:
                                                                   contextRegisterForm,

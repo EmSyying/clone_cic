@@ -443,9 +443,16 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                       controller.update();
                                     },
                                   ),
+                                  // const SizedBox(
+                                  //   height: 20,
+                                  // ),
                                   if (e.value ==
-                                      registerMemberController
-                                          .guestlistmodel.last)
+                                          registerMemberController
+                                              .guestlistmodel.last &&
+                                      e.key !=
+                                          registerMemberController.eventDetail
+                                                  .value.limitInvite! -
+                                              1)
                                     GestureDetector(
                                       onTap: e.value.participantName == '' ||
                                               e.value.phone == '' ||
@@ -507,10 +514,16 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                                                   ''
                                                           ? Colors.grey
                                                           : AppColor.mainColor),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
+                                    ),
+                                  if (e.key ==
+                                      registerMemberController
+                                          .eventDetail.value.limitInvite)
+                                    const SizedBox(
+                                      height: 30,
                                     ),
                                 ],
                               ))
