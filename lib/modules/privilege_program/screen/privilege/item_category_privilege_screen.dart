@@ -1,13 +1,13 @@
 import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/custom_shimmer_allshop.dart';
 import '../../../../widgets/privilege/privilege/costom_all_stores.dart';
+import '../privilege_detail/privilege_detail_screen.dart';
 
 class ItemCategoryPrivilegeScreen extends StatefulWidget {
   final int? id;
@@ -70,8 +70,20 @@ class _ItemCategoryPrivilegeScreenState
                               .map(
                                 (e) => GestureDetector(
                                   onTap: () {
-                                    context.push(
-                                        "/privilege/all-store/privilege-detail/${priCont.shopCategoryItemList[e.key].id}");
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PrivilegeDetailScreen(
+                                          id: priCont
+                                              .shopCategoryItemList[e.key].id,
+                                        ),
+                                      ),
+                                    ).then((value) {
+                                      priCont.onFetchCategoryItem(widget.id);
+                                    });
+                                    // context.push(
+                                    //     "/privilege/all-store/privilege-detail/${priCont.shopCategoryItemList[e.key].id}");
                                   },
                                   child: Padding(
                                     padding:
