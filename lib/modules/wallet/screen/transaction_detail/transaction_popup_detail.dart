@@ -34,8 +34,9 @@ class TransactionPopUpDetail extends StatelessWidget {
                           label: 'Payment Method',
                           value: model!.depositMethod ?? ""),
                       CustomWalletDetail(label: 'Date', value: model!.date),
-                      CustomWalletDetail(
-                          label: 'Remark', value: model!.remark ?? ""),
+                      if (model!.remark != null)
+                        CustomWalletDetail(
+                            label: 'Remark', value: model!.remark ?? ""),
                       const SizedBox(height: 25.0),
                       CustomButton(
                         isDisable: false,

@@ -129,6 +129,7 @@ class WalletController extends GetxController {
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
+      debugPrint("transactio detail:${response['data']}");
       walletTransactionDetail.value =
           WalletTransactionDetail.fromJson(response['data']);
 

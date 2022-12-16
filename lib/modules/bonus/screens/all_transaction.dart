@@ -55,13 +55,17 @@ class _AllTransactionState extends State<AllTransaction> {
                                 children: [
                                   if (_bonusCon
                                       .pendingtransactionList.isNotEmpty)
-                                    CustomTransactionCard(
-                                      hisStoryList:
-                                          _bonusCon.pendingtransactionList,
-                                      title: "Pending Transactions",
-                                      isTitle: true,
-                                      isStatus: true,
-                                      isPendingtransaction: true,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20.0, right: 20.0),
+                                      child: CustomTransactionCard(
+                                        hisStoryList:
+                                            _bonusCon.pendingtransactionList,
+                                        title: "Pending Transactions",
+                                        isTitle: true,
+                                        isStatus: true,
+                                        isPendingtransaction: true,
+                                      ),
                                     )
                                 ],
                               )
@@ -81,9 +85,13 @@ class _AllTransactionState extends State<AllTransaction> {
                                           .copyWith(fontSize: 14),
                                     ),
                                   ),
-                                  CustomWalletTransaction(
-                                    walletTransaction:
-                                        _walletController.allTransaction,
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
+                                    child: CustomWalletTransaction(
+                                      walletTransaction:
+                                          _walletController.allTransaction,
+                                    ),
                                   )
                                 ],
                               )

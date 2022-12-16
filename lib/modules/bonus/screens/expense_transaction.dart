@@ -37,8 +37,11 @@ class _ExpenseTransactionState extends State<ExpenseTransaction> {
                     child: CustomEmptyState(),
                   ),
                 )
-              : CustomWalletTransaction(
-                  walletTransaction: _walletController.expenseTransactionList,
+              : Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: CustomWalletTransaction(
+                    walletTransaction: _walletController.expenseTransactionList,
+                  ),
                 ),
     );
   }

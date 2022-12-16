@@ -521,7 +521,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                       ),
                                                                                                     );
                                                                                                   }
-                                                                                                : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment' || _con.notificationList[index].data!.type == 'receiver' || _con.notificationList[index].data!.type == 'transferer'
+                                                                                                : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment' || _con.notificationList[index].data!.type == 'receiver' || _con.notificationList[index].data!.type == 'transferer' || _con.notificationList[index].data!.type == 'bonus'
                                                                                                     ? () async {
                                                                                                         debugPrint("Wallet Id:${_con.notificationList[index].data!.transactionId}Type:${_con.notificationList[index].data!.type}");
 
@@ -535,6 +535,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                           _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!).then(
                                                                                                                 (value) => WalletTran.transactionDetail(context, value),
                                                                                                               );
+                                                                                                        } else if (_con.notificationList[index].data!.type == 'bonus') {
+                                                                                                          context.go('/wallet');
                                                                                                         } else {
                                                                                                           notificationIdList.add(items.id);
                                                                                                           _con.onReadNotification(_con.notificationList[index].id!);

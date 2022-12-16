@@ -21,7 +21,10 @@ class CustomWalletTransaction extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10),
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                    bottom: 10,
+                  ),
                   child: Text(
                     e.date!,
                     style: Theme.of(context)

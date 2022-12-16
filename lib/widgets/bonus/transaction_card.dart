@@ -56,15 +56,12 @@ class CustomTransactionCard extends StatelessWidget {
             isTitle == true
                 ? Container(
                     margin: const EdgeInsets.only(top: 20.0),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        title != null ? "$title" : "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline2!
-                            .copyWith(fontSize: 14),
-                      ),
+                    child: Text(
+                      title != null ? "$title" : "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(fontSize: 14),
                     ),
                   )
                 : Container(),

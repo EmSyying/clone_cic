@@ -23,7 +23,7 @@ class WalletTransactionCard extends StatelessWidget {
       onTap: ontap,
       child: Container(
         height: 70.0,
-        margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
+        margin: const EdgeInsets.only(top: 10, right: 5),
         width: double.infinity,
         padding: const EdgeInsets.only(top: 10, bottom: 10),
         decoration: BoxDecoration(boxShadow: [
@@ -107,6 +107,9 @@ class WalletTransactionCard extends StatelessWidget {
                                                       transactionModel
                                                               .status ==
                                                           'paid' ||
+                                                  transactionModel
+                                                          .transactionType ==
+                                                      'bonus' ||
                                                   transactionModel
                                                           .transactionType ==
                                                       'cash-in' ||

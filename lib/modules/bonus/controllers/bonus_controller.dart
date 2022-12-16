@@ -178,6 +178,7 @@ class BonusController extends GetxController {
     // } else {
     //   isLoadingHistory(true);
     // }
+    debugPrint('Subsription is working');
     isLoadingHistory(true);
     try {
       await http.get(Uri.parse(url), headers: {
@@ -186,6 +187,7 @@ class BonusController extends GetxController {
         'Authorization': 'Bearer $tokenKey'
       }).then((response) {
         if (response.statusCode == 200) {
+          debugPrint("suscription${response.body}");
           var responseJson = json.decode(response.body)["data"];
           if (type == "cash-in") {
             cashInTransactionList.clear();
@@ -212,6 +214,8 @@ class BonusController extends GetxController {
               historyList.add(historyModel.value);
             }
           }).toList();
+        } else {
+          debugPrint("Subsription is working error${response.statusCode}");
         }
       });
     } finally {
