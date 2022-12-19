@@ -1069,6 +1069,81 @@ final router = GoRouter(
                               ),
                             ),
                           ]),
+
+                      //===privilege feature
+                      GoRoute(
+                        path: 'privilege/:tabName',
+                        name: 'PrivilegeScreen',
+                        builder: (context, state) => PrivilegeScreen(
+                          tabName: state.params['tabName'],
+                          key: state.pageKey,
+                        ),
+                        routes: [
+                          GoRoute(
+                            path: 'privilege-detail/:id',
+                            name: 'PrivilegeDetailScreen',
+                            builder: (context, state) => PrivilegeDetailScreen(
+                              id: int.tryParse(state.params['id']!),
+                              key: state.pageKey,
+                            ),
+                          ),
+                          GoRoute(
+                            path: 'search-item',
+                            name: 'SearchScreen',
+                            builder: (context, state) => SearchScreen(
+                              key: state.pageKey,
+                            ),
+                          ),
+                          GoRoute(
+                            name: 'PrivilegeFilters',
+                            path: 'filter-item',
+                            builder: (context, state) => PrivilegeFilters(
+                              key: state.pageKey,
+                            ),
+                          ),
+                          CICRoute.i.privilagePayment('Privilage'),
+                          GoRoute(
+                            name: 'PaymentDoneScreen',
+                            path: 'payment-done-screen',
+                            builder: (context, state) => PaymentDoneScreen(
+                              key: state.pageKey,
+                            ),
+                          ),
+                          GoRoute(
+                            name: 'PrivilegeSeeAllScreen',
+                            path: 'privilege-see-all',
+                            builder: (context, state) => PrivilegeSeeAllScreen(
+                              key: state.pageKey,
+                            ),
+                          ),
+                          GoRoute(
+                            name: 'ItemCategoryPrivilegeScreen',
+                            path: 'privilege-item-category',
+                            builder: (context, state) =>
+                                ItemCategoryPrivilegeScreen(
+                              tabTitle: state.queryParams['tabTitle'],
+                              id: int.tryParse(state.queryParams['id']!),
+                              key: state.pageKey,
+                            ),
+                          ),
+                          GoRoute(
+                            name: 'RedeemPointToPay',
+                            path: 'redeem-point-to-pay',
+                            builder: (context, state) => RedeemPointToPay(
+                              key: state.pageKey,
+                            ),
+                          ),
+                          GoRoute(
+                            name: ' RedeemPointPayReviewScreen',
+                            path: 'redeem-point-pay-review',
+                            builder: (context, state) =>
+                                RedeemPointPayReviewScreen(
+                              key: state.pageKey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      //end privilege
                     ]),
               ]),
         ],

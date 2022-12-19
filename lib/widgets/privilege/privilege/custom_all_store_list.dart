@@ -43,7 +43,7 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                       child: GestureDetector(
                         onTap: () {
                           context.push(
-                              "/privilege/all-store/privilege-detail/${priCont.shopModelList[e.key].id}");
+                              "/profile/setting/privilege/all-store/privilege-detail/${priCont.shopModelList[e.key].id}");
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(

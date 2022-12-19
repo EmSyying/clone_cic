@@ -284,7 +284,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                         point: '100',
                                         onTap: () {
                                           context.push(
-                                              '/privilege/all-store/redeem-point-to-pay');
+                                              '/profile/setting/privilege/all-store/redeem-point-to-pay');
                                         },
                                       ),
                                     ),

@@ -157,7 +157,8 @@ class RedeemPointToPay extends StatelessWidget {
             child: CustomButton(
               width: double.infinity,
               onPressed: () {
-                context.push('/privilege/all-store/redeem-point-pay-review');
+                context.push(
+                    '/profile/setting/privilege/all-store/redeem-point-pay-review');
 
                 // _walletController.checkValidateAccount().then((value) {
                 //   if (_walletController.userFound.value) {

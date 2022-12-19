@@ -233,7 +233,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     (e) => GestureDetector(
                                       onTap: () {
                                         context.push(
-                                            "/privilege/all-store/privilege-detail/${privilegController.categoryFilterList[e.key].id}");
+                                            "/profile/setting/privilege/all-store/privilege-detail/${privilegController.categoryFilterList[e.key].id}");
                                       },
                                       child: Padding(
                                         padding:

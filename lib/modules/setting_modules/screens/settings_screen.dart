@@ -34,8 +34,6 @@ import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
-import '../../privilege_program/screen/privilege/privilege_screen.dart';
-import '../../report_module/screens/cic_app_manual.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -1045,13 +1043,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         !_settingCon.isLoading.value
                             ? GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PrivilegeScreen(),
-                                    ),
-                                  );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         const PrivilegeScreen(),
+                                  //   ),
+                                  // );
+                                  context.push(
+                                      '/profile/setting/privilege/all-stores');
                                 },
                                 child: CachedNetworkImage(
                                   imageUrl: _settingCon

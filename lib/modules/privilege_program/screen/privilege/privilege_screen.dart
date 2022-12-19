@@ -55,9 +55,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
       debugPrint('Privilege Inistate');
       final router = GoRouter.of(context);
       if (router.location.contains('all-stores')) {
-        segmentedControlValue = 1;
-      } else {
         segmentedControlValue = 0;
+      } else {
+        segmentedControlValue = 1;
       }
     });
 
@@ -177,8 +177,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                           'Privilege') {
                                         return InkWell(
                                           onTap: () {
-                                            context.push(
-                                                "/privilege/all-store/privilege-detail/4}");
+                                            // context.push(
+                                            //     "/privilege/all-store/privilege-detail/4}");
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -250,7 +250,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                             seeall: 'See All',
                             onTapSeeAll: () {
                               context.push(
-                                  '/privilege/all-store/privilege-see-all');
+                                  '/profile/setting/privilege/all-stores/privilege-see-all');
+                              // context.push(
+                              //     '/privilege/all-store/privilege-see-all');
                             },
                           ),
                         ),
@@ -288,7 +290,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                                 //   );
                                                 // });
                                                 context.push(
-                                                  '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}',
+                                                  '/profile/setting/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}',
                                                 );
                                               },
                                             ),
@@ -349,11 +351,11 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                 child: CustomNumberStoresFilter(
                                   onTapSearch: () {
                                     context.push(
-                                        "/privilege/all-stores/search-item");
+                                        "/profile/setting/privilege/all-stores/search-item");
                                   },
                                   onTapFilter: () {
                                     context.push(
-                                        "/privilege/all-stores/filter-item");
+                                        "/profile/setting/privilege/all-stores/filter-item");
                                   },
                                   titleStores: segmentedControlValue == 0
                                       ? '${preController.shopModelList.length} Stores'
