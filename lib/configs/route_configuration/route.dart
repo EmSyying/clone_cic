@@ -300,7 +300,7 @@ final router = GoRouter(
                 GoRoute(
                   path: 'investment',
                   name: 'Investment',
-                  // parentNavigatorKey: _rootNavigatorKey,
+                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => Dashboard(
                     key: state.pageKey,
                     tabName: state.params['tabName'],
@@ -316,6 +316,7 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'saving-detail',
                         name: 'SavingDetail',
                         builder: (context, state) {
@@ -450,6 +451,7 @@ final router = GoRouter(
                       },
                     ),
                     GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'edit-application/:id',
                         name: 'EditApplication',
                         builder: (context, state) {
@@ -460,6 +462,7 @@ final router = GoRouter(
                         },
                         routes: [
                           GoRoute(
+                              parentNavigatorKey: _rootNavigatorKey,
                               path: 'bullet-payment-detail',
                               name: 'BulletPaymentDetailEdit',
                               builder: (context, state) {
@@ -503,6 +506,7 @@ final router = GoRouter(
                               })
                         ]),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'bullet-payment-detail',
                       name: 'BulletPaymentDetail',
                       builder: (context, state) {
@@ -572,6 +576,7 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'invest-more',
                       name: 'Invest More No Param',
                       builder: (context, state) =>
@@ -1030,13 +1035,36 @@ final router = GoRouter(
                 ),
               ]),
           GoRoute(
-            path: '/profile',
-            pageBuilder: (context, state) => NoTransitionPage(
-              key: state.pageKey,
-              name: state.name,
-              child: NewPeronalProfile(id: userCon.customer.value.customerId),
-            ),
-          ),
+              path: '/profile',
+              pageBuilder: (context, state) => NoTransitionPage(
+                    key: state.pageKey,
+                    name: state.name,
+                    child: NewPeronalProfile(
+                        id: userCon.customer.value.customerId),
+                  ),
+              routes: [
+                GoRoute(
+                    path: 'setting',
+                    builder: (context, state) => const SettingsScreen(),
+                    routes: [
+                      GoRoute(
+                          path: 'cic-app-manual',
+                          builder: (context, state) => const CiCAppManual(),
+                          routes: [
+                            GoRoute(
+                              path: 'view-report',
+                              name: "ViewDocs",
+                              builder: (context, state) => ViewReport(
+                                attachedFile:
+                                    state.queryParams['attachedFile']!,
+                                key: state.pageKey,
+                                title: state.queryParams['title']!,
+                                url: state.queryParams['url']!,
+                              ),
+                            ),
+                          ]),
+                    ]),
+              ]),
         ],
       ),
       // GoRoute(
