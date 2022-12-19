@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,8 +35,13 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
   bool? switchIcon = false;
   final widgetKey = GlobalKey();
 
+  onInitFirebaseDynamicLinks() async {
+    await DynamicLinkService.initDynamicLinks();
+  }
+
   @override
   void initState() {
+    onInitFirebaseDynamicLinks();
     if (timeNow <= 12) {
       message = 'Good Morning!';
     } else if ((timeNow > 12) && (timeNow <= 16)) {

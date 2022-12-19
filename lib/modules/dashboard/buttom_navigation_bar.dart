@@ -10,9 +10,11 @@ import 'package:cicgreenloan/modules/member_directory/controllers/customer_contr
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
@@ -25,12 +27,57 @@ import '../event_module/screen/event.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
-  const PaymentSchedule({Key? key, this.fromPage}) : super(key: key);
+  final Widget? child;
+  const PaymentSchedule({Key? key, this.fromPage, this.child})
+      : super(key: key);
   @override
   State<PaymentSchedule> createState() => _PaymentScheduleState();
 }
 
 class _PaymentScheduleState extends State<PaymentSchedule> {
+  final settingCon = Get.put(SettingController());
+  bool isShowBottomBar = true;
+  static int _calculateSelectedIndex(BuildContext context) {
+    final String location = GoRouterState.of(context).location;
+    debugPrint("Location: $location");
+    if (location.startsWith('/profile')) {
+      debugPrint("Return Home Page");
+      return 3;
+    }
+    if (location.startsWith('/event')) {
+      return 2;
+    }
+    if (location.startsWith('/qr-screen')) {
+      return 1;
+    }
+    if (location.startsWith('/')) {
+      return 0;
+    }
+
+    return 0;
+  }
+
+  void _onItemTapped(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        // settingCon.onCheckAuthentication();
+        GoRouter.of(context).go('/');
+        break;
+      case 1:
+        _settingCon.onHideBottomNavigationBar(true);
+        GoRouter.of(context).go('/qr-screen');
+        break;
+      case 2:
+        // settingCon.onCheckAuthentication();
+        GoRouter.of(context).go('/event');
+        break;
+      case 3:
+        // settingCon.onCheckAuthentication();
+        GoRouter.of(context).go('/profile');
+        break;
+    }
+  }
+
   final cusController = Get.put(CustomerController());
 
   final _settingCon = Get.put(SettingController());
@@ -125,6 +172,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       DeviceOrientation.portraitDown,
     ]);
     // _initQuickAction();
+
     cusController.getUser();
     appSettingCon.onGetScreenMode();
 
@@ -234,9 +282,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       builder: (SettingController setting) {
         return DefaultSizeWeb(
           child: Scaffold(
-            bottomNavigationBar: setting.isHideBottomNavigation
-                ? null
-                : BottomNavigationBar(
+            bottomNavigationBar: !setting.isHideBottomNavigation
+                ? BottomNavigationBar(
                     type: BottomNavigationBarType.fixed,
                     selectedFontSize: 12,
                     unselectedFontSize: 12,
@@ -289,43 +336,47 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                         label: S.of(context).profile,
                       ),
                     ],
-                    currentIndex: _settingCon.selectedIndex,
+                    // currentIndex: _settingCon.selectedIndex,
                     unselectedItemColor: Theme.of(context)
                         .bottomNavigationBarTheme
                         .unselectedItemColor,
-
                     selectedItemColor: AppColor.mainColor,
 
-                    onTap: _settingCon.onTap,
-                  ),
+                    // onTap: _settingCon.onTap,
+                    currentIndex: _calculateSelectedIndex(context),
+
+                    onTap: (int idx) => _onItemTapped(idx, context),
+                  )
+                : null,
             backgroundColor: AppColor.backgroundColor,
-            body: [
-              // Dashboard(),
-              const MainDashboard(),
+            // body: [
+            //   // Dashboard(),
+            //   const MainDashboard(),
 
-              const QrCodeScreen(),
-              // LearningHome(),
-              // SearchScreen(),
-              const EventScreen(),
-              //  Report(),
-              //  BuySell(),
-              // HomePage(),
-              //  Directory(),
-              // AboutCIC(),
-              // NotificationScreen(),
+            //   const QrCodeScreen(),
+            //   // LearningHome(),
+            //   // SearchScreen(),
+            //   const EventScreen(),
+            //   //  Report(),
+            //   //  BuySell(),
+            //   // HomePage(),
+            //   //  Directory(),
+            //   // AboutCIC(),
+            //   // NotificationScreen(),
 
-              NewPeronalProfile(
-                id: cusController.customer.value.customerId,
-              )
-              // MemberDetail(
-              //   memberDetailAgrument: MemberDetailAgrument(
-              //       id: cusController.customer.value.customerId,
-              //       pageName: 'user',
-              //       isNavigator: true),
-              // ),
+            //   NewPeronalProfile(
+            //     id: cusController.customer.value.customerId,
+            //   )
+            //   // MemberDetail(
+            //   //   memberDetailAgrument: MemberDetailAgrument(
+            //   //       id: cusController.customer.value.customerId,
+            //   //       pageName: 'user',
+            //   //       isNavigator: true),
+            //   // ),
 
-              //  ProfilePage(),
-            ].elementAt(_settingCon.selectedIndex),
+            //   //  ProfilePage(),
+            // ].elementAt(_settingCon.selectedIndex),
+            body: widget.child,
           ),
         );
       },

@@ -36,6 +36,7 @@ Future<void> main() async {
 
     setPathUrlStrategy();
     await settingCon.fetchAppSetting();
+    await settingCon.fetchSlide();
     await NotificationHelper.initial();
     optionCon.fetchAllOptions();
     await LocalData.getCurrentUser().then(

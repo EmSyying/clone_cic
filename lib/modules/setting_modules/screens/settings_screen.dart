@@ -259,7 +259,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         CupertinoButton(
                           child: const Text('Cancel'),
                           onPressed: () {
-                            Navigator.pop(context);
+                            context.pop();
                           },
                         ),
                         CupertinoButton(
@@ -269,12 +269,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             _user.customer.value = User();
                             _memberCon.personalProfile.value =
                                 PersonalProfile();
-                            Navigator.pop(context);
+
                             removeUser('current_user');
                             _user.isLoginSuccess(false);
 
                             await LocalData.removePINcode('setPIN');
                             context.go('/login');
+                            context.pop();
                           },
                         ),
                       ],
@@ -307,7 +308,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     actions: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                         child: Container(
                           margin: const EdgeInsets.only(
@@ -327,12 +328,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           _authController.clearAuth();
                           _user.customer.value = User();
                           _memberCon.personalProfile.value = PersonalProfile();
-                          Navigator.pop(context);
+
                           removeUser('current_user');
                           _user.isLoginSuccess(false);
 
                           await LocalData.removePINcode('setPIN');
                           context.go('/login');
+                          context.pop();
                         },
                         child: Container(
                           margin: const EdgeInsets.only(
@@ -415,7 +417,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pop(context);
+        context.pop();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -675,7 +677,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   'Are you sure, you want to change password?',
                               context: context,
                               onPressed: () {
-                                Navigator.pop(context);
+                                context.pop();
                                 requestOtp();
                               });
                         },
@@ -839,7 +841,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 'Are you sure, you want to change PIN Code?',
                             context: context,
                             onPressed: () {
-                              Navigator.pop(context);
+                              context.pop();
                               context.go('/setting/verify-pin-code');
                               // Navigator.push(
                               //   context,
@@ -1007,7 +1009,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ],
                                 cancelButton: CupertinoActionSheetAction(
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    context.pop();
                                   },
                                   child: const Text(
                                     "Cancel",

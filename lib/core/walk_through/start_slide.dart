@@ -11,6 +11,7 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
@@ -115,12 +116,13 @@ class _StartupSlideState extends State<StartupSlide> {
                               onPressed: () {
                                 // Beamer.of(context)
                                 //     .beamToNamed('/on_boarding/construct_term');
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ContractTerm()));
-                                debugPrint("got to contruct term");
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const ContractTerm()));
+                                context.push('/contract-term');
+                                // debugPrint("got to contruct term");
                               },
                             )
                         ],

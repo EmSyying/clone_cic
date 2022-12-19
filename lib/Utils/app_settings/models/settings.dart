@@ -21,6 +21,7 @@ class Setting {
   String? serviceAgreement;
   Password? password;
   AboutApp? aboutApp;
+  String? userToken;
 
   Setting(
       {this.brightCardColor,
@@ -44,7 +45,8 @@ class Setting {
       this.enablePinCode,
       this.serviceAgreement,
       this.password,
-      this.aboutApp});
+      this.aboutApp,
+      this.userToken});
 
   Setting.fromJson(Map<String, dynamic> json) {
     brightCardColor = json['bright_card_color'];

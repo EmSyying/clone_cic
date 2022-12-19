@@ -1941,7 +1941,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                   .then((_) {
                                                 FocusScope.of(context)
                                                     .unfocus();
-                                                Navigator.of(context).pop();
+                                                context.pop();
                                               });
                                             },
                                             title: widget.id != null

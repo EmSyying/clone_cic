@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:go_router/go_router.dart';
 
 import '../../Utils/helper/color.dart';
 import '../../Utils/helper/custom_appbar.dart';
@@ -122,7 +123,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
           _isLoading = false;
         });
         Future.delayed(Duration.zero).then((_) {
-          Navigator.of(context).pop();
+          context.pop();
         });
 //        Navigator.pushReplacement(
 //          context,

@@ -9,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../Utils/helper/color.dart';
 import '../bonus/custom_empty_state.dart';
@@ -53,7 +54,7 @@ customAlertLastTradingInfo({
             children: [
               IconButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    context.pop();
                   },
                   icon: Icon(icon),
                   iconSize: 24),

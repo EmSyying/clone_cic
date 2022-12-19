@@ -5,6 +5,7 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/custom_appbar.dart';
 
@@ -84,16 +85,15 @@ class _ContractTermState extends State<ContractTerm> {
                           isDisable: false,
                           onPressed: () {
                             if (widget.fromPage != null) {
-                              Navigator.pop(context);
+                              context.pop();
                             } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PrivacyPolcy(
-                                    fromPage: widget.fromPage,
-                                  ),
-                                ),
-                              );
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             const PrivacyPolcy()));
+                              context.push(
+                                  '/privacy-policy?fromPage${widget.fromPage}');
                             }
                           },
                           title: 'I have read and agree',

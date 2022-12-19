@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
@@ -254,6 +255,11 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
       final directory = await getTemporaryDirectory();
       final file = File('${directory.path}/transferqr.png');
       await file.writeAsBytes(pngBytes);
+      final url = await DynamicLinkService.createDynamicLink(
+          path:
+              'wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',
+          isShort: true);
+      debugPrint("Short link for transfer: $url");
 
       // var url = await DynamicLinkService.createDynamicLink(
       //     path:
@@ -266,7 +272,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
 
       Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
           text:
-              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: https://cicapp.page.link/wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',
+              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: $url',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     } catch (e) {
       debugPrint("$e");

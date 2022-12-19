@@ -8,6 +8,7 @@ import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_textformfield.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/foundation.dart';
@@ -129,7 +130,7 @@ class _AddInquiryState extends State<AddInquiry> {
               onTap: () async {
                 await onRefresh();
                 Future.delayed(Duration.zero).then((_) {
-                  Navigator.of(context).pop();
+                  context.pop();
                 });
               },
               child: Icon(kIsWeb

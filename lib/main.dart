@@ -18,11 +18,13 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,6 +69,7 @@ Future<void> main() async {
 
     setPathUrlStrategy();
     await settingCon.fetchAppSetting();
+    await settingCon.onCheckAuthentication();
     await NotificationHelper.initial();
     optionCon.fetchAllOptions();
     await LocalData.getCurrentUser().then(
@@ -113,6 +116,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _userController = Get.put(CustomerController());
   Setting? setting;
 
   String? token;
@@ -122,6 +126,7 @@ class _MyAppState extends State<MyApp> {
         if (value != null) {
           setState(() {
             isLoginSuccess = true;
+            GoRouter.of(context).go('/');
           });
 
           // Future.delayed(const Duration(seconds: 3), () {
@@ -131,6 +136,7 @@ class _MyAppState extends State<MyApp> {
         } else {
           setState(() {
             isLoginSuccess = false;
+            GoRouter.of(context).go('/start-slide');
           });
 
           // Future.delayed(const Duration(seconds: 3), () {
@@ -578,15 +584,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    onNavigator();
     initAppTracking();
+    settingCon.onCheckAuthentication();
+    // _userController.getUser();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    DynamicLinkService.initDynamicLinks(context);
-
     storeBiotricType();
     getLocalData();
     storeBiotricType();
@@ -594,229 +599,236 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
 
     return ConnectivityAppWrapper(
-      app: GetBuilder<SettingController>(
-        init: SettingController(),
-        initState: (_) {
-          settingCon.onCheckAuthentication();
-        },
-        builder: (controller) {
-          return Listener(
-            onPointerDown: (tapdown) {
-              // debugPrint(
-              //     'Is Enable Pin Code: ${controller.cicAppSetting.enablePinCode}');
-              // FocusScope.of(context).requestFocus(FocusNode());
-              LocalData.showAppTou('appTour').then((value) {});
-
-              if (controller.cicAppSetting.enablePinCode!) {
-                if (customerController.isLoginSuccess.value) {
-                  LocalData.showAppTou('appTour').then(
-                    (value) {
-                      if (value) {
-                        app_pin_code.timer.cancel();
-                        app_pin_code.timer = app_pin_code.startTimeout();
-                      }
-                    },
-                  );
-                }
-              }
-            },
-            child: GetMaterialApp.router(
-              routerDelegate: router.routerDelegate,
-              routeInformationParser: router.routeInformationParser,
-              routeInformationProvider: router.routeInformationProvider,
-              localizationsDelegates: const [
-                S.delegate,
-                CountryLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              builder: (context, child) {
-                return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                    child: child!);
+      app: ValueListenableBuilder(
+          valueListenable: settingCon.appSettingNofier,
+          builder: (context, Setting state, _) {
+            return GetBuilder<SettingController>(
+              init: SettingController(),
+              initState: (_) {
+                settingCon.onCheckAuthentication();
               },
-              supportedLocales: S.delegate.supportedLocales,
-              title: 'CIC',
+              builder: (controller) {
+                return Listener(
+                  onPointerDown: (tapdown) {
+                    // debugPrint(
+                    //     'Is Enable Pin Code: ${controller.cicAppSetting.enablePinCode}');
+                    // FocusScope.of(context).requestFocus(FocusNode());
+                    LocalData.showAppTou('appTour').then((value) {});
 
-              // navigatorObservers: <NavigatorObserver>[observer],
+                    if (controller.cicAppSetting.enablePinCode!) {
+                      if (customerController.isLoginSuccess.value) {
+                        LocalData.showAppTou('appTour').then(
+                          (value) {
+                            if (value) {
+                              app_pin_code.timer.cancel();
+                              app_pin_code.timer = app_pin_code.startTimeout();
+                            }
+                          },
+                        );
+                      }
+                    }
+                  },
+                  child: MaterialApp.router(
+                    routeInformationParser: router.routeInformationParser,
+                    routeInformationProvider: router.routeInformationProvider,
+                    routerDelegate: router.routerDelegate,
+                    localizationsDelegates: const [
+                      S.delegate,
+                      CountryLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    builder: (context, child) {
+                      return MediaQuery(
+                          data: MediaQuery.of(context)
+                              .copyWith(textScaleFactor: 1.0),
+                          child: child!);
+                    },
+                    supportedLocales: S.delegate.supportedLocales,
+                    title: 'CiC App',
 
-              theme: ThemeData(
-                brightness: Brightness.light,
-                backgroundColor: AppColor.mainColor,
-                primaryColor: AppColor.mainColor,
-                secondaryHeaderColor: AppColor.secondaryColor,
-                cardColor: Colors.white,
-                appBarTheme: AppBarTheme(
-                  backgroundColor: AppColor.mainColor,
-                  centerTitle: false,
-                  titleTextStyle:
-                      Theme.of(context).textTheme.subtitle2!.copyWith(
+                    // navigatorObservers: <NavigatorObserver>[observer],
+
+                    theme: ThemeData(
+                      brightness: Brightness.light,
+                      backgroundColor: AppColor.mainColor,
+                      primaryColor: AppColor.mainColor,
+                      secondaryHeaderColor: AppColor.secondaryColor,
+                      cardColor: Colors.white,
+                      appBarTheme: AppBarTheme(
+                        backgroundColor: AppColor.mainColor,
+                        centerTitle: false,
+                        titleTextStyle:
+                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                      ),
+                      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                          unselectedItemColor: const Color(0XFF848F92),
+                          selectedItemColor: Theme.of(context).primaryColor),
+                      textTheme: TextTheme(
+                        //appbar text
+                        headline6: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 18,
                             color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                        //catatagory text
+                        caption: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold,
                             fontSize: 20,
-                          ),
-                ),
-                bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                    unselectedItemColor: const Color(0XFF848F92),
-                    selectedItemColor: Theme.of(context).primaryColor),
-                textTheme: TextTheme(
-                  //appbar text
-                  headline6: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                  //catatagory text
-                  caption: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black),
-                  headline5: const TextStyle(
-                    fontFamily: 'DMSans',
-                    fontSize: 12,
-                    color: Color(0xff404040),
-                  ),
-
-                  headline3: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 14,
-                      color: AppColor.mainColor,
-                      fontWeight: FontWeight.w600),
-                  headline1: isLocal
-                      ? const TextStyle(
-                          fontFamily: 'KhBattambang',
-                          fontSize: 27,
-                          color: AppColor.mainColor,
-                        )
-                      : const TextStyle(
+                            color: Colors.black),
+                        headline5: const TextStyle(
                           fontFamily: 'DMSans',
-                          fontSize: 27,
-                          color: AppColor.mainColor,
+                          fontSize: 12,
+                          color: Color(0xff404040),
                         ),
-                  bodyText2: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
 
-                  subtitle2: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
+                        headline3: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 14,
+                            color: AppColor.mainColor,
+                            fontWeight: FontWeight.w600),
+                        headline1: isLocal
+                            ? const TextStyle(
+                                fontFamily: 'KhBattambang',
+                                fontSize: 27,
+                                color: AppColor.mainColor,
+                              )
+                            : const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 27,
+                                color: AppColor.mainColor,
+                              ),
+                        bodyText2: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
 
-                  subtitle1: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 14,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w500),
-                  headline2: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                  headline4: const TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: 'DMSans',
+                        subtitle2: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
+
+                        subtitle1: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 14,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w500),
+                        headline2: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                        headline4: const TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w900,
+                          fontFamily: 'DMSans',
+                        ),
+
+                        bodyText1: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: Colors.black),
+                        button: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      colorScheme: ColorScheme.fromSwatch()
+                          .copyWith(secondary: AppColor.mainColor),
+                      textSelectionTheme: const TextSelectionThemeData(
+                          selectionColor: AppColor.mainColor),
+                    ),
+
+                    // darkTheme: !_con.isAutoDarkMode.value
+                    //     ? null
+                    //     : ThemeData.dark().copyWith(
+                    //         backgroundColor: Color(0xffDEE8E9).withOpacity(0.1),
+                    //         primaryColor: AppColor.mainColor,
+                    //         accentColor: AppColor.mainColor,
+                    //         textSelectionColor: Colors.white,
+                    //         cardColor: Color(0xff424343),
+                    //         bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                    //             unselectedItemColor: Colors.white60,
+                    //             selectedItemColor: Colors.white),
+                    //         textTheme: TextTheme(
+                    //           caption: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontWeight: FontWeight.bold,
+                    //               fontSize: 20,
+                    //               color: Colors.white),
+                    //           headline6: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 25,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.bold),
+                    //           headline5: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 14,
+                    //               color: AppColor.mainColor),
+                    //           headline3: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 14,
+                    //               color: AppColor.mainColor),
+                    //           headline1: TextStyle(
+                    //             fontFamily: 'DMSans',
+                    //             fontSize: 27,
+                    //             color: AppColor.mainColor,
+                    //           ),
+                    //           bodyText2: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 14,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.w600),
+                    //           subtitle1: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 14,
+                    //               color: Colors.grey,
+                    //               fontWeight: FontWeight.bold),
+                    //           subtitle2: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 14,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.bold),
+                    //           headline2: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 16,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.bold),
+                    //           headline4: TextStyle(
+                    //             fontSize: 18.0,
+                    //             color: AppColor.mainColor,
+                    //             fontWeight: FontWeight.w900,
+                    //             fontFamily: 'DMSans',
+                    //           ),
+                    //           bodyText1: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 12,
+                    //               color: Colors.white),
+                    //           button: TextStyle(
+                    //               fontFamily: 'DMSans',
+                    //               fontSize: 16,
+                    //               fontWeight: FontWeight.bold,
+                    //               color: Colors.white),
+                    //         ),
+                    //       ),
+                    debugShowCheckedModeBanner: false,
+
+                    // home: Splashscreen(),
+                    // home: Splashscreen(),
                   ),
-
-                  bodyText1: const TextStyle(
-                      fontFamily: 'DMSans', fontSize: 12, color: Colors.black),
-                  button: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                colorScheme: ColorScheme.fromSwatch()
-                    .copyWith(secondary: AppColor.mainColor),
-                textSelectionTheme: const TextSelectionThemeData(
-                    selectionColor: AppColor.mainColor),
-              ),
-
-              // darkTheme: !_con.isAutoDarkMode.value
-              //     ? null
-              //     : ThemeData.dark().copyWith(
-              //         backgroundColor: Color(0xffDEE8E9).withOpacity(0.1),
-              //         primaryColor: AppColor.mainColor,
-              //         accentColor: AppColor.mainColor,
-              //         textSelectionColor: Colors.white,
-              //         cardColor: Color(0xff424343),
-              //         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              //             unselectedItemColor: Colors.white60,
-              //             selectedItemColor: Colors.white),
-              //         textTheme: TextTheme(
-              //           caption: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontWeight: FontWeight.bold,
-              //               fontSize: 20,
-              //               color: Colors.white),
-              //           headline6: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 25,
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //           headline5: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 14,
-              //               color: AppColor.mainColor),
-              //           headline3: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 14,
-              //               color: AppColor.mainColor),
-              //           headline1: TextStyle(
-              //             fontFamily: 'DMSans',
-              //             fontSize: 27,
-              //             color: AppColor.mainColor,
-              //           ),
-              //           bodyText2: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 14,
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.w600),
-              //           subtitle1: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 14,
-              //               color: Colors.grey,
-              //               fontWeight: FontWeight.bold),
-              //           subtitle2: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 14,
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //           headline2: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 16,
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //           headline4: TextStyle(
-              //             fontSize: 18.0,
-              //             color: AppColor.mainColor,
-              //             fontWeight: FontWeight.w900,
-              //             fontFamily: 'DMSans',
-              //           ),
-              //           bodyText1: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 12,
-              //               color: Colors.white),
-              //           button: TextStyle(
-              //               fontFamily: 'DMSans',
-              //               fontSize: 16,
-              //               fontWeight: FontWeight.bold,
-              //               color: Colors.white),
-              //         ),
-              //       ),
-              debugShowCheckedModeBanner: false,
-
-              // home: Splashscreen(),
-              // home: Splashscreen(),
-            ),
-          );
-        },
-      ),
+                );
+              },
+            );
+          }),
     );
   }
 }

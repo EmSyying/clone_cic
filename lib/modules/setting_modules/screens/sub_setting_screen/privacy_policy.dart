@@ -2,6 +2,7 @@ import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controlle
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../core/auth/login.dart';
@@ -71,14 +72,15 @@ class PrivacyPolcy extends StatelessWidget {
                         isDisable: false,
                         onPressed: () {
                           if (fromPage != null) {
-                            Navigator.pop(context);
+                            debugPrint(
+                                "From Page Contract and term: $fromPage");
+                            context.pop();
                           } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ),
-                            );
+                            context.push('/login');
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const LoginScreen()));
                           }
                         },
                         title: 'I have read and agree',

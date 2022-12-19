@@ -539,10 +539,10 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                             onPressed: () {
                               if (widget.pageName == 'eventDetail' ||
                                   widget.pageName == 'transfer') {
-                                Navigator.pop(context);
+                                context.pop();
                               } else {
                                 debugPrint("is Pressed");
-                                _settingCon.selectedIndex = 0;
+                                context.go('/');
                                 _settingCon.onHideBottomNavigationBar(false);
                                 _settingCon.update();
                               }

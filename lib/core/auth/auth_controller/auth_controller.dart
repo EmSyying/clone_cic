@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../Utils/function/get_sharepreference_data.dart';
 import '../../../Utils/function/set_current_user.dart';
+import '../../../modules/dashboard/buttom_navigation_bar.dart';
 import '../../../modules/member_directory/controllers/customer_controller.dart';
 import '../../flavor/flavor_configuration.dart';
+import '../login_with_password.dart';
 import '../verify_phone.dart';
 import '../verify_set_password.dart';
 
@@ -18,7 +21,10 @@ class AuthController extends GetxController {
 
   ///check user
   ///'assets/images/svgfile/successIcon.svg'
+
   final phoneController = TextEditingController().obs;
+  final settingController = Get.put(SettingController());
+  final isLoginSuccess = false.obs;
   final countryCode = '+855'.obs;
   String _phoneSubmit() {
     if (phoneController.value.text.startsWith('0')) {
@@ -48,7 +54,11 @@ class AuthController extends GetxController {
         checkRegisteredLoading(false);
         if (value['success']) {
           if (value['password']) {
-            context.push('/password');
+            context.push('/login-password');
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => const LoginWithPassWord()));
           } else {
             Navigator.push<bool>(
               context,
@@ -100,20 +110,24 @@ class AuthController extends GetxController {
         },
       ).then((value) async {
         debugPrint('Success $value');
-        onLoginLoading(false);
+
         await setCurrentUser(value['access_token']);
 
         await LocalData.userLogin('userLogin', true);
         // context.push('/setpincode');
+
         await _customerController.getUser().then((value) {
           if (value.pinCode != null && value.pinCode!.isNotEmpty) {
-            debugPrint('Goto Homescreen');
-            context.go('/?fromPage=loginPage');
+            settingController.onCheckAuthentication();
+
+            context.go('/');
+            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const PaymentSchedule(),),)
           } else {
-            debugPrint('Goto Set Pincode');
-            context.push('/setpincode');
+            settingController.onCheckAuthentication();
+            context.go('/setpincode');
           }
         });
+        onLoginLoading(false);
       }).onError(
         (ErrorModel error, stackTrace) {
           onLoginLoading(false);

@@ -49,24 +49,25 @@ class SettingController extends GetxController {
   int selectedIndex = 0;
   var menuList = <AppSettingData>[].obs;
   final isLandScapView = false.obs;
+  ValueNotifier<String>? userToken;
 
   onHideBottomNavigationBar(bool isHide) {
     isHideBottomNavigation = isHide;
     update();
   }
 
-  onCheckAuthentication() async {
-    await LocalData.getCurrentUser().then((value) {
-      if (value != null) {
-        isLogin = true;
-        debugPrint("Is Login Success...........");
-        update();
-      } else {
-        isLogin = false;
-        debugPrint("Is Login Failed...........");
-        update();
-      }
-    });
+  ValueNotifier<Setting> appSettingNofier = ValueNotifier(Setting());
+  Future<bool> onCheckAuthentication() async {
+    String? token = await LocalData.getCurrentUser();
+    appSettingNofier.value.userToken = token;
+    appSettingNofier.notifyListeners();
+    // debugPrint("User Token: ${userToken!.value}");
+    if (token != '') {
+      isLogin = true;
+      update();
+      return true;
+    }
+    return false;
   }
 
 // varaible for switch screen
@@ -74,6 +75,7 @@ class SettingController extends GetxController {
   String? switchlocalScreen = 'switchAMQM';
 //fuction switch am qm
   onSwitchScreen({bool? value}) async {
+    // Future.delayed(Duration(seconds: ))
     await LocalStorage.storeData(key: 'switchAMMode', value: value);
     isAMMode = await LocalStorage.getBooleanValue(key: 'switchAMMode');
   }
@@ -182,7 +184,6 @@ class SettingController extends GetxController {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer $token'
       }).then((response) {
         debugPrint('hii1234567:${response.body}');
         var responseJson = json.decode(response.body)['data'];
@@ -194,6 +195,8 @@ class SettingController extends GetxController {
             }
           }).toList();
         } else {}
+      }).onError((error, stackTrace) {
+        print(error.toString());
       });
     } finally {
       isLoading(false);
