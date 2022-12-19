@@ -224,7 +224,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                 as RenderBox;
 
                                                         Share.share(
-                                                            'https://cicapp.page.link/event/event-detail/${widget.eventId}',
+                                                            'https://cicapp.page.link/event/${widget.eventId}',
                                                             subject: '',
                                                             sharePositionOrigin:
                                                                 box.localToGlobal(
