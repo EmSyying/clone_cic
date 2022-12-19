@@ -43,8 +43,8 @@ class _TransferToMMAState extends State<TransferToMMA> {
   @override
   void initState() {
     debugPrint("Receiver Account number: ${widget.receiverAccount}");
-    _walletController.fetchWalletAmount();
-    if (widget.receiverAccount != null && widget.receiverAccount!.isNotEmpty) {
+    // _walletController.fetchWalletAmount();
+    if (widget.receiverAccount != null) {
       _walletController.fetchWalletAmount();
       _walletController.qrRecievingPhone.text = widget.receiverAccount!;
       _walletController.qrRecievingAmount.text = widget.receiverAmount!;

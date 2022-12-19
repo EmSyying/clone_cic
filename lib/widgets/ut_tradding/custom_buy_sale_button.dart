@@ -36,6 +36,7 @@ class CustomTradingButton extends StatelessWidget {
           onPressed: onTap,
           icon: icon ?? Container(),
           label: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 isBuying == true
