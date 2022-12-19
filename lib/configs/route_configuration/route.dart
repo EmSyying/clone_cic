@@ -337,6 +337,7 @@ final router = GoRouter(
                         },
                         routes: [
                           GoRoute(
+                              parentNavigatorKey: _rootNavigatorKey,
                               path: 'renew-contract',
                               name: 'RenewContract',
                               builder: (context, state) {
@@ -357,6 +358,7 @@ final router = GoRouter(
                               },
                               routes: [
                                 GoRoute(
+                                    parentNavigatorKey: _rootNavigatorKey,
                                     path: 'bullet-payment-detail',
                                     name: 'BulletPaymentDetailS',
                                     builder: (context, state) {
@@ -409,6 +411,7 @@ final router = GoRouter(
                               ]),
                         ]),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'deposite-screen/:id',
                       name: 'DepositeScreen',
                       builder: (context, state) => DepositeScreen(
@@ -417,6 +420,7 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'view-agreement',
                       name: 'ViewAgreement',
                       builder: (context, state) {
@@ -431,6 +435,7 @@ final router = GoRouter(
                       },
                     ),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'view-agreement-list',
                       name: 'ViewAgreementList',
                       builder: (context, state) {
@@ -441,6 +446,7 @@ final router = GoRouter(
                       },
                     ),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'view-contract-term',
                       name: 'ViewContractTerm',
                       builder: (context, state) {
@@ -1011,7 +1017,7 @@ final router = GoRouter(
                   child: const EventScreen()),
               routes: [
                 GoRoute(
-                  path: 'event-detail/:id',
+                  path: ':id',
                   name: 'EventDetail',
                   builder: (context, state) => EventDetail(
                       eventId: int.tryParse(
