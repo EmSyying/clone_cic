@@ -77,8 +77,8 @@ class _CiCAppManualState extends State<CiCAppManual> {
                                           onTap: () {
                                             debugPrint(
                                                 "Url: ${items[index].attachedFile}");
-                                            context.push(
-                                                '/setting/cic-app-manual/view-report?attachedFile=${items[index].attachedFile}&url=${items[index].attachedFile}&title=CiC App Manual');
+                                            context.go(
+                                                '/profile/setting/cic-app-manual/view-report?attachedFile=${items[index].attachedFile}&url=${items[index].attachedFile}&title=CiC App Manual');
                                           },
                                           child: CustomDocumentCard(
                                             documentationModel: items[index],

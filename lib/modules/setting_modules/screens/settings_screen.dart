@@ -948,12 +948,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         icon: "assets/images/svgfile/cic-app-manual.svg",
                         label: "CiC App Manual",
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CiCAppManual(),
-                            ),
-                          );
+                          context.go('/profile/setting/cic-app-manual');
                         },
                       ),
                       Container(

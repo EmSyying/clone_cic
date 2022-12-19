@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/function/upload_file_controller.dart';
 import '../../../../utils/helper/firebase_analytics.dart';
@@ -130,10 +131,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                     padding: const EdgeInsets.only(right: 20),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SettingsScreen()));
+                        context.go('/profile/setting');
                       },
                       child: SvgPicture.asset(
                         'assets/images/svgfile/setting_new.svg',
