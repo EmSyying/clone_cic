@@ -565,6 +565,7 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'about-fif',
                       name: 'AboutFiF',
                       builder: (context, state) => ViewWebsite(
@@ -574,6 +575,7 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'fif-deduction/:id',
                       name: 'Invest More',
                       builder: (context, state) => FIFDeucSelection(
@@ -589,6 +591,7 @@ final router = GoRouter(
                           FIFDeucSelection(key: state.pageKey),
                       routes: [
                         GoRoute(
+                            parentNavigatorKey: _rootNavigatorKey,
                             path: 'fif-step',
                             name: 'FiF1',
                             builder: (context, state) {
@@ -604,6 +607,7 @@ final router = GoRouter(
                             },
                             routes: [
                               GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
                                   path: 'bullet-payment',
                                   name: 'BulletPaymentInvest',
                                   builder: (context, state) {
@@ -1069,7 +1073,6 @@ final router = GoRouter(
                               ),
                             ),
                           ]),
-
                       //===privilege feature
                       GoRoute(
                         path: 'privilege/:tabName',
@@ -1134,7 +1137,7 @@ final router = GoRouter(
                             ),
                           ),
                           GoRoute(
-                            name: ' RedeemPointPayReviewScreen',
+                            name: 'RedeemPointPayReviewScreen',
                             path: 'redeem-point-pay-review',
                             builder: (context, state) =>
                                 RedeemPointPayReviewScreen(
@@ -1148,161 +1151,7 @@ final router = GoRouter(
               ]),
         ],
       ),
-      // GoRoute(
-      //   path: '/',
-      //   name: 'HomePage',
-      //   builder: (context, state) => const PaymentSchedule(),
-      //   routes: [
-      //     // transferToMMA,
 
-      //     ///Transfer from Homepage
-      //     CICRoute.i.transferToMMA('HomePage'),
-      //     CICRoute.i.privilagePayment('HomePage'),
-
-      //     ///Qr Screen
-
-      //     // Event Feature
-
-      //     GoRoute(
-      //       path: 'setting',
-      //       name: 'SettingScreen',
-      //       builder: (context, state) => const SettingsScreen(),
-      //       routes: [
-      //         GoRoute(
-      //             path: 'verify-pin-code',
-      //             builder: (context, state) => const VerifyPINCode(
-      //                   status: 'Current',
-      //                 ),
-      //             routes: [
-      //               GoRoute(
-      //                   path: 'setpincode',
-      //                   builder: (context, state) {
-      //                     return const SetPinCode(
-      //                       status: 'set',
-      //                     );
-      //                   },
-      //                   routes: [
-      //                     GoRoute(
-      //                       path: 'verify-setpincode',
-      //                       builder: (context, state) {
-      //                         return const SetPinCode(
-      //                           status: 'verify',
-      //                         );
-      //                       },
-      //                     ),
-      //                   ]),
-      //             ]),
-      //         GoRoute(
-      //           path: 'cic-app-manual',
-      //           name: 'CiCAppManul',
-      //           builder: (context, state) => const CiCAppManual(),
-      //           routes: [
-      //             GoRoute(
-      //               path: 'view-report',
-      //               name: "ViewDocs",
-      //               builder: (context, state) => ViewReport(
-      //                 attachedFile: state.queryParams['attachedFile']!,
-      //                 key: state.pageKey,
-      //                 title: state.queryParams['title']!,
-      //                 url: state.queryParams['url']!,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         // GoRoute(
-      //         //   path: 'event',
-      //         //   name: 'Event',
-      //         //   builder: (context, state) => const EventScreen(),
-      //         //   routes: [
-      //         //     GoRoute(
-      //         //       path: 'event-detail/:id',
-      //         //       name: 'EventDetail',
-      //         //       builder: (context, state) => EventDetail(
-      //         //         eventId: int.tryParse(
-      //         //           state.params['id'].toString(),
-      //         //         ),
-      //         //       ),
-      //         //       routes: [
-      //         //         GoRoute(
-      //         //           path: 'view-map',
-      //         //           name: 'ViewMap',
-      //         //           builder: (context, state) => GoogleMapsPage(
-      //         //             title: state.queryParams['title'],
-      //         //             latitude: double.tryParse(
-      //         //                 state.queryParams['latitude'].toString()),
-      //         //             longtitude: double.tryParse(
-      //         //                 state.queryParams['longtitude'].toString()),
-      //         //           ),
-      //         //         ),
-      //         //       ],
-      //         //     ),
-      //         //   ],
-      //         // ),
-      //       ],
-      //     ),
-
-      //     // Route privilege================
-      //     GoRoute(
-      //       path: 'privilege/:tabName',
-      //       name: 'PrivilegeScreen',
-      //       builder: (context, state) => PrivilegeScreen(
-      //         tabName: state.params['tabName'],
-      //       ),
-      //       routes: [
-      //         GoRoute(
-      //           path: 'privilege-detail/:id',
-      //           name: 'PrivilegeDetailScreen',
-      //           builder: (context, state) => PrivilegeDetailScreen(
-      //             id: int.tryParse(state.params['id']!),
-      //           ),
-      //         ),
-      //         GoRoute(
-      //           path: 'search-item',
-      //           name: 'SearchScreen',
-      //           builder: (context, state) => const SearchScreen(),
-      //         ),
-      //         GoRoute(
-      //           name: 'PrivilegeFilters',
-      //           path: 'filter-item',
-      //           builder: (context, state) => const PrivilegeFilters(),
-      //         ),
-      //         CICRoute.i.privilagePayment('Privilage'),
-      //         GoRoute(
-      //           name: 'PaymentDoneScreen',
-      //           path: 'payment-done-screen',
-      //           builder: (context, state) => const PaymentDoneScreen(),
-      //         ),
-      //         GoRoute(
-      //           name: 'PrivilegeSeeAllScreen',
-      //           path: 'privilege-see-all',
-      //           builder: (context, state) => const PrivilegeSeeAllScreen(),
-      //         ),
-      //         GoRoute(
-      //           name: 'ItemCategoryPrivilegeScreen',
-      //           path: 'privilege-item-category',
-      //           builder: (context, state) => ItemCategoryPrivilegeScreen(
-      //             tabTitle: state.queryParams['tabTitle'],
-      //             id: int.tryParse(state.queryParams['id']!),
-      //           ),
-      //         ),
-      //         GoRoute(
-      //           name: 'RedeemPointToPay',
-      //           path: 'redeem-point-to-pay',
-      //           builder: (context, state) => const RedeemPointToPay(),
-      //         ),
-      //         GoRoute(
-      //           name: ' RedeemPointPayReviewScreen',
-      //           path: 'redeem-point-pay-review',
-      //           builder: (context, state) => const RedeemPointPayReviewScreen(),
-      //         ),
-      //       ],
-      //     ),
-
-      //     //end route privilege
-
-      //     ///wallet
-      //   ],
-      // ),
       // Explore More
       GoRoute(
         path: '/explore-more',

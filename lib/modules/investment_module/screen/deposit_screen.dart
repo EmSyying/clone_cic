@@ -48,6 +48,7 @@ class _DepositeScreenState extends State<DepositeScreen> {
                       Icons.arrow_back,
                     ),
               onPressed: () {
+                // fifController.tapcurrentIndex.value = 1;
                 Navigator.pop(context);
               },
             ),

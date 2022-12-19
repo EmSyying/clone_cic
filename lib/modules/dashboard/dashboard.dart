@@ -15,6 +15,7 @@ import 'package:passcode_screen/passcode_screen.dart';
 
 import '../../Utils/helper/custom_appbar.dart';
 import '../../Utils/offline_widget.dart';
+import '../../configs/route_configuration/route.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../../widgets/get_funding/custom_shimmer_contact_history.dart';
 import '../guilder/guider_controller.dart';
@@ -43,29 +44,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   ];
 
   // var priceList;
-  @override
-  void initState() {
-    priceController.tapcurrentIndex(0);
-    debugPrint('Local Storage : ${priceController.allowFeaturebyTag.value}');
-
-    priceController.tabController = TabController(
-        length: priceController.allowFeaturebyTag.value ? 2 : 1,
-        vsync: this,
-        initialIndex: 0);
-    priceController.tabController.addListener(() {
-      setState(() {
-        priceController.tapcurrentIndex.value =
-            priceController.tabController.index;
-      });
-    });
-
-    cusController.getUser();
-    priceController.onFetchPrice();
-    priceController.getSharePrice();
-    debugPrint("is Hide Feature:${priceController.allowFeaturebyTag.value}");
-
-    super.initState();
-  }
 
   final StreamController<bool> _verificationNotifier =
       StreamController<bool>.broadcast();
@@ -108,16 +86,42 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         ));
   }
 
+  final routerInvestment =
+      GoRouter.of(router.routerDelegate.navigatorKey.currentState!.context);
   @override
   void didChangeDependencies() {
-    final router = GoRouter.of(context);
-    if (router.location.contains('investment')) {
+    debugPrint("router investment:${router.location}");
+    if (routerInvestment.location.contains('/investment')) {
       priceController.tabController.index = 0;
     } else {
       priceController.tabController.index = 1;
     }
 
     super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    priceController.tapcurrentIndex(0);
+    debugPrint('Local Storage : ${priceController.allowFeaturebyTag.value}');
+
+    priceController.tabController = TabController(
+        length: priceController.allowFeaturebyTag.value ? 2 : 1,
+        vsync: this,
+        initialIndex: priceController.tapcurrentIndex.value);
+    priceController.tabController.addListener(() {
+      setState(() {
+        priceController.tapcurrentIndex.value =
+            priceController.tabController.index;
+      });
+    });
+
+    cusController.getUser();
+    priceController.onFetchPrice();
+    priceController.getSharePrice();
+    debugPrint("is Hide Feature:${priceController.allowFeaturebyTag.value}");
+
+    super.initState();
   }
 
   void _cicEquityGuide() {
@@ -213,7 +217,9 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           right: 0,
                           child: TabBar(
                             onTap: (e) {
-                              debugPrint(e.toString());
+                              priceController.tapcurrentIndex.value = e;
+                              debugPrint(
+                                  'MY Investment Tab${routerInvestment.location}');
                             },
                             padding: const EdgeInsets.only(left: 10.0),
                             controller: priceController.tabController,

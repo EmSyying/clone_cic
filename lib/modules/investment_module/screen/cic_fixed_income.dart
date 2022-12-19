@@ -191,7 +191,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                                     : "0.00",
                                 chartData: [
                                   FIFApplicationListModel(
-                                    investmentAmount: "\$1,11100",
+                                    investmentAmount: "\$0.0",
                                     color: '#BDBDBD',
                                     accountName: 'No Data State',
                                   ),

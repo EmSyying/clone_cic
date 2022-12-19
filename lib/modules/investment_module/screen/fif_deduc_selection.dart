@@ -24,13 +24,13 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
 
   @override
   void initState() {
+    onRefresh();
     if (widget.id != 0 && widget.id != null) {
       deducCon.fetchFIFPendingDetail(widget.id).then((value) {
         debugPrint('pro code = ${deducCon.productCode.value}');
       });
     }
 
-    onRefresh();
     super.initState();
   }
 
@@ -40,7 +40,6 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
           context: context,
