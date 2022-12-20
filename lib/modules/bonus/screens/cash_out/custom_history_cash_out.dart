@@ -73,7 +73,7 @@ class CustomHistoryCashOut extends StatelessWidget {
                                 historyCashOutCon.selectIndex.value = e.key;
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 15),
+                                padding: const EdgeInsets.only(left: 10.0),
                                 child: CustomChips(
                                   title: e.value.title,
                                   selectIndex:
@@ -86,7 +86,8 @@ class CustomHistoryCashOut extends StatelessWidget {
                         ),
                       ),
                       Container(
-                          margin: const EdgeInsets.only(top: 20, bottom: 20),
+                          margin: const EdgeInsets.only(
+                              top: 20, bottom: 20, left: 20.0, right: 20.0),
                           padding: const EdgeInsets.only(bottom: 20),
                           child: pageView
                               .elementAt(historyCashOutCon.selectIndex.value)),

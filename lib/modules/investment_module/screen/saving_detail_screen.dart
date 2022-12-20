@@ -182,11 +182,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                   .sendAnalyticsEvent(
                                                       'Stop Contract Renewal');
                                               Navigator.pop(context);
-                                              // investmentController.onAutoRenew(
-                                              //     widget.id,
-                                              //     isautorenew == true
-                                              //         ? 'yes'
-                                              //         : 'no');
+
                                               showReminderDailog(
                                                   context: context,
                                                   title:
@@ -208,61 +204,6 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                   onCanceled: () {
                                                     Navigator.pop(context);
                                                   });
-
-                                              // if (widget.fromPage == null) {
-                                              //   context.push(
-                                              //       '/investment/cic-fixed-fund/saving-detail/renew-contract',
-                                              //       extra: {
-                                              //         "paddings": const EdgeInsets.only(
-                                              //             top: 50, left: 10, right: 0),
-                                              //         "index": widget.index,
-                                              //         "hide": !widget.hide!,
-                                              //         "id": widget.id,
-                                              //         "code": widget.code,
-                                              //         "accountName": fifCon
-                                              //             .fifAccountDetailModel
-                                              //             .value
-                                              //             .accountName,
-                                              //         "annually": fifCon
-                                              //             .fifAccountDetailModel
-                                              //             .value
-                                              //             .annuallyInterestRate,
-                                              //         "investAmount": fifCon
-                                              //             .fifAccountDetailModel
-                                              //             .value
-                                              //             .investmentAmount,
-                                              //         "contractCode": fifCon
-                                              //             .fifAccountDetailModel
-                                              //             .value
-                                              //             .code
-                                              //       });
-                                              // } else {
-                                              //   context.push(
-                                              //     '/notification/saving-detail/renew-contract',
-                                              //     extra: {
-                                              //       "paddings": const EdgeInsets.only(
-                                              //           top: 50, left: 10, right: 0),
-                                              //       "index": widget.index,
-                                              //       "hide": !widget.hide!,
-                                              //       "id": widget.id,
-                                              //       "code": widget.code,
-                                              //       "accountName": fifCon
-                                              //           .fifAccountDetailModel
-                                              //           .value
-                                              //           .accountName,
-                                              //       "annually": fifCon
-                                              //           .fifAccountDetailModel
-                                              //           .value
-                                              //           .annuallyInterestRate,
-                                              //       "investAmount": fifCon
-                                              //           .fifAccountDetailModel
-                                              //           .value
-                                              //           .investmentAmount,
-                                              //       "contractCode": fifCon
-                                              //           .fifAccountDetailModel.value.code
-                                              //     },
-                                              //   );
-                                              // }
                                             },
                                             child: Container(
                                               color: Colors.transparent,
@@ -276,11 +217,6 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                   Expanded(
                                                     child: Text(
                                                       'Stop Contract Renewal',
-                                                      // fifCon.fifAccountDetailModel.value
-                                                      //             .autoRenewal ==
-                                                      //         'Yes'
-                                                      //     ? 'Stop Contract Renewal'
-                                                      //     : "Start Contract Renewal",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .subtitle2!
@@ -339,12 +275,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                 onTapSelectBank: () {
                                                   fifCon.selectBankAcc.value =
                                                       e.value.id!.toInt();
-                                                  // fifCon.selectBankAcc.value =
-                                                  //     fifCon
-                                                  //         .fifAccountDetailModel
-                                                  //         .value
-                                                  //         .bankAccount!
-                                                  //         .id!;
+
                                                   fifCon.onfifCreateBank(
                                                       context,
                                                       fifId: widget.id,
@@ -374,39 +305,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                             context,
                                                             fifId: widget.id);
                                                       },
-                                                    )
-                                                //     CustomChangeAccountBank(
-                                                //   button: Row(
-                                                //     children: [
-                                                //       Expanded(
-                                                //           child: CustomButton(
-                                                //         isDisable: false,
-                                                //         isOutline: true,
-                                                //         title: 'Cancel',
-                                                //         onPressed: () {
-                                                //           Navigator.pop(context);
-                                                //         },
-                                                //       )),
-                                                //       const SizedBox(
-                                                //         width: 10,
-                                                //       ),
-                                                //       Expanded(
-                                                //           child: CustomButton(
-                                                //         isDisable: false,
-                                                //         isOutline: false,
-                                                //         title: 'Save',
-                                                //         onPressed: () {
-                                                //           fifCon.onfifCreateBank(
-                                                //               fifId: fifCon
-                                                //                   .fifAppModel
-                                                //                   .value
-                                                //                   .id);
-                                                //         },
-                                                //       )),
-                                                //     ],
-                                                //   ),
-                                                // ),
-                                                );
+                                                    ));
                                           },
                                           child: Row(
                                             children: [
@@ -459,40 +358,41 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                 ),
                               ),
                               const PopupMenuDivider(height: 0),
-                              PopupMenuItem(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                        'Edit Coupon Receiving Date');
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    height: 49,
-                                    color: Colors.transparent,
-                                    child: Row(
-                                      children: [
-                                        const SizedBox(width: 18.0),
-                                        SvgPicture.asset(
-                                            'assets/images/svgfile/edit_calendar.svg'),
-                                        const SizedBox(width: 15.0),
-                                        Expanded(
-                                          child: Text(
-                                            "Edit Coupon Receiving Date",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    color: AppColor.darkColor),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const PopupMenuDivider(height: 0),
+                              // Not completed yet for Edit Coupon Receiving Date
+                              // PopupMenuItem(
+                              //   padding: const EdgeInsets.only(right: 10),
+                              //   child: GestureDetector(
+                              //     onTap: () {
+                              //       FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                              //           'Edit Coupon Receiving Date');
+                              //       Navigator.pop(context);
+                              //     },
+                              //     child: Container(
+                              //       height: 49,
+                              //       color: Colors.transparent,
+                              //       child: Row(
+                              //         children: [
+                              //           const SizedBox(width: 18.0),
+                              //           SvgPicture.asset(
+                              //               'assets/images/svgfile/edit_calendar.svg'),
+                              //           const SizedBox(width: 15.0),
+                              //           Expanded(
+                              //             child: Text(
+                              //               "Edit Coupon Receiving Date",
+                              //               style: Theme.of(context)
+                              //                   .textTheme
+                              //                   .subtitle2!
+                              //                   .copyWith(
+                              //                       fontWeight: FontWeight.w400,
+                              //                       color: AppColor.darkColor),
+                              //             ),
+                              //           )
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const PopupMenuDivider(height: 0),
                               if (fifCon.fifAccountDetailModel.value
                                       .allowWithdrawal!
                                       .toLowerCase() ==
