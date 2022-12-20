@@ -88,7 +88,7 @@ class ComponentCardCategory extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 124,
+                          width: isHeight == false ? 124 : double.infinity,
                           child: Text(
                             cardTitle ?? '',
                             maxLines: 2,

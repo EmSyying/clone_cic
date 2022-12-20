@@ -433,8 +433,8 @@ class _UTtradingState extends State<UTtrading>
                             padding: EdgeInsets.zero,
                             icon: SvgPicture.asset(
                               'assets/images/demo.svg',
-                              width: 38.0,
-                              height: 38.0,
+                              width: 32.0,
+                              height: 32.0,
                             ),
                             onPressed: () {
                               _scrollController
