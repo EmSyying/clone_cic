@@ -770,13 +770,15 @@ final router = GoRouter(
                     ),
                   ],
                 ),
-                //==Report====
+                // Report Module
                 GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
                   path: 'report_screen',
                   name: 'ReportScreen',
                   builder: (context, state) => ReportScreen(key: state.pageKey),
                   routes: [
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'report-filed',
                       name: 'ReportFiledCategory',
                       builder: (context, state) => FileCategoriesReport(
@@ -784,9 +786,20 @@ final router = GoRouter(
                           id: int.tryParse(state.queryParams['id']!),
                           key: state.pageKey),
                     ),
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: 'view-report-list',
+                      name: "ViewReportList",
+                      builder: (context, state) => ViewReport(
+                        attachedFile: state.queryParams['attachedFile'],
+                        key: state.pageKey,
+                        title: state.queryParams['title']!,
+                        url: state.queryParams['url'],
+                      ),
+                    )
                   ],
                 ),
-
+                // End Report Module
                 GoRoute(
                     path: 'ut_trading',
                     name: 'UT-Trading',
@@ -876,13 +889,16 @@ final router = GoRouter(
                           ]),
                     ]),
                 GoRoute(
-                    path: 'directory',
-                    name: 'Directory',
-                    parentNavigatorKey: _rootNavigatorKey,
-                    builder: (context, state) => Directory(
-                          key: state.pageKey,
-                        )),
+                  path: 'directory',
+                  name: 'Directory',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => Directory(
+                    key: state.pageKey,
+                  ),
+                ),
+                // Recent Report
                 GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
                     path: 'report/:id',
                     name: 'Report',
                     builder: (context, state) => Report(
@@ -891,6 +907,7 @@ final router = GoRouter(
                         ),
                     routes: [
                       GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'view-report',
                           name: "ViewReport",
                           builder: (context, state) => ViewReport(
@@ -900,6 +917,7 @@ final router = GoRouter(
                                 url: state.queryParams['url'],
                               ))
                     ]),
+                // End Recent Report
                 GoRoute(
                   path: 'switch-splash-screen',
                   name: 'SwitchSplashScreen',

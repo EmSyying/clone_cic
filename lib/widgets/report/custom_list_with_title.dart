@@ -41,19 +41,11 @@ class CustomListWithTitle extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) => GestureDetector(
             onTap: () {
-              //  debugPrint("Url: ${items[index].attachedFile}");
-
               context.push(
-                  '/setting/cic-app-manual/view-report?attachedFile=${items[index].attachedFile}&title=${items[index].title}&url=${items[index].url}');
+                  '/report_screen/view-report-list?attachedFile=${items[index].attachedFile}&title=${items[index].title}&url=${items[index].url}');
             },
             child: CustomDocumentCard(
               documentationModel: items[index],
-              // documentationModel: DocumentationModel(
-              //   title: items[index].title,
-              //   attachedFile: items[index].attachedFile,
-              //   type: items[index].type,
-              //   color: items[index].color,
-              // ),
             ),
           ),
           separatorBuilder: (context, index) => const Divider(
