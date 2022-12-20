@@ -267,10 +267,12 @@ class WalletController extends GetxController {
   final fetchWalletLoading = false.obs;
   Future<WalletDataModel> fetchWalletAmount() async {
     fetchWalletLoading(true);
+    debugPrint("is loading wallet accounnt1");
     await _apiBaseHelper
         .onNetworkRequesting(
             url: 'user/wallet', methode: METHODE.get, isAuthorize: true)
         .then((response) {
+      debugPrint("is loading wallet accounnt2");
       var wallet = response['data'];
       walletAmount.value = WalletDataModel.fromJson(wallet);
       transferModel.value = transferModel.value.copyWith(
@@ -278,6 +280,7 @@ class WalletController extends GetxController {
         idQR: walletAmount.value.invester!.investerId,
         userName: walletAmount.value.invester!.investerName,
       );
+      debugPrint("is loading wallet accounnt3");
       fetchWalletLoading(false);
     }).onError((ErrorModel error, stackTrace) {
       fetchWalletLoading(false);
@@ -314,7 +317,10 @@ class WalletController extends GetxController {
               description: 'The deposit request is submitted',
               buttonTitle: 'Done',
               onPressedButton: () {
-                context.go('/wallet');
+                debugPrint("wallet is working1");
+                fetchWalletAmount().then(
+                  (value) => context.go('/wallet'),
+                );
               },
             );
           },

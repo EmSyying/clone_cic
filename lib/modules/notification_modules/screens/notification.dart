@@ -456,14 +456,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                 setState(() {
                                                                                   _con.notificationList[index].readAt = '';
                                                                                 });
-                                                                                EventDetailArgument argument = EventDetailArgument(id: _con.notificationList[index].data!.eventId);
-                                                                                Navigator.push(
-                                                                                  context,
-                                                                                  MaterialPageRoute(
-                                                                                    builder: (context) => const EventDetail(),
-                                                                                    settings: RouteSettings(arguments: argument),
-                                                                                  ),
-                                                                                );
+                                                                                context.go('/notification/event/${_con.notificationList[index].data!.eventId}');
                                                                               }
                                                                             : _con.notificationList[index].data!.type == 'transfer' || _con.notificationList[index].data!.type == 'subscription-payment'
                                                                                 ? () {
@@ -532,11 +525,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                             _con.notificationList[index].readAt = '';
                                                                                                           });
                                                                                                           debugPrint("is Pressed tran detail");
-                                                                                                          _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!).then(
-                                                                                                                (value) => WalletTran.transactionDetail(context, value),
-                                                                                                              );
+                                                                                                          _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!);
+
+                                                                                                          WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
                                                                                                         } else if (_con.notificationList[index].data!.type == 'bonus') {
-                                                                                                          context.go('/wallet');
+                                                                                                          context.push('/wallet');
                                                                                                         } else {
                                                                                                           notificationIdList.add(items.id);
                                                                                                           _con.onReadNotification(_con.notificationList[index].id!);
@@ -553,15 +546,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                               _con.notificationList[index].readAt = '';
                                                                                                             });
                                                                                                             if (_con.notificationList[index].data!.operation == "confirmed") {
-                                                                                                              await Navigator.push(
-                                                                                                                context,
-                                                                                                                MaterialPageRoute(
-                                                                                                                  builder: (context) {
-                                                                                                                    return DepositeScreen(id: _con.notificationList[index].data!.applicationId);
-                                                                                                                  },
-                                                                                                                ),
-                                                                                                              );
+                                                                                                              context.go('/notification/deposite-screen/${_con.notificationAnouncementList[index].data!.applicationId}');
                                                                                                             } else if (_con.notificationList[index].data!.operation == "reviewing" || _con.notificationList[index].data!.operation == "rejected") {
+                                                                                                              context.go('/notification/deposite-screen/${_con.notificationAnouncementList[index].data!.applicationId}');
                                                                                                               await Navigator.push(
                                                                                                                 context,
                                                                                                                 MaterialPageRoute(
@@ -577,18 +564,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                                   },
                                                                                                                 ),
                                                                                                               );
-
-                                                                                                              // debugPrint("Bullet Payment Detail:${_con.notificationList[index].data!.applicationId}");
-                                                                                                              // final bulletPaymentDetailArg = BulletPaymentDetailArg(
-                                                                                                              //     titles: 'Detail Summary',
-                                                                                                              //     status: _con.notificationList[index].data!.operation,
-                                                                                                              //     isStatusPending: true,
-                                                                                                              //     isNoUSD: false,
-                                                                                                              //     // investAmount: e.value.investmentAmount,
-                                                                                                              //     id: _con.notificationList[index].data!.applicationId);
-                                                                                                              // debugPrint("Bullet Payment:${bulletPaymentDetailArg.id}");
-
-                                                                                                              // context.go('/notification/bullet-payment-detail', extra: bulletPaymentDetailArg);
                                                                                                             } else {
                                                                                                               debugPrint('This Function is work');
 
@@ -656,18 +631,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                           .type ==
                                                       'fif-reminder'
                                                   ? () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              DepositeScreen(
-                                                                  id: _con
-                                                                      .notificationAnouncementList[
-                                                                          index]
-                                                                      .data!
-                                                                      .applicationId),
-                                                        ),
-                                                      );
+                                                      debugPrint(
+                                                          "is pressed onn annnouncement first: ${_con.notificationAnouncementList[index].data!.type}");
+                                                      context.go(
+                                                          '/notification/deposite-screen/${_con.notificationAnouncementList[index].data!.applicationId}');
+
                                                       _con.onReadNotification(_con
                                                           .notificationAnouncementList[
                                                               index]
@@ -677,6 +645,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                               .data!.type ==
                                                           'Announcement'
                                                       ? () {
+                                                          debugPrint(
+                                                              "is pressed onn annnouncement");
                                                           setState(() {
                                                             _con
                                                                 .notificationAnouncementList[
@@ -719,6 +689,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                           // );
                                                         }
                                                       : () {
+                                                          debugPrint(
+                                                              "is pressed onn annnouncement1: ${_con.notificationAnouncementList[index].data!.type}");
+
                                                           notificationIdList
                                                               .add(items.id);
                                                           _con.onReadNotification(_con
@@ -731,25 +704,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                     index]
                                                                 .readAt = '';
                                                           });
-                                                          EventDetailArgument
-                                                              argument =
-                                                              EventDetailArgument(
-                                                                  id: _con
-                                                                      .notificationAnouncementList[
-                                                                          index]
-                                                                      .data!
-                                                                      .eventId);
-                                                          Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const EventDetail(),
-                                                              settings:
-                                                                  RouteSettings(
-                                                                      arguments:
-                                                                          argument),
-                                                            ),
-                                                          );
+                                                          // EventDetailArgument
+                                                          //     argument =
+                                                          //     EventDetailArgument(
+                                                          //         id: _con
+                                                          //             .notificationAnouncementList[
+                                                          //                 index]
+                                                          //             .data!
+                                                          //             .eventId);
+                                                          // Navigator.push(
+                                                          //   context,
+                                                          //   MaterialPageRoute(
+                                                          //     builder: (context) =>
+                                                          //         const EventDetail(),
+                                                          //     settings:
+                                                          //         RouteSettings(
+                                                          //             arguments:
+                                                          //                 argument),
+                                                          //   ),
+                                                          // );
                                                         },
                                               child: NotificationWidget(
                                                 notification:
@@ -758,14 +731,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                               ),
                                             );
                                           },
-                                          // separatorBuilder:
-                                          //     (BuildContext context,
-                                          //         int index) {
-                                          //   return const Divider(
-                                          //     height: 0,
-                                          //     thickness: 0.7,
-                                          //   );
-                                          // },
                                           itemCount: _con
                                               .notificationAnouncementList
                                               .length),

@@ -42,13 +42,12 @@ class CustomWalletTransaction extends StatelessWidget {
                           (data) => WalletTransactionCard(
                             transactionModel: data.value,
                             ontap: () {
-                              walletController
-                                  .onFetchWalletTransactionDetail(
-                                      data.value.id!, data.value.model!)
-                                  .then(
-                                    (value) => WalletTran.transactionDetail(
-                                        context, value),
-                                  );
+                              walletController.onFetchWalletTransactionDetail(
+                                  data.value.id!, data.value.model!);
+                              WalletTran.transactionDetail(
+                                  context,
+                                  walletController
+                                      .walletTransactionDetail.value);
                             },
                           ),
                         )

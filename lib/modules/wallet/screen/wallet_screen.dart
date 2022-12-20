@@ -178,10 +178,6 @@ class _WalletScreenState extends State<WalletScreen>
                                                     BorderRadius.circular(4)),
                                           ),
                                         )
-                                      // const Center(
-                                      //     child: Text('...',
-                                      //         style: TextStyle(
-                                      //             color: Colors.white)))
                                       : RichText(
                                           textAlign: TextAlign.center,
                                           text: TextSpan(

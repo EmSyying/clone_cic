@@ -875,9 +875,10 @@ class _MainDashboardState extends State<MainDashboard> {
                           scale: 0.9),
                     ),
                   )
-                : const SizedBox(
+                : SizedBox(
                     height: 180,
                     width: double.infinity,
+                    child: Text(_settingCon.slideList!.length.toString()),
                   )),
             Obx(() => !_settingCon.isLoading.value
                 ? Row(

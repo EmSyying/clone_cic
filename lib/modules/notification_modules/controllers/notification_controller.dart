@@ -66,8 +66,6 @@ class NotificationController extends GetxController {
                     'announcement' ||
                 notifications.value.data!.type!.toLowerCase() == 'reminder' ||
                 notifications.value.data!.type!.toLowerCase() ==
-                    'event-invitation' ||
-                notifications.value.data!.type!.toLowerCase() ==
                     'fif-reminder') {
               notificationAnouncementList.add(notifications.value);
 

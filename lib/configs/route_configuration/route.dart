@@ -939,6 +939,41 @@ final router = GoRouter(
                   builder: (context, state) =>
                       NotificationScreen(key: state.pageKey),
                   routes: [
+                    // Event Module from notification
+
+                    GoRoute(
+                      path: 'event/:id',
+                      name: 'EventDetailNotification',
+                      builder: (context, state) => EventDetail(
+                          eventId: int.tryParse(
+                            state.params['id'].toString(),
+                          ),
+                          key: state.pageKey),
+                      parentNavigatorKey: _rootNavigatorKey,
+                      routes: [
+                        GoRoute(
+                          path: 'view-map-notification',
+                          name: 'ViewMapNotification',
+                          builder: (context, state) => GoogleMapsPage(
+                              title: state.queryParams['title'],
+                              latitude: double.tryParse(
+                                  state.queryParams['latitude'].toString()),
+                              longtitude: double.tryParse(
+                                  state.queryParams['longtitude'].toString()),
+                              key: state.pageKey),
+                        ),
+                      ],
+                    ),
+                    // Ennd
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: 'deposite-screen/:id',
+                      name: 'DepositeScreenNotification',
+                      builder: (context, state) => DepositeScreen(
+                        key: state.pageKey,
+                        id: int.tryParse(state.params['id']!),
+                      ),
+                    ),
                     GoRoute(
                       path: 'bullet-payment-detail',
                       name: 'BulletPaymentDetailNotification',
@@ -946,6 +981,7 @@ final router = GoRouter(
                           BulletPaymentDetail(key: state.pageKey),
                     ),
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'saving-detail',
                       name: 'SavingDetailNotification',
                       builder: (context, state) {
@@ -958,6 +994,7 @@ final router = GoRouter(
                       },
                       routes: [
                         GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'renew-contract',
                           name: 'RenewContractNotification',
                           builder: (context, state) {

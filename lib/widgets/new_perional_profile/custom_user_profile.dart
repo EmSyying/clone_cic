@@ -232,7 +232,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                           border:
                               Border.all(width: 3.5, color: AppColor.mainColor),
                           image: DecorationImage(
-                              image: NetworkImage(widget.imgUrl!),
+                              image: NetworkImage(widget.imgUrl ?? ''),
                               fit: BoxFit.cover),
                         ),
                       )

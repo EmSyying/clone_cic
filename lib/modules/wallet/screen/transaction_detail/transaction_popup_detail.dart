@@ -33,7 +33,8 @@ class TransactionPopUpDetail extends StatelessWidget {
                       CustomWalletDetail(
                           label: 'Payment Method',
                           value: model!.depositMethod ?? ""),
-                      CustomWalletDetail(label: 'Date', value: model!.date),
+                      CustomWalletDetail(
+                          label: 'Date', value: model!.date ?? ""),
                       if (model!.remark != null)
                         CustomWalletDetail(
                             label: 'Remark', value: model!.remark ?? ""),
