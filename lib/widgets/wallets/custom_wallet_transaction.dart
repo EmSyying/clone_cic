@@ -44,10 +44,13 @@ class CustomWalletTransaction extends StatelessWidget {
                             ontap: () {
                               walletController.onFetchWalletTransactionDetail(
                                   data.value.id!, data.value.model!);
-                              WalletTran.transactionDetail(
-                                  context,
-                                  walletController
-                                      .walletTransactionDetail.value);
+                              Future.delayed(const Duration(milliseconds: 490),
+                                  () {
+                                WalletTran.transactionDetail(
+                                    context,
+                                    walletController
+                                        .walletTransactionDetail.value);
+                              });
                             },
                           ),
                         )

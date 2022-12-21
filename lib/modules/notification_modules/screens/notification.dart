@@ -514,7 +514,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                           debugPrint("is Pressed tran detail");
                                                                                                           _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!);
 
-                                                                                                          WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
+                                                                                                          Future.delayed(const Duration(milliseconds: 490), () {
+                                                                                                            WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
+                                                                                                          });
                                                                                                         } else if (_con.notificationList[index].data!.type == 'bonus') {
                                                                                                           context.push('/wallet');
                                                                                                         } else {

@@ -129,10 +129,10 @@ class WalletController extends GetxController {
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
-      debugPrint("transactio detail:${response['data']}");
       walletTransactionDetail.value =
           WalletTransactionDetail.fromJson(response['data']);
-
+      update();
+      debugPrint('Transactoinn Detail:${walletTransactionDetail.value}');
       transactionDetailLoading(false);
     }).onError((ErrorModel error, stackTrace) {
       transactionDetailLoading(false);
