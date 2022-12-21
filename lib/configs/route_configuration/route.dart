@@ -965,6 +965,31 @@ final router = GoRouter(
                       ],
                     ),
                     // Ennd
+
+                    // debt investment
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: 'preview-debt',
+                      name: 'PreviewDebtNotification',
+                      builder: (context, state) => PreviewDebtForm(
+                          key: state.pageKey,
+                          id: int.tryParse(state.queryParams['id'].toString())),
+                    ),
+                    // ennd
+
+                    // equity investment
+                     GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
+                        path: 'preview-equity',
+                        name: 'PreviewEquityNotification',
+                        builder: (context, state) => PreviewEquity(
+                          key: state.pageKey,
+                          id: int.tryParse(
+                            state.queryParams['id'].toString(),
+                          ),
+                        ),
+                      ),
+                      // End
                     GoRoute(
                       parentNavigatorKey: _rootNavigatorKey,
                       path: 'deposite-screen/:id',

@@ -489,30 +489,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                 setState(() {
                                                                                                   _con.notificationList[index].readAt = '';
                                                                                                 });
-
-                                                                                                await Navigator.push(
-                                                                                                  context,
-                                                                                                  MaterialPageRoute(
-                                                                                                    builder: (context) => PreviewEquity(
-                                                                                                      id: _con.notificationList[index].data!.applicationId,
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                );
+                                                                                                context.go("/notification/preview-equity?id=${_con.notificationList[index].data!.applicationId}");
                                                                                               }
                                                                                             : _con.notificationList[index].data!.type == 'Debt' && _con.notificationList[index].presentType == "Other"
                                                                                                 ? () async {
+                                                                                                    debugPrint("debt type:${_con.notificationList[index].data!.type}");
                                                                                                     notificationIdList.add(items.id);
                                                                                                     _con.onReadNotification(_con.notificationList[index].id!);
                                                                                                     setState(() {
                                                                                                       _con.notificationList[index].readAt = '';
                                                                                                     });
-
-                                                                                                    await Navigator.push(
-                                                                                                      context,
-                                                                                                      MaterialPageRoute(
-                                                                                                        builder: (context) => PreviewDebtForm(id: _con.notificationList[index].data!.applicationId),
-                                                                                                      ),
-                                                                                                    );
+                                                                                                    context.go("/notification/preview-debt?id=${_con.notificationList[index].data!.applicationId}");
                                                                                                   }
                                                                                                 : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment' || _con.notificationList[index].data!.type == 'receiver' || _con.notificationList[index].data!.type == 'transferer' || _con.notificationList[index].data!.type == 'bonus'
                                                                                                     ? () async {
@@ -605,13 +592,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                     .notificationList[index]),
                                           );
                                         },
-                                        // separatorBuilder:
-                                        //     (BuildContext context, int index) {
-                                        //   return const Divider(
-                                        //     height: 0,
-                                        //     thickness: 0.7,
-                                        //   );
-                                        // },
                                       ),
                                     )
                                   : emptyState(),
