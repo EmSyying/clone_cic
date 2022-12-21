@@ -13,7 +13,7 @@ class CardCurrentPoints extends StatelessWidget {
       height: 110,
       //padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: AppColor.mainColor,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(14),
       ),
       child: CustomPaint(

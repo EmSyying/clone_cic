@@ -635,7 +635,8 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                             .copyWith(
                                               color: subscriptionStatus ==
                                                       'WAITING'
-                                                  ? AppColor.mainColor
+                                                  ? Theme.of(context)
+                                                      .primaryColor
                                                   : Colors.green,
                                               fontSize: 12,
                                             ),
@@ -733,7 +734,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     fontSize: 14,
                                     color: unPaidAmount == 0
                                         ? AppColor.statusColor['late']
-                                        : AppColor.mainColor)),
+                                        : Theme.of(context).primaryColor)),
                       ],
                     ),
                     const SizedBox(height: 15),
@@ -756,7 +757,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     .headline2!
                                     .copyWith(
                                         fontSize: 14,
-                                        color: AppColor.mainColor)),
+                                        color: Theme.of(context).primaryColor)),
                         ],
                       ),
                     const SizedBox(height: 5),

@@ -211,7 +211,7 @@ class CustomMember extends StatelessWidget {
     //                   style: const TextStyle(
     //                       fontFamily: 'DMSans',
     //                       fontSize: 9,
-    //                       color: AppColor.mainColor,
+    //                       color: Theme.of(context).primaryColor,
     //                       fontWeight: FontWeight.bold),
     //                 ),
     //               ),

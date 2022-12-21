@@ -135,7 +135,7 @@ onShowBottomSheetUploadPic(
   //               style: TextStyle(
   //                 fontFamily: 'DMSans',
   //                 fontSize: 16,
-  //                 color: AppColor.mainColor,
+  //                 color: Theme.of(context).primaryColor,
   //               ),
   //             ),
   //           ),
@@ -148,7 +148,7 @@ onShowBottomSheetUploadPic(
   //               style: TextStyle(
   //                 fontFamily: 'DMSans',
   //                 fontSize: 16,
-  //                 color: AppColor.mainColor,
+  //                 color: Theme.of(context).primaryColor,
   //               ),
   //             ),
   //           ),
@@ -161,7 +161,7 @@ onShowBottomSheetUploadPic(
   //               style: TextStyle(
   //                 fontFamily: 'DMSans',
   //                 fontSize: 16,
-  //                 color: AppColor.mainColor,
+  //                 color: Theme.of(context).primaryColor,
   //               ),
   //             ),
   //           ),
@@ -175,7 +175,7 @@ onShowBottomSheetUploadPic(
   //             style: TextStyle(
   //               fontFamily: 'DMSans',
   //               fontSize: 16,
-  //               color: AppColor.mainColor,
+  //               color: Theme.of(context).primaryColor,
   //             ),
   //           ),
   //         ),

@@ -25,7 +25,7 @@ class RedeemPointToPay extends StatelessWidget {
         elevation: 0,
         title: 'Redeem point to pay',
         colorTitle: true,
-        backgroundColor: AppColor.mainColor,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

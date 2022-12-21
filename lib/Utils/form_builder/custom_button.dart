@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
@@ -53,7 +52,8 @@ class _CustomButtonState extends State<CustomButton> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
-                backgroundColor: widget.backgroundColor ?? AppColor.mainColor,
+                backgroundColor:
+                    widget.backgroundColor ?? Theme.of(context).primaryColor,
               ),
               onPressed: widget.onPressed,
               child: Text(
@@ -73,8 +73,8 @@ class _CustomButtonState extends State<CustomButton> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color:
-                                  widget.backgroundColor ?? AppColor.mainColor,
+                              color: widget.backgroundColor ??
+                                  Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(8)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +114,8 @@ class _CustomButtonState extends State<CustomButton> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              side: const BorderSide(color: AppColor.mainColor),
+                              side: BorderSide(
+                                  color: Theme.of(context).primaryColor),
                             ),
                             onPressed: widget.onPressed,
                             child: Row(
@@ -176,7 +177,7 @@ class _CustomButtonState extends State<CustomButton> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 15.0),
                                       backgroundColor: widget.backgroundColor ??
-                                          AppColor.mainColor,
+                                          Theme.of(context).primaryColor,
                                     ),
                                     onPressed: widget.onPressed,
                                     child: Row(
@@ -212,7 +213,8 @@ class _CustomButtonState extends State<CustomButton> {
                     child: !widget.isDisable! && !widget.isOutline!
                         ? CupertinoButton(
                             padding: const EdgeInsets.symmetric(horizontal: 0),
-                            color: widget.backgroundColor ?? AppColor.mainColor,
+                            color: widget.backgroundColor ??
+                                Theme.of(context).primaryColor,
                             onPressed: widget.onPressed,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -287,7 +289,7 @@ class _CustomButtonState extends State<CustomButton> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 0),
                                     color: widget.backgroundColor ??
-                                        AppColor.mainColor,
+                                        Theme.of(context).primaryColor,
                                     onPressed: null,
                                     child: Text(
                                       widget.title!,
@@ -298,7 +300,7 @@ class _CustomButtonState extends State<CustomButton> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 0),
                                     color: widget.backgroundColor ??
-                                        AppColor.mainColor,
+                                        Theme.of(context).primaryColor,
                                     onPressed: null,
                                     child: Text(
                                       widget.title!,

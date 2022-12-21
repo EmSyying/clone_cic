@@ -233,7 +233,7 @@ class TradingSessionCard extends StatelessWidget {
             child: Text(
               'View Last Trading Info',
               style: Theme.of(context).textTheme.headline5!.copyWith(
-                  color: AppColor.mainColor,
+                  color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
                   decoration: TextDecoration.underline),
             ),

@@ -148,7 +148,7 @@ class _CustomWinLoseChartState extends State<CustomWinLoseChart> {
         //   animationDuration: 500,
         //   shouldAlwaysShow: true,
         //   enable: true,
-        //   color: AppColor.mainColor.withOpacity(0.5),
+        //   color: Theme.of(context).primaryColor.withOpacity(0.5),
 
         //   // builder: (a, b, c, d, e) {
         //   //   return Container(
@@ -177,7 +177,7 @@ class _CustomWinLoseChartState extends State<CustomWinLoseChart> {
           if (args.text!.contains('-')) {
             color = AppColor.newRedStatus;
           } else {
-            color = AppColor.mainColor;
+            color = Theme.of(context).primaryColor;
           }
         },
 

@@ -325,7 +325,6 @@ import 'package:get/get.dart';
 
 import '../../Utils/form_builder/custom_button.dart';
 import '../../Utils/form_builder/custom_textformfield.dart';
-import '../../Utils/helper/color.dart';
 import '../../modules/event_module/controller/event_controller.dart';
 import '../../modules/member_directory/controllers/customer_controller.dart';
 
@@ -482,7 +481,8 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                                     e.value.relationShipDisplay ==
                                                         ''
                                                 ? Colors.grey.withOpacity(0.2)
-                                                : AppColor.mainColor
+                                                : Theme.of(context)
+                                                    .primaryColor
                                                     .withOpacity(0.1)),
                                         child: Row(
                                           children: [
@@ -493,7 +493,8 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                                         e.value.relationShipDisplay ==
                                                             ''
                                                     ? Colors.grey
-                                                    : AppColor.mainColor),
+                                                    : Theme.of(context)
+                                                        .primaryColor),
                                             const SizedBox(
                                               width: 10,
                                             ),
@@ -513,7 +514,8 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                                               e.value.relationShipDisplay ==
                                                                   ''
                                                           ? Colors.grey
-                                                          : AppColor.mainColor),
+                                                          : Theme.of(context)
+                                                              .primaryColor),
                                             ),
                                           ],
                                         ),

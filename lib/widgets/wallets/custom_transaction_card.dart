@@ -101,7 +101,7 @@ class WalletTransactionCard extends StatelessWidget {
                                                   'subscription' &&
                                               transactionModel.status ==
                                                   'waiting list'
-                                          ? AppColor.mainColor
+                                          ? Theme.of(context).primaryColor
                                           : transactionModel.transactionType ==
                                                           'subscription' &&
                                                       transactionModel

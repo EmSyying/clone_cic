@@ -2,7 +2,6 @@ import 'package:cicgreenloan/modules/event_module/models/event_ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../Utils/helper/color.dart';
 import '../../Utils/helper/container_partern.dart';
 
 class CustomTicketCard extends StatelessWidget {
@@ -34,7 +33,7 @@ class CustomTicketCard extends StatelessWidget {
                 Container(
                     padding: const EdgeInsets.all(30),
                     decoration: BoxDecoration(
-                        color: AppColor.mainColor.withOpacity(0.06),
+                        color: Theme.of(context).primaryColor.withOpacity(0.06),
                         shape: BoxShape.circle),
                     child: SvgPicture.asset(
                       'assets/images/svgfile/ticketIcon.svg',

@@ -15,7 +15,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:go_router/go_router.dart';
 
-import '../../Utils/helper/color.dart';
 import '../../Utils/helper/custom_appbar.dart';
 import '../../Utils/helper/custom_route_snackbar.dart';
 import '../flavor/flavor_configuration.dart';
@@ -276,14 +275,16 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                                           painter: CustomTimerPainter(
                                             animation: controller,
                                             backgroundColor: Colors.white,
-                                            color: AppColor.mainColor,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                           ),
                                           child: Center(
                                             child: Text(
                                               timerString,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 18.0,
-                                                  color: AppColor.mainColor),
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
                                             ),
                                           ),
                                         ),
@@ -489,9 +490,9 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                                     color: Colors.black12)
                               ],
                               borderRadius: BorderRadius.circular(10)),
-                          child: const Center(
+                          child: Center(
                             child: CircularProgressIndicator(
-                              color: AppColor.mainColor,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),

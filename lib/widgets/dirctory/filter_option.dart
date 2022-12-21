@@ -23,8 +23,9 @@ class FilterByType extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.0),
                 border: Border.all(
-                  color:
-                      isSelect! ? AppColor.mainColor : AppColor.chartLabelColor,
+                  color: isSelect!
+                      ? Theme.of(context).primaryColor
+                      : AppColor.chartLabelColor,
                   width: 0.6,
                 ),
                 shape: BoxShape.rectangle,
@@ -36,7 +37,7 @@ class FilterByType extends StatelessWidget {
                         Icons.done,
                         size: 18.0,
                         color: isSelect!
-                            ? AppColor.mainColor
+                            ? Theme.of(context).primaryColor
                             : AppColor.chartLabelColor,
                       ),
                     )
@@ -50,7 +51,9 @@ class FilterByType extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
-                    color: isSelect! ? AppColor.mainColor : Colors.black,
+                    color: isSelect!
+                        ? Theme.of(context).primaryColor
+                        : Colors.black,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),

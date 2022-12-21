@@ -54,8 +54,8 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
                 FocusScope.of(context).unfocus();
               },
               labelPadding: const EdgeInsets.only(top: 20, bottom: 20),
-              indicatorColor: AppColor.mainColor,
-              labelColor: AppColor.mainColor,
+              indicatorColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).primaryColor,
               unselectedLabelColor: Colors.grey,
               controller:
                   InjectionHelper.bonusController.tabControllerSubscribe,

@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/utils/helper/container_partern.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class CustomInvestAmonutCard extends StatelessWidget {
         height: 100,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: isColors! ? AppColor.mainColor : Colors.white,
+            color: isColors! ? Theme.of(context).primaryColor : Colors.white,
             borderRadius: BorderRadius.circular(borderRaduis),
             border: Border.all(width: 1, color: Colors.grey.shade300)),
         child: ClipRRect(
@@ -66,7 +65,7 @@ class CustomInvestAmonutCard extends StatelessWidget {
                                       .copyWith(
                                           fontSize: 20,
                                           color: !isColors!
-                                              ? AppColor.mainColor
+                                              ? Theme.of(context).primaryColor
                                               : Colors.white))
                               : Text(
                                   FormatToK.digitNumber(
@@ -77,7 +76,7 @@ class CustomInvestAmonutCard extends StatelessWidget {
                                       .copyWith(
                                           fontSize: 20,
                                           color: !isColors!
-                                              ? AppColor.mainColor
+                                              ? Theme.of(context).primaryColor
                                               : Colors.white)),
                           const SizedBox(
                             width: 5,

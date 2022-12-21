@@ -1228,8 +1228,8 @@ class _EventDetailState extends State<EventDetail> {
                                                                                       Icons.close_rounded,
                                                                                       color: Colors.white,
                                                                                     ),
-                                                                                    isColorsAppBar: AppColor.mainColor,
-                                                                                    backgroundColor: AppColor.mainColor,
+                                                                                    isColorsAppBar: Theme.of(context).primaryColor,
+                                                                                    backgroundColor: Theme.of(context).primaryColor,
                                                                                     title: "Check in",
                                                                                     titleColors: AppColor.arrowforwardColor['dark'],
                                                                                     child: EventCheckInTicket(

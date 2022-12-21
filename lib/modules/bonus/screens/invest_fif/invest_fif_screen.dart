@@ -30,9 +30,9 @@ class _InvestFIFScreenState extends State<InvestFIFScreen>
         children: [
           TabBar(
             controller: investCon.tabController,
-            labelColor: AppColor.mainColor,
+            labelColor: Theme.of(context).primaryColor,
             unselectedLabelColor: Colors.black87,
-            indicatorColor: AppColor.mainColor,
+            indicatorColor: Theme.of(context).primaryColor,
             labelPadding: const EdgeInsets.only(bottom: 20),
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             tabs: const [

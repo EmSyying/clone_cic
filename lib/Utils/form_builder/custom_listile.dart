@@ -46,7 +46,7 @@ class UserListile extends StatelessWidget {
                   ? Theme.of(context)
                       .textTheme
                       .bodyText2!
-                      .copyWith(color: AppColor.mainColor)
+                      .copyWith(color: Theme.of(context).primaryColor)
                   : Theme.of(context).textTheme.bodyText2,
             ),
             const Spacer(),

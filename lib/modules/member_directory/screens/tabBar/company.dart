@@ -6,7 +6,6 @@ import 'package:cicgreenloan/widgets/member_directory/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../widgets/member_directory/companyProfile/company_contactinfo_pop_up.dart';
 import '../../../../widgets/member_directory/companyProfile/company_location_pop_up.dart';
@@ -388,9 +387,10 @@ class _CompanyPageState extends State<CompanyPage> {
                                           left: 15, top: 20.0, bottom: 20.0),
                                       child: Row(
                                         children: [
-                                          const Icon(
+                                          Icon(
                                             Icons.add,
-                                            color: AppColor.mainColor,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                           ),
                                           Container(
                                             margin: const EdgeInsets.only(
@@ -402,7 +402,8 @@ class _CompanyPageState extends State<CompanyPage> {
                                                   fontSize: 16,
                                                   color: Get.theme.brightness ==
                                                           Brightness.light
-                                                      ? AppColor.mainColor
+                                                      ? Theme.of(context)
+                                                          .primaryColor
                                                       : Colors.white,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -451,9 +452,9 @@ class _CompanyPageState extends State<CompanyPage> {
                                     left: 15, top: 20.0, bottom: 20.0),
                                 child: Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.add,
-                                      color: AppColor.mainColor,
+                                      color: Theme.of(context).primaryColor,
                                     ),
                                     Container(
                                       margin: const EdgeInsets.only(left: 10.0),
@@ -464,7 +465,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                             fontSize: 16,
                                             color: Get.theme.brightness ==
                                                     Brightness.light
-                                                ? AppColor.mainColor
+                                                ? Theme.of(context).primaryColor
                                                 : Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),

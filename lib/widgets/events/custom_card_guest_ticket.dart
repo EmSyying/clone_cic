@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../Utils/helper/color.dart';
-
 class CustomCardGuestsTicket extends StatelessWidget {
   final String? guest;
   final String? nameGuest;
@@ -87,9 +85,9 @@ class CustomCardGuestsTicket extends StatelessWidget {
             child: GestureDetector(
               onTap: onTapSelect,
               child: isCheckBox
-                  ? const Icon(
+                  ? Icon(
                       Icons.check_box_rounded,
-                      color: AppColor.mainColor,
+                      color: Theme.of(context).primaryColor,
                     )
                   : Icon(
                       Icons.check_box_outline_blank,

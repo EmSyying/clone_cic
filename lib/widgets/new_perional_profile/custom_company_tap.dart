@@ -281,7 +281,7 @@ class CustomCompanyTap extends StatelessWidget {
                                 const SizedBox(width: 18.0),
                                 SvgPicture.asset(
                                   'assets/images/svgfile/edit_profile.svg',
-                                  color: AppColor.mainColor,
+                                  color: Theme.of(context).primaryColor,
                                   width: 18,
                                   height: 18,
                                 ),
@@ -294,7 +294,7 @@ class CustomCompanyTap extends StatelessWidget {
                                         .subtitle2!
                                         .copyWith(
                                           fontWeight: FontWeight.w400,
-                                          color: AppColor.mainColor,
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                   ),
                                 ),

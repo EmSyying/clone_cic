@@ -122,7 +122,7 @@ class BankingInforCard extends StatelessWidget {
                     isConfirm == true
                         ? Icons.check_box
                         : Icons.check_box_outline_blank,
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10),

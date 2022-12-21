@@ -28,7 +28,7 @@ class CustomTradingButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             elevation: 0,
             fixedSize: Size(double.infinity, height ?? 37),
-            backgroundColor: color ?? AppColor.mainColor,
+            backgroundColor: color ?? Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRaduis)),
           ),

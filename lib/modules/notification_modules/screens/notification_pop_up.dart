@@ -65,7 +65,7 @@ showAlertDialog({
                     margin: const EdgeInsets.only(
                         bottom: 20.0, left: 20.0, right: 20.0),
                     decoration: BoxDecoration(
-                        color: AppColor.mainColor,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(10.0)),
                     child: Center(
                       child: Text(

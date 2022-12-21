@@ -3,8 +3,6 @@ import 'package:cicgreenloan/widgets/events/register_member_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Utils/helper/color.dart';
-
 class RegisterMemberAmount extends StatelessWidget {
   final List<String>? registerProfile;
   final int registerNumber;
@@ -25,7 +23,7 @@ class RegisterMemberAmount extends StatelessWidget {
                 title: "Registered Members",
                 trailing: Text(
                   '$registerNumber',
-                  style: const TextStyle(color: AppColor.mainColor),
+                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 child: RegisterMember(
                   eventID: eventID,
@@ -114,7 +112,7 @@ class RegisterMemberAmount extends StatelessWidget {
                                 fontFamily: 'DMSans',
                                 fontSize: 14,
                                 color: Get.theme.brightness == Brightness.light
-                                    ? AppColor.mainColor
+                                    ? Theme.of(context).primaryColor
                                     : Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -129,7 +127,7 @@ class RegisterMemberAmount extends StatelessWidget {
                                     fontSize: 14,
                                     color:
                                         Get.theme.brightness == Brightness.light
-                                            ? AppColor.mainColor
+                                            ? Theme.of(context).primaryColor
                                             : Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -144,7 +142,7 @@ class RegisterMemberAmount extends StatelessWidget {
                                         fontSize: 14,
                                         color: Get.theme.brightness ==
                                                 Brightness.light
-                                            ? AppColor.mainColor
+                                            ? Theme.of(context).primaryColor
                                             : Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -158,7 +156,7 @@ class RegisterMemberAmount extends StatelessWidget {
                                         fontSize: 14,
                                         color: Get.theme.brightness ==
                                                 Brightness.light
-                                            ? AppColor.mainColor
+                                            ? Theme.of(context).primaryColor
                                             : Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),

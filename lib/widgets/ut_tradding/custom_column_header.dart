@@ -3,8 +3,6 @@ import 'package:cicgreenloan/widgets/ut_tradding/custom_cell_row.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../Utils/helper/color.dart';
-
 class CustomColumnHeader extends StatelessWidget {
   final List<PayOffSlip>? transactionDetailList;
   const CustomColumnHeader({Key? key, required this.transactionDetailList})
@@ -18,13 +16,13 @@ class CustomColumnHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Expanded(
               flex: 3,
               child: Text(
                 "Quantity(UT)",
                 style: TextStyle(
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontFamily: 'Poppin',
                     fontWeight: FontWeight.w600,
                     fontSize: 12),
@@ -35,7 +33,7 @@ class CustomColumnHeader extends StatelessWidget {
               child: Text(
                 "Price",
                 style: TextStyle(
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontFamily: 'Poppin',
                     fontWeight: FontWeight.w600,
                     fontSize: 12),
@@ -45,7 +43,7 @@ class CustomColumnHeader extends StatelessWidget {
               child: Text(
                 "Amount",
                 style: TextStyle(
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontFamily: 'Poppin',
                     fontWeight: FontWeight.w600,
                     fontSize: 12),

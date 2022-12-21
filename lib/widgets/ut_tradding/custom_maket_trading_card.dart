@@ -30,14 +30,14 @@ class CustomMaketTradingCar extends StatelessWidget {
     final guider = Get.put(CiCGuidController());
     return Container(
       decoration: BoxDecoration(
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-              offset: Offset(1.0, 2.0),
-              color: AppColor.mainColor,
+              offset: const Offset(1.0, 2.0),
+              color: Theme.of(context).primaryColor,
               blurRadius: 6)
         ],
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColor.mainColor),
+        border: Border.all(color: Theme.of(context).primaryColor),
         color: const Color(0XFF0F50A4),
       ),
       child: Column(
@@ -81,7 +81,8 @@ class CustomMaketTradingCar extends StatelessWidget {
                                   blurRadius: 6)
                             ],
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(color: AppColor.mainColor),
+                            border: Border.all(
+                                color: Theme.of(context).primaryColor),
                             color: isOpen == true
                                 ? const Color(0XFF0685CF)
                                 : const Color(0XFFF54E5E),

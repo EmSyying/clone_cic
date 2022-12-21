@@ -89,7 +89,7 @@ class _BonusScreenState extends State<BonusScreen>
           return CupertinoPageScaffold(
             child: Scaffold(
               resizeToAvoidBottomInset: true,
-              backgroundColor: AppColor.mainColor,
+              backgroundColor: Theme.of(context).primaryColor,
               appBar: CustomAppBar(
                 context: context,
                 elevation: 0,
@@ -283,7 +283,7 @@ class _BonusScreenState extends State<BonusScreen>
                         indicatorWeight: 2.0,
                         controller: bonusCon.tabController,
                         unselectedLabelColor: Colors.grey,
-                        labelColor: AppColor.mainColor,
+                        labelColor: Theme.of(context).primaryColor,
                         labelPadding: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         tabs: const [

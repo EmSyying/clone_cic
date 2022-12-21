@@ -643,8 +643,8 @@ class EventController extends GetxController {
                 Icons.close_rounded,
                 color: Colors.white,
               ),
-              isColorsAppBar: AppColor.mainColor,
-              backgroundColor: AppColor.mainColor,
+              isColorsAppBar: Theme.of(context!).primaryColor,
+              backgroundColor: Theme.of(context).primaryColor,
               title: "Your Ticket",
               titleColors: AppColor.arrowforwardColor['dark'],
               child:
@@ -706,8 +706,8 @@ class EventController extends GetxController {
                 Icons.close_rounded,
                 color: Colors.white,
               ),
-              isColorsAppBar: AppColor.mainColor,
-              backgroundColor: AppColor.mainColor,
+              isColorsAppBar: Theme.of(context!).primaryColor,
+              backgroundColor: Theme.of(context).primaryColor,
               title: "Your Ticket",
               titleColors: AppColor.arrowforwardColor['dark'],
               child:

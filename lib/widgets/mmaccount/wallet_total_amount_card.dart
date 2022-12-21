@@ -24,7 +24,7 @@ class WalletTotalCard extends StatelessWidget {
     return Container(
       height: 110,
       decoration: BoxDecoration(
-        color: AppColor.mainColor,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(14),
       ),
       child: CustomPaint(

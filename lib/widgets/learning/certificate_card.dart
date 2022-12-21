@@ -4,7 +4,6 @@ import 'package:cicgreenloan/modules/learning_platform_module/models/certificate
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../Utils/helper/color.dart';
 
 class CertificateCard extends StatelessWidget {
   final CertificateModel? certificate;
@@ -172,11 +171,11 @@ class CertificateCard extends StatelessWidget {
                           builder: (BuildContext context) =>
                               CupertinoActionSheet(
                             cancelButton: CupertinoActionSheetAction(
-                              child: const Text(
+                              child: Text(
                                 'Cancel',
                                 style: TextStyle(
                                     fontSize: 16,
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
@@ -185,11 +184,11 @@ class CertificateCard extends StatelessWidget {
                             ),
                             actions: <CupertinoActionSheetAction>[
                               CupertinoActionSheetAction(
-                                child: const Text(
+                                child: Text(
                                   'Save Photo',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 onPressed: () {
@@ -197,11 +196,11 @@ class CertificateCard extends StatelessWidget {
                                 },
                               ),
                               CupertinoActionSheetAction(
-                                child: const Text(
+                                child: Text(
                                   'Save as PDF',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 onPressed: () {

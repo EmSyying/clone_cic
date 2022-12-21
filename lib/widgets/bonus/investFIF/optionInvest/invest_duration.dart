@@ -26,7 +26,7 @@ class CustomInvesDuration extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRaduis),
           color: isSeleced == true
-              ? AppColor.mainColor.withOpacity(0.3)
+              ? Theme.of(context).primaryColor.withOpacity(0.3)
               : Colors.grey[200],
         ),
         child: Center(

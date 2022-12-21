@@ -48,7 +48,7 @@ class ComponentCardCategory extends StatelessWidget {
             width: widthTrue == true ? double.infinity : 160,
             decoration: BoxDecoration(
               border: Border.all(
-                color: selected ? AppColor.mainColor : Colors.white,
+                color: selected ? Theme.of(context).primaryColor : Colors.white,
                 width: 1.0,
               ),
               color: AppColor.arrowforwardColor['dark'],

@@ -82,7 +82,7 @@ class _WalletScreenState extends State<WalletScreen>
       children: [
         //Background Style
         Scaffold(
-          backgroundColor: AppColor.mainColor,
+          backgroundColor: Theme.of(context).primaryColor,
           extendBodyBehindAppBar: true,
           body: SizedBox(
             width: double.infinity,
@@ -356,7 +356,7 @@ class _WalletScreenState extends State<WalletScreen>
                     indicatorWeight: 2.0,
                     controller: _tabController,
                     unselectedLabelColor: Colors.grey,
-                    labelColor: AppColor.mainColor,
+                    labelColor: Theme.of(context).primaryColor,
                     labelPadding: const EdgeInsets.only(bottom: 20),
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     tabs: const [

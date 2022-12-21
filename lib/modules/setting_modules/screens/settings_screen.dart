@@ -28,7 +28,6 @@ import '../../../Utils/form_builder/custom_listile.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../core/auth/auth_controller/auth_controller.dart';
 import '../../../core/auth/verify_set_password.dart';
@@ -975,12 +974,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         mode: LaunchMode.externalApplication,
                                       );
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       "Chat Telegram",
                                       style: TextStyle(
                                         fontFamily: 'DMSans',
                                         fontSize: 16,
-                                        color: AppColor.mainColor,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                     ),
                                   ),
@@ -992,10 +991,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     },
                                     child: Text(
                                       '${_settingCon.technicalSupport.value.phone}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'DMSans',
                                         fontSize: 16,
-                                        color: AppColor.mainColor,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                     ),
                                   ),
@@ -1004,12 +1003,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   onPressed: () {
                                     context.pop();
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     "Cancel",
                                     style: TextStyle(
                                       fontFamily: 'DMSans',
                                       fontSize: 16,
-                                      color: AppColor.mainColor,
+                                      color: Theme.of(context).primaryColor,
                                     ),
                                   ),
                                 ),

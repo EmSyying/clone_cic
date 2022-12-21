@@ -90,11 +90,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 Obx(
                   () => memberCon.isLoadingProfile.value == true
-                      ? const Padding(
-                          padding: EdgeInsets.only(right: 10),
+                      ? Padding(
+                          padding: const EdgeInsets.only(right: 10),
                           child: SpinKitThreeBounce(
                             size: 20,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         )
                       : TextButton(
@@ -117,7 +117,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   color: memberCon.copyPersonalProfile.value ==
                                           memberCon.personalProfile.value
                                       ? Colors.grey
-                                      : AppColor.mainColor,
+                                      : Theme.of(context).primaryColor,
                                 ),
                           ),
                         ),
@@ -138,10 +138,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               height: 83.0,
                               decoration: const BoxDecoration(
                                   color: Colors.white, shape: BoxShape.circle),
-                              child: const CircularProgressIndicator(
+                              child: CircularProgressIndicator(
                                 backgroundColor: Colors.transparent,
                                 strokeWidth: 5,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             )
                           : _buildProfile(NetworkImage(
@@ -312,11 +312,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // widget.isEditCompany != true ? widget.actionDone! : Container()
                 widget.isEditCompany == true
                     ? Obx(() => memberCon.isLoadingUpdateComapny.value == true
-                        ? const Padding(
-                            padding: EdgeInsets.only(right: 10),
+                        ? Padding(
+                            padding: const EdgeInsets.only(right: 10),
                             child: SpinKitThreeBounce(
                               size: 20,
-                              color: AppColor.mainColor,
+                              color: Theme.of(context).primaryColor,
                             ),
                           )
                         : TextButton(
@@ -342,7 +342,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                     .imageFile.value.path ==
                                                 ''
                                         ? Colors.grey
-                                        : AppColor.mainColor,
+                                        : Theme.of(context).primaryColor,
                                   ),
                             ),
                           ))
@@ -365,10 +365,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle),
-                                child: const CircularProgressIndicator(
+                                child: CircularProgressIndicator(
                                   backgroundColor: Colors.transparent,
                                   strokeWidth: 5,
-                                  color: AppColor.mainColor,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               )
                             : !widget.isEditCompany!
@@ -575,7 +575,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             width: 3.5,
             color: uploadImageCon.isLoading.value
                 ? Colors.white
-                : AppColor.mainColor),
+                : Theme.of(context).primaryColor),
         image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
       ),
     );

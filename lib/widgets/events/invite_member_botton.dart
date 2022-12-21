@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../Utils/helper/color.dart';
-
 class CustomInviteMemberBottom extends StatelessWidget {
   final memberController = Get.put(MemberController());
   final customerController = Get.put(CustomerController());
@@ -27,7 +25,7 @@ class CustomInviteMemberBottom extends StatelessWidget {
             height: 35.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: AppColor.mainColor.withOpacity(0.1),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
             ),
             // ignore: deprecated_member_use
             child: GestureDetector(
@@ -70,10 +68,11 @@ class CustomInviteMemberBottom extends StatelessWidget {
                             },
                             child: Container(
                               margin: const EdgeInsets.only(right: 15.0),
-                              child: const Text(
+                              child: Text(
                                 "Cancel",
                                 style: TextStyle(
-                                    fontSize: 17, color: AppColor.mainColor),
+                                    fontSize: 17,
+                                    color: Theme.of(context).primaryColor),
                               ),
                             ),
                           )
@@ -106,7 +105,7 @@ class CustomInviteMemberBottom extends StatelessWidget {
               //                 child: const Text(
               //                   "Cancel",
               //                   style: TextStyle(
-              //                       fontSize: 17, color: AppColor.mainColor),
+              //                       fontSize: 17, color: Theme.of(context).primaryColor),
               //                 ),
               //               ),
               //             )

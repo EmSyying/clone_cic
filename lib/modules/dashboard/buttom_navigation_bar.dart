@@ -340,7 +340,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                     unselectedItemColor: Theme.of(context)
                         .bottomNavigationBarTheme
                         .unselectedItemColor,
-                    selectedItemColor: AppColor.mainColor,
+                    selectedItemColor: Theme.of(context).primaryColor,
 
                     // onTap: _settingCon.onTap,
                     currentIndex: _calculateSelectedIndex(context),

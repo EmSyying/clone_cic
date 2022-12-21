@@ -131,7 +131,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   ),
                             ),
                           ),
-                          backgroundColor: AppColor.mainColor,
+                          backgroundColor: Theme.of(context).primaryColor,
                           centerTitle: true,
                           systemOverlayStyle: const SystemUiOverlayStyle(
                             statusBarBrightness: Brightness.dark,
@@ -455,7 +455,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                 children: <Widget>[
                                   IconButton(
                                     icon: const Icon(Icons.location_on_rounded),
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                     onPressed: () async {
                                       await launchUrl(
                                         Uri.parse(
@@ -468,7 +468,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     icon: SvgPicture.asset(
                                       'assets/images/privilege/calling.svg',
                                     ),
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                     onPressed: () {
                                       showCupertinoModalPopup(
                                         context: context,
@@ -507,7 +507,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     icon: SvgPicture.asset(
                                       'assets/images/privilege/telegram.svg',
                                     ),
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                     onPressed: () async {
                                       await launchUrl(
                                         Uri.parse(

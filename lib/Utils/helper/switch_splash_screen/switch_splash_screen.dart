@@ -43,7 +43,7 @@ class _BooksState extends State<SwitchSplashScreen>
         child:
             // SvgPicture.asset('assets/images/svgfile/swich-am.svg'),
             Scaffold(
-          // backgroundColor: AppColor.mainColor,
+          // backgroundColor: Theme.of(context).primaryColor,
           body:
               // Stack(
               //   children: [

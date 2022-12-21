@@ -27,7 +27,7 @@ class CustomOptionProfile extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: disableIcon != '' && disableIcon != null
-                  ? AppColor.mainColor.withOpacity(0.1)
+                  ? Theme.of(context).primaryColor.withOpacity(0.1)
                   : Colors.grey[200],
             ),
             child: Center(
@@ -35,7 +35,7 @@ class CustomOptionProfile extends StatelessWidget {
                 '$imageSvg',
                 fit: BoxFit.cover,
                 color: disableIcon != '' && disableIcon != null
-                    ? AppColor.mainColor
+                    ? Theme.of(context).primaryColor
                     : Colors.grey,
               ),
             ),

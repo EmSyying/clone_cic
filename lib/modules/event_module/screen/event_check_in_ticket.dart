@@ -38,7 +38,7 @@ class EventCheckInTicket extends StatelessWidget {
 
     return Container(
       // padding: const EdgeInsets.only(top: 15),
-      color: AppColor.mainColor,
+      color: Theme.of(context).primaryColor,
       child: Obx(
         () => Column(
           children: [
@@ -49,7 +49,7 @@ class EventCheckInTicket extends StatelessWidget {
                   key: printScreenKey,
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                     child: Column(
                       children: [
                         Stack(
@@ -237,15 +237,15 @@ class EventCheckInTicket extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const SpinKitThreeBounce(
+                          child: SpinKitThreeBounce(
                             size: 20,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         )
                       : CustomButton(
                           width: double.infinity,
                           backgroundColor: Colors.white,
-                          colorText: AppColor.mainColor,
+                          colorText: Theme.of(context).primaryColor,
                           onPressed: selectCheckIn == 'view_ticket'
                               ? () {
                                   Navigator.pop(context);

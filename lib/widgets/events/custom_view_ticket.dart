@@ -16,7 +16,7 @@ class CustomViewTicket extends StatelessWidget {
     final contro = Get.put(EventController());
     contro.onCheckSelected();
     return Container(
-      color: AppColor.mainColor,
+      color: Theme.of(context).primaryColor,
       child: Column(
         children: [
           Container(

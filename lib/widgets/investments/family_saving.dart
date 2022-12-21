@@ -47,7 +47,7 @@ class FamilySaving extends StatelessWidget {
               Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: AppColor.mainColor.withOpacity(0.2),
+                    color: Theme.of(context).primaryColor.withOpacity(0.2),
                   ),
                   padding: const EdgeInsets.all(10),
                   child: SvgPicture.asset('$image')),

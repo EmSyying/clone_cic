@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../Utils/helper/color.dart';
 import 'auth_controller/auth_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -69,25 +68,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       'assets/images/Logo/cic.png',
                       width: 100,
                     ),
-                    const Text(
+                    Text(
                       'Welcome to',
                       style: TextStyle(
                         fontFamily: 'DMSans',
                         fontSize: 14,
-                        color: AppColor.mainColor,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
+                    Text(
                       'CiC Mobile App',
                       // style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      //       color: AppColor.mainColor,
+                      //       color: Theme.of(context).primaryColor,
                       //     )
                       style: TextStyle(
                         fontFamily: 'DMSans',
                         fontSize: 14,
-                        color: AppColor.mainColor,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -168,10 +167,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.number,
                           placeholderStyle:
                               Theme.of(context).textTheme.bodyText1,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                               border: Border(
-                                  bottom:
-                                      BorderSide(color: AppColor.mainColor))),
+                                  bottom: BorderSide(
+                                      color: Theme.of(context).primaryColor))),
                           suffix: IconButton(
                             key: const Key("registerIcon"),
                             icon: _authController.checkRegisteredLoading.value

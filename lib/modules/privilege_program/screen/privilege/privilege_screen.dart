@@ -431,7 +431,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
             style: Theme.of(context).textTheme.headline4!.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
-                  color: AppColor.mainColor,
+                  color: Theme.of(context).primaryColor,
                 ),
           ),
         ),

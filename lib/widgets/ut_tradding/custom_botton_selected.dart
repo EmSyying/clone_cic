@@ -42,7 +42,7 @@ class _CustomButtonSelectedState extends State<CustomButtonSelected> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
-                backgroundColor: AppColor.mainColor,
+                backgroundColor: Theme.of(context).primaryColor,
               ),
               onPressed: widget.onPressed!,
               child: Text(
@@ -64,7 +64,7 @@ class _CustomButtonSelectedState extends State<CustomButtonSelected> {
                           ),
                           padding: const EdgeInsets.symmetric(
                               vertical: 15.0, horizontal: 20),
-                          backgroundColor: AppColor.mainColor,
+                          backgroundColor: Theme.of(context).primaryColor,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,7 +178,7 @@ class _CustomButtonSelectedState extends State<CustomButtonSelected> {
                             padding: const EdgeInsets.symmetric(
                               horizontal: 20,
                             ),
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                             onPressed: widget.onPressed!,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -280,7 +280,7 @@ class _CustomButtonSelectedState extends State<CustomButtonSelected> {
                               ),
                               padding: const EdgeInsets.symmetric(
                                   vertical: 15.0, horizontal: 20),
-                              backgroundColor: AppColor.mainColor,
+                              backgroundColor: Theme.of(context).primaryColor,
                             ),
                             onPressed: widget.onPressed!,
                             child: Row(

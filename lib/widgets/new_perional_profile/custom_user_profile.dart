@@ -48,12 +48,12 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            stops: [0.4, 0.8],
+            stops: const [0.4, 0.8],
             begin: Alignment.topCenter,
             end: Alignment.center,
-            colors: [AppColor.mainColor, Colors.white24],
+            colors: [Theme.of(context).primaryColor, Colors.white24],
           ),
         ),
         child: BackdropFilter(
@@ -61,13 +61,13 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
           child: Stack(
             children: [
               Container(
-                // color: AppColor.mainColor,
-                decoration: const BoxDecoration(
+                // color: Theme.of(context).primaryColor,
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    stops: [0.6, 0.9],
+                    stops: const [0.6, 0.9],
                     begin: Alignment.topCenter,
                     end: Alignment.center,
-                    colors: [AppColor.mainColor, Colors.white],
+                    colors: [Theme.of(context).primaryColor, Colors.white],
                   ),
                 ),
                 child: Padding(
@@ -211,9 +211,9 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                               height: 88.0,
                               decoration: const BoxDecoration(
                                   color: Colors.white, shape: BoxShape.circle),
-                              child: const CircularProgressIndicator(
+                              child: CircularProgressIndicator(
                                 strokeWidth: 4,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             )
                           : Container(
@@ -229,8 +229,9 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                         width: 85,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border:
-                              Border.all(width: 3.5, color: AppColor.mainColor),
+                          border: Border.all(
+                              width: 3.5,
+                              color: Theme.of(context).primaryColor),
                           image: DecorationImage(
                               image: NetworkImage(widget.imgUrl ?? ''),
                               fit: BoxFit.cover),

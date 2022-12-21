@@ -154,7 +154,8 @@ class ApplicationCard extends StatelessWidget {
                                                     : model!.status == 'New'
                                                         ? const Color(
                                                             0xff0685CF)
-                                                        : AppColor.mainColor,
+                                                        : Theme.of(context)
+                                                            .primaryColor,
                                       ),
                                     ),
                                     Padding(

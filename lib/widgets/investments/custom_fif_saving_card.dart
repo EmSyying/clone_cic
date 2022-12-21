@@ -222,7 +222,7 @@ class FIFSavingCard extends StatelessWidget {
                                     .textTheme
                                     .subtitle2!
                                     .copyWith(
-                                        color: AppColor.mainColor,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w400,
                                         fontSize: 16),
                               ),

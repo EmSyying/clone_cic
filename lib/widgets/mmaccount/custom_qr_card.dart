@@ -38,7 +38,7 @@ class CustomQRCard extends StatelessWidget {
               size: 200,
               data: walletController.transferModel.value.toJson(),
               roundEdges: true,
-              elementColor: AppColor.mainColor,
+              elementColor: Theme.of(context).primaryColor,
             ),
           ),
           const SizedBox(

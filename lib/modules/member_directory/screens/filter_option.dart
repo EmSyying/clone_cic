@@ -115,7 +115,7 @@ class _FilterOptionState extends State<FilterOption> {
                   style: TextStyle(
                       fontSize: 17,
                       color: optionList.isNotEmpty
-                          ? AppColor.mainColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                 ),
               ),

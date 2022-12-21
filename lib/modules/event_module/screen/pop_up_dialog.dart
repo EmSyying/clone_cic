@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Utils/helper/color.dart';
-
 onShowChoice(BuildContext context, Function onTap) {
   return kIsWeb
       ? showModalBottomSheet(
@@ -23,13 +21,13 @@ onShowChoice(BuildContext context, Function onTap) {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       width: double.infinity,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "Share this event",
                           style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 16,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -46,13 +44,13 @@ onShowChoice(BuildContext context, Function onTap) {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       width: double.infinity,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "Add to calendar",
                           style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 16,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -69,13 +67,13 @@ onShowChoice(BuildContext context, Function onTap) {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       width: double.infinity,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "Contact organiser",
                           style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 16,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -91,13 +89,13 @@ onShowChoice(BuildContext context, Function onTap) {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       width: double.infinity,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "Cancel",
                           style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 16,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -124,13 +122,13 @@ onShowChoice(BuildContext context, Function onTap) {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           width: double.infinity,
-                          child: const Center(
+                          child: Center(
                             child: Text(
                               "Share this event",
                               style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 16,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
@@ -147,13 +145,13 @@ onShowChoice(BuildContext context, Function onTap) {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           width: double.infinity,
-                          child: const Center(
+                          child: Center(
                             child: Text(
                               "Add to calendar",
                               style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 16,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
@@ -170,13 +168,13 @@ onShowChoice(BuildContext context, Function onTap) {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           width: double.infinity,
-                          child: const Center(
+                          child: Center(
                             child: Text(
                               "Contact organiser",
                               style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 16,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
@@ -192,13 +190,13 @@ onShowChoice(BuildContext context, Function onTap) {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           width: double.infinity,
-                          child: const Center(
+                          child: Center(
                             child: Text(
                               "Cancel",
                               style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 16,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
@@ -218,12 +216,12 @@ onShowChoice(BuildContext context, Function onTap) {
                         onTap('share event');
                         Navigator.pop(context);
                       },
-                      child: const Text(
+                      child: Text(
                         "Share this event",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontSize: 16,
-                          color: AppColor.mainColor,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -232,12 +230,12 @@ onShowChoice(BuildContext context, Function onTap) {
                         onTap('Add to calendar');
                         Navigator.pop(context);
                       },
-                      child: const Text(
+                      child: Text(
                         "Add to calendar",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontSize: 16,
-                          color: AppColor.mainColor,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -246,12 +244,12 @@ onShowChoice(BuildContext context, Function onTap) {
                         onTap('Contact to organiser');
                         Navigator.pop(context);
                       },
-                      child: const Text(
+                      child: Text(
                         "Contact to organiser",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontSize: 16,
-                          color: AppColor.mainColor,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -260,12 +258,12 @@ onShowChoice(BuildContext context, Function onTap) {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text(
+                    child: Text(
                       "Cancel",
                       style: TextStyle(
                         fontFamily: 'DMSans',
                         fontSize: 16,
-                        color: AppColor.mainColor,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ),

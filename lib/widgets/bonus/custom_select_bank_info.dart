@@ -132,7 +132,7 @@
 //                   children: [
 //                     Icon(
 //                       Icons.add_circle_outline,
-//                       color: AppColor.mainColor,
+//                       color: Theme.of(context).primaryColor,
 //                       size: 20,
 //                     ),
 //                     SizedBox(width: 15),

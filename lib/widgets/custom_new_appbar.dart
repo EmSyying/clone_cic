@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
 customNewAppBar({
@@ -33,6 +32,6 @@ customNewAppBar({
         ),
     actions: action,
     centerTitle: true,
-    backgroundColor: color ?? AppColor.mainColor,
+    backgroundColor: color ?? Theme.of(context!).primaryColor,
   );
 }

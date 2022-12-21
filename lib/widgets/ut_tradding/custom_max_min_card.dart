@@ -25,7 +25,8 @@ class CustomMaxMinCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 90,
       decoration: BoxDecoration(
-          color: AppColor.mainColor, borderRadius: BorderRadius.circular(10)),
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(10)),
       child: Stack(
         children: [
           Positioned(

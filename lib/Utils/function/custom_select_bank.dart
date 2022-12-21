@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
 class CustomSelectBank extends StatelessWidget {
@@ -74,9 +73,9 @@ class CustomSelectBank extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: selectIndex == selected
-                      ? const Icon(
+                      ? Icon(
                           Icons.check_circle,
-                          color: AppColor.mainColor,
+                          color: Theme.of(context).primaryColor,
                         )
                       : const Icon(
                           Icons.circle_outlined,

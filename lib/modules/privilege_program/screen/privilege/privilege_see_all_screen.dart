@@ -54,7 +54,7 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
         elevation: 0,
         title: 'Categories',
         colorTitle: true,
-        backgroundColor: AppColor.mainColor,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Obx(
         () => SingleChildScrollView(

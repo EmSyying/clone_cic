@@ -192,7 +192,7 @@
 //                                     .copyWith(
 //                                       fontWeight: FontWeight.w700,
 //                                       fontSize: 16,
-//                                       color: AppColor.mainColor,
+//                                       color: Theme.of(context).primaryColor,
 //                                     ),
 //                               ),
 //                             ),
@@ -243,7 +243,7 @@
 //                                       .copyWith(
 //                                         fontSize: 14,
 //                                         fontWeight: FontWeight.w400,
-//                                         color: AppColor.mainColor,
+//                                         color: Theme.of(context).primaryColor,
 //                                       ),
 //                                 ),
 //                               ),
@@ -270,7 +270,7 @@
 //                                 padding: const EdgeInsets.symmetric(
 //                                     vertical: 10, horizontal: 20),
 //                                 decoration: BoxDecoration(
-//                                     color: AppColor.mainColor,
+//                                     color: Theme.of(context).primaryColor,
 //                                     borderRadius: BorderRadius.circular(6)),
 //                                 child: Text(
 //                                   i == itemCount - 1 ? 'Done' : 'Next',
@@ -470,7 +470,7 @@
 //                                     .copyWith(
 //                                       fontWeight: FontWeight.w700,
 //                                       fontSize: 16,
-//                                       color: AppColor.mainColor,
+//                                       color: Theme.of(context).primaryColor,
 //                                     ),
 //                               ),
 //                             ),
@@ -521,7 +521,7 @@
 //                                       .copyWith(
 //                                         fontSize: 14,
 //                                         fontWeight: FontWeight.w400,
-//                                         color: AppColor.mainColor,
+//                                         color: Theme.of(context).primaryColor,
 //                                       ),
 //                                 ),
 //                               ),
@@ -548,7 +548,7 @@
 //                                 padding: const EdgeInsets.symmetric(
 //                                     vertical: 10, horizontal: 20),
 //                                 decoration: BoxDecoration(
-//                                     color: AppColor.mainColor,
+//                                     color: Theme.of(context).primaryColor,
 //                                     borderRadius: BorderRadius.circular(6)),
 //                                 child: Text(
 //                                   i == itemCount - 1 ? 'Done' : 'Next',
@@ -842,7 +842,7 @@ class CiCApp {
                                     .copyWith(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 16,
-                                      color: AppColor.mainColor,
+                                      color: Theme.of(context).primaryColor,
                                     ),
                               ),
                             ),
@@ -893,7 +893,7 @@ class CiCApp {
                                       .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: AppColor.mainColor,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                 ),
                               ),
@@ -920,7 +920,7 @@ class CiCApp {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 20),
                                 decoration: BoxDecoration(
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                     borderRadius: BorderRadius.circular(6)),
                                 child: Text(
                                   i == itemCount - 1 ? 'Done' : 'Next',

@@ -18,11 +18,11 @@ class SlideButton extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
-            color: AppColor.mainColor.withOpacity(0.4),
+            color: Theme.of(context).primaryColor.withOpacity(0.4),
           ),
           child: Center(
             child: Shimmer.fromColors(
-              baseColor: AppColor.mainColor,
+              baseColor: Theme.of(context).primaryColor,
               highlightColor: Colors.grey[300]!,
               child: Text(
                 'Slide to submit',
@@ -40,7 +40,7 @@ class SlideButton extends StatelessWidget {
           duration: const Duration(milliseconds: 400),
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppColor.mainColor,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(100),
           ),
           child: state.isPerformingAction

@@ -106,7 +106,7 @@
 //                         children: [
 //                           SvgPicture.asset(
 //                             'assets/images/privilege/filter_icon.svg',
-//                             color: AppColor.mainColor,
+//                             color: Theme.of(context).primaryColor,
 //                           ),
 //                           Text(
 //                             'Filter',

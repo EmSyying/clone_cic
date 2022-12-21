@@ -389,7 +389,8 @@ class CustomDeductBonus extends StatelessWidget {
                                           .copyWith(
                                               fontSize: 13,
                                               fontWeight: FontWeight.normal,
-                                              color: AppColor.mainColor),
+                                              color: Theme.of(context)
+                                                  .primaryColor),
                                     ),
                                   ),
                                 ),

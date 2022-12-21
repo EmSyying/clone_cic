@@ -84,16 +84,16 @@ class CustomCardPoint extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: AppColor.mainColor,
+                        color: Theme.of(context).primaryColor,
                       ),
                 ),
                 const SizedBox(
                   width: 6,
                 ),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
-                  color: AppColor.mainColor,
+                  color: Theme.of(context).primaryColor,
                 )
               ],
             ),

@@ -128,7 +128,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                                 _inputAmount(context);
                               },
                               text: 'Set Amount',
-                              color: AppColor.mainColor,
+                              color: Theme.of(context).primaryColor,
                             ),
 
                           _walletController.recievingAmount.value.isNotEmpty
@@ -189,7 +189,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                       //             },
                       //           text: 'CiC Service Agreement',
                       //           style: textStyle.copyWith(
-                      //               color: AppColor.mainColor,
+                      //               color: Theme.of(context).primaryColor,
                       //               fontWeight: FontWeight.w400,
                       //               fontSize: 12),
                       //         ),
@@ -380,7 +380,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                                 _walletController.update();
                                 Navigator.pop(context);
                               },
-                              backgroundColor: AppColor.mainColor,
+                              backgroundColor: Theme.of(context).primaryColor,
                               colorText: Colors.white,
                               isDisable: double.tryParse(_walletController
                                               .amountController.text
@@ -430,14 +430,14 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                   '${_walletController.recievingAmount.value.toCurrencyAmount()} ',
               style: textStyle.copyWith(
                 fontSize: 18,
-                color: AppColor.mainColor,
+                color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w700,
               ),
               children: [
                 TextSpan(
                   text: 'USD',
                   style: textStyle.copyWith(
-                      color: AppColor.mainColor,
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w700,
                       fontSize: 12),
                 )
@@ -474,7 +474,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                 _inputAmount(context);
               },
               text: 'Reset Amount',
-              color: AppColor.mainColor,
+              color: Theme.of(context).primaryColor,
             ),
           ],
         ),

@@ -80,7 +80,7 @@ class CustomDetailSummery extends StatelessWidget {
                           height: 5,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: AppColor.mainColor),
+                              color: Theme.of(context).primaryColor),
                         ),
                     ],
                   ),

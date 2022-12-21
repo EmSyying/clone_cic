@@ -2,7 +2,6 @@ import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Utils/helper/color.dart';
 import '../../modules/event_module/controller/event_controller.dart';
 import '../../modules/event_module/models/guest_model/guest_model.dart';
 import '../../modules/event_module/models/select_checkin/select_checkin_model.dart';
@@ -91,7 +90,7 @@ class CustomCheckInGuest extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w500,
                           fontSize: 13,
-                          color: AppColor.mainColor,
+                          color: Theme.of(context).primaryColor,
                         ),
                   ),
                 ),

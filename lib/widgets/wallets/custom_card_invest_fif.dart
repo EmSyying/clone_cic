@@ -87,7 +87,7 @@ class CustomCardInvestFIF extends StatelessWidget {
               //               fontWeight: FontWeight.w600,
               //               fontSize: 12.5,
               //               color: onTapExplore != null
-              //                   ? AppColor.mainColor
+              //                   ? Theme.of(context).primaryColor
               //                   : Colors.grey,
               //             ),
               //       ),

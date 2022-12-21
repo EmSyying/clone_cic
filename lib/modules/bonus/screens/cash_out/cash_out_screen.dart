@@ -64,8 +64,8 @@ class _CashOutScreenState extends State<CashOutScreen>
               //   FocusScope.of(context).unfocus();
               // },
               controller: cashOutCon.tabControllerCashOut,
-              labelColor: AppColor.mainColor,
-              indicatorColor: AppColor.mainColor,
+              labelColor: Theme.of(context).primaryColor,
+              indicatorColor: Theme.of(context).primaryColor,
               labelPadding: const EdgeInsets.only(top: 20, bottom: 15),
               indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
               tabs: const [

@@ -77,7 +77,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   },
                   icon: const Icon(Icons.close))
               : const Text(''),
-          backgroundColor: AppColor.mainColor,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           // title: isInnerBox == true
           //     ? Text(
@@ -154,7 +154,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   floating: true,
                   snap: true,
                   excludeHeaderSemantics: true,
-                  backgroundColor: AppColor.mainColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   leading: const Text(''),
                   expandedHeight: 270,
                   elevation: 0.0,

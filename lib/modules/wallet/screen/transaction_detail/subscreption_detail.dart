@@ -61,7 +61,7 @@ class CashOutDetail extends StatelessWidget {
                                         fontSize: 14,
                                         color: 1222 == 0
                                             ? AppColor.statusColor['late']
-                                            : AppColor.mainColor)),
+                                            : Theme.of(context).primaryColor)),
                           ],
                         ),
                         const SizedBox(height: 15),
@@ -77,7 +77,8 @@ class CashOutDetail extends StatelessWidget {
                             if (12 != 0)
                               Text('${FormatToK.digitNumber(1200)} USD',
                                   style: textStyle.headline2!.copyWith(
-                                      fontSize: 14, color: AppColor.mainColor)),
+                                      fontSize: 14,
+                                      color: Theme.of(context).primaryColor)),
                           ],
                         ),
                         const SizedBox(height: 5),

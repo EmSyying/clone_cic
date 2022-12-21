@@ -29,7 +29,7 @@ class CustomTradingButton extends StatelessWidget {
       child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             elevation: 0,
-            backgroundColor: color ?? AppColor.mainColor,
+            backgroundColor: color ?? Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
           ),

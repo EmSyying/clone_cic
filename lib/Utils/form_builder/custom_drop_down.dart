@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/container_partern.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/modules/get_funding/controller/debt_investment_controller.dart';
@@ -345,9 +344,10 @@ class _CICDropdownState extends State<CICDropdown> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
-                                                const Icon(
+                                                Icon(
                                                   Icons.add_circle_outline,
-                                                  color: AppColor.mainColor,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
                                                   size: 20,
                                                 ),
                                                 const SizedBox(width: 15),

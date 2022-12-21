@@ -58,7 +58,8 @@ class CustomBulletPaymentCard extends StatelessWidget {
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: AppColor.mainColor.withOpacity(0.2)),
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.2)),
                       child: SvgPicture.asset(
                         'assets/images/principal_compounding.svg',
                         width: 30,
@@ -69,7 +70,9 @@ class CustomBulletPaymentCard extends StatelessWidget {
                           padding: const EdgeInsets.all(15),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: AppColor.mainColor.withOpacity(0.2)),
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.2)),
                           child: SvgPicture.asset(
                             'assets/images/principal_deduction.svg',
                             width: 30,

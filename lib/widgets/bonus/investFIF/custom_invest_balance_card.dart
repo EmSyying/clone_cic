@@ -39,7 +39,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
             width: double.infinity,
             height: 100,
             decoration: BoxDecoration(
-              color: AppColor.mainColor,
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(borderRaduis),
             ),
             child: Row(
@@ -175,7 +175,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                                   .copyWith(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 14,
-                                      color: AppColor.mainColor),
+                                      color: Theme.of(context).primaryColor),
                             ),
                           ],
                         ),
@@ -219,7 +219,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                                   .copyWith(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 14,
-                                      color: AppColor.mainColor),
+                                      color: Theme.of(context).primaryColor),
                             ),
                           ],
                         ),

@@ -24,8 +24,8 @@ class CustomSelectgetFunding extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           title!,
-          style:
-              TextStyle(color: onSelect! ? AppColor.mainColor : Colors.black),
+          style: TextStyle(
+              color: onSelect! ? Theme.of(context).primaryColor : Colors.black),
         ),
       ),
     );

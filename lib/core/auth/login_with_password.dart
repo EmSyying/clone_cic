@@ -5,7 +5,6 @@ import 'package:cicgreenloan/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../Utils/helper/color.dart';
 import 'auth_controller/auth_controller.dart';
 
 class LoginWithPassWord extends StatefulWidget {
@@ -57,22 +56,22 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                   'assets/images/Logo/cic.png',
                   width: 100,
                 ),
-                const Text(
+                Text(
                   'Welcome to',
                   style: TextStyle(
                     fontSize: 14,
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.w400,
                     fontFamily: 'DMSans',
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'CiC Mobile App',
                   style: TextStyle(
                     fontFamily: 'DMSans',
                     fontSize: 14,
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -108,10 +107,10 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                           placeholder: S.of(context).enterPassword,
                           placeholderStyle:
                               Theme.of(context).textTheme.bodyText1,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                               border: Border(
-                                  bottom:
-                                      BorderSide(color: AppColor.mainColor))),
+                                  bottom: BorderSide(
+                                      color: Theme.of(context).primaryColor))),
                           suffix: IconButton(
                             key: const Key("Login"),
                             icon: _authController.onLoginLoading.value

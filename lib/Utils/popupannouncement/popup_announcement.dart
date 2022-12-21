@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/link.dart';
 
-import '../../utils/helper/color.dart';
 
 class PopUpAnnouncement extends StatelessWidget {
   final NotificationModel? notificationModel;
@@ -135,11 +134,11 @@ class PopUpAnnouncement extends StatelessWidget {
                                     horizontal: 40, vertical: 10),
                                 child: Text(
                                   data.label ?? '',
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     fontFamily: 'DMSans',
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: AppColor.mainColor,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                               ),

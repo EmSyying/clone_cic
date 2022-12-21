@@ -362,7 +362,7 @@ class _DirectoryState extends State<Directory> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           decoration: BoxDecoration(
-              color: AppColor.mainColor.withOpacity(0.14),
+              color: Theme.of(context).primaryColor.withOpacity(0.14),
               borderRadius: BorderRadius.circular(8)),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -370,10 +370,8 @@ class _DirectoryState extends State<Directory> {
             children: [
               Text(
                 text ?? 'Information Technology',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle2!
-                    .copyWith(fontSize: 12, color: AppColor.mainColor),
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    fontSize: 12, color: Theme.of(context).primaryColor),
               ),
               const SizedBox(width: 5),
               SvgPicture.asset('assets/images/svgfile/wrong.svg')
@@ -402,7 +400,7 @@ class _DirectoryState extends State<Directory> {
             isLogo: false,
             isLeading: true,
             context: context,
-            backgroundColor: AppColor.mainColor,
+            backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
             title: 'Directory',
             action: [

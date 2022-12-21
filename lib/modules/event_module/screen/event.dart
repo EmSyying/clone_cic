@@ -189,12 +189,12 @@ class _EventScreenState extends State<EventScreen> {
           child: Column(
             children: [
               Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(14),
                     bottomRight: Radius.circular(14),
                   ),
-                  color: AppColor.mainColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 padding: const EdgeInsets.only(bottom: 25, right: 3),
                 child: Row(
@@ -472,12 +472,12 @@ class _DynamicEventState extends State<DynamicEvent> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.only(bottom: 20.0),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
               ),
-              color: AppColor.mainColor,
+              color: Theme.of(context).primaryColor,
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),

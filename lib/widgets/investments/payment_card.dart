@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
 class PaymentCard extends StatelessWidget {
@@ -36,7 +35,7 @@ class PaymentCard extends StatelessWidget {
                 width: 1,
                 color: currentIndex != selectIndex
                     ? Colors.grey[300]!
-                    : AppColor.mainColor)),
+                    : Theme.of(context).primaryColor)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,9 +71,9 @@ class PaymentCard extends StatelessWidget {
                     Icons.circle_outlined,
                     color: Colors.grey[400],
                   )
-                : const Icon(
+                : Icon(
                     Icons.check_circle,
-                    color: AppColor.mainColor,
+                    color: Theme.of(context).primaryColor,
                   ),
           ],
         ),

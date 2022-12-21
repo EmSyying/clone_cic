@@ -58,7 +58,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.mainColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Obx(
         () => Column(
           children: [
@@ -87,7 +87,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
                         shape: BoxShape.circle,
-                        color: AppColor.mainColor,
+                        color: Theme.of(context).primaryColor,
                       ),
                       child: Container(
                         padding: const EdgeInsets.all(3),

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
@@ -101,13 +100,13 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child: const Text(
+                        child:  Text(
                           'Download',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 16,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -122,13 +121,13 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child: const Text(
+                        child:  Text(
                           'Share',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 16,
-                            color: AppColor.mainColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -143,13 +142,13 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child: const Center(
+                        child:  Center(
                           child: Text(
                             'Cancel',
                             style: TextStyle(
                               fontFamily: 'DMSans',
                               fontSize: 16,
-                              color: AppColor.mainColor,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -176,13 +175,13 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child: const Text(
+                            child:  Text(
                               'Download',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 16,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
@@ -197,13 +196,13 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child: const Text(
+                            child:  Text(
                               'Share',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 16,
-                                color: AppColor.mainColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
@@ -218,13 +217,13 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child: const Center(
+                            child:  Center(
                               child: Text(
                                 'Cancel',
                                 style: TextStyle(
                                   fontFamily: 'DMSans',
                                   fontSize: 16,
-                                  color: AppColor.mainColor,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ),
