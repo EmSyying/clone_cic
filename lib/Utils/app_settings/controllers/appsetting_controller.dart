@@ -184,19 +184,20 @@ class SettingController extends GetxController {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
       }).then((response) {
-        debugPrint('hii1234567:${response.body}');
         var responseJson = json.decode(response.body)['data'];
         if (response.statusCode == 200) {
           responseJson.map((data) {
             slide = SlideModel.fromJson(data);
+
             if (!slideList!.contains(slide)) {
               slideList!.add(slide);
             }
           }).toList();
         } else {}
       }).onError((error, stackTrace) {
-        print(error.toString());
+        debugPrint(error.toString());
       });
     } finally {
       isLoading(false);

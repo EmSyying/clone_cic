@@ -5,9 +5,9 @@ import '../model/transaction/wallet_transaction_detail.dart';
 import 'transaction_detail/transaction_popup_detail.dart';
 
 class WalletTran {
-  static void transactionDetail(
-      BuildContext context, WalletTransactionDetail model) {
-    onShowBottomSheet(
+  static Future<void> transactionDetail(
+      BuildContext context, WalletTransactionDetail model) async {
+    await onShowBottomSheet(
       label: model.label,
       isAmountFormat: true,
       amountFormat: model.amount,
