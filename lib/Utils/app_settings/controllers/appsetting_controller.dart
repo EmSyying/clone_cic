@@ -8,6 +8,7 @@ import 'package:cicgreenloan/Utils/function/storelocal_data.dart';
 import 'package:cicgreenloan/modules/about_cic/model/about_cic_model.dart';
 import 'package:cicgreenloan/Utils/app_settings/models/contact_us.dart';
 import 'package:cicgreenloan/Utils/app_settings/models/settings.dart';
+import 'package:firebase_core_web/firebase_core_web_interop.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
@@ -135,6 +136,8 @@ class SettingController extends GetxController {
         var responseData = json.decode(response.body)['app-setting'];
         settingApp.value = Setting.fromJson(responseData);
         cicAppSetting = Setting.fromJson(responseData);
+        appSettingNofier.value = cicAppSetting;
+        appSettingNofier.notifyListeners();
         update();
 
         pref.setString('setting', json.encode(settingApp.value));

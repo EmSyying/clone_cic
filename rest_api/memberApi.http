@@ -12,7 +12,7 @@ Accept: application/json
 }
 
 ###
-GET {{baseUrl}}user
+GET {{baseUrl}}api/setting
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

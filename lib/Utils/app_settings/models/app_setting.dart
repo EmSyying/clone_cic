@@ -18,6 +18,7 @@ class AppSetting {
   String? iosInk;
   AboutApp? aboutApp;
   Password? password;
+  String? userToken;
 
   AppSetting(
       {this.applicationName,
@@ -38,7 +39,8 @@ class AppSetting {
       this.androidLink,
       this.iosInk,
       this.aboutApp,
-      this.password});
+      this.password,
+      this.userToken});
 
   AppSetting.fromJson(Map<String, dynamic> json) {
     applicationName = json['application_name'];

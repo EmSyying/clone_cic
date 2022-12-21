@@ -304,6 +304,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                   isDisable: false,
                                   isOutline: false,
                                   onPressed: () async {
+                                    debugPrint("Fetch Event Dertail");
                                     int event = int.parse(
                                       resultQR!.replaceAll('event', ''),
                                     );

@@ -4,6 +4,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:cicgreenloan/Utils/app_settings/models/app_setting.dart';
+import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
 import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.dart';
 
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
@@ -601,11 +603,12 @@ class _MyAppState extends State<MyApp> {
     return ConnectivityAppWrapper(
       app: ValueListenableBuilder(
           valueListenable: settingCon.appSettingNofier,
-          builder: (context, Setting state, _) {
+          builder: (context, Setting setting, _) {
             return GetBuilder<SettingController>(
               init: SettingController(),
               initState: (_) {
                 settingCon.onCheckAuthentication();
+                settingCon.fetchAppVersion();
               },
               builder: (controller) {
                 return Listener(
@@ -652,12 +655,22 @@ class _MyAppState extends State<MyApp> {
 
                     theme: ThemeData(
                       brightness: Brightness.light,
-                      backgroundColor: AppColor.mainColor,
-                      primaryColor: AppColor.mainColor,
-                      secondaryHeaderColor: AppColor.secondaryColor,
-                      cardColor: Colors.white,
+                      backgroundColor: fromHex(
+                        setting.brightPrimaryColor.toString(),
+                      ),
+                      primaryColor: fromHex(
+                        setting.brightPrimaryColor.toString(),
+                      ),
+                      secondaryHeaderColor: fromHex(
+                        setting.brightSecondColor.toString(),
+                      ),
+                      cardColor: fromHex(
+                        setting.brightCardColor.toString(),
+                      ),
                       appBarTheme: AppBarTheme(
-                        backgroundColor: AppColor.mainColor,
+                        backgroundColor: fromHex(
+                          setting.brightPrimaryColor.toString(),
+                        ),
                         centerTitle: false,
                         titleTextStyle:
                             Theme.of(context).textTheme.subtitle2!.copyWith(
@@ -667,7 +680,9 @@ class _MyAppState extends State<MyApp> {
                       ),
                       bottomNavigationBarTheme: BottomNavigationBarThemeData(
                           unselectedItemColor: const Color(0XFF848F92),
-                          selectedItemColor: Theme.of(context).primaryColor),
+                          selectedItemColor: fromHex(
+                            setting.brightPrimaryColor.toString(),
+                          )),
                       textTheme: TextTheme(
                         //appbar text
                         headline6: const TextStyle(
@@ -687,21 +702,27 @@ class _MyAppState extends State<MyApp> {
                           color: Color(0xff404040),
                         ),
 
-                        headline3: const TextStyle(
+                        headline3: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
-                            color: AppColor.mainColor,
+                            color: fromHex(
+                              setting.brightPrimaryColor.toString(),
+                            ),
                             fontWeight: FontWeight.w600),
                         headline1: isLocal
-                            ? const TextStyle(
+                            ? TextStyle(
                                 fontFamily: 'KhBattambang',
                                 fontSize: 27,
-                                color: AppColor.mainColor,
+                                color: fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
                               )
-                            : const TextStyle(
+                            : TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 27,
-                                color: AppColor.mainColor,
+                                color: fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
                               ),
                         bodyText2: const TextStyle(
                             fontFamily: 'DMSans',
@@ -744,8 +765,10 @@ class _MyAppState extends State<MyApp> {
                       ),
                       colorScheme: ColorScheme.fromSwatch()
                           .copyWith(secondary: AppColor.mainColor),
-                      textSelectionTheme: const TextSelectionThemeData(
-                          selectionColor: AppColor.mainColor),
+                      textSelectionTheme: TextSelectionThemeData(
+                          selectionColor: fromHex(
+                        setting.brightPrimaryColor.toString(),
+                      )),
                     ),
 
                     // darkTheme: !_con.isAutoDarkMode.value
