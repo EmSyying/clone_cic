@@ -33,9 +33,8 @@ class CustomInviteMemberBottom extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    "assets/images/svgfile/invite-member.svg",
-                  ),
+                  SvgPicture.asset("assets/images/svgfile/invite-member.svg",
+                      color: Theme.of(context).primaryColor),
                   const SizedBox(
                     width: 5,
                   ),

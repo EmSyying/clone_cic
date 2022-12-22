@@ -209,7 +209,7 @@ class ChartToolTipPainter extends CustomPainter {
     Paint paint2Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
-    paint2Stroke.color = strokeColor ?? const Color(0xff0F50A4);
+    paint2Stroke.color = strokeColor ?? AppColor.mainColor;
     canvas.drawPath(path_1, paint0Fill);
     canvas.drawPath(path_1, paint1Fill);
     canvas.drawPath(path_1, paint2Stroke);

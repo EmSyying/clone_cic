@@ -403,11 +403,11 @@ class _EventDetailState extends State<EventDetail> {
                                                             color: Colors.white,
                                                           ),
                                                           isColorsAppBar:
-                                                              AppColor
-                                                                  .mainColor,
+                                                              Theme.of(context)
+                                                                  .primaryColor,
                                                           backgroundColor:
-                                                              AppColor
-                                                                  .mainColor,
+                                                              Theme.of(context)
+                                                                  .primaryColor,
                                                           title: "Your Ticket",
                                                           titleColors: AppColor
                                                                   .arrowforwardColor[
@@ -477,8 +477,13 @@ class _EventDetailState extends State<EventDetail> {
                                                                   CrossAxisAlignment
                                                                       .start,
                                                               children: [
-                                                                SvgPicture.asset(
-                                                                    'assets/images/svgfile/ticket_star.svg'),
+                                                                SvgPicture
+                                                                    .asset(
+                                                                  'assets/images/svgfile/ticket_star.svg',
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                ),
                                                                 const SizedBox(
                                                                   width: 10,
                                                                 ),
@@ -580,10 +585,20 @@ class _EventDetailState extends State<EventDetail> {
                                                                         .value
                                                                         .isRegister ==
                                                                     false
-                                                                ? SvgPicture.asset(
-                                                                    'assets/images/svgfile/going.svg')
-                                                                : SvgPicture.asset(
-                                                                    'assets/images/svgfile/going_fill.svg'),
+                                                                ? SvgPicture
+                                                                    .asset(
+                                                                    'assets/images/svgfile/going.svg',
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  )
+                                                                : SvgPicture
+                                                                    .asset(
+                                                                    'assets/images/svgfile/going_fill.svg',
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  ),
                                                             onTap: () {
                                                               eventController
                                                                           .eventDetail
@@ -719,10 +734,18 @@ class _EventDetailState extends State<EventDetail> {
                                                                             .eventDetail
                                                                             .value
                                                                             .isUnterest!
-                                                                        ? SvgPicture.asset(
-                                                                            'assets/images/svgfile/not_interest.svg')
-                                                                        : SvgPicture.asset(
-                                                                            'assets/images/svgfile/not_interest_fill.svg'),
+                                                                        ? SvgPicture
+                                                                            .asset(
+                                                                            'assets/images/svgfile/not_interest.svg',
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                          )
+                                                                        : SvgPicture
+                                                                            .asset(
+                                                                            'assets/images/svgfile/not_interest_fill.svg',
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                          ),
                                                                     onTap:
                                                                         () async {
                                                                       controller
@@ -843,8 +866,9 @@ class _EventDetailState extends State<EventDetail> {
                                                                   '${eventController.eventDetail.value.place}',
                                                               imageSVG:
                                                                   'assets/images/svgfile/location_border.svg',
-                                                              textColor: AppColor
-                                                                  .mainColor),
+                                                              textColor: Theme.of(
+                                                                      context)
+                                                                  .primaryColor),
                                                         ),
                                                 ),
                                               ],
@@ -1148,7 +1172,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                                 null) {
                                                                               onShowCustomCupertinoModalSheet(
                                                                                 context: context,
-                                                                                title: 'Your Ticket',
+                                                                                title: 'Your Ticketss',
                                                                                 icon: const Icon(Icons.clear),
                                                                                 child: SizedBox(
                                                                                   width: double.infinity,
