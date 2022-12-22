@@ -38,8 +38,8 @@ mixin _$PrivilegeSlideModel {
   String? get urlTarget => throw _privateConstructorUsedError;
   @JsonKey(name: "image")
   String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: "button")
-  String? get button => throw _privateConstructorUsedError;
+  @JsonKey(name: 'button')
+  ButtonListModel? get buttonList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,7 +63,9 @@ abstract class $PrivilegeSlideModelCopyWith<$Res> {
       @JsonKey(name: "destination") String? destination,
       @JsonKey(name: "url_target") String? urlTarget,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "button") String? button});
+      @JsonKey(name: 'button') ButtonListModel? buttonList});
+
+  $ButtonListModelCopyWith<$Res>? get buttonList;
 }
 
 /// @nodoc
@@ -88,7 +90,7 @@ class _$PrivilegeSlideModelCopyWithImpl<$Res, $Val extends PrivilegeSlideModel>
     Object? destination = freezed,
     Object? urlTarget = freezed,
     Object? image = freezed,
-    Object? button = freezed,
+    Object? buttonList = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
@@ -127,11 +129,23 @@ class _$PrivilegeSlideModelCopyWithImpl<$Res, $Val extends PrivilegeSlideModel>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
-      button: freezed == button
-          ? _value.button
-          : button // ignore: cast_nullable_to_non_nullable
-              as String?,
+      buttonList: freezed == buttonList
+          ? _value.buttonList
+          : buttonList // ignore: cast_nullable_to_non_nullable
+              as ButtonListModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ButtonListModelCopyWith<$Res>? get buttonList {
+    if (_value.buttonList == null) {
+      return null;
+    }
+
+    return $ButtonListModelCopyWith<$Res>(_value.buttonList!, (value) {
+      return _then(_value.copyWith(buttonList: value) as $Val);
+    });
   }
 }
 
@@ -153,7 +167,10 @@ abstract class _$$_PrivilegeSlideModelCopyWith<$Res>
       @JsonKey(name: "destination") String? destination,
       @JsonKey(name: "url_target") String? urlTarget,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "button") String? button});
+      @JsonKey(name: 'button') ButtonListModel? buttonList});
+
+  @override
+  $ButtonListModelCopyWith<$Res>? get buttonList;
 }
 
 /// @nodoc
@@ -176,7 +193,7 @@ class __$$_PrivilegeSlideModelCopyWithImpl<$Res>
     Object? destination = freezed,
     Object? urlTarget = freezed,
     Object? image = freezed,
-    Object? button = freezed,
+    Object? buttonList = freezed,
   }) {
     return _then(_$_PrivilegeSlideModel(
       title: freezed == title
@@ -215,10 +232,10 @@ class __$$_PrivilegeSlideModelCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
-      button: freezed == button
-          ? _value.button
-          : button // ignore: cast_nullable_to_non_nullable
-              as String?,
+      buttonList: freezed == buttonList
+          ? _value.buttonList
+          : buttonList // ignore: cast_nullable_to_non_nullable
+              as ButtonListModel?,
     ));
   }
 }
@@ -236,7 +253,7 @@ class _$_PrivilegeSlideModel implements _PrivilegeSlideModel {
       @JsonKey(name: "destination") this.destination,
       @JsonKey(name: "url_target") this.urlTarget,
       @JsonKey(name: "image") this.image,
-      @JsonKey(name: "button") this.button});
+      @JsonKey(name: 'button') this.buttonList});
 
   factory _$_PrivilegeSlideModel.fromJson(Map<String, dynamic> json) =>
       _$$_PrivilegeSlideModelFromJson(json);
@@ -269,12 +286,12 @@ class _$_PrivilegeSlideModel implements _PrivilegeSlideModel {
   @JsonKey(name: "image")
   final String? image;
   @override
-  @JsonKey(name: "button")
-  final String? button;
+  @JsonKey(name: 'button')
+  final ButtonListModel? buttonList;
 
   @override
   String toString() {
-    return 'PrivilegeSlideModel(title: $title, description: $description, module: $module, shopId: $shopId, type: $type, status: $status, destination: $destination, urlTarget: $urlTarget, image: $image, button: $button)';
+    return 'PrivilegeSlideModel(title: $title, description: $description, module: $module, shopId: $shopId, type: $type, status: $status, destination: $destination, urlTarget: $urlTarget, image: $image, buttonList: $buttonList)';
   }
 
   @override
@@ -294,13 +311,14 @@ class _$_PrivilegeSlideModel implements _PrivilegeSlideModel {
             (identical(other.urlTarget, urlTarget) ||
                 other.urlTarget == urlTarget) &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.button, button) || other.button == button));
+            (identical(other.buttonList, buttonList) ||
+                other.buttonList == buttonList));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, title, description, module,
-      shopId, type, status, destination, urlTarget, image, button);
+      shopId, type, status, destination, urlTarget, image, buttonList);
 
   @JsonKey(ignore: true)
   @override
@@ -319,16 +337,17 @@ class _$_PrivilegeSlideModel implements _PrivilegeSlideModel {
 
 abstract class _PrivilegeSlideModel implements PrivilegeSlideModel {
   factory _PrivilegeSlideModel(
-      {@JsonKey(name: "title") final String? title,
-      @JsonKey(name: "description") final String? description,
-      @JsonKey(name: "module") final String? module,
-      @JsonKey(name: "shop_id") final int? shopId,
-      @JsonKey(name: "type") final String? type,
-      @JsonKey(name: "status") final String? status,
-      @JsonKey(name: "destination") final String? destination,
-      @JsonKey(name: "url_target") final String? urlTarget,
-      @JsonKey(name: "image") final String? image,
-      @JsonKey(name: "button") final String? button}) = _$_PrivilegeSlideModel;
+          {@JsonKey(name: "title") final String? title,
+          @JsonKey(name: "description") final String? description,
+          @JsonKey(name: "module") final String? module,
+          @JsonKey(name: "shop_id") final int? shopId,
+          @JsonKey(name: "type") final String? type,
+          @JsonKey(name: "status") final String? status,
+          @JsonKey(name: "destination") final String? destination,
+          @JsonKey(name: "url_target") final String? urlTarget,
+          @JsonKey(name: "image") final String? image,
+          @JsonKey(name: 'button') final ButtonListModel? buttonList}) =
+      _$_PrivilegeSlideModel;
 
   factory _PrivilegeSlideModel.fromJson(Map<String, dynamic> json) =
       _$_PrivilegeSlideModel.fromJson;
@@ -361,8 +380,8 @@ abstract class _PrivilegeSlideModel implements PrivilegeSlideModel {
   @JsonKey(name: "image")
   String? get image;
   @override
-  @JsonKey(name: "button")
-  String? get button;
+  @JsonKey(name: 'button')
+  ButtonListModel? get buttonList;
   @override
   @JsonKey(ignore: true)
   _$$_PrivilegeSlideModelCopyWith<_$_PrivilegeSlideModel> get copyWith =>

@@ -208,41 +208,6 @@ class SettingController extends GetxController {
     return slideList!;
   }
 
-//==slide Priviege===
-  List<SlideModel>? slideListPrivilege = <SlideModel>[];
-  final isLoadingSlidePri = false.obs;
-  Future<List<SlideModel>> fetchSlidePrivilege() async {
-    isLoadingSlidePri(true);
-    SlideModel slide = SlideModel();
-    var token = await LocalData.getCurrentUser();
-    String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}slide?module=privilege';
-    try {
-      await http.get(Uri.parse(url), headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token'
-      }).then((response) {
-        //debugPrint('hii1234567:${response.body}');
-        var responseJson = json.decode(response.body)['data'];
-        if (response.statusCode == 200) {
-          slideListPrivilege = [];
-          responseJson.map((data) {
-            slide = SlideModel.fromJson(data);
-            if (!slideListPrivilege!.contains(slide)) {
-              slideListPrivilege!.add(slide);
-            }
-            isLoadingSlidePri(false);
-          }).toList();
-        } else {}
-      });
-    } finally {
-      isLoadingSlidePri(false);
-    }
-
-    return slideListPrivilege!;
-  }
-
   /////====
   Future<List<SlideModel>> fetchSplashScreen() async {
     slideList!.clear();

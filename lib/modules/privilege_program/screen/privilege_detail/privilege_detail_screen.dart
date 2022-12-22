@@ -278,7 +278,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     bottom: 58,
                                     child: Container(
                                       margin: const EdgeInsets.only(
-                                        bottom: 20.0,
+                                        bottom: 12.0,
                                       ),
                                       child: CustomCardPoint(
                                         point: '100',
@@ -290,43 +290,38 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                    left: 20,
-                                    right: 20,
-                                    bottom: 0,
-                                    child: Container(
-                                      margin: const EdgeInsets.only(
-                                        bottom: 20.0,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.room,
-                                            size: 21,
-                                            color: Colors.grey,
+                                    left: 20.0,
+                                    right: 20.0,
+                                    bottom: 18,
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.room,
+                                          size: 21,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(
+                                          width: 14,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            priController.shopDetailModel.value
+                                                .fullAddress!,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      const Color(0xff464646),
+                                                  letterSpacing: 0.2,
+                                                  fontSize: 14,
+                                                ),
                                           ),
-                                          const SizedBox(
-                                            width: 14,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              priController.shopDetailModel
-                                                  .value.fullAddress!,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle2!
-                                                  .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    color:
-                                                        const Color(0xff464646),
-                                                    letterSpacing: 0.2,
-                                                    fontSize: 14,
-                                                  ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ],
@@ -489,14 +484,14 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                                   .textTheme
                                                   .subtitle2!
                                                   .copyWith(
-                                                    fontSize: 20,
+                                                    fontSize: 18,
                                                     fontWeight: FontWeight.w500,
-                                                    color:
-                                                        const Color(0xff007AFF),
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
                                                   ),
                                             ),
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              context.pop();
                                             },
                                           ),
                                         ),
@@ -538,9 +533,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
       child: Text(
         phone ?? '',
         style: Theme.of(context).textTheme.headline3!.copyWith(
-            fontWeight: FontWeight.w500,
-            fontSize: 20.0,
-            color: const Color(0xff007AFF)),
+              fontWeight: FontWeight.w500,
+              fontSize: 18.0,
+              color: Theme.of(context).primaryColor,
+              // color: const Color(0xff007AFF)
+            ),
       ),
       onPressed: () {
         launchUrl(

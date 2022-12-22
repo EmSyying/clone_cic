@@ -9,6 +9,7 @@ import '../model/category_model/model_categories.dart';
 import '../model/history/model_history_privilege.dart';
 import '../model/location/location.dart';
 import '../model/search_loation_list/search_location_list.dart';
+import '../model/slide_privilege/privilege_slide_model.dart';
 import '../model/stores_model/model_pre.dart';
 
 class PrivilegeController extends GetxController {
@@ -454,6 +455,42 @@ class PrivilegeController extends GetxController {
     });
 
     return shopCategoryItemList;
+  }
+
+//==slide Priviege===
+  final privilegeSlideList = <PrivilegeSlideModel>[].obs;
+  final slideList = PrivilegeSlideModel().obs;
+  final isLoadingSlidePri = false.obs;
+  Future<List<PrivilegeSlideModel>> fetchPrivilegeSlide() async {
+    isLoadingSlidePri(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'slide?module=privilege',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      debugPrint('Staus 200=====');
+      var responseJson = response['data'];
+      privilegeSlideList.clear();
+      debugPrint('Slide privilege::List=====$responseJson');
+
+      responseJson.map((e) {
+        slideList.value = PrivilegeSlideModel.fromJson(e);
+        // debugPrint('heloooo12345:${shopModel.value.isFavorite}');
+        privilegeSlideList.add(slideList.value);
+        debugPrint(
+            'Slide privilege index 00000000=======${privilegeSlideList[0].title}');
+      }).toList();
+      debugPrint(
+          'Slide privilege index 1233=======${privilegeSlideList[0].title}');
+
+      isLoadingSlidePri(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      debugPrint('errr=======slide===');
+      isLoadingSlidePri(false);
+    });
+    return privilegeSlideList;
   }
 
   ///OnPaymentPrivilege=====================

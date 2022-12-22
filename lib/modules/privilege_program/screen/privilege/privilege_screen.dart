@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_history_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +10,6 @@ import 'package:get/get.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import '../../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../../Utils/custom_indicatior.dart';
 import '../../../../Utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
@@ -37,7 +35,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final ScrollController scrollController = ScrollController();
   final priCon = Get.put(PrivilegeController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
-  final _settingCon = Get.put(SettingController());
+  //final _settingCon = Get.put(SettingController());
   int page = 1;
   Future<void> onRefresh() async {
     page = 1;
@@ -64,7 +62,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     priCon.onFetchAllStore(page);
     priCon.onFetchCategories();
     priCon.onRefreshPrivilege();
-    _settingCon.fetchSlidePrivilege();
+    // _settingCon.fetchSlidePrivilege();
+    priCon.fetchPrivilegeSlide();
     super.initState();
   }
 
@@ -160,8 +159,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        !_settingCon.isLoading.value &&
-                                _settingCon.slideListPrivilege!.isNotEmpty
+                        !priCon.isLoadingSlidePri.value &&
+                                priCon.privilegeSlideList.isNotEmpty
                             ? Padding(
                                 padding: const EdgeInsets.only(
                                     top: 20, left: 20, right: 20),
@@ -172,13 +171,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     index: currentIndex,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      if (_settingCon.slideListPrivilege![index]
-                                              .module ==
-                                          'Privilege') {
-                                        return InkWell(
+                                      if (priCon.privilegeSlideList[index]
+                                              .status ==
+                                          'Display') {
+                                        return GestureDetector(
                                           onTap: () {
-                                            // context.push(
-                                            //     "/privilege/all-store/privilege-detail/4}");
+                                            context.push(
+                                                "/profile/setting/privilege/all-store/privilege-detail/${priCon.privilegeSlideList[index].shopId}");
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -187,8 +186,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                               children: [
                                                 Positioned.fill(
                                                   child: CachedNetworkImage(
-                                                    imageUrl: _settingCon
-                                                        .slideListPrivilege![
+                                                    imageUrl: priCon
+                                                        .privilegeSlideList[
                                                             index]
                                                         .image!,
                                                     fit: BoxFit.cover,
@@ -208,8 +207,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     },
                                     curve: Curves.easeIn,
                                     autoplay: true,
-                                    itemCount:
-                                        _settingCon.slideListPrivilege!.length,
+                                    itemCount: priCon.privilegeSlideList.length,
                                     viewportFraction: 1,
                                     scale: 0.9,
                                   ),
@@ -227,11 +225,11 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: _settingCon.slideListPrivilege!
+                            children: priCon.privilegeSlideList
                                 .asMap()
                                 .entries
                                 .where((element) =>
-                                    element.value.module == 'Privilege')
+                                    element.value.status == 'Display')
                                 .map((e) => CustomIndicator(
                                       isSelect: e.key == currentIndex,
                                     ))
