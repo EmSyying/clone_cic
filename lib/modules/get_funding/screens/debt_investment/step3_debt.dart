@@ -1907,7 +1907,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(
-                                      left: 20, right: 20, bottom: 30, top: 10),
+                                      left: 20, right: 20, bottom: 10, top: 10),
                                   child: Row(
                                     children: [
                                       Expanded(

@@ -99,7 +99,7 @@ class CustomChangeAccountBank extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   )
                 : SingleChildScrollView(
-                    padding: const EdgeInsets.only(bottom: 30),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: Column(
                       children: [
                         CICDropdown(

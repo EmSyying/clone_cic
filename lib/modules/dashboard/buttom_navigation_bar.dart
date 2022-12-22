@@ -298,41 +298,36 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                         ),
                         label: S.of(context).homeMenu,
                         activeIcon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/HomeActiveIcon.svg'),
+                          'assets/images/svgfile/menu/HomeActiveIcon.svg',
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
                             'assets/images/svgfile/menu/qrcodeInactive.svg',
                             color: const Color(0XFF848F92)),
                         activeIcon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/qrCodeActive.svg',
-                            color: const Color(0XFF848F92)),
+                          'assets/images/svgfile/menu/qrCodeActive.svg',
+                          color: Theme.of(context).primaryColor,
+                        ),
                         label: S.of(context).qrCode,
                       ),
-                      // BottomNavigationBarItem(
-                      //   icon: Icon(Icons.book),
-                      //   activeIcon: Icon(Icons.book),
-                      //   label: 'Learning',
-                      // ),
-                      // BottomNavigationBarItem(
-                      //   icon: SvgPicture.asset(
-                      //       'assets/images/svgfile/menu/inactivesearchmenu.svg'),
-                      //   activeIcon: SvgPicture.asset(
-                      //       'assets/images/svgfile/menu/activesearchmenu.svg'),
-                      //   label: S.of(context).search,
-                      // ),
                       BottomNavigationBarItem(
                           icon: SvgPicture.asset(
                               'assets/images/svgfile/menu/eventInactive.svg'),
                           activeIcon: SvgPicture.asset(
-                              'assets/images/svgfile/menu/eventActive.svg'),
+                            'assets/images/svgfile/menu/eventActive.svg',
+                            color: Theme.of(context).primaryColor,
+                          ),
                           label: S.of(context).event),
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
                             'assets/images/svgfile/menu/account.svg',
                             color: const Color(0XFF848F92)),
                         activeIcon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/accountActive.svg'),
+                          'assets/images/svgfile/menu/accountActive.svg',
+                          color: Theme.of(context).primaryColor,
+                        ),
                         label: S.of(context).profile,
                       ),
                     ],

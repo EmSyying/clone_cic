@@ -850,7 +850,7 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                     widget.id == null)
                                   Container(
                                     margin: const EdgeInsets.only(
-                                        left: 0, right: 0, bottom: 30),
+                                        left: 0, right: 0, bottom: 10),
                                     child: Container(
                                       margin: const EdgeInsets.only(
                                           left: 20, right: 20, top: 10),

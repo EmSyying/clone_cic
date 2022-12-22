@@ -63,7 +63,7 @@ class FeatureEvent extends StatelessWidget {
                   onTap: () {
                     // EventDetailArgument argument =
                     //     EventDetailArgument(id: e.value.id);
-                    context.push('/event/${e.value.id}');
+                    context.go('/event/${e.value.id}');
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),

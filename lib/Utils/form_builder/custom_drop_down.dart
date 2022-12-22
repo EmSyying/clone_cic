@@ -175,7 +175,7 @@ class _CICDropdownState extends State<CICDropdown> {
                         child: Container(
                           margin: widget.margin ??
                               const EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 30),
+                                  left: 20, right: 20, bottom: 10),
                           width: double.infinity,
                           height: double.infinity,
                           decoration: BoxDecoration(

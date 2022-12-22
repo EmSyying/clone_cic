@@ -223,7 +223,7 @@ class _NotificationDetailPopupState extends State<NotificationDetailPopup> {
                             padding: const EdgeInsets.only(top: 20),
                             width: double.infinity,
                             margin: const EdgeInsets.only(
-                                left: 20.0, right: 20.0, bottom: 30.0),
+                                left: 20.0, right: 20.0, bottom: 10.0),
                             child: CustomButton(
                               isDisable: false,
                               isOutline: false,

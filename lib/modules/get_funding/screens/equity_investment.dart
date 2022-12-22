@@ -181,9 +181,9 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 20,
+                                          left: 10,
                                           right: 20,
-                                          bottom: 30,
+                                          bottom: 10,
                                           top: 10),
                                       child: CustomButton(
                                         onPressed: () {
@@ -319,7 +319,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
+          margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
           child: CustomButton(
             iconUrl: 'assets/images/svgfile/equityInvestment.svg',
             isDisable: false,

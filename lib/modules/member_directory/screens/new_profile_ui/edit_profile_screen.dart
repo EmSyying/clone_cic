@@ -522,7 +522,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             bottomNavigationBar: widget.isEditCompany == false
                 ? Padding(
                     padding: const EdgeInsets.only(
-                        bottom: 30, left: 20, right: 20, top: 10),
+                        bottom: 10, left: 20, right: 20, top: 10),
                     child: Row(
                       children: [
                         Expanded(

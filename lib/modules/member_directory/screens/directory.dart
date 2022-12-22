@@ -517,7 +517,7 @@ class _DirectoryState extends State<Directory> {
     return memberController.fetchMoreMemberLoading.value
         ? Container(
             margin:
-                const EdgeInsets.only(left: 0, right: 0, bottom: 30, top: 30),
+                const EdgeInsets.only(left: 0, right: 0, bottom: 10, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

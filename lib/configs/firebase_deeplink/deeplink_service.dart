@@ -16,21 +16,28 @@ class DynamicLinkService {
       String? description,
       String? image,
       String? title,
-      bool isShort = false}) async {
+      bool isShort = false,
+      bool forSocialLink = false}) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://cicapp.page.link',
-      link: Uri.parse('https://cicapp.page.link/$path'),
-      androidParameters: const AndroidParameters(
-        packageName: 'com.cambodianinvestorscorporation',
-        minimumVersion: 1,
-      ),
-      iosParameters: IOSParameters(
-        bundleId: FlavorConfig.instance.values!.iOSBundleName,
-        minimumVersion: '1',
-        appStoreId: '1553871408',
-        ipadBundleId: FlavorConfig.instance.values!.iOSBundleName,
-      ),
-    );
+        uriPrefix: 'https://cicapp.page.link',
+        link: Uri.parse('https://cicapp.page.link/$path'),
+        androidParameters: const AndroidParameters(
+          packageName: 'com.cambodianinvestorscorporation',
+          minimumVersion: 1,
+        ),
+        iosParameters: IOSParameters(
+          bundleId: FlavorConfig.instance.values!.iOSBundleName,
+          minimumVersion: '1',
+          appStoreId: '1553871408',
+          ipadBundleId: FlavorConfig.instance.values!.iOSBundleName,
+        ),
+        socialMetaTagParameters: forSocialLink
+            ? SocialMetaTagParameters(
+                description: description,
+                title: title,
+                imageUrl: Uri.tryParse(image!),
+              )
+            : null);
     Uri url;
     if (isShort) {
       final ShortDynamicLink shortLink =
@@ -47,6 +54,7 @@ class DynamicLinkService {
     final PendingDynamicLinkData? initialLink =
         await FirebaseDynamicLinks.instance.getInitialLink();
     if (initialLink != null) {
+      debugPrint("Initial Link: $initialLink");
       String links = initialLink.link
           .toString()
           .replaceAll('https://cicapp.page.link', '');
@@ -57,6 +65,7 @@ class DynamicLinkService {
     // }
     dynamiclink.onLink.listen((PendingDynamicLinkData? dynamicLink) async {
       setPinCon.deepLink = dynamicLink?.link;
+      debugPrint("Initial Link: ${dynamicLink?.link}");
       String links = dynamicLink!.link
           .toString()
           .replaceAll('https://cicapp.page.link', '');

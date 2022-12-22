@@ -208,7 +208,7 @@ class OptionInvest extends StatelessWidget {
               Container(
                 color: Colors.white,
                 padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 20, bottom: 30),
+                    left: 20, right: 20, top: 10, bottom: 10),
                 child: CustomButton(
                   onPressed: () {},
                   isDisable: investDuraionCon.isSubmit.value ? false : true,

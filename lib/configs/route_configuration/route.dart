@@ -98,7 +98,6 @@ class CICRoute extends MainRoute {
 
   @override
   GoRoute transferToMMA([String fromWhere = '']) => GoRoute(
-        parentNavigatorKey: _rootNavigatorKey,
         path: 'transfer-to-other-mmacount',
         name: '${fromWhere}TransferToMMA',
         builder: (_, state) => TransferToMMA(
@@ -107,7 +106,6 @@ class CICRoute extends MainRoute {
         ),
         routes: [
           GoRoute(
-            parentNavigatorKey: _rootNavigatorKey,
             path: 'review-transfer',
             name: '${fromWhere}ReviewTransfer',
             //_,__ just because arguments are not used
@@ -173,7 +171,6 @@ final router = GoRouter(
                 GoRoute(
                   path: 'bonus',
                   name: 'Bonus',
-                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => BonusScreen(
                     key: state.pageKey,
                     tapName: state.queryParams['tapName'],
@@ -181,7 +178,6 @@ final router = GoRouter(
                 ),
 
                 GoRoute(
-                    parentNavigatorKey: _rootNavigatorKey,
                     path: 'get_funding',
                     name: 'GetFunding',
                     builder: (context, state) => HomePage(
@@ -190,7 +186,6 @@ final router = GoRouter(
                         ),
                     routes: [
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'equity-step1',
                         name: 'EquityStep1',
                         builder: (context, state) => Step1Equiry(
@@ -201,7 +196,6 @@ final router = GoRouter(
                             )),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'equity-step2',
                         name: 'EquityStep2',
                         builder: (context, state) => Step2Equity(
@@ -212,7 +206,6 @@ final router = GoRouter(
                         ),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'equity-step3',
                         name: 'EquityStep3',
                         builder: (context, state) => Step3Equity(
@@ -224,7 +217,6 @@ final router = GoRouter(
                         ),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'preview-equity',
                         name: 'PreviewEquity',
                         builder: (context, state) => PreviewEquity(
@@ -237,7 +229,6 @@ final router = GoRouter(
 
                       // Debt Investment
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'debt-step1',
                         name: 'DebtStep1',
                         builder: (context, state) => Step1Debt(
@@ -249,7 +240,6 @@ final router = GoRouter(
                             )),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'debt-step2',
                         name: 'DebtStep2',
                         builder: (context, state) => Step2Debt(
@@ -261,7 +251,6 @@ final router = GoRouter(
                         ),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'debt-step3',
                         name: 'DebtStep3',
                         builder: (context, state) => Step3Debt(
@@ -273,7 +262,6 @@ final router = GoRouter(
                         ),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'debt-step4',
                         name: 'RequiredDocument',
                         builder: (context, state) => RequiredDocument(
@@ -285,7 +273,6 @@ final router = GoRouter(
                         ),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'preview-debt',
                         name: 'PreviewDebt',
                         builder: (context, state) => PreviewDebtForm(
@@ -300,7 +287,6 @@ final router = GoRouter(
                 GoRoute(
                   path: 'investment',
                   name: 'Investment',
-                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => Dashboard(
                     key: state.pageKey,
                     tabName: state.params['tabName'],
@@ -316,7 +302,6 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'saving-detail',
                         name: 'SavingDetail',
                         builder: (context, state) {
@@ -337,7 +322,6 @@ final router = GoRouter(
                         },
                         routes: [
                           GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
                               path: 'renew-contract',
                               name: 'RenewContract',
                               builder: (context, state) {
@@ -358,7 +342,6 @@ final router = GoRouter(
                               },
                               routes: [
                                 GoRoute(
-                                    parentNavigatorKey: _rootNavigatorKey,
                                     path: 'bullet-payment-detail',
                                     name: 'BulletPaymentDetailS',
                                     builder: (context, state) {
@@ -411,7 +394,6 @@ final router = GoRouter(
                               ]),
                         ]),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'deposite-screen/:id',
                       name: 'DepositeScreen',
                       builder: (context, state) => DepositeScreen(
@@ -420,7 +402,6 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'view-agreement',
                       name: 'ViewAgreement',
                       builder: (context, state) {
@@ -435,7 +416,6 @@ final router = GoRouter(
                       },
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'view-agreement-list',
                       name: 'ViewAgreementList',
                       builder: (context, state) {
@@ -446,7 +426,6 @@ final router = GoRouter(
                       },
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'view-contract-term',
                       name: 'ViewContractTerm',
                       builder: (context, state) {
@@ -457,7 +436,6 @@ final router = GoRouter(
                       },
                     ),
                     GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'edit-application/:id',
                         name: 'EditApplication',
                         builder: (context, state) {
@@ -468,7 +446,6 @@ final router = GoRouter(
                         },
                         routes: [
                           GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
                               path: 'bullet-payment-detail',
                               name: 'BulletPaymentDetailEdit',
                               builder: (context, state) {
@@ -512,7 +489,6 @@ final router = GoRouter(
                               })
                         ]),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'bullet-payment-detail',
                       name: 'BulletPaymentDetail',
                       builder: (context, state) {
@@ -565,7 +541,6 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'about-fif',
                       name: 'AboutFiF',
                       builder: (context, state) => ViewWebsite(
@@ -575,7 +550,6 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'fif-deduction/:id',
                       name: 'Invest More',
                       builder: (context, state) => FIFDeucSelection(
@@ -584,14 +558,12 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'invest-more',
                       name: 'Invest More No Param',
                       builder: (context, state) =>
                           FIFDeucSelection(key: state.pageKey),
                       routes: [
                         GoRoute(
-                            parentNavigatorKey: _rootNavigatorKey,
                             path: 'fif-step',
                             name: 'FiF1',
                             builder: (context, state) {
@@ -607,7 +579,6 @@ final router = GoRouter(
                             },
                             routes: [
                               GoRoute(
-                                  parentNavigatorKey: _rootNavigatorKey,
                                   path: 'bullet-payment',
                                   name: 'BulletPaymentInvest',
                                   builder: (context, state) {
@@ -667,12 +638,10 @@ final router = GoRouter(
                 /// Wallet
 
                 GoRoute(
-                  parentNavigatorKey: _rootNavigatorKey,
                   path: 'wallet',
                   builder: (_, state) => WalletScreen(key: state.pageKey),
                   routes: [
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       name: 'DepositCard',
                       path: 'deposit-card',
                       builder: (_, state) => MMADepositCard(
@@ -681,14 +650,12 @@ final router = GoRouter(
                               state.queryParams['fromModule'].toString()),
                       routes: [
                         GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           name: 'DepositToScreen',
                           path: 'deposit-to-screen',
                           builder: (_, state) =>
                               DepositToScreen(key: state.pageKey),
                           routes: [
                             GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
                               name: 'MMAccountDepositScreen',
                               path: 'mmaccount-deposit-screen',
                               builder: (_, state) =>
@@ -697,7 +664,6 @@ final router = GoRouter(
                           ],
                         ),
                         GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           name: 'RecieverMmAccount',
                           path: 'reciever-mm-account',
                           builder: (_, state) =>
@@ -706,14 +672,12 @@ final router = GoRouter(
                       ],
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'invest-fif',
                       name: 'mmaInvestFIFScreen',
                       builder: (context, state) =>
                           MMAInvestFIFScreen(key: state.pageKey),
                       routes: [
                         GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'cic-equity-fund',
                           name: 'CiCEquityFund',
                           builder: (context, state) => CiCEquityFund(
@@ -722,7 +686,6 @@ final router = GoRouter(
                           ),
                           routes: [
                             GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
                               path: 'ut-subscription/:tabName',
                               builder:
                                   (BuildContext context, GoRouterState state) {
@@ -735,7 +698,6 @@ final router = GoRouter(
                           ],
                         ),
                         GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'cic-fixed-income',
                           name: 'CiCFixedIncome',
                           builder: (context, state) => CiCFixedIncome(
@@ -750,14 +712,12 @@ final router = GoRouter(
 
                     //MMA Cash out
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'mma-transfer',
                       name: 'MMADepositCard',
                       builder: (context, state) => MMADepositCard(
                           fromModule: 'Transfer', key: state.pageKey),
                       routes: [
                         GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'mma-cash-out/:tabName',
                           builder: (BuildContext context, GoRouterState state) {
                             final String tabName = state.params['tabName']!;
@@ -772,13 +732,11 @@ final router = GoRouter(
                 ),
                 // Report Module
                 GoRoute(
-                  parentNavigatorKey: _rootNavigatorKey,
                   path: 'report_screen',
                   name: 'ReportScreen',
                   builder: (context, state) => ReportScreen(key: state.pageKey),
                   routes: [
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'report-filed',
                       name: 'ReportFiledCategory',
                       builder: (context, state) => FileCategoriesReport(
@@ -787,7 +745,6 @@ final router = GoRouter(
                           key: state.pageKey),
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'view-report-list',
                       name: "ViewReportList",
                       builder: (context, state) => ViewReport(
@@ -803,7 +760,6 @@ final router = GoRouter(
                 GoRoute(
                     path: 'ut_trading',
                     name: 'UT-Trading',
-                    parentNavigatorKey: _rootNavigatorKey,
                     builder: (context, state) => UTtrading(
                           key: state.pageKey,
                           tradeId: int.tryParse(
@@ -812,7 +768,6 @@ final router = GoRouter(
                         ),
                     routes: [
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
                         path: 'view-last-trading-info',
                         name: 'ViewLastTradingInfo',
                         builder: (context, state) {
@@ -823,7 +778,6 @@ final router = GoRouter(
                         },
                       ),
                       GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'trading-inquiry/:operation',
                           name: 'Trading',
                           builder: (context, state) => Trading(
@@ -855,7 +809,6 @@ final router = GoRouter(
                               ),
                           routes: [
                             GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
                               path: 'inquiry-form',
                               name: 'AddInquiry',
                               builder: (context, state) => AddInquiry(
@@ -891,14 +844,12 @@ final router = GoRouter(
                 GoRoute(
                   path: 'directory',
                   name: 'Directory',
-                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => Directory(
                     key: state.pageKey,
                   ),
                 ),
                 // Recent Report
                 GoRoute(
-                    parentNavigatorKey: _rootNavigatorKey,
                     path: 'report/:id',
                     name: 'Report',
                     builder: (context, state) => Report(
@@ -907,7 +858,6 @@ final router = GoRouter(
                         ),
                     routes: [
                       GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'view-report',
                           name: "ViewReport",
                           builder: (context, state) => ViewReport(
@@ -921,7 +871,6 @@ final router = GoRouter(
                 GoRoute(
                   path: 'switch-splash-screen',
                   name: 'SwitchSplashScreen',
-                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) => CustomTransitionPage(
                       child: SwitchSplashScreen(
                         offset: state.extra! as Offset,
@@ -935,7 +884,6 @@ final router = GoRouter(
                 GoRoute(
                   path: 'notification',
                   name: 'Notification',
-                  parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) =>
                       NotificationScreen(key: state.pageKey),
                   routes: [
@@ -949,7 +897,6 @@ final router = GoRouter(
                             state.params['id'].toString(),
                           ),
                           key: state.pageKey),
-                      parentNavigatorKey: _rootNavigatorKey,
                       routes: [
                         GoRoute(
                           path: 'view-map-notification',
@@ -968,7 +915,6 @@ final router = GoRouter(
 
                     // debt investment
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'preview-debt',
                       name: 'PreviewDebtNotification',
                       builder: (context, state) => PreviewDebtForm(
@@ -978,20 +924,18 @@ final router = GoRouter(
                     // ennd
 
                     // equity investment
-                     GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
-                        path: 'preview-equity',
-                        name: 'PreviewEquityNotification',
-                        builder: (context, state) => PreviewEquity(
-                          key: state.pageKey,
-                          id: int.tryParse(
-                            state.queryParams['id'].toString(),
-                          ),
+                    GoRoute(
+                      path: 'preview-equity',
+                      name: 'PreviewEquityNotification',
+                      builder: (context, state) => PreviewEquity(
+                        key: state.pageKey,
+                        id: int.tryParse(
+                          state.queryParams['id'].toString(),
                         ),
                       ),
-                      // End
+                    ),
+                    // End
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'deposite-screen/:id',
                       name: 'DepositeScreenNotification',
                       builder: (context, state) => DepositeScreen(
@@ -1006,7 +950,6 @@ final router = GoRouter(
                           BulletPaymentDetail(key: state.pageKey),
                     ),
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'saving-detail',
                       name: 'SavingDetailNotification',
                       builder: (context, state) {
@@ -1019,7 +962,6 @@ final router = GoRouter(
                       },
                       routes: [
                         GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'renew-contract',
                           name: 'RenewContractNotification',
                           builder: (context, state) {
@@ -1108,7 +1050,6 @@ final router = GoRouter(
                         state.params['id'].toString(),
                       ),
                       key: state.pageKey),
-                  parentNavigatorKey: _rootNavigatorKey,
                   routes: [
                     GoRoute(
                       path: 'view-map',

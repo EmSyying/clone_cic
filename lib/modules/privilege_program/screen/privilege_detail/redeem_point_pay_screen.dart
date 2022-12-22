@@ -153,7 +153,7 @@ class RedeemPointToPay extends StatelessWidget {
           Container(
             color: Colors.white,
             padding:
-                const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 30),
+                const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
             child: CustomButton(
               width: double.infinity,
               onPressed: () {

@@ -151,7 +151,7 @@ class _CustomTradingTransferByState extends State<CustomTradingTransferBy> {
             height: 50.0,
             width: double.infinity,
             margin:
-                const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 30.0),
+                const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
             child: CustomButton(
               isDisable: false,
               isOutline: false,

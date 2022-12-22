@@ -18,6 +18,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/option_controller/option_controller.dart';
+import '../../../configs/firebase_deeplink/deeplink_service.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/color.dart';
@@ -544,6 +545,8 @@ class EventController extends GetxController {
     return availableZone;
   }
 
+  final eventShortenUrl = ''.obs;
+
   Future<EventData> fetchEventDetail(int id) async {
     isLoadingEventDetail(true);
     final url = '${FlavorConfig.instance.values!.apiBaseUrlV3}event/$id';
@@ -559,14 +562,17 @@ class EventController extends GetxController {
 
           eventDetail.value = EventData.fromJson(responseJson);
           // DynamicLinkService  not work so i command
-          // Uri uri = await DynamicLinkService.createDynamicLink(
-          //     path: '/event/event-detail/${eventDetail.value.id}',
-          //     description: '${eventDetail.value.title}',
-          //     image: '${eventDetail.value.cover}');
-          // eventShortenUrl.value = uri.toString();
+          Uri uri = await DynamicLinkService.createDynamicLink(
+              path: 'event/${eventDetail.value.id}',
+              description: '${eventDetail.value.title}',
+              image: '${eventDetail.value.cover}',
+              forSocialLink: true,
+              isShort: true);
+          eventShortenUrl.value = uri.toString();
         } else {}
       });
     } catch (e) {
+      isLoadingEventDetail(false);
       return Future.error('Error: $e');
     } finally {
       isLoadingEventDetail(false);

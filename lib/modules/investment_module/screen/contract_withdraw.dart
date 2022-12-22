@@ -316,7 +316,7 @@ class _ContractWithdrawScreenState extends State<ContractWithdrawScreen> {
                   // margin: const EdgeInsets.only(left: 20, right: 20),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 20, bottom: 30, right: 20, left: 20),
+                        top: 10, bottom: 10, right: 20, left: 20),
                     child: Row(
                       children: [
                         Expanded(

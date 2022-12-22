@@ -224,7 +224,9 @@ class _EventDetailState extends State<EventDetail> {
                                                                 as RenderBox;
 
                                                         Share.share(
-                                                            'https://cicapp.page.link/event/${widget.eventId}',
+                                                            eventController
+                                                                .eventShortenUrl
+                                                                .value,
                                                             subject: '',
                                                             sharePositionOrigin:
                                                                 box.localToGlobal(
@@ -998,7 +1000,9 @@ class _EventDetailState extends State<EventDetail> {
                                                   debugPrint(
                                                       'Is Link share link');
                                                   Share.share(
-                                                      'https://cicapp.page.link/event/event-detail/${widget.eventId}',
+                                                      eventController
+                                                          .eventShortenUrl
+                                                          .value,
                                                       subject: '',
                                                       sharePositionOrigin:
                                                           box.localToGlobal(
@@ -1057,8 +1061,8 @@ class _EventDetailState extends State<EventDetail> {
                                   width: double.infinity,
                                   margin: const EdgeInsets.only(
                                       right: 15.0,
-                                      top: 20.0,
-                                      bottom: 30.0,
+                                      top: 10.0,
+                                      bottom: 10.0,
                                       left: 15.0),
                                   child: Row(
                                     children: [

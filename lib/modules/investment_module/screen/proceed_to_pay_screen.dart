@@ -39,7 +39,7 @@ class ProceedToPayScreen extends StatelessWidget {
               },
             )),
         Padding(
-          padding: const EdgeInsets.only(bottom: 30),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

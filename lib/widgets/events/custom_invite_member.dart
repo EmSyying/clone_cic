@@ -365,7 +365,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                       height: 50.0,
                       width: double.infinity,
                       margin: const EdgeInsets.only(
-                          right: 15.0, top: 20.0, bottom: 30.0, left: 15.0),
+                          right: 15.0, top: 10.0, bottom: 10.0, left: 15.0),
                       child: CustomButton(
                           title: "Invite Member",
                           isOutline: false,

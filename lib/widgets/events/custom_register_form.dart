@@ -469,7 +469,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                       child: Container(
                                         width: 125,
                                         margin: const EdgeInsets.only(
-                                            left: 20, top: 20, bottom: 30),
+                                            left: 20, top: 10, bottom: 10),
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 8),
                                         decoration: BoxDecoration(

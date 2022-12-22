@@ -1067,145 +1067,145 @@ class _MainDashboardState extends State<MainDashboard> {
                       ),
                     ),
                   ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'RECENT DOCUMENTS',
-                style: Theme.of(context).textTheme.headline2,
-              ),
-            ),
-            SizedBox(
-              height: 120,
-              width: double.infinity,
-              child: FutureBuilder<List<DocumentationModel>>(
-                future: futureList,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<DocumentationModel>> snapshot) {
-                  if (snapshot.hasData &&
-                      snapshot.connectionState == ConnectionState.done &&
-                      documentCon.documentationList.isNotEmpty) {
-                    return ListView.builder(
-                      padding: const EdgeInsets.all(15),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        var item = snapshot.data![index];
-                        return GestureDetector(
-                          onTap: () {
-                            // debugPrint('item.cover${item.cover}');
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ViewReport(
-                                  title: item.title,
-                                  url: item.url,
-                                  attachedFile: item.attachedFile,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 20),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      offset: Offset(1.0, 0.0),
-                                      color: Colors.black12,
-                                      blurRadius: 4)
-                                ]),
-                            width: 330,
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 15),
-                                  height: 60,
-                                  width: 60,
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    color: fromHex(item.color ?? '')
-                                        .withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: SvgPicture.network(
-                                    item.cover ?? '',
-                                    color: item.color != null &&
-                                            item.color!.isNotEmpty
-                                        ? fromHex(item.color!)
-                                        : null,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        child: Text(
-                                          item.title!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        child: Text(
-                                          item.publishedAt!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.grey[500],
-                                  size: 18,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: snapshot.data!.length,
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting &&
-                      documentCon.documentationList.isEmpty) {
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return const ReportShimmer();
-                      },
-                      itemCount: 4,
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      documentCon.documentationList.isEmpty) {
-                    return Container();
-                  }
-                  return Container();
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Text(
+            //     'RECENT DOCUMENTS',
+            //     style: Theme.of(context).textTheme.headline2,
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 120,
+            //   width: double.infinity,
+            //   child: FutureBuilder<List<DocumentationModel>>(
+            //     future: futureList,
+            //     builder: (BuildContext context,
+            //         AsyncSnapshot<List<DocumentationModel>> snapshot) {
+            //       if (snapshot.hasData &&
+            //           snapshot.connectionState == ConnectionState.done &&
+            //           documentCon.documentationList.isNotEmpty) {
+            //         return ListView.builder(
+            //           padding: const EdgeInsets.all(15),
+            //           scrollDirection: Axis.horizontal,
+            //           itemBuilder: (context, index) {
+            //             var item = snapshot.data![index];
+            //             return GestureDetector(
+            //               onTap: () {
+            //                 // debugPrint('item.cover${item.cover}');
+            //                 Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) => ViewReport(
+            //                       title: item.title,
+            //                       url: item.url,
+            //                       attachedFile: item.attachedFile,
+            //                     ),
+            //                   ),
+            //                 );
+            //               },
+            //               child: Container(
+            //                 margin: const EdgeInsets.only(right: 20),
+            //                 decoration: BoxDecoration(
+            //                     color: Theme.of(context).cardColor,
+            //                     borderRadius: BorderRadius.circular(10),
+            //                     boxShadow: const [
+            //                       BoxShadow(
+            //                           offset: Offset(1.0, 0.0),
+            //                           color: Colors.black12,
+            //                           blurRadius: 4)
+            //                     ]),
+            //                 width: 330,
+            //                 child: Row(
+            //                   children: [
+            //                     Container(
+            //                       margin: const EdgeInsets.only(left: 15),
+            //                       height: 60,
+            //                       width: 60,
+            //                       padding: const EdgeInsets.all(12),
+            //                       decoration: BoxDecoration(
+            //                         color: fromHex(item.color ?? '')
+            //                             .withOpacity(0.2),
+            //                         borderRadius: BorderRadius.circular(8),
+            //                       ),
+            //                       alignment: Alignment.center,
+            //                       child: SvgPicture.network(
+            //                         item.cover ?? '',
+            //                         color: item.color != null &&
+            //                                 item.color!.isNotEmpty
+            //                             ? fromHex(item.color!)
+            //                             : null,
+            //                       ),
+            //                     ),
+            //                     Expanded(
+            //                       child: Column(
+            //                         crossAxisAlignment:
+            //                             CrossAxisAlignment.start,
+            //                         mainAxisAlignment: MainAxisAlignment.center,
+            //                         children: [
+            //                           Padding(
+            //                             padding: const EdgeInsets.symmetric(
+            //                                 horizontal: 15),
+            //                             child: Text(
+            //                               item.title!,
+            //                               style: Theme.of(context)
+            //                                   .textTheme
+            //                                   .bodyText2,
+            //                               maxLines: 1,
+            //                               overflow: TextOverflow.ellipsis,
+            //                             ),
+            //                           ),
+            //                           const SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                           Padding(
+            //                             padding: const EdgeInsets.symmetric(
+            //                                 horizontal: 15),
+            //                             child: Text(
+            //                               item.publishedAt!,
+            //                               style: Theme.of(context)
+            //                                   .textTheme
+            //                                   .bodyText2,
+            //                               maxLines: 1,
+            //                               overflow: TextOverflow.ellipsis,
+            //                             ),
+            //                           )
+            //                         ],
+            //                       ),
+            //                     ),
+            //                     Icon(
+            //                       Icons.arrow_forward_ios,
+            //                       color: Colors.grey[500],
+            //                       size: 18,
+            //                     ),
+            //                     const SizedBox(
+            //                       width: 10,
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //             );
+            //           },
+            //           itemCount: snapshot.data!.length,
+            //         );
+            //       }
+            //       if (snapshot.connectionState == ConnectionState.waiting &&
+            //           documentCon.documentationList.isEmpty) {
+            //         return ListView.builder(
+            //           scrollDirection: Axis.horizontal,
+            //           itemBuilder: (context, index) {
+            //             return const ReportShimmer();
+            //           },
+            //           itemCount: 4,
+            //         );
+            //       }
+            //       if (snapshot.connectionState == ConnectionState.done &&
+            //           documentCon.documentationList.isEmpty) {
+            //         return Container();
+            //       }
+            //       return Container();
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

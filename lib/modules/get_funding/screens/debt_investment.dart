@@ -161,7 +161,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                         ),
                                         Container(
                                           margin: const EdgeInsets.only(
-                                              left: 20, right: 20, bottom: 30),
+                                              left: 20, right: 20, bottom: 10),
                                           child: CustomButton(
                                             iconUrl:
                                                 'assets/images/svgfile/getDebInvestmentIcon.svg',
@@ -267,7 +267,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                             padding: const EdgeInsets.only(
                                                 left: 20,
                                                 right: 20,
-                                                bottom: 30,
+                                                bottom: 10,
                                                 top: 10),
                                             child: CustomButton(
                                               onPressed: () {
