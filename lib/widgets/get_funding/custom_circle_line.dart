@@ -87,7 +87,7 @@ class _CircleLineState extends State<CircleLine> {
               Container(
                 margin: EdgeInsets.only(
                     right: 14.5,
-                    left: 2,
+                    left: 3,
                     top: textSize != null ? textSize!.height / 11 : 28),
                 padding: const EdgeInsets.all(2),
                 width: widget.size! * 2,
@@ -95,7 +95,7 @@ class _CircleLineState extends State<CircleLine> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(width: 0.1, color: Colors.grey),
-                  color: const Color(0xffDADADA),
+                  color: const Color(0xffD1E5FF),
                   borderRadius: BorderRadius.circular(widget.size! * 2.14),
                 ),
                 child: Container(
