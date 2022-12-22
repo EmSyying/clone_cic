@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
-import 'package:cicgreenloan/modules/investment_module/screen/investment_empty_state_screen.dart';
 import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,7 +13,6 @@ import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
-import '../../../widgets/investments/custom_investment_empty_state.dart';
 import '../../../widgets/investments/custom_shimmer_fif_saving_card.dart';
 import '../../../widgets/investments/custom_total_investment_card.dart';
 import '../../guilder/guider_controller.dart';
@@ -220,8 +218,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                             .investmentController.fifAppConfirmList.isEmpty &&
                         InjectionHelper
                             .investmentController.hiddenContractList.isEmpty)
-                    ? const IvestmentEmptyStateScreen()
-                    //showEmptyState()
+                    ? showEmptyState()
                     : Column(
                         children: [
                           const SizedBox(
@@ -329,15 +326,9 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 isOutline: true,
                 title: 'About FIF',
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const CustomInvestmentEmptyState()));
-                  //
-                  // FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
-                  // context.push(
-                  //     '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
+                  //   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
+                  context.push(
+                      '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
                 },
               ),
             ),

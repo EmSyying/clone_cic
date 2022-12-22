@@ -36,7 +36,7 @@ class IvestmentEmptyStateScreen extends StatelessWidget {
                   'label': '1',
                   'background': AppColor.mainColor,
                   'content': Container(
-                    padding: const EdgeInsets.only(bottom: 15.0),
+                    margin: const EdgeInsets.only(top: 25.0),
                     child: () {
                       return customTitleLine(context, e.title);
                     }(),
@@ -56,8 +56,6 @@ List<InvestmentEmptyStateModel> emptyStateInvestmentList = [
   InvestmentEmptyStateModel(title: 'Minimum Period 2 months'),
   InvestmentEmptyStateModel(title: 'Monthly Interest'),
   InvestmentEmptyStateModel(title: 'Minimum Amount 10,000.00 USD'),
-  InvestmentEmptyStateModel(title: 'Mini'),
-  InvestmentEmptyStateModel(title: ' USD'),
 ];
 Widget customTitleLine(BuildContext context, String? title) {
   return Text(
