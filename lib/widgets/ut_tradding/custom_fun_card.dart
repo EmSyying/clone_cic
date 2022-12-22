@@ -62,7 +62,8 @@ class CustomFunCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SvgPicture.asset('assets/images/svgfile/totalShare.svg'),
+                    SvgPicture.asset('assets/images/svgfile/totalShare.svg',
+                        color: Theme.of(context).primaryColor),
                     const SizedBox(
                       width: 10,
                     ),
@@ -117,7 +118,10 @@ class CustomFunCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(width: 20.0),
-                    SvgPicture.asset('assets/images/svgfile/totalNetworth.svg'),
+                    SvgPicture.asset(
+                      'assets/images/svgfile/totalNetworth.svg',
+                      color: Theme.of(context).primaryColor,
+                    ),
                     const SizedBox(
                       width: 10,
                     ),

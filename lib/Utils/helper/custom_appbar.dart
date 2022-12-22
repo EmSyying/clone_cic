@@ -28,7 +28,7 @@ CustomAppBar(
         : Brightness.dark,
     elevation: elevation ?? 1.0,
     actions: action,
-    backgroundColor: backgroundColor ?? Theme.of(context).backgroundColor,
+    backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
     //  backgroundColor: DynamicTheme.of(context).brightness == Brightness.light
     //      ? Theme.of(context).primaryColor
     //      : Color(0xffDEE8E9).withOpacity(0.1),

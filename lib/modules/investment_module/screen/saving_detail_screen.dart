@@ -519,9 +519,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                   colors: <Color>[
                                     Color(0xff3678d4),
                                     Color(0xff3851a1),
-                                  ]
-                                  // colors: <Color>[Color(0xff0685cf), Color(0xff0f50a4)],
-                                  ),
+                                  ]),
                             ),
                             child: Obx(
                               () => Column(

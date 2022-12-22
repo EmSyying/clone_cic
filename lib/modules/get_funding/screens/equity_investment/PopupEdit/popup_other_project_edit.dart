@@ -52,14 +52,14 @@ class _CustomOtherProjectEditedState extends State<CustomOtherProjectEdited> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
                 child: Text(
                   'Other',
                   style: TextStyle(
                       fontFamily: 'DMSans',
                       fontSize: 15,
-                      color: Color(0xff0F50A4),
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w700),
                 ),
               ),

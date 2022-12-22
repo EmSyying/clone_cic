@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/guilder/guider_controller.dart';
 import 'package:cicgreenloan/widgets/ut_tradding/sub_min_max.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,7 @@ class CustomMaketTradingCar extends StatelessWidget {
         ],
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: Theme.of(context).primaryColor),
-        color: const Color(0XFF0F50A4),
+        color:  Theme.of(context).primaryColor ,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

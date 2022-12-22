@@ -217,7 +217,7 @@ class _DirectoryState extends State<Directory> {
               CustomAppBar(
                 isLeading: true,
                 context: context,
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).primaryColor,
                 elevation: 0.0,
                 title: 'Directory',
               ),
@@ -374,7 +374,10 @@ class _DirectoryState extends State<Directory> {
                     fontSize: 12, color: Theme.of(context).primaryColor),
               ),
               const SizedBox(width: 5),
-              SvgPicture.asset('assets/images/svgfile/wrong.svg')
+              SvgPicture.asset(
+                'assets/images/svgfile/wrong.svg',
+                color: Theme.of(context).primaryColor,
+              )
             ],
           ),
         ),
@@ -390,6 +393,7 @@ class _DirectoryState extends State<Directory> {
       },
       child: SvgPicture.asset(
         'assets/images/svgfile/new_filter.svg',
+        color: Theme.of(context).primaryColor,
       ),
     );
   }

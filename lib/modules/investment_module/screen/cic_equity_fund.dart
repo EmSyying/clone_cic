@@ -102,6 +102,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                             children: [
                               SvgPicture.asset(
                                 'assets/images/svgfile/shareInfo.svg',
+                                color: Theme.of(context).primaryColor,
                               ),
                               const SizedBox(
                                 width: 20,
@@ -181,8 +182,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                           .primaryColor
                                           .withAlpha(16)),
                                   child: SvgPicture.asset(
-                                    'assets/images/svgfile/pdfcertificate.svg',
-                                  ),
+                                      'assets/images/svgfile/pdfcertificate.svg',
+                                      color: Theme.of(context).primaryColor),
                                 ),
                               ),
                             ],
@@ -202,7 +203,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset(
-                                        'assets/images/svgfile/totalShare.svg'),
+                                      'assets/images/svgfile/totalShare.svg',
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                     const SizedBox(
                                       width: 10,
                                     ),
@@ -249,7 +252,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                 ),
                               ),
                               SvgPicture.asset(
-                                  "assets/images/svgfile/investdivider.svg"),
+                                "assets/images/svgfile/investdivider.svg",
+                                color: Theme.of(context).primaryColor,
+                              ),
                               Expanded(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -257,7 +262,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                   children: [
                                     const SizedBox(width: 20.0),
                                     SvgPicture.asset(
-                                        'assets/images/svgfile/totalNetworth.svg'),
+                                      'assets/images/svgfile/totalNetworth.svg',
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                     const SizedBox(
                                       width: 10,
                                     ),

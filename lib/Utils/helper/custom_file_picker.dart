@@ -363,13 +363,13 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset('assets/images/fileImage.svg',
-                      color: const Color(0xff0F50A4)),
+                      color: Theme.of(context).primaryColor),
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text(
+                  Text(
                     'Choose File',
-                    style: TextStyle(color: Color(0xff0F50A4)),
+                    style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ],
               ),
@@ -400,9 +400,10 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
                           const SizedBox(
                             width: 10,
                           ),
-                          const Text(
+                          Text(
                             'Choose File',
-                            style: TextStyle(color: Color(0xff0F50A4)),
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor),
                           ),
                         ],
                       ),

@@ -37,9 +37,9 @@ class PayOffSlip extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(
                         left: 20, right: 20, top: 27, bottom: Get.height / 2.5),
-                    decoration: const BoxDecoration(
-                      color: Color(0xff0F50A4),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,9 +230,9 @@ class PayOffSlip extends StatelessWidget {
                 alignment: Alignment.center,
                 margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color(0xff0F50A4),
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                 ),
                 child: const Text(
                   'Pay Now',

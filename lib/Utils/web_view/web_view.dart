@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../helper/custom_appbar.dart';
@@ -83,7 +82,7 @@ class _ViewWebsiteState extends State<ViewWebsite> {
                 isLogo: false,
                 isLeading: true,
                 context: context,
-                backgroundColor: context.theme.backgroundColor,
+                backgroundColor: Theme.of(context).primaryColor,
                 elevation: 1.0,
                 title: widget.title,
               ),

@@ -271,9 +271,9 @@ class _TransferInformationState extends State<TransferInformation> {
                   alignment: Alignment.center,
                   margin: const EdgeInsets.only(bottom: 20),
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff0F50A4),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                   ),
                   child: Text(
                     isSelectPhoto == false ? 'Upload Picture' : 'Done',

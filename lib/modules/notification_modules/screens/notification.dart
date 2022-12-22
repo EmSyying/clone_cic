@@ -23,12 +23,7 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../widgets/notification/accept_notification_pop_up.dart';
 import '../../../widgets/ut_tradding/notification_detail_popup.dart';
-import '../../event_module/models/event_detail_argument.dart';
-import '../../event_module/screen/event_detail.dart';
-import '../../get_funding/screens/debt_investment/preview_debt_form.dart';
-import '../../get_funding/screens/equity_investment/preview_equity.dart';
 import '../../investment_module/screen/bullet_payment_detail.dart';
-import '../../investment_module/screen/deposit_screen.dart';
 import '../../wallet/controller/wallet_controller.dart';
 import '../../wallet/screen/wallet_transaction_popup_detail.dart';
 

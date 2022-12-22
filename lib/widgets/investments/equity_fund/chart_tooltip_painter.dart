@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
 class ChartToolTipPainter extends CustomPainter {
@@ -201,8 +202,7 @@ class ChartToolTipPainter extends CustomPainter {
     path_1.close();
 
     Paint paint1Fill = Paint()..style = PaintingStyle.fill;
-    paint1Fill.color =
-        backgroundColor ?? const Color(0xff0F50A4).withOpacity(0.1);
+    paint1Fill.color = backgroundColor ?? AppColor.mainColor.withOpacity(0.1);
     Paint paint0Fill = Paint()..style = PaintingStyle.fill;
     paint0Fill.color = Colors.white.withOpacity(1.0);
 

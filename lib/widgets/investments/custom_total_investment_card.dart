@@ -118,7 +118,9 @@ class TotalInvestmentCard extends StatelessWidget {
                       annotations: <CircularChartAnnotation>[
                         CircularChartAnnotation(
                           widget: SvgPicture.asset(
-                              'assets/images/saving_chart.svg'),
+                            'assets/images/saving_chart.svg',
+                            color: Theme.of(context).primaryColor,
+                          ),
                         )
                       ],
                       series: <CircularSeries>[

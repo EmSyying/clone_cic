@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../../utils/helper/firebase_analytics.dart';
@@ -279,7 +278,7 @@ class _BonusScreenState extends State<BonusScreen>
                         ),
                       ),
                       TabBar(
-                        indicatorColor: Colors.blue[900], //Color(0xff0F50A4),
+                        indicatorColor: Theme.of(context).primaryColor, 
                         indicatorWeight: 2.0,
                         controller: bonusCon.tabController,
                         unselectedLabelColor: Colors.grey,

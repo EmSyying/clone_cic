@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -352,7 +351,7 @@ class _WalletScreenState extends State<WalletScreen>
                     ),
                   ),
                   TabBar(
-                    indicatorColor: Colors.blue[900], //Color(0xff0F50A4),
+                    indicatorColor: Theme.of(context).primaryColor,
                     indicatorWeight: 2.0,
                     controller: _tabController,
                     unselectedLabelColor: Colors.grey,
@@ -430,7 +429,10 @@ class _WalletScreenState extends State<WalletScreen>
               borderRadius: BorderRadius.circular(14),
             ),
             alignment: Alignment.center,
-            child: SvgPicture.asset(img ?? ''),
+            child: SvgPicture.asset(
+              img ?? '',
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10),

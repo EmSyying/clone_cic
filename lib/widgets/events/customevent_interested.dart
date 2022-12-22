@@ -15,7 +15,7 @@ class CustomEventInterested extends StatelessWidget {
           width: 46.0,
           margin: const EdgeInsets.only(bottom: 10.0, top: 10.0),
           decoration: BoxDecoration(
-              color: const Color(0xFF0F50A4).withAlpha(90),
+              color: Theme.of(context).primaryColor.withAlpha(90),
               shape: BoxShape.circle),
           alignment: Alignment.center,
           child: widget!,

@@ -24,7 +24,7 @@ class CustomChips extends StatelessWidget {
           padding ?? const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       decoration: BoxDecoration(
           color: currentIndex == selectIndex
-              ? const Color(0xffB3C6E0)
+              ? Theme.of(context).primaryColor.withOpacity(0.2)
               : isInvest == true
                   ? Colors.white
                   : Colors.grey[300],

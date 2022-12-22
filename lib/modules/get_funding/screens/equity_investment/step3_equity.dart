@@ -474,16 +474,18 @@ class _Step3EquityState extends State<Step3Equity> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20,
+                                                        vertical: 10),
                                                 child: Text(
                                                   'Business Overview',
                                                   style: TextStyle(
                                                       fontFamily: 'DMSans',
                                                       fontSize: 15,
-                                                      color: Color(0xff0F50A4),
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
                                                       fontWeight:
                                                           FontWeight.w700),
                                                 ),
@@ -899,16 +901,18 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     AppColor.dividerBackground,
                                                 height: 5,
                                               ),
-                                              const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 20),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20,
+                                                        vertical: 20),
                                                 child: Text(
                                                   'Financial Performance and Projection',
                                                   style: TextStyle(
                                                       fontFamily: 'DMSans',
                                                       fontSize: 15,
-                                                      color: Color(0xff0F50A4),
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
                                                       fontWeight:
                                                           FontWeight.w700),
                                                 ),
@@ -1120,8 +1124,8 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     AppColor.dividerBackground,
                                                 height: 5,
                                               ),
-                                              const Padding(
-                                                padding: EdgeInsets.symmetric(
+                                               Padding(
+                                                padding: const EdgeInsets.symmetric(
                                                     horizontal: 20,
                                                     vertical: 20),
                                                 child: Text(
@@ -1129,7 +1133,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                                   style: TextStyle(
                                                       fontFamily: 'DMSans',
                                                       fontSize: 15,
-                                                      color: Color(0xff0F50A4),
+                                                      color: Theme.of(context).primaryColor ,
                                                       fontWeight:
                                                           FontWeight.w700),
                                                 ),

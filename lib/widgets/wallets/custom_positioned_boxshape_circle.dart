@@ -27,7 +27,9 @@ class CustomPositionedBoxShapCircle extends StatelessWidget {
         width: 24,
         height: 26,
         decoration: BoxDecoration(
-          color: boxShapCircleColor ? const Color(0xff0f50a4) : Colors.grey[50],
+          color: boxShapCircleColor
+              ? Theme.of(context).primaryColor
+              : Colors.grey[50],
           shape: BoxShape.circle,
         ),
       ),

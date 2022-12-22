@@ -16,7 +16,7 @@ class CustomSelectgetFunding extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             color: onSelect!
-                ? const Color(0xffB3C6E0)
+                ? Theme.of(context).primaryColor.withOpacity(0.2)
                 : AppColor.dividerBackground,
             borderRadius: BorderRadius.circular(5)),
         height: 35,

@@ -525,13 +525,17 @@ class _EventDetailState extends State<EventDetail> {
                                                                             .eventDetail
                                                                             .value
                                                                             .isInterested!
-                                                                        ? SvgPicture.asset(
-                                                                            'assets/images/svgfile/interest_fill.svg')
+                                                                        ? SvgPicture
+                                                                            .asset(
+                                                                            'assets/images/svgfile/interest_fill.svg',
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                          )
                                                                         : SvgPicture
                                                                             .asset(
                                                                             'assets/images/svgfile/interest.svg',
                                                                             color:
-                                                                                const Color(0XFF0F50A4),
+                                                                                Theme.of(context).primaryColor,
                                                                           ),
                                                                     onTap:
                                                                         () async {

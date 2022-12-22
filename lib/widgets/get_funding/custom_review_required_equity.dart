@@ -131,12 +131,12 @@ class _CustomReviewRequiredCardState extends State<CustomReviewRequiredCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Business Overview',
                           style: TextStyle(
                               fontFamily: 'DMSans',
                               fontSize: 14,
-                              color: Color(0xff0F50A4),
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w700),
                         ),
                         if (widget.isEditable!)
@@ -298,12 +298,12 @@ class _CustomReviewRequiredCardState extends State<CustomReviewRequiredCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Financial Performance and Projection',
                         style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
-                            color: Color(0xff0F50A4),
+                            color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w700),
                       ),
                       if (widget.isEditable!)
@@ -419,12 +419,12 @@ class _CustomReviewRequiredCardState extends State<CustomReviewRequiredCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Other',
                         style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
-                            color: Color(0xff0F50A4),
+                            color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w700),
                       ),
                       if (widget.isEditable!)

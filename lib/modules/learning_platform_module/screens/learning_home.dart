@@ -104,7 +104,7 @@ class _LearningHomeState extends State<LearningHome> {
                   children: [
                     CustomAppBar(
                         context: context,
-                        backgroundColor: Theme.of(context).backgroundColor,
+                        backgroundColor: Theme.of(context).primaryColor,
                         elevation: 0.0,
                         title: 'Learning'),
                     const Expanded(child: OfflineWidget()),

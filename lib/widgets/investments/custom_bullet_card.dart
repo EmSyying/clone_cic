@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
-import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/utils/helper/container_partern.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
@@ -77,9 +76,13 @@ class CustomBulletPaymentCard extends StatelessWidget {
                             'assets/images/principal_deduction.svg',
                             width: 30,
                             height: 30,
+                            color: Theme.of(context).primaryColor,
                           ),
                         )
-                      : SvgPicture.asset('assets/images/svgfile/bullet.svg'),
+                      : SvgPicture.asset(
+                          'assets/images/svgfile/bullet.svg',
+                          color: Theme.of(context).primaryColor,
+                        ),
               const SizedBox(height: 20),
               Text(
                 '$title',

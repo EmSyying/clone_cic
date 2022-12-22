@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -50,7 +49,10 @@ class FamilySaving extends StatelessWidget {
                     color: Theme.of(context).primaryColor.withOpacity(0.2),
                   ),
                   padding: const EdgeInsets.all(10),
-                  child: SvgPicture.asset('$image')),
+                  child: SvgPicture.asset(
+                    '$image',
+                    color: Theme.of(context).primaryColor,
+                  )),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
