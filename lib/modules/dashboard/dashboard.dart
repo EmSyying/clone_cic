@@ -207,6 +207,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                         width: double.infinity,
                         child: SvgPicture.asset(
                           'assets/images/svgfile/Investment_backg.svg',
+                          color: Theme.of(context).primaryColor,
                           fit: BoxFit.fill,
                         ),
                       ),

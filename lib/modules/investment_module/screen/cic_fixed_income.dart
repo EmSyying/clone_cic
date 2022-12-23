@@ -85,9 +85,9 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   height: 120,
                   width: double.infinity,
                   child: SvgPicture.asset(
-                    'assets/images/svgfile/Investment_backg.svg',
-                    fit: BoxFit.fill,
-                  ),
+                      'assets/images/svgfile/Investment_backg.svg',
+                      fit: BoxFit.fill,
+                      color: Theme.of(context).primaryColor),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 30.0),

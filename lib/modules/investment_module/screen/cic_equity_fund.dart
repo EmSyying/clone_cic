@@ -1000,6 +1000,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                             width: double.infinity,
                             child: SvgPicture.asset(
                               'assets/images/svgfile/Investment_backg.svg',
+                              color: Theme.of(context).primaryColor,
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -1036,6 +1037,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                     children: [
                                                       SvgPicture.asset(
                                                         'assets/images/svgfile/shareInfo.svg',
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
                                                       ),
                                                       const SizedBox(
                                                         width: 20,
@@ -1152,6 +1155,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                           child:
                                                               SvgPicture.asset(
                                                             'assets/images/svgfile/pdfcertificate.svg',
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor,
                                                           ),
                                                         ),
                                                       ),
@@ -1180,7 +1186,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                   .start,
                                                           children: [
                                                             SvgPicture.asset(
-                                                                'assets/images/svgfile/totalShare.svg'),
+                                                                'assets/images/svgfile/totalShare.svg',
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor),
                                                             const SizedBox(
                                                               width: 10,
                                                             ),
@@ -1232,7 +1241,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                         ),
                                                       ),
                                                       SvgPicture.asset(
-                                                          "assets/images/svgfile/investdivider.svg"),
+                                                        "assets/images/svgfile/investdivider.svg",
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                      ),
                                                       Expanded(
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -1245,7 +1257,11 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                             const SizedBox(
                                                                 width: 20.0),
                                                             SvgPicture.asset(
-                                                                'assets/images/svgfile/totalNetworth.svg'),
+                                                              'assets/images/svgfile/totalNetworth.svg',
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                            ),
                                                             const SizedBox(
                                                               width: 10,
                                                             ),

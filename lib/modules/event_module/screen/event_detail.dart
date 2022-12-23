@@ -469,8 +469,9 @@ class _EventDetailState extends State<EventDetail> {
                                                                   BorderRadius
                                                                       .circular(
                                                                           8),
-                                                              color: AppColor
-                                                                  .mainColor
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor
                                                                   .withOpacity(
                                                                       0.1),
                                                             ),

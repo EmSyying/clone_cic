@@ -28,9 +28,11 @@ class MemberCard extends StatelessWidget {
                     debugPrint('Error');
                   }),
                   radius: 25,
+                  backgroundColor: Theme.of(context).primaryColor,
                 )
               : CircleAvatar(
                   radius: 25,
+                  backgroundColor: Theme.of(context).primaryColor,
                   child: Center(
                     child: Text(
                       member!.defaultPhoto!,

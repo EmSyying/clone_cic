@@ -54,6 +54,7 @@ class CustomMMACard extends StatelessWidget {
                 child: Center(
                   child: SvgPicture.asset(
                     imageMMAcard ?? '',
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
