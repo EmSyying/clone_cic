@@ -39,19 +39,34 @@ class CustomWalletTransaction extends StatelessWidget {
                         .asMap()
                         .entries
                         .map(
-                          (data) => WalletTransactionCard(
-                            transactionModel: data.value,
-                            ontap: () {
-                              walletController.onFetchWalletTransactionDetail(
-                                  data.value.id!, data.value.model!);
-                              Future.delayed(const Duration(milliseconds: 490),
-                                  () {
-                                WalletTran.transactionDetail(
-                                    context,
-                                    walletController
-                                        .walletTransactionDetail.value);
-                              });
-                            },
+                          (data) => Obx(
+                            () => WalletTransactionCard(
+                              transactionModel: data.value,
+                              ontap: walletController
+                                      .transactionDetailLoading.value
+                                  ? null
+                                  : () async {
+                                      debugPrint("is pressed wallet");
+                                      await walletController
+                                          .onFetchWalletTransactionDetail(
+                                              data.value.id!,
+                                              data.value.model!);
+                                      // ignore: use_build_context_synchronously
+                                      WalletTran.transactionDetail(
+                                          context,
+                                          walletController
+                                              .walletTransactionDetail.value);
+
+                                      // Future.delayed(
+                                      //     const Duration(milliseconds: 490),
+                                      //     () {
+                                      //   WalletTran.transactionDetail(
+                                      //       context,
+                                      //       walletController
+                                      //           .walletTransactionDetail.value);
+                                      // });
+                                    },
+                            ),
                           ),
                         )
                         .toList())

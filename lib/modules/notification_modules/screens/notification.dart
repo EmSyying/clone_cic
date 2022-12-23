@@ -507,11 +507,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                             _con.notificationList[index].readAt = '';
                                                                                                           });
                                                                                                           debugPrint("is Pressed tran detail");
-                                                                                                          _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!);
-
-                                                                                                          Future.delayed(const Duration(milliseconds: 490), () {
-                                                                                                            WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
-                                                                                                          });
+                                                                                                          await _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!);
+                                                                                                          // ignore: use_build_context_synchronously
+                                                                                                          WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
                                                                                                         } else if (_con.notificationList[index].data!.type == 'bonus') {
                                                                                                           context.push('/wallet');
                                                                                                         } else {
