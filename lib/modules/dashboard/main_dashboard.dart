@@ -28,7 +28,6 @@ import 'package:cicgreenloan/Utils/custom_indicatior.dart';
 import 'package:cicgreenloan/widgets/dashboard/dashboard_menu.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:cicgreenloan/widgets/notification/accept_notification_pop_up.dart';
-import 'package:cicgreenloan/widgets/report/report_shimmer.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -40,7 +39,6 @@ import 'package:http/http.dart' as http;
 import 'package:new_version/new_version.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:flutter_card_swipper/flutter_card_swiper.dart';
-import '../../Utils/function/convert_fromhex_color.dart';
 import '../../Utils/helper/find_widget_position.dart';
 import '../../Utils/helper/local_notification.dart';
 import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
@@ -49,7 +47,6 @@ import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../investment_module/screen/deposit_screen.dart';
-import '../report_module/screens/view_report.dart';
 import 'main_dashboard_type_am.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -474,7 +471,7 @@ class _MainDashboardState extends State<MainDashboard> {
               automaticallyImplyLeading: false,
               centerTitle: false,
               title: Container(
-                width: double.infinity,
+                width: 160,
                 color: Colors.transparent,
                 child: PopupMenuButton(
                   position: PopupMenuPosition.under,
@@ -501,23 +498,6 @@ class _MainDashboardState extends State<MainDashboard> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
                           ),
-                          // Container(
-                          //   margin: const EdgeInsets.only(left: 5),
-                          //   padding: const EdgeInsets.symmetric(
-                          //       vertical: 2, horizontal: 8),
-                          //   decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(5),
-                          //       color: Colors.white12),
-                          //   child: Text(
-                          //     dashboardType == 'AM' ? 'AM' : 'QM',
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .headline6!
-                          //         .copyWith(
-                          //             fontSize: 12,
-                          //             fontWeight: FontWeight.w600),
-                          //   ),
-                          // ),
                           const SizedBox(
                             width: 5,
                           ),
@@ -526,10 +506,6 @@ class _MainDashboardState extends State<MainDashboard> {
                       ),
                     ),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.only(right: 10),
-                  //   child: Icon(Icons.expand_more),
-                  // ),
                   itemBuilder: (context) => <PopupMenuEntry>[
                     PopupMenuItem(
                       key: widgetKey,
@@ -550,26 +526,6 @@ class _MainDashboardState extends State<MainDashboard> {
                                       _settingCon.isAMMode = false;
                                     });
                                   });
-
-                                  // setState(() {
-                                  //   // switchIcon = e;
-                                  //   // if (e == true) {
-                                  //   Offset offset = getWidgetInfo(widgetKey);
-                                  //   context.go('/switch-splash-screen',
-                                  //       extra: offset);
-                                  //   Navigator.pop(context);
-                                  //   // context.go('/am-dashboard');
-
-                                  //   // Navigator.push(
-                                  //   //     context,
-                                  //   //     MaterialPageRoute(
-                                  //   //         builder: (context) =>
-                                  //   //             const DashboardTypeAM()));
-                                  //   // else {
-                                  //   //   Offset offset = getWidgetInfo(widgetKey);
-                                  //   //   context.go('/switch-splash-screen', extra: offset);
-                                  //   // }
-                                  // });
                                 },
                           child: Container(
                               color: Colors.transparent,
