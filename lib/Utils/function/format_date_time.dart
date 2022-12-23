@@ -79,6 +79,15 @@ class FormatDate {
     return formatDate;
   }
 
+// Display Month
+  static String displayMonthOnly(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+
+    String formatDate = DateFormat('MMM', 'en_US').format(dateTime);
+
+    return formatDate;
+  }
+
   static String investmentDateDropDown(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
     String formatDate = DateFormat('dd-MM-yyyy', 'en_US').format(dateTime);

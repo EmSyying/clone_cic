@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
 import 'package:cicgreenloan/modules/event_module/screen/past_event.dart';
@@ -16,7 +17,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
 
@@ -123,43 +123,32 @@ class _EventScreenState extends State<EventScreen> {
 
   TextEditingController searchtextController = TextEditingController();
 
-  int selectedInd = 0;
   final today = DateTime.now();
-
-  List<MonthAndYear> months = <MonthAndYear>[
-    MonthAndYear(month: 'Jan'),
-    MonthAndYear(month: 'Feb'),
-    MonthAndYear(month: 'Mar'),
-    MonthAndYear(month: 'Apr'),
-    MonthAndYear(month: 'May'),
-    MonthAndYear(month: 'Jun'),
-    MonthAndYear(month: 'Jul'),
-    MonthAndYear(month: 'Aug'),
-    MonthAndYear(month: 'Sep'),
-    MonthAndYear(month: 'Oct'),
-    MonthAndYear(month: 'Nov'),
-    MonthAndYear(month: 'Dec'),
-  ];
-
+  int? currentSelected;
+  bool? isDisplayEventTap = true;
   void _checkDate() {
     _eventController.currentMonth = '${today.month}';
-    selectedInd = today.month - 1;
+    currentSelected = today.month - 1;
 
-    Future.delayed(const Duration(seconds: 1), () {
-      if (months[selectedInd].key != null &&
-          months[selectedInd].key!.currentContext != null) {
+    _eventController.eventCalendarList.asMap().entries.map((event) {
+      debugPrint("Event working calendar i 1");
+      Future.delayed(const Duration(milliseconds: 600), () {
         Scrollable.ensureVisible(
-          months[selectedInd].key!.currentContext!,
+          event.value.month![event.key].key!.currentContext!,
           alignment: 0.5,
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 400),
         );
-      }
-    });
+      });
+
+      debugPrint("Event working calendar i 2");
+    }).toList();
   }
 
   @override
   void initState() {
-    _checkDate();
+    _eventController.onFetchEvetCalendar().then(
+          (value) => _checkDate(),
+        );
     super.initState();
   }
 
@@ -197,74 +186,153 @@ class _EventScreenState extends State<EventScreen> {
                   color: Theme.of(context).primaryColor,
                 ),
                 padding: const EdgeInsets.only(bottom: 25, right: 3),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        // physics: const ClampingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Row(
-                          children: months
-                              .asMap()
-                              .entries
-                              .map(
-                                (e) => Padding(
-                                  padding: const EdgeInsets.only(right: 30),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      selectedInd = e.key;
-                                      setState(() {});
-                                      _eventController.currentMonth =
-                                          '${selectedInd + 1}';
-                                      _eventController
-                                          .onRefreshUpCommingEvent();
-                                    },
-                                    child: Text(
-                                      e.value.month,
-                                      key: months[e.key].key = GlobalKey(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2!
-                                          .copyWith(
-                                              color: selectedInd == e.key
-                                                  ? Colors.white
-                                                  : const Color(0xffffffff)
-                                                      .withOpacity(0.6),
-                                              fontSize: 20,
-                                              fontWeight: selectedInd == e.key
-                                                  ? FontWeight.w500
-                                                  : FontWeight.w400),
+                child: Obx(
+                  () => Row(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          // physics: const ClampingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: _eventController.eventCalendarList
+                                .asMap()
+                                .entries
+                                .map(
+                                  (year) => Padding(
+                                    padding: const EdgeInsets.only(right: 30),
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 19.0),
+                                          child: Text(
+                                            year.value.year.toString(),
+                                            key: year.value.month![year.key]
+                                                .key = GlobalKey(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                    color:
+                                                        const Color(0xffffffff)
+                                                            .withOpacity(0.6),
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: year.value.month!
+                                              .asMap()
+                                              .entries
+                                              .map(
+                                                (month) => Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 19.0),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        currentSelected =
+                                                            month.key;
+                                                        debugPrint(
+                                                            "today.monnt:${FormatDate.displayMonthOnly('${DateTime.now()}')}:Year:${year.value.year}:month:${month.value.name}");
+                                                        // FormatDate.displayMonthOnly(
+                                                        //     '${DateTime.now()}');
+
+                                                        if (year.value.year ==
+                                                                today.year &&
+                                                            month.value.name ==
+                                                                FormatDate
+                                                                    .displayMonthOnly(
+                                                                        '${DateTime.now()}')) {
+                                                          isDisplayEventTap =
+                                                              true;
+                                                        } else {
+                                                          isDisplayEventTap =
+                                                              false;
+                                                        }
+                                                        debugPrint(
+                                                            "isDisplayEventTap:$isDisplayEventTap");
+                                                      });
+                                                      _eventController
+                                                              .currentMonth =
+                                                          month.value.date!;
+                                                      debugPrint(
+                                                          "is Pressed on event date");
+                                                      _eventController
+                                                          .onRefreshUpCommingEvent();
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          month.value.name
+                                                              .toString(),
+                                                          key: month.value.key =
+                                                              GlobalKey(),
+                                                          style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                                              color: currentSelected ==
+                                                                          month
+                                                                              .key &&
+                                                                      year.value
+                                                                              .year ==
+                                                                          today
+                                                                              .year
+                                                                  ? Colors.white
+                                                                  : const Color(
+                                                                          0xffffffff)
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  currentSelected ==
+                                                                          month
+                                                                              .key
+                                                                      ? FontWeight
+                                                                          .w500
+                                                                      : FontWeight
+                                                                          .w400),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                              )
-                              .toList(),
+                                )
+                                .toList(),
+                          ),
                         ),
                       ),
-                    ),
-                    // const SizedBox(width: 50),
-                    IconButton(
-                      color: Colors.white,
-                      onPressed: () {
-                        if (selectedInd < months.length - 1) {
-                          selectedInd += 1;
-                        } else {
-                          selectedInd = 0;
-                        }
-                        Scrollable.ensureVisible(
-                          months[selectedInd].key!.currentContext!,
-                          alignment: 0.5,
-                          duration: const Duration(milliseconds: 500),
-                        );
+                      // const SizedBox(width: 50),
+                      IconButton(
+                        color: Colors.white,
+                        onPressed: () {
+                          // if (currentSelected! < months.length - 1) {
+                          //   // currentSelected += 1;
+                          // } else {
+                          //   currentSelected = 0;
+                          // }
+                          // Scrollable.ensureVisible(
+                          //   months[currentSelected!].key!.currentContext!,
+                          //   alignment: 0.5,
+                          //   duration: const Duration(milliseconds: 500),
+                          // );
 
-                        _eventController.currentMonth = '${selectedInd + 1}';
-                        _eventController.onRefreshUpCommingEvent();
-                        setState(() {});
-                      },
-                      icon: const Icon(Icons.arrow_forward_ios_rounded),
-                    )
-                  ],
+                          // _eventController.currentMonth =
+                          //     '${currentSelected! + 1}';
+                          // _eventController.onRefreshUpCommingEvent();
+                          // setState(() {});
+                        },
+                        icon: const Icon(Icons.arrow_forward_ios_rounded),
+                      )
+                    ],
+                  ),
                 ),
               ),
               // const DynamicEvent(),
@@ -279,94 +347,39 @@ class _EventScreenState extends State<EventScreen> {
                   },
                   child: Column(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(
-                            left: 15.0, right: 15.0, top: 10.0),
-                        child: CupertinoSlidingSegmentedControl(
-                            groupValue: segmentedControlValue,
-                            backgroundColor:
-                                const Color(0xff252552).withOpacity(0.1),
-                            children: const <int, Widget>{
-                              0: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Text('Up Coming'),
-                              ),
-                              1: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Text('Past Events'),
-                              ),
-                            },
-                            onValueChanged: (int? e) {
-                              setState(() {
-                                segmentedControlValue = e!;
-                                _pageViewController.animateToPage(
-                                    segmentedControlValue,
-                                    duration: const Duration(microseconds: 200),
-                                    curve: Curves.fastOutSlowIn);
-                              });
-                            }),
-                      ),
+                      if (isDisplayEventTap == true)
+                        Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 10.0),
+                          child: CupertinoSlidingSegmentedControl(
+                              groupValue: segmentedControlValue,
+                              backgroundColor:
+                                  const Color(0xff252552).withOpacity(0.1),
+                              children: const <int, Widget>{
+                                0: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text('Up Coming'),
+                                ),
+                                1: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text('Past Events'),
+                                ),
+                              },
+                              onValueChanged: (int? e) {
+                                setState(() {
+                                  segmentedControlValue = e!;
+                                  _pageViewController.animateToPage(
+                                      segmentedControlValue,
+                                      duration:
+                                          const Duration(microseconds: 200),
+                                      curve: Curves.fastOutSlowIn);
+                                });
+                              }),
+                        ),
                       const SizedBox(
                         height: 10,
                       ),
-                      // Stack(
-                      //   children: [
-                      //     Container(
-                      //       margin: const EdgeInsets.only(
-                      //           left: 15.0, right: 60, top: 20.0),
-                      //       alignment: Alignment.center,
-                      //       decoration: BoxDecoration(
-                      //         color: Colors.grey[200],
-                      //         //              color: Colors.red,
-                      //         borderRadius: BorderRadius.circular(10.0),
-                      //       ),
-                      //       child: Stack(
-                      //         children: [
-                      //           Positioned(
-                      //             top: 13.0,
-                      //             left: 10.0,
-                      //             child: SvgPicture.asset(
-                      //               'assets/images/svgfile/search.svg',
-                      //               height: 20,
-                      //             ),
-                      //           ),
-                      //           TextFormField(
-                      //             controller: searchtextController,
-                      //             onChanged: (v) {
-                      //               _onChangeHandler(v);
-                      //             },
-                      //             decoration: InputDecoration(
-                      //                 hintText: 'Search',
-                      //                 hintStyle:
-                      //                     const TextStyle(color: Colors.grey),
-                      //                 border: InputBorder.none,
-                      //                 fillColor: Colors.grey[300],
-                      //                 contentPadding:
-                      //                     const EdgeInsets.only(left: 40)),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     Positioned(
-                      //       top: 15,
-                      //       right: 15,
-                      //       child: SizedBox(
-                      //         height: 50.0,
-                      //         child: SvgPicture.asset(
-                      //           'assets/images/svgfile/eventFilter.svg',
-                      //           height: 18,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      /////////////=============
-                      // Container(
-                      //   margin: EdgeInsets.only(
-                      //       left: 15.0, right: 15.0, top: 15.0),
-                      //   child: index == 0 ? UpComing() : PastEvent(),
-                      // ),
                       Expanded(
                         child: PageView(
                           controller: _pageViewController,
@@ -385,12 +398,6 @@ class _EventScreenState extends State<EventScreen> {
                           children: transactionPage,
                         ),
                       ),
-                      // Container(
-                      //     margin: const EdgeInsets.only(
-                      //         left: 15.0, right: 15.0, top: 15.0),
-                      //     child: list.elementAt(index)
-                      //     // transactionPage.elementAt(index),
-                      //     ),
                     ],
                   ),
                 ),

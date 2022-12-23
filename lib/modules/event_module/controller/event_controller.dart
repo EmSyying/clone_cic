@@ -23,6 +23,7 @@ import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/color.dart';
 import '../models/card_guests_model.dart';
+import '../models/event_calendar.dart';
 import '../models/get_register_model/get_register_model.dart';
 import '../models/guest_model/guest_model.dart';
 import '../models/select_checkin/select_checkin_model.dart';
@@ -109,6 +110,34 @@ class EventController extends GetxController {
       // isCheckBox: true,
     ),
   ].obs;
+
+  // Event Calendar
+  final isEventCalendar = false.obs;
+  final eventCalendarList = <EventCalendar>[].obs;
+  Future<List<EventCalendar>> onFetchEvetCalendar() async {
+    debugPrint("is event calendar workig1");
+    isEventCalendar(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+            methode: METHODE.get, isAuthorize: true, url: 'event/calendar')
+        .then((response) {
+      var responseJson = response['data'];
+      debugPrint("Event Calendar:$responseJson");
+      eventCalendarList.clear();
+      responseJson.map((e) {
+        eventCalendarList.add(
+          EventCalendar.fromJson(e),
+        );
+      }).toList();
+      debugPrint("event calend list:${eventCalendarList.length}");
+      isEventCalendar(false);
+    }).onError((ErrorModel error, stackTrace) {
+      debugPrint("is event calendar workig2${error.bodyString}");
+      isEventCalendar(false);
+    });
+
+    return eventCalendarList;
+  }
 
   Future<List<EventData>> getPastEvent(int? memberId) async {
     isLoadingPast(true);
