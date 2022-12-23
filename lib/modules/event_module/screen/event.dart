@@ -125,10 +125,14 @@ class _EventScreenState extends State<EventScreen> {
 
   final today = DateTime.now();
   int? currentSelected;
+  int? currentYear;
   bool? isDisplayEventTap = true;
   void _checkDate() {
-    _eventController.currentMonth = '${today.month}';
+    _eventController.currentMonth =
+        FormatDate.investmentDateDropDown("${DateTime.now()}");
+    debugPrint("Current Date:${_eventController.currentMonth}");
     currentSelected = today.month - 1;
+    currentYear = today.year;
 
     _eventController.eventCalendarList.asMap().entries.map((event) {
       debugPrint("Event working calendar i 1");
@@ -236,10 +240,8 @@ class _EventScreenState extends State<EventScreen> {
                                                       setState(() {
                                                         currentSelected =
                                                             month.key;
-                                                        debugPrint(
-                                                            "today.monnt:${FormatDate.displayMonthOnly('${DateTime.now()}')}:Year:${year.value.year}:month:${month.value.name}");
-                                                        // FormatDate.displayMonthOnly(
-                                                        //     '${DateTime.now()}');
+                                                        currentYear =
+                                                            year.value.year;
 
                                                         if (year.value.year ==
                                                                 today.year &&
@@ -277,8 +279,7 @@ class _EventScreenState extends State<EventScreen> {
                                                                               .key &&
                                                                       year.value
                                                                               .year ==
-                                                                          today
-                                                                              .year
+                                                                          currentYear
                                                                   ? Colors.white
                                                                   : const Color(
                                                                           0xffffffff)
@@ -313,7 +314,8 @@ class _EventScreenState extends State<EventScreen> {
                       IconButton(
                         color: Colors.white,
                         onPressed: () {
-                          // if (currentSelected! < months.length - 1) {
+                          // setState(() {
+                          //    if (currentSelected! < months.length - 1) {
                           //   // currentSelected += 1;
                           // } else {
                           //   currentSelected = 0;
@@ -326,8 +328,9 @@ class _EventScreenState extends State<EventScreen> {
 
                           // _eventController.currentMonth =
                           //     '${currentSelected! + 1}';
-                          // _eventController.onRefreshUpCommingEvent();
-                          // setState(() {});
+
+                          // });
+                          //  _eventController.onRefreshUpCommingEvent();
                         },
                         icon: const Icon(Icons.arrow_forward_ios_rounded),
                       )

@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../modules/learning_platform_module/screens/learning_home.dart';
-
 class NewEvent extends StatelessWidget {
   final String? title;
   final List<EventData> newDataList;
@@ -38,10 +36,7 @@ class NewEvent extends StatelessWidget {
                 eventData: evenData,
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const LearningHome()));
-
-                // context.go('/event/${evenData.id}');
+                context.go('/event/${evenData.id}');
               },
             );
           },
