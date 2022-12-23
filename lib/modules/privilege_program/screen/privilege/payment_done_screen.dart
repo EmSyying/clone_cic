@@ -53,7 +53,7 @@ class PaymentDoneScreen extends StatelessWidget {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 280,
+                        height: 250,
                         color: Colors.transparent,
                         child: Center(
                           child: LottieBuilder.asset(
@@ -61,7 +61,7 @@ class PaymentDoneScreen extends StatelessWidget {
                             //repeat: false,
                             fit: BoxFit.cover,
                             alignment: Alignment.center,
-                            frameRate: FrameRate(60),
+                            frameRate: FrameRate(90),
                           ),
                         ),
                       ),

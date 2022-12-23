@@ -32,8 +32,8 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
             begin: Alignment.topLeft,
             // end: Alignment(0.2, 0.1),
             colors: <Color>[
-              Color.fromARGB(234, 248, 248, 233),
-              Color.fromARGB(234, 255, 255, 255),
+              Color.fromARGB(248, 217, 219, 201),
+              Color.fromARGB(248, 255, 255, 255),
             ],
             tileMode: TileMode.mirror,
           ),

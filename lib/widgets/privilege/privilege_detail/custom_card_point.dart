@@ -20,7 +20,7 @@ class CustomCardPoint extends StatelessWidget {
         color: AppColor.arrowforwardColor['dark'],
         border: Border.all(
           width: 0.6,
-          color: AppColor.dividerBackground,
+          color: AppColor.paymentBackgroundColor,
         ),
         boxShadow: [
           BoxShadow(

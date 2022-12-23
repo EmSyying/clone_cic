@@ -138,7 +138,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                           ),
                           pinned: true,
                           floating: true,
-                          expandedHeight: 400.0,
+                          expandedHeight: 385.0,
                           elevation: 0.0,
                           actions: [
                             Row(
@@ -232,7 +232,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     children: [
                                       Container(
                                         alignment: Alignment.center,
-                                        height: 250,
+                                        height: 240,
                                         decoration: BoxDecoration(
                                             color: AppColor.secondaryColor,
                                             borderRadius:
@@ -253,12 +253,65 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                               ),
                                             )),
                                       ),
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20.0, right: 20.0, top: 20),
+                                        child: CustomCardPoint(
+                                          point: '100',
+                                          onTap: () {
+                                            context.push(
+                                                '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 20.0,
+                                          right: 20.0,
+                                          bottom: 18.0,
+                                          top: 18.0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.room,
+                                              size: 21,
+                                              color: Colors.grey,
+                                            ),
+                                            const SizedBox(
+                                              width: 14,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                priController.shopDetailModel
+                                                    .value.fullAddress!,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle2!
+                                                    .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: const Color(
+                                                          0xff464646),
+                                                      letterSpacing: 0.2,
+                                                      fontSize: 14,
+                                                    ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   Positioned(
-                                    left: 15,
-                                    right: 15,
-                                    top: 190,
+                                    left: 15.0,
+                                    right: 15.0,
+                                    top: 185.0,
                                     child: CustomCardPrivilegeDetail(
                                       sloganLogo: priController
                                           .shopDetailModel.value.shopLogo,
@@ -272,58 +325,18 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                           .shopDetailModel.value.discountRate,
                                     ),
                                   ),
-                                  Positioned(
-                                    left: 20,
-                                    right: 20,
-                                    bottom: 58,
-                                    child: Container(
-                                      margin: const EdgeInsets.only(
-                                        bottom: 12.0,
-                                      ),
-                                      child: CustomCardPoint(
-                                        point: '100',
-                                        onTap: () {
-                                          context.push(
-                                              '/profile/setting/privilege/all-store/redeem-point-to-pay');
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 20.0,
-                                    right: 20.0,
-                                    bottom: 18,
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.room,
-                                          size: 21,
-                                          color: Colors.grey,
-                                        ),
-                                        const SizedBox(
-                                          width: 14,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            priController.shopDetailModel.value
-                                                .fullAddress!,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0xff464646),
-                                                  letterSpacing: 0.2,
-                                                  fontSize: 14,
-                                                ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                  // Positioned(
+                                  //   left: 20,
+                                  //   right: 20,
+                                  //   bottom: 100,
+                                  //   child:
+                                  // ),
+                                  // Positioned(
+                                  //   left: 20.0,
+                                  //   right: 20.0,
+                                  //   bottom: 10.0,
+                                  //   child:
+                                  // ),
                                 ],
                               ),
                             ),
