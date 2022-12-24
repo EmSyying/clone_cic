@@ -395,6 +395,7 @@ class _EventDetailState extends State<EventDetail> {
                                                           .getRegisterWithGuest(
                                                         widget.eventId,
                                                       );
+
                                                       onShowCustomCupertinoModalSheet(
                                                         context:
                                                             contextRegisterForm,
@@ -562,126 +563,20 @@ class _EventDetailState extends State<EventDetail> {
                                                                         .primaryColor,
                                                                   ),
                                                             onTap: () {
-                                                              eventController
-                                                                          .eventDetail
-                                                                          .value
-                                                                          .isRegister ==
-                                                                      true
-                                                                  ? eventController
-                                                                      .getCheckInGuest(
-                                                                          eventId: widget
-                                                                              .eventId,
-                                                                          memberId: customerController
-                                                                              .customer
-                                                                              .value
-                                                                              .customerId)
-                                                                      .then(
-                                                                          (value) {
-                                                                      onShowCustomCupertinoModalSheet(
-                                                                        context:
-                                                                            contextRegisterForm,
-                                                                        title:
-                                                                            'Your Ticket',
-                                                                        icon: const Icon(
-                                                                            Icons.clear),
-                                                                        child:
-                                                                            const EventCheckInTicket(
-                                                                          selectCheckIn:
-                                                                              'view_ticket',
-                                                                        ),
-                                                                      );
-                                                                    })
-                                                                  : onShowCustomCupertinoModalSheet(
-                                                                      context:
-                                                                          contextRegisterForm,
-                                                                      title:
-                                                                          'Register',
-                                                                      icon: const Icon(
-                                                                          Icons
-                                                                              .clear),
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            const Material(
                                                                       child:
-                                                                          CustomRegisterForm(
-                                                                        eventID:
-                                                                            widget.eventId,
-                                                                      ));
-                                                            }
-                                                            // eventController
-                                                            //                 .eventDetail
-                                                            //                 .value
-                                                            //                 .posted !=
-                                                            //             "past" &&
-                                                            //         !eventController
-                                                            //             .eventDetail
-                                                            //             .value
-                                                            //             .isRegister!
-                                                            //     ? () {
-                                                            //         onShowCustomCupertinoModalSheet(
-                                                            //             context:
-                                                            //                 context,
-                                                            //             title:
-                                                            //                 'Register',
-                                                            //             icon: const Icon(
-                                                            //                 Icons
-                                                            //                     .clear),
-                                                            //             trailing:
-                                                            //                 SvgPicture
-                                                            //                     .asset(
-                                                            //               "assets/images/svgfile/register.svg",
-                                                            //             ),
-                                                            //             child:
-                                                            //                 CustomRegisterForm(
-                                                            //               eventID:
-                                                            //                   widget.eventId,
-                                                            //             ));
-                                                            //       }
-                                                            //     : eventController
-                                                            //                     .eventDetail
-                                                            //                     .value
-                                                            //                     .posted !=
-                                                            //                 "past" &&
-                                                            //             eventController
-                                                            //                 .eventDetail
-                                                            //                 .value
-                                                            //                 .isRegister!
-                                                            //         ? eventController
-                                                            //                     .eventDetail
-                                                            //                     .value
-                                                            //                     .hostAt ==
-                                                            //                 'online'
-                                                            //             ? () {
-                                                            //                 launchUrl(Uri.parse(eventController
-                                                            //                     .eventDetail
-                                                            //                     .value
-                                                            //                     .livestreamLink
-                                                            //                     .toString()));
-                                                            //               }
-                                                            //             : () {
-                                                            //                 showMaterialModalBottomSheet(
-                                                            //                     context: context,
-                                                            //                     builder: (context) {
-                                                            //                       return SingleChildScrollView(
-                                                            //                         child: Column(
-                                                            //                           children: [
-                                                            //                             Container(
-                                                            //                               height: MediaQuery.of(context).size.height,
-                                                            //                               color: Colors.white,
-                                                            //                               child: const QrCodeScreen(
-                                                            //                                 pageName: 'eventDetail',
-                                                            //                               ),
-                                                            //                             ),
-                                                            //                           ],
-                                                            //                         ),
-                                                            //                       );
-                                                            //                     });
-                                                            //               }
-                                                            //         : eventController
-                                                            //                     .eventDetail
-                                                            //                     .value
-                                                            //                     .hostAt ==
-                                                            //                 'online'
-                                                            //             ? () {}
-                                                            //             : () {},
-                                                            ),
+                                                                          QrCodeScreen(
+                                                                        pageName:
+                                                                            'eventDetail',
+                                                                      ),
+                                                                    ),
+                                                                  ));
+                                                            }),
                                                       ),
                                                       GetBuilder(
                                                         builder:

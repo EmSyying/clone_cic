@@ -403,13 +403,13 @@ class CustomCompanyTap extends StatelessWidget {
         //     ],
         //   ),
         // ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Divider(
-            thickness: 1.2,
-            color: Colors.grey[200],
-          ),
-        )
+        // Padding(
+        //   padding: const EdgeInsets.only(bottom: 10),
+        //   child: Divider(
+        //     thickness: 1.2,
+        //     color: Colors.grey[200],
+        //   ),
+        // )
       ],
     );
   }

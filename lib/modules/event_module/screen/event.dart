@@ -126,9 +126,9 @@ class _EventScreenState extends State<EventScreen> {
   int? currentYear;
   bool? isDisplayEventTap = true;
   void _checkDate() {
-    _eventController.currentMonth =
+    _eventController.eventDate.value =
         FormatDate.investmentDateDropDown("${DateTime.now()}");
-    debugPrint("Current Date:${_eventController.currentMonth}");
+    debugPrint("Current Date:${_eventController.eventDate.value}");
     currentSelected = today.month - 1;
     currentYear = today.year;
 
@@ -257,7 +257,7 @@ class _EventScreenState extends State<EventScreen> {
                                                             "isDisplayEventTap:$isDisplayEventTap");
                                                       });
                                                       _eventController
-                                                              .currentMonth =
+                                                              .eventDate.value =
                                                           month.value.date!;
                                                       debugPrint(
                                                           "is Pressed on event date");

@@ -93,11 +93,13 @@ class _UpComingState extends State<UpComing> {
                         children: [
                           _eventController.newDataList.isEmpty &&
                                   _eventController.isLoadingNew.value == false
-                              ? const EmptyStateProfile(
-                                  isEditable: false,
-                                  title: 'No Events Yet',
-                                  caption: '',
-                                  iconUrl: 'assets/images/emptyState.png',
+                              ? const Center(
+                                  child: EmptyStateProfile(
+                                    isEditable: false,
+                                    title: 'No Events Yet',
+                                    caption: '',
+                                    iconUrl: 'assets/images/emptyState.png',
+                                  ),
                                 )
                               : NewEvent(
                                   title: 'New Events',

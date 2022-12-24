@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../Utils/option_controller/option_controller.dart';
 import '../../../configs/firebase_deeplink/deeplink_service.dart';
+import '../../../configs/route_configuration/route.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/color.dart';
@@ -143,7 +144,7 @@ class EventController extends GetxController {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past&event_date=${eventDate.value}';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -177,7 +178,7 @@ class EventController extends GetxController {
     getPastEvent(customerController.customer.value.customerId!);
   }
 
-  String currentMonth = '';
+  final eventDate = ''.obs;
 
   Future<List<EventData>> getNewEvent(int memberId) async {
     // debugPrint("is working new event");
@@ -186,7 +187,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=new&month=$currentMonth';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?posted=upcoming&type=new&event_date=${eventDate.value}';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -194,6 +195,7 @@ class EventController extends GetxController {
         'Authorization': 'Bearer $tokenKey'
       }).then((response) {
         if (response.statusCode == 200) {
+          debugPrint("Current Month Year:$eventDate");
           var responseJson = json.decode(response.body)["data"];
           newDataList.clear();
           responseJson.map((e) {
@@ -283,7 +285,7 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&type=featured&month=$currentMonth';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?posted=upcoming&type=featured&event_date=${eventDate.value}';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -689,6 +691,7 @@ class EventController extends GetxController {
               ),
             );
           });
+
       fetchEventDetail(memberId!);
       eventDetail.value.isRegister = true;
       Navigator.pop(context!);
@@ -724,6 +727,9 @@ class EventController extends GetxController {
           "event_id": eventId,
           "member_id": customerController.customer.value.customerId,
           "guest": submitguest,
+          "origin":
+              "${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}",
+          "view_ticket": 0
         }).then((res) {
       debugPrint("check in successfull$res");
       getRegisterModel.value = GetRegisterModel.fromJson(res['data']);
@@ -754,7 +760,53 @@ class EventController extends GetxController {
           });
       isLoadingCheckIn(false);
     }).onError((ErrorModel error, stackTrace) {
-      isLoadingCheckIn(false);
+      if (error.statusCode == 422) {
+        var isAvailableZone = json.decode(error.bodyString)['errors']['origin'];
+        var registerStatus =
+            json.decode(error.bodyString)['errors']['member_id'];
+
+        var availableEvent =
+            json.decode(error.bodyString.body)['errors']['event_id'];
+
+        if (isAvailableZone != null) {
+          showNotifyPopUp(
+            context: router.routerDelegate.navigatorKey.currentState!.context,
+            title: 'The zone is not available',
+            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit,',
+          );
+          eventTicket.value = EventTicket();
+          isRegister(false);
+        } else if (registerStatus != null) {
+          eventTicket.value = EventTicket();
+          showNotifyPopUp(
+            secondButton: 'Register Now',
+            onTap: () {
+              final EventDetailArgument argument =
+                  EventDetailArgument(id: eventId);
+              Navigator.pushNamed(Get.context!, RouteName.EVENTDETAIL,
+                  arguments: argument);
+            },
+            context: router.routerDelegate.navigatorKey.currentState!.context,
+            title: 'You have not registered yet',
+            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
+            description:
+                'Your name can\'t be found in the registration list. If you have not registered, please kindly register before scanning this QR code.',
+          );
+        } else if (availableEvent != null) {
+          showNotifyPopUp(
+            context: router.routerDelegate.navigatorKey.currentState!.context,
+            title: 'Past Event',
+            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
+            description:
+                'The event you are scanning has already taken place. Please check the list of our upcoming events and we hope to see you there.',
+          );
+          eventTicket.value = EventTicket();
+          isRegister(false);
+        }
+        isLoadingCheckIn(false);
+      }
     });
     //remove submitted list after submit
     selectCheckInModel.clear();
