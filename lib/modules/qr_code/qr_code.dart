@@ -144,6 +144,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                               Uri.parse(barcode.rawValue!),
                                             );
                                             if (url != null) {
+                                              debugPrint(
+                                                  "Is Scanner to Checkin Event3");
                                               String links = url.link
                                                   .toString()
                                                   .replaceAll(
@@ -160,6 +162,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                               isInvalid = true;
                                             });
                                           }
+                                          debugPrint("is Checke Scann");
                                           // setState(() {
                                           //   resultQR = barcode.rawValue;
                                           //   debugPrint(
@@ -237,16 +240,16 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                           //     );
                                           //   }
 
-                                          //   if (!resultQR!.contains('event') &&
-                                          //       !resultQR!
-                                          //           .contains('subsription') &&
-                                          //       !resultQR!.contains('member') &&
-                                          //       !resultQR!.contains('shop') &&
-                                          //       !resultQR!.contains('WALLET')) {
-                                          //     isInvalid = true;
-                                          //   } else {
-                                          //     isInvalid = false;
-                                          //   }
+                                          // if (!resultQR!.contains('event') &&
+                                          //     !resultQR!
+                                          //         .contains('subsription') &&
+                                          //     !resultQR!.contains('member') &&
+                                          //     !resultQR!.contains('shop') &&
+                                          //     !resultQR!.contains('WALLET')) {
+                                          //   isInvalid = true;
+                                          // } else {
+                                          //   isInvalid = false;
+                                          // }
                                           // });
                                         },
                                       ),
@@ -306,6 +309,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            ElevatedButton(
+                                onPressed: () async {
+                                  await eventCon.onCheckInEvent(
+                                      eventId: 25, context: context);
+                                },
+                                child: const Text('Check in')),
                             Text(
                               "Scanning will start automatically",
                               style: Theme.of(context).textTheme.bodyText2,

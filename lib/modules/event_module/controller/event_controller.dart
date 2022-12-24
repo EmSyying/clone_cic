@@ -19,10 +19,10 @@ import 'package:http/http.dart' as http;
 
 import '../../../Utils/option_controller/option_controller.dart';
 import '../../../configs/firebase_deeplink/deeplink_service.dart';
-import '../../../configs/route_configuration/route.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../utils/helper/color.dart';
+import '../../../widgets/events/custom_register_form.dart';
 import '../models/card_guests_model.dart';
 import '../models/event_calendar.dart';
 import '../models/get_register_model/get_register_model.dart';
@@ -215,7 +215,7 @@ class EventController extends GetxController {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past&search=$search';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?posted=past&search=$search&event_date=${eventDate.value}';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -243,7 +243,7 @@ class EventController extends GetxController {
       int memberId, String search) async {
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=upcoming&search=$search';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?posted=upcoming&search=$search&event_date=${eventDate.value}';
     isLoadingFeture(true);
     isLoadingNew(true);
 
@@ -729,9 +729,8 @@ class EventController extends GetxController {
           "guest": submitguest,
           "origin":
               "${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}",
-          "view_ticket": 0
         }).then((res) {
-      debugPrint("check in successfull$res");
+      debugPrint("check in successfull::$res");
       getRegisterModel.value = GetRegisterModel.fromJson(res['data']);
       // updated by Chhany
       getListGest.clear();
@@ -761,16 +760,16 @@ class EventController extends GetxController {
       isLoadingCheckIn(false);
     }).onError((ErrorModel error, stackTrace) {
       if (error.statusCode == 422) {
-        var isAvailableZone = json.decode(error.bodyString)['errors']['origin'];
-        var registerStatus =
-            json.decode(error.bodyString)['errors']['member_id'];
+        var isAvailableZone = error.bodyString['errors']['origin'];
 
-        var availableEvent =
-            json.decode(error.bodyString.body)['errors']['event_id'];
+        var registerStatus = error.bodyString['errors']['member_id'];
+        debugPrint("Error body event checkin1:${error.bodyString}");
 
+        var availableEvent = error.bodyString['errors']['event_id'];
+        debugPrint("Error body event checkin 1");
         if (isAvailableZone != null) {
           showNotifyPopUp(
-            context: router.routerDelegate.navigatorKey.currentState!.context,
+            context: context,
             title: 'The zone is not available',
             imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
             description:
@@ -779,16 +778,23 @@ class EventController extends GetxController {
           eventTicket.value = EventTicket();
           isRegister(false);
         } else if (registerStatus != null) {
+          fetchEventDetail(eventId!);
+          debugPrint("Error body event checkin 2");
           eventTicket.value = EventTicket();
           showNotifyPopUp(
             secondButton: 'Register Now',
             onTap: () {
-              final EventDetailArgument argument =
-                  EventDetailArgument(id: eventId);
-              Navigator.pushNamed(Get.context!, RouteName.EVENTDETAIL,
-                  arguments: argument);
+              onShowCustomCupertinoModalSheet(
+                context: context,
+                title: 'Register',
+                icon: const Icon(Icons.clear),
+                child: CustomRegisterForm(
+                  eventID: eventId,
+                  contextRegisterTicket: context,
+                ),
+              );
             },
-            context: router.routerDelegate.navigatorKey.currentState!.context,
+            context: context,
             title: 'You have not registered yet',
             imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
             description:
@@ -796,7 +802,7 @@ class EventController extends GetxController {
           );
         } else if (availableEvent != null) {
           showNotifyPopUp(
-            context: router.routerDelegate.navigatorKey.currentState!.context,
+            context: context,
             title: 'Past Event',
             imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
             description:

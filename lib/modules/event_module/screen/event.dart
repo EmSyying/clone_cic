@@ -249,16 +249,26 @@ class _EventScreenState extends State<EventScreen> {
                                                                         '${DateTime.now()}')) {
                                                           isDisplayEventTap =
                                                               true;
+                                                          // if user select current month
+                                                          _eventController
+                                                                  .eventDate
+                                                                  .value =
+                                                              FormatDate
+                                                                  .investmentDateDropDown(
+                                                                      "${DateTime.now()}");
                                                         } else {
+                                                          // if user select last month
                                                           isDisplayEventTap =
                                                               false;
+                                                          _eventController
+                                                                  .eventDate
+                                                                  .value =
+                                                              month.value.date!;
                                                         }
                                                         debugPrint(
                                                             "isDisplayEventTap:$isDisplayEventTap");
                                                       });
-                                                      _eventController
-                                                              .eventDate.value =
-                                                          month.value.date!;
+
                                                       debugPrint(
                                                           "is Pressed on event date");
                                                       _eventController

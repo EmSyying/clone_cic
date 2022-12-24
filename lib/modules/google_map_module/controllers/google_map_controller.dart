@@ -10,8 +10,8 @@ import 'package:http/http.dart' as http;
 class GoogleMapsController extends GetxController {
   static const LatLng kMapCenter = LatLng(11.55847700573664, 104.8778156455111);
   BitmapDescriptor? _markerIcon;
-  double latitute = 11.55847700573664;
-  double longtitute = 104.8778156455111;
+  double latitute = 11.587542;
+  double longtitute = 104.897149;
   GoogleMapController? googleMapcontroller;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   MarkerId? selectedMarker;
