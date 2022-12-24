@@ -166,14 +166,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             setState(() {
                               memberCon.personalProfile.value = memberCon
                                   .personalProfile.value
-                                  .copyWith(customerLatinName: name);
+                                  .copyWith(name: name);
                             });
                           },
                           isValidate: true,
                           labelText: 'Name',
-                          initialValue: memberCon
-                                  .personalProfile.value.customerLatinName ??
-                              ""),
+                          initialValue:
+                              memberCon.personalProfile.value.name ?? ""),
                       CustomTextFieldNew(
                         hintText: 'Title',
                         onChange: (title) {
@@ -186,8 +185,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         isValidate: true,
                         labelText: 'Title',
                         initialValue:
-                            memberCon.personalProfile.value.title != ''
-                                ? memberCon.personalProfile.value.title
+                            memberCon.personalProfile.value.position != ''
+                                ? memberCon.personalProfile.value.position
                                 : '',
                       ),
                       CustomTextFieldNew(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/Utils/helper/app_pin_code.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
@@ -100,7 +101,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child:  Text(
+                        child: Text(
                           'Download',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -121,7 +122,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child:  Text(
+                        child: Text(
                           'Share',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -142,7 +143,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child:  Center(
+                        child: Center(
                           child: Text(
                             'Cancel',
                             style: TextStyle(
@@ -175,7 +176,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child:  Text(
+                            child: Text(
                               'Download',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -196,7 +197,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child:  Text(
+                            child: Text(
                               'Share',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -217,7 +218,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child:  Center(
+                            child: Center(
                               child: Text(
                                 'Cancel',
                                 style: TextStyle(
@@ -333,8 +334,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                                       'assets/images/Logo/cic_logo_x4jpg.jpg'),
                                   typeNumber: 3,
                                   size: 300,
-                                  data:
-                                      'member${cusController.customer.value.customerId}',
+                                  data: customerController.profileQRLink.value,
                                   roundEdges: true,
                                 ),
                         ),

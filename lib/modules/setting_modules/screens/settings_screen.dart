@@ -882,7 +882,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               builder: (context) => ViewWebsite(
                                 title: S.of(context).privacy,
                                 url:
-                                    'https://cic-association.com/other-page/?page-id=132',
+                                    'https://cic-holding.com/cic-mobile-app-privacy-policy',
                               ),
                             ),
                           );

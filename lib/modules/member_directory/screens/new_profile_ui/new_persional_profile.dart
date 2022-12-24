@@ -161,25 +161,20 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
                     background: Obx(
-                      () => customerUser.isloading.value
+                      () => memberCon.isLoadingProfile.value
                           ? const SimmmerProfile()
                           : CustomUserProfile(
                               id: widget.id,
                               isDirectories: widget.isDirectory,
-                              imgUrl: widget.isDirectory == true
-                                  ? memberCon.personalProfile.value.profile
-                                  : customerUser.customer.value.profile,
-                              fullName: widget.isDirectory == true
-                                  ? memberCon
-                                      .personalProfile.value.customerLatinName
-                                  : customerUser.customer.value.fullName,
-                              position: widget.isDirectory == true
-                                  ? memberCon.personalProfile.value.title
-                                  : customerUser.customer.value.title ?? '',
-                              description: widget.isDirectory == true
-                                  ? memberCon.personalProfile.value.companyName
-                                  : customerUser.customer.value.companyName,
-                            ),
+                              imgUrl: memberCon.personalProfile.value.profile,
+                              defaultPhoto:
+                                  memberCon.personalProfile.value.defaultPhoto,
+                              fullName: memberCon.personalProfile.value.name,
+                              position:
+                                  memberCon.personalProfile.value.position ??
+                                      '',
+                              description:
+                                  memberCon.personalProfile.value.companyName),
                     ),
                   ),
                   forceElevated: innerBoxIsScrolled,

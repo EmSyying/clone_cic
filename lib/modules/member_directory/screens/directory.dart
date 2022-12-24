@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
@@ -300,19 +301,21 @@ class _DirectoryState extends State<Directory> {
                                                               .sendAnalyticsEvent(
                                                                   'Directory Profile ${e.value.name!}');
 
-                                                          Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  NewPeronalProfile(
-                                                                isDirectory:
-                                                                    true,
-                                                                id: e.value.id,
-                                                                imgUrl: e.value
-                                                                    .photo,
-                                                              ),
-                                                            ),
-                                                          );
+                                                          // Navigator.push(
+                                                          //   context,
+                                                          //   MaterialPageRoute(
+                                                          //     builder: (context) =>
+                                                          //         NewPeronalProfile(
+                                                          //       isDirectory:
+                                                          //           true,
+                                                          //       id: e.value.id,
+                                                          //       imgUrl: e.value
+                                                          //           .photo,
+                                                          //     ),
+                                                          //   ),
+                                                          // );
+                                                          context.go(
+                                                              '/directory/${e.value.id}?isDirectory=true&imgUrl=${e.value.photo}');
                                                         },
                                                   child: Container(
                                                     color: Colors.white,

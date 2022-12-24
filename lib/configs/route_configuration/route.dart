@@ -842,12 +842,25 @@ final router = GoRouter(
                           ]),
                     ]),
                 GoRoute(
-                  path: 'directory',
-                  name: 'Directory',
-                  builder: (context, state) => Directory(
-                    key: state.pageKey,
-                  ),
-                ),
+                    path: 'directory',
+                    name: 'Directory',
+                    builder: (context, state) => Directory(
+                          key: state.pageKey,
+                        ),
+                    routes: [
+                      GoRoute(
+                          path: ':id',
+                          builder: (context, state) => NewPeronalProfile(
+                                id: int.tryParse(
+                                  state.params['id'].toString(),
+                                ),
+                                isDirectory: state.queryParams['isDirectory']
+                                        .toString()
+                                        .toLowerCase() ==
+                                    'true',
+                                imgUrl: state.queryParams['imgUrl'],
+                              ))
+                    ]),
                 // Recent Report
                 GoRoute(
                     path: 'report/:id',
@@ -871,6 +884,7 @@ final router = GoRouter(
                 GoRoute(
                   path: 'switch-splash-screen',
                   name: 'SwitchSplashScreen',
+                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) => CustomTransitionPage(
                       child: SwitchSplashScreen(
                         offset: state.extra! as Offset,

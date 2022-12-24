@@ -10,20 +10,18 @@ _$_PersonalProfile _$$_PersonalProfileFromJson(Map<String, dynamic> json) =>
     _$_PersonalProfile(
       id: json['id'] as int?,
       display: json['display'] as String?,
-      customerName: json['customer_name'] as String?,
-      customerLatinName: json['customer_latin_name'] as String?,
-      customerDateOfBirth: json['customer_date_of_birth'] as String?,
-      customerGender: json['customer_gender'] == null
+      code: json['code'] as String?,
+      position: json['position'] as String?,
+      name: json['name'] as String?,
+      defaultPhoto: json['default_photo'] as String?,
+      customerDateOfBirth: json['date_of_birth'] as String?,
+      customerGender: json['gender'] == null
+          ? null
+          : CustomerGender.fromJson(json['gender'] as Map<String, dynamic>),
+      customerNationality: json['nationality'] == null
           ? null
           : CustomerGender.fromJson(
-              json['customer_gender'] as Map<String, dynamic>),
-      customerNationality: json['customer_nationality'] == null
-          ? null
-          : CustomerGender.fromJson(
-              json['customer_nationality'] as Map<String, dynamic>),
-      position: json['position'] == null
-          ? null
-          : CustomerGender.fromJson(json['position'] as Map<String, dynamic>),
+              json['nationality'] as Map<String, dynamic>),
       recommended: json['recommended'] as String?,
       numberShare: json['number_share'] as int?,
       expertise: json['expertise'] as String?,
@@ -32,14 +30,13 @@ _$_PersonalProfile _$$_PersonalProfileFromJson(Map<String, dynamic> json) =>
       profileBiography: json['profile_biography'] as String?,
       about: json['about'] as String?,
       other: json['other'] as String?,
-      customerIdentityType: json['customer_identity_type'] == null
+      customerIdentityType: json['identity_type'] == null
           ? null
           : CustomerGender.fromJson(
-              json['customer_identity_type'] as Map<String, dynamic>),
-      customerIdentityNumber: json['customer_identity_number'] as String?,
-      customerIdentityDate: json['customer_identity_date'] as String?,
-      customerIdentityExpiredDate:
-          json['customer_identity_expired_date'] as String?,
+              json['identity_type'] as Map<String, dynamic>),
+      customerIdentityNumber: json['identity_number'] as String?,
+      customerIdentityDate: json['identity_date'] as String?,
+      customerIdentityExpiredDate: json['identity_expired_date'] as String?,
       currentAddress: json['current_address'] == null
           ? null
           : CurrentAddress.fromJson(
@@ -72,12 +69,13 @@ Map<String, dynamic> _$$_PersonalProfileToJson(_$_PersonalProfile instance) =>
     <String, dynamic>{
       'id': instance.id,
       'display': instance.display,
-      'customer_name': instance.customerName,
-      'customer_latin_name': instance.customerLatinName,
-      'customer_date_of_birth': instance.customerDateOfBirth,
-      'customer_gender': instance.customerGender,
-      'customer_nationality': instance.customerNationality,
+      'code': instance.code,
       'position': instance.position,
+      'name': instance.name,
+      'default_photo': instance.defaultPhoto,
+      'date_of_birth': instance.customerDateOfBirth,
+      'gender': instance.customerGender,
+      'nationality': instance.customerNationality,
       'recommended': instance.recommended,
       'number_share': instance.numberShare,
       'expertise': instance.expertise,
@@ -86,10 +84,10 @@ Map<String, dynamic> _$$_PersonalProfileToJson(_$_PersonalProfile instance) =>
       'profile_biography': instance.profileBiography,
       'about': instance.about,
       'other': instance.other,
-      'customer_identity_type': instance.customerIdentityType,
-      'customer_identity_number': instance.customerIdentityNumber,
-      'customer_identity_date': instance.customerIdentityDate,
-      'customer_identity_expired_date': instance.customerIdentityExpiredDate,
+      'identity_type': instance.customerIdentityType,
+      'identity_number': instance.customerIdentityNumber,
+      'identity_date': instance.customerIdentityDate,
+      'identity_expired_date': instance.customerIdentityExpiredDate,
       'current_address': instance.currentAddress,
       'street_no': instance.streetNo,
       'house_no': instance.houseNo,

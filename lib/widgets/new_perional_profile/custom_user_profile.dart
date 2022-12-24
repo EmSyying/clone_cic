@@ -16,7 +16,9 @@ class CustomUserProfile extends StatefulWidget {
   final String? position;
   final String? description;
   final String? imgUrl;
+  final String? defaultPhoto;
   final bool? isDirectories;
+
   const CustomUserProfile({
     Key? key,
     this.id,
@@ -24,6 +26,7 @@ class CustomUserProfile extends StatefulWidget {
     this.position,
     this.description,
     this.imgUrl,
+    this.defaultPhoto,
     this.isDirectories = false,
   }) : super(key: key);
 
@@ -227,15 +230,30 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                       Container(
                         height: 85,
                         width: 85,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 3.5,
-                              color: Theme.of(context).primaryColor),
-                          image: DecorationImage(
-                              image: NetworkImage(widget.imgUrl ?? ''),
-                              fit: BoxFit.cover),
-                        ),
+                        decoration: widget.imgUrl == null
+                            ? BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                shape: BoxShape.circle)
+                            : BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    width: 3.5,
+                                    color: Theme.of(context).primaryColor),
+                                image: DecorationImage(
+                                    image: NetworkImage(widget.imgUrl ?? ''),
+                                    fit: BoxFit.cover),
+                              ),
+                        child: widget.defaultPhoto != null
+                            ? Center(
+                                child: Text(
+                                  widget.defaultPhoto!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .copyWith(fontSize: 30),
+                                ),
+                              )
+                            : null,
                       )
                     ],
                   )),

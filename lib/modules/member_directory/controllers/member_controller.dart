@@ -456,7 +456,7 @@ class MemberController extends GetxController {
   final cusController = Get.put(CustomerController());
   Future<void> updatePersonalProfile(BuildContext? context) async {
     isLaodingUpdateProfile(true);
-    debugPrint("Customer Name: ${personalProfile.value.customerName}");
+    debugPrint("Customer Name: ${personalProfile.value.name}");
     await apiBaseHelpers.onNetworkRequesting(
         url: 'member-profile/update',
         methode: METHODE.post,
@@ -464,7 +464,7 @@ class MemberController extends GetxController {
         body: {
           'member_id': _customerController.customer.value.customerId,
           'company_name': personalProfile.value.companyName,
-          'full_name': personalProfile.value.customerLatinName,
+          'full_name': personalProfile.value.name,
           'phone': personalProfile.value.phone,
           'email': personalProfile.value.email,
           'telegram': personalProfile.value.telegram,
@@ -551,8 +551,7 @@ class MemberController extends GetxController {
   Future<PersonalProfile> fetchMemberPersonProfile({int? id}) async {
     isLoadingProfile(true);
     tokenKey = await LocalData.getCurrentUser();
-    String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}member-profile?member_id=$id';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrlV4}member/$id';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -561,7 +560,6 @@ class MemberController extends GetxController {
       }).then((response) {
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['data'];
-
           personalProfile.value = PersonalProfile.fromJson(responseJson);
         } else {}
       });
@@ -612,7 +610,8 @@ class MemberController extends GetxController {
     isLoadingCompanyProfile(true);
     await apiBaseHelper
         .onNetworkRequesting(
-            url: 'member-company?member_id=$id',
+            fullURL:
+                '${FlavorConfig.instance.values!.apiBaseUrlV4}member/company/$id',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
@@ -673,12 +672,12 @@ class MemberController extends GetxController {
       if (isShowCiCTeam != null) {
         debugPrint("is member: 1");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillter=$filter&show_cic_team=1&page=$pageNumber&hide_me=1';
+            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillter=$filter&show_cic_team=1&page=$pageNumber&hide_me=1';
       } else {
         debugPrint("is event:");
         debugPrint("is member: 2");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillter=$filter&page=$pageNumber&event_id=$eventId';
+            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillter=$filter&page=$pageNumber&event_id=$eventId';
       }
     } else if (filterJson != null) {
       if (memberCurrentPage.value != 0) {
@@ -689,33 +688,33 @@ class MemberController extends GetxController {
           if (isShowCiCTeam != null) {
             debugPrint("is member: 3");
             url =
-                '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&show_cic_team=1&page=$memberCurrentPage&hide_me=1';
+                '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&show_cic_team=1&page=$memberCurrentPage&hide_me=1';
           } else {
             debugPrint("is member: 4");
             url =
-                '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&page=$memberCurrentPage&event_id=$eventId';
+                '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&page=$memberCurrentPage&event_id=$eventId';
           }
         }
       } else {
         if (isShowCiCTeam != null) {
           debugPrint("is member: 5");
           url =
-              '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&show_cic_team=1&hide_me=1';
+              '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&show_cic_team=1&hide_me=1';
         } else {
           debugPrint("is member: 6");
           url =
-              '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterJson&event_id=$eventId';
+              '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&event_id=$eventId';
         }
       }
     } else {
       if (isShowCiCTeam != null) {
         debugPrint("is member: 7");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrl}customer?show_cic_team=1&hide_me=1&page=$pageNumber';
+            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?show_cic_team=1&hide_me=1&page=$pageNumber';
       } else {
         debugPrint("is member: 8");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrl}customer?page=$pageNumber&event_id=$eventId';
+            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?page=$pageNumber&event_id=$eventId';
       }
     }
 

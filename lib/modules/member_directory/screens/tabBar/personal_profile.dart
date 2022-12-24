@@ -224,10 +224,10 @@ class _PersonalProfileState extends State<PersonalProfile> {
                                         genderindex: selectedIndexGender,
                                       ));
                                 },
-                                khmerName: _memberCon
-                                    .personalProfile.value.customerName!,
-                                fullName: _memberCon
-                                    .personalProfile.value.customerLatinName!,
+                                khmerName:
+                                    _memberCon.personalProfile.value.name!,
+                                fullName:
+                                    _memberCon.personalProfile.value.name!,
                                 dateOfBirth: _memberCon
                                     .personalProfile.value.customerDateOfBirth!,
                                 gender: _memberCon.personalProfile.value

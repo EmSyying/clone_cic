@@ -77,8 +77,7 @@ class _BasicInformationPopUPState extends State<BasicInformationPopUP> {
                         ),
                         CustomTextFieldNew(
                           hintText: 'Enter khmer name',
-                          initialValue:
-                              _memberCon.personalProfile.value.customerName!,
+                          initialValue: _memberCon.personalProfile.value.name!,
                           labelText: 'Enter khmer name',
                           onChange: (value) {
                             if (value == '') {
@@ -92,8 +91,7 @@ class _BasicInformationPopUPState extends State<BasicInformationPopUP> {
                         ),
                         CustomTextFieldNew(
                           hintText: 'Enter full name',
-                          initialValue: _memberCon
-                              .personalProfile.value.customerLatinName!,
+                          initialValue: _memberCon.personalProfile.value.name!,
                           labelText: 'Enter full name',
                           onChange: (value) {
                             if (value == '') {

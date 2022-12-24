@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cicgreenloan/configs/route_configuration/route.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -135,93 +136,119 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                       child: MobileScanner(
                                         allowDuplicates: false,
                                         controller: cameraController,
-                                        onDetect: (barcode, _) {
-                                          setState(() {
-                                            resultQR = barcode.rawValue;
-
-                                            ///Scan from Wallet Transfer Screen
-                                            if (resultQR!.contains('WALLET') &&
-                                                widget.pageName == 'transfer') {
-                                              cameraController //force stop camera when got key wallet
-                                                  .stop()
-                                                  .then((value) {
-                                                _walletController
-                                                    .onScanTransfer(
-                                                        resultQR ?? '');
-                                                Navigator.pop(context);
-                                              });
+                                        onDetect: (barcode, _) async {
+                                          try {
+                                            final PendingDynamicLinkData? url =
+                                                await FirebaseDynamicLinks
+                                                    .instance
+                                                    .getDynamicLink(
+                                              Uri.parse(barcode.rawValue!),
+                                            );
+                                            if (url != null) {
+                                              String links = url.link
+                                                  .toString()
+                                                  .replaceAll(
+                                                      'https://cicapp.page.link',
+                                                      '');
+                                              settingCon
+                                                      .isHideBottomNavigation =
+                                                  false;
+                                              settingCon.update();
+                                              router.go(links);
                                             }
-
-                                            ///Scan from Dashboard
-                                            if (resultQR!.contains('WALLET') &&
-                                                widget.pageName == null) {
-                                              cameraController //force stop camera when got key wallet
-                                                  .stop()
-                                                  .then(
-                                                (value) {
-                                                  _walletController
-                                                      .onScanTransfer(
-                                                          resultQR ?? '');
-                                                  // Navigator.push(
-                                                  //     context,
-                                                  //     MaterialPageRoute(
-                                                  //       builder: (context) =>
-                                                  //           const TransferToMMA(),
-                                                  //     ));
-
-                                                  context.go(
-                                                      '/${CICRoute.i.transferToMMA().path}');
-                                                  Future.delayed(
-                                                      const Duration(
-                                                          seconds: 1), () {
-                                                    _settingCon.selectedIndex =
-                                                        0;
-                                                    _settingCon
-                                                        .onHideBottomNavigationBar(
-                                                            false);
-                                                    _settingCon.update();
-                                                  });
-                                                },
-                                              );
-                                            }
-
-                                            ///Scan from shop payment
-                                            if (resultQR != null &&
-                                                resultQR!.contains('shop')) {
-                                              cameraController.stop().then(
-                                                (value) {
-                                                  int shopId = int.parse(
-                                                    resultQR!
-                                                        .replaceAll('shop', ''),
-                                                  );
-                                                  context.push(
-                                                      '/privilege-payment/$shopId');
-                                                },
-                                              );
-                                            }
-                                            // Scan to subsription
-                                            if (resultQR != null &&
-                                                resultQR!
-                                                    .contains('subscription')) {
-                                              cameraController.stop().then(
-                                                (value) {
-                                                  context.push(
-                                                      "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
-                                                },
-                                              );
-                                            }
-
-                                            if (!resultQR!.contains('event') &&
-                                                !resultQR!
-                                                    .contains('subsription') &&
-                                                !resultQR!.contains('member') &&
-                                                !resultQR!.contains('shop') &&
-                                                !resultQR!.contains('WALLET')) {
+                                          } catch (ex) {
+                                            setState(() {
                                               isInvalid = true;
-                                            } else {
-                                              isInvalid = false;
-                                            }
-                                          });
+                                            });
+                                          }
+                                          // setState(() {
+                                          //   resultQR = barcode.rawValue;
+                                          //   debugPrint(
+                                          //       "QR Code Result===================== $resultQR");
+
+                                          //   ///Scan from Wallet Transfer Screen
+                                          //   if (resultQR!.contains('WALLET') &&
+                                          //       widget.pageName == 'transfer') {
+                                          //     cameraController //force stop camera when got key wallet
+                                          //         .stop()
+                                          //         .then((value) {
+                                          //       _walletController
+                                          //           .onScanTransfer(
+                                          //               resultQR ?? '');
+                                          //       Navigator.pop(context);
+                                          //     });
+                                          //   }
+
+                                          //   ///Scan from Dashboard
+                                          //   if (resultQR!.contains('WALLET') &&
+                                          //       widget.pageName == null) {
+                                          //     cameraController //force stop camera when got key wallet
+                                          //         .stop()
+                                          //         .then(
+                                          //       (value) {
+                                          //         _walletController
+                                          //             .onScanTransfer(
+                                          //                 resultQR ?? '');
+                                          //         // Navigator.push(
+                                          //         //     context,
+                                          //         //     MaterialPageRoute(
+                                          //         //       builder: (context) =>
+                                          //         //           const TransferToMMA(),
+                                          //         //     ));
+
+                                          //         context.go(
+                                          //             '/${CICRoute.i.transferToMMA().path}');
+                                          //         Future.delayed(
+                                          //             const Duration(
+                                          //                 seconds: 1), () {
+                                          //           _settingCon.selectedIndex =
+                                          //               0;
+                                          //           _settingCon
+                                          //               .onHideBottomNavigationBar(
+                                          //                   false);
+                                          //           _settingCon.update();
+                                          //         });
+                                          //       },
+                                          //     );
+                                          //   }
+
+                                          //   ///Scan from shop payment
+                                          //   if (resultQR != null &&
+                                          //       resultQR!.contains('shop')) {
+                                          //     cameraController.stop().then(
+                                          //       (value) {
+                                          //         int shopId = int.parse(
+                                          //           resultQR!
+                                          //               .replaceAll('shop', ''),
+                                          //         );
+                                          //         context.push(
+                                          //             '/privilege-payment/$shopId');
+                                          //       },
+                                          //     );
+                                          //   }
+                                          //   // Scan to subsription
+                                          //   if (resultQR != null &&
+                                          //       resultQR!
+                                          //           .contains('subscription')) {
+                                          //     cameraController.stop().then(
+                                          //       (value) {
+                                          //         context.push(
+                                          //             "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                                          //       },
+                                          //     );
+                                          //   }
+
+                                          //   if (!resultQR!.contains('event') &&
+                                          //       !resultQR!
+                                          //           .contains('subsription') &&
+                                          //       !resultQR!.contains('member') &&
+                                          //       !resultQR!.contains('shop') &&
+                                          //       !resultQR!.contains('WALLET')) {
+                                          //     isInvalid = true;
+                                          //   } else {
+                                          //     isInvalid = false;
+                                          //   }
+                                          // });
                                         },
                                       ),
                                     ),

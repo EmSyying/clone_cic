@@ -22,17 +22,17 @@ PersonalProfile _$PersonalProfileFromJson(Map<String, dynamic> json) {
 mixin _$PersonalProfile {
   int? get id => throw _privateConstructorUsedError;
   String? get display => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_name')
-  String? get customerName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_latin_name')
-  String? get customerLatinName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_date_of_birth')
+  String? get code => throw _privateConstructorUsedError;
+  String? get position => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'default_photo')
+  String? get defaultPhoto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date_of_birth')
   String? get customerDateOfBirth => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_gender')
+  @JsonKey(name: 'gender')
   CustomerGender? get customerGender => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_nationality')
+  @JsonKey(name: 'nationality')
   CustomerGender? get customerNationality => throw _privateConstructorUsedError;
-  CustomerGender? get position => throw _privateConstructorUsedError;
   String? get recommended => throw _privateConstructorUsedError;
   @JsonKey(name: 'number_share')
   int? get numberShare => throw _privateConstructorUsedError;
@@ -45,14 +45,14 @@ mixin _$PersonalProfile {
   String? get profileBiography => throw _privateConstructorUsedError;
   String? get about => throw _privateConstructorUsedError;
   String? get other => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_identity_type')
+  @JsonKey(name: 'identity_type')
   CustomerGender? get customerIdentityType =>
       throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_identity_number')
+  @JsonKey(name: 'identity_number')
   String? get customerIdentityNumber => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_identity_date')
+  @JsonKey(name: 'identity_date')
   String? get customerIdentityDate => throw _privateConstructorUsedError;
-  @JsonKey(name: 'customer_identity_expired_date')
+  @JsonKey(name: 'identity_expired_date')
   String? get customerIdentityExpiredDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'current_address')
   CurrentAddress? get currentAddress => throw _privateConstructorUsedError;
@@ -97,17 +97,17 @@ abstract class $PersonalProfileCopyWith<$Res> {
   $Res call(
       {int? id,
       String? display,
-      @JsonKey(name: 'customer_name')
-          String? customerName,
-      @JsonKey(name: 'customer_latin_name')
-          String? customerLatinName,
-      @JsonKey(name: 'customer_date_of_birth')
+      String? code,
+      String? position,
+      String? name,
+      @JsonKey(name: 'default_photo')
+          String? defaultPhoto,
+      @JsonKey(name: 'date_of_birth')
           String? customerDateOfBirth,
-      @JsonKey(name: 'customer_gender')
+      @JsonKey(name: 'gender')
           CustomerGender? customerGender,
-      @JsonKey(name: 'customer_nationality')
+      @JsonKey(name: 'nationality')
           CustomerGender? customerNationality,
-      CustomerGender? position,
       String? recommended,
       @JsonKey(name: 'number_share')
           int? numberShare,
@@ -120,13 +120,13 @@ abstract class $PersonalProfileCopyWith<$Res> {
           String? profileBiography,
       String? about,
       String? other,
-      @JsonKey(name: 'customer_identity_type')
+      @JsonKey(name: 'identity_type')
           CustomerGender? customerIdentityType,
-      @JsonKey(name: 'customer_identity_number')
+      @JsonKey(name: 'identity_number')
           String? customerIdentityNumber,
-      @JsonKey(name: 'customer_identity_date')
+      @JsonKey(name: 'identity_date')
           String? customerIdentityDate,
-      @JsonKey(name: 'customer_identity_expired_date')
+      @JsonKey(name: 'identity_expired_date')
           String? customerIdentityExpiredDate,
       @JsonKey(name: 'current_address')
           CurrentAddress? currentAddress,
@@ -172,12 +172,13 @@ class _$PersonalProfileCopyWithImpl<$Res, $Val extends PersonalProfile>
   $Res call({
     Object? id = freezed,
     Object? display = freezed,
-    Object? customerName = freezed,
-    Object? customerLatinName = freezed,
+    Object? code = freezed,
+    Object? position = freezed,
+    Object? name = freezed,
+    Object? defaultPhoto = freezed,
     Object? customerDateOfBirth = freezed,
     Object? customerGender = freezed,
     Object? customerNationality = freezed,
-    Object? position = freezed,
     Object? recommended = freezed,
     Object? numberShare = freezed,
     Object? expertise = freezed,
@@ -220,13 +221,21 @@ class _$PersonalProfileCopyWithImpl<$Res, $Val extends PersonalProfile>
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerName: freezed == customerName
-          ? _value.customerName
-          : customerName // ignore: cast_nullable_to_non_nullable
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerLatinName: freezed == customerLatinName
-          ? _value.customerLatinName
-          : customerLatinName // ignore: cast_nullable_to_non_nullable
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultPhoto: freezed == defaultPhoto
+          ? _value.defaultPhoto
+          : defaultPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
       customerDateOfBirth: freezed == customerDateOfBirth
           ? _value.customerDateOfBirth
@@ -239,10 +248,6 @@ class _$PersonalProfileCopyWithImpl<$Res, $Val extends PersonalProfile>
       customerNationality: freezed == customerNationality
           ? _value.customerNationality
           : customerNationality // ignore: cast_nullable_to_non_nullable
-              as CustomerGender?,
-      position: freezed == position
-          ? _value.position
-          : position // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
       recommended: freezed == recommended
           ? _value.recommended
@@ -387,17 +392,17 @@ abstract class _$$_PersonalProfileCopyWith<$Res>
   $Res call(
       {int? id,
       String? display,
-      @JsonKey(name: 'customer_name')
-          String? customerName,
-      @JsonKey(name: 'customer_latin_name')
-          String? customerLatinName,
-      @JsonKey(name: 'customer_date_of_birth')
+      String? code,
+      String? position,
+      String? name,
+      @JsonKey(name: 'default_photo')
+          String? defaultPhoto,
+      @JsonKey(name: 'date_of_birth')
           String? customerDateOfBirth,
-      @JsonKey(name: 'customer_gender')
+      @JsonKey(name: 'gender')
           CustomerGender? customerGender,
-      @JsonKey(name: 'customer_nationality')
+      @JsonKey(name: 'nationality')
           CustomerGender? customerNationality,
-      CustomerGender? position,
       String? recommended,
       @JsonKey(name: 'number_share')
           int? numberShare,
@@ -410,13 +415,13 @@ abstract class _$$_PersonalProfileCopyWith<$Res>
           String? profileBiography,
       String? about,
       String? other,
-      @JsonKey(name: 'customer_identity_type')
+      @JsonKey(name: 'identity_type')
           CustomerGender? customerIdentityType,
-      @JsonKey(name: 'customer_identity_number')
+      @JsonKey(name: 'identity_number')
           String? customerIdentityNumber,
-      @JsonKey(name: 'customer_identity_date')
+      @JsonKey(name: 'identity_date')
           String? customerIdentityDate,
-      @JsonKey(name: 'customer_identity_expired_date')
+      @JsonKey(name: 'identity_expired_date')
           String? customerIdentityExpiredDate,
       @JsonKey(name: 'current_address')
           CurrentAddress? currentAddress,
@@ -460,12 +465,13 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? display = freezed,
-    Object? customerName = freezed,
-    Object? customerLatinName = freezed,
+    Object? code = freezed,
+    Object? position = freezed,
+    Object? name = freezed,
+    Object? defaultPhoto = freezed,
     Object? customerDateOfBirth = freezed,
     Object? customerGender = freezed,
     Object? customerNationality = freezed,
-    Object? position = freezed,
     Object? recommended = freezed,
     Object? numberShare = freezed,
     Object? expertise = freezed,
@@ -508,13 +514,21 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerName: freezed == customerName
-          ? _value.customerName
-          : customerName // ignore: cast_nullable_to_non_nullable
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      customerLatinName: freezed == customerLatinName
-          ? _value.customerLatinName
-          : customerLatinName // ignore: cast_nullable_to_non_nullable
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultPhoto: freezed == defaultPhoto
+          ? _value.defaultPhoto
+          : defaultPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
       customerDateOfBirth: freezed == customerDateOfBirth
           ? _value.customerDateOfBirth
@@ -527,10 +541,6 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
       customerNationality: freezed == customerNationality
           ? _value.customerNationality
           : customerNationality // ignore: cast_nullable_to_non_nullable
-              as CustomerGender?,
-      position: freezed == position
-          ? _value.position
-          : position // ignore: cast_nullable_to_non_nullable
               as CustomerGender?,
       recommended: freezed == recommended
           ? _value.recommended
@@ -670,49 +680,31 @@ class _$_PersonalProfile implements _PersonalProfile {
   _$_PersonalProfile(
       {this.id,
       this.display,
-      @JsonKey(name: 'customer_name')
-          this.customerName,
-      @JsonKey(name: 'customer_latin_name')
-          this.customerLatinName,
-      @JsonKey(name: 'customer_date_of_birth')
-          this.customerDateOfBirth,
-      @JsonKey(name: 'customer_gender')
-          this.customerGender,
-      @JsonKey(name: 'customer_nationality')
-          this.customerNationality,
+      this.code,
       this.position,
+      this.name,
+      @JsonKey(name: 'default_photo') this.defaultPhoto,
+      @JsonKey(name: 'date_of_birth') this.customerDateOfBirth,
+      @JsonKey(name: 'gender') this.customerGender,
+      @JsonKey(name: 'nationality') this.customerNationality,
       this.recommended,
-      @JsonKey(name: 'number_share')
-          this.numberShare,
+      @JsonKey(name: 'number_share') this.numberShare,
       this.expertise,
-      @JsonKey(name: 'member_type')
-          this.memberType,
-      @JsonKey(name: 'year_joined')
-          this.yearJoined,
-      @JsonKey(name: 'profile_biography')
-          this.profileBiography,
+      @JsonKey(name: 'member_type') this.memberType,
+      @JsonKey(name: 'year_joined') this.yearJoined,
+      @JsonKey(name: 'profile_biography') this.profileBiography,
       this.about,
       this.other,
-      @JsonKey(name: 'customer_identity_type')
-          this.customerIdentityType,
-      @JsonKey(name: 'customer_identity_number')
-          this.customerIdentityNumber,
-      @JsonKey(name: 'customer_identity_date')
-          this.customerIdentityDate,
-      @JsonKey(name: 'customer_identity_expired_date')
-          this.customerIdentityExpiredDate,
-      @JsonKey(name: 'current_address')
-          this.currentAddress,
-      @JsonKey(name: 'street_no')
-          this.streetNo,
-      @JsonKey(name: 'house_no')
-          this.houseNo,
-      @JsonKey(name: 'permanent_address')
-          this.permanentAddress,
-      @JsonKey(name: 'permanent_street_no')
-          this.permanentStreetNo,
-      @JsonKey(name: 'permanent_house_no')
-          this.permanentHouseNo,
+      @JsonKey(name: 'identity_type') this.customerIdentityType,
+      @JsonKey(name: 'identity_number') this.customerIdentityNumber,
+      @JsonKey(name: 'identity_date') this.customerIdentityDate,
+      @JsonKey(name: 'identity_expired_date') this.customerIdentityExpiredDate,
+      @JsonKey(name: 'current_address') this.currentAddress,
+      @JsonKey(name: 'street_no') this.streetNo,
+      @JsonKey(name: 'house_no') this.houseNo,
+      @JsonKey(name: 'permanent_address') this.permanentAddress,
+      @JsonKey(name: 'permanent_street_no') this.permanentStreetNo,
+      @JsonKey(name: 'permanent_house_no') this.permanentHouseNo,
       this.phone,
       this.email,
       this.whatapp,
@@ -723,8 +715,7 @@ class _$_PersonalProfile implements _PersonalProfile {
       this.facebook,
       this.linkedin,
       this.twitter,
-      @JsonKey(name: 'company_name')
-          this.companyName,
+      @JsonKey(name: 'company_name') this.companyName,
       this.title,
       this.location,
       this.profile});
@@ -737,22 +728,23 @@ class _$_PersonalProfile implements _PersonalProfile {
   @override
   final String? display;
   @override
-  @JsonKey(name: 'customer_name')
-  final String? customerName;
+  final String? code;
   @override
-  @JsonKey(name: 'customer_latin_name')
-  final String? customerLatinName;
+  final String? position;
   @override
-  @JsonKey(name: 'customer_date_of_birth')
+  final String? name;
+  @override
+  @JsonKey(name: 'default_photo')
+  final String? defaultPhoto;
+  @override
+  @JsonKey(name: 'date_of_birth')
   final String? customerDateOfBirth;
   @override
-  @JsonKey(name: 'customer_gender')
+  @JsonKey(name: 'gender')
   final CustomerGender? customerGender;
   @override
-  @JsonKey(name: 'customer_nationality')
+  @JsonKey(name: 'nationality')
   final CustomerGender? customerNationality;
-  @override
-  final CustomerGender? position;
   @override
   final String? recommended;
   @override
@@ -774,16 +766,16 @@ class _$_PersonalProfile implements _PersonalProfile {
   @override
   final String? other;
   @override
-  @JsonKey(name: 'customer_identity_type')
+  @JsonKey(name: 'identity_type')
   final CustomerGender? customerIdentityType;
   @override
-  @JsonKey(name: 'customer_identity_number')
+  @JsonKey(name: 'identity_number')
   final String? customerIdentityNumber;
   @override
-  @JsonKey(name: 'customer_identity_date')
+  @JsonKey(name: 'identity_date')
   final String? customerIdentityDate;
   @override
-  @JsonKey(name: 'customer_identity_expired_date')
+  @JsonKey(name: 'identity_expired_date')
   final String? customerIdentityExpiredDate;
   @override
   @JsonKey(name: 'current_address')
@@ -835,7 +827,7 @@ class _$_PersonalProfile implements _PersonalProfile {
 
   @override
   String toString() {
-    return 'PersonalProfile(id: $id, display: $display, customerName: $customerName, customerLatinName: $customerLatinName, customerDateOfBirth: $customerDateOfBirth, customerGender: $customerGender, customerNationality: $customerNationality, position: $position, recommended: $recommended, numberShare: $numberShare, expertise: $expertise, memberType: $memberType, yearJoined: $yearJoined, profileBiography: $profileBiography, about: $about, other: $other, customerIdentityType: $customerIdentityType, customerIdentityNumber: $customerIdentityNumber, customerIdentityDate: $customerIdentityDate, customerIdentityExpiredDate: $customerIdentityExpiredDate, currentAddress: $currentAddress, streetNo: $streetNo, houseNo: $houseNo, permanentAddress: $permanentAddress, permanentStreetNo: $permanentStreetNo, permanentHouseNo: $permanentHouseNo, phone: $phone, email: $email, whatapp: $whatapp, telegram: $telegram, messenger: $messenger, skype: $skype, website: $website, facebook: $facebook, linkedin: $linkedin, twitter: $twitter, companyName: $companyName, title: $title, location: $location, profile: $profile)';
+    return 'PersonalProfile(id: $id, display: $display, code: $code, position: $position, name: $name, defaultPhoto: $defaultPhoto, customerDateOfBirth: $customerDateOfBirth, customerGender: $customerGender, customerNationality: $customerNationality, recommended: $recommended, numberShare: $numberShare, expertise: $expertise, memberType: $memberType, yearJoined: $yearJoined, profileBiography: $profileBiography, about: $about, other: $other, customerIdentityType: $customerIdentityType, customerIdentityNumber: $customerIdentityNumber, customerIdentityDate: $customerIdentityDate, customerIdentityExpiredDate: $customerIdentityExpiredDate, currentAddress: $currentAddress, streetNo: $streetNo, houseNo: $houseNo, permanentAddress: $permanentAddress, permanentStreetNo: $permanentStreetNo, permanentHouseNo: $permanentHouseNo, phone: $phone, email: $email, whatapp: $whatapp, telegram: $telegram, messenger: $messenger, skype: $skype, website: $website, facebook: $facebook, linkedin: $linkedin, twitter: $twitter, companyName: $companyName, title: $title, location: $location, profile: $profile)';
   }
 
   @override
@@ -845,18 +837,18 @@ class _$_PersonalProfile implements _PersonalProfile {
             other is _$_PersonalProfile &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.display, display) || other.display == display) &&
-            (identical(other.customerName, customerName) ||
-                other.customerName == customerName) &&
-            (identical(other.customerLatinName, customerLatinName) ||
-                other.customerLatinName == customerLatinName) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.defaultPhoto, defaultPhoto) ||
+                other.defaultPhoto == defaultPhoto) &&
             (identical(other.customerDateOfBirth, customerDateOfBirth) ||
                 other.customerDateOfBirth == customerDateOfBirth) &&
             (identical(other.customerGender, customerGender) ||
                 other.customerGender == customerGender) &&
             (identical(other.customerNationality, customerNationality) ||
                 other.customerNationality == customerNationality) &&
-            (identical(other.position, position) ||
-                other.position == position) &&
             (identical(other.recommended, recommended) ||
                 other.recommended == recommended) &&
             (identical(other.numberShare, numberShare) ||
@@ -920,12 +912,13 @@ class _$_PersonalProfile implements _PersonalProfile {
         runtimeType,
         id,
         display,
-        customerName,
-        customerLatinName,
+        code,
+        position,
+        name,
+        defaultPhoto,
         customerDateOfBirth,
         customerGender,
         customerNationality,
-        position,
         recommended,
         numberShare,
         expertise,
@@ -978,17 +971,17 @@ abstract class _PersonalProfile implements PersonalProfile {
   factory _PersonalProfile(
       {final int? id,
       final String? display,
-      @JsonKey(name: 'customer_name')
-          final String? customerName,
-      @JsonKey(name: 'customer_latin_name')
-          final String? customerLatinName,
-      @JsonKey(name: 'customer_date_of_birth')
+      final String? code,
+      final String? position,
+      final String? name,
+      @JsonKey(name: 'default_photo')
+          final String? defaultPhoto,
+      @JsonKey(name: 'date_of_birth')
           final String? customerDateOfBirth,
-      @JsonKey(name: 'customer_gender')
+      @JsonKey(name: 'gender')
           final CustomerGender? customerGender,
-      @JsonKey(name: 'customer_nationality')
+      @JsonKey(name: 'nationality')
           final CustomerGender? customerNationality,
-      final CustomerGender? position,
       final String? recommended,
       @JsonKey(name: 'number_share')
           final int? numberShare,
@@ -1001,13 +994,13 @@ abstract class _PersonalProfile implements PersonalProfile {
           final String? profileBiography,
       final String? about,
       final String? other,
-      @JsonKey(name: 'customer_identity_type')
+      @JsonKey(name: 'identity_type')
           final CustomerGender? customerIdentityType,
-      @JsonKey(name: 'customer_identity_number')
+      @JsonKey(name: 'identity_number')
           final String? customerIdentityNumber,
-      @JsonKey(name: 'customer_identity_date')
+      @JsonKey(name: 'identity_date')
           final String? customerIdentityDate,
-      @JsonKey(name: 'customer_identity_expired_date')
+      @JsonKey(name: 'identity_expired_date')
           final String? customerIdentityExpiredDate,
       @JsonKey(name: 'current_address')
           final CurrentAddress? currentAddress,
@@ -1045,22 +1038,23 @@ abstract class _PersonalProfile implements PersonalProfile {
   @override
   String? get display;
   @override
-  @JsonKey(name: 'customer_name')
-  String? get customerName;
+  String? get code;
   @override
-  @JsonKey(name: 'customer_latin_name')
-  String? get customerLatinName;
+  String? get position;
   @override
-  @JsonKey(name: 'customer_date_of_birth')
+  String? get name;
+  @override
+  @JsonKey(name: 'default_photo')
+  String? get defaultPhoto;
+  @override
+  @JsonKey(name: 'date_of_birth')
   String? get customerDateOfBirth;
   @override
-  @JsonKey(name: 'customer_gender')
+  @JsonKey(name: 'gender')
   CustomerGender? get customerGender;
   @override
-  @JsonKey(name: 'customer_nationality')
+  @JsonKey(name: 'nationality')
   CustomerGender? get customerNationality;
-  @override
-  CustomerGender? get position;
   @override
   String? get recommended;
   @override
@@ -1082,16 +1076,16 @@ abstract class _PersonalProfile implements PersonalProfile {
   @override
   String? get other;
   @override
-  @JsonKey(name: 'customer_identity_type')
+  @JsonKey(name: 'identity_type')
   CustomerGender? get customerIdentityType;
   @override
-  @JsonKey(name: 'customer_identity_number')
+  @JsonKey(name: 'identity_number')
   String? get customerIdentityNumber;
   @override
-  @JsonKey(name: 'customer_identity_date')
+  @JsonKey(name: 'identity_date')
   String? get customerIdentityDate;
   @override
-  @JsonKey(name: 'customer_identity_expired_date')
+  @JsonKey(name: 'identity_expired_date')
   String? get customerIdentityExpiredDate;
   @override
   @JsonKey(name: 'current_address')

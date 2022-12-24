@@ -237,7 +237,7 @@ class _Step1DebtState extends State<Step1Debt> {
       (customer) {
         // InjectionHelper.requestLoanController.purpose.value = Purpose();
 
-        if (customer.customerName!.isNotEmpty) {
+        if (customer.name!.isNotEmpty) {
           InjectionHelper.debtInvestmentController.fullName.value =
               InjectionHelper.customerController.customer.value.fullName!;
         }

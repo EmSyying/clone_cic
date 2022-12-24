@@ -13,6 +13,7 @@ class FlavorValues {
       required this.apiBaseUrlV2,
       required this.mainApiUrlV2,
       required this.apiBaseUrlV3,
+      required this.apiBaseUrlV4,
       required this.androidBundleId,
       required this.iOSBundleName});
   final String baseUrl;
@@ -22,6 +23,7 @@ class FlavorValues {
   final String apiBaseUrlV2;
   final String mainApiUrlV2;
   final String apiBaseUrlV3;
+  final String apiBaseUrlV4;
   final String androidBundleId;
   final String iOSBundleName;
   //Add other flavor specific values, e.g database name

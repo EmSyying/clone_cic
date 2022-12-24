@@ -25,6 +25,7 @@ Future<void> main() async {
         apiBaseUrlV2: "https://pre-cic.z1platform.com/api/v2/",
         mainApiUrlV2: "https://pre-cic.z1platform.com/api/",
         apiBaseUrlV3: "https://pre-cic.z1platform.com/api/v3/",
+        apiBaseUrlV4: "https://pre-cic.z1platform.com/api/v4/",
         androidBundleId: 'com.cambodianinvestorscorporation',
         iOSBundleName: 'com.cambodianinvestorscorporation.pre'),
   );

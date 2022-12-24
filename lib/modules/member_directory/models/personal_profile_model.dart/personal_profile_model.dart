@@ -9,17 +9,17 @@ class PersonalProfile with _$PersonalProfile {
   factory PersonalProfile(
       {final int? id,
       final String? display,
-      @JsonKey(name: 'customer_name')
-          final String? customerName,
-      @JsonKey(name: 'customer_latin_name')
-          final String? customerLatinName,
-      @JsonKey(name: 'customer_date_of_birth')
+      final String? code,
+      final String? position,
+      final String? name,
+      @JsonKey(name: 'default_photo')
+          final String? defaultPhoto,
+      @JsonKey(name: 'date_of_birth')
           final String? customerDateOfBirth,
-      @JsonKey(name: 'customer_gender')
+      @JsonKey(name: 'gender')
           final CustomerGender? customerGender,
-      @JsonKey(name: 'customer_nationality')
+      @JsonKey(name: 'nationality')
           final CustomerGender? customerNationality,
-      final CustomerGender? position,
       final String? recommended,
       @JsonKey(name: 'number_share')
           final int? numberShare,
@@ -32,13 +32,13 @@ class PersonalProfile with _$PersonalProfile {
           final String? profileBiography,
       final String? about,
       final String? other,
-      @JsonKey(name: 'customer_identity_type')
+      @JsonKey(name: 'identity_type')
           final CustomerGender? customerIdentityType,
-      @JsonKey(name: 'customer_identity_number')
+      @JsonKey(name: 'identity_number')
           final String? customerIdentityNumber,
-      @JsonKey(name: 'customer_identity_date')
+      @JsonKey(name: 'identity_date')
           final String? customerIdentityDate,
-      @JsonKey(name: 'customer_identity_expired_date')
+      @JsonKey(name: 'identity_expired_date')
           final String? customerIdentityExpiredDate,
       @JsonKey(name: 'current_address')
           final CurrentAddress? currentAddress,

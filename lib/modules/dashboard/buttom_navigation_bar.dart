@@ -194,8 +194,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     });
 
     getLanguage();
-
-    getSetting();
     _settingCon.fetchAppVersion();
     // fetchAppVersion();
     _userController.isLoginSuccess(true);
@@ -203,10 +201,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     // notificationMenu = S.of(context).notificationMenu;
     // profileMenu = S.of(context).profile;
     super.initState();
-  }
-
-  getSetting() async {
-    // SharedPreferences pref = await SharedPreferences.getInstance();
   }
 
   Future<void> getLang() async {
@@ -261,6 +255,23 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         },
       );
     }
+  }
+
+  bool isLoadingAllSetting = false;
+
+  fetchAppSetting() async {
+    setState(() {
+      isLoadingAllSetting = true;
+    });
+    try {
+      setState(() {
+        isLoadingAllSetting = false;
+      });
+    } catch (ex) {
+      setState(() {
+        isLoadingAllSetting = false;
+      });
+    } finally {}
   }
 
   @override

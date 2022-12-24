@@ -22,7 +22,7 @@ class CustomerController extends GetxController {
   final isValidateResidentProvince = true.obs;
   final isLogin = false.obs;
   final loanType = ''.obs;
-  final shortenUrl = ''.obs;
+  final profileQRLink = ''.obs;
   final dynamicParth = ''.obs;
   final customer = User().obs;
   Future<User> getUser() async {
@@ -41,17 +41,21 @@ class CustomerController extends GetxController {
           isLoginSuccess(true);
           responseJson = json.decode(response.body);
           customer.value = User.fromJson(responseJson);
+          debugPrint("Customer ID ${customer.value.customerId}");
           customer.value = customer.value;
           var storePINCode = json.decode(response.body)['pin_code'];
 
           LocalData.setPINCode("setPIN", storePINCode);
           await DynamicLinkService.createDynamicLink(
-                  path: 'profileDetail?memberID=${customer.value.customerId}',
+                  path:
+                      'directory/${customer.value.customerId}?isDirectory=true',
                   description: customer.value.about,
                   title: customer.value.fullName,
-                  image: customer.value.profile)
+                  image: customer.value.profile,
+                  isShort: true)
               .then((value) {
-            shortenUrl.value = value.toString();
+            profileQRLink.value = value.toString();
+            debugPrint("Create Shorten Url: ${profileQRLink.value}");
 
             dynamicParth.value = value.path;
           });
