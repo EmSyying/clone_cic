@@ -604,7 +604,10 @@
 
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../modules/guilder/guider_controller.dart';
 
 class CiCApp {
   static double _getContentPossitioned(Offset offset, BuildContext context,
@@ -636,6 +639,7 @@ class CiCApp {
     OverlaySetting? overlaySetting,
     bool allowSkip = true,
   }) async {
+    final guideController = Get.put(CiCGuidController());
     //don't remove this
     OverlayState? overlayState;
     OverlayEntry? overlayEntry;
@@ -883,6 +887,8 @@ class CiCApp {
                             if (allowSkip && itemCount > 1)
                               GestureDetector(
                                 onTap: () {
+                                  guideController.isDisplayGuideLine.value =
+                                      false;
                                   overlayEntry!.remove();
                                 },
                                 child: Text(
@@ -915,7 +921,12 @@ class CiCApp {
                               ),
                             const SizedBox(width: 15),
                             GestureDetector(
-                              onTap: _tapNext,
+                              onTap: () {
+                                _tapNext();
+                                guideController.isDisplayGuideLine.value =
+                                    false;
+                                guideController.update();
+                              },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 20),

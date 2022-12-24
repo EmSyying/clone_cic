@@ -5,7 +5,7 @@ import '../../Utils/helper/api_base_helper.dart';
 import 'model/guide_model.dart';
 
 class CiCGuidController extends GetxController {
-  final isFocus = false.obs;
+  final isDisplayGuideLine = false.obs;
   List<GuidelineModel> investmentFiF = <GuidelineModel>[
     GuidelineModel(
         title: 'Total Investment in USD',

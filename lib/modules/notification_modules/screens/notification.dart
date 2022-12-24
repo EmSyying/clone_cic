@@ -23,7 +23,6 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../widgets/notification/accept_notification_pop_up.dart';
 import '../../../widgets/ut_tradding/notification_detail_popup.dart';
-import '../../investment_module/screen/bullet_payment_detail.dart';
 import '../../wallet/controller/wallet_controller.dart';
 import '../../wallet/screen/wallet_transaction_popup_detail.dart';
 
@@ -531,21 +530,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                               context.go('/notification/deposite-screen/${_con.notificationAnouncementList[index].data!.applicationId}');
                                                                                                             } else if (_con.notificationList[index].data!.operation == "reviewing" || _con.notificationList[index].data!.operation == "rejected") {
                                                                                                               context.go('/notification/deposite-screen/${_con.notificationAnouncementList[index].data!.applicationId}');
-                                                                                                              await Navigator.push(
-                                                                                                                context,
-                                                                                                                MaterialPageRoute(
-                                                                                                                  builder: (context) {
-                                                                                                                    return BulletPaymentDetail(
-                                                                                                                        isAnnullyRate: true,
-                                                                                                                        titles: 'Detail Summary',
-                                                                                                                        status: _con.notificationList[index].data!.operation,
-                                                                                                                        isStatusPending: true,
-                                                                                                                        isNoUSD: false,
-                                                                                                                        // investAmount: e.value.investmentAmount,
-                                                                                                                        id: _con.notificationList[index].data!.applicationId);
-                                                                                                                  },
-                                                                                                                ),
-                                                                                                              );
                                                                                                             } else {
                                                                                                               debugPrint('This Function is work');
 

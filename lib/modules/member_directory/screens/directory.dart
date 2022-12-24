@@ -4,7 +4,6 @@ import 'package:cicgreenloan/modules/member_directory/controllers/member_control
 import 'package:cicgreenloan/Utils/option_controller/option_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/filter.dart';
-import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
@@ -214,15 +213,8 @@ class _DirectoryState extends State<Directory> {
           stacked: false,
           alignment: Alignment.bottomCenter,
           offlineWidget: Column(
-            children: [
-              CustomAppBar(
-                isLeading: true,
-                context: context,
-                backgroundColor: Theme.of(context).primaryColor,
-                elevation: 0.0,
-                title: 'Directory',
-              ),
-              const Expanded(
+            children: const [
+              Expanded(
                 child: OfflineWidget(),
               ),
             ],
@@ -415,6 +407,8 @@ class _DirectoryState extends State<Directory> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: GestureDetector(
                   onTap: () async {
+                    _guideController.isDisplayGuideLine.value = true;
+                    _guideController.update();
                     FocusScope.of(context).unfocus();
                     _scrollController
                         .animateTo(0,
@@ -436,73 +430,108 @@ class _DirectoryState extends State<Directory> {
   }
 
   Widget _showSearchFromDirectory() => Obx(
-        () => Container(
-          width: double.infinity,
-          height: 40,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          margin: const EdgeInsets.only(top: 20, bottom: 20),
-          child: FocusScope(
-            child: Focus(
-              onFocusChange: (focus) {
-                // this code use for user focus on textfield
-                Future.delayed(const Duration(seconds: 1), () {
-                  _guideController.isFocus.value = focus;
-                });
-                _guideController.update();
-                debugPrint("is Focus:${_guideController.isFocus.value}");
-                debugPrint("is Focus1:${_guideController.isFocus.value}");
-              },
-              child: TextFormField(
-                key: _guideController.isFocus.value
-                    ? null
-                    : _guideController.directoryGuide[0].key =
-                        GlobalKey<FormFieldState>(),
-                controller: memberController.searchTextFieldController.value,
-                onChanged: _onChangeHandler,
-                decoration: InputDecoration(
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    child: SvgPicture.asset(
-                      'assets/images/svgfile/directory_search.svg',
-                    ),
-                  ),
-                  prefixIconConstraints: const BoxConstraints(minWidth: 35),
-                  suffixIconConstraints: const BoxConstraints(minWidth: 46),
-                  suffixIcon: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: 20,
-                        width: 1,
-                        color: const Color(0xffafafaf).withOpacity(0.25),
+        () => _guideController.isDisplayGuideLine.value
+            ? Container(
+                width: double.infinity,
+                height: 40,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.only(top: 20, bottom: 20),
+                child: TextFormField(
+                  key: _guideController.directoryGuide[0].key = GlobalKey(),
+                  controller: memberController.searchTextFieldController.value,
+                  onChanged: _onChangeHandler,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: SvgPicture.asset(
+                        'assets/images/svgfile/directory_search.svg',
                       ),
-                      _showFilter(),
-                    ],
-                  ),
+                    ),
+                    prefixIconConstraints: const BoxConstraints(minWidth: 35),
+                    suffixIconConstraints: const BoxConstraints(minWidth: 46),
+                    suffixIcon: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          height: 20,
+                          width: 1,
+                          color: const Color(0xffafafaf).withOpacity(0.25),
+                        ),
+                        _showFilter(),
+                      ],
+                    ),
 
-                  hintText: 'Search By First Name , Last Name, . . . ',
-                  hintStyle: const TextStyle(color: AppColor.chartLabelColor),
-                  border: InputBorder.none,
-                  fillColor: const Color(0xffAFAFAF).withOpacity(0.25),
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(10),
+                    hintText: 'Search By First Name , Last Name, . . . ',
+                    hintStyle: const TextStyle(color: AppColor.chartLabelColor),
+                    border: InputBorder.none,
+                    fillColor: const Color(0xffAFAFAF).withOpacity(0.25),
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    // contentPadding: const EdgeInsets.all(10),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(10),
+                ),
+              )
+            : Container(
+                width: double.infinity,
+                height: 40,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.only(top: 20, bottom: 20),
+                child: TextFormField(
+                  controller: memberController.searchTextFieldController.value,
+                  onChanged: _onChangeHandler,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: SvgPicture.asset(
+                        'assets/images/svgfile/directory_search.svg',
+                      ),
+                    ),
+                    prefixIconConstraints: const BoxConstraints(minWidth: 35),
+                    suffixIconConstraints: const BoxConstraints(minWidth: 46),
+                    suffixIcon: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          height: 20,
+                          width: 1,
+                          color: const Color(0xffafafaf).withOpacity(0.25),
+                        ),
+                        _showFilter(),
+                      ],
+                    ),
+
+                    hintText: 'Search By First Name , Last Name, . . . ',
+                    hintStyle: const TextStyle(color: AppColor.chartLabelColor),
+                    border: InputBorder.none,
+                    fillColor: const Color(0xffAFAFAF).withOpacity(0.25),
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    // contentPadding: const EdgeInsets.all(10),
                   ),
-                  // contentPadding: const EdgeInsets.all(10),
                 ),
               ),
-            ),
-          ),
-        ),
       );
 
   Widget _showShimmer() {
