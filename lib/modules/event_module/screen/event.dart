@@ -14,8 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/firebase_analytics.dart';
@@ -314,23 +312,21 @@ class _EventScreenState extends State<EventScreen> {
                       IconButton(
                         color: Colors.white,
                         onPressed: () {
-                          // setState(() {
-                          //    if (currentSelected! < months.length - 1) {
-                          //   // currentSelected += 1;
-                          // } else {
-                          //   currentSelected = 0;
-                          // }
-                          // Scrollable.ensureVisible(
-                          //   months[currentSelected!].key!.currentContext!,
-                          //   alignment: 0.5,
-                          //   duration: const Duration(milliseconds: 500),
-                          // );
-
-                          // _eventController.currentMonth =
-                          //     '${currentSelected! + 1}';
-
-                          // });
-                          //  _eventController.onRefreshUpCommingEvent();
+                          setState(() {
+                            _eventController.eventCalendarList
+                                .asMap()
+                                .entries
+                                .map((year) {
+                              year.value.month!.asMap().entries.map((month) {
+                                Scrollable.ensureVisible(
+                                  month.value.key!.currentContext!,
+                                  alignment: 0.5,
+                                  duration: const Duration(milliseconds: 500),
+                                );
+                              }).toList();
+                            }).toList();
+                          });
+                          // _eventController.onRefreshUpCommingEvent();
                         },
                         icon: const Icon(Icons.arrow_forward_ios_rounded),
                       )
@@ -413,232 +409,232 @@ class _EventScreenState extends State<EventScreen> {
   }
 }
 
-class DynamicEvent extends StatefulWidget {
-  const DynamicEvent({Key? key}) : super(key: key);
+// class DynamicEvent extends StatefulWidget {
+//   const DynamicEvent({Key? key}) : super(key: key);
 
-  @override
-  State<DynamicEvent> createState() => _DynamicEventState();
-}
+//   @override
+//   State<DynamicEvent> createState() => _DynamicEventState();
+// }
 
-class _DynamicEventState extends State<DynamicEvent> {
-  // CalendarController _controller;
-  Map<DateTime, List<dynamic>>? events;
-  List<dynamic>? _selectedEvents;
-  TextEditingController? _eventController;
-  SharedPreferences? prefs;
-  DateTime firstDay = DateTime.now();
-  DateTime _focusDay = DateTime.now();
-  CalendarFormat? calenderFormat;
+// class _DynamicEventState extends State<DynamicEvent> {
+//   // CalendarController _controller;
+//   Map<DateTime, List<dynamic>>? events;
+//   List<dynamic>? _selectedEvents;
+//   TextEditingController? _eventController;
+//   SharedPreferences? prefs;
+//   DateTime firstDay = DateTime.now();
+//   DateTime _focusDay = DateTime.now();
+//   CalendarFormat? calenderFormat;
 
-  // late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode rangeSelectionMode = RangeSelectionMode
-      .toggledOff; // Can be toggled on/off by longpressing a date
-  DateTime? _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  DateTime? rangeStart;
-  DateTime? rangeEnd;
+//   // late final ValueNotifier<List<Event>> _selectedEvents;
+//   CalendarFormat _calendarFormat = CalendarFormat.month;
+//   RangeSelectionMode rangeSelectionMode = RangeSelectionMode
+//       .toggledOff; // Can be toggled on/off by longpressing a date
+//   DateTime? _focusedDay = DateTime.now();
+//   DateTime? _selectedDay;
+//   DateTime? rangeStart;
+//   DateTime? rangeEnd;
 
-  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        rangeStart = null; // Important to clean those
-        rangeEnd = null;
-        rangeSelectionMode = RangeSelectionMode.toggledOff;
-      });
-    }
-  }
+//   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+//     if (!isSameDay(_selectedDay, selectedDay)) {
+//       setState(() {
+//         _selectedDay = selectedDay;
+//         _focusedDay = focusedDay;
+//         rangeStart = null; // Important to clean those
+//         rangeEnd = null;
+//         rangeSelectionMode = RangeSelectionMode.toggledOff;
+//       });
+//     }
+//   }
 
-  void onRangeSelected(DateTime start, DateTime end, DateTime focusedDay) {
-    setState(() {
-      _selectedDay = null;
-      _focusedDay = focusedDay;
-      rangeStart = start;
-      rangeEnd = end;
-      rangeSelectionMode = RangeSelectionMode.toggledOn;
-    });
+//   void onRangeSelected(DateTime start, DateTime end, DateTime focusedDay) {
+//     setState(() {
+//       _selectedDay = null;
+//       _focusedDay = focusedDay;
+//       rangeStart = start;
+//       rangeEnd = end;
+//       rangeSelectionMode = RangeSelectionMode.toggledOn;
+//     });
 
-    // `start` or `end` could be null
-  }
+//     // `start` or `end` could be null
+//   }
 
-  @override
-  void initState() {
-    super.initState();
-    // _controller = CalendarController();
-    _selectedDay = _focusedDay;
-    _eventController = TextEditingController();
-    events = {};
-    _selectedEvents = [];
-//    prefsData();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     // _controller = CalendarController();
+//     _selectedDay = _focusedDay;
+//     _eventController = TextEditingController();
+//     events = {};
+//     _selectedEvents = [];
+// //    prefsData();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
-              color: Theme.of(context).primaryColor,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-              child: Column(
-                children: [
-                  TableCalendar(
-                    headerVisible: true,
-                    daysOfWeekStyle: const DaysOfWeekStyle(
-                      weekdayStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                      weekendStyle: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
-                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                    formatAnimationCurve: Curves.ease,
-                    focusedDay: _focusDay,
-                    onPageChanged: (day) {
-                      _focusDay = day;
-                    },
-                    calendarFormat: CalendarFormat.week,
-                    startingDayOfWeek: StartingDayOfWeek.monday,
-                    onFormatChanged: (CalendarFormat format) {
-                      if (_calendarFormat != format) {
-                        setState(() {
-                          _calendarFormat = format;
-                        });
-                      }
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        _focusDay =
-                            focusedDay; // update `_focusedDay` here as well
-                      });
-                    },
-                    firstDay: DateTime.now(),
-                    lastDay: DateTime(2050, 02, 20),
-                    calendarStyle: const CalendarStyle(
-                      markerMargin: EdgeInsets.all(20),
-                      holidayDecoration: BoxDecoration(
-                          color: Colors.red, shape: BoxShape.circle),
-                      canMarkersOverflow: true,
-                      defaultTextStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      holidayTextStyle: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      isTodayHighlighted: true,
-                      disabledTextStyle: TextStyle(
-                          color: Colors.white54,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      markerDecoration: BoxDecoration(
-                          color: Colors.blue, shape: BoxShape.circle),
-                      outsideTextStyle: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      weekendTextStyle: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      todayDecoration: BoxDecoration(
-                        color: Color(0xFFFF0000),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    headerStyle: HeaderStyle(
-                      titleTextStyle: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      decoration: const BoxDecoration(shape: BoxShape.circle),
-                      leftChevronIcon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                      ),
-                      rightChevronIcon: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                      ),
-                      formatButtonTextStyle:
-                          const TextStyle(color: Colors.white),
-                      formatButtonDecoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          ..._selectedEvents!.map((event) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 20,
-                  width: MediaQuery.of(context).size.width / 2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.red,
-                      border: Border.all(color: Colors.grey)),
-                  child: Center(
-                      child: Text(
-                    event,
-                    style: const TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16),
-                  )),
-                ),
-              )),
-        ],
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: <Widget>[
+//           Container(
+//             padding: const EdgeInsets.only(bottom: 20.0),
+//             decoration: BoxDecoration(
+//               borderRadius: const BorderRadius.only(
+//                 bottomLeft: Radius.circular(20),
+//                 bottomRight: Radius.circular(20),
+//               ),
+//               color: Theme.of(context).primaryColor,
+//             ),
+//             child: Padding(
+//               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+//               child: Column(
+//                 children: [
+//                   TableCalendar(
+//                     headerVisible: true,
+//                     daysOfWeekStyle: const DaysOfWeekStyle(
+//                       weekdayStyle: TextStyle(
+//                           color: Colors.white,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 14),
+//                       weekendStyle: TextStyle(
+//                           color: Colors.red,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 14),
+//                     ),
+//                     selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+//                     formatAnimationCurve: Curves.ease,
+//                     focusedDay: _focusDay,
+//                     onPageChanged: (day) {
+//                       _focusDay = day;
+//                     },
+//                     calendarFormat: CalendarFormat.week,
+//                     startingDayOfWeek: StartingDayOfWeek.monday,
+//                     onFormatChanged: (CalendarFormat format) {
+//                       if (_calendarFormat != format) {
+//                         setState(() {
+//                           _calendarFormat = format;
+//                         });
+//                       }
+//                     },
+//                     onDaySelected: (selectedDay, focusedDay) {
+//                       setState(() {
+//                         _selectedDay = selectedDay;
+//                         _focusDay =
+//                             focusedDay; // update `_focusedDay` here as well
+//                       });
+//                     },
+//                     firstDay: DateTime.now(),
+//                     lastDay: DateTime(2050, 02, 20),
+//                     calendarStyle: const CalendarStyle(
+//                       markerMargin: EdgeInsets.all(20),
+//                       holidayDecoration: BoxDecoration(
+//                           color: Colors.red, shape: BoxShape.circle),
+//                       canMarkersOverflow: true,
+//                       defaultTextStyle: TextStyle(
+//                           color: Colors.white,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 18),
+//                       holidayTextStyle: TextStyle(
+//                           color: Colors.red,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 18),
+//                       isTodayHighlighted: true,
+//                       disabledTextStyle: TextStyle(
+//                           color: Colors.white54,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 18),
+//                       markerDecoration: BoxDecoration(
+//                           color: Colors.blue, shape: BoxShape.circle),
+//                       outsideTextStyle: TextStyle(
+//                           color: Colors.grey,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 18),
+//                       weekendTextStyle: TextStyle(
+//                           color: Colors.red,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 18),
+//                       todayDecoration: BoxDecoration(
+//                         color: Color(0xFFFF0000),
+//                         shape: BoxShape.circle,
+//                       ),
+//                     ),
+//                     headerStyle: HeaderStyle(
+//                       titleTextStyle: const TextStyle(
+//                           color: Colors.white,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 18),
+//                       decoration: const BoxDecoration(shape: BoxShape.circle),
+//                       leftChevronIcon: const Icon(
+//                         Icons.arrow_back_ios,
+//                         color: Colors.white,
+//                       ),
+//                       rightChevronIcon: const Icon(
+//                         Icons.arrow_forward_ios,
+//                         color: Colors.white,
+//                       ),
+//                       formatButtonTextStyle:
+//                           const TextStyle(color: Colors.white),
+//                       formatButtonDecoration: BoxDecoration(
+//                         border: Border.all(color: Colors.white),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//           ..._selectedEvents!.map((event) => Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: Container(
+//                   height: MediaQuery.of(context).size.height / 20,
+//                   width: MediaQuery.of(context).size.width / 2,
+//                   decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(30),
+//                       color: Colors.red,
+//                       border: Border.all(color: Colors.grey)),
+//                   child: Center(
+//                       child: Text(
+//                     event,
+//                     style: const TextStyle(
+//                         color: Colors.blue,
+//                         fontWeight: FontWeight.bold,
+//                         fontSize: 16),
+//                   )),
+//                 ),
+//               )),
+//         ],
+//       ),
+//     );
+//   }
 
-  showAddDialog() async {
-    await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              backgroundColor: Colors.white70,
-              title: const Text("Add Events"),
-              content: TextField(
-                controller: _eventController,
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text(
-                    "Save",
-                    style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {
-                    if (_eventController!.text.isEmpty) return;
-                    setState(() {
-                      _eventController!.clear();
-                      Navigator.pop(context);
-                    });
-                  },
-                )
-              ],
-            ));
-  }
-}
+//   showAddDialog() async {
+//     await showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//               backgroundColor: Colors.white70,
+//               title: const Text("Add Events"),
+//               content: TextField(
+//                 controller: _eventController,
+//               ),
+//               actions: <Widget>[
+//                 TextButton(
+//                   child: const Text(
+//                     "Save",
+//                     style: TextStyle(
+//                         color: Colors.red, fontWeight: FontWeight.bold),
+//                   ),
+//                   onPressed: () {
+//                     if (_eventController!.text.isEmpty) return;
+//                     setState(() {
+//                       _eventController!.clear();
+//                       Navigator.pop(context);
+//                     });
+//                   },
+//                 )
+//               ],
+//             ));
+//   }
+// }
 
 class MonthAndYear {
   String month;
