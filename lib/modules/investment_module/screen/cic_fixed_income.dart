@@ -224,52 +224,43 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                           const SizedBox(
                             height: 10.0,
                           ),
-                          Expanded(
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                    height: 5.13,
+                                    width: 34,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xffBFBFBF),
+                                        borderRadius: BorderRadius.circular(5)),
+                                  ),
                                 ),
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    alignment: Alignment.center,
-                                    child: Container(
-                                      height: 5.13,
-                                      width: 34,
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xffBFBFBF),
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: CustomSavingCardList(
-                                      buttonShow: InjectionHelper
-                                          .investmentController
-                                          .totalInvestmentButton
-                                          .value,
-                                      fifhiddenList: InjectionHelper
-                                          .investmentController
-                                          .hiddenContractList,
-                                      fifAccountList: InjectionHelper
-                                          .investmentController
-                                          .fifApplicationList,
-                                      fifConfirmList: InjectionHelper
-                                          .investmentController
-                                          .fifAppConfirmList,
-                                      fifPendingList: InjectionHelper
-                                          .investmentController
-                                          .fifAppPendingList,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                CustomSavingCardList(
+                                  buttonShow: InjectionHelper
+                                      .investmentController
+                                      .totalInvestmentButton
+                                      .value,
+                                  fifhiddenList: InjectionHelper
+                                      .investmentController.hiddenContractList,
+                                  fifAccountList: InjectionHelper
+                                      .investmentController.fifApplicationList,
+                                  fifConfirmList: InjectionHelper
+                                      .investmentController.fifAppConfirmList,
+                                  fifPendingList: InjectionHelper
+                                      .investmentController.fifAppPendingList,
+                                ),
+                              ],
                             ),
                           ),
                           widget.ismmaInvestFIF

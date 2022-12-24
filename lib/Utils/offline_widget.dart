@@ -55,7 +55,10 @@ class OfflineWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgPicture.asset('assets/images/svgfile/refreshIcon.svg'),
+                      SvgPicture.asset(
+                        'assets/images/svgfile/refreshIcon.svg',
+                        color: Theme.of(context).primaryColor,
+                      ),
                       const SizedBox(
                         width: 20,
                       ),

@@ -674,11 +674,17 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),
-            body: _settingCon.isAMMode!
-                ? const MainDashBoardTypeAM()
-                : Platform.isAndroid
-                    ? buildBody()
-                    : buildBody(),
+            body:
+                // Obx(
+                //   () => cusController.isloading.value == true
+                //       ? ShimmerDashboadScreen()
+                //       :
+                _settingCon.isAMMode!
+                    ? const MainDashBoardTypeAM()
+                    : Platform.isAndroid
+                        ? buildBody()
+                        : buildBody(),
+            // ),
           ),
         ),
       ),
