@@ -2,8 +2,11 @@ import 'package:cicgreenloan/modules/event_module/controller/event_controller.da
 import 'package:cicgreenloan/modules/event_module/models/event_data.dart';
 import 'package:cicgreenloan/widgets/events/new_event_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../modules/event_module/screen/event_search_screen.dart';
 
 class NewEvent extends StatelessWidget {
   final String? title;
@@ -22,6 +25,21 @@ class NewEvent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("$title", style: Theme.of(context).textTheme.caption),
+              if (eventCon.featureDataList.isEmpty)
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EventSearchScreen(),
+                      ),
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    'assets/images/svgfile/search.svg',
+                    height: 20,
+                  ),
+                ),
             ],
           ),
         ),

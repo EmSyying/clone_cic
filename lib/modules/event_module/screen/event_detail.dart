@@ -1109,19 +1109,14 @@ class _EventDetailState extends State<EventDetail> {
                                                                         ? () {
                                                                             debugPrint("is check in");
                                                                             eventController.getRegisterWithGuest(eventController.eventDetail.value.id!, isCheckIn: true).then(
-                                                                                  (value) => onShowCustomCupertinoModalSheet(
-                                                                                    context: contextRegisterForm,
-                                                                                    icon: const Icon(
-                                                                                      Icons.close_rounded,
-                                                                                      color: Colors.white,
-                                                                                    ),
-                                                                                    isColorsAppBar: Theme.of(context).primaryColor,
-                                                                                    backgroundColor: Theme.of(context).primaryColor,
-                                                                                    title: "Check in",
-                                                                                    titleColors: AppColor.arrowforwardColor['dark'],
-                                                                                    child: EventCheckInTicket(
-                                                                                      contextTicket: contextRegisterForm,
-                                                                                      selectCheckIn: 'check_in',
+                                                                                  (value) => Navigator.push(
+                                                                                    context,
+                                                                                    MaterialPageRoute(
+                                                                                      builder: (context) => const Material(
+                                                                                        child: QrCodeScreen(
+                                                                                          pageName: 'eventDetail',
+                                                                                        ),
+                                                                                      ),
                                                                                     ),
                                                                                   ),
                                                                                 );

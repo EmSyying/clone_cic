@@ -271,8 +271,15 @@ class _EventScreenState extends State<EventScreen> {
 
                                                       debugPrint(
                                                           "is Pressed on event date");
-                                                      _eventController
-                                                          .onRefreshUpCommingEvent();
+                                                      if (_pageViewController
+                                                              .page ==
+                                                          0) {
+                                                        _eventController
+                                                            .onRefreshUpCommingEvent();
+                                                      } else {
+                                                        _eventController
+                                                            .onRefreshPassEvent();
+                                                      }
                                                     },
                                                     child: Row(
                                                       children: [
@@ -391,6 +398,9 @@ class _EventScreenState extends State<EventScreen> {
                       ),
                       Expanded(
                         child: PageView(
+                          physics: isDisplayEventTap == true
+                              ? const ScrollPhysics()
+                              : const NeverScrollableScrollPhysics(),
                           controller: _pageViewController,
                           onPageChanged: (value) {
                             if (_pageViewController.page == 0) {
