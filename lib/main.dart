@@ -42,6 +42,7 @@ import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 
 final optionCon = Get.put(DocumentCategory());
 final settingCon = Get.put(SettingController());
+final customerCon = Get.put(CustomerController());
 ValueNotifier<bool> isLogin = ValueNotifier(false);
 
 Future<void> main() async {

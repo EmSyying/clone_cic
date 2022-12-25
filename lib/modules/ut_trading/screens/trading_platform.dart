@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
+import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/cancel_trade.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/match_trade.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/un_match_trade.dart';
@@ -389,8 +390,9 @@ class _UTtradingState extends State<UTtrading>
                                                             .sendAnalyticsEvent(
                                                                 "Buy Trade");
                                                         memberController
-                                                            .selectedMember
-                                                            .value = Member();
+                                                                .selectedMember
+                                                                .value =
+                                                            PersonalProfile();
 
                                                         context.go(
                                                             '/ut_trading/trading-inquiry/buy');
@@ -400,8 +402,9 @@ class _UTtradingState extends State<UTtrading>
                                                             .sendAnalyticsEvent(
                                                                 "Sell Trade");
                                                         memberController
-                                                            .selectedMember
-                                                            .value = Member();
+                                                                .selectedMember
+                                                                .value =
+                                                            PersonalProfile();
 
                                                         context.go(
                                                             '/ut_trading/trading-inquiry/sell');

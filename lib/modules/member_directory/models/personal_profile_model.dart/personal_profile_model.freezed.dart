@@ -25,6 +25,8 @@ mixin _$PersonalProfile {
   String? get code => throw _privateConstructorUsedError;
   String? get position => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: false)
+  bool? get isTicked => throw _privateConstructorUsedError;
   @JsonKey(name: 'default_photo')
   String? get defaultPhoto => throw _privateConstructorUsedError;
   @JsonKey(name: 'date_of_birth')
@@ -100,6 +102,8 @@ abstract class $PersonalProfileCopyWith<$Res> {
       String? code,
       String? position,
       String? name,
+      @JsonKey(defaultValue: false)
+          bool? isTicked,
       @JsonKey(name: 'default_photo')
           String? defaultPhoto,
       @JsonKey(name: 'date_of_birth')
@@ -175,6 +179,7 @@ class _$PersonalProfileCopyWithImpl<$Res, $Val extends PersonalProfile>
     Object? code = freezed,
     Object? position = freezed,
     Object? name = freezed,
+    Object? isTicked = freezed,
     Object? defaultPhoto = freezed,
     Object? customerDateOfBirth = freezed,
     Object? customerGender = freezed,
@@ -233,6 +238,10 @@ class _$PersonalProfileCopyWithImpl<$Res, $Val extends PersonalProfile>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      isTicked: freezed == isTicked
+          ? _value.isTicked
+          : isTicked // ignore: cast_nullable_to_non_nullable
+              as bool?,
       defaultPhoto: freezed == defaultPhoto
           ? _value.defaultPhoto
           : defaultPhoto // ignore: cast_nullable_to_non_nullable
@@ -395,6 +404,8 @@ abstract class _$$_PersonalProfileCopyWith<$Res>
       String? code,
       String? position,
       String? name,
+      @JsonKey(defaultValue: false)
+          bool? isTicked,
       @JsonKey(name: 'default_photo')
           String? defaultPhoto,
       @JsonKey(name: 'date_of_birth')
@@ -468,6 +479,7 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
     Object? code = freezed,
     Object? position = freezed,
     Object? name = freezed,
+    Object? isTicked = freezed,
     Object? defaultPhoto = freezed,
     Object? customerDateOfBirth = freezed,
     Object? customerGender = freezed,
@@ -526,6 +538,10 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      isTicked: freezed == isTicked
+          ? _value.isTicked
+          : isTicked // ignore: cast_nullable_to_non_nullable
+              as bool?,
       defaultPhoto: freezed == defaultPhoto
           ? _value.defaultPhoto
           : defaultPhoto // ignore: cast_nullable_to_non_nullable
@@ -683,6 +699,7 @@ class _$_PersonalProfile implements _PersonalProfile {
       this.code,
       this.position,
       this.name,
+      @JsonKey(defaultValue: false) this.isTicked,
       @JsonKey(name: 'default_photo') this.defaultPhoto,
       @JsonKey(name: 'date_of_birth') this.customerDateOfBirth,
       @JsonKey(name: 'gender') this.customerGender,
@@ -733,6 +750,9 @@ class _$_PersonalProfile implements _PersonalProfile {
   final String? position;
   @override
   final String? name;
+  @override
+  @JsonKey(defaultValue: false)
+  final bool? isTicked;
   @override
   @JsonKey(name: 'default_photo')
   final String? defaultPhoto;
@@ -827,7 +847,7 @@ class _$_PersonalProfile implements _PersonalProfile {
 
   @override
   String toString() {
-    return 'PersonalProfile(id: $id, display: $display, code: $code, position: $position, name: $name, defaultPhoto: $defaultPhoto, customerDateOfBirth: $customerDateOfBirth, customerGender: $customerGender, customerNationality: $customerNationality, recommended: $recommended, numberShare: $numberShare, expertise: $expertise, memberType: $memberType, yearJoined: $yearJoined, profileBiography: $profileBiography, about: $about, other: $other, customerIdentityType: $customerIdentityType, customerIdentityNumber: $customerIdentityNumber, customerIdentityDate: $customerIdentityDate, customerIdentityExpiredDate: $customerIdentityExpiredDate, currentAddress: $currentAddress, streetNo: $streetNo, houseNo: $houseNo, permanentAddress: $permanentAddress, permanentStreetNo: $permanentStreetNo, permanentHouseNo: $permanentHouseNo, phone: $phone, email: $email, whatapp: $whatapp, telegram: $telegram, messenger: $messenger, skype: $skype, website: $website, facebook: $facebook, linkedin: $linkedin, twitter: $twitter, companyName: $companyName, title: $title, location: $location, profile: $profile)';
+    return 'PersonalProfile(id: $id, display: $display, code: $code, position: $position, name: $name, isTicked: $isTicked, defaultPhoto: $defaultPhoto, customerDateOfBirth: $customerDateOfBirth, customerGender: $customerGender, customerNationality: $customerNationality, recommended: $recommended, numberShare: $numberShare, expertise: $expertise, memberType: $memberType, yearJoined: $yearJoined, profileBiography: $profileBiography, about: $about, other: $other, customerIdentityType: $customerIdentityType, customerIdentityNumber: $customerIdentityNumber, customerIdentityDate: $customerIdentityDate, customerIdentityExpiredDate: $customerIdentityExpiredDate, currentAddress: $currentAddress, streetNo: $streetNo, houseNo: $houseNo, permanentAddress: $permanentAddress, permanentStreetNo: $permanentStreetNo, permanentHouseNo: $permanentHouseNo, phone: $phone, email: $email, whatapp: $whatapp, telegram: $telegram, messenger: $messenger, skype: $skype, website: $website, facebook: $facebook, linkedin: $linkedin, twitter: $twitter, companyName: $companyName, title: $title, location: $location, profile: $profile)';
   }
 
   @override
@@ -841,6 +861,8 @@ class _$_PersonalProfile implements _PersonalProfile {
             (identical(other.position, position) ||
                 other.position == position) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.isTicked, isTicked) ||
+                other.isTicked == isTicked) &&
             (identical(other.defaultPhoto, defaultPhoto) ||
                 other.defaultPhoto == defaultPhoto) &&
             (identical(other.customerDateOfBirth, customerDateOfBirth) ||
@@ -915,6 +937,7 @@ class _$_PersonalProfile implements _PersonalProfile {
         code,
         position,
         name,
+        isTicked,
         defaultPhoto,
         customerDateOfBirth,
         customerGender,
@@ -974,6 +997,8 @@ abstract class _PersonalProfile implements PersonalProfile {
       final String? code,
       final String? position,
       final String? name,
+      @JsonKey(defaultValue: false)
+          final bool? isTicked,
       @JsonKey(name: 'default_photo')
           final String? defaultPhoto,
       @JsonKey(name: 'date_of_birth')
@@ -1043,6 +1068,9 @@ abstract class _PersonalProfile implements PersonalProfile {
   String? get position;
   @override
   String? get name;
+  @override
+  @JsonKey(defaultValue: false)
+  bool? get isTicked;
   @override
   @JsonKey(name: 'default_photo')
   String? get defaultPhoto;

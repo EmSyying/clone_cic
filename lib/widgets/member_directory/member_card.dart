@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
+import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 
 class MemberCard extends StatelessWidget {
-  final Member? member;
+  final PersonalProfile? member;
   final bool? isInvite;
   final bool? isTick;
   const MemberCard(
@@ -21,9 +22,9 @@ class MemberCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          member!.photo != null && member!.photo != ""
+          member!.profile != null && member!.profile != ""
               ? CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(member!.photo!,
+                  backgroundImage: CachedNetworkImageProvider(member!.profile!,
                       errorListener: () {
                     debugPrint('Error');
                   }),
@@ -61,7 +62,7 @@ class MemberCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        member!.position!,
+                        member!.position ?? "",
                         style: Theme.of(context)
                             .textTheme
                             .subtitle2!
@@ -82,9 +83,7 @@ class MemberCard extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  member!.company!.isNotEmpty
-                      ? member!.company!
-                      : 'Here is Company name',
+                  member!.companyName ?? "",
                   style: Theme.of(context).textTheme.subtitle2!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,

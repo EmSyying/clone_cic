@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 import '../../../core/flavor/flavor_configuration.dart';
+import '../../../modules/member_directory/controllers/customer_controller.dart';
 import '../../../utils/helper/api_base_helper.dart';
 import '../models/app_setting.dart';
 import '../models/slide_model.dart';
@@ -50,10 +51,28 @@ class SettingController extends GetxController {
   var menuList = <AppSettingData>[].obs;
   final isLandScapView = false.obs;
   ValueNotifier<String>? userToken;
+  bool isLoadingAppSetting = false;
+  final customerControler = Get.put(CustomerController());
 
   onHideBottomNavigationBar(bool isHide) {
     isHideBottomNavigation = isHide;
     update();
+  }
+
+  onInitAppSetting() async {
+    isLoadingAppSetting = true;
+    try {
+      // await customerControler.getUser();
+      await fetchAppSetting();
+      isLoadingAppSetting = false;
+      update();
+    } catch (ex) {
+      isLoadingAppSetting = false;
+      update();
+    } finally {
+      isLoadingAppSetting = false;
+      update();
+    }
   }
 
   ValueNotifier<Setting> appSettingNofier = ValueNotifier(Setting());
@@ -175,9 +194,10 @@ class SettingController extends GetxController {
 
   bool? isOnFingerPrint = false;
   Future<List<SlideModel>> fetchSlide() async {
-    slideList!.clear();
-    SlideModel slide = SlideModel();
     isLoading(true);
+    final slides = <SlideModel>[];
+    SlideModel slide = SlideModel();
+
     var token = await LocalData.getCurrentUser();
     bool biometrics = await LocalData.getAuthenValue('authen');
     String url =
@@ -188,19 +208,21 @@ class SettingController extends GetxController {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'
       }).then((response) {
+        // isLoading(false);
         var responseJson = json.decode(response.body)['data'];
+        debugPrint("Slide List: $responseJson");
         if (response.statusCode == 200) {
           responseJson.map((data) {
             slide = SlideModel.fromJson(data);
-
-            if (!slideList!.contains(slide)) {
-              slideList!.add(slide);
+            if (!slides.contains(slide)) {
+              slides.add(slide);
             }
           }).toList();
-        } else {}
-      }).onError((error, stackTrace) {
-        debugPrint(error.toString());
+          slideList = slides;
+        }
       });
+    } catch (ex) {
+      isLoading(false);
     } finally {
       isLoading(false);
     }
@@ -413,7 +435,6 @@ class SettingController extends GetxController {
 
   @override
   void onInit() {
-    fetchSlide();
     fetchSetting();
     onFetchUIData();
 

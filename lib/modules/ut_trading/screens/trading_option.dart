@@ -1,5 +1,6 @@
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
+import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/modules/ut_trading/controllers/trading_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
@@ -133,7 +134,7 @@ class _TradingState extends State<Trading> {
                                 inquiryController.selectTrade.value = 1;
                                 // inquiryController.specificMember.value = Member();
                                 memberController.selectedMember.value =
-                                    Member();
+                                    PersonalProfile();
                                 isValidateMember = true;
                               });
                             },
@@ -167,7 +168,7 @@ class _TradingState extends State<Trading> {
                           CustomSelectMember(
                             label: 'Select Member',
                             isValidate: isValidateMember,
-                            onTap: (Member value) {
+                            onTap: (PersonalProfile value) {
                               // FirebaseAnalyticsHelper.sendAnalyticsEvent(
                               //     "Select Member");
                               if (value.id != null) {

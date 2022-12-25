@@ -727,7 +727,9 @@ class _MainDashboardState extends State<MainDashboard> {
                       child: AspectRatio(
                         aspectRatio: 5 / 2.3,
                         child: Swiper(
-                            loop: true,
+                            loop: _settingCon.slideList!.length != 1
+                                ? true
+                                : false,
                             index: currentIndex,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {

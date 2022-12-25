@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
+import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/models/post_data.dart';
-import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/cic_equity_fun.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/instruction.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/last_trading_card_model.dart';
@@ -53,7 +53,7 @@ class InquiryController extends GetxController {
   final priceShare = 0.0.obs;
   final operation = ''.obs;
   final selectTrade = 1.obs;
-  final specificMember = Member().obs;
+  final specificMember = PersonalProfile().obs;
   late TabController tabController;
   final tapcurrentIndex = 0.obs;
 

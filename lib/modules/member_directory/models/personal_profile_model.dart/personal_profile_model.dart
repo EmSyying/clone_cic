@@ -12,6 +12,8 @@ class PersonalProfile with _$PersonalProfile {
       final String? code,
       final String? position,
       final String? name,
+      @JsonKey(defaultValue: false)
+          final bool? isTicked,
       @JsonKey(name: 'default_photo')
           final String? defaultPhoto,
       @JsonKey(name: 'date_of_birth')

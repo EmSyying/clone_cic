@@ -34,15 +34,15 @@ final uploadCon = Get.put(UploadFileController());
 class MemberController extends GetxController {
   final keyCompany = GlobalKey().obs;
   final memberData = MemberData().obs;
-  final member = Member().obs;
-  final selectedMember = Member().obs;
-  final memberList = <Member>[].obs;
-  final invitedMemberList = <Member>[].obs;
+  final member = PersonalProfile().obs;
+  final selectedMember = PersonalProfile().obs;
+  final memberList = <PersonalProfile>[].obs;
+  final invitedMemberList = <PersonalProfile>[].obs;
   final isTicked = false.obs;
   final memberLastPage = 0.obs;
   final memberCurrentPage = 1.obs;
   final memberResult = 0.obs;
-  final filterResult = <Member>[].obs;
+  final filterResult = <PersonalProfile>[].obs;
   final isLoading = false.obs;
 
   final isLoadingInvite = false.obs;
@@ -185,34 +185,48 @@ class MemberController extends GetxController {
   // }
 
   ApiBaseHelper apiBaseHelpers = ApiBaseHelper();
-  onSelected({int? index, Member? member}) {
-    // isTicked.value = !isTicked.value;
-
-    memberList[index!].isTicked = !memberList[index].isTicked!;
-    if (memberList[index].isTicked == true) {
+  onSelected({int? index, PersonalProfile? member}) {
+    if (!memberList[index!].isTicked!) {
+      memberList[index] = memberList[index].copyWith(isTicked: true);
       invitedMemberList.add(member!);
       memberIdList.clear();
       invitedMemberList.map((element) {
         memberIdList.add(element.id!);
       }).toList();
+      update();
     } else {
-      invitedMemberList.remove(member);
+      memberList[index] = memberList[index].copyWith(isTicked: false);
+      invitedMemberList.removeAt(index);
+      update();
     }
-    update();
+  }
+
+  onRemoveInvitationMember({int? index, PersonalProfile? member}) {
+    debugPrint("Member Detail: ${member!.name}");
+    invitedMemberList.remove(member);
+    try {
+      PersonalProfile memberProfile =
+          memberList.firstWhere((element) => memberList.contains(member));
+    } catch (ex) {
+      debugPrint("Hello World: $ex");
+    }
+    // memberList.asMap().entries.map((data) {
+
+    // }).toList();
+
+    // debugPrint("Member Result: ${memberList[index].name}");
+    // memberProfile = memberProfile.copyWith(isTicked: false);
   }
 
   onClearInvitedMember() {
     memberList.asMap().entries.map((e) {
-      e.value.isTicked = false;
+      memberList[e.key] = memberList[e.key].copyWith(isTicked: false);
     }).toList();
-
     invitedMemberList.clear();
     invitedMemberList.refresh();
-
     update();
   }
 
-  // final genderList = List<GenderOption>().obs;
   List<GenderOption> genderList = [
     GenderOption(id: 01, display: 'Male'),
     GenderOption(id: 02, display: 'Female'),
@@ -657,7 +671,7 @@ class MemberController extends GetxController {
     return companyDataList;
   }
 
-  Future<List<Member>> fetchAllMembers(
+  Future<List<PersonalProfile>> fetchAllMembers(
       {String? filter,
       int pageNumber = 1,
       String? filterJson,
@@ -730,6 +744,7 @@ class MemberController extends GetxController {
       }).then(
         (response) {
           if (response.statusCode == 200) {
+            debugPrint("Successfulllllll1 ${response.body}");
             var responseJson = json.decode(response.body);
 
             memberData.value = MemberData.fromJson(responseJson);
@@ -750,9 +765,11 @@ class MemberController extends GetxController {
 
             ///
             // memberList.clear();
+
+            /// Don't remove it
             if (filter != null || eventId != null) {
               debugPrint("working 4");
-              memberList.addAll(memberData.value.data!);
+              // memberList.addAll(memberData.value.data!);
               debugPrint("member data is 1 ");
             } else if (filter != null || eventId != null) {
               //  memberList.clear();
@@ -788,9 +805,9 @@ class MemberController extends GetxController {
     return memberList;
   }
 
-  List<Member> filterMemberResult = [];
+  List<PersonalProfile> filterMemberResult = [];
 
-  Future<List<Member>> filterMember({String? filterOption}) async {
+  Future<List<PersonalProfile>> filterMember({String? filterOption}) async {
     String url =
         '${FlavorConfig.instance.values!.apiBaseUrl}customer?fillters=$filterOption';
     try {
@@ -825,8 +842,8 @@ class MemberController extends GetxController {
 
   ///Virak Fix Fetch Member
   final apiBaseHelper = ApiBaseHelper();
-  var listAllMember = <Member>[].obs;
-  var listMemberFiltered = <Member>[].obs;
+  var listAllMember = <PersonalProfile>[].obs;
+  var listMemberFiltered = <PersonalProfile>[].obs;
   final fetchAllMemberLoading = false.obs;
   final fetchMoreMemberLoading = false.obs;
   final currentMemberPage = 1.obs;
@@ -835,7 +852,7 @@ class MemberController extends GetxController {
   final searchTextFieldController = TextEditingController().obs;
 
   ///Fetch All Member
-  Future<List<Member>> onFetchAllMember({
+  Future<List<PersonalProfile>> onFetchAllMember({
     @required int? page,
     int? eventId,
     String? filter,
@@ -869,17 +886,19 @@ class MemberController extends GetxController {
       fetchMoreMemberLoading(true);
     }
 
-    ///Request to API
+    ///Request to API\
+    debugPrint("Fetch Mor");
     await apiBaseHelper
         .onNetworkRequesting(
       fullURL:
-          '${FlavorConfig.instance.values!.apiBaseUrl}customer$pageParam$filterParam$isCICmemberParam$hideMeParam$eventParam$jsonParam',
+          '${FlavorConfig.instance.values!.apiBaseUrlV4}member$pageParam$filterParam$isCICmemberParam$hideMeParam$eventParam$jsonParam',
       // '${GlobalConfiguration().get('api_base_url')}customer?page=$page&hide_me=1$_filterParam',
       url: '',
       methode: METHODE.get,
       isAuthorize: true,
     )
         .then((response) {
+      debugPrint("Response Data Data=============: $response");
       //Check Last Page
       if (response['links']["next"] != null) {
         next(true);
@@ -899,7 +918,7 @@ class MemberController extends GetxController {
 
       var reultFromJson = response['data'];
       reultFromJson.map((e) {
-        listAllMember.add(Member.fromJson(e));
+        listAllMember.add(PersonalProfile.fromJson(e));
       }).toList();
 
       ///handlel loading

@@ -3,6 +3,7 @@ import 'package:cicgreenloan/modules/event_module/controller/event_controller.da
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/modules/event_module/models/registered_member.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
+import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/widgets/events/registered_member.dart';
 import 'package:cicgreenloan/widgets/member_directory/member_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _RegisterMemberState extends State<RegisterMember> {
   final registerMemberController = Get.put(EventController());
 
   // bool isTicked = false;
-  Future<List<Member>>? memberListFuture;
+  Future<List<PersonalProfile>>? memberListFuture;
   Future<List<RegistrationEventData>>? registeredMemberList;
   int page = 1;
   bool isLoadingMore = false;

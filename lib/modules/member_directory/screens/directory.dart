@@ -307,7 +307,7 @@ class _DirectoryState extends State<Directory> {
                                                           //   ),
                                                           // );
                                                           context.go(
-                                                              '/directory/${e.value.id}?isDirectory=true&imgUrl=${e.value.photo}');
+                                                              '/directory/${e.value.id}?isDirectory=true&imgUrl=${e.value.profile}');
                                                         },
                                                   child: Container(
                                                     color: Colors.white,

@@ -514,8 +514,11 @@ class _AddInquiryState extends State<AddInquiry> {
                                   });
                                 } else {
                                   widget.tradingWith == 'specific-platform'
-                                      ? inquirycontroller.specificMember.value
-                                          .id = widget.targetMember!.toInt()
+                                      ? inquirycontroller.specificMember.value =
+                                          inquirycontroller.specificMember.value
+                                              .copyWith(
+                                                  id: widget.targetMember!
+                                                      .toInt())
                                       : widget.tradingWith!;
 
                                   await inquirycontroller.onUpdate(

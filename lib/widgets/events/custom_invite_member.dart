@@ -4,6 +4,7 @@ import 'package:cicgreenloan/modules/event_module/controller/event_controller.da
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
+import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/widgets/member_directory/member_card.dart';
 import 'package:cicgreenloan/widgets/member_directory/member_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
   final memberController = Get.put(MemberController());
   final eventController = Get.put(EventController());
 
-  Future<List<Member>>? memberListFuture;
+  Future<List<PersonalProfile>>? memberListFuture;
 
   int page = 1;
   bool isLoadingMore = false;
@@ -160,74 +161,87 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                   SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: memberController.invitedMemberList
-                            .asMap()
-                            .entries
-                            .map((e) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Stack(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 10, right: 10),
-                                      child: CircleAvatar(
-                                        radius: 28,
-                                        backgroundImage: NetworkImage(
-                                            e.value.photo.toString()),
+                    child: Obx(
+                      () => Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: memberController.invitedMemberList
+                              .asMap()
+                              .entries
+                              .map((e) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                            top: 10, right: 10),
+                                        child: CircleAvatar(
+                                          radius: 28,
+                                          backgroundImage: NetworkImage(
+                                              e.value.profile.toString()),
+                                        ),
                                       ),
-                                    ),
-                                    Positioned(
-                                      top: 10,
-                                      right: 0,
-                                      child: CircleAvatar(
-                                          backgroundColor: Colors.white,
-                                          radius: 10,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              /////remove invite member
-                                              setState(() {
+                                      Positioned(
+                                        top: 10,
+                                        right: 0,
+                                        child: CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            radius: 10,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                /////remove invite member
+                                                // setState(() {
+                                                //   memberController
+                                                //       .invitedMemberList
+                                                //       .remove(e.value);
+                                                //   memberController
+                                                //           .memberList[e.key] =
+                                                //       memberController
+                                                //           .memberList[e.key]
+                                                //           .copyWith(
+                                                //               isTicked: false);
+                                                //   // e.value.isTicked = false;
+                                                //   // memberController
+                                                //   //     .onClearInvitedMember(
+                                                //   //         member: e.value);
+                                                // });
                                                 memberController
-                                                    .invitedMemberList
-                                                    .remove(e.value);
-                                                e.value.isTicked = false;
-                                                // memberController
-                                                //     .onClearInvitedMember(
-                                                //         member: e.value);
-                                              });
-                                            },
-                                            child: const Icon(Icons.close,
-                                                size: 15, color: Colors.black),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                    margin: const EdgeInsets.only(top: 5),
-                                    width: 80,
-                                    child: Text(
-                                      e.value.name.toString(),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.clip,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                    ))
-                              ],
-                            ),
-                          );
-                        }).toList()),
+                                                    .onRemoveInvitationMember(
+                                                        index: e.key,
+                                                        member: e.value);
+                                              },
+                                              child: const Icon(Icons.close,
+                                                  size: 15,
+                                                  color: Colors.black),
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 5),
+                                      width: 80,
+                                      child: Text(
+                                        e.value.name.toString(),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.clip,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500),
+                                      ))
+                                ],
+                              ),
+                            );
+                          }).toList()),
+                    ),
                   ),
                   Padding(
                     padding:
@@ -238,10 +252,10 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                     ),
                   ),
                   Expanded(
-                      child: FutureBuilder<List<Member>>(
+                      child: FutureBuilder<List<PersonalProfile>>(
                     future: memberListFuture,
                     builder: (BuildContext context,
-                        AsyncSnapshot<List<Member>> snapshot) {
+                        AsyncSnapshot<List<PersonalProfile>> snapshot) {
                       if (snapshot.hasData &&
                           memberController.memberList.isNotEmpty &&
                           snapshot.connectionState == ConnectionState.done) {
@@ -255,40 +269,41 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                               return false;
                             },
                             child: Container(
-                              color: Colors.white,
-                              child: ListView.separated(
-                                  shrinkWrap: true,
-                                  // physics: rNeverScrollableScrollPhysics(),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  itemBuilder: (context, index) {
-                                    memberController.member.value =
-                                        memberController.memberList[index];
-                                    Member member =
-                                        memberController.memberList[index];
-                                    return GestureDetector(
-                                      onTap: () {
-                                        memberController.onSelected(
-                                            index: index, member: member);
+                                color: Colors.white,
+                                child: Obx(
+                                  () => ListView.separated(
+                                      shrinkWrap: true,
+                                      // physics: rNeverScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      itemBuilder: (context, index) {
+                                        memberController.member.value =
+                                            memberController.memberList[index];
+                                        PersonalProfile member =
+                                            memberController.memberList[index];
+                                        return GestureDetector(
+                                          onTap: () {
+                                            memberController.onSelected(
+                                                index: index, member: member);
+                                          },
+                                          child: MemberCard(
+                                            isInvite: true,
+                                            isTick: memberController
+                                                .memberList[index].isTicked!,
+                                            member: memberController
+                                                .memberList[index],
+                                          ),
+                                        );
                                       },
-                                      child: MemberCard(
-                                        isInvite: true,
-                                        isTick: memberController
-                                            .memberList[index].isTicked!,
-                                        member:
-                                            memberController.memberList[index],
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return Divider(
-                                      thickness: 1,
-                                      color: Colors.grey[200],
-                                    );
-                                  },
-                                  itemCount:
-                                      memberController.memberList.length),
-                            ));
+                                      separatorBuilder: (context, index) {
+                                        return Divider(
+                                          thickness: 1,
+                                          color: Colors.grey[200],
+                                        );
+                                      },
+                                      itemCount:
+                                          memberController.memberList.length),
+                                )));
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return ListView.builder(

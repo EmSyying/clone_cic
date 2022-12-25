@@ -13,6 +13,7 @@ _$_PersonalProfile _$$_PersonalProfileFromJson(Map<String, dynamic> json) =>
       code: json['code'] as String?,
       position: json['position'] as String?,
       name: json['name'] as String?,
+      isTicked: json['isTicked'] as bool? ?? false,
       defaultPhoto: json['default_photo'] as String?,
       customerDateOfBirth: json['date_of_birth'] as String?,
       customerGender: json['gender'] == null
@@ -72,6 +73,7 @@ Map<String, dynamic> _$$_PersonalProfileToJson(_$_PersonalProfile instance) =>
       'code': instance.code,
       'position': instance.position,
       'name': instance.name,
+      'isTicked': instance.isTicked,
       'default_photo': instance.defaultPhoto,
       'date_of_birth': instance.customerDateOfBirth,
       'gender': instance.customerGender,

@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:cicgreenloan/modules/dashboard/main_dashboard.dart';
+import 'package:cicgreenloan/modules/dashboard/shimmer_dashboard.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import 'package:cicgreenloan/modules/qr_code/qr_code.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
@@ -172,8 +174,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       DeviceOrientation.portraitDown,
     ]);
     // _initQuickAction();
-
-    cusController.getUser();
+    appSettingCon.onInitAppSetting();
+    appSettingCon.fetchSlide();
     appSettingCon.onGetScreenMode();
 
     LocalData.showAppTou('appTour').then((value) async {
@@ -292,97 +294,112 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       init: SettingController(),
       builder: (SettingController setting) {
         return DefaultSizeWeb(
-          child: Scaffold(
-            bottomNavigationBar: !setting.isHideBottomNavigation
-                ? BottomNavigationBar(
-                    type: BottomNavigationBarType.fixed,
-                    selectedFontSize: 12,
-                    unselectedFontSize: 12,
-                    //        selectedLabelStyle: TextStyle(color: Colors.white),
-                    // type: BottomNavigationBarType.fixed,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Scaffold(
+                  bottomNavigationBar: !setting.isHideBottomNavigation
+                      ? BottomNavigationBar(
+                          type: BottomNavigationBarType.fixed,
+                          selectedFontSize: 12,
+                          unselectedFontSize: 12,
+                          //        selectedLabelStyle: TextStyle(color: Colors.white),
+                          // type: BottomNavigationBarType.fixed,
 
-                    items: <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/home.svg',
-                          color: const Color(0XFF848F92),
-                        ),
-                        label: S.of(context).homeMenu,
-                        activeIcon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/HomeActiveIcon.svg',
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/qrcodeInactive.svg',
-                            color: const Color(0XFF848F92)),
-                        activeIcon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/qrCodeActive.svg',
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        label: S.of(context).qrCode,
-                      ),
-                      BottomNavigationBarItem(
-                          icon: SvgPicture.asset(
-                              'assets/images/svgfile/menu/eventInactive.svg'),
-                          activeIcon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/eventActive.svg',
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          label: S.of(context).event),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                            'assets/images/svgfile/menu/account.svg',
-                            color: const Color(0XFF848F92)),
-                        activeIcon: SvgPicture.asset(
-                          'assets/images/svgfile/menu/accountActive.svg',
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        label: S.of(context).profile,
-                      ),
-                    ],
-                    // currentIndex: _settingCon.selectedIndex,
-                    unselectedItemColor: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
-                    selectedItemColor: Theme.of(context).primaryColor,
+                          items: <BottomNavigationBarItem>[
+                            BottomNavigationBarItem(
+                              icon: SvgPicture.asset(
+                                'assets/images/svgfile/menu/home.svg',
+                                color: const Color(0XFF848F92),
+                              ),
+                              label: S.of(context).homeMenu,
+                              activeIcon: SvgPicture.asset(
+                                'assets/images/svgfile/menu/HomeActiveIcon.svg',
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                            BottomNavigationBarItem(
+                              icon: SvgPicture.asset(
+                                  'assets/images/svgfile/menu/qrcodeInactive.svg',
+                                  color: const Color(0XFF848F92)),
+                              activeIcon: SvgPicture.asset(
+                                'assets/images/svgfile/menu/qrCodeActive.svg',
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              label: S.of(context).qrCode,
+                            ),
+                            BottomNavigationBarItem(
+                                icon: SvgPicture.asset(
+                                    'assets/images/svgfile/menu/eventInactive.svg'),
+                                activeIcon: SvgPicture.asset(
+                                  'assets/images/svgfile/menu/eventActive.svg',
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                label: S.of(context).event),
+                            BottomNavigationBarItem(
+                              icon: SvgPicture.asset(
+                                  'assets/images/svgfile/menu/account.svg',
+                                  color: const Color(0XFF848F92)),
+                              activeIcon: SvgPicture.asset(
+                                'assets/images/svgfile/menu/accountActive.svg',
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              label: S.of(context).profile,
+                            ),
+                          ],
+                          // currentIndex: _settingCon.selectedIndex,
+                          unselectedItemColor: Theme.of(context)
+                              .bottomNavigationBarTheme
+                              .unselectedItemColor,
+                          selectedItemColor: Theme.of(context).primaryColor,
 
-                    // onTap: _settingCon.onTap,
-                    currentIndex: _calculateSelectedIndex(context),
+                          // onTap: _settingCon.onTap,
+                          currentIndex: _calculateSelectedIndex(context),
 
-                    onTap: (int idx) => _onItemTapped(idx, context),
-                  )
-                : null,
-            backgroundColor: AppColor.backgroundColor,
-            // body: [
-            //   // Dashboard(),
-            //   const MainDashboard(),
+                          onTap: (int idx) => _onItemTapped(idx, context),
+                        )
+                      : null,
+                  backgroundColor: AppColor.backgroundColor,
+                  // body: [
+                  //   // Dashboard(),
+                  //   const MainDashboard(),
 
-            //   const QrCodeScreen(),
-            //   // LearningHome(),
-            //   // SearchScreen(),
-            //   const EventScreen(),
-            //   //  Report(),
-            //   //  BuySell(),
-            //   // HomePage(),
-            //   //  Directory(),
-            //   // AboutCIC(),
-            //   // NotificationScreen(),
+                  //   const QrCodeScreen(),
+                  //   // LearningHome(),
+                  //   // SearchScreen(),
+                  //   const EventScreen(),
+                  //   //  Report(),
+                  //   //  BuySell(),
+                  //   // HomePage(),
+                  //   //  Directory(),
+                  //   // AboutCIC(),
+                  //   // NotificationScreen(),
 
-            //   NewPeronalProfile(
-            //     id: cusController.customer.value.customerId,
-            //   )
-            //   // MemberDetail(
-            //   //   memberDetailAgrument: MemberDetailAgrument(
-            //   //       id: cusController.customer.value.customerId,
-            //   //       pageName: 'user',
-            //   //       isNavigator: true),
-            //   // ),
+                  //   NewPeronalProfile(
+                  //     id: cusController.customer.value.customerId,
+                  //   )
+                  //   // MemberDetail(
+                  //   //   memberDetailAgrument: MemberDetailAgrument(
+                  //   //       id: cusController.customer.value.customerId,
+                  //   //       pageName: 'user',
+                  //   //       isNavigator: true),
+                  //   // ),
 
-            //   //  ProfilePage(),
-            // ].elementAt(_settingCon.selectedIndex),
-            body: widget.child,
+                  //   //  ProfilePage(),
+                  // ].elementAt(_settingCon.selectedIndex),
+                  body: widget.child,
+                ),
+              ),
+              if (settingCon.isLoadingAppSetting)
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                  child: Container(
+                    color: Colors.black12,
+                    height: double.infinity,
+                    width: double.infinity,
+                  ),
+                ),
+            ],
           ),
         );
       },
