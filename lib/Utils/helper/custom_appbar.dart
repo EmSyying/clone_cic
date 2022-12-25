@@ -77,8 +77,8 @@ CustomAppBar(
                 IconButton(
                   onPressed: isCallonPressed == false
                       ? () {
-                          // Beamer.of(context!).beamBack();
                           context.pop();
+                          debugPrint('is pressed to invesment 1');
                         }
                       : onPressed,
                   icon: kIsWeb

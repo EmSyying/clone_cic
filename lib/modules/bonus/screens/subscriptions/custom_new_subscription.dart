@@ -24,7 +24,8 @@ import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 
 class CustomNewSubscription extends StatefulWidget {
-  const CustomNewSubscription({Key? key}) : super(key: key);
+  const CustomNewSubscription({Key? key, this.fromPage}) : super(key: key);
+  final String? fromPage;
 
   @override
   State<CustomNewSubscription> createState() => _CustomNewSubscriptionState();
@@ -523,7 +524,8 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                             callback: subscribeCon.isAgree.value == true &&
                                     subscribeCon.subscriptionAmount.value != 0
                                 ? () async {
-                                    await subscribeCon.onSubscription(context);
+                                    await subscribeCon.onSubscription(context,
+                                        fromPage: widget.fromPage);
                                   }
                                 : null,
                           ),

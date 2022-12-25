@@ -446,9 +446,7 @@ class BonusController extends GetxController {
     }
   }
 
-  Future<void> onSubscription(
-    BuildContext context,
-  ) async {
+  Future<void> onSubscription(BuildContext context, {String? fromPage}) async {
     final tokenKey = await LocalData.getCurrentUser();
     isSubscription(true);
     String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}subscription';
@@ -476,8 +474,13 @@ class BonusController extends GetxController {
                   description: 'The UT Subscription request has been submitted',
                   buttonTitle: 'Done',
                   onPressedButton: () {
-                    context.go(
-                        '/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription');
+                    if (fromPage == 'investment') {
+                      context.go(
+                          '/ut-subscription/histories-subscription?fromPage=investment');
+                    } else {
+                      context.go(
+                          '/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription');
+                    }
                   },
                 );
               },

@@ -4,12 +4,13 @@ import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_subscrib
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 
 class SubscribeBonusScreen extends StatefulWidget {
   final String? tabName;
-  const SubscribeBonusScreen({Key? key, this.tabName}) : super(key: key);
+  final String? fromPage;
+  const SubscribeBonusScreen({Key? key, this.tabName, this.fromPage})
+      : super(key: key);
 
   @override
   State<SubscribeBonusScreen> createState() => _SubscribeBonusScreenState();
@@ -39,11 +40,16 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        elevation: 0,
-        isLeading: true,
-        context: context,
-        title: "UT Subscription",
-      ),
+          elevation: 0,
+          isLeading: true,
+          context: context,
+          title: "UT Subscription",
+          isCallonPressed: widget.fromPage == 'investment' ? true : false,
+          onPressed: () {
+            debugPrint('is pressed to invesment');
+            context.go('/investment');
+            // Navigator.pop(context);
+          }),
       body: Column(
         children: [
           Container(
@@ -83,7 +89,7 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
               controller:
                   InjectionHelper.bonusController.tabControllerSubscribe,
               children: [
-                const CustomNewSubscription(),
+                CustomNewSubscription(fromPage: widget.fromPage),
                 CustomSubscribeHistory(),
               ],
             ),

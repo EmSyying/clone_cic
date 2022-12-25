@@ -1186,6 +1186,18 @@ final router = GoRouter(
               ]),
         ],
       ),
+      // UT Subscription from equity fund
+      GoRoute(
+        path: '/ut-subscription/:tabName',
+        name: 'Utsubscription',
+        builder: (BuildContext context, GoRouterState state) {
+          final String tabName = state.params['tabName']!;
+          final String fromPage = state.queryParams['fromPage']!;
+
+          return SubscribeBonusScreen(
+              tabName: tabName, fromPage: fromPage, key: state.pageKey);
+        },
+      ),
 
       // Explore More
       GoRoute(

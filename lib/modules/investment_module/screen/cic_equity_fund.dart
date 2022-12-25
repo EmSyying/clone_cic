@@ -25,6 +25,7 @@ import '../../../widgets/investments/equity_fund/subscription_chart.dart';
 import '../../../widgets/investments/equity_fund/trading_chart.dart';
 import '../../../widgets/investments/return_on_investment.dart';
 import '../../guilder/guider_controller.dart';
+import '../../wallet/controller/wallet_controller.dart';
 
 class CiCEquityFund extends StatefulWidget {
   final bool? isNavigator;
@@ -39,6 +40,7 @@ class CiCEquityFund extends StatefulWidget {
 class _CiCEquityFundState extends State<CiCEquityFund> {
   final priceController = Get.put(PriceController());
   final bonusCon = Get.put(BonusController());
+  final _walletController = Get.put(WalletController());
   var f = NumberFormat('#,###.00', 'en_US');
   var n = NumberFormat('#,###', 'en_US');
   bool isExpandShareSubscribe = false;
@@ -57,12 +59,17 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
 
   @override
   void initState() {
+    bonusCon.fetchUTScription();
+    bonusCon.fetchPaymentSummary();
+    bonusCon.fetchbonusSetting();
+    _walletController.fetchWalletAmount();
     priceController.isFromWallet.value = false;
     priceController.fetchCertificate();
     priceController.fetchOnReturnInvestment();
     priceController.getSharePrice();
     priceController.getShareSubHistories();
     priceController.getAllChartList();
+    priceController.onFetchPrice();
 
     // priceController.fetchCertificate();
     super.initState();
@@ -479,7 +486,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                       isDisable: false,
                       onPressed: () {
                         context.push(
-                            "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                            "/ut-subscription/new-subscription?fromPage=investment");
                       },
                       title: "Invest More",
                     ),
