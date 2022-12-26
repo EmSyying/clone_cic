@@ -797,7 +797,7 @@ class PriceController extends GetxController {
                     if (isFromWallet.value == true) {
                       context.go('/wallet/invest-fif/cic-fixed-income');
                     } else {
-                      context.go('/investment');
+                      context.go('/investment/cic-fixed-income');
                     }
                   },
                 ),

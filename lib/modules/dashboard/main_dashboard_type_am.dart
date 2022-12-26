@@ -10,15 +10,12 @@ import 'package:url_launcher/link.dart';
 
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/custom_indicatior.dart';
-import '../../Utils/function/convert_fromhex_color.dart';
 import '../../Utils/helper/firebase_analytics.dart';
 import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../widgets/dashboard/dashboard_menu.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../report_module/controllers/documentation_controller.dart';
 import '../report_module/models/documentation_model.dart';
-import '../report_module/screens/report_screen.dart';
-import '../report_module/screens/view_report.dart';
 
 class MainDashBoardTypeAM extends StatefulWidget {
   const MainDashBoardTypeAM({Key? key}) : super(key: key);
@@ -327,14 +324,23 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                                       context.go(
                                                           "/${value.route}/0");
                                                     }
-                                                  : () {
-                                                      FirebaseAnalyticsHelper
-                                                          .setCurrentScreenName(
-                                                              value.label!);
+                                                  : value.route == 'investment'
+                                                      ? () {
+                                                          FirebaseAnalyticsHelper
+                                                              .setCurrentScreenName(
+                                                                  value.label!);
 
-                                                      context.go(
-                                                          "/${value.route}");
-                                                    },
+                                                          context.go(
+                                                              "/${value.route}/cic-equity-fund");
+                                                        }
+                                                      : () {
+                                                          FirebaseAnalyticsHelper
+                                                              .setCurrentScreenName(
+                                                                  value.label!);
+
+                                                          context.go(
+                                                              "/${value.route}");
+                                                        },
                                           icon: value.icon,
                                         );
                                       }).toList()),

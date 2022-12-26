@@ -51,7 +51,7 @@ class _DepositToScreenState extends State<DepositToScreen> {
               padding: const EdgeInsets.all(20.0),
               child: WalletTotalCard(
                 amount:
-                    _walletController.walletAmount.value.wallet!.balanceFormat,
+                    _walletController.walletAmount.value.wallet?.balanceFormat,
               ),
             ),
             Expanded(
@@ -89,7 +89,7 @@ class _DepositToScreenState extends State<DepositToScreen> {
                     // const Spacer(),
                     CustomKeyboard(
                       onChanged: _walletController.onchageKeyboard,
-                      maximum: 10000000,
+                      maximum: 90000000000,
                     ),
                     const SizedBox(height: 10),
                   ],
