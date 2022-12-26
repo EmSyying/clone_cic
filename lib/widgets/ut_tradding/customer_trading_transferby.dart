@@ -112,17 +112,18 @@ class _CustomTradingTransferByState extends State<CustomTradingTransferBy> {
                         ]),
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                      left: 20.0, right: 20.0, bottom: 20.0),
-                  child: const Text(
-                    'Available Payment Accounts',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                if (widget.paymentDetailList!.isNotEmpty)
+                  Container(
+                    margin: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, bottom: 20.0),
+                    child: const Text(
+                      'Available Payment Accounts',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
                   ),
-                ),
                 Container(
                   margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                   child: Column(

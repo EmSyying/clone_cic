@@ -24,7 +24,6 @@ import '../../../widgets/ut_tradding/trade_session_shimmer.dart';
 import '../../guilder/guider_controller.dart';
 import '../../member_directory/controllers/customer_controller.dart';
 import '../../member_directory/controllers/member_controller.dart';
-import '../../member_directory/models/member.dart';
 import '../controllers/trading_controller.dart';
 
 class UTtrading extends StatefulWidget {
@@ -138,332 +137,347 @@ class _UTtradingState extends State<UTtrading>
         return CupertinoPageScaffold(
           child: Scaffold(
             backgroundColor: const Color(0xFFE5E5E5),
-            body: Column(
-              children: [
-                Stack(
-                  children: [
-                    CustomPaint(
-                      size: Size(double.infinity,
-                          MediaQuery.of(context).size.height * 1),
-                      painter: RPSCustomPainter(),
-                    ),
-                    // SvgPicture.asset(
-                    //   'assets/images/svgfile/background-ut.svg',
-                    // ),
-                    Positioned(
-                      top: 100.0,
-                      right: 0.0,
-                      left: 0.0,
-                      bottom: 0.0,
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: Get.height,
-                          child: DefaultTabController(
-                              length: 3,
-                              child: RefreshIndicator(
-                                notificationPredicate: (notification) {
-                                  // with NestedScrollView local(depth == 2) OverscrollNotification are not sent
-                                  if (notification is OverscrollNotification ||
-                                      Platform.isIOS) {
-                                    return notification.depth == 2;
-                                  }
-                                  return notification.depth == 0;
-                                },
-                                onRefresh: onRefresh,
-                                key: refreshkey,
-                                child: NestedScrollView(
-                                  controller: _scrollController,
-                                  body: Container(
-                                    color: Colors.white,
-                                    padding: const EdgeInsets.only(
-                                        left: 20, right: 20),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TabBar(
-                                          tabs: const [
-                                            Tab(
-                                              child: Text('Matched'),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      CustomPaint(
+                        size: Size(double.infinity,
+                            MediaQuery.of(context).size.height * 1),
+                        painter: RPSCustomPainter(),
+                      ),
+                      // SvgPicture.asset(
+                      //   'assets/images/svgfile/background-ut.svg',
+                      // ),
+                      Positioned(
+                        top: 110.0,
+                        right: 0.0,
+                        left: 0.0,
+                        bottom: 0.0,
+                        child: SingleChildScrollView(
+                          child: SizedBox(
+                            height: Get.height,
+                            child: DefaultTabController(
+                                length: 3,
+                                child: RefreshIndicator(
+                                  notificationPredicate: (notification) {
+                                    // with NestedScrollView local(depth == 2) OverscrollNotification are not sent
+                                    if (notification
+                                            is OverscrollNotification ||
+                                        Platform.isIOS) {
+                                      return notification.depth == 2;
+                                    }
+                                    return notification.depth == 0;
+                                  },
+                                  onRefresh: onRefresh,
+                                  key: refreshkey,
+                                  child: NestedScrollView(
+                                    controller: _scrollController,
+                                    body: Container(
+                                      color: Colors.white,
+                                      padding: const EdgeInsets.only(
+                                          left: 20, right: 20),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TabBar(
+                                            tabs: const [
+                                              Tab(
+                                                child: Text('Matched'),
+                                              ),
+                                              Tab(
+                                                child: Text('Unmatched'),
+                                              ),
+                                              Tab(
+                                                child: Text('Canceled'),
+                                              ),
+                                            ],
+                                            controller:
+                                                inquiryController.tabController,
+                                            onTap: (int i) {
+                                              if (i == 0) {
+                                                FirebaseAnalyticsHelper
+                                                    .sendAnalyticsEvent(
+                                                        "Mathced Trading Tab");
+                                              } else if (i == 1) {
+                                                FirebaseAnalyticsHelper
+                                                    .sendAnalyticsEvent(
+                                                        "Unmatched Trading Tab");
+                                              } else {
+                                                FirebaseAnalyticsHelper
+                                                    .sendAnalyticsEvent(
+                                                        "Canceled Trading Tab");
+                                              }
+                                            },
+                                            indicatorSize:
+                                                TabBarIndicatorSize.label,
+                                            isScrollable: false,
+                                            labelStyle: TextStyle(
+                                                fontFamily: 'DMSans',
+                                                fontSize: 14,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            indicatorWeight: 3,
+                                            indicatorColor:
+                                                Theme.of(context).primaryColor,
+                                            labelColor:
+                                                Theme.of(context).primaryColor,
+                                            unselectedLabelColor:
+                                                Get.theme.brightness ==
+                                                        Brightness.light
+                                                    ? Colors.grey[500]
+                                                    : Colors.white,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
+                                              child: TabBarView(
+                                                controller: inquiryController
+                                                    .tabController,
+                                                children: const [
+                                                  MatchTrade(),
+                                                  UnMatchTrade(),
+                                                  CancelTrade(),
+                                                ],
+                                              ),
                                             ),
-                                            Tab(
-                                              child: Text('Unmatched'),
-                                            ),
-                                            Tab(
-                                              child: Text('Canceled'),
-                                            ),
-                                          ],
-                                          controller:
-                                              inquiryController.tabController,
-                                          onTap: (int i) {
-                                            if (i == 0) {
-                                              FirebaseAnalyticsHelper
-                                                  .sendAnalyticsEvent(
-                                                      "Mathced Trading Tab");
-                                            } else if (i == 1) {
-                                              FirebaseAnalyticsHelper
-                                                  .sendAnalyticsEvent(
-                                                      "Unmatched Trading Tab");
-                                            } else {
-                                              FirebaseAnalyticsHelper
-                                                  .sendAnalyticsEvent(
-                                                      "Canceled Trading Tab");
-                                            }
-                                          },
-                                          indicatorSize:
-                                              TabBarIndicatorSize.label,
-                                          isScrollable: false,
-                                          labelStyle: TextStyle(
-                                              fontFamily: 'DMSans',
-                                              fontSize: 14,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
-                                          indicatorWeight: 3,
-                                          indicatorColor:
-                                              Theme.of(context).primaryColor,
-                                          labelColor:
-                                              Theme.of(context).primaryColor,
-                                          unselectedLabelColor:
-                                              Get.theme.brightness ==
-                                                      Brightness.light
-                                                  ? Colors.grey[500]
-                                                  : Colors.white,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 5, right: 5),
-                                            child: TabBarView(
-                                              controller: inquiryController
-                                                  .tabController,
-                                              children: const [
-                                                MatchTrade(),
-                                                UnMatchTrade(),
-                                                CancelTrade(),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    headerSliverBuilder: (context, _) {
+                                      return [
+                                        Obx(
+                                          () => SliverList(
+                                            delegate: SliverChildListDelegate(
+                                              [
+                                                const SizedBox(height: 20.0),
+                                                inquiryController
+                                                        .isLoadingMarket.value
+                                                    ? const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 20,
+                                                                right: 20),
+                                                        child:
+                                                            TradingSessionShimmerCard(),
+                                                      )
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 20.0,
+                                                                right: 20.0),
+                                                        child:
+                                                            CustomMaketTradingCar(
+                                                          onViewLastTrading:
+                                                              () {
+                                                            FirebaseAnalyticsHelper
+                                                                .sendAnalyticsEvent(
+                                                                    "View Last Trading Information");
+                                                            debugPrint(
+                                                                "View Trading:${inquiryController.viewLastTradingInfo.value.linkTradingInfo}");
+                                                            context.push(
+                                                                '/ut_trading/view-last-trading-info?url=${inquiryController.viewLastTradingInfo.value.linkTradingInfo}&&title=View Last Trading Info');
+                                                          },
+                                                          fromTime:
+                                                              inquiryController
+                                                                  .tradingSettingData
+                                                                  .data!
+                                                                  .market!
+                                                                  .fromTime,
+                                                          toTime: inquiryController
+                                                              .tradingSettingData
+                                                              .data!
+                                                              .market!
+                                                              .toTime,
+                                                          isOpen: inquiryController
+                                                              .tradingSettingData
+                                                              .data!
+                                                              .market!
+                                                              .open!,
+                                                          maximum: inquiryController
+                                                              .tradingSettingData
+                                                              .data!
+                                                              .market!
+                                                              .maxBasePrice!
+                                                              .toString(),
+                                                          minimum: inquiryController
+                                                              .tradingSettingData
+                                                              .data!
+                                                              .market!
+                                                              .minBasePrice!
+                                                              .toString(),
+                                                          base: inquiryController
+                                                              .tradingSettingData
+                                                              .data!
+                                                              .market!
+                                                              .basePrice!
+                                                              .toString(),
+                                                        ),
+                                                      ),
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 20.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 20, right: 20),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(10),
+                                                      topRight:
+                                                          Radius.circular(10),
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                vertical: 10),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Container(
+                                                          height: 3,
+                                                          width: 34,
+                                                          decoration: BoxDecoration(
+                                                              color: const Color(
+                                                                  0xffBFBFBF),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5)),
+                                                        ),
+                                                      ),
+                                                      if (!inquiryController
+                                                          .isLoadingInquiry
+                                                          .value)
+                                                        CustomBuyCard(
+                                                          title: 'All',
+                                                          listData:
+                                                              inquiryController
+                                                                  .listInquiryallData
+                                                                  .toList(),
+                                                        ),
+                                                      const Text(
+                                                        'Available Funds to Trade',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: ui.Color(
+                                                                0XFF848F92)),
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 20.0),
+                                                      CustomFunCard(
+                                                        isLoading:
+                                                            inquiryController
+                                                                .isLoadingInquiry
+                                                                .value,
+                                                        utPrice:
+                                                            inquiryController
+                                                                .sharePrice
+                                                                .value
+                                                                .totalUt,
+                                                        totalPrice:
+                                                            inquiryController
+                                                                .sharePrice
+                                                                .value
+                                                                .totalPrice,
+                                                        onBuy: () async {
+                                                          FirebaseAnalyticsHelper
+                                                              .sendAnalyticsEvent(
+                                                                  "Buy Trade");
+                                                          memberController
+                                                                  .selectedMember
+                                                                  .value =
+                                                              PersonalProfile();
+
+                                                          context.go(
+                                                              '/ut_trading/trading-inquiry/buy');
+                                                        },
+                                                        onSale: () {
+                                                          FirebaseAnalyticsHelper
+                                                              .sendAnalyticsEvent(
+                                                                  "Sell Trade");
+                                                          memberController
+                                                                  .selectedMember
+                                                                  .value =
+                                                              PersonalProfile();
+
+                                                          context.go(
+                                                              '/ut_trading/trading-inquiry/sell');
+                                                        },
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 15.0),
+                                                    ],
+                                                  ),
+                                                )
                                               ],
                                             ),
                                           ),
                                         )
-                                      ],
-                                    ),
+                                      ];
+                                    },
                                   ),
-                                  headerSliverBuilder: (context, _) {
-                                    return [
-                                      Obx(
-                                        () => SliverList(
-                                          delegate: SliverChildListDelegate(
-                                            [
-                                              const SizedBox(height: 20.0),
-                                              inquiryController
-                                                      .isLoadingMarket.value
-                                                  ? const Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 20, right: 20),
-                                                      child:
-                                                          TradingSessionShimmerCard(),
-                                                    )
-                                                  : Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20.0,
-                                                              right: 20.0),
-                                                      child:
-                                                          CustomMaketTradingCar(
-                                                        onViewLastTrading: () {
-                                                          FirebaseAnalyticsHelper
-                                                              .sendAnalyticsEvent(
-                                                                  "View Last Trading Information");
-                                                          debugPrint(
-                                                              "View Trading:${inquiryController.viewLastTradingInfo.value.linkTradingInfo}");
-                                                          context.push(
-                                                              '/ut_trading/view-last-trading-info?url=${inquiryController.viewLastTradingInfo.value.linkTradingInfo}&&title=View Last Trading Info');
-                                                        },
-                                                        fromTime: inquiryController
-                                                            .tradingSettingData
-                                                            .data!
-                                                            .market!
-                                                            .fromTime,
-                                                        toTime: inquiryController
-                                                            .tradingSettingData
-                                                            .data!
-                                                            .market!
-                                                            .toTime,
-                                                        isOpen: inquiryController
-                                                            .tradingSettingData
-                                                            .data!
-                                                            .market!
-                                                            .open!,
-                                                        maximum: inquiryController
-                                                            .tradingSettingData
-                                                            .data!
-                                                            .market!
-                                                            .maxBasePrice!
-                                                            .toString(),
-                                                        minimum: inquiryController
-                                                            .tradingSettingData
-                                                            .data!
-                                                            .market!
-                                                            .minBasePrice!
-                                                            .toString(),
-                                                        base: inquiryController
-                                                            .tradingSettingData
-                                                            .data!
-                                                            .market!
-                                                            .basePrice!
-                                                            .toString(),
-                                                      ),
-                                                    ),
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 20.0),
-                                                padding: const EdgeInsets.only(
-                                                    left: 20, right: 20),
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10),
-                                                  ),
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 10),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Container(
-                                                        height: 3,
-                                                        width: 34,
-                                                        decoration: BoxDecoration(
-                                                            color: const Color(
-                                                                0xffBFBFBF),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5)),
-                                                      ),
-                                                    ),
-                                                    if (!inquiryController
-                                                        .isLoadingInquiry.value)
-                                                      CustomBuyCard(
-                                                        title: 'All',
-                                                        listData: inquiryController
-                                                            .listInquiryallData
-                                                            .toList(),
-                                                      ),
-                                                    const Text(
-                                                      'Available Funds to Trade',
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: ui.Color(
-                                                              0XFF848F92)),
-                                                    ),
-                                                    const SizedBox(
-                                                        height: 20.0),
-                                                    CustomFunCard(
-                                                      isLoading:
-                                                          inquiryController
-                                                              .isLoadingInquiry
-                                                              .value,
-                                                      utPrice: inquiryController
-                                                          .sharePrice
-                                                          .value
-                                                          .totalUt,
-                                                      totalPrice:
-                                                          inquiryController
-                                                              .sharePrice
-                                                              .value
-                                                              .totalPrice,
-                                                      onBuy: () async {
-                                                        FirebaseAnalyticsHelper
-                                                            .sendAnalyticsEvent(
-                                                                "Buy Trade");
-                                                        memberController
-                                                                .selectedMember
-                                                                .value =
-                                                            PersonalProfile();
-
-                                                        context.go(
-                                                            '/ut_trading/trading-inquiry/buy');
-                                                      },
-                                                      onSale: () {
-                                                        FirebaseAnalyticsHelper
-                                                            .sendAnalyticsEvent(
-                                                                "Sell Trade");
-                                                        memberController
-                                                                .selectedMember
-                                                                .value =
-                                                            PersonalProfile();
-
-                                                        context.go(
-                                                            '/ut_trading/trading-inquiry/sell');
-                                                      },
-                                                    ),
-                                                    const SizedBox(
-                                                        height: 15.0),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ];
-                                  },
-                                ),
-                              )),
+                                )),
+                          ),
                         ),
                       ),
-                    ),
-                    //  Container(height: double.infinity, width: double.infinity, color: Colors.white,),
-                    CustomAppBar(
-                        isLogo: false,
-                        backgroundColor: Colors.transparent,
-                        elevation: 0.0,
-                        action: [
-                          IconButton(
-                            padding: EdgeInsets.zero,
-                            icon: SvgPicture.asset(
-                              'assets/images/demo.svg',
-                              width: 32.0,
-                              height: 32.0,
-                            ),
-                            onPressed: () {
-                              _scrollController
-                                  .animateTo(0,
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      curve: Curves.linear)
-                                  .then((value) {
-                                Future.delayed(
-                                    const Duration(milliseconds: 500), () {
-                                  _showGuildLine();
+                      //  Container(height: double.infinity, width: double.infinity, color: Colors.white,),
+                      CustomAppBar(
+                          isLogo: false,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0.0,
+                          action: [
+                            IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: SvgPicture.asset(
+                                'assets/images/demo.svg',
+                                width: 32.0,
+                                height: 32.0,
+                              ),
+                              onPressed: () {
+                                _scrollController
+                                    .animateTo(0,
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        curve: Curves.linear)
+                                    .then((value) {
+                                  Future.delayed(
+                                      const Duration(milliseconds: 500), () {
+                                    _showGuildLine();
+                                  });
                                 });
-                              });
-                            },
-                          ),
-                          CustomCallCenter(
-                              isUT: true,
-                              url: inquiryController
-                                  .tradingSettingData.data!.telegramLink),
-                        ],
-                        isLeading: true,
-                        context: context,
-                        title: 'UT Trading'),
-                  ],
-                ),
-              ],
+                              },
+                            ),
+                            CustomCallCenter(
+                                isUT: true,
+                                url: inquiryController
+                                    .tradingSettingData.data!.telegramLink),
+                          ],
+                          isLeading: true,
+                          context: context,
+                          title: 'UT Trading'),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );

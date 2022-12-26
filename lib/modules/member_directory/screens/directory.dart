@@ -281,6 +281,7 @@ class _DirectoryState extends State<Directory> {
                                                           FirebaseAnalyticsHelper
                                                               .sendAnalyticsEvent(
                                                                   'Trading ${e.value.name!}');
+
                                                           widget
                                                               .onTap!(e.value);
                                                           Navigator.pop(

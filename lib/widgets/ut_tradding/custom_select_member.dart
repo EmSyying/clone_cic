@@ -1,7 +1,8 @@
-import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/directory.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
 import 'package:flutter/material.dart';
+
+import '../../modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 
 class CustomSelectMember extends StatefulWidget {
   final bool? isValidate;
@@ -46,7 +47,7 @@ class _CustomSelectMemberState extends State<CustomSelectMember> {
               isShowCiCTeam: 1,
               isNavigator: true,
               fromPage: 'tradeScreen',
-              onTap: (Member value) {
+              onTap: (PersonalProfile value) {
                 widget.onTap!(value);
                 setState(() {
                   copyData = {

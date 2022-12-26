@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
-import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/modules/ut_trading/controllers/trading_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
