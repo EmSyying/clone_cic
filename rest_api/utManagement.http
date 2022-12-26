@@ -1,12 +1,12 @@
 @baseUrl = https://cicstaging.z1central.com/api/
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiYWUxOGFjN2RlOTc2Y2UzZjQyYTczMzViNmYzNDIwZTdhNTYyYTg3ZGYwODg1NzJhYzU0YmVkMjJmNGViMzZjOGY4Y2M0OTc3YjY5YTg5NzEiLCJpYXQiOjE2NjI2OTYxMDIuNjIzMjc5LCJuYmYiOjE2NjI2OTYxMDIuNjIzMjgxLCJleHAiOjE2OTQyMzIxMDIuNjE0MDk3LCJzdWIiOiIxMCIsInNjb3BlcyI6WyIqIl19.LiTNWSBd1DocS9zPI_93pwCfQ0F6Igk-VsCpXIWgMvlOYxQMMuPxq4wXpuYC-nWyYIx9Lm-4ovJk10YW-E2TjXtmz7wdHXlEMlUA7Y1TYuPQ3KaBBt_dYnTFqQRDhfLA_wy5Ia5a9-wFbFRDKfTeA3RlIxeKdka6rc56BgBlnhXY1YoJT_ZKFl6xqBdLDyEwIaht8tapnf9Pdy9EShSHKsKW5n7kq3V-g8Agq_LsoTg-Ugz88CPidfu81NROSXeUa07SF4IgdRyUj8EngTF0GSnLfW3Q1jymV_NIDkDKb0nNm_ZSQjdEJGxEzAkxCE-elt6uRmVMki5CSvbL0k45nVk1TP2Z-6BZoKaKbgktX7hhtot1Qa01yVANbBlHSkWHy0A_ASRzT5yWC9ZGTta52DJygYacPxEu-DLxR3_ZaHuzOMeF-sU_W8XVXfudJVOV1tgg_JbLFlAtczde6v-8MUykNsaH5pRr7dinsrM44_CHwkVXQdYPBhG6xMbno8P1DS_Z021fdQGBTzRZqSmxs1hzgjZ2JmRIDYmkgv6VBGlK9uogReqLq08CYmU_jYrAgs28MN5HQsdJAurDMM3gdbBp0xfJUIt_woMNtsVAFP7NMnFgI-4k0raxdNigppqdkmfprDkQt3rBWstgWQI2Y81L2LNZLPHeLXw1DvvSHoU
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNjZmZDJjZTM3MzBiNjYwY2IzYmFhOTc1Y2NkMWFmY2FmYTY5ZDgyM2QwYTllYTI5MTE0YmFmZTQyMjAyN2I5NWIwZTk1M2U1YjAwODdmYmQiLCJpYXQiOjE2NzIwMzk5ODguMDQxODI0LCJuYmYiOjE2NzIwMzk5ODguMDQxODI2LCJleHAiOjE3MDM1NzU5ODguMDM2OTI0LCJzdWIiOiI0NyIsInNjb3BlcyI6WyIqIl19.e6zXcHqdR345jpyESdc3xgWb500FlSYewP_gWkBDbAXiEHKVSLw64Lbb6-0-nRO9mVqTsB3MXFMp80WcjFOyqWHwvVYOsE8l4Msy1jPwuu0WR39qQNY4sjaQnb7LCQaipRY4PCfsdA0IFbuBlCOIPMsv4TvWkqiHVzTK90NRvJyatNvoW6e6QaU4TwVfUfS_IuZ7yKLbcfO1LWazcPe9cCzs0DgdoEgoPROvnvtSSwDReW1ubMCRyp_3oJl6lB-3gu8XlJ8d0qsePrCzF5QHhgL0_oxY--TXcXgmirgMaITLci9yWDB9LpWLKhHuW70GDAWLGbA58_5rNZPirIq0-rutlLLDNTwVDk0fGJcEe55bZq8qvsdI9Lka9FVYqTvhMhWJsZmdOgLifL-LUmaohkCHJ57-60Va6XwPv77phGMR5Cix02MRZ8gtsoG6NmYfsZalTFGBTrtgZk4GCZkWv2_azHGMeQMwNu1Y4IrOMXXurpRq3BeqPUomx9npdQo6wTHZ22ipWCgawu_A4QS5pBj9PPugqyOakNl8Aj105Vsgqe3Du2jL1N-NNjrmMjXXBKYBbJAucBo_1iIb8SIng559MrTagxdt8AB2gnZn__PCgkWqDodXjIHHBcqQqbc3rJJBH6WjPEaIq6jOz-0q6IY6B9psZUU9KfJEDCd7xaY
 POST {{baseUrl}}login
 Content-Type: application/json
 Accept: application/json
 
 {
-    "phone" : "+85510305096",
-    "password" : "Admin@2022"   
+    "phone" : "+85510305091",
+    "password" : "Admin@2023"   
 }
 
 ###
@@ -123,7 +123,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ###
-GET {{baseUrl}}v2/trading?type=success&member_id=446
+GET {{baseUrl}}v2/trading?type=success&member_id=440
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -137,7 +137,7 @@ Authorization: Bearer {{token}}
 
 
 ### 
-GET {{baseUrl}}v2/trading?type=all&member_id=466
+GET {{baseUrl}}v2/trading?type=all&member_id=440
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
