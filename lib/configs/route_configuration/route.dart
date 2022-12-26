@@ -143,7 +143,8 @@ final router = GoRouter(
           !state.location.contains('/contract-term') &&
           !state.location.contains('/privacy-policy') &&
           !state.location.contains('/login') &&
-          !state.location.contains('/login-password')) {
+          !state.location.contains('/login-password') &&
+          !state.location.contains('switch-splash-screen')) {
         return '/start-slide';
       }
       return null;
@@ -687,6 +688,7 @@ final router = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ut-subscription/:tabName',
+                              parentNavigatorKey: _rootNavigatorKey,
                               builder:
                                   (BuildContext context, GoRouterState state) {
                                 final String tabName = state.params['tabName']!;
@@ -1191,6 +1193,7 @@ final router = GoRouter(
       GoRoute(
         path: '/ut-subscription/:tabName',
         name: 'Utsubscription',
+        parentNavigatorKey: _rootNavigatorKey,
         builder: (BuildContext context, GoRouterState state) {
           final String tabName = state.params['tabName']!;
           final String fromPage = state.queryParams['fromPage']!;
@@ -1199,7 +1202,6 @@ final router = GoRouter(
               tabName: tabName, fromPage: fromPage, key: state.pageKey);
         },
       ),
-
       // Explore More
       GoRoute(
         path: '/explore-more',

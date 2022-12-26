@@ -357,6 +357,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                   onSave: widget.id != null
                                       ? () async {
                                           //Navigator.pop(context);
+                                          context.pop();
                                           await InjectionHelper
                                               .debtInvestmentController
                                               .onEditDebtInvestment(
@@ -372,13 +373,14 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                           );
                                         }
                                       : () async {
-                                          //  Navigator.pop(context);
+                                          context.pop();
                                           await InjectionHelper
                                               .debtInvestmentController
                                               .onSubmitDebtInvestment(
                                                   context: context, step: 4);
                                         },
                                   onDiscard: () {
+                                    context.pop();
                                     InjectionHelper.debtInvestmentController
                                         .onResetData();
                                     context.go("/get_funding");

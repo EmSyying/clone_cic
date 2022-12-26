@@ -253,8 +253,9 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
       content: "Changes made to this page haven’t been saved yet.",
       isCancel: true,
       onDiscard: () {
-        Navigator.pop(context);
-        Navigator.pop(context);
+        context.pop();
+        context.go('/get_funding');
+
         deducCon.clearDeducSelection();
       },
     );

@@ -307,7 +307,6 @@ class _MainDashboardState extends State<MainDashboard> {
     });
 
     getDataBiotryic();
-    _settingCon.fetchAppVersion();
     // firebaseMessaging.configure(onMessage: (message) async {
     //   print('onMessage: $message');
     //   return;
@@ -568,47 +567,48 @@ class _MainDashboardState extends State<MainDashboard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      key: actionKey,
-                      onTap: () async {
-                        context.go('/notification');
-                      },
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(right: 10.0),
-                            child: SvgPicture.asset(
-                              'assets/images/svgfile/notifications.svg',
-                              height: 26.0,
+                    if (!_settingCon.isAMMode!)
+                      GestureDetector(
+                        key: actionKey,
+                        onTap: () async {
+                          context.go('/notification');
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 10.0),
+                              child: SvgPicture.asset(
+                                'assets/images/svgfile/notifications.svg',
+                                height: 26.0,
+                              ),
                             ),
-                          ),
-                          Obx(
-                            () => _notificationCon.isLoading.value
-                                ? Container()
-                                : _notificationCon.countNotificatio.value != 0
-                                    ? Positioned(
-                                        right: 5.0,
-                                        top: 0.0,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 1),
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Text(
-                                            '${_notificationCon.countNotificatio.value}',
-                                            style:
-                                                const TextStyle(fontSize: 12),
+                            Obx(
+                              () => _notificationCon.isLoading.value
+                                  ? Container()
+                                  : _notificationCon.countNotificatio.value != 0
+                                      ? Positioned(
+                                          right: 5.0,
+                                          top: 0.0,
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 5, vertical: 1),
+                                            decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(30)),
+                                            child: Text(
+                                              '${_notificationCon.countNotificatio.value}',
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    : Container(),
-                          ),
-                        ],
+                                        )
+                                      : Container(),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -704,7 +704,7 @@ class _MainDashboardState extends State<MainDashboard> {
                       _settingCon.slideList!.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
+                          horizontal: 20, vertical: 15),
                       child: AspectRatio(
                         aspectRatio: 5 / 2.3,
                         child: Swiper(
@@ -846,7 +846,7 @@ class _MainDashboardState extends State<MainDashboard> {
                   )
                 : Container()),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             switchIcon == true
                 ? AspectRatio(

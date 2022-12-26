@@ -181,7 +181,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 10,
+                                          left: 20,
                                           right: 20,
                                           bottom: 10,
                                           top: 10),

@@ -148,9 +148,12 @@ class SettingController extends GetxController {
   final contactUs = ContactUs().obs;
   List<SlideModel>? slideList = <SlideModel>[];
   List<SlideModel>? splashScreen = <SlideModel>[];
-  String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}app-setting';
+  String url = '${FlavorConfig.instance.values!.apiBaseUrlV4}app-setting';
 
-  Future<Setting> fetchSetting() async {
+  Future<Setting> fetchSetting({String? userType}) async {
+    final token = await LocalStorage.getStringValue(key: 'access_token');
+    String url =
+        '${FlavorConfig.instance.values!.apiBaseUrlV4}app-setting/$userType';
     SharedPreferences pref = await SharedPreferences.getInstance();
     await http.get(Uri.parse(url)).then((response) {
       if (response.statusCode == 200) {
@@ -158,9 +161,9 @@ class SettingController extends GetxController {
         settingApp.value = Setting.fromJson(responseData);
         cicAppSetting = Setting.fromJson(responseData);
         appSettingNofier.value = cicAppSetting;
+        appSettingNofier.value.userToken = token;
         appSettingNofier.notifyListeners();
         update();
-
         pref.setString('setting', json.encode(settingApp.value));
       } else {}
     });
@@ -358,8 +361,9 @@ class SettingController extends GetxController {
     return aboutCiCFeature.value;
   }
 
-  Future<AppSetting> fetchAppVersion() async {
-    String url = '${FlavorConfig.instance.values!.apiBaseUrl}app-setting';
+  Future<AppSetting> fetchAppVersion({String? userType}) async {
+    String url =
+        '${FlavorConfig.instance.values!.apiBaseUrlV4}app-setting/$userType';
     isLoadingAboutCiC(true);
     try {
       await http.get(Uri.parse(url), headers: {
@@ -370,6 +374,7 @@ class SettingController extends GetxController {
           var responseJson = json.decode(response.body)['app-setting'];
           if (responseJson['about_app'] != null) {
             aboutApp.value = AppSetting.fromJson(responseJson);
+            debugPrint("Primary Color: ${aboutApp.value.brightPrimaryColor}");
           }
 
           appSettingVersion.value = AppSetting.fromJson(responseJson);
@@ -484,8 +489,9 @@ class SettingController extends GetxController {
   }
 
   @override
-  void onInit() {
-    fetchSetting();
+  void onInit() async {
+    await onGetScreenMode();
+    await fetchSetting(userType: isAMMode! ? 'am' : 'qm');
     onFetchUIData();
 
     super.onInit();

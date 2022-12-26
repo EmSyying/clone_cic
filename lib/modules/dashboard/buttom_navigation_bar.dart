@@ -230,7 +230,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     });
 
     getLanguage();
-    _settingCon.fetchAppVersion();
     // fetchAppVersion();
     _userController.isLoginSuccess(true);
     // homeMenu = S.of(context).homeMenu;

@@ -547,7 +547,7 @@ class _Step2DebtState extends State<Step2Debt> {
                                         title:
                                             'Are you sure you want to leave this page?',
                                         onSave: () async {
-                                          Navigator.pop(context);
+                                          context.pop();
                                           widget.id != null
                                               ? await InjectionHelper
                                                   .debtInvestmentController
@@ -568,7 +568,9 @@ class _Step2DebtState extends State<Step2Debt> {
                                                       step: 2);
                                         },
                                         onDiscard: () {
+                                          context.pop();
                                           setValidate();
+
                                           context.go("/get_funding");
                                         },
                                       );

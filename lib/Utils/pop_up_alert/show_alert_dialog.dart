@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../helper/container_partern.dart';
 
@@ -127,7 +128,7 @@ showSaveDraftDialog({
               ),
             if (isCancel == true)
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => context.pop(),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   color: Colors.transparent,

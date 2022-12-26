@@ -20,6 +20,7 @@ class _BooksState extends State<SwitchSplashScreen>
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 0), () {
+      _settingCon.fetchSetting(userType: widget.userType);
       _settingCon.fetchAppBottomBar(userType: widget.userType);
       _settingCon.fetchAppSetting(
           context: context,

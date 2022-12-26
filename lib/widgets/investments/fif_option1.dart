@@ -875,7 +875,7 @@ class _FIFOption1State extends State<FIFOption1> {
         fifController.onClearFIF();
         fifController.clearDeducSelection();
         fifController.productCode.value == '';
-        Navigator.pop(context);
+        context.pop();
         context.go('/investment/invest-more');
       },
       isDisableSaveDraft: true,

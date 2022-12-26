@@ -30,10 +30,8 @@ class Step1Equiry extends StatefulWidget {
 }
 
 class _Step1EquiryState extends State<Step1Equiry> {
- 
   @override
   void initState() {
-   
     InjectionHelper.equityInvestmentController.fetchEquitySetting();
     if (widget.id != null) {
       inistialdata();
@@ -44,13 +42,16 @@ class _Step1EquiryState extends State<Step1Equiry> {
   }
 
   inistialdata() async {
-    await InjectionHelper.equityInvestmentController.fetchAppDetails(widget.id!);
+    await InjectionHelper.equityInvestmentController
+        .fetchAppDetails(widget.id!);
 
     ///
     var displayfinancialAmount = FormatNumber.formatNumberDefualt(
-        InjectionHelper.equityInvestmentController.applicationData.value.financialAmount!);
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.financialAmount!);
     InjectionHelper.equityInvestmentController.financingAmountcontroller.text =
-        InjectionHelper.equityInvestmentController.applicationData.value.financialAmount!
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .financialAmount!
                     .toString() ==
                 "0"
             ? ""
@@ -58,42 +59,55 @@ class _Step1EquiryState extends State<Step1Equiry> {
 
     ///
     InjectionHelper.equityInvestmentController.financingAmoung.value =
-        InjectionHelper.equityInvestmentController.applicationData.value.financialAmount != null
-            ? InjectionHelper.equityInvestmentController.applicationData.value.financialAmount!
+        InjectionHelper.equityInvestmentController.applicationData.value
+                    .financialAmount !=
+                null
+            ? InjectionHelper.equityInvestmentController.applicationData.value
+                .financialAmount!
                 .toInt()
             : 0;
-    InjectionHelper.equityInvestmentController.intendedDate.value = InjectionHelper.equityInvestmentController
-        .applicationData.value.intendedDateDisbursement!;
+    InjectionHelper.equityInvestmentController.intendedDate.value =
+        InjectionHelper.equityInvestmentController.applicationData.value
+            .intendedDateDisbursement!;
 
     InjectionHelper.equityInvestmentController.useOfFundcontroller.text =
-        InjectionHelper.equityInvestmentController.applicationData.value.useofFund!;
-    InjectionHelper.equityInvestmentController.useOfFund.value =
-        InjectionHelper.equityInvestmentController.applicationData.value.useofFund!;
+        InjectionHelper
+            .equityInvestmentController.applicationData.value.useofFund!;
+    InjectionHelper.equityInvestmentController.useOfFund.value = InjectionHelper
+        .equityInvestmentController.applicationData.value.useofFund!;
   }
 
   void _onpress(BuildContext context) {
     if (InjectionHelper.equityInvestmentController.financingAmoung.value <
-            InjectionHelper.equityInvestmentController.equitySetting.value.minEquityAmount! ||
+            InjectionHelper.equityInvestmentController.equitySetting.value
+                .minEquityAmount! ||
         InjectionHelper.equityInvestmentController.financingAmoung.value >
-            InjectionHelper.equityInvestmentController.equitySetting.value.maxEquityAmount!) {
-      InjectionHelper.equityInvestmentController.isValidateFinancingAmount.value = false;
+            InjectionHelper.equityInvestmentController.equitySetting.value
+                .maxEquityAmount!) {
+      InjectionHelper
+          .equityInvestmentController.isValidateFinancingAmount.value = false;
     } else {
-      InjectionHelper.equityInvestmentController.isValidateFinancingAmount.value = true;
+      InjectionHelper
+          .equityInvestmentController.isValidateFinancingAmount.value = true;
     }
     if (InjectionHelper.equityInvestmentController.useOfFund.value == '') {
-      InjectionHelper.equityInvestmentController.isValidateUseOfFund.value = false;
+      InjectionHelper.equityInvestmentController.isValidateUseOfFund.value =
+          false;
     } else {
-      InjectionHelper.equityInvestmentController.isValidateUseOfFund.value = true;
+      InjectionHelper.equityInvestmentController.isValidateUseOfFund.value =
+          true;
     }
     if (InjectionHelper.equityInvestmentController.intendedDate.value == '') {
-      InjectionHelper.equityInvestmentController.isValidateIntendedDate.value = false;
+      InjectionHelper.equityInvestmentController.isValidateIntendedDate.value =
+          false;
     } else {
-      InjectionHelper.equityInvestmentController.isValidateIntendedDate.value = true;
+      InjectionHelper.equityInvestmentController.isValidateIntendedDate.value =
+          true;
     }
-    if (InjectionHelper.equityInvestmentController.financingAmoung.value >=
-            InjectionHelper.equityInvestmentController.equitySetting.value.minEquityAmount! &&
+    if (InjectionHelper.equityInvestmentController.financingAmoung.value >= InjectionHelper.equityInvestmentController.equitySetting.value.minEquityAmount! &&
         InjectionHelper.equityInvestmentController.financingAmoung.value <=
-            InjectionHelper.equityInvestmentController.equitySetting.value.maxEquityAmount! &&
+            InjectionHelper.equityInvestmentController.equitySetting.value
+                .maxEquityAmount! &&
         InjectionHelper.equityInvestmentController.useOfFund.value != '' &&
         InjectionHelper.equityInvestmentController.intendedDate.value != '') {
       context.push(
@@ -112,7 +126,8 @@ class _Step1EquiryState extends State<Step1Equiry> {
           child: Obx(
             () => WillPopScope(
               onWillPop: () async => false,
-              child: InjectionHelper.equityInvestmentController.isLoadingSubmit.value
+              child: InjectionHelper
+                      .equityInvestmentController.isLoadingSubmit.value
                   ? showLoading()
                   : Scaffold(
                       resizeToAvoidBottomInset: false,
@@ -124,21 +139,27 @@ class _Step1EquiryState extends State<Step1Equiry> {
                               context: context,
                               title: 'Equity Investment',
                               leading: IconButton(
-                                  onPressed: InjectionHelper.equityInvestmentController
-                                                  .financingAmoung.value ==
-                                              InjectionHelper.equityInvestmentController
+                                  onPressed: InjectionHelper
+                                                  .equityInvestmentController
+                                                  .financingAmoung
+                                                  .value ==
+                                              InjectionHelper
+                                                  .equityInvestmentController
                                                   .applicationData
                                                   .value
                                                   .financialAmount &&
-                                          InjectionHelper.equityInvestmentController
-                                                  .useOfFund.value ==
-                                              InjectionHelper.equityInvestmentController
+                                          InjectionHelper.equityInvestmentController.useOfFund.value ==
+                                              InjectionHelper
+                                                  .equityInvestmentController
                                                   .applicationData
                                                   .value
                                                   .useofFund &&
-                                          InjectionHelper.equityInvestmentController
-                                                  .intendedDate.value ==
-                                              InjectionHelper.equityInvestmentController
+                                          InjectionHelper
+                                                  .equityInvestmentController
+                                                  .intendedDate
+                                                  .value ==
+                                              InjectionHelper
+                                                  .equityInvestmentController
                                                   .applicationData
                                                   .value
                                                   .intendedDateDisbursement
@@ -148,14 +169,20 @@ class _Step1EquiryState extends State<Step1Equiry> {
 
                                           Navigator.pop(context);
                                         }
-                                      : InjectionHelper.equityInvestmentController
-                                                      .financingAmoung.value ==
+                                      : InjectionHelper
+                                                      .equityInvestmentController
+                                                      .financingAmoung
+                                                      .value ==
                                                   0.0 &&
-                                              InjectionHelper.equityInvestmentController
-                                                      .intendedDate.value ==
+                                              InjectionHelper
+                                                      .equityInvestmentController
+                                                      .intendedDate
+                                                      .value ==
                                                   '' &&
-                                              InjectionHelper.equityInvestmentController
-                                                      .useOfFund.value ==
+                                              InjectionHelper
+                                                      .equityInvestmentController
+                                                      .useOfFund
+                                                      .value ==
                                                   ''
                                           ? () {
                                               Navigator.pop(context);
@@ -174,14 +201,16 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                   title:
                                                       'Are you sure you want to leave this page?',
                                                   onSave: () async {
-                                                    Navigator.pop(context);
+                                                    context.pop();
                                                     if (widget.id == null) {
-                                                      await InjectionHelper.equityInvestmentController
+                                                      await InjectionHelper
+                                                          .equityInvestmentController
                                                           .onSubmitEquityInvestment(
                                                               context: context,
                                                               type: "1");
                                                     } else {
-                                                      InjectionHelper.equityInvestmentController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .onEditEquityInvestment(
                                                               context: context,
                                                               id: widget.id!,
@@ -190,7 +219,9 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                   },
                                                   isCancel: true,
                                                   onDiscard: () {
-                                                    InjectionHelper.equityInvestmentController
+                                                    context.pop();
+                                                    InjectionHelper
+                                                        .equityInvestmentController
                                                         .resetData();
                                                     context.go("/get_funding");
                                                   });
@@ -209,7 +240,8 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                 ),
                               ],
                             ),
-                      body: InjectionHelper.equityInvestmentController.isLoadingData.value
+                      body: InjectionHelper
+                              .equityInvestmentController.isLoadingData.value
                           ? const LinearProgressIndicator()
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,20 +276,25 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                             FilteringTextInputFormatter.deny(
                                                 RegExp(r'^0+')),
                                           ],
-                                          validateText: InjectionHelper.equityInvestmentController
-                                                      .financingAmoung.value ==
+                                          validateText: InjectionHelper
+                                                      .equityInvestmentController
+                                                      .financingAmoung
+                                                      .value ==
                                                   0
                                               ? null
                                               : "${InjectionHelper.equityInvestmentController.equitySetting.value.message}",
-                                          controller: InjectionHelper.equityInvestmentController
+                                          controller: InjectionHelper
+                                              .equityInvestmentController
                                               .financingAmountcontroller,
                                           onEditingComplete: () {
                                             FocusScope.of(context)
                                                 .requestFocus(useOfFundFocus);
                                           },
                                           isRequired: true,
-                                          isValidate: InjectionHelper.equityInvestmentController
-                                              .isValidateFinancingAmount.value,
+                                          isValidate: InjectionHelper
+                                              .equityInvestmentController
+                                              .isValidateFinancingAmount
+                                              .value,
                                           labelText: 'Financing Amount (USD) ',
                                           hintText: 'Financing Amount (USD)',
                                           onChange: (valueChnaged) {
@@ -265,54 +302,67 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                 ',', '');
 
                                             if (value.isEmpty) {
-                                              InjectionHelper.equityInvestmentController
-                                                  .financingAmoung.value = 0;
-                                              InjectionHelper.equityInvestmentController
+                                              InjectionHelper
+                                                  .equityInvestmentController
+                                                  .financingAmoung
+                                                  .value = 0;
+                                              InjectionHelper
+                                                  .equityInvestmentController
                                                   .isValidateFinancingAmount
                                                   .value = false;
                                             } else {
-                                              InjectionHelper.equityInvestmentController
+                                              InjectionHelper
+                                                  .equityInvestmentController
                                                   .financingAmoung
                                                   .value = int.parse(value);
-                                              if (InjectionHelper.equityInvestmentController
+                                              if (InjectionHelper
+                                                          .equityInvestmentController
                                                           .financingAmoung
                                                           .value <
-                                                      InjectionHelper.equityInvestmentController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .equitySetting
                                                           .value
                                                           .minEquityAmount! ||
-                                                  InjectionHelper.equityInvestmentController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
                                                           .financingAmoung
                                                           .value >
-                                                      InjectionHelper.equityInvestmentController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .equitySetting
                                                           .value
                                                           .maxEquityAmount!) {
-                                                InjectionHelper.equityInvestmentController
+                                                InjectionHelper
+                                                    .equityInvestmentController
                                                     .isValidateFinancingAmount
                                                     .value = false;
                                               } else {
-                                                InjectionHelper.equityInvestmentController
+                                                InjectionHelper
+                                                    .equityInvestmentController
                                                     .isValidateFinancingAmount
                                                     .value = true;
                                               }
                                             }
                                           },
                                           keyboardType: TextInputType.number,
-                                          initialValue:
-                                              InjectionHelper.equityInvestmentController
-                                                          .financingAmoung
-                                                          .value ==
-                                                      0.0
-                                                  ? ''
-                                                  : InjectionHelper.equityInvestmentController
-                                                      .financingAmoung.value
-                                                      .toString(),
+                                          initialValue: InjectionHelper
+                                                      .equityInvestmentController
+                                                      .financingAmoung
+                                                      .value ==
+                                                  0.0
+                                              ? ''
+                                              : InjectionHelper
+                                                  .equityInvestmentController
+                                                  .financingAmoung
+                                                  .value
+                                                  .toString(),
                                         ),
                                         CICDropdown(
                                           currentDate: widget.id != null &&
                                                   dt1.isAfter(
-                                                    InjectionHelper.equityInvestmentController
+                                                    InjectionHelper
+                                                                .equityInvestmentController
                                                                 .intendedDate
                                                                 .value ==
                                                             ""
@@ -321,94 +371,115 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                         : DateFormat(
                                                                 "dd-MM-yyyy",
                                                                 'en_US')
-                                                            .parse(
-                                                                InjectionHelper.equityInvestmentController
-                                                                    .intendedDate
-                                                                    .value),
+                                                            .parse(InjectionHelper
+                                                                .equityInvestmentController
+                                                                .intendedDate
+                                                                .value),
                                                   )
                                               ? DateFormat(
                                                       "dd-MM-yyyy", 'en_US')
-                                                  .parse(
-                                                      InjectionHelper.equityInvestmentController
-                                                          .intendedDate.value)
+                                                  .parse(InjectionHelper
+                                                      .equityInvestmentController
+                                                      .intendedDate
+                                                      .value)
                                               : FormatDate.today(),
-                                          isValidate: InjectionHelper.equityInvestmentController
-                                              .isValidateIntendedDate.value,
+                                          isValidate: InjectionHelper
+                                              .equityInvestmentController
+                                              .isValidateIntendedDate
+                                              .value,
                                           label:
                                               'Intended Date of Disbursement',
                                           onChange: (value) {
-                                            InjectionHelper.equityInvestmentController
+                                            InjectionHelper
+                                                .equityInvestmentController
                                                 .whenOnchangeDate
                                                 .value = value["Name"];
-                                            InjectionHelper.equityInvestmentController
+                                            InjectionHelper
+                                                .equityInvestmentController
                                                 .intendedDate
                                                 .value = value["Name"];
-                                            InjectionHelper.equityInvestmentController
+                                            InjectionHelper
+                                                .equityInvestmentController
                                                 .isValidateIntendedDate
                                                 .value = true;
                                           },
-                                          defaultValue:
-                                              InjectionHelper.equityInvestmentController
-                                                          .intendedDate.value ==
-                                                      ''
-                                                  ? null
-                                                  : {
-                                                      'Name': widget.id !=
-                                                                  null &&
-                                                              InjectionHelper.equityInvestmentController
-                                                                      .whenOnchangeDate
-                                                                      .value ==
-                                                                  ""
-                                                          ? FormatDate
-                                                              .formatDateTimeGetfunding(
-                                                                  InjectionHelper.equityInvestmentController
-                                                                      .intendedDate
-                                                                      .value)
-                                                          : InjectionHelper.equityInvestmentController
-                                                              .intendedDate
-                                                              .value,
-                                                      'Code': '02'
-                                                    },
+                                          defaultValue: InjectionHelper
+                                                      .equityInvestmentController
+                                                      .intendedDate
+                                                      .value ==
+                                                  ''
+                                              ? null
+                                              : {
+                                                  'Name': widget.id != null &&
+                                                          InjectionHelper
+                                                                  .equityInvestmentController
+                                                                  .whenOnchangeDate
+                                                                  .value ==
+                                                              ""
+                                                      ? FormatDate
+                                                          .formatDateTimeGetfunding(
+                                                              InjectionHelper
+                                                                  .equityInvestmentController
+                                                                  .intendedDate
+                                                                  .value)
+                                                      : InjectionHelper
+                                                          .equityInvestmentController
+                                                          .intendedDate
+                                                          .value,
+                                                  'Code': '02'
+                                                },
                                           isDateTimePicker: true,
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
                                         CustomTextFieldNew(
-                                          controller: InjectionHelper.equityInvestmentController
+                                          controller: InjectionHelper
+                                              .equityInvestmentController
                                               .useOfFundcontroller,
                                           isRequired: true,
                                           focusScope: useOfFundFocus,
                                           onEditingComplete: () {
                                             _onpress(context);
                                           },
-                                          isValidate: InjectionHelper.equityInvestmentController
-                                              .isValidateUseOfFund.value,
+                                          isValidate: InjectionHelper
+                                              .equityInvestmentController
+                                              .isValidateUseOfFund
+                                              .value,
                                           labelText: 'Use Of Fund',
                                           hintText: 'Use Of Fund',
                                           onChange: (value) {
                                             if (value.isEmpty) {
-                                              InjectionHelper.equityInvestmentController
+                                              InjectionHelper
+                                                  .equityInvestmentController
                                                   .isValidateUseOfFund
                                                   .value = false;
 
-                                              InjectionHelper.equityInvestmentController
-                                                  .useOfFund.value = '';
+                                              InjectionHelper
+                                                  .equityInvestmentController
+                                                  .useOfFund
+                                                  .value = '';
                                             } else {
-                                              InjectionHelper.equityInvestmentController
-                                                  .useOfFund.value = value;
-                                              InjectionHelper.equityInvestmentController
+                                              InjectionHelper
+                                                  .equityInvestmentController
+                                                  .useOfFund
+                                                  .value = value;
+                                              InjectionHelper
+                                                  .equityInvestmentController
                                                   .isValidateUseOfFund
                                                   .value = true;
                                             }
                                           },
-                                          initialValue:
-                                              InjectionHelper.equityInvestmentController
-                                                          .useOfFund.value !=
-                                                      ""
-                                                  ? InjectionHelper.equityInvestmentController
-                                                      .useOfFund.value
-                                                  : "",
+                                          initialValue: InjectionHelper
+                                                      .equityInvestmentController
+                                                      .useOfFund
+                                                      .value !=
+                                                  ""
+                                              ? InjectionHelper
+                                                  .equityInvestmentController
+                                                  .useOfFund
+                                                  .value
+                                              : "",
                                         ),
                                       ],
                                     ),
@@ -416,65 +487,73 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                 )),
                                 Container(
                                   margin: const EdgeInsets.only(
-                                      left: 20,
-                                      right: 20,
-                                      bottom: 35.0,
-                                      top: 10),
+                                      left: 20, right: 20, bottom: 10, top: 10),
                                   child: Row(
                                     children: [
                                       Expanded(
                                         child: CustomButton(
-                                          isDisable: InjectionHelper.equityInvestmentController
+                                          isDisable: InjectionHelper
+                                                          .equityInvestmentController
                                                           .financingAmoung
                                                           .value ==
-                                                      InjectionHelper.equityInvestmentController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .applicationData
                                                           .value
                                                           .financialAmount &&
-                                                  InjectionHelper.equityInvestmentController
-                                                          .useOfFund.value ==
-                                                      InjectionHelper.equityInvestmentController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .useOfFund
+                                                          .value ==
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .applicationData
                                                           .value
                                                           .useofFund &&
-                                                  InjectionHelper.equityInvestmentController
-                                                          .intendedDate.value ==
-                                                      InjectionHelper.equityInvestmentController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .intendedDate
+                                                          .value ==
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .applicationData
                                                           .value
                                                           .intendedDateDisbursement
                                               ? true
-                                              : InjectionHelper.equityInvestmentController
+                                              : InjectionHelper
+                                                              .equityInvestmentController
                                                               .financingAmoung
                                                               .value !=
                                                           0.0 ||
-                                                      InjectionHelper.equityInvestmentController
-                                                              .useOfFund
-                                                              .value !=
-                                                          "" ||
-                                                      InjectionHelper.equityInvestmentController
-                                                              .yearOfEstablishment
-                                                              .value !=
-                                                          ""
+                                                      InjectionHelper.equityInvestmentController.useOfFund.value != "" ||
+                                                      InjectionHelper.equityInvestmentController.yearOfEstablishment.value != ""
                                                   ? false
                                                   : true,
                                           isOutline: true,
-                                          onPressed: InjectionHelper.equityInvestmentController
+                                          onPressed: InjectionHelper
+                                                          .equityInvestmentController
                                                           .financingAmoung
                                                           .value ==
-                                                      InjectionHelper.equityInvestmentController
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .applicationData
                                                           .value
                                                           .financialAmount &&
-                                                  InjectionHelper.equityInvestmentController
-                                                          .useOfFund.value ==
-                                                      InjectionHelper.equityInvestmentController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .useOfFund
+                                                          .value ==
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .applicationData
                                                           .value
                                                           .useofFund &&
-                                                  InjectionHelper.equityInvestmentController
-                                                          .intendedDate.value ==
-                                                      InjectionHelper.equityInvestmentController
+                                                  InjectionHelper
+                                                          .equityInvestmentController
+                                                          .intendedDate
+                                                          .value ==
+                                                      InjectionHelper
+                                                          .equityInvestmentController
                                                           .applicationData
                                                           .value
                                                           .intendedDateDisbursement
@@ -484,25 +563,27 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                                       FirebaseAnalyticsHelper
                                                           .sendAnalyticsEvent(
                                                               "Equity Update Draft Step1");
-                                                      await InjectionHelper.equityInvestmentController
+                                                      await InjectionHelper
+                                                          .equityInvestmentController
                                                           .onEditEquityInvestment(
                                                               showSnackbar:
                                                                   false,
                                                               context: context,
                                                               id: widget.id!,
                                                               pagenumber: "1",
-                                                              frompage:
-                                                                  InjectionHelper.equityInvestmentController
-                                                                      .applicationData
-                                                                      .value
-                                                                      .step!
-                                                                      .toInt());
+                                                              frompage: InjectionHelper
+                                                                  .equityInvestmentController
+                                                                  .applicationData
+                                                                  .value
+                                                                  .step!
+                                                                  .toInt());
                                                     }
                                                   : () async {
                                                       FirebaseAnalyticsHelper
                                                           .sendAnalyticsEvent(
                                                               "Equity Save Draft Step1");
-                                                      await InjectionHelper.equityInvestmentController
+                                                      await InjectionHelper
+                                                          .equityInvestmentController
                                                           .onSubmitEquityInvestment(
                                                               showSnackbar:
                                                                   false,

@@ -10,8 +10,9 @@ Accept: application/json
     "password" : "Admin@2022"   
 }
 
+
 ###
-GET {{baseUrl}}v3/app-setting
+GET {{baseUrl}}v4/app-setting/qm
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

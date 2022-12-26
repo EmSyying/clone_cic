@@ -603,7 +603,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                               ""
                                       ? () {
                                           setValidate();
-                                          Navigator.pop(context);
+                                          context.pop();
                                         }
                                       : () {
                                           showSaveDraftDialog(
@@ -618,7 +618,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                                   'Are you sure you want to leave this page?',
                                               onSave: widget.id != null
                                                   ? () async {
-                                                      Navigator.pop(context);
+                                                      context.pop();
                                                       await InjectionHelper
                                                           .debtInvestmentController
                                                           .onEditDebtInvestment(
@@ -633,7 +633,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                                               step: 3);
                                                     }
                                                   : () async {
-                                                      Navigator.pop(context);
+                                                      context.pop();
                                                       await InjectionHelper
                                                           .debtInvestmentController
                                                           .onSubmitDebtInvestment(
@@ -641,6 +641,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                                               step: 3);
                                                     },
                                               onDiscard: () {
+                                                context.pop();
                                                 setValidate();
                                                 context.go("/get_funding");
                                               });

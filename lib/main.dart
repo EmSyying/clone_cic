@@ -607,9 +607,8 @@ class _MyAppState extends State<MyApp> {
           builder: (context, Setting setting, _) {
             return GetBuilder<SettingController>(
               init: SettingController(),
-              initState: (_) {
-                settingCon.onCheckAuthentication();
-                settingCon.fetchAppVersion();
+              initState: (_) async {
+                await settingCon.onCheckAuthentication();
               },
               builder: (controller) {
                 return Listener(
@@ -767,9 +766,10 @@ class _MyAppState extends State<MyApp> {
                       colorScheme: ColorScheme.fromSwatch()
                           .copyWith(secondary: AppColor.mainColor),
                       textSelectionTheme: TextSelectionThemeData(
-                          selectionColor: fromHex(
-                        setting.brightPrimaryColor.toString(),
-                      )),
+                        selectionColor: fromHex(
+                          setting.brightPrimaryColor.toString(),
+                        ),
+                      ),
                     ),
 
                     // darkTheme: !_con.isAutoDarkMode.value

@@ -66,7 +66,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 75,
+                  height: 60,
                   margin: const EdgeInsets.only(top: 35),
                   decoration: const BoxDecoration(
                     color: Color(0xffF8F8F8),
@@ -248,7 +248,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -263,14 +263,11 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                 ))
                             .toList(),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
                       AspectRatio(
                         aspectRatio: 3 / 2.9,
                         child: Container(
                           margin: const EdgeInsets.only(
-                              top: 10, right: 20, left: 20, bottom: 20),
+                              top: 15, right: 20, left: 20, bottom: 20),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(

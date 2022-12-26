@@ -481,7 +481,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                                       title:
                                                           'Are you sure you want to leave this page?',
                                                       onSave: () async {
-                                                        Navigator.pop(context);
+                                                        context.pop();
                                                         if (widget.id == null) {
                                                           await InjectionHelper
                                                               .equityInvestmentController
@@ -503,6 +503,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                                       },
                                                       isCancel: true,
                                                       onDiscard: () {
+                                                        context.pop();
                                                         InjectionHelper
                                                             .equityInvestmentController
                                                             .resetData();
@@ -1639,7 +1640,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                 )),
                                 Container(
                                   margin: const EdgeInsets.only(
-                                      left: 20, right: 20, bottom: 35, top: 10),
+                                      left: 20, right: 20, bottom: 10, top: 10),
                                   child: Row(
                                     children: [
                                       Expanded(

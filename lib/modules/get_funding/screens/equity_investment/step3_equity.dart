@@ -386,7 +386,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                                       // Navigator.pop(context);
 
                                                       if (widget.id == null) {
-                                                        Navigator.pop(context);
+                                                        context.pop();
                                                         await InjectionHelper
                                                             .equityInvestmentController
                                                             .onSubmitEquityInvestment(
@@ -407,11 +407,12 @@ class _Step3EquityState extends State<Step3Equity> {
                                                                 id: widget.id!,
                                                                 pagenumber:
                                                                     "3");
-                                                        Navigator.pop(context);
+                                                        context.pop();
                                                       }
                                                     },
                                                     isCancel: true,
                                                     onDiscard: () {
+                                                      context.pop();
                                                       InjectionHelper
                                                           .equityInvestmentController
                                                           .resetData();
@@ -1124,16 +1125,18 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     AppColor.dividerBackground,
                                                 height: 5,
                                               ),
-                                               Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 20),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20,
+                                                        vertical: 20),
                                                 child: Text(
                                                   'Other',
                                                   style: TextStyle(
                                                       fontFamily: 'DMSans',
                                                       fontSize: 15,
-                                                      color: Theme.of(context).primaryColor ,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
                                                       fontWeight:
                                                           FontWeight.w700),
                                                 ),
@@ -1250,7 +1253,7 @@ class _Step3EquityState extends State<Step3Equity> {
                                     margin: const EdgeInsets.only(
                                         left: 20,
                                         right: 20,
-                                        bottom: 35,
+                                        bottom: 10,
                                         top: 10),
                                     child: Row(
                                       children: [
