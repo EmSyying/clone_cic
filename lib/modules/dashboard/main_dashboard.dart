@@ -185,9 +185,8 @@ class _MainDashboardState extends State<MainDashboard> {
 
   //
   Future<void> _getUser() async {
-    await cusController.getUser();
+    // await cusController.getUser();
     await fifCon.onHideFeatureByUser(cusController.customer.value.id);
-    await DynamicLinkService.initDynamicLinks();
   }
 
   @override
@@ -513,19 +512,11 @@ class _MainDashboardState extends State<MainDashboard> {
                           onTap: !_settingCon.isAMMode!
                               ? null
                               : () {
-                                  _settingCon.onSwitchScreen(value: false);
-                                  // _settingCon.onSwitchScreen();
-
                                   Navigator.pop(context);
                                   Offset offset = getWidgetInfo(widgetKey);
-                                  context.go('/switch-splash-screen',
+
+                                  context.go('/switch-splash-screen/qm',
                                       extra: offset);
-                                  Future.delayed(
-                                      const Duration(milliseconds: 300), () {
-                                    setState(() {
-                                      _settingCon.isAMMode = false;
-                                    });
-                                  });
                                 },
                           child: Container(
                               color: Colors.transparent,
@@ -549,19 +540,10 @@ class _MainDashboardState extends State<MainDashboard> {
                           onTap: _settingCon.isAMMode!
                               ? null
                               : () {
-                                  _settingCon.onSwitchScreen(value: true);
-                                  // _settingCon.onSwitchScreen();
-
                                   Navigator.pop(context);
                                   Offset offset = getWidgetInfo(widgetKey);
-                                  context.go('/switch-splash-screen',
+                                  context.go('/switch-splash-screen/am',
                                       extra: offset);
-                                  Future.delayed(
-                                      const Duration(milliseconds: 300), () {
-                                    setState(() {
-                                      _settingCon.isAMMode = true;
-                                    });
-                                  });
                                 },
                           child: Container(
                               color: Colors.transparent,
@@ -674,17 +656,16 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),
-            body:
-                // Obx(
-                //   () => cusController.isloading.value == true
-                //       ? ShimmerDashboadScreen()
-                //       :
-                _settingCon.isAMMode!
+            body: GetBuilder<SettingController>(
+              builder: (con) {
+                return con.isAMMode!
                     ? const MainDashBoardTypeAM()
                     : Platform.isAndroid
                         ? buildBody()
-                        : buildBody(),
-            // ),
+                        : buildBody();
+              },
+              init: SettingController(),
+            ),
           ),
         ),
       ),
@@ -719,7 +700,7 @@ class _MainDashboardState extends State<MainDashboard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Obx(
-              () => !_settingCon.isLoading.value &&
+              () => !_settingCon.isLoadingSlide.value &&
                       _settingCon.slideList!.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.symmetric(
@@ -849,7 +830,8 @@ class _MainDashboardState extends State<MainDashboard> {
                       width: double.infinity,
                     ),
             ),
-            Obx(() => !_settingCon.isLoading.value
+            Obx(() => !_settingCon.isLoadingSlide.value &&
+                    _settingCon.slideList!.isNotEmpty
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -916,6 +898,7 @@ class _MainDashboardState extends State<MainDashboard> {
                       margin: const EdgeInsets.only(
                           top: 10, right: 20, left: 20, bottom: 20),
                       decoration: BoxDecoration(
+                        color: Colors.white,
                         boxShadow: const [
                           BoxShadow(
                               color: Colors.black12,
@@ -967,13 +950,23 @@ class _MainDashboardState extends State<MainDashboard> {
                                                   context
                                                       .go("/${value.route}/0");
                                                 }
-                                              : () {
-                                                  FirebaseAnalyticsHelper
-                                                      .setCurrentScreenName(
-                                                          value.label!);
+                                              : value.route == 'investment'
+                                                  ? () {
+                                                      FirebaseAnalyticsHelper
+                                                          .setCurrentScreenName(
+                                                              value.label!);
 
-                                                  context.go("/${value.route}");
-                                                },
+                                                      context.go(
+                                                          "/${value.route}/cic-equity-fund");
+                                                    }
+                                                  : () {
+                                                      FirebaseAnalyticsHelper
+                                                          .setCurrentScreenName(
+                                                              value.label!);
+
+                                                      context.go(
+                                                          "/${value.route}");
+                                                    },
                                       icon: value.icon,
                                     );
                                   }).toList()),

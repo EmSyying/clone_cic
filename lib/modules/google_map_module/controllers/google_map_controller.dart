@@ -178,7 +178,12 @@ class GoogleMapsController extends GetxController {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    return await Geolocator.getCurrentPosition();
+
+    Position currentLocation = await Geolocator.getCurrentPosition();
+    latitute = currentLocation.latitude;
+    longtitute = currentLocation.longitude;
+    update();
+    return currentLocation;
   }
 
   bool? isLoading = false;

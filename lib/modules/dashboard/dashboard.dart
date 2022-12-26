@@ -104,11 +104,17 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   void initState() {
     priceController.tapcurrentIndex(0);
     debugPrint('Local Storage : ${priceController.allowFeaturebyTag.value}');
+    if (widget.tabName == 'cic-equity-fund') {
+      priceController.tapcurrentIndex.value = 0;
+    } else {
+      priceController.tapcurrentIndex.value = 1;
+    }
 
     priceController.tabController = TabController(
         length: priceController.allowFeaturebyTag.value ? 2 : 1,
         vsync: this,
         initialIndex: priceController.tapcurrentIndex.value);
+
     priceController.tabController.addListener(() {
       setState(() {
         priceController.tapcurrentIndex.value =
@@ -255,7 +261,9 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                               child: TabBarView(
                                 controller: priceController.tabController,
                                 children: const [
-                                  CiCEquityFund(),
+                                  CiCEquityFund(
+                                    tabName: 'cic-equity-fund',
+                                  ),
                                   CiCFixedIncome()
                                 ],
                               ),

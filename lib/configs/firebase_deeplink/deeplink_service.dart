@@ -1,5 +1,7 @@
+import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/core/flavor/flavor_configuration.dart';
+import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +29,7 @@ class DynamicLinkService {
         ),
         iosParameters: IOSParameters(
           bundleId: FlavorConfig.instance.values!.iOSBundleName,
-          minimumVersion: '1',
+          minimumVersion: '2.1.2',
           appStoreId: '1553871408',
           ipadBundleId: FlavorConfig.instance.values!.iOSBundleName,
         ),
@@ -51,6 +53,7 @@ class DynamicLinkService {
   }
 
   static Future<void> initDynamicLinks() async {
+    final customerCon = Get.put(CustomerController());
     final PendingDynamicLinkData? initialLink =
         await FirebaseDynamicLinks.instance.getInitialLink();
     if (initialLink != null) {
@@ -58,17 +61,16 @@ class DynamicLinkService {
       String links = initialLink.link
           .toString()
           .replaceAll('https://cicapp.page.link', '');
+      await customerCon.getUser();
       router.go(links);
     }
-    // if (setPinCon.deepLink != null) {
-    //   Navigator.pushNamed(Get.context!, RouteName.EVENTDETAIL);
-    // }
     dynamiclink.onLink.listen((PendingDynamicLinkData? dynamicLink) async {
       setPinCon.deepLink = dynamicLink?.link;
       debugPrint("Initial Link: ${dynamicLink?.link}");
       String links = dynamicLink!.link
           .toString()
           .replaceAll('https://cicapp.page.link', '');
+      await customerCon.getUser();
       router.go(links);
       // context.go(dynamicLink!.link.path);
       // setPinCon.update();

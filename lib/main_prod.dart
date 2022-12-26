@@ -61,8 +61,7 @@ Future<void> main() async {
     await Firebase.initializeApp();
 
     setPathUrlStrategy();
-    await settingCon.fetchAppSetting();
-    await settingCon.fetchSlide();
+    await settingCon.onInitAppSetting();
     await NotificationHelper.initial();
     optionCon.fetchAllOptions();
     await LocalData.getCurrentUser().then(

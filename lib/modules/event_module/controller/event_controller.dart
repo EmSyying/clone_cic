@@ -465,6 +465,8 @@ class EventController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}event/check-in';
+    debugPrint(
+        "Latituted: ${googleMapCon.latitute} - Longtitude: ${googleMapCon.longtitute}");
 
     try {
       await http

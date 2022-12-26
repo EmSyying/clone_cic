@@ -6,7 +6,9 @@ import '../../app_settings/controllers/appsetting_controller.dart';
 
 class SwitchSplashScreen extends StatefulWidget {
   final Offset offset;
-  const SwitchSplashScreen({Key? key, required this.offset}) : super(key: key);
+  final String? userType;
+  const SwitchSplashScreen({Key? key, required this.offset, this.userType})
+      : super(key: key);
 
   @override
   State<SwitchSplashScreen> createState() => _BooksState();
@@ -17,8 +19,12 @@ class _BooksState extends State<SwitchSplashScreen>
   final _settingCon = Get.put(SettingController());
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 1), () {
-      _settingCon.fetchAppSetting(context: context, isSwitchSplashScreen: true);
+    Future.delayed(const Duration(seconds: 0), () {
+      _settingCon.fetchAppBottomBar(userType: widget.userType);
+      _settingCon.fetchAppSetting(
+          context: context,
+          isSwitchSplashScreen: true,
+          userType: widget.userType);
     });
     super.initState();
     _settingCon.animationController = AnimationController(

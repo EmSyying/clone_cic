@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/link.dart';
 
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/custom_indicatior.dart';
 import '../../Utils/function/convert_fromhex_color.dart';
+import '../../Utils/helper/firebase_analytics.dart';
+import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
+import '../../widgets/dashboard/dashboard_menu.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../report_module/controllers/documentation_controller.dart';
 import '../report_module/models/documentation_model.dart';
@@ -146,7 +150,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: AspectRatio(
-                          aspectRatio: 7 / 2.8,
+                          aspectRatio: 5 / 2.3,
                           child: Swiper(
                             loop: true,
                             index: currentIndex,
@@ -266,221 +270,120 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                         height: 20,
                       ),
                       AspectRatio(
-                        aspectRatio: 3 / 3.37,
+                        aspectRatio: 3 / 2.9,
                         child: Container(
                           margin: const EdgeInsets.only(
-                            top: 10,
-                            right: 20,
-                            left: 20,
-                            bottom: 20,
-                          ),
-                          width: double.infinity,
+                              top: 10, right: 20, left: 20, bottom: 20),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[200]!),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
-                                blurRadius: 5,
-                                spreadRadius: 4,
-                                offset: const Offset(0, 1),
-                                color: Colors.grey[100]!,
-                              )
+                                  color: Colors.black12,
+                                  offset: Offset(1.0, 0.0),
+                                  blurRadius: 4)
                             ],
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: ClipRRect(
+                            // key: key1,
+                            borderRadius: BorderRadius.circular(10),
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ReportScreen(),
-                                      ),
-                                    );
-                                  },
-                                  child: GridView.count(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 3 / 2.35,
-                                    children: menuListTest
-                                        .asMap()
-                                        .entries
-                                        .map((e) => Center(
-                                              child: customMenu(
-                                                context: context,
-                                                icon: e.value.url,
-                                                label: e.value.title,
-                                                onTap: () {},
-                                              ),
-                                            ))
-                                        .toList(),
-                                  ),
+                                Obx(
+                                  () => GridView.count(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 3 / 2,
+                                      children: settingCon.appSettingDataList
+                                          .map((value) {
+                                        return DashBoardMenu(
+                                          key: value.key = GlobalKey(),
+                                          title: value.label,
+                                          onTap: !value.active!
+                                              ? () async {
+                                                  await showModalBottomSheet(
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return const CustomPopupButtonSheet(
+                                                        assetImage:
+                                                            'assets/images/svgfile/underDevelopment.svg',
+                                                        description:
+                                                            'This feature is under development at the moment',
+                                                        title:
+                                                            'This feature not available yet',
+                                                      );
+                                                    },
+                                                  );
+                                                }
+                                              : value.route == 'report'
+                                                  ? () {
+                                                      FirebaseAnalyticsHelper
+                                                          .setCurrentScreenName(
+                                                              value.label!);
+
+                                                      context.go(
+                                                          "/${value.route}/0");
+                                                    }
+                                                  : () {
+                                                      FirebaseAnalyticsHelper
+                                                          .setCurrentScreenName(
+                                                              value.label!);
+
+                                                      context.go(
+                                                          "/${value.route}");
+                                                    },
+                                          icon: value.icon,
+                                        );
+                                      }).toList()),
                                 ),
+
+                                // Spacer(),
+                                // AspectRatio(
+                                //   aspectRatio: 5 / 3,
+                                //   child: SvgPicture.asset(
+                                //     'assets/images/svgfile/horizontal_divider.svg',
+                                //   ),
+                                // ),
+                                // Spacer(),
                                 AspectRatio(
-                                  aspectRatio: 6.20 / 7,
+                                  aspectRatio: 3 / 3,
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       AspectRatio(
-                                        aspectRatio: 3 / 0.1,
+                                        aspectRatio: 3 / 0.2,
                                         child: SvgPicture.asset(
-                                          'assets/images/svgfile/horizontal_divider.svg',
+                                          'assets/images/svgfile/am_horizontal_devider.svg',
                                         ),
                                       ),
                                       AspectRatio(
-                                        aspectRatio: 3 / 0.1,
+                                        aspectRatio: 3 / 0.2,
                                         child: SvgPicture.asset(
-                                          'assets/images/svgfile/horizontal_divider.svg',
+                                          'assets/images/svgfile/am_horizontal_devider.svg',
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+
                                 Row(
                                   children: [
                                     AspectRatio(
-                                      aspectRatio: 5.11 / 6,
+                                      aspectRatio: 3 / 3,
                                       child: SvgPicture.asset(
                                         'assets/images/svgfile/vertical_divider.svg',
                                       ),
                                     ),
                                   ],
                                 ),
+                                // Spacer(),
                               ],
                             ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25),
-                        child: Text(
-                          'Recent Documents',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 80,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          padding: const EdgeInsets.only(left: 25, right: 15),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            var item = documentCon.documentationList[index];
-                            return GestureDetector(
-                              onTap: () {
-                                // debugPrint('item.cover${item.cover}');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ViewReport(
-                                      title: item.title,
-                                      url: item.url,
-                                      attachedFile: item.attachedFile,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 20),
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).cardColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          offset: Offset(1.0, 0.0),
-                                          color: Colors.black12,
-                                          blurRadius: 4)
-                                    ]),
-                                width: 330,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 10),
-                                      height: 60,
-                                      width: 60,
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                        color: fromHex(item.color ?? '')
-                                            .withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: SvgPicture.network(
-                                        item.cover ?? '',
-                                        color: item.color != null &&
-                                                item.color!.isNotEmpty
-                                            ? fromHex(item.color!)
-                                            : null,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                            child: Text(
-                                              item.title!,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                            child: Text(
-                                              item.publishedAt!,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.grey[500],
-                                      size: 18,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                          itemCount: documentCon.documentationList.length,
                         ),
                       ),
                     ],

@@ -28,6 +28,7 @@ import '../event_module/models/event_data.dart';
 import '../event_module/models/event_detail_argument.dart';
 import '../event_module/models/event_ticket.dart';
 import '../event_module/screen/event_detail.dart';
+import '../google_map_module/controllers/google_map_controller.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../member_directory/controllers/member_controller.dart';
 import '../member_directory/screens/new_profile_ui/new_persional_profile.dart';
@@ -144,18 +145,26 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                               Uri.parse(barcode.rawValue!),
                                             );
                                             if (url != null) {
-                                              debugPrint(
-                                                  "Is Scanner to Checkin Event3");
                                               String links = url.link
                                                   .toString()
                                                   .replaceAll(
                                                       'https://cicapp.page.link',
                                                       '');
+                                              if (links.contains('event')) {
+                                                debugPrint("Link: $links");
+                                                int? param = int.tryParse(links
+                                                    .replaceAll('/event/', ''));
+                                                await eventCon.onCheckInEvent(
+                                                    eventId: param,
+                                                    context: context);
+                                              } else {
+                                                router.go(links);
+                                              }
+
                                               settingCon
                                                       .isHideBottomNavigation =
                                                   false;
                                               settingCon.update();
-                                              router.go(links);
                                             }
                                           } catch (ex) {
                                             setState(() {
@@ -258,6 +267,16 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                   QRScannerOverlay(
                                     overlayColour: Colors.red.withOpacity(0.5),
                                   ),
+                                  Obx(
+                                    () => eventCon.isLoadingCheckIn.value
+                                        ? Center(
+                                            child: CircularProgressIndicator(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                  )
                                 ],
                               ),
                             ),
@@ -309,12 +328,6 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            ElevatedButton(
-                                onPressed: () async {
-                                  await eventCon.onCheckInEvent(
-                                      eventId: 25, context: context);
-                                },
-                                child: const Text('Check in')),
                             Text(
                               "Scanning will start automatically",
                               style: Theme.of(context).textTheme.bodyText2,
@@ -576,6 +589,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                               if (widget.pageName == 'eventDetail' ||
                                   widget.pageName == 'transfer') {
                                 context.pop();
+                                _settingCon.onHideBottomNavigationBar(false);
+                                _settingCon.update();
                               } else {
                                 debugPrint("is Pressed");
                                 context.go('/');
@@ -693,9 +708,12 @@ class QRScannerOverlay extends StatefulWidget {
 
 class _QRScannerOverlayState extends State<QRScannerOverlay> {
   bool? isScanner = false;
+  final googleMapCon = Get.put(GoogleMapsController());
+
   @override
   void initState() {
     isScanner = true;
+    googleMapCon.determinePosition();
     super.initState();
   }
 

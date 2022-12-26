@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
 
@@ -30,7 +31,9 @@ import '../../wallet/controller/wallet_controller.dart';
 class CiCEquityFund extends StatefulWidget {
   final bool? isNavigator;
   final bool isEquityTrue;
-  const CiCEquityFund({Key? key, this.isEquityTrue = false, this.isNavigator})
+  final String? tabName;
+  const CiCEquityFund(
+      {Key? key, this.isEquityTrue = false, this.isNavigator, this.tabName})
       : super(key: key);
 
   @override
@@ -177,18 +180,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                         onTap: () async {
                                           debugPrint(
                                               "Certification:${priceController.certificate.value.data}");
-                                          // context.push(
-                                          // '/investment/cic-equity-fund/certificate??title=Something&urlAttachment=${priceController.certificate.value.data}');
-
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => PDFViewer(
-                                                  title: "Something",
-                                                  urlAttachment: priceController
-                                                      .certificate.value.data),
-                                            ),
-                                          );
+                                          context.go(
+                                              '/investment/cic-equity-fund/certificate');
                                         },
                                         child: Container(
                                           key: _guidkey.investmentKey[2].key =
@@ -481,14 +474,26 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                       horizontal: 20,
                       vertical: 20,
                     ),
-                    child: CustomButton(
-                      isOutline: false,
-                      isDisable: false,
-                      onPressed: () {
-                        context.push(
-                            "/ut-subscription/new-subscription?fromPage=investment");
-                      },
-                      title: "Invest More",
+                    child: Obx(
+                      () => userCon.isloading.value
+                          ? CustomButton(
+                              isOutline: false,
+                              isDisable: true,
+                              onPressed: () {
+                                context.push(
+                                    "/ut-subscription/new-subscription?fromPage=investment");
+                              },
+                              title: "Subscribe Now",
+                            )
+                          : CustomButton(
+                              isOutline: false,
+                              isDisable: false,
+                              onPressed: () {
+                                context.push(
+                                    "/ut-subscription/new-subscription?fromPage=investment");
+                              },
+                              title: "Subscribe Now",
+                            ),
                     ),
                   )
                 ],

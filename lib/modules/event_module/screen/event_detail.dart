@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/configs/route_management/route_name.dart';
+import 'package:cicgreenloan/main.dart';
 import 'package:cicgreenloan/modules/event_module/screen/event_check_in_ticket.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
@@ -713,8 +714,8 @@ class _EventDetailState extends State<EventDetail> {
                                                                   .mainColor))
                                                       : GestureDetector(
                                                           onTap: () {
-                                                            context.push(
-                                                                '/event/event-detail/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}&latitude=${eventController.eventDetail.value.latitude}');
+                                                            context.go(
+                                                                '/event/${widget.eventId}/view-map?title=${eventController.eventDetail.value.title}&longtitude=${eventController.eventDetail.value.longitude}&latitude=${eventController.eventDetail.value.latitude}');
                                                           },
                                                           child: _customDateDetail(
                                                               context: context,
@@ -1106,41 +1107,32 @@ class _EventDetailState extends State<EventDetail> {
                                                                         );
                                                                       }
                                                                     : eventController.eventDetail.value.hostAt != 'online' && eventController.eventDetail.value.isRegister! && !eventController.eventDetail.value.isCheckin!
-                                                                        ? () {
-                                                                            debugPrint("is check in");
+                                                                        ? () async {
                                                                             eventController.getRegisterWithGuest(eventController.eventDetail.value.id!, isCheckIn: true).then(
-                                                                                  (value) => Navigator.push(
-                                                                                    context,
-                                                                                    MaterialPageRoute(
-                                                                                      builder: (context) => const Material(
-                                                                                        child: QrCodeScreen(
-                                                                                          pageName: 'eventDetail',
+                                                                              (value) {
+                                                                                settingCon.isHideBottomNavigation = true;
+                                                                                settingCon.update();
+                                                                                showMaterialModalBottomSheet(
+                                                                                    context: context,
+                                                                                    enableDrag: false,
+                                                                                    builder: (context) {
+                                                                                      return SingleChildScrollView(
+                                                                                        physics: const NeverScrollableScrollPhysics(),
+                                                                                        child: Column(
+                                                                                          children: [
+                                                                                            Container(
+                                                                                              height: MediaQuery.of(context).size.height,
+                                                                                              color: Colors.white,
+                                                                                              child: const QrCodeScreen(
+                                                                                                pageName: 'eventDetail',
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
                                                                                         ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                );
-
-                                                                            // showMaterialModalBottomSheet(
-                                                                            //     context:
-                                                                            //         context,
-                                                                            //     builder:
-                                                                            //         (context) {
-                                                                            //       return SingleChildScrollView(
-                                                                            //         child:
-                                                                            //             Column(
-                                                                            //           children: [
-                                                                            //             Container(
-                                                                            //               height: MediaQuery.of(context).size.height,
-                                                                            //               color: Colors.white,
-                                                                            //               child: const QrCodeScreen(
-                                                                            //                 pageName: 'eventDetail',
-                                                                            //               ),
-                                                                            //             ),
-                                                                            //           ],
-                                                                            //         ),
-                                                                            //       );
-                                                                            //     });
+                                                                                      );
+                                                                                    });
+                                                                              },
+                                                                            );
                                                                           }
                                                                         : () {}
                                                             : () {

@@ -285,7 +285,7 @@ final router = GoRouter(
                 /// Investment
 
                 GoRoute(
-                  path: 'investment',
+                  path: 'investment/:tabName',
                   name: 'Investment',
                   builder: (context, state) => Dashboard(
                     key: state.pageKey,
@@ -882,12 +882,13 @@ final router = GoRouter(
                     ]),
                 // End Recent Report
                 GoRoute(
-                  path: 'switch-splash-screen',
+                  path: 'switch-splash-screen/:userType',
                   name: 'SwitchSplashScreen',
                   parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) => CustomTransitionPage(
                       child: SwitchSplashScreen(
                         offset: state.extra! as Offset,
+                        userType: state.params['userType'],
                       ),
                       key: state.pageKey,
                       opaque: false,

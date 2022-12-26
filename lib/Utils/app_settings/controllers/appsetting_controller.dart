@@ -39,6 +39,7 @@ class SettingController extends GetxController {
   final aboutApp = AppSetting().obs;
   final appSettings = AppSettingModel().obs;
   final appSettingDataList = <AppSettingData>[].obs;
+  final bottomMenuBarList = <AppSettingData>[].obs;
   final termAndcondtion = TermAndConditions().obs;
   final aboutCiCFeature = AboutCiCFeature().obs;
   UIData uiSettingData = UIData();
@@ -63,7 +64,11 @@ class SettingController extends GetxController {
     isLoadingAppSetting = true;
     try {
       // await customerControler.getUser();
-      await fetchAppSetting();
+      await fetchSlide();
+      await onGetScreenMode();
+      await fetchAppBottomBar(userType: isAMMode! ? 'am' : 'qm');
+      await fetchAppSetting(userType: isAMMode! ? 'am' : 'qm');
+
       isLoadingAppSetting = false;
       update();
     } catch (ex) {
@@ -94,9 +99,7 @@ class SettingController extends GetxController {
   String? switchlocalScreen = 'switchAMQM';
 //fuction switch am qm
   onSwitchScreen({bool? value}) async {
-    // Future.delayed(Duration(seconds: ))
     await LocalStorage.storeData(key: 'switchAMMode', value: value);
-    isAMMode = await LocalStorage.getBooleanValue(key: 'switchAMMode');
   }
 
 //fuction am qm for call to bottomNavigationBar
@@ -193,8 +196,9 @@ class SettingController extends GetxController {
   }
 
   bool? isOnFingerPrint = false;
+  final isLoadingSlide = false.obs;
   Future<List<SlideModel>> fetchSlide() async {
-    isLoading(true);
+    isLoadingSlide(true);
     final slides = <SlideModel>[];
     SlideModel slide = SlideModel();
 
@@ -222,9 +226,9 @@ class SettingController extends GetxController {
         }
       });
     } catch (ex) {
-      isLoading(false);
+      isLoadingSlide(false);
     } finally {
-      isLoading(false);
+      isLoadingSlide(false);
     }
 
     return slideList!;
@@ -379,11 +383,14 @@ class SettingController extends GetxController {
 
   late AnimationController animationController;
   Future<List<AppSettingData>> fetchAppSetting(
-      {BuildContext? context, bool? isSwitchSplashScreen}) async {
+      {BuildContext? context,
+      bool? isSwitchSplashScreen,
+      String? userType}) async {
     var token = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        "${FlavorConfig.instance.values!.apiBaseUrlV3}service?partial=menu";
+        "${FlavorConfig.instance.values!.apiBaseUrlV4}service/$userType?partial=menu";
+    debugPrint("Switch Screen: $userType");
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -391,20 +398,30 @@ class SettingController extends GetxController {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
       }).then((response) {
+        debugPrint('Hello Response: ${response.body}');
         if (response.statusCode == 200) {
           appSettingDataList.clear();
           var responseJson = json.decode(response.body)['data'];
+          debugPrint("Response Menu: $responseJson");
           responseJson.map((data) {
             var settingData = AppSettingData.fromJson(data);
+            debugPrint("Menu: ${settingData.label}");
             appSettingDataList.add(settingData);
           }).toList();
-          debugPrint(
-              "App Setting Data for Funtion:${appSettingDataList.length}");
         } else {}
       });
     } finally {
       isLoading(false);
       if (isSwitchSplashScreen == true) {
+        if (userType == 'am') {
+          isAMMode = true;
+          onSwitchScreen(value: true);
+          update();
+        } else {
+          isAMMode = false;
+          onSwitchScreen(value: false);
+          update();
+        }
         Future.delayed(const Duration(seconds: 1), () {
           animationController
               .reverse()
@@ -413,6 +430,39 @@ class SettingController extends GetxController {
       }
     }
     return appSettingDataList;
+  }
+
+  Future<List<AppSettingData>> fetchAppBottomBar(
+      {BuildContext? context,
+      bool? isSwitchSplashScreen,
+      String? userType}) async {
+    var token = await LocalData.getCurrentUser();
+    isLoading(true);
+    String url =
+        "${FlavorConfig.instance.values!.apiBaseUrlV4}service/$userType?partial=navigation";
+
+    try {
+      await http.get(Uri.parse(url), headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      }).then((response) {
+        debugPrint('Hello Response: ${response.body}');
+        if (response.statusCode == 200) {
+          bottomMenuBarList.clear();
+          var responseJson = json.decode(response.body)['data'];
+          debugPrint("Response Bottom Bar: $responseJson");
+          responseJson.map((data) {
+            var settingData = AppSettingData.fromJson(data);
+            debugPrint("Menu: ${settingData.label}");
+            bottomMenuBarList.add(settingData);
+          }).toList();
+        }
+      });
+    } finally {
+      isLoading(false);
+    }
+    return bottomMenuBarList;
   }
 
   onSwitchNotificationSetting() async {

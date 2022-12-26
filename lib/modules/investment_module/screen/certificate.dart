@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
+import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -34,6 +35,7 @@ class _PDFViewerState extends State<PDFViewer> {
   final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
   static GlobalKey printScreenKey = GlobalKey();
   final bonusCon = Get.put(BonusController());
+  final priceController = Get.put(PriceController());
 
   @override
   void reassemble() {
@@ -173,6 +175,13 @@ class _PDFViewerState extends State<PDFViewer> {
   }
 
   // end of function download pdf file
+
+  @override
+  void initState() {
+    priceController.fetchCertificate();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return isDownloading == true
@@ -208,7 +217,7 @@ class _PDFViewerState extends State<PDFViewer> {
         : Scaffold(
             appBar: CustomAppBarWhiteColor(
               context: context,
-              title: "",
+              title: "Certificate",
               action: [
                 isloadingfile == true
                     ? IconButton(
@@ -230,31 +239,38 @@ class _PDFViewerState extends State<PDFViewer> {
                         : Container()
               ],
             ),
-            body: Stack(
-              children: [
-                Container(
-                  key: _pdfViewerKey,
-                  child: RepaintBoundary(
-                    key: printScreenKey,
-                    child: widget.urlAttachment != null
-                        ? SfPdfViewer.network(
-                            "${widget.urlAttachment}",
-                            canShowScrollHead: false,
-                            canShowScrollStatus: false,
-                          )
-                        : const Center(
-                            child: Text("No Certificate"),
+            body: Obx(
+              () => priceController.isCertificate.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Stack(
+                      children: [
+                        Container(
+                          key: _pdfViewerKey,
+                          child: RepaintBoundary(
+                            key: printScreenKey,
+                            child:
+                                priceController.certificate.value.data != null
+                                    ? SfPdfViewer.network(
+                                        priceController.certificate.value.data!,
+                                        canShowScrollHead: false,
+                                        canShowScrollStatus: false,
+                                      )
+                                    : const Center(
+                                        child: Text("No Certificate"),
+                                      ),
                           ),
-                  ),
-                ),
-                Positioned(
-                  child: isloadingfile == true
-                      ? const Center(
-                          child: CircularProgressIndicator(),
+                        ),
+                        Positioned(
+                          child: isloadingfile == true
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Container(),
                         )
-                      : Container(),
-                )
-              ],
+                      ],
+                    ),
             ),
           );
   }

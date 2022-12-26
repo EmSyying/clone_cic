@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
+import 'package:cicgreenloan/main.dart';
 import 'package:cicgreenloan/modules/dashboard/main_dashboard.dart';
 import 'package:cicgreenloan/modules/dashboard/shimmer_dashboard.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
@@ -39,44 +41,77 @@ class PaymentSchedule extends StatefulWidget {
 class _PaymentScheduleState extends State<PaymentSchedule> {
   final settingCon = Get.put(SettingController());
   bool isShowBottomBar = true;
-  static int _calculateSelectedIndex(BuildContext context) {
+  int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
     debugPrint("Location: $location");
-    if (location.startsWith('/profile')) {
-      debugPrint("Return Home Page");
-      return 3;
+    if (settingCon.bottomMenuBarList.length == 4) {
+      if (location.startsWith('/profile')) {
+        debugPrint("Return Home Page");
+        return 3;
+      }
+      if (location.startsWith('/event')) {
+        return 2;
+      }
+      if (location.startsWith('/qr-screen')) {
+        return 1;
+      }
+      if (location.startsWith('/')) {
+        return 0;
+      }
     }
-    if (location.startsWith('/event')) {
-      return 2;
-    }
-    if (location.startsWith('/qr-screen')) {
-      return 1;
-    }
-    if (location.startsWith('/')) {
-      return 0;
+    if (settingCon.bottomMenuBarList.length == 3) {
+      if (location.startsWith('/profile')) {
+        debugPrint("Return Home Page");
+        return 2;
+      }
+      if (location.startsWith('/qr-screen')) {
+        return 1;
+      }
+      if (location.startsWith('/')) {
+        return 0;
+      }
     }
 
     return 0;
   }
 
   void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        // settingCon.onCheckAuthentication();
-        GoRouter.of(context).go('/');
-        break;
-      case 1:
-        _settingCon.onHideBottomNavigationBar(true);
-        GoRouter.of(context).go('/qr-screen');
-        break;
-      case 2:
-        // settingCon.onCheckAuthentication();
-        GoRouter.of(context).go('/event');
-        break;
-      case 3:
-        // settingCon.onCheckAuthentication();
-        GoRouter.of(context).go('/profile');
-        break;
+    if (settingCon.bottomMenuBarList.length == 4) {
+      switch (index) {
+        case 0:
+          // settingCon.onCheckAuthentication();
+          GoRouter.of(context).go(settingCon.bottomMenuBarList[0].route!);
+          break;
+        case 1:
+          _settingCon.onHideBottomNavigationBar(true);
+          GoRouter.of(context).go(settingCon.bottomMenuBarList[1].route!);
+          break;
+        case 2:
+          // settingCon.onCheckAuthentication();
+          GoRouter.of(context).go(settingCon.bottomMenuBarList[2].route!);
+          break;
+        case 3:
+          // settingCon.onCheckAuthentication();
+          GoRouter.of(context).go(settingCon.bottomMenuBarList[3].route!);
+          break;
+      }
+    }
+    if (settingCon.bottomMenuBarList.length == 3) {
+      switch (index) {
+        case 0:
+          // settingCon.onCheckAuthentication();
+          GoRouter.of(context).go(settingCon.bottomMenuBarList[0].route!);
+          break;
+        case 1:
+          _settingCon.onHideBottomNavigationBar(true);
+          GoRouter.of(context).go(settingCon.bottomMenuBarList[1].route!);
+          break;
+
+        case 2:
+          // settingCon.onCheckAuthentication();
+          GoRouter.of(context).go(settingCon.bottomMenuBarList[2].route!);
+          break;
+      }
     }
   }
 
@@ -173,10 +208,9 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    // _initQuickAction();
-    appSettingCon.onInitAppSetting();
-    appSettingCon.fetchSlide();
-    appSettingCon.onGetScreenMode();
+    DynamicLinkService.initDynamicLinks();
+    userCon.getUser();
+    settingCon.fetchSlide();
 
     LocalData.showAppTou('appTour').then((value) async {
       if (appSettingCon.cicAppSetting.enablePinCode!) {
@@ -261,21 +295,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
   bool isLoadingAllSetting = false;
 
-  fetchAppSetting() async {
-    setState(() {
-      isLoadingAllSetting = true;
-    });
-    try {
-      setState(() {
-        isLoadingAllSetting = false;
-      });
-    } catch (ex) {
-      setState(() {
-        isLoadingAllSetting = false;
-      });
-    } finally {}
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -298,7 +317,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
             children: [
               Positioned.fill(
                 child: Scaffold(
-                  bottomNavigationBar: !setting.isHideBottomNavigation
+                  bottomNavigationBar: !setting.isHideBottomNavigation &&
+                          settingCon.bottomMenuBarList.isNotEmpty
                       ? BottomNavigationBar(
                           type: BottomNavigationBarType.fixed,
                           selectedFontSize: 12,
@@ -306,47 +326,63 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                           //        selectedLabelStyle: TextStyle(color: Colors.white),
                           // type: BottomNavigationBarType.fixed,
 
-                          items: <BottomNavigationBarItem>[
-                            BottomNavigationBarItem(
-                              icon: SvgPicture.asset(
-                                'assets/images/svgfile/menu/home.svg',
+                          // items: <BottomNavigationBarItem>[
+                          //   BottomNavigationBarItem(
+                          //     icon: SvgPicture.asset(
+                          //       'assets/images/svgfile/menu/home.svg',
+                          //       color: const Color(0XFF848F92),
+                          //     ),
+                          //     label: S.of(context).homeMenu,
+                          //     activeIcon: SvgPicture.asset(
+                          //       'assets/images/svgfile/menu/HomeActiveIcon.svg',
+                          //       color: Theme.of(context).primaryColor,
+                          //     ),
+                          //   ),
+                          //   BottomNavigationBarItem(
+                          //     icon: SvgPicture.asset(
+                          //         'assets/images/svgfile/menu/qrcodeInactive.svg',
+                          //         color: const Color(0XFF848F92)),
+                          //     activeIcon: SvgPicture.asset(
+                          //       'assets/images/svgfile/menu/qrCodeActive.svg',
+                          //       color: Theme.of(context).primaryColor,
+                          //     ),
+                          //     label: S.of(context).qrCode,
+                          //   ),
+                          //   BottomNavigationBarItem(
+                          //       icon: SvgPicture.asset(
+                          //           'assets/images/svgfile/menu/eventInactive.svg'),
+                          //       activeIcon: SvgPicture.asset(
+                          //         'assets/images/svgfile/menu/eventActive.svg',
+                          //         color: Theme.of(context).primaryColor,
+                          //       ),
+                          //       label: S.of(context).event),
+                          //   BottomNavigationBarItem(
+                          //     icon: SvgPicture.asset(
+                          //         'assets/images/svgfile/menu/account.svg',
+                          //         color: const Color(0XFF848F92)),
+                          //     activeIcon: SvgPicture.asset(
+                          //       'assets/images/svgfile/menu/accountActive.svg',
+                          //       color: Theme.of(context).primaryColor,
+                          //     ),
+                          //     label: S.of(context).profile,
+                          //   ),
+                          // ],
+                          items: setting.bottomMenuBarList
+                              .asMap()
+                              .entries
+                              .map((navigation) {
+                            return BottomNavigationBarItem(
+                              icon: SvgPicture.network(
+                                navigation.value.icon!,
                                 color: const Color(0XFF848F92),
                               ),
-                              label: S.of(context).homeMenu,
-                              activeIcon: SvgPicture.asset(
-                                'assets/images/svgfile/menu/HomeActiveIcon.svg',
+                              label: navigation.value.label,
+                              activeIcon: SvgPicture.network(
+                                navigation.value.activeIcon!,
                                 color: Theme.of(context).primaryColor,
                               ),
-                            ),
-                            BottomNavigationBarItem(
-                              icon: SvgPicture.asset(
-                                  'assets/images/svgfile/menu/qrcodeInactive.svg',
-                                  color: const Color(0XFF848F92)),
-                              activeIcon: SvgPicture.asset(
-                                'assets/images/svgfile/menu/qrCodeActive.svg',
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              label: S.of(context).qrCode,
-                            ),
-                            BottomNavigationBarItem(
-                                icon: SvgPicture.asset(
-                                    'assets/images/svgfile/menu/eventInactive.svg'),
-                                activeIcon: SvgPicture.asset(
-                                  'assets/images/svgfile/menu/eventActive.svg',
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                label: S.of(context).event),
-                            BottomNavigationBarItem(
-                              icon: SvgPicture.asset(
-                                  'assets/images/svgfile/menu/account.svg',
-                                  color: const Color(0XFF848F92)),
-                              activeIcon: SvgPicture.asset(
-                                'assets/images/svgfile/menu/accountActive.svg',
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              label: S.of(context).profile,
-                            ),
-                          ],
+                            );
+                          }).toList(),
                           // currentIndex: _settingCon.selectedIndex,
                           unselectedItemColor: Theme.of(context)
                               .bottomNavigationBarTheme
