@@ -62,6 +62,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
 
   @override
   void initState() {
+    priceController.onFetchPrice();
+    priceController.getSharePrice();
     bonusCon.fetchUTScription();
     bonusCon.fetchPaymentSummary();
     bonusCon.fetchbonusSetting();
@@ -69,10 +71,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
     priceController.isFromWallet.value = false;
     priceController.fetchCertificate();
     priceController.fetchOnReturnInvestment();
-    priceController.getSharePrice();
+
     priceController.getShareSubHistories();
     priceController.getAllChartList();
-    priceController.onFetchPrice();
 
     // priceController.fetchCertificate();
     super.initState();

@@ -232,35 +232,40 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                                 topRight: Radius.circular(10),
                               ),
                             ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    height: 5.13,
-                                    width: 34,
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xffBFBFBF),
-                                        borderRadius: BorderRadius.circular(5)),
+                            child: Expanded(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      height: 5.13,
+                                      width: 34,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xffBFBFBF),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                    ),
                                   ),
-                                ),
-                                CustomSavingCardList(
-                                  buttonShow: InjectionHelper
-                                      .investmentController
-                                      .totalInvestmentButton
-                                      .value,
-                                  fifhiddenList: InjectionHelper
-                                      .investmentController.hiddenContractList,
-                                  fifAccountList: InjectionHelper
-                                      .investmentController.fifApplicationList,
-                                  fifConfirmList: InjectionHelper
-                                      .investmentController.fifAppConfirmList,
-                                  fifPendingList: InjectionHelper
-                                      .investmentController.fifAppPendingList,
-                                ),
-                              ],
+                                  CustomSavingCardList(
+                                    buttonShow: InjectionHelper
+                                        .investmentController
+                                        .totalInvestmentButton
+                                        .value,
+                                    fifhiddenList: InjectionHelper
+                                        .investmentController
+                                        .hiddenContractList,
+                                    fifAccountList: InjectionHelper
+                                        .investmentController
+                                        .fifApplicationList,
+                                    fifConfirmList: InjectionHelper
+                                        .investmentController.fifAppConfirmList,
+                                    fifPendingList: InjectionHelper
+                                        .investmentController.fifAppPendingList,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           widget.ismmaInvestFIF

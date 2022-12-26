@@ -47,7 +47,8 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
           isCallonPressed: widget.fromPage == 'investment' ? true : false,
           onPressed: () {
             debugPrint('is pressed to invesment');
-            context.go('/investment');
+            InjectionHelper.investmentController.onFetchPrice();
+            context.go('/investment/cic-equity-fund');
             // Navigator.pop(context);
           }),
       body: Column(
