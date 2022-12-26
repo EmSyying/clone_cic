@@ -4,8 +4,6 @@ import 'package:cicgreenloan/widgets/bonus/investFIF/optionInvest/option_invest.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../Utils/helper/color.dart';
-
 class InvestFIFScreen extends StatefulWidget {
   const InvestFIFScreen({Key? key}) : super(key: key);
 

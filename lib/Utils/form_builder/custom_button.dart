@@ -142,17 +142,22 @@ class _CustomButtonState extends State<CustomButton> {
                           )
                         : widget.isDisable! && !widget.isOutline!
                             // ignore: deprecated_member_use
-                            ? ElevatedButton(
-                                onPressed: null,
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                            ? SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: null,
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 15.0,
+                                    ),
                                   ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 15.0),
+                                  child: Text(widget.title!,
+                                      style:
+                                          Theme.of(context).textTheme.button),
                                 ),
-                                child: Text(widget.title!,
-                                    style: Theme.of(context).textTheme.button),
                               )
                             : widget.isDisable! && widget.isOutline!
                                 // ignore: deprecated_member_use

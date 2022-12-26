@@ -143,7 +143,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
             SliverAppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
-              expandedHeight: widget.ismmaInvestFIF ? 140.0 : 80,
+              expandedHeight: widget.ismmaInvestFIF ? 146.0 : 86,
               stretch: true,
               onStretchTrigger: () async {
                 debugPrint('stretch');

@@ -4,7 +4,6 @@ import 'package:cicgreenloan/modules/bonus/screens/cash_out/custom_history_cash_
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_appbar.dart';
 import 'custom_new_cash_out.dart';
 
