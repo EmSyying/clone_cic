@@ -5,8 +5,13 @@ import '../model/keyboard_key.dart';
 class CustomKeyboard extends StatefulWidget {
   final num? digit;
   final ValueChanged<String>? onChanged;
-  const CustomKeyboard({Key? key, this.digit, this.onChanged})
-      : super(key: key);
+  final num? maximum;
+  const CustomKeyboard({
+    Key? key,
+    this.digit,
+    this.onChanged,
+    this.maximum,
+  }) : super(key: key);
 
   @override
   CustomKeyboardState createState() => CustomKeyboardState();
@@ -26,6 +31,7 @@ class CustomKeyboardState extends State<CustomKeyboard> {
       )
     ],
   ];
+
   String amount = '';
 
   _onKeyTap(val) {
@@ -54,8 +60,17 @@ class CustomKeyboardState extends State<CustomKeyboard> {
       return;
     }
 
-    amount = amount + val;
-    widget.onChanged?.call(amount);
+    final num? total = num.tryParse(amount + val);
+
+    ///
+    if (total != null) {
+      if (widget.maximum == null ||
+          (widget.maximum != null && total <= widget.maximum!)) {
+        amount = amount + val;
+        widget.onChanged?.call(amount);
+        debugPrint('Total Number : $amount');
+      }
+    }
   }
 
   _onBackspacePress() {
