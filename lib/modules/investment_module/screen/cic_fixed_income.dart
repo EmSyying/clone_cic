@@ -386,7 +386,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
               onPressed: () {
                 FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
                 context.push(
-                    '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
+                    '/investment/fixed-income-fund/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
               },
             ),
           ),
@@ -410,7 +410,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 InjectionHelper
                     .investmentController.textReceivingAccount.value = "";
                 InjectionHelper.investmentController.clearDeducSelection();
-                context.push('/investment/invest-more');
+                context.push('/investment/fixed-income-fund/invest-more');
                 // context.router.push(FIFDeucSelectionRouter());
               },
             ),
