@@ -138,7 +138,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                           ),
                           pinned: true,
                           floating: true,
-                          expandedHeight: 385.0,
+                          expandedHeight: 400.0,
                           elevation: 0.0,
                           actions: [
                             Row(
@@ -254,11 +254,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                             )),
                                       ),
                                       const SizedBox(
-                                        height: 40,
+                                        height: 30,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 20.0, right: 20.0, top: 20),
+                                            left: 20.0, right: 20.0, top: 18.0),
                                         child: CustomCardPoint(
                                           point: '100',
                                           onTap: () {
@@ -267,8 +267,8 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                           },
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
+                                      Container(
+                                        margin: const EdgeInsets.only(
                                           left: 20.0,
                                           right: 20.0,
                                           bottom: 18.0,
@@ -348,12 +348,19 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                   body: Center(
                     child: Container(
                       width: double.infinity,
-                      margin: const EdgeInsets.only(top: 110),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                      margin: const EdgeInsets.only(top: 120),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(14.0),
                           topLeft: Radius.circular(14.0),
                         ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            offset: const Offset(0, 1),
+                            blurRadius: 5,
+                          ),
+                        ],
                         color: Colors.white,
                       ),
                       child: Column(
@@ -439,7 +446,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                           SafeArea(
                             top: false,
                             minimum: const EdgeInsets.only(
-                                bottom: 20.0, left: 20, right: 20),
+                                bottom: 20.0, left: 20, right: 20, top: 10.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -447,13 +454,10 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey[200]!,
+                                    offset: const Offset(1, 1),
                                     blurRadius: 6.0,
                                     spreadRadius: 2.0,
-                                    offset: const Offset(
-                                      4.0,
-                                      2.0,
-                                    ),
-                                  )
+                                  ),
                                 ],
                               ),
                               child: Row(

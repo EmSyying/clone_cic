@@ -135,166 +135,124 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
         return notification.depth == 2;
       },
       onRefresh: InjectionHelper.investmentController.onRefreshFIF,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height - 160,
-              child: NestedScrollView(
-                controller:
-                    InjectionHelper.investmentController.cicFixedIncomeScroll,
-                physics: const AlwaysScrollableScrollPhysics(),
-                headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [
-                    SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      backgroundColor: Colors.transparent,
-                      expandedHeight: widget.ismmaInvestFIF ? 170.0 : 108,
-                      stretch: true,
-                      onStretchTrigger: () async {
-                        debugPrint('stretch');
-                      },
-                      flexibleSpace: FlexibleSpaceBar(
-                        stretchModes: const <StretchMode>[
-                          StretchMode.zoomBackground
-                        ],
-                        // collapseMode: CollapseMode.parallax,
-                        background: InjectionHelper
-                                        .investmentController
-                                        .investmentModel
-                                        .value
-                                        .totalInvestment ==
-                                    "0.00" ||
-                                InjectionHelper
-                                        .investmentController
-                                        .investmentModel
-                                        .value
-                                        .totalInvestment ==
-                                    null ||
-                                InjectionHelper
-                                        .investmentController
-                                        .investmentModel
-                                        .value
-                                        .totalInvestment ==
-                                    '0'
-                            ? TotalInvestmentCard(
-                                key: contro.investmentFiF[0].key = GlobalKey(),
-                                amount: InjectionHelper
-                                            .investmentController
-                                            .investmentModel
-                                            .value
-                                            .totalInvestment !=
-                                        null
-                                    ? InjectionHelper.investmentController
-                                        .investmentModel.value.totalInvestment!
-                                    : "0.00",
-                                chartData: [
-                                  FIFApplicationListModel(
-                                    investmentAmount: "\$0.0",
-                                    color: '#BDBDBD',
-                                    accountName: 'No Data State',
-                                  ),
-                                ],
-                              )
-
-                            ///BDBDBD
-                            : TotalInvestmentCard(
-                                key: contro.investmentFiF[0].key = GlobalKey(),
-                                chartData: InjectionHelper
-                                    .investmentController.fifChartList,
-                                amount: InjectionHelper.investmentController
-                                    .investmentModel.value.totalInvestment,
-                              ),
-                      ),
-                    ),
-                  ];
-                },
-                body: (InjectionHelper
-                            .investmentController.fifAppPendingList.isEmpty &&
-                        InjectionHelper
-                            .investmentController.fifApplicationList.isEmpty &&
-                        InjectionHelper
-                            .investmentController.fifAppConfirmList.isEmpty &&
-                        InjectionHelper
-                            .investmentController.hiddenContractList.isEmpty)
-                    ? showEmptyState()
-                    : Column(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Container(
-                                height: double.infinity,
-                                width: double.infinity,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                  ),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        height: 5.13,
-                                        width: 34,
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xffBFBFBF),
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: CustomSavingCardList(
-                                        buttonShow: InjectionHelper
-                                            .investmentController
-                                            .totalInvestmentButton
-                                            .value,
-                                        fifhiddenList: InjectionHelper
-                                            .investmentController
-                                            .hiddenContractList,
-                                        fifAccountList: InjectionHelper
-                                            .investmentController
-                                            .fifApplicationList,
-                                        fifConfirmList: InjectionHelper
-                                            .investmentController
-                                            .fifAppConfirmList,
-                                        fifPendingList: InjectionHelper
-                                            .investmentController
-                                            .fifAppPendingList,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            top:
-                                                widget.ismmaInvestFIF ? 0 : 10),
-                                        margin: EdgeInsets.only(
-                                            bottom: widget.ismmaInvestFIF
-                                                ? 70.0
-                                                : 70),
-                                        width: double.infinity,
-                                        child: widget.ismmaInvestFIF
-                                            ? buttonInvestFiF()
-                                            : showAllButton(),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+      child: NestedScrollView(
+        controller: InjectionHelper.investmentController.cicFixedIncomeScroll,
+        physics: const AlwaysScrollableScrollPhysics(),
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.transparent,
+              expandedHeight: widget.ismmaInvestFIF ? 140.0 : 80,
+              stretch: true,
+              onStretchTrigger: () async {
+                debugPrint('stretch');
+              },
+              flexibleSpace: FlexibleSpaceBar(
+                stretchModes: const <StretchMode>[StretchMode.zoomBackground],
+                // collapseMode: CollapseMode.parallax,
+                background: InjectionHelper.investmentController.investmentModel
+                                .value.totalInvestment ==
+                            "0.00" ||
+                        InjectionHelper.investmentController.investmentModel
+                                .value.totalInvestment ==
+                            null ||
+                        InjectionHelper.investmentController.investmentModel
+                                .value.totalInvestment ==
+                            '0'
+                    ? TotalInvestmentCard(
+                        key: contro.investmentFiF[0].key = GlobalKey(),
+                        amount: InjectionHelper.investmentController
+                                    .investmentModel.value.totalInvestment !=
+                                null
+                            ? InjectionHelper.investmentController
+                                .investmentModel.value.totalInvestment!
+                            : "0.00",
+                        chartData: [
+                          FIFApplicationListModel(
+                            investmentAmount: "\$0.0",
+                            color: '#BDBDBD',
+                            accountName: 'No Data State',
                           ),
                         ],
+                      )
+
+                    ///BDBDBD
+                    : TotalInvestmentCard(
+                        key: contro.investmentFiF[0].key = GlobalKey(),
+                        chartData:
+                            InjectionHelper.investmentController.fifChartList,
+                        amount: InjectionHelper.investmentController
+                            .investmentModel.value.totalInvestment,
                       ),
               ),
             ),
-          ],
-        ),
+          ];
+        },
+        body: (InjectionHelper.investmentController.fifAppPendingList.isEmpty &&
+                InjectionHelper
+                    .investmentController.fifApplicationList.isEmpty &&
+                InjectionHelper
+                    .investmentController.fifAppConfirmList.isEmpty &&
+                InjectionHelper.investmentController.hiddenContractList.isEmpty)
+            ? showEmptyState()
+            : Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              alignment: Alignment.center,
+                              child: Container(
+                                height: 5.13,
+                                width: 34,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xffBFBFBF),
+                                    borderRadius: BorderRadius.circular(5)),
+                              ),
+                            ),
+                            Expanded(
+                              child: CustomSavingCardList(
+                                buttonShow: InjectionHelper.investmentController
+                                    .totalInvestmentButton.value,
+                                fifhiddenList: InjectionHelper
+                                    .investmentController.hiddenContractList,
+                                fifAccountList: InjectionHelper
+                                    .investmentController.fifApplicationList,
+                                fifConfirmList: InjectionHelper
+                                    .investmentController.fifAppConfirmList,
+                                fifPendingList: InjectionHelper
+                                    .investmentController.fifAppPendingList,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SafeArea(
+                    top: false,
+                    minimum: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 20.0),
+                    child: widget.ismmaInvestFIF
+                        ? buttonInvestFiF()
+                        : showAllButton(),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -326,97 +284,91 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
   }
 
   showAllButton() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: CustomButton(
-              isDisable: false,
-              isOutline: true,
-              title: 'About FIF',
-              onPressed: () {
-                //   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
-                context.push(
-                    '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
-              },
-            ),
+    return Row(
+      children: [
+        Expanded(
+          child: CustomButton(
+            isDisable: false,
+            isOutline: true,
+            title: 'About FIF',
+            onPressed: () {
+              //   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
+              context.push(
+                  '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
+            },
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: CustomButton(
-              key: contro.investmentFiF[1].key = GlobalKey(),
-              isDisable: false,
-              isOutline: false,
-              title: InjectionHelper
-                          .investmentController.fifAppConfirmList.isNotEmpty ||
-                      InjectionHelper
-                          .investmentController.fifAppPendingList.isNotEmpty ||
-                      InjectionHelper
-                          .investmentController.fifApplicationList.isNotEmpty
-                  ? 'Invest More'
-                  : 'Invest Now',
-              onPressed: () async {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent('invest more fif');
-                InjectionHelper.investmentController.onClearFIF();
-                InjectionHelper.investmentController.isNewBank.value = true;
-                InjectionHelper
-                    .investmentController.textReceivingAccount.value = "";
-                InjectionHelper.investmentController.clearDeducSelection();
-                context.push('/investment/fixed-income-fund/invest-more');
-                // context.router.push(FIFDeucSelectionRouter());
-              },
-            ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: CustomButton(
+            key: contro.investmentFiF[1].key = GlobalKey(),
+            isDisable: false,
+            isOutline: false,
+            title: InjectionHelper
+                        .investmentController.fifAppConfirmList.isNotEmpty ||
+                    InjectionHelper
+                        .investmentController.fifAppPendingList.isNotEmpty ||
+                    InjectionHelper
+                        .investmentController.fifApplicationList.isNotEmpty
+                ? 'Invest More'
+                : 'Invest Now',
+            onPressed: () async {
+              FirebaseAnalyticsHelper.sendAnalyticsEvent('invest more fif');
+              InjectionHelper.investmentController.onClearFIF();
+              InjectionHelper.investmentController.isNewBank.value = true;
+              InjectionHelper.investmentController.textReceivingAccount.value =
+                  "";
+              InjectionHelper.investmentController.clearDeducSelection();
+              context.push('/investment/fixed-income-fund/invest-more');
+              // context.router.push(FIFDeucSelectionRouter());
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   buttonInvestFiF() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: CustomButton(
-              isDisable: false,
-              isOutline: true,
-              title: 'About FIF',
-              onPressed: () {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
-                context.push(
-                    '/investment/fixed-income-fund/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
-              },
-            ),
+    return Row(
+      children: [
+        Expanded(
+          child: CustomButton(
+            isDisable: false,
+            isOutline: true,
+            title: 'About FIF',
+            onPressed: () {
+              FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
+              context.push(
+                  '/investment/fixed-income-fund/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
+            },
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: CustomButton(
-              isDisable: false,
-              isOutline: false,
-              title: InjectionHelper
-                          .investmentController.fifAppConfirmList.isNotEmpty ||
-                      InjectionHelper
-                          .investmentController.fifAppPendingList.isNotEmpty ||
-                      InjectionHelper
-                          .investmentController.fifApplicationList.isNotEmpty
-                  ? 'Invest More'
-                  : 'Invest Now',
-              onPressed: () async {
-                FirebaseAnalyticsHelper.sendAnalyticsEvent('invest more fif');
-                InjectionHelper.investmentController.onClearFIF();
-                InjectionHelper.investmentController.isNewBank.value = true;
-                InjectionHelper
-                    .investmentController.textReceivingAccount.value = "";
-                InjectionHelper.investmentController.clearDeducSelection();
-                context.push('/investment/fixed-income-fund/invest-more');
-                // context.router.push(FIFDeucSelectionRouter());
-              },
-            ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: CustomButton(
+            isDisable: false,
+            isOutline: false,
+            title: InjectionHelper
+                        .investmentController.fifAppConfirmList.isNotEmpty ||
+                    InjectionHelper
+                        .investmentController.fifAppPendingList.isNotEmpty ||
+                    InjectionHelper
+                        .investmentController.fifApplicationList.isNotEmpty
+                ? 'Invest More'
+                : 'Invest Now',
+            onPressed: () async {
+              FirebaseAnalyticsHelper.sendAnalyticsEvent('invest more fif');
+              InjectionHelper.investmentController.onClearFIF();
+              InjectionHelper.investmentController.isNewBank.value = true;
+              InjectionHelper.investmentController.textReceivingAccount.value =
+                  "";
+              InjectionHelper.investmentController.clearDeducSelection();
+              context.push('/investment/fixed-income-fund/invest-more');
+              // context.router.push(FIFDeucSelectionRouter());
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
