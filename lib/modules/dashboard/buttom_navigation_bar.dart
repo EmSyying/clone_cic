@@ -209,7 +209,12 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       DeviceOrientation.portraitDown,
     ]);
     DynamicLinkService.initDynamicLinks();
-    userCon.getUser();
+    userCon.getUser().then((user) {
+      if (user.memberType!.toLowerCase() == 'am') {
+        appSettingCon.onSwitchScreen(value: true);
+        appSettingCon.onGetScreenMode();
+      }
+    });
     settingCon.fetchSlide();
 
     LocalData.showAppTou('appTour').then((value) async {

@@ -96,14 +96,14 @@ class ApiBaseHelper extends GetConnect {
         return Future.error(
           ErrorModel(
             statusCode: response.statusCode,
-            bodyString: json.decode(response.bodyString!),
+            bodyString: json.decode(response.bodyString ?? ""),
           ),
         );
       case 400:
         return Future.error(
           ErrorModel(
             statusCode: response.statusCode,
-            bodyString: json.decode(response.bodyString!),
+            bodyString: json.decode(response.bodyString ?? ""),
           ),
         );
       case 401:
@@ -111,7 +111,7 @@ class ApiBaseHelper extends GetConnect {
         return Future.error(
           ErrorModel(
             statusCode: response.statusCode,
-            bodyString: json.decode(response.bodyString!),
+            bodyString: json.decode(response.bodyString ?? ""),
           ),
         );
       case 500:
@@ -120,7 +120,7 @@ class ApiBaseHelper extends GetConnect {
         return Future.error(
           ErrorModel(
             statusCode: response.statusCode,
-            bodyString: json.decode(response.bodyString!),
+            bodyString: json.decode(response.bodyString ?? ""),
           ),
         );
     }

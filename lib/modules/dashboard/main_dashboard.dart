@@ -468,98 +468,132 @@ class _MainDashboardState extends State<MainDashboard> {
 //                    : Color(0xffDEE8E9).withOpacity(0.1),
               automaticallyImplyLeading: false,
               centerTitle: false,
-              title: Container(
-                width: 160,
-                color: Colors.transparent,
-                child: PopupMenuButton(
-                  position: PopupMenuPosition.under,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  icon: SizedBox(
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/svgfile/Logocic.svg',
-                            height: 27,
+              title: Obx(
+                () => !cusController.isloading.value &&
+                        cusController.customer.value.memberType!
+                                .toLowerCase() !=
+                            'qm'
+                    ? SizedBox(
+                        width: double.infinity,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/svgfile/Logocic.svg',
+                                height: 27,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                'Mobile',
+                                style: TextStyle(
+                                    fontFamily: 'DMSans',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            width: 10,
+                        ),
+                      )
+                    : Container(
+                        width: 160,
+                        color: Colors.transparent,
+                        child: PopupMenuButton(
+                          position: PopupMenuPosition.under,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          const Text(
-                            'Mobile',
-                            style: TextStyle(
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                          icon: SizedBox(
+                            width: double.infinity,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/svgfile/Logocic.svg',
+                                    height: 27,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Text(
+                                    'Mobile',
+                                    style: TextStyle(
+                                        fontFamily: 'DMSans',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  if (!cusController.isloading.value)
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                  if (!cusController.isloading.value)
+                                    const Icon(Icons.expand_more)
+                                ],
+                              ),
+                            ),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Icon(Icons.expand_more)
-                        ],
+                          itemBuilder: (context) => <PopupMenuEntry>[
+                            PopupMenuItem(
+                              key: widgetKey,
+                              child: GestureDetector(
+                                  onTap: !_settingCon.isAMMode!
+                                      ? null
+                                      : () {
+                                          Navigator.pop(context);
+                                          Offset offset =
+                                              getWidgetInfo(widgetKey);
+
+                                          context.go('/switch-splash-screen/qm',
+                                              extra: offset);
+                                        },
+                                  child: Container(
+                                      color: Colors.transparent,
+                                      width: double.infinity,
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/images/svgfile/qm_icon.svg'),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Text('QM Account'),
+                                        ],
+                                      ))),
+                            ),
+
+                            //QM Dashboard
+                            const PopupMenuDivider(height: 0),
+                            PopupMenuItem(
+                              child: GestureDetector(
+                                  onTap: _settingCon.isAMMode!
+                                      ? null
+                                      : () {
+                                          Navigator.pop(context);
+                                          Offset offset =
+                                              getWidgetInfo(widgetKey);
+                                          context.go('/switch-splash-screen/am',
+                                              extra: offset);
+                                        },
+                                  child: Container(
+                                      color: Colors.transparent,
+                                      width: double.infinity,
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/images/svgfile/am_icon.svg'),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Text('AM Account'),
+                                        ],
+                                      ))),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                  itemBuilder: (context) => <PopupMenuEntry>[
-                    PopupMenuItem(
-                      key: widgetKey,
-                      child: GestureDetector(
-                          onTap: !_settingCon.isAMMode!
-                              ? null
-                              : () {
-                                  Navigator.pop(context);
-                                  Offset offset = getWidgetInfo(widgetKey);
-
-                                  context.go('/switch-splash-screen/qm',
-                                      extra: offset);
-                                },
-                          child: Container(
-                              color: Colors.transparent,
-                              width: double.infinity,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                      'assets/images/svgfile/qm_icon.svg'),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text('QM Account'),
-                                ],
-                              ))),
-                    ),
-
-                    //QM Dashboard
-                    const PopupMenuDivider(height: 0),
-                    PopupMenuItem(
-                      child: GestureDetector(
-                          onTap: _settingCon.isAMMode!
-                              ? null
-                              : () {
-                                  Navigator.pop(context);
-                                  Offset offset = getWidgetInfo(widgetKey);
-                                  context.go('/switch-splash-screen/am',
-                                      extra: offset);
-                                },
-                          child: Container(
-                              color: Colors.transparent,
-                              width: double.infinity,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                      'assets/images/svgfile/am_icon.svg'),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text('AM Account'),
-                                ],
-                              ))),
-                    ),
-                  ],
-                ),
               ),
               //   ],
               // ),

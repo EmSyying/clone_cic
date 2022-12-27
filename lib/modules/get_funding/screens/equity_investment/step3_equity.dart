@@ -383,8 +383,6 @@ class _Step3EquityState extends State<Step3Equity> {
                                                     title:
                                                         'Are you sure you want to leave this page?',
                                                     onSave: () async {
-                                                      // Navigator.pop(context);
-
                                                       if (widget.id == null) {
                                                         context.pop();
                                                         await InjectionHelper
