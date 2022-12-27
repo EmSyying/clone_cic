@@ -658,7 +658,7 @@ class EventController extends GetxController {
           return {
             "phone_number": e.phone,
             "participant_name": e.participantName,
-            "relationship": e.relationshipId
+            "relationship": 230
           };
         }).toList()
       },

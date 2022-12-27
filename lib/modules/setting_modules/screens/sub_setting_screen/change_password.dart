@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
-import 'package:cicgreenloan/core/auth/set_pin_code.dart';
-import 'package:cicgreenloan/Utils/pop_up_alert/custom_loading.dart';
 import 'package:cicgreenloan/generated/l10n.dart';
 import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
@@ -13,10 +11,12 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../Utils/helper/custom_appbar.dart';
+import '../../../../core/auth/set_pin_code.dart';
 import '../../../../core/flavor/flavor_configuration.dart';
 
 // ignore: must_be_immutable
@@ -89,13 +89,14 @@ class _ChangePasswordState extends State<ChangePassword> {
     });
   }
 
-  bool isLoading = false;
+  bool isLoadingChangePassword = false;
   onChangePassword() async {
     String url = '${FlavorConfig.instance.values!.mainApiUrl}user/set-password';
     setState(() {
-      isLoading = true;
+      isLoadingChangePassword = true;
     });
-    isLoading ? showLoadingDialog(context) : Container();
+    debugPrint("is change password");
+    // isLoading ? showLoadingDialog(context) : Container();
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -105,21 +106,22 @@ class _ChangePasswordState extends State<ChangePassword> {
         'password_confirmation': confirmPasswordCon.text
       });
       if (response.statusCode == 200) {
+        debugPrint("is change password 1");
         ScaffoldMessenger(
           child: SnackBar(
+            // ignore: use_build_context_synchronously
             content: Text(S.of(context).changePassword),
           ),
         );
-
+        setState(() {
+          isLoadingChangePassword = false;
+        });
         await _customerController.getUser();
+        debugPrint("is change password 2 ");
         _customerController.customer.value.pinCode != ""
-            ? Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const PaymentSchedule(fromPage: 'loginPage'),
-                ),
-              )
+            // ignore: use_build_context_synchronously
+            ? context.go('/')
+            // ignore: use_build_context_synchronously
             : Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -131,15 +133,16 @@ class _ChangePasswordState extends State<ChangePassword> {
       } else {
         openSnackBar('Password is not match');
         setState(() {
-          isLoading = false;
+          isLoadingChangePassword = false;
         });
       }
     } catch (e) {
-      rethrow;
+      debugPrint(e.toString());
+    } finally {
+      setState(() {
+        isLoadingChangePassword = false;
+      });
     }
-    setState(() {
-      isLoading = false;
-    });
   }
 
   onResetPassword() async {
@@ -158,6 +161,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       if (response.statusCode == 200) {
         ScaffoldMessenger(
           child: SnackBar(
+            // ignore: use_build_context_synchronously
             content: Text(S.of(context).changePassword),
           ),
         );
@@ -238,65 +242,72 @@ class _ChangePasswordState extends State<ChangePassword> {
               Expanded(
                 child: Form(
                   key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  child: Stack(
                     children: [
-                      CustomTextFormField(
-                          obsecure: isSelectPass,
-                          controller: passwordController,
-                          validator: (String value) {
-                            if (value.isEmpty && value.length >= 8) {
-                              return 'Please Enter password';
-                            }
-                          },
-                          icon: Icons.lock,
-                          hinText: 'Enter password',
-                          nameText: '',
-                          isReadOnly: isReadOnly,
-                          actionIcon: isSelectPass == true
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          onTap: () {
-                            setState(() {
-                              isSelectPass = !isSelectPass;
-                            });
-                          }),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Divider(
-                          height: 2.0,
-                          thickness: 1,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CustomTextFormField(
+                              obsecure: isSelectPass,
+                              controller: passwordController,
+                              validator: (String value) {
+                                if (value.isEmpty && value.length >= 8) {
+                                  return 'Please Enter password';
+                                }
+                              },
+                              icon: Icons.lock,
+                              hinText: 'Enter password',
+                              nameText: '',
+                              isReadOnly: isReadOnly,
+                              actionIcon: isSelectPass == true
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              onTap: () {
+                                setState(() {
+                                  isSelectPass = !isSelectPass;
+                                });
+                              }),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20.0),
+                            child: Divider(
+                              height: 2.0,
+                              thickness: 1,
+                            ),
+                          ),
+                          CustomTextFormField(
+                              obsecure: isSelectPassConf,
+                              controller: confirmPasswordCon,
+                              validator: (value) {
+                                if (value.length == 0 && value.length >= 8) {
+                                  return 'Please Enter password';
+                                }
+                              },
+                              icon: Icons.lock,
+                              hinText: 'Enter confirm password',
+                              nameText: '',
+                              isReadOnly: isReadOnly,
+                              actionIcon: isSelectPassConf == true
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              onTap: () {
+                                setState(() {
+                                  isSelectPassConf = !isSelectPassConf;
+                                });
+                              }),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20.0),
+                            child: Divider(
+                              height: 2.0,
+                              thickness: 1,
+                            ),
+                          ),
+                          securityAlert(),
+                        ],
                       ),
-                      CustomTextFormField(
-                          obsecure: isSelectPassConf,
-                          controller: confirmPasswordCon,
-                          validator: (value) {
-                            if (value.length == 0 && value.length >= 8) {
-                              return 'Please Enter password';
-                            }
-                          },
-                          icon: Icons.lock,
-                          hinText: 'Enter confirm password',
-                          nameText: '',
-                          isReadOnly: isReadOnly,
-                          actionIcon: isSelectPassConf == true
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          onTap: () {
-                            setState(() {
-                              isSelectPassConf = !isSelectPassConf;
-                            });
-                          }),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Divider(
-                          height: 2.0,
-                          thickness: 1,
-                        ),
-                      ),
-                      securityAlert(),
+                      isLoadingChangePassword == true
+                          ? const Center(child: CircularProgressIndicator())
+                          : const SizedBox()
                     ],
                   ),
                 ),

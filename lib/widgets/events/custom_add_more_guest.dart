@@ -138,7 +138,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                 //   widget.relationship = value["Name"];
                 // }
                 setState(() {
-                  debugPrint("relationship ${widget.relationship}");
+                  debugPrint("relationship ${value['Code']}");
                 });
                 widget.onchangeRelationship!(value);
               },
