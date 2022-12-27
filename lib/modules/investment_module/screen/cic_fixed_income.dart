@@ -294,7 +294,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
             onPressed: () {
               //   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
               context.push(
-                  '/investment/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
+                  '/investment/fixed-income-fund/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
             },
           ),
         ),

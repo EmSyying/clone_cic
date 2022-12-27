@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../Utils/function/custom_select_bank.dart';
 import '../../../Utils/function/custom_show_bottom_sheet.dart';
@@ -199,10 +200,10 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                             isautorenew == true
                                                                 ? 'yes'
                                                                 : 'no');
-                                                    Navigator.pop(context);
+                                                    buildcontext.pop();
                                                   },
                                                   onCanceled: () {
-                                                    Navigator.pop(context);
+                                                    buildcontext.pop();
                                                   });
                                             },
                                             child: Container(
