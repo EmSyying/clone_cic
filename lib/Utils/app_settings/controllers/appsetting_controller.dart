@@ -364,6 +364,7 @@ class SettingController extends GetxController {
   Future<AppSetting> fetchAppVersion({String? userType}) async {
     String url =
         '${FlavorConfig.instance.values!.apiBaseUrlV4}app-setting/$userType';
+
     isLoadingAboutCiC(true);
     try {
       await http.get(Uri.parse(url), headers: {
@@ -374,11 +375,13 @@ class SettingController extends GetxController {
           var responseJson = json.decode(response.body)['app-setting'];
           if (responseJson['about_app'] != null) {
             aboutApp.value = AppSetting.fromJson(responseJson);
-            debugPrint("Primary Color: ${aboutApp.value.brightPrimaryColor}");
           }
 
           appSettingVersion.value = AppSetting.fromJson(responseJson);
-        } else {}
+        } else {
+          debugPrint("App logo5:${response.statusCode}");
+          debugPrint("App logo6:${response.body}");
+        }
       });
     } finally {
       isLoadingAboutCiC(false);

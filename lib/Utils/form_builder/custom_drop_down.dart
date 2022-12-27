@@ -497,7 +497,9 @@ class _CICDropdownState extends State<CICDropdown> {
                             decoration: BoxDecoration(
                                 color: copyData == selectData
                                     ? Colors.grey[100]
-                                    : Theme.of(context).cardColor,
+                                    : widget.isEnable == true
+                                        ? Colors.grey[100]
+                                        : Theme.of(context).cardColor,
                                 borderRadius: BorderRadius.circular(10),
                                 border: copyData == selectData
                                     ? null
@@ -563,7 +565,9 @@ class _CICDropdownState extends State<CICDropdown> {
                             top: 5,
                             left: 35,
                             child: Container(
-                              color: Theme.of(context).cardColor,
+                              color: widget.isEnable == true
+                                  ? Colors.grey[100]
+                                  : Theme.of(context).cardColor,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 5),
                               child: RichText(

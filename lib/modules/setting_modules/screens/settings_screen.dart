@@ -42,7 +42,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String phone = '010 305 096';
   final customerController = Get.put(CustomerController());
   String defaultLang = 'English';
   final _con = Get.put(SettingAppController());
@@ -138,20 +137,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       isOnNotification =
           customerController.customer.value.enableNotification ?? false;
     });
+    _settingCon.fetchAppVersion(
+        userType: customerController.customer.value.memberType!.toLowerCase());
+    _con.getLocale();
 
     super.initState();
-
-    // if (DynamicTheme.of(context).brightness == Brightness.light) {
-    //   setState(() {
-    //     isDarkMode = false;
-    //   });
-    // } else {
-    //   setState(() {
-    //     isDarkMode = true;
-    //   });
-    // }
-    _con.getLocale();
-    _settingCon.fetchAppVersion();
   }
 
   onShowDialog(BuildContext context) {
@@ -1039,7 +1029,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        !_settingCon.isLoading.value
+                        !_settingCon.isLoadingAboutCiC.value
                             ? GestureDetector(
                                 onTap: () {
                                   // Navigator.push(
@@ -1060,7 +1050,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                               )
                             : Container(),
-                        !_settingCon.isLoading.value
+                        !_settingCon.isLoadingAboutCiC.value
                             ? Text(
                                 'Version ${_settingCon.appSettingVersion.value.applicationNewVersion}',
                                 style: const TextStyle(
@@ -1070,7 +1060,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         const SizedBox(
                           height: 5,
                         ),
-                        !_settingCon.isLoading.value
+                        !_settingCon.isLoadingAboutCiC.value
                             ? SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Text(

@@ -69,7 +69,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Guest ${widget.addGuest}',
+                  'Guest',
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
@@ -90,7 +90,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
             controller: nameController,
             hintText: "Full Name",
             labelText: "Full Name",
-            initialValue: widget.name == '' ? '' : widget.name,
+            initialValue: widget.name,
             onChange: (value) {
               // if (value.isEmpty) {
               //   widget.name.text = '';
@@ -109,7 +109,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
             hintText: "Phone Number",
             labelText: "Phone Number",
             keyboardType: TextInputType.number,
-            initialValue: widget.phone == '' ? '' : widget.phone,
+            initialValue: widget.phone,
             onChange: (value) {
               // if (value.isEmpty) {
               //   widget.phone = '';
@@ -123,8 +123,9 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
             },
           ),
           CICDropdown(
-              label: 'Relationship',
-              isCompany: true,
+              label: 'Relationshiprrr',
+              isCompany: false,
+              isEnable: true,
               otherLabel: "Add Other",
               colors: Colors.white,
               isPadding:

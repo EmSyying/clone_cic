@@ -895,7 +895,8 @@ class EventController extends GetxController {
   final optionCon = Get.put(DocumentCategory());
   // final int? guestRelationship;
   String? relationshipDisplay;
-  TextEditingController addNewOtherRelationShip = TextEditingController();
+  TextEditingController addNewOtherRelationShip =
+      TextEditingController(text: 'Spouse Only');
   final isCreateNew = false.obs;
   final isLoadingMoreRelationship = false.obs;
   Future<void> onAddMoreRelationship(BuildContext context) async {
