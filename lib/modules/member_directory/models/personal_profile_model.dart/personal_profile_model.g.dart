@@ -26,7 +26,10 @@ _$_PersonalProfile _$$_PersonalProfileFromJson(Map<String, dynamic> json) =>
       recommended: json['recommended'] as String?,
       numberShare: json['number_share'] as int?,
       expertise: json['expertise'] as String?,
-      memberType: json['member_type'] as String?,
+      memberType: (json['member_type'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
       yearJoined: json['year_joined'] as String?,
       profileBiography: json['profile_biography'] as String?,
       about: json['about'] as String?,

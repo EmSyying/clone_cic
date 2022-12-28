@@ -210,9 +210,20 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     ]);
     DynamicLinkService.initDynamicLinks();
     userCon.getUser().then((user) {
-      if (user.memberType!.toLowerCase() == 'am') {
+      if (user.memberType!.length > 1) {
+        appSettingCon.onSwitchScreen(value: false);
+        appSettingCon.onGetScreenMode();
+        appSettingCon.fetchSetting(userType: 'qm');
+        appSettingCon.fetchAppBottomBar(userType: 'qm');
+        appSettingCon.fetchAppSetting(
+            context: context, isSwitchSplashScreen: true, userType: 'qm');
+      } else {
         appSettingCon.onSwitchScreen(value: true);
         appSettingCon.onGetScreenMode();
+        appSettingCon.fetchSetting(userType: 'am');
+        appSettingCon.fetchAppBottomBar(userType: 'am');
+        appSettingCon.fetchAppSetting(
+            context: context, isSwitchSplashScreen: true, userType: 'am');
       }
     });
     settingCon.fetchSlide();

@@ -18,7 +18,7 @@ class User {
   num? percentage;
   num? numberShare;
   String? blockShare;
-  String? memberType;
+  List<String>? memberType;
   bool? enableNotification;
   String? investorType;
   String? qiid;
@@ -148,7 +148,7 @@ class User {
     percentage = json['percentage'];
     numberShare = json['number_share'];
     blockShare = json['block_share'];
-    memberType = json['member_type'];
+    memberType = json['member_type'].cast<String>();
     investorType = json['investor_type'];
     qiid = json['qiid'];
     about = json['about'];

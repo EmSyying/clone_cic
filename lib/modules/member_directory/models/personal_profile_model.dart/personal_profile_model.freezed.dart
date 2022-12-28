@@ -39,8 +39,8 @@ mixin _$PersonalProfile {
   @JsonKey(name: 'number_share')
   int? get numberShare => throw _privateConstructorUsedError;
   String? get expertise => throw _privateConstructorUsedError;
-  @JsonKey(name: 'member_type')
-  String? get memberType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'member_type', defaultValue: [])
+  List<String>? get memberType => throw _privateConstructorUsedError;
   @JsonKey(name: 'year_joined')
   String? get yearJoined => throw _privateConstructorUsedError;
   @JsonKey(name: 'profile_biography')
@@ -116,8 +116,8 @@ abstract class $PersonalProfileCopyWith<$Res> {
       @JsonKey(name: 'number_share')
           int? numberShare,
       String? expertise,
-      @JsonKey(name: 'member_type')
-          String? memberType,
+      @JsonKey(name: 'member_type', defaultValue: [])
+          List<String>? memberType,
       @JsonKey(name: 'year_joined')
           String? yearJoined,
       @JsonKey(name: 'profile_biography')
@@ -273,7 +273,7 @@ class _$PersonalProfileCopyWithImpl<$Res, $Val extends PersonalProfile>
       memberType: freezed == memberType
           ? _value.memberType
           : memberType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       yearJoined: freezed == yearJoined
           ? _value.yearJoined
           : yearJoined // ignore: cast_nullable_to_non_nullable
@@ -418,8 +418,8 @@ abstract class _$$_PersonalProfileCopyWith<$Res>
       @JsonKey(name: 'number_share')
           int? numberShare,
       String? expertise,
-      @JsonKey(name: 'member_type')
-          String? memberType,
+      @JsonKey(name: 'member_type', defaultValue: [])
+          List<String>? memberType,
       @JsonKey(name: 'year_joined')
           String? yearJoined,
       @JsonKey(name: 'profile_biography')
@@ -571,9 +571,9 @@ class __$$_PersonalProfileCopyWithImpl<$Res>
           : expertise // ignore: cast_nullable_to_non_nullable
               as String?,
       memberType: freezed == memberType
-          ? _value.memberType
+          ? _value._memberType
           : memberType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       yearJoined: freezed == yearJoined
           ? _value.yearJoined
           : yearJoined // ignore: cast_nullable_to_non_nullable
@@ -699,29 +699,48 @@ class _$_PersonalProfile implements _PersonalProfile {
       this.code,
       this.position,
       this.name,
-      @JsonKey(defaultValue: false) this.isTicked,
-      @JsonKey(name: 'default_photo') this.defaultPhoto,
-      @JsonKey(name: 'date_of_birth') this.customerDateOfBirth,
-      @JsonKey(name: 'gender') this.customerGender,
-      @JsonKey(name: 'nationality') this.customerNationality,
+      @JsonKey(defaultValue: false)
+          this.isTicked,
+      @JsonKey(name: 'default_photo')
+          this.defaultPhoto,
+      @JsonKey(name: 'date_of_birth')
+          this.customerDateOfBirth,
+      @JsonKey(name: 'gender')
+          this.customerGender,
+      @JsonKey(name: 'nationality')
+          this.customerNationality,
       this.recommended,
-      @JsonKey(name: 'number_share') this.numberShare,
+      @JsonKey(name: 'number_share')
+          this.numberShare,
       this.expertise,
-      @JsonKey(name: 'member_type') this.memberType,
-      @JsonKey(name: 'year_joined') this.yearJoined,
-      @JsonKey(name: 'profile_biography') this.profileBiography,
+      @JsonKey(name: 'member_type', defaultValue: [])
+          final List<String>? memberType,
+      @JsonKey(name: 'year_joined')
+          this.yearJoined,
+      @JsonKey(name: 'profile_biography')
+          this.profileBiography,
       this.about,
       this.other,
-      @JsonKey(name: 'identity_type') this.customerIdentityType,
-      @JsonKey(name: 'identity_number') this.customerIdentityNumber,
-      @JsonKey(name: 'identity_date') this.customerIdentityDate,
-      @JsonKey(name: 'identity_expired_date') this.customerIdentityExpiredDate,
-      @JsonKey(name: 'current_address') this.currentAddress,
-      @JsonKey(name: 'street_no') this.streetNo,
-      @JsonKey(name: 'house_no') this.houseNo,
-      @JsonKey(name: 'permanent_address') this.permanentAddress,
-      @JsonKey(name: 'permanent_street_no') this.permanentStreetNo,
-      @JsonKey(name: 'permanent_house_no') this.permanentHouseNo,
+      @JsonKey(name: 'identity_type')
+          this.customerIdentityType,
+      @JsonKey(name: 'identity_number')
+          this.customerIdentityNumber,
+      @JsonKey(name: 'identity_date')
+          this.customerIdentityDate,
+      @JsonKey(name: 'identity_expired_date')
+          this.customerIdentityExpiredDate,
+      @JsonKey(name: 'current_address')
+          this.currentAddress,
+      @JsonKey(name: 'street_no')
+          this.streetNo,
+      @JsonKey(name: 'house_no')
+          this.houseNo,
+      @JsonKey(name: 'permanent_address')
+          this.permanentAddress,
+      @JsonKey(name: 'permanent_street_no')
+          this.permanentStreetNo,
+      @JsonKey(name: 'permanent_house_no')
+          this.permanentHouseNo,
       this.phone,
       this.email,
       this.whatapp,
@@ -732,10 +751,12 @@ class _$_PersonalProfile implements _PersonalProfile {
       this.facebook,
       this.linkedin,
       this.twitter,
-      @JsonKey(name: 'company_name') this.companyName,
+      @JsonKey(name: 'company_name')
+          this.companyName,
       this.title,
       this.location,
-      this.profile});
+      this.profile})
+      : _memberType = memberType;
 
   factory _$_PersonalProfile.fromJson(Map<String, dynamic> json) =>
       _$$_PersonalProfileFromJson(json);
@@ -772,9 +793,17 @@ class _$_PersonalProfile implements _PersonalProfile {
   final int? numberShare;
   @override
   final String? expertise;
+  final List<String>? _memberType;
   @override
-  @JsonKey(name: 'member_type')
-  final String? memberType;
+  @JsonKey(name: 'member_type', defaultValue: [])
+  List<String>? get memberType {
+    final value = _memberType;
+    if (value == null) return null;
+    if (_memberType is EqualUnmodifiableListView) return _memberType;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey(name: 'year_joined')
   final String? yearJoined;
@@ -877,8 +906,8 @@ class _$_PersonalProfile implements _PersonalProfile {
                 other.numberShare == numberShare) &&
             (identical(other.expertise, expertise) ||
                 other.expertise == expertise) &&
-            (identical(other.memberType, memberType) ||
-                other.memberType == memberType) &&
+            const DeepCollectionEquality()
+                .equals(other._memberType, _memberType) &&
             (identical(other.yearJoined, yearJoined) ||
                 other.yearJoined == yearJoined) &&
             (identical(other.profileBiography, profileBiography) ||
@@ -945,7 +974,7 @@ class _$_PersonalProfile implements _PersonalProfile {
         recommended,
         numberShare,
         expertise,
-        memberType,
+        const DeepCollectionEquality().hash(_memberType),
         yearJoined,
         profileBiography,
         about,
@@ -1011,8 +1040,8 @@ abstract class _PersonalProfile implements PersonalProfile {
       @JsonKey(name: 'number_share')
           final int? numberShare,
       final String? expertise,
-      @JsonKey(name: 'member_type')
-          final String? memberType,
+      @JsonKey(name: 'member_type', defaultValue: [])
+          final List<String>? memberType,
       @JsonKey(name: 'year_joined')
           final String? yearJoined,
       @JsonKey(name: 'profile_biography')
@@ -1091,8 +1120,8 @@ abstract class _PersonalProfile implements PersonalProfile {
   @override
   String? get expertise;
   @override
-  @JsonKey(name: 'member_type')
-  String? get memberType;
+  @JsonKey(name: 'member_type', defaultValue: [])
+  List<String>? get memberType;
   @override
   @JsonKey(name: 'year_joined')
   String? get yearJoined;

@@ -470,7 +470,7 @@ class _MainDashboardState extends State<MainDashboard> {
               centerTitle: false,
               title: Obx(
                 () => !cusController.isloading.value &&
-                        cusController.customer.value.memberType!
+                        cusController.customer.value.memberType![0]
                                 .toLowerCase() !=
                             'qm'
                     ? SizedBox(

@@ -26,8 +26,8 @@ class PersonalProfile with _$PersonalProfile {
       @JsonKey(name: 'number_share')
           final int? numberShare,
       final String? expertise,
-      @JsonKey(name: 'member_type')
-          final String? memberType,
+      @JsonKey(name: 'member_type', defaultValue: [])
+          final List<String>? memberType,
       @JsonKey(name: 'year_joined')
           final String? yearJoined,
       @JsonKey(name: 'profile_biography')

@@ -138,7 +138,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           customerController.customer.value.enableNotification ?? false;
     });
     _settingCon.fetchAppVersion(
-        userType: customerController.customer.value.memberType!.toLowerCase());
+        userType:
+            customerController.customer.value.memberType![0].toLowerCase());
     _con.getLocale();
 
     super.initState();

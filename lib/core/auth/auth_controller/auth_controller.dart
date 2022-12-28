@@ -117,27 +117,43 @@ class AuthController extends GetxController {
         // context.push('/setpincode');
 
         await _customerController.getUser().then((user) async {
+          if (user.memberType!.length > 1) {
+            settingController.onSwitchScreen(value: false);
+            settingController.onGetScreenMode();
+            settingController.fetchSetting(userType: 'qm');
+            settingController.fetchAppBottomBar(userType: 'qm');
+            settingController.fetchAppSetting(
+                context: context, isSwitchSplashScreen: true, userType: 'qm');
+          } else {
+            settingController.onSwitchScreen(value: true);
+            settingController.onGetScreenMode();
+            settingController.fetchSetting(userType: 'am');
+            settingController.fetchAppBottomBar(userType: 'am');
+            settingController.fetchAppSetting(
+                context: context, isSwitchSplashScreen: true, userType: 'am');
+          }
           if (user.pinCode != null && user.pinCode!.isNotEmpty) {
             settingController.onCheckAuthentication();
-            if (user.memberType!.toLowerCase() == 'qm') {
-              settingController.onSwitchScreen(value: false);
-              settingController.onGetScreenMode();
-              settingController.fetchSetting(userType: 'qm');
-              settingController.fetchAppBottomBar(userType: 'qm');
-              settingController.fetchAppSetting(
-                  context: context, isSwitchSplashScreen: true, userType: 'qm');
-              Future.delayed(const Duration(seconds: 1), () {});
-            } else {
-              settingController.onSwitchScreen(value: true);
-              settingController.onGetScreenMode();
-              settingController.fetchSetting(userType: 'am');
-              settingController.fetchAppBottomBar(userType: 'am');
-              settingController.fetchAppSetting(
-                  context: context, isSwitchSplashScreen: true, userType: 'am');
-              Future.delayed(const Duration(seconds: 1), () {});
-            }
+            // if (user.memberType!.toLowerCase() == 'qm') {
+            //   settingController.onSwitchScreen(value: false);
+            //   settingController.onGetScreenMode();
+            //   settingController.fetchSetting(userType: 'qm');
+            //   settingController.fetchAppBottomBar(userType: 'qm');
+            //   settingController.fetchAppSetting(
+            //       context: context, isSwitchSplashScreen: true, userType: 'qm');
+            //   Future.delayed(const Duration(seconds: 1), () {});
+            // } else {
+            //   settingController.onSwitchScreen(value: true);
+            //   settingController.onGetScreenMode();
+            //   settingController.fetchSetting(userType: 'am');
+            //   settingController.fetchAppBottomBar(userType: 'am');
+            //   settingController.fetchAppSetting(
+            //       context: context, isSwitchSplashScreen: true, userType: 'am');
+            //   Future.delayed(const Duration(seconds: 1), () {});
+            // }
             // ignore: use_build_context_synchronously
             context.go('/');
+            GoRouter.of(context).routerDelegate.navigatorKey;
             // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const PaymentSchedule(),),)
           } else {
             settingController.onCheckAuthentication();
