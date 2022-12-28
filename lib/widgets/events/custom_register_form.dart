@@ -417,11 +417,11 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                     relationship: e.value.relationshipId,
                                     onchangeName: (value) {
                                       e.value.participantName = value;
-                                      // controller.update();
+                                      controller.update();
                                     },
                                     onchangePhone: (value) {
                                       e.value.phone = value;
-                                      // controller.update();
+                                      controller.update();
                                     },
                                     onchangeRelationship: (value) {
                                       registerMemberController
@@ -454,8 +454,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                               1)
                                     GestureDetector(
                                       onTap: e.value.participantName == '' ||
-                                              e.value.phone == '' ||
-                                              e.value.relationShipDisplay == ''
+                                              e.value.phone == ''
                                           ? null
                                           : () {
                                               setState(() {
@@ -477,9 +476,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                                 BorderRadius.circular(10),
                                             color: e.value.participantName ==
                                                         '' ||
-                                                    e.value.phone == '' ||
-                                                    e.value.relationShipDisplay ==
-                                                        ''
+                                                    e.value.phone == ''
                                                 ? Colors.grey.withOpacity(0.2)
                                                 : Theme.of(context)
                                                     .primaryColor
@@ -487,14 +484,13 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                         child: Row(
                                           children: [
                                             Icon(Icons.add_circle,
-                                                color: e.value.participantName ==
-                                                            '' ||
-                                                        e.value.phone == '' ||
-                                                        e.value.relationShipDisplay ==
-                                                            ''
-                                                    ? Colors.grey
-                                                    : Theme.of(context)
-                                                        .primaryColor),
+                                                color:
+                                                    e.value.participantName ==
+                                                                '' ||
+                                                            e.value.phone == ''
+                                                        ? Colors.grey
+                                                        : Theme.of(context)
+                                                            .primaryColor),
                                             const SizedBox(
                                               width: 10,
                                             ),
@@ -510,8 +506,6 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                                       color: e.value.participantName ==
                                                                   '' ||
                                                               e.value.phone ==
-                                                                  '' ||
-                                                              e.value.relationShipDisplay ==
                                                                   ''
                                                           ? Colors.grey
                                                           : Theme.of(context)

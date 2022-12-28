@@ -52,6 +52,19 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
   final optionController = Get.put(DocumentCategory());
   final customerController = Get.put(CustomerController());
   final eventCon = Get.put(EventController());
+  late FocusNode focusNote;
+
+  @override
+  void initState() {
+    focusNote = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    focusNote.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +100,8 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
             ),
           ),
           CustomTextFieldNew(
-            controller: nameController,
+            focusScope: focusNote,
+            // controller: nameController,
             hintText: "Full Name",
             labelText: "Full Name",
             initialValue: widget.name,
@@ -104,7 +118,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
             },
           ),
           CustomTextFieldNew(
-            controller: phoneController,
+            // controller: phoneController,
             // key: phoneNumberKey,
             hintText: "Phone Number",
             labelText: "Phone Number",
@@ -123,7 +137,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
             },
           ),
           CICDropdown(
-              label: 'Relationshiprrr',
+              label: 'Relationship',
               isCompany: false,
               isEnable: true,
               otherLabel: "Add Other",

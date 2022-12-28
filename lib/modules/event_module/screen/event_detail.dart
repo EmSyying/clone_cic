@@ -61,6 +61,7 @@ class _EventDetailState extends State<EventDetail> {
   void initState() {
     eventController.fetchEventDetail(widget.eventId!);
     eventController.getCheckInGuest();
+    eventController.getRegisterWithGuest(widget.eventId);
     super.initState();
   }
 
@@ -732,14 +733,17 @@ class _EventDetailState extends State<EventDetail> {
                                               ],
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20, right: 20, top: 10),
-                                            child: Divider(
-                                              thickness: 1.2,
-                                              color: Colors.grey[200],
+                                          if (eventController.eventDetail.value
+                                                  .description !=
+                                              '')
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 20, right: 20, top: 10),
+                                              child: Divider(
+                                                thickness: 1.2,
+                                                color: Colors.grey[200],
+                                              ),
                                             ),
-                                          ),
                                           // Padding(
                                           //     padding: const EdgeInsets.only(
                                           //         left: 20, top: 10),
@@ -762,6 +766,7 @@ class _EventDetailState extends State<EventDetail> {
                                           //           fontWeight:
                                           //               FontWeight.bold),
                                           //     )
+
                                           AboutEventDescription(
                                             title: 'About Events',
                                             description:
@@ -916,18 +921,26 @@ class _EventDetailState extends State<EventDetail> {
                                   height: 50.0,
                                   width: double.infinity,
                                   margin: const EdgeInsets.only(
-                                      right: 15.0,
-                                      top: 10.0,
-                                      bottom: 10.0,
-                                      left: 15.0),
+                                    right: 15.0,
+                                    top: 10.0,
+                                    bottom: 10.0,
+                                    left: 15,
+                                  ),
                                   child: Row(
                                     children: [
-                                      if (eventController
-                                              .eventDetail.value.isRegister ==
-                                          true)
+                                      if (eventController.eventDetail.value
+                                                  .isRegister ==
+                                              true &&
+                                          eventController.getRegisterModel.value
+                                                  .guest!.length !=
+                                              eventController.eventDetail.value
+                                                  .limitInvite)
+                                        // if (eventController
+                                        //         .eventDetail.value.isRegister ==
+                                        //     true)
                                         Expanded(
                                           child: CustomButton(
-                                            title: 'Register',
+                                            title: 'Add Guest',
                                             onPressed: () {
                                               onShowCustomCupertinoModalSheet(
                                                 context: contextRegisterForm,
@@ -944,9 +957,13 @@ class _EventDetailState extends State<EventDetail> {
                                             isOutline: false,
                                           ),
                                         ),
-                                      if (eventController
-                                              .eventDetail.value.isRegister ==
-                                          true)
+                                      if (eventController.eventDetail.value
+                                                  .isRegister ==
+                                              true &&
+                                          eventController.getRegisterModel.value
+                                                  .guest!.length !=
+                                              eventController.eventDetail.value
+                                                  .limitInvite)
                                         const SizedBox(
                                           width: 15,
                                         ),

@@ -16,7 +16,9 @@ class AboutEventDescription extends StatelessWidget {
             )
           : Container(),
       Container(
-        margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20.0),
+        margin: description != ''
+            ? const EdgeInsets.only(left: 15.0, right: 15.0, top: 20.0)
+            : EdgeInsets.zero,
         child: ExpandableText(
           description!,
           expandText: 'Read more',
