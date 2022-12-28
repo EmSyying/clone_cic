@@ -87,6 +87,7 @@ final router = GoRouter(
                 CICRoute.instance.transferToMMA(fromWhere: 'HomePage'),
                 CICRoute.instance.privilagePayment(fromWhere: 'HomePage'),
                 CICRoute.instance.event(fromWhere: 'DashBoard'),
+                CICRoute.instance.privilege(fromWhere: 'DashBoard'),
                 GoRoute(
                   path: 'bonus',
                   name: 'Bonus',

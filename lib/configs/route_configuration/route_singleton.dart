@@ -36,13 +36,14 @@ class CICRoute extends MainRoute {
         name: '${fromWhere}PrivilegePayment',
         path: 'privilege-payment/:id',
         builder: (_, state) => PrivilegePayment(
+          key: state.pageKey,
           id: int.tryParse(state.params['id'] ?? '0'),
         ),
         routes: [
           GoRoute(
             name: '${fromWhere}PaymentDoneScreen',
             path: 'payment-done-screen',
-            builder: (_, __) => const PaymentDoneScreen(),
+            builder: (_, state) => PaymentDoneScreen(key: state.pageKey),
           ),
         ],
       );
@@ -78,6 +79,79 @@ class CICRoute extends MainRoute {
                     key: state.pageKey),
               ),
             ],
+          ),
+        ],
+      );
+
+  @override
+  GoRoute privilege({required String fromWhere, bool isRoot = false}) =>
+      GoRoute(
+        path: '${isRoot ? '/' : ''}privilege/:tabName',
+        name: '${fromWhere}PrivilegeScreen',
+        builder: (_, state) => PrivilegeScreen(
+          tabName: state.params['tabName'],
+          key: state.pageKey,
+        ),
+        routes: [
+          GoRoute(
+            path: 'privilege-detail/:id',
+            name: '${fromWhere}PrivilegeDetailScreen',
+            builder: (_, state) => PrivilegeDetailScreen(
+              id: int.tryParse(state.params['id']!),
+              key: state.pageKey,
+            ),
+          ),
+          GoRoute(
+            path: 'search-item',
+            name: '${fromWhere}SearchScreen',
+            builder: (_, state) => SearchScreen(
+              key: state.pageKey,
+            ),
+          ),
+          GoRoute(
+            name: '${fromWhere}PrivilegeFilters',
+            path: 'filter-item',
+            builder: (_, state) => PrivilegeFilters(
+              key: state.pageKey,
+            ),
+          ),
+          privilagePayment(fromWhere: '${fromWhere}Payment'),
+          GoRoute(
+            name: '${fromWhere}PaymentDoneScreen',
+            path: 'payment-done-screen',
+            builder: (_, state) => PaymentDoneScreen(
+              key: state.pageKey,
+            ),
+          ),
+          GoRoute(
+            name: '${fromWhere}PrivilegeSeeAllScreen',
+            path: 'privilege-see-all',
+            builder: (_, state) => PrivilegeSeeAllScreen(
+              key: state.pageKey,
+            ),
+          ),
+          GoRoute(
+            name: '${fromWhere}ItemCategoryPrivilegeScreen',
+            path: 'privilege-item-category',
+            builder: (_, state) => ItemCategoryPrivilegeScreen(
+              tabTitle: state.queryParams['tabTitle'],
+              id: int.tryParse(state.queryParams['id']!),
+              key: state.pageKey,
+            ),
+          ),
+          GoRoute(
+            name: '${fromWhere}RedeemPointToPay',
+            path: 'redeem-point-to-pay',
+            builder: (_, state) => RedeemPointToPay(
+              key: state.pageKey,
+            ),
+          ),
+          GoRoute(
+            name: '${fromWhere}RedeemPointPayReviewScreen',
+            path: 'redeem-point-pay-review',
+            builder: (_, state) => RedeemPointPayReviewScreen(
+              key: state.pageKey,
+            ),
           ),
         ],
       );
