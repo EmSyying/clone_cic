@@ -209,23 +209,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       DeviceOrientation.portraitDown,
     ]);
     DynamicLinkService.initDynamicLinks();
-    userCon.getUser().then((user) {
-      if (user.memberType!.length > 1) {
-        appSettingCon.onSwitchScreen(value: false);
-        appSettingCon.onGetScreenMode();
-        appSettingCon.fetchSetting(userType: 'qm');
-        appSettingCon.fetchAppBottomBar(userType: 'qm');
-        appSettingCon.fetchAppSetting(
-            context: context, isSwitchSplashScreen: true, userType: 'qm');
-      } else {
-        appSettingCon.onSwitchScreen(value: true);
-        appSettingCon.onGetScreenMode();
-        appSettingCon.fetchSetting(userType: 'am');
-        appSettingCon.fetchAppBottomBar(userType: 'am');
-        appSettingCon.fetchAppSetting(
-            context: context, isSwitchSplashScreen: true, userType: 'am');
-      }
-    });
+    userCon.getUser();
     settingCon.fetchSlide();
 
     LocalData.showAppTou('appTour').then((value) async {
@@ -441,15 +425,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                   body: widget.child,
                 ),
               ),
-              if (settingCon.isLoadingAppSetting)
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                  child: Container(
-                    color: Colors.black12,
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                ),
             ],
           ),
         );

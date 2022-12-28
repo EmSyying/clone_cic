@@ -46,19 +46,7 @@ class CustomerController extends GetxController {
           var storePINCode = json.decode(response.body)['pin_code'];
 
           LocalData.setPINCode("setPIN", storePINCode);
-          // await DynamicLinkService.createDynamicLink(
-          //         path:
-          //             'directory/${customer.value.customerId}?isDirectory=true',
-          //         description: customer.value.about,
-          //         title: customer.value.fullName,
-          //         image: customer.value.profile,
-          //         isShort: true)
-          //     .then((value) {
-          //   profileQRLink.value = value.toString();
-          //   debugPrint("Create Shorten Url: ${profileQRLink.value}");
-
-          //   dynamicParth.value = value.path;
-          // });
+          isloading(false);
         } else {
           customRouterSnackbar(
               title: 'Something went wrong',

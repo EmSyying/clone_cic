@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cicgreenloan/Utils/app_settings/models/app_data.dart';
 import 'package:cicgreenloan/Utils/app_settings/models/ui_setting_data.dart';
 import 'package:cicgreenloan/Utils/helper/local_storage.dart';
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/function/storelocal_data.dart';
 import 'package:cicgreenloan/modules/about_cic/model/about_cic_model.dart';
@@ -14,6 +15,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../../modules/member_directory/controllers/customer_controller.dart';
@@ -27,6 +29,7 @@ class SettingController extends GetxController {
   final _apiBaseHelper = ApiBaseHelper();
   final settingApp = Setting().obs;
   final appSetting = Setting().obs;
+  final isModeSwitchAble = false.obs;
   Setting cicAppSetting = Setting();
   final isAutoDarkMode = true.obs;
   bool isLogin = false;
@@ -62,10 +65,12 @@ class SettingController extends GetxController {
 
   onInitAppSetting() async {
     isLoadingAppSetting = true;
+
     try {
       // await customerControler.getUser();
       await fetchSlide();
-      await onGetScreenMode();
+      final userMode = await onGetScreenMode();
+      debugPrint("user mode: $userMode");
       await fetchAppBottomBar(userType: isAMMode! ? 'am' : 'qm');
       await fetchAppSetting(userType: isAMMode! ? 'am' : 'qm');
 
@@ -105,6 +110,7 @@ class SettingController extends GetxController {
 //fuction am qm for call to bottomNavigationBar
   onGetScreenMode() async {
     isAMMode = await LocalStorage.getBooleanValue(key: 'switchAMMode');
+    debugPrint("Is AMMode $isAMMode");
   }
 
   void onTap(int index) {
@@ -423,17 +429,13 @@ class SettingController extends GetxController {
       if (isSwitchSplashScreen == true) {
         if (userType == 'am') {
           isAMMode = true;
-          onSwitchScreen(value: true);
           update();
         } else {
           isAMMode = false;
-          onSwitchScreen(value: false);
           update();
         }
-        Future.delayed(const Duration(seconds: 1), () {
-          animationController
-              .reverse()
-              .then((value) => Navigator.pop(context!));
+        Future.delayed(const Duration(seconds: 1), () async {
+          await animationController.reverse().then((value) => router.pop());
         });
       }
     }

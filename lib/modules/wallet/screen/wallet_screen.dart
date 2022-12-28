@@ -275,8 +275,9 @@ class _WalletScreenState extends State<WalletScreen>
                                         _guideController.walletGuide[0].key =
                                             GlobalKey(),
                                         ontap: () {
-                                          context.push(
-                                              '/wallet/deposit-card?fromModule=Deposit');
+                                          show(context);
+                                          // context.push(
+                                          //     '/wallet/deposit-card?fromModule=Deposit');
                                         },
                                         text: 'Deposit',
                                         img: 'assets/images/mma_wallet.svg',
@@ -286,7 +287,8 @@ class _WalletScreenState extends State<WalletScreen>
                                         _guideController.walletGuide[1].key =
                                             GlobalKey(),
                                         ontap: () {
-                                          context.push('/wallet/mma-transfer');
+                                          show(context);
+                                          // context.push('/wallet/mma-transfer');
                                         },
                                         text: 'Transfer',
                                         img: 'assets/images/transfer.svg',
@@ -397,6 +399,7 @@ class _WalletScreenState extends State<WalletScreen>
 
   show(BuildContext context) {
     showModalBottomSheet(
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (context) => const CustomPopupButtonSheet(

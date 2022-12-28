@@ -51,7 +51,6 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
     } else {
       message = 'Good Night!';
     }
-    customerUser.getUser();
     super.initState();
   }
 

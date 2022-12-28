@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
+import 'package:cicgreenloan/main.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
@@ -469,10 +470,7 @@ class _MainDashboardState extends State<MainDashboard> {
               automaticallyImplyLeading: false,
               centerTitle: false,
               title: Obx(
-                () => !cusController.isloading.value &&
-                        cusController.customer.value.memberType![0]
-                                .toLowerCase() !=
-                            'qm'
+                () => !settingCon.isModeSwitchAble.value
                     ? SizedBox(
                         width: double.infinity,
                         child: SingleChildScrollView(

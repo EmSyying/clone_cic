@@ -25,6 +25,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
@@ -589,7 +590,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     initAppTracking();
     settingCon.onCheckAuthentication();
-    // _userController.getUser();
+    FlutterNativeSplash.remove();
     super.initState();
   }
 

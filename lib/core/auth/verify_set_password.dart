@@ -44,6 +44,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
 
   onVerifyOtp() async {
     // getCurrentUser();
+
     var token = await LocalData.getCurrentUser();
 
     // var sharedPrefs = await SharedPreferences.getInstance();
@@ -146,6 +147,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
   }
 
   onForgetPassword() async {
+    debugPrint("is Forgetting password");
     logout();
     setState(() {
       _isVerifyLoading = true;
@@ -171,18 +173,12 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
             title: 'Verify OTP',
             description: 'Verify OTP Is Successful!',
           );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChangePassword(
-                isForgetPassword: true,
-                phone: widget.phone!,
-              ),
-            ),
-          );
+          context.go(
+              '/login/login-password/verify-otp/changepassword?isForgetPassword=true&phone=%2B${widget.phone!.replaceAll('+', '')}');
         }
       });
     } catch (e) {
+      debugPrint("Verify OTP Failed ${e.toString()}");
       customRouterSnackbar(
         title: 'OTP is invalid',
         description: 'Please Try Again',

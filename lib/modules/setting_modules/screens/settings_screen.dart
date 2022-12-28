@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/function/set_current_user.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/comfirm_alert.dart';
@@ -541,8 +542,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return DefaultSizeWeb(
       child: Scaffold(
         appBar: CustomAppBar(
-          onTap: () {
-            context.go('/setting/event');
+          onTap: () async {
+            final url = await DynamicLinkService.createDynamicLink(
+                path:
+                    'wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription?fromPage=investment',
+                isShort: true);
+            debugPrint("Url: $url");
           },
           isLeading: true,
           isLogo: false,

@@ -1041,7 +1041,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                         context.push(
                                             "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
                                       },
-                                      title: "Invest More",
+                                      title: "Subscribe Now",
                                     ),
                                   )
                                 ],

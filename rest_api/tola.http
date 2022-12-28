@@ -115,3 +115,24 @@ GET https://cicstaging.z1central.com/api/v3/ui
 
 Accept: application/json
 Content-Type: application/json
+
+###
+POST {{mainUrl}}request-otp
+Accept: application/json
+Content-Type: application/json
+
+{
+    "phone": "+855975431111"
+}
+
+###
+POST {{mainUrl}}verify-otp
+Accept: application/json
+Content-Type: application/json
+
+{
+    "phone": "855975431111",
+    "verify_code": "9132",
+    "type": "reset_password"
+}
+

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cicgreenloan/Utils/helper/app_pin_code.dart';
+import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
@@ -269,8 +270,29 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
   String shortUrl = '';
   bool? isGenerate = false;
 
+  Future onCreateQRCode() async {
+    setState(() {
+      isGenerate = true;
+    });
+    await DynamicLinkService.createDynamicLink(
+            path:
+                'directory/${cusController.customer.value.customerId}?isDirectory=true',
+            description: cusController.customer.value.about,
+            title: cusController.customer.value.fullName,
+            image: cusController.customer.value.profile,
+            isShort: true)
+        .then((value) {
+      cusController.profileQRLink.value = value.toString();
+      cusController.dynamicParth.value = value.path;
+    });
+    setState(() {
+      isGenerate = false;
+    });
+  }
+
   @override
   void initState() {
+    onCreateQRCode();
     super.initState();
   }
 

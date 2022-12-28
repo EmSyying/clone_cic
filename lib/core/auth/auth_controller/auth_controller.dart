@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
+import 'package:cicgreenloan/Utils/helper/local_storage.dart';
 import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -51,13 +52,14 @@ class AuthController extends GetxController {
         checkRegisteredLoading(false);
         if (value['success']) {
           if (value['password']) {
-            context.push('/login-password');
+            context.go('/login/login-password');
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
             //         builder: (context) => const LoginWithPassWord()));
           } else {
-            context.push('/verify-phone?phoneNumber=${_phoneSubmit()}');
+            context.go(
+                '/verify-phone?phoneNumber=%2B${_phoneSubmit().replaceAll('+', '')}');
             // Navigator.push<bool>(
             //   context,
             //   MaterialPageRoute(
@@ -118,17 +120,31 @@ class AuthController extends GetxController {
           if (user.memberType!.length > 1) {
             settingController.onSwitchScreen(value: false);
             settingController.onGetScreenMode();
+            settingController.isModeSwitchAble.value = true;
             settingController.fetchSetting(userType: 'qm');
             settingController.fetchAppBottomBar(userType: 'qm');
             settingController.fetchAppSetting(
                 context: context, isSwitchSplashScreen: true, userType: 'qm');
-          } else {
+          } else if (user.memberType!.length == 1 &&
+              user.memberType![0].toLowerCase() == 'am') {
+            settingController.fetchSetting(userType: 'am');
             settingController.onSwitchScreen(value: true);
             settingController.onGetScreenMode();
-            settingController.fetchSetting(userType: 'am');
+            settingController.isModeSwitchAble.value = false;
+
             settingController.fetchAppBottomBar(userType: 'am');
             settingController.fetchAppSetting(
                 context: context, isSwitchSplashScreen: true, userType: 'am');
+          } else if (user.memberType!.length == 1 &&
+              user.memberType![0].toLowerCase() == 'qm') {
+            settingController.fetchSetting(userType: 'qm');
+            settingController.onSwitchScreen(value: false);
+            settingController.onGetScreenMode();
+            settingController.isModeSwitchAble.value = false;
+
+            settingController.fetchAppBottomBar(userType: 'qm');
+            settingController.fetchAppSetting(
+                context: context, isSwitchSplashScreen: true, userType: 'qm');
           }
           if (user.pinCode != null && user.pinCode!.isNotEmpty) {
             settingController.onCheckAuthentication();
@@ -184,27 +200,18 @@ class AuthController extends GetxController {
       isAuthorize: false,
       body: {'phone': _phoneSubmit()},
     ).then((value) async {
+      debugPrint("Value: $value");
       onRequestOTPLoading(false);
-      settingCon.appSettingNofier.value.userToken =
-          await LocalData.getCurrentUser();
+      final userToken = await LocalStorage.getStringValue(key: 'currentUser');
+      debugPrint("user token $userToken");
+      settingCon.appSettingNofier.value.userToken = 'sdfsdfs';
 
       settingCon.appSettingNofier.notifyListeners();
       // ignore: use_build_context_synchronously
-      context
-          .push('/verify-otp?isForgetPassword=true&&phone=${_phoneSubmit()}');
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => VerifySetPassword(
-      //       isForgetPassword: true,
-      //       phone: _phoneSubmit(),
-      //     ),
-      //   ),
-      // );
+      context.go(
+          '/login/login-password/verify-otp?isForgetPassword=true&phone=%2B${_phoneSubmit().replaceAll('+', '')}');
     }).onError((ErrorModel error, stackTrace) {
       onRequestOTPLoading(false);
-      debugPrint(
-          'onRequestOTP Error ${error.statusCode} : ${error.bodyString['message']}');
     });
   }
 

@@ -617,7 +617,7 @@ final router = GoRouter(
                                 return SubscribeBonusScreen(
                                     tabName: tabName, key: state.pageKey);
                               },
-                            )
+                            ),
                           ],
                         ),
                         GoRoute(
@@ -1148,18 +1148,42 @@ final router = GoRouter(
         builder: (context, state) => const StartupSlide(),
       ),
       GoRoute(
-        path: '/login',
-        builder: (context, state) {
-          return const LoginScreen();
-        },
-        routes: const [],
-      ),
-      GoRoute(
-        path: '/login-password',
-        builder: (context, state) {
-          return const LoginWithPassWord();
-        },
-      ),
+          path: '/login',
+          builder: (context, state) {
+            return const LoginScreen();
+          },
+          routes: [
+            GoRoute(
+                path: 'login-password',
+                builder: (context, state) {
+                  return const LoginWithPassWord();
+                },
+                routes: [
+                  GoRoute(
+                      path: 'verify-otp',
+                      name: 'VerifyOtp',
+                      builder: (context, state) => VerifySetPassword(
+                            isForgetPassword: state
+                                    .queryParams['isForgetPassword']!
+                                    .toLowerCase() ==
+                                'true',
+                            phone: state.queryParams['phone'],
+                          ),
+                      routes: [
+                        GoRoute(
+                          path: 'changepassword',
+                          builder: (_, state) => ChangePassword(
+                            isForgetPassword: state
+                                    .queryParams['isForgetPassword']!
+                                    .toLowerCase() ==
+                                'true',
+                            phone: state.queryParams['phone'],
+                          ),
+                        ),
+                      ]),
+                ]),
+          ]),
+
       GoRoute(
           path: '/contract-term',
           builder: (context, state) => const ContractTerm()),
@@ -1190,19 +1214,6 @@ final router = GoRouter(
         builder: (_, state) => VerifyPhone(
           phoneNumber: state.queryParams['phoneNumber'],
         ),
-      ),
-      GoRoute(
-        path: '/verify-otp',
-        name: 'VerifyOtp',
-        builder: (_, state) => VerifySetPassword(
-          isForgetPassword:
-              state.queryParams['isForgetPassword'] as bool,
-          phone: state.queryParams['phone'],
-        ),
-      ),
-      GoRoute(
-        path: '/changepassword',
-        builder: (_, state) => ChangePassword(),
       ),
     ],
     refreshListenable: settingCon.appSettingNofier);

@@ -278,7 +278,7 @@ class _BonusScreenState extends State<BonusScreen>
                         ),
                       ),
                       TabBar(
-                        indicatorColor: Theme.of(context).primaryColor, 
+                        indicatorColor: Theme.of(context).primaryColor,
                         indicatorWeight: 2.0,
                         controller: bonusCon.tabController,
                         unselectedLabelColor: Colors.grey,

@@ -122,7 +122,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       });
     });
 
-    cusController.getUser();
     priceController.onFetchPrice();
     priceController.getSharePrice();
     debugPrint("is Hide Feature:${priceController.allowFeaturebyTag.value}");

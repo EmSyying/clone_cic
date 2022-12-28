@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../modules/member_directory/controllers/customer_controller.dart';
 import '../../app_settings/controllers/appsetting_controller.dart';
 
 class SwitchSplashScreen extends StatefulWidget {
@@ -17,15 +18,20 @@ class SwitchSplashScreen extends StatefulWidget {
 class _BooksState extends State<SwitchSplashScreen>
     with SingleTickerProviderStateMixin {
   final _settingCon = Get.put(SettingController());
+  final _cusCon = Get.put(CustomerController());
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 0), () {
-      _settingCon.fetchSetting(userType: widget.userType);
-      _settingCon.fetchAppBottomBar(userType: widget.userType);
-      _settingCon.fetchAppSetting(
+    Future.delayed(const Duration(seconds: 0), () async {
+      await _settingCon.onSwitchScreen(
+          value: widget.userType == 'am' ? true : false);
+      await _settingCon.onGetScreenMode();
+      await _settingCon.fetchSetting(userType: widget.userType);
+      await _settingCon.fetchAppBottomBar(userType: widget.userType);
+      await _settingCon.fetchAppSetting(
           context: context,
           isSwitchSplashScreen: true,
           userType: widget.userType);
+      await _cusCon.getUser();
     });
     super.initState();
     _settingCon.animationController = AnimationController(

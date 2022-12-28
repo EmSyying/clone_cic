@@ -11,26 +11,11 @@ import 'Utils/function/notification_helper.dart';
 import 'Utils/helper/local_storage.dart';
 import 'core/flavor/flavor_configuration.dart';
 import 'main.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await LocalStorage.init();
-  // WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
-  // setPathUrlStrategy();
-  // await NotificationHelper.initial();
-  // await Firebase.initializeApp();
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   SystemUiOverlayStyle.light.copyWith(
-  //     systemNavigationBarIconBrightness: Brightness.dark,
-  //   ),
-  // );
-  // SystemChrome.setPreferredOrientations(
-  //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  // await GlobalConfiguration().loadFromAsset("app_settings");
-
-  // runApp(
-  //   MyApp(),
-  // );
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   FlavorConfig(
     flavor: Flavor.PRODUCTION,
     color: Colors.deepPurpleAccent,
@@ -53,10 +38,7 @@ Future<void> main() async {
         androidBundleId: 'com.cambodianinvestorscorporation',
         iOSBundleName: 'com.cambodianinvestorscorporation'),
   );
-
   await runZonedGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-
     await LocalStorage.init();
     await Firebase.initializeApp();
 

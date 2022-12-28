@@ -138,11 +138,19 @@ class _ChangePasswordState extends State<ChangePassword> {
     }
   }
 
+  bool isResetingPassword = false;
+
   onResetPassword() async {
+    setState(() {
+      isResetingPassword = true;
+    });
     var token = await LocalData.getCurrentUser();
     String url =
         '${FlavorConfig.instance.values!.mainApiUrl}user/reset-password';
-    debugPrint("is Change password 11");
+    debugPrint("Phone number 11${widget.phone}");
+    debugPrint(
+        "Password 11${passwordController.text} ======= ${confirmPasswordCon.text}");
+
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -153,26 +161,21 @@ class _ChangePasswordState extends State<ChangePassword> {
         'password_confirmation': confirmPasswordCon.text
       });
       if (response.statusCode == 200) {
-        debugPrint("is Change password 22");
-        // ScaffoldMessenger(
-        //   child: SnackBar(
-        //     // ignore: use_build_context_synchronously
-        //     content: Text(S.of(context).changePassword),
-        //   ),
-        // );
+        setState(() {
+          isResetingPassword = false;
+        });
 
-        debugPrint("is Change password 21");
         Timer(
           const Duration(seconds: 1),
           () {
-            debugPrint("is Change password 33");
-
             context.go('/');
-            debugPrint("is Change password 44");
           },
         );
-      } else {}
+      }
     } catch (e) {
+      setState(() {
+        isResetingPassword = false;
+      });
       rethrow;
     }
   }
@@ -211,22 +214,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         child: Scaffold(
           key: _scaffKey,
           appBar: CustomAppBar(
-            context: context,
-            title: 'Set Password',
-            // feedback from b tola
-            leading: IconButton(
-              icon: kIsWeb
-                  ? const Icon(Icons.arrow_back)
-                  : Platform.isAndroid
-                      ? const Icon(Icons.arrow_back)
-                      : const Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            ),
-          ),
+              isLeading: true, title: 'Set Password', context: context),
           body: Column(
             children: [
               Expanded(
@@ -295,7 +283,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           securityAlert(),
                         ],
                       ),
-                      isLoadingChangePassword == true
+                      isLoadingChangePassword || isResetingPassword
                           ? const Center(child: CircularProgressIndicator())
                           : const SizedBox()
                     ],
