@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
-import 'package:cicgreenloan/widgets/investments/custom_emptystate_on_cic_fixed_income.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -13,10 +12,11 @@ import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
+import '../../../widgets/investments/custom_investment_empty_state.dart';
 import '../../../widgets/investments/custom_shimmer_fif_saving_card.dart';
 import '../../../widgets/investments/custom_total_investment_card.dart';
 import '../../guilder/guider_controller.dart';
-import '../model/first_date/first_date.dart';
+import 'investment_empty_state_screen.dart';
 
 class CiCFixedIncome extends StatefulWidget {
   final bool ismmaInvestFIF;
@@ -143,7 +143,31 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
             SliverAppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
-              expandedHeight: widget.ismmaInvestFIF ? 142.0 : 96.0,
+              expandedHeight: widget.ismmaInvestFIF &&
+                          InjectionHelper.investmentController.investmentModel
+                                  .value.totalInvestment ==
+                              "0.00" ||
+                      InjectionHelper.investmentController.investmentModel.value
+                              .totalInvestment ==
+                          null ||
+                      InjectionHelper.investmentController.investmentModel.value
+                              .totalInvestment ==
+                          '0'
+                  ? 322
+                  : widget.ismmaInvestFIF &&
+                              InjectionHelper.investmentController
+                                      .investmentModel.value.totalInvestment !=
+                                  "0.00" ||
+                          InjectionHelper.investmentController.investmentModel
+                                  .value.totalInvestment !=
+                              null ||
+                          InjectionHelper.investmentController.investmentModel
+                                  .value.totalInvestment !=
+                              '0'
+                      ? 142
+                      : 96,
+
+              // 142.0 : 96.0,
               stretch: true,
               onStretchTrigger: () async {
                 debugPrint('stretch');
@@ -160,21 +184,11 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                         InjectionHelper.investmentController.investmentModel
                                 .value.totalInvestment ==
                             '0'
-                    ? TotalInvestmentCard(
-                        key: contro.investmentFiF[0].key = GlobalKey(),
-                        amount: InjectionHelper.investmentController
-                                    .investmentModel.value.totalInvestment !=
-                                null
-                            ? InjectionHelper.investmentController
-                                .investmentModel.value.totalInvestment!
-                            : "0.00",
-                        chartData: [
-                          FIFApplicationListModel(
-                            investmentAmount: "\$0.0",
-                            color: '#BDBDBD',
-                            accountName: 'No Data State',
-                          ),
-                        ],
+                    ? const CustomInvestmentEmptyState(
+                        title: 'No Investment yet!',
+                        description:
+                            'You have no investment in CiC Fixed Income Fund (FIF).',
+                        titleLine: 'CiC fixed income fund',
                       )
 
                     ///BDBDBD
@@ -275,10 +289,13 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
     return Column(
       children: [
         const Expanded(
-          child: CustomEmptyStateCiCFixIcome(),
+          child: IvestmentEmptyStateScreen(),
         ),
         const SizedBox(height: 20.0),
-        showAllButton()
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+          child: showAllButton(),
+        ),
       ],
     );
   }

@@ -16,7 +16,7 @@ class CustomInvestmentEmptyState extends StatelessWidget {
       children: [
         CustomCard(
           child: SizedBox(
-            width: 335,
+            width: double.infinity,
             height: 259,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -50,7 +50,7 @@ class CustomInvestmentEmptyState extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 40.0,
+          height: 35.0,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -62,52 +62,7 @@ class CustomInvestmentEmptyState extends StatelessWidget {
                 .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
           ),
         ),
-        // const SizedBox(
-        //   height: 10.0,
-        // ),
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        //   child: CircleLine(
-        //     heightContainer: Get.height / 10,
-        //     direction: Axis.vertical,
-        //     size: 6,
-        //     path: const {
-        //       'color': Color(0xffD1E5FF),
-        //       'width': 1.0,
-        //     },
-        //     steps: emptyStateInvestmentList.map((e) {
-        //       return {
-        //         'label': '1',
-        //         'background': AppColor.mainColor,
-        //         'content': Container(
-        //           padding: const EdgeInsets.only(top: 20.0),
-        //           child: () {
-        //             return customLine(context, e.title);
-        //           }(),
-        //         ),
-        //       };
-        //     }).toList(),
-        //   ),
-        // ),
       ],
     );
   }
 }
-
-// List<InvestmentEmptyStateModel> emptyStateInvestmentList = [
-//   InvestmentEmptyStateModel(title: 'Average Annual Return 14.4% to 18%'),
-//   InvestmentEmptyStateModel(title: 'Minimum Period 2 months'),
-//   InvestmentEmptyStateModel(title: 'Monthly Interest'),
-//   InvestmentEmptyStateModel(title: 'Minimum Amount 10,000.00 USD'),
-// ];
-// Widget customLine(BuildContext context, String? title) {
-//   return Text(
-//     title ?? '',
-//     style: const TextStyle(
-//       color: Color(0xff464646),
-//       fontSize: 14,
-//       fontWeight: FontWeight.w400,
-//       height: 1,
-//     ),
-//   );
-// }

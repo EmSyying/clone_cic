@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../utils/helper/color.dart';
 import '../../../widgets/get_funding/custom_circle_line.dart';
-import '../../../widgets/investments/custom_investment_empty_state.dart';
 import '../model/investment_emptystate_model.dart';
 
 class IvestmentEmptyStateScreen extends StatelessWidget {
@@ -12,15 +11,6 @@ class IvestmentEmptyStateScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const CustomInvestmentEmptyState(
-            title: 'No Investment yet!',
-            description:
-                'You have no investment in CiC Fixed Income Fund (FIF).',
-            titleLine: 'CiC fixed income fund',
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CircleLine(
