@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/generated/l10n.dart';
-import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/Utils/chart/custom_text_form.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
@@ -15,8 +14,8 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../../Utils/helper/custom_appbar.dart';
-import '../../../../core/auth/set_pin_code.dart';
 import '../../../../core/flavor/flavor_configuration.dart';
 
 // ignore: must_be_immutable
@@ -39,6 +38,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool isSelectPassConf = true;
   bool isTest = true;
   final _customerController = Get.put(CustomerController());
+  final settingCon = Get.put(SettingController());
   Widget securityAlert() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,14 +122,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             // ignore: use_build_context_synchronously
             ? context.go('/')
             // ignore: use_build_context_synchronously
-            : Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SetPinCode(
-                    status: 'set',
-                  ),
-                ),
-              );
+            : context.go('/setpincode?status=set');
       } else {
         openSnackBar('Password is not match');
         setState(() {
@@ -149,6 +142,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     var token = await LocalData.getCurrentUser();
     String url =
         '${FlavorConfig.instance.values!.mainApiUrl}user/reset-password';
+    debugPrint("is Change password 11");
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -159,26 +153,22 @@ class _ChangePasswordState extends State<ChangePassword> {
         'password_confirmation': confirmPasswordCon.text
       });
       if (response.statusCode == 200) {
-        ScaffoldMessenger(
-          child: SnackBar(
-            // ignore: use_build_context_synchronously
-            content: Text(S.of(context).changePassword),
-          ),
-        );
+        debugPrint("is Change password 22");
+        // ScaffoldMessenger(
+        //   child: SnackBar(
+        //     // ignore: use_build_context_synchronously
+        //     content: Text(S.of(context).changePassword),
+        //   ),
+        // );
+
+        debugPrint("is Change password 21");
         Timer(
           const Duration(seconds: 1),
           () {
-            !widget.isForgetPassword!
-                ? Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PaymentSchedule(),
-                    ),
-                  )
-                : Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PaymentSchedule()));
+            debugPrint("is Change password 33");
+
+            context.go('/');
+            debugPrint("is Change password 44");
           },
         );
       } else {}
@@ -324,7 +314,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                   isOutline: false,
                   onPressed: _validator() &&
                           confirmPasswordCon.text == passwordController.text
-                      ? () {
+                      ? () async {
+                          settingCon.appSettingNofier.value.userToken =
+                              await LocalData.getCurrentUser();
+                          settingCon.appSettingNofier.notifyListeners();
                           widget.isForgetPassword!
                               ? onResetPassword()
                               : onChangePassword();

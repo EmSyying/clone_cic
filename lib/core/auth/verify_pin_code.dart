@@ -127,7 +127,7 @@ class _VerifyPINCodeState extends State<VerifyPINCode> {
                           if (customerController.customer.value.pinCode ==
                               _pinCode) {
                             if (widget.status == 'Current') {
-                              context.go('/setting/verify-pin-code/setpincode');
+                              context.go('/setpincode?status=set');
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(

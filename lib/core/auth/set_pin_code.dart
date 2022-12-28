@@ -156,10 +156,10 @@ class _SetPinCodeState extends State<SetPinCode> {
                           )
                         ],
                         onCompleted: (code) async {
+                          debugPrint("Set New Pin code:$code");
                           if (widget.status == 'set') {
                             setPinController.pinCodeChange.value = code;
-                            context.go(
-                                '/setting/verify-pin-code/setpincode/verify-setpincode');
+                            context.push('/setpincode?status=verify');
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(

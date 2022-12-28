@@ -18,6 +18,8 @@ import '../../core/auth/login.dart';
 import '../../core/auth/login_with_password.dart';
 import '../../core/auth/set_pin_code.dart';
 
+import '../../core/auth/verify_phone.dart';
+import '../../core/auth/verify_pin_code.dart';
 import '../../core/auth/verify_set_password.dart';
 import '../../core/walk_through/splash_screen.dart';
 import '../../core/walk_through/start_slide.dart';
@@ -61,6 +63,7 @@ final router = GoRouter(
           !state.location.contains('/privacy-policy') &&
           !state.location.contains('/login') &&
           !state.location.contains('/login-password') &&
+          !state.location.contains('/changepassword') &&
           !state.location.contains('switch-splash-screen')) {
         return '/start-slide';
       }
@@ -1167,16 +1170,35 @@ final router = GoRouter(
               )),
       GoRoute(
         path: '/setpincode',
+        name: 'SetPinCode',
         builder: (context, state) {
-          return const SetPinCode();
+          return SetPinCode(
+            status: state.queryParams['status'],
+          );
         },
       ),
       GoRoute(
+        path: '/verify-pin-code',
+        name: 'VerifyPinCode',
+        builder: (_, state) => VerifyPINCode(
+          status: state.queryParams['status'],
+        ),
+      ),
+      GoRoute(
+        path: '/verify-phone',
+        name: 'VerifyPhone',
+        builder: (_, state) => VerifyPhone(
+          phoneNumber: state.queryParams['phoneNumber'],
+        ),
+      ),
+      GoRoute(
         path: '/verify-otp',
-        builder: (_, state) => const VerifySetPassword(
-            // isForgetPassword:
-            //     state.queryParams['isForgetPassword']!.toLowerCase() == 'true',
-            ),
+        name: 'VerifyOtp',
+        builder: (_, state) => VerifySetPassword(
+          isForgetPassword:
+              state.queryParams['isForgetPassword'] as bool,
+          phone: state.queryParams['phone'],
+        ),
       ),
       GoRoute(
         path: '/changepassword',

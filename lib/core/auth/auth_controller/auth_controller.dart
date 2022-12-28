@@ -7,17 +7,14 @@ import 'package:go_router/go_router.dart';
 
 import '../../../Utils/function/get_sharepreference_data.dart';
 import '../../../Utils/function/set_current_user.dart';
-import '../../../modules/dashboard/buttom_navigation_bar.dart';
 import '../../../modules/member_directory/controllers/customer_controller.dart';
 import '../../flavor/flavor_configuration.dart';
-import '../login_with_password.dart';
-import '../verify_phone.dart';
-import '../verify_set_password.dart';
 
 class AuthController extends GetxController {
   final _apiBasehelper = ApiBaseHelper();
   final mainUrl = FlavorConfig.instance.values!.mainApiUrl;
   final _customerController = Get.put(CustomerController());
+  final settingCon = Get.put(SettingController());
 
   ///check user
   ///'assets/images/svgfile/successIcon.svg'
@@ -60,14 +57,15 @@ class AuthController extends GetxController {
             //     MaterialPageRoute(
             //         builder: (context) => const LoginWithPassWord()));
           } else {
-            Navigator.push<bool>(
-              context,
-              MaterialPageRoute(
-                builder: (context) => VerifyPhone(
-                  phoneNumber: _phoneSubmit(),
-                ),
-              ),
-            );
+            context.push('/verify-phone?phoneNumber=${_phoneSubmit()}');
+            // Navigator.push<bool>(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => VerifyPhone(
+            //       phoneNumber: _phoneSubmit(),
+            //     ),
+            //   ),
+            // );
           }
         } else {
           customRouterSnackbar(
@@ -177,6 +175,7 @@ class AuthController extends GetxController {
 
   ///request-otp
   final onRequestOTPLoading = false.obs;
+  final isForgetPassword = true.obs;
   Future<void> onRequestOTP(BuildContext context) async {
     onRequestOTPLoading(true);
     await _apiBasehelper.onNetworkRequesting(
@@ -184,17 +183,24 @@ class AuthController extends GetxController {
       methode: METHODE.post,
       isAuthorize: false,
       body: {'phone': _phoneSubmit()},
-    ).then((value) {
+    ).then((value) async {
       onRequestOTPLoading(false);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VerifySetPassword(
-            isForgetPassword: true,
-            phone: _phoneSubmit(),
-          ),
-        ),
-      );
+      settingCon.appSettingNofier.value.userToken =
+          await LocalData.getCurrentUser();
+
+      settingCon.appSettingNofier.notifyListeners();
+      // ignore: use_build_context_synchronously
+      context
+          .push('/verify-otp?isForgetPassword=true&&phone=${_phoneSubmit()}');
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => VerifySetPassword(
+      //       isForgetPassword: true,
+      //       phone: _phoneSubmit(),
+      //     ),
+      //   ),
+      // );
     }).onError((ErrorModel error, stackTrace) {
       onRequestOTPLoading(false);
       debugPrint(
