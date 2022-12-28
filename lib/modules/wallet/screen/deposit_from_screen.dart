@@ -46,6 +46,8 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
   bool isShowPopupQRCode = false;
   static GlobalKey printScreenKey = GlobalKey();
 
+  bool clickedShare = true;
+
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
@@ -150,8 +152,13 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                         children: [
                           _buildButton(textStyle,
                               icon: SvgPicture.asset('assets/images/share.svg'),
-                              text: 'Share', onTap: () {
-                            _captureAndSharePng(context);
+                              text: 'Share', onTap: () async {
+                            if (clickedShare) {
+                              clickedShare = false;
+                              await _captureAndSharePng(context).then((_) {
+                                clickedShare = true;
+                              });
+                            }
                           }),
                           const SizedBox(width: 50),
                           _buildButton(textStyle,

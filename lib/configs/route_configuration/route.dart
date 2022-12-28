@@ -1,7 +1,12 @@
-import 'package:cicgreenloan/modules/event_module/screen/event.dart';
 import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
+import 'package:cicgreenloan/modules/get_funding/get_funding_export.dart';
 import 'package:cicgreenloan/modules/google_map_module/google_map.dart';
+import 'package:cicgreenloan/modules/investment_module/investment_export.dart';
+import 'package:cicgreenloan/modules/privilege_program/privilege_export.dart';
+import 'package:cicgreenloan/modules/report_module/report_export.dart';
+import 'package:cicgreenloan/modules/setting_modules/setting_export.dart';
 import 'package:cicgreenloan/modules/wallet/screen/wallet_screen.dart';
+import 'package:cicgreenloan/modules/wallet/wallet_export.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -22,114 +27,26 @@ import '../../modules/bonus/screens/subscriptions/subscribe_screen.dart';
 import '../../modules/dashboard/buttom_navigation_bar.dart';
 import '../../modules/dashboard/dashboard.dart';
 import '../../modules/dashboard/main_dashboard.dart';
-import '../../modules/get_funding/screens/debt_investment/preview_debt_form.dart';
-import '../../modules/get_funding/screens/debt_investment/step1_debt.dart';
-import '../../modules/get_funding/screens/debt_investment/step2_debt.dart';
-import '../../modules/get_funding/screens/debt_investment/step3_debt.dart';
-import '../../modules/get_funding/screens/debt_investment/step4_debt.dart';
-import '../../modules/get_funding/screens/equity_investment/preview_equity.dart';
-import '../../modules/get_funding/screens/equity_investment/step1_equity.dart';
-import '../../modules/get_funding/screens/equity_investment/step2_equity.dart';
-import '../../modules/get_funding/screens/equity_investment/step3_equity.dart';
-import '../../modules/get_funding/screens/get_funding.dart';
-import '../../modules/investment_module/controller/investment_controller.dart';
-import '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
-import '../../modules/investment_module/model/view_agreement/view_agreement.dart';
-import '../../modules/investment_module/screen/bullet_payment_detail.dart';
-import '../../modules/investment_module/screen/certificate.dart';
-import '../../modules/investment_module/screen/cic_equity_fund.dart';
-import '../../modules/investment_module/screen/cic_fixed_income.dart';
-import '../../modules/investment_module/screen/deposit_screen.dart';
-import '../../modules/investment_module/screen/fif_deduc_selection.dart';
-import '../../modules/investment_module/screen/renewal_screen.dart';
-import '../../modules/investment_module/screen/saving_detail_screen.dart';
+
 import '../../modules/member_directory/controllers/customer_controller.dart';
 import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../../modules/notification_modules/screens/notification.dart';
-import '../../modules/privilege_program/screen/privilege/item_category_privilege_screen.dart';
-import '../../modules/privilege_program/screen/privilege/payment_done_screen.dart';
-import '../../modules/privilege_program/screen/privilege/privilege_filters.dart';
-import '../../modules/privilege_program/screen/privilege/privilege_payment.dart';
-import '../../modules/privilege_program/screen/privilege/privilege_screen.dart';
-import '../../modules/privilege_program/screen/privilege/privilege_see_all_screen.dart';
-import '../../modules/privilege_program/screen/privilege/search_screen.dart';
-import '../../modules/privilege_program/screen/privilege_detail/privilege_detail_screen.dart';
-import '../../modules/privilege_program/screen/privilege_detail/redeem_point_pay_review_screen.dart';
-import '../../modules/privilege_program/screen/privilege_detail/redeem_point_pay_screen.dart';
+
 import '../../modules/qr_code/qr_code.dart';
-import '../../modules/report_module/screens/cic_app_manual.dart';
-import '../../modules/report_module/screens/report.dart';
-import '../../modules/report_module/screens/report_filed.dart';
-import '../../modules/report_module/screens/report_screen.dart';
-import '../../modules/report_module/screens/view_report.dart';
-import '../../modules/setting_modules/screens/settings_screen.dart';
-import '../../modules/setting_modules/screens/sub_setting_screen/change_password.dart';
-import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
-import '../../modules/setting_modules/screens/sub_setting_screen/privacy_policy.dart';
+
 import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
-import '../../modules/wallet/screen/deposit_from_screen.dart';
-import '../../modules/wallet/screen/deposit_mmaccount_screen.dart';
-import '../../modules/wallet/screen/deposit_to_screen.dart';
-import '../../modules/wallet/screen/mma_deposit_card.dart';
-import '../../modules/wallet/screen/mma_invest_fif_screen.dart';
-import '../../modules/wallet/screen/transfer_review.dart';
-import '../../modules/wallet/screen/transfer_to_screen.dart';
+
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
+import 'route_singleton.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
-
-abstract class MainRoute {
-  GoRoute transferToMMA([String fromWhere]);
-  GoRoute privilagePayment([String fromWhere]);
-}
-
-class CICRoute extends MainRoute {
-  CICRoute._();
-
-  ///instance member of classs
-  static final i = CICRoute._();
-
-  @override
-  GoRoute transferToMMA([String fromWhere = '']) => GoRoute(
-        path: 'transfer-to-other-mmacount',
-        name: '${fromWhere}TransferToMMA',
-        builder: (_, state) => TransferToMMA(
-          receiverAccount: state.queryParams['receiverAccount'],
-          receiverAmount: state.queryParams['receiverAmount'],
-        ),
-        routes: [
-          GoRoute(
-            path: 'review-transfer',
-            name: '${fromWhere}ReviewTransfer',
-            //_,__ just because arguments are not used
-            builder: (_, __) => const TransferReview(),
-          ),
-        ],
-      );
-
-  @override
-  GoRoute privilagePayment([String? fromWhere]) => GoRoute(
-        name: '${fromWhere}PrivilegePayment',
-        path: 'privilege-payment/:id',
-        builder: (_, state) => PrivilegePayment(
-          id: int.tryParse(state.params['id'] ?? '0'),
-        ),
-        routes: [
-          GoRoute(
-            name: '${fromWhere}PaymentDoneScreen',
-            path: 'payment-done-screen',
-            builder: (_, __) => const PaymentDoneScreen(),
-          ),
-        ],
-      );
-}
 
 final settingCon = Get.put(SettingController());
 final userCon = Get.put(CustomerController());
@@ -167,8 +84,9 @@ final router = GoRouter(
                   name: state.name,
                   child: const MainDashboard()),
               routes: [
-                CICRoute.i.transferToMMA('HomePage'),
-                CICRoute.i.privilagePayment('HomePage'),
+                CICRoute.instance.transferToMMA(fromWhere: 'HomePage'),
+                CICRoute.instance.privilagePayment(fromWhere: 'HomePage'),
+                CICRoute.instance.event(fromWhere: 'DashBoard'),
                 GoRoute(
                   path: 'bonus',
                   name: 'Bonus',
@@ -284,7 +202,6 @@ final router = GoRouter(
                     ]),
 
                 /// Investment
-
                 GoRoute(
                   path: 'investment/:tabName',
                   name: 'Investment',
@@ -710,7 +627,7 @@ final router = GoRouter(
                       ],
                     ),
                     // Transfer to other MM Account
-                    CICRoute.i.transferToMMA('Wallet'),
+                    CICRoute.instance.transferToMMA(fromWhere: 'Wallet'),
 
                     //MMA Cash out
                     GoRoute(
@@ -1052,7 +969,8 @@ final router = GoRouter(
                 name: state.name,
                 child: QrCodeScreen(pageName: state.queryParams['pageName'])),
           ),
-          GoRoute(
+          CICRoute.instance.event(fromWhere: 'Home', isRoot: true),
+          /*  GoRoute(
               path: '/event',
               pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
@@ -1081,7 +999,8 @@ final router = GoRouter(
                     ),
                   ],
                 ),
-              ]),
+              ]),*/
+
           GoRoute(
               path: '/profile',
               pageBuilder: (context, state) => NoTransitionPage(
@@ -1142,7 +1061,8 @@ final router = GoRouter(
                               key: state.pageKey,
                             ),
                           ),
-                          CICRoute.i.privilagePayment('Privilage'),
+                          CICRoute.instance
+                              .privilagePayment(fromWhere: 'Privilage'),
                           GoRoute(
                             name: 'PaymentDoneScreen',
                             path: 'payment-done-screen',

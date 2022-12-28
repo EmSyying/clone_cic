@@ -1,0 +1,11 @@
+export '../../modules/investment_module/controller/investment_controller.dart';
+export '../../modules/investment_module/model/fif_contract_option/fif_contract_option.dart';
+export '../../modules/investment_module/model/view_agreement/view_agreement.dart';
+export '../../modules/investment_module/screen/bullet_payment_detail.dart';
+export '../../modules/investment_module/screen/certificate.dart';
+export '../../modules/investment_module/screen/cic_equity_fund.dart';
+export '../../modules/investment_module/screen/cic_fixed_income.dart';
+export '../../modules/investment_module/screen/deposit_screen.dart';
+export '../../modules/investment_module/screen/fif_deduc_selection.dart';
+export '../../modules/investment_module/screen/renewal_screen.dart';
+export '../../modules/investment_module/screen/saving_detail_screen.dart';
