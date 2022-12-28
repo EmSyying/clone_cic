@@ -22,7 +22,6 @@ import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/custom_card.dart';
-import '../../../widgets/investments/custom_investment_empty_state.dart';
 import '../../../widgets/investments/equity_fund/subscription_chart.dart';
 import '../../../widgets/investments/equity_fund/trading_chart.dart';
 import '../../../widgets/investments/return_on_investment.dart';
@@ -508,19 +507,9 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                             ),
                           ),
                         )
-                      : Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              CustomInvestmentEmptyState(
-                                title: 'No Investment yet!',
-                                description:
-                                    'You have no investment in CiC Fixed Income Fund (FIF).',
-                                titleLine: 'CiC fixed income fund',
-                              ),
-                              IvestmentEmptyStateScreen()
-                            ],
+                      : const Expanded(
+                          child: IvestmentEmptyStateScreen(
+                            isFixedIncom: false,
                           ),
                         ),
                   SafeArea(

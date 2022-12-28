@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/option_model/option_form.dart';
+import '../../google_map_module/controllers/google_map_controller.dart';
 import '../model/category_model/model_categories.dart';
 import '../model/history/model_history_privilege.dart';
 import '../model/location/location.dart';
@@ -17,6 +18,7 @@ class PrivilegeController extends GetxController {
   final optionSelecList = <OptionForm>[].obs;
   final isSelectFilter = false.obs;
   final selectedCategFil = ''.obs;
+  final googleMapCon = Get.put(GoogleMapsController());
 //Refreshscreen====F
   Future<void> onRefreshPrivilege() async {
     await onFetchCategories();
@@ -41,13 +43,15 @@ class PrivilegeController extends GetxController {
 
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/shop?page=$page',
+      url:
+          'privilege/shop?page=$page?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
       methode: METHODE.get,
       isAuthorize: true,
     )
         .then((response) {
       var responseJson = response['data'];
-
+      debugPrint('hany privilege have latelong:=======$responseJson');
+      shopModelList.clear();
       if (page == 1) {
         shopModelList.clear();
       }
@@ -87,8 +91,8 @@ class PrivilegeController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
       url: isLocation == false
-          ? 'privilege/global/search?queries=$keySearch'
-          : 'privilege/global/search?queries=$keySearch&location=true',
+          ? 'privilege/global/search?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}&queries=$keySearch'
+          : 'privilege/global/search?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}&queries=$keySearch&location=true',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -259,7 +263,8 @@ class PrivilegeController extends GetxController {
     isLoadingSearchCate(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/category?term=$keySearch',
+      url:
+          'privilege/category?term=$keySearch&origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -293,7 +298,8 @@ class PrivilegeController extends GetxController {
     isLoadingCategoryFilter(true);
     apiBaseHelper
         .onNetworkRequesting(
-            url: 'privilege/filer?location=$location&category=$categoryId',
+            url:
+                'privilege/filer?location=$location&origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}&category=$categoryId',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
@@ -435,7 +441,8 @@ class PrivilegeController extends GetxController {
     debugPrint("catagories id====:$id");
     await apiBaseHelper
         .onNetworkRequesting(
-            url: 'privilege/shop-by?category_id=$id',
+            url:
+                'privilege/shop-by?category_id=$id&origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {

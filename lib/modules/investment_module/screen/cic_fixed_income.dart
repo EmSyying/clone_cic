@@ -1,22 +1,29 @@
 import 'dart:io';
 
 import 'package:cicgreenloan/Utils/helper/injection_helper/injection_helper.dart';
+import 'package:cicgreenloan/modules/investment_module/screen/history_appbar.dart';
+import 'package:cicgreenloan/modules/investment_module/screen/investment_empty_state_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 
+import '../../../Utils/form_builder/custom_material_modal_sheet.dart';
+import '../../../Utils/helper/cic/cic_guider.dart';
 import '../../../utils/helper/custom_appbar.dart';
 import '../../../utils/helper/firebase_analytics.dart';
+import '../../../widgets/defualt_size_web.dart';
+import '../../../widgets/get_funding/custom_shimmer_contact_history.dart';
 import '../../../widgets/investments/custom_fif_saving_card_list.dart';
 import '../../../widgets/investments/custom_fif_total_investment_shimmer.dart';
-import '../../../widgets/investments/custom_investment_empty_state.dart';
 import '../../../widgets/investments/custom_shimmer_fif_saving_card.dart';
 import '../../../widgets/investments/custom_total_investment_card.dart';
 import '../../guilder/guider_controller.dart';
-import 'investment_empty_state_screen.dart';
+import '../controller/investment_controller.dart';
 
 class CiCFixedIncome extends StatefulWidget {
   final bool ismmaInvestFIF;
@@ -30,6 +37,23 @@ class CiCFixedIncome extends StatefulWidget {
 class _CiCFixedIncomeState extends State<CiCFixedIncome> {
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final contro = Get.put(CiCGuidController());
+  final _guidkey = Get.put(CiCGuidController());
+  final priceController = Get.put(PriceController());
+  void _cicFixedIncomeGuide() {
+    CiCApp.showOverlays(
+      context: context,
+      key: (_) => _guidkey.investmentFiF[_].key!,
+      objectSettingBuilder: (_) => ObjectSetting(
+          edgeInsets: _ == 0 ? const EdgeInsets.only(top: 15) : null,
+          radius: _ == 0 ? BorderRadius.circular(12) : null,
+          paddingSize: _ == 0 ? const Size(-39, -29) : null),
+      titleBuilder: (_) => _guidkey.investmentFiF[_].title ?? '',
+      descriptionBuilder: (_) => _guidkey.investmentFiF[_].description ?? '',
+      itemCount: _guidkey.investmentFiF.length,
+      allowSkip: true,
+      overlaySetting: OverlaySetting(),
+    );
+  }
 
   @override
   void initState() {
@@ -71,56 +95,111 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                     ///data
                     ),
           )
-        : Scaffold(
-            appBar: CustomAppBar(
-              elevation: 0,
-              isLeading: true,
-              isLogo: false,
-              context: context,
-              title: "CiC Fixed Income Fund",
-            ),
-            body: Stack(
-              children: [
-                SizedBox(
-                  height: 120,
-                  width: double.infinity,
-                  child: SvgPicture.asset(
-                      'assets/images/svgfile/Investment_backg.svg',
-                      fit: BoxFit.fill,
-                      color: Theme.of(context).primaryColor),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20.0),
-                  child: RefreshIndicator(
-                    key: refreshKey,
-                    onRefresh:
-                        InjectionHelper.investmentController.onRefreshFIF,
-                    child: Obx(() => InjectionHelper.investmentController
-                                        .fifApplicationLoading.value ==
-                                    false &&
-                                InjectionHelper.investmentController
-                                        .isLoadingPending.value ==
-                                    false &&
-                                InjectionHelper.investmentController
-                                        .isLoadingConfirm.value ==
-                                    false &&
-                                InjectionHelper.investmentController
-                                        .isLoadingInvestment.value ==
-                                    false &&
-                                InjectionHelper.investmentController
-                                        .getHiddentContractLoading.value ==
-                                    false
-                            ?
+        : DefaultSizeWeb(
+            child: CupertinoScaffold(
+              body: Builder(
+                builder: (context) => CupertinoPageScaffold(
+                  child: Scaffold(
+                    appBar: CustomAppBar(
+                      elevation: 0,
+                      isLeading: true,
+                      isLogo: false,
+                      context: context,
+                      title: "CiC Fixed Income Fund",
+                      action: [
+                        //  isContract == true
 
-                            ///when all fetch function done it work here
-                            showData()
-                            : showShimmer()
-
-                        ///data
+                        GestureDetector(
+                          onTap: () async {
+                            Future.delayed(const Duration(milliseconds: 500),
+                                () {
+                              _cicFixedIncomeGuide();
+                            });
+                            // await LocalData.storeAppTou('appTour', true);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: SvgPicture.asset(
+                              'assets/images/demo.svg',
+                            ),
+                          ),
                         ),
+
+                        GestureDetector(
+                          onTap: () async {
+                            debugPrint("Workk===>");
+                            FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                'contract history');
+                            await onShowCustomCupertinoModalSheet(
+                              context: context,
+                              icon: const Icon(Icons.close_rounded),
+                              title: "Contract History",
+                              onTap: () {},
+                              child: priceController.isLoading.value
+                                  ? const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 10),
+                                      child: ShimmerContactHistory(),
+                                    )
+                                  : const FIFHistoryAppbar(),
+                            );
+                          },
+                          child: SvgPicture.asset("assets/images/history.svg"),
+                        ),
+
+                        const SizedBox(width: 23)
+                      ],
+                    ),
+                    body: Stack(
+                      children: [
+                        SizedBox(
+                          height: 120,
+                          width: double.infinity,
+                          child: SvgPicture.asset(
+                              'assets/images/svgfile/Investment_backg.svg',
+                              fit: BoxFit.fill,
+                              color: Theme.of(context).primaryColor),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 20.0),
+                          child: RefreshIndicator(
+                            key: refreshKey,
+                            onRefresh: InjectionHelper
+                                .investmentController.onRefreshFIF,
+                            child: Obx(() => InjectionHelper
+                                                .investmentController
+                                                .fifApplicationLoading
+                                                .value ==
+                                            false &&
+                                        InjectionHelper.investmentController
+                                                .isLoadingPending.value ==
+                                            false &&
+                                        InjectionHelper.investmentController
+                                                .isLoadingConfirm.value ==
+                                            false &&
+                                        InjectionHelper.investmentController
+                                                .isLoadingInvestment.value ==
+                                            false &&
+                                        InjectionHelper
+                                                .investmentController
+                                                .getHiddentContractLoading
+                                                .value ==
+                                            false
+                                    ?
+
+                                    ///when all fetch function done it work here
+                                    showData()
+                                    : showShimmer()
+
+                                ///data
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
+              ),
             ),
           );
   }
@@ -135,82 +214,79 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
         return notification.depth == 2;
       },
       onRefresh: InjectionHelper.investmentController.onRefreshFIF,
-      child: NestedScrollView(
-        controller: InjectionHelper.investmentController.cicFixedIncomeScroll,
-        physics: const AlwaysScrollableScrollPhysics(),
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.transparent,
-              expandedHeight: widget.ismmaInvestFIF &&
-                          InjectionHelper.investmentController.investmentModel
-                                  .value.totalInvestment ==
-                              "0.00" ||
-                      InjectionHelper.investmentController.investmentModel.value
-                              .totalInvestment ==
-                          null ||
-                      InjectionHelper.investmentController.investmentModel.value
-                              .totalInvestment ==
-                          '0'
-                  ? 322
-                  : widget.ismmaInvestFIF &&
-                              InjectionHelper.investmentController
-                                      .investmentModel.value.totalInvestment !=
-                                  "0.00" ||
-                          InjectionHelper.investmentController.investmentModel
-                                  .value.totalInvestment !=
-                              null ||
-                          InjectionHelper.investmentController.investmentModel
-                                  .value.totalInvestment !=
-                              '0'
-                      ? 142
-                      : 96,
+      child: InjectionHelper.investmentController.fifAppPendingList.isEmpty &&
+              InjectionHelper.investmentController.fifApplicationList.isEmpty &&
+              InjectionHelper.investmentController.fifAppConfirmList.isEmpty &&
+              InjectionHelper.investmentController.hiddenContractList.isEmpty
+          ? const IvestmentEmptyStateScreen(
+              isFixedIncom: true,
+            )
+          : NestedScrollView(
+              controller:
+                  InjectionHelper.investmentController.cicFixedIncomeScroll,
+              physics: const AlwaysScrollableScrollPhysics(),
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.transparent,
+                    expandedHeight: widget.ismmaInvestFIF ? 142.0 : 96.0,
+                    // && InjectionHelper
+                    //                     .investmentController
+                    //                     .investmentModel
+                    //                     .value
+                    //                     .totalInvestment ==
+                    //                 "0.00" ||
+                    //         InjectionHelper.investmentController.investmentModel
+                    //                 .value.totalInvestment ==
+                    //             null ||
+                    //         InjectionHelper.investmentController.investmentModel
+                    //                 .value.totalInvestment ==
+                    //             '0'
+                    //     ? 322
+                    //     : widget.ismmaInvestFIF &&
+                    //                 InjectionHelper
+                    //                         .investmentController
+                    //                         .investmentModel
+                    //                         .value
+                    //                         .totalInvestment !=
+                    //                     "0.00" ||
+                    //             InjectionHelper
+                    //                     .investmentController
+                    //                     .investmentModel
+                    //                     .value
+                    //                     .totalInvestment !=
+                    //                 null ||
+                    //             InjectionHelper
+                    //                     .investmentController
+                    //                     .investmentModel
+                    //                     .value
+                    //                     .totalInvestment !=
+                    //                 '0'
+                    //         ? 142
+                    //         : 96,
 
-              // 142.0 : 96.0,
-              stretch: true,
-              onStretchTrigger: () async {
-                debugPrint('stretch');
-              },
-              flexibleSpace: FlexibleSpaceBar(
-                stretchModes: const <StretchMode>[StretchMode.zoomBackground],
-                // collapseMode: CollapseMode.parallax,
-                background: InjectionHelper.investmentController.investmentModel
-                                .value.totalInvestment ==
-                            "0.00" ||
-                        InjectionHelper.investmentController.investmentModel
-                                .value.totalInvestment ==
-                            null ||
-                        InjectionHelper.investmentController.investmentModel
-                                .value.totalInvestment ==
-                            '0'
-                    ? const CustomInvestmentEmptyState(
-                        title: 'No Investment yet!',
-                        description:
-                            'You have no investment in CiC Fixed Income Fund (FIF).',
-                        titleLine: 'CiC fixed income fund',
-                      )
-
-                    ///BDBDBD
-                    : TotalInvestmentCard(
+                    stretch: true,
+                    onStretchTrigger: () async {
+                      debugPrint('stretch');
+                    },
+                    flexibleSpace: FlexibleSpaceBar(
+                      stretchModes: const <StretchMode>[
+                        StretchMode.zoomBackground
+                      ],
+                      // collapseMode: CollapseMode.parallax,
+                      background: TotalInvestmentCard(
                         key: contro.investmentFiF[0].key = GlobalKey(),
                         chartData:
                             InjectionHelper.investmentController.fifChartList,
                         amount: InjectionHelper.investmentController
                             .investmentModel.value.totalInvestment,
                       ),
-              ),
-            ),
-          ];
-        },
-        body: (InjectionHelper.investmentController.fifAppPendingList.isEmpty &&
-                InjectionHelper
-                    .investmentController.fifApplicationList.isEmpty &&
-                InjectionHelper
-                    .investmentController.fifAppConfirmList.isEmpty &&
-                InjectionHelper.investmentController.hiddenContractList.isEmpty)
-            ? showEmptyState()
-            : Column(
+                    ),
+                  ),
+                ];
+              },
+              body: Column(
                 children: [
                   Expanded(
                     child: Padding(
@@ -267,7 +343,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   ),
                 ],
               ),
-      ),
+            ),
     );
   }
 
@@ -285,20 +361,20 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
     );
   }
 
-  Widget showEmptyState() {
-    return Column(
-      children: [
-        const Expanded(
-          child: IvestmentEmptyStateScreen(),
-        ),
-        const SizedBox(height: 20.0),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-          child: showAllButton(),
-        ),
-      ],
-    );
-  }
+  // Widget showEmptyState() {
+  //   return Column(
+  //     children: [
+  //       const Expanded(
+  //         child: IvestmentEmptyStateScreen(),
+  //       ),
+  //       const SizedBox(height: 20.0),
+  //       Padding(
+  //         padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+  //         child: showAllButton(),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   showAllButton() {
     return Row(
@@ -363,6 +439,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
         const SizedBox(width: 20),
         Expanded(
           child: CustomButton(
+            key: contro.investmentFiF[1].key = GlobalKey(),
             isDisable: false,
             isOutline: false,
             title: InjectionHelper
