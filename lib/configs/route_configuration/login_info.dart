@@ -1,7 +1,5 @@
 import 'package:cicgreenloan/Utils/function/get_sharepreference_data.dart';
-import 'package:cicgreenloan/Utils/helper/local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:localstorage/localstorage.dart';
 
 class LoginInfo extends ChangeNotifier {
   bool get loggedIn => isLogIn;

@@ -830,7 +830,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             context: context,
                             onPressed: () {
                               context.pop();
-                              context.go('/setting/verify-pin-code');
+
+                              context.go('/verify-pin-code?status=Current');
+
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(
