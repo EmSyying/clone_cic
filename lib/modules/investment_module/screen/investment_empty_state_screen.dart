@@ -44,7 +44,8 @@ class IvestmentEmptyStateScreen extends StatelessWidget {
                         'label': '1',
                         'background': AppColor.mainColor,
                         'content': Container(
-                          margin: const EdgeInsets.only(top: 25.0),
+                          // height: 0,
+                          margin: const EdgeInsets.only(top: 27.0),
                           child: () {
                             return customTitleLine(context, e.title);
                           }(),

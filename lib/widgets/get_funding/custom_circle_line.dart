@@ -41,6 +41,7 @@ class _CircleLineState extends State<CircleLine> {
   Widget build(BuildContext context) {
     if (textSize != null) {}
     return ListView.builder(
+      padding: EdgeInsets.zero,
       //  itemExtent: 100,
       key: _textKey,
       physics: const NeverScrollableScrollPhysics(),
@@ -66,7 +67,9 @@ class _CircleLineState extends State<CircleLine> {
                 : position == widget.steps!.length - 1
                     ? textSize != null
                         ? textSize!.height / 5
-                        : 50
+                        : widget.contractStyle
+                            ? 50
+                            : 0
                     : 0,
             left: widget.direction == Axis.horizontal ? 0 : 8.5,
             right: widget.direction == Axis.horizontal ? 0 : null,
