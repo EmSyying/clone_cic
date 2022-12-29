@@ -1,12 +1,6 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:cicgreenloan/configs/route_configuration/route.dart';
-import 'package:cicgreenloan/main.dart';
-import 'package:cicgreenloan/modules/dashboard/main_dashboard.dart';
-import 'package:cicgreenloan/modules/dashboard/shimmer_dashboard.dart';
-import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
-import 'package:cicgreenloan/modules/qr_code/qr_code.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
@@ -14,7 +8,6 @@ import 'package:cicgreenloan/modules/member_directory/controllers/customer_contr
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -27,7 +20,7 @@ import '../../Utils/helper/color.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
-import '../event_module/screen/event.dart';
+import '../investment_module/controller/investment_controller.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
@@ -40,6 +33,7 @@ class PaymentSchedule extends StatefulWidget {
 
 class _PaymentScheduleState extends State<PaymentSchedule> {
   final settingCon = Get.put(SettingController());
+  final priceCon = Get.put(PriceController());
   bool isShowBottomBar = true;
   int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
@@ -201,6 +195,11 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
           type: 'directory', localizedTitle: 'Directory', icon: ''),
     ]);
   }*/
+  //
+  Future<void> getUser() async {
+    await userCon.getUser();
+    await priceCon.onHideFeatureByUser(cusController.customer.value.id);
+  }
 
   @override
   void initState() {
@@ -209,7 +208,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       DeviceOrientation.portraitDown,
     ]);
     DynamicLinkService.initDynamicLinks();
-    userCon.getUser();
+    getUser();
     settingCon.fetchSlide();
 
     LocalData.showAppTou('appTour').then((value) async {

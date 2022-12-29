@@ -587,11 +587,8 @@ class PriceController extends GetxController {
           // debugPrint("PDF File:${response.body}}");
           var responseJson = json.decode(response.body);
           certificate.value = InvestorCertificate.fromJson(responseJson);
-          debugPrint("Pdf2");
-          debugPrint("Certificate:${certificate.value.data}");
         } else {
           debugPrint("Certificate:${response.statusCode}}");
-          debugPrint("Certificate:${response.body}}");
         }
       });
     } finally {

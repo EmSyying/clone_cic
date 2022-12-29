@@ -5,9 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/main.dart';
-import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
-import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/report_module/controllers/documentation_controller.dart';
@@ -65,7 +63,7 @@ class _MainDashboardState extends State<MainDashboard> {
   Future<List<DocumentationModel>>? futureList;
   final cusController = Get.put(CustomerController());
   final _settingCon = Get.put(SettingController());
-  final fifCon = Get.put(PriceController());
+
   final _notificationCon = Get.put(NotificationController());
   final setPINCodeController = Get.put(SetPINCodeController());
   final controller = Get.put(ApprovePaymentController());
@@ -184,16 +182,8 @@ class _MainDashboardState extends State<MainDashboard> {
     }
   }
 
-  //
-  Future<void> _getUser() async {
-    // await cusController.getUser();
-    await fifCon.onHideFeatureByUser(cusController.customer.value.id);
-  }
-
   @override
   void initState() {
-    _getUser();
-
     // _settingCon.fetchAppSetting().then((value) async {
     //   bool isFirstLaunch = await LocalData.showAppTou('appTour');
     //   if (!isFirstLaunch) {
