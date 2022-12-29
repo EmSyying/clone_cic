@@ -1181,6 +1181,14 @@ final router = GoRouter(
                           ),
                         ),
                       ]),
+                  GoRoute(
+                    path: 'setpincode',
+                    builder: (context, state) {
+                      return SetPinCode(
+                        status: state.queryParams['status'],
+                      );
+                    },
+                  ),
                 ]),
             GoRoute(
                 path: 'verify-phone',

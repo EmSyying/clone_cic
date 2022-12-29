@@ -163,7 +163,7 @@ class AuthController extends GetxController {
             // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const PaymentSchedule(),),)
           } else {
             settingController.onCheckAuthentication();
-            context.go('/setpincode');
+            context.go('/login/login-password/setpincode?status=set');
           }
         });
         onLoginLoading(false);

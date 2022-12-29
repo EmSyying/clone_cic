@@ -25,6 +25,7 @@ class SetPinCode extends StatefulWidget {
 class _SetPinCodeState extends State<SetPinCode> {
   final setPinController = Get.put(PINCodeController());
   final customerController = Get.put(CustomerController());
+  final pinCodeController = TextEditingController();
   String? storePINCode;
 
   getCurrentPINCode() async {
@@ -39,6 +40,8 @@ class _SetPinCodeState extends State<SetPinCode> {
 
     super.initState();
   }
+
+  bool isAutoFocus = true;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +133,8 @@ class _SetPinCodeState extends State<SetPinCode> {
                         //   }
                         // },
 
-                        autoFocus: true,
+                        autoFocus: isAutoFocus,
+                        controller: pinCodeController,
                         pinTheme: PinTheme(
                           activeColor: Colors.white,
                           selectedFillColor: Colors.white,
@@ -159,15 +163,8 @@ class _SetPinCodeState extends State<SetPinCode> {
                           debugPrint("Set New Pin code:$code");
                           if (widget.status == 'set') {
                             setPinController.pinCodeChange.value = code;
-                            context.push('/setpincode?status=verify');
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const SetPinCode(
-                            //       status: 'verify',
-                            //     ),
-                            //   ),
-                            // );
+                            context.push(
+                                '/login/login-password/setpincode?status=verify');
                           } else if (widget.status == 'verify') {
                             if (setPinController.pinCodeChange.value == code) {
                               setPinController.onSetPINCode(
@@ -185,6 +182,10 @@ class _SetPinCodeState extends State<SetPinCode> {
                               );
                             }
                           }
+                          pinCodeController.clear();
+                          setState(() {
+                            isAutoFocus = true;
+                          });
                         },
                         // onTap: () {
                         //   print("Pressed");
