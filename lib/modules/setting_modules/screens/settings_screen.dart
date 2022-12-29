@@ -545,7 +545,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onTap: () async {
             final url = await DynamicLinkService.createDynamicLink(
                 path: 'event/1', isShort: true);
-            debugPrint("Url: $url");
+            debugPrint("HelloS: $url");
           },
           isLeading: true,
           isLogo: false,
