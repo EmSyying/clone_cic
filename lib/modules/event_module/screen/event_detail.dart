@@ -573,17 +573,35 @@ class _EventDetailState extends State<EventDetail> {
                                                                     true
                                                                 ? null
                                                                 : () {
-                                                                    Navigator.push(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              const Material(
+                                                                    settingCon
+                                                                            .isHideBottomNavigation =
+                                                                        true;
+                                                                    settingCon
+                                                                        .update();
+                                                                    showMaterialModalBottomSheet(
+                                                                        context:
+                                                                            context,
+                                                                        enableDrag:
+                                                                            false,
+                                                                        builder:
+                                                                            (context) {
+                                                                          return SingleChildScrollView(
+                                                                            physics:
+                                                                                const NeverScrollableScrollPhysics(),
                                                                             child:
-                                                                                QrCodeScreen(
-                                                                              pageName: 'eventDetail',
+                                                                                Column(
+                                                                              children: [
+                                                                                Container(
+                                                                                  height: MediaQuery.of(context).size.height,
+                                                                                  color: Colors.white,
+                                                                                  child: const QrCodeScreen(
+                                                                                    pageName: 'eventDetail',
+                                                                                  ),
+                                                                                ),
+                                                                              ],
                                                                             ),
-                                                                          ),
-                                                                        ));
+                                                                          );
+                                                                        });
                                                                   },
                                                             child: eventController
                                                                         .eventDetail

@@ -265,6 +265,7 @@ class WalletController extends GetxController {
   ///Fetch Wallet Amount
   final walletAmount = WalletDataModel().obs;
   final fetchWalletLoading = false.obs;
+  final walletAccount = ''.obs;
   Future<WalletDataModel> fetchWalletAmount() async {
     fetchWalletLoading(true);
     debugPrint("is loading wallet accounnt1");
@@ -272,8 +273,14 @@ class WalletController extends GetxController {
         .onNetworkRequesting(
             url: 'user/wallet', methode: METHODE.get, isAuthorize: true)
         .then((response) {
-      debugPrint("is loading wallet accounnt2");
+      debugPrint("is loading wallet accounnt2 :$response");
+      if (response == null) {
+        fetchWalletLoading(false);
+        walletAccount.value = '';
+      }
+
       var wallet = response['data'];
+      debugPrint("is loading wallet accounnt2 ::$wallet");
       walletAmount.value = WalletDataModel.fromJson(wallet);
       transferModel.value = transferModel.value.copyWith(
         phoneNumber: walletAmount.value.wallet!.accountNumber,

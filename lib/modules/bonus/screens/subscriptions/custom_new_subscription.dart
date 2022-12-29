@@ -90,8 +90,12 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                       top: 20.0,
                                     ),
                                     child: WalletTotalCard(
-                                      amount: _walletController.walletAmount
-                                          .value.wallet!.balanceFormat,
+                                      amount: _walletController
+                                                  .walletAccount.value ==
+                                              ""
+                                          ? '0.00 USD'
+                                          : _walletController.walletAmount.value
+                                              .wallet!.balanceFormat,
                                     ),
                                   ),
                                   Container(

@@ -180,8 +180,15 @@ class _WalletScreenState extends State<WalletScreen>
                                       : RichText(
                                           textAlign: TextAlign.center,
                                           text: TextSpan(
-                                            text: _walletController.walletAmount
-                                                .value.wallet!.balanceFormat,
+                                            text: _walletController
+                                                        .walletAccount.value ==
+                                                    ""
+                                                ? "0.00 USD"
+                                                : _walletController
+                                                    .walletAmount
+                                                    .value
+                                                    .wallet!
+                                                    .balanceFormat,
                                             style: textStyle.copyWith(
                                               fontSize: 25,
                                               color: Colors.white,
@@ -214,7 +221,11 @@ class _WalletScreenState extends State<WalletScreen>
                                             padding:
                                                 const EdgeInsets.only(left: 20),
                                             child: Text(
-                                              "${FormatDate.eventDateTime(datetime)}  |  ID ${_walletController.walletAmount.value.wallet!.accountNumber}",
+                                              _walletController.walletAmount
+                                                          .value.wallet !=
+                                                      null
+                                                  ? "${FormatDate.eventDateTime(datetime)}  |  ID ${_walletController.walletAmount.value.wallet?.accountNumber}"
+                                                  : "${FormatDate.eventDateTime(datetime)}",
                                               style: textStyle.copyWith(
                                                 fontSize: 14,
                                                 color: Colors.white70,
@@ -252,12 +263,16 @@ class _WalletScreenState extends State<WalletScreen>
                                             );
                                           });
                                         },
-                                        icon: SvgPicture.asset(
-                                          'assets/images/wallet/copy_fill.svg',
-                                          color: Colors.white,
-                                          width: 15,
-                                          height: 15,
-                                        ),
+                                        icon: _walletController.walletAmount
+                                                    .value.wallet !=
+                                                null
+                                            ? SvgPicture.asset(
+                                                'assets/images/wallet/copy_fill.svg',
+                                                color: Colors.white,
+                                                width: 15,
+                                                height: 15,
+                                              )
+                                            : const SizedBox(),
                                       ),
                                   ],
                                 ),
