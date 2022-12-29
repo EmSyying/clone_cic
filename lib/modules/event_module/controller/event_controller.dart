@@ -592,6 +592,7 @@ class EventController extends GetxController {
       }).then((response) async {
         if (response.statusCode == 200) {
           var responseJson = json.decode(response.body)['data'];
+          debugPrint("Event detail:$responseJson");
 
           eventDetail.value = EventData.fromJson(responseJson);
           // DynamicLinkService  not work so i command

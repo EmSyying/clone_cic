@@ -545,6 +545,25 @@ class _EventDetailState extends State<EventDetail> {
                                                       CustomEventInterested(
                                                         title: 'Going',
                                                         widget: GestureDetector(
+                                                            onTap: eventController
+                                                                        .eventDetail
+                                                                        .value
+                                                                        .isRegister ==
+                                                                    true
+                                                                ? null
+                                                                : () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              const Material(
+                                                                            child:
+                                                                                QrCodeScreen(
+                                                                              pageName: 'eventDetail',
+                                                                            ),
+                                                                          ),
+                                                                        ));
+                                                                  },
                                                             child: eventController
                                                                         .eventDetail
                                                                         .value
@@ -553,32 +572,23 @@ class _EventDetailState extends State<EventDetail> {
                                                                 ? SvgPicture
                                                                     .asset(
                                                                     'assets/images/svgfile/going.svg',
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .primaryColor,
+                                                                    color: eventController.eventDetail.value.isRegister ==
+                                                                            true
+                                                                        ? const Color(
+                                                                            0XFFDBDBDB)
+                                                                        : Theme.of(context)
+                                                                            .primaryColor,
                                                                   )
                                                                 : SvgPicture
                                                                     .asset(
                                                                     'assets/images/svgfile/going_fill.svg',
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                  ),
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            const Material(
-                                                                      child:
-                                                                          QrCodeScreen(
-                                                                        pageName:
-                                                                            'eventDetail',
-                                                                      ),
-                                                                    ),
-                                                                  ));
-                                                            }),
+                                                                    color: eventController.eventDetail.value.isRegister ==
+                                                                            true
+                                                                        ? const Color(
+                                                                            0XFFDBDBDB)
+                                                                        : Theme.of(context)
+                                                                            .primaryColor,
+                                                                  )),
                                                       ),
                                                       GetBuilder(
                                                         builder:

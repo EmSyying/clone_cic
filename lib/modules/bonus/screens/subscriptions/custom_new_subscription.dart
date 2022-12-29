@@ -73,7 +73,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
           child: Scaffold(
             body: Obx(
               () => subscribeCon.isUTScription.value &&
-                      priceController.isLoading.value
+                      priceController.isLoadingPrice.value
                   ? const CircularProgressIndicator()
                   : Column(
                       children: [

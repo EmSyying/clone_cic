@@ -330,7 +330,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                                     icon: const Icon(Icons.close_rounded),
                                     title: "Contract History",
                                     onTap: () {},
-                                    child: priceController.isLoading.value
+                                    child: priceController
+                                            .isLoadingContractHistory.value
                                         ? const Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 10, horizontal: 10),

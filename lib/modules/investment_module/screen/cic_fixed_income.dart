@@ -135,13 +135,14 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                               icon: const Icon(Icons.close_rounded),
                               title: "Contract History",
                               onTap: () {},
-                              child: priceController.isLoading.value
-                                  ? const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 10),
-                                      child: ShimmerContactHistory(),
-                                    )
-                                  : const FIFHistoryAppbar(),
+                              child:
+                                  priceController.isLoadingContractHistory.value
+                                      ? const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 10),
+                                          child: ShimmerContactHistory(),
+                                        )
+                                      : const FIFHistoryAppbar(),
                             );
                           },
                           child: SvgPicture.asset("assets/images/history.svg"),

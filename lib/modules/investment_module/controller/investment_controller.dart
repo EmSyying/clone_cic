@@ -52,7 +52,7 @@ class PriceController extends GetxController {
   final customCon = Get.put(CustomerController());
   final price = Price().obs;
   final isInvestLoading = false.obs;
-  final isLoading = false.obs;
+  // final isLoading = false.obs;
   final inInterestTab = true.obs;
   final tokenKey = ''.obs;
   final sharePrice = SharePriceData().obs;
@@ -162,8 +162,9 @@ class PriceController extends GetxController {
     annuallyInterestRate.value = "";
   }
 
+  final isLoadingPrice = false.obs;
   Future<Price> onFetchPrice() async {
-    isLoading(true);
+    isLoadingPrice(true);
 
     await apiBaseHelper
         .onNetworkRequesting(
@@ -174,17 +175,18 @@ class PriceController extends GetxController {
         .then((response) {
       var responseJson = response["data"];
       price.value = Price.fromJson(responseJson);
-      isLoading(false);
+      isLoadingPrice(false);
     }).onError((ErrorModel error, stackTrace) {
       FirebaseCrashlytics.instance
           .log("${error.bodyString.toString()} ${error.statusCode.toString()}");
-      isLoading(false);
+      isLoadingPrice(false);
     });
     return price.value;
   }
 
+  final isLoadingSharePrice = false.obs;
   Future<SharePriceData>? getSharePrice() async {
-    isLoading(true);
+    isLoadingSharePrice(true);
     tokenKey.value = await getCurrentLang();
     String url = '${FlavorConfig.instance.values!.apiBaseUrl}dashboard';
     try {
@@ -200,7 +202,7 @@ class PriceController extends GetxController {
         }
       });
     } finally {
-      isLoading(false);
+      isLoadingSharePrice(false);
     }
     return sharePrice.value;
   }
@@ -246,8 +248,9 @@ class PriceController extends GetxController {
     return tokenKey.value;
   }
 
+  final isSharePriceHistories = false.obs;
   Future<ShareSubcriptionHistoriesData> getShareSubHistories() async {
-    isLoading(true);
+    isSharePriceHistories(true);
     tokenKey.value = await getCurrentLang();
     String url =
         '${FlavorConfig.instance.values!.apiBaseUrl}investment-equity-fund';
@@ -272,7 +275,7 @@ class PriceController extends GetxController {
         }
       });
     } finally {
-      isLoading(false);
+      isSharePriceHistories(false);
     }
     return shareSubcriptionHistoriesData.value;
   }
