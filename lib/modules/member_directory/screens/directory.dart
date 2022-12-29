@@ -219,133 +219,144 @@ class _DirectoryState extends State<Directory> {
               ),
             ],
           ),
-          child: Obx(() => NotificationListener(
-                onNotification: (ScrollEndNotification notification) {
-                  if (notification.metrics.pixels ==
-                      notification.metrics.maxScrollExtent) {
-                    debugPrint('IS next ${memberController.next.value}');
-                    memberController.next.value ? onGetMoreData() : null;
-                    return true;
-                  }
-                  return false;
-                },
-                child: CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  controller: _scrollController,
-                  slivers: [
-                    SliverAppBar(
-                      elevation: 0,
-                      automaticallyImplyLeading: false,
-                      backgroundColor: AppColor.backgroundColor,
-                      expandedHeight: 80,
-                      floating: true,
-                      flexibleSpace: FlexibleSpaceBar(
-                        collapseMode: CollapseMode.none,
-                        stretchModes: const [StretchMode.zoomBackground],
-                        background: _showSearchFromDirectory(),
-                      ),
-                    ),
-                    SliverToBoxAdapter(
+          child: Obx(() => Column(
+                children: [
+                  Expanded(
+                    child: NotificationListener(
+                      onNotification: (ScrollEndNotification notification) {
+                        if (notification.metrics.pixels ==
+                            notification.metrics.maxScrollExtent) {
+                          debugPrint('IS next ${memberController.next.value}');
+                          memberController.next.value ? onGetMoreData() : null;
+                          return true;
+                        }
+                        return false;
+                      },
                       child: RefreshIndicator(
                         key: _refreshKey,
                         onRefresh: onRefreshFetchMember,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            memberController.fetchAllMemberLoading.value
-                                ? _showShimmer()
-                                : memberController.listAllMember.isEmpty
-                                    ? _showEmptyState()
-                                    : ListView(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        primary: true,
-                                        padding: EdgeInsets.only(
-                                            bottom: 20,
-                                            top:
-                                                widget.fromPage == 'tradeScreen'
-                                                    ? 0
-                                                    : 5),
-                                        children: memberController.listAllMember
-                                            .asMap()
-                                            .entries
-                                            .map(
-                                          (e) {
-                                            return Column(
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: widget.fromPage ==
+                        child: CustomScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          controller: _scrollController,
+                          slivers: [
+                            SliverAppBar(
+                              elevation: 0,
+                              automaticallyImplyLeading: false,
+                              backgroundColor: AppColor.backgroundColor,
+                              expandedHeight: 80,
+                              floating: true,
+                              flexibleSpace: FlexibleSpaceBar(
+                                collapseMode: CollapseMode.none,
+                                stretchModes: const [
+                                  StretchMode.zoomBackground
+                                ],
+                                background: _showSearchFromDirectory(),
+                              ),
+                            ),
+                            SliverToBoxAdapter(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  memberController.fetchAllMemberLoading.value
+                                      ? _showShimmer()
+                                      : memberController.listAllMember.isEmpty
+                                          ? _showEmptyState()
+                                          : ListView(
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              primary: true,
+                                              padding: EdgeInsets.only(
+                                                  bottom: 20,
+                                                  top: widget.fromPage ==
                                                           'tradeScreen'
-                                                      ? () {
-                                                          FirebaseAnalyticsHelper
-                                                              .sendAnalyticsEvent(
-                                                                  'Trading ${e.value.name!}');
+                                                      ? 0
+                                                      : 5),
+                                              children: memberController
+                                                  .listAllMember
+                                                  .asMap()
+                                                  .entries
+                                                  .map(
+                                                (e) {
+                                                  return Column(
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: widget
+                                                                    .fromPage ==
+                                                                'tradeScreen'
+                                                            ? () {
+                                                                FirebaseAnalyticsHelper
+                                                                    .sendAnalyticsEvent(
+                                                                        'Trading ${e.value.name!}');
 
-                                                          widget
-                                                              .onTap!(e.value);
-                                                          Navigator.pop(
-                                                              context);
+                                                                widget.onTap!(
+                                                                    e.value);
+                                                                Navigator.pop(
+                                                                    context);
 
-                                                          // print(item![index].name);
-                                                        }
-                                                      : () {
-                                                          FirebaseAnalyticsHelper
-                                                              .sendAnalyticsEvent(
-                                                                  'Directory Profile ${e.value.name!}');
+                                                                // print(item![index].name);
+                                                              }
+                                                            : () {
+                                                                FirebaseAnalyticsHelper
+                                                                    .sendAnalyticsEvent(
+                                                                        'Directory Profile ${e.value.name!}');
 
-                                                          // Navigator.push(
-                                                          //   context,
-                                                          //   MaterialPageRoute(
-                                                          //     builder: (context) =>
-                                                          //         NewPeronalProfile(
-                                                          //       isDirectory:
-                                                          //           true,
-                                                          //       id: e.value.id,
-                                                          //       imgUrl: e.value
-                                                          //           .photo,
-                                                          //     ),
-                                                          //   ),
-                                                          // );
-                                                          context.go(
-                                                              '/directory/${e.value.id}?isDirectory=true&imgUrl=${e.value.profile}');
-                                                        },
-                                                  child: Container(
-                                                    color: Colors.white,
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 15,
-                                                            bottom: 15),
-                                                    child: MemberCard(
-                                                      // isSelected: false,
-                                                      member: e.value,
-                                                    ),
-                                                  ),
-                                                ),
+                                                                // Navigator.push(
+                                                                //   context,
+                                                                //   MaterialPageRoute(
+                                                                //     builder: (context) =>
+                                                                //         NewPeronalProfile(
+                                                                //       isDirectory:
+                                                                //           true,
+                                                                //       id: e.value.id,
+                                                                //       imgUrl: e.value
+                                                                //           .photo,
+                                                                //     ),
+                                                                //   ),
+                                                                // );
+                                                                context.go(
+                                                                    '/directory/${e.value.id}?isDirectory=true&imgUrl=${e.value.profile}');
+                                                              },
+                                                        child: Container(
+                                                          color: Colors.white,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 15,
+                                                                  bottom: 15),
+                                                          child: MemberCard(
+                                                            // isSelected: false,
+                                                            member: e.value,
+                                                          ),
+                                                        ),
+                                                      ),
 
-                                                ///Divider
-                                                e.key !=
-                                                        memberController
-                                                                .listAllMember
-                                                                .length -
-                                                            1
-                                                    ? const Divider(
-                                                        height: 0,
-                                                        thickness: 1,
-                                                      )
-                                                    : const SizedBox()
-                                              ],
-                                            );
-                                          },
-                                        ).toList(),
-                                      ),
-                            showLoadingMore()
+                                                      ///Divider
+                                                      e.key !=
+                                                              memberController
+                                                                      .listAllMember
+                                                                      .length -
+                                                                  1
+                                                          ? const Divider(
+                                                              height: 0,
+                                                              thickness: 1,
+                                                            )
+                                                          : const SizedBox()
+                                                    ],
+                                                  );
+                                                },
+                                              ).toList(),
+                                            ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  _showLoadingMore()
+                ],
               )),
         ),
       ),
@@ -546,11 +557,11 @@ class _DirectoryState extends State<Directory> {
     );
   }
 
-  Widget showLoadingMore() {
+  Widget _showLoadingMore() {
     return memberController.fetchMoreMemberLoading.value
         ? Container(
-            margin:
-                const EdgeInsets.only(left: 0, right: 0, bottom: 10, top: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -559,14 +570,14 @@ class _DirectoryState extends State<Directory> {
                   'Loading more Data',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
-                const SizedBox(
-                  width: 10,
+                const SizedBox(width: 10),
+                const CupertinoActivityIndicator(
+                  animating: false,
                 ),
-                const CupertinoActivityIndicator(),
               ],
             ),
           )
-        : const SizedBox();
+        : const SizedBox.shrink();
   }
 
   Widget _showEmptyState() {

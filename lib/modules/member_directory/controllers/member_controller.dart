@@ -7,7 +7,6 @@ import 'package:cicgreenloan/modules/member_directory/controllers/customer_contr
 import 'package:cicgreenloan/Utils/helper/option_model/gender.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
 import 'package:cicgreenloan/modules/member_directory/models/eductation.dart';
-import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member_data.dart';
 import 'package:cicgreenloan/modules/member_directory/models/member_personal_profile.dart';
 import 'package:cicgreenloan/modules/member_directory/models/subscription.dart';

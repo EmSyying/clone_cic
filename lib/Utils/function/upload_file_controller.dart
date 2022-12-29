@@ -167,6 +167,7 @@ class UploadFileController extends GetxController {
             ? showMaterialModalBottomSheet(
                 backgroundColor: Colors.white,
                 context: context,
+                useRootNavigator: true,
                 builder: (context) {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.38,
