@@ -544,9 +544,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         appBar: CustomAppBar(
           onTap: () async {
             final url = await DynamicLinkService.createDynamicLink(
-                path:
-                    'wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription?fromPage=investment',
-                isShort: true);
+                path: 'event/1', isShort: true);
             debugPrint("Url: $url");
           },
           isLeading: true,
