@@ -332,8 +332,13 @@ class CustomRegisterForm extends StatefulWidget {
   final int? eventID;
   final GestureTapCallback? onTapSubmit;
   final BuildContext? contextRegisterTicket;
+  final String? fromPage;
   const CustomRegisterForm(
-      {Key? key, this.eventID, this.onTapSubmit, this.contextRegisterTicket})
+      {Key? key,
+      this.eventID,
+      this.onTapSubmit,
+      this.contextRegisterTicket,
+      this.fromPage})
       : super(key: key);
 
   @override
@@ -565,6 +570,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                             // }).toList();
                             registerMemberController.onRegisterWithGuest(
                               context: widget.contextRegisterTicket,
+                              fromPage: 'QRCodeScreen',
                               memberId:
                                   customerController.customer.value.customerId,
                               eventId:

@@ -984,7 +984,7 @@ final router = GoRouter(
                 GoRoute(
                   path: ':id',
                   name: 'EventDetail',
-                  builder: (context, state) => EventDetail(
+                  builde  : (context, state) => EventDetail(
                       eventId: int.tryParse(
                         state.params['id'].toString(),
                       ),

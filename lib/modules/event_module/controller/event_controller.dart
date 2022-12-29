@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/Utils/helper/custom_route_snackbar.dart';
+import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/modules/event_module/screen/event_check_in_ticket.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/notify_share_pop_up.dart';
@@ -645,6 +646,7 @@ class EventController extends GetxController {
   Future<void> onRegisterWithGuest(
       {int? memberId,
       int? eventId,
+      String? fromPage,
       // List<Map>? guest,
       BuildContext? context}) async {
     debugPrint("on register is work1");
@@ -697,16 +699,21 @@ class EventController extends GetxController {
             );
           });
 
-      fetchEventDetail(memberId!);
-      eventDetail.value.isRegister = true;
-      Navigator.pop(context!);
-      onClearGuest();
-      isLoadingRegisterWithGuest(false);
-      isLoadingGetRegister(false);
-      /////clear data on textfile
-      guestlistmodel.value = <GuestModel>[GuestModel()];
-      refresh();
-      update();
+      if (fromPage != null) {
+        router.pop();
+        router.go('/event/$memberId');
+      } else {
+        fetchEventDetail(memberId!);
+        eventDetail.value.isRegister = true;
+        Navigator.pop(context!);
+        onClearGuest();
+        isLoadingRegisterWithGuest(false);
+        isLoadingGetRegister(false);
+        /////clear data on textfile
+        guestlistmodel.value = <GuestModel>[GuestModel()];
+        refresh();
+        update();
+      }
     }).onError((ErrorModel error, stackTrace) {
       isLoadingRegisterWithGuest(false);
     });
@@ -800,6 +807,7 @@ class EventController extends GetxController {
                 icon: const Icon(Icons.clear),
                 child: CustomRegisterForm(
                   eventID: eventId,
+                  fromPage: 'QRCodeScreen',
                   contextRegisterTicket: context,
                 ),
               );
