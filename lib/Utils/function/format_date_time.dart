@@ -71,6 +71,14 @@ class FormatDate {
     return formatDate;
   }
 
+  static String investmentDateDisplayUTPrice(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+
+    String formatDate = DateFormat('dd MMMM yyyy', 'en_US').format(dateTime);
+
+    return formatDate;
+  }
+
   static String displayDayOnly(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
 

@@ -210,9 +210,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                       ),
                       // if (!priceController.isLoadingSharePrice.value)
                       SizedBox(
-                        height: !priceController.isLoadingSharePrice.value
-                            ? 242
-                            : 111,
+                        height: 242,
                         width: double.infinity,
                         child: SvgPicture.asset(
                           'assets/images/svgfile/Investment_backg.svg',
@@ -220,8 +218,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      if (priceController.allowFeaturebyTag.value &&
-                          !priceController.isLoadingSharePrice.value)
+                      if (priceController.allowFeaturebyTag.value)
                         Positioned(
                           top: 90,
                           left: 0,
@@ -257,8 +254,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           ),
                         ),
 
-                      priceController.allowFeaturebyTag.value &&
-                              !priceController.isLoadingSharePrice.value
+                      priceController.allowFeaturebyTag.value
                           ? Positioned(
                               top: 160.0,
                               left: 0.0,
