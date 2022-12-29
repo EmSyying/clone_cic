@@ -572,22 +572,16 @@ class _EventDetailState extends State<EventDetail> {
                                                                 ? SvgPicture
                                                                     .asset(
                                                                     'assets/images/svgfile/going.svg',
-                                                                    color: eventController.eventDetail.value.isRegister ==
-                                                                            true
-                                                                        ? const Color(
-                                                                            0XFFDBDBDB)
-                                                                        : Theme.of(context)
-                                                                            .primaryColor,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
                                                                   )
                                                                 : SvgPicture
                                                                     .asset(
                                                                     'assets/images/svgfile/going_fill.svg',
-                                                                    color: eventController.eventDetail.value.isRegister ==
-                                                                            true
-                                                                        ? const Color(
-                                                                            0XFFDBDBDB)
-                                                                        : Theme.of(context)
-                                                                            .primaryColor,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
                                                                   )),
                                                       ),
                                                       GetBuilder(
