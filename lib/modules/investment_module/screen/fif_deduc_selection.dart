@@ -254,7 +254,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
       isCancel: true,
       onDiscard: () {
         context.pop();
-        context.go('/get_funding');
+        context.go('/investment/CiCFixedFund');
 
         deducCon.clearDeducSelection();
       },
