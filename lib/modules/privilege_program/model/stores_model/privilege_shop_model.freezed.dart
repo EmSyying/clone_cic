@@ -64,8 +64,8 @@ mixin _$PrivilegeShopModel {
   String? get contactEmail => throw _privateConstructorUsedError;
   @JsonKey(name: 'telegram_link')
   String? get telegramLink => throw _privateConstructorUsedError;
-  String? get latitude => throw _privateConstructorUsedError;
-  String? get longitude => throw _privateConstructorUsedError;
+  num? get latitude => throw _privateConstructorUsedError;
+  num? get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'discount_period')
   int? get discountPeriod => throw _privateConstructorUsedError;
   @JsonKey(name: 'discount_condition')
@@ -139,8 +139,8 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
           String? contactEmail,
       @JsonKey(name: 'telegram_link')
           String? telegramLink,
-      String? latitude,
-      String? longitude,
+      num? latitude,
+      num? longitude,
       @JsonKey(name: 'discount_period')
           int? discountPeriod,
       @JsonKey(name: 'discount_condition')
@@ -308,11 +308,11 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as num?,
       longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as num?,
       discountPeriod: freezed == discountPeriod
           ? _value.discountPeriod
           : discountPeriod // ignore: cast_nullable_to_non_nullable
@@ -410,8 +410,8 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
           String? contactEmail,
       @JsonKey(name: 'telegram_link')
           String? telegramLink,
-      String? latitude,
-      String? longitude,
+      num? latitude,
+      num? longitude,
       @JsonKey(name: 'discount_period')
           int? discountPeriod,
       @JsonKey(name: 'discount_condition')
@@ -577,11 +577,11 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as num?,
       longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as num?,
       discountPeriod: freezed == discountPeriod
           ? _value.discountPeriod
           : discountPeriod // ignore: cast_nullable_to_non_nullable
@@ -775,9 +775,9 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   @JsonKey(name: 'telegram_link')
   final String? telegramLink;
   @override
-  final String? latitude;
+  final num? latitude;
   @override
-  final String? longitude;
+  final num? longitude;
   @override
   @JsonKey(name: 'discount_period')
   final int? discountPeriod;
@@ -1001,8 +1001,8 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
           final String? contactEmail,
       @JsonKey(name: 'telegram_link')
           final String? telegramLink,
-      final String? latitude,
-      final String? longitude,
+      final num? latitude,
+      final num? longitude,
       @JsonKey(name: 'discount_period')
           final int? discountPeriod,
       @JsonKey(name: 'discount_condition')
@@ -1091,9 +1091,9 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
   @JsonKey(name: 'telegram_link')
   String? get telegramLink;
   @override
-  String? get latitude;
+  num? get latitude;
   @override
-  String? get longitude;
+  num? get longitude;
   @override
   @JsonKey(name: 'discount_period')
   int? get discountPeriod;
