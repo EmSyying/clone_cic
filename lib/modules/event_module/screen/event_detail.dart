@@ -24,6 +24,7 @@ import 'package:cicgreenloan/widgets/events/invite_member_botton.dart';
 import 'package:cicgreenloan/widgets/events/registered_member_amout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -391,39 +392,48 @@ class _EventDetailState extends State<EventDetail> {
                                                         .value.isRegister ==
                                                     true)
                                                   GestureDetector(
-                                                    onTap: () async {
-                                                      // view ticket (updated by Chhany)
-                                                      await eventController
-                                                          .getRegisterWithGuest(
-                                                        widget.eventId,
-                                                      );
-
-                                                      onShowCustomCupertinoModalSheet(
-                                                        context:
-                                                            contextRegisterForm,
-                                                        icon: const Icon(
-                                                          Icons.close_rounded,
-                                                          color: Colors.white,
-                                                        ),
-                                                        isColorsAppBar:
-                                                            // ignore: use_build_context_synchronously
-                                                            Theme.of(context)
-                                                                .primaryColor,
-                                                        backgroundColor:
-                                                            // ignore: use_build_context_synchronously
-                                                            Theme.of(context)
-                                                                .primaryColor,
-                                                        title: "Your Ticket",
-                                                        titleColors: AppColor
-                                                                .arrowforwardColor[
-                                                            'dark'],
-                                                        child:
-                                                            const EventCheckInTicket(
-                                                          selectCheckIn:
-                                                              'view_ticket',
-                                                        ),
-                                                      );
-                                                    },
+                                                    onTap: eventController
+                                                                .isLoadingGetRegister
+                                                                .value ==
+                                                            true
+                                                        ? null
+                                                        : () async {
+                                                            // view ticket (updated by Chhany)
+                                                            await eventController
+                                                                .getRegisterWithGuest(
+                                                              widget.eventId,
+                                                            );
+                                                            onShowCustomCupertinoModalSheet(
+                                                              context:
+                                                                  contextRegisterForm,
+                                                              icon: const Icon(
+                                                                Icons
+                                                                    .close_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              isColorsAppBar:
+                                                                  // ignore: use_build_context_synchronously
+                                                                  Theme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                              backgroundColor:
+                                                                  // ignore: use_build_context_synchronously
+                                                                  Theme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                              title:
+                                                                  "Your Ticket",
+                                                              titleColors: AppColor
+                                                                      .arrowforwardColor[
+                                                                  'dark'],
+                                                              child:
+                                                                  const EventCheckInTicket(
+                                                                selectCheckIn:
+                                                                    'view_ticket',
+                                                              ),
+                                                            );
+                                                          },
                                                     child: Container(
                                                       width: 120,
                                                       padding: const EdgeInsets
@@ -438,35 +448,46 @@ class _EventDetailState extends State<EventDetail> {
                                                             .primaryColor
                                                             .withOpacity(0.1),
                                                       ),
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          SvgPicture.asset(
-                                                            'assets/images/svgfile/ticket_star.svg',
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text(
-                                                            'View Ticket',
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .headline3!
-                                                                .copyWith(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
+                                                      child: eventController
+                                                                  .isLoadingGetRegister
+                                                                  .value ==
+                                                              true
+                                                          ? SpinKitThreeBounce(
+                                                              size: 20,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                            )
+                                                          : Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                SvgPicture
+                                                                    .asset(
+                                                                  'assets/images/svgfile/ticket_star.svg',
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .primaryColor,
                                                                 ),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                                const SizedBox(
+                                                                  width: 10,
+                                                                ),
+                                                                Text(
+                                                                  'View Ticket',
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .headline3!
+                                                                      .copyWith(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                     ),
                                                   ),
                                                 const SizedBox(
@@ -957,8 +978,8 @@ class _EventDetailState extends State<EventDetail> {
                                                 ),
                                               );
                                             },
-                                            isDisable: false,
-                                            isOutline: false,
+                                            isDisable: true,
+                                            isOutline: true,
                                           ),
                                         ),
                                       if (eventController.eventDetail.value
