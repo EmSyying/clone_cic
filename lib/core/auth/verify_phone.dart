@@ -7,6 +7,7 @@ import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -44,6 +45,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
       isloading = true;
     });
     String url = '${FlavorConfig.instance.values!.mainApiUrl}verify-otp';
+    debugPrint("Widget Phone number: ${widget.phoneNumber}");
 
     try {
       await http.post(Uri.parse(url), headers: {
@@ -58,14 +60,8 @@ class _VerifyPhoneState extends State<VerifyPhone> {
 
           _customerController.isLoginSuccess(true);
           LocalData.userLogin('userLogin', true);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChangePassword(
-                isForgetPassword: false,
-              ),
-            ),
-          );
+          context
+              .go('/login/verify-phone/changepassword?isForgetPassword=false');
           // Navigator.pushReplacement(
           //   context,
           //   MaterialPageRoute(

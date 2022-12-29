@@ -122,7 +122,8 @@ class _ChangePasswordState extends State<ChangePassword> {
             // ignore: use_build_context_synchronously
             ? context.go('/')
             // ignore: use_build_context_synchronously
-            : context.go('/setpincode?status=set');
+            : context
+                .go('/login/verify-phone/changepassword/setpincode?status=set');
       } else {
         openSnackBar('Password is not match');
         setState(() {

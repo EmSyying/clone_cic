@@ -1182,6 +1182,33 @@ final router = GoRouter(
                         ),
                       ]),
                 ]),
+            GoRoute(
+                path: 'verify-phone',
+                name: 'VerifyPhoneNewUser',
+                builder: (context, state) => VerifyPhone(
+                      phoneNumber: state.queryParams['phone'],
+                    ),
+                routes: [
+                  GoRoute(
+                      path: 'changepassword',
+                      builder: (_, state) => ChangePassword(
+                            phone: state.queryParams['phone'],
+                            isForgetPassword: state
+                                    .queryParams['isForgetPassword']!
+                                    .toLowerCase() ==
+                                'true',
+                          ),
+                      routes: [
+                        GoRoute(
+                          path: 'setpincode',
+                          builder: (context, state) {
+                            return SetPinCode(
+                              status: state.queryParams['status'],
+                            );
+                          },
+                        ),
+                      ]),
+                ]),
           ]),
 
       GoRoute(

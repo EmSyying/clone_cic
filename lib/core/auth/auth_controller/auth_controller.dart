@@ -59,15 +59,7 @@ class AuthController extends GetxController {
             //         builder: (context) => const LoginWithPassWord()));
           } else {
             context.go(
-                '/verify-phone?phoneNumber=%2B${_phoneSubmit().replaceAll('+', '')}');
-            // Navigator.push<bool>(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => VerifyPhone(
-            //       phoneNumber: _phoneSubmit(),
-            //     ),
-            //   ),
-            // );
+                '/login/verify-phone?phone=%2B${_phoneSubmit().replaceAll('+', '')}');
           }
         } else {
           customRouterSnackbar(
