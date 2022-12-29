@@ -944,7 +944,7 @@ class _EventDetailState extends State<EventDetail> {
                                           eventController.getRegisterModel.value
                                                   .guest!.length !=
                                               eventController.eventDetail.value
-                                                  .limitInvite)
+                                                  .remainingRegistration)
                                         // if (eventController
                                         //         .eventDetail.value.isRegister ==
                                         //     true)
@@ -973,7 +973,7 @@ class _EventDetailState extends State<EventDetail> {
                                           eventController.getRegisterModel.value
                                                   .guest!.length !=
                                               eventController.eventDetail.value
-                                                  .limitInvite)
+                                                  .remainingRegistration)
                                         const SizedBox(
                                           width: 15,
                                         ),

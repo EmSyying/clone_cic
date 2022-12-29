@@ -449,8 +449,10 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                           registerMemberController
                                               .guestlistmodel.last &&
                                       e.key !=
-                                          registerMemberController.eventDetail
-                                                  .value.limitInvite! -
+                                          registerMemberController
+                                                  .eventDetail
+                                                  .value
+                                                  .remainingRegistration! -
                                               1)
                                     GestureDetector(
                                       onTap: e.value.participantName == '' ||
@@ -516,8 +518,8 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                       ),
                                     ),
                                   if (e.key ==
-                                      registerMemberController
-                                          .eventDetail.value.limitInvite)
+                                      registerMemberController.eventDetail.value
+                                          .remainingRegistration)
                                     const SizedBox(
                                       height: 30,
                                     ),

@@ -2,7 +2,7 @@ class EventData {
   int? id;
   String? title;
   String? eventBy;
-  int? limitInvite;
+  int? remainingRegistration;
   String? startDate;
   String? endDate;
   String? date;
@@ -34,7 +34,7 @@ class EventData {
       {this.id,
       this.title,
       this.eventBy,
-      this.limitInvite,
+      this.remainingRegistration,
       this.startDate,
       this.endDate,
       this.date,
@@ -66,7 +66,7 @@ class EventData {
     id = json['id'];
     title = json['title'] ?? '';
     eventBy = json['event_by'];
-    limitInvite = json['limit_invite'];
+    remainingRegistration = json['remaining_registration'];
     startDate = json['start_date'] ?? '';
     endDate = json['end_date'] ?? '';
     date = json['date'] ?? '';
@@ -100,7 +100,7 @@ class EventData {
     data['id'] = id;
     data['title'] = title;
     data['event_by'] = eventBy;
-    data['limit_invite'] = limitInvite;
+    data['remaining_registration'] = remainingRegistration;
     data['start_date'] = startDate;
     data['end_date'] = endDate;
     data['date'] = date;

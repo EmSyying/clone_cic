@@ -39,7 +39,7 @@ class _PastEventState extends State<PastEvent> {
                             _eventController.isLoadingPast.value == false
                         ? const EmptyStateProfile(
                             isEditable: false,
-                            title: 'No Events Yet',
+                            title: 'No Events Yetff',
                             caption: '',
                             iconUrl: 'assets/images/emptyState.png',
                           )
