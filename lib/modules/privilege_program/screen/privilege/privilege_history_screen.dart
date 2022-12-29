@@ -56,8 +56,8 @@ class PrivilegeHistory extends StatelessWidget {
                   )
                 : const CustomEmptyState(
                     colors: true,
-                    title: 'Histories',
-                    description: 'No Histories !',
+                    title: 'No History',
+                    description: '',
                   ),
       ),
     );
