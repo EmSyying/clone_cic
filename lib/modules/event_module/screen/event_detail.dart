@@ -573,35 +573,22 @@ class _EventDetailState extends State<EventDetail> {
                                                                     true
                                                                 ? null
                                                                 : () {
-                                                                    settingCon
-                                                                            .isHideBottomNavigation =
-                                                                        true;
-                                                                    settingCon
-                                                                        .update();
-                                                                    showMaterialModalBottomSheet(
-                                                                        context:
-                                                                            context,
-                                                                        enableDrag:
-                                                                            false,
-                                                                        builder:
-                                                                            (context) {
-                                                                          return SingleChildScrollView(
-                                                                            physics:
-                                                                                const NeverScrollableScrollPhysics(),
-                                                                            child:
-                                                                                Column(
-                                                                              children: [
-                                                                                Container(
-                                                                                  height: MediaQuery.of(context).size.height,
-                                                                                  color: Colors.white,
-                                                                                  child: const QrCodeScreen(
-                                                                                    pageName: 'eventDetail',
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          );
-                                                                        });
+                                                                    onShowCustomCupertinoModalSheet(
+                                                                      context:
+                                                                          contextRegisterForm,
+                                                                      title:
+                                                                          'Register',
+                                                                      icon: const Icon(
+                                                                          Icons
+                                                                              .clear),
+                                                                      child:
+                                                                          CustomRegisterForm(
+                                                                        eventID:
+                                                                            widget.eventId,
+                                                                        contextRegisterTicket:
+                                                                            contextRegisterForm,
+                                                                      ),
+                                                                    );
                                                                   },
                                                             child: eventController
                                                                         .eventDetail
@@ -623,62 +610,55 @@ class _EventDetailState extends State<EventDetail> {
                                                                         .primaryColor,
                                                                   )),
                                                       ),
-                                                      GetBuilder(
-                                                        builder:
-                                                            (EventController
-                                                                controller) {
-                                                          return CustomEventInterested(
-                                                            title:
-                                                                'Not Interested',
-                                                            widget:
-                                                                GestureDetector(
-                                                                    child: !controller
-                                                                            .eventDetail
-                                                                            .value
-                                                                            .isUnterest!
-                                                                        ? SvgPicture
-                                                                            .asset(
-                                                                            'assets/images/svgfile/not_interest.svg',
-                                                                            color:
-                                                                                Theme.of(context).primaryColor,
-                                                                          )
-                                                                        : SvgPicture
-                                                                            .asset(
-                                                                            'assets/images/svgfile/not_interest_fill.svg',
-                                                                            color:
-                                                                                Theme.of(context).primaryColor,
-                                                                          ),
-                                                                    onTap:
-                                                                        () async {
-                                                                      controller
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 10),
+                                                        child: GetBuilder(
+                                                          builder:
+                                                              (EventController
+                                                                  controller) {
+                                                            return CustomEventInterested(
+                                                              title: 'Ignore',
+                                                              widget:
+                                                                  GestureDetector(
+                                                                      child: !controller
                                                                               .eventDetail
                                                                               .value
-                                                                              .isUnterest =
-                                                                          !controller
-                                                                              .eventDetail
-                                                                              .value
-                                                                              .isUnterest!;
-                                                                      if (controller
-                                                                              .eventDetail
-                                                                              .value
-                                                                              .isInterested ==
-                                                                          true) {
+                                                                              .isUnterest!
+                                                                          ? SvgPicture
+                                                                              .asset(
+                                                                              'assets/images/svgfile/not_interest.svg',
+                                                                              color: Theme.of(context).primaryColor,
+                                                                            )
+                                                                          : SvgPicture
+                                                                              .asset(
+                                                                              'assets/images/svgfile/not_interest_fill.svg',
+                                                                              color: Theme.of(context).primaryColor,
+                                                                            ),
+                                                                      onTap:
+                                                                          () async {
                                                                         controller
                                                                             .eventDetail
                                                                             .value
-                                                                            .isInterested = false;
-                                                                      }
-
-                                                                      await controller.onUninterested(
-                                                                          context:
-                                                                              context,
-                                                                          eventid: controller
+                                                                            .isUnterest = !controller.eventDetail.value.isUnterest!;
+                                                                        if (controller.eventDetail.value.isInterested ==
+                                                                            true) {
+                                                                          controller
                                                                               .eventDetail
                                                                               .value
-                                                                              .id);
-                                                                    }),
-                                                          );
-                                                        },
+                                                                              .isInterested = false;
+                                                                        }
+
+                                                                        await controller.onUninterested(
+                                                                            context:
+                                                                                context,
+                                                                            eventid:
+                                                                                controller.eventDetail.value.id);
+                                                                      }),
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ],
                                                   ),

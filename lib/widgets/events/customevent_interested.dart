@@ -11,8 +11,8 @@ class CustomEventInterested extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 46.0,
-          width: 46.0,
+          height: 40.0,
+          width: 40.0,
           margin: const EdgeInsets.only(bottom: 10.0, top: 10.0),
           decoration: BoxDecoration(
               color: Theme.of(context).primaryColor.withAlpha(90),
@@ -20,7 +20,7 @@ class CustomEventInterested extends StatelessWidget {
           alignment: Alignment.center,
           child: widget!,
         ),
-        Text(title!, style: Theme.of(context).textTheme.subtitle2)
+        Text(title!, style: Theme.of(context).textTheme.bodyText1)
       ],
     );
   }

@@ -370,6 +370,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                     CustomTextFieldNew(
                       // key: fullNameKey,
                       isValidate: isValidatefullName,
+                      enable: false,
                       hintText: "Full Name",
                       labelText: "Full Name",
                       isRequired: true,
