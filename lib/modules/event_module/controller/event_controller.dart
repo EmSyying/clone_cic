@@ -122,6 +122,7 @@ class EventController extends GetxController {
         .onNetworkRequesting(
             methode: METHODE.get, isAuthorize: true, url: 'event/calendar')
         .then((response) {
+      debugPrint("Event Calendar: 2023");
       var responseJson = response['data'];
       debugPrint("Event Calendar:$responseJson");
       eventCalendarList.clear();

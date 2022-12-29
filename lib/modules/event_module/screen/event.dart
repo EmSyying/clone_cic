@@ -134,7 +134,7 @@ class _EventScreenState extends State<EventScreen> {
 
     _eventController.eventCalendarList.asMap().entries.map((event) {
       debugPrint("Event working calendar i 1");
-      Future.delayed(const Duration(milliseconds: 600), () {
+      Future.delayed(const Duration(milliseconds: 650), () {
         Scrollable.ensureVisible(
           event.value.month![event.key].key!.currentContext!,
           alignment: 0.5,
@@ -210,8 +210,7 @@ class _EventScreenState extends State<EventScreen> {
                                               right: 19.0),
                                           child: Text(
                                             year.value.year.toString(),
-                                            key: year.value.month![year.key]
-                                                .key = GlobalKey(),
+                                            key: GlobalKey(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2!
