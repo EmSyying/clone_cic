@@ -21,12 +21,14 @@ onShowCustomCupertinoModalSheet({
   bool? isBackgroundColor = false,
   Color? backgroundColor,
   Color? isColorsAppBar,
+  bool? isUseRootNavigation = false,
   Color? titleColors,
   Color? backGroundColor,
 }) {
   return CupertinoScaffold.showCupertinoModalBottomSheet(
       backgroundColor: backgroundColor ?? Colors.transparent,
       context: context!,
+      useRootNavigator: isUseRootNavigation!,
       enableDrag: false,
       builder: (context) => StatefulBuilder(builder: (context, setMyState) {
             return DefaultSizeWeb(

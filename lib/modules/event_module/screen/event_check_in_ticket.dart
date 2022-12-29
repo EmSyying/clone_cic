@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -25,10 +26,12 @@ import '../models/card_guests_model.dart';
 class EventCheckInTicket extends StatelessWidget {
   final String? selectCheckIn;
   final BuildContext? contextTicket;
+  final GestureTapCallback? onTapDone;
   const EventCheckInTicket({
     Key? key,
     this.selectCheckIn = '',
     this.contextTicket,
+    this.onTapDone,
   }) : super(key: key);
   static GlobalKey printScreenKey = GlobalKey();
 
@@ -248,7 +251,9 @@ class EventCheckInTicket extends StatelessWidget {
                           colorText: Theme.of(context).primaryColor,
                           onPressed: selectCheckIn == 'view_ticket'
                               ? () {
-                                  Navigator.pop(context);
+                                  onTapDone != null
+                                      ? onTapDone!()
+                                      : context.pop();
                                 }
                               : () {
                                   Navigator.pop(context);

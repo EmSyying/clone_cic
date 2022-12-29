@@ -15,6 +15,7 @@ import 'package:cicgreenloan/modules/event_module/models/registered_member.dart'
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/option_controller/option_controller.dart';
@@ -742,26 +743,30 @@ class EventController extends GetxController {
       getRegisterModel.value.guest!.map((e) {
         getListGest.add(e);
       }).toList();
-      customRouterSnackbar(
-          description: "Successfully Check in.",
-          onTap: () {
-            onShowCustomCupertinoModalSheet(
-              context: context,
-              icon: const Icon(
-                Icons.close_rounded,
-                color: Colors.white,
-              ),
-              isColorsAppBar: Theme.of(context!).primaryColor,
-              backgroundColor: Theme.of(context).primaryColor,
-              title: "Your Ticket",
-              titleColors: AppColor.arrowforwardColor['dark'],
-              child:
-                  // const EventSubmitDoneScreen()
-                  const EventCheckInTicket(
-                selectCheckIn: 'view_ticket',
-              ),
-            );
-          });
+      onShowCustomCupertinoModalSheet(
+        context: context,
+        isUseRootNavigation: true,
+        // useRootNavigator: true,
+
+        icon: const Icon(
+          Icons.close_rounded,
+          color: Colors.white,
+        ),
+        isColorsAppBar: Theme.of(context!).primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
+        title: "Your Ticket",
+        titleColors: AppColor.arrowforwardColor['dark'],
+        child:
+            // const EventSubmitDoneScreen()
+            EventCheckInTicket(
+          selectCheckIn: 'view_ticket',
+          onTapDone: () {
+            context.pop();
+            context.go('/');
+          },
+        ),
+      );
+
       isLoadingCheckIn(false);
     }).onError((ErrorModel error, stackTrace) {
       if (error.statusCode == 422) {
