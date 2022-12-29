@@ -39,7 +39,8 @@ class _AllTransactionState extends State<AllTransaction> {
               padding: EdgeInsets.only(top: 15.0),
               child: Center(child: ShimmerCardBonus()),
             )
-          : 1 == 2
+          : _bonusCon.pendingtransactionList.isEmpty &&
+                  _walletController.allTransaction.isEmpty
               ? const SingleChildScrollView(
                   child: CustomEmptyState(),
                 )
@@ -55,17 +56,13 @@ class _AllTransactionState extends State<AllTransaction> {
                                 children: [
                                   if (_bonusCon
                                       .pendingtransactionList.isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 20.0, right: 20.0),
-                                      child: CustomTransactionCard(
-                                        hisStoryList:
-                                            _bonusCon.pendingtransactionList,
-                                        title: "Pending Transactions",
-                                        isTitle: true,
-                                        isStatus: true,
-                                        isPendingtransaction: true,
-                                      ),
+                                    CustomTransactionCard(
+                                      hisStoryList:
+                                          _bonusCon.pendingtransactionList,
+                                      title: "Pending Transactions",
+                                      isTitle: true,
+                                      isStatus: true,
+                                      isPendingtransaction: true,
                                     )
                                 ],
                               )

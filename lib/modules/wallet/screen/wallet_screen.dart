@@ -100,7 +100,7 @@ class _WalletScreenState extends State<WalletScreen>
             isLogo: false,
             isLeading: true,
             context: context,
-            title: "MM Account",
+            title: "Wallet",
             action: [
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),

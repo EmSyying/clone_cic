@@ -207,8 +207,11 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                         height: double.infinity,
                         width: double.infinity,
                       ),
+                      // if (!priceController.isLoadingSharePrice.value)
                       SizedBox(
-                        height: 242,
+                        height: !priceController.isLoadingSharePrice.value
+                            ? 242
+                            : 111,
                         width: double.infinity,
                         child: SvgPicture.asset(
                           'assets/images/svgfile/Investment_backg.svg',
