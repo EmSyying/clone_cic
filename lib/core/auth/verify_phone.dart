@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cicgreenloan/core/auth/verify_set_password.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
-import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/change_password.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +25,17 @@ class VerifyPhone extends StatefulWidget {
   State<VerifyPhone> createState() => _VerifyPhoneState();
 }
 
-class _VerifyPhoneState extends State<VerifyPhone> {
+class _VerifyPhoneState extends State<VerifyPhone>
+    with TickerProviderStateMixin {
   String _otpCode = '1243';
   final _customerController = Get.put(CustomerController());
   bool isloading = false;
+  AnimationController? controller;
+
+  String get timerString {
+    Duration duration = controller!.duration! * controller!.value;
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
 
   getAppSign() async {
     SmsAutoFill().listenForCode;
@@ -98,6 +105,38 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                   'assets/images/Logo/cic.png',
                   width: 100.0,
                 ),
+                AnimatedBuilder(
+                    animation: controller!,
+                    builder: (context, child) {
+                      return controller!.isAnimating
+                          ? Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 150.0, right: 150.0, top: 20.0),
+                              child: Align(
+                                alignment: FractionalOffset.center,
+                                child: AspectRatio(
+                                  aspectRatio: 1.0,
+                                  child: CustomPaint(
+                                    painter: CustomTimerPainter(
+                                      animation: controller,
+                                      backgroundColor: Colors.white,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        timerString,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : const SizedBox.shrink();
+                    }),
                 Text(
                   'Verify Phone Number',
                   style: TextStyle(
