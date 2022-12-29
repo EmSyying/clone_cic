@@ -180,9 +180,9 @@ class _WalletScreenState extends State<WalletScreen>
                                       : RichText(
                                           textAlign: TextAlign.center,
                                           text: TextSpan(
-                                            text: _walletController
-                                                        .walletAccount.value ==
-                                                    ""
+                                            text: _walletController.walletAmount
+                                                        .value.wallet ==
+                                                    null
                                                 ? "0.00 USD"
                                                 : _walletController
                                                     .walletAmount
