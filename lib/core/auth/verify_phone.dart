@@ -296,8 +296,20 @@ class _VerifyPhoneState extends State<VerifyPhone>
   void initState() {
     storeUserToken();
     getAppSign();
-    // _getSignatureCode();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 60),
+    );
+    controller!.reverse(from: controller!.value = 1.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (controller != null) {
+      controller!.dispose();
+    }
+    super.dispose();
   }
 
   Future<void> storeUserToken() async {

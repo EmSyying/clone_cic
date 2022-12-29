@@ -134,7 +134,7 @@ class _EventScreenState extends State<EventScreen> {
 
     _eventController.eventCalendarList.asMap().entries.map((event) {
       debugPrint("Event working calendar i 1");
-      Future.delayed(const Duration(milliseconds: 650), () {
+      Future.delayed(const Duration(milliseconds: 700), () {
         Scrollable.ensureVisible(
           event.value.month![event.key].key!.currentContext!,
           alignment: 0.5,
