@@ -598,6 +598,7 @@ class EventController extends GetxController {
           debugPrint("Event detail:$responseJson");
 
           eventDetail.value = EventData.fromJson(responseJson);
+          debugPrint("Response Data: ${eventDetail.value.isRegister}");
           // DynamicLinkService  not work so i command
           Uri uri = await DynamicLinkService.createDynamicLink(
               path: 'event/${eventDetail.value.id}',
@@ -678,34 +679,31 @@ class EventController extends GetxController {
         getListGest.add(e);
       }).toList();
 
-      customRouterSnackbar(
-          description: "Successfully registered",
-          onTap: () {
-            onShowCustomCupertinoModalSheet(
-              context: context,
-              icon: const Icon(
-                Icons.close_rounded,
-                color: Colors.white,
-              ),
-              isColorsAppBar: Theme.of(context!).primaryColor,
-              backgroundColor: Theme.of(context).primaryColor,
-              title: "Your Ticket",
-              titleColors: AppColor.arrowforwardColor['dark'],
-              child:
-                  // const EventSubmitDoneScreen()
-                  const EventCheckInTicket(
-                selectCheckIn: 'view_ticket',
-              ),
-            );
-          });
-
       if (fromPage != null) {
         router.pop();
-        router.go('/event/$memberId');
+        router.go('/event/$eventId');
+        refresh();
+        update();
       } else {
-        fetchEventDetail(memberId!);
         eventDetail.value.isRegister = true;
         Navigator.pop(context!);
+        onShowCustomCupertinoModalSheet(
+          isUseRootNavigation: true,
+          context: context,
+          icon: const Icon(
+            Icons.close_rounded,
+            color: Colors.white,
+          ),
+          isColorsAppBar: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
+          title: "Your Ticket",
+          titleColors: AppColor.arrowforwardColor['dark'],
+          child:
+              // const EventSubmitDoneScreen()
+              const EventCheckInTicket(
+            selectCheckIn: 'view_ticket',
+          ),
+        );
         onClearGuest();
         isLoadingRegisterWithGuest(false);
         isLoadingGetRegister(false);
@@ -780,10 +778,9 @@ class EventController extends GetxController {
         var isAvailableZone = error.bodyString['errors']['origin'];
 
         var registerStatus = error.bodyString['errors']['member_id'];
-        debugPrint("Error body event checkin1:${error.bodyString}");
-
+        var isAvailableEvent = error.bodyString['errors']['event_id'];
         var availableEvent = error.bodyString['errors']['event_id'];
-        debugPrint("Error body event checkin 1");
+
         if (isAvailableZone != null) {
           showNotifyPopUp(
             context: context,

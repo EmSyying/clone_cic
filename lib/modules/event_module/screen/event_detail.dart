@@ -404,6 +404,8 @@ class _EventDetailState extends State<EventDetail> {
                                                               widget.eventId,
                                                             );
                                                             onShowCustomCupertinoModalSheet(
+                                                              isUseRootNavigation:
+                                                                  true,
                                                               context:
                                                                   contextRegisterForm,
                                                               icon: const Icon(
@@ -1072,7 +1074,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                                 null) {
                                                                               onShowCustomCupertinoModalSheet(
                                                                                 context: context,
-                                                                                title: 'Your Ticketss',
+                                                                                title: 'Your Ticket',
                                                                                 icon: const Icon(Icons.clear),
                                                                                 child: SizedBox(
                                                                                   width: double.infinity,

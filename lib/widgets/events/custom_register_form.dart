@@ -568,9 +568,10 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                             //     "relationship": e.relationshipId
                             //   });
                             // }).toList();
+
                             registerMemberController.onRegisterWithGuest(
                               context: widget.contextRegisterTicket,
-                              fromPage: 'QRCodeScreen',
+                              fromPage: widget.fromPage,
                               memberId:
                                   customerController.customer.value.customerId,
                               eventId:

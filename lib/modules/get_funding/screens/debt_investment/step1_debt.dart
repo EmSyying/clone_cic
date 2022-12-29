@@ -241,9 +241,10 @@ class _Step1DebtState extends State<Step1Debt> {
           InjectionHelper.debtInvestmentController.fullName.value =
               InjectionHelper.customerController.customer.value.fullName!;
         }
-        if (customer.customerDateOfBirth != '') {
+        if (customer.customerDateOfBirth != '' ||
+            customer.customerDateOfBirth != null) {
           InjectionHelper.debtInvestmentController.dateOfBirth.value =
-              customer.customerDateOfBirth!;
+              customer.customerDateOfBirth ?? "";
         }
         if (customer.customerGender!.display! != '') {
           InjectionHelper.debtInvestmentController.gender.value = Optionmodel(

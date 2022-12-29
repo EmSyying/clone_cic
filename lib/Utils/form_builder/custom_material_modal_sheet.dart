@@ -21,7 +21,7 @@ onShowCustomCupertinoModalSheet({
   bool? isBackgroundColor = false,
   Color? backgroundColor,
   Color? isColorsAppBar,
-  bool? isUseRootNavigation = false,
+  bool? isUseRootNavigation = true,
   Color? titleColors,
   Color? backGroundColor,
 }) {
