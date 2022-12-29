@@ -701,6 +701,7 @@ class EventController extends GetxController {
       Navigator.pop(context!);
       onClearGuest();
       isLoadingRegisterWithGuest(false);
+      isLoadingGetRegister(false);
       /////clear data on textfile
       guestlistmodel.value = <GuestModel>[GuestModel()];
       refresh();

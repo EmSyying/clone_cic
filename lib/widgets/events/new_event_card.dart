@@ -109,7 +109,7 @@ class NewEventCard extends StatelessWidget {
                               child: Text(
                                 eventData!.hostAt == "online"
                                     ? eventData!.hostAt.toString()
-                                    : eventData!.location!,
+                                    : eventData!.place!,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),

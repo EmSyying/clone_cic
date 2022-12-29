@@ -976,8 +976,8 @@ class _EventDetailState extends State<EventDetail> {
                                                 ),
                                               );
                                             },
-                                            isDisable: true,
-                                            isOutline: true,
+                                            isDisable: false,
+                                            isOutline: false,
                                           ),
                                         ),
                                       if (eventController.eventDetail.value

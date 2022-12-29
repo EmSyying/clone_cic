@@ -149,8 +149,8 @@ class EventCheckInTicket extends StatelessWidget {
                                       ),
                                       CustomTitleEventCheckIn(
                                         title: 'Location',
-                                        descript: contro
-                                            .getRegisterModel.value.location,
+                                        descript:
+                                            contro.getRegisterModel.value.place,
                                       ),
                                     ],
                                   ),
