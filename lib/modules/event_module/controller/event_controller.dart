@@ -656,10 +656,6 @@ class EventController extends GetxController {
       // List<Map>? guest,
       BuildContext? context}) async {
     debugPrint("on register is work1");
-    int? reletionShipId;
-    relationShipList.asMap().entries.map((reletionShip) {
-      reletionShipId = reletionShip.value.id;
-    }).toList();
 
     isLoadingRegisterWithGuest(true);
     await apiBaseHelper.onNetworkRequesting(
@@ -673,7 +669,7 @@ class EventController extends GetxController {
           return {
             "phone_number": e.phone,
             "participant_name": e.participantName,
-            "relationship": reletionShipId!
+            "relationship": reletionShipId.value
           };
         }).toList()
       },
@@ -915,6 +911,7 @@ class EventController extends GetxController {
   // Get Relationn Ship
   final relationShipList = <DocumentType>[].obs;
   final isRelationShhip = false.obs;
+  final reletionShipId = 0.obs;
   Future<List<DocumentType>> onFetchRelationShip() async {
     debugPrint("default_relationship:1");
     isRelationShhip(true);
@@ -929,6 +926,10 @@ class EventController extends GetxController {
 
         responseJson.map((relationShip) {
           relationShipList.add(DocumentType.fromJson(relationShip));
+        }).toList();
+        relationShipList.asMap().entries.map((e) {
+          reletionShipId.value = e.value.id!;
+          addNewOtherRelationShip.text = e.value.display!;
         }).toList();
 
         isRelationShhip(false);
