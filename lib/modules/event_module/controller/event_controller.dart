@@ -147,7 +147,8 @@ class EventController extends GetxController {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past&event_date=${eventDate.value}';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past';
+    // '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past&event_date=${eventDate.value}';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -172,8 +173,9 @@ class EventController extends GetxController {
     return pastDataList;
   }
 
-  onRefreshUpCommingEvent() async {
-    getNewEvent(customerController.customer.value.customerId!);
+  onRefreshUpCommingEvent({bool? enableDate}) async {
+    getNewEvent(customerController.customer.value.customerId!,
+        enableDate: enableDate);
     getFeatureEvent(customerController.customer.value.customerId!);
   }
 
@@ -183,14 +185,16 @@ class EventController extends GetxController {
 
   final eventDate = ''.obs;
 
-  Future<List<EventData>> getNewEvent(int memberId) async {
+  Future<List<EventData>> getNewEvent(int memberId, {bool? enableDate}) async {
     // debugPrint("is working new event");
     isLoadingNew(true);
 
     tokenKey = await LocalData.getCurrentUser();
+    String posted = enableDate != null && enableDate ? '' : 'upcoming';
+    String date = enableDate == null || enableDate ? eventDate.value : '';
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?posted=upcoming&type=new&event_date=${eventDate.value}';
+        '${FlavorConfig.instance.values!.apiBaseUrlV3}event?posted=$posted&type=new&event_date=$date';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',

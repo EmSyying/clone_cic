@@ -26,6 +26,10 @@ mixin _$AllGuideLine {
   List<GuideModel>? get directory => throw _privateConstructorUsedError;
   @JsonKey(name: "investment")
   List<GuideModel>? get investment => throw _privateConstructorUsedError;
+  @JsonKey(name: "report")
+  List<GuideModel>? get report => throw _privateConstructorUsedError;
+  @JsonKey(name: "ut_trading")
+  List<GuideModel>? get trading => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +46,9 @@ abstract class $AllGuideLineCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "bonus") List<GuideModel>? bonus,
       @JsonKey(name: "directory") List<GuideModel>? directory,
-      @JsonKey(name: "investment") List<GuideModel>? investment});
+      @JsonKey(name: "investment") List<GuideModel>? investment,
+      @JsonKey(name: "report") List<GuideModel>? report,
+      @JsonKey(name: "ut_trading") List<GuideModel>? trading});
 }
 
 /// @nodoc
@@ -61,6 +67,8 @@ class _$AllGuideLineCopyWithImpl<$Res, $Val extends AllGuideLine>
     Object? bonus = freezed,
     Object? directory = freezed,
     Object? investment = freezed,
+    Object? report = freezed,
+    Object? trading = freezed,
   }) {
     return _then(_value.copyWith(
       bonus: freezed == bonus
@@ -74,6 +82,14 @@ class _$AllGuideLineCopyWithImpl<$Res, $Val extends AllGuideLine>
       investment: freezed == investment
           ? _value.investment
           : investment // ignore: cast_nullable_to_non_nullable
+              as List<GuideModel>?,
+      report: freezed == report
+          ? _value.report
+          : report // ignore: cast_nullable_to_non_nullable
+              as List<GuideModel>?,
+      trading: freezed == trading
+          ? _value.trading
+          : trading // ignore: cast_nullable_to_non_nullable
               as List<GuideModel>?,
     ) as $Val);
   }
@@ -90,7 +106,9 @@ abstract class _$$_AllGuideLineCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "bonus") List<GuideModel>? bonus,
       @JsonKey(name: "directory") List<GuideModel>? directory,
-      @JsonKey(name: "investment") List<GuideModel>? investment});
+      @JsonKey(name: "investment") List<GuideModel>? investment,
+      @JsonKey(name: "report") List<GuideModel>? report,
+      @JsonKey(name: "ut_trading") List<GuideModel>? trading});
 }
 
 /// @nodoc
@@ -107,6 +125,8 @@ class __$$_AllGuideLineCopyWithImpl<$Res>
     Object? bonus = freezed,
     Object? directory = freezed,
     Object? investment = freezed,
+    Object? report = freezed,
+    Object? trading = freezed,
   }) {
     return _then(_$_AllGuideLine(
       bonus: freezed == bonus
@@ -121,6 +141,14 @@ class __$$_AllGuideLineCopyWithImpl<$Res>
           ? _value._investment
           : investment // ignore: cast_nullable_to_non_nullable
               as List<GuideModel>?,
+      report: freezed == report
+          ? _value._report
+          : report // ignore: cast_nullable_to_non_nullable
+              as List<GuideModel>?,
+      trading: freezed == trading
+          ? _value._trading
+          : trading // ignore: cast_nullable_to_non_nullable
+              as List<GuideModel>?,
     ));
   }
 }
@@ -131,10 +159,14 @@ class _$_AllGuideLine implements _AllGuideLine {
   _$_AllGuideLine(
       {@JsonKey(name: "bonus") final List<GuideModel>? bonus,
       @JsonKey(name: "directory") final List<GuideModel>? directory,
-      @JsonKey(name: "investment") final List<GuideModel>? investment})
+      @JsonKey(name: "investment") final List<GuideModel>? investment,
+      @JsonKey(name: "report") final List<GuideModel>? report,
+      @JsonKey(name: "ut_trading") final List<GuideModel>? trading})
       : _bonus = bonus,
         _directory = directory,
-        _investment = investment;
+        _investment = investment,
+        _report = report,
+        _trading = trading;
 
   factory _$_AllGuideLine.fromJson(Map<String, dynamic> json) =>
       _$$_AllGuideLineFromJson(json);
@@ -172,9 +204,31 @@ class _$_AllGuideLine implements _AllGuideLine {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<GuideModel>? _report;
+  @override
+  @JsonKey(name: "report")
+  List<GuideModel>? get report {
+    final value = _report;
+    if (value == null) return null;
+    if (_report is EqualUnmodifiableListView) return _report;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<GuideModel>? _trading;
+  @override
+  @JsonKey(name: "ut_trading")
+  List<GuideModel>? get trading {
+    final value = _trading;
+    if (value == null) return null;
+    if (_trading is EqualUnmodifiableListView) return _trading;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'AllGuideLine(bonus: $bonus, directory: $directory, investment: $investment)';
+    return 'AllGuideLine(bonus: $bonus, directory: $directory, investment: $investment, report: $report, trading: $trading)';
   }
 
   @override
@@ -186,7 +240,9 @@ class _$_AllGuideLine implements _AllGuideLine {
             const DeepCollectionEquality()
                 .equals(other._directory, _directory) &&
             const DeepCollectionEquality()
-                .equals(other._investment, _investment));
+                .equals(other._investment, _investment) &&
+            const DeepCollectionEquality().equals(other._report, _report) &&
+            const DeepCollectionEquality().equals(other._trading, _trading));
   }
 
   @JsonKey(ignore: true)
@@ -195,7 +251,9 @@ class _$_AllGuideLine implements _AllGuideLine {
       runtimeType,
       const DeepCollectionEquality().hash(_bonus),
       const DeepCollectionEquality().hash(_directory),
-      const DeepCollectionEquality().hash(_investment));
+      const DeepCollectionEquality().hash(_investment),
+      const DeepCollectionEquality().hash(_report),
+      const DeepCollectionEquality().hash(_trading));
 
   @JsonKey(ignore: true)
   @override
@@ -215,7 +273,9 @@ abstract class _AllGuideLine implements AllGuideLine {
   factory _AllGuideLine(
           {@JsonKey(name: "bonus") final List<GuideModel>? bonus,
           @JsonKey(name: "directory") final List<GuideModel>? directory,
-          @JsonKey(name: "investment") final List<GuideModel>? investment}) =
+          @JsonKey(name: "investment") final List<GuideModel>? investment,
+          @JsonKey(name: "report") final List<GuideModel>? report,
+          @JsonKey(name: "ut_trading") final List<GuideModel>? trading}) =
       _$_AllGuideLine;
 
   factory _AllGuideLine.fromJson(Map<String, dynamic> json) =
@@ -230,6 +290,12 @@ abstract class _AllGuideLine implements AllGuideLine {
   @override
   @JsonKey(name: "investment")
   List<GuideModel>? get investment;
+  @override
+  @JsonKey(name: "report")
+  List<GuideModel>? get report;
+  @override
+  @JsonKey(name: "ut_trading")
+  List<GuideModel>? get trading;
   @override
   @JsonKey(ignore: true)
   _$$_AllGuideLineCopyWith<_$_AllGuideLine> get copyWith =>

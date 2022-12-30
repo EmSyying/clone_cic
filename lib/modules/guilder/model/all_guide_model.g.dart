@@ -17,6 +17,12 @@ _$_AllGuideLine _$$_AllGuideLineFromJson(Map<String, dynamic> json) =>
       investment: (json['investment'] as List<dynamic>?)
           ?.map((e) => GuideModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      report: (json['report'] as List<dynamic>?)
+          ?.map((e) => GuideModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      trading: (json['ut_trading'] as List<dynamic>?)
+          ?.map((e) => GuideModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_AllGuideLineToJson(_$_AllGuideLine instance) =>
@@ -24,4 +30,6 @@ Map<String, dynamic> _$$_AllGuideLineToJson(_$_AllGuideLine instance) =>
       'bonus': instance.bonus,
       'directory': instance.directory,
       'investment': instance.investment,
+      'report': instance.report,
+      'ut_trading': instance.trading,
     };

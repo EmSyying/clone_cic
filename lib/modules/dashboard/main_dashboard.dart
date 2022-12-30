@@ -138,9 +138,9 @@ class _MainDashboardState extends State<MainDashboard> {
       //objbuilder : (index)=> Raduis;
       itemCount: _settingCon.appSettingDataList.length,
       titleBuilder: (index) =>
-          _settingCon.appSettingDataList[index].guideline!.label ?? '',
+          _settingCon.appSettingDataList[index].label ?? '',
       descriptionBuilder: (index) =>
-          _settingCon.appSettingDataList[index].guideline!.description ?? '',
+          _settingCon.appSettingDataList[index].label ?? '',
       key: (index) => _settingCon.appSettingDataList[index].key,
       objectSettingBuilder: (index) => ObjectSetting(
         edgeInsets: EdgeInsets.zero,
@@ -637,7 +637,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     GestureDetector(
                       onTap: () async {
                         // await LocalData.storeAppTou('appTour', true);
-                        // _showDashboardTour();
+                        _showDashboardTour();
                       },
                       child: SvgPicture.asset('assets/images/demo.svg'),
                     ),

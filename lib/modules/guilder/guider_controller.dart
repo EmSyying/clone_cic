@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/helper/api_base_helper.dart';
+import 'model/all_guide_model.dart';
 import 'model/guide_model.dart';
 
 class CiCGuidController extends GetxController {
@@ -144,55 +145,32 @@ class CiCGuidController extends GetxController {
 
   final _apibasehelper = ApiBaseHelper();
 
-  Future<List<GuideModel>> fetchGuide({
-    required AppModuls module,
-  }) async {
-    List<GuideModel> guideList = [];
+  AllGuideLine _allGuidLineList = AllGuideLine();
+
+  Future<AllGuideLine> fetchGuide() async {
     await _apibasehelper
         .onNetworkRequesting(
-      url: 'guideline?module=${module.route}',
+      url: 'guideline',
       methode: METHODE.get,
       isAuthorize: true,
     )
         .then((response) {
-      response['data'].map((e) {
-        guideList.add(GuideModel.fromJson(e));
-        debugPrint('DATA => $e');
-      }).toList();
+      _allGuidLineList = AllGuideLine.fromJson(response['body']);
     }).onError((ErrorModel error, _) {
       debugPrint('Error Guide ${error.bodyString}');
     });
 
-    return guideList;
+    return _allGuidLineList;
   }
+
+  List<GuideModel> get bonus => _allGuidLineList.bonus ?? [];
+  List<GuideModel> get directory => _allGuidLineList.directory ?? [];
+  List<GuideModel> get investment => _allGuidLineList.investment ?? [];
+  List<GuideModel> get report => _allGuidLineList.report ?? [];
+  List<GuideModel> get trading => _allGuidLineList.trading ?? [];
 
   // List<GuideModel> equityFundGuide = <GuideModel>[];
 
-  Future<void> fetchAllGuide() async {
-    // equityFundGuide = await fetchGuide(module: AppModuls.investment);
-  }
-}
-
-extension CheckList<T> on List<T> {
-  T? at(int index) {
-    T? value;
-    if (isNotEmpty && index < length) {
-      value = this[index];
-    }
-    return value;
-  }
-}
-
-enum AppModuls {
-  investment(route: 'investment'),
-  uttrading(route: 'ut_trading'),
-  getfunding(route: 'get_funding'),
-  directory(route: 'directory'),
-  report(route: 'report'),
-  wallet(route: 'bonus');
-
-  final String route;
-  const AppModuls({required this.route});
 }
 
 class GuidelineModel {

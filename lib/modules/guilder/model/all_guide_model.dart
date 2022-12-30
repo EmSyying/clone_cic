@@ -9,6 +9,8 @@ class AllGuideLine with _$AllGuideLine {
     @JsonKey(name: "bonus") final List<GuideModel>? bonus,
     @JsonKey(name: "directory") final List<GuideModel>? directory,
     @JsonKey(name: "investment") final List<GuideModel>? investment,
+    @JsonKey(name: "report") final List<GuideModel>? report,
+    @JsonKey(name: "ut_trading") final List<GuideModel>? trading,
   }) = _AllGuideLine;
   factory AllGuideLine.fromJson(Map<String, dynamic> json) =>
       _$AllGuideLineFromJson(json);

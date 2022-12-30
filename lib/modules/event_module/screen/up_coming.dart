@@ -23,8 +23,8 @@ class _UpComingState extends State<UpComing> {
 
   @override
   void initState() {
-    _eventController
-        .getNewEvent(_customerController.customer.value.customerId!);
+    _eventController.getNewEvent(_customerController.customer.value.customerId!,
+        enableDate: false);
     _eventController.getFeatureEvent(
       _customerController.customer.value.customerId!,
     );

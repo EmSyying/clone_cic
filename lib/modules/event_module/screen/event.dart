@@ -125,25 +125,37 @@ class _EventScreenState extends State<EventScreen> {
   int? currentSelected;
   int? currentYear;
   bool? isDisplayEventTap = true;
+  int? yearIndex, monthIndex;
   void _checkDate() {
     _eventController.eventDate.value =
-        FormatDate.investmentDateDropDown("${DateTime.now()}");
-    debugPrint("Current Date:${_eventController.eventDate.value}");
-    currentSelected = today.month - 1;
+        FormatDate.investmentDateDropDown("$today");
+
     currentYear = today.year;
 
-    _eventController.eventCalendarList.asMap().entries.map((event) {
-      debugPrint("Event working calendar i 1");
-      Future.delayed(const Duration(milliseconds: 700), () {
-        Scrollable.ensureVisible(
-          event.value.month![event.key].key!.currentContext!,
-          alignment: 0.5,
-          duration: const Duration(milliseconds: 400),
-        );
-      });
-
-      debugPrint("Event working calendar i 2");
+    _eventController.eventCalendarList.asMap().entries.map((y) {
+      if (y.value.year == currentYear) {
+        yearIndex = y.key;
+        y.value.month?.asMap().entries.map((m) {
+          monthIndex = m.key;
+        }).toList();
+      }
     }).toList();
+
+    if (yearIndex != null && monthIndex != null) {}
+
+    Future.delayed(const Duration(milliseconds: 700), () {
+      Scrollable.ensureVisible(
+        (_eventController.eventCalendarList[yearIndex!].month?[monthIndex!].key
+            ?.currentContext)!,
+        alignment: 0,
+        duration: const Duration(milliseconds: 400),
+      ).then((value) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          currentSelected = today.month - 1;
+          setState(() {});
+        });
+      });
+    });
   }
 
   @override
@@ -156,7 +168,6 @@ class _EventScreenState extends State<EventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint('Recieved : ${widgt}');
     return CupertinoScaffold(
         body: Builder(
       builder: (BuildContext context) => CupertinoPageScaffold(
@@ -210,7 +221,6 @@ class _EventScreenState extends State<EventScreen> {
                                               right: 19.0),
                                           child: Text(
                                             year.value.year.toString(),
-                                            key: GlobalKey(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2!
@@ -234,50 +244,62 @@ class _EventScreenState extends State<EventScreen> {
                                                           right: 19.0),
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        currentSelected =
-                                                            month.key;
-                                                        currentYear =
-                                                            year.value.year;
+                                                      ///When click on the same month twice not work
+                                                      if (currentSelected !=
+                                                              month.key ||
+                                                          currentYear !=
+                                                              year.value.year) {
+                                                        setState(() {
+                                                          currentSelected =
+                                                              month.key;
+                                                          currentYear =
+                                                              year.value.year;
 
-                                                        if (year.value.year ==
-                                                                today.year &&
-                                                            month.value.name ==
+                                                          yearIndex = year.key;
+
+                                                          if (year.value.year ==
+                                                                  today.year &&
+                                                              month.value
+                                                                      .name ==
+                                                                  FormatDate
+                                                                      .displayMonthOnly(
+                                                                          '${DateTime.now()}')) {
+                                                            isDisplayEventTap =
+                                                                true;
+                                                            // if user select current month
+                                                            _eventController
+                                                                    .eventDate
+                                                                    .value =
                                                                 FormatDate
-                                                                    .displayMonthOnly(
-                                                                        '${DateTime.now()}')) {
-                                                          isDisplayEventTap =
-                                                              true;
-                                                          // if user select current month
-                                                          _eventController
-                                                                  .eventDate
-                                                                  .value =
-                                                              FormatDate
-                                                                  .investmentDateDropDown(
-                                                                      "${DateTime.now()}");
-                                                        } else {
-                                                          // if user select last month
-                                                          isDisplayEventTap =
-                                                              false;
-                                                          _eventController
-                                                                  .eventDate
-                                                                  .value =
-                                                              month.value.date!;
-                                                        }
-                                                        debugPrint(
-                                                            "isDisplayEventTap:$isDisplayEventTap");
-                                                      });
+                                                                    .investmentDateDropDown(
+                                                                        "${DateTime.now()}");
+                                                          } else {
+                                                            // if user select last month
+                                                            isDisplayEventTap =
+                                                                false;
+                                                            _eventController
+                                                                    .eventDate
+                                                                    .value =
+                                                                month.value
+                                                                    .date!;
+                                                          }
+                                                          debugPrint(
+                                                              "isDisplayEventTap:$isDisplayEventTap");
+                                                        });
 
-                                                      debugPrint(
-                                                          "is Pressed on event date");
-                                                      if (_pageViewController
-                                                              .page ==
-                                                          0) {
-                                                        _eventController
-                                                            .onRefreshUpCommingEvent();
-                                                      } else {
-                                                        _eventController
-                                                            .onRefreshPassEvent();
+                                                        debugPrint(
+                                                            "is Pressed on event date");
+                                                        if (_pageViewController
+                                                                .page ==
+                                                            0) {
+                                                          _eventController
+                                                              .onRefreshUpCommingEvent(
+                                                                  enableDate:
+                                                                      true);
+                                                        } else {
+                                                          _eventController
+                                                              .onRefreshPassEvent();
+                                                        }
                                                       }
                                                     },
                                                     child: Row(
@@ -328,21 +350,44 @@ class _EventScreenState extends State<EventScreen> {
                       IconButton(
                         color: Colors.white,
                         onPressed: () {
-                          setState(() {
-                            _eventController.eventCalendarList
-                                .asMap()
-                                .entries
-                                .map((year) {
-                              year.value.month!.asMap().entries.map((month) {
-                                Scrollable.ensureVisible(
-                                  month.value.key!.currentContext!,
-                                  alignment: 0.5,
-                                  duration: const Duration(milliseconds: 500),
-                                );
-                              }).toList();
-                            }).toList();
-                          });
-                          // _eventController.onRefreshUpCommingEvent();
+                          if (currentSelected != null && currentYear != null) {
+                            ///Month Index Handler
+                            if (_eventController.eventCalendarList[yearIndex!]
+                                        .month!.length -
+                                    1 ==
+                                currentSelected) {
+                              debugPrint('Work on SUM 1');
+                              currentSelected = 0;
+
+                              ///Year Index Handler
+                              if (yearIndex! <
+                                  _eventController.eventCalendarList.length -
+                                      1) {
+                                debugPrint('Work on SUM 2');
+                                yearIndex = yearIndex! + 1;
+                              } else {
+                                debugPrint('Work on SUM 3');
+                                yearIndex = 0;
+                              }
+                            } else {
+                              currentSelected = currentSelected! + 1;
+                            }
+                          }
+                          currentYear = _eventController
+                              .eventCalendarList[yearIndex!].year;
+                          setState(() {});
+                          Scrollable.ensureVisible(
+                            _eventController.eventCalendarList[yearIndex!]
+                                .month![currentSelected!].key!.currentContext!,
+                            alignment: 0.5,
+                            duration: const Duration(milliseconds: 500),
+                          );
+                          if (_pageViewController.page == 0) {
+                            _eventController.onRefreshUpCommingEvent(
+                                enableDate: true);
+                          } else {
+                            _eventController.onRefreshPassEvent();
+                          }
                         },
                         icon: const Icon(Icons.arrow_forward_ios_rounded),
                       )
