@@ -20,6 +20,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/option_controller/option_controller.dart';
+import '../../../Utils/select_address/address_model/document_type.dart';
 import '../../../configs/firebase_deeplink/deeplink_service.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../../utils/form_builder/custom_material_modal_sheet.dart';
@@ -655,6 +656,10 @@ class EventController extends GetxController {
       // List<Map>? guest,
       BuildContext? context}) async {
     debugPrint("on register is work1");
+    int? reletionShipId;
+    relationShipList.asMap().entries.map((reletionShip) {
+      reletionShipId = reletionShip.value.id;
+    }).toList();
 
     isLoadingRegisterWithGuest(true);
     await apiBaseHelper.onNetworkRequesting(
@@ -668,12 +673,12 @@ class EventController extends GetxController {
           return {
             "phone_number": e.phone,
             "participant_name": e.participantName,
-            "relationship": 230
+            "relationship": reletionShipId!
           };
         }).toList()
       },
     ).then((res) {
-      debugPrint("on register is work2");
+      debugPrint("on register is work2::$reletionShipId");
       registermemberList.clear();
       var responseJson = res['ticket'];
       getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
@@ -905,6 +910,38 @@ class EventController extends GetxController {
     });
 
     return getRegisterModel.value;
+  }
+
+  // Get Relationn Ship
+  final relationShipList = <DocumentType>[].obs;
+  final isRelationShhip = false.obs;
+  Future<List<DocumentType>> onFetchRelationShip() async {
+    debugPrint("default_relationship:1");
+    isRelationShhip(true);
+    try {
+      await apiBaseHelper
+          .onNetworkRequesting(
+              methode: METHODE.get,
+              isAuthorize: true,
+              url: 'event-relationship')
+          .then((respone) {
+        var responseJson = respone['default_relationship'];
+
+        responseJson.map((relationShip) {
+          relationShipList.add(DocumentType.fromJson(relationShip));
+        }).toList();
+
+        isRelationShhip(false);
+      }).onError((ErrorModel error, stackTrace) {
+        isRelationShhip(false);
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      isRelationShhip(false);
+    }
+
+    return relationShipList;
   }
 
   var selectCheckInModel = <SelectCheckInModel>[].obs;

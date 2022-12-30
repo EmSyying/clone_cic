@@ -61,6 +61,7 @@ class _EventDetailState extends State<EventDetail> {
   @override
   void initState() {
     eventController.fetchEventDetail(widget.eventId!);
+    eventController.onFetchRelationShip();
     eventController.getCheckInGuest();
     eventController.getRegisterWithGuest(widget.eventId);
     super.initState();
