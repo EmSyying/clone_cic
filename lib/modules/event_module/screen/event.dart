@@ -301,6 +301,9 @@ class _EventScreenState extends State<EventScreen> {
                                                               .onRefreshPassEvent();
                                                         }
                                                       }
+
+                                                      debugPrint(
+                                                          'DateEvent : ${_eventController.eventDate.value}');
                                                     },
                                                     child: Row(
                                                       children: [
@@ -373,15 +376,30 @@ class _EventScreenState extends State<EventScreen> {
                               currentSelected = currentSelected! + 1;
                             }
                           }
+
                           currentYear = _eventController
                               .eventCalendarList[yearIndex!].year;
                           setState(() {});
+
                           Scrollable.ensureVisible(
                             _eventController.eventCalendarList[yearIndex!]
                                 .month![currentSelected!].key!.currentContext!,
                             alignment: 0.5,
                             duration: const Duration(milliseconds: 500),
                           );
+
+                          if (currentYear == today.year &&
+                              currentSelected! + 1 == today.month) {
+                            isDisplayEventTap = true;
+                          } else {
+                            isDisplayEventTap = false;
+                          }
+
+                          _eventController.eventDate.value = _eventController
+                                  .eventCalendarList[yearIndex!]
+                                  .month![currentSelected!]
+                                  .date ??
+                              '';
                           if (_pageViewController.page == 0) {
                             _eventController.onRefreshUpCommingEvent(
                                 enableDate: true);
