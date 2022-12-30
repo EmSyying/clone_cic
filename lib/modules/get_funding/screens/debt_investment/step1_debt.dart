@@ -22,7 +22,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/container_partern.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
-import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../Utils/helper/injection_helper/injection_helper.dart';
 import '../../../../widgets/get_funding/custom_call_center.dart';
 
@@ -928,7 +927,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                               .value
                                                               .addressList![0]
                                                               .name ==
-                                                          "") {
+                                                          null) {
                                                         InjectionHelper
                                                             .requestLoanController
                                                             .getProvince("en");
@@ -939,7 +938,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                 .value
                                                                 .addressList![0]
                                                                 .name !=
-                                                            "") {
+                                                            null) {
                                                           InjectionHelper
                                                               .requestLoanController
                                                               .currentAddressList
@@ -976,7 +975,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                 .value
                                                                 .addressList![1]
                                                                 .name !=
-                                                            "") {
+                                                            null) {
                                                           InjectionHelper
                                                               .requestLoanController
                                                               .currentAddressList
@@ -1003,7 +1002,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                 .value
                                                                 .addressList![2]
                                                                 .name !=
-                                                            "") {
+                                                            null) {
                                                           InjectionHelper
                                                               .requestLoanController
                                                               .currentAddressList
@@ -1031,7 +1030,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                 .value
                                                                 .addressList![3]
                                                                 .name !=
-                                                            "") {
+                                                            null) {
                                                           InjectionHelper
                                                               .requestLoanController
                                                               .currentAddressList
@@ -1366,9 +1365,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                 .debtInvestmentController
                                                                 .fullCurrentAddress
                                                                 .value
-                                                                .addressList![0]
-                                                                .name !=
-                                                            ""
+                                                                .addressList !=
+                                                            null
                                                         ? InjectionHelper
                                                                     .debtInvestmentController
                                                                     .fullCurrentAddress
@@ -1376,7 +1374,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                     .addressList![
                                                                         3]
                                                                     .name ==
-                                                                ""
+                                                                null
                                                             ? '${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![0].name}'
                                                             : '${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![3].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullCurrentAddress.value.addressList![0].name}'
                                                         : null,
@@ -1402,9 +1400,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                 .debtInvestmentController
                                                                 .fullResidentAddress
                                                                 .value
-                                                                .addressList![0]
-                                                                .name ==
-                                                            "") {
+                                                                .addressList ==
+                                                            null) {
                                                           InjectionHelper
                                                               .requestLoanController
                                                               .getProvince(
@@ -1414,10 +1411,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                   .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
-                                                                  .addressList![
-                                                                      0]
-                                                                  .name !=
-                                                              "") {
+                                                                  .addressList !=
+                                                              null) {
                                                             InjectionHelper
                                                                 .requestLoanController
                                                                 .residentAddressList
@@ -1452,10 +1447,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                   .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
-                                                                  .addressList![
-                                                                      1]
-                                                                  .name !=
-                                                              "") {
+                                                                  .addressList !=
+                                                              null) {
                                                             InjectionHelper
                                                                 .requestLoanController
                                                                 .residentAddressList
@@ -1480,10 +1473,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                   .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
-                                                                  .addressList![
-                                                                      2]
-                                                                  .name !=
-                                                              "") {
+                                                                  .addressList !=
+                                                              null) {
                                                             InjectionHelper
                                                                 .requestLoanController
                                                                 .residentAddressList
@@ -1509,10 +1500,8 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                   .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
-                                                                  .addressList![
-                                                                      3]
-                                                                  .name !=
-                                                              "") {
+                                                                  .addressList !=
+                                                              null) {
                                                             InjectionHelper
                                                                 .requestLoanController
                                                                 .residentAddressList
@@ -1850,18 +1839,14 @@ class _Step1DebtState extends State<Step1Debt> {
                                                                   .debtInvestmentController
                                                                   .fullResidentAddress
                                                                   .value
-                                                                  .addressList![
-                                                                      0]
-                                                                  .name !=
-                                                              ""
+                                                                  .addressList !=
+                                                              null
                                                           ? InjectionHelper
                                                                       .debtInvestmentController
                                                                       .fullResidentAddress
                                                                       .value
-                                                                      .addressList![
-                                                                          3]
-                                                                      .name ==
-                                                                  ""
+                                                                      .addressList ==
+                                                                  null
                                                               ? '${InjectionHelper.debtInvestmentController.fullResidentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![0].name}'
                                                               : '${InjectionHelper.debtInvestmentController.fullResidentAddress.value.streetNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.houseNo} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![3].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![2].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![1].name} ${InjectionHelper.debtInvestmentController.fullResidentAddress.value.addressList![0].name} '
                                                           : null,
@@ -1884,68 +1869,67 @@ class _Step1DebtState extends State<Step1Debt> {
                                       children: [
                                         Expanded(
                                           child: CustomButton(
-                                            isDisable: tempData == defualtData
-                                                ? true
-                                                : false,
+                                            isDisable: true,
                                             isOutline: true,
-                                            onPressed: () async {
-                                              if (widget.id != null) {
-                                                FirebaseAnalyticsHelper
-                                                    .sendAnalyticsEvent(
-                                                        "Debt Update Draft Step1");
-                                              } else {
-                                                FirebaseAnalyticsHelper
-                                                    .sendAnalyticsEvent(
-                                                        "Debt Save Draft Step1");
-                                              }
-                                              widget.id != null
-                                                  ? await InjectionHelper
-                                                      .debtInvestmentController
-                                                      .onEditDebtInvestment(
-                                                      context: context,
-                                                      id: widget.id,
-                                                      step: 1,
-                                                    )
-                                                  : await InjectionHelper
-                                                      .debtInvestmentController
-                                                      .onSubmitDebtInvestment(
-                                                          context: context,
-                                                          step: 1);
-                                              InjectionHelper
-                                                  .debtInvestmentController
-                                                  .currentAddressList
-                                                  .clear();
-                                              InjectionHelper
-                                                  .debtInvestmentController
-                                                  .isValidateFullName
-                                                  .value = true;
-                                              InjectionHelper
-                                                  .debtInvestmentController
-                                                  .isValidateDateOfBirth
-                                                  .value = true;
-                                              InjectionHelper
-                                                  .debtInvestmentController
-                                                  .isValidateGender
-                                                  .value = true;
-                                              InjectionHelper
-                                                  .debtInvestmentController
-                                                  .isValidateEmail
-                                                  .value = true;
-                                              InjectionHelper
-                                                  .debtInvestmentController
-                                                  .isValidatePhone
-                                                  .value = true;
-                                              InjectionHelper
-                                                  .debtInvestmentController
-                                                  .isValidateFullAddress
-                                                  .value = true;
-                                              Future.delayed(Duration.zero)
-                                                  .then((_) {
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                                context.pop();
-                                              });
-                                            },
+                                            onPressed: null,
+                                            // onPressed: () async {
+                                            //   if (widget.id != null) {
+                                            //     FirebaseAnalyticsHelper
+                                            //         .sendAnalyticsEvent(
+                                            //             "Debt Update Draft Step1");
+                                            //   } else {
+                                            //     FirebaseAnalyticsHelper
+                                            //         .sendAnalyticsEvent(
+                                            //             "Debt Save Draft Step1");
+                                            //   }
+                                            //   widget.id != null
+                                            //       ? await InjectionHelper
+                                            //           .debtInvestmentController
+                                            //           .onEditDebtInvestment(
+                                            //           context: context,
+                                            //           id: widget.id,
+                                            //           step: 1,
+                                            //         )
+                                            //       : await InjectionHelper
+                                            //           .debtInvestmentController
+                                            //           .onSubmitDebtInvestment(
+                                            //               context: context,
+                                            //               step: 1);
+                                            //   InjectionHelper
+                                            //       .debtInvestmentController
+                                            //       .currentAddressList
+                                            //       .clear();
+                                            //   InjectionHelper
+                                            //       .debtInvestmentController
+                                            //       .isValidateFullName
+                                            //       .value = true;
+                                            //   InjectionHelper
+                                            //       .debtInvestmentController
+                                            //       .isValidateDateOfBirth
+                                            //       .value = true;
+                                            //   InjectionHelper
+                                            //       .debtInvestmentController
+                                            //       .isValidateGender
+                                            //       .value = true;
+                                            //   InjectionHelper
+                                            //       .debtInvestmentController
+                                            //       .isValidateEmail
+                                            //       .value = true;
+                                            //   InjectionHelper
+                                            //       .debtInvestmentController
+                                            //       .isValidatePhone
+                                            //       .value = true;
+                                            //   InjectionHelper
+                                            //       .debtInvestmentController
+                                            //       .isValidateFullAddress
+                                            //       .value = true;
+                                            //   Future.delayed(Duration.zero)
+                                            //       .then((_) {
+                                            //     FocusScope.of(context)
+                                            //         .unfocus();
+                                            //     context.pop();
+                                            //   });
+                                            // },
                                             title: widget.id != null
                                                 ? "Update Draft"
                                                 : "Save Draft",
