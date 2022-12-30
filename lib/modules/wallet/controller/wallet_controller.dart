@@ -277,6 +277,7 @@ class WalletController extends GetxController {
       if (response == null) {
         fetchWalletLoading(false);
         walletAccount.value = '';
+        update();
       }
 
       var wallet = response['data'];

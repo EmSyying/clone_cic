@@ -50,14 +50,8 @@ class MMADepositCard extends StatelessWidget {
                             onTap: () async {
                               if (e.title ==
                                   contWallet.mmacardlist.elementAt(1).title) {
-                                context.push(
-                                    '/wallet/deposit-card/reciever-mm-account');
-                              } else if (e.title ==
-                                  contWallet.mmacardlist.elementAt(0).title) {
-                                debugPrint("account transfer");
-                                context.push(
-                                    '/wallet/deposit-card/deposit-to-screen');
-                              } else {
+                                // context.push(
+                                //     '/wallet/deposit-card/reciever-mm-account');
                                 onShowBottomSheet(
                                   isHeight:
                                       MediaQuery.of(context).size.height * .4,
@@ -65,6 +59,25 @@ class MMADepositCard extends StatelessWidget {
                                   context: context,
                                   isNoAppBar: true,
                                   child: const CustomPopupButtonSheet(
+                                    assetImage:
+                                        'assets/images/svgfile/underDevelopment.svg',
+                                    description:
+                                        'This feature is under development at the moment',
+                                    title: 'This feature not available yet',
+                                  ),
+                                );
+                              } else if (e.title ==
+                                  contWallet.mmacardlist.elementAt(0).title) {
+                                debugPrint("account transfer");
+                                context.push(
+                                    '/wallet/deposit-card/deposit-to-screen');
+                              } else {
+                                showModalBottomSheet(
+                                  useRootNavigator: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) =>
+                                      const CustomPopupButtonSheet(
                                     assetImage:
                                         'assets/images/svgfile/underDevelopment.svg',
                                     description:
@@ -92,8 +105,21 @@ class MMADepositCard extends StatelessWidget {
                                 context.push(
                                     '/wallet/mma-transfer/mma-cash-out/new-cash-oute');
                               } else {
-                                context.push(
-                                    '/wallet/transfer-to-other-mmacount?isFromLink=false');
+                                // context.push(
+                                //     '/wallet/transfer-to-other-mmacount?isFromLink=false');
+                                showModalBottomSheet(
+                                  useRootNavigator: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) =>
+                                      const CustomPopupButtonSheet(
+                                    assetImage:
+                                        'assets/images/svgfile/underDevelopment.svg',
+                                    description:
+                                        'This feature is under development at the moment',
+                                    title: 'This feature not available yet',
+                                  ),
+                                );
                               }
                             },
                             title: e.title,

@@ -203,31 +203,37 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                             ),
                                           ],
                                         ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            debugPrint(
-                                                "Certification:${priceController.certificate.value.data}");
-                                            context.go(
-                                                '/investment/cic-equity-fund/certificate');
-                                          },
-                                          child: Container(
-                                            key: _guidkey.investmentKey[2].key =
-                                                GlobalKey(),
-                                            alignment: Alignment.center,
-                                            height: 40.0,
-                                            width: 40.0,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
+                                        if (priceController.sharePrice.value
+                                                    .totalShareOutstanding !=
+                                                null &&
+                                            priceController.sharePrice.value
+                                                    .totalShareOutstanding !=
+                                                0)
+                                          GestureDetector(
+                                            onTap: () async {
+                                              debugPrint(
+                                                  "Certification:${priceController.certificate.value.data}");
+                                              context.go(
+                                                  '/investment/cic-equity-fund/certificate');
+                                            },
+                                            child: Container(
+                                              key: _guidkey.investmentKey[2]
+                                                  .key = GlobalKey(),
+                                              alignment: Alignment.center,
+                                              height: 40.0,
+                                              width: 40.0,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Theme.of(context)
+                                                      .primaryColor
+                                                      .withAlpha(16)),
+                                              child: SvgPicture.asset(
+                                                'assets/images/svgfile/pdfcertificate.svg',
                                                 color: Theme.of(context)
-                                                    .primaryColor
-                                                    .withAlpha(16)),
-                                            child: SvgPicture.asset(
-                                              'assets/images/svgfile/pdfcertificate.svg',
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                                    .primaryColor,
+                                              ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -711,52 +717,62 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                         ),
                                                       ],
                                                     ),
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        debugPrint(
-                                                            "Certification:${priceController.certificate.value.data}");
-                                                        // context.push(
-                                                        // '/investment/cic-equity-fund/certificate??title=Something&urlAttachment=${priceController.certificate.value.data}');
+                                                    if (priceController
+                                                                .sharePrice
+                                                                .value
+                                                                .totalShareOutstanding !=
+                                                            null &&
+                                                        priceController
+                                                                .sharePrice
+                                                                .value
+                                                                .totalShareOutstanding !=
+                                                            0)
+                                                      GestureDetector(
+                                                        onTap: () async {
+                                                          debugPrint(
+                                                              "Certification:${priceController.certificate.value.data}");
+                                                          // context.push(
+                                                          // '/investment/cic-equity-fund/certificate??title=Something&urlAttachment=${priceController.certificate.value.data}');
 
-                                                        await Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) => PDFViewer(
-                                                                title:
-                                                                    "Something",
-                                                                urlAttachment:
-                                                                    priceController
-                                                                        .certificate
-                                                                        .value
-                                                                        .data),
+                                                          await Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) => PDFViewer(
+                                                                  title:
+                                                                      "Something",
+                                                                  urlAttachment:
+                                                                      priceController
+                                                                          .certificate
+                                                                          .value
+                                                                          .data),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Container(
+                                                          key: _guidkey
+                                                              .investmentKey[2]
+                                                              .key = GlobalKey(),
+                                                          alignment:
+                                                              Alignment.center,
+                                                          height: 40.0,
+                                                          width: 40.0,
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor
+                                                                  .withAlpha(
+                                                                      16)),
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/images/svgfile/pdfcertificate.svg',
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor,
                                                           ),
-                                                        );
-                                                      },
-                                                      child: Container(
-                                                        key: _guidkey
-                                                            .investmentKey[2]
-                                                            .key = GlobalKey(),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height: 40.0,
-                                                        width: 40.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .primaryColor
-                                                                    .withAlpha(
-                                                                        16)),
-                                                        child: SvgPicture.asset(
-                                                          'assets/images/svgfile/pdfcertificate.svg',
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
                                                         ),
                                                       ),
-                                                    ),
                                                   ],
                                                 ),
                                               ),

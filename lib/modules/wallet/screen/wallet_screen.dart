@@ -302,8 +302,8 @@ class _WalletScreenState extends State<WalletScreen>
                                         _guideController.walletGuide[1].key =
                                             GlobalKey(),
                                         ontap: () {
-                                          show(context);
-                                          // context.push('/wallet/mma-transfer');
+                                          // show(context);
+                                          context.push('/wallet/mma-transfer');
                                         },
                                         text: 'Transfer',
                                         img: 'assets/images/transfer.svg',
