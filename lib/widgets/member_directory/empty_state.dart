@@ -40,7 +40,10 @@ class EmptyStateProfile extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: Text(
                 title!,
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),
             ),
