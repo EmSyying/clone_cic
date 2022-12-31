@@ -137,8 +137,29 @@ class _MainDashboardState extends State<MainDashboard> {
       itemCount: _settingCon.appSettingDataList.length,
       titleBuilder: (index) =>
           _settingCon.appSettingDataList[index].label ?? '',
-      descriptionBuilder: (index) =>
-          _settingCon.appSettingDataList[index].label ?? '',
+      descriptionBuilder: (index) => _settingCon
+                  .appSettingDataList[index].guideline ==
+              null
+          ? _settingCon.appSettingDataList[index].label!.toLowerCase() ==
+                  'investment'
+              ? 'You can find all information related to Fund you are investing in,such as CiC Equity Fund, CiC Fixed Income Fund, etc.'
+              : _settingCon.appSettingDataList[index].label!.toLowerCase() ==
+                      'report'
+                  ? 'Read CiC performance reports to understand more about CiC.You can also find another useful research and publication here as well.'
+                  : _settingCon.appSettingDataList[index].label!
+                              .toLowerCase() ==
+                          'ut trading'
+                      ? 'Find your share trading history here and you can also request to buy and sell your shares too.'
+                      : _settingCon.appSettingDataList[index].label!
+                                  .toLowerCase() ==
+                              'get funding'
+                          ? 'Create your application and request either Equity or Debt Investment from CiC here.'
+                          : _settingCon.appSettingDataList[index].label!
+                                      .toLowerCase() ==
+                                  'get funding'
+                              ? 'View your personal and corporate profile. Discover other CiC Members and their potential businesses here.'
+                              : 'Receive the annual bonus from CiC and use this bonus for UT subscription or cash out to your preferred bank account.'
+          : _settingCon.appSettingDataList[index].guideline!.description,
       key: (index) => _settingCon.appSettingDataList[index].key,
       objectSettingBuilder: (index) => ObjectSetting(
         edgeInsets: EdgeInsets.zero,
