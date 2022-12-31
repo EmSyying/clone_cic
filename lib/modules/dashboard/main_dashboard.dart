@@ -128,8 +128,6 @@ class _MainDashboardState extends State<MainDashboard> {
       StreamController<bool>.broadcast();
   GlobalKey? actionKey;
 
-  bool isFirstLaunch = true;
-
   Future<void> _showDashboardTour({bool allowSkip = true}) async {
     debugPrint('allow skip = $allowSkip');
     await CiCApp.showOverlays(
@@ -182,18 +180,21 @@ class _MainDashboardState extends State<MainDashboard> {
     }
   }
 
+  void hanndleTour() async {
+    bool isFirstLaunch = await LocalData.showAppTou('appTour');
+    debugPrint('Function Worked $isFirstLaunch');
+    if (!isFirstLaunch) {
+      Future.delayed(const Duration(seconds: 1), () {
+        _showDashboardTour(allowSkip: false).then((value) async {
+          await LocalData.storeAppTou('appTour', true);
+        });
+      });
+    }
+  }
+
   @override
   void initState() {
-    // _settingCon.fetchAppSetting().then((value) async {
-    //   bool isFirstLaunch = await LocalData.showAppTou('appTour');
-    //   if (!isFirstLaunch) {
-    //     Future.delayed(const Duration(seconds: 1), () {
-    //       _showDashboardTour(allowSkip: false).then((value) async {
-    //         await LocalData.storeAppTou('appTour', true);
-    //       });
-    //     });
-    //   }
-    // });
+    hanndleTour();
     _notificationCon.countNotification();
 
     // final newVersion = NewVersion(
@@ -636,7 +637,8 @@ class _MainDashboardState extends State<MainDashboard> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        // await LocalData.storeAppTou('appTour', true);
+                        // await LocalData.storeAppTou('appTour',
+                        //     false); //TODO : uncoment for test first launch
                         _showDashboardTour();
                       },
                       child: SvgPicture.asset('assets/images/demo.svg'),

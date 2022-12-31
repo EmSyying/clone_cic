@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/utils/helper/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,13 +8,16 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/helper/cic/cic_guider.dart';
 import '../../../widgets/report/custom_report_catigories_card.dart';
 import '../../guilder/guider_controller.dart';
+import '../../guilder/local_key.dart/local_guide_key.dart';
 import '../controllers/documentation_controller.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({Key? key}) : super(key: key);
 
-  _showGuildLine(BuildContext context, CiCGuidController guideController) {
-    CiCApp.showOverlays(
+  Future<void> _showGuildLine(BuildContext context,
+      CiCGuidController guideController, bool allowSkip) async {
+    await CiCApp.showOverlays(
+      allowSkip: allowSkip,
       itemCount: guideController.reportGuide.length,
       key: (index) => guideController.reportGuide[index].key!,
       titleBuilder: (index) => guideController.reportGuide[index].title,
@@ -26,11 +30,14 @@ class ReportScreen extends StatelessWidget {
     );
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     final reportCon = Get.put(DocumentationController());
     final guideController = Get.put(CiCGuidController());
     reportCon.fetchCategoriesCardReport();
+    // checkOverLay(context, guideController);
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -45,7 +52,7 @@ class ReportScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
               onTap: () async {
-                _showGuildLine(context, guideController);
+                _showGuildLine(context, guideController, true);
 
                 // await LocalData.storeAppTou('appTour', true);
               },

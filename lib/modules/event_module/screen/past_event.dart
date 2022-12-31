@@ -17,13 +17,6 @@ class PastEvent extends StatefulWidget {
 class _PastEventState extends State<PastEvent> {
   final _eventController = Get.put(EventController());
   final _customerController = Get.put(CustomerController());
-  @override
-  void initState() {
-    _eventController
-        .getPastEvent(_customerController.customer.value.customerId!);
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

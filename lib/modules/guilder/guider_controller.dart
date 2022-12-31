@@ -169,6 +169,8 @@ class CiCGuidController extends GetxController {
   List<GuideModel> get report => _allGuidLineList.report ?? [];
   List<GuideModel> get trading => _allGuidLineList.trading ?? [];
 
+  bool get showBonus => _allGuidLineList.bonus?.length == 5 ? true : false;
+
   // List<GuideModel> equityFundGuide = <GuideModel>[];
 
 }

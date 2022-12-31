@@ -244,6 +244,14 @@ class _EventScreenState extends State<EventScreen> {
                                                           right: 19.0),
                                                   child: GestureDetector(
                                                     onTap: () {
+                                                      // Move to Page 0
+                                                      if (_pageViewController
+                                                              .page !=
+                                                          0) {
+                                                        _pageViewController
+                                                            .jumpToPage(0);
+                                                      }
+
                                                       ///When click on the same month twice not work
                                                       if (currentSelected !=
                                                               month.key ||
@@ -289,17 +297,11 @@ class _EventScreenState extends State<EventScreen> {
 
                                                         debugPrint(
                                                             "is Pressed on event date");
-                                                        if (_pageViewController
-                                                                .page ==
-                                                            0) {
-                                                          _eventController
-                                                              .onRefreshUpCommingEvent(
-                                                                  enableDate:
-                                                                      true);
-                                                        } else {
-                                                          _eventController
-                                                              .onRefreshPassEvent();
-                                                        }
+
+                                                        _eventController
+                                                            .onRefreshUpCommingEvent(
+                                                                enableDate:
+                                                                    true);
                                                       }
 
                                                       debugPrint(
@@ -353,6 +355,10 @@ class _EventScreenState extends State<EventScreen> {
                       IconButton(
                         color: Colors.white,
                         onPressed: () {
+                          // Move to Page 0
+                          if (_pageViewController.page != 0) {
+                            _pageViewController.jumpToPage(0);
+                          }
                           if (currentSelected != null && currentYear != null) {
                             ///Month Index Handler
                             if (_eventController.eventCalendarList[yearIndex!]
@@ -400,12 +406,9 @@ class _EventScreenState extends State<EventScreen> {
                                   .month![currentSelected!]
                                   .date ??
                               '';
-                          if (_pageViewController.page == 0) {
-                            _eventController.onRefreshUpCommingEvent(
-                                enableDate: true);
-                          } else {
-                            _eventController.onRefreshPassEvent();
-                          }
+
+                          _eventController.onRefreshUpCommingEvent(
+                              enableDate: true);
                         },
                         icon: const Icon(Icons.arrow_forward_ios_rounded),
                       )
