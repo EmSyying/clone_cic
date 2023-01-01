@@ -834,6 +834,7 @@ final router = GoRouter(
                           eventId: int.tryParse(
                             state.params['id'].toString(),
                           ),
+                          
                           key: state.pageKey),
                       routes: [
                         GoRoute(

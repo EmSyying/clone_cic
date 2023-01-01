@@ -8,7 +8,7 @@ Accept: application/json
 Content-Type: application/json
 
 ###
-GET https://cicstaging.z1central.com/api/v3/debt-investment
+GET https://cicstaging.z1central.com/api/v3/event-view/ticket?event_id=14&member_id=46
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

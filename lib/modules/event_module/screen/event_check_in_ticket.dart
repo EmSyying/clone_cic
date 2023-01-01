@@ -27,11 +27,15 @@ class EventCheckInTicket extends StatelessWidget {
   final String? selectCheckIn;
   final BuildContext? contextTicket;
   final GestureTapCallback? onTapDone;
+  final GestureTapCallback? onTapSubmit;
+  final String? fromPage;
   const EventCheckInTicket({
     Key? key,
     this.selectCheckIn = '',
     this.contextTicket,
     this.onTapDone,
+    this.onTapSubmit,
+    this.fromPage,
   }) : super(key: key);
   static GlobalKey printScreenKey = GlobalKey();
 
@@ -256,11 +260,17 @@ class EventCheckInTicket extends StatelessWidget {
                                       : context.pop();
                                 }
                               : () {
-                                  Navigator.pop(context);
-                                  contro.onCheckInEvent(
-                                    context: contextTicket,
-                                    eventId: contro.eventDetail.value.id,
-                                  );
+                                  if (fromPage != null) {
+                                    contro.onCheckInEvent(
+                                        context: contextTicket,
+                                        eventId: contro.eventDetail.value.id,
+                                        fromPage: fromPage);
+                                  } else {
+                                    contro.onCheckInEvent(
+                                      context: contextTicket,
+                                      eventId: contro.eventDetail.value.id,
+                                    );
+                                  }
                                 },
                           isDisable: false,
                           isOutline: false,

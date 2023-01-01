@@ -65,6 +65,9 @@ class CICRoute extends MainRoute {
                 eventId: int.tryParse(
                   state.params['id'].toString(),
                 ),
+                isRegister:
+                    state.queryParams['isRegister'].toString().toLowerCase() ==
+                        'true',
                 key: state.pageKey),
             routes: [
               GoRoute(

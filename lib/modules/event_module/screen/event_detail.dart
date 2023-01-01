@@ -42,9 +42,10 @@ import '../../../utils/helper/custom_loading_button.dart';
 import '../../qr_code/qr_code.dart';
 
 class EventDetail extends StatefulWidget {
-  const EventDetail({Key? key, this.eventId}) : super(key: key);
-
   final int? eventId;
+  final bool? isRegister;
+  const EventDetail({Key? key, this.eventId, this.isRegister = false})
+      : super(key: key);
 
   // final EventData? eventData;
 
@@ -62,8 +63,9 @@ class _EventDetailState extends State<EventDetail> {
   void initState() {
     eventController.fetchEventDetail(widget.eventId!);
     eventController.onFetchRelationShip();
-    eventController.getCheckInGuest();
-    eventController.getRegisterWithGuest(widget.eventId);
+    // eventController.getCheckInGuest(eventId: widget.eventId);
+    // eventController.getRegisterWithGuest(widget.eventId);
+
     super.initState();
   }
 
@@ -133,9 +135,8 @@ class _EventDetailState extends State<EventDetail> {
       body: Obx(
         () => IgnorePointer(
           ignoring: eventController.isLoadingTicket.value ? true : false,
-          child: Builder(
-            builder: (BuildContext contextRegisterForm) =>
-                CupertinoPageScaffold(
+          child: Builder(builder: (BuildContext context) {
+            return CupertinoPageScaffold(
               child: Scaffold(
                 body: Stack(
                   // alignment: Alignment.center,
@@ -394,48 +395,19 @@ class _EventDetailState extends State<EventDetail> {
                                                     true)
                                                   GestureDetector(
                                                     onTap: eventController
-                                                                .isLoadingGetRegister
-                                                                .value ==
-                                                            true
-                                                        ? null
+                                                            .isLoadingViewTicket
+                                                            .value
+                                                        ? () {}
                                                         : () async {
                                                             // view ticket (updated by Chhany)
                                                             await eventController
                                                                 .getRegisterWithGuest(
-                                                              widget.eventId,
-                                                            );
-                                                            onShowCustomCupertinoModalSheet(
-                                                              isUseRootNavigation:
-                                                                  true,
-                                                              context:
-                                                                  contextRegisterForm,
-                                                              icon: const Icon(
-                                                                Icons
-                                                                    .close_rounded,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              isColorsAppBar:
-                                                                  // ignore: use_build_context_synchronously
-                                                                  Theme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                              backgroundColor:
-                                                                  // ignore: use_build_context_synchronously
-                                                                  Theme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                              title:
-                                                                  "Your Ticket",
-                                                              titleColors: AppColor
-                                                                      .arrowforwardColor[
-                                                                  'dark'],
-                                                              child:
-                                                                  const EventCheckInTicket(
-                                                                selectCheckIn:
-                                                                    'view_ticket',
-                                                              ),
-                                                            );
+                                                                    widget
+                                                                        .eventId,
+                                                                    isViewTicket:
+                                                                        true,
+                                                                    context:
+                                                                        context);
                                                           },
                                                     child: Container(
                                                       width: 120,
@@ -451,46 +423,35 @@ class _EventDetailState extends State<EventDetail> {
                                                             .primaryColor
                                                             .withOpacity(0.1),
                                                       ),
-                                                      child: eventController
-                                                                  .isLoadingGetRegister
-                                                                  .value ==
-                                                              true
-                                                          ? SpinKitThreeBounce(
-                                                              size: 20,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                            )
-                                                          : Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SvgPicture
-                                                                    .asset(
-                                                                  'assets/images/svgfile/ticket_star.svg',
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .primaryColor,
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                            'assets/images/svgfile/ticket_star.svg',
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                            'View Ticket',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .headline3!
+                                                                .copyWith(
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
                                                                 ),
-                                                                const SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                Text(
-                                                                  'View Ticket',
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .headline3!
-                                                                      .copyWith(
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 const SizedBox(
@@ -578,7 +539,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                 : () {
                                                                     onShowCustomCupertinoModalSheet(
                                                                       context:
-                                                                          contextRegisterForm,
+                                                                          context,
                                                                       title:
                                                                           'Register',
                                                                       icon: const Icon(
@@ -589,7 +550,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                         eventID:
                                                                             widget.eventId,
                                                                         contextRegisterTicket:
-                                                                            contextRegisterForm,
+                                                                            context,
                                                                       ),
                                                                     );
                                                                   },
@@ -954,42 +915,52 @@ class _EventDetailState extends State<EventDetail> {
                                   ),
                                   child: Row(
                                     children: [
-                                      if (eventController.eventDetail.value
-                                                  .isRegister ==
-                                              true &&
-                                          eventController.getRegisterModel.value
-                                                  .guest!.length !=
-                                              eventController.eventDetail.value
-                                                  .remainingRegistration)
+                                      if (eventController
+                                              .eventDetail.value.isRegister ==
+                                          true)
                                         // if (eventController
                                         //         .eventDetail.value.isRegister ==
                                         //     true)
-                                        Expanded(
-                                          child: CustomButton(
-                                            title: 'Add Guest',
-                                            onPressed: () {
-                                              onShowCustomCupertinoModalSheet(
-                                                context: contextRegisterForm,
-                                                title: 'Register',
-                                                icon: const Icon(Icons.clear),
-                                                child: CustomRegisterForm(
-                                                  eventID: widget.eventId,
-                                                  contextRegisterTicket:
-                                                      contextRegisterForm,
+
+                                        !eventController
+                                                    .isLoadingCheckIn.value &&
+                                                eventController.getRegisterModel
+                                                        .value.guest?.length !=
+                                                    1 &&
+                                                eventController.eventDetail
+                                                        .value.isCheckin ==
+                                                    false
+                                            ? Expanded(
+                                                child: CustomButton(
+                                                  title: 'Add Guest',
+                                                  onPressed: () {
+                                                    onShowCustomCupertinoModalSheet(
+                                                      context: context,
+                                                      title: 'Register',
+                                                      icon: const Icon(
+                                                          Icons.clear),
+                                                      child: CustomRegisterForm(
+                                                        eventID: widget.eventId,
+                                                        contextRegisterTicket:
+                                                            context,
+                                                      ),
+                                                    );
+                                                  },
+                                                  isDisable: false,
+                                                  isOutline: true,
                                                 ),
-                                              );
-                                            },
-                                            isDisable: false,
-                                            isOutline: true,
-                                          ),
-                                        ),
-                                      if (eventController.eventDetail.value
-                                                  .isRegister ==
-                                              true &&
-                                          eventController.getRegisterModel.value
-                                                  .guest!.length !=
-                                              eventController.eventDetail.value
-                                                  .remainingRegistration)
+                                              )
+                                            : Expanded(
+                                                child: CustomButton(
+                                                  title: 'Add Guest',
+                                                  onPressed: () {},
+                                                  isDisable: true,
+                                                  isOutline: true,
+                                                ),
+                                              ),
+                                      if (eventController
+                                              .eventDetail.value.isRegister ==
+                                          true)
                                         const SizedBox(
                                           width: 15,
                                         ),
@@ -1035,8 +1006,7 @@ class _EventDetailState extends State<EventDetail> {
                                                             ];
 
                                                             onShowCustomCupertinoModalSheet(
-                                                              context:
-                                                                  contextRegisterForm,
+                                                              context: context,
                                                               title: 'Register',
                                                               icon: const Icon(
                                                                   Icons.clear),
@@ -1045,7 +1015,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                 eventID: widget
                                                                     .eventId,
                                                                 contextRegisterTicket:
-                                                                    contextRegisterForm,
+                                                                    context,
                                                               ),
                                                             );
                                                           }
@@ -1151,31 +1121,28 @@ class _EventDetailState extends State<EventDetail> {
                                                                       }
                                                                     : eventController.eventDetail.value.hostAt != 'online' && eventController.eventDetail.value.isRegister! && !eventController.eventDetail.value.isCheckin!
                                                                         ? () async {
-                                                                            eventController.getRegisterWithGuest(eventController.eventDetail.value.id!, isCheckIn: true).then(
-                                                                              (value) {
-                                                                                settingCon.isHideBottomNavigation = true;
-                                                                                settingCon.update();
-                                                                                showMaterialModalBottomSheet(
-                                                                                    context: context,
-                                                                                    enableDrag: false,
-                                                                                    builder: (context) {
-                                                                                      return SingleChildScrollView(
-                                                                                        physics: const NeverScrollableScrollPhysics(),
-                                                                                        child: Column(
-                                                                                          children: [
-                                                                                            Container(
-                                                                                              height: MediaQuery.of(context).size.height,
-                                                                                              color: Colors.white,
-                                                                                              child: const QrCodeScreen(
-                                                                                                pageName: 'eventDetail',
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
+                                                                            settingCon.isHideBottomNavigation =
+                                                                                true;
+                                                                            settingCon.update();
+                                                                            showMaterialModalBottomSheet(
+                                                                                context: context,
+                                                                                enableDrag: false,
+                                                                                builder: (context) {
+                                                                                  return SingleChildScrollView(
+                                                                                    physics: const NeverScrollableScrollPhysics(),
+                                                                                    child: Column(
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          height: MediaQuery.of(context).size.height,
+                                                                                          color: Colors.white,
+                                                                                          child: const QrCodeScreen(
+                                                                                            pageName: 'eventDetail',
+                                                                                          ),
                                                                                         ),
-                                                                                      );
-                                                                                    });
-                                                                              },
-                                                                            );
+                                                                                      ],
+                                                                                    ),
+                                                                                  );
+                                                                                });
                                                                           }
                                                                         : () {}
                                                             : () {
@@ -1208,8 +1175,8 @@ class _EventDetailState extends State<EventDetail> {
                             : const Text('')
                         : const Text('')),
               ),
-            ),
-          ),
+            );
+          }),
         ),
       ),
     );

@@ -33,7 +33,6 @@ class _RegisterMemberState extends State<RegisterMember> {
 
   @override
   void initState() {
-    debugPrint("Event id${widget.eventID}");
     memberController.fetchAllMembers();
     memberController.update();
     registeredMemberList =

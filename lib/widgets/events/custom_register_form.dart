@@ -358,6 +358,12 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
   List<Map>? guest = [];
 
   @override
+  void initState() {
+    registerMemberController.onFetchRelationShip();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -448,87 +454,81 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                       controller.update();
                                     },
                                   ),
-                                  // const SizedBox(
-                                  //   height: 20,
-                                  // ),
-                                  if (e.value ==
-                                          registerMemberController
-                                              .guestlistmodel.last &&
-                                      e.key !=
-                                          registerMemberController
-                                                  .eventDetail
-                                                  .value
-                                                  .remainingRegistration! -
-                                              1)
-                                    GestureDetector(
-                                      onTap: e.value.participantName == '' ||
-                                              e.value.phone == ''
-                                          ? null
-                                          : () {
-                                              setState(() {
-                                                registerMemberController
-                                                    .guestlistmodel
-                                                    .add(GuestModel());
-                                                debugPrint("list$guest");
-                                                controller.update();
-                                              });
-                                            },
-                                      child: Container(
-                                        width: 125,
-                                        margin: const EdgeInsets.only(
-                                            left: 20, top: 10, bottom: 10),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 8),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: e.value.participantName ==
-                                                        '' ||
-                                                    e.value.phone == ''
-                                                ? Colors.grey.withOpacity(0.2)
-                                                : Theme.of(context)
-                                                    .primaryColor
-                                                    .withOpacity(0.1)),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.add_circle,
-                                                color:
-                                                    e.value.participantName ==
-                                                                '' ||
-                                                            e.value.phone == ''
-                                                        ? Colors.grey
-                                                        : Theme.of(context)
-                                                            .primaryColor),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              'Add More',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline3!
-                                                  .copyWith(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: e.value.participantName ==
-                                                                  '' ||
-                                                              e.value.phone ==
-                                                                  ''
-                                                          ? Colors.grey
-                                                          : Theme.of(context)
-                                                              .primaryColor),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  if (e.key ==
-                                      registerMemberController.eventDetail.value
-                                          .remainingRegistration)
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  // if (e.value ==
+                                  //     registerMemberController
+                                  //         .guestlistmodel.last)
+                                  //   GestureDetector(
+                                  //     onTap: e.value.participantName == '' ||
+                                  //             e.value.phone == ''
+                                  //         ? null
+                                  //         : () {
+                                  //             setState(() {
+                                  //               registerMemberController
+                                  //                   .guestlistmodel
+                                  //                   .add(GuestModel());
+                                  //               debugPrint("list$guest");
+                                  //               controller.update();
+                                  //             });
+                                  //           },
+                                  //     child: Container(
+                                  //       width: 125,
+                                  //       margin: const EdgeInsets.only(
+                                  //           left: 20, top: 10, bottom: 10),
+                                  //       padding: const EdgeInsets.symmetric(
+                                  //           horizontal: 10, vertical: 8),
+                                  //       decoration: BoxDecoration(
+                                  //           borderRadius:
+                                  //               BorderRadius.circular(10),
+                                  //           color: e.value.participantName ==
+                                  //                       '' ||
+                                  //                   e.value.phone == ''
+                                  //               ? Colors.grey.withOpacity(0.2)
+                                  //               : Theme.of(context)
+                                  //                   .primaryColor
+                                  //                   .withOpacity(0.1)),
+                                  //       child: Row(
+                                  //         children: [
+                                  //           Icon(Icons.add_circle,
+                                  //               color:
+                                  //                   e.value.participantName ==
+                                  //                               '' ||
+                                  //                           e.value.phone == ''
+                                  //                       ? Colors.grey
+                                  //                       : Theme.of(context)
+                                  //                           .primaryColor),
+                                  //           const SizedBox(
+                                  //             width: 10,
+                                  //           ),
+                                  //           // Text(
+                                  //           //   'Add More',
+                                  //           //   style: Theme.of(context)
+                                  //           //       .textTheme
+                                  //           //       .headline3!
+                                  //           //       .copyWith(
+                                  //           //           fontSize: 14,
+                                  //           //           fontWeight:
+                                  //           //               FontWeight.w700,
+                                  //           //           color: e.value.participantName ==
+                                  //           //                       '' ||
+                                  //           //                   e.value.phone ==
+                                  //           //                       ''
+                                  //           //               ? Colors.grey
+                                  //           //               : Theme.of(context)
+                                  //           //                   .primaryColor),
+                                  //           // ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // if (e.key ==
+                                  //     registerMemberController.eventDetail.value
+                                  //         .remainingRegistration)
+                                  //   const SizedBox(
+                                  //     height: 30,
+                                  //   ),
                                 ],
                               ))
                           .toList(),

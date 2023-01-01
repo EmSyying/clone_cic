@@ -16,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/form_builder/custom_button.dart';
+import '../../Utils/helper/color.dart';
 import '../../Utils/helper/custom_route_snackbar.dart';
 import '../../Utils/helper/show_myqr_code.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
@@ -27,6 +28,7 @@ import '../event_module/controller/event_controller.dart';
 import '../event_module/models/event_data.dart';
 import '../event_module/models/event_detail_argument.dart';
 import '../event_module/models/event_ticket.dart';
+import '../event_module/screen/event_check_in_ticket.dart';
 import '../event_module/screen/event_detail.dart';
 import '../google_map_module/controllers/google_map_controller.dart';
 import '../member_directory/controllers/customer_controller.dart';
@@ -154,9 +156,29 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                 debugPrint("Link: $links");
                                                 int? param = int.tryParse(links
                                                     .replaceAll('/event/', ''));
-                                                await eventCon.onCheckInEvent(
-                                                    eventId: param,
-                                                    context: context);
+                                                // eventCon
+                                                //     .getRegisterWithGuest(param,
+                                                //         isCheckIn: true,
+                                                //         context: context)
+                                                eventCon.eventDetail.value.id =
+                                                    param;
+
+                                                if (widget.pageName != null) {
+                                                  await eventCon
+                                                      .getRegisterWithGuest(
+                                                          param,
+                                                          isCheckIn: true,
+                                                          context: context,
+                                                          fromPage:
+                                                              widget.pageName);
+                                                } else {
+                                                  await eventCon
+                                                      .getRegisterWithGuest(
+                                                    param,
+                                                    isCheckIn: true,
+                                                    context: context,
+                                                  );
+                                                }
                                               } else {
                                                 router.go(links);
                                               }
@@ -167,9 +189,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                               settingCon.update();
                                             }
                                           } catch (ex) {
-                                            setState(() {
-                                              isInvalid = true;
-                                            });
+                                            debugPrint("Ex: $ex");
                                           }
                                           debugPrint("is Checke Scann");
                                           // setState(() {

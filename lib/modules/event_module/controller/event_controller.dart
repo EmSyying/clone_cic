@@ -655,85 +655,100 @@ class EventController extends GetxController {
       String? fromPage,
       // List<Map>? guest,
       BuildContext? context}) async {
-    debugPrint("on register is work1");
-
+    debugPrint("memberID: $memberId");
+    debugPrint("eventId: $eventId");
     isLoadingRegisterWithGuest(true);
-    await apiBaseHelper.onNetworkRequesting(
-      methode: METHODE.post,
-      isAuthorize: true,
-      url: 'event-registration',
-      body: {
-        "member_id": memberId,
-        "event_id": eventId,
-        "guest": guestlistmodel.map((e) {
-          return {
-            "phone_number": e.phone,
-            "participant_name": e.participantName,
-            "relationship": reletionShipId.value
-          };
-        }).toList()
-      },
-    ).then((res) {
-      debugPrint("on register is work2::$reletionShipId");
-      registermemberList.clear();
-      var responseJson = res['ticket'];
-      getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
-      // updated by Chhany
-      getListGest.clear();
-      getRegisterModel.value.guest!.map((e) {
-        getListGest.add(e);
-      }).toList();
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+        methode: METHODE.post,
+        isAuthorize: true,
+        url: 'event-registration',
+        body: {
+          "member_id": memberId,
+          "event_id": eventId,
+          "guest": guestlistmodel.map((e) {
+            return {
+              "phone_number": e.phone,
+              "participant_name": e.participantName,
+              "relationship": reletionShipId.value
+            };
+          }).toList()
+        },
+      ).then((res) {
+        debugPrint("on register is work2::$reletionShipId");
+        registermemberList.clear();
+        var responseJson = res['ticket'];
+        getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
+        // updated by Chhany
+        getListGest.clear();
+        getRegisterModel.value.guest!.map((e) {
+          getListGest.add(e);
+        }).toList();
 
-      if (fromPage != null) {
-        router.pop();
-        router.go('/event/$eventId');
-        refresh();
-        update();
-      } else {
-        eventDetail.value.isRegister = true;
-        Navigator.pop(context!);
-        onShowCustomCupertinoModalSheet(
-          isUseRootNavigation: true,
-          context: context,
-          icon: const Icon(
-            Icons.close_rounded,
-            color: Colors.white,
-          ),
-          isColorsAppBar: Theme.of(context).primaryColor,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: "Your Ticket",
-          titleColors: AppColor.arrowforwardColor['dark'],
-          child:
-              // const EventSubmitDoneScreen()
-              const EventCheckInTicket(
-            selectCheckIn: 'view_ticket',
-          ),
-        );
-        onClearGuest();
+        if (fromPage != null) {
+          router.pop();
+          router.go('/event/$eventId');
+          refresh();
+          update();
+        } else {
+          eventDetail.value.isRegister = true;
+          router.pop();
+          onShowCustomCupertinoModalSheet(
+            isUseRootNavigation: true,
+            context: context,
+            icon: const Icon(
+              Icons.close_rounded,
+              color: Colors.white,
+            ),
+            isColorsAppBar: Theme.of(context!).primaryColor,
+            backgroundColor: Theme.of(context).primaryColor,
+            title: "Your Ticket",
+            titleColors: AppColor.arrowforwardColor['dark'],
+            child:
+                // const EventSubmitDoneScreen()
+                EventCheckInTicket(
+              selectCheckIn: 'view_ticket',
+              onTapDone: () {
+                router.pop();
+                router.go('/event/$eventId');
+              },
+            ),
+          );
+          onClearGuest();
+          isLoadingRegisterWithGuest(false);
+          isLoadingGetRegister(false);
+          /////clear data on textfile
+          guestlistmodel.value = <GuestModel>[GuestModel()];
+          refresh();
+          update();
+        }
+      }).onError((ErrorModel error, stackTrace) {
+        debugPrint("Erorrsdfdsfsdfs+: ${error.bodyString}");
         isLoadingRegisterWithGuest(false);
-        isLoadingGetRegister(false);
-        /////clear data on textfile
-        guestlistmodel.value = <GuestModel>[GuestModel()];
-        refresh();
-        update();
-      }
-    }).onError((ErrorModel error, stackTrace) {
+      });
+    } catch (ex) {
+    } finally {
       isLoadingRegisterWithGuest(false);
-    });
+    }
   }
 
 ////submit check in
   final isLoadingCheckIn = false.obs;
-  Future<void> onCheckInEvent({int? eventId, BuildContext? context}) async {
+  Future<void> onCheckInEvent(
+      {int? eventId, BuildContext? context, String? fromPage}) async {
     isLoadingCheckIn(true);
+    debugPrint("Event ID: $eventId");
 
     List<Map<String, dynamic>> submitList = [];
-
+    debugPrint("Guest selected: ${selectCheckInModel.length}");
     selectCheckInModel.map((element) {
       submitList.add(element.copyWith().toJson());
+      // debugPrint("Submit Guest: $element");
     }).toList();
 
     final submitguest = json.encode(submitList);
+    debugPrint(
+        "Event ID: $eventId member ID ${customerController.customer.value.customerId}=====guest: ${submitguest} origiin ===: ${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}");
 
     await apiBaseHelper.onNetworkRequesting(
         methode: METHODE.post,
@@ -746,39 +761,18 @@ class EventController extends GetxController {
           "origin":
               "${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}",
         }).then((res) {
-      debugPrint("check in successfull::$res");
-      getRegisterModel.value = GetRegisterModel.fromJson(res['data']);
-      // updated by Chhany
-      getListGest.clear();
-      getRegisterModel.value.guest!.map((e) {
-        getListGest.add(e);
-      }).toList();
-      onShowCustomCupertinoModalSheet(
-        context: context,
-        isUseRootNavigation: true,
-        // useRootNavigator: true,
-
-        icon: const Icon(
-          Icons.close_rounded,
-          color: Colors.white,
-        ),
-        isColorsAppBar: Theme.of(context!).primaryColor,
-        backgroundColor: Theme.of(context).primaryColor,
-        title: "Your Ticket",
-        titleColors: AppColor.arrowforwardColor['dark'],
-        child:
-            // const EventSubmitDoneScreen()
-            EventCheckInTicket(
-          selectCheckIn: 'view_ticket',
-          onTapDone: () {
-            context.pop();
-            context.go('/');
-          },
-        ),
-      );
-
+      debugPrint("Response: $res");
+      if (fromPage != null) {
+        router.pop();
+        router.pop();
+        router.go('/event/$eventId');
+      } else {
+        router.pop();
+        router.go('/event/$eventId');
+      }
       isLoadingCheckIn(false);
     }).onError((ErrorModel error, stackTrace) {
+      debugPrint("Errror ====: ${error.bodyString} ===${error.statusCode}");
       if (error.statusCode == 422) {
         var isAvailableZone = error.bodyString['errors']['origin'];
 
@@ -786,51 +780,6 @@ class EventController extends GetxController {
         var isAvailableEvent = error.bodyString['errors']['event_id'];
         var availableEvent = error.bodyString['errors']['event_id'];
 
-        if (isAvailableZone != null) {
-          showNotifyPopUp(
-            context: context,
-            title: 'The zone is not available',
-            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit,',
-          );
-          eventTicket.value = EventTicket();
-          isRegister(false);
-        } else if (registerStatus != null) {
-          fetchEventDetail(eventId!);
-          debugPrint("Error body event checkin 2");
-          eventTicket.value = EventTicket();
-          showNotifyPopUp(
-            secondButton: 'Register Now',
-            onTap: () {
-              onShowCustomCupertinoModalSheet(
-                context: context,
-                title: 'Register',
-                icon: const Icon(Icons.clear),
-                child: CustomRegisterForm(
-                  eventID: eventId,
-                  fromPage: 'QRCodeScreen',
-                  contextRegisterTicket: context,
-                ),
-              );
-            },
-            context: context,
-            title: 'You have not registered yet',
-            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
-            description:
-                'Your name can\'t be found in the registration list. If you have not registered, please kindly register before scanning this QR code.',
-          );
-        } else if (availableEvent != null) {
-          showNotifyPopUp(
-            context: context,
-            title: 'Past Event',
-            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
-            description:
-                'The event you are scanning has already taken place. Please check the list of our upcoming events and we hope to see you there.',
-          );
-          eventTicket.value = EventTicket();
-          isRegister(false);
-        }
         isLoadingCheckIn(false);
       }
     });
@@ -841,9 +790,17 @@ class EventController extends GetxController {
   //Get register guest updated by Chhany
   final isLoadingGetRegister = false.obs;
   final isLoadingGetRegisterCheckIn = false.obs;
+  final isLoadingViewTicket = false.obs;
   Future<GetRegisterModel> getRegisterWithGuest(int? id,
-      {bool? isCheckIn = false}) async {
+      {bool? isCheckIn = false,
+      BuildContext? context,
+      bool? isViewTicket,
+      String? fromPage}) async {
     //  is check in use for disable loading
+
+    if (isViewTicket != null && isViewTicket) {
+      isLoadingViewTicket(true);
+    }
     if (isCheckIn == false) {
       isLoadingGetRegister(true);
     } else {
@@ -854,10 +811,14 @@ class EventController extends GetxController {
         .onNetworkRequesting(
             methode: METHODE.get,
             isAuthorize: true,
-            url:
-                'event-guest/register?event_id=$id&member_id=${customerController.customer.value.customerId}')
-        .then((res) {
+            url: isViewTicket != null && isViewTicket
+                ? 'event-guest/register?event_id=$id&member_id=${customerController.customer.value.customerId}&origin=${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}&view_ticket=$isViewTicket'
+                : 'event-guest/register?event_id=$id&member_id=${customerController.customer.value.customerId}&origin=${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}')
+        .then((res) async {
+      debugPrint(
+          "Response Body: ${customerController.customer.value.customerId} ==$id");
       var responseJson = res['data'];
+
       getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
       getListGest.clear();
       getRegisterModel.value.guest!.map((e) {
@@ -869,8 +830,128 @@ class EventController extends GetxController {
       } else {
         isLoadingGetRegisterCheckIn(false);
       }
+      if (isViewTicket != null && isViewTicket) {
+        isLoadingViewTicket(false);
+        await onShowCustomCupertinoModalSheet(
+          context: context,
+          icon: const Icon(
+            Icons.close_rounded,
+            color: Colors.white,
+          ),
+          isColorsAppBar: AppColor.mainColor,
+          backgroundColor: AppColor.mainColor,
+          title: "Check in",
+          titleColors: AppColor.arrowforwardColor['dark'],
+          child: EventCheckInTicket(
+            contextTicket: context,
+            selectCheckIn: 'view_ticket',
+          ),
+        );
+      } else {
+        if (fromPage != null) {
+          await onShowCustomCupertinoModalSheet(
+            context: context,
+            icon: const Icon(
+              Icons.close_rounded,
+              color: Colors.white,
+            ),
+            isColorsAppBar: AppColor.mainColor,
+            backgroundColor: AppColor.mainColor,
+            title: "Check in",
+            titleColors: AppColor.arrowforwardColor['dark'],
+            child: EventCheckInTicket(
+              contextTicket: context,
+              selectCheckIn: 'check_in',
+              fromPage: fromPage,
+            ),
+          );
+        } else {
+          await onShowCustomCupertinoModalSheet(
+            context: context,
+            icon: const Icon(
+              Icons.close_rounded,
+              color: Colors.white,
+            ),
+            isColorsAppBar: AppColor.mainColor,
+            backgroundColor: AppColor.mainColor,
+            title: "Check in",
+            titleColors: AppColor.arrowforwardColor['dark'],
+            child: EventCheckInTicket(
+              contextTicket: context,
+              selectCheckIn: 'check_in',
+            ),
+          );
+        }
+      }
     }).onError((ErrorModel error, stackTrace) {
-      //  is check in use for disable loading
+      debugPrint("Error: ${error.bodyString}");
+      if (error.statusCode == 422) {
+        // var isAvailableZone = error.bodyString['errors']['origin'];
+
+        // var registerStatus = error.bodyString['errors']['member_id'];
+        // var isAvailableEvent = error.bodyString['errors']['event_id'];
+        // var availableEvent = error.bodyString['errors']['event_id'];
+        var message = json.encode(error.bodyString['message']);
+        debugPrint("Message: $message");
+
+        if (message.toString().contains("The zone is not available.")) {
+          showNotifyPopUp(
+            context: context,
+            title: 'The zone is not available',
+            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit,',
+          );
+          eventTicket.value = EventTicket();
+          isRegister(false);
+        } else if (message
+            .toString()
+            .contains("This member hasn't registered for the event yet.")) {
+          fetchEventDetail(eventId);
+          debugPrint("Error body event checkin 2");
+          eventTicket.value = EventTicket();
+          showNotifyPopUp(
+            secondButton: 'Register Now',
+            onTap: () async {
+              // guestlistmodel.value = <GuestModel>[GuestModel()];
+
+              await onShowCustomCupertinoModalSheet(
+                context: context,
+                title: 'Register',
+                icon: const Icon(Icons.clear),
+                child: CustomRegisterForm(
+                  eventID: eventId,
+                  contextRegisterTicket: context,
+                ),
+              );
+            },
+            context: context,
+            title: 'You have not registered yet',
+            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
+            description:
+                'Your name can\'t be found in the registration list. If you have not registered, please kindly register before scanning this QR code.',
+          );
+        } else if (message.toString().contains("The event is past.")) {
+          showNotifyPopUp(
+            context: context,
+            title: 'Past Event',
+            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
+            description:
+                'The event you are scanning has already taken place. Please check the list of our upcoming events and we hope to see you there.',
+          );
+          eventTicket.value = EventTicket();
+          isRegister(false);
+        } else if (message.toString().contains("The event is not start yet.")) {
+          showNotifyPopUp(
+            context: context,
+            title: 'The event is not start yet',
+            imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
+            description:
+                'The event you are scanning has already taken place. Please check the list of our upcoming events and we hope to see you there.',
+          );
+        }
+        isLoadingCheckIn(false);
+      }
       if (isCheckIn == false) {
         isLoadingGetRegister(false);
       } else {
@@ -887,23 +968,32 @@ class EventController extends GetxController {
     int? eventId,
     int? memberId,
   }) async {
+    debugPrint("member id: $memberId");
     isLoadingCheckInGuest(true);
-    await apiBaseHelper
-        .onNetworkRequesting(
-            methode: METHODE.get,
-            isAuthorize: true,
-            url: 'event-view/ticket?event_id=$eventId&member_id=$memberId')
-        .then((res) {
-      var responseJson = res['data'];
-      getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
-      getListGest.clear();
-      getRegisterModel.value.guest!.map((e) {
-        getListGest.add(e);
-      }).toList();
+    try {
+      await apiBaseHelper
+          .onNetworkRequesting(
+              methode: METHODE.get,
+              isAuthorize: true,
+              url:
+                  'event-view/ticket?event_id=$eventId&member_id=${customerController.customer.value.customerId}')
+          .then((res) {
+        var responseJson = res['data'];
+        getRegisterModel.value = GetRegisterModel.fromJson(responseJson);
+        debugPrint("Register Model: ${getRegisterModel.value.guest!.length}");
+        getListGest.clear();
+        getRegisterModel.value.guest!.map((e) {
+          getListGest.add(e);
+        }).toList();
+        isLoadingCheckInGuest(false);
+      }).onError((ErrorModel error, stackTrace) {
+        isLoadingCheckInGuest(false);
+      });
+    } catch (ex) {
       isLoadingCheckInGuest(false);
-    }).onError((ErrorModel error, stackTrace) {
+    } finally {
       isLoadingCheckInGuest(false);
-    });
+    }
 
     return getRegisterModel.value;
   }
@@ -927,6 +1017,7 @@ class EventController extends GetxController {
         responseJson.map((relationShip) {
           relationShipList.add(DocumentType.fromJson(relationShip));
         }).toList();
+
         relationShipList.asMap().entries.map((e) {
           reletionShipId.value = e.value.id!;
           addNewOtherRelationShip.text = e.value.display!;
@@ -937,7 +1028,7 @@ class EventController extends GetxController {
         isRelationShhip(false);
       });
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("Error: body: $e");
     } finally {
       isRelationShhip(false);
     }

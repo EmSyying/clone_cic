@@ -544,7 +544,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         appBar: CustomAppBar(
           onTap: () async {
             final url = await DynamicLinkService.createDynamicLink(
-                path: 'event/1', isShort: true);
+                path: 'event/16', isShort: true);
             debugPrint("HelloS: $url");
           },
           isLeading: true,
