@@ -66,14 +66,14 @@ class CiCGuidController extends GetxController {
       description:
           'View trading related information and last trading information',
     ),
-    GuidelineModel(
-      title: 'Buy In',
-      description: 'Click this button then it take you to UT buy screen',
-    ),
-    GuidelineModel(
-      title: 'Sell Out',
-      description: 'Click this button then it take you to UT sell screen',
-    ),
+    // GuidelineModel(
+    //   title: 'Buy In',
+    //   description: 'Click this button then it take you to UT buy screen',
+    // ),
+    // GuidelineModel(
+    //   title: 'Sell Out',
+    //   description: 'Click this button then it take you to UT sell screen',
+    // ),
   ];
   List<GuidelineModel> getFundingGuide = <GuidelineModel>[
     GuidelineModel(

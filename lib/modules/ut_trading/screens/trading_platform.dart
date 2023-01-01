@@ -486,22 +486,17 @@ class _UTtradingState extends State<UTtrading>
   }
 
   void _scrollToButton(GlobalKey key) {
-    if (key.currentContext != null) {
-      _scrollController.animateTo(100,
-          duration: const Duration(milliseconds: 200), curve: Curves.linear);
-    }
+    // if (key.currentContext != null) {
+    //   _scrollController.animateTo(100,
+    //       duration: const Duration(milliseconds: 200), curve: Curves.linear);
+    // }
   }
 
   void _showGuildLine() {
     CiCApp.showOverlays(
       context: context,
       itemCount: _guider.utTrading.length,
-      key: (index) {
-        if (index == 5) {
-          _scrollToButton(_guider.utTrading[index].key!);
-        }
-        return _guider.utTrading[index].key!;
-      },
+      key: (index) => _guider.utTrading[index].key!,
       titleBuilder: (index) => _guider.utTrading[index].title ?? '',
       descriptionBuilder: (index) => _guider.utTrading[index].description ?? '',
       objectSettingBuilder: (index) => index == 0

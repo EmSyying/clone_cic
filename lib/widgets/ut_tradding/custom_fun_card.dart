@@ -176,7 +176,7 @@ class CustomFunCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: CustomTradingButton(
-                    key: guider.utTrading[6].key = GlobalKey(),
+                    // key: guider.utTrading[6].key = GlobalKey(),
                     isBuying: true,
                     color: isLoading!
                         ? const Color(0xff75BF72).withAlpha(76)
@@ -191,7 +191,7 @@ class CustomFunCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: CustomTradingButton(
-                    key: guider.utTrading[7].key = GlobalKey(),
+                    // key: guider.utTrading[7].key = GlobalKey(),
                     isBuying: false,
                     title: 'Sell Out',
                     color: isLoading!
