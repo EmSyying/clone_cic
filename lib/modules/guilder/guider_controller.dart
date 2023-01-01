@@ -125,7 +125,7 @@ class CiCGuidController extends GetxController {
     GuidelineModel(
       title: 'Deposit',
       description:
-          'Deposit fund to our MM account via wallets. banks or from other MM account',
+          'Deposit fund to your MM account via wallets, banks, or from other MM account',
     ),
     GuidelineModel(
       title: 'Transfer',
