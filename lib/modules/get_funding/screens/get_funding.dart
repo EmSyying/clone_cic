@@ -146,7 +146,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('current_user');
     String url =
-        '${FlavorConfig.instance.values!.mainApiUrl}device-token-store';
+        '${FlavorConfig.instance.values!.apiBaseUrl}device-token-store';
     try {
       await http.post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',
@@ -187,7 +187,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('current_user');
 
-    String userUrl = '${FlavorConfig.instance.values!.mainApiUrl}user';
+    String userUrl = '${FlavorConfig.instance.values!.apiBaseUrl}user';
     await http.get(Uri.parse(userUrl), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'

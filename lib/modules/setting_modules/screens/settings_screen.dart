@@ -394,7 +394,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _isLoading == true ? showLoadingDialog(context) : Container();
 
     var token = await LocalData.getCurrentUser();
-    String url = '${FlavorConfig.instance.values!.mainApiUrl}request-otp';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}request-otp';
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'applicatio/json',

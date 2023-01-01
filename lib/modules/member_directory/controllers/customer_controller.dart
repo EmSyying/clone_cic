@@ -30,7 +30,7 @@ class CustomerController extends GetxController {
     dynamic responseJson;
     var token = await LocalData.getCurrentUser();
 
-    String userUrl = '${FlavorConfig.instance.values!.mainApiUrl}user';
+    String userUrl = '${FlavorConfig.instance.values!.apiBaseUrl}user';
     try {
       await http.get(Uri.parse(userUrl), headers: {
         'Accept': 'application/json',

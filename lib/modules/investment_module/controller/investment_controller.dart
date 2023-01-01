@@ -212,7 +212,7 @@ class PriceController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}return-on-investment';
+        '${FlavorConfig.instance.values!.apiBaseUrl}return-on-investment';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -573,7 +573,7 @@ class PriceController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     try {
       final String url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV3}customer/certificate/download';
+          '${FlavorConfig.instance.values!.apiBaseUrl}customer/certificate/download';
       await http.get(
         Uri.parse(url),
         headers: {
@@ -1430,7 +1430,7 @@ class PriceController extends GetxController {
   submitPINCode(
       {String? pinCode, Function? onSuccess, BuildContext? context}) async {
     String url =
-        '${FlavorConfig.instance.values!.mainApiUrl}user/verify-pin-code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user/verify-pin-code';
     isLoadingPincode(true);
     await apiBaseHelper.onNetworkRequesting(
       url: '',
@@ -1573,7 +1573,7 @@ class PriceController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
     try {
       final String url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV3}bank?type=FIF';
+          '${FlavorConfig.instance.values!.apiBaseUrl}bank?type=FIF';
       await http.get(
         Uri.parse(url),
         headers: {

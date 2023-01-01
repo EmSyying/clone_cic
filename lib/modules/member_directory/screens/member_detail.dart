@@ -230,7 +230,7 @@ class _MemberDetailState extends State<MemberDetail> {
   startUpload() async {
     var tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.mainApiUrl}user/change-profile';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user/change-profile';
     if (imageFile == null) {
       return;
     }

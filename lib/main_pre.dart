@@ -23,19 +23,12 @@ Future<void> main() async {
     values: FlavorValues(
         baseUrl: "https://pre-cic.z1platform.com/",
         apiBaseUrl: "https://pre-cic.z1platform.com/api/v1/",
-        mainApiUrl: "https://pre-cic.z1platform.com/api/",
-        baseUrlV2: "https://pre-cic.z1platform.com/",
-        apiBaseUrlV2: "https://pre-cic.z1platform.com/api/v2/",
-        mainApiUrlV2: "https://pre-cic.z1platform.com/api/",
-        apiBaseUrlV3: "https://pre-cic.z1platform.com/api/v3/",
-        apiBaseUrlV4: "https://pre-cic.z1platform.com/api/v4/",
         androidBundleId: 'com.cambodianinvestorscorporation',
         iOSBundleName: 'com.cambodianinvestorscorporation.pre'),
   );
   await runZonedGuarded(() async {
     await LocalStorage.init();
     await Firebase.initializeApp();
-
     setPathUrlStrategy();
     await settingCon.onInitAppSetting();
     await NotificationHelper.initial();

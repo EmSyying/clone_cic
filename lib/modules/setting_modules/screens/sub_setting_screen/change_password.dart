@@ -91,7 +91,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   bool isLoadingChangePassword = false;
   onChangePassword() async {
-    String url = '${FlavorConfig.instance.values!.mainApiUrl}user/set-password';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}user/set-password';
     setState(() {
       isLoadingChangePassword = true;
     });
@@ -147,7 +147,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     });
     var token = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.mainApiUrl}user/reset-password';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user/reset-password';
     debugPrint("Phone number 11${widget.phone}");
     debugPrint(
         "Password 11${passwordController.text} ======= ${confirmPasswordCon.text}");

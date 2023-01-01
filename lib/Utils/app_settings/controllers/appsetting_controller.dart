@@ -154,12 +154,12 @@ class SettingController extends GetxController {
   final contactUs = ContactUs().obs;
   List<SlideModel>? slideList = <SlideModel>[];
   List<SlideModel>? splashScreen = <SlideModel>[];
-  String url = '${FlavorConfig.instance.values!.apiBaseUrlV4}app-setting';
+  String url = '${FlavorConfig.instance.values!.apiBaseUrl}app-setting';
 
   Future<Setting> fetchSetting({String? userType}) async {
     final token = await LocalStorage.getStringValue(key: 'access_token');
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV4}app-setting/$userType';
+        '${FlavorConfig.instance.values!.apiBaseUrl}app-setting/$userType';
     SharedPreferences pref = await SharedPreferences.getInstance();
     await http.get(Uri.parse(url)).then((response) {
       if (response.statusCode == 200) {
@@ -184,7 +184,7 @@ class SettingController extends GetxController {
   Future<UIData> onFetchUIData() async {
     isloading = true;
 
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}ui';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}ui';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -214,7 +214,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     bool biometrics = await LocalData.getAuthenValue('authen');
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}slide?module=Slide&biometrics=$biometrics';
+        '${FlavorConfig.instance.values!.apiBaseUrl}slide?module=Slide&biometrics=$biometrics';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -278,7 +278,7 @@ class SettingController extends GetxController {
     debugPrint("This function is work");
     isLoading(true);
     var token = await LocalData.getCurrentUser();
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}support';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}support';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -327,7 +327,7 @@ class SettingController extends GetxController {
   final isPrivacyPolicy = false.obs;
   Future<PrivacyPolicy> fetchPrivacyPolicy() async {
     var token = await LocalData.getCurrentUser();
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}support';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}support';
     try {
       isPrivacyPolicy(true);
       await http.get(Uri.parse(url), headers: {
@@ -369,7 +369,7 @@ class SettingController extends GetxController {
 
   Future<AppSetting> fetchAppVersion({String? userType}) async {
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV4}app-setting/$userType';
+        '${FlavorConfig.instance.values!.apiBaseUrl}app-setting/$userType';
 
     isLoadingAboutCiC(true);
     try {
@@ -403,7 +403,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        "${FlavorConfig.instance.values!.apiBaseUrlV4}service/$userType?partial=menu";
+        "${FlavorConfig.instance.values!.apiBaseUrl}service/$userType?partial=menu";
     debugPrint("Switch Screen: $userType");
 
     try {
@@ -449,7 +449,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        "${FlavorConfig.instance.values!.apiBaseUrlV4}service/$userType?partial=navigation";
+        "${FlavorConfig.instance.values!.apiBaseUrl}service/$userType?partial=navigation";
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -478,7 +478,7 @@ class SettingController extends GetxController {
   onSwitchNotificationSetting() async {
     final token = await LocalData.getCurrentUser();
     final url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}setting/toggle-notification';
+        '${FlavorConfig.instance.values!.apiBaseUrl}setting/toggle-notification';
     try {
       await http.post(Uri.parse(url), headers: {
         'Accept': 'application/json',

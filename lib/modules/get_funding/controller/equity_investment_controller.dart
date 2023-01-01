@@ -199,7 +199,7 @@ class EquityInvestmentController extends GetxController {
   Future<ApplicationDataDetail> fetchAppDetails(int id) async {
     final token = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}equity-investment/$id';
+        '${FlavorConfig.instance.values!.apiBaseUrl}equity-investment/$id';
     isLoadingData(true);
     try {
       await http.get(
@@ -244,8 +244,8 @@ class EquityInvestmentController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url = type != null
-        ? '${FlavorConfig.instance.values!.apiBaseUrlV3}equity-investment?draft=true&step=$type'
-        : '${FlavorConfig.instance.values!.apiBaseUrlV3}equity-investment';
+        ? '${FlavorConfig.instance.values!.apiBaseUrl}equity-investment?draft=true&step=$type'
+        : '${FlavorConfig.instance.values!.apiBaseUrl}equity-investment';
     try {
       isLoadingSubmit(true);
       var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -341,9 +341,9 @@ class EquityInvestmentController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
     String url = pagenumber != null
         ? pagenumber == "1" || pagenumber == "2" || pagenumber == "3"
-            ? '${FlavorConfig.instance.values!.apiBaseUrlV3}equity-investment/$id?_method=PUT&draft=true&step=$pagenumber'
-            : '${FlavorConfig.instance.values!.apiBaseUrlV3}equity-investment/$id?_method=PUT&draft=true&final_step=true'
-        : '${FlavorConfig.instance.values!.apiBaseUrlV3}equity-investment/$id?_method=PUT';
+            ? '${FlavorConfig.instance.values!.apiBaseUrl}equity-investment/$id?_method=PUT&draft=true&step=$pagenumber'
+            : '${FlavorConfig.instance.values!.apiBaseUrl}equity-investment/$id?_method=PUT&draft=true&final_step=true'
+        : '${FlavorConfig.instance.values!.apiBaseUrl}equity-investment/$id?_method=PUT';
     try {
       isLoadingSubmit(true);
       var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -437,7 +437,7 @@ class EquityInvestmentController extends GetxController {
     final tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}equity-investment?page=$page';
+        '${FlavorConfig.instance.values!.apiBaseUrl}equity-investment?page=$page';
     try {
       if (page == 1) {
         isequityLoading(true);
@@ -518,8 +518,7 @@ class EquityInvestmentController extends GetxController {
   final isOptionDataLoading = false.obs;
   Future<OptionType> fetchOptionData({int? id}) async {
     final token = await LocalData.getCurrentUser();
-    String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}loan-product/$id';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}loan-product/$id';
     isOptionDataLoading(true);
     try {
       await http.get(Uri.parse(url), headers: {

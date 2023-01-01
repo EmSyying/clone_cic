@@ -168,8 +168,8 @@ class DebtInvestmentController extends GetxController {
     isLoadingSubmit(true);
     token = await LocalData.getCurrentUser();
     String url = step != null
-        ? '${FlavorConfig.instance.values!.apiBaseUrlV3}debt-investment?draft=true&step=$step'
-        : '${FlavorConfig.instance.values!.apiBaseUrlV3}debt-investment';
+        ? '${FlavorConfig.instance.values!.apiBaseUrl}debt-investment?draft=true&step=$step'
+        : '${FlavorConfig.instance.values!.apiBaseUrl}debt-investment';
     if (fullCurrentAddress.value.addressList != null) {
       if (fullCurrentAddress.value.addressList!.length == 3) {
         currentAddressCode.value =
@@ -347,11 +347,11 @@ class DebtInvestmentController extends GetxController {
     if (step == 1 || step == 2 || step == 3 || step == 4) {
       debugPrint("Draft To Draft");
       url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV3}debt-investment/$id?_method=PUT&draft=true&step=$step';
+          '${FlavorConfig.instance.values!.apiBaseUrl}debt-investment/$id?_method=PUT&draft=true&step=$step';
     } else {
       debugPrint("Draft To New");
       url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV3}debt-investment/$id?_method=PUT&draft=true&final_step=true';
+          '${FlavorConfig.instance.values!.apiBaseUrl}debt-investment/$id?_method=PUT&draft=true&final_step=true';
     }
 
     if (fullCurrentAddress.value.addressList != null) {
@@ -524,7 +524,7 @@ class DebtInvestmentController extends GetxController {
       {required int page}) async {
     final tokenKey = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}debt-investment?page=$page';
+        '${FlavorConfig.instance.values!.apiBaseUrl}debt-investment?page=$page';
     try {
       if (page == 1) {
         isLoadingCard(true);
@@ -574,7 +574,7 @@ class DebtInvestmentController extends GetxController {
   Future<DebtEqityData> fetchAppDetails(int id) async {
     final token = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}debt-investment/$id';
+        '${FlavorConfig.instance.values!.apiBaseUrl}debt-investment/$id';
     isLoadingData(true);
     try {
       await http.get(
@@ -671,7 +671,7 @@ class DebtInvestmentController extends GetxController {
   Future<List<Option>> fetchLoanOption() async {
     final token = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}loan-product?option=1';
+        '${FlavorConfig.instance.values!.apiBaseUrl}loan-product?option=1';
     isOptionLoanLoading(true);
     try {
       await http.get(
@@ -707,8 +707,7 @@ class DebtInvestmentController extends GetxController {
   final isOptionDataLoading = false.obs;
   Future<OptionType> fetchOptionData({int? id}) async {
     final token = await LocalData.getCurrentUser();
-    String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}loan-product/$id';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}loan-product/$id';
     isOptionDataLoading(true);
     try {
       await http.get(Uri.parse(url), headers: {

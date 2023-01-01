@@ -51,7 +51,7 @@ class _VerifyPhoneState extends State<VerifyPhone>
     setState(() {
       isloading = true;
     });
-    String url = '${FlavorConfig.instance.values!.mainApiUrl}verify-otp';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}verify-otp';
     debugPrint("Widget Phone number: ${widget.phoneNumber}");
 
     try {

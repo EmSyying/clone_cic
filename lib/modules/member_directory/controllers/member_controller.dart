@@ -259,7 +259,7 @@ class MemberController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}event-registration';
+        '${FlavorConfig.instance.values!.apiBaseUrl}event-registration';
 
     try {
       await http
@@ -402,7 +402,7 @@ class MemberController extends GetxController {
   final isLoadingSubmitCompany = false.obs;
   Future<void> onSubmitCompany(BuildContext? context) async {
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV3}company/createOrUpdate';
+        '${FlavorConfig.instance.values!.apiBaseUrl}company/createOrUpdate';
     tokenKey = await LocalData.getCurrentUser();
     debugPrint('heloo statuscode:+++++++++');
     if (comCompanyLogo != null) {
@@ -539,7 +539,7 @@ class MemberController extends GetxController {
     var token = await LocalData.getCurrentUser();
 
     String userUrl =
-        '${FlavorConfig.instance.values!.mainApiUrl}user-detail?customer_id=$id';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user-detail?customer_id=$id';
     try {
       await http.get(Uri.parse(userUrl), headers: {
         'Accept': 'application/json',
@@ -564,7 +564,7 @@ class MemberController extends GetxController {
   Future<PersonalProfile> fetchMemberPersonProfile({int? id}) async {
     isLoadingProfile(true);
     tokenKey = await LocalData.getCurrentUser();
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV4}member/$id';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}member/$id';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -589,7 +589,7 @@ class MemberController extends GetxController {
     String? field,
     int? active,
   }) async {
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}hidden-field';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}hidden-field';
     tokenKey = await LocalData.getCurrentUser();
 
     var data = json.encode({
@@ -624,7 +624,7 @@ class MemberController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
             fullURL:
-                '${FlavorConfig.instance.values!.apiBaseUrlV4}member/company/$id',
+                '${FlavorConfig.instance.values!.apiBaseUrl}member/company/$id',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
@@ -649,7 +649,7 @@ class MemberController extends GetxController {
       companyDataList.clear();
 
       String url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV2}member-company?member_id=$id';
+          '${FlavorConfig.instance.values!.apiBaseUrl}member-company?member_id=$id';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -685,12 +685,12 @@ class MemberController extends GetxController {
       if (isShowCiCTeam != null) {
         debugPrint("is member: 1");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillter=$filter&show_cic_team=1&page=$pageNumber&hide_me=1';
+            '${FlavorConfig.instance.values!.apiBaseUrl}member?fillter=$filter&show_cic_team=1&page=$pageNumber&hide_me=1';
       } else {
         debugPrint("is event:");
         debugPrint("is member: 2");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillter=$filter&page=$pageNumber&event_id=$eventId';
+            '${FlavorConfig.instance.values!.apiBaseUrl}member?fillter=$filter&page=$pageNumber&event_id=$eventId';
       }
     } else if (filterJson != null) {
       if (memberCurrentPage.value != 0) {
@@ -701,33 +701,33 @@ class MemberController extends GetxController {
           if (isShowCiCTeam != null) {
             debugPrint("is member: 3");
             url =
-                '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&show_cic_team=1&page=$memberCurrentPage&hide_me=1';
+                '${FlavorConfig.instance.values!.apiBaseUrl}member?fillters=$filterJson&show_cic_team=1&page=$memberCurrentPage&hide_me=1';
           } else {
             debugPrint("is member: 4");
             url =
-                '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&page=$memberCurrentPage&event_id=$eventId';
+                '${FlavorConfig.instance.values!.apiBaseUrl}member?fillters=$filterJson&page=$memberCurrentPage&event_id=$eventId';
           }
         }
       } else {
         if (isShowCiCTeam != null) {
           debugPrint("is member: 5");
           url =
-              '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&show_cic_team=1&hide_me=1';
+              '${FlavorConfig.instance.values!.apiBaseUrl}member?fillters=$filterJson&show_cic_team=1&hide_me=1';
         } else {
           debugPrint("is member: 6");
           url =
-              '${FlavorConfig.instance.values!.apiBaseUrlV4}member?fillters=$filterJson&event_id=$eventId';
+              '${FlavorConfig.instance.values!.apiBaseUrl}member?fillters=$filterJson&event_id=$eventId';
         }
       }
     } else {
       if (isShowCiCTeam != null) {
         debugPrint("is member: 7");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?show_cic_team=1&hide_me=1&page=$pageNumber';
+            '${FlavorConfig.instance.values!.apiBaseUrl}member?show_cic_team=1&hide_me=1&page=$pageNumber';
       } else {
         debugPrint("is member: 8");
         url =
-            '${FlavorConfig.instance.values!.apiBaseUrlV4}member?page=$pageNumber&event_id=$eventId';
+            '${FlavorConfig.instance.values!.apiBaseUrl}member?page=$pageNumber&event_id=$eventId';
       }
     }
 
@@ -890,7 +890,7 @@ class MemberController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
       fullURL:
-          '${FlavorConfig.instance.values!.apiBaseUrlV4}member$pageParam$filterParam$isCICmemberParam$hideMeParam$eventParam$jsonParam',
+          '${FlavorConfig.instance.values!.apiBaseUrl}member$pageParam$filterParam$isCICmemberParam$hideMeParam$eventParam$jsonParam',
       // '${GlobalConfiguration().get('api_base_url')}customer?page=$page&hide_me=1$_filterParam',
       url: '',
       methode: METHODE.get,

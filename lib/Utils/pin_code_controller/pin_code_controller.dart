@@ -27,7 +27,7 @@ class PINCodeController extends GetxController {
   Future<void> onSetPINCode(String pinCode, BuildContext context) async {
     tokenKey = await LocalData.getCurrentUser();
     isLoading(true);
-    String url = '${FlavorConfig.instance.values!.mainApiUrl}user/set-pin-code';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}user/set-pin-code';
 
     try {
       await http
@@ -57,7 +57,7 @@ class PINCodeController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        '${FlavorConfig.instance.values!.mainApiUrl}user/verify-pin-code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user/verify-pin-code';
 
     try {
       await http

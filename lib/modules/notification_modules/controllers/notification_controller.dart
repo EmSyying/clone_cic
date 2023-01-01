@@ -159,7 +159,7 @@ class NotificationController extends GetxController {
     var token = await LocalData.getCurrentUser();
     isFetchingDetail(true);
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}trading?type=single-trading&member_id=${userCon.customer.value.customerId}&transaction_id=$transitionId&market_id=$marketId&operation=$operation';
+        '${FlavorConfig.instance.values!.apiBaseUrl}trading?type=single-trading&member_id=${userCon.customer.value.customerId}&transaction_id=$transitionId&market_id=$marketId&operation=$operation';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ class NotificationController extends GetxController {
     for (int i = 0; i < reason!.length; i++) {}
     isLoading(true);
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}trading-accepted-declined?';
+        '${FlavorConfig.instance.values!.apiBaseUrl}trading-accepted-declined?';
 
     debugPrint(
         'TYPE : $type : REASON : $reason : transactionId : $transactionId : notificationId : $notificationId');
@@ -237,7 +237,7 @@ class NotificationController extends GetxController {
   }
 
   Future<List<Gender>> onGetReason() async {
-    final url = '${FlavorConfig.instance.values!.apiBaseUrlV2}option';
+    final url = '${FlavorConfig.instance.values!.apiBaseUrl}option';
     try {
       isGetReason(true);
       await http.get(

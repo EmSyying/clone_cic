@@ -134,7 +134,7 @@ class DocumentationController extends GetxController {
     try {
       isLoading(true);
       final String url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV3}documentation-by-type?type=$docType';
+          '${FlavorConfig.instance.values!.apiBaseUrl}documentation-by-type?type=$docType';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -161,7 +161,7 @@ class DocumentationController extends GetxController {
       documentationList.clear();
       isLoading(true);
       final String url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV3}documentation';
+          '${FlavorConfig.instance.values!.apiBaseUrl}documentation';
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

@@ -401,8 +401,8 @@ class UploadFileController extends GetxController {
     isLoading(true);
     var tokenKey = await LocalData.getCurrentUser();
     String url = body != null && baseUrl != null
-        ? '${FlavorConfig.instance.values!.apiBaseUrlV2}$baseUrl'
-        : '${FlavorConfig.instance.values!.mainApiUrl}user/change-profile';
+        ? '${FlavorConfig.instance.values!.apiBaseUrl}$baseUrl'
+        : '${FlavorConfig.instance.values!.apiBaseUrl}user/change-profile';
     // ignore: unnecessary_null_comparison
     if (imageFile == null) {
       return;

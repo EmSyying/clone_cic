@@ -50,7 +50,7 @@ class DocumentCategory extends GetxController {
     isLoading(true);
     final documentType = DocumentTypes().obs;
 
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}option';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -181,7 +181,7 @@ class DocumentCategory extends GetxController {
 
     final optionFormFilterListLocal = <OptionFormFilter>[].obs;
     isLoadingOptionFilter(true);
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV2}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}option';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -214,7 +214,7 @@ class DocumentCategory extends GetxController {
     final filterByTypeListLocal = <OptionFormFilter>[].obs;
     isLoading(true);
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}fetch-option-by-type?type=$type';
+        '${FlavorConfig.instance.values!.apiBaseUrl}fetch-option-by-type?type=$type';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -248,7 +248,7 @@ class DocumentCategory extends GetxController {
     final searchDataByOptionList = <OptionFormFilter>[].obs;
     final searchDataByOption = OptionFormFilter().obs;
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}option/search?type=$type&&search=$search';
+        '${FlavorConfig.instance.values!.apiBaseUrl}option/search?type=$type&&search=$search';
 
     try {
       isLoading(true);
@@ -281,7 +281,7 @@ class DocumentCategory extends GetxController {
     isLoading(true);
     final optionFormList = <OptionForm>[].obs;
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}fetch-option-by-type?type=$type';
+        '${FlavorConfig.instance.values!.apiBaseUrl}fetch-option-by-type?type=$type';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -310,7 +310,7 @@ class DocumentCategory extends GetxController {
   Future<OptionData> fetchAllOptions() async {
     var token = await LocalData.getCurrentUser();
     isLoadingOption(true);
-    String url = '${FlavorConfig.instance.values!.apiBaseUrlV3}option';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}option';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',

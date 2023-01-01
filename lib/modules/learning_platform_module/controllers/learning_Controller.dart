@@ -46,16 +46,16 @@ class LearningController extends GetxController {
 
     if (postId != null && memberId != null && pageName == null) {
       url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&more=true&current=$postId';
+          '${FlavorConfig.instance.values!.apiBaseUrl}post?member_id=$memberId&more=true&current=$postId';
     } else if (methode != null && pageName == null) {
       url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&saved=true';
+          '${FlavorConfig.instance.values!.apiBaseUrl}post?member_id=$memberId&saved=true';
     } else if (moduleId != null && pageName != null) {
       url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV2}member_id=$memberId&module=$moduleId&more=true&current=$postId';
+          '${FlavorConfig.instance.values!.apiBaseUrl}member_id=$memberId&module=$moduleId&more=true&current=$postId';
     } else {
       url =
-          '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&recommended=true';
+          '${FlavorConfig.instance.values!.apiBaseUrl}post?member_id=$memberId&recommended=true';
     }
     try {
       await http.get(Uri.parse(url), headers: {
@@ -92,7 +92,7 @@ class LearningController extends GetxController {
     isLoadingChannel(true);
     final token = await LocalData.getCurrentUser();
     url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}channel?member_id=$memberId';
+        '${FlavorConfig.instance.values!.apiBaseUrl}channel?member_id=$memberId';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -119,7 +119,7 @@ class LearningController extends GetxController {
     isLoadingChannelDetail(true);
 
     final token = await LocalData.getCurrentUser();
-    url = '${FlavorConfig.instance.values!.apiBaseUrlV2}channel/$channelId';
+    url = '${FlavorConfig.instance.values!.apiBaseUrl}channel/$channelId';
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -146,7 +146,7 @@ class LearningController extends GetxController {
     isLoadingPostByModule(true);
     final token = await LocalData.getCurrentUser();
     url =
-        '${FlavorConfig.instance.values!.apiBaseUrlV2}post?member_id=$memberId&module=$moduleId';
+        '${FlavorConfig.instance.values!.apiBaseUrl}post?member_id=$memberId&module=$moduleId';
 
     try {
       await http.get(Uri.parse(url), headers: {
@@ -181,9 +181,9 @@ class LearningController extends GetxController {
 
     String url = '';
     if (methode != null) {
-      url = '${FlavorConfig.instance.values!.apiBaseUrlV2}unsave-post';
+      url = '${FlavorConfig.instance.values!.apiBaseUrl}unsave-post';
     } else {
-      url = '${FlavorConfig.instance.values!.apiBaseUrlV2}save-post';
+      url = '${FlavorConfig.instance.values!.apiBaseUrl}save-post';
     }
     try {
       await http

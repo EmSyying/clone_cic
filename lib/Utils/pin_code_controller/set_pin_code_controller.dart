@@ -41,7 +41,7 @@ class SetPINCodeController extends GetxController {
     isLoading(true);
 
     String url =
-        '${FlavorConfig.instance.values!.mainApiUrl}user/verify-pin-code';
+        '${FlavorConfig.instance.values!.apiBaseUrl}user/verify-pin-code';
 
     var body = json.encode({
       'pin_code': pinCode,

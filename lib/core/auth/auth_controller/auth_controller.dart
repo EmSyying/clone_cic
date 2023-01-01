@@ -13,7 +13,7 @@ import '../../flavor/flavor_configuration.dart';
 
 class AuthController extends GetxController {
   final _apiBasehelper = ApiBaseHelper();
-  final mainUrl = FlavorConfig.instance.values!.mainApiUrl;
+  final mainUrl = FlavorConfig.instance.values!.apiBaseUrl;
   final _customerController = Get.put(CustomerController());
   final settingCon = Get.put(SettingController());
 

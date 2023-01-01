@@ -665,7 +665,7 @@ class _EventDetailState extends State<EventDetail> {
                                                     context: context,
                                                     title: 'Date and time',
                                                     content:
-                                                        '${eventController.eventDetail.value.date} - ${eventController.eventDetail.value.toTime}',
+                                                        '${eventController.eventDetail.value.fromTime} - ${eventController.eventDetail.value.toTime}',
                                                     imageSVG:
                                                         'assets/images/svgfile/calendar-border.svg',
                                                   ),

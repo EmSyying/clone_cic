@@ -21,7 +21,7 @@ enum METHODE {
 
 class ApiBaseHelper extends GetConnect {
   final String urlKey = 'api_base_urlv3';
-  final String? baseurl = FlavorConfig.instance.values!.apiBaseUrlV3;
+  final String? baseurl = FlavorConfig.instance.values!.apiBaseUrl;
 
   Future<dynamic> onNetworkRequesting(
       {String? url,

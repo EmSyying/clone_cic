@@ -83,7 +83,7 @@ class _MainDashboardState extends State<MainDashboard> {
   storeDeviceToken() async {
     var token = await LocalData.getCurrentUser();
     String url =
-        '${FlavorConfig.instance.values!.mainApiUrl}device-token-store';
+        '${FlavorConfig.instance.values!.apiBaseUrl}device-token-store';
     try {
       await http.post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $token',

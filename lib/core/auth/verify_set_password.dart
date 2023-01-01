@@ -49,7 +49,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
 
     // var sharedPrefs = await SharedPreferences.getInstance();
     // var _userToken = '';
-    String url = '${FlavorConfig.instance.values!.mainApiUrl}verify-otp';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}verify-otp';
     setState(() {
       _isVerifyLoading = true;
     });
@@ -110,7 +110,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
     });
     _isLoading ? showLoadingDialog(context) : null;
 
-    String url = '${FlavorConfig.instance.values!.mainApiUrl}request-otp';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}request-otp';
     try {
       final response = await http.post(Uri.parse(url), headers: {
         'Accept': 'applicatio/json',
@@ -153,7 +153,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
       _isVerifyLoading = true;
     });
 
-    String url = '${FlavorConfig.instance.values!.mainApiUrl}verify-otp';
+    String url = '${FlavorConfig.instance.values!.apiBaseUrl}verify-otp';
 
     try {
       await http.post(Uri.parse(url), headers: {
