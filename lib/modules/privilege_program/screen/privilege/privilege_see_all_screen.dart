@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
