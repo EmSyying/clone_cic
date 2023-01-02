@@ -10,7 +10,6 @@ import 'package:cicgreenloan/modules/learning_platform_module/screens/learning_h
 import 'package:cicgreenloan/modules/member_directory/screens/directory.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/member_detail.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_screen.dart';
-import 'package:cicgreenloan/modules/report_module/screens/report.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/trading_model.dart';
 import 'package:cicgreenloan/modules/ut_trading/screens/trading_platform.dart';
 import 'package:cicgreenloan/modules/bonus/screens/bonus_screen.dart';
@@ -58,10 +57,10 @@ Route<dynamic> routeSetting(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const LearningHome(isNavigator: true),
       );
-    case RouteName.REPORTS:
-      return MaterialPageRoute(
-        builder: (context) => Report(isNavigator: true),
-      );
+    // case RouteName.REPORTS:
+    //   return MaterialPageRoute(
+    //     builder: (context) => Report(isNavigator: true),
+    //   );
     case RouteName.ABOUTCIC:
       return MaterialPageRoute(
         builder: (context) => AboutCIC(isNavigator: true),

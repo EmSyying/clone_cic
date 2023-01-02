@@ -42,7 +42,7 @@ class CustomListWithTitle extends StatelessWidget {
           itemBuilder: (context, index) => GestureDetector(
             onTap: () {
               context.push(
-                  '/report_screen/view-report-list?attachedFile=${items[index].attachedFile}&title=${items[index].title}&url=${items[index].url}');
+                  '/report/view-report-list?attachedFile=${items[index].attachedFile}&title=${items[index].title}&url=${items[index].url}');
             },
             child: CustomDocumentCard(
               documentationModel: items[index],

@@ -24,7 +24,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
       ),
       elevation: 0,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
         width: double.infinity,
         height: 96,
         decoration: BoxDecoration(

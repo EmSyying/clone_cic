@@ -992,8 +992,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                       .setCurrentScreenName(
                                                           value.label!);
 
-                                                  context
-                                                      .go("/${value.route}/0");
+                                                  context.go("/${value.route}");
                                                 }
                                               : value.route == 'investment'
                                                   ? () {

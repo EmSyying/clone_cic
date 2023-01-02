@@ -125,6 +125,7 @@ class EventController extends GetxController {
         .onNetworkRequesting(
             methode: METHODE.get, isAuthorize: true, url: 'event/calendar')
         .then((response) {
+      debugPrint("Event Calendar:$response");
       var responseJson = response['data'];
       debugPrint("Event Calendar:$responseJson");
       eventCalendarList.clear();
@@ -725,7 +726,6 @@ class EventController extends GetxController {
         debugPrint("Erorrsdfdsfsdfs+: ${error.bodyString}");
         isLoadingRegisterWithGuest(false);
       });
-    } catch (ex) {
     } finally {
       isLoadingRegisterWithGuest(false);
     }
@@ -747,7 +747,7 @@ class EventController extends GetxController {
 
     final submitguest = json.encode(submitList);
     debugPrint(
-        "Event ID: $eventId member ID ${customerController.customer.value.customerId}=====guest: ${submitguest} origiin ===: ${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}");
+        "Event ID: $eventId member ID ${customerController.customer.value.customerId}=====guest: $submitguest origiin ===: ${googleMapCon.latitute.toString()}, ${googleMapCon.longtitute.toString()}");
 
     await apiBaseHelper.onNetworkRequesting(
         methode: METHODE.post,

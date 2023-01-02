@@ -655,7 +655,7 @@ final router = GoRouter(
                 ),
                 // Report Module
                 GoRoute(
-                  path: 'report_screen',
+                  path: 'report',
                   name: 'ReportScreen',
                   builder: (context, state) => ReportScreen(key: state.pageKey),
                   routes: [
@@ -785,24 +785,24 @@ final router = GoRouter(
                               ))
                     ]),
                 // Recent Report
-                GoRoute(
-                    path: 'report/:id',
-                    name: 'Report',
-                    builder: (context, state) => Report(
-                          key: state.pageKey,
-                          currentTabIndex: int.tryParse(state.params['id']!),
-                        ),
-                    routes: [
-                      GoRoute(
-                          path: 'view-report',
-                          name: "ViewReport",
-                          builder: (context, state) => ViewReport(
-                                attachedFile: state.queryParams['attachedFile'],
-                                key: state.pageKey,
-                                title: state.queryParams['title']!,
-                                url: state.queryParams['url'],
-                              ))
-                    ]),
+                // GoRoute(
+                //     path: 'report/:id',
+                //     name: 'Report',
+                //     builder: (context, state) => Report(
+                //           key: state.pageKey,
+                //           currentTabIndex: int.tryParse(state.params['id']!),
+                //         ),
+                //     routes: [
+                //       GoRoute(
+                //           path: 'view-report',
+                //           name: "ViewReport",
+                //           builder: (context, state) => ViewReport(
+                //                 attachedFile: state.queryParams['attachedFile'],
+                //                 key: state.pageKey,
+                //                 title: state.queryParams['title']!,
+                //                 url: state.queryParams['url'],
+                //               ))
+                //     ]),
                 // End Recent Report
                 GoRoute(
                   path: 'switch-splash-screen/:userType',
@@ -834,7 +834,6 @@ final router = GoRouter(
                           eventId: int.tryParse(
                             state.params['id'].toString(),
                           ),
-                          
                           key: state.pageKey),
                       routes: [
                         GoRoute(

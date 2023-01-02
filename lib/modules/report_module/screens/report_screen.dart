@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/utils/helper/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/helper/cic/cic_guider.dart';
 import '../../../widgets/report/custom_report_catigories_card.dart';
 import '../../guilder/guider_controller.dart';
-import '../../guilder/local_key.dart/local_guide_key.dart';
 import '../controllers/documentation_controller.dart';
 
 class ReportScreen extends StatelessWidget {
@@ -78,13 +76,13 @@ class ReportScreen extends StatelessWidget {
                 itemCount: reportCon.listCategoryCardReport.length,
                 itemBuilder: (BuildContext _, index) {
                   return CustomReportCatigoriesCard(
-                    key: guideController.reportGuide[index].key = GlobalKey(),
+                    // key: guideController.reportGuide[index].key = GlobalKey(),
                     onTap: () {
                       final reportName = reportCon
                           .listCategoryCardReport[index].category
                           ?.replaceAll('&', '%26');
                       context.push(
-                        '/report_screen/report-filed?tabLabel=$reportName&id=${reportCon.listCategoryCardReport[index].id}',
+                        '/report/report-filed?tabLabel=$reportName&id=${reportCon.listCategoryCardReport[index].id}',
                       );
                     },
                     title: reportCon.listCategoryCardReport[index].category,

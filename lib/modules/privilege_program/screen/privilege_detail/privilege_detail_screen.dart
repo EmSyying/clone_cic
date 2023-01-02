@@ -14,7 +14,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/custom_fovarite.dart';
 import '../../../../widgets/privilege/privilege_detail/custom_card_allstores_datil.dart';
-import '../../../../widgets/privilege/privilege_detail/custom_card_point.dart';
 import '../../../event_module/controller/event_controller.dart';
 import '../../controller/privilege_controller.dart';
 
@@ -138,7 +137,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                           ),
                           pinned: true,
                           floating: true,
-                          expandedHeight: 400.0,
+                          expandedHeight: 320.0,
                           elevation: 0.0,
                           actions: [
                             Row(
@@ -253,20 +252,20 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                               ),
                                             )),
                                       ),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20.0, right: 20.0, top: 18.0),
-                                        child: CustomCardPoint(
-                                          point: '100',
-                                          onTap: () {
-                                            context.push(
-                                                '/profile/setting/privilege/all-store/redeem-point-to-pay');
-                                          },
-                                        ),
-                                      ),
+                                      // const SizedBox(
+                                      //   height: 30,
+                                      // ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(
+                                      //       left: 20.0, right: 20.0, top: 18.0),
+                                      //   child: CustomCardPoint(
+                                      //     point: '100',
+                                      //     onTap: () {
+                                      //       context.push(
+                                      //           '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                      //     },
+                                      //   ),
+                                      // ),
                                       Container(
                                         margin: const EdgeInsets.only(
                                           left: 20.0,
