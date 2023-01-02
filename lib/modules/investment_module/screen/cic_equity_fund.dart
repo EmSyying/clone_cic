@@ -19,6 +19,7 @@ import '../../../Utils/chart/line_chart.dart';
 import '../../../Utils/function/format_date_time.dart';
 import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
+import '../../../utils/helper/cic/cic_guider.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/custom_card.dart';
 import '../../../widgets/investments/equity_fund/subscription_chart.dart';
@@ -97,6 +98,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                   children: [
                     Expanded(
                       child: SingleChildScrollView(
+                        controller: priceController.cicEquityScroll,
                         child: Column(
                           children: [
                             CustomCard(
@@ -121,8 +123,12 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                         ),
                                         Text(
                                           'UT Information',
-                                          key: _guidkey.investmentKey[1].key =
-                                              GlobalKey(),
+                                          key: priceController
+                                                  .allowFeaturebyTag.value
+                                              ? _guidkey.investmentKey[1].key =
+                                                  GlobalKey()
+                                              : _guidkey.investmentKeyNoFiF[0]
+                                                  .key = GlobalKey(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2,
@@ -211,8 +217,12 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                 '/investment/cic-equity-fund/certificate');
                                           },
                                           child: Container(
-                                            key: _guidkey.investmentKey[2].key =
-                                                GlobalKey(),
+                                            key: priceController
+                                                    .allowFeaturebyTag.value
+                                                ? _guidkey.investmentKey[2]
+                                                    .key = GlobalKey()
+                                                : _guidkey.investmentKeyNoFiF[1]
+                                                    .key = GlobalKey(),
                                             alignment: Alignment.center,
                                             height: 40.0,
                                             width: 40.0,
@@ -415,9 +425,18 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                     children: [
                                                       Text(
                                                         'UT Price Evolution',
-                                                        key: _guidkey
-                                                            .investmentKey[3]
-                                                            .key = GlobalKey(),
+                                                        key: priceController
+                                                                .allowFeaturebyTag
+                                                                .value
+                                                            ? _guidkey
+                                                                    .investmentKey[
+                                                                        3]
+                                                                    .key =
+                                                                GlobalKey()
+                                                            : _guidkey
+                                                                .investmentKeyNoFiF[
+                                                                    2]
+                                                                .key = GlobalKey(),
                                                         style: Get.theme
                                                                     .brightness ==
                                                                 Brightness.light
@@ -554,12 +573,49 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                 builder: (context) => CupertinoPageScaffold(
                   child: Scaffold(
                     appBar: CustomAppBar(
-                      elevation: 0,
-                      isLeading: true,
-                      isLogo: false,
-                      context: context,
-                      title: "CiC Equity Fund",
-                    ),
+                        elevation: 0,
+                        isLeading: true,
+                        isLogo: false,
+                        context: context,
+                        title: "CiC Equity Fund",
+                        action: [
+                          GestureDetector(
+                            onTap: () async {
+                              await CiCApp.showOverlays(
+                                context: context,
+                                key: (_) => _guidkey.investmentKeyNoFiF[_].key!,
+                                objectSettingBuilder: (_) => ObjectSetting(
+                                    edgeInsets: _ == 0 || _ == 4
+                                        ? const EdgeInsets.symmetric(
+                                            horizontal: 10)
+                                        : const EdgeInsets.all(10),
+                                    radius: _ == 1
+                                        ? BorderRadius.circular(50)
+                                        : null,
+                                    paddingSize: _ == 0
+                                        ? const Size(0, 0)
+                                        : _ == 2
+                                            ? const Size(0, -10)
+                                            : null),
+                                titleBuilder: (_) =>
+                                    _guidkey.investmentKeyNoFiF[_].title ?? '',
+                                descriptionBuilder: (_) =>
+                                    _guidkey
+                                        .investmentKeyNoFiF[_].description ??
+                                    '',
+                                itemCount: _guidkey.investmentKeyNoFiF.length,
+                                allowSkip: true,
+                                overlaySetting: OverlaySetting(),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: SvgPicture.asset(
+                                'assets/images/demo.svg',
+                              ),
+                            ),
+                          )
+                        ]),
                     backgroundColor: AppColor.backgroundColor,
                     body: ConnectivityWidgetWrapper(
                       stacked: false,
@@ -621,7 +677,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                     Text(
                                                       'UT Information',
                                                       key: _guidkey
-                                                          .investmentKey[1]
+                                                          .investmentKeyNoFiF[0]
                                                           .key = GlobalKey(),
                                                       style: Theme.of(context)
                                                           .textTheme
@@ -744,7 +800,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                         },
                                                         child: Container(
                                                           key: _guidkey
-                                                              .investmentKey[2]
+                                                              .investmentKeyNoFiF[
+                                                                  1]
                                                               .key = GlobalKey(),
                                                           alignment:
                                                               Alignment.center,
@@ -967,8 +1024,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                   Text(
                                                                     'UT Price Evolution',
                                                                     key: _guidkey
-                                                                        .investmentKey[
-                                                                            3]
+                                                                        .investmentKeyNoFiF[
+                                                                            2]
                                                                         .key = GlobalKey(),
                                                                     style: Get.theme.brightness ==
                                                                             Brightness

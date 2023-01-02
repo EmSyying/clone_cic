@@ -39,6 +39,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
   final contro = Get.put(CiCGuidController());
   final _guidkey = Get.put(CiCGuidController());
   final priceController = Get.put(PriceController());
+
   void _cicFixedIncomeGuide() {
     CiCApp.showOverlays(
       context: context,

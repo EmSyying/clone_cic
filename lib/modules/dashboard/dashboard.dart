@@ -130,26 +130,49 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     super.initState();
   }
 
-  void _cicEquityGuide() {
-    CiCApp.showOverlays(
-      context: context,
-      key: (_) => _guidkey.investmentKey[_].key!,
-      objectSettingBuilder: (_) => ObjectSetting(
-          edgeInsets: _ == 0 || _ == 4
-              ? const EdgeInsets.symmetric(horizontal: 10)
-              : const EdgeInsets.all(10),
-          radius: _ == 2 ? BorderRadius.circular(50) : null,
-          paddingSize: _ == 0 || _ == 4
-              ? const Size(0, -5)
-              : _ == 3
-                  ? const Size(0, -10)
-                  : null),
-      titleBuilder: (_) => _guidkey.investmentKey[_].title ?? '',
-      descriptionBuilder: (_) => _guidkey.investmentKey[_].description ?? '',
-      itemCount: _guidkey.investmentKey.length,
-      allowSkip: true,
-      overlaySetting: OverlaySetting(),
-    );
+  Future<void> _cicEquityGuide() async {
+    if (priceController.allowFeaturebyTag.value) {
+      await CiCApp.showOverlays(
+        context: context,
+        key: (_) => _guidkey.investmentKey[_].key!,
+        objectSettingBuilder: (_) => ObjectSetting(
+            edgeInsets: _ == 0 || _ == 4
+                ? const EdgeInsets.symmetric(horizontal: 10)
+                : const EdgeInsets.all(10),
+            radius: _ == 2 ? BorderRadius.circular(50) : null,
+            paddingSize: _ == 0 || _ == 4
+                ? const Size(0, -5)
+                : _ == 3
+                    ? const Size(0, -10)
+                    : null),
+        titleBuilder: (_) => _guidkey.investmentKey[_].title ?? '',
+        descriptionBuilder: (_) => _guidkey.investmentKey[_].description ?? '',
+        itemCount: _guidkey.investmentKey.length,
+        allowSkip: true,
+        overlaySetting: OverlaySetting(),
+      );
+    } else {
+      await CiCApp.showOverlays(
+        context: context,
+        key: (_) => _guidkey.investmentKeyNoFiF[_].key!,
+        objectSettingBuilder: (_) => ObjectSetting(
+            edgeInsets: _ == 0 || _ == 4
+                ? const EdgeInsets.symmetric(horizontal: 10)
+                : const EdgeInsets.all(10),
+            radius: _ == 1 ? BorderRadius.circular(50) : null,
+            paddingSize: _ == 0
+                ? const Size(0, 0)
+                : _ == 2
+                    ? const Size(0, -10)
+                    : null),
+        titleBuilder: (_) => _guidkey.investmentKeyNoFiF[_].title ?? '',
+        descriptionBuilder: (_) =>
+            _guidkey.investmentKeyNoFiF[_].description ?? '',
+        itemCount: _guidkey.investmentKeyNoFiF.length,
+        allowSkip: true,
+        overlaySetting: OverlaySetting(),
+      );
+    }
   }
 
   void _cicFixedIncomeGuide() {

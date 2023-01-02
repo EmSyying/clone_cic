@@ -37,6 +37,19 @@ class CiCGuidController extends GetxController {
         description:
             'Quickly check your CiC Fixed Income Fund by just switching the tab'),
   ];
+  List<GuidelineModel> investmentKeyNoFiF = <GuidelineModel>[
+    GuidelineModel(
+        title: 'UT Information',
+        description:
+            'View the current UT price, price evolution, and your total UT'),
+    GuidelineModel(
+        title: 'Certificate',
+        description: 'View or download your investor certificate'),
+    GuidelineModel(
+        title: 'UT Price Evolution',
+        description:
+            'See UT price evolution, filter quarterly, yearly, or all time'),
+  ];
 
   List<GuidelineModel> utTrading = <GuidelineModel>[
     GuidelineModel(

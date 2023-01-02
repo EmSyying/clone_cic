@@ -26,6 +26,8 @@ class CiCApp {
   static Offset getOffset(GlobalKey key) =>
       getRenderBox(key).localToGlobal(Offset.zero);
 
+  static bool _allowClick = true;
+
   ///[ CiCApp ] Show OverLays Guidline
   static Future<void> showOverlays({
     required BuildContext context,
@@ -102,6 +104,7 @@ class CiCApp {
         _updateState();
       } else {
         overlayEntry!.remove();
+        _allowClick = true;
       }
     }
 
@@ -288,6 +291,7 @@ class CiCApp {
                                   guideController.isDisplayGuideLine.value =
                                       false;
                                   overlayEntry!.remove();
+                                  _allowClick = true;
                                 },
                                 child: Text(
                                   'Skip',
@@ -356,8 +360,10 @@ class CiCApp {
         );
       },
     );
-
-    overlayState?.insert(overlayEntry);
+    if (_allowClick) {
+      _allowClick = false;
+      overlayState?.insert(overlayEntry);
+    }
   }
 }
 
