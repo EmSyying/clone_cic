@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/app_settings/models/guide_line.dart';
 import 'package:flutter/material.dart';
 
 class AppSettingModel {
@@ -153,7 +152,7 @@ class AppSettingData {
   String? activeIcon;
   bool? active;
   bool? enable;
-  Guideline? guideline;
+  String? guideline;
   OverlayEntry? overlayEntry;
   OverlayState? overlayState;
   double? width;
@@ -189,9 +188,7 @@ class AppSettingData {
     activeIcon = json['active_icon'];
     active = json['active'];
     enable = json['enable'];
-    guideline = json['guideline'] != null
-        ? Guideline.fromJson(json['guideline'])
-        : null;
+    guideline = json['guideline'];
   }
 
   Map<String, dynamic> toJson() {
@@ -204,9 +201,8 @@ class AppSettingData {
     data['icon'] = icon;
     data['active_icon'] = activeIcon;
     data['active'] = active;
-    if (guideline != null) {
-      data['guideline'] = guideline!.toJson();
-    }
+    data['guideline'] = guideline;
+
     return data;
   }
 }

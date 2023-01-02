@@ -137,29 +137,8 @@ class _MainDashboardState extends State<MainDashboard> {
       itemCount: _settingCon.appSettingDataList.length,
       titleBuilder: (index) =>
           _settingCon.appSettingDataList[index].label ?? '',
-      descriptionBuilder: (index) => _settingCon
-                  .appSettingDataList[index].guideline ==
-              null
-          ? _settingCon.appSettingDataList[index].label!.toLowerCase() ==
-                  'investment'
-              ? 'Here, you can find all of your investment information with CiC.'
-              : _settingCon.appSettingDataList[index].label!.toLowerCase() ==
-                      'report'
-                  ? 'Here, you can find all CiC performance reports such as investors reports, research publications, newsletters, and other important reports.'
-                  : _settingCon.appSettingDataList[index].label!
-                              .toLowerCase() ==
-                          'ut trading'
-                      ? 'Here, you can request to trade your UTs with other investors or trade on CiC automate trading sessions.'
-                      : _settingCon.appSettingDataList[index].label!
-                                  .toLowerCase() ==
-                              'get funding'
-                          ? 'Here, you can request debt investment or equity investment from CiC.'
-                          : _settingCon.appSettingDataList[index].label!
-                                      .toLowerCase() ==
-                                  'wallet'
-                              ? 'Here, you can view your available balance and request to do other acitivites from your own personal wallet.'
-                              : 'Here, you can view our members\' profile from our community.'
-          : _settingCon.appSettingDataList[index].guideline!.description,
+      descriptionBuilder: (index) =>
+          _settingCon.appSettingDataList[index].guideline,
       key: (index) => _settingCon.appSettingDataList[index].key,
       objectSettingBuilder: (index) => ObjectSetting(
         edgeInsets: EdgeInsets.zero,
