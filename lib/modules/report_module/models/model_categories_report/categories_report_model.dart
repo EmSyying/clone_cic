@@ -1,19 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'categories_report_model.freezed.dart';
-part 'categories_report_model.g.dart';
+class CategorieReportModel {
+  int? id;
+  String? category;
+  int? reportCount;
+  String? color;
+  String? icon;
+  String? guideline;
+  GlobalKey? key;
 
-@freezed
-class CategorieReportModel with _$CategorieReportModel {
-  factory CategorieReportModel({
-    int? id,
-    String? category,
-    @JsonKey(name: 'report_count') int? reportCount,
-    String? color,
-    String? icon,
-  }) = _CategorieReportModel;
+  CategorieReportModel(
+      {this.id,
+      this.category,
+      this.reportCount,
+      this.color,
+      this.icon,
+      this.guideline});
 
-  factory CategorieReportModel.fromJson(Map<String, dynamic> json) =>
-      _$CategorieReportModelFromJson(json);
+  CategorieReportModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    category = json['category'];
+    reportCount = json['report_count'];
+    color = json['color'];
+    icon = json['icon'];
+    guideline = json['guideline'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['category'] = category;
+    data['report_count'] = reportCount;
+    data['color'] = color;
+    data['icon'] = icon;
+    data['guideline'] = guideline;
+    return data;
+  }
 }

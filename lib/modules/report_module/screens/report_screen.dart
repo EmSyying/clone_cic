@@ -13,14 +13,14 @@ class ReportScreen extends StatelessWidget {
   const ReportScreen({Key? key}) : super(key: key);
 
   Future<void> _showGuildLine(BuildContext context,
-      CiCGuidController guideController, bool allowSkip) async {
+      DocumentationController reportCon, bool allowSkip) async {
     await CiCApp.showOverlays(
       allowSkip: allowSkip,
-      itemCount: guideController.reportGuide.length,
-      key: (index) => guideController.reportGuide[index].key!,
-      titleBuilder: (index) => guideController.reportGuide[index].title,
+      itemCount: reportCon.listCategoryCardReport.length,
+      key: (index) => reportCon.listCategoryCardReport[index].key!,
+      titleBuilder: (index) => reportCon.listCategoryCardReport[index].category,
       descriptionBuilder: (index) =>
-          guideController.reportGuide[index].description,
+          reportCon.listCategoryCardReport[index].guideline,
       objectSettingBuilder: (index) => ObjectSetting(
         paddingSize: const Size(-2, 2),
       ),
@@ -48,7 +48,7 @@ class ReportScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
               onTap: () async {
-                _showGuildLine(context, guideController, true);
+                _showGuildLine(context, reportCon, true);
 
                 // await LocalData.storeAppTou('appTour', true);
               },
@@ -76,7 +76,8 @@ class ReportScreen extends StatelessWidget {
                 itemCount: reportCon.listCategoryCardReport.length,
                 itemBuilder: (BuildContext _, index) {
                   return CustomReportCatigoriesCard(
-                    // key: guideController.reportGuide[index].key = GlobalKey(),
+                    key: reportCon.listCategoryCardReport[index].key =
+                        GlobalKey(),
                     onTap: () {
                       final reportName = reportCon
                           .listCategoryCardReport[index].category
