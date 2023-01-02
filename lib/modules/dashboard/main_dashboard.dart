@@ -156,9 +156,9 @@ class _MainDashboardState extends State<MainDashboard> {
                           ? 'Here, you can request debt investment or equity investment from CiC.'
                           : _settingCon.appSettingDataList[index].label!
                                       .toLowerCase() ==
-                                  'get funding'
-                              ? 'Here, you can view our members\' profile from our community.'
-                              : 'Here, you can view your available balance and request to do other acitivites from your own personal wallet.'
+                                  'wallet'
+                              ? 'Here, you can view your available balance and request to do other acitivites from your own personal wallet.'
+                              : 'Here, you can view our members\' profile from our community.'
           : _settingCon.appSettingDataList[index].guideline!.description,
       key: (index) => _settingCon.appSettingDataList[index].key,
       objectSettingBuilder: (index) => ObjectSetting(

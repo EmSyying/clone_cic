@@ -171,7 +171,10 @@ class _CustomButtonState extends State<CustomButton> {
                                     // shape: RoundedRectangleBorder(
                                     //     borderRadius:
                                     //         BorderRadius.circular(80)),
-                                    child: const Text('Save Draft'),
+                                    child: Text(
+                                      widget.title!,
+                                      style: Theme.of(context).textTheme.button,
+                                    ),
                                   )
                                 // ignore: deprecated_member_use
                                 : ElevatedButton(
