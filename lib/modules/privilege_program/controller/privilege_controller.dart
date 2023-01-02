@@ -170,7 +170,7 @@ class PrivilegeController extends GetxController {
   final shopDetailModel = PrivilegeShopModel().obs;
   final isLoadingShopDetail = false.obs;
   Future<PrivilegeShopModel> onFetchShopDetail(num? id) async {
-    debugPrint("Privilege 1");
+    debugPrint("Privilege 1 $id");
     isLoadingShopDetail(true);
     await apiBaseHelper
         .onNetworkRequesting(

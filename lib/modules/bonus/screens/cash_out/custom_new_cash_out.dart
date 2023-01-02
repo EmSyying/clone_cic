@@ -79,11 +79,12 @@ class CustomNewCashOut extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: WalletTotalCard(
-                              amount:
-                                  _walletController.walletAccount.value == ''
-                                      ? '0.00 USD'
-                                      : _walletController.walletAmount.value
-                                          .wallet!.balanceFormat,
+                              amount: _walletController.walletAmount.value
+                                          .toString() ==
+                                      ''
+                                  ? '0.00 USD'
+                                  : _walletController
+                                      .walletAmount.value.wallet!.balanceFormat,
                             ),
                           ),
                           const SizedBox(height: 10.0),

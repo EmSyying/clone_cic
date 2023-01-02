@@ -214,7 +214,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     bool biometrics = await LocalData.getAuthenValue('authen');
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrl}slide?module=Slide&biometrics=$biometrics';
+        '${FlavorConfig.instance.values!.apiBaseUrl}slide/qm?module=Slide&biometrics=$biometrics';
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',

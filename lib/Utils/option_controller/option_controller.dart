@@ -2,6 +2,7 @@ import 'package:cicgreenloan/modules/member_directory/models/filter_option.dart'
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/utils/helper/option_model/option_form.dart';
 import 'package:cicgreenloan/utils/select_address/address_model/document_type.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -223,6 +224,7 @@ class DocumentCategory extends GetxController {
       }).then((response) {
         if (response.statusCode == 200) {
           var responseData = json.decode(response.body)['data'];
+          debugPrint("Company Option: $responseData");
           responseData.map(
             (jsonData) {
               filterByTypeLocal.value = OptionFormFilter.fromJson(jsonData);

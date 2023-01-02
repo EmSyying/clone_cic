@@ -651,22 +651,32 @@ class _MyAppState extends State<MyApp> {
 
                     theme: ThemeData(
                       brightness: Brightness.light,
-                      backgroundColor: fromHex(
-                        setting.brightPrimaryColor.toString(),
-                      ),
-                      primaryColor: fromHex(
-                        setting.brightPrimaryColor.toString(),
-                      ),
-                      secondaryHeaderColor: fromHex(
-                        setting.brightSecondColor.toString(),
-                      ),
-                      cardColor: fromHex(
-                        setting.brightCardColor.toString(),
-                      ),
+                      backgroundColor: setting.brightPrimaryColor == null
+                          ? AppColor.mainColor
+                          : fromHex(
+                              setting.brightPrimaryColor.toString(),
+                            ),
+                      primaryColor: setting.brightPrimaryColor == null
+                          ? AppColor.mainColor
+                          : fromHex(
+                              setting.brightPrimaryColor.toString(),
+                            ),
+                      secondaryHeaderColor: setting.brightSecondColor == null
+                          ? AppColor.secondaryColor
+                          : fromHex(
+                              setting.brightSecondColor.toString(),
+                            ),
+                      cardColor: setting.brightCardColor == null
+                          ? Colors.white
+                          : fromHex(
+                              setting.brightCardColor.toString(),
+                            ),
                       appBarTheme: AppBarTheme(
-                        backgroundColor: fromHex(
-                          setting.brightPrimaryColor.toString(),
-                        ),
+                        backgroundColor: setting.brightPrimaryColor == null
+                            ? AppColor.mainColor
+                            : fromHex(
+                                setting.brightPrimaryColor.toString(),
+                              ),
                         centerTitle: false,
                         titleTextStyle:
                             Theme.of(context).textTheme.subtitle2!.copyWith(
@@ -676,9 +686,11 @@ class _MyAppState extends State<MyApp> {
                       ),
                       bottomNavigationBarTheme: BottomNavigationBarThemeData(
                           unselectedItemColor: const Color(0XFF848F92),
-                          selectedItemColor: fromHex(
-                            setting.brightPrimaryColor.toString(),
-                          )),
+                          selectedItemColor: setting.brightPrimaryColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                )),
                       textTheme: TextTheme(
                         //appbar text
                         headline6: const TextStyle(
@@ -709,16 +721,20 @@ class _MyAppState extends State<MyApp> {
                             ? TextStyle(
                                 fontFamily: 'KhBattambang',
                                 fontSize: 27,
-                                color: fromHex(
-                                  setting.brightPrimaryColor.toString(),
-                                ),
+                                color: setting.brightPrimaryColor == null
+                                    ? AppColor.mainColor
+                                    : fromHex(
+                                        setting.brightPrimaryColor.toString(),
+                                      ),
                               )
                             : TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 27,
-                                color: fromHex(
-                                  setting.brightPrimaryColor.toString(),
-                                ),
+                                color: setting.brightPrimaryColor == null
+                                    ? AppColor.mainColor
+                                    : fromHex(
+                                        setting.brightPrimaryColor.toString(),
+                                      ),
                               ),
                         bodyText2: const TextStyle(
                             fontFamily: 'DMSans',
@@ -762,9 +778,11 @@ class _MyAppState extends State<MyApp> {
                       colorScheme: ColorScheme.fromSwatch()
                           .copyWith(secondary: AppColor.mainColor),
                       textSelectionTheme: TextSelectionThemeData(
-                        selectionColor: fromHex(
-                          setting.brightPrimaryColor.toString(),
-                        ),
+                        selectionColor: setting.brightPrimaryColor == null
+                            ? AppColor.mainColor
+                            : fromHex(
+                                setting.brightPrimaryColor.toString(),
+                              ),
                       ),
                     ),
 

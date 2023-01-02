@@ -52,7 +52,7 @@ class _CashOutScreenState extends State<CashOutScreen>
         elevation: 0,
         isLeading: true,
         context: context,
-        title: "MM Acount Cash Out",
+        title: "Cash Out",
       ),
       body: Column(
         children: [

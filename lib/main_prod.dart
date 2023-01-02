@@ -21,12 +21,7 @@ Future<void> main() async {
     color: Colors.deepPurpleAccent,
     values: FlavorValues(
         // baseUrl: "https://cic.z1platform.com/",
-        // apiBaseUrl: "https://cic.z1platform.com/api/v1/",
-        // mainApiUrl: "https://cic.z1platform.com/api/",
-        // baseUrlV2: "https://cic.z1platform.com/",
-        // apiBaseUrlV2: "https://cic.z1platform.com/api/v2/",
-        // mainApiUrlV2: "https://cic.z1platform.com/api/",
-        // apiBaseUrlV3: "https://cic.z1platform.com/api/v3/",
+        // apiBaseUrl: "https://cic.z1platform.com/api/v4/",
         baseUrl: "https://cicstaging.z1central.com/",
         apiBaseUrl: "https://cicstaging.z1central.com/api/v4/",
         androidBundleId: 'com.cambodianinvestorscorporation',

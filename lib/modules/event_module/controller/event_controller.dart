@@ -125,7 +125,6 @@ class EventController extends GetxController {
         .onNetworkRequesting(
             methode: METHODE.get, isAuthorize: true, url: 'event/calendar')
         .then((response) {
-      debugPrint("Event Calendar: 2023");
       var responseJson = response['data'];
       debugPrint("Event Calendar:$responseJson");
       eventCalendarList.clear();
@@ -896,11 +895,15 @@ class EventController extends GetxController {
 
         if (message.toString().contains("The zone is not available.")) {
           showNotifyPopUp(
+            secondButton: 'Go Home',
+            onTap: () {
+              router.go('/');
+            },
             context: context,
             title: 'The zone is not available',
             imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
             description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit,',
+                'Sorry you can not check in yet, please try to check in again when you arrive at the event.',
           );
           eventTicket.value = EventTicket();
           isRegister(false);
@@ -929,25 +932,33 @@ class EventController extends GetxController {
             title: 'You have not registered yet',
             imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
             description:
-                'Your name can\'t be found in the registration list. If you have not registered, please kindly register before scanning this QR code.',
+                'You have not registered for this event yet, please register now.',
           );
         } else if (message.toString().contains("The event is past.")) {
           showNotifyPopUp(
+            secondButton: 'Go Home',
+            onTap: () {
+              router.go('/');
+            },
             context: context,
             title: 'Past Event',
             imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
             description:
-                'The event you are scanning has already taken place. Please check the list of our upcoming events and we hope to see you there.',
+                'This event is already happened, we are looking forward to see you in future event.',
           );
           eventTicket.value = EventTicket();
           isRegister(false);
         } else if (message.toString().contains("The event is not start yet.")) {
           showNotifyPopUp(
+            secondButton: 'Go Home',
+            onTap: () {
+              router.go('/');
+            },
             context: context,
             title: 'The event is not start yet',
             imgUrl: 'assets/images/svgfile/not regicter Icon.svg',
             description:
-                'The event you are scanning has already taken place. Please check the list of our upcoming events and we hope to see you there.',
+                'The event is not start yet,  please try to check in again when the event start.',
           );
         }
         isLoadingCheckIn(false);

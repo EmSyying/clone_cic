@@ -389,6 +389,7 @@ class PriceController extends GetxController {
         .then(
       (value) {
         var responeJson = value['data'];
+        debugPrint("Response Json: $responeJson");
         fifProductTypeList.clear();
 
         responeJson.map((json) {
@@ -786,6 +787,7 @@ class PriceController extends GetxController {
             Navigator.push(
               buildcontext!,
               MaterialPageRoute(
+                fullscreenDialog: true,
                 builder: (context) => CustomSucessScreen(
                   title: 'Success',
                   description:

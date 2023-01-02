@@ -33,6 +33,7 @@ class ApiBaseHelper extends GetConnect {
       bool isConvertToByte = false}) async {
     final token = await LocalData.getCurrentUser();
     final fullUrl = fullURL ?? baseurl! + url!;
+    debugPrint("Full Url: $fullUrl");
     Map<String, String> defaultHeader = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

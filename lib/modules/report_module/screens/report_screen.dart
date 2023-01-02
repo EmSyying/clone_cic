@@ -30,8 +30,6 @@ class ReportScreen extends StatelessWidget {
     );
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     final reportCon = Get.put(DocumentationController());
