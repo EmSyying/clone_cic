@@ -32,8 +32,7 @@ class _VerifyPINCodeState extends State<VerifyPINCode> {
           title: 'Change PIN Code',
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
+              context.go('/profile/setting');
             },
             icon: kIsWeb
                 ? Icon(
