@@ -31,6 +31,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
   final String? from;
   final String? toAccount;
   final num? subscriptionID;
+  final num? paidAmount;
 
   //type cashIn cashOunt and bonus
   final String? paymentType;
@@ -69,7 +70,8 @@ class CustomSubscriptionDetail extends StatelessWidget {
       this.toAccount,
       this.subscriptionID,
       this.type,
-      this.amountToPay})
+      this.amountToPay,
+      this.paidAmount})
       : super(key: key);
 
   @override
@@ -124,13 +126,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
                             const SizedBox(height: 20),
-                            // Text("Amount:",
-                            //     style: Theme.of(context)
-                            //         .textTheme
-                            //         .headline2!
-                            //         .copyWith(
-                            //             fontSize: 14,
-                            //             fontWeight: FontWeight.w600)),
                           ],
                         ),
                         const SizedBox(width: 60),
@@ -170,12 +165,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500)),
                             const SizedBox(height: 20),
-                            // Text('USD ${FormatToK.digitNumber(amount)}',
-                            //     style: Theme.of(context)
-                            //         .textTheme
-                            //         .headline2!
-                            //         .copyWith(
-                            //             fontSize: 14, color: Colors.green)),
                           ],
                         ),
                       ],
@@ -235,13 +224,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
                                 const SizedBox(height: 20),
-                                // Text("Amount:",
-                                //     style: Theme.of(context)
-                                //         .textTheme
-                                //         .headline2!
-                                //         .copyWith(
-                                //             fontSize: 14,
-                                //             fontWeight: FontWeight.w600)),
                               ],
                             ),
                             const SizedBox(width: 60),
@@ -296,12 +278,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 20),
-                                  // Text('USD ${FormatToK.digitNumber(amount)}',
-                                  //     style: Theme.of(context)
-                                  //         .textTheme
-                                  //         .headline2!
-                                  //         .copyWith(
-                                  //             fontSize: 14, color: Colors.red)),
                                 ],
                               ),
                             ),
@@ -362,13 +338,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600)),
                                     const SizedBox(height: 20),
-                                    // Text("Amount:",
-                                    //     style: Theme.of(context)
-                                    //         .textTheme
-                                    //         .headline2!
-                                    //         .copyWith(
-                                    //             fontSize: 14,
-                                    //             fontWeight: FontWeight.w600)),
                                   ],
                                 ),
                                 const SizedBox(width: 60),
@@ -421,14 +390,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500)),
                                       const SizedBox(height: 20),
-                                      // Text(
-                                      //     'USD ${FormatToK.digitNumber(amount)}',
-                                      //     style: Theme.of(context)
-                                      //         .textTheme
-                                      //         .headline2!
-                                      //         .copyWith(
-                                      //             fontSize: 14,
-                                      //             color: Colors.red)),
                                     ],
                                   ),
                                 ),
@@ -487,14 +448,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                                     fontWeight:
                                                         FontWeight.w600)),
                                         const SizedBox(height: 20),
-                                        // Text("Amount:",
-                                        //     style: Theme.of(context)
-                                        //         .textTheme
-                                        //         .headline2!
-                                        //         .copyWith(
-                                        //             fontSize: 14,
-                                        //             fontWeight:
-                                        //                 FontWeight.w600)),
                                       ],
                                     ),
                                     const SizedBox(width: 60),
@@ -543,16 +496,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.w500)),
                                           const SizedBox(height: 20),
-                                          // Text(
-                                          //     'USD ${FormatToK.digitNumber(amount)}',
-                                          //     style: Theme.of(context)
-                                          //         .textTheme
-                                          //         .headline2!
-                                          //         .copyWith(
-                                          //             fontSize: 14,
-                                          //             fontWeight:
-                                          //                 FontWeight.w500,
-                                          //             color: Colors.green)),
                                         ],
                                       ),
                                     ),
@@ -600,6 +543,12 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                               .headline5!
                                               .copyWith(fontSize: 13)),
                                       const SizedBox(height: 5),
+                                      Text('Subscription',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5!
+                                              .copyWith(fontSize: 13)),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Payment Status',
                                         style: Theme.of(context)
@@ -607,12 +556,6 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                             .headline5!
                                             .copyWith(fontSize: 13),
                                       ),
-                                      const SizedBox(height: 5),
-                                      Text('UT to Subscribe',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5!
-                                              .copyWith(fontSize: 13)),
                                       const SizedBox(height: 5),
                                       if (datePayment != null &&
                                           datePayment != '')
@@ -661,6 +604,12 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                               .headline2!
                                               .copyWith(fontSize: 12)),
                                       const SizedBox(height: 5),
+                                      Text('$utSubscribe UT',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2!
+                                              .copyWith(fontSize: 12)),
+                                      const SizedBox(height: 5),
                                       Text('$paymentStatus',
                                           style: Theme.of(context)
                                               .textTheme
@@ -681,12 +630,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                                               : Colors.green,
                                                   fontWeight: FontWeight.w700)),
                                       const SizedBox(height: 5),
-                                      Text('$utSubscribe UT',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(fontSize: 12)),
-                                      const SizedBox(height: 5),
+
                                       // if (datePayment != null)
                                       Text('$datePayment',
                                           style: Theme.of(context)
@@ -738,28 +682,25 @@ class CustomSubscriptionDetail extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 15),
-                    if (unPaidAmount != 0)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Paid Amount:',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Paid Amount:',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontSize: 14),
+                        ),
+                        Text('${FormatToK.digitNumber(paidAmount)} USD',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5!
-                                .copyWith(fontSize: 14),
-                          ),
-                          if (totalSubscription != null && amountToPay != null)
-                            Text(
-                                '${FormatToK.digitNumber(totalSubscription! - amountToPay!)} USD',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(
-                                        fontSize: 14,
-                                        color: Theme.of(context).primaryColor)),
-                        ],
-                      ),
+                                .headline2!
+                                .copyWith(
+                                    fontSize: 14,
+                                    color: Theme.of(context).primaryColor)),
+                      ],
+                    ),
                     const SizedBox(height: 5),
                     const Divider(
                       thickness: 0.4,

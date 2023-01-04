@@ -154,6 +154,7 @@ class View {
   num? totalSubscriptionCost;
   num? unpaidAmount;
   num? payable;
+  num? paidAmount;
   num? accumulatedPayment;
   String? lastDateOfPayment;
   int? subscriptionId;
@@ -177,6 +178,7 @@ class View {
       this.totalSubscriptionCost,
       this.unpaidAmount,
       this.payable,
+      this.paidAmount,
       this.accumulatedPayment,
       this.lastDateOfPayment,
       this.subscriptionId});
@@ -200,6 +202,7 @@ class View {
     totalSubscriptionCost = json['total_subscription_cost'];
     unpaidAmount = json['unpaid_amount'];
     payable = json['payable'];
+    paidAmount = json['paid_amount'];
     accumulatedPayment = json['accumulated_payment'];
     lastDateOfPayment = json['last_date_of_payment'];
     subscriptionId = json['subscription_id'];
@@ -225,6 +228,7 @@ class View {
     data['total_subscription_cost'] = totalSubscriptionCost;
     data['unpaid_amount'] = unpaidAmount;
     data['payable'] = payable;
+    data['paid_amount'] = paidAmount;
     data['accumulated_payment'] = accumulatedPayment;
     data['last_date_of_payment'] = lastDateOfPayment;
     data['subscription_id'] = subscriptionId;

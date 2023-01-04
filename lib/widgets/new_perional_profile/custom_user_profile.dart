@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
 import 'package:cicgreenloan/widgets/new_perional_profile/custom_option_profile.dart';
@@ -14,7 +13,7 @@ class CustomUserProfile extends StatefulWidget {
   final int? id;
   final String? fullName;
   final String? position;
-  final String? description;
+  final String? companyName;
   final String? imgUrl;
   final String? defaultPhoto;
   final bool? isDirectories;
@@ -24,7 +23,7 @@ class CustomUserProfile extends StatefulWidget {
     this.id,
     this.fullName,
     this.position,
-    this.description,
+    this.companyName,
     this.imgUrl,
     this.defaultPhoto,
     this.isDirectories = false,
@@ -126,7 +125,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                               height: 10,
                             ),
                           Text(
-                            '${widget.description}',
+                            widget.companyName ?? '',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3!

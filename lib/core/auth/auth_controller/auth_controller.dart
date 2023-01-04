@@ -49,6 +49,7 @@ class AuthController extends GetxController {
         isAuthorize: false,
         body: {'phone': _phoneSubmit()},
       ).then((value) {
+        debugPrint("Log in $value");
         checkRegisteredLoading(false);
         if (value['success']) {
           if (value['password']) {

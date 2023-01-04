@@ -1,7 +1,5 @@
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/company_profile_tap.dart';
 import 'package:cicgreenloan/modules/member_directory/screens/new_profile_ui/personal_profile_tap.dart';
-import 'package:cicgreenloan/modules/setting_modules/screens/settings_screen.dart';
 import 'package:cicgreenloan/widgets/new_perional_profile/custom_user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,15 +77,6 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
               : const Text(''),
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
-          // title: isInnerBox == true
-          //     ? Text(
-          //         '${customerUser.customer.value.fullName}',
-          //         style: Theme.of(context).textTheme.headline4!.copyWith(
-          //             fontWeight: FontWeight.w700,
-          //             fontSize: 20,
-          //             color: Colors.white),
-          //       )
-          //     : const Text(''),
           centerTitle: true,
           actions: [
             widget.isDirectory == false
@@ -173,7 +162,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                               position:
                                   memberCon.personalProfile.value.position ??
                                       '',
-                              description:
+                              companyName:
                                   memberCon.personalProfile.value.companyName),
                     ),
                   ),

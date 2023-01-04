@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
-import 'package:cicgreenloan/Utils/app_settings/models/app_setting.dart';
 import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
 import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.dart';
 
@@ -20,7 +19,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -120,7 +118,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _userController = Get.put(CustomerController());
   Setting? setting;
 
   String? token;

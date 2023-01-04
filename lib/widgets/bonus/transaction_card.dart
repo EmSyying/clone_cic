@@ -117,6 +117,7 @@ class CustomTransactionCard extends StatelessWidget {
                                     e.value.view!.totalSubscriptionCost,
                                 remainingPayment: e.value.view!.unpaidAmount,
                                 amountToPay: e.value.view!.payable,
+                                paidAmount: e.value.view!.paidAmount,
                               ),
                             ),
                             SingleChildScrollView(

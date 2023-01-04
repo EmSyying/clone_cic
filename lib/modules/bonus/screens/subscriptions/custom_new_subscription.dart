@@ -53,11 +53,13 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
 
   @override
   void initState() {
-    priceController.onFetchPrice();
+    _walletController.fetchWalletAmount();
     subscribeCon.fetchUTScription();
+    priceController.onFetchPrice();
+
     subscribeCon.fetchPaymentSummary();
     subscribeCon.fetchbonusSetting();
-    _walletController.fetchWalletAmount();
+
     Future.delayed(const Duration(seconds: 1), () async {
       subscribeCon.utPrice.value = priceController.price.value.price!;
       subscribeCon.utPriceController.text = priceController.price.value.price!;
@@ -72,9 +74,8 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
         return CupertinoPageScaffold(
           child: Scaffold(
             body: Obx(
-              () => subscribeCon.isUTScription.value &&
-                      priceController.isLoadingPrice.value
-                  ? const CircularProgressIndicator()
+              () => _walletController.fetchWalletLoading.value
+                  ? const LinearProgressIndicator()
                   : Column(
                       children: [
                         Expanded(
@@ -90,12 +91,8 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                       top: 20.0,
                                     ),
                                     child: WalletTotalCard(
-                                      amount: _walletController
-                                                  .walletAccount.value ==
-                                              ""
-                                          ? '0.00 USD'
-                                          : _walletController.walletAmount.value
-                                              .wallet!.balanceFormat,
+                                      amount: _walletController.walletAmount
+                                          .value.wallet!.balanceFormat,
                                     ),
                                   ),
                                   Container(

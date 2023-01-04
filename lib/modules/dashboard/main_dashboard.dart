@@ -436,12 +436,7 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   Widget build(BuildContext context) {
     storeDeviceToken();
-    // _settingCon.appSettingDataList.map((value) {
-    //   setState(() {
-    //     value.key = GlobalKey();
-    //   });
-    // }).toList();
-    // setState(() {});
+
     return DefaultSizeWeb(
       child: WillPopScope(
         onWillPop: () {
@@ -638,7 +633,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     GestureDetector(
                       onTap: () async {
                         // await LocalData.storeAppTou('appTour',
-                        //     false); //TODO : uncoment for test first launch
+                        //     false);
                         _showDashboardTour();
                       },
                       child: SvgPicture.asset('assets/images/demo.svg'),

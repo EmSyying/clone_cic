@@ -19,6 +19,7 @@ import '../../../Utils/chart/line_chart.dart';
 import '../../../Utils/function/format_date_time.dart';
 import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
+import '../../../utils/form_builder/custom_button.dart';
 import '../../../utils/helper/cic/cic_guider.dart';
 import '../../../widgets/defualt_size_web.dart';
 import '../../../widgets/investments/custom_card.dart';
@@ -26,7 +27,6 @@ import '../../../widgets/investments/equity_fund/subscription_chart.dart';
 import '../../../widgets/investments/equity_fund/trading_chart.dart';
 import '../../../widgets/investments/return_on_investment.dart';
 import '../../guilder/guider_controller.dart';
-import '../../wallet/controller/wallet_controller.dart';
 
 class CiCEquityFund extends StatefulWidget {
   final bool? isNavigator;
@@ -43,7 +43,7 @@ class CiCEquityFund extends StatefulWidget {
 class _CiCEquityFundState extends State<CiCEquityFund> {
   final priceController = Get.put(PriceController());
   final bonusCon = Get.put(BonusController());
-  final _walletController = Get.put(WalletController());
+
   var f = NumberFormat('#,###.00', 'en_US');
   var n = NumberFormat('#,###', 'en_US');
   bool isExpandShareSubscribe = false;
@@ -209,35 +209,42 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                             ),
                                           ],
                                         ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            debugPrint(
-                                                "Certification:${priceController.certificate.value.data}");
-                                            context.go(
-                                                '/investment/cic-equity-fund/certificate');
-                                          },
-                                          child: Container(
-                                            key: priceController
-                                                    .allowFeaturebyTag.value
-                                                ? _guidkey.investmentKey[2]
-                                                    .key = GlobalKey()
-                                                : _guidkey.investmentKeyNoFiF[1]
-                                                    .key = GlobalKey(),
-                                            alignment: Alignment.center,
-                                            height: 40.0,
-                                            width: 40.0,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
+                                        if (priceController.sharePrice.value
+                                                    .totalShareOutstanding !=
+                                                null &&
+                                            priceController.sharePrice.value
+                                                    .totalShareOutstanding !=
+                                                0)
+                                          GestureDetector(
+                                            onTap: () async {
+                                              debugPrint(
+                                                  "Certification:${priceController.certificate.value.data}");
+                                              context.go(
+                                                  '/investment/cic-equity-fund/certificate');
+                                            },
+                                            child: Container(
+                                              key: priceController
+                                                      .allowFeaturebyTag.value
+                                                  ? _guidkey.investmentKey[2]
+                                                      .key = GlobalKey()
+                                                  : _guidkey
+                                                      .investmentKeyNoFiF[1]
+                                                      .key = GlobalKey(),
+                                              alignment: Alignment.center,
+                                              height: 40.0,
+                                              width: 40.0,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Theme.of(context)
+                                                      .primaryColor
+                                                      .withAlpha(16)),
+                                              child: SvgPicture.asset(
+                                                'assets/images/svgfile/pdfcertificate.svg',
                                                 color: Theme.of(context)
-                                                    .primaryColor
-                                                    .withAlpha(16)),
-                                            child: SvgPicture.asset(
-                                              'assets/images/svgfile/pdfcertificate.svg',
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                                    .primaryColor,
+                                              ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -533,35 +540,41 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                         ),
                       ),
                     ),
-                    // if (!priceController.isLoadingSharePrice.value)
-                    //   SafeArea(
-                    //     top: false,
-                    //     minimum: const EdgeInsets.symmetric(
-                    //       horizontal: 20,
-                    //       vertical: 20,
-                    //     ),
-                    //     child: Obx(
-                    //       () => userCon.isloading.value
-                    //           ? CustomButton(
-                    //               isOutline: false,
-                    //               isDisable: true,
-                    //               onPressed: () {
-                    //                 context.push(
-                    //                     "/ut-subscription/new-subscription?fromPage=investment");
-                    //               },
-                    //               title: "Subscribe Now",
-                    //             )
-                    //           : CustomButton(
-                    //               isOutline: false,
-                    //               isDisable: false,
-                    //               onPressed: () {
-                    //                 context.push(
-                    //                     "/ut-subscription/new-subscription?fromPage=investment");
-                    //               },
-                    //               title: "Subscribe Now",
-                    //             ),
-                    //     ),
-                    //   )
+                    if (!priceController.isLoadingSharePrice.value)
+                      SafeArea(
+                        top: false,
+                        minimum: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: CustomButton(
+                                isOutline: true,
+                                isDisable: false,
+                                onPressed: () {
+                                  // context.push(
+                                  //     "/ut-subscription/new-subscription?fromPage=investment");
+                                },
+                                title: "About CEF",
+                              ),
+                            ),
+                            const SizedBox(width: 20.0),
+                            Expanded(
+                              child: CustomButton(
+                                isOutline: false,
+                                isDisable: false,
+                                onPressed: () {
+                                  context.push(
+                                      "/ut-subscription/new-subscription?fromPage=investment");
+                                },
+                                title: "Subscribe Now",
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ),

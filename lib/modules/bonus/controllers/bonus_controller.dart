@@ -178,7 +178,8 @@ class BonusController extends GetxController {
     // } else {
     //   isLoadingHistory(true);
     // }
-    debugPrint('Subsription is working');
+    debugPrint('Subsription is working:Type:$type');
+
     isLoadingHistory(true);
     try {
       await http.get(Uri.parse(url), headers: {
@@ -208,6 +209,9 @@ class BonusController extends GetxController {
               cashOutTransactionList.add(historyModel.value);
             } else if (type == "subscription") {
               subscriptionList.add(historyModel.value);
+              debugPrint("Subscription Detail:${historyModel.value}");
+              debugPrint(
+                  "Subscription Detail:${subscriptionList[0].histories![0].view!.amount}");
             } else if (type == "cash-out-cash-in") {
               cashInOutTransactionList.add(historyModel.value);
             } else {
@@ -253,6 +257,8 @@ class BonusController extends GetxController {
 
             pendingtransactionList.add(pendingtransaction.value);
           }).toList();
+          debugPrint(
+              "pendingtransactionList:${pendingtransactionList[0].histories![0].view!.paidAmount}");
         }
       });
     } finally {
@@ -520,9 +526,8 @@ class BonusController extends GetxController {
     tokenKey = await LocalData.getCurrentUser();
 
     String url = '${FlavorConfig.instance.values!.apiBaseUrl}subscription';
-
+    isUTScription(true);
     try {
-      isUTScription(true);
       http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -532,7 +537,10 @@ class BonusController extends GetxController {
           var responseJson = json.decode(response.body)["data"];
 
           utSubscription.value = UTSubscription.fromJson(responseJson);
-        } else {}
+          debugPrint("UT Subscription:${utSubscription.value}");
+        } else {
+          isUTScription(false);
+        }
       });
     } finally {
       isUTScription(false);

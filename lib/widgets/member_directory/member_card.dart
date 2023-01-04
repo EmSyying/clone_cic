@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
