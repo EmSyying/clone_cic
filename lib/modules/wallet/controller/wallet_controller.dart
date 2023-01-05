@@ -316,8 +316,7 @@ class WalletController extends GetxController {
         'amount': onConvertToDouble(depositAmount.value),
       },
     ).then((response) {
-      Navigator.push(
-        context,
+      Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
           builder: (context) {
             return CustomSucessScreen(
@@ -430,8 +429,7 @@ class WalletController extends GetxController {
       },
     ).then((response) {
       debugPrint("SUCCESS$response");
-      Navigator.push(
-        context,
+      Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
           builder: (context) {
             return CustomSucessScreen(
@@ -494,4 +492,7 @@ class WalletController extends GetxController {
       _checkValidateLoading(false);
     });
   }
+
+  ///Point Register
+  final pointAmountController = TextEditingController();
 }

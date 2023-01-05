@@ -75,6 +75,7 @@ class _WalletScreenState extends State<WalletScreen>
 
   @override
   Widget build(BuildContext context) {
+    final route = GoRouter.of(context).location;
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
 
     return Stack(
@@ -325,12 +326,23 @@ class _WalletScreenState extends State<WalletScreen>
                                         _guideController.walletGuide[3].key =
                                             GlobalKey(),
                                         ontap: () {
+                                          context.push('$route/point-exchange');
+                                        },
+                                        text: 'Exchange',
+                                        img:
+                                            'assets/images/wallet/wallet_exchange.svg',
+                                      ),
+                                      /*_operationButton(
+                                        context,
+                                        _guideController.walletGuide[3].key =
+                                            GlobalKey(),
+                                        ontap: () {
                                           show(context);
                                         },
                                         text: 'Pay',
                                         img:
                                             'assets/images/svgfile/cashout.svg',
-                                      ),
+                                      ),*/
                                     ],
                                   ),
                                 ),

@@ -87,7 +87,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
   final GlobalKey _one = GlobalKey();
   startShowCase() async {
     isFirst = await LocalStorage.getBooleanValue(key: 'ISFIRST_GET_FUNDING');
-    isFirst == false
+    isFirst == true
         ? Future.delayed(const Duration(milliseconds: 500), () {
             WidgetsBinding.instance.addPostFrameCallback(
                 (duration) => ShowCaseWidget.of(context).startShowCase([_one]));

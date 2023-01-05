@@ -5,6 +5,7 @@ import 'package:cicgreenloan/modules/investment_module/investment_export.dart';
 import 'package:cicgreenloan/modules/privilege_program/privilege_export.dart';
 import 'package:cicgreenloan/modules/report_module/report_export.dart';
 import 'package:cicgreenloan/modules/setting_modules/setting_export.dart';
+import 'package:cicgreenloan/modules/wallet/screen/wallet_exchange.dart';
 import 'package:cicgreenloan/modules/wallet/screen/wallet_screen.dart';
 import 'package:cicgreenloan/modules/wallet/wallet_export.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
+import '../../Utils/helper/custom_success_screen.dart';
 import '../../Utils/helper/switch_splash_screen/switch_splash_screen.dart';
 import '../../Utils/web_view/web_view.dart';
 import '../../core/auth/login.dart';
@@ -563,6 +565,11 @@ final router = GoRouter(
                   path: 'wallet',
                   builder: (_, state) => WalletScreen(key: state.pageKey),
                   routes: [
+                    GoRoute(
+                      path: 'point-exchange',
+                      name: 'WalletPointExchange',
+                      builder: (_, state) => WalletExchange(key: state.pageKey),
+                    ),
                     GoRoute(
                       name: 'DepositCard',
                       path: 'deposit-card',
@@ -1249,6 +1256,29 @@ final router = GoRouter(
         builder: (_, state) => VerifyPhone(
           phoneNumber: state.queryParams['phoneNumber'],
         ),
+      ),
+
+      ///Success Screen
+      GoRoute(
+        path: '/success-screen',
+        name: 'SuccessScreen',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) {
+          final extras = state.extra as Map<String, Object?>?;
+
+          return CustomSucessScreen(
+            key: state.pageKey,
+            appbarTitle: state.queryParams['appbarTitle'],
+            title: state.queryParams['title'],
+            buttonTitle: state.queryParams['buttonTitle'],
+            description: state.queryParams['description'],
+            icon: extras?['icon'] as Icon?,
+            backgroundColor: extras?['backgroundColor'] as Color?,
+            onPressedButton: extras?['onPressedButton'] as Function()?,
+            descriptionPadding:
+                extras?['descriptionPadding'] as EdgeInsetsGeometry?,
+          );
+        },
       ),
     ],
     refreshListenable: settingCon.appSettingNofier);

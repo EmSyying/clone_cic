@@ -3,9 +3,11 @@ import 'package:lottie/lottie.dart';
 
 class CustomSucessScreen extends StatelessWidget {
   final String? title;
+  final String? appbarTitle;
+  final String? buttonTitle;
   final String? description;
   final EdgeInsetsGeometry? descriptionPadding;
-  final String? buttonTitle;
+
   final Widget? icon;
   final Color? backgroundColor;
   final GestureTapCallback? onPressedButton;
@@ -18,6 +20,7 @@ class CustomSucessScreen extends StatelessWidget {
     this.buttonTitle,
     this.backgroundColor,
     this.descriptionPadding,
+    this.appbarTitle,
   }) : super(key: key);
 
   @override
@@ -31,13 +34,14 @@ class CustomSucessScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Text(
-              //   title ?? "",
-              //   style: Theme.of(context).textTheme.headline2!.copyWith(
-              //         color: Colors.white,
-              //         fontWeight: FontWeight.w700,
-              //       ),
-              // ),
+              if (appbarTitle != null)
+                Text(
+                  appbarTitle!,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
               const Spacer(),
 
               ///
