@@ -3,6 +3,7 @@ import 'package:cicgreenloan/modules/get_funding/get_funding_export.dart';
 import 'package:cicgreenloan/modules/google_map_module/google_map.dart';
 import 'package:cicgreenloan/modules/investment_module/investment_export.dart';
 import 'package:cicgreenloan/modules/privilege_program/privilege_export.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import 'package:cicgreenloan/modules/report_module/report_export.dart';
 import 'package:cicgreenloan/modules/setting_modules/setting_export.dart';
 import 'package:cicgreenloan/modules/wallet/screen/wallet_exchange.dart';
@@ -1110,6 +1111,13 @@ final router = GoRouter(
                             path: 'redeem-point-pay-review',
                             builder: (context, state) =>
                                 RedeemPointPayReviewScreen(
+                              key: state.pageKey,
+                            ),
+                          ),
+                          GoRoute(
+                            name: 'pointScreen',
+                            path: 'point-screen',
+                            builder: (context, state) => PrivilegePointScreen(
                               key: state.pageKey,
                             ),
                           ),

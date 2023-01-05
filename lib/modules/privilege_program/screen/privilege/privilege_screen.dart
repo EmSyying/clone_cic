@@ -82,6 +82,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   File? nationalBack;
   @override
   Widget build(BuildContext context) {
+    final path = GoRouter.of(context).location;
     return CupertinoScaffold(
       body: Builder(
         builder: (context) => CupertinoPageScaffold(
@@ -95,11 +96,16 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               action: [
                 Stack(
                   children: [
-                    Container(
-                      height: 100,
-                      padding: const EdgeInsets.only(right: 18.0),
-                      child:
-                          SvgPicture.asset("assets/images/svgfile/Union.svg"),
+                    GestureDetector(
+                      onTap: () {
+                        context.go('$path/point-screen');
+                      },
+                      child: Container(
+                        height: 100,
+                        padding: const EdgeInsets.only(right: 18.0),
+                        child:
+                            SvgPicture.asset("assets/images/svgfile/Union.svg"),
+                      ),
                     ),
                     Positioned(
                       right: 4,
