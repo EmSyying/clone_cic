@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cicgreenloan/Utils/helper/cic/app_maintenance.dart';
 
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
@@ -192,8 +193,15 @@ class _MainDashboardState extends State<MainDashboard> {
     }
   }
 
+  undermaintenanceApp() {
+    Future.delayed(const Duration(seconds: 1), () {
+      AppMaintenance.maintenanceOverLay(context);
+    });
+  }
+
   @override
   void initState() {
+    // undermaintenanceApp();
     hanndleTour();
     _notificationCon.countNotification();
 
