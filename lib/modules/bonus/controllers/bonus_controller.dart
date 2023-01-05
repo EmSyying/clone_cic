@@ -257,8 +257,6 @@ class BonusController extends GetxController {
 
             pendingtransactionList.add(pendingtransaction.value);
           }).toList();
-          debugPrint(
-              "pendingtransactionList:${pendingtransactionList[0].histories![0].view!.paidAmount}");
         }
       });
     } finally {
