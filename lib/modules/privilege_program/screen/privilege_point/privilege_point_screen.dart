@@ -1,11 +1,11 @@
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/loyalty_point_screen.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/recent_point_screen.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/point_emptystate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/firebase_analytics.dart';
+import 'loyalty_point_screen.dart';
 
 class PrivilegePointScreen extends StatefulWidget {
   const PrivilegePointScreen({super.key});
@@ -23,7 +23,12 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
 
   List<Widget> widgets = [
     const LoyaltyPointScreen(),
-    const RecentPointScreen()
+    const PiointEmptyState(
+      title: 'No transaction yet!',
+      description:
+          'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
+    ),
+    // const RecentPointScreen()
   ];
 
   @override
