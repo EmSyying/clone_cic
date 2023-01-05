@@ -47,6 +47,7 @@ import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../investment_module/screen/deposit_screen.dart';
+import '../privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import 'main_dashboard_type_am.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -593,6 +594,15 @@ class _MainDashboardState extends State<MainDashboard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) =>
+                                      const PrivilegePointScreen())));
+                        },
+                        child: const Text('test')),
                     if (!_settingCon.isAMMode!)
                       GestureDetector(
                         key: actionKey,
