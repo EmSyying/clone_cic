@@ -15,7 +15,6 @@ import 'package:local_auth/local_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../../modules/member_directory/controllers/customer_controller.dart';
@@ -29,7 +28,7 @@ class SettingController extends GetxController {
   final _apiBaseHelper = ApiBaseHelper();
   final settingApp = Setting().obs;
   final appSetting = Setting().obs;
-  final isModeSwitchAble = false.obs;
+  final isModeSwitchAble = true.obs;
   Setting cicAppSetting = Setting();
   final isAutoDarkMode = true.obs;
   bool isLogin = false;
