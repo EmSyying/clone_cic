@@ -505,10 +505,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                           setState(() {
                                                                                                             _con.notificationList[index].readAt = '';
                                                                                                           });
-                                                                                                          debugPrint("is Pressed tran detail");
-                                                                                                          await _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!);
+                                                                                                          debugPrint("transactionDetailLoading00");
+                                                                                                          _walletController.onFetchWalletTransactionDetail(_con.notificationList[index].data!.transactionId!, _con.notificationList[index].data!.model!).then((value) {
+                                                                                                            WalletTran.transactionDetail(context, value);
+                                                                                                          });
+
                                                                                                           // ignore: use_build_context_synchronously
-                                                                                                          WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
+                                                                                                          // WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
                                                                                                         } else if (_con.notificationList[index].data!.type == 'bonus') {
                                                                                                           context.push('/wallet');
                                                                                                         } else {

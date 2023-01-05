@@ -123,6 +123,7 @@ class WalletController extends GetxController {
       int id, String model) async {
     debugPrint("Model:$model");
     transactionDetailLoading(true);
+    debugPrint('transactionDetailLoading 1:$transactionDetailLoading');
     await _apiBaseHelper
         .onNetworkRequesting(
             url: 'user/wallet/transaction/$id?model=$model',
@@ -131,9 +132,11 @@ class WalletController extends GetxController {
         .then((response) {
       walletTransactionDetail.value =
           WalletTransactionDetail.fromJson(response['data']);
-      update();
+      debugPrint('transactionDetailLoading 2:$transactionDetailLoading');
       debugPrint('Transactoinn Detail:${walletTransactionDetail.value}');
       transactionDetailLoading(false);
+      debugPrint('transactionDetailLoading 3:$transactionDetailLoading');
+      update();
     }).onError((ErrorModel error, stackTrace) {
       transactionDetailLoading(false);
       debugPrint('Error : ${error.statusCode} : ${error.bodyString}');

@@ -88,7 +88,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                       child: Column(
                         children: [
                           Text(
-                            '${widget.fullName}',
+                            widget.fullName ?? '',
                             style:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.w700,
@@ -110,7 +110,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                 width: 10,
                               ),
                               Text(
-                                '${widget.position}',
+                                widget.position ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline5!
