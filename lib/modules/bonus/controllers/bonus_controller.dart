@@ -535,7 +535,6 @@ class BonusController extends GetxController {
           var responseJson = json.decode(response.body)["data"];
 
           utSubscription.value = UTSubscription.fromJson(responseJson);
-          debugPrint("UT Subscription:${utSubscription.value}");
         } else {
           isUTScription(false);
         }
