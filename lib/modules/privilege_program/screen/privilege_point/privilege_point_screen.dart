@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/point_emptystate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -57,8 +58,15 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                       floating: false,
                       pinned: true,
                       backgroundColor: Colors.transparent,
-                      elevation: 2,
+                      elevation: 0,
+                      forceElevated: true,
+                      scrolledUnderElevation: 0,
+                      systemOverlayStyle: const SystemUiOverlayStyle(
+                        systemNavigationBarColor: Colors.amber,
+                        statusBarColor: Colors.red,
+                      ),
                       flexibleSpace: FlexibleSpaceBar(
+                        collapseMode: CollapseMode.none,
                         background: Container(
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
