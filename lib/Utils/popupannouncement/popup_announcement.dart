@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/link.dart';
 
-
 class PopUpAnnouncement extends StatelessWidget {
   final NotificationModel? notificationModel;
   final Function? onCancel;
@@ -114,38 +113,41 @@ class PopUpAnnouncement extends StatelessWidget {
                     thickness: 1,
                   ),
                 if (notificationModel!.data!.button!.isNotEmpty)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: notificationModel!.data!.button!
-                        .map(
-                          (data) => Link(
-                            target: LinkTarget.self,
-                            uri: Uri.parse(data.target ?? ''),
-                            builder: (context, followLink) => InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                                notificationCon
-                                    .onReadNotification(notificationModel!.id!);
-                                followLink!();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 10),
-                                child: Text(
-                                  data.label ?? '',
-                                  style:  TextStyle(
-                                    fontFamily: 'DMSans',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: notificationModel!.data!.button!
+                          .map(
+                            (data) => Link(
+                              target: LinkTarget.self,
+                              uri: Uri.parse(data.target ?? ''),
+                              builder: (context, followLink) => InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  notificationCon.onReadNotification(
+                                      notificationModel!.id!);
+                                  followLink!();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 40, vertical: 10),
+                                  child: Text(
+                                    data.label ?? '',
+                                    style: TextStyle(
+                                      fontFamily: 'DMSans',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                        .toList(),
+                          )
+                          .toList(),
+                    ),
                   ),
               ],
             ),
