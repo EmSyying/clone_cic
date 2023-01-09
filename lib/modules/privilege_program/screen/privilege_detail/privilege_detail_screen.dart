@@ -262,8 +262,9 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                         child: CustomCardPoint(
                                           point: '100',
                                           onTap: () {
-                                            context.push(
-                                                '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                            context.push('/qr-screen');
+                                            // context.push(
+                                            //     '/profile/setting/privilege/all-store/redeem-point-to-pay');
                                           },
                                         ),
                                       ),

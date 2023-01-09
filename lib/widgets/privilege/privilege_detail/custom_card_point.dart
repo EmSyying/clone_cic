@@ -13,7 +13,7 @@ class CustomCardPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 10, right: 20, left: 20),
+      // padding: const EdgeInsets.only(top: 10, bottom: 10, right: 20, left: 20),
       width: double.infinity,
       height: 70,
       decoration: BoxDecoration(
@@ -35,67 +35,77 @@ class CustomCardPoint extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset("assets/images/svgfile/Union (1).svg"),
-              const SizedBox(
-                width: 14,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Current Point',
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff464646),
-                          fontSize: 12,
-                        ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  Text(
-                    point ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          const VerticalDivider(
-            thickness: 1,
-          ),
-          GestureDetector(
-            onTap: onTap,
+          Expanded(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Redeem to pay',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                ),
+                SvgPicture.asset("assets/images/svgfile/Union (1).svg"),
                 const SizedBox(
-                  width: 6,
+                  width: 14,
                 ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: Theme.of(context).primaryColor,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Current Point',
+                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff464646),
+                            fontSize: 12,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      point ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                  ],
                 )
               ],
+            ),
+          ),
+          const VerticalDivider(
+            width: 0,
+            thickness: 1,
+          ),
+          Expanded(
+            child: GestureDetector(
+              onTap: onTap,
+              child: Container(
+                height: double.infinity,
+                color: Colors.transparent,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Redeem to pay',
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: Theme.of(context).primaryColor,
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ],
