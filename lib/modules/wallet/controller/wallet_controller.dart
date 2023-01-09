@@ -272,32 +272,39 @@ class WalletController extends GetxController {
   Future<WalletDataModel> fetchWalletAmount() async {
     fetchWalletLoading(true);
     debugPrint("is loading wallet accounnt1");
-    await _apiBaseHelper
-        .onNetworkRequesting(
-            url: 'user/wallet', methode: METHODE.get, isAuthorize: true)
-        .then((response) {
-      debugPrint("is loading wallet accounnt2 :$response");
-      if (response == null) {
-        fetchWalletLoading(false);
-        walletAccount.value = '';
-        update();
-      }
+    try {
+      await _apiBaseHelper
+          .onNetworkRequesting(
+              url: 'user/wallet', methode: METHODE.get, isAuthorize: true)
+          .then((response) {
+        debugPrint("is loading wallet accounnt2 :$response");
+        if (response == null) {
+          fetchWalletLoading(false);
+          walletAccount.value = '';
+          update();
+        }
 
-      var wallet = response['data'];
-      debugPrint("is loading wallet accounnt2 ::$wallet");
-      walletAmount.value = WalletDataModel.fromJson(wallet);
-      transferModel.value = transferModel.value.copyWith(
-        phoneNumber: walletAmount.value.wallet!.accountNumber,
-        idQR: walletAmount.value.invester!.investerId,
-        userName: walletAmount.value.invester!.investerName,
-      );
-      debugPrint("is loading wallet accounnt3");
+        var wallet = response['data'];
+        debugPrint("is loading wallet accounnt2 ::$wallet");
+        walletAmount.value = WalletDataModel.fromJson(wallet);
+        transferModel.value = transferModel.value.copyWith(
+          phoneNumber: walletAmount.value.wallet!.accountNumber,
+          idQR: walletAmount.value.invester!.investerId,
+          userName: walletAmount.value.invester!.investerName,
+        );
+        debugPrint("is loading wallet accounnt3");
+        fetchWalletLoading(false);
+      }).onError((ErrorModel error, stackTrace) {
+        fetchWalletLoading(false);
+        debugPrint(
+            'FetchWalletAmount Error : ${error.statusCode} : ${error.bodyString}');
+      });
+    } catch (e) {
       fetchWalletLoading(false);
-    }).onError((ErrorModel error, stackTrace) {
+      debugPrint("Error$e");
+    } finally {
       fetchWalletLoading(false);
-      debugPrint(
-          'FetchWalletAmount Error : ${error.statusCode} : ${error.bodyString}');
-    });
+    }
     return walletAmount.value;
   }
 

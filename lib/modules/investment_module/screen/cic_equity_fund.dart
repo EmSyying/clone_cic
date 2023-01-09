@@ -1141,6 +1141,42 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                       ],
                                     ),
                                   )),
+                                  if (!priceController
+                                      .isLoadingSharePrice.value)
+                                    SafeArea(
+                                      top: false,
+                                      minimum: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 20,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: CustomButton(
+                                              isOutline: true,
+                                              isDisable: false,
+                                              onPressed: () {
+                                                // context.push(
+                                                //     "/ut-subscription/new-subscription?fromPage=investment");
+                                              },
+                                              title: "About CEF",
+                                            ),
+                                          ),
+                                          const SizedBox(width: 20.0),
+                                          Expanded(
+                                            child: CustomButton(
+                                              isOutline: false,
+                                              isDisable: false,
+                                              onPressed: () {
+                                                context.push(
+                                                    "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                                              },
+                                              title: "Subscribe Now",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   // SafeArea(
                                   //   top: false,
                                   //   minimum: const EdgeInsets.symmetric(
@@ -1151,8 +1187,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                   //     isOutline: false,
                                   //     isDisable: false,
                                   //     onPressed: () {
-                                  //       context.push(
-                                  //           "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                                  // context.push(
+                                  //     "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
                                   //     },
                                   //     title: "Subscribe Now",
                                   //   ),

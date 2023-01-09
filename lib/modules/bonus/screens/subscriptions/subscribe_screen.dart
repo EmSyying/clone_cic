@@ -2,6 +2,7 @@ import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_new_subscription.dart';
 import 'package:cicgreenloan/modules/bonus/screens/subscriptions/custom_subscribe_history.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/injection_helper/injection_helper.dart';
@@ -46,7 +47,7 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
           title: "UT Subscription",
           isCallonPressed: widget.fromPage == 'investment' ? true : false,
           onPressed: () {
-            debugPrint('is pressed to invesment');
+            debugPrint('is pressed to invesment ABC');
             InjectionHelper.investmentController.onFetchPrice();
             context.go('/investment/cic-equity-fund');
             // Navigator.pop(context);
@@ -56,33 +57,38 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
           Container(
             width: double.infinity,
             color: const Color.fromRGBO(255, 255, 255, 1),
-            child: TabBar(
-              onTap: (v) {
-                FocusScope.of(context).unfocus();
-              },
-              labelPadding: const EdgeInsets.only(top: 20, bottom: 20),
-              indicatorColor: Theme.of(context).primaryColor,
-              labelColor: Theme.of(context).primaryColor,
-              unselectedLabelColor: Colors.grey,
-              controller:
-                  InjectionHelper.bonusController.tabControllerSubscribe,
-              indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
-              tabs: const [
-                Text(
-                  'New Subscription',
-                  style: TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text(
-                  'Subscription History',
-                  style: TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
+            child: Obx(
+              () => TabBar(
+                onTap: (v) {
+                  FocusScope.of(context).unfocus();
+                },
+                labelPadding: const EdgeInsets.only(top: 20, bottom: 20),
+                indicatorColor:
+                    InjectionHelper.walletController.fetchWalletLoading.value
+                        ? Colors.transparent
+                        : Theme.of(context).primaryColor,
+                labelColor: Theme.of(context).primaryColor,
+                unselectedLabelColor: Colors.grey,
+                controller:
+                    InjectionHelper.bonusController.tabControllerSubscribe,
+                indicatorPadding: const EdgeInsets.only(left: 20, right: 20),
+                tabs: const [
+                  Text(
+                    'New Subscription',
+                    style: TextStyle(
+                        fontFamily: 'DMSans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    'Subscription History',
+                    style: TextStyle(
+                        fontFamily: 'DMSans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
