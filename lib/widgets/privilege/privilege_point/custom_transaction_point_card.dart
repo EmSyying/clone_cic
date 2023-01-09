@@ -9,6 +9,17 @@ class CustomTransactionPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardWidth = MediaQuery.of(context).size.width - 40;
+    const gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: <Color>[
+        Color(0xffF9D423),
+        Color(0xffE65C00),
+        // Colors.green
+        //add more color here.
+      ],
+    );
     return Stack(
       children: [
         Container(
@@ -28,74 +39,78 @@ class CustomTransactionPoint extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20, bottom: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '$point',
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20, bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: ShaderMask(
+                              shaderCallback: (Rect bounds) {
+                                return gradient
+                                    .createShader(Offset.zero & bounds.size);
+                              },
+                              child: Text(
+                                '$point',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 26,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text('Point',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                        fontSize: 16)),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        child: Text(
+                          title ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .headline4!
                               .copyWith(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 26,
-                                  foreground: Paint()
-                                    ..shader = const LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: <Color>[
-                                        Color(0xffF9D423),
-                                        Color(0xffE65C00),
-                                        // Colors.green
-                                        //add more color here.
-                                      ],
-                                    ).createShader(const Rect.fromLTWH(
-                                        0.0, 0.0, 200.0, 100.0))),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                  overflow: TextOverflow.visible),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text('Point',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey,
-                                      fontSize: 16)),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    SizedBox(
-                      width: 280,
-                      child: Text(
-                        title ?? '',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                            fontWeight: FontWeight.w500, fontSize: 12),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      datetime ?? '',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: Colors.black45),
-                    )
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        datetime ?? '',
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: Colors.black45),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -107,7 +122,8 @@ class CustomTransactionPoint extends StatelessWidget {
                     linePosition: LinePosition.right,
                     dash: const [4, 4]),
               ),
-              Expanded(
+              SizedBox(
+                width: cardWidth * 0.24,
                 child: Image.asset(
                   '$svg',
                   width: 35,

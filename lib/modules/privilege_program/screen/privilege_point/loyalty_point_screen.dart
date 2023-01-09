@@ -29,19 +29,19 @@ class LoyaltyCardModel {
 
 List<LoyaltyCardModel> loyaltyCardList = [
   LoyaltyCardModel(
-    title: 'Champei SpaLorem Ipsum Cham ...',
+    title: 'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
     datetime: '23 December 2022',
     point: 300,
     image: 'assets/images/union_point_card.png',
   ),
   LoyaltyCardModel(
-    title: 'Champei SpaLorem Ipsum Cham ...',
+    title: 'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
     datetime: '23 December 2022',
     point: 300,
     image: 'assets/images/union_point_card.png',
   ),
   LoyaltyCardModel(
-    title: 'Champei SpaLorem Ipsum Cham ...',
+    title: 'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
     datetime: '23 December 2022',
     point: 300,
     image: 'assets/images/union_point_card.png',

@@ -1,7 +1,6 @@
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/point_emptystate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -38,132 +37,101 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
 
     return CupertinoScaffold(
       body: Builder(builder: (context) {
-        return Scaffold(
-          // appBar: AppBar(
-          //   backgroundColor: Colors.transparent,
-          //   elevation: 0,
-          //   // title: const Text('My Point'),
-          // ),
-          backgroundColor: Colors.transparent,
-          extendBodyBehindAppBar: true,
-          body: NestedScrollView(
-            headerSliverBuilder: (((context, innerBoxIsScrolled) => [
-                  SliverOverlapAbsorber(
-                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                        context),
-                    sliver: SliverAppBar(
-                      title: const Text('My Point'),
-                      expandedHeight: 180,
-                      centerTitle: true,
-                      floating: false,
-                      pinned: true,
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      forceElevated: true,
-                      scrolledUnderElevation: 0,
-                      systemOverlayStyle: const SystemUiOverlayStyle(
-                        systemNavigationBarColor: Colors.amber,
-                        statusBarColor: Colors.red,
-                      ),
-                      flexibleSpace: FlexibleSpaceBar(
-                        collapseMode: CollapseMode.none,
-                        background: Container(
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.topRight,
-                              colors: [
-                                Color(0xff384593),
-                                Color(0xff3588E8),
-                              ],
-                            ),
-                          ),
-                          child: Stack(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Positioned(
-                                right: 0,
-                                top: 0,
-                                bottom: 20,
-                                left: 285,
-                                child: SvgPicture.asset(
-                                  'assets/images/svgfile/union_point.svg',
-                                  color: Colors.black12,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 120, left: 20),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Current Points',
-                                          style: textStyle.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          '0',
-                                          style: textStyle.copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 30),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'As of 23 December 2022',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 12,
-                                                  color:
-                                                      const Color(0xfff2f2f2)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ])),
-            body: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: <Color>[
+        return Stack(
+          children: [
+            Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                centerTitle: true,
+                title: const Text('My Point'),
+                titleTextStyle: textStyle,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              body: Container(
+                width: double.infinity,
+                height: double.infinity,
+                alignment: Alignment.topRight,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.topRight,
+                    colors: [
                       Color(0xff384593),
                       Color(0xff3588E8),
-                    ]
-                    // stops: const []
-                    // colors: <Color>[Color(0xff0685cf), Color(0xff0f50a4)],
-                    ),
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(14.0),
-                  topLeft: Radius.circular(14.0),
+                    ],
+                  ),
                 ),
+                child: SvgPicture.asset(
+                  'assets/images/svgfile/union_point.svg',
+                  color: Colors.black12,
+                  // fit: BoxFit.fill,
+                ),
+              ),
+            ),
+
+            ///experiment
+            Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              body: Container(
+                width: double.infinity,
+                height: double.infinity,
+                alignment: Alignment.topLeft,
                 child: Container(
+                  height: 140,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Current Points',
+                        style: textStyle.copyWith(
+                            fontWeight: FontWeight.w500, fontSize: 14),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        '1,000',
+                        style: textStyle.copyWith(
+                            fontWeight: FontWeight.w700, fontSize: 30),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'As of 23 December 2022',
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: const Color(0xfff2f2f2)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                // title: const Text('My Point'),
+              ),
+              body: NestedScrollView(
+                headerSliverBuilder: (context, _) => [
+                  SliverPersistentHeader(
+                    delegate: CustomSliver(height: 140),
+                  )
+                ],
+                body: Container(
                   width: double.infinity,
-                  margin: const EdgeInsets.only(top: 120),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(14.0),
@@ -172,6 +140,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                     color: Color(0xffFAFAFA),
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
                         child: Container(
@@ -181,6 +150,14 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.grey[400]),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 10),
+                        child: Text(
+                          'Transactions',
+                          style: textStyle.copyWith(
+                              color: Colors.black, fontSize: 16),
                         ),
                       ),
                       Container(
@@ -234,9 +211,30 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                 ),
               ),
             ),
-          ),
+          ],
         );
       }),
     );
+  }
+}
+
+class CustomSliver extends SliverPersistentHeaderDelegate {
+  final double? height;
+  CustomSliver({this.height});
+
+  @override
+  double get maxExtent => height ?? 0;
+
+  @override
+  double get minExtent => height ?? 0;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return const SizedBox.shrink();
   }
 }

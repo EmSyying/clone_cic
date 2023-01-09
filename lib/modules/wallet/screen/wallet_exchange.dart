@@ -20,6 +20,7 @@ class WalletExchange extends StatelessWidget {
     final textstyle = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         titleTextStyle: Theme.of(context).textTheme.headline6,
         centerTitle: true,
         title: const Text("Exchange"),
