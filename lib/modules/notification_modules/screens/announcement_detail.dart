@@ -73,6 +73,7 @@ class AnnouncementDetail extends StatelessWidget {
               ],
             ),
           ),
+          Text(url.toString()),
           if (url != "null" && url != "" && url != null)
             Padding(
               padding:

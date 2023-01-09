@@ -54,12 +54,6 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
   @override
   void initState() {
     // priceController.onFetchPrice();
-    _walletController.fetchWalletAmount();
-
-    subscribeCon.fetchUTScription();
-
-    subscribeCon.fetchPaymentSummary();
-    subscribeCon.fetchbonusSetting();
 
     Future.delayed(const Duration(seconds: 1), () async {
       subscribeCon.utPrice.value = priceController.price.value.price!;

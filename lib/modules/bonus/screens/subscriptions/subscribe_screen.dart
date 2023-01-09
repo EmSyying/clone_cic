@@ -21,6 +21,16 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
+    InjectionHelper.bonusController.fetchUTScription();
+
+    InjectionHelper.bonusController.fetchPaymentSummary();
+    InjectionHelper.bonusController.fetchbonusSetting();
+    debugPrint(
+        "InjectionHelper.investmentController.isFromWallet.value :${InjectionHelper.investmentController.isFromWallet.value}");
+    if (InjectionHelper.investmentController.isFromWallet.value == false) {
+      debugPrint("is working from wallet");
+      InjectionHelper.walletController.fetchWalletAmount();
+    }
     InjectionHelper.bonusController.tabControllerSubscribe = TabController(
       length: 2,
       vsync: this,
@@ -34,6 +44,7 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
         InjectionHelper.bonusController.tabControllerSubscribe.index = 1;
       }
     });
+    InjectionHelper.investmentController.isFromWallet.value = false;
     super.initState();
   }
 

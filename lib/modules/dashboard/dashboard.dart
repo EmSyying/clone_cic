@@ -103,6 +103,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   @override
   void initState() {
     // priceController.onHideFeatureByUser();
+    debugPrint("Tab name:${widget.tabName}");
     priceController.tapcurrentIndex(0);
     debugPrint('Local Storage : ${priceController.allowFeaturebyTag.value}');
     if (widget.tabName == 'cic-equity-fund') {
@@ -125,6 +126,12 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
     priceController.onFetchPrice();
     priceController.getSharePrice();
+    priceController.getAllChartList();
+    priceController.fetchCertificate();
+    priceController.fetchOnReturnInvestment();
+    priceController.getShareSubHistories();
+    priceController.isFromWallet.value = false;
+
     debugPrint("is Hide Feature:${priceController.allowFeaturebyTag.value}");
 
     super.initState();

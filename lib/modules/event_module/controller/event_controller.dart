@@ -16,7 +16,6 @@ import 'package:cicgreenloan/modules/event_module/models/registered_member.dart'
 import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/option_controller/option_controller.dart';
@@ -147,10 +146,11 @@ class EventController extends GetxController {
   Future<List<EventData>> getPastEvent(int? memberId) async {
     isLoadingPast(true);
     tokenKey = await LocalData.getCurrentUser();
+    debugPrint("is past event");
     String url =
         '${FlavorConfig.instance.values!.apiBaseUrl}event?member_id=$memberId&posted=past';
     // '${FlavorConfig.instance.values!.apiBaseUrlV3}event?member_id=$memberId&posted=past&event_date=${eventDate.value}';
-
+    debugPrint("Event Url1:$url");
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -196,6 +196,7 @@ class EventController extends GetxController {
 
     String url =
         '${FlavorConfig.instance.values!.apiBaseUrl}event?posted=$posted&type=new&event_date=$date';
+    debugPrint("Event Url:$url");
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',

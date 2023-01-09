@@ -66,11 +66,6 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
     // bonusCon.fetchPaymentSummary();
     // bonusCon.fetchbonusSetting();
     // _walletController.fetchWalletAmount();
-    priceController.fetchCertificate();
-    priceController.fetchOnReturnInvestment();
-    priceController.getShareSubHistories();
-    priceController.isFromWallet.value = false;
-    priceController.getAllChartList();
 
     // priceController.fetchCertificate();
     super.initState();

@@ -20,40 +20,36 @@ class MMAInvestFIFScreen extends StatelessWidget {
         context: context,
         title: "Invest",
       ),
-      body:
-          Obx(() => InjectionHelper.walletController.listFiFOptionLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  children: InjectionHelper.walletController.listFiFOption
-                      .asMap()
-                      .entries
-                      .map((e) {
-                    return CustomCardInvestFIF(
-                      assetImage: e.value.background,
-                      titleFIF: e.value.title,
-                      onTap: () {
-                        InjectionHelper
-                            .investmentController.isFromWallet.value = true;
+      body: Obx(
+        () => InjectionHelper.walletController.listFiFOptionLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                children: InjectionHelper.walletController.listFiFOption
+                    .asMap()
+                    .entries
+                    .map((e) {
+                  return CustomCardInvestFIF(
+                    assetImage: e.value.background,
+                    titleFIF: e.value.title,
+                    onTap: () {
+                      debugPrint("is pressed from wallet");
+                      InjectionHelper.investmentController.isFromWallet.value =
+                          true;
+                      InjectionHelper.investmentController.update();
 
-                        context.push("${e.value.route}");
-                      },
-                      column: Column(
-                        children: e.value.details!.asMap().entries.map((e) {
-                          return CustomTitleCardInvestFIF(title: e.value.list);
-                        }).toList(),
-                      ),
-                      // exploreMore: 'Explore More',
-                      // onTapExplore: e.value.exploreMore != null
-                      //     ? () async {
-                      //         context.push(
-                      //             '/explore-more?isfromReport=true&title=${e.value.title}&url=${e.value.exploreMore}');
-                      //       }
-                      //     : null,
-                    );
-                  }).toList(),
-                )),
+                      context.push("${e.value.route}");
+                    },
+                    column: Column(
+                      children: e.value.details!.asMap().entries.map((e) {
+                        return CustomTitleCardInvestFIF(title: e.value.list);
+                      }).toList(),
+                    ),
+                  );
+                }).toList(),
+              ),
+      ),
     );
   }
 }
