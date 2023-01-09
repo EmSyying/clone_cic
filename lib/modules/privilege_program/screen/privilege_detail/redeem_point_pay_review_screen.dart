@@ -163,8 +163,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
               children: [
                 SlideButton(
                   callback: () async {
-                    await Navigator.push(
-                      context,
+                    await Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
                         builder: (context) {
                           return CustomSucessScreen(

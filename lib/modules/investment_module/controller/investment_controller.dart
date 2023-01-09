@@ -784,8 +784,7 @@ class PriceController extends GetxController {
         Future.delayed(
           const Duration(seconds: 1),
           () {
-            Navigator.push(
-              buildcontext!,
+            Navigator.of(buildcontext!, rootNavigator: true).push(
               MaterialPageRoute(
                 fullscreenDialog: true,
                 builder: (context) => CustomSucessScreen(
@@ -1390,8 +1389,7 @@ class PriceController extends GetxController {
         }).then((response) {
       debugPrint('onPostRenew Success $response');
       if (response['success'] != null && response['success']) {
-        Navigator.push(
-          context,
+        Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(
             builder: (context) => CustomSucessScreen(
               title: 'Success',
@@ -1538,8 +1536,7 @@ class PriceController extends GetxController {
           "amount": textWithdrawAmount.value
         }).then((e) async {
       debugPrint("Widthdraw body:$e");
-      await Navigator.push(
-        context!,
+      await Navigator.of(context!, rootNavigator: true).push(
         MaterialPageRoute(
           builder: (context) {
             return CustomSucessScreen(

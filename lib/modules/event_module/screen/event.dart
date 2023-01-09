@@ -455,6 +455,11 @@ class _EventScreenState extends State<EventScreen> {
                                       duration:
                                           const Duration(microseconds: 200),
                                       curve: Curves.fastOutSlowIn);
+                                  if (segmentedControlValue == 1) {
+                                    _eventController.getPastEvent(
+                                        _customerController
+                                            .customer.value.customerId!);
+                                  }
                                 });
                               }),
                         ),
@@ -477,7 +482,13 @@ class _EventScreenState extends State<EventScreen> {
                             }
 
                             segmentedControlValue = value;
-                            setState(() {});
+                            setState(() {
+                              if (value == 1) {
+                                _eventController.getPastEvent(
+                                    _customerController
+                                        .customer.value.customerId!);
+                              }
+                            });
                           },
                           children: transactionPage,
                         ),

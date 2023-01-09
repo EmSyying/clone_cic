@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Utils/form_builder/custom_textformfield.dart';
-import '../../../Utils/helper/custom_appbar.dart';
 import '../../../widgets/investments/slide_button.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../controller/wallet_controller.dart';
@@ -20,21 +19,22 @@ class WalletExchange extends StatelessWidget {
   Widget build(BuildContext context) {
     final textstyle = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: CustomAppBar(
-        elevation: 0,
-        isLogo: true,
-        isLeading: true,
-        context: context,
-        title: "Exchange",
-        // action: [
-        //   Padding(
-        //     padding: const EdgeInsets.only(right: 10.0),
-        //     child: GestureDetector(
-        //       onTap: () async {},
-        //       child: SvgPicture.asset('assets/images/demo.svg'),
-        //     ),
-        //   ),
-        // ],
+      appBar: AppBar(
+        titleTextStyle: Theme.of(context).textTheme.headline6,
+        centerTitle: true,
+        title: const Text("Exchange"),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              context.push('/profile/setting/privilege/all-store/point-screen');
+            },
+            child: Container(
+              height: 100,
+              padding: const EdgeInsets.only(right: 18.0),
+              child: SvgPicture.asset("assets/images/svgfile/Union.svg"),
+            ),
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -77,24 +77,27 @@ class WalletExchange extends StatelessWidget {
                       ],
                     ),
                   ),
-                  CustomTextFieldNew(
-                    // initialValue: _walletController.qrRecievingAmount.text,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    controller: _walletController.qrRecievingAmount,
-                    inputFormatterList: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      // FilteringTextInputFormatter.allow(
-                      //     RegExp(r'\d{1,3}(,\d{3})*(\.\d+)?')),
-                      // NumericInputFormatter(),
-                    ],
-                    onChange: (value) {
-                      // _walletController.pointAmountController.text = value;
-                    },
-                    isRequired: true,
-                    labelText: 'Amount',
-                    hintText: 'Amount',
-                    suffixText: 'USD',
+                  Obx(
+                    () => CustomTextFieldNew(
+                      initialValue: _walletController.inputAmountField.value,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      inputFormatterList: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        // FilteringTextInputFormatter.allow(
+                        //     RegExp(r'\d{1,3}(,\d{3})*(\.\d+)?')),
+                        // NumericInputFormatter(),
+                      ],
+                      onChange: (value) {
+                        _walletController.inputAmountField(value);
+                        _walletController.pointAmountController.value.text =
+                            value;
+                      },
+                      isRequired: true,
+                      labelText: 'Amount',
+                      hintText: 'Amount',
+                      suffixText: 'USD',
+                    ),
                   ),
                   Padding(
                     padding:
@@ -136,7 +139,8 @@ class WalletExchange extends StatelessWidget {
                     ),
                   ),
                   CustomTextFieldNew(
-                    controller: _walletController.pointAmountController,
+                    initialValue: '',
+                    controller: _walletController.pointAmountController.value,
                     enable: false,
                     labelText: 'Point Amount',
                     hintText: 'Point Amount',
@@ -145,22 +149,27 @@ class WalletExchange extends StatelessWidget {
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SlideButton(
-                      callback: () async {
-                        context.pushNamed(
-                          'SuccessScreen',
-                          queryParams: {
-                            'title': 'Success',
-                            'description': 'Exchange successfully',
-                            'appbarTitle': 'Point Exchange',
-                          },
-                          extra: {
-                            'onPressedButton': () {
-                              context.go('/wallet');
-                            },
-                          },
-                        );
-                      },
+                    child: Obx(
+                      () => SlideButton(
+                        callback:
+                            _walletController.inputAmountField.value.isEmpty
+                                ? null
+                                : () async {
+                                    context.pushNamed(
+                                      'SuccessScreen',
+                                      queryParams: {
+                                        'title': 'Success',
+                                        'description': 'Exchange successfully',
+                                        'appbarTitle': 'Point Exchange',
+                                      },
+                                      extra: {
+                                        'onPressedButton': () {
+                                          context.go('/wallet');
+                                        },
+                                      },
+                                    );
+                                  },
+                      ),
                     ),
                   ),
                   SafeArea(

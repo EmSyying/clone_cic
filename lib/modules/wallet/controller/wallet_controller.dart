@@ -504,5 +504,6 @@ class WalletController extends GetxController {
   }
 
   ///Point Register
-  final pointAmountController = TextEditingController();
+  final inputAmountField = ''.obs;
+  final pointAmountController = TextEditingController().obs;
 }

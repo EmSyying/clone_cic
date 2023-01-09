@@ -413,8 +413,7 @@ class BonusController extends GetxController {
           .then((response) {
         if (response.statusCode == 200) {
           onClear();
-          Navigator.push(
-            context,
+          Navigator.of(context, rootNavigator: true).push(
             MaterialPageRoute(
               builder: (context) {
                 return CustomSucessScreen(
@@ -468,8 +467,7 @@ class BonusController extends GetxController {
         if (response.statusCode == 200) {
           debugPrint(
               'hany test submit subscription====: ${subscriptionAmount.value}');
-          Navigator.push(
-            context,
+          Navigator.of(context, rootNavigator: true).push(
             MaterialPageRoute(
               builder: (context) {
                 return CustomSucessScreen(
