@@ -318,7 +318,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                                               value.label!);
 
                                                       context.go(
-                                                          "/${value.route}/0");
+                                                          "/${value.route}");
                                                     }
                                                   : value.route == 'investment'
                                                       ? () {

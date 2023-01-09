@@ -33,6 +33,7 @@ import '../../modules/dashboard/buttom_navigation_bar.dart';
 import '../../modules/dashboard/dashboard.dart';
 import '../../modules/dashboard/main_dashboard.dart';
 
+import '../../modules/learning_platform_module/screens/learning_home.dart';
 import '../../modules/member_directory/controllers/customer_controller.dart';
 import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
@@ -207,6 +208,12 @@ final router = GoRouter(
                                 state.queryParams['id'].toString())),
                       ),
                     ]),
+
+                GoRoute(
+                  path: 'learning',
+                  name: 'Learning',
+                  builder: (context, state) => const LearningHome(),
+                ),
 
                 /// Investment
                 GoRoute(
