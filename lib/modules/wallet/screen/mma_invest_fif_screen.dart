@@ -39,7 +39,7 @@ class MMAInvestFIFScreen extends StatelessWidget {
                           true;
                       InjectionHelper.investmentController.update();
 
-                      context.push("${e.value.route}");
+                      context.go("${e.value.route}");
                     },
                     column: Column(
                       children: e.value.details!.asMap().entries.map((e) {

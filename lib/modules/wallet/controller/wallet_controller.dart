@@ -279,6 +279,7 @@ class WalletController extends GetxController {
           .then((response) {
         debugPrint("is loading wallet accounnt2 :$response");
         if (response == null) {
+          debugPrint("is loading wallet accounnt222");
           fetchWalletLoading(false);
           walletAccount.value = '';
           update();

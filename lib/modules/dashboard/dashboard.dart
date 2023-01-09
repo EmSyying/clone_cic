@@ -124,14 +124,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       });
     });
 
-    priceController.onFetchPrice();
-    priceController.getSharePrice();
-    priceController.getAllChartList();
-    priceController.fetchCertificate();
-    priceController.fetchOnReturnInvestment();
-    priceController.getShareSubHistories();
-    priceController.isFromWallet.value = false;
-
     debugPrint("is Hide Feature:${priceController.allowFeaturebyTag.value}");
 
     super.initState();

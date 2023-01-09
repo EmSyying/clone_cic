@@ -26,9 +26,9 @@ class _SubscribeBonusScreenState extends State<SubscribeBonusScreen>
     InjectionHelper.bonusController.fetchPaymentSummary();
     InjectionHelper.bonusController.fetchbonusSetting();
     debugPrint(
-        "InjectionHelper.investmentController.isFromWallet.value :${InjectionHelper.investmentController.isFromWallet.value}");
-    if (InjectionHelper.investmentController.isFromWallet.value == false) {
-      debugPrint("is working from wallet");
+        " From Page:${InjectionHelper.investmentController.isFromWallet.value}::${widget.fromPage}");
+    if (widget.fromPage != null) {
+      debugPrint("is working from wallet ABC");
       InjectionHelper.walletController.fetchWalletAmount();
     }
     InjectionHelper.bonusController.tabControllerSubscribe = TabController(
