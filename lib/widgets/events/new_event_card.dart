@@ -65,11 +65,11 @@ class NewEventCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(top: 5, left: 10.0),
+                        margin: const EdgeInsets.only(top: 10, left: 10.0),
                         child: Text(
                           eventData!.date!,
                           style: const TextStyle(
-                            color: Color(0xff6D7174),
+                            color: Color(0xff464646),
                             fontFamily: 'DMSans',
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
@@ -117,6 +117,7 @@ class NewEventCard extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const Spacer(),
                       Container(
                         margin: const EdgeInsets.only(right: 10.0),
                         child: Row(
@@ -126,7 +127,10 @@ class NewEventCard extends StatelessWidget {
                               flex: 4,
                               child: Container(
                                 margin: const EdgeInsets.only(
-                                    left: 10.0, right: 5, top: 12),
+                                    left: 10.0,
+                                    right: 5,
+                                    top: 12,
+                                    bottom: 10.0),
                                 child: Text(
                                   eventData!.interested != null
                                       ? "${eventData!.interested.toString()} interested"
