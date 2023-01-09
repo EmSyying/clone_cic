@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../Utils/helper/color.dart';
 import 'dart:ui' as ui;
 
 class CardCurrentPoints extends StatelessWidget {
@@ -41,7 +40,7 @@ class CardCurrentPoints extends StatelessWidget {
                     height: 2.0,
                   ),
                   Text(
-                    '1,000',
+                    '100',
                     style: textStyle.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,

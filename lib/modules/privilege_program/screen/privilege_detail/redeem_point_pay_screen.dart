@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
-import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../Utils/helper/digit_decimal_formarter.dart';
 import '../../../../widgets/privilege/custom_card_current_point.dart';
@@ -153,7 +152,7 @@ class RedeemPointToPay extends StatelessWidget {
           Container(
             color: Colors.white,
             padding:
-                const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
             child: CustomButton(
               width: double.infinity,
               onPressed: () {

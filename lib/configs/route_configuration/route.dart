@@ -1109,6 +1109,7 @@ final router = GoRouter(
                           GoRoute(
                             name: 'RedeemPointToPay',
                             path: 'redeem-point-to-pay',
+                            parentNavigatorKey: _rootNavigatorKey,
                             builder: (context, state) => RedeemPointToPay(
                               key: state.pageKey,
                             ),
@@ -1116,6 +1117,7 @@ final router = GoRouter(
                           GoRoute(
                             name: 'RedeemPointPayReviewScreen',
                             path: 'redeem-point-pay-review',
+                            parentNavigatorKey: _rootNavigatorKey,
                             builder: (context, state) =>
                                 RedeemPointPayReviewScreen(
                               key: state.pageKey,
