@@ -2,9 +2,12 @@ import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/po
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/firebase_analytics.dart';
+import '../../../../utils/function/format_date_time.dart';
+import '../../../wallet/controller/wallet_controller.dart';
 import 'loyalty_point_screen.dart';
 
 class PrivilegePointScreen extends StatefulWidget {
@@ -30,6 +33,13 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
     ),
     // const RecentPointScreen()
   ];
+  final String datetime = DateTime.now().toString();
+  final _walletController = Get.put(WalletController());
+  @override
+  void initState() {
+    _walletController.onFetchMyPoin();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +53,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
               extendBodyBehindAppBar: true,
               appBar: AppBar(
                 centerTitle: true,
-                title: const Text('My Point'),
+                title: const Text('My MVP'),
                 titleTextStyle: textStyle,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -77,42 +87,49 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
               ),
-              body: Container(
-                width: double.infinity,
-                height: double.infinity,
-                alignment: Alignment.topLeft,
-                child: Container(
-                  height: 140,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Current Points',
-                        style: textStyle.copyWith(
-                            fontWeight: FontWeight.w500, fontSize: 14),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '1,000',
-                        style: textStyle.copyWith(
-                            fontWeight: FontWeight.w700, fontSize: 30),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'As of 23 December 2022',
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: const Color(0xfff2f2f2)),
-                      ),
-                    ],
+              body: Obx(
+                () => Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    height: 140,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Current MVP',
+                          style: textStyle.copyWith(
+                              fontWeight: FontWeight.w500, fontSize: 14),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          _walletController.myPoint.value != 0
+                              ? '${_walletController.myPoint.value}'
+                              : '',
+                          style: textStyle.copyWith(
+                              fontWeight: FontWeight.w700, fontSize: 30),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'As of ${FormatDate.investmentDateDisplayUTPrice(datetime)}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: const Color(0xfff2f2f2)),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

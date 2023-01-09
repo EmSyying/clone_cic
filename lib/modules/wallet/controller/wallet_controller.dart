@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/invest/invest_option_model.dart';
+
 import '../model/transaction/wallet_transaction.dart';
 import '../model/transaction/wallet_transaction_detail.dart';
 import '../model/transfer_recieved/transfer_model.dart';
@@ -344,12 +345,6 @@ class WalletController extends GetxController {
           },
         ),
       );
-      // Future.delayed(
-      //   const Duration(seconds: 0),
-      //   () {
-
-      //   },
-      // );
 
       depositAmount.value = '';
       isToDeposit(false);
@@ -455,12 +450,6 @@ class WalletController extends GetxController {
           },
         ),
       );
-      // Future.delayed(
-      //   const Duration(seconds: 1),
-      //   () {
-
-      //   },
-      // );
     }).onError(
       (ErrorModel error, _) {
         customRouterSnackbar(
@@ -504,7 +493,91 @@ class WalletController extends GetxController {
     });
   }
 
-  ///Point Register
+  //Exchange Wallet to point
+  onClearExchange() {
+    pointAmountController.value.text = '';
+    inputAmountField.value = '';
+    isExchangeValidate.value = true;
+    exChangeValidateMessage.value = '';
+  }
+
   final inputAmountField = ''.obs;
   final pointAmountController = TextEditingController().obs;
+  final exChangeValidateMessage = ''.obs;
+  final isExchangeValidate = true.obs;
+  final isExhange = false.obs;
+  Future<void> onExchange(BuildContext context) async {
+    isExhange(true);
+    try {
+      await _apiBaseHelper.onNetworkRequesting(
+        url: 'point',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'account_number': walletAmount.value.wallet?.accountNumber,
+          'exchange_amount': int.tryParse(pointAmountController.value.text),
+        },
+      ).then((response) {
+        debugPrint("Exchange Successful:$response");
+        context.pushNamed(
+          'SuccessScreen',
+          queryParams: {
+            'title': 'Success',
+            'description': 'Exchange successfully',
+            'appbarTitle': 'Point Exchange',
+          },
+          extra: {
+            'onPressedButton': () {
+              context.go('/wallet');
+              fetchWalletAmount();
+              getAllTransaction();
+            },
+          },
+        );
+        onClearExchange();
+        isExhange(false);
+
+        update();
+      }).onError((ErrorModel error, stackTrace) {
+        debugPrint("Exchange Error:${error.bodyString}");
+        isExhange(false);
+        isExchangeValidate(false);
+        exChangeValidateMessage.value = error.bodyString['message'] ?? '';
+        update();
+      });
+    } catch (e) {
+      isExhange(false);
+      debugPrint("on Exchange:$e");
+    } finally {
+      isExhange(false);
+    }
+  }
+
+  // Fetch my point
+  final isMyPoint = false.obs;
+  final myPoint = 0.obs;
+  Future onFetchMyPoin() async {
+    isMyPoint(true);
+    try {
+      await _apiBaseHelper
+          .onNetworkRequesting(
+              url: 'point', methode: METHODE.get, isAuthorize: true)
+          .then((response) {
+        debugPrint("My Poin::$response");
+        var responseJson = response['point_amount'];
+        debugPrint("My Poin:1:$responseJson");
+        myPoint.value = responseJson;
+
+        isMyPoint(false);
+      }).onError((ErrorModel error, stackTrace) {
+        isMyPoint(false);
+        debugPrint('Error : ${error.statusCode} : ${error.bodyString}');
+      });
+    } catch (e) {
+      debugPrint("Fetch My Point$e");
+    } finally {
+      isMyPoint(false);
+    }
+    return myPoint;
+  }
 }

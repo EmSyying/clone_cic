@@ -44,7 +44,7 @@ class WalletExchange extends StatelessWidget {
             child: WalletTotalCard(
               amount: _walletController.fetchWalletLoading.value == true
                   ? '--'
-                  : _walletController.walletAmount.value.wallet!.balanceFormat,
+                  : _walletController.walletAmount.value.wallet?.balanceFormat,
             ),
           ),
           Expanded(
@@ -80,7 +80,11 @@ class WalletExchange extends StatelessWidget {
                   ),
                   Obx(
                     () => CustomTextFieldNew(
+                      isValidate: _walletController.isExchangeValidate.value,
+                      validateText:
+                          _walletController.exChangeValidateMessage.value,
                       initialValue: _walletController.inputAmountField.value,
+                      isRequired: true,
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: true),
                       inputFormatterList: [
@@ -94,7 +98,6 @@ class WalletExchange extends StatelessWidget {
                         _walletController.pointAmountController.value.text =
                             value;
                       },
-                      isRequired: true,
                       labelText: 'Amount',
                       hintText: 'Amount',
                       suffixText: 'USD',
@@ -156,19 +159,7 @@ class WalletExchange extends StatelessWidget {
                             _walletController.inputAmountField.value.isEmpty
                                 ? null
                                 : () async {
-                                    context.pushNamed(
-                                      'SuccessScreen',
-                                      queryParams: {
-                                        'title': 'Success',
-                                        'description': 'Exchange successfully',
-                                        'appbarTitle': 'Point Exchange',
-                                      },
-                                      extra: {
-                                        'onPressedButton': () {
-                                          context.go('/wallet');
-                                        },
-                                      },
-                                    );
+                                    await _walletController.onExchange(context);
                                   },
                       ),
                     ),
