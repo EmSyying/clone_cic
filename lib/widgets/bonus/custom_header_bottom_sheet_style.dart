@@ -14,12 +14,14 @@ class CustomHeaderBottomStyle extends StatelessWidget {
       this.amount,
       this.action,
       this.amountFormat,
-      this.isAmountFormat = false})
+      this.isAmountFormat = false,
+      this.pointAmount})
       : super(key: key);
   final String? type;
   final String? label;
   final String? time;
   final num? amount;
+  final String? pointAmount;
   final String? amountFormat;
   final bool? isAmountFormat;
   final Widget? action;
@@ -54,26 +56,14 @@ class CustomHeaderBottomStyle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  label ?? "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
-                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        time ?? "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline2!
-                            .copyWith(fontSize: 12, color: Colors.grey),
-                      ),
+                    Text(
+                      label ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                     ),
                     const Spacer(),
                     Padding(
@@ -101,7 +91,46 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                           ),
                     ),
                   ],
-                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        time ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline2!
+                            .copyWith(fontSize: 12, color: Colors.grey),
+                      ),
+                    ),
+                    const Spacer(),
+                    if (type!.toLowerCase() == 'exchange')
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 9.0),
+                              child: Text(
+                                pointAmount ?? "",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2!
+                                    .copyWith(
+                                        fontSize: 10,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w700),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
               ],
             ),
           ),

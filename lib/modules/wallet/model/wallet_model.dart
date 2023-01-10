@@ -8,6 +8,7 @@ class WalletAmountModel with _$WalletAmountModel {
   factory WalletAmountModel({
     @JsonKey(name: 'balance') num? balance,
     @JsonKey(name: 'balance_format') String? balanceFormat,
+    @JsonKey(name: 'account_id') int? accountId,
     @JsonKey(name: 'account_number') String? accountNumber,
   }) = _WalletAmountModel;
 

@@ -13,6 +13,7 @@ class WalletTransactionDetail with _$WalletTransactionDetail {
     @JsonKey(name: "remark") final String? remark,
     @JsonKey(name: "date") final String? date,
     @JsonKey(name: "time") final String? time,
+    @JsonKey(name: "point_amount") final String? pointAmount,
     @JsonKey(name: "deposit_method") final String? depositMethod,
     @JsonKey(name: "bank_name") final String? bankName,
     @JsonKey(name: "transaction_type") final String? transactionType,

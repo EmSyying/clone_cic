@@ -510,6 +510,7 @@ class WalletController extends GetxController {
     isExhange(true);
     // Convert string to int(1,500 to 1500)
     var exchangeAmount = pointAmountController.value.text.replaceAll(',', '');
+    debugPrint("ACCount id:${walletAmount.value.wallet?.accountId}");
 
     try {
       await _apiBaseHelper.onNetworkRequesting(
@@ -517,7 +518,7 @@ class WalletController extends GetxController {
         methode: METHODE.post,
         isAuthorize: true,
         body: {
-          'account_number': walletAmount.value.wallet?.accountNumber,
+          'account_id': walletAmount.value.wallet?.accountId,
           'exchange_amount': exchangeAmount,
         },
       ).then((response) {

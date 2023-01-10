@@ -24,6 +24,8 @@ mixin _$WalletAmountModel {
   num? get balance => throw _privateConstructorUsedError;
   @JsonKey(name: 'balance_format')
   String? get balanceFormat => throw _privateConstructorUsedError;
+  @JsonKey(name: 'account_id')
+  int? get accountId => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_number')
   String? get accountNumber => throw _privateConstructorUsedError;
 
@@ -42,6 +44,7 @@ abstract class $WalletAmountModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'balance') num? balance,
       @JsonKey(name: 'balance_format') String? balanceFormat,
+      @JsonKey(name: 'account_id') int? accountId,
       @JsonKey(name: 'account_number') String? accountNumber});
 }
 
@@ -60,6 +63,7 @@ class _$WalletAmountModelCopyWithImpl<$Res, $Val extends WalletAmountModel>
   $Res call({
     Object? balance = freezed,
     Object? balanceFormat = freezed,
+    Object? accountId = freezed,
     Object? accountNumber = freezed,
   }) {
     return _then(_value.copyWith(
@@ -71,6 +75,10 @@ class _$WalletAmountModelCopyWithImpl<$Res, $Val extends WalletAmountModel>
           ? _value.balanceFormat
           : balanceFormat // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountId: freezed == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as int?,
       accountNumber: freezed == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
@@ -90,6 +98,7 @@ abstract class _$$_WalletAmountModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'balance') num? balance,
       @JsonKey(name: 'balance_format') String? balanceFormat,
+      @JsonKey(name: 'account_id') int? accountId,
       @JsonKey(name: 'account_number') String? accountNumber});
 }
 
@@ -106,6 +115,7 @@ class __$$_WalletAmountModelCopyWithImpl<$Res>
   $Res call({
     Object? balance = freezed,
     Object? balanceFormat = freezed,
+    Object? accountId = freezed,
     Object? accountNumber = freezed,
   }) {
     return _then(_$_WalletAmountModel(
@@ -117,6 +127,10 @@ class __$$_WalletAmountModelCopyWithImpl<$Res>
           ? _value.balanceFormat
           : balanceFormat // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountId: freezed == accountId
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as int?,
       accountNumber: freezed == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
@@ -131,6 +145,7 @@ class _$_WalletAmountModel implements _WalletAmountModel {
   _$_WalletAmountModel(
       {@JsonKey(name: 'balance') this.balance,
       @JsonKey(name: 'balance_format') this.balanceFormat,
+      @JsonKey(name: 'account_id') this.accountId,
       @JsonKey(name: 'account_number') this.accountNumber});
 
   factory _$_WalletAmountModel.fromJson(Map<String, dynamic> json) =>
@@ -143,12 +158,15 @@ class _$_WalletAmountModel implements _WalletAmountModel {
   @JsonKey(name: 'balance_format')
   final String? balanceFormat;
   @override
+  @JsonKey(name: 'account_id')
+  final int? accountId;
+  @override
   @JsonKey(name: 'account_number')
   final String? accountNumber;
 
   @override
   String toString() {
-    return 'WalletAmountModel(balance: $balance, balanceFormat: $balanceFormat, accountNumber: $accountNumber)';
+    return 'WalletAmountModel(balance: $balance, balanceFormat: $balanceFormat, accountId: $accountId, accountNumber: $accountNumber)';
   }
 
   @override
@@ -159,14 +177,16 @@ class _$_WalletAmountModel implements _WalletAmountModel {
             (identical(other.balance, balance) || other.balance == balance) &&
             (identical(other.balanceFormat, balanceFormat) ||
                 other.balanceFormat == balanceFormat) &&
+            (identical(other.accountId, accountId) ||
+                other.accountId == accountId) &&
             (identical(other.accountNumber, accountNumber) ||
                 other.accountNumber == accountNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, balance, balanceFormat, accountNumber);
+  int get hashCode => Object.hash(
+      runtimeType, balance, balanceFormat, accountId, accountNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -187,6 +207,7 @@ abstract class _WalletAmountModel implements WalletAmountModel {
   factory _WalletAmountModel(
           {@JsonKey(name: 'balance') final num? balance,
           @JsonKey(name: 'balance_format') final String? balanceFormat,
+          @JsonKey(name: 'account_id') final int? accountId,
           @JsonKey(name: 'account_number') final String? accountNumber}) =
       _$_WalletAmountModel;
 
@@ -199,6 +220,9 @@ abstract class _WalletAmountModel implements WalletAmountModel {
   @override
   @JsonKey(name: 'balance_format')
   String? get balanceFormat;
+  @override
+  @JsonKey(name: 'account_id')
+  int? get accountId;
   @override
   @JsonKey(name: 'account_number')
   String? get accountNumber;

@@ -638,7 +638,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     GestureDetector(
                       onTap: () async {
                         // await LocalData.storeAppTou('appTour',
-                        //     false); //TODO : uncoment for test first launch
+                        //     false);
                         _showDashboardTour();
                       },
                       child: SvgPicture.asset('assets/images/demo.svg'),

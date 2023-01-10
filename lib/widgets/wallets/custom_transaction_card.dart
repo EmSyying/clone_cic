@@ -132,7 +132,7 @@ class WalletTransactionCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Text(
-                        '100 pts',
+                        transactionModel.pointAmount ?? "",
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                             fontSize: 10,
                             color: Colors.grey,

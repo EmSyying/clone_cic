@@ -13,6 +13,7 @@ class WalletTran {
       amountFormat: model.amount,
       type: model.transactionType,
       time: model.time,
+      pointAmount: model.pointAmount,
       context: context,
       child: TransactionPopUpDetail(
         model: model,
