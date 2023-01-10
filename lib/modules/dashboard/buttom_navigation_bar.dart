@@ -6,13 +6,10 @@ import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:focused_menu/focused_menu.dart';
-import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
@@ -25,6 +22,7 @@ import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 import '../investment_module/controller/investment_controller.dart';
+import '../../widgets/custom_menu_holder.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
@@ -356,47 +354,61 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                 .entries
                                 .map((navigation) {
                               if (navigation.key == 3) {
-                                return FocusedMenuHolder(
-                                  blurBackgroundColor: Colors.white,
+                                return CustomFocusedMenuHolder(
+                                  animateMenuItems: false,
+                                  menuBoxDecoration: const BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30.0))),
+                                  blurBackgroundColor:
+                                      const Color(0xffE1E1E1).withOpacity(0.5),
                                   blurSize: 5,
                                   openWithTap: true,
-                                  menuItems: <FocusedMenuItem>[
-                                    FocusedMenuItem(
+                                  menuItems: <CustomFocusedMenuItem>[
+                                    CustomFocusedMenuItem(
                                         title: const Text("Profile"),
-                                        trailingIcon: Icon(
-                                          Icons.person_outline,
-                                          color: Theme.of(context).primaryColor,
+                                        trailingIcon: Image.asset(
+                                          'assets/images/morePopUp/News icon.png',
+                                          height: 18,
+                                          width: 18,
                                         ),
                                         onPressed: () {
+                                          GoRouter.of(context).go(settingCon
+                                              .bottomMenuBarList[3].route!);
                                           // Navigator.push(
                                           //     context,
                                           //     MaterialPageRoute(
                                           //         builder: (context) =>
                                           //             ScreenTwo()));
                                         }),
-                                    FocusedMenuItem(
+                                    CustomFocusedMenuItem(
                                         title: const Text("News"),
-                                        trailingIcon: Icon(
-                                          CupertinoIcons.news,
-                                          color: Theme.of(context).primaryColor,
+                                        trailingIcon: Image.asset(
+                                          'assets/images/morePopUp/News icon (1).png',
+                                          height: 18,
+                                          width: 18,
                                         ),
                                         onPressed: () {}),
-                                    FocusedMenuItem(
+                                    CustomFocusedMenuItem(
                                         title: const Text("Learning"),
-                                        trailingIcon: Icon(
-                                          CupertinoIcons.book,
-                                          color: Theme.of(context).primaryColor,
+                                        trailingIcon: Image.asset(
+                                          'assets/images/morePopUp/learning icon.png',
+                                          height: 18,
+                                          width: 18,
                                         ),
-                                        onPressed: () {}),
-                                    FocusedMenuItem(
-                                        title: const Text(
-                                          "Dictionary",
+                                        onPressed: () {
+                                          GoRouter.of(context).go("/learning");
+                                        }),
+                                    CustomFocusedMenuItem(
+                                        title: const Text("Directory"),
+                                        trailingIcon: Image.asset(
+                                          'assets/images/morePopUp/Directory icon.png',
+                                          height: 18,
+                                          width: 18,
                                         ),
-                                        trailingIcon: Icon(
-                                          CupertinoIcons.globe,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        onPressed: () {}),
+                                        onPressed: () {
+                                          GoRouter.of(context).go('/directory');
+                                        }),
                                   ],
                                   onPressed: () {
                                     setState(() {

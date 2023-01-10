@@ -178,6 +178,8 @@ flutter:
     # - assets/videos/make_money.mp4
     - assets/images/animation/
     - assets/images/privilege/
+    - assets/images/morePopUp/
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

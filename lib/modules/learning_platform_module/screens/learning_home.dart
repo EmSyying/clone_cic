@@ -4,12 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/controllers/learning_controller.dart';
-import 'package:cicgreenloan/modules/dashboard/buttom_navigation_bar.dart';
 import 'package:cicgreenloan/Utils/custom_indicatior.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/models/channel_model.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/models/post_data.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/screens/channel.dart';
-import 'package:cicgreenloan/modules/learning_platform_module/screens/video_list_by_module.dart';
 import 'package:cicgreenloan/widgets/learning/channel_block.dart';
 import 'package:cicgreenloan/widgets/learning/custom_player_bottom_sheet.dart';
 import 'package:cicgreenloan/widgets/learning/custom_text_shimmer.dart';
@@ -23,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -64,14 +63,15 @@ class _LearningHomeState extends State<LearningHome> {
                   : CustomAppBar(
                       leading: IconButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PaymentSchedule(
-                                fromPage: 'loginPage',
-                              ),
-                            ),
-                          );
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const PaymentSchedule(
+                          //       fromPage: 'loginPage',
+                          //     ),
+                          //   ),
+                          // );
+                          context.pop();
                         },
                         icon: kIsWeb
                             ? const Icon(Icons.arrow_back)
@@ -84,14 +84,16 @@ class _LearningHomeState extends State<LearningHome> {
                       action: [
                         InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const VideoListByModule(
-                                    pageName: 'Learning',
-                                  ),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const VideoListByModule(
+                              //       pageName: 'Learning',
+                              //     ),
+                              //   ),
+                              // );
+                              context
+                                  .go("/learning/videolist?pageName=Learning");
                             },
                             child: const Icon(Icons.bookmark)),
                         const SizedBox(width: 20)
