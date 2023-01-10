@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
+import '../model/exchange_point_transaction.dart/exchange_point_transaction.dart';
 import '../model/invest/invest_option_model.dart';
 
 import '../model/transaction/wallet_transaction.dart';
@@ -527,7 +528,7 @@ class WalletController extends GetxController {
           queryParams: {
             'title': 'Success',
             'description': 'Exchange successfully',
-            'appbarTitle': 'Point Exchange',
+            'appbarTitle': 'MVP Exchange',
           },
           extra: {
             'onPressedButton': () {
@@ -582,5 +583,56 @@ class WalletController extends GetxController {
       isMyPoint(false);
     }
     return myPoint;
+  }
+  // Point Transaction
+
+  Future<List<ExchangePointTransaction>> onFetchPointTransaction(
+      String param) async {
+    final tempList = <ExchangePointTransaction>[];
+
+    try {
+      await _apiBaseHelper
+          .onNetworkRequesting(
+              methode: METHODE.get,
+              isAuthorize: true,
+              url: 'point/transaction?$param')
+          .then((response) {
+        debugPrint('Success  $response');
+        response['data'].map((e) {
+          tempList.add(ExchangePointTransaction.fromJson(e));
+        }).toList();
+      }).onError((ErrorModel error, _) {
+        debugPrint('Error ${error.statusCode}');
+      });
+    } catch (e) {
+      debugPrint("Point Transaction$e");
+    } finally {}
+    return tempList;
+  }
+
+  // MVP Reward Transaction
+  List<ExchangePointTransaction> mvpRewardTransactionList =
+      <ExchangePointTransaction>[];
+  final isMVPRewardTransaction = false.obs;
+  Future<List<ExchangePointTransaction>> mvpRewardTransaction() async {
+    isMVPRewardTransaction(true);
+    List<ExchangePointTransaction> tempList = <ExchangePointTransaction>[];
+    tempList = await onFetchPointTransaction('type=reward');
+    isMVPRewardTransaction(false);
+    mvpRewardTransactionList = tempList;
+    return mvpRewardTransactionList;
+  }
+
+  // MVP Recent Activities Transaction
+  List<ExchangePointTransaction> recentActivitiesTransactionList =
+      <ExchangePointTransaction>[];
+  final isRecentActivitiesTransaction = false.obs;
+  Future<List<ExchangePointTransaction>> recentActivitiesTransaction() async {
+    isRecentActivitiesTransaction(true);
+    List<ExchangePointTransaction> tempList = <ExchangePointTransaction>[];
+    tempList = await onFetchPointTransaction('type=reward');
+    isRecentActivitiesTransaction(false);
+    recentActivitiesTransactionList = tempList;
+    return recentActivitiesTransactionList;
   }
 }

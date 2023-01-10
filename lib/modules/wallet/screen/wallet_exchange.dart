@@ -51,190 +51,205 @@ class WalletExchange extends StatelessWidget {
           ],
         ),
         child: Obx(
-          (() => Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: WalletTotalCard(
-                      amount: _walletController.fetchWalletLoading.value == true
-                          ? '--'
-                          : _walletController
-                              .walletAmount.value.wallet?.balanceFormat,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
+          (() => GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                },
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: WalletTotalCard(
+                        amount:
+                            _walletController.fetchWalletLoading.value == true
+                                ? '--'
+                                : _walletController
+                                    .walletAmount.value.wallet?.balanceFormat,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Amount to Exchange',
-                                  style: textstyle.subtitle2?.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                SvgPicture.asset(
-                                  'assets/images/demo.svg',
-                                  color: const Color(0xfff2f2f2),
-                                ),
-                              ],
-                            ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
                           ),
-                          CustomTextFieldNew(
-                            isValidate:
-                                _walletController.isExchangeValidate.value,
-                            validateText:
-                                _walletController.exChangeValidateMessage.value,
-                            initialValue:
-                                _walletController.inputAmountField.value,
-                            isRequired: true,
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true),
-                            inputFormatterList: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              NumericTextFormatter(),
-                              FilteringTextInputFormatter.deny(RegExp(r'^0+')),
-                            ],
-                            onChange: (value) {
-                              _walletController.inputAmountField(value);
-                              _walletController
-                                  .pointAmountController.value.text = value;
-                            },
-                            labelText: 'Amount',
-                            hintText: 'Amount',
-                            suffixText: 'USD',
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            child: Text(
-                              '1\$ = 1 MVP',
-                              style: textstyle.subtitle2?.copyWith(
-                                  color: const Color(0xffbdbdbd),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 30),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                const Divider(
-                                  thickness: 1,
-                                  color: Color(0xffbdbdbd),
-                                ),
-                                Container(
-                                  width: 41,
-                                  height: 41,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                        color: const Color(0xffbdbdbd),
-                                      ),
-                                      shape: BoxShape.circle),
-                                  alignment: Alignment.center,
-                                  child: SvgPicture.asset(
-                                    'assets/images/wallet/wallet_exchange.svg',
-                                    height: 21,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          CustomTextFieldNew(
-                            initialValue: _walletController
-                                .pointAmountController.value.text,
-                            controller:
-                                _walletController.pointAmountController.value,
-                            enable: false,
-                            isReadOnly: true,
-                            labelText: 'MVP Amount',
-                            hintText: 'MVP Amount',
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: Text(
-                                'MVP',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(color: Colors.black38),
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Obx(
-                              () => SlideButton(
-                                callback: _walletController
-                                        .inputAmountField.value.isEmpty
-                                    ? null
-                                    : () async {
-                                        await _walletController
-                                            .onExchange(context);
-                                      },
-                              ),
-                            ),
-                          ),
-                          SafeArea(
-                            top: false,
-                            left: false,
-                            right: false,
-                            minimum: const EdgeInsets.only(bottom: 20),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 10.0,
-                              ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
                               child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'By submitting you agree to',
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+                                    'Amount to Exchange',
+                                    style: textstyle.subtitle2?.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700),
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      context.push(
-                                          '/investment/view-contract-term?fromPage=FIF');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 5.0),
-                                      child: Text(
-                                        'CiC Service Agreement',
-                                        style: textstyle.headline3!.copyWith(
-                                            color: AppColor.mainColor,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ),
+                                  SvgPicture.asset(
+                                    'assets/images/demo.svg',
+                                    color: const Color(0xfff2f2f2),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
+                            CustomTextFieldNew(
+                              isValidate:
+                                  _walletController.isExchangeValidate.value,
+                              validateText: _walletController
+                                  .exChangeValidateMessage.value,
+                              initialValue:
+                                  _walletController.inputAmountField.value,
+                              isRequired: true,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
+                              inputFormatterList: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                NumericTextFormatter(),
+                                FilteringTextInputFormatter.deny(
+                                    RegExp(r'^0+')),
+                              ],
+                              onChange: (value) {
+                                _walletController.inputAmountField(value);
+                                _walletController
+                                    .pointAmountController.value.text = value;
+                              },
+                              labelText: 'Amount',
+                              hintText: 'Amount',
+                              suffixText: 'USD',
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              child: Text(
+                                '1\$ = 1 MVP',
+                                style: textstyle.subtitle2?.copyWith(
+                                    color: const Color(0xffbdbdbd),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 30),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  const Divider(
+                                    thickness: 1,
+                                    color: Color(0xffbdbdbd),
+                                  ),
+                                  Container(
+                                    width: 41,
+                                    height: 41,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: const Color(0xffbdbdbd),
+                                        ),
+                                        shape: BoxShape.circle),
+                                    alignment: Alignment.center,
+                                    child: SvgPicture.asset(
+                                      'assets/images/wallet/wallet_exchange.svg',
+                                      height: 21,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            CustomTextFieldNew(
+                              initialValue: _walletController
+                                  .pointAmountController.value.text,
+                              controller:
+                                  _walletController.pointAmountController.value,
+                              enable: false,
+                              isReadOnly: true,
+                              labelText: 'MVP Amount',
+                              hintText: 'MVP Amount',
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Text(
+                                  'MVP',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(color: Colors.black38),
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Obx(
+                                () => SlideButton(
+                                  callback: _walletController
+                                          .inputAmountField.value.isEmpty
+                                      ? null
+                                      : () async {
+                                          await _walletController
+                                              .onExchange(context);
+                                        },
+                                ),
+                              ),
+                            ),
+                            SafeArea(
+                              top: false,
+                              left: false,
+                              right: false,
+                              minimum: const EdgeInsets.only(bottom: 20),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 10.0,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'By submitting you agree to',
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        context.push(
+                                            '/investment/view-contract-term?fromPage=FIF');
+                                      },
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
+                                        child: Text(
+                                          'CiC Service Agreement',
+                                          style: textstyle.headline3!.copyWith(
+                                              color: AppColor.mainColor,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )),
         ),
       ),

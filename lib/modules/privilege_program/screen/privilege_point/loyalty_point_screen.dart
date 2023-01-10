@@ -2,7 +2,6 @@ import 'package:cicgreenloan/widgets/privilege/privilege_point/custom_transactio
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../widgets/privilege/custom_shimmer_point.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 
 class LoyaltyPointScreen extends StatelessWidget {
@@ -11,23 +10,21 @@ class LoyaltyPointScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final walletController = Get.put(WalletController());
-    return SingleChildScrollView(
-      child: Obx(
-        () => walletController.isMyPoint.value
-            ? const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: CustomShimmerPoint(),
-              )
-            : Column(
-                children: loyaltyCardList.asMap().entries.map((e) {
+    walletController.mvpRewardTransaction();
+    return Obx(
+      (() => walletController.isMVPRewardTransaction.value
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Column(
+                  children: walletController.mvpRewardTransactionList
+                      .asMap()
+                      .entries
+                      .map((exchangePointTransaction) {
                 return CustomTransactionPoint(
-                  title: e.value.title,
-                  point: e.value.point,
-                  svg: e.value.image,
-                  datetime: e.value.datetime,
+                  exchangePointTransaction: exchangePointTransaction.value,
                 );
               }).toList()),
-      ),
+            )),
     );
   }
 }

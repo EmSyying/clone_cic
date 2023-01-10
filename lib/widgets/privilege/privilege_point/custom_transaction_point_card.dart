@@ -1,11 +1,14 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 
+import '../../../modules/wallet/model/exchange_point_transaction.dart/exchange_point_transaction.dart';
+
 class CustomTransactionPoint extends StatelessWidget {
-  final String? title, datetime, svg;
-  final int? point;
-  const CustomTransactionPoint(
-      {super.key, this.title, this.datetime, this.point, this.svg});
+  final ExchangePointTransaction? exchangePointTransaction;
+  const CustomTransactionPoint({
+    super.key,
+    this.exchangePointTransaction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class CustomTransactionPoint extends StatelessWidget {
                                     .createShader(Offset.zero & bounds.size);
                               },
                               child: Text(
-                                '$point',
+                                exchangePointTransaction!.amount ?? "",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
@@ -73,7 +76,7 @@ class CustomTransactionPoint extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
-                            child: Text('Point',
+                            child: Text('MVP',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
@@ -89,7 +92,8 @@ class CustomTransactionPoint extends StatelessWidget {
                       ),
                       SizedBox(
                         child: Text(
-                          title ?? '',
+                          exchangePointTransaction!.description ??
+                              "Lorem ipsum dolor sitamet consecteture cuis mollis turbime.",
                           style: Theme.of(context)
                               .textTheme
                               .headline4!
@@ -102,8 +106,9 @@ class CustomTransactionPoint extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      const Spacer(),
                       Text(
-                        datetime ?? '',
+                        exchangePointTransaction!.date ?? "",
                         style: Theme.of(context).textTheme.headline4!.copyWith(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
@@ -125,7 +130,7 @@ class CustomTransactionPoint extends StatelessWidget {
               SizedBox(
                 width: cardWidth * 0.24,
                 child: Image.asset(
-                  '$svg',
+                  'assets/images/union_point_card.png',
                   width: 35,
                   height: 35,
                 ),
