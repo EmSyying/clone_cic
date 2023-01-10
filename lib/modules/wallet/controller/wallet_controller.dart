@@ -508,6 +508,9 @@ class WalletController extends GetxController {
   final isExhange = false.obs;
   Future<void> onExchange(BuildContext context) async {
     isExhange(true);
+    // Convert string to int(1,500 to 1500)
+    var exchangeAmount = pointAmountController.value.text.replaceAll(',', '');
+
     try {
       await _apiBaseHelper.onNetworkRequesting(
         url: 'point',
@@ -515,10 +518,9 @@ class WalletController extends GetxController {
         isAuthorize: true,
         body: {
           'account_number': walletAmount.value.wallet?.accountNumber,
-          'exchange_amount': int.tryParse(pointAmountController.value.text),
+          'exchange_amount': exchangeAmount,
         },
       ).then((response) {
-        debugPrint("Exchange Successful:$response");
         context.pushNamed(
           'SuccessScreen',
           queryParams: {

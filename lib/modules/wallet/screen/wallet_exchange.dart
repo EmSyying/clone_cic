@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../Utils/form_builder/custom_textformfield.dart';
+import '../../../utils/helper/numerice_format.dart';
 import '../../../widgets/investments/slide_button.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../controller/wallet_controller.dart';
@@ -89,9 +90,8 @@ class WalletExchange extends StatelessWidget {
                           const TextInputType.numberWithOptions(decimal: true),
                       inputFormatterList: [
                         FilteringTextInputFormatter.digitsOnly,
-                        // FilteringTextInputFormatter.allow(
-                        //     RegExp(r'\d{1,3}(,\d{3})*(\.\d+)?')),
-                        // NumericInputFormatter(),
+                        NumericTextFormatter(),
+                        FilteringTextInputFormatter.deny(RegExp(r'^0+')),
                       ],
                       onChange: (value) {
                         _walletController.inputAmountField(value);
