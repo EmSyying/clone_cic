@@ -6,10 +6,13 @@ import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
@@ -18,6 +21,7 @@ import 'dart:io';
 
 import '../../Utils/helper/color.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
+
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 import '../investment_module/controller/investment_controller.dart';
@@ -38,9 +42,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
     debugPrint("Location: $location");
+    if (currentIndex == 3) {
+      return 3;
+    }
     if (settingCon.bottomMenuBarList.length == 4) {
+      debugPrint('4 length');
       if (location.startsWith('/profile')) {
         debugPrint("Return Home Page");
+
         return 3;
       }
       if (location.startsWith('/event')) {
@@ -53,6 +62,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         return 0;
       }
     }
+
     if (settingCon.bottomMenuBarList.length == 3) {
       if (location.startsWith('/profile')) {
         debugPrint("Return Home Page");
@@ -71,6 +81,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
 
   void _onItemTapped(int index, BuildContext context) {
     if (settingCon.bottomMenuBarList.length == 4) {
+      debugPrint('index==$index');
       switch (index) {
         case 0:
           // settingCon.onCheckAuthentication();
@@ -85,8 +96,9 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
           GoRouter.of(context).go(settingCon.bottomMenuBarList[2].route!);
           break;
         case 3:
+          debugPrint('Test Click Profile');
           // settingCon.onCheckAuthentication();
-          GoRouter.of(context).go(settingCon.bottomMenuBarList[3].route!);
+          // GoRouter.of(context).go(settingCon.bottomMenuBarList[3].route!);
           break;
       }
     }
@@ -243,7 +255,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   }
 
   Future<void> getUserToke() async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
+// SharedPreferences prefs = await SharedPreferences.getInstance();
   }
 
   Future<void> getLanguage() async {
@@ -292,21 +304,31 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   }
 
   bool isLoadingAllSetting = false;
+  int currentIndex = 0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
 
+  GlobalKey containerKey = GlobalKey();
+  Offset childOffset = const Offset(0, 0);
+  Size? childSize;
+
+  getOffset() {
+    RenderObject? renderObject =
+        containerKey.currentContext!.findRenderObject();
+
+    Size size = (renderObject as RenderBox).size;
+    Offset offset = (renderObject).localToGlobal(Offset.zero);
+    setState(() {
+      childOffset = Offset(offset.dx, offset.dy);
+      childSize = size;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final router = GoRouter.of(context);
-    // if (router.location.contains('event')) {
-    //   _settingCon.selectedIndex = 2;
-    // }
-
-    // saveUserToken = StorageUtil.getString('current_user');
-
     return GetBuilder(
       init: SettingController(),
       builder: (SettingController setting) {
@@ -317,110 +339,173 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                 child: Scaffold(
                   bottomNavigationBar: !setting.isHideBottomNavigation &&
                           settingCon.bottomMenuBarList.isNotEmpty
-                      ? BottomNavigationBar(
-                          type: BottomNavigationBarType.fixed,
-                          selectedFontSize: 12,
-                          unselectedFontSize: 12,
-                          //        selectedLabelStyle: TextStyle(color: Colors.white),
-                          // type: BottomNavigationBarType.fixed,
-
-                          // items: <BottomNavigationBarItem>[
-                          //   BottomNavigationBarItem(
-                          //     icon: SvgPicture.asset(
-                          //       'assets/images/svgfile/menu/home.svg',
-                          //       color: const Color(0XFF848F92),
-                          //     ),
-                          //     label: S.of(context).homeMenu,
-                          //     activeIcon: SvgPicture.asset(
-                          //       'assets/images/svgfile/menu/HomeActiveIcon.svg',
-                          //       color: Theme.of(context).primaryColor,
-                          //     ),
-                          //   ),
-                          //   BottomNavigationBarItem(
-                          //     icon: SvgPicture.asset(
-                          //         'assets/images/svgfile/menu/qrcodeInactive.svg',
-                          //         color: const Color(0XFF848F92)),
-                          //     activeIcon: SvgPicture.asset(
-                          //       'assets/images/svgfile/menu/qrCodeActive.svg',
-                          //       color: Theme.of(context).primaryColor,
-                          //     ),
-                          //     label: S.of(context).qrCode,
-                          //   ),
-                          //   BottomNavigationBarItem(
-                          //       icon: SvgPicture.asset(
-                          //           'assets/images/svgfile/menu/eventInactive.svg'),
-                          //       activeIcon: SvgPicture.asset(
-                          //         'assets/images/svgfile/menu/eventActive.svg',
-                          //         color: Theme.of(context).primaryColor,
-                          //       ),
-                          //       label: S.of(context).event),
-                          //   BottomNavigationBarItem(
-                          //     icon: SvgPicture.asset(
-                          //         'assets/images/svgfile/menu/account.svg',
-                          //         color: const Color(0XFF848F92)),
-                          //     activeIcon: SvgPicture.asset(
-                          //       'assets/images/svgfile/menu/accountActive.svg',
-                          //       color: Theme.of(context).primaryColor,
-                          //     ),
-                          //     label: S.of(context).profile,
-                          //   ),
-                          // ],
-                          items: setting.bottomMenuBarList
-                              .asMap()
-                              .entries
-                              .map((navigation) {
-                            return BottomNavigationBarItem(
-                              icon: SvgPicture.network(
-                                navigation.value.icon!,
-                                color: const Color(0XFF848F92),
-                              ),
-                              label: navigation.value.label,
-                              activeIcon: SvgPicture.network(
-                                navigation.value.activeIcon!,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            );
-                          }).toList(),
-                          // currentIndex: _settingCon.selectedIndex,
-                          unselectedItemColor: Theme.of(context)
-                              .bottomNavigationBarTheme
-                              .unselectedItemColor,
-                          selectedItemColor: Theme.of(context).primaryColor,
-
-                          // onTap: _settingCon.onTap,
-                          currentIndex: _calculateSelectedIndex(context),
-
-                          onTap: (int idx) => _onItemTapped(idx, context),
+                      ? Container(
+                          height: 84,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: setting.bottomMenuBarList
+                                .asMap()
+                                .entries
+                                .map((navigation) {
+                              if (navigation.key == 3) {
+                                return FocusedMenuHolder(
+                                  blurBackgroundColor: Colors.white,
+                                  blurSize: 5,
+                                  openWithTap: true,
+                                  menuItems: <FocusedMenuItem>[
+                                    FocusedMenuItem(
+                                        title: const Text("Profile"),
+                                        trailingIcon: Icon(
+                                          Icons.person_outline,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        onPressed: () {
+                                          // Navigator.push(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //         builder: (context) =>
+                                          //             ScreenTwo()));
+                                        }),
+                                    FocusedMenuItem(
+                                        title: const Text("News"),
+                                        trailingIcon: Icon(
+                                          CupertinoIcons.news,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        onPressed: () {}),
+                                    FocusedMenuItem(
+                                        title: const Text("Learning"),
+                                        trailingIcon: Icon(
+                                          CupertinoIcons.book,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        onPressed: () {}),
+                                    FocusedMenuItem(
+                                        title: const Text(
+                                          "Dictionary",
+                                        ),
+                                        trailingIcon: Icon(
+                                          CupertinoIcons.globe,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        onPressed: () {}),
+                                  ],
+                                  onPressed: () {
+                                    setState(() {
+                                      currentIndex = navigation.key;
+                                      debugPrint(
+                                          'indx=${currentIndex == navigation.key}');
+                                      _onItemTapped(currentIndex, context);
+                                    });
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 9, bottom: 4),
+                                        child: SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          // color: Colors.blue,
+                                          child: _calculateSelectedIndex(
+                                                      context) ==
+                                                  navigation.key
+                                              ? SvgPicture.network(
+                                                  navigation.value.activeIcon!,
+                                                  fit: BoxFit.fill,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                )
+                                              : SvgPicture.network(
+                                                  navigation.value.icon!,
+                                                  fit: BoxFit.fill,
+                                                  color:
+                                                      const Color(0XFF848F92),
+                                                ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "${navigation.value.label}",
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            fontFamily: "DM Sans",
+                                            fontWeight:
+                                                currentIndex == navigation.key
+                                                    ? FontWeight.w700
+                                                    : FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    debugPrint('idx=${navigation.key}');
+                                    setState(() {
+                                      currentIndex = navigation.key;
+                                    });
+                                    _onItemTapped(currentIndex, context);
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 9, bottom: 4),
+                                        child: SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          // color: Colors.blue,
+                                          child: _calculateSelectedIndex(
+                                                      context) ==
+                                                  navigation.key
+                                              ? SvgPicture.network(
+                                                  navigation.value.activeIcon!,
+                                                  fit: BoxFit.fill,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                )
+                                              : SvgPicture.network(
+                                                  navigation.value.icon!,
+                                                  fit: BoxFit.fill,
+                                                  color:
+                                                      const Color(0XFF848F92),
+                                                ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "${navigation.value.label}",
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            fontFamily: "DM Sans",
+                                            fontWeight: _calculateSelectedIndex(
+                                                        context) ==
+                                                    navigation.key
+                                                ? FontWeight.w700
+                                                : FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            }).toList(),
+                          ),
                         )
                       : null,
                   backgroundColor: AppColor.backgroundColor,
-                  // body: [
-                  //   // Dashboard(),
-                  //   const MainDashboard(),
-
-                  //   const QrCodeScreen(),
-                  //   // LearningHome(),
-                  //   // SearchScreen(),
-                  //   const EventScreen(),
-                  //   //  Report(),
-                  //   //  BuySell(),
-                  //   // HomePage(),
-                  //   //  Directory(),
-                  //   // AboutCIC(),
-                  //   // NotificationScreen(),
-
-                  //   NewPeronalProfile(
-                  //     id: cusController.customer.value.customerId,
-                  //   )
-                  //   // MemberDetail(
-                  //   //   memberDetailAgrument: MemberDetailAgrument(
-                  //   //       id: cusController.customer.value.customerId,
-                  //   //       pageName: 'user',
-                  //   //       isNavigator: true),
-                  //   // ),
-
-                  //   //  ProfilePage(),
-                  // ].elementAt(_settingCon.selectedIndex),
                   body: widget.child,
                 ),
               ),
