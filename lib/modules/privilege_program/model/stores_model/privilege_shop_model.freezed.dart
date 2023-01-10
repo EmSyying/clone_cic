@@ -34,7 +34,7 @@ mixin _$PrivilegeShopModel {
   @JsonKey(name: 'point_accepted')
   bool? get pointAccepted => throw _privateConstructorUsedError;
   @JsonKey(name: 'current_point')
-  int? get currentPoint => throw _privateConstructorUsedError;
+  double? get currentPoint => throw _privateConstructorUsedError;
   @JsonKey(name: 'shop_name_in_khmer')
   String? get shopNameInKhmer => throw _privateConstructorUsedError;
   @JsonKey(name: 'shop_name_in_english')
@@ -109,7 +109,7 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
       @JsonKey(name: 'point_accepted')
           bool? pointAccepted,
       @JsonKey(name: 'current_point')
-          int? currentPoint,
+          double? currentPoint,
       @JsonKey(name: 'shop_name_in_khmer')
           String? shopNameInKhmer,
       @JsonKey(name: 'shop_name_in_english')
@@ -244,7 +244,7 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
       currentPoint: freezed == currentPoint
           ? _value.currentPoint
           : currentPoint // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       shopNameInKhmer: freezed == shopNameInKhmer
           ? _value.shopNameInKhmer
           : shopNameInKhmer // ignore: cast_nullable_to_non_nullable
@@ -380,7 +380,7 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
       @JsonKey(name: 'point_accepted')
           bool? pointAccepted,
       @JsonKey(name: 'current_point')
-          int? currentPoint,
+          double? currentPoint,
       @JsonKey(name: 'shop_name_in_khmer')
           String? shopNameInKhmer,
       @JsonKey(name: 'shop_name_in_english')
@@ -513,7 +513,7 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
       currentPoint: freezed == currentPoint
           ? _value.currentPoint
           : currentPoint // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       shopNameInKhmer: freezed == shopNameInKhmer
           ? _value.shopNameInKhmer
           : shopNameInKhmer // ignore: cast_nullable_to_non_nullable
@@ -721,7 +721,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   final bool? pointAccepted;
   @override
   @JsonKey(name: 'current_point')
-  final int? currentPoint;
+  final double? currentPoint;
   @override
   @JsonKey(name: 'shop_name_in_khmer')
   final String? shopNameInKhmer;
@@ -971,7 +971,7 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
       @JsonKey(name: 'point_accepted')
           final bool? pointAccepted,
       @JsonKey(name: 'current_point')
-          final int? currentPoint,
+          final double? currentPoint,
       @JsonKey(name: 'shop_name_in_khmer')
           final String? shopNameInKhmer,
       @JsonKey(name: 'shop_name_in_english')
@@ -1045,7 +1045,7 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
   bool? get pointAccepted;
   @override
   @JsonKey(name: 'current_point')
-  int? get currentPoint;
+  double? get currentPoint;
   @override
   @JsonKey(name: 'shop_name_in_khmer')
   String? get shopNameInKhmer;

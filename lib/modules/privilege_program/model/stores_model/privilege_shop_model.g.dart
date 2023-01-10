@@ -17,7 +17,7 @@ _$_PrivilegeShopModel _$$_PrivilegeShopModelFromJson(
       discountBgColor: json['discount_bg_color'] as String?,
       discountBgColorEnd: json['discount_bg_color_end'] as String?,
       pointAccepted: json['point_accepted'] as bool?,
-      currentPoint: json['current_point'] as int?,
+      currentPoint: (json['current_point'] as num?)?.toDouble(),
       shopNameInKhmer: json['shop_name_in_khmer'] as String?,
       shopNameInEnglish: json['shop_name_in_english'] as String?,
       fullAddress: json['full_address'] as String?,

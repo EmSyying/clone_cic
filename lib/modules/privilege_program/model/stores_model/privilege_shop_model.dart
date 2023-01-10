@@ -16,7 +16,7 @@ class PrivilegeShopModel with _$PrivilegeShopModel {
     @JsonKey(name: 'discount_bg_color') String? discountBgColor,
     @JsonKey(name: 'discount_bg_color_end') String? discountBgColorEnd,
     @JsonKey(name: 'point_accepted') bool? pointAccepted,
-    @JsonKey(name: 'current_point') int? currentPoint,
+    @JsonKey(name: 'current_point') double? currentPoint,
     @JsonKey(name: 'shop_name_in_khmer') String? shopNameInKhmer,
     @JsonKey(name: 'shop_name_in_english') String? shopNameInEnglish,
     @JsonKey(name: 'full_address') String? fullAddress,

@@ -185,7 +185,7 @@ class CustomCardAllStores extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Point Accepted',
+                    'MVP Approved',
                     style: Theme.of(context).textTheme.headline5!.copyWith(
                       fontWeight: FontWeight.w500,
                       fontSize: 8,

@@ -103,7 +103,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Current MVP',
+                          'MVP Balance',
                           style: textStyle.copyWith(
                               fontWeight: FontWeight.w500, fontSize: 14),
                         ),
@@ -200,7 +200,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                               children: const <int, Widget>{
                                 0: Padding(
                                   padding: EdgeInsets.all(10),
-                                  child: Text('Loyalty reward point'),
+                                  child: Text('MVP Rewards'),
                                 ),
                                 1: Padding(
                                   padding: EdgeInsets.all(10),
