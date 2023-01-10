@@ -1,3 +1,4 @@
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +11,7 @@ import '../../../Utils/function/format_date_time.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../../utils/helper/cic/cic_guider.dart';
+import '../../../utils/offline_widget.dart';
 import '../../bonus/controllers/bonus_controller.dart';
 import '../../bonus/screens/all_transaction.dart';
 import '../../bonus/screens/expense_transaction.dart';
@@ -122,301 +124,312 @@ class _WalletScreenState extends State<WalletScreen>
               ),
             ],
           ),
-          body: NestedScrollView(
-            controller: _scrollController,
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  shadowColor: Colors.transparent,
-                  floating: true,
-                  pinned: true,
-                  automaticallyImplyLeading: false,
-                  expandedHeight: 250,
-                  backgroundColor: Colors.transparent,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Stack(
-                      children: [
-                        // Positioned.fill(
-                        //   child: CustomPaint(
-                        //     painter: PathPainter(),
-                        //   ),
-                        // ),
-                        Obx(
-                          () => Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).padding.top + 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Available Balance',
-                                  style: textStyle.copyWith(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                    letterSpacing: 0.4,
+          body: ConnectivityWidgetWrapper(
+            stacked: false,
+            alignment: Alignment.bottomCenter,
+            offlineWidget: Column(
+              children: const [
+                Expanded(
+                  child: OfflineWidget(),
+                ),
+              ],
+            ),
+            child: NestedScrollView(
+              controller: _scrollController,
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                  SliverAppBar(
+                    shadowColor: Colors.transparent,
+                    floating: true,
+                    pinned: true,
+                    automaticallyImplyLeading: false,
+                    expandedHeight: 250,
+                    backgroundColor: Colors.transparent,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Stack(
+                        children: [
+                          Obx(
+                            () => Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).padding.top + 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Available Balance',
+                                    style: textStyle.copyWith(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: 0.4,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 10.0),
-                                Obx(
-                                  () => _walletController
-                                              .fetchWalletLoading.value ==
-                                          true
-                                      ? Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.white,
-                                          child: Container(
-                                            margin:
-                                                const EdgeInsets.only(top: 20),
-                                            width: 80,
-                                            height: 12,
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(4)),
-                                          ),
-                                        )
-                                      : RichText(
-                                          textAlign: TextAlign.center,
-                                          text: TextSpan(
-                                            text: _walletController.walletAmount
-                                                        .value.wallet ==
-                                                    null
-                                                ? "0.00 USD"
-                                                : _walletController
-                                                    .walletAmount
-                                                    .value
-                                                    .wallet!
-                                                    .balanceFormat,
-                                            style: textStyle.copyWith(
-                                              fontSize: 25,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    _walletController
+                                  const SizedBox(height: 10.0),
+                                  Obx(
+                                    () => _walletController
                                                 .fetchWalletLoading.value ==
                                             true
                                         ? Shimmer.fromColors(
                                             baseColor: Colors.grey[300]!,
                                             highlightColor: Colors.white,
                                             child: Container(
+                                              margin: const EdgeInsets.only(
+                                                  top: 20),
+                                              width: 80,
+                                              height: 12,
                                               decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                      BorderRadius.circular(2)),
-                                              margin: const EdgeInsets.only(
-                                                  top: 20, bottom: 20),
-                                              width: 150,
-                                              height: 7,
+                                                      BorderRadius.circular(4)),
                                             ),
                                           )
-                                        : Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 20),
-                                            child: Text(
-                                              _walletController.walletAmount
-                                                          .value.wallet !=
+                                        : RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                              text: _walletController
+                                                          .walletAmount
+                                                          .value
+                                                          .wallet ==
                                                       null
-                                                  ? "${FormatDate.eventDateTime(datetime)}  |  ID ${_walletController.walletAmount.value.wallet?.accountNumber}"
-                                                  : "${FormatDate.eventDateTime(datetime)}",
+                                                  ? "0.00 USD"
+                                                  : _walletController
+                                                      .walletAmount
+                                                      .value
+                                                      .wallet!
+                                                      .balanceFormat,
                                               style: textStyle.copyWith(
-                                                fontSize: 14,
-                                                color: Colors.white70,
-                                                fontWeight: FontWeight.w400,
+                                                fontSize: 25,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
                                               ),
                                             ),
                                           ),
-                                    if (_walletController
-                                            .fetchWalletLoading.value !=
-                                        true)
-                                      IconButton(
-                                        onPressed: () {
-                                          Clipboard.setData(
-                                            ClipboardData(
-                                                text:
-                                                    '${_walletController.walletAmount.value.wallet!.accountNumber}'),
-                                          ).then((value) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Row(
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      'assets/images/wallet/copy_fill.svg',
-                                                      color: Colors.white,
-                                                    ),
-                                                    const SizedBox(width: 15),
-                                                    const Text(
-                                                        "Copied to clipboard."),
-                                                  ],
-                                                ),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        icon: _walletController.walletAmount
-                                                    .value.wallet !=
-                                                null
-                                            ? SvgPicture.asset(
-                                                'assets/images/wallet/copy_fill.svg',
-                                                color: Colors.white,
-                                                width: 15,
-                                                height: 15,
-                                              )
-                                            : const SizedBox(),
-                                      ),
-                                  ],
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 10.0,
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      _operationButton(
-                                        context,
-                                        _guideController.walletGuide[0].key =
-                                            GlobalKey(),
-                                        ontap: () {
-                                          show(context);
-                                          // context.push(
-                                          //     '/wallet/deposit-card?fromModule=Deposit');
-                                        },
-                                        text: 'Deposit',
-                                        img: 'assets/images/mma_wallet.svg',
-                                      ),
-                                      _operationButton(
-                                        context,
-                                        _guideController.walletGuide[1].key =
-                                            GlobalKey(),
-                                        ontap: () {
-                                          // show(context);
-                                          context.push('/wallet/mma-transfer');
-                                        },
-                                        text: 'Transfer',
-                                        img: 'assets/images/transfer.svg',
-                                      ),
-                                      _operationButton(
-                                        context,
-                                        _guideController.walletGuide[2].key =
-                                            GlobalKey(),
-                                        ontap: () {
-                                          context.push('/wallet/invest-fif');
-                                          // show(context);
-                                        },
-                                        text: 'Invest',
-                                        img:
-                                            'assets/images/svgfile/investfif.svg',
-                                      ),
-                                      _operationButton(
-                                        context,
-                                        _guideController.walletGuide[3].key =
-                                            GlobalKey(),
-                                        ontap: () {
-                                          _walletController.onClearExchange();
-                                          context.push('$route/point-exchange');
-                                        },
-                                        text: 'Exchange',
-                                        img:
-                                            'assets/images/wallet/wallet_exchange.svg',
-                                      ),
-                                      /*_operationButton(
-                                        context,
-                                        _guideController.walletGuide[3].key =
-                                            GlobalKey(),
-                                        ontap: () {
-                                          show(context);
-                                        },
-                                        text: 'Pay',
-                                        img:
-                                            'assets/images/svgfile/cashout.svg',
-                                      ),*/
+                                      _walletController
+                                                  .fetchWalletLoading.value ==
+                                              true
+                                          ? Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.white,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2)),
+                                                margin: const EdgeInsets.only(
+                                                    top: 20, bottom: 20),
+                                                width: 150,
+                                                height: 7,
+                                              ),
+                                            )
+                                          : Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 20),
+                                              child: Text(
+                                                _walletController.walletAmount
+                                                            .value.wallet !=
+                                                        null
+                                                    ? "${FormatDate.eventDateTime(datetime)}  |  ID ${_walletController.walletAmount.value.wallet?.accountNumber}"
+                                                    : "${FormatDate.eventDateTime(datetime)}",
+                                                style: textStyle.copyWith(
+                                                  fontSize: 14,
+                                                  color: Colors.white70,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                      if (_walletController
+                                              .fetchWalletLoading.value !=
+                                          true)
+                                        IconButton(
+                                          onPressed: () {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                  text:
+                                                      '${_walletController.walletAmount.value.wallet!.accountNumber}'),
+                                            ).then((value) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Row(
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                        'assets/images/wallet/copy_fill.svg',
+                                                        color: Colors.white,
+                                                      ),
+                                                      const SizedBox(width: 15),
+                                                      const Text(
+                                                          "Copied to clipboard."),
+                                                    ],
+                                                  ),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                ),
+                                              );
+                                            });
+                                          },
+                                          icon: _walletController.walletAmount
+                                                      .value.wallet !=
+                                                  null
+                                              ? SvgPicture.asset(
+                                                  'assets/images/wallet/copy_fill.svg',
+                                                  color: Colors.white,
+                                                  width: 15,
+                                                  height: 15,
+                                                )
+                                              : const SizedBox(),
+                                        ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10.0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        _operationButton(
+                                          context,
+                                          _guideController.walletGuide[0].key =
+                                              GlobalKey(),
+                                          ontap: () {
+                                            show(context);
+                                            // context.push(
+                                            //     '/wallet/deposit-card?fromModule=Deposit');
+                                          },
+                                          text: 'Deposit',
+                                          img: 'assets/images/mma_wallet.svg',
+                                        ),
+                                        _operationButton(
+                                          context,
+                                          _guideController.walletGuide[1].key =
+                                              GlobalKey(),
+                                          ontap: () {
+                                            // show(context);
+                                            context
+                                                .push('/wallet/mma-transfer');
+                                          },
+                                          text: 'Transfer',
+                                          img: 'assets/images/transfer.svg',
+                                        ),
+                                        _operationButton(
+                                          context,
+                                          _guideController.walletGuide[2].key =
+                                              GlobalKey(),
+                                          ontap: () {
+                                            context.push('/wallet/invest-fif');
+                                            // show(context);
+                                          },
+                                          text: 'Invest',
+                                          img:
+                                              'assets/images/svgfile/investfif.svg',
+                                        ),
+                                        _operationButton(
+                                          context,
+                                          _guideController.walletGuide[3].key =
+                                              GlobalKey(),
+                                          ontap: () {
+                                            _walletController.onClearExchange();
+                                            context
+                                                .push('$route/point-exchange');
+                                          },
+                                          text: 'Exchange',
+                                          img:
+                                              'assets/images/wallet/wallet_exchange.svg',
+                                        ),
+                                        /*_operationButton(
+                                          context,
+                                          _guideController.walletGuide[3].key =
+                                              GlobalKey(),
+                                          ontap: () {
+                                            show(context);
+                                          },
+                                          text: 'Pay',
+                                          img:
+                                              'assets/images/svgfile/cashout.svg',
+                                        ),*/
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ];
-            },
-            body: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          'All Transactions',
-                          style: Theme.of(context).textTheme.headline2,
-                        ),
-                      ],
-                    ),
-                  ),
-                  TabBar(
-                    indicatorColor: Theme.of(context).primaryColor,
-                    indicatorWeight: 2.0,
-                    controller: _tabController,
-                    unselectedLabelColor: Colors.grey,
-                    labelColor: Theme.of(context).primaryColor,
-                    labelPadding: const EdgeInsets.only(bottom: 20),
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    tabs: const [
-                      Text(
-                        'All',
-                        style: TextStyle(fontFamily: 'DMSans', fontSize: 14),
-                      ),
-                      Text(
-                        'Income',
-                        style: TextStyle(fontFamily: 'DMSans', fontSize: 14),
-                      ),
-                      Text(
-                        'Expense',
-                        style: TextStyle(fontFamily: 'DMSans', fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: const Color(0xfffafafa),
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: const [
-                          AllTransaction(),
-                          IncomeTransaction(),
-                          ExpenseTransaction(),
                         ],
                       ),
                     ),
                   )
-                ],
+                ];
+              },
+              body: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            'All Transactions',
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    TabBar(
+                      indicatorColor: Theme.of(context).primaryColor,
+                      indicatorWeight: 2.0,
+                      controller: _tabController,
+                      unselectedLabelColor: Colors.grey,
+                      labelColor: Theme.of(context).primaryColor,
+                      labelPadding: const EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      tabs: const [
+                        Text(
+                          'All',
+                          style: TextStyle(fontFamily: 'DMSans', fontSize: 14),
+                        ),
+                        Text(
+                          'Income',
+                          style: TextStyle(fontFamily: 'DMSans', fontSize: 14),
+                        ),
+                        Text(
+                          'Expense',
+                          style: TextStyle(fontFamily: 'DMSans', fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: const Color(0xfffafafa),
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: const [
+                            AllTransaction(),
+                            IncomeTransaction(),
+                            ExpenseTransaction(),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

@@ -128,6 +128,17 @@ class WalletTransactionCard extends StatelessWidget {
                         EdgeInsets.only(top: _getStatus().isNotEmpty ? 0 : 15),
                     child: _amount(),
                   ),
+                  if (transactionModel.transactionType == 'exchange')
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        transactionModel.pointAmount ?? "",
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 10,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    )
                 ],
               ),
             ),

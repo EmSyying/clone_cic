@@ -13,6 +13,7 @@ class WalletTran {
       amountFormat: model.amount,
       type: model.transactionType,
       time: model.time,
+      pointAmount: model.pointAmount,
       context: context,
       child: TransactionPopUpDetail(
         model: model,
@@ -24,6 +25,8 @@ class WalletTran {
     switch (type) {
       case 'bonus':
         return 'assets/images/svgfile/dividend.svg';
+      case 'exchange':
+        return 'assets/images/svgfile/exchangepoint.svg';
       case 'deposit':
       case 'DEPOSIT':
       case 'wallet-deposit':

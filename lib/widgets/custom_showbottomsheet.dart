@@ -18,6 +18,7 @@ onShowBottomSheet(
     IconData? icondata,
     Widget? icon,
     Widget? text,
+    String? pointAmount,
     bool? isscroll = false,
     double? isHeight,
     bool? isLoading = false,
@@ -155,6 +156,7 @@ onShowBottomSheet(
                                 label: label,
                                 time: time,
                                 amount: amount,
+                                pointAmount: pointAmount,
                               )
                             : Row(
                                 children: [
