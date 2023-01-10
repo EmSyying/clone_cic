@@ -19,6 +19,7 @@ import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
 import '../../../../widgets/privilege/privilege/custom_all_store_list.dart';
 import '../../../../widgets/privilege/privilege/custom_card_favorites_list.dart';
 import '../../../google_map_module/controllers/google_map_controller.dart';
+import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
 class PrivilegeScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final priCon = Get.put(PrivilegeController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final googleMapCon = Get.put(GoogleMapsController());
-  //final _settingCon = Get.put(SettingController());
+  final _walletController = Get.put(WalletController());
   int page = 1;
   Future<void> onRefresh() async {
     page = 1;
@@ -51,6 +52,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
 
   @override
   void initState() {
+    _walletController.onFetchMyPoin();
     googleMapCon.determinePosition();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       debugPrint('Privilege Inistate');
@@ -103,30 +105,36 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       },
                       child: Container(
                         height: 100,
-                        padding: const EdgeInsets.only(right: 18.0),
+                        padding: const EdgeInsets.only(right: 25.0),
                         child:
                             SvgPicture.asset("assets/images/svgfile/Union.svg"),
                       ),
                     ),
                     Positioned(
-                      right: 4,
+                      right:
+                          _walletController.myPoint.value >= 999 ? 5.0 : 10.0,
                       bottom: 34,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.red[400],
-                          borderRadius: BorderRadius.circular(3.0),
-                        ),
-                        height: 14,
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: 2.0,
-                              right: 2.0,
-                            ),
-                            child: Text(
-                              '100',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 9),
+                      child: Obx(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red[400],
+                            borderRadius: BorderRadius.circular(3.0),
+                          ),
+                          height: 14,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 4,
+                                right: 4,
+                              ),
+                              child: Text(
+                                _walletController.myPoint.value >= 999
+                                    ? '999+'
+                                    : _walletController.myPoint.value
+                                        .toString(),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 9),
+                              ),
                             ),
                           ),
                         ),

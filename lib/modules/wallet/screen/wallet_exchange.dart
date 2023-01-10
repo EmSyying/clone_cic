@@ -20,6 +20,7 @@ class WalletExchange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _walletController.onFetchMyPoin();
     final textstyle = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
@@ -32,10 +33,42 @@ class WalletExchange extends StatelessWidget {
             onTap: () {
               context.push('/profile/setting/privilege/all-store/point-screen');
             },
-            child: Container(
-              height: 100,
-              padding: const EdgeInsets.only(right: 18.0),
-              child: SvgPicture.asset("assets/images/svgfile/Union.svg"),
+            child: Stack(
+              children: [
+                Container(
+                  height: 100,
+                  padding: const EdgeInsets.only(right: 37.0),
+                  child: SvgPicture.asset("assets/images/svgfile/Union.svg"),
+                ),
+                Positioned(
+                  right: _walletController.myPoint.value >= 999 ? 18.0 : 22.0,
+                  bottom: 34,
+                  child: Obx(
+                    () => Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red[400],
+                        borderRadius: BorderRadius.circular(3.0),
+                      ),
+                      height: 14,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 4,
+                            right: 4,
+                          ),
+                          child: Text(
+                            _walletController.myPoint.value >= 999
+                                ? '999+'
+                                : _walletController.myPoint.value.toString(),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 9),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           )
         ],

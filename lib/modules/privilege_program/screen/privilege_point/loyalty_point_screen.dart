@@ -28,31 +28,3 @@ class LoyaltyPointScreen extends StatelessWidget {
     );
   }
 }
-
-class LoyaltyCardModel {
-  final String? title, datetime, image;
-  final int? point;
-
-  LoyaltyCardModel({this.title, this.datetime, this.point, this.image});
-}
-
-List<LoyaltyCardModel> loyaltyCardList = [
-  LoyaltyCardModel(
-    title: 'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
-    datetime: '23 December 2022',
-    point: 300,
-    image: 'assets/images/union_point_card.png',
-  ),
-  LoyaltyCardModel(
-    title: 'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
-    datetime: '23 December 2022',
-    point: 300,
-    image: 'assets/images/union_point_card.png',
-  ),
-  LoyaltyCardModel(
-    title: 'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
-    datetime: '23 December 2022',
-    point: 300,
-    image: 'assets/images/union_point_card.png',
-  ),
-];
