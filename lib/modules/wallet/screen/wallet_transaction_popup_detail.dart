@@ -24,6 +24,8 @@ class WalletTran {
     switch (type) {
       case 'bonus':
         return 'assets/images/svgfile/dividend.svg';
+      case 'exchange':
+        return 'assets/images/svgfile/exchangepoint.svg';
       case 'deposit':
       case 'DEPOSIT':
       case 'wallet-deposit':
