@@ -203,13 +203,13 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                             ),
                             detailSummaryMVP(context,
                                 title: 'Amount', amount: '600'),
-                            const SizedBox(
-                              height: 14.0,
-                            ),
-                            detailSummaryMVP(context,
-                                title: 'Discount (40%)',
-                                amount: '- 244',
-                                colorDiscount: true),
+                            // const SizedBox(
+                            //   height: 14.0,
+                            // ),
+                            // detailSummaryMVP(context,
+                            //     title: 'Discount (40%)',
+                            //     amount: '- 244',
+                            //     colorDiscount: true),
                             const SizedBox(
                               height: 32,
                             ),
@@ -233,11 +233,11 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                         ),
                       ),
                       const CustomPositionedBoxShapCircle(
-                        top: 128,
+                        top: 96,
                         left: 6,
                       ),
                       const CustomPositionedBoxShapCircle(
-                        top: 128,
+                        top: 96,
                         right: 6,
                       ),
                     ],
