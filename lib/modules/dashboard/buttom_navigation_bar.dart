@@ -340,7 +340,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                   bottomNavigationBar: !setting.isHideBottomNavigation &&
                           settingCon.bottomMenuBarList.isNotEmpty
                       ? Container(
-                          height: 92,
+                          height: 90,
                           width: double.infinity,
                           decoration: const BoxDecoration(
                             color: Colors.white,
@@ -430,7 +430,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 12, bottom: 3),
+                                            top: 15, bottom: 3),
                                         child: SizedBox(
                                           width: 20,
                                           height: 20,
@@ -497,8 +497,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                         padding: const EdgeInsets.only(
                                             top: 12, bottom: 0),
                                         child: SizedBox(
-                                          width: navigation.key == 2 ? 19 : 24,
-                                          height: navigation.key == 2 ? 24 : 24,
+                                          width: navigation.key == 2 ? 20 : 25,
+                                          height: navigation.key == 2 ? 26 : 25,
                                           // color: Colors.blue,
                                           child: _calculateSelectedIndex(
                                                       context) ==

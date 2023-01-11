@@ -59,7 +59,7 @@ class _FocusedMenuHolderState extends State<CustomFocusedMenuHolder> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
         key: containerKey,
         onTap: () async {
           widget.onPressed();
