@@ -94,7 +94,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               isLogo: false,
               isLeading: true,
               context: context,
-              title: "Privilege Program",
+              title: "Privilege",
               action: [
                 Stack(
                   children: [

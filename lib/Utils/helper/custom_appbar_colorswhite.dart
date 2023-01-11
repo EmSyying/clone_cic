@@ -39,9 +39,9 @@ CustomAppBarWhiteColor({
             children: [
               Text(
                 title ?? '',
-                style: TextStyle(
-                  color: colorTitle == false ? Colors.black : Colors.white,
-                ),
+                style: Theme.of(context!).textTheme.headline6!.copyWith(
+                      color: colorTitle == false ? Colors.black : Colors.white,
+                    ),
               ),
               if (subtitle == "Rejected" ||
                   subtitle == "Approved" ||

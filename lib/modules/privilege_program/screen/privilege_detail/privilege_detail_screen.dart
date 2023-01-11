@@ -234,7 +234,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     children: [
                                       Container(
                                         alignment: Alignment.center,
-                                        height: 240,
+                                        height: 250,
                                         decoration: BoxDecoration(
                                             color: AppColor.secondaryColor,
                                             borderRadius:
@@ -315,7 +315,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                   Positioned(
                                     left: 15.0,
                                     right: 15.0,
-                                    top: 185.0,
+                                    top: 190.0,
                                     child: CustomCardPrivilegeDetail(
                                       sloganLogo: priController
                                           .shopDetailModel.value.shopLogo,

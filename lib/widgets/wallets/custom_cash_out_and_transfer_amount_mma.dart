@@ -20,7 +20,7 @@ class CustomCashOutAndTransferAmount extends StatelessWidget {
               ),
           children: [
             TextSpan(
-              text: pointTrue == false ? ' USD' : ' Points',
+              text: pointTrue == false ? ' USD' : ' MVP',
               style: Theme.of(context).textTheme.headline4!.copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 20,

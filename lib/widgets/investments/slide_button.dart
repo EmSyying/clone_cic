@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';

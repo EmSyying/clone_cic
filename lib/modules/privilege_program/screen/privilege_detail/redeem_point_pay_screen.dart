@@ -66,8 +66,8 @@ class RedeemPointToPay extends StatelessWidget {
                           // controller: _walletController.qrRecievingPhone,
                           isRequired: true,
                           autoFocus: false,
-                          labelText: 'Receiver Account Number',
-                          hintText: 'Receiver Account Number',
+                          labelText: 'Receiver Phone Number',
+                          hintText: 'Receiver Phone Number',
                         ),
                         // _walletController.validateMessage.value.isNotEmpty &&
                         //         _walletController.qrRecievingPhone.text != ""
@@ -125,7 +125,7 @@ class RedeemPointToPay extends StatelessWidget {
                               top: 15,
                             ),
                             child: Text(
-                              'Point',
+                              'MVP',
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1!
