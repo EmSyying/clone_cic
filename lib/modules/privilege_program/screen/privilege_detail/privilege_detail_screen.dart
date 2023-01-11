@@ -229,8 +229,6 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                 alignment: Alignment.center,
                                 children: [
                                   Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         alignment: Alignment.center,
@@ -255,77 +253,138 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                               ),
                                             )),
                                       ),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20.0, right: 20.0, top: 18.0),
-                                        child: CustomCardPoint(
-                                          point: _walletController.myPoint.value
-                                              .toString(),
-                                          onTap: () {
-                                            //context.push('/qr-screen');
-                                            priController.onClearRedeemToMVP();
-                                            priController.shopStoreId.value =
-                                                priController
-                                                    .shopDetailModel.value.id!
-                                                    .toInt();
-                                            priController.receiveAccountNumber
-                                                    .value =
-                                                priController
-                                                    .shopDetailModel
-                                                    .value
-                                                    .receiverAccountnumber!;
-                                            priController
-                                                    .receiveAccountname.value =
-                                                priController.shopDetailModel
-                                                    .value.receiverAccountname!;
-                                            context.push(
-                                                '/profile/setting/privilege/all-store/redeem-point-to-pay');
-                                          },
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                          left: 20.0,
-                                          right: 20.0,
-                                          bottom: 18.0,
-                                          top: 18.0,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.room,
-                                              size: 21,
-                                              color: Colors.grey,
-                                            ),
-                                            const SizedBox(
-                                              width: 14,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                priController.shopDetailModel
-                                                    .value.fullAddress!,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 2,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle2!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: const Color(
-                                                          0xff464646),
-                                                      letterSpacing: 0.2,
-                                                      fontSize: 14,
-                                                    ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                      // const SizedBox(
+                                      //   height: 30,
+                                      // ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(
+                                      //       left: 20.0, right: 20.0, top: 18.0),
+                                      //   child: CustomCardPoint(
+                                      //     point: _walletController.myPoint.value
+                                      //         .toString(),
+                                      //     onTap: () {
+                                      //       //context.push('/qr-screen');
+                                      //       priController.onClearRedeemToMVP();
+                                      //       priController.shopStoreId.value =
+                                      //           priController
+                                      //               .shopDetailModel.value.id!
+                                      //               .toInt();
+                                      //       priController.receiveAccountNumber
+                                      //               .value =
+                                      //           priController
+                                      //               .shopDetailModel
+                                      //               .value
+                                      //               .receiverAccountnumber!;
+                                      //       priController
+                                      //               .receiveAccountname.value =
+                                      //           priController.shopDetailModel
+                                      //               .value.receiverAccountname!;
+                                      //       context.push(
+                                      //           '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                      //     },
+                                      //   ),
+                                      // ),
+                                      // Container(
+                                      //   margin: const EdgeInsets.only(
+                                      //     left: 20.0,
+                                      //     right: 20.0,
+                                      //     bottom: 18.0,
+                                      //     top: 18.0,
+                                      //   ),
+                                      //   child: Row(
+                                      //     children: [
+                                      //       const Icon(
+                                      //         Icons.room,
+                                      //         size: 21,
+                                      //         color: Colors.grey,
+                                      //       ),
+                                      //       const SizedBox(
+                                      //         width: 14,
+                                      //       ),
+                                      //       Expanded(
+                                      //         child: Text(
+                                      //           priController.shopDetailModel
+                                      //               .value.fullAddress!,
+                                      //           overflow: TextOverflow.ellipsis,
+                                      //           maxLines: 2,
+                                      //           style: Theme.of(context)
+                                      //               .textTheme
+                                      //               .subtitle2!
+                                      //               .copyWith(
+                                      //                 fontWeight:
+                                      //                     FontWeight.w400,
+                                      //                 color: const Color(
+                                      //                     0xff464646),
+                                      //                 letterSpacing: 0.2,
+                                      //                 fontSize: 14,
+                                      //               ),
+                                      //         ),
+                                      //       )
+                                      //     ],
+                                      //   ),
+                                      // ),
                                     ],
+                                  ),
+                                  Positioned(
+                                    left: 20.0,
+                                    right: 20.0,
+                                    bottom: 20.0,
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.room,
+                                          size: 21,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(
+                                          width: 14,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            priController.shopDetailModel.value
+                                                .fullAddress!,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      const Color(0xff464646),
+                                                  letterSpacing: 0.2,
+                                                  fontSize: 14,
+                                                ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 20,
+                                    right: 20,
+                                    bottom: 70,
+                                    child: CustomCardPoint(
+                                      point: _walletController.myPoint.value
+                                          .toString(),
+                                      onTap: () {
+                                        //context.push('/qr-screen');
+                                        priController.onClearRedeemToMVP();
+                                        priController.shopStoreId.value =
+                                            priController
+                                                .shopDetailModel.value.id!
+                                                .toInt();
+                                        priController
+                                                .receiveAccountNumber.value =
+                                            priController.shopDetailModel.value
+                                                .receiverAccountnumber!;
+                                        priController.receiveAccountname.value =
+                                            priController.shopDetailModel.value
+                                                .receiverAccountname!;
+                                        context.push(
+                                            '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                      },
+                                    ),
                                   ),
                                   Positioned(
                                     left: 15.0,
@@ -344,18 +403,6 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                           .shopDetailModel.value.discountRate,
                                     ),
                                   ),
-                                  // Positioned(
-                                  //   left: 20,
-                                  //   right: 20,
-                                  //   bottom: 100,
-                                  //   child:
-                                  // ),
-                                  // Positioned(
-                                  //   left: 20.0,
-                                  //   right: 20.0,
-                                  //   bottom: 10.0,
-                                  //   child:
-                                  // ),
                                 ],
                               ),
                             ),
@@ -367,7 +414,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                   body: Center(
                     child: Container(
                       width: double.infinity,
-                      margin: const EdgeInsets.only(top: 120),
+                      margin: const EdgeInsets.only(top: 100),
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(14.0),

@@ -105,14 +105,17 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       },
                       child: Container(
                         height: 100,
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child:
-                            SvgPicture.asset("assets/images/svgfile/Union.svg"),
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: SvgPicture.asset(
+                          "assets/images/svgfile/Union.svg",
+                          width: 14.0,
+                          height: 19.01,
+                        ),
                       ),
                     ),
                     Positioned(
                       right:
-                          _walletController.myPoint.value >= 999 ? 5.0 : 10.0,
+                          _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
                       bottom: 34,
                       child: Obx(
                         () => Container(
