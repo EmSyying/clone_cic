@@ -16,6 +16,7 @@ import '../../../../widgets/privilege/custom_fovarite.dart';
 import '../../../../widgets/privilege/privilege_detail/custom_card_allstores_datil.dart';
 import '../../../../widgets/privilege/privilege_detail/custom_card_point.dart';
 import '../../../event_module/controller/event_controller.dart';
+import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
 class PrivilegeDetailScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
   bool innerBoxIsScrolled = false;
   final priController = Get.put(PrivilegeController());
   final eventController = Get.put(EventController());
+  final _walletController = Get.put(WalletController());
 
   final today = DateTime.now().weekday;
 
@@ -260,11 +262,12 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                         padding: const EdgeInsets.only(
                                             left: 20.0, right: 20.0, top: 18.0),
                                         child: CustomCardPoint(
-                                          point: '100',
+                                          point: _walletController.myPoint.value
+                                              .toString(),
                                           onTap: () {
-                                            context.push('/qr-screen');
-                                            // context.push(
-                                            //     '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                            //context.push('/qr-screen');
+                                            context.push(
+                                                '/profile/setting/privilege/all-store/redeem-point-to-pay');
                                           },
                                         ),
                                       ),

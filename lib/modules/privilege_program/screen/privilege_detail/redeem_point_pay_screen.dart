@@ -22,7 +22,7 @@ class RedeemPointToPay extends StatelessWidget {
       appBar: CustomAppBarWhiteColor(
         context: context,
         elevation: 0,
-        title: 'Redeem point to pay',
+        title: 'Redeem MVP',
         colorTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
       ),

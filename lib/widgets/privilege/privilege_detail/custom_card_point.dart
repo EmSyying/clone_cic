@@ -48,7 +48,7 @@ class CustomCardPoint extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Current Point',
+                      'Current MVP',
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: const Color(0xff464646),
@@ -88,7 +88,7 @@ class CustomCardPoint extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Redeem to pay',
+                      'Redeem MVP',
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
