@@ -1,4 +1,4 @@
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/point_emptystate.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/recent_point_screen.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +28,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
 
   List<Widget> widgets = [
     const LoyaltyPointScreen(),
-    const PiointEmptyState(
-      title: 'No transaction yet!',
-      description:
-          'Lorem ipsum dolor sit amet consecteture cuis mollis turbime.',
-    ),
+    const RecentPointScreen(),
     // const RecentPointScreen()
   ];
   final String datetime = DateTime.now().toString();

@@ -1,24 +1,44 @@
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/point_emptystate.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../../widgets/privilege/custom_shimmer_point.dart';
 import '../../../../widgets/privilege/privilege_point/custom_recent_card.dart';
+import '../../../wallet/controller/wallet_controller.dart';
 
 class RecentPointScreen extends StatelessWidget {
   const RecentPointScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-          children: recentCardList.asMap().entries.map((e) {
-        return CustomRecentCard(
-          title: e.value.title,
-          datetime: e.value.datetime,
-          price: e.value.price,
-          action: e.value.action,
-          minusPoint: e.value.minusPoint,
-          image: e.value.image,
-        );
-      }).toList()),
+    final walletController = Get.put(WalletController());
+    walletController.onFetchRecentActivitiesTransaction();
+    return Obx(
+      () => walletController.isRecentActivitiesTransaction.value
+          ? Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return const CustomShimmerPoint();
+                  }),
+            )
+          : walletController.recentActivitiesTransactionList.isNotEmpty
+              ? SingleChildScrollView(
+                  child: Column(
+                      children: walletController.recentActivitiesTransactionList
+                          .asMap()
+                          .entries
+                          .map((e) {
+                    return CustomRecentCard(
+                      recentActivities: e.value,
+                    );
+                  }).toList()),
+                )
+              : const PiointEmptyState(
+                  title: 'No transaction yet!',
+                  description: '',
+                ),
     );
   }
 }

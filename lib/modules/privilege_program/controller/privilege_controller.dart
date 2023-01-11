@@ -558,6 +558,7 @@ class PrivilegeController extends GetxController {
   final isRedeemToVerifyAccountValidateMessage = ''.obs;
   final isRedeemToVerifyAccountValidate = true.obs;
   onClearRedeemToMVP() {
+    amountToRedeem.value = 0.0;
     isRedeemToVerifyAccountValidateMessage.value = '';
     isRedeemToVerifyAccountValidate.value = true;
   }
@@ -619,6 +620,7 @@ class PrivilegeController extends GetxController {
         },
       ).then((response) {
         debugPrint("Review Redeem to MVP:$response");
+        amountToRedeem.value = response['amount'];
         receiveAccountname.value = response['account_name'];
         receiveAccountNumber.value = response['account_number'];
         amountToPay = response['amount_to_pay'];
@@ -641,6 +643,54 @@ class PrivilegeController extends GetxController {
       debugPrint("on redeem:$e");
     } finally {
       isRedeemToMVPReview(false);
+    }
+  }
+
+  // Redeem To Submit
+  final isRedeemToSubmitMVP = false.obs;
+  Future<void> onRedeemToSubmitMVP(BuildContext context) async {
+    isRedeemToSubmitMVP(true);
+
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+        url: 'privilege/payment/via-mvp',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'shop_id': shopStoreId.value,
+          'amount': amountToRedeem.value,
+          'receiver_account_number': receiveAccountNumber.value,
+          'remark': remark.value
+        },
+      ).then((response) {
+        context.pushNamed(
+          'SuccessScreen',
+          queryParams: {
+            'title': 'Success',
+            'description': 'MVP redeem successfully',
+            'appbarTitle': 'MVP Redemption',
+          },
+          extra: {
+            'onPressedButton': () {
+              context.go('/wallet');
+            },
+          },
+        );
+        isRedeemToSubmitMVP(false);
+        // isRedeemValidateLoading(true);
+
+        update();
+      }).onError((ErrorModel error, stackTrace) {
+        debugPrint("redeem Error:${error.bodyString}");
+        isRedeemToSubmitMVP(false);
+
+        update();
+      });
+    } catch (e) {
+      isRedeemToSubmitMVP(false);
+      debugPrint("on redeem:$e");
+    } finally {
+      isRedeemToSubmitMVP(false);
     }
   }
 }

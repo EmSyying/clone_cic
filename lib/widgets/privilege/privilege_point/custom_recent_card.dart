@@ -1,20 +1,12 @@
-import 'package:cicgreenloan/Utils/function/format_to_k.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CustomRecentCard extends StatelessWidget {
-  final String? title, datetime, action, image;
-  final int? price, minusPoint;
+import '../../../modules/wallet/model/exchange_point_transaction.dart/recent_activities.dart';
 
-  const CustomRecentCard({
-    super.key,
-    this.title,
-    this.datetime,
-    this.price,
-    this.minusPoint,
-    this.action,
-    this.image,
-  });
+class CustomRecentCard extends StatelessWidget {
+  final RecentActivities? recentActivities;
+
+  const CustomRecentCard({super.key, this.recentActivities});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +40,7 @@ class CustomRecentCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    '$image',
+                    recentActivities!.shopLogo ?? "",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -63,7 +55,7 @@ class CustomRecentCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '$title',
+                  recentActivities!.shopName ?? "",
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -76,7 +68,7 @@ class CustomRecentCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '$datetime',
+                  recentActivities!.date ?? "",
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -86,7 +78,7 @@ class CustomRecentCard extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  FormatToK.digitNumber(price),
+                  recentActivities!.amount ?? '',
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -102,7 +94,7 @@ class CustomRecentCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
                 child: Text(
-                  '$action',
+                  recentActivities!.code ?? "",
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -122,7 +114,9 @@ class CustomRecentCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      '- $minusPoint',
+                      recentActivities!.pointAmount != null
+                          ? recentActivities!.pointAmount.toString()
+                          : "",
                       style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,

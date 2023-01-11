@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/exchange_point_transaction.dart/exchange_point_transaction.dart';
+import '../model/exchange_point_transaction.dart/recent_activities.dart';
 import '../model/invest/invest_option_model.dart';
 
 import '../model/transaction/wallet_transaction.dart';
@@ -589,6 +590,7 @@ class WalletController extends GetxController {
   Future<List<ExchangePointTransaction>> onFetchPointTransaction(
       String param) async {
     final tempList = <ExchangePointTransaction>[];
+    final temListActivities = <RecentActivities>[];
 
     try {
       await _apiBaseHelper
@@ -598,6 +600,11 @@ class WalletController extends GetxController {
               url: 'mvp/transaction?$param')
           .then((response) {
         debugPrint('Success  $response');
+        if (param != 'type=reward') {
+          response['data'].map((e) {
+            temListActivities.add(RecentActivities.fromJson(e));
+          }).toList();
+        }
         response['data'].map((e) {
           tempList.add(ExchangePointTransaction.fromJson(e));
         }).toList();
@@ -624,15 +631,35 @@ class WalletController extends GetxController {
   }
 
   // MVP Recent Activities Transaction
-  List<ExchangePointTransaction> recentActivitiesTransactionList =
-      <ExchangePointTransaction>[];
+  List<RecentActivities> recentActivitiesTransactionList =
+      <RecentActivities>[].obs;
   final isRecentActivitiesTransaction = false.obs;
-  Future<List<ExchangePointTransaction>> recentActivitiesTransaction() async {
+  Future<List<RecentActivities>> onFetchRecentActivitiesTransaction() async {
     isRecentActivitiesTransaction(true);
-    List<ExchangePointTransaction> tempList = <ExchangePointTransaction>[];
-    tempList = await onFetchPointTransaction('type=reward');
-    isRecentActivitiesTransaction(false);
-    recentActivitiesTransactionList = tempList;
+    try {
+      await _apiBaseHelper
+          .onNetworkRequesting(
+              methode: METHODE.get,
+              isAuthorize: true,
+              url: 'mvp/transaction?type=recentActivities')
+          .then((response) {
+        debugPrint('Success  $response');
+
+        response['data'].map((e) {
+          recentActivitiesTransactionList.add(RecentActivities.fromJson(e));
+        }).toList();
+        isRecentActivitiesTransaction(false);
+        update();
+      }).onError((ErrorModel error, _) {
+        isRecentActivitiesTransaction(false);
+        update();
+      });
+    } catch (e) {
+      debugPrint("Recent Transaction$e");
+    } finally {
+      isRecentActivitiesTransaction(false);
+      update();
+    }
     return recentActivitiesTransactionList;
   }
 }

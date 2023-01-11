@@ -129,8 +129,12 @@ class RedeemPointToPay extends StatelessWidget {
                                       RegExp(r'^\d+\.?\d{0,2}')),
                                 ],
                                 onChange: (value) {
-                                  priController.amountToRedeem.value =
-                                      onConvertToDouble(value);
+                                  if (value.isEmpty) {
+                                    priController.amountToRedeem.value = 0.0;
+                                  } else {
+                                    priController.amountToRedeem.value =
+                                        onConvertToDouble(value);
+                                  }
                                 },
                                 isRequired: true,
                                 labelText: 'Amount',
@@ -150,11 +154,13 @@ class RedeemPointToPay extends StatelessWidget {
                               ),
                             ),
                             CustomTextFieldNew(
-                              initialValue:
-                                  walletController.remarkTextController.text,
+                              initialValue: priController.remark.value,
                               // controller: _walletController.remarkTextController,
                               labelText: 'Remark',
                               hintText: 'Remark',
+                              onChange: (value) {
+                                priController.remark.value = value;
+                              },
                             ),
                             const SizedBox(height: 20),
                           ],
@@ -170,11 +176,13 @@ class RedeemPointToPay extends StatelessWidget {
                     horizontal: 20.0, vertical: 30.0),
                 child: CustomButton(
                   width: double.infinity,
-                  onPressed: () async {
-                    await priController.onRedeemToMVPReview(context).then(
-                        (value) => context.push(
-                            '/profile/setting/privilege/all-store/redeem-point-pay-review'));
-                  },
+                  onPressed: priController.amountToRedeem.value != 0.0
+                      ? () async {
+                          await priController.onRedeemToMVPReview(context).then(
+                              (value) => context.push(
+                                  '/profile/setting/privilege/all-store/redeem-point-pay-review'));
+                        }
+                      : null,
                   title: 'Proceed to pay',
                   isDisable: false,
                   isOutline: false,
