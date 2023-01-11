@@ -12,6 +12,7 @@ import '../../../utils/helper/numerice_format.dart';
 import '../../../utils/offline_widget.dart';
 import '../../../widgets/investments/slide_button.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
+import '../../privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import '../controller/wallet_controller.dart';
 
 class WalletExchange extends StatelessWidget {
@@ -31,7 +32,14 @@ class WalletExchange extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              context.go('/profile/setting/privilege/all-store/point-screen');
+              final route = GoRouter.of(context).location;
+              debugPrint('Click Navigated : $route');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PrivilegePointScreen()));
+
+              // context.push('/privilege/all-store/point-screen');
             },
             child: Stack(
               children: [
