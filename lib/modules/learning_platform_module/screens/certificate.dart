@@ -1,6 +1,6 @@
-import 'package:cicgreenloan/modules/report_module/screens/view_report.dart';
 import 'package:cicgreenloan/widgets/learning/certificate_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/learning_platform/certificate_list.dart';
 
@@ -25,12 +25,14 @@ class _CertificatePageState extends State<CertificatePage> {
               children: certificateList.map((certificate) {
             return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ViewReport(
-                                certificateModel: certificate,
-                              )));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ViewReport(
+                  //               certificateModel: certificate,
+                  //             )));
+                  context.push(
+                      '/report/view-report-list?certificateModel=$certificate');
                 },
                 child: CertificateCard(certificate: certificate));
           }).toList()),

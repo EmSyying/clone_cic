@@ -338,7 +338,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                   bottomNavigationBar: !setting.isHideBottomNavigation &&
                           settingCon.bottomMenuBarList.isNotEmpty
                       ? Container(
-                          height: 84,
+                          height: 90,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -357,9 +357,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                 return CustomFocusedMenuHolder(
                                   animateMenuItems: false,
                                   menuBoxDecoration: const BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(30.0))),
+                                    color: Colors.transparent,
+                                  ),
                                   blurBackgroundColor:
                                       const Color(0xffE1E1E1).withOpacity(0.5),
                                   blurSize: 5,
@@ -368,33 +367,28 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                     CustomFocusedMenuItem(
                                         title: const Text("Profile"),
                                         trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/News icon.png',
-                                          height: 18,
-                                          width: 18,
+                                          'assets/images/morePopUp/Profile.png',
+                                          height: 20,
+                                          width: 20,
                                         ),
                                         onPressed: () {
                                           GoRouter.of(context).go(settingCon
                                               .bottomMenuBarList[3].route!);
-                                          // Navigator.push(
-                                          //     context,
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) =>
-                                          //             ScreenTwo()));
                                         }),
                                     CustomFocusedMenuItem(
                                         title: const Text("News"),
                                         trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/News icon (1).png',
-                                          height: 18,
-                                          width: 18,
+                                          'assets/images/morePopUp/News.png',
+                                          height: 20,
+                                          width: 20,
                                         ),
                                         onPressed: () {}),
                                     CustomFocusedMenuItem(
                                         title: const Text("Learning"),
                                         trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/learning icon.png',
-                                          height: 18,
-                                          width: 18,
+                                          'assets/images/morePopUp/Learning.png',
+                                          height: 20,
+                                          width: 20,
                                         ),
                                         onPressed: () {
                                           GoRouter.of(context).go("/learning");
@@ -402,9 +396,9 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                     CustomFocusedMenuItem(
                                         title: const Text("Directory"),
                                         trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/Directory icon.png',
-                                          height: 18,
-                                          width: 18,
+                                          'assets/images/morePopUp/Directory.png',
+                                          height: 20,
+                                          width: 20,
                                         ),
                                         onPressed: () {
                                           GoRouter.of(context).go('/directory');
@@ -425,23 +419,23 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 9, bottom: 4),
+                                            top: 12, bottom: 4),
                                         child: SizedBox(
-                                          width: 24,
-                                          height: 24,
+                                          width: 23,
+                                          height: 23,
                                           // color: Colors.blue,
                                           child: _calculateSelectedIndex(
                                                       context) ==
                                                   navigation.key
                                               ? SvgPicture.network(
                                                   navigation.value.activeIcon!,
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                   color: Theme.of(context)
                                                       .primaryColor,
                                                 )
                                               : SvgPicture.network(
                                                   navigation.value.icon!,
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                   color:
                                                       const Color(0XFF848F92),
                                                 ),
@@ -450,18 +444,25 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                       Text(
                                         "${navigation.value.label}",
                                         style: TextStyle(
-                                            fontSize: 11,
+                                            color: _calculateSelectedIndex(
+                                                        context) ==
+                                                    navigation.key
+                                                ? Theme.of(context).primaryColor
+                                                : Theme.of(context)
+                                                    .bottomNavigationBarTheme
+                                                    .unselectedItemColor,
+                                            fontSize: 12,
                                             fontFamily: "DM Sans",
                                             fontWeight:
                                                 currentIndex == navigation.key
                                                     ? FontWeight.w700
-                                                    : FontWeight.w400),
+                                                    : FontWeight.w500),
                                       ),
                                     ],
                                   ),
                                 );
                               } else {
-                                return GestureDetector(
+                                return InkWell(
                                   onTap: () async {
                                     debugPrint('idx=${navigation.key}');
                                     setState(() {
@@ -476,23 +477,23 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 9, bottom: 4),
+                                            top: 12, bottom: 4),
                                         child: SizedBox(
-                                          width: 24,
-                                          height: 24,
+                                          width: 23,
+                                          height: 23,
                                           // color: Colors.blue,
                                           child: _calculateSelectedIndex(
                                                       context) ==
                                                   navigation.key
                                               ? SvgPicture.network(
                                                   navigation.value.activeIcon!,
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                   color: Theme.of(context)
                                                       .primaryColor,
                                                 )
                                               : SvgPicture.network(
                                                   navigation.value.icon!,
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                   color:
                                                       const Color(0XFF848F92),
                                                 ),
@@ -501,13 +502,20 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                       Text(
                                         "${navigation.value.label}",
                                         style: TextStyle(
-                                            fontSize: 11,
+                                            color: _calculateSelectedIndex(
+                                                        context) ==
+                                                    navigation.key
+                                                ? Theme.of(context).primaryColor
+                                                : Theme.of(context)
+                                                    .bottomNavigationBarTheme
+                                                    .unselectedItemColor,
+                                            fontSize: 12,
                                             fontFamily: "DM Sans",
                                             fontWeight: _calculateSelectedIndex(
                                                         context) ==
                                                     navigation.key
                                                 ? FontWeight.w700
-                                                : FontWeight.w400),
+                                                : FontWeight.w500),
                                       ),
                                     ],
                                   ),
@@ -516,6 +524,82 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                             }).toList(),
                           ),
                         )
+
+                      //  BottomNavigationBar(
+                      //   type: BottomNavigationBarType.fixed,
+                      //   selectedFontSize: 12,
+                      //   unselectedFontSize: 12,
+                      //   //        selectedLabelStyle: TextStyle(color: Colors.white),
+                      //   // type: BottomNavigationBarType.fixed,
+
+                      //   // items: <BottomNavigationBarItem>[
+                      //   //   BottomNavigationBarItem(
+                      //   //     icon: SvgPicture.asset(
+                      //   //       'assets/images/svgfile/menu/home.svg',
+                      //   //       color: const Color(0XFF848F92),
+                      //   //     ),
+                      //   //     label: S.of(context).homeMenu,
+                      //   //     activeIcon: SvgPicture.asset(
+                      //   //       'assets/images/svgfile/menu/HomeActiveIcon.svg',
+                      //   //       color: Theme.of(context).primaryColor,
+                      //   //     ),
+                      //   //   ),
+                      //   //   BottomNavigationBarItem(
+                      //   //     icon: SvgPicture.asset(
+                      //   //         'assets/images/svgfile/menu/qrcodeInactive.svg',
+                      //   //         color: const Color(0XFF848F92)),
+                      //   //     activeIcon: SvgPicture.asset(
+                      //   //       'assets/images/svgfile/menu/qrCodeActive.svg',
+                      //   //       color: Theme.of(context).primaryColor,
+                      //   //     ),
+                      //   //     label: S.of(context).qrCode,
+                      //   //   ),
+                      //   //   BottomNavigationBarItem(
+                      //   //       icon: SvgPicture.asset(
+                      //   //           'assets/images/svgfile/menu/eventInactive.svg'),
+                      //   //       activeIcon: SvgPicture.asset(
+                      //   //         'assets/images/svgfile/menu/eventActive.svg',
+                      //   //         color: Theme.of(context).primaryColor,
+                      //   //       ),
+                      //   //       label: S.of(context).event),
+                      //   //   BottomNavigationBarItem(
+                      //   //     icon: SvgPicture.asset(
+                      //   //         'assets/images/svgfile/menu/account.svg',
+                      //   //         color: const Color(0XFF848F92)),
+                      //   //     activeIcon: SvgPicture.asset(
+                      //   //       'assets/images/svgfile/menu/accountActive.svg',
+                      //   //       color: Theme.of(context).primaryColor,
+                      //   //     ),
+                      //   //     label: S.of(context).profile,
+                      //   //   ),
+                      //   // ],
+                      //   items: setting.bottomMenuBarList
+                      //       .asMap()
+                      //       .entries
+                      //       .map((navigation) {
+                      //     return BottomNavigationBarItem(
+                      //       icon: SvgPicture.network(
+                      //         navigation.value.icon!,
+                      //         color: const Color(0XFF848F92),
+                      //       ),
+                      //       label: navigation.value.label,
+                      //       activeIcon: SvgPicture.network(
+                      //         navigation.value.activeIcon!,
+                      //         color: Theme.of(context).primaryColor,
+                      //       ),
+                      //     );
+                      //   }).toList(),
+                      //   // currentIndex: _settingCon.selectedIndex,
+                      //   unselectedItemColor: Theme.of(context)
+                      //       .bottomNavigationBarTheme
+                      //       .unselectedItemColor,
+                      //   selectedItemColor: Theme.of(context).primaryColor,
+
+                      //   // onTap: _settingCon.onTap,
+                      //   currentIndex: _calculateSelectedIndex(context),
+
+                      //   onTap: (int idx) => _onItemTapped(idx, context),
+                      // )
                       : null,
                   backgroundColor: AppColor.backgroundColor,
                   body: widget.child,

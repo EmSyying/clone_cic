@@ -1,7 +1,7 @@
 import 'package:cicgreenloan/modules/learning_platform_module/models/channel_detail.dart';
-import 'package:cicgreenloan/modules/learning_platform_module/screens/video_list_by_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/format_number.dart';
 
@@ -34,14 +34,16 @@ class _ModulePageState extends State<ModulePage> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VideoListByModule(
-                      moudleId: widget.channelDetail!.data!.modules![index].id,
-                    ),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => VideoListByModule(
+                //       moudleId: widget.channelDetail!.data!.modules![index].id,
+                //     ),
+                //   ),
+                // );
+                context.go(
+                    "/learning/videolist?moudleId=${widget.channelDetail!.data!.modules![index].id}");
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
