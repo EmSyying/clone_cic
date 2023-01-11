@@ -229,6 +229,7 @@ final router = GoRouter(
 
                 /// Investment
                 GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
                   path: 'investment/:tabName',
                   name: 'Investment',
                   builder: (context, state) => Dashboard(
@@ -628,6 +629,7 @@ final router = GoRouter(
                           MMAInvestFIFScreen(key: state.pageKey),
                       routes: [
                         GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'cic-equity-fund',
                           name: 'CiCEquityFund',
                           builder: (context, state) => CiCEquityFund(
@@ -649,6 +651,7 @@ final router = GoRouter(
                           ],
                         ),
                         GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
                           path: 'cic-fixed-income',
                           name: 'CiCFixedIncome',
                           builder: (context, state) => CiCFixedIncome(
