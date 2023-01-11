@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:ui' as ui;
 
+import 'package:get/get.dart';
+
+import '../../modules/wallet/controller/wallet_controller.dart';
+
 class CardCurrentPoints extends StatelessWidget {
   const CardCurrentPoints({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final walletController = Get.put(WalletController());
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
     return Container(
       height: 110,
@@ -28,7 +33,7 @@ class CardCurrentPoints extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Current Points',
+                    'MVP Balance',
                     style: textStyle.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
@@ -40,7 +45,7 @@ class CardCurrentPoints extends StatelessWidget {
                     height: 2.0,
                   ),
                   Text(
-                    '100',
+                    walletController.myPoint.value.toString(),
                     style: textStyle.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
