@@ -176,17 +176,18 @@ class _FIFOption1State extends State<FIFOption1> {
                           FirebaseAnalyticsHelper.sendAnalyticsEvent(
                               'Submit create fif application');
                           debugPrint("is slide work1");
-
-                          apppincode
-                              .showLockScreen(
-                                  enableCancel: true, context: context)
-                              .then((value) {
-                            debugPrint('Success hx $value');
-                            if (value) {
-                              fifController.onCreateFiF(
-                                  id: widget.id, buildcontext: context);
-                            }
-                          });
+                          fifController.onCreateFiF(
+                              id: widget.id, buildcontext: context);
+                          // apppincode
+                          //     .showLockScreen(
+                          //         enableCancel: true, context: context)
+                          //     .then((value) {
+                          //   debugPrint('Success hx $value');
+                          //   if (value) {
+                          //     fifController.onCreateFiF(
+                          //         id: widget.id, buildcontext: context);
+                          //   }
+                          // });
                         },
                         fromPage:
                             widget.id != null ? 'from edit' : 'from submit',
