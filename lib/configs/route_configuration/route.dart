@@ -586,6 +586,7 @@ final router = GoRouter(
                   builder: (_, state) => WalletScreen(key: state.pageKey),
                   routes: [
                     GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
                       path: 'point-exchange',
                       name: 'WalletPointExchange',
                       builder: (_, state) => WalletExchange(key: state.pageKey),

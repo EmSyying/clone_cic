@@ -515,7 +515,7 @@ class WalletController extends GetxController {
 
     try {
       await _apiBaseHelper.onNetworkRequesting(
-        url: 'point',
+        url: 'mvp/balance',
         methode: METHODE.post,
         isAuthorize: true,
         body: {
@@ -565,7 +565,7 @@ class WalletController extends GetxController {
     try {
       await _apiBaseHelper
           .onNetworkRequesting(
-              url: 'point', methode: METHODE.get, isAuthorize: true)
+              url: 'mvp/balance', methode: METHODE.get, isAuthorize: true)
           .then((response) {
         debugPrint("My Poin::$response");
         var responseJson = response['point_amount'];
@@ -595,7 +595,7 @@ class WalletController extends GetxController {
           .onNetworkRequesting(
               methode: METHODE.get,
               isAuthorize: true,
-              url: 'point/transaction?$param')
+              url: 'mvp/transaction?$param')
           .then((response) {
         debugPrint('Success  $response');
         response['data'].map((e) {
