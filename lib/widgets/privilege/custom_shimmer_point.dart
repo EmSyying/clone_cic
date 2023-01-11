@@ -14,6 +14,14 @@ class CustomShimmerPoint extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[600]!.withOpacity(0.1),
+            spreadRadius: 0.1,
+            blurRadius: 5,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,9 +76,9 @@ class CustomShimmerPoint extends StatelessWidget {
               ),
               Container(
                 width: 1,
-                height: 70,
+                height: 86,
                 decoration: DottedDecoration(
-                    color: Colors.grey[200]!,
+                    color: Colors.grey[300]!,
                     shape: Shape.line,
                     linePosition: LinePosition.right,
                     dash: const [4, 4]),
