@@ -80,8 +80,8 @@ class RedeemPointToPay extends StatelessWidget {
                                       decimal: true, signed: false),
                               isRequired: true,
                               autoFocus: false,
-                              labelText: 'Receiver Account Number',
-                              hintText: 'Receiver Account Number',
+                              labelText: 'Receiver Phone Number',
+                              hintText: 'Receiver Phone Number',
                               onChange: (value) {
                                 priController.receiveAccountNumber.value =
                                     value;
