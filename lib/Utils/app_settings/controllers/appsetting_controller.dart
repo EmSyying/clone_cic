@@ -34,6 +34,8 @@ class SettingController extends GetxController {
   bool isLogin = false;
   final token = ''.obs;
 
+  final getCurrentTapBottom = 0.obs;
+
   final isLoading = false.obs;
   final isLoadingAboutCiC = false.obs;
 

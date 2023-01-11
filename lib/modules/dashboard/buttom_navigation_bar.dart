@@ -16,13 +16,12 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
-import '../../Utils/helper/color.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 
 import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
-import '../investment_module/controller/investment_controller.dart';
 import '../../widgets/custom_menu_holder.dart';
+import '../investment_module/controller/investment_controller.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
@@ -40,7 +39,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
     debugPrint("Location: $location");
-    if (currentIndex == 3) {
+    if (_settingCon.getCurrentTapBottom.value == 3) {
       return 3;
     }
     if (settingCon.bottomMenuBarList.length == 4) {
@@ -96,7 +95,10 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         case 3:
           debugPrint('Test Click Profile');
           // settingCon.onCheckAuthentication();
-          // GoRouter.of(context).go(settingCon.bottomMenuBarList[3].route!);
+          if (_settingCon.isAMMode!) {
+            GoRouter.of(context).go(settingCon.bottomMenuBarList[3].route!);
+          }
+
           break;
       }
     }
@@ -302,7 +304,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   }
 
   bool isLoadingAllSetting = false;
-  int currentIndex = 0;
+  // int _settingCon.getCurrentTapBottom.value = 0;
 
   @override
   void didChangeDependencies() {
@@ -338,7 +340,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                   bottomNavigationBar: !setting.isHideBottomNavigation &&
                           settingCon.bottomMenuBarList.isNotEmpty
                       ? Container(
-                          height: 90,
+                          height: 92,
+                          width: double.infinity,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -348,12 +351,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: setting.bottomMenuBarList
                                 .asMap()
                                 .entries
                                 .map((navigation) {
-                              if (navigation.key == 3) {
+                              if (navigation.key == 3 &&
+                                  !_settingCon.isAMMode!) {
                                 return CustomFocusedMenuHolder(
                                   animateMenuItems: false,
                                   menuBoxDecoration: const BoxDecoration(
@@ -406,36 +411,42 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                   ],
                                   onPressed: () {
                                     setState(() {
-                                      currentIndex = navigation.key;
+                                      _settingCon.getCurrentTapBottom.value =
+                                          navigation.key;
+
                                       debugPrint(
-                                          'indx=${currentIndex == navigation.key}');
-                                      _onItemTapped(currentIndex, context);
+                                          'indx=${_settingCon.getCurrentTapBottom.value == navigation.key}');
+                                      _onItemTapped(
+                                          _settingCon.getCurrentTapBottom.value,
+                                          context);
                                     });
                                   },
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 12, bottom: 4),
+                                            top: 12, bottom: 3),
                                         child: SizedBox(
-                                          width: 23,
-                                          height: 23,
+                                          width: 20,
+                                          height: 20,
                                           // color: Colors.blue,
                                           child: _calculateSelectedIndex(
                                                       context) ==
                                                   navigation.key
                                               ? SvgPicture.network(
                                                   navigation.value.activeIcon!,
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.contain,
                                                   color: Theme.of(context)
                                                       .primaryColor,
                                                 )
                                               : SvgPicture.network(
                                                   navigation.value.icon!,
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.contain,
                                                   color:
                                                       const Color(0XFF848F92),
                                                 ),
@@ -453,10 +464,12 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                                     .unselectedItemColor,
                                             fontSize: 12,
                                             fontFamily: "DM Sans",
-                                            fontWeight:
-                                                currentIndex == navigation.key
-                                                    ? FontWeight.w700
-                                                    : FontWeight.w500),
+                                            fontWeight: _settingCon
+                                                        .getCurrentTapBottom
+                                                        .value ==
+                                                    navigation.key
+                                                ? FontWeight.w700
+                                                : FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -466,34 +479,39 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                   onTap: () async {
                                     debugPrint('idx=${navigation.key}');
                                     setState(() {
-                                      currentIndex = navigation.key;
+                                      _settingCon.getCurrentTapBottom.value =
+                                          navigation.key;
                                     });
-                                    _onItemTapped(currentIndex, context);
+                                    _onItemTapped(
+                                        _settingCon.getCurrentTapBottom.value,
+                                        context);
                                   },
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 12, bottom: 4),
+                                            top: 12, bottom: 0),
                                         child: SizedBox(
-                                          width: 23,
-                                          height: 23,
+                                          width: navigation.key == 2 ? 19 : 24,
+                                          height: navigation.key == 2 ? 24 : 24,
                                           // color: Colors.blue,
                                           child: _calculateSelectedIndex(
                                                       context) ==
                                                   navigation.key
                                               ? SvgPicture.network(
                                                   navigation.value.activeIcon!,
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.contain,
                                                   color: Theme.of(context)
                                                       .primaryColor,
                                                 )
                                               : SvgPicture.network(
                                                   navigation.value.icon!,
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.contain,
                                                   color:
                                                       const Color(0XFF848F92),
                                                 ),
@@ -515,7 +533,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                                         context) ==
                                                     navigation.key
                                                 ? FontWeight.w700
-                                                : FontWeight.w500),
+                                                : FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -524,8 +542,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                             }).toList(),
                           ),
                         )
-
-                      //  BottomNavigationBar(
+                      // BottomNavigationBar(
                       //   type: BottomNavigationBarType.fixed,
                       //   selectedFontSize: 12,
                       //   unselectedFontSize: 12,
@@ -589,19 +606,21 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                       //       ),
                       //     );
                       //   }).toList(),
-                      //   // currentIndex: _settingCon.selectedIndex,
+                      //   // _settingCon.getCurrentTapBottom.value: _settingCon.selectedIndex,
                       //   unselectedItemColor: Theme.of(context)
                       //       .bottomNavigationBarTheme
                       //       .unselectedItemColor,
-                      //   selectedItemColor: Theme.of(context).primaryColor,
+                      //   selectedItemColor:
+                      //       Theme.of(context).primaryColor,
 
                       //   // onTap: _settingCon.onTap,
-                      //   currentIndex: _calculateSelectedIndex(context),
+                      //   _settingCon.getCurrentTapBottom.value: _calculateSelectedIndex(context),
 
                       //   onTap: (int idx) => _onItemTapped(idx, context),
-                      // )
+                      // ),
+
                       : null,
-                  backgroundColor: AppColor.backgroundColor,
+                  backgroundColor: Colors.white,
                   body: widget.child,
                 ),
               ),

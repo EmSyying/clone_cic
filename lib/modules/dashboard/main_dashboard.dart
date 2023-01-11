@@ -537,6 +537,8 @@ class _MainDashboardState extends State<MainDashboard> {
 
                                           context.go('/switch-splash-screen/qm',
                                               extra: offset);
+                                          _settingCon
+                                              .getCurrentTapBottom.value = 0;
                                         },
                                   child: Container(
                                       color: Colors.transparent,
@@ -560,11 +562,15 @@ class _MainDashboardState extends State<MainDashboard> {
                                   onTap: _settingCon.isAMMode!
                                       ? null
                                       : () {
+                                          _settingCon
+                                              .getCurrentTapBottom.value = 0;
                                           Navigator.pop(context);
                                           Offset offset =
                                               getWidgetInfo(widgetKey);
                                           context.go('/switch-splash-screen/am',
                                               extra: offset);
+                                          _settingCon
+                                              .getCurrentTapBottom.value = 0;
                                         },
                                   child: Container(
                                       color: Colors.transparent,
