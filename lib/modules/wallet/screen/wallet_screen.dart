@@ -338,6 +338,7 @@ class _WalletScreenState extends State<WalletScreen>
                                               GlobalKey(),
                                           ontap: () {
                                             _walletController.onClearExchange();
+
                                             context
                                                 .push('$route/point-exchange');
                                           },

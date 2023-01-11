@@ -64,6 +64,10 @@ mixin _$PrivilegeShopModel {
   String? get contactEmail => throw _privateConstructorUsedError;
   @JsonKey(name: 'telegram_link')
   String? get telegramLink => throw _privateConstructorUsedError;
+  @JsonKey(name: 'receiver_account_name')
+  String? get receiverAccountname => throw _privateConstructorUsedError;
+  @JsonKey(name: 'receiver_account_number')
+  String? get receiverAccountnumber => throw _privateConstructorUsedError;
   num? get latitude => throw _privateConstructorUsedError;
   num? get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'discount_period')
@@ -139,6 +143,10 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
           String? contactEmail,
       @JsonKey(name: 'telegram_link')
           String? telegramLink,
+      @JsonKey(name: 'receiver_account_name')
+          String? receiverAccountname,
+      @JsonKey(name: 'receiver_account_number')
+          String? receiverAccountnumber,
       num? latitude,
       num? longitude,
       @JsonKey(name: 'discount_period')
@@ -195,6 +203,8 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
     Object? contactMobile = freezed,
     Object? contactEmail = freezed,
     Object? telegramLink = freezed,
+    Object? receiverAccountname = freezed,
+    Object? receiverAccountnumber = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? discountPeriod = freezed,
@@ -305,6 +315,14 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
           ? _value.telegramLink
           : telegramLink // ignore: cast_nullable_to_non_nullable
               as String?,
+      receiverAccountname: freezed == receiverAccountname
+          ? _value.receiverAccountname
+          : receiverAccountname // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverAccountnumber: freezed == receiverAccountnumber
+          ? _value.receiverAccountnumber
+          : receiverAccountnumber // ignore: cast_nullable_to_non_nullable
+              as String?,
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -410,6 +428,10 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
           String? contactEmail,
       @JsonKey(name: 'telegram_link')
           String? telegramLink,
+      @JsonKey(name: 'receiver_account_name')
+          String? receiverAccountname,
+      @JsonKey(name: 'receiver_account_number')
+          String? receiverAccountnumber,
       num? latitude,
       num? longitude,
       @JsonKey(name: 'discount_period')
@@ -464,6 +486,8 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
     Object? contactMobile = freezed,
     Object? contactEmail = freezed,
     Object? telegramLink = freezed,
+    Object? receiverAccountname = freezed,
+    Object? receiverAccountnumber = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? discountPeriod = freezed,
@@ -574,6 +598,14 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
           ? _value.telegramLink
           : telegramLink // ignore: cast_nullable_to_non_nullable
               as String?,
+      receiverAccountname: freezed == receiverAccountname
+          ? _value.receiverAccountname
+          : receiverAccountname // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverAccountnumber: freezed == receiverAccountnumber
+          ? _value.receiverAccountnumber
+          : receiverAccountnumber // ignore: cast_nullable_to_non_nullable
+              as String?,
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -674,6 +706,10 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
           this.contactEmail,
       @JsonKey(name: 'telegram_link')
           this.telegramLink,
+      @JsonKey(name: 'receiver_account_name')
+          this.receiverAccountname,
+      @JsonKey(name: 'receiver_account_number')
+          this.receiverAccountnumber,
       this.latitude,
       this.longitude,
       @JsonKey(name: 'discount_period')
@@ -775,6 +811,12 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   @JsonKey(name: 'telegram_link')
   final String? telegramLink;
   @override
+  @JsonKey(name: 'receiver_account_name')
+  final String? receiverAccountname;
+  @override
+  @JsonKey(name: 'receiver_account_number')
+  final String? receiverAccountnumber;
+  @override
   final num? latitude;
   @override
   final num? longitude;
@@ -821,7 +863,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
 
   @override
   String toString() {
-    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, discountBgColorEnd: $discountBgColorEnd, pointAccepted: $pointAccepted, currentPoint: $currentPoint, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, logo: $logo, thumbnail: $thumbnail, cover: $cover, contacts: $contacts, galleries: $galleries)';
+    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, discountBgColorEnd: $discountBgColorEnd, pointAccepted: $pointAccepted, currentPoint: $currentPoint, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, receiverAccountname: $receiverAccountname, receiverAccountnumber: $receiverAccountnumber, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, logo: $logo, thumbnail: $thumbnail, cover: $cover, contacts: $contacts, galleries: $galleries)';
   }
 
   @override
@@ -875,6 +917,10 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
                 other.contactEmail == contactEmail) &&
             (identical(other.telegramLink, telegramLink) ||
                 other.telegramLink == telegramLink) &&
+            (identical(other.receiverAccountname, receiverAccountname) ||
+                other.receiverAccountname == receiverAccountname) &&
+            (identical(other.receiverAccountnumber, receiverAccountnumber) ||
+                other.receiverAccountnumber == receiverAccountnumber) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -926,6 +972,8 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
         contactMobile,
         contactEmail,
         telegramLink,
+        receiverAccountname,
+        receiverAccountnumber,
         latitude,
         longitude,
         discountPeriod,
@@ -1001,6 +1049,10 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
           final String? contactEmail,
       @JsonKey(name: 'telegram_link')
           final String? telegramLink,
+      @JsonKey(name: 'receiver_account_name')
+          final String? receiverAccountname,
+      @JsonKey(name: 'receiver_account_number')
+          final String? receiverAccountnumber,
       final num? latitude,
       final num? longitude,
       @JsonKey(name: 'discount_period')
@@ -1090,6 +1142,12 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
   @override
   @JsonKey(name: 'telegram_link')
   String? get telegramLink;
+  @override
+  @JsonKey(name: 'receiver_account_name')
+  String? get receiverAccountname;
+  @override
+  @JsonKey(name: 'receiver_account_number')
+  String? get receiverAccountnumber;
   @override
   num? get latitude;
   @override

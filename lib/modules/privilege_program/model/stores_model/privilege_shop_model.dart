@@ -33,6 +33,8 @@ class PrivilegeShopModel with _$PrivilegeShopModel {
     @JsonKey(name: 'contact_mobile') String? contactMobile,
     @JsonKey(name: 'contact_email') String? contactEmail,
     @JsonKey(name: 'telegram_link') String? telegramLink,
+    @JsonKey(name: 'receiver_account_name') String? receiverAccountname,
+    @JsonKey(name: 'receiver_account_number') String? receiverAccountnumber,
     num? latitude,
     num? longitude,
     @JsonKey(name: 'discount_period') int? discountPeriod,

@@ -266,6 +266,21 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                               .toString(),
                                           onTap: () {
                                             //context.push('/qr-screen');
+                                            priController.onClearRedeemToMVP();
+                                            priController.shopStoreId.value =
+                                                priController
+                                                    .shopDetailModel.value.id!
+                                                    .toInt();
+                                            priController.receiveAccountNumber
+                                                    .value =
+                                                priController
+                                                    .shopDetailModel
+                                                    .value
+                                                    .receiverAccountnumber!;
+                                            priController
+                                                    .receiveAccountname.value =
+                                                priController.shopDetailModel
+                                                    .value.receiverAccountname!;
                                             context.push(
                                                 '/profile/setting/privilege/all-store/redeem-point-to-pay');
                                           },

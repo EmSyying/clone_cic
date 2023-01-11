@@ -31,7 +31,7 @@ class WalletExchange extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              context.push('/profile/setting/privilege/all-store/point-screen');
+              context.go('/profile/setting/privilege/all-store/point-screen');
             },
             child: Stack(
               children: [

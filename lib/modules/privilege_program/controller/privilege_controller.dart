@@ -546,4 +546,101 @@ class PrivilegeController extends GetxController {
       },
     );
   }
+
+  // Redeem MVP
+  final isRedeemToMVPReview = false.obs;
+  final shopStoreId = 0.obs;
+  final amountToRedeem = 0.0.obs;
+  final receiveAccountNumber = ''.obs;
+  final receiveAccountname = ''.obs;
+  final remark = ''.obs;
+  // Validate varriable
+  final isRedeemToVerifyAccountValidateMessage = ''.obs;
+  final isRedeemToVerifyAccountValidate = true.obs;
+  onClearRedeemToMVP() {
+    isRedeemToVerifyAccountValidateMessage.value = '';
+    isRedeemToVerifyAccountValidate.value = true;
+  }
+
+  // Verify Account
+  Future<void> onRedeemToVerifyAccount(BuildContext context) async {
+    isRedeemToMVPReview(true);
+    debugPrint("receiveAccountNumber.value:${receiveAccountNumber.value}");
+
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+        url: 'wallet/verify/Account',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'receiver_number': receiveAccountNumber.value,
+        },
+      ).then((response) {
+        debugPrint("Redeem to pay:$response");
+
+        isRedeemToMVPReview(false);
+        isRedeemToVerifyAccountValidate(true);
+
+        update();
+      }).onError((ErrorModel error, stackTrace) {
+        debugPrint("redeem Error:${error.bodyString}");
+
+        isRedeemToVerifyAccountValidate.value = false;
+
+        isRedeemToVerifyAccountValidateMessage.value =
+            error.bodyString['message'] ?? '';
+        isRedeemToMVPReview(false);
+        update();
+      });
+    } catch (e) {
+      isRedeemToMVPReview(false);
+      debugPrint("on redeem:$e");
+    } finally {
+      isRedeemToMVPReview(false);
+      // isRedeemValidateLoading(true);
+    }
+  }
+
+  // Review Redeem To MVP
+  dynamic amountToPay;
+  Future<void> onRedeemToMVPReview(BuildContext context) async {
+    isRedeemToMVPReview(true);
+
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+        url: 'privilege/preview/redeem-mvp',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'shop_id': shopStoreId.value,
+          'amount': amountToRedeem.value,
+          'receiver_account_number': receiveAccountNumber.value,
+          'remark': remark.value
+        },
+      ).then((response) {
+        debugPrint("Review Redeem to MVP:$response");
+        receiveAccountname.value = response['account_name'];
+        receiveAccountNumber.value = response['account_number'];
+        amountToPay = response['amount_to_pay'];
+
+        isRedeemToMVPReview(false);
+        // isRedeemValidateLoading(true);
+
+        update();
+      }).onError((ErrorModel error, stackTrace) {
+        debugPrint("redeem Error:${error.bodyString}");
+        isRedeemToMVPReview(false);
+        // isRedeemValidateLoading(false);
+
+        isRedeemToVerifyAccountValidate.value =
+            error.bodyString['message'] ?? '';
+        update();
+      });
+    } catch (e) {
+      isRedeemToMVPReview(false);
+      debugPrint("on redeem:$e");
+    } finally {
+      isRedeemToMVPReview(false);
+    }
+  }
 }
