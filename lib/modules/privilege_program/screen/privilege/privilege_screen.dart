@@ -100,7 +100,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        context.go(
+                        context.push(
                             '/profile/setting/privilege/all-store/point-screen');
                       },
                       child: Container(
