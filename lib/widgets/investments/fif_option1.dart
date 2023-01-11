@@ -15,7 +15,6 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../Utils/chart/custom_circle_chart_1_3.dart';
-import '../../Utils/helper/app_pin_code.dart' as apppincode;
 import '../../Utils/helper/firebase_analytics.dart';
 import '../../Utils/pop_up_alert/show_alert_dialog.dart';
 
@@ -176,7 +175,7 @@ class _FIFOption1State extends State<FIFOption1> {
                           FirebaseAnalyticsHelper.sendAnalyticsEvent(
                               'Submit create fif application');
                           debugPrint("is slide work1");
-                          fifController.onCreateFiF(
+                          await fifController.onCreateFiF(
                               id: widget.id, buildcontext: context);
                           // apppincode
                           //     .showLockScreen(
@@ -217,18 +216,20 @@ class _FIFOption1State extends State<FIFOption1> {
                         debugPrint("is slide work2");
                         FirebaseAnalyticsHelper.sendAnalyticsEvent(
                             'Submit create fif application');
+                        await fifController.onCreateFiF(
+                            id: widget.id, buildcontext: context);
 
-                        await apppincode
-                            .showLockScreen(
-                                enableCancel: true, context: context)
-                            .then((value) async {
-                          if (value) {
-                            debugPrint('Make Request');
+                        // await apppincode
+                        //     .showLockScreen(
+                        //         enableCancel: true, context: context)
+                        //     .then((value) async {
+                        //   if (value) {
+                        //     debugPrint('Make Request');
 
-                            await fifController.onCreateFiF(
-                                id: widget.id, buildcontext: context);
-                          }
-                        });
+                        //     await fifController.onCreateFiF(
+                        //         id: widget.id, buildcontext: context);
+                        //   }
+                        // });
                       },
                       fromPage: widget.id != null ? 'from edit' : 'from submit',
                       titles: 'Fixed Income Fund',
@@ -260,16 +261,18 @@ class _FIFOption1State extends State<FIFOption1> {
                   debugPrint("is slide work3");
                   FirebaseAnalyticsHelper.sendAnalyticsEvent(
                       'Submit create fif application');
+                  await fifController.onCreateFiF(
+                      id: widget.id, buildcontext: context);
 
-                  await apppincode
-                      .showLockScreen(enableCancel: true, context: context)
-                      .then((value) {
-                    if (value) {
-                      debugPrint('Make Request');
-                      fifController.onCreateFiF(
-                          id: widget.id, buildcontext: context);
-                    }
-                  });
+                  // await apppincode
+                  //     .showLockScreen(enableCancel: true, context: context)
+                  //     .then((value) {
+                  //   if (value) {
+                  //     debugPrint('Make Request');
+                  //     fifController.onCreateFiF(
+                  //         id: widget.id, buildcontext: context);
+                  //   }
+                  // });
                 },
                 fromPage: widget.id != null ? 'from edit' : 'from submit',
                 titles: 'Fixed Income Fund',

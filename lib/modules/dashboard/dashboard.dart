@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/history_appbar.dart';
@@ -13,6 +14,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 
+import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/helper/custom_appbar.dart';
 import '../../Utils/offline_widget.dart';
 import '../../configs/route_configuration/route.dart';
@@ -37,6 +39,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   final cusController = Get.put(CustomerController());
   final priceController = Get.put(PriceController());
   final _guidkey = Get.put(CiCGuidController());
+  final _settingCon = Get.put(SettingController());
 
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
@@ -102,6 +105,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    settingCon.isHideBottomNavigation = true;
+
     // priceController.onHideFeatureByUser();
     debugPrint("Tab name:${widget.tabName}");
     priceController.tapcurrentIndex(0);
@@ -302,9 +307,19 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                       SizedBox(
                         height: 100,
                         child: CustomAppBar(
-                            isLeading: true,
+                            // isLeading: true,
                             isLogo: false,
                             context: context,
+                            leading: GestureDetector(
+                              onTap: () {
+                                context.pop();
+                                settingCon.isHideBottomNavigation = false;
+                                settingCon.update();
+                              },
+                              child: Icon(Platform.isAndroid
+                                  ? Icons.arrow_back
+                                  : Icons.arrow_back_ios),
+                            ),
                             action: [
                               //  isContract == true
 
