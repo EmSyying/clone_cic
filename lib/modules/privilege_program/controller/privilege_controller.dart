@@ -672,7 +672,8 @@ class PrivilegeController extends GetxController {
           },
           extra: {
             'onPressedButton': () {
-              context.go('/wallet');
+              context.go(
+                  "/profile/setting/privilege/all-store/privilege-detail/${shopStoreId.value}");
             },
           },
         );
