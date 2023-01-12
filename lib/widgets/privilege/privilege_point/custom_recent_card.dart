@@ -1,142 +1,196 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../Utils/helper/color.dart';
 import '../../../modules/wallet/model/exchange_point_transaction.dart/recent_activities.dart';
 
 class CustomRecentCard extends StatelessWidget {
   final RecentActivities? recentActivities;
-
   const CustomRecentCard({super.key, this.recentActivities});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
-      width: double.infinity,
-      height: 120,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 0),
-              spreadRadius: 3,
-              blurRadius: 5,
-              color: Colors.grey[200]!),
-        ],
-      ),
-      child: Row(
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: 100,
-                height: double.infinity,
-                margin: const EdgeInsets.only(
-                    left: 10, top: 10, bottom: 10, right: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    recentActivities!.shopLogo ?? "",
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          padding: const EdgeInsets.only(
+            left: 10.0,
+            top: 10.0,
+            bottom: 10.0,
+          ),
+          width: double.infinity,
+          height: 104,
+          decoration: BoxDecoration(
+            color: AppColor.arrowforwardColor['dark'],
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[600]!.withOpacity(0.1),
+                spreadRadius: 0.1,
+                blurRadius: 5,
+                offset: const Offset(0, 1),
               ),
             ],
           ),
-          Container(
-            width: 180,
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  recentActivities!.shopName ?? "",
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                width: 84,
+                height: 84,
+                padding: const EdgeInsets.all(0.0),
+                decoration: BoxDecoration(
+                    color: AppColor.secondaryColor,
+                    borderRadius: BorderRadius.circular(5.0),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        recentActivities!.shopLogo ?? '',
                       ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Spacer(),
-                Text(
-                  recentActivities!.date ?? "",
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  recentActivities!.amount ?? '',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                    )),
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        recentActivities!.shopName ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
                       ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        recentActivities!.description ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff848F92),
+                            ),
+                      ),
+                      const SizedBox(
+                        height: 3.0,
+                      ),
+                      Text(
+                        recentActivities!.date ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                              fontWeight: FontWeight.w300,
+                              color: const Color(0xff464646),
+                              letterSpacing: 0.2,
+                            ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        recentActivities!.amount ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
+              Column(
+                children: [
+                  Text(
+                    recentActivities!.code ?? '',
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          color: const Color(0xff464646),
+                          letterSpacing: 0.2,
+                        ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    height: 20,
+                    padding: const EdgeInsets.only(left: 2.0, right: 2.0),
+                    decoration: const BoxDecoration(
+                      gradient:
+                          LinearGradient(begin: Alignment.centerLeft, colors: [
+                        Color.fromRGBO(255, 200, 55, 1),
+                        Color.fromRGBO(255, 128, 8, 1),
+                      ]),
+                    ),
+                    child: Center(
+                      child: Row(
+                        children: [
+                          Text(
+                            recentActivities!.pointAmount != null
+                                ? recentActivities!.pointAmount.toString()
+                                : "",
+                            style:
+                                Theme.of(context).textTheme.headline6!.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          SvgPicture.asset(
+                            'assets/images/svgfile/Union.svg',
+                            width: 15,
+                            height: 15,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          left: 30.0,
+          bottom: 26.0,
+          child: Container(
+            height: 16,
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(234, 63, 78, 163),
+                  Color.fromARGB(234, 53, 137, 232),
+                ],
+              ),
+            ),
+            child: Text(
+              '${recentActivities!.label}',
+              style: Theme.of(context).textTheme.headline5!.copyWith(
+                fontWeight: FontWeight.w500,
+                fontSize: 8,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(0.0, 1),
+                    blurRadius: 10.0,
+                    color: Colors.black.withOpacity(0.2),
+                  ),
+                ],
+              ),
             ),
           ),
-          const Spacer(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                child: Text(
-                  recentActivities!.code ?? "",
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-                margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xffF9D423), Color(0xffE65C00)],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      recentActivities!.pointAmount != null
-                          ? recentActivities!.pointAmount.toString()
-                          : "",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SvgPicture.asset(
-                      'assets/images/svgfile/Union.svg',
-                      width: 15,
-                      height: 15,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class CustomTransactionPoint extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 130,
+          height: 112,
           margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
           width: double.infinity,
           decoration: BoxDecoration(
@@ -66,7 +67,7 @@ class CustomTransactionPoint extends StatelessWidget {
                                     .copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w900,
-                                      fontSize: 26,
+                                      fontSize: 25,
                                     ),
                               ),
                             ),
@@ -88,22 +89,18 @@ class CustomTransactionPoint extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 5.0,
                       ),
-                      SizedBox(
-                        child: Text(
-                          exchangePointTransaction!.description ?? "",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                  overflow: TextOverflow.visible),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
+                      Text(
+                        exchangePointTransaction!.description ?? "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14.0,
+                              color: AppColor.darkColor,
+                            ),
                       ),
                       const Spacer(),
                       Text(
