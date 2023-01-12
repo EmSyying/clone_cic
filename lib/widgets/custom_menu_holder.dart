@@ -11,11 +11,15 @@ class CustomFocusedMenuHolder extends StatefulWidget {
   final bool? animateMenuItems;
   final BoxDecoration? menuBoxDecoration;
   final Function onPressed;
+  final Function? onPop;
   final Duration? duration;
   final double? blurSize;
   final Color? blurBackgroundColor;
   final double? bottomOffsetHeight;
   final double? menuOffset;
+  final double? sizeHeightActive;
+  final double? sizeWidthActive;
+  final Widget? childInActive;
 
   /// Open with tap insted of long press.
   final bool openWithTap;
@@ -26,6 +30,8 @@ class CustomFocusedMenuHolder extends StatefulWidget {
       required this.onPressed,
       required this.menuItems,
       this.duration,
+      this.onPop,
+      this.childInActive,
       this.menuBoxDecoration,
       this.menuItemExtent,
       this.animateMenuItems,
@@ -34,6 +40,8 @@ class CustomFocusedMenuHolder extends StatefulWidget {
       this.menuWidth,
       this.bottomOffsetHeight,
       this.menuOffset,
+      this.sizeHeightActive,
+      this.sizeWidthActive,
       this.openWithTap = false})
       : super(key: key);
 
@@ -87,6 +95,7 @@ class _FocusedMenuHolderState extends State<CustomFocusedMenuHolder> {
               return FadeTransition(
                   opacity: animation,
                   child: FocusedMenuDetails(
+                    onPop: widget.onPop,
                     itemExtent: widget.menuItemExtent,
                     menuBoxDecoration: widget.menuBoxDecoration,
                     childOffset: childOffset,
@@ -98,6 +107,7 @@ class _FocusedMenuHolderState extends State<CustomFocusedMenuHolder> {
                     animateMenu: widget.animateMenuItems ?? true,
                     bottomOffsetHeight: widget.bottomOffsetHeight ?? 0,
                     menuOffset: widget.menuOffset ?? 0,
+                    childInActive: widget.childInActive,
                     child: widget.child,
                   ));
             },
@@ -119,9 +129,15 @@ class FocusedMenuDetails extends StatelessWidget {
   final Color? blurBackgroundColor;
   final double? bottomOffsetHeight;
   final double? menuOffset;
+  final Function? onPop;
+  final Widget? childInActive;
+  final double? sizeWidthActive;
+  final double? sizeHeightActive;
 
   const FocusedMenuDetails(
       {Key? key,
+      this.onPop,
+      this.childInActive,
       required this.menuItems,
       required this.child,
       required this.childOffset,
@@ -133,6 +149,8 @@ class FocusedMenuDetails extends StatelessWidget {
       required this.blurBackgroundColor,
       required this.menuWidth,
       this.bottomOffsetHeight,
+      this.sizeHeightActive,
+      this.sizeWidthActive,
       this.menuOffset})
       : super(key: key);
 
@@ -160,6 +178,7 @@ class FocusedMenuDetails extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
                 onTap: () {
+                  onPop?.call();
                   Navigator.pop(context);
                 },
                 child: BackdropFilter(
@@ -256,9 +275,9 @@ class FocusedMenuDetails extends StatelessWidget {
                 child: AbsorbPointer(
                     absorbing: true,
                     child: SizedBox(
-                        width: childSize!.width,
-                        height: childSize!.height,
-                        child: child))),
+                        width: sizeWidthActive,
+                        height: sizeHeightActive,
+                        child: childInActive))),
           ],
         ),
       ),

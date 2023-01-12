@@ -169,354 +169,340 @@ class _EventScreenState extends State<EventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onPanDown: (details) {
-        Get.put(SettingController()).getCurrentTapBottom.value = 2;
-      },
-      child: CupertinoScaffold(
-          body: Builder(
-        builder: (BuildContext context) => CupertinoPageScaffold(
-            child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: CustomAppBar(
-            isLogo: false,
-            title: 'Event',
-            elevation: 0,
-            context: context,
-            isLeading: false,
+    return CupertinoScaffold(
+        body: Builder(
+      builder: (BuildContext context) => CupertinoPageScaffold(
+          child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(
+          isLogo: false,
+          title: 'Event',
+          elevation: 0,
+          context: context,
+          isLeading: false,
+        ),
+        body: ConnectivityWidgetWrapper(
+          stacked: false,
+          alignment: Alignment.bottomCenter,
+          offlineWidget: Column(
+            children: const [
+              Expanded(child: OfflineWidget()),
+            ],
           ),
-          body: ConnectivityWidgetWrapper(
-            stacked: false,
-            alignment: Alignment.bottomCenter,
-            offlineWidget: Column(
-              children: const [
-                Expanded(child: OfflineWidget()),
-              ],
-            ),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(14),
-                      bottomRight: Radius.circular(14),
-                    ),
-                    color: Theme.of(context).primaryColor,
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(14),
+                    bottomRight: Radius.circular(14),
                   ),
-                  padding: const EdgeInsets.only(bottom: 25, right: 3),
-                  child: Obx(
-                    () => Row(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            // physics: const ClampingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: _eventController.eventCalendarList
-                                  .asMap()
-                                  .entries
-                                  .map(
-                                    (year) => Padding(
-                                      padding: const EdgeInsets.only(right: 30),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 19.0),
-                                            child: Text(
-                                              year.value.year.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle2!
-                                                  .copyWith(
-                                                      color: const Color(
-                                                              0xffffffff)
-                                                          .withOpacity(0.6),
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                            ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                padding: const EdgeInsets.only(bottom: 25, right: 3),
+                child: Obx(
+                  () => Row(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          // physics: const ClampingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: _eventController.eventCalendarList
+                                .asMap()
+                                .entries
+                                .map(
+                                  (year) => Padding(
+                                    padding: const EdgeInsets.only(right: 30),
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 19.0),
+                                          child: Text(
+                                            year.value.year.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                    color:
+                                                        const Color(0xffffffff)
+                                                            .withOpacity(0.6),
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                           ),
-                                          Row(
-                                            children: year.value.month!
-                                                .asMap()
-                                                .entries
-                                                .map(
-                                                  (month) => Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 19.0),
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        // Move to Page 0
-                                                        if (_pageViewController
-                                                                .page !=
-                                                            0) {
-                                                          _pageViewController
-                                                              .jumpToPage(0);
-                                                        }
+                                        ),
+                                        Row(
+                                          children: year.value.month!
+                                              .asMap()
+                                              .entries
+                                              .map(
+                                                (month) => Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 19.0),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      // Move to Page 0
+                                                      if (_pageViewController
+                                                              .page !=
+                                                          0) {
+                                                        _pageViewController
+                                                            .jumpToPage(0);
+                                                      }
 
-                                                        ///When click on the same month twice not work
-                                                        if (currentSelected !=
-                                                                month.key ||
-                                                            currentYear !=
-                                                                year.value
-                                                                    .year) {
-                                                          setState(() {
-                                                            currentSelected =
-                                                                month.key;
-                                                            currentYear =
-                                                                year.value.year;
+                                                      ///When click on the same month twice not work
+                                                      if (currentSelected !=
+                                                              month.key ||
+                                                          currentYear !=
+                                                              year.value.year) {
+                                                        setState(() {
+                                                          currentSelected =
+                                                              month.key;
+                                                          currentYear =
+                                                              year.value.year;
 
-                                                            yearIndex =
-                                                                year.key;
+                                                          yearIndex = year.key;
 
-                                                            if (year.value
-                                                                        .year ==
-                                                                    today
-                                                                        .year &&
-                                                                month.value
-                                                                        .name ==
-                                                                    FormatDate
-                                                                        .displayMonthOnly(
-                                                                            '${DateTime.now()}')) {
-                                                              isDisplayEventTap =
-                                                                  true;
-                                                              // if user select current month
-                                                              _eventController
-                                                                      .eventDate
-                                                                      .value =
+                                                          if (year.value.year ==
+                                                                  today.year &&
+                                                              month.value
+                                                                      .name ==
                                                                   FormatDate
-                                                                      .investmentDateDropDown(
-                                                                          "${DateTime.now()}");
-                                                            } else {
-                                                              // if user select last month
-                                                              isDisplayEventTap =
-                                                                  false;
-                                                              _eventController
-                                                                      .eventDate
-                                                                      .value =
-                                                                  month.value
-                                                                      .date!;
-                                                            }
-                                                            debugPrint(
-                                                                "isDisplayEventTap:$isDisplayEventTap");
-                                                          });
-
+                                                                      .displayMonthOnly(
+                                                                          '${DateTime.now()}')) {
+                                                            isDisplayEventTap =
+                                                                true;
+                                                            // if user select current month
+                                                            _eventController
+                                                                    .eventDate
+                                                                    .value =
+                                                                FormatDate
+                                                                    .investmentDateDropDown(
+                                                                        "${DateTime.now()}");
+                                                          } else {
+                                                            // if user select last month
+                                                            isDisplayEventTap =
+                                                                false;
+                                                            _eventController
+                                                                    .eventDate
+                                                                    .value =
+                                                                month.value
+                                                                    .date!;
+                                                          }
                                                           debugPrint(
-                                                              "is Pressed on event date");
-
-                                                          _eventController
-                                                              .onRefreshUpCommingEvent(
-                                                                  enableDate:
-                                                                      true);
-                                                        }
+                                                              "isDisplayEventTap:$isDisplayEventTap");
+                                                        });
 
                                                         debugPrint(
-                                                            'DateEvent : ${_eventController.eventDate.value}');
-                                                      },
-                                                      child: Row(
-                                                        children: [
-                                                          Text(
-                                                            month.value.name
-                                                                .toString(),
-                                                            key: month
-                                                                    .value.key =
-                                                                GlobalKey(),
-                                                            style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                                                color: currentSelected ==
-                                                                            month
-                                                                                .key &&
-                                                                        year.value
-                                                                                .year ==
-                                                                            currentYear
-                                                                    ? Colors
-                                                                        .white
-                                                                    : const Color(
-                                                                            0xffffffff)
-                                                                        .withOpacity(
-                                                                            0.6),
-                                                                fontSize: 20,
-                                                                fontWeight: currentSelected ==
-                                                                        month
-                                                                            .key
-                                                                    ? FontWeight
-                                                                        .w500
-                                                                    : FontWeight
-                                                                        .w400),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                            "is Pressed on event date");
+
+                                                        _eventController
+                                                            .onRefreshUpCommingEvent(
+                                                                enableDate:
+                                                                    true);
+                                                      }
+
+                                                      debugPrint(
+                                                          'DateEvent : ${_eventController.eventDate.value}');
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          month.value.name
+                                                              .toString(),
+                                                          key: month.value.key =
+                                                              GlobalKey(),
+                                                          style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                                              color: currentSelected ==
+                                                                          month
+                                                                              .key &&
+                                                                      year.value
+                                                                              .year ==
+                                                                          currentYear
+                                                                  ? Colors.white
+                                                                  : const Color(
+                                                                          0xffffffff)
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  currentSelected ==
+                                                                          month
+                                                                              .key
+                                                                      ? FontWeight
+                                                                          .w500
+                                                                      : FontWeight
+                                                                          .w400),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                )
-                                                .toList(),
-                                          ),
-                                        ],
-                                      ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ],
                                     ),
-                                  )
-                                  .toList(),
-                            ),
+                                  ),
+                                )
+                                .toList(),
                           ),
                         ),
-                        // const SizedBox(width: 50),
-                        IconButton(
-                          color: Colors.white,
-                          onPressed: () {
-                            // Move to Page 0
-                            if (_pageViewController.page != 0) {
-                              _pageViewController.jumpToPage(0);
-                            }
-                            if (currentSelected != null &&
-                                currentYear != null) {
-                              ///Month Index Handler
-                              if (_eventController.eventCalendarList[yearIndex!]
-                                          .month!.length -
-                                      1 ==
-                                  currentSelected) {
-                                debugPrint('Work on SUM 1');
-                                currentSelected = 0;
+                      ),
+                      // const SizedBox(width: 50),
+                      IconButton(
+                        color: Colors.white,
+                        onPressed: () {
+                          // Move to Page 0
+                          if (_pageViewController.page != 0) {
+                            _pageViewController.jumpToPage(0);
+                          }
+                          if (currentSelected != null && currentYear != null) {
+                            ///Month Index Handler
+                            if (_eventController.eventCalendarList[yearIndex!]
+                                        .month!.length -
+                                    1 ==
+                                currentSelected) {
+                              debugPrint('Work on SUM 1');
+                              currentSelected = 0;
 
-                                ///Year Index Handler
-                                if (yearIndex! <
-                                    _eventController.eventCalendarList.length -
-                                        1) {
-                                  debugPrint('Work on SUM 2');
-                                  yearIndex = yearIndex! + 1;
-                                } else {
-                                  debugPrint('Work on SUM 3');
-                                  yearIndex = 0;
-                                }
+                              ///Year Index Handler
+                              if (yearIndex! <
+                                  _eventController.eventCalendarList.length -
+                                      1) {
+                                debugPrint('Work on SUM 2');
+                                yearIndex = yearIndex! + 1;
                               } else {
-                                currentSelected = currentSelected! + 1;
+                                debugPrint('Work on SUM 3');
+                                yearIndex = 0;
                               }
+                            } else {
+                              currentSelected = currentSelected! + 1;
                             }
+                          }
 
-                            currentYear = _eventController
-                                .eventCalendarList[yearIndex!].year;
-                            setState(() {});
+                          currentYear = _eventController
+                              .eventCalendarList[yearIndex!].year;
+                          setState(() {});
 
-                            Scrollable.ensureVisible(
-                              _eventController
+                          Scrollable.ensureVisible(
+                            _eventController.eventCalendarList[yearIndex!]
+                                .month![currentSelected!].key!.currentContext!,
+                            alignment: 0.5,
+                            duration: const Duration(milliseconds: 500),
+                          );
+
+                          if (currentYear == today.year &&
+                              currentSelected! + 1 == today.month) {
+                            isDisplayEventTap = true;
+                          } else {
+                            isDisplayEventTap = false;
+                          }
+
+                          _eventController.eventDate.value = _eventController
                                   .eventCalendarList[yearIndex!]
                                   .month![currentSelected!]
-                                  .key!
-                                  .currentContext!,
-                              alignment: 0.5,
-                              duration: const Duration(milliseconds: 500),
-                            );
+                                  .date ??
+                              '';
 
-                            if (currentYear == today.year &&
-                                currentSelected! + 1 == today.month) {
-                              isDisplayEventTap = true;
+                          _eventController.onRefreshUpCommingEvent(
+                              enableDate: true);
+                        },
+                        icon: const Icon(Icons.arrow_forward_ios_rounded),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              // const DynamicEvent(),
+              Expanded(
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (notification) {
+                    if (notification.metrics.pixels ==
+                        notification.metrics.maxScrollExtent) {
+                      onFetchMoreData();
+                    } else {}
+                    return false;
+                  },
+                  child: Column(
+                    children: [
+                      if (isDisplayEventTap == true)
+                        Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 10.0),
+                          child: CupertinoSlidingSegmentedControl(
+                              groupValue: segmentedControlValue,
+                              backgroundColor:
+                                  const Color(0xff252552).withOpacity(0.1),
+                              children: const <int, Widget>{
+                                0: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text('Up Coming'),
+                                ),
+                                1: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text('Past Events'),
+                                ),
+                              },
+                              onValueChanged: (int? e) {
+                                setState(() {
+                                  segmentedControlValue = e!;
+                                  _pageViewController.animateToPage(
+                                      segmentedControlValue,
+                                      duration:
+                                          const Duration(microseconds: 200),
+                                      curve: Curves.fastOutSlowIn);
+                                  if (segmentedControlValue == 1) {
+                                    _eventController.getPastEvent(
+                                        _customerController
+                                            .customer.value.customerId!);
+                                  }
+                                });
+                              }),
+                        ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: PageView(
+                          physics: isDisplayEventTap == true
+                              ? const ScrollPhysics()
+                              : const NeverScrollableScrollPhysics(),
+                          controller: _pageViewController,
+                          onPageChanged: (value) {
+                            if (_pageViewController.page == 0) {
+                              FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                  'up coming');
                             } else {
-                              isDisplayEventTap = false;
+                              FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                  'past events');
                             }
 
-                            _eventController.eventDate.value = _eventController
-                                    .eventCalendarList[yearIndex!]
-                                    .month![currentSelected!]
-                                    .date ??
-                                '';
-
-                            _eventController.onRefreshUpCommingEvent(
-                                enableDate: true);
-                          },
-                          icon: const Icon(Icons.arrow_forward_ios_rounded),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                // const DynamicEvent(),
-                Expanded(
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (notification) {
-                      if (notification.metrics.pixels ==
-                          notification.metrics.maxScrollExtent) {
-                        onFetchMoreData();
-                      } else {}
-                      return false;
-                    },
-                    child: Column(
-                      children: [
-                        if (isDisplayEventTap == true)
-                          Container(
-                            width: double.infinity,
-                            margin: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, top: 10.0),
-                            child: CupertinoSlidingSegmentedControl(
-                                groupValue: segmentedControlValue,
-                                backgroundColor:
-                                    const Color(0xff252552).withOpacity(0.1),
-                                children: const <int, Widget>{
-                                  0: Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text('Up Coming'),
-                                  ),
-                                  1: Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text('Past Events'),
-                                  ),
-                                },
-                                onValueChanged: (int? e) {
-                                  setState(() {
-                                    segmentedControlValue = e!;
-                                    _pageViewController.animateToPage(
-                                        segmentedControlValue,
-                                        duration:
-                                            const Duration(microseconds: 200),
-                                        curve: Curves.fastOutSlowIn);
-                                    if (segmentedControlValue == 1) {
-                                      _eventController.getPastEvent(
-                                          _customerController
-                                              .customer.value.customerId!);
-                                    }
-                                  });
-                                }),
-                          ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Expanded(
-                          child: PageView(
-                            physics: isDisplayEventTap == true
-                                ? const ScrollPhysics()
-                                : const NeverScrollableScrollPhysics(),
-                            controller: _pageViewController,
-                            onPageChanged: (value) {
-                              if (_pageViewController.page == 0) {
-                                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                    'up coming');
-                              } else {
-                                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                    'past events');
+                            segmentedControlValue = value;
+                            setState(() {
+                              if (value == 1) {
+                                _eventController.getPastEvent(
+                                    _customerController
+                                        .customer.value.customerId!);
                               }
-
-                              segmentedControlValue = value;
-                              setState(() {
-                                if (value == 1) {
-                                  _eventController.getPastEvent(
-                                      _customerController
-                                          .customer.value.customerId!);
-                                }
-                              });
-                            },
-                            children: transactionPage,
-                          ),
+                            });
+                          },
+                          children: transactionPage,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        )),
+        ),
       )),
-    );
+    ));
   }
 }
 

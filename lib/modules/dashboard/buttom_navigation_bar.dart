@@ -35,7 +35,7 @@ class PaymentSchedule extends StatefulWidget {
 class _PaymentScheduleState extends State<PaymentSchedule> {
   final settingCon = Get.put(SettingController());
   final priceCon = Get.put(PriceController());
-  bool isShowBottomBar = true;
+  bool isShowBottomBar = false;
   int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
     debugPrint("Location: $location");
@@ -83,14 +83,17 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         case 0:
           // settingCon.onCheckAuthentication();
           GoRouter.of(context).go(settingCon.bottomMenuBarList[0].route!);
+          debugPrint(settingCon.bottomMenuBarList[0].route!);
           break;
         case 1:
           _settingCon.onHideBottomNavigationBar(true);
           GoRouter.of(context).go(settingCon.bottomMenuBarList[1].route!);
+          debugPrint(settingCon.bottomMenuBarList[1].route!);
           break;
         case 2:
           // settingCon.onCheckAuthentication();
           GoRouter.of(context).go(settingCon.bottomMenuBarList[2].route!);
+          debugPrint(settingCon.bottomMenuBarList[2].route!);
           break;
         case 3:
           debugPrint('Test Click Profile');
@@ -360,13 +363,18 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                               if (navigation.key == 3 &&
                                   !_settingCon.isAMMode!) {
                                 return CustomFocusedMenuHolder(
+                                  onPop: () {
+                                    setState(() {
+                                      isShowBottomBar = false;
+                                    });
+                                  },
                                   animateMenuItems: false,
                                   menuBoxDecoration: const BoxDecoration(
                                     color: Colors.transparent,
                                   ),
                                   blurBackgroundColor:
                                       const Color(0xffE1E1E1).withOpacity(0.5),
-                                  blurSize: 5,
+                                  blurSize: 20,
                                   openWithTap: true,
                                   menuItems: <CustomFocusedMenuItem>[
                                     CustomFocusedMenuItem(
@@ -411,16 +419,51 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                   ],
                                   onPressed: () {
                                     setState(() {
-                                      _settingCon.getCurrentTapBottom.value =
-                                          navigation.key;
+                                      isShowBottomBar = true;
+                                      //   _settingCon.getCurrentTapBottom.value =
+                                      //       navigation.key;
 
-                                      debugPrint(
-                                          'indx=${_settingCon.getCurrentTapBottom.value == navigation.key}');
-                                      _onItemTapped(
-                                          _settingCon.getCurrentTapBottom.value,
-                                          context);
+                                      //   debugPrint(
+                                      //       'indx=${_settingCon.getCurrentTapBottom.value == navigation.key}');
+                                      //   _onItemTapped(
+                                      //       _settingCon.getCurrentTapBottom.value,
+                                      //       context);
                                     });
                                   },
+                                  childInActive: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 15, bottom: 3),
+                                        child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            // color: Colors.blue,
+                                            child: SvgPicture.network(
+                                              navigation.value.activeIcon!,
+                                              fit: BoxFit.contain,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            )),
+                                      ),
+                                      Text(
+                                        "${navigation.value.label}",
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize: 12,
+                                            fontFamily: "DM Sans",
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ],
+                                  ),
+                                  sizeHeightActive: 52,
+                                  sizeWidthActive: 31,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment:
@@ -435,9 +478,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           width: 20,
                                           height: 20,
                                           // color: Colors.blue,
-                                          child: _calculateSelectedIndex(
-                                                      context) ==
-                                                  navigation.key
+                                          child: isShowBottomBar
                                               ? SvgPicture.network(
                                                   navigation.value.activeIcon!,
                                                   fit: BoxFit.contain,
@@ -455,9 +496,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                       Text(
                                         "${navigation.value.label}",
                                         style: TextStyle(
-                                            color: _calculateSelectedIndex(
-                                                        context) ==
-                                                    navigation.key
+                                            color: isShowBottomBar
                                                 ? Theme.of(context).primaryColor
                                                 : Theme.of(context)
                                                     .bottomNavigationBarTheme
