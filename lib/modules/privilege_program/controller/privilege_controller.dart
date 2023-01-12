@@ -549,7 +549,7 @@ class PrivilegeController extends GetxController {
 
   // Redeem MVP
   final isRedeemToMVPReview = false.obs;
-  final shopStoreId = 0.0.obs;
+  final shopStoreId = 0.obs;
   final amountToRedeem = 0.0.obs;
   final receiveAccountNumber = ''.obs;
   final receiveAccountname = ''.obs;
