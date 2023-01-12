@@ -590,7 +590,6 @@ class WalletController extends GetxController {
   Future<List<ExchangePointTransaction>> onFetchPointTransaction(
       String param) async {
     final tempList = <ExchangePointTransaction>[];
-    final temListActivities = <RecentActivities>[];
 
     try {
       await _apiBaseHelper
@@ -600,11 +599,7 @@ class WalletController extends GetxController {
               url: 'mvp/transaction?$param')
           .then((response) {
         debugPrint('Success  $response');
-        if (param != 'type=reward') {
-          response['data'].map((e) {
-            temListActivities.add(RecentActivities.fromJson(e));
-          }).toList();
-        }
+        tempList.clear();
         response['data'].map((e) {
           tempList.add(ExchangePointTransaction.fromJson(e));
         }).toList();
@@ -644,7 +639,7 @@ class WalletController extends GetxController {
               url: 'mvp/transaction?type=recentActivities')
           .then((response) {
         debugPrint('Success  $response');
-
+        recentActivitiesTransactionList.clear();
         response['data'].map((e) {
           recentActivitiesTransactionList.add(RecentActivities.fromJson(e));
         }).toList();

@@ -141,7 +141,7 @@ class RedeemPointToPay extends StatelessWidget {
                                         .isValidateAmoutToRedeem.value = true;
                                   }
                                   if (value.isEmpty) {
-                                    priController.amountToRedeem.value = 0.0;
+                                    priController.amountToRedeem.value = 0;
                                   } else {
                                     priController.amountToRedeem.value =
                                         onConvertToDouble(value);
@@ -194,7 +194,7 @@ class RedeemPointToPay extends StatelessWidget {
                                   '/profile/setting/privilege/all-store/redeem-point-pay-review'));
                         }
                       : null,
-                  title: 'Proceed to pay',
+                  title: 'Redeem Now',
                   isDisable: false,
                   isOutline: false,
                 ),

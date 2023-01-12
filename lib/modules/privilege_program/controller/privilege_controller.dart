@@ -549,7 +549,7 @@ class PrivilegeController extends GetxController {
 
   // Redeem MVP
   final isRedeemToMVPReview = false.obs;
-  final shopStoreId = 0.obs;
+  final shopStoreId = 0.0.obs;
   final amountToRedeem = 0.0.obs;
   final receiveAccountNumber = ''.obs;
   final receiveAccountname = ''.obs;
@@ -604,7 +604,7 @@ class PrivilegeController extends GetxController {
   }
 
   // Review Redeem To MVP
-  dynamic amountToPay;
+  final amountToPay = 0.obs;
   Future<void> onRedeemToMVPReview(BuildContext context) async {
     isRedeemToMVPReview(true);
 
@@ -624,7 +624,8 @@ class PrivilegeController extends GetxController {
         amountToRedeem.value = response['amount'];
         receiveAccountname.value = response['account_name'];
         receiveAccountNumber.value = response['account_number'];
-        amountToPay = response['amount_to_pay'];
+        amountToPay.value = response['amount_to_pay'];
+        debugPrint("amountToPay.value:${amountToPay.value}");
 
         isRedeemToMVPReview(false);
         // isRedeemValidateLoading(true);

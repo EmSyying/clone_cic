@@ -92,8 +92,7 @@ class CustomTransactionPoint extends StatelessWidget {
                       ),
                       SizedBox(
                         child: Text(
-                          exchangePointTransaction!.description ??
-                              "Lorem ipsum dolor sitamet consecteture cuis mollis turbime.",
+                          exchangePointTransaction!.description ?? "",
                           style: Theme.of(context)
                               .textTheme
                               .headline4!
