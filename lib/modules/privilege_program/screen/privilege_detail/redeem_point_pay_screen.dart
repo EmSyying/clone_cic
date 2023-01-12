@@ -141,7 +141,7 @@ class RedeemPointToPay extends StatelessWidget {
                                         .isValidateAmoutToRedeem.value = true;
                                   }
                                   if (value.isEmpty) {
-                                    priController.amountToRedeem.value = 0;
+                                    priController.amountToRedeem.value = 0.0;
                                   } else {
                                     priController.amountToRedeem.value =
                                         onConvertToDouble(value);
