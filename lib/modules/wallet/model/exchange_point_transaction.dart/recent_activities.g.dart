@@ -14,7 +14,7 @@ _$_RecentActivities _$$_RecentActivitiesFromJson(Map<String, dynamic> json) =>
       shopName: json['shop_name'] as String?,
       shopLogo: json['shop_logo'] as String?,
       description: json['description'] as String?,
-      pointAmount: json['point_amount'] as num?,
+      pointAmount: json['point_amount'] as String?,
       amount: json['amount'] as String?,
       date: json['date'] as String?,
     );

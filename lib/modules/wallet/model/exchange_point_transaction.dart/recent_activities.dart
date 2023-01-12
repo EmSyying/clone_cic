@@ -12,7 +12,7 @@ class RecentActivities with _$RecentActivities {
     @JsonKey(name: 'shop_name') final String? shopName,
     @JsonKey(name: 'shop_logo') final String? shopLogo,
     final String? description,
-    @JsonKey(name: 'point_amount') final num? pointAmount,
+    @JsonKey(name: 'point_amount') final String? pointAmount,
     final String? amount,
     final String? date,
   }) = _RecentActivities;

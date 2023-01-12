@@ -560,7 +560,7 @@ class WalletController extends GetxController {
 
   // Fetch my point
   final isMyPoint = false.obs;
-  final myPoint = 0.obs;
+  final myPoint = 0.0.obs;
   Future onFetchMyPoin() async {
     isMyPoint(true);
     try {
@@ -568,10 +568,11 @@ class WalletController extends GetxController {
           .onNetworkRequesting(
               url: 'mvp/balance', methode: METHODE.get, isAuthorize: true)
           .then((response) {
-        debugPrint("My Poin::$response");
+        debugPrint("My Poin 1:$response");
         var responseJson = response['point_amount'];
-        debugPrint("My Poin:1:$responseJson");
+
         myPoint.value = responseJson;
+        debugPrint("My Poin:=>:${myPoint.value}");
 
         isMyPoint(false);
       }).onError((ErrorModel error, stackTrace) {
@@ -579,7 +580,7 @@ class WalletController extends GetxController {
         debugPrint('Error : ${error.statusCode} : ${error.bodyString}');
       });
     } catch (e) {
-      debugPrint("Fetch My Point$e");
+      debugPrint("Fetch My Point:$e");
     } finally {
       isMyPoint(false);
     }

@@ -669,7 +669,7 @@ class PrivilegeController extends GetxController {
           'SuccessScreen',
           queryParams: {
             'title': 'Success',
-            'description': 'MVP redeem successfully',
+            'description': '${response['message']}',
             'appbarTitle': 'MVP Redemption',
           },
           extra: {

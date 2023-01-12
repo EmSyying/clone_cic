@@ -29,7 +29,7 @@ mixin _$RecentActivities {
   String? get shopLogo => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'point_amount')
-  num? get pointAmount => throw _privateConstructorUsedError;
+  String? get pointAmount => throw _privateConstructorUsedError;
   String? get amount => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
 
@@ -52,7 +52,7 @@ abstract class $RecentActivitiesCopyWith<$Res> {
       @JsonKey(name: 'shop_name') String? shopName,
       @JsonKey(name: 'shop_logo') String? shopLogo,
       String? description,
-      @JsonKey(name: 'point_amount') num? pointAmount,
+      @JsonKey(name: 'point_amount') String? pointAmount,
       String? amount,
       String? date});
 }
@@ -108,7 +108,7 @@ class _$RecentActivitiesCopyWithImpl<$Res, $Val extends RecentActivities>
       pointAmount: freezed == pointAmount
           ? _value.pointAmount
           : pointAmount // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as String?,
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -136,7 +136,7 @@ abstract class _$$_RecentActivitiesCopyWith<$Res>
       @JsonKey(name: 'shop_name') String? shopName,
       @JsonKey(name: 'shop_logo') String? shopLogo,
       String? description,
-      @JsonKey(name: 'point_amount') num? pointAmount,
+      @JsonKey(name: 'point_amount') String? pointAmount,
       String? amount,
       String? date});
 }
@@ -190,7 +190,7 @@ class __$$_RecentActivitiesCopyWithImpl<$Res>
       pointAmount: freezed == pointAmount
           ? _value.pointAmount
           : pointAmount // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as String?,
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -236,7 +236,7 @@ class _$_RecentActivities implements _RecentActivities {
   final String? description;
   @override
   @JsonKey(name: 'point_amount')
-  final num? pointAmount;
+  final String? pointAmount;
   @override
   final String? amount;
   @override
@@ -294,7 +294,7 @@ abstract class _RecentActivities implements RecentActivities {
       @JsonKey(name: 'shop_name') final String? shopName,
       @JsonKey(name: 'shop_logo') final String? shopLogo,
       final String? description,
-      @JsonKey(name: 'point_amount') final num? pointAmount,
+      @JsonKey(name: 'point_amount') final String? pointAmount,
       final String? amount,
       final String? date}) = _$_RecentActivities;
 
@@ -317,7 +317,7 @@ abstract class _RecentActivities implements RecentActivities {
   String? get description;
   @override
   @JsonKey(name: 'point_amount')
-  num? get pointAmount;
+  String? get pointAmount;
   @override
   String? get amount;
   @override

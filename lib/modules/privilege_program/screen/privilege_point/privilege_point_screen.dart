@@ -107,9 +107,9 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                           height: 10,
                         ),
                         Text(
-                          _walletController.myPoint.value != 0
+                          _walletController.myPoint.value != 0.0
                               ? '${_walletController.myPoint.value}'
-                              : '',
+                              : '0.00',
                           style: textStyle.copyWith(
                               fontWeight: FontWeight.w700, fontSize: 30),
                         ),
