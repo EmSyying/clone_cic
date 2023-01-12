@@ -72,7 +72,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                 ),
                 child: SvgPicture.asset(
                   'assets/images/svgfile/union_point.svg',
-                  color: Colors.black12,
+                  // color: Colors.black12,
                   // fit: BoxFit.fill,
                 ),
               ),

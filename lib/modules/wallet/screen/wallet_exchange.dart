@@ -46,10 +46,14 @@ class WalletExchange extends StatelessWidget {
                 Container(
                   height: 100,
                   padding: const EdgeInsets.only(right: 37.0),
-                  child: SvgPicture.asset("assets/images/svgfile/Union.svg"),
+                  child: SvgPicture.asset(
+                    "assets/images/svgfile/Union.svg",
+                    width: 14.0,
+                    height: 19.01,
+                  ),
                 ),
                 Positioned(
-                  right: _walletController.myPoint.value >= 999 ? 18.0 : 22.0,
+                  right: _walletController.myPoint.value >= 999 ? 18.0 : 30.0,
                   bottom: 34,
                   child: Obx(
                     () => Container(

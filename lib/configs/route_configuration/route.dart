@@ -229,7 +229,6 @@ final router = GoRouter(
 
                 /// Investment
                 GoRoute(
-                  parentNavigatorKey: _rootNavigatorKey,
                   path: 'investment/:tabName',
                   name: 'Investment',
                   builder: (context, state) => Dashboard(
@@ -503,12 +502,14 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
+                      // parentNavigatorKey: _rootNavigatorKey,
                       path: 'invest-more',
                       name: 'Invest More No Param',
                       builder: (context, state) =>
                           FIFDeucSelection(key: state.pageKey),
                       routes: [
                         GoRoute(
+                            // parentNavigatorKey: _rootNavigatorKey,
                             path: 'fif-step',
                             name: 'FiF1',
                             builder: (context, state) {

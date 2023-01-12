@@ -782,28 +782,48 @@ class PriceController extends GetxController {
       debugPrint("This funtion is work 2:$response");
       if (response['success'] != null && response['success']) {
         Future.delayed(
-          const Duration(seconds: 1),
+          const Duration(milliseconds: 850),
           () {
-            Navigator.of(buildcontext!, rootNavigator: true).push(
-              MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (context) => CustomSucessScreen(
-                  title: 'Success',
-                  description:
-                      'Your FIF application is submitted successfully.',
-                  buttonTitle: 'Done',
-                  onPressedButton: () {
-                    onClearFIF();
-                    clearDeducSelection();
-                    if (isFromWallet.value == true) {
-                      context.go('/wallet/invest-fif/cic-fixed-income');
-                    } else {
-                      context.go('/investment/cic-fixed-income');
-                    }
-                  },
-                ),
-              ),
+            buildcontext!.pushNamed(
+              'SuccessScreen',
+              queryParams: {
+                'title': 'Success',
+                'description':
+                    'Your FIF application is submitted successfully.',
+                'appbarTitle': '',
+              },
+              extra: {
+                'onPressedButton': () {
+                  onClearFIF();
+                  clearDeducSelection();
+                  if (isFromWallet.value == true) {
+                    buildcontext.go('/wallet/invest-fif/cic-fixed-income');
+                  } else {
+                    buildcontext.go('/investment/cic-fixed-income');
+                  }
+                },
+              },
             );
+            // Navigator.of(buildcontext!, rootNavigator: true).push(
+            //   MaterialPageRoute(
+            //     fullscreenDialog: true,
+            //     builder: (context) => CustomSucessScreen(
+            //       title: 'Success',
+            //       description:
+            //           'Your FIF application is submitted successfully.',
+            //       buttonTitle: 'Done',
+            //       onPressedButton: () {
+            // onClearFIF();
+            // clearDeducSelection();
+            // if (isFromWallet.value == true) {
+            //   context.go('/wallet/invest-fif/cic-fixed-income');
+            // } else {
+            //   context.go('/investment/cic-fixed-income');
+            // }
+            //       },
+            //     ),
+            //   ),
+            // );
             getFIFApplication();
             fetchFIFPending();
           },

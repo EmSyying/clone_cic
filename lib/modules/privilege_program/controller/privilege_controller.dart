@@ -555,6 +555,7 @@ class PrivilegeController extends GetxController {
   final receiveAccountname = ''.obs;
   final remark = ''.obs;
   // Validate varriable
+  final isValidateAmoutToRedeem = true.obs;
   final isRedeemToVerifyAccountValidateMessage = ''.obs;
   final isRedeemToVerifyAccountValidate = true.obs;
   onClearRedeemToMVP() {

@@ -408,6 +408,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                 ? 'Invest More'
                 : 'Invest Now',
             onPressed: () async {
+              debugPrint('Invest more fixed income fund');
               FirebaseAnalyticsHelper.sendAnalyticsEvent('invest more fif');
               InjectionHelper.investmentController.onClearFIF();
               InjectionHelper.investmentController.isNewBank.value = true;
@@ -415,6 +416,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                   "";
               InjectionHelper.investmentController.clearDeducSelection();
               context.push('/investment/fixed-income-fund/invest-more');
+              debugPrint('Invest more fixed income fund1');
               // context.router.push(FIFDeucSelectionRouter());
             },
           ),

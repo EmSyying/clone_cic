@@ -22,7 +22,7 @@ Future<void> main() async {
     color: Colors.deepPurpleAccent,
     values: FlavorValues(
         baseUrl: "https://pre-cic.z1platform.com/",
-        apiBaseUrl: "https://pre-cic.z1platform.com/api/v1/",
+        apiBaseUrl: "https://pre-cic.z1platform.com/api/v4/",
         androidBundleId: 'com.cambodianinvestorscorporation',
         iOSBundleName: 'com.cambodianinvestorscorporation.pre'),
   );

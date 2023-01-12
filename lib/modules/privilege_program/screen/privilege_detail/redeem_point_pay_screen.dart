@@ -114,6 +114,9 @@ class RedeemPointToPay extends StatelessWidget {
                                 priController.onRedeemToVerifyAccount(context);
                               },
                               child: CustomTextFieldNew(
+                                validateText: 'You have not enought MVP',
+                                isValidate:
+                                    priController.isValidateAmoutToRedeem.value,
                                 initialValue:
                                     priController.amountToRedeem.value == 0.0
                                         ? ''
@@ -129,6 +132,14 @@ class RedeemPointToPay extends StatelessWidget {
                                       RegExp(r'^\d+\.?\d{0,2}')),
                                 ],
                                 onChange: (value) {
+                                  if (onConvertToDouble(value) >
+                                      walletController.myPoint.value) {
+                                    priController
+                                        .isValidateAmoutToRedeem.value = false;
+                                  } else {
+                                    priController
+                                        .isValidateAmoutToRedeem.value = true;
+                                  }
                                   if (value.isEmpty) {
                                     priController.amountToRedeem.value = 0.0;
                                   } else {
