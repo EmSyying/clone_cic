@@ -442,259 +442,271 @@ class _MainDashboardState extends State<MainDashboard> {
     //   });
     // }).toList();
     // setState(() {});
-    return DefaultSizeWeb(
-      child: WillPopScope(
-        onWillPop: () {
-          return Future.value(false); // if true allow back else block it
-        },
-        child: RefreshIndicator(
-          key: refreshKey,
-          onRefresh: onRefresh,
-          child: Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: context.theme.backgroundColor,
+    return GestureDetector(
+      onPanDown: (details) {
+        Get.put(SettingController()).getCurrentTapBottom.value = 0;
+      },
+      child: DefaultSizeWeb(
+        child: WillPopScope(
+          onWillPop: () {
+            return Future.value(false); // if true allow back else block it
+          },
+          child: RefreshIndicator(
+            key: refreshKey,
+            onRefresh: onRefresh,
+            child: Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: context.theme.backgroundColor,
 //            backgroundColor:
 //                DynamicTheme.of(context).brightness == Brightness.light
 //                    ? Theme.of(context).primaryColor
 //                    : Color(0xffDEE8E9).withOpacity(0.1),
-              automaticallyImplyLeading: false,
-              centerTitle: false,
-              title: Obx(
-                () => !settingCon.isModeSwitchAble.value
-                    ? SizedBox(
-                        width: double.infinity,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/svgfile/Logocic.svg',
-                                height: 27,
+                automaticallyImplyLeading: false,
+                centerTitle: false,
+                title: Obx(
+                  () => !settingCon.isModeSwitchAble.value
+                      ? SizedBox(
+                          width: double.infinity,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/svgfile/Logocic.svg',
+                                  height: 27,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text(
+                                  'Mobile',
+                                  style: TextStyle(
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Container(
+                          width: 160,
+                          color: Colors.transparent,
+                          child: PopupMenuButton(
+                            position: PopupMenuPosition.under,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            icon: SizedBox(
+                              width: double.infinity,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/svgfile/Logocic.svg',
+                                      height: 27,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Mobile',
+                                      style: TextStyle(
+                                          fontFamily: 'DMSans',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                    if (!cusController.isloading.value)
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                    if (!cusController.isloading.value)
+                                      const Icon(Icons.expand_more)
+                                  ],
+                                ),
                               ),
-                              const SizedBox(
-                                width: 10,
+                            ),
+                            itemBuilder: (context) => <PopupMenuEntry>[
+                              PopupMenuItem(
+                                key: widgetKey,
+                                child: GestureDetector(
+                                    onTap: !_settingCon.isAMMode!
+                                        ? null
+                                        : () {
+                                            Navigator.pop(context);
+                                            Offset offset =
+                                                getWidgetInfo(widgetKey);
+
+                                            context.go(
+                                                '/switch-splash-screen/qm',
+                                                extra: offset);
+                                            _settingCon
+                                                .getCurrentTapBottom.value = 0;
+                                          },
+                                    child: Container(
+                                        color: Colors.transparent,
+                                        width: double.infinity,
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/images/svgfile/qm_icon.svg'),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            const Text('QM Account'),
+                                          ],
+                                        ))),
                               ),
-                              const Text(
-                                'Mobile',
-                                style: TextStyle(
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
+
+                              //QM Dashboard
+                              const PopupMenuDivider(height: 0),
+                              PopupMenuItem(
+                                child: GestureDetector(
+                                    onTap: _settingCon.isAMMode!
+                                        ? null
+                                        : () {
+                                            _settingCon
+                                                .getCurrentTapBottom.value = 0;
+                                            Navigator.pop(context);
+                                            Offset offset =
+                                                getWidgetInfo(widgetKey);
+                                            context.go(
+                                                '/switch-splash-screen/am',
+                                                extra: offset);
+                                            _settingCon
+                                                .getCurrentTapBottom.value = 0;
+                                          },
+                                    child: Container(
+                                        color: Colors.transparent,
+                                        width: double.infinity,
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/images/svgfile/am_icon.svg'),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            const Text('AM Account'),
+                                          ],
+                                        ))),
                               ),
                             ],
                           ),
                         ),
-                      )
-                    : Container(
-                        width: 160,
-                        color: Colors.transparent,
-                        child: PopupMenuButton(
-                          position: PopupMenuPosition.under,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          icon: SizedBox(
-                            width: double.infinity,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/svgfile/Logocic.svg',
-                                    height: 27,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    'Mobile',
-                                    style: TextStyle(
-                                        fontFamily: 'DMSans',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  ),
-                                  if (!cusController.isloading.value)
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                  if (!cusController.isloading.value)
-                                    const Icon(Icons.expand_more)
-                                ],
+                ),
+                //   ],
+                // ),
+                actions: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (!_settingCon.isAMMode!)
+                        GestureDetector(
+                          key: actionKey,
+                          onTap: () async {
+                            context.go('/notification');
+                          },
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 10.0),
+                                child: SvgPicture.asset(
+                                  'assets/images/svgfile/notifications.svg',
+                                  height: 26.0,
+                                ),
                               ),
-                            ),
-                          ),
-                          itemBuilder: (context) => <PopupMenuEntry>[
-                            PopupMenuItem(
-                              key: widgetKey,
-                              child: GestureDetector(
-                                  onTap: !_settingCon.isAMMode!
-                                      ? null
-                                      : () {
-                                          Navigator.pop(context);
-                                          Offset offset =
-                                              getWidgetInfo(widgetKey);
-
-                                          context.go('/switch-splash-screen/qm',
-                                              extra: offset);
-                                          _settingCon
-                                              .getCurrentTapBottom.value = 0;
-                                        },
-                                  child: Container(
-                                      color: Colors.transparent,
-                                      width: double.infinity,
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              'assets/images/svgfile/qm_icon.svg'),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          const Text('QM Account'),
-                                        ],
-                                      ))),
-                            ),
-
-                            //QM Dashboard
-                            const PopupMenuDivider(height: 0),
-                            PopupMenuItem(
-                              child: GestureDetector(
-                                  onTap: _settingCon.isAMMode!
-                                      ? null
-                                      : () {
-                                          _settingCon
-                                              .getCurrentTapBottom.value = 0;
-                                          Navigator.pop(context);
-                                          Offset offset =
-                                              getWidgetInfo(widgetKey);
-                                          context.go('/switch-splash-screen/am',
-                                              extra: offset);
-                                          _settingCon
-                                              .getCurrentTapBottom.value = 0;
-                                        },
-                                  child: Container(
-                                      color: Colors.transparent,
-                                      width: double.infinity,
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              'assets/images/svgfile/am_icon.svg'),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          const Text('AM Account'),
-                                        ],
-                                      ))),
-                            ),
-                          ],
-                        ),
-                      ),
-              ),
-              //   ],
-              // ),
-              actions: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (!_settingCon.isAMMode!)
-                      GestureDetector(
-                        key: actionKey,
-                        onTap: () async {
-                          context.go('/notification');
-                        },
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(right: 10.0),
-                              child: SvgPicture.asset(
-                                'assets/images/svgfile/notifications.svg',
-                                height: 26.0,
-                              ),
-                            ),
-                            Obx(
-                              () => _notificationCon.isLoading.value
-                                  ? Container()
-                                  : _notificationCon.countNotificatio.value != 0
-                                      ? Positioned(
-                                          right: 5.0,
-                                          top: 0.0,
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5, vertical: 1),
-                                            decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            child: Text(
-                                              '${_notificationCon.countNotificatio.value}',
-                                              style:
-                                                  const TextStyle(fontSize: 12),
+                              Obx(
+                                () => _notificationCon.isLoading.value
+                                    ? Container()
+                                    : _notificationCon.countNotificatio.value !=
+                                            0
+                                        ? Positioned(
+                                            right: 5.0,
+                                            top: 0.0,
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 1),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30)),
+                                              child: Text(
+                                                '${_notificationCon.countNotificatio.value}',
+                                                style: const TextStyle(
+                                                    fontSize: 12),
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      : Container(),
-                            ),
-                          ],
+                                          )
+                                        : Container(),
+                              ),
+                            ],
+                          ),
                         ),
+                      const SizedBox(
+                        width: 10,
                       ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        // await LocalData.storeAppTou('appTour',
-                        //     false);
-                        _showDashboardTour();
-                      },
-                      child: SvgPicture.asset('assets/images/demo.svg'),
-                    ),
-                    // FlutterSwitch(
-                    //     key: widgetKey,
-                    //     padding: 3,
-                    //     width: 50,
-                    //     height: 30,
-                    //     inactiveIcon: const Text(
-                    //       'QM',
-                    //       style: TextStyle(color: Colors.black),
-                    //     ),
-                    //     activeIcon: const Text(
-                    //       'AM',
-                    //       style: TextStyle(color: Colors.black),
-                    //     ),
-                    //     activeColor: const Color(0xff0685CF),
-                    //     value: switchIcon!,
-                    //     onToggle: (e) {
-                    //       setState(() {
-                    //         switchIcon = e;
-                    //         if (e == true) {
-                    //           Offset offset = getWidgetInfo(widgetKey);
-                    //           context.go('/switch-splash-screen',
-                    //               extra: offset);
-                    //         } else {
-                    //           Offset offset = getWidgetInfo(widgetKey);
-                    //           context.go('/switch-splash-screen',
-                    //               extra: offset);
-                    //         }
-                    //       });
-                    //     }),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                  ],
-                )
-              ],
-              systemOverlayStyle: SystemUiOverlayStyle.light,
-            ),
-            body: GetBuilder<SettingController>(
-              builder: (con) {
-                return con.isAMMode!
-                    ? const MainDashBoardTypeAM()
-                    : Platform.isAndroid
-                        ? buildBody()
-                        : buildBody();
-              },
-              init: SettingController(),
+                      GestureDetector(
+                        onTap: () async {
+                          // await LocalData.storeAppTou('appTour',
+                          //     false);
+                          _showDashboardTour();
+                        },
+                        child: SvgPicture.asset('assets/images/demo.svg'),
+                      ),
+                      // FlutterSwitch(
+                      //     key: widgetKey,
+                      //     padding: 3,
+                      //     width: 50,
+                      //     height: 30,
+                      //     inactiveIcon: const Text(
+                      //       'QM',
+                      //       style: TextStyle(color: Colors.black),
+                      //     ),
+                      //     activeIcon: const Text(
+                      //       'AM',
+                      //       style: TextStyle(color: Colors.black),
+                      //     ),
+                      //     activeColor: const Color(0xff0685CF),
+                      //     value: switchIcon!,
+                      //     onToggle: (e) {
+                      //       setState(() {
+                      //         switchIcon = e;
+                      //         if (e == true) {
+                      //           Offset offset = getWidgetInfo(widgetKey);
+                      //           context.go('/switch-splash-screen',
+                      //               extra: offset);
+                      //         } else {
+                      //           Offset offset = getWidgetInfo(widgetKey);
+                      //           context.go('/switch-splash-screen',
+                      //               extra: offset);
+                      //         }
+                      //       });
+                      //     }),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  )
+                ],
+                systemOverlayStyle: SystemUiOverlayStyle.light,
+              ),
+              body: GetBuilder<SettingController>(
+                builder: (con) {
+                  return con.isAMMode!
+                      ? const MainDashBoardTypeAM()
+                      : Platform.isAndroid
+                          ? buildBody()
+                          : buildBody();
+                },
+                init: SettingController(),
+              ),
             ),
           ),
         ),
