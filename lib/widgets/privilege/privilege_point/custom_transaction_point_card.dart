@@ -28,24 +28,25 @@ class CustomTransactionPoint extends StatelessWidget {
       children: [
         Container(
           height: 112,
-          margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+          margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                  offset: const Offset(1, 0),
-                  spreadRadius: 3,
-                  blurRadius: 5,
-                  color: Colors.grey[100]!)
+                color: Colors.grey[600]!.withOpacity(0.1),
+                spreadRadius: 0.1,
+                blurRadius: 5,
+                offset: const Offset(0, 1),
+              ),
             ],
           ),
           child: Row(
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20, bottom: 20),
+                  padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
