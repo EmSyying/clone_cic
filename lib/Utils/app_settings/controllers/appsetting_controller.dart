@@ -51,7 +51,7 @@ class SettingController extends GetxController {
   final availableBiometrics = <BiometricType>[].obs;
   final authorized = 'Not Authorized'.obs;
   final isAuthenticating = false.obs;
-  bool isHideBottomNavigation = false;
+  final isHideBottomNavigation = false.obs;
   int selectedIndex = 0;
   var menuList = <AppSettingData>[].obs;
   final isLandScapView = false.obs;
@@ -60,7 +60,7 @@ class SettingController extends GetxController {
   final customerControler = Get.put(CustomerController());
 
   onHideBottomNavigationBar(bool isHide) {
-    isHideBottomNavigation = isHide;
+    isHideBottomNavigation.value = isHide;
     update();
   }
 

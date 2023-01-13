@@ -1119,7 +1119,7 @@ class _EventDetailState extends State<EventDetail> {
                                                                       }
                                                                     : eventController.eventDetail.value.hostAt != 'online' && eventController.eventDetail.value.isRegister! && !eventController.eventDetail.value.isCheckin!
                                                                         ? () async {
-                                                                            settingCon.isHideBottomNavigation =
+                                                                            settingCon.isHideBottomNavigation.value =
                                                                                 true;
                                                                             settingCon.update();
                                                                             showMaterialModalBottomSheet(

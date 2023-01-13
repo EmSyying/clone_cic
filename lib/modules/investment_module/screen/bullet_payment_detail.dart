@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../utils/function/format_to_k.dart';
 import '../../../widgets/investments/custom_product_type_detail.dart';
 import '../../../widgets/investments/custom_shimmer_on_summary_detail.dart';
@@ -86,19 +87,15 @@ class BulletPaymentDetail extends StatelessWidget {
   final bool isAnnullyRate;
   @override
   Widget build(BuildContext context) {
-    debugPrint("is Renew:$isStatusPending");
     final bulletCon = Get.put(PriceController());
-
-    debugPrint("Hello id:$id hello from page:$fromPage");
+    final settingCon = Get.put(SettingController());
 
     if (fromPage == null) {
-      debugPrint("id:$id");
       bulletCon.fetchFIFPendingDetail(id);
     } else {
       bulletCon.isLoadingPendingDetail.value = false;
     }
-    debugPrint(
-        'helooooo currentcy:${bulletCon.fifAccountDetailModel.value.currencyCode}');
+
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
@@ -115,11 +112,17 @@ class BulletPaymentDetail extends StatelessWidget {
                       ),
                 onPressed: () {
                   Navigator.pop(context);
+                  settingCon.isHideBottomNavigation.value = false;
+                  settingCon.update();
+                  settingCon.isHideBottomNavigation.refresh();
                 },
               )
             : IconButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  settingCon.isHideBottomNavigation.value = false;
+                  settingCon.update();
+                  settingCon.isHideBottomNavigation.refresh();
                 },
                 icon: const Icon(Icons.close),
                 color: Colors.black,
