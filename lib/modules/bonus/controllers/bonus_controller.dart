@@ -209,9 +209,6 @@ class BonusController extends GetxController {
               cashOutTransactionList.add(historyModel.value);
             } else if (type == "subscription") {
               subscriptionList.add(historyModel.value);
-              debugPrint("Subscription Detail:${historyModel.value}");
-              debugPrint(
-                  "Subscription Detail:${subscriptionList[0].histories![0].view!.amount}");
             } else if (type == "cash-out-cash-in") {
               cashInOutTransactionList.add(historyModel.value);
             } else {
@@ -219,6 +216,7 @@ class BonusController extends GetxController {
             }
           }).toList();
         } else {
+          isLoadingHistory(false);
           debugPrint("Subsription is working error${response.statusCode}");
         }
       });

@@ -17,13 +17,21 @@ import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
 class RedeemPointToPay extends StatelessWidget {
-  const RedeemPointToPay({Key? key}) : super(key: key);
+  const RedeemPointToPay(
+      {Key? key, this.receiveAccountName, this.receiveAccountNumber})
+      : super(key: key);
+  final String? receiveAccountName;
+  final String? receiveAccountNumber;
 
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle2!;
     final walletController = Get.put(WalletController());
     final priController = Get.put(PrivilegeController());
+    if (receiveAccountName != null && receiveAccountNumber != null) {
+      priController.receiveAccountNumber.value = receiveAccountNumber!;
+      priController.receiveAccountname.value = receiveAccountName!;
+    }
 
     return Scaffold(
       appBar: CustomAppBarWhiteColor(

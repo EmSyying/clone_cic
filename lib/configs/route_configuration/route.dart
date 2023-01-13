@@ -1129,6 +1129,10 @@ final router = GoRouter(
                             parentNavigatorKey: _rootNavigatorKey,
                             builder: (context, state) => RedeemPointToPay(
                               key: state.pageKey,
+                              receiveAccountName:
+                                  state.queryParams['receiveAccountName'],
+                              receiveAccountNumber:
+                                  state.queryParams['receiveAccountNumber'],
                             ),
                           ),
                           GoRoute(

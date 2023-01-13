@@ -13,7 +13,9 @@ import '../../../../widgets/wallets/custom_stack_dotted_decoration.dart';
 import '../../controller/privilege_controller.dart';
 
 class RedeemPointPayReviewScreen extends StatelessWidget {
-  const RedeemPointPayReviewScreen({Key? key}) : super(key: key);
+  const RedeemPointPayReviewScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -144,6 +144,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                     .getDynamicLink(
                                               Uri.parse(barcode.rawValue!),
                                             );
+                                            debugPrint(
+                                                "Redeem to MVP QR:${barcode.rawValue}");
                                             if (url != null) {
                                               String links = url.link
                                                   .toString()
@@ -178,6 +180,10 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                   );
                                                 }
                                               } else {
+                                                debugPrint(
+                                                    "Redeem to MVP QR1:${barcode.rawValue}");
+                                                debugPrint(
+                                                    "Redeem to MVP QR2:$links");
                                                 router.go(links);
                                               }
 
@@ -189,6 +195,9 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                             debugPrint("Ex: $ex");
                                           }
                                           debugPrint("is Checke Scann");
+                                          debugPrint(
+                                              "Redeem to MVP QR:${barcode.rawValue}");
+                                          router.push('${barcode.rawValue}');
                                           // setState(() {
                                           //   resultQR = barcode.rawValue;
                                           //   debugPrint(
