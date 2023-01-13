@@ -12,7 +12,6 @@ import '../../../utils/offline_widget.dart';
 import '../../../widgets/investments/slide_button.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../privilege_program/screen/privilege_point/privilege_point_screen.dart';
-import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
 
 class WalletExchange extends StatelessWidget {
@@ -301,13 +300,8 @@ class WalletExchange extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       debugPrint("Press to exchange");
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ContractTerm(
-                                                  fromPage: 'exchange'),
-                                        ),
-                                      );
+                                      // context.push(
+                                      //     '/service-agreement?fromPage=exchange');
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 5.0),
