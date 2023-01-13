@@ -82,9 +82,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
   File? nationalBack;
+
   @override
   Widget build(BuildContext context) {
-    // final path = GoRouter.of(context).location;
     return CupertinoScaffold(
       body: Builder(
         builder: (context) => CupertinoPageScaffold(
@@ -114,9 +114,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       ),
                     ),
                     Positioned(
-                      right:
-                          _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
-                      bottom: 34,
+                      right: 0.0,
+                      // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
+                      bottom: 35,
                       child: Obx(
                         () => Container(
                           decoration: BoxDecoration(
@@ -131,10 +131,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                 right: 4,
                               ),
                               child: Text(
-                                _walletController.myPoint.value >= 999
-                                    ? '999+'
-                                    : _walletController.myPoint.value
-                                        .toString(),
+                                // _walletController.myPoint.value >= 999
+                                //     ? '999+'
+                                //     :
+                                _walletController.myPoint.value.toString(),
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 9),
                               ),

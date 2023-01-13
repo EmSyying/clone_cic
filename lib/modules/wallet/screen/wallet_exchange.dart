@@ -45,7 +45,7 @@ class WalletExchange extends StatelessWidget {
               children: [
                 Container(
                   height: 100,
-                  padding: const EdgeInsets.only(right: 37.0),
+                  padding: const EdgeInsets.only(right: 30.0),
                   child: SvgPicture.asset(
                     "assets/images/svgfile/Union.svg",
                     width: 14.0,
@@ -53,7 +53,8 @@ class WalletExchange extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: _walletController.myPoint.value >= 999 ? 18.0 : 30.0,
+                  right: 6.0,
+                  // _walletController.myPoint.value >= 999 ? 18.0 : 30.0,
                   bottom: 34,
                   child: Obx(
                     () => Container(
@@ -69,9 +70,11 @@ class WalletExchange extends StatelessWidget {
                             right: 4,
                           ),
                           child: Text(
-                            _walletController.myPoint.value >= 999
-                                ? '999+'
-                                : _walletController.myPoint.value.toString(),
+                            // _walletController.myPoint.value >= 999
+                            //     ? '999+'
+                            //     :
+                            _walletController.myPoint.value.toString(),
+
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 9),
                           ),
