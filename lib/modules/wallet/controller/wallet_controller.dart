@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/exchange_point_transaction.dart/exchange_point_transaction.dart';
+import '../model/exchange_point_transaction.dart/mvp_balance.dart';
 import '../model/exchange_point_transaction.dart/recent_activities.dart';
 import '../model/invest/invest_option_model.dart';
 
@@ -560,19 +561,17 @@ class WalletController extends GetxController {
 
   // Fetch my point
   final isMyPoint = false.obs;
-  final myPoint = 0.0.obs;
-  Future onFetchMyPoin() async {
+  final mvpBalance = MVPBalance().obs;
+  Future<MVPBalance> onFetchMyPoin() async {
     isMyPoint(true);
     try {
       await _apiBaseHelper
           .onNetworkRequesting(
               url: 'mvp/balance', methode: METHODE.get, isAuthorize: true)
           .then((response) {
-        debugPrint("My Poin 1:$response");
-        var responseJson = response['point_amount'];
-
-        myPoint.value = responseJson;
-        debugPrint("My Poin:=>:${myPoint.value}");
+        mvpBalance.value = MVPBalance.fromJson(response);
+        debugPrint(
+            "mvp Balance:${mvpBalance.value.mvpAmount}::${mvpBalance.value.mvpAmountFormat}");
 
         isMyPoint(false);
       }).onError((ErrorModel error, stackTrace) {
@@ -584,7 +583,7 @@ class WalletController extends GetxController {
     } finally {
       isMyPoint(false);
     }
-    return myPoint;
+    return mvpBalance.value;
   }
   // Point Transaction
 

@@ -295,8 +295,9 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     right: 20,
                                     bottom: 70,
                                     child: CustomCardPoint(
-                                      point: _walletController.myPoint.value
-                                          .toString(),
+                                      point: _walletController.mvpBalance.value
+                                              .mvpAmountFormat ??
+                                          '0.00',
                                       onTapRedeem: () {
                                         //context.push('/qr-screen');
                                         priController.onClearRedeemToMVP();

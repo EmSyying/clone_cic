@@ -45,7 +45,7 @@ class CardCurrentPoints extends StatelessWidget {
                     height: 2.0,
                   ),
                   Text(
-                    walletController.myPoint.value.toString(),
+                    walletController.mvpBalance.value.mvpAmountFormat ?? '0.00',
                     style: textStyle.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,

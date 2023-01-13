@@ -72,7 +72,9 @@ class WalletExchange extends StatelessWidget {
                             // _walletController.myPoint.value >= 999
                             //     ? '999+'
                             //     :
-                            _walletController.myPoint.value.toString(),
+                            _walletController
+                                    .mvpBalance.value.mvpAmountFormat ??
+                                "",
 
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 9),

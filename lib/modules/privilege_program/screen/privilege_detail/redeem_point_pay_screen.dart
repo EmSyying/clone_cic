@@ -162,7 +162,8 @@ class RedeemPointToPay extends StatelessWidget {
                                 ],
                                 onChange: (value) {
                                   if (onConvertToDouble(value) >
-                                      walletController.myPoint.value) {
+                                      walletController
+                                          .mvpBalance.value.mvpAmount!) {
                                     priController
                                         .isValidateAmoutToRedeem.value = false;
                                   } else {
@@ -225,11 +226,11 @@ class RedeemPointToPay extends StatelessWidget {
                         }
                       : null,
                   title: 'Redeem Now',
-                  isDisable: walletController.myPoint.value != 0.0 &&
-                          priController.isValidateAmoutToRedeem.value == true &&
-                          priController.amountToRedeem.value != 0.0
-                      ? false
-                      : true,
+                  isDisable:
+                      priController.isValidateAmoutToRedeem.value == true &&
+                              priController.amountToRedeem.value != 0.0
+                          ? false
+                          : true,
                   isOutline: false,
                 ),
               ),
