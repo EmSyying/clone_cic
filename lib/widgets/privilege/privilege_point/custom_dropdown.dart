@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../Utils/helper/color.dart';
 
 class CustomDropDownButton extends StatefulWidget {
-  const CustomDropDownButton({super.key});
+  final Function(String text)? onSelected;
+  final int? initialIndex;
+  const CustomDropDownButton({super.key, this.onSelected, this.initialIndex});
 
   @override
   State<CustomDropDownButton> createState() => _CustomDropDownButtonState();
@@ -11,10 +13,12 @@ class CustomDropDownButton extends StatefulWidget {
 
 class _CustomDropDownButtonState extends State<CustomDropDownButton> {
   final List<String> optionDropdownStores = <String>[
-    'All',
+    'All Stores',
     'Discount',
     'MVP Approved',
   ];
+
+  int selectedIndex = 0;
   final _globalKey = GlobalKey();
   void _show() {
     RenderBox renderBox =
@@ -57,10 +61,19 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: optionDropdownStores
+                      .asMap()
+                      .entries
                       .map((e) => customOptionStores(
                             context,
-                            title: e,
-                            onTapOptionStore: () {},
+                            title: e.value,
+                            selected: selectedIndex == e.key,
+                            onTapOptionStore: () {
+                              selectedIndex = e.key;
+
+                              widget.onSelected?.call(e.value);
+                              setState(() {});
+                              overlay?.remove();
+                            },
                           ))
                       .toList(),
                 ),
@@ -76,6 +89,16 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
   }
 
   @override
+  void initState() {
+    if (widget.initialIndex != null &&
+        widget.initialIndex! > 0 &&
+        widget.initialIndex! <= optionDropdownStores.length) {
+      selectedIndex = widget.initialIndex!;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -85,7 +108,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         key: _globalKey,
         children: <Widget>[
           Text(
-            'All Stores',
+            optionDropdownStores[selectedIndex],
             style: Theme.of(context).textTheme.subtitle1!.copyWith(
                   fontWeight: FontWeight.w500,
                   color: AppColor.chartLabelColor,
@@ -103,11 +126,16 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
     );
   }
 
-  Widget customOptionStores(BuildContext context,
-      {String? title, Function()? onTapOptionStore}) {
+  Widget customOptionStores(
+    BuildContext context, {
+    String? title,
+    bool selected = false,
+    Function()? onTapOptionStore,
+  }) {
     return GestureDetector(
       onTap: onTapOptionStore,
-      child: Padding(
+      child: Container(
+        color: Colors.transparent,
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 15.0),
         child: Row(
           children: [
@@ -119,11 +147,12 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                   ),
             ),
             const Spacer(),
-            const Icon(
-              Icons.check,
-              size: 16,
-              color: AppColor.mainColor,
-            ),
+            if (selected)
+              const Icon(
+                Icons.check,
+                size: 16,
+                color: AppColor.mainColor,
+              ),
           ],
         ),
       ),

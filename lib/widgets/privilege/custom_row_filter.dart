@@ -29,7 +29,12 @@ class CustomNumberStoresFilter extends StatelessWidget {
         //         ),
         //   ),
         // ),
-        const CustomDropDownButton(),
+        CustomDropDownButton(
+          // initialIndex: 1,
+          onSelected: (v) {
+            debugPrint(v);
+          },
+        ),
         const Spacer(),
         GestureDetector(
           onTap: onTapFilter,
