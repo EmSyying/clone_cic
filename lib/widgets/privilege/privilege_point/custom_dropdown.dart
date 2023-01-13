@@ -60,7 +60,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                       .map((e) => customOptionStores(
                             context,
                             title: e,
-                            onTap: () {},
+                            onTapOptionStore: () {},
                           ))
                       .toList(),
                 ),
@@ -104,14 +104,29 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
   }
 
   Widget customOptionStores(BuildContext context,
-      {String? title, Function()? onTap}) {
-    return ListTile(
-      title: Text('$title'),
-      trailing: const Icon(
-        Icons.check,
-        size: 20,
+      {String? title, Function()? onTapOptionStore}) {
+    return GestureDetector(
+      onTap: onTapOptionStore,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 15.0),
+        child: Row(
+          children: [
+            Text(
+              '$title',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14.0,
+                  ),
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.check,
+              size: 16,
+              color: AppColor.mainColor,
+            ),
+          ],
+        ),
       ),
-      onTap: onTap,
     );
   }
 }
