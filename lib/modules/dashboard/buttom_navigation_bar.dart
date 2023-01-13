@@ -36,13 +36,17 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   final settingCon = Get.put(SettingController());
   final priceCon = Get.put(PriceController());
   bool isShowMenuHolder = false;
-  bool isShowBottomBar = false;
-  int _calculateSelectedIndex(BuildContext context) {
+
+  int _calculateSelectedIndex(
+    BuildContext context,
+  ) {
     final String location = GoRouterState.of(context).location;
     debugPrint("Location: $location");
+
     if (_settingCon.getCurrentTapBottom.value == 3) {
       return 3;
     }
+
     if (settingCon.bottomMenuBarList.length == 4) {
       debugPrint('4 length');
       if (location.startsWith('/profile')) {
@@ -79,9 +83,12 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     return 0;
   }
 
+  int popIndex = 0;
+
   void _onItemTapped(int index, BuildContext context) {
     if (settingCon.bottomMenuBarList.length == 4) {
       debugPrint('index==$index');
+      popIndex = index;
       switch (index) {
         case 0:
           // settingCon.onCheckAuthentication();
@@ -310,7 +317,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   }
 
   bool isLoadingAllSetting = false;
-  // int _settingCon.getCurrentTapBottom.value = 0;
 
   @override
   void didChangeDependencies() {
@@ -368,12 +374,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                 return CustomFocusedMenuHolder(
                                   onPop: () {
                                     setState(() {
-                                      if (_calculateSelectedIndex(context) !=
-                                          3) {
-                                        isShowMenuHolder = false;
-                                      } else {
-                                        isShowMenuHolder = true;
-                                      }
+                                      _settingCon.getCurrentTapBottom.value =
+                                          popIndex;
                                     });
                                   },
                                   animateMenuItems: false,
@@ -393,7 +395,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           width: 20,
                                         ),
                                         onPressed: () {
-                                          isShowMenuHolder = true;
                                           GoRouter.of(context).go(settingCon
                                               .bottomMenuBarList[3].route!);
                                         }),
@@ -404,9 +405,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           height: 20,
                                           width: 20,
                                         ),
-                                        onPressed: () {
-                                          isShowMenuHolder = true;
-                                        }),
+                                        onPressed: () {}),
                                     CustomFocusedMenuItem(
                                         title: const Text("Learning"),
                                         trailingIcon: Image.asset(
@@ -415,7 +414,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           width: 20,
                                         ),
                                         onPressed: () {
-                                          isShowMenuHolder = true;
                                           GoRouter.of(context).go("/learning");
                                         }),
                                     CustomFocusedMenuItem(
@@ -426,13 +424,13 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           width: 20,
                                         ),
                                         onPressed: () {
-                                          isShowMenuHolder = true;
                                           GoRouter.of(context).go('/directory');
                                         }),
                                   ],
                                   onPressed: () {
                                     setState(() {
                                       isShowMenuHolder = true;
+                                      _settingCon.getCurrentTapBottom.value = 3;
                                     });
                                   },
                                   childInActive: Column(
