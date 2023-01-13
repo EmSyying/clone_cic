@@ -297,7 +297,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     child: CustomCardPoint(
                                       point: _walletController.myPoint.value
                                           .toString(),
-                                      onTap: () {
+                                      onTapRedeem: () {
                                         //context.push('/qr-screen');
                                         priController.onClearRedeemToMVP();
                                         priController.shopStoreId.value =
@@ -321,6 +321,10 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                         }
                                         context.push(
                                             '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                      },
+                                      onTapBalance: () {
+                                        context.push(
+                                            '/profile/setting/privilege/all-store/point-screen');
                                       },
                                     ),
                                   ),

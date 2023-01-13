@@ -6,9 +6,12 @@ import '../../../Utils/helper/color.dart';
 
 class CustomCardPoint extends StatelessWidget {
   final String? point;
-  final GestureDoubleTapCallback? onTap;
+  final GestureDoubleTapCallback? onTapRedeem;
+  final GestureDoubleTapCallback? onTapBalance;
 
-  const CustomCardPoint({Key? key, this.point, this.onTap}) : super(key: key);
+  const CustomCardPoint(
+      {Key? key, this.point, this.onTapRedeem, this.onTapBalance})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,41 +39,50 @@ class CustomCardPoint extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset("assets/images/point.svg"),
-                const SizedBox(
-                  width: 14,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            child: GestureDetector(
+              onTap: onTapBalance,
+              child: Container(
+                height: double.infinity,
+                color: Colors.transparent,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'MVP Balance',
-                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xff464646),
-                            fontSize: 12,
-                          ),
-                    ),
+                    SvgPicture.asset("assets/images/point.svg"),
                     const SizedBox(
-                      height: 2,
+                      width: 14,
                     ),
-                    Text(
-                      point ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'MVP Balance',
+                          style:
+                              Theme.of(context).textTheme.subtitle2!.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xff464646),
+                                    fontSize: 12,
+                                  ),
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        Text(
+                          point ?? '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          style:
+                              Theme.of(context).textTheme.headline2!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ),
           const VerticalDivider(
@@ -79,7 +91,7 @@ class CustomCardPoint extends StatelessWidget {
           ),
           Expanded(
             child: GestureDetector(
-              onTap: onTap,
+              onTap: onTapRedeem,
               child: Container(
                 height: double.infinity,
                 color: Colors.transparent,

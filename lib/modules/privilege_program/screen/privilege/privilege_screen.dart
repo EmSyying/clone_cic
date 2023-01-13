@@ -376,45 +376,11 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     context.push(
                                         "/profile/setting/privilege/all-stores/filter-item");
                                   },
-                                  titleStores: segmentedControlValue == 0
-                                      ? '${preController.shopModelList.length} Stores'
-                                      : '${preController.favshopModelList.length} Stores',
+                                  // titleStores: segmentedControlValue == 0
+                                  //     ? '${preController.shopModelList.length} Stores'
+                                  //     : '${preController.favshopModelList.length} Stores',
                                 ),
                               ),
-                              // DropdownButton<String>(
-                              //   focusColor: Colors.white,
-                              //   value: _chosenValue,
-                              //   //elevation: 5,
-                              //   style: const TextStyle(color: Colors.white),
-                              //   iconEnabledColor: Colors.black,
-                              //   items: <String>[
-                              //     'Android',
-                              //     'IOS',
-                              //     'Flutter',
-                              //     'Node',
-                              //   ].map<DropdownMenuItem<String>>((String value) {
-                              //     return DropdownMenuItem<String>(
-                              //       value: value,
-                              //       child: Text(
-                              //         value,
-                              //         style:
-                              //             const TextStyle(color: Colors.black),
-                              //       ),
-                              //     );
-                              //   }).toList(),
-                              //   hint: const Text(
-                              //     "All Stores",
-                              //     style: TextStyle(
-                              //         color: Colors.black,
-                              //         fontSize: 14,
-                              //         fontWeight: FontWeight.w500),
-                              //   ),
-                              //   onChanged: (String? value) {
-                              //     setState(() {
-                              //       _chosenValue = value;
-                              //     });
-                              //   },
-                              // ),
 
                               storePages[segmentedControlValue],
 
