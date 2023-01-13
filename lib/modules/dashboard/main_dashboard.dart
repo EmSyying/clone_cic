@@ -976,7 +976,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                 },
                                               );
                                             }
-                                          : value.route == 'report'
+                                          : value.route == 'directory'
                                               ? () {
                                                   FirebaseAnalyticsHelper
                                                       .setCurrentScreenName(

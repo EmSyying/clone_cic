@@ -388,7 +388,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                   openWithTap: true,
                                   menuItems: <CustomFocusedMenuItem>[
                                     CustomFocusedMenuItem(
-                                        title: const Text("Profile"),
+                                        title: const Text(
+                                          "Profile",
+                                          style: TextStyle(
+                                              color: Color(0xff0A0B09),
+                                              fontSize: 14,
+                                              fontFamily: "DM Sans",
+                                              fontWeight: FontWeight.w500),
+                                        ),
                                         trailingIcon: Image.asset(
                                           'assets/images/morePopUp/Profile.png',
                                           height: 20,
@@ -399,7 +406,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                               .bottomMenuBarList[3].route!);
                                         }),
                                     CustomFocusedMenuItem(
-                                        title: const Text("News"),
+                                        title: const Text(
+                                          "News",
+                                          style: TextStyle(
+                                              color: Color(0xff0A0B09),
+                                              fontSize: 14,
+                                              fontFamily: "DM Sans",
+                                              fontWeight: FontWeight.w500),
+                                        ),
                                         trailingIcon: Image.asset(
                                           'assets/images/morePopUp/News.png',
                                           height: 20,
@@ -407,7 +421,14 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                         ),
                                         onPressed: () {}),
                                     CustomFocusedMenuItem(
-                                        title: const Text("Learning"),
+                                        title: const Text(
+                                          "Learning",
+                                          style: TextStyle(
+                                              color: Color(0xff0A0B09),
+                                              fontSize: 14,
+                                              fontFamily: "DM Sans",
+                                              fontWeight: FontWeight.w500),
+                                        ),
                                         trailingIcon: Image.asset(
                                           'assets/images/morePopUp/Learning.png',
                                           height: 20,
@@ -417,14 +438,21 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           GoRouter.of(context).go("/learning");
                                         }),
                                     CustomFocusedMenuItem(
-                                        title: const Text("Directory"),
+                                        title: const Text(
+                                          "Report",
+                                          style: TextStyle(
+                                              color: Color(0xff0A0B09),
+                                              fontSize: 14,
+                                              fontFamily: "DM Sans",
+                                              fontWeight: FontWeight.w500),
+                                        ),
                                         trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/Directory.png',
+                                          'assets/images/morePopUp/Reporticon.png',
                                           height: 20,
                                           width: 20,
                                         ),
                                         onPressed: () {
-                                          GoRouter.of(context).go('/directory');
+                                          GoRouter.of(context).go('/report');
                                         }),
                                   ],
                                   onPressed: () {

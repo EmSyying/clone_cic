@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/controllers/learning_controller.dart';
@@ -71,6 +72,9 @@ class _LearningHomeState extends State<LearningHome> {
                           //     ),
                           //   ),
                           // );
+                          Get.put(SettingController())
+                              .getCurrentTapBottom
+                              .value = 0;
                           context.pop();
                         },
                         icon: kIsWeb

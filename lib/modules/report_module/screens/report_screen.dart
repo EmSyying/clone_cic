@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:go_router/go_router.dart';
+import '../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/helper/cic/cic_guider.dart';
 import '../../../widgets/report/custom_report_catigories_card.dart';
@@ -37,6 +41,17 @@ class ReportScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.put(SettingController()).getCurrentTapBottom.value = 0;
+            context.pop();
+          },
+          icon: kIsWeb
+              ? const Icon(Icons.arrow_back)
+              : Platform.isIOS
+                  ? const Icon(Icons.arrow_back_ios)
+                  : const Icon(Icons.arrow_back),
+        ),
         isLogo: false,
         isLeading: true,
         context: context,
