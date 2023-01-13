@@ -114,8 +114,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       ),
                     ),
                     Positioned(
-                      left: 0.0,
-                      right: 0.0,
+                      // left: 0.0,
+                      //right: 0.0,
                       // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
                       top: 5.0,
                       child: Obx(
@@ -128,8 +128,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                left: 2,
-                                right: 2,
+                                left: 3,
+                                right: 3,
                               ),
                               child: Text(
                                 _walletController
