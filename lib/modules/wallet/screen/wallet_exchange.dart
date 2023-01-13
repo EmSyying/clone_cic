@@ -40,51 +40,56 @@ class WalletExchange extends StatelessWidget {
 
               // context.push('/privilege/all-store/point-screen');
             },
-            child: Stack(
-              children: [
-                Container(
-                  height: 100,
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: SvgPicture.asset(
-                    "assets/images/svgfile/Union.svg",
-                    width: 14.0,
-                    height: 19.01,
-                  ),
-                ),
-                Positioned(
-                  right: 6.0,
-                  // _walletController.myPoint.value >= 999 ? 18.0 : 30.0,
-                  bottom: 34,
-                  child: Obx(
-                    () => Container(
-                      decoration: BoxDecoration(
-                        color: Colors.red[400],
-                        borderRadius: BorderRadius.circular(3.0),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: Stack(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.push(
+                          '/profile/setting/privilege/all-store/point-screen');
+                    },
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: SvgPicture.asset(
+                          "assets/images/svgfile/Union.svg",
+                          width: 20.0,
+                          height: 24.0,
+                        ),
                       ),
-                      height: 14,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 4,
-                            right: 4,
-                          ),
-                          child: Text(
-                            // _walletController.myPoint.value >= 999
-                            //     ? '999+'
-                            //     :
-                            _walletController
-                                    .mvpBalance.value.mvpAmountFormat ??
-                                "",
-
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 9),
+                    ),
+                  ),
+                  Positioned(
+                    // left: 0.0,
+                    //right: 0.0,
+                    // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
+                    top: 5.0,
+                    child: Obx(
+                      () => Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red[400],
+                          borderRadius: BorderRadius.circular(3.0),
+                        ),
+                        height: 14,
+                        child: Center(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 3.0, right: 3.0),
+                            child: Text(
+                              _walletController
+                                      .mvpBalance.value.mvpAmountFormat ??
+                                  "0.00",
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 9),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],
