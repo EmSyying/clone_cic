@@ -343,7 +343,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
             children: [
               Positioned.fill(
                 child: Scaffold(
-                  bottomNavigationBar: !setting.isHideBottomNavigation &&
+                  bottomNavigationBar: !setting.isHideBottomNavigation.value &&
                           settingCon.bottomMenuBarList.isNotEmpty
                       ? Container(
                           height: 90,
