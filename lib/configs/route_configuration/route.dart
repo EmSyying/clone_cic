@@ -83,7 +83,7 @@ final router = GoRouter(
           child: child,
         ),
         routes: <RouteBase>[
-          CICRoute.instance.serviceAgreement(fromWhere: 'Wallet'),
+          // CICRoute.instance.serviceAgreement(fromWhere: 'Wallet'),
           GoRoute(
               path: '/',
 
@@ -589,11 +589,12 @@ final router = GoRouter(
                   builder: (_, state) => WalletScreen(key: state.pageKey),
                   routes: [
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
-                      path: 'point-exchange',
-                      name: 'WalletPointExchange',
-                      builder: (_, state) => WalletExchange(key: state.pageKey),
-                    ),
+                        parentNavigatorKey: _rootNavigatorKey,
+                        path: 'point-exchange',
+                        name: 'WalletPointExchange',
+                        builder: (_, state) =>
+                            WalletExchange(key: state.pageKey),
+                        routes: const []),
                     GoRoute(
                       name: 'DepositCard',
                       path: 'deposit-card',

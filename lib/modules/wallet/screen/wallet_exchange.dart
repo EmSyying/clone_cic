@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../utils/helper/numerice_format.dart';
@@ -12,6 +11,7 @@ import '../../../utils/offline_widget.dart';
 import '../../../widgets/investments/slide_button.dart';
 import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../privilege_program/screen/privilege_point/privilege_point_screen.dart';
+import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
 
 class WalletExchange extends StatelessWidget {
@@ -31,8 +31,6 @@ class WalletExchange extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              final route = GoRouter.of(context).location;
-              debugPrint('Click Navigated : $route');
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -44,19 +42,13 @@ class WalletExchange extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10.0),
               child: Stack(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.push(
-                          '/profile/setting/privilege/all-store/point-screen');
-                    },
-                    child: Center(
-                      child: Container(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/svgfile/Union.svg",
-                          width: 20.0,
-                          height: 24.0,
-                        ),
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: SvgPicture.asset(
+                        "assets/images/svgfile/Union.svg",
+                        width: 20.0,
+                        height: 24.0,
                       ),
                     ),
                   ),
@@ -305,6 +297,15 @@ class WalletExchange extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       debugPrint("Press to exchange");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ContractTerm(
+                                            fromPage: 'exchange',
+                                          ),
+                                        ),
+                                      );
                                       // context.push(
                                       //     '/service-agreement?fromPage=exchange');
                                     },
