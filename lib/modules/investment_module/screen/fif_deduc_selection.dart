@@ -192,7 +192,7 @@ class _FIFDeucSelectionState extends State<FIFDeucSelection> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Row(
                     children: [
                       Expanded(

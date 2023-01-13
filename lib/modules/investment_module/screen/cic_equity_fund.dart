@@ -554,7 +554,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                   // context.push(
                                   //     "/ut-subscription/new-subscription?fromPage=investment");
                                 },
-                                title: "About CEF",
+                                title: "About EF",
                               ),
                             ),
                             const SizedBox(width: 20.0),
@@ -1156,7 +1156,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                 // context.push(
                                                 //     "/ut-subscription/new-subscription?fromPage=investment");
                                               },
-                                              title: "About CEF",
+                                              title: "About EF",
                                             ),
                                           ),
                                           const SizedBox(width: 20.0),

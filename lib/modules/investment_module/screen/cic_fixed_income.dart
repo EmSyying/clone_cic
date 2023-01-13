@@ -385,7 +385,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
           child: CustomButton(
             isDisable: false,
             isOutline: true,
-            title: 'About FIF',
+            title: 'About FiF',
             onPressed: () {
               //   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
               context.push(
@@ -432,7 +432,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
           child: CustomButton(
             isDisable: false,
             isOutline: true,
-            title: 'About FIF',
+            title: 'About FiF',
             onPressed: () {
               FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
               context.push(

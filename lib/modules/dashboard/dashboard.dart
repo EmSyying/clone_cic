@@ -105,7 +105,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    settingCon.isHideBottomNavigation = true;
+    // settingCon.isHideBottomNavigation = true;
 
     // priceController.onHideFeatureByUser();
     debugPrint("Tab name:${widget.tabName}");

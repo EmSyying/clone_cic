@@ -59,57 +59,60 @@ class IvestmentEmptyStateScreen extends StatelessWidget {
           ),
         ),
         isFixedIncom == true
-            ? Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: CustomButton(
-                        isDisable: false,
-                        isOutline: true,
-                        title: 'About FIF',
-                        onPressed: () {
-                          //   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
-                          context.push(
-                              '/investment/fixed-income-fund/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
-                        },
+            ? SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 0.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomButton(
+                          isDisable: false,
+                          isOutline: true,
+                          title: 'About FiF',
+                          onPressed: () {
+                            //   FirebaseAnalyticsHelper.sendAnalyticsEvent('about fif');
+                            context.push(
+                                '/investment/fixed-income-fund/about-fif?title=About FIF&url=${InjectionHelper.investmentController.investmentModel.value.aboutFif}');
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: CustomButton(
-                        key: contro.investmentFiF[1].key = GlobalKey(),
-                        isDisable: false,
-                        isOutline: false,
-                        title: InjectionHelper.investmentController
-                                    .fifAppConfirmList.isNotEmpty ||
-                                InjectionHelper.investmentController
-                                    .fifAppPendingList.isNotEmpty ||
-                                InjectionHelper.investmentController
-                                    .fifApplicationList.isNotEmpty
-                            ? 'Invest More'
-                            : 'Invest Now',
-                        onPressed: () async {
-                          FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                              'invest more fif');
-                          InjectionHelper.investmentController.onClearFIF();
-                          InjectionHelper.investmentController.isNewBank.value =
-                              true;
-                          InjectionHelper.investmentController
-                              .textReceivingAccount.value = "";
-                          InjectionHelper.investmentController
-                              .clearDeducSelection();
-                          context.push(
-                              '/investment/fixed-income-fund/invest-more');
-                          // context.router.push(FIFDeucSelectionRouter());
-                        },
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: CustomButton(
+                          key: contro.investmentFiF[1].key = GlobalKey(),
+                          isDisable: false,
+                          isOutline: false,
+                          title: InjectionHelper.investmentController
+                                      .fifAppConfirmList.isNotEmpty ||
+                                  InjectionHelper.investmentController
+                                      .fifAppPendingList.isNotEmpty ||
+                                  InjectionHelper.investmentController
+                                      .fifApplicationList.isNotEmpty
+                              ? 'Invest More'
+                              : 'Invest Now',
+                          onPressed: () async {
+                            FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                'invest more fif');
+                            InjectionHelper.investmentController.onClearFIF();
+                            InjectionHelper
+                                .investmentController.isNewBank.value = true;
+                            InjectionHelper.investmentController
+                                .textReceivingAccount.value = "";
+                            InjectionHelper.investmentController
+                                .clearDeducSelection();
+                            context.push(
+                                '/investment/fixed-income-fund/invest-more');
+                            // context.router.push(FIFDeucSelectionRouter());
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             : Container(),
+        const SizedBox(height: 20.0)
       ],
     );
   }
