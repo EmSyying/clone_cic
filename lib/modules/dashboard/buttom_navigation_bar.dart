@@ -35,6 +35,7 @@ class PaymentSchedule extends StatefulWidget {
 class _PaymentScheduleState extends State<PaymentSchedule> {
   final settingCon = Get.put(SettingController());
   final priceCon = Get.put(PriceController());
+  bool isShowMenuHolder = false;
   bool isShowBottomBar = false;
   int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
@@ -46,16 +47,18 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
       debugPrint('4 length');
       if (location.startsWith('/profile')) {
         debugPrint("Return Home Page");
-
         return 3;
       }
       if (location.startsWith('/event')) {
+        isShowMenuHolder = false;
         return 2;
       }
       if (location.startsWith('/qr-screen')) {
+        isShowMenuHolder = false;
         return 1;
       }
       if (location.startsWith('/')) {
+        isShowMenuHolder = false;
         return 0;
       }
     }
@@ -365,7 +368,12 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                 return CustomFocusedMenuHolder(
                                   onPop: () {
                                     setState(() {
-                                      isShowBottomBar = false;
+                                      if (_calculateSelectedIndex(context) !=
+                                          3) {
+                                        isShowMenuHolder = false;
+                                      } else {
+                                        isShowMenuHolder = true;
+                                      }
                                     });
                                   },
                                   animateMenuItems: false,
@@ -385,6 +393,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           width: 20,
                                         ),
                                         onPressed: () {
+                                          isShowMenuHolder = true;
                                           GoRouter.of(context).go(settingCon
                                               .bottomMenuBarList[3].route!);
                                         }),
@@ -395,7 +404,9 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           height: 20,
                                           width: 20,
                                         ),
-                                        onPressed: () {}),
+                                        onPressed: () {
+                                          isShowMenuHolder = true;
+                                        }),
                                     CustomFocusedMenuItem(
                                         title: const Text("Learning"),
                                         trailingIcon: Image.asset(
@@ -404,6 +415,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           width: 20,
                                         ),
                                         onPressed: () {
+                                          isShowMenuHolder = true;
                                           GoRouter.of(context).go("/learning");
                                         }),
                                     CustomFocusedMenuItem(
@@ -414,20 +426,13 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           width: 20,
                                         ),
                                         onPressed: () {
+                                          isShowMenuHolder = true;
                                           GoRouter.of(context).go('/directory');
                                         }),
                                   ],
                                   onPressed: () {
                                     setState(() {
-                                      isShowBottomBar = true;
-                                      //   _settingCon.getCurrentTapBottom.value =
-                                      //       navigation.key;
-
-                                      //   debugPrint(
-                                      //       'indx=${_settingCon.getCurrentTapBottom.value == navigation.key}');
-                                      //   _onItemTapped(
-                                      //       _settingCon.getCurrentTapBottom.value,
-                                      //       context);
+                                      isShowMenuHolder = true;
                                     });
                                   },
                                   childInActive: Column(
@@ -477,8 +482,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                         child: SizedBox(
                                           width: 20,
                                           height: 20,
-                                          // color: Colors.blue,
-                                          child: isShowBottomBar
+                                          child: isShowMenuHolder
                                               ? SvgPicture.network(
                                                   navigation.value.activeIcon!,
                                                   fit: BoxFit.contain,
@@ -496,7 +500,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                       Text(
                                         "${navigation.value.label}",
                                         style: TextStyle(
-                                            color: isShowBottomBar
+                                            color: isShowMenuHolder
                                                 ? Theme.of(context).primaryColor
                                                 : Theme.of(context)
                                                     .bottomNavigationBarTheme
@@ -538,7 +542,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                         child: SizedBox(
                                           width: navigation.key == 2 ? 20 : 25,
                                           height: navigation.key == 2 ? 26 : 25,
-                                          // color: Colors.blue,
                                           child: _calculateSelectedIndex(
                                                       context) ==
                                                   navigation.key
@@ -581,83 +584,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                             }).toList(),
                           ),
                         )
-                      // BottomNavigationBar(
-                      //   type: BottomNavigationBarType.fixed,
-                      //   selectedFontSize: 12,
-                      //   unselectedFontSize: 12,
-                      //   //        selectedLabelStyle: TextStyle(color: Colors.white),
-                      //   // type: BottomNavigationBarType.fixed,
-
-                      //   // items: <BottomNavigationBarItem>[
-                      //   //   BottomNavigationBarItem(
-                      //   //     icon: SvgPicture.asset(
-                      //   //       'assets/images/svgfile/menu/home.svg',
-                      //   //       color: const Color(0XFF848F92),
-                      //   //     ),
-                      //   //     label: S.of(context).homeMenu,
-                      //   //     activeIcon: SvgPicture.asset(
-                      //   //       'assets/images/svgfile/menu/HomeActiveIcon.svg',
-                      //   //       color: Theme.of(context).primaryColor,
-                      //   //     ),
-                      //   //   ),
-                      //   //   BottomNavigationBarItem(
-                      //   //     icon: SvgPicture.asset(
-                      //   //         'assets/images/svgfile/menu/qrcodeInactive.svg',
-                      //   //         color: const Color(0XFF848F92)),
-                      //   //     activeIcon: SvgPicture.asset(
-                      //   //       'assets/images/svgfile/menu/qrCodeActive.svg',
-                      //   //       color: Theme.of(context).primaryColor,
-                      //   //     ),
-                      //   //     label: S.of(context).qrCode,
-                      //   //   ),
-                      //   //   BottomNavigationBarItem(
-                      //   //       icon: SvgPicture.asset(
-                      //   //           'assets/images/svgfile/menu/eventInactive.svg'),
-                      //   //       activeIcon: SvgPicture.asset(
-                      //   //         'assets/images/svgfile/menu/eventActive.svg',
-                      //   //         color: Theme.of(context).primaryColor,
-                      //   //       ),
-                      //   //       label: S.of(context).event),
-                      //   //   BottomNavigationBarItem(
-                      //   //     icon: SvgPicture.asset(
-                      //   //         'assets/images/svgfile/menu/account.svg',
-                      //   //         color: const Color(0XFF848F92)),
-                      //   //     activeIcon: SvgPicture.asset(
-                      //   //       'assets/images/svgfile/menu/accountActive.svg',
-                      //   //       color: Theme.of(context).primaryColor,
-                      //   //     ),
-                      //   //     label: S.of(context).profile,
-                      //   //   ),
-                      //   // ],
-                      //   items: setting.bottomMenuBarList
-                      //       .asMap()
-                      //       .entries
-                      //       .map((navigation) {
-                      //     return BottomNavigationBarItem(
-                      //       icon: SvgPicture.network(
-                      //         navigation.value.icon!,
-                      //         color: const Color(0XFF848F92),
-                      //       ),
-                      //       label: navigation.value.label,
-                      //       activeIcon: SvgPicture.network(
-                      //         navigation.value.activeIcon!,
-                      //         color: Theme.of(context).primaryColor,
-                      //       ),
-                      //     );
-                      //   }).toList(),
-                      //   // _settingCon.getCurrentTapBottom.value: _settingCon.selectedIndex,
-                      //   unselectedItemColor: Theme.of(context)
-                      //       .bottomNavigationBarTheme
-                      //       .unselectedItemColor,
-                      //   selectedItemColor:
-                      //       Theme.of(context).primaryColor,
-
-                      //   // onTap: _settingCon.onTap,
-                      //   _settingCon.getCurrentTapBottom.value: _calculateSelectedIndex(context),
-
-                      //   onTap: (int idx) => _onItemTapped(idx, context),
-                      // ),
-
                       : null,
                   backgroundColor: Colors.white,
                   body: widget.child,
