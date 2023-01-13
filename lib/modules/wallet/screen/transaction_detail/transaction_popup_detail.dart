@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../widgets/wallets/custom_wallet_label_detail.dart';
 import '../../controller/wallet_controller.dart';
@@ -13,6 +14,7 @@ class TransactionPopUpDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final walletController = Get.put(WalletController());
+    final settingCon = Get.put(SettingController());
     return Obx(
       () => walletController.transactionDetailLoading.value
           ? const SizedBox(
@@ -45,6 +47,9 @@ class TransactionPopUpDetail extends StatelessWidget {
                         title: 'Close',
                         onPressed: () {
                           Navigator.pop(context);
+                          settingCon.isHideBottomNavigation.value = false;
+                          settingCon.update();
+                          // settingCon.isHideBottomNavigation.refresh();
                         },
                       )
                     ],
@@ -73,6 +78,9 @@ class TransactionPopUpDetail extends StatelessWidget {
                         isOutline: true,
                         title: 'Close',
                         onPressed: () {
+                          settingCon.isHideBottomNavigation.value = false;
+                          settingCon.update();
+                          settingCon.isHideBottomNavigation.refresh();
                           Navigator.pop(context);
                         },
                       )

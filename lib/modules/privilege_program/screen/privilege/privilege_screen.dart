@@ -82,7 +82,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
   File? nationalBack;
-
   @override
   Widget build(BuildContext context) {
     return CupertinoScaffold(
@@ -103,20 +102,22 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         context.push(
                             '/profile/setting/privilege/all-store/point-screen');
                       },
-                      child: Container(
-                        height: 100,
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: SvgPicture.asset(
-                          "assets/images/svgfile/Union.svg",
-                          width: 14.0,
-                          height: 19.01,
+                      child: Center(
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 12.0),
+                          child: SvgPicture.asset(
+                            "assets/images/svgfile/Union.svg",
+                            width: 20.0,
+                            height: 24.0,
+                          ),
                         ),
                       ),
                     ),
                     Positioned(
+                      left: 0.0,
                       right: 0.0,
                       // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
-                      bottom: 35,
+                      top: 5.0,
                       child: Obx(
                         () => Container(
                           decoration: BoxDecoration(
@@ -127,8 +128,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                left: 4,
-                                right: 4,
+                                left: 2,
+                                right: 2,
                               ),
                               child: Text(
                                 // _walletController.myPoint.value >= 999
@@ -375,9 +376,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     context.push(
                                         "/profile/setting/privilege/all-stores/filter-item");
                                   },
-                                  titleStores: segmentedControlValue == 0
-                                      ? '${preController.shopModelList.length} Stores'
-                                      : '${preController.favshopModelList.length} Stores',
+                                  // titleStores: segmentedControlValue == 0
+                                  //     ? '${preController.shopModelList.length} Stores'
+                                  //     : '${preController.favshopModelList.length} Stores',
                                 ),
                               ),
 

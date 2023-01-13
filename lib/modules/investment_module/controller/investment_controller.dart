@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 
 import 'package:cicgreenloan/modules/investment_module/model/contract_history/contract_history.dart';
@@ -757,6 +758,7 @@ class PriceController extends GetxController {
   final accountName = "".obs;
   final bankinfoId = 0.obs;
   final isFromWallet = false.obs;
+  final settingCon = Get.put(SettingController());
   Future<void> onCreateFiF(
       {num? id, required BuildContext? buildcontext}) async {
     debugPrint("ReceivingAccount.value:${textReceivingAccount.value}");
@@ -796,8 +798,12 @@ class PriceController extends GetxController {
                 'onPressedButton': () {
                   onClearFIF();
                   clearDeducSelection();
+                  settingCon.isHideBottomNavigation.value = false;
+                  settingCon.update();
+                  settingCon.isHideBottomNavigation.refresh();
+                  debugPrint("isHideBottomNavigation");
+                  buildcontext.go('/wallet/invest-fif/cic-fixed-income');
                   if (isFromWallet.value == true) {
-                    buildcontext.go('/wallet/invest-fif/cic-fixed-income');
                   } else {
                     buildcontext.go('/investment/cic-fixed-income');
                   }

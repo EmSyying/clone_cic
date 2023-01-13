@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/chart/custom_circle_chart_1_3.dart';
 import '../../Utils/helper/firebase_analytics.dart';
 import '../../Utils/pop_up_alert/show_alert_dialog.dart';
@@ -44,6 +45,7 @@ class FIFOption1 extends StatefulWidget {
 
 class _FIFOption1State extends State<FIFOption1> {
   final fifController = Get.put(PriceController());
+  final settingCon = Get.put(SettingController());
   Timer? searchOnStoppedTyping;
   void _validateDeduc() {
     fifController.validateFIF().then((value) {
@@ -165,6 +167,9 @@ class _FIFOption1State extends State<FIFOption1> {
                   fifController.maxDeductionAmount.value != 0 &&
                   fifController.deductionAmount.value <=
                       fifController.maxDeductionAmount.value) {
+                settingCon.isHideBottomNavigation.value = true;
+                settingCon.update();
+                settingCon.isHideBottomNavigation.refresh();
                 Navigator.push(
                   context!,
                   MaterialPageRoute(
@@ -206,6 +211,9 @@ class _FIFOption1State extends State<FIFOption1> {
               }
             } else {
               // fifController.onCreateFiF(buildcontext: context, id: widget.id);
+              settingCon.isHideBottomNavigation.value = true;
+              settingCon.update();
+              settingCon.isHideBottomNavigation.refresh();
               Navigator.push(
                 context!,
                 MaterialPageRoute(
@@ -251,6 +259,10 @@ class _FIFOption1State extends State<FIFOption1> {
       } else {
         // fifController.onCreateFiF(buildcontext: context, id: widget.id);
         debugPrint('All Form Validation = No Deduction Amount Can Route Here');
+        settingCon.isHideBottomNavigation.value = true;
+        settingCon.update();
+        settingCon.isHideBottomNavigation.refresh();
+
         Navigator.push(
           context!,
           MaterialPageRoute(
@@ -361,465 +373,488 @@ class _FIFOption1State extends State<FIFOption1> {
           body: Obx(
             () => fifController.isLoadingPayment.value
                 ? const LinearProgressIndicator()
-                : Column(
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Column(
-                            children: [
-                              if (widget.options!.isNotEmpty)
-                                CICDropdown(
-                                  label: 'Redemption Medthod',
+                : GestureDetector(
+                    onTap: () {
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
+                    },
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              children: [
+                                if (widget.options!.isNotEmpty)
+                                  CICDropdown(
+                                    label: 'Redemption Medthod',
+                                    isValidate:
+                                        fifController.isvalidateMethod.value,
+                                    colors: Colors.white,
+                                    isPadding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 10),
+                                    isCompany: false,
+                                    item: widget.options!
+                                        .asMap()
+                                        .entries
+                                        .map((e) {
+                                      return DropDownItem(
+                                        itemList: {
+                                          "Name": e.value.subproductName,
+                                          "Code": e.value.subid,
+                                          "Product_code": e.value.subproductCode
+                                        },
+                                      );
+                                    }).toList(),
+                                    onChange: (v) {
+                                      fifController.fiFApplicationDetailPending
+                                              .value =
+                                          fifController
+                                              .fiFApplicationDetailPending.value
+                                              .copyWith(productId: v['Code']);
+
+                                      fifController.fiFApplicationDetailPending
+                                              .value =
+                                          fifController
+                                              .fiFApplicationDetailPending.value
+                                              .copyWith(
+                                                  subproductName: v['Name']);
+                                      debugPrint(
+                                          "Product Name:${fifController.initailMethodName}");
+                                      fifController.fiFApplicationDetailPending
+                                              .value =
+                                          fifController
+                                              .fiFApplicationDetailPending.value
+                                              .copyWith(
+                                                  subproductCode:
+                                                      v['Product_code']);
+                                      fifController.productCode.value =
+                                          v['Product_code'];
+                                      fifController.productNameType.value =
+                                          v['Name'];
+
+                                      if (fifController
+                                              .fiFApplicationDetailPending
+                                              .value
+                                              .productName ==
+                                          "") {
+                                        fifController.isvalidateMethod.value =
+                                            false;
+                                      } else {
+                                        fifController.isvalidateMethod.value =
+                                            true;
+                                      }
+                                    },
+                                    defaultValue: fifController
+                                                .fiFApplicationDetailPending
+                                                .value
+                                                .subproductName !=
+                                            ""
+                                        ? {
+                                            "Code": fifController
+                                                .fiFApplicationDetailPending
+                                                .value
+                                                .subid,
+                                            "Name": fifController
+                                                .fiFApplicationDetailPending
+                                                .value
+                                                .subproductName
+                                          }
+                                        : null,
+                                  ),
+                                SizedBox(
+                                    height: fifController
+                                                .medthodproductCode.value ==
+                                            "RBI-0007"
+                                        ? 10
+                                        : 0),
+                                CustomTextFieldNew(
+                                  inputFormatterList: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    NumericTextFormatter(),
+                                    FilteringTextInputFormatter.deny(
+                                        RegExp(r'^0+')),
+                                  ],
+                                  controller: fifController.amountController,
+                                  keyboardType: TextInputType.number,
+                                  validateText:
+                                      fifController.textAmount.value == 0.0
+                                          ? "Please Enter Investment Amount"
+                                          : fifController.validateMessage.value,
+                                  hintText: 'Investment Amount',
+                                  labelText: 'Investment Amount',
+                                  isRequired: true,
                                   isValidate:
-                                      fifController.isvalidateMethod.value,
+                                      fifController.isValidateAmount.value,
+                                  onChange: (valueChange) {
+                                    _onChangeHandler(valueChange, true);
+
+                                    if (valueChange.isEmpty) {
+                                      fifController.isValidateAmount(false);
+                                      fifController.textAmount.value = 0.0;
+                                    } else {
+                                      var amount =
+                                          valueChange.replaceAll(',', '');
+                                      fifController.textAmount.value =
+                                          onConvertToDouble(amount);
+                                      if (Opterator.isBetween(
+                                          fifController.minimum.value,
+                                          fifController.textAmount.value,
+                                          fifController.maximum.value)) {
+                                        fifController.isValidateAmount(true);
+                                      } else {
+                                        fifController.isValidateAmount(false);
+                                      }
+                                    }
+                                  },
+                                  initialValue:
+                                      fifController.textAmount.value != 0
+                                          ? fifController.textAmount.value
+                                              .toString()
+                                          : "",
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: Text(
+                                      'USD',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1!
+                                          .copyWith(color: Colors.black38),
+                                    ),
+                                  ),
+                                ),
+                                CustomTextFieldNew(
+                                  enable: fifController
+                                              .isValidateAmount.value &&
+                                          fifController.textAmount.value != 0
+                                      ? true
+                                      : false,
+                                  inputFormatterList: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    NumericTextFormatter(),
+                                    FilteringTextInputFormatter.deny(
+                                      RegExp(r'^0+'),
+                                    ),
+                                  ],
+                                  controller: fifController.durationController,
+                                  keyboardType: TextInputType.number,
+                                  hintText: 'Investment Duration',
+                                  labelText: 'Investment Duration',
+                                  isRequired: true,
+                                  isValidate:
+                                      fifController.isValidateDuration.value,
+                                  validateText:
+                                      fifController.textDuration.value == 0
+                                          ? "Please Enter Invesment Duration"
+                                          : fifController.durationMessage.value,
+                                  onChange: (valueChanged) {
+                                    _onChangeHandler(valueChanged, false);
+                                    if (valueChanged.isEmpty) {
+                                      fifController.isValidateDuration(false);
+                                      fifController.textDuration.value = 0;
+                                    } else {
+                                      var duration =
+                                          valueChanged.replaceAll(',', '');
+                                      fifController.textDuration.value =
+                                          int.parse(duration);
+                                      if (Opterator.isBetween(
+                                          fifController.durationMin.value,
+                                          fifController.textDuration.value,
+                                          fifController.durationMax.value)) {
+                                        fifController.isValidateDuration(true);
+                                      } else {
+                                        fifController.isValidateDuration(false);
+                                      }
+                                    }
+
+                                    //
+                                    if (fifController
+                                            .initialMethodProductCode.value !=
+                                        "MPD-0002") {
+                                      validateTextDuration =
+                                          fifController.durationMessage.value;
+                                    }
+                                  },
+                                  initialValue:
+                                      fifController.textDuration.value != 0
+                                          ? fifController.textDuration.value
+                                              .toString()
+                                          : "",
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 15, right: 20),
+                                    child: Text(
+                                      'Month(s)',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1!
+                                          .copyWith(color: Colors.black38),
+                                    ),
+                                  ),
+                                ),
+
+                                if (widget.options!.isNotEmpty &&
+                                    fifController.fiFApplicationDetailPending
+                                            .value.subproductCode ==
+                                        "MPD-0002")
+                                  Stack(
+                                    children: [
+                                      CustomTextFieldNew(
+                                        controller: fifController
+                                            .deductionAmountController,
+                                        enable: fifController
+                                                        .initialMethodProductCode
+                                                        .value ==
+                                                    "MPD-0002" &&
+                                                fifController
+                                                        .textDuration.value !=
+                                                    0
+                                            ? true
+                                            : fifController
+                                                        .initialMethodProductCode
+                                                        .value !=
+                                                    "MPD-0002"
+                                                ? true
+                                                : false,
+                                        suffixIcon: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 15),
+                                          child: Text(
+                                            'USD',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1!
+                                                .copyWith(
+                                                    color: Colors.black38),
+                                          ),
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                        inputFormatterList: [
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                          NumericTextFormatter(),
+                                          FilteringTextInputFormatter.deny(
+                                              RegExp(r'^0+')),
+                                        ],
+                                        validateText: fifController
+                                                    .deductionAmount.value ==
+                                                0
+                                            ? "Please Enter Principal Deduction Amount"
+                                            : _deductionAmountValidateMSG,
+                                        isValidate: fifController
+                                            .isValidateDeductionAmount.value,
+                                        initialValue: fifController
+                                                    .deductionAmount.value ==
+                                                0
+                                            ? ""
+                                            : fifController
+                                                .deductionAmount.value
+                                                .toString(),
+                                        hintText: "Principal Deduction Amount",
+                                        labelText: "Principal Deduction Amount",
+                                        isRequired: true,
+                                        onChange: (valueChanged) {
+                                          var value =
+                                              valueChanged.replaceAll(',', '');
+
+                                          if (valueChanged.isEmpty) {
+                                            fifController
+                                                .isValidateDeductionAmount(
+                                                    false);
+                                            fifController
+                                                .deductionAmount.value = 0.0;
+                                          } else {
+                                            fifController
+                                                    .deductionAmount.value =
+                                                onConvertToDouble(value);
+                                            fifController
+                                                .isValidateDeductionAmount
+                                                .value = true;
+                                            if (Opterator.isBetween(
+                                                fifController
+                                                    .minDeductionAmount.value,
+                                                fifController
+                                                    .deductionAmount.value,
+                                                fifController.maxDeductionAmount
+                                                    .value)) {
+                                              fifController
+                                                  .isValidateDeductionAmount(
+                                                      true);
+                                            } else {
+                                              fifController
+                                                  .isValidateDeductionAmount(
+                                                      false);
+                                            }
+                                          }
+                                        },
+                                      ),
+                                      fifController.validateFIFLoading.value
+                                          ? _loadingDeducAmount()
+                                          : const SizedBox.shrink()
+                                    ],
+                                  ),
+
+                                // SizedBox(height: 20),
+
+                                // Text(
+                                //   fifController.deductionMessage.value,
+                                //   style: const TextStyle(color: Colors.red),
+                                // ),
+                                CICDropdown(
+                                    currentDate: fifController.textInvestDate !=
+                                                null &&
+                                            FormatDate.isAfterDateTime(
+                                                fifController.textInvestDate)
+                                        ? DateFormat("dd-MM-yyyy").parse(
+                                            fifController.textInvestDate
+                                                .toString())
+                                        : FormatDate.today(),
+                                    isDateTimePicker: true,
+                                    getDateTime: true,
+                                    isCompany: true,
+                                    isSelectBank: true,
+                                    colors: Colors.white,
+                                    isPadding: EdgeInsets.zero,
+                                    isValidate: fifController
+                                        .isValidateinvestDate.value,
+                                    isPayment: true,
+                                    isAppBar: true,
+                                    onChange: (investDate) {
+                                      if (investDate.isEmpty) {
+                                        fifController
+                                            .isValidateinvestDate.value = false;
+                                        fifController.textInvestDate = null;
+
+                                        fifController.update();
+                                        fifController.isValidateinvestDate
+                                            .refresh();
+                                      } else {
+                                        debugPrint(
+                                            "onChange date:${investDate["Name"]}");
+                                        fifController
+                                            .isValidateinvestDate.value = true;
+                                        fifController.textInvestDate =
+                                            investDate["Name"];
+                                        investDateCheck = investDate["Name"];
+
+                                        fifController.firstPaymentDateIncrease =
+                                            DateTime(
+                                                investDate["Name"].year,
+                                                investDate["Name"].month,
+                                                investDate["Name"].day + 30);
+
+                                        fifController.update();
+                                        fifController.isValidateinvestDate
+                                            .refresh();
+                                      }
+                                    },
+                                    label: 'Investment Date',
+                                    defaultValue:
+                                        fifController.textInvestDate != null
+                                            ? {
+                                                "Name": investDateCheck != ""
+                                                    ? FormatDate
+                                                        .investmentDateDropDown(
+                                                            fifController
+                                                                .textInvestDate
+                                                                .toString())
+                                                    : fifController
+                                                                .textInvestDate !=
+                                                            null
+                                                        ? FormatDate
+                                                            .investmentDateDropDown(
+                                                                fifController
+                                                                    .textInvestDate
+                                                                    .toString())
+                                                        : "",
+                                                "Code": 3
+                                              }
+                                            : null),
+
+                                const SizedBox(height: 10),
+
+                                CICDropdown(
+                                  isValidate:
+                                      fifController.isValidateReceiveAcc.value,
                                   colors: Colors.white,
-                                  isPadding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
-                                  isCompany: false,
-                                  item:
-                                      widget.options!.asMap().entries.map((e) {
+                                  imageUrl:
+                                      fifController.paymentModel.value.image,
+                                  isPadding: const EdgeInsets.only(left: 5),
+                                  isUserAccount: true,
+                                  isProfile: true,
+                                  isSelectBank: true,
+                                  isCompany: true,
+                                  item: fifController.paymentDataList
+                                      .asMap()
+                                      .entries
+                                      .map((e) {
                                     return DropDownItem(
+                                      isPadding: const EdgeInsets.all(10),
                                       itemList: {
-                                        "Name": e.value.subproductName,
-                                        "Code": e.value.subid,
-                                        "Product_code": e.value.subproductCode
+                                        "Name": e.value.bankName,
+                                        "Code": e.value.id,
+                                        "accountName": e.value.accounName,
+                                        "accountNumber": e.value.accountNumber,
+                                        "picture": e.value.image,
+                                        "type": e.value.type
                                       },
                                     );
                                   }).toList(),
                                   onChange: (v) {
-                                    fifController
-                                            .fiFApplicationDetailPending.value =
-                                        fifController
-                                            .fiFApplicationDetailPending.value
-                                            .copyWith(productId: v['Code']);
-
-                                    fifController
-                                            .fiFApplicationDetailPending.value =
-                                        fifController
-                                            .fiFApplicationDetailPending.value
-                                            .copyWith(
-                                                subproductName: v['Name']);
-                                    debugPrint(
-                                        "Product Name:${fifController.initailMethodName}");
-                                    fifController
-                                            .fiFApplicationDetailPending.value =
-                                        fifController
-                                            .fiFApplicationDetailPending.value
-                                            .copyWith(
-                                                subproductCode:
-                                                    v['Product_code']);
-                                    fifController.productCode.value =
-                                        v['Product_code'];
-                                    fifController.productNameType.value =
-                                        v['Name'];
-
-                                    if (fifController
-                                            .fiFApplicationDetailPending
-                                            .value
-                                            .productName ==
-                                        "") {
-                                      fifController.isvalidateMethod.value =
-                                          false;
-                                    } else {
-                                      fifController.isvalidateMethod.value =
-                                          true;
-                                    }
+                                    fifController.mmaAccountId.value =
+                                        v["Code"];
+                                    fifController.isValidateReceiveAcc.value =
+                                        true;
+                                    fifController.bankId.value = v["Code"];
+                                    fifController.textReceivingAccount.value =
+                                        v["type"];
+                                    fifController.textReceivingAccountTitle
+                                        .value = v["Name"];
+                                    fifController.accounName.value =
+                                        v["accountName"];
+                                    fifController.accountNumber.value =
+                                        v["accountNumber"];
+                                    fifController.update();
+                                    fifController.textReceivingAccount
+                                        .refresh();
                                   },
+                                  label: 'Interest Receiving Account',
                                   defaultValue: fifController
-                                              .fiFApplicationDetailPending
-                                              .value
-                                              .subproductName !=
+                                              .textReceivingAccountTitle
+                                              .value !=
                                           ""
                                       ? {
-                                          "Code": fifController
-                                              .fiFApplicationDetailPending
-                                              .value
-                                              .subid,
+                                          "Code": fifController.bankId.value,
                                           "Name": fifController
-                                              .fiFApplicationDetailPending
-                                              .value
-                                              .subproductName
+                                              .textReceivingAccountTitle.value
                                         }
                                       : null,
-                                ),
-                              SizedBox(
-                                  height:
-                                      fifController.medthodproductCode.value ==
-                                              "RBI-0007"
-                                          ? 10
-                                          : 0),
-                              CustomTextFieldNew(
-                                inputFormatterList: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                  NumericTextFormatter(),
-                                  FilteringTextInputFormatter.deny(
-                                      RegExp(r'^0+')),
-                                ],
-                                controller: fifController.amountController,
-                                keyboardType: TextInputType.number,
-                                validateText:
-                                    fifController.textAmount.value == 0.0
-                                        ? "Please Enter Investment Amount"
-                                        : fifController.validateMessage.value,
-                                hintText: 'Investment Amount',
-                                labelText: 'Investment Amount',
-                                isRequired: true,
-                                isValidate:
-                                    fifController.isValidateAmount.value,
-                                onChange: (valueChange) {
-                                  _onChangeHandler(valueChange, true);
-
-                                  if (valueChange.isEmpty) {
-                                    fifController.isValidateAmount(false);
-                                    fifController.textAmount.value = 0.0;
-                                  } else {
-                                    var amount =
-                                        valueChange.replaceAll(',', '');
-                                    fifController.textAmount.value =
-                                        onConvertToDouble(amount);
-                                    if (Opterator.isBetween(
-                                        fifController.minimum.value,
-                                        fifController.textAmount.value,
-                                        fifController.maximum.value)) {
-                                      fifController.isValidateAmount(true);
-                                    } else {
-                                      fifController.isValidateAmount(false);
-                                    }
-                                  }
-                                },
-                                initialValue: fifController.textAmount.value !=
-                                        0
-                                    ? fifController.textAmount.value.toString()
-                                    : "",
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Text(
-                                    'USD',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(color: Colors.black38),
-                                  ),
-                                ),
-                              ),
-                              CustomTextFieldNew(
-                                enable: fifController.isValidateAmount.value &&
-                                        fifController.textAmount.value != 0
-                                    ? true
-                                    : false,
-                                inputFormatterList: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                  NumericTextFormatter(),
-                                  FilteringTextInputFormatter.deny(
-                                    RegExp(r'^0+'),
-                                  ),
-                                ],
-                                controller: fifController.durationController,
-                                keyboardType: TextInputType.number,
-                                hintText: 'Investment Duration',
-                                labelText: 'Investment Duration',
-                                isRequired: true,
-                                isValidate:
-                                    fifController.isValidateDuration.value,
-                                validateText:
-                                    fifController.textDuration.value == 0
-                                        ? "Please Enter Invesment Duration"
-                                        : fifController.durationMessage.value,
-                                onChange: (valueChanged) {
-                                  _onChangeHandler(valueChanged, false);
-                                  if (valueChanged.isEmpty) {
-                                    fifController.isValidateDuration(false);
-                                    fifController.textDuration.value = 0;
-                                  } else {
-                                    var duration =
-                                        valueChanged.replaceAll(',', '');
-                                    fifController.textDuration.value =
-                                        int.parse(duration);
-                                    if (Opterator.isBetween(
-                                        fifController.durationMin.value,
-                                        fifController.textDuration.value,
-                                        fifController.durationMax.value)) {
-                                      fifController.isValidateDuration(true);
-                                    } else {
-                                      fifController.isValidateDuration(false);
-                                    }
-                                  }
-
-                                  //
-                                  if (fifController
-                                          .initialMethodProductCode.value !=
-                                      "MPD-0002") {
-                                    validateTextDuration =
-                                        fifController.durationMessage.value;
-                                  }
-                                },
-                                initialValue:
-                                    fifController.textDuration.value != 0
-                                        ? fifController.textDuration.value
-                                            .toString()
-                                        : "",
-                                suffixIcon: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 15, right: 20),
-                                  child: Text(
-                                    'Month(s)',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(color: Colors.black38),
-                                  ),
-                                ),
-                              ),
-
-                              if (widget.options!.isNotEmpty &&
-                                  fifController.fiFApplicationDetailPending
-                                          .value.subproductCode ==
-                                      "MPD-0002")
-                                Stack(
-                                  children: [
-                                    CustomTextFieldNew(
-                                      controller: fifController
-                                          .deductionAmountController,
-                                      enable: fifController
-                                                      .initialMethodProductCode
-                                                      .value ==
-                                                  "MPD-0002" &&
-                                              fifController
-                                                      .textDuration.value !=
-                                                  0
-                                          ? true
-                                          : fifController
-                                                      .initialMethodProductCode
-                                                      .value !=
-                                                  "MPD-0002"
-                                              ? true
-                                              : false,
-                                      suffixIcon: Padding(
-                                        padding: const EdgeInsets.only(top: 15),
-                                        child: Text(
-                                          'USD',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1!
-                                              .copyWith(color: Colors.black38),
-                                        ),
-                                      ),
-                                      keyboardType: TextInputType.number,
-                                      inputFormatterList: [
-                                        FilteringTextInputFormatter.digitsOnly,
-                                        NumericTextFormatter(),
-                                        FilteringTextInputFormatter.deny(
-                                            RegExp(r'^0+')),
-                                      ],
-                                      validateText: fifController
-                                                  .deductionAmount.value ==
-                                              0
-                                          ? "Please Enter Principal Deduction Amount"
-                                          : _deductionAmountValidateMSG,
-                                      isValidate: fifController
-                                          .isValidateDeductionAmount.value,
-                                      initialValue: fifController
-                                                  .deductionAmount.value ==
-                                              0
-                                          ? ""
-                                          : fifController.deductionAmount.value
-                                              .toString(),
-                                      hintText: "Principal Deduction Amount",
-                                      labelText: "Principal Deduction Amount",
-                                      isRequired: true,
-                                      onChange: (valueChanged) {
-                                        var value =
-                                            valueChanged.replaceAll(',', '');
-
-                                        if (valueChanged.isEmpty) {
-                                          fifController
-                                              .isValidateDeductionAmount(false);
-                                          fifController.deductionAmount.value =
-                                              0.0;
-                                        } else {
-                                          fifController.deductionAmount.value =
-                                              onConvertToDouble(value);
-                                          fifController
-                                              .isValidateDeductionAmount
-                                              .value = true;
-                                          if (Opterator.isBetween(
-                                              fifController
-                                                  .minDeductionAmount.value,
-                                              fifController
-                                                  .deductionAmount.value,
-                                              fifController
-                                                  .maxDeductionAmount.value)) {
-                                            fifController
-                                                .isValidateDeductionAmount(
-                                                    true);
-                                          } else {
-                                            fifController
-                                                .isValidateDeductionAmount(
-                                                    false);
-                                          }
-                                        }
-                                      },
-                                    ),
-                                    fifController.validateFIFLoading.value
-                                        ? _loadingDeducAmount()
-                                        : const SizedBox.shrink()
-                                  ],
-                                ),
-
-                              // SizedBox(height: 20),
-
-                              // Text(
-                              //   fifController.deductionMessage.value,
-                              //   style: const TextStyle(color: Colors.red),
-                              // ),
-                              CICDropdown(
-                                  currentDate:
-                                      fifController.textInvestDate != null &&
-                                              FormatDate.isAfterDateTime(
-                                                  fifController.textInvestDate)
-                                          ? DateFormat("dd-MM-yyyy").parse(
-                                              fifController.textInvestDate
-                                                  .toString())
-                                          : FormatDate.today(),
-                                  isDateTimePicker: true,
-                                  getDateTime: true,
-                                  isCompany: true,
-                                  isSelectBank: true,
-                                  colors: Colors.white,
-                                  isPadding: EdgeInsets.zero,
-                                  isValidate:
-                                      fifController.isValidateinvestDate.value,
-                                  isPayment: true,
-                                  isAppBar: true,
-                                  onChange: (investDate) {
-                                    if (investDate.isEmpty) {
-                                      fifController.isValidateinvestDate.value =
-                                          false;
-                                      fifController.textInvestDate = null;
-
-                                      fifController.update();
-                                      fifController.isValidateinvestDate
-                                          .refresh();
-                                    } else {
-                                      debugPrint(
-                                          "onChange date:${investDate["Name"]}");
-                                      fifController.isValidateinvestDate.value =
-                                          true;
-                                      fifController.textInvestDate =
-                                          investDate["Name"];
-                                      investDateCheck = investDate["Name"];
-
-                                      fifController.firstPaymentDateIncrease =
-                                          DateTime(
-                                              investDate["Name"].year,
-                                              investDate["Name"].month,
-                                              investDate["Name"].day + 30);
-
-                                      fifController.update();
-                                      fifController.isValidateinvestDate
-                                          .refresh();
-                                    }
+                                  onCreateCompany: () {
+                                    bonusCon.onClearBank();
+                                    fifController.isNewBank.value = false;
+                                    Navigator.pop(context);
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      enableDrag: true,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              borderRaduis)),
+                                      context: context,
+                                      builder: (context) =>
+                                          CustomChangeAccountBank(),
+                                    );
                                   },
-                                  label: 'Investment Date',
-                                  defaultValue: fifController.textInvestDate !=
-                                          null
-                                      ? {
-                                          "Name": investDateCheck != ""
-                                              ? FormatDate
-                                                  .investmentDateDropDown(
-                                                      fifController
-                                                          .textInvestDate
-                                                          .toString())
-                                              : fifController.textInvestDate !=
-                                                      null
-                                                  ? FormatDate
-                                                      .investmentDateDropDown(
-                                                          fifController
-                                                              .textInvestDate
-                                                              .toString())
-                                                  : "",
-                                          "Code": 3
-                                        }
-                                      : null),
-
-                              const SizedBox(height: 10),
-
-                              CICDropdown(
-                                isValidate:
-                                    fifController.isValidateReceiveAcc.value,
-                                colors: Colors.white,
-                                imageUrl:
-                                    fifController.paymentModel.value.image,
-                                isPadding: const EdgeInsets.only(left: 5),
-                                isUserAccount: true,
-                                isProfile: true,
-                                isSelectBank: true,
-                                isCompany: true,
-                                item: fifController.paymentDataList
-                                    .asMap()
-                                    .entries
-                                    .map((e) {
-                                  return DropDownItem(
-                                    isPadding: const EdgeInsets.all(10),
-                                    itemList: {
-                                      "Name": e.value.bankName,
-                                      "Code": e.value.id,
-                                      "accountName": e.value.accounName,
-                                      "accountNumber": e.value.accountNumber,
-                                      "picture": e.value.image,
-                                      "type": e.value.type
-                                    },
-                                  );
-                                }).toList(),
-                                onChange: (v) {
-                                  fifController.mmaAccountId.value = v["Code"];
-                                  fifController.isValidateReceiveAcc.value =
-                                      true;
-                                  fifController.bankId.value = v["Code"];
-                                  fifController.textReceivingAccount.value =
-                                      v["type"];
-                                  fifController.textReceivingAccountTitle
-                                      .value = v["Name"];
-                                  fifController.accounName.value =
-                                      v["accountName"];
-                                  fifController.accountNumber.value =
-                                      v["accountNumber"];
-                                  fifController.update();
-                                  fifController.textReceivingAccount.refresh();
-                                },
-                                label: 'Interest Receiving Account',
-                                defaultValue: fifController
-                                            .textReceivingAccountTitle.value !=
-                                        ""
-                                    ? {
-                                        "Code": fifController.bankId.value,
-                                        "Name": fifController
-                                            .textReceivingAccountTitle.value
-                                      }
-                                    : null,
-                                onCreateCompany: () {
-                                  bonusCon.onClearBank();
-                                  fifController.isNewBank.value = false;
-                                  Navigator.pop(context);
-                                  showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    enableDrag: true,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            borderRaduis)),
-                                    context: context,
-                                    builder: (context) =>
-                                        CustomChangeAccountBank(),
-                                  );
-                                },
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      _buildBotton(context)
-                    ],
+                        _buildBotton(context)
+                      ],
+                    ),
                   ),
           ),
         ),

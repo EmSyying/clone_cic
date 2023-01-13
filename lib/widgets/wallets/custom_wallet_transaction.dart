@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/wallet/model/transaction/wallet_transaction.dart';
 import 'package:cicgreenloan/widgets/wallets/custom_transaction_card.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class CustomWalletTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final walletController = Get.put(WalletController());
+    final settingCon = Get.put(SettingController());
     return Column(
       children: walletTransaction!
           .map(
@@ -47,6 +49,7 @@ class CustomWalletTransaction extends StatelessWidget {
                                   ? null
                                   : () async {
                                       debugPrint("is pressed wallet");
+
                                       await walletController
                                           .onFetchWalletTransactionDetail(
                                               data.value.id!,
@@ -56,6 +59,9 @@ class CustomWalletTransaction extends StatelessWidget {
                                           context,
                                           walletController
                                               .walletTransactionDetail.value);
+                                      settingCon.isHideBottomNavigation.value =
+                                          true;
+                                      settingCon.update();
                                     },
                             ),
                           ),

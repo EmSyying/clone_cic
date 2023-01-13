@@ -14,7 +14,6 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 
-import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/helper/custom_appbar.dart';
 import '../../Utils/offline_widget.dart';
 import '../../configs/route_configuration/route.dart';
@@ -39,7 +38,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   final cusController = Get.put(CustomerController());
   final priceController = Get.put(PriceController());
   final _guidkey = Get.put(CiCGuidController());
-  final _settingCon = Get.put(SettingController());
 
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
@@ -313,7 +311,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             leading: GestureDetector(
                               onTap: () {
                                 context.pop();
-                                settingCon.isHideBottomNavigation = false;
+                                settingCon.isHideBottomNavigation.value = false;
                                 settingCon.update();
                               },
                               child: Icon(Platform.isAndroid

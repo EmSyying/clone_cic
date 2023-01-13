@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,14 +24,26 @@ class RedeemPointToPay extends StatelessWidget {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle2!;
     final walletController = Get.put(WalletController());
     final priController = Get.put(PrivilegeController());
+
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
-        context: context,
-        elevation: 0,
-        title: 'Redeem MVP',
-        colorTitle: true,
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+          context: context,
+          elevation: 0,
+          title: 'Redeem MVP',
+          colorTitle: true,
+          backgroundColor: Theme.of(context).primaryColor,
+          leading: IconButton(
+              icon: kIsWeb
+                  ? const Icon(Icons.arrow_back)
+                  : Platform.isAndroid
+                      ? const Icon(Icons.arrow_back)
+                      : const Icon(Icons.arrow_back_ios),
+              color: Colors.white,
+              onPressed: () {
+                priController.receiveAccountNumber.value = '';
+                priController.receiveAccountname.value = '';
+                context.pop();
+              })),
       body: Obx(
         () => GestureDetector(
           onTap: () {
@@ -91,19 +106,31 @@ class RedeemPointToPay extends StatelessWidget {
                                     .isRedeemToVerifyAccountValidate.value ==
                                 true)
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20, bottom: 10, right: 20),
+                                padding: EdgeInsets.only(
+                                    left: 20,
+                                    bottom: priController
+                                                .receiveAccountname.value !=
+                                            ''
+                                        ? 10
+                                        : 0,
+                                    right: 20),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    SvgPicture.asset(
-                                        'assets/images/wallet_found.svg'),
+                                    if (priController
+                                            .receiveAccountname.value !=
+                                        '')
+                                      SvgPicture.asset(
+                                          'assets/images/wallet_found.svg'),
                                     const SizedBox(width: 5),
-                                    Text(
-                                      priController.receiveAccountname.value,
-                                      style: textStyle.copyWith(
-                                          color: const Color(0xff4FA30F)),
-                                    )
+                                    if (priController
+                                            .receiveAccountname.value !=
+                                        '')
+                                      Text(
+                                        priController.receiveAccountname.value,
+                                        style: textStyle.copyWith(
+                                            color: const Color(0xff4FA30F)),
+                                      )
                                   ],
                                 ),
                               ),
@@ -115,8 +142,10 @@ class RedeemPointToPay extends StatelessWidget {
                               },
                               child: CustomTextFieldNew(
                                 validateText: 'You have not enought MVP',
+
                                 isValidate:
                                     priController.isValidateAmoutToRedeem.value,
+
                                 initialValue:
                                     priController.amountToRedeem.value == 0.0
                                         ? ''
@@ -147,6 +176,7 @@ class RedeemPointToPay extends StatelessWidget {
                                         onConvertToDouble(value);
                                   }
                                 },
+
                                 isRequired: true,
                                 labelText: 'Amount',
                                 hintText: 'Amount',
@@ -173,7 +203,7 @@ class RedeemPointToPay extends StatelessWidget {
                                 priController.remark.value = value;
                               },
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 14),
                           ],
                         ),
                       ),
@@ -184,7 +214,7 @@ class RedeemPointToPay extends StatelessWidget {
               Container(
                 color: Colors.white,
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 30.0),
+                    horizontal: 20.0, vertical: 24.0),
                 child: CustomButton(
                   width: double.infinity,
                   onPressed: priController.amountToRedeem.value != 0.0
@@ -195,7 +225,11 @@ class RedeemPointToPay extends StatelessWidget {
                         }
                       : null,
                   title: 'Redeem Now',
-                  isDisable: false,
+                  isDisable: walletController.myPoint.value != 0.0 &&
+                          priController.isValidateAmoutToRedeem.value == true &&
+                          priController.amountToRedeem.value != 0.0
+                      ? false
+                      : true,
                   isOutline: false,
                 ),
               ),
