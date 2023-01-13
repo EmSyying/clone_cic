@@ -83,6 +83,7 @@ final router = GoRouter(
           child: child,
         ),
         routes: <RouteBase>[
+          CICRoute.instance.serviceAgreement(fromWhere: 'Wallet'),
           GoRoute(
               path: '/',
 

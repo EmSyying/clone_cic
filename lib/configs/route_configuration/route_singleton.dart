@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../modules/event_module/screen/event.dart';
 import '../../modules/event_module/screen/event_detail.dart';
 import '../../modules/google_map_module/google_map.dart';
+import '../../modules/setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import 'route_repository.dart';
 
 class CICRoute extends MainRoute {
@@ -47,7 +48,17 @@ class CICRoute extends MainRoute {
           ),
         ],
       );
-
+  @override
+  GoRoute serviceAgreement({required String fromWhere}) => GoRoute(
+        path: '/service-agreement',
+        name: '${fromWhere}Service Agreement',
+        builder: (context, state) {
+          return ContractTerm(
+            key: state.pageKey,
+            fromPage: state.queryParams['fromPage'],
+          );
+        },
+      );
   @override
   GoRoute event({required String fromWhere, bool isRoot = false}) => GoRoute(
         path: '${isRoot ? '/' : ''}event',

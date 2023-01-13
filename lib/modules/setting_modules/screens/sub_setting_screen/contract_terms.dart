@@ -1,6 +1,5 @@
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
-import 'package:cicgreenloan/modules/setting_modules/screens/sub_setting_screen/privacy_policy.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';

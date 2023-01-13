@@ -26,6 +26,7 @@ onShowBottomSheet(
     bool? isNoAppBar = false,
     bool? isDismissible}) {
   showModalBottomSheet(
+    useRootNavigator: true,
     backgroundColor: backgroundColor,
     isDismissible: isDismissible ?? true,
     shape: const RoundedRectangleBorder(

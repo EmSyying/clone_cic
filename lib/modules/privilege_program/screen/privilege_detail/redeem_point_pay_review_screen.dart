@@ -279,8 +279,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          context.push(
-                              '/investment/view-contract-term?fromPage=FIF');
+                          context.go('/service-agreement?fromPage=exchange');
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5.0),

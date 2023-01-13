@@ -59,9 +59,9 @@ class CustomWalletTransaction extends StatelessWidget {
                                           context,
                                           walletController
                                               .walletTransactionDetail.value);
-                                      settingCon.isHideBottomNavigation.value =
-                                          true;
-                                      settingCon.update();
+                                      // settingCon.isHideBottomNavigation.value =
+                                      //     true;
+                                      // settingCon.update();
                                     },
                             ),
                           ),

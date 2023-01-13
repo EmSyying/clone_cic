@@ -119,10 +119,10 @@ class IvestmentEmptyStateScreen extends StatelessWidget {
 }
 
 List<InvestmentEmptyStateModel> emptyStateInvestmentList = [
-  InvestmentEmptyStateModel(title: 'Average Annual Return 14.4% to 18%'),
-  InvestmentEmptyStateModel(title: 'Minimum Period 2 months'),
-  InvestmentEmptyStateModel(title: 'Monthly Interest'),
-  InvestmentEmptyStateModel(title: 'Minimum Amount 10,000.00 USD'),
+  InvestmentEmptyStateModel(title: 'Average Annual Return 14.4%'),
+  InvestmentEmptyStateModel(title: 'Minimum Investment Period 2 months'),
+  InvestmentEmptyStateModel(title: 'Receive Monthly Coupon fee'),
+  InvestmentEmptyStateModel(title: 'Minimum Investment Amount 10,000 USD'),
 ];
 Widget customTitleLine(BuildContext context, String? title) {
   return Text(

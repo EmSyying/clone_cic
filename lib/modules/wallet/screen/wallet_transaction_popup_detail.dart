@@ -15,7 +15,7 @@ class WalletTran {
       time: model.time,
       pointAmount: model.pointAmount,
       context: context,
-      isDismissible: false,
+      isDismissible: true,
       child: TransactionPopUpDetail(
         model: model,
       ),
