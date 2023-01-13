@@ -56,22 +56,29 @@ class WalletController extends GetxController {
 
   Future<void> fetchFiFOptionList() async {
     listFiFOptionLoading(true);
-    await _apiBaseHelper
-        .onNetworkRequesting(
-            methode: METHODE.get,
-            isAuthorize: true,
-            url: 'wallet/invest/option')
-        .then((response) {
-      debugPrint('Success $response');
-      listFiFOption.clear();
-      response['data'].map((e) {
-        listFiFOption.add(InvestOptionModel.fromJson(e));
-      }).toList();
+    try {
+      await _apiBaseHelper
+          .onNetworkRequesting(
+              methode: METHODE.get,
+              isAuthorize: true,
+              url: 'wallet/invest/option')
+          .then((response) {
+        debugPrint('Success $response');
+        listFiFOption.clear();
+        response['data'].map((e) {
+          listFiFOption.add(InvestOptionModel.fromJson(e));
+        }).toList();
+        listFiFOptionLoading(false);
+      }).onError((ErrorModel error, stackTrace) {
+        listFiFOptionLoading(false);
+        debugPrint('Error ${error.statusCode}');
+      });
+    } catch (e) {
+      debugPrint("$e");
       listFiFOptionLoading(false);
-    }).onError((ErrorModel error, stackTrace) {
+    } finally {
       listFiFOptionLoading(false);
-      debugPrint('Error ${error.statusCode}');
-    });
+    }
   }
 
   // Wallet Transaction
