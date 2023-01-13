@@ -21,6 +21,7 @@ class RedeemPointToPay extends StatelessWidget {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle2!;
     final walletController = Get.put(WalletController());
     final priController = Get.put(PrivilegeController());
+
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
@@ -115,8 +116,10 @@ class RedeemPointToPay extends StatelessWidget {
                               },
                               child: CustomTextFieldNew(
                                 validateText: 'You have not enought MVP',
+
                                 isValidate:
                                     priController.isValidateAmoutToRedeem.value,
+
                                 initialValue:
                                     priController.amountToRedeem.value == 0.0
                                         ? ''
@@ -147,6 +150,7 @@ class RedeemPointToPay extends StatelessWidget {
                                         onConvertToDouble(value);
                                   }
                                 },
+
                                 isRequired: true,
                                 labelText: 'Amount',
                                 hintText: 'Amount',
@@ -173,7 +177,7 @@ class RedeemPointToPay extends StatelessWidget {
                                 priController.remark.value = value;
                               },
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 14),
                           ],
                         ),
                       ),
@@ -184,7 +188,7 @@ class RedeemPointToPay extends StatelessWidget {
               Container(
                 color: Colors.white,
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 30.0),
+                    horizontal: 20.0, vertical: 24.0),
                 child: CustomButton(
                   width: double.infinity,
                   onPressed: priController.amountToRedeem.value != 0.0
@@ -195,7 +199,11 @@ class RedeemPointToPay extends StatelessWidget {
                         }
                       : null,
                   title: 'Redeem Now',
-                  isDisable: false,
+                  isDisable: walletController.myPoint.value != 0.0 &&
+                          priController.isValidateAmoutToRedeem.value == true &&
+                          priController.amountToRedeem.value != 0.0
+                      ? false
+                      : true,
                   isOutline: false,
                 ),
               ),

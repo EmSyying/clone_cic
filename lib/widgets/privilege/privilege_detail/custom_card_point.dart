@@ -48,7 +48,7 @@ class CustomCardPoint extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Current MVP',
+                      'MVP Balance',
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: const Color(0xff464646),
