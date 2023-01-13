@@ -132,10 +132,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                 right: 2,
                               ),
                               child: Text(
-                                // _walletController.myPoint.value >= 999
-                                //     ? '999+'
-                                //     :
-                                _walletController.myPoint.value.toString(),
+                                _walletController
+                                        .mvpBalance.value.mvpAmountFormat ??
+                                    "0.00",
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 9),
                               ),
