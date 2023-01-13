@@ -304,13 +304,21 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                             priController
                                                 .shopDetailModel.value.id!
                                                 .toInt();
-                                        priController
-                                                .receiveAccountNumber.value =
+                                        if (priController.shopDetailModel.value
+                                                    .receiverAccountname !=
+                                                null &&
                                             priController.shopDetailModel.value
-                                                .receiverAccountnumber!;
-                                        priController.receiveAccountname.value =
-                                            priController.shopDetailModel.value
-                                                .receiverAccountname!;
+                                                    .receiverAccountnumber !=
+                                                null) {
+                                          priController
+                                                  .receiveAccountNumber.value =
+                                              priController.shopDetailModel
+                                                  .value.receiverAccountnumber!;
+                                          priController
+                                                  .receiveAccountname.value =
+                                              priController.shopDetailModel
+                                                  .value.receiverAccountname!;
+                                        }
                                         context.push(
                                             '/profile/setting/privilege/all-store/redeem-point-to-pay');
                                       },
