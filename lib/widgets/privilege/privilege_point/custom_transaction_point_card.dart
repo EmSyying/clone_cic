@@ -46,7 +46,8 @@ class CustomTransactionPoint extends StatelessWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 20, bottom: 10, right: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,

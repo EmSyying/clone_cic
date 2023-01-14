@@ -41,31 +41,37 @@ class PrivilegeController extends GetxController {
       isfetcheAllStoredata(true);
     }
 
-    await apiBaseHelper
-        .onNetworkRequesting(
-      url:
-          'privilege/shop?page=$page?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
-      methode: METHODE.get,
-      isAuthorize: true,
-    )
-        .then((response) {
-      var responseJson = response['data'];
-      debugPrint('hany privilege have latelong:=======$responseJson');
-      shopModelList.clear();
-      if (page == 1) {
+    try {
+      await apiBaseHelper
+          .onNetworkRequesting(
+        url:
+            'privilege/shop?page=$page?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
+        methode: METHODE.get,
+        isAuthorize: true,
+      )
+          .then((response) {
+        var responseJson = response['data'];
+        debugPrint('hany privilege have latelong:=======$responseJson');
         shopModelList.clear();
-      }
-      responseJson.map((e) {
-        shopModel.value = PrivilegeShopModel.fromJson(e);
-        // debugPrint('heloooo12345:${shopModel.value.isFavorite}');
-        shopModelList.add(shopModel.value);
-      }).toList();
+        if (page == 1) {
+          shopModelList.clear();
+        }
+        responseJson.map((e) {
+          shopModel.value = PrivilegeShopModel.fromJson(e);
+          // debugPrint('heloooo12345:${shopModel.value.isFavorite}');
+          shopModelList.add(shopModel.value);
+        }).toList();
+        isLoadingShopList(false);
+        isfetcheAllStoredata(false);
+      }).onError((ErrorModel errorModel, stackTrace) {
+        isLoadingShopList(false);
+        return null;
+      });
+    } catch (ex) {
+      //
+    } finally {
       isLoadingShopList(false);
-      isfetcheAllStoredata(false);
-    }).onError((ErrorModel errorModel, stackTrace) {
-      isLoadingShopList(false);
-      return null;
-    });
+    }
 
     return shopModelList;
   }
