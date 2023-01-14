@@ -207,11 +207,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                           ],
                                         ),
                                         if (priceController.sharePrice.value
-                                                    .totalShareOutstanding !=
-                                                null &&
-                                            priceController.sharePrice.value
-                                                    .totalShareOutstanding !=
-                                                null)
+                                                .totalShareOutstanding !=
+                                            0)
                                           GestureDetector(
                                             onTap: () async {
                                               debugPrint(
@@ -249,11 +246,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                     height: 20,
                                   ),
                                   if (priceController.sharePrice.value
-                                              .totalShareOutstanding !=
-                                          null &&
-                                      priceController.sharePrice.value
-                                              .totalShareOutstanding !=
-                                          null)
+                                          .totalShareOutstanding !=
+                                      0)
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20),
@@ -300,15 +294,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                     Obx(
                                                       () => Text(
                                                         priceController
-                                                                        .sharePrice
-                                                                        .value
-                                                                        .totalShareOutstanding !=
-                                                                    null &&
-                                                                priceController
-                                                                        .sharePrice
-                                                                        .value
-                                                                        .totalShareOutstanding !=
-                                                                    null
+                                                                    .sharePrice
+                                                                    .value
+                                                                    .totalShareOutstanding !=
+                                                                0
                                                             ? n.format(
                                                                 priceController
                                                                     .sharePrice
@@ -371,15 +360,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                     Obx(
                                                       () => Text(
                                                         priceController
-                                                                        .sharePrice
-                                                                        .value
-                                                                        .totalNetWorth !=
-                                                                    null &&
-                                                                priceController
-                                                                        .sharePrice
-                                                                        .value
-                                                                        .totalNetWorth !=
-                                                                    0
+                                                                    .sharePrice
+                                                                    .value
+                                                                    .totalNetWorth !=
+                                                                0
                                                             ? '\$${f.format(priceController.sharePrice.value.totalNetWorth)}'
                                                             : '\$0.0',
                                                         style: Theme.of(context)
@@ -778,15 +762,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                       ],
                                                     ),
                                                     if (priceController
-                                                                .sharePrice
-                                                                .value
-                                                                .totalShareOutstanding !=
-                                                            null &&
-                                                        priceController
-                                                                .sharePrice
-                                                                .value
-                                                                .totalShareOutstanding !=
-                                                            null)
+                                                            .sharePrice
+                                                            .value
+                                                            .totalShareOutstanding !=
+                                                        0)
                                                       GestureDetector(
                                                         onTap: () async {
                                                           debugPrint(
@@ -841,15 +820,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                 height: 20,
                                               ),
                                               if (priceController
-                                                          .sharePrice
-                                                          .value
-                                                          .totalShareOutstanding !=
-                                                      null &&
-                                                  priceController
-                                                          .sharePrice
-                                                          .value
-                                                          .totalShareOutstanding !=
-                                                      null)
+                                                      .sharePrice
+                                                      .value
+                                                      .totalShareOutstanding !=
+                                                  0)
                                                 Padding(
                                                   padding: const EdgeInsets
                                                           .symmetric(
@@ -904,9 +878,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                 Obx(
                                                                   () => Text(
                                                                     priceController.sharePrice.value.totalShareOutstanding !=
-                                                                                null &&
-                                                                            priceController.sharePrice.value.totalShareOutstanding !=
-                                                                                null
+                                                                            0
                                                                         ? n.format(priceController
                                                                             .sharePrice
                                                                             .value
@@ -976,9 +948,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                 Obx(
                                                                   () => Text(
                                                                     priceController.sharePrice.value.totalNetWorth !=
-                                                                                null &&
-                                                                            priceController.sharePrice.value.totalNetWorth !=
-                                                                                0
+                                                                            0
                                                                         ? '\$${f.format(priceController.sharePrice.value.totalNetWorth)}'
                                                                         : '\$0.0',
                                                                     style: Theme.of(
