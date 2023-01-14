@@ -45,6 +45,7 @@ import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
+import '../google_map_module/controllers/google_map_controller.dart';
 import '../investment_module/screen/deposit_screen.dart';
 import 'main_dashboard_type_am.dart';
 
@@ -67,6 +68,7 @@ class _MainDashboardState extends State<MainDashboard> {
   final _notificationCon = Get.put(NotificationController());
   final setPINCodeController = Get.put(SetPINCodeController());
   final controller = Get.put(ApprovePaymentController());
+  final googleMapCon = Get.put(GoogleMapsController());
 
   // final onMessageOpenApp = OnMessageOpenApp();
 
@@ -195,6 +197,7 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   void initState() {
     hanndleTour();
+    googleMapCon.determinePosition();
     _notificationCon.countNotification();
 
     // final newVersion = NewVersion(

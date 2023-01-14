@@ -18,7 +18,6 @@ import '../../../../widgets/privilege/custom_shimmer_categories.dart';
 import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
 import '../../../../widgets/privilege/privilege/custom_all_store_list.dart';
 import '../../../../widgets/privilege/privilege/custom_card_favorites_list.dart';
-import '../../../google_map_module/controllers/google_map_controller.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
@@ -37,7 +36,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final ScrollController scrollController = ScrollController();
   final priCon = Get.put(PrivilegeController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
-  final googleMapCon = Get.put(GoogleMapsController());
+ 
   final _walletController = Get.put(WalletController());
   int page = 1;
   Future<void> onRefresh() async {
@@ -53,7 +52,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   @override
   void initState() {
     _walletController.onFetchMyPoin();
-    googleMapCon.determinePosition();
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       debugPrint('Privilege Inistate');
       final router = GoRouter.of(context);
