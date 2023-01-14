@@ -12,7 +12,10 @@ class PiointEmptyState extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(left: 50, right: 50, top: 20),
           width: double.infinity,
-          child: Image.asset('assets/images/emptypoint.png'),
+          child: Image.asset(
+            'assets/images/emptypoint.png',
+            height: 200,
+          ),
         ),
         Text(
           '$title',
