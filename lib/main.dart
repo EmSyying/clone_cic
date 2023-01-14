@@ -710,9 +710,11 @@ class _MyAppState extends State<MyApp> {
                         headline3: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
-                            color: fromHex(
-                              setting.brightPrimaryColor.toString(),
-                            ),
+                            color: setting.brightPrimaryColor == null
+                                ? AppColor.mainColor
+                                : fromHex(
+                                    setting.brightPrimaryColor.toString(),
+                                  ),
                             fontWeight: FontWeight.w600),
                         headline1: isLocal
                             ? TextStyle(

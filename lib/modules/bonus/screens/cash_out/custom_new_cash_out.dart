@@ -308,40 +308,24 @@ class CustomNewCashOut extends StatelessWidget {
                                     isRequired: true,
                                     onChange: (value) {
                                       if (value.isEmpty) {
-                                        newCashOutCon.cashoutAmount.value = 0;
+                                        newCashOutCon.cashoutAmount.value = 0.0;
                                         newCashOutCon.isValidateCashoutAmount
                                             .value = false;
-                                      } else if (onConvertToDouble(
-                                              value.replaceAll(',', '')) >
+                                      } else if (onConvertToDouble(value) >
                                           _walletController.walletAmount.value
                                               .wallet!.balance!) {
                                         newCashOutCon.cashoutAmount.value =
-                                            double.parse(
-                                                value.replaceAll(',', ''));
+                                            onConvertToDouble(value);
                                         newCashOutCon.isValidateCashoutAmount
                                             .value = false;
                                         newCashOutCon.validateText.value =
                                             'Not enough balance';
                                       } else {
                                         newCashOutCon.cashoutAmount.value =
-                                            onConvertToDouble(
-                                                value.replaceAll(',', ''));
-
-                                        if (onConvertToDouble(value) >
-                                            newCashOutCon.bonusSetting.value
-                                                .minimumCashOutAmount!) {
-                                          newCashOutCon.isValidateCashoutAmount
-                                              .value = true;
-                                        } else {
-                                          newCashOutCon.isValidateCashoutAmount
-                                              .value = false;
-
-                                          newCashOutCon.validateText.value =
-                                              'Cash out amount must greater than ${newCashOutCon.bonusSetting.value.minimumCashOutAmount!} \$';
-                                        }
+                                            onConvertToDouble(value);
+                                        newCashOutCon.isValidateCashoutAmount
+                                            .value = true;
                                       }
-                                      debugPrint(
-                                          'debug print value:====${newCashOutCon.cashoutAmount.value}');
                                     },
                                     initialValue: newCashOutCon
                                                 .cashoutAmount.value !=
