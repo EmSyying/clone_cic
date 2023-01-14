@@ -18,8 +18,8 @@ class CustomTransactionPoint extends StatelessWidget {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: <Color>[
-        Color(0xffF9D423),
-        Color(0xffE65C00),
+        Color(0xff3588E8),
+        Color(0xff384593),
         // Colors.green
         //add more color here.
       ],
