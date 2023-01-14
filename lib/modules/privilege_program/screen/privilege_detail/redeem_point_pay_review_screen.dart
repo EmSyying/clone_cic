@@ -106,9 +106,8 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                 height: 24,
                               ),
                               CustomCashOutAndTransferAmount(
-                                amountCashOutTransfer: priController
-                                    .amountToRedeem.value
-                                    .toString(),
+                                amountCashOutTransfer:
+                                    priController.amountToRedeemDisplay.value,
                                 pointTrue: true,
                               ),
                               const SizedBox(
@@ -210,7 +209,8 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                               ),
                               detailSummaryMVP(context,
                                   title: 'Amount',
-                                  amount: priController.amountToRedeem.value
+                                  amount: priController
+                                      .amountToRedeemDisplay.value
                                       .toString()),
                               // const SizedBox(
                               //   height: 14.0,
@@ -235,7 +235,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                               detailSummaryMVP(
                                 context,
                                 title: 'Total',
-                                amount: priController.amountToPay.toString(),
+                                amount: priController.amountToPay.value,
                                 colorTotal: true,
                               ),
                             ],

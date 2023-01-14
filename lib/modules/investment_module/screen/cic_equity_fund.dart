@@ -211,7 +211,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                 null &&
                                             priceController.sharePrice.value
                                                     .totalShareOutstanding !=
-                                                0)
+                                                null)
                                           GestureDetector(
                                             onTap: () async {
                                               debugPrint(
@@ -253,7 +253,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                           null &&
                                       priceController.sharePrice.value
                                               .totalShareOutstanding !=
-                                          0)
+                                          null)
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20),
@@ -308,7 +308,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                         .sharePrice
                                                                         .value
                                                                         .totalShareOutstanding !=
-                                                                    0
+                                                                    null
                                                             ? n.format(
                                                                 priceController
                                                                     .sharePrice
@@ -786,7 +786,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                 .sharePrice
                                                                 .value
                                                                 .totalShareOutstanding !=
-                                                            0)
+                                                            null)
                                                       GestureDetector(
                                                         onTap: () async {
                                                           debugPrint(
@@ -849,7 +849,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                           .sharePrice
                                                           .value
                                                           .totalShareOutstanding !=
-                                                      0)
+                                                      null)
                                                 Padding(
                                                   padding: const EdgeInsets
                                                           .symmetric(
@@ -906,7 +906,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                     priceController.sharePrice.value.totalShareOutstanding !=
                                                                                 null &&
                                                                             priceController.sharePrice.value.totalShareOutstanding !=
-                                                                                0
+                                                                                null
                                                                         ? n.format(priceController
                                                                             .sharePrice
                                                                             .value

@@ -465,33 +465,25 @@ class BonusController extends GetxController {
         if (response.statusCode == 200) {
           debugPrint(
               'hany test submit subscription====: ${subscriptionAmount.value}');
-          Navigator.of(context, rootNavigator: true).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return CustomSucessScreen(
-                  title: 'Success',
-                  description: 'The UT Subscription request has been submitted',
-                  buttonTitle: 'Done',
-                  onPressedButton: () {
-                    if (fromPage == 'investment') {
-                      context.go(
-                          '/ut-subscription/histories-subscription?fromPage=investment');
-                    } else {
-                      context.go(
-                          '/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription');
-                    }
-                  },
-                );
+          context.pushNamed(
+            'SuccessScreen',
+            queryParams: {
+              'title': 'Success',
+              'description': 'The UT Subscription request has been submitted',
+              'appbarTitle': '',
+            },
+            extra: {
+              'onPressedButton': () {
+                if (fromPage == 'investment') {
+                  context.go(
+                      '/ut-subscription/histories-subscription?fromPage=investment');
+                } else {
+                  context.go(
+                      '/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription');
+                }
               },
-            ),
+            },
           );
-          // Future.delayed(
-          //   const Duration(seconds: 0),
-          //   () {
-          //     //
-
-          //   },
-          // );
 
           fectchBalance();
           fetchTransationHistory(type: 'all');

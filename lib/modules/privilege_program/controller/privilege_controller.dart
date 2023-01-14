@@ -40,12 +40,12 @@ class PrivilegeController extends GetxController {
     } else {
       isfetcheAllStoredata(true);
     }
-
+    update();
     try {
       await apiBaseHelper
           .onNetworkRequesting(
         url:
-            'privilege/shop?page=$page?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
+            'privilege/shop?page=$page?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
         methode: METHODE.get,
         isAuthorize: true,
       )
@@ -554,6 +554,7 @@ class PrivilegeController extends GetxController {
   final isRedeemToMVPReview = false.obs;
   final shopStoreId = 0.obs;
   final amountToRedeem = 0.0.obs;
+  final amountToRedeemDisplay = ''.obs;
   final receiveAccountNumber = ''.obs;
   final receiveAccountname = ''.obs;
   final remark = ''.obs;
@@ -608,7 +609,7 @@ class PrivilegeController extends GetxController {
   }
 
   // Review Redeem To MVP
-  final amountToPay = 0.obs;
+  final amountToPay = ''.obs;
   Future<void> onRedeemToMVPReview(BuildContext context) async {
     isRedeemToMVPReview(true);
 
@@ -625,7 +626,7 @@ class PrivilegeController extends GetxController {
         },
       ).then((response) {
         debugPrint("Review Redeem to MVP:$response");
-        amountToRedeem.value = response['amount'];
+        amountToRedeemDisplay.value = response['amount'];
         receiveAccountname.value = response['account_name'];
         receiveAccountNumber.value = response['account_number'];
         amountToPay.value = response['amount_to_pay'];

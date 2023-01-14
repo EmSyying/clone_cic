@@ -20,6 +20,8 @@ class GoogleMapsController extends GetxController {
   DirectionModel? directionModel;
   double currentLat = 0.0;
   double currentLng = 0.0;
+  final currentLatStore = ''.obs;
+  final currentLngStore = ''.obs;
 
   static const CameraPosition initailCameraPosition = CameraPosition(
     target: LatLng(11.561167876074935, 104.8826221638736),
@@ -180,6 +182,8 @@ class GoogleMapsController extends GetxController {
     }
 
     Position currentLocation = await Geolocator.getCurrentPosition();
+    currentLatStore.value = currentLocation.latitude.toString();
+    currentLngStore.value = currentLocation.longitude.toString();
     latitute = currentLocation.latitude;
     longtitute = currentLocation.longitude;
     update();

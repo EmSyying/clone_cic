@@ -29,6 +29,7 @@ class RedeemPointToPay extends StatelessWidget {
     final walletController = Get.put(WalletController());
     final priController = Get.put(PrivilegeController());
     if (receiveAccountName != null && receiveAccountNumber != null) {
+      walletController.onFetchMyPoin();
       priController.receiveAccountNumber.value = receiveAccountNumber!;
       priController.receiveAccountname.value = receiveAccountName!;
     }
@@ -137,6 +138,7 @@ class RedeemPointToPay extends StatelessWidget {
                                       Text(
                                         priController.receiveAccountname.value,
                                         style: textStyle.copyWith(
+                                            fontSize: 12,
                                             color: const Color(0xff4FA30F)),
                                       )
                                   ],

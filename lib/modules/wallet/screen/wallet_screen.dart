@@ -340,7 +340,7 @@ class _WalletScreenState extends State<WalletScreen>
                                             _walletController.onClearExchange();
 
                                             context
-                                                .push('$route/point-exchange');
+                                                .push('/wallet/point-exchange');
                                           },
                                           text: 'Exchange',
                                           img:
