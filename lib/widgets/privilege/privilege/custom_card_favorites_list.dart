@@ -21,6 +21,7 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
   @override
   void initState() {
     privillageCon.onFetchFavouriteStore();
+
     super.initState();
   }
 
@@ -39,7 +40,7 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
                       child: GestureDetector(
                         onTap: () {
                           context.go(
-                              "/profile/setting/privilege/all-store/privilege-detail/${privillageCon.favshopModelList[e.key].id}");
+                              "/privilege/all-store/privilege-detail/${privillageCon.favshopModelList[e.key].id}");
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(
