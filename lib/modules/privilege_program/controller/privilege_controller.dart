@@ -182,6 +182,7 @@ class PrivilegeController extends GetxController {
       debugPrint("Resonse body json privilege:$response");
 
       var responseJson = response['data'];
+      debugPrint("Response Json Data: $responseJson");
       shopDetailModel.value = PrivilegeShopModel.fromJson(responseJson);
       // debugPrint(
       //     "Privilege Data:${shopDetailModel.value.openingDays![0].dayName}");
@@ -486,11 +487,7 @@ class PrivilegeController extends GetxController {
         slideList.value = PrivilegeSlideModel.fromJson(e);
         // debugPrint('heloooo12345:${shopModel.value.isFavorite}');
         privilegeSlideList.add(slideList.value);
-        debugPrint(
-            'Slide privilege index 00000000=======${privilegeSlideList[0].title}');
       }).toList();
-      debugPrint(
-          'Slide privilege index 1233=======${privilegeSlideList[0].title}');
 
       isLoadingSlidePri(false);
     }).onError((ErrorModel errorModel, stackTrace) {

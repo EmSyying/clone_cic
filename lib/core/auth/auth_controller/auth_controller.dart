@@ -110,43 +110,43 @@ class AuthController extends GetxController {
         // context.push('/setpincode');
 
         await _customerController.getUser().then((user) async {
-          settingController.fetchSetting(userType: 'qm');
-          settingController.onSwitchScreen(value: false);
-          settingController.onGetScreenMode();
-          settingController.isModeSwitchAble.value = false;
+          // settingController.fetchSetting(userType: 'qm');
+          // settingController.onSwitchScreen(value: false);
+          // settingController.onGetScreenMode();
+          // settingController.isModeSwitchAble.value = false;
 
-          settingController.fetchAppBottomBar(userType: 'qm');
-          settingController.fetchAppSetting(
-              context: context, isSwitchSplashScreen: true, userType: 'qm');
-          // if (user.memberType!.length > 1) {
-          //   settingController.onSwitchScreen(value: false);
-          //   settingController.onGetScreenMode();
-          //   settingController.isModeSwitchAble.value = true;
-          //   settingController.fetchSetting(userType: 'qm');
-          //   settingController.fetchAppBottomBar(userType: 'qm');
-          //   settingController.fetchAppSetting(
-          //       context: context, isSwitchSplashScreen: true, userType: 'qm');
-          // } else if (user.memberType!.length == 1 &&
-          //     user.memberType![0].toLowerCase() == 'am') {
-          //   settingController.fetchSetting(userType: 'am');
-          //   settingController.onSwitchScreen(value: true);
-          //   settingController.onGetScreenMode();
-          //   settingController.isModeSwitchAble.value = false;
+          // settingController.fetchAppBottomBar(userType: 'qm');
+          // settingController.fetchAppSetting(
+          //     context: context, isSwitchSplashScreen: true, userType: 'qm');
+          if (user.memberType!.length > 1) {
+            settingController.onSwitchScreen(value: false);
+            settingController.onGetScreenMode();
+            settingController.isModeSwitchAble.value = true;
+            settingController.fetchSetting(userType: 'qm');
+            settingController.fetchAppBottomBar(userType: 'qm');
+            settingController.fetchAppSetting(
+                context: context, isSwitchSplashScreen: true, userType: 'qm');
+          } else if (user.memberType!.length == 1 &&
+              user.memberType![0].toLowerCase() == 'am') {
+            settingController.fetchSetting(userType: 'am');
+            settingController.onSwitchScreen(value: true);
+            settingController.onGetScreenMode();
+            settingController.isModeSwitchAble.value = false;
 
-          //   settingController.fetchAppBottomBar(userType: 'am');
-          //   settingController.fetchAppSetting(
-          //       context: context, isSwitchSplashScreen: true, userType: 'am');
-          // } else if (user.memberType!.length == 1 &&
-          //     user.memberType![0].toLowerCase() == 'qm') {
-          //   settingController.fetchSetting(userType: 'qm');
-          //   settingController.onSwitchScreen(value: false);
-          //   settingController.onGetScreenMode();
-          //   settingController.isModeSwitchAble.value = false;
+            settingController.fetchAppBottomBar(userType: 'am');
+            settingController.fetchAppSetting(
+                context: context, isSwitchSplashScreen: true, userType: 'am');
+          } else if (user.memberType!.length == 1 &&
+              user.memberType![0].toLowerCase() == 'qm') {
+            settingController.fetchSetting(userType: 'qm');
+            settingController.onSwitchScreen(value: false);
+            settingController.onGetScreenMode();
+            settingController.isModeSwitchAble.value = false;
 
-          //   settingController.fetchAppBottomBar(userType: 'qm');
-          //   settingController.fetchAppSetting(
-          //       context: context, isSwitchSplashScreen: true, userType: 'qm');
-          // }
+            settingController.fetchAppBottomBar(userType: 'qm');
+            settingController.fetchAppSetting(
+                context: context, isSwitchSplashScreen: true, userType: 'qm');
+          }
           if (user.pinCode != null && user.pinCode!.isNotEmpty) {
             settingController.onCheckAuthentication();
             // if (user.memberType!.toLowerCase() == 'qm') {

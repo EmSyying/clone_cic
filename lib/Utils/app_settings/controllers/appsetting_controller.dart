@@ -28,7 +28,7 @@ class SettingController extends GetxController {
   final _apiBaseHelper = ApiBaseHelper();
   final settingApp = Setting().obs;
   final appSetting = Setting().obs;
-  final isModeSwitchAble = true.obs;
+  final isModeSwitchAble = false.obs;
   Setting cicAppSetting = Setting();
   final isAutoDarkMode = true.obs;
   bool isLogin = false;

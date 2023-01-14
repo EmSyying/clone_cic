@@ -16,6 +16,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
+import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 
 import '../../generated/l10n.dart';
@@ -222,7 +223,37 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   }*/
   //
   Future<void> getUser() async {
-    await userCon.getUser();
+    await userCon.getUser().then((user) {
+      if (user.memberType!.length > 1) {
+        settingCon.onSwitchScreen(value: false);
+        settingCon.onGetScreenMode();
+        settingCon.isModeSwitchAble.value = true;
+        settingCon.fetchSetting(userType: 'qm');
+        settingCon.fetchAppBottomBar(userType: 'qm');
+        settingCon.fetchAppSetting(
+            context: context, isSwitchSplashScreen: true, userType: 'qm');
+      } else if (user.memberType!.length == 1 &&
+          user.memberType![0].toLowerCase() == 'am') {
+        settingCon.fetchSetting(userType: 'am');
+        settingCon.onSwitchScreen(value: true);
+        settingCon.onGetScreenMode();
+        settingCon.isModeSwitchAble.value = false;
+
+        settingCon.fetchAppBottomBar(userType: 'am');
+        settingCon.fetchAppSetting(
+            context: context, isSwitchSplashScreen: true, userType: 'am');
+      } else if (user.memberType!.length == 1 &&
+          user.memberType![0].toLowerCase() == 'qm') {
+        settingCon.fetchSetting(userType: 'qm');
+        settingCon.onSwitchScreen(value: false);
+        settingCon.onGetScreenMode();
+        settingCon.isModeSwitchAble.value = false;
+
+        settingCon.fetchAppBottomBar(userType: 'qm');
+        settingCon.fetchAppSetting(
+            context: context, isSwitchSplashScreen: true, userType: 'qm');
+      }
+    });
     await priceCon.onHideFeatureByUser(cusController.customer.value.id);
   }
 
@@ -419,7 +450,23 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           height: 20,
                                           width: 20,
                                         ),
-                                        onPressed: () {}),
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                            useRootNavigator: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return const CustomPopupButtonSheet(
+                                                assetImage:
+                                                    'assets/images/svgfile/underDevelopment.svg',
+                                                description:
+                                                    'This feature is under development at the moment',
+                                                title:
+                                                    'This feature not available yet',
+                                              );
+                                            },
+                                          );
+                                        }),
                                     CustomFocusedMenuItem(
                                         title: const Text(
                                           "Learning",
@@ -434,8 +481,22 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                           height: 20,
                                           width: 20,
                                         ),
-                                        onPressed: () {
-                                          GoRouter.of(context).go("/learning");
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                            useRootNavigator: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return const CustomPopupButtonSheet(
+                                                assetImage:
+                                                    'assets/images/svgfile/underDevelopment.svg',
+                                                description:
+                                                    'This feature is under development at the moment',
+                                                title:
+                                                    'This feature not available yet',
+                                              );
+                                            },
+                                          );
                                         }),
                                     CustomFocusedMenuItem(
                                         title: const Text(

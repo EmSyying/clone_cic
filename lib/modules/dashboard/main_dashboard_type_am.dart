@@ -296,6 +296,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                           onTap: !value.active!
                                               ? () async {
                                                   await showModalBottomSheet(
+                                                    useRootNavigator: true,
                                                     backgroundColor:
                                                         Colors.transparent,
                                                     context: context,
