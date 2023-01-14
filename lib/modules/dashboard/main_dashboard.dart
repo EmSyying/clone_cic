@@ -490,7 +490,7 @@ class _MainDashboardState extends State<MainDashboard> {
                         ),
                       )
                     : Container(
-                        width: 160,
+                        width: 180,
                         color: Colors.transparent,
                         child: PopupMenuButton(
                           position: PopupMenuPosition.under,
