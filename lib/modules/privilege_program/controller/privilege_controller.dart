@@ -582,6 +582,7 @@ class PrivilegeController extends GetxController {
         },
       ).then((response) {
         debugPrint("Redeem to pay:$response");
+        receiveAccountname.value = response['receiver_name'];
 
         isRedeemToMVPReview(false);
         isRedeemToVerifyAccountValidate(true);
