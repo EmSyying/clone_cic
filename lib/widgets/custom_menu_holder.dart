@@ -161,7 +161,7 @@ class FocusedMenuDetails extends StatelessWidget {
     final maxMenuHeight = size.height * 0.45;
     final listHeight = menuItems.length * (itemExtent ?? 50.0);
 
-    final maxMenuWidth = menuWidth ?? (size.width * 0.70);
+    final maxMenuWidth = menuWidth ?? (size.width * 0.45);
     final menuHeight = listHeight < maxMenuHeight ? listHeight : maxMenuHeight;
     final leftOffset = (childOffset.dx + maxMenuWidth) < size.width
         ? childOffset.dx
@@ -221,7 +221,7 @@ class FocusedMenuDetails extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: menuItems.length,
                       padding: EdgeInsets.zero,
-                      physics: const BouncingScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         CustomFocusedMenuItem item = menuItems[index];
                         Widget listItem = GestureDetector(

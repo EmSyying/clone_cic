@@ -44,12 +44,14 @@ class ComponentCardCategory extends StatelessWidget {
         GestureDetector(
           onTap: onTapCatego,
           child: Container(
-            margin: const EdgeInsets.only(bottom: 0),
+            // margin: const EdgeInsets.only(bottom: 0),
             height: isHeight == false ? 80 : height,
             width: widthTrue == true ? double.infinity : 160,
             decoration: BoxDecoration(
               border: Border.all(
-                color: selected ? Theme.of(context).primaryColor : Colors.white,
+                color: selected
+                    ? Theme.of(context).primaryColor
+                    : Colors.transparent,
                 width: 1.0,
               ),
               color: AppColor.arrowforwardColor['dark'],

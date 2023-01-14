@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'dart:ui' as ui;
 
 import 'package:get/get.dart';
 
@@ -13,22 +12,28 @@ class CardCurrentPoints extends StatelessWidget {
   Widget build(BuildContext context) {
     final walletController = Get.put(WalletController());
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
-    return Container(
-      height: 110,
-      //padding: const EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: CustomPaint(
-        painter: PathPainter(),
-        child: Padding(
-          padding: const EdgeInsets.all(26.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Column(
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 110,
+          alignment: Alignment.topRight,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color(0xff384593),
+                Color(0xff3588E8),
+              ],
+            ),
+          ),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -42,7 +47,7 @@ class CardCurrentPoints extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 2.0,
+                    height: 6.0,
                   ),
                   Text(
                     walletController.mvpBalance.value.mvpAmountFormat ?? '0.00',
@@ -55,45 +60,20 @@ class CardCurrentPoints extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(),
-              SvgPicture.asset(
-                'assets/images/svgfile/Union.svg',
-                fit: BoxFit.cover,
-                width: 38,
-                height: 38,
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        Positioned(
+          top: 0.0,
+          right: 0.0,
+          child: SvgPicture.asset(
+            'assets/images/svgfile/union_point.svg',
+            fit: BoxFit.cover,
+            width: 50.0,
+            height: 110.0,
+          ),
+        ),
+      ],
     );
   }
-}
-
-class PathPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final w = size.width;
-    final h = size.height;
-    Paint paintFill = Paint()..style = PaintingStyle.fill;
-    paintFill.shader = ui.Gradient.linear(
-      Offset(w * 0.9, h * 0.9),
-      Offset(0, h * 0.5),
-      [const Color(0xff3588E8), const Color(0xff384593).withOpacity(0)],
-    );
-
-    Path path = Path();
-    path.moveTo(0, 0);
-    path.lineTo(0, h * 0.85);
-
-    path.quadraticBezierTo(w * 0.55, h * 0.8, w * 0.75, 0);
-    path.close();
-    canvas.drawPath(path, paintFill);
-  }
-
-  @override
-  bool shouldRepaint(PathPainter oldDelegate) => false;
-
-  @override
-  bool shouldRebuildSemantics(PathPainter oldDelegate) => false;
 }

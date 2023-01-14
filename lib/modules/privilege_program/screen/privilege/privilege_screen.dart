@@ -36,7 +36,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final ScrollController scrollController = ScrollController();
   final priCon = Get.put(PrivilegeController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
- 
+
   final _walletController = Get.put(WalletController());
   int page = 1;
   Future<void> onRefresh() async {
@@ -263,7 +263,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
 
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 0, bottom: 20, left: 20, right: 20),
+                              top: 0, bottom: 18, left: 20, right: 20),
                           child: customCategTitle(
                             categoriesTil: 'Categories',
                             seeall: 'See All',
@@ -288,7 +288,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                       .entries
                                       .map((cardListCat) => Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 12.0),
+                                              top: 4.0,
+                                              bottom: 4.0,
+                                              right: 14.0,
+                                            ),
                                             child: ComponentCardCategory(
                                               mineTye: cardListCat
                                                   .value.mimeTypeImag,
@@ -318,7 +321,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         ////Tabs All Stores and Favorites======================
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 20.0),
+                              horizontal: 20.0, vertical: 18.0),
                           child: Column(
                             children: [
                               Container(
