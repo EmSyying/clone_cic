@@ -36,7 +36,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final ScrollController scrollController = ScrollController();
   final priCon = Get.put(PrivilegeController());
   final refreshKey = GlobalKey<RefreshIndicatorState>();
- 
+
   final _walletController = Get.put(WalletController());
   int page = 1;
   Future<void> onRefresh() async {
@@ -288,7 +288,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                       .entries
                                       .map((cardListCat) => Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 12.0),
+                                              top: 4.0,
+                                              bottom: 4.0,
+                                              right: 14.0,
+                                            ),
                                             child: ComponentCardCategory(
                                               mineTye: cardListCat
                                                   .value.mimeTypeImag,
