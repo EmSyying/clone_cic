@@ -27,7 +27,7 @@ class CustomTransactionPoint extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 112,
+          height: 120,
           margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
           width: double.infinity,
           decoration: BoxDecoration(
@@ -95,7 +95,7 @@ class CustomTransactionPoint extends StatelessWidget {
                       ),
                       Text(
                         exchangePointTransaction!.description ?? "",
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
                         style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -103,6 +103,9 @@ class CustomTransactionPoint extends StatelessWidget {
                               fontSize: 14.0,
                               color: AppColor.darkColor,
                             ),
+                      ),
+                      const SizedBox(
+                        width: 5,
                       ),
                       const Spacer(),
                       Text(
