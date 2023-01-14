@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 
 import '../../../Utils/function/get_sharepreference_data.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
-import '../../../Utils/helper/custom_success_screen.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../../ut_trading/models/detail_model.dart';
@@ -411,27 +410,20 @@ class BonusController extends GetxController {
           .then((response) {
         if (response.statusCode == 200) {
           onClear();
-          Navigator.of(context, rootNavigator: true).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return CustomSucessScreen(
-                  title: 'Success',
-                  description: 'The cash out request has been submitted',
-                  buttonTitle: 'Done',
-                  onPressedButton: () {
-                    context.go(
-                        '/wallet/mma-transfer/mma-cash-out/history-cashout');
-                  },
-                );
-              },
-            ),
-          );
-          // Future.delayed(
-          //   const Duration(seconds: 0),
-          //   () {
 
-          //   },
-          // );
+          context.pushNamed(
+            'SuccessScreen',
+            queryParams: {
+              'title': 'Success',
+              'description': 'The cash out request has been submitted',
+              'appbarTitle': 'Done',
+            },
+            extra: {
+              'onPressedButton': () {
+                context.go('/wallet/mma-transfer/mma-cash-out/history-cashout');
+              },
+            },
+          );
         } else {
           var responseJson = json.decode(response.body)['message'];
           // debugPrint("Cash out boday:$responseJson");
