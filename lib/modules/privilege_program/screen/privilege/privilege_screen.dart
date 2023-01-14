@@ -263,7 +263,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
 
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 0, bottom: 20, left: 20, right: 20),
+                              top: 0, bottom: 18, left: 20, right: 20),
                           child: customCategTitle(
                             categoriesTil: 'Categories',
                             seeall: 'See All',
@@ -321,7 +321,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         ////Tabs All Stores and Favorites======================
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 20.0),
+                              horizontal: 20.0, vertical: 18.0),
                           child: Column(
                             children: [
                               Container(
