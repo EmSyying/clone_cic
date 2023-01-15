@@ -21,17 +21,17 @@ class _BooksState extends State<SwitchSplashScreen>
   final _cusCon = Get.put(CustomerController());
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 0), () async {
-      await _settingCon.onSwitchScreen(
-          value: widget.userType == 'am' ? true : false);
-      await _settingCon.onGetScreenMode();
-      await _settingCon.fetchSetting(userType: widget.userType);
-      await _settingCon.fetchAppBottomBar(userType: widget.userType);
-      await _settingCon.fetchAppSetting(
+    Future.delayed(const Duration(seconds: 0), () {
+      _settingCon.onSwitchScreen(value: widget.userType == 'am' ? true : false);
+      _settingCon.onGetScreenMode();
+      _settingCon.fetchSlide();
+      _settingCon.fetchSetting(userType: widget.userType);
+      _settingCon.fetchAppBottomBar(userType: widget.userType);
+      _settingCon.fetchAppSetting(
           context: context,
           isSwitchSplashScreen: true,
           userType: widget.userType);
-      await _cusCon.getUser();
+      _cusCon.getUser();
     });
     super.initState();
     _settingCon.animationController = AnimationController(

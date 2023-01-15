@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/function/format_to_k.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -69,9 +70,9 @@ class WalletExchange extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(left: 3.0, right: 3.0),
                             child: Text(
-                              _walletController
-                                      .mvpBalance.value.mvpAmountFormat ??
-                                  "0.00",
+                              FormatToK.convertNumber(_walletController
+                                      .mvpBalance.value.mvpAmount ??
+                                  0.0),
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 9),
                             ),

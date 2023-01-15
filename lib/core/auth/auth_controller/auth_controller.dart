@@ -119,6 +119,7 @@ class AuthController extends GetxController {
           // settingController.fetchAppSetting(
           //     context: context, isSwitchSplashScreen: true, userType: 'qm');
           if (user.memberType!.length > 1) {
+            _customerController.userType.value = 'qm';
             settingController.onSwitchScreen(value: false);
             settingController.onGetScreenMode();
             settingController.isModeSwitchAble.value = true;
@@ -128,6 +129,7 @@ class AuthController extends GetxController {
                 context: context, isSwitchSplashScreen: true, userType: 'qm');
           } else if (user.memberType!.length == 1 &&
               user.memberType![0].toLowerCase() == 'am') {
+            _customerController.userType.value = 'am';
             settingController.fetchSetting(userType: 'am');
             settingController.onSwitchScreen(value: true);
             settingController.onGetScreenMode();
@@ -138,6 +140,7 @@ class AuthController extends GetxController {
                 context: context, isSwitchSplashScreen: true, userType: 'am');
           } else if (user.memberType!.length == 1 &&
               user.memberType![0].toLowerCase() == 'qm') {
+            _customerController.userType.value = 'qm';
             settingController.fetchSetting(userType: 'qm');
             settingController.onSwitchScreen(value: false);
             settingController.onGetScreenMode();

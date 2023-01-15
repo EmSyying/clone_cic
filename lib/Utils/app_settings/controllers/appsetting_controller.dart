@@ -213,9 +213,17 @@ class SettingController extends GetxController {
     SlideModel slide = SlideModel();
 
     var token = await LocalData.getCurrentUser();
+    final isAMMode = await LocalStorage.getBooleanValue(key: 'switchAMMode');
     bool biometrics = await LocalData.getAuthenValue('authen');
-    String url =
-        '${FlavorConfig.instance.values!.apiBaseUrl}slide/qm?module=Slide&biometrics=$biometrics';
+    String url = "";
+    if (isAMMode) {
+      url =
+          '${FlavorConfig.instance.values!.apiBaseUrl}slide/am?module=Slide&biometrics=$biometrics';
+    } else {
+      url =
+          '${FlavorConfig.instance.values!.apiBaseUrl}slide/qm?module=Slide&biometrics=$biometrics';
+    }
+
     try {
       await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
@@ -428,13 +436,6 @@ class SettingController extends GetxController {
     } finally {
       isLoading(false);
       if (isSwitchSplashScreen == true) {
-        if (userType == 'am') {
-          isAMMode = true;
-          update();
-        } else {
-          isAMMode = false;
-          update();
-        }
         Future.delayed(const Duration(seconds: 1), () async {
           await animationController.reverse().then((value) => router.pop());
         });

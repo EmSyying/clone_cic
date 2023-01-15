@@ -514,7 +514,7 @@ class PrivilegeController extends GetxController {
     debugPrint("Amount====:${privilegeAmount.value}");
     isPaymentLoading(true);
     await apiBaseHelper.onNetworkRequesting(
-        url: 'privilege/payment',
+        url: 'privilege/payment/via-cash',
         methode: METHODE.post,
         isAuthorize: true,
         body: {
@@ -545,6 +545,7 @@ class PrivilegeController extends GetxController {
       isPaymentLoading(false);
     }).onError(
       (ErrorModel errorModel, stackTrace) {
+        debugPrint("Error submit payment: ${errorModel.bodyString}");
         isPaymentLoading(false);
       },
     );

@@ -951,7 +951,7 @@ class EventController extends GetxController {
           isRegister(false);
         } else if (message.toString().contains("The event is not start yet.")) {
           showNotifyPopUp(
-            secondButton: 'Go Home',
+            secondButton: 'Home Page',
             onTap: () {
               router.go('/');
             },

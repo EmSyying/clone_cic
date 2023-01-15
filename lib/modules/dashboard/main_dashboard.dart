@@ -481,10 +481,14 @@ class _MainDashboardState extends State<MainDashboard> {
                               ),
                               GestureDetector(
                                 onTap: () async {
+                                  // final url = await DynamicLinkService
+                                  //     .createDynamicLink(
+                                  //         path:
+                                  //             'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=038356614&receiveAccountName=PIZZA HUT KAMPUCHEA KROM',
+                                  //         isShort: true);
                                   final url = await DynamicLinkService
                                       .createDynamicLink(
-                                          path:
-                                              'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=748599250&receiveAccountName=Chhany%20Horn',
+                                          path: 'privilege-payment/1',
                                           isShort: true);
                                   debugPrint("Event: $url");
                                 },
@@ -813,8 +817,9 @@ class _MainDashboardState extends State<MainDashboard> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8),
-                                                        color: Colors.white
-                                                            .withOpacity(0.4),
+                                                        color: Theme.of(context)
+                                                            .primaryColor
+                                                            .withOpacity(0.8),
                                                       ),
                                                       child: Row(
                                                         children: [

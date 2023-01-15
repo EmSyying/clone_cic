@@ -145,6 +145,7 @@ class CustomTransactionCard extends StatelessWidget {
                                             0.0
                                         ? false
                                         : true,
+                                    // isDisable: false,
                                     title: 'Deduct from CiC bonus',
                                     imageUrl:
                                         'assets/images/svgfile/deduct.svg',

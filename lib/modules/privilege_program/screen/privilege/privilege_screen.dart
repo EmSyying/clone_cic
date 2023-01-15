@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cicgreenloan/Utils/function/format_to_k.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_history_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -130,9 +131,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                 right: 3,
                               ),
                               child: Text(
-                                _walletController
-                                        .mvpBalance.value.mvpAmountFormat ??
-                                    "0.00",
+                                FormatToK.convertNumber(_walletController
+                                        .mvpBalance.value.mvpAmount ??
+                                    0.00),
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 9),
                               ),

@@ -6,14 +6,16 @@ import '../../../modules/wallet/model/exchange_point_transaction.dart/recent_act
 
 class CustomRecentCard extends StatelessWidget {
   final RecentActivities? recentActivities;
-  const CustomRecentCard({super.key, this.recentActivities});
+  final EdgeInsets? margin;
+  const CustomRecentCard({super.key, this.recentActivities, this.margin});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          margin: margin ??
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           padding: const EdgeInsets.only(
             left: 10.0,
             top: 10.0,
@@ -42,14 +44,15 @@ class CustomRecentCard extends StatelessWidget {
                 height: 84,
                 padding: const EdgeInsets.all(0.0),
                 decoration: BoxDecoration(
-                    color: AppColor.secondaryColor,
-                    borderRadius: BorderRadius.circular(5.0),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        recentActivities!.shopLogo ?? '',
-                      ),
-                    )),
+                  color: AppColor.secondaryColor,
+                  borderRadius: BorderRadius.circular(5.0),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      recentActivities!.shopLogo ?? '',
+                    ),
+                  ),
+                ),
               ),
               Expanded(
                 child: Container(
@@ -95,15 +98,15 @@ class CustomRecentCard extends StatelessWidget {
                             ),
                       ),
                       const Spacer(),
-                      Text(
-                        recentActivities!.amount ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
-                      ),
+                      // Text(
+                      //   recentActivities!.amount ?? '',
+                      //   maxLines: 1,
+                      //   overflow: TextOverflow.ellipsis,
+                      //   softWrap: false,
+                      //   style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      //         fontWeight: FontWeight.w700,
+                      //       ),
+                      // ),
                     ],
                   ),
                 ),
@@ -160,8 +163,8 @@ class CustomRecentCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 30.0,
-          bottom: 26.0,
+          left: margin != null ? 10.0 : 30.0,
+          bottom: margin != null ? 36.0 : 26.0,
           child: Container(
             height: 16,
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
@@ -174,7 +177,7 @@ class CustomRecentCard extends StatelessWidget {
               ),
             ),
             child: Text(
-              '${recentActivities!.label}',
+              "${recentActivities!.label}",
               style: Theme.of(context).textTheme.headline5!.copyWith(
                 fontWeight: FontWeight.w500,
                 fontSize: 8,

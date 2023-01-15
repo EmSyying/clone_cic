@@ -60,7 +60,6 @@ class CustomCardHistoryPri extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 142,
                     child: Text(
                       shopName ?? '',
                       maxLines: 2,

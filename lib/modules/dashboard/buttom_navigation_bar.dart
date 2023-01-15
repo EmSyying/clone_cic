@@ -223,17 +223,24 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   }*/
   //
   Future<void> getUser() async {
+    // await userCon.getUser();
     await userCon.getUser().then((user) {
       if (user.memberType!.length > 1) {
-        settingCon.onSwitchScreen(value: false);
-        settingCon.onGetScreenMode();
+        // settingCon.onSwitchScreen(value: false);
+        // settingCon.onGetScreenMode();
         settingCon.isModeSwitchAble.value = true;
+        userCon.userType.value = 'qm';
+
         settingCon.fetchSetting(userType: 'qm');
         settingCon.fetchAppBottomBar(userType: 'qm');
         settingCon.fetchAppSetting(
             context: context, isSwitchSplashScreen: true, userType: 'qm');
       } else if (user.memberType!.length == 1 &&
           user.memberType![0].toLowerCase() == 'am') {
+        debugPrint("Hello World:2}");
+        debugPrint("AM MOdel");
+        userCon.userType.value = 'am';
+
         settingCon.fetchSetting(userType: 'am');
         settingCon.onSwitchScreen(value: true);
         settingCon.onGetScreenMode();
@@ -244,6 +251,8 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
             context: context, isSwitchSplashScreen: true, userType: 'am');
       } else if (user.memberType!.length == 1 &&
           user.memberType![0].toLowerCase() == 'qm') {
+        userCon.userType.value = 'qm';
+
         settingCon.fetchSetting(userType: 'qm');
         settingCon.onSwitchScreen(value: false);
         settingCon.onGetScreenMode();

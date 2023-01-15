@@ -36,6 +36,7 @@ class ReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final reportCon = Get.put(DocumentationController());
     final guideController = Get.put(CiCGuidController());
+    final settingController = Get.put(SettingController());
     reportCon.fetchCategoriesCardReport();
     // checkOverLay(context, guideController);
 
@@ -57,7 +58,7 @@ class ReportScreen extends StatelessWidget {
         context: context,
         backgroundColor: context.theme.backgroundColor,
         elevation: 1,
-        title: 'Report',
+        title: settingController.isAMMode! ? 'Resource' : 'Report',
         action: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),

@@ -23,16 +23,20 @@ PrivilegeHistoryModel _$PrivilegeHistoryModelFromJson(
 mixin _$PrivilegeHistoryModel {
   @JsonKey(name: "id")
   int? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: "thumbnail")
+  String? get label => throw _privateConstructorUsedError;
+  @JsonKey(name: "shop_logo")
   String? get thumbnail => throw _privateConstructorUsedError;
   @JsonKey(name: "shop_name")
   String? get shopName => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: "code")
   String? get code => throw _privateConstructorUsedError;
   @JsonKey(name: "amount")
   String? get amount => throw _privateConstructorUsedError;
   @JsonKey(name: "payment_date")
   String? get paymentDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "payment_type")
+  String? get paymentType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,11 +52,14 @@ abstract class $PrivilegeHistoryModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
-      @JsonKey(name: "thumbnail") String? thumbnail,
+      String? label,
+      @JsonKey(name: "shop_logo") String? thumbnail,
       @JsonKey(name: "shop_name") String? shopName,
+      String? description,
       @JsonKey(name: "code") String? code,
       @JsonKey(name: "amount") String? amount,
-      @JsonKey(name: "payment_date") String? paymentDate});
+      @JsonKey(name: "payment_date") String? paymentDate,
+      @JsonKey(name: "payment_type") String? paymentType});
 }
 
 /// @nodoc
@@ -70,17 +77,24 @@ class _$PrivilegeHistoryModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? id = freezed,
+    Object? label = freezed,
     Object? thumbnail = freezed,
     Object? shopName = freezed,
+    Object? description = freezed,
     Object? code = freezed,
     Object? amount = freezed,
     Object? paymentDate = freezed,
+    Object? paymentType = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      label: freezed == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
       thumbnail: freezed == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
@@ -88,6 +102,10 @@ class _$PrivilegeHistoryModelCopyWithImpl<$Res,
       shopName: freezed == shopName
           ? _value.shopName
           : shopName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
       code: freezed == code
           ? _value.code
@@ -100,6 +118,10 @@ class _$PrivilegeHistoryModelCopyWithImpl<$Res,
       paymentDate: freezed == paymentDate
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paymentType: freezed == paymentType
+          ? _value.paymentType
+          : paymentType // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -115,11 +137,14 @@ abstract class _$$_PrivilegeHistoryModelCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
-      @JsonKey(name: "thumbnail") String? thumbnail,
+      String? label,
+      @JsonKey(name: "shop_logo") String? thumbnail,
       @JsonKey(name: "shop_name") String? shopName,
+      String? description,
       @JsonKey(name: "code") String? code,
       @JsonKey(name: "amount") String? amount,
-      @JsonKey(name: "payment_date") String? paymentDate});
+      @JsonKey(name: "payment_date") String? paymentDate,
+      @JsonKey(name: "payment_type") String? paymentType});
 }
 
 /// @nodoc
@@ -134,17 +159,24 @@ class __$$_PrivilegeHistoryModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? label = freezed,
     Object? thumbnail = freezed,
     Object? shopName = freezed,
+    Object? description = freezed,
     Object? code = freezed,
     Object? amount = freezed,
     Object? paymentDate = freezed,
+    Object? paymentType = freezed,
   }) {
     return _then(_$_PrivilegeHistoryModel(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      label: freezed == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
       thumbnail: freezed == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
@@ -152,6 +184,10 @@ class __$$_PrivilegeHistoryModelCopyWithImpl<$Res>
       shopName: freezed == shopName
           ? _value.shopName
           : shopName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
       code: freezed == code
           ? _value.code
@@ -165,6 +201,10 @@ class __$$_PrivilegeHistoryModelCopyWithImpl<$Res>
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      paymentType: freezed == paymentType
+          ? _value.paymentType
+          : paymentType // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -174,11 +214,14 @@ class __$$_PrivilegeHistoryModelCopyWithImpl<$Res>
 class _$_PrivilegeHistoryModel implements _PrivilegeHistoryModel {
   _$_PrivilegeHistoryModel(
       {@JsonKey(name: "id") this.id,
-      @JsonKey(name: "thumbnail") this.thumbnail,
+      this.label,
+      @JsonKey(name: "shop_logo") this.thumbnail,
       @JsonKey(name: "shop_name") this.shopName,
+      this.description,
       @JsonKey(name: "code") this.code,
       @JsonKey(name: "amount") this.amount,
-      @JsonKey(name: "payment_date") this.paymentDate});
+      @JsonKey(name: "payment_date") this.paymentDate,
+      @JsonKey(name: "payment_type") this.paymentType});
 
   factory _$_PrivilegeHistoryModel.fromJson(Map<String, dynamic> json) =>
       _$$_PrivilegeHistoryModelFromJson(json);
@@ -187,11 +230,15 @@ class _$_PrivilegeHistoryModel implements _PrivilegeHistoryModel {
   @JsonKey(name: "id")
   final int? id;
   @override
-  @JsonKey(name: "thumbnail")
+  final String? label;
+  @override
+  @JsonKey(name: "shop_logo")
   final String? thumbnail;
   @override
   @JsonKey(name: "shop_name")
   final String? shopName;
+  @override
+  final String? description;
   @override
   @JsonKey(name: "code")
   final String? code;
@@ -201,10 +248,13 @@ class _$_PrivilegeHistoryModel implements _PrivilegeHistoryModel {
   @override
   @JsonKey(name: "payment_date")
   final String? paymentDate;
+  @override
+  @JsonKey(name: "payment_type")
+  final String? paymentType;
 
   @override
   String toString() {
-    return 'PrivilegeHistoryModel(id: $id, thumbnail: $thumbnail, shopName: $shopName, code: $code, amount: $amount, paymentDate: $paymentDate)';
+    return 'PrivilegeHistoryModel(id: $id, label: $label, thumbnail: $thumbnail, shopName: $shopName, description: $description, code: $code, amount: $amount, paymentDate: $paymentDate, paymentType: $paymentType)';
   }
 
   @override
@@ -213,20 +263,25 @@ class _$_PrivilegeHistoryModel implements _PrivilegeHistoryModel {
         (other.runtimeType == runtimeType &&
             other is _$_PrivilegeHistoryModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.label, label) || other.label == label) &&
             (identical(other.thumbnail, thumbnail) ||
                 other.thumbnail == thumbnail) &&
             (identical(other.shopName, shopName) ||
                 other.shopName == shopName) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.paymentDate, paymentDate) ||
-                other.paymentDate == paymentDate));
+                other.paymentDate == paymentDate) &&
+            (identical(other.paymentType, paymentType) ||
+                other.paymentType == paymentType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, thumbnail, shopName, code, amount, paymentDate);
+  int get hashCode => Object.hash(runtimeType, id, label, thumbnail, shopName,
+      description, code, amount, paymentDate, paymentType);
 
   @JsonKey(ignore: true)
   @override
@@ -246,11 +301,14 @@ class _$_PrivilegeHistoryModel implements _PrivilegeHistoryModel {
 abstract class _PrivilegeHistoryModel implements PrivilegeHistoryModel {
   factory _PrivilegeHistoryModel(
           {@JsonKey(name: "id") final int? id,
-          @JsonKey(name: "thumbnail") final String? thumbnail,
+          final String? label,
+          @JsonKey(name: "shop_logo") final String? thumbnail,
           @JsonKey(name: "shop_name") final String? shopName,
+          final String? description,
           @JsonKey(name: "code") final String? code,
           @JsonKey(name: "amount") final String? amount,
-          @JsonKey(name: "payment_date") final String? paymentDate}) =
+          @JsonKey(name: "payment_date") final String? paymentDate,
+          @JsonKey(name: "payment_type") final String? paymentType}) =
       _$_PrivilegeHistoryModel;
 
   factory _PrivilegeHistoryModel.fromJson(Map<String, dynamic> json) =
@@ -260,11 +318,15 @@ abstract class _PrivilegeHistoryModel implements PrivilegeHistoryModel {
   @JsonKey(name: "id")
   int? get id;
   @override
-  @JsonKey(name: "thumbnail")
+  String? get label;
+  @override
+  @JsonKey(name: "shop_logo")
   String? get thumbnail;
   @override
   @JsonKey(name: "shop_name")
   String? get shopName;
+  @override
+  String? get description;
   @override
   @JsonKey(name: "code")
   String? get code;
@@ -274,6 +336,9 @@ abstract class _PrivilegeHistoryModel implements PrivilegeHistoryModel {
   @override
   @JsonKey(name: "payment_date")
   String? get paymentDate;
+  @override
+  @JsonKey(name: "payment_type")
+  String? get paymentType;
   @override
   @JsonKey(ignore: true)
   _$$_PrivilegeHistoryModelCopyWith<_$_PrivilegeHistoryModel> get copyWith =>

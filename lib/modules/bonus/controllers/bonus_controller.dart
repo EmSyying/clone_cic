@@ -594,7 +594,7 @@ class BonusController extends GetxController {
           .then((response) {
         debugPrint("Submit payment with deduction:111:${response.body}");
         if (response.statusCode == 200) {
-          debugPrint("Submit payment with deduction:2");
+          Navigator.pop(context!);
           customRouterSnackbar(
               title: 'Reqest Payment',
               description: 'Your request payment is submitted successfully.');
@@ -604,10 +604,11 @@ class BonusController extends GetxController {
             fetchPendingTransaction();
             fectchBalance();
 
-            Navigator.pop(context!);
+            Navigator.pop(context);
             isSubscriptionHistories.value = true;
           });
         } else {
+          debugPrint("Submit failed: ====$response");
           Navigator.pop(context!);
 
           customRouterSnackbar(

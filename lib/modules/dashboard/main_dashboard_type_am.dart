@@ -160,8 +160,8 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                   children: [
                                     Positioned.fill(
                                         ///////static image
-                                        child: Image.asset(
-                                      documentListTest[index],
+                                        child: Image.network(
+                                      settingCon.slideList![index].image!,
                                       fit: BoxFit.cover,
                                     )
                                         // CachedNetworkImage(

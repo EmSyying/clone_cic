@@ -15,6 +15,7 @@ import '../../../utils/helper/custom_route_snackbar.dart';
 class CustomerController extends GetxController {
   final isloading = false.obs;
   final isLoginSuccess = false.obs;
+  final userType = ''.obs;
 
   final residentStreet = ''.obs;
   final isSelectResiPro = false.obs;
