@@ -64,7 +64,7 @@ class PrivilegePhotoViews extends StatelessWidget {
                 ?.map(
                   (e) => Center(
                     child: PhotoView(
-                      disableGestures: true,
+                      disableGestures: false,
                       imageProvider: NetworkImage(e),
                     ),
                   ),

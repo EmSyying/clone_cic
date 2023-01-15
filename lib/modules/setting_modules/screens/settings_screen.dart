@@ -1045,8 +1045,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   //         const PrivilegeScreen(),
                                   //   ),
                                   // );
-                                  context.push(
-                                      '/profile/setting/privilege/all-stores');
+                                  context.push('/privilege/all-stores');
                                 },
                                 child: CachedNetworkImage(
                                   imageUrl: _settingCon

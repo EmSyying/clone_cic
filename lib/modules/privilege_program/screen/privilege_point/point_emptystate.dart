@@ -24,7 +24,7 @@ class PiointEmptyState extends StatelessWidget {
         Text(
           '$description',
           style: textStyle.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-        )
+        ),
       ],
     );
   }

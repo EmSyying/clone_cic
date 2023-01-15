@@ -321,11 +321,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                                   .value.receiverAccountname!;
                                         }
                                         context.push(
-                                            '/profile/setting/privilege/all-store/redeem-point-to-pay');
+                                            '/privilege/all-store/redeem-point-to-pay');
                                       },
                                       onTapBalance: () {
                                         context.push(
-                                            '/profile/setting/privilege/all-store/point-screen');
+                                            '/privilege/all-store/point-screen');
                                       },
                                     ),
                                   ),
@@ -715,6 +715,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
   }) async {
     await showMaterialModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       builder: (context) => PrivilegePhotoViews(
         index: id,
         imageUrl: imageUrl,

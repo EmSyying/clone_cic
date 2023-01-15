@@ -232,7 +232,7 @@ class RedeemPointToPay extends StatelessWidget {
                       ? () async {
                           await priController.onRedeemToMVPReview(context).then(
                               (value) => context.push(
-                                  '/profile/setting/privilege/all-store/redeem-point-pay-review'));
+                                  '/privilege/all-store/redeem-point-pay-review'));
                         }
                       : null,
                   title: 'Redeem Now',

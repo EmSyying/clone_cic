@@ -48,7 +48,7 @@ class _CustomCardFavoriesListState extends State<CustomCardFavoriesList> {
                                 "/privilege/all-store/privilege-detail/${privillageCon.favshopModelList[e.key].id}");
                           } else {
                             context.go(
-                                "/profile/setting/privilege/all-store/privilege-detail/${privillageCon.favshopModelList[e.key].id}");
+                                "/privilege/all-store/privilege-detail/${privillageCon.favshopModelList[e.key].id}");
                             // Navigator.push(
                           }
 

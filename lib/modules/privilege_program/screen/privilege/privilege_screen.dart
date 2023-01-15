@@ -98,8 +98,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        context.push(
-                            '/profile/setting/privilege/all-store/point-screen');
+                        context.go('/privilege/all-store/point-screen');
                       },
                       child: Center(
                         child: Container(
@@ -197,8 +196,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                           'Display') {
                                         return GestureDetector(
                                           onTap: () {
-                                            context.push(
-                                                "/profile/setting/privilege/all-store/privilege-detail/${priCon.privilegeSlideList[index].shopId}");
+                                            context.go(
+                                                "/privilege/all-store/privilege-detail/${priCon.privilegeSlideList[index].shopId}");
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -269,7 +268,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                             seeall: 'See All',
                             onTapSeeAll: () {
                               context.push(
-                                  '/profile/setting/privilege/all-stores/privilege-see-all');
+                                  '/privilege/all-stores/privilege-see-all');
                               // context.push(
                               //     '/privilege/all-store/privilege-see-all');
                             },
@@ -309,8 +308,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                                 //     '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
                                                 //   );
                                                 // });
-                                                context.push(
-                                                  '/profile/setting/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}',
+                                                context.go(
+                                                  '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}',
                                                 );
                                               },
                                             ),
@@ -370,12 +369,12 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     top: 20.0, bottom: 20.0),
                                 child: CustomNumberStoresFilter(
                                   onTapSearch: () {
-                                    context.push(
-                                        "/profile/setting/privilege/all-stores/search-item");
+                                    context.go(
+                                        "/privilege/all-stores/search-item");
                                   },
                                   onTapFilter: () {
-                                    context.push(
-                                        "/profile/setting/privilege/all-stores/filter-item");
+                                    context.go(
+                                        "/privilege/all-stores/filter-item");
                                   },
                                   // titleStores: segmentedControlValue == 0
                                   //     ? '${preController.shopModelList.length} Stores'

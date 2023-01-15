@@ -116,7 +116,7 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                                           final titleName = seeall.value.name
                                               ?.replaceAll('&', '%26');
                                           context.push(
-                                            '/profile/setting/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${seeall.value.id}',
+                                            '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${seeall.value.id}',
                                           );
                                           // priCon
                                           //     .onFetchCategoryItem(
