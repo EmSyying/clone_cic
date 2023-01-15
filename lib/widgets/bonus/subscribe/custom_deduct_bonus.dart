@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../Utils/helper/color.dart';
+import '../../investments/slide_button.dart';
 
 class CustomDeductBonus extends StatelessWidget {
   final String? subscriptionStatus;
@@ -406,16 +407,13 @@ class CustomDeductBonus extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 10),
-                          child: CustomButton(
-                            width: double.infinity,
-                            onPressed: () {
-                              subDetailCon.onRequestPayment(context);
-                              subDetailCon.isConfirm.value = false;
-                            },
-                            title: 'Submit',
-                            isDisable:
-                                subDetailCon.isConfirm.value ? false : true,
-                            isOutline: false,
+                          child: SlideButton(
+                            callback: subDetailCon.isConfirm.value == true
+                                ? () async {
+                                    // await priController.onRedeemToSubmitMVP(context);
+                                    subDetailCon.onRequestPayment(context);
+                                  }
+                                : null,
                           ),
                         ),
                       ],

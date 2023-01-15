@@ -77,7 +77,6 @@ class _WalletScreenState extends State<WalletScreen>
 
   @override
   Widget build(BuildContext context) {
-    final route = GoRouter.of(context).location;
     TextStyle textStyle = Theme.of(context).textTheme.headline2!;
 
     return Stack(
@@ -103,7 +102,7 @@ class _WalletScreenState extends State<WalletScreen>
             isLogo: false,
             isLeading: true,
             context: context,
-            title: "Wallet",
+            title: "Bonus",
             action: [
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),

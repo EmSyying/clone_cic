@@ -575,7 +575,9 @@ class BonusController extends GetxController {
 
   Future<void> onRequestPayment(BuildContext? context) async {
     final token = await LocalData.getCurrentUser();
+    isConfirm.value = false;
     isLoadingRequestPayment(true);
+    debugPrint("Submit payment with deduction:1");
     String url = '${FlavorConfig.instance.values!.apiBaseUrl}request-payment';
     try {
       http
@@ -590,7 +592,9 @@ class BonusController extends GetxController {
                 "referal_id": referalID.value,
               }))
           .then((response) {
+        debugPrint("Submit payment with deduction:111:${response.body}");
         if (response.statusCode == 200) {
+          debugPrint("Submit payment with deduction:2");
           customRouterSnackbar(
               title: 'Reqest Payment',
               description: 'Your request payment is submitted successfully.');
@@ -604,10 +608,13 @@ class BonusController extends GetxController {
             isSubscriptionHistories.value = true;
           });
         } else {
+          debugPrint(
+              "Submit payment with deduction Error:${response.statusCode}");
           customRouterSnackbar(
               title: 'Request payment Failed',
-              description: 'Please Try Again Later.',
+              description: '',
               type: SnackType.error);
+          debugPrint("Submit payment with deduction Error 1:${response.body}");
         }
       });
     } finally {
