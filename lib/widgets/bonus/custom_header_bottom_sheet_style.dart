@@ -31,7 +31,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: const EdgeInsets.only(left: 20, bottom: 10.0),
+          margin: const EdgeInsets.only(left: 20, bottom: 8.0),
           width: 40,
           height: 40,
           decoration: BoxDecoration(
@@ -58,16 +58,17 @@ class CustomHeaderBottomStyle extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      label ?? "",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        label ?? "",
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
                     ),
                     const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
+                      padding: const EdgeInsets.only(right: 20.0, bottom: 2),
                       child: action ??
                           Text(
                             isAmountFormat == true
@@ -97,7 +98,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(bottom: 3.0),
                       child: Text(
                         time ?? "",
                         style: Theme.of(context)
@@ -114,7 +115,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 9.0),
+                              padding: const EdgeInsets.only(top: 2),
                               child: Text(
                                 pointAmount ?? "",
                                 style: Theme.of(context)
