@@ -29,7 +29,7 @@ class WalletTran {
       case 'exchange':
         return 'assets/images/svgfile/exchangepoint.svg';
       case 'redemption':
-        return 'assets/images/svgfile/redemption-mvp.svg';
+        return 'assets/images/svgfile/redemption-mvp.svg  ';
       case 'deposit':
       case 'DEPOSIT':
       case 'wallet-deposit':
