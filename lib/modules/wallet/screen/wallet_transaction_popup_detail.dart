@@ -8,7 +8,7 @@ class WalletTran {
   static void transactionDetail(
       BuildContext context, WalletTransactionDetail model) {
     onShowBottomSheet(
-      label: 'ABC',
+      label: model.label,
       isAmountFormat: true,
       amountFormat: model.amount,
       type: model.transactionType,
