@@ -8,7 +8,7 @@ class WalletTran {
   static void transactionDetail(
       BuildContext context, WalletTransactionDetail model) {
     onShowBottomSheet(
-      label: model.label,
+      label: 'ABC',
       isAmountFormat: true,
       amountFormat: model.amount,
       type: model.transactionType,
@@ -29,7 +29,7 @@ class WalletTran {
       case 'exchange':
         return 'assets/images/svgfile/exchangepoint.svg';
       case 'redemption':
-        return 'assets/images/svgfile/redemption-mvp.svg  ';
+        return 'assets/images/svgfile/redemption-mvp.svg';
       case 'deposit':
       case 'DEPOSIT':
       case 'wallet-deposit':
