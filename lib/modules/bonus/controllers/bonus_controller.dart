@@ -608,13 +608,14 @@ class BonusController extends GetxController {
             isSubscriptionHistories.value = true;
           });
         } else {
-          debugPrint("Submit payment with deduction Error:${response.body}");
-          var description = response.body;
+          Navigator.pop(context!);
+
           customRouterSnackbar(
               title: 'Request payment Failed',
-              description: description,
+              description: response.statusCode == 422
+                  ? 'The balance is not enough.'
+                  : '',
               type: SnackType.error);
-          debugPrint("Submit payment with deduction Error 1:${response.body}");
         }
       });
     } finally {

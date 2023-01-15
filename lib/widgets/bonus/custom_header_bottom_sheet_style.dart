@@ -31,7 +31,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: const EdgeInsets.only(left: 20),
+          margin: const EdgeInsets.only(left: 20, bottom: 10.0),
           width: 40,
           height: 40,
           decoration: BoxDecoration(
