@@ -10,13 +10,13 @@ import 'package:cicgreenloan/widgets/investments/custom_bullet_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../utils/function/format_to_k.dart';
 import '../../../widgets/investments/custom_product_type_detail.dart';
 import '../../../widgets/investments/custom_shimmer_on_summary_detail.dart';
 import '../../../widgets/investments/slide_button.dart';
+import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 
 class BulletPaymentDetail extends StatelessWidget {
   const BulletPaymentDetail({
@@ -358,8 +358,14 @@ class BulletPaymentDetail extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context
-                          .push('/investment/view-contract-term?fromPage=FIF');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ContractTerm(
+                            fromPage: 'FiF',
+                          ),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5.0),
