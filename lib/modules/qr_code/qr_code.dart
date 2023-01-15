@@ -197,7 +197,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                           debugPrint("is Checke Scann");
                                           debugPrint(
                                               "Redeem to MVP QR:${barcode.rawValue}");
-                                          router.push('${barcode.rawValue}');
+
                                           // setState(() {
                                           //   resultQR = barcode.rawValue;
                                           //   debugPrint(
