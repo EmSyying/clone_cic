@@ -607,8 +607,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                               .data!.type ==
                                                           'Announcement'
                                                       ? () {
-                                                          debugPrint(
-                                                              "is pressed onn annnouncement");
                                                           setState(() {
                                                             _con
                                                                 .notificationAnouncementList[
@@ -622,20 +620,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                               .notificationAnouncementList[
                                                                   index]
                                                               .id!);
+
                                                           Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) {
                                                               return AnnouncementDetail(
-                                                                  imageUrl:
-                                                                      '${_con.notificationAnouncementList[index].data!.image}',
-                                                                  title:
-                                                                      '${_con.notificationAnouncementList[index].data!.title}',
-                                                                  subTitle:
-                                                                      '${_con.notificationAnouncementList[index].data!.body}',
-                                                                  url:
-                                                                      '${_con.notificationAnouncementList[index].data!.url}');
+                                                                notificationData: _con
+                                                                    .notificationAnouncementList[
+                                                                        index]
+                                                                    .data,
+                                                              );
                                                             }),
                                                           );
                                                           // showDialog(
