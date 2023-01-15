@@ -497,9 +497,23 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                                         const EdgeInsets.only(
                                                             left: 5.0),
                                                     child: GestureDetector(
-                                                      onTap: () {
-                                                        context.push(
-                                                            '/investment/view-contract-term?fromPage=FIF');
+                                                      onTap: () async {
+                                                        await onShowCustomCupertinoModalSheet(
+                                                            context: context,
+                                                            child:
+                                                                ServiceAgreement(
+                                                              serviceAgreement:
+                                                                  subscribeCon
+                                                                      .bonusSetting
+                                                                      .value
+                                                                      .serviceAgreement,
+                                                            ),
+                                                            title:
+                                                                'CiC Service Agreement',
+                                                            icon: const Icon(Icons
+                                                                .arrow_back_ios));
+                                                        // context.push(
+                                                        //     '/investment/view-contract-term?fromPage=FIF');
                                                       },
                                                       child: Text(
                                                         'CiC Serivce Agreement',

@@ -42,6 +42,7 @@ import '../../Utils/helper/find_widget_position.dart';
 import '../../Utils/helper/local_notification.dart';
 import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
+import '../../configs/firebase_deeplink/deeplink_service.dart';
 import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
@@ -478,12 +479,22 @@ class _MainDashboardState extends State<MainDashboard> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text(
-                                'Mobile',
-                                style: TextStyle(
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
+                              GestureDetector(
+                                onTap: () async {
+                                  final url = await DynamicLinkService
+                                      .createDynamicLink(
+                                          path:
+                                              'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=748599250&receiveAccountName=Chhany%20Horn',
+                                          isShort: true);
+                                  debugPrint("Event: $url");
+                                },
+                                child: const Text(
+                                  'Mobile',
+                                  style: TextStyle(
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
                               ),
                             ],
                           ),
