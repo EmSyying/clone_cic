@@ -26,6 +26,7 @@ class CustomCancelledGetFunding extends StatelessWidget {
           : equityCon.equityApplicationRejectedtList.isNotEmpty
               ? SingleChildScrollView(
                   child: ApplicationList(
+                    fromPage: 'histories',
                     applicationList: equityCon.equityApplicationRejectedtList,
                   ),
                 )

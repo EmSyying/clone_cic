@@ -51,20 +51,20 @@ class _CustomBuyCardState extends State<CustomBuyCard> {
                             //     : 'Successful Sell Request',
                             title: e.value.type == 'Submitted' &&
                                     e.value.operation!.toLowerCase() == 'buy'
-                                ? 'Submitted Buy Request'
+                                ? 'Submitted ${e.value.operation} request'
                                 : e.value.type == 'Submitted' &&
                                         e.value.operation!.toLowerCase() ==
                                             'sell'
-                                    ? 'Submitted Sell Request'
+                                    ? 'Submitted ${e.value.operation} request'
                                     : e.value.type == 'Matched' &&
                                             e.value.operation!.toLowerCase() ==
                                                 'buy'
-                                        ? "Successful Buy Request"
+                                        ? "Successful ${e.value.operation} request"
                                         : e.value.type == 'Matched' &&
                                                 e.value.operation!
                                                         .toLowerCase() ==
                                                     'sell'
-                                            ? "Successful Buy Request"
+                                            ? "Successful ${e.value.operation} request"
                                             : "",
                             child: NotificationDetailPopup(
                               inquriyModel: e.value,

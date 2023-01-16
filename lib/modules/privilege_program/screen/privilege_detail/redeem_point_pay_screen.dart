@@ -18,10 +18,14 @@ import '../../controller/privilege_controller.dart';
 
 class RedeemPointToPay extends StatelessWidget {
   const RedeemPointToPay(
-      {Key? key, this.receiveAccountName, this.receiveAccountNumber})
+      {Key? key,
+      this.receiveAccountName,
+      this.receiveAccountNumber,
+      this.shopStoreId})
       : super(key: key);
   final String? receiveAccountName;
   final String? receiveAccountNumber;
+  final int? shopStoreId;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +34,7 @@ class RedeemPointToPay extends StatelessWidget {
     final priController = Get.put(PrivilegeController());
     if (receiveAccountName != null && receiveAccountNumber != null) {
       walletController.onFetchMyPoin();
+      priController.shopStoreId.value = shopStoreId!;
       priController.receiveAccountNumber.value = receiveAccountNumber!;
       priController.receiveAccountname.value = receiveAccountName!;
     }

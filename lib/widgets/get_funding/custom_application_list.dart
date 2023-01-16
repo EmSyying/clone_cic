@@ -16,6 +16,7 @@ class ApplicationList extends StatelessWidget {
   final List<ApplicationData>? applicationList;
   final bool? isEquity;
   final bool? isGrid;
+  final String? fromPage;
 
   ApplicationList({
     Key? key,
@@ -24,6 +25,7 @@ class ApplicationList extends StatelessWidget {
     this.isEquity = false,
     this.listTitle,
     this.listTitleColor,
+    this.fromPage,
   }) : super(key: key);
 
   @override
@@ -55,53 +57,58 @@ class ApplicationList extends StatelessWidget {
                         ApplicationData getFundingModel =
                             applicationList![index];
                         return GestureDetector(
-                          onTap: () {
-                            equityController.resetData();
-                            debtController.onResetData();
-                            if (getFundingModel.status != "Draft") {
-                              isEquity!
-                                  ? context.go(
-                                      "/get_funding/preview-equity?id=${getFundingModel.id}")
-                                  : context.go(
-                                      "/get_funding/preview-debt?id=${getFundingModel.id}");
-                            } else {
-                              null;
-                            }
-                          },
+                          onTap: fromPage != null
+                              ? null
+                              : () {
+                                  equityController.resetData();
+                                  debtController.onResetData();
+                                  if (getFundingModel.status != "Draft") {
+                                    isEquity!
+                                        ? context.go(
+                                            "/get_funding/preview-equity?id=${getFundingModel.id}")
+                                        : context.go(
+                                            "/get_funding/preview-debt?id=${getFundingModel.id}");
+                                  } else {
+                                    null;
+                                  }
+                                },
                           //Code Edit and Deleted Draft Application list
                           child: ApplicationCard(
-                            onTapEdit: () {
-                              debugPrint("Equity Step:${getFundingModel.step}");
-                              equityController.resetData();
-                              debtController.onResetData();
-                              Navigator.pop(context);
-                              isEquity!
-                                  ? getFundingModel.step == 1
-                                      ? context.go(
-                                          "/get_funding/equity-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
-                                      : getFundingModel.step == 2
-                                          ? context.go(
-                                              "/get_funding/equity-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
-                                          : getFundingModel.step == 3
-                                              ? context.go(
-                                                  "/get_funding/equity-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
-                                              : context.go(
-                                                  "/get_funding/preview-equity?id=${getFundingModel.id}")
-                                  : getFundingModel.step == 1
-                                      ? context.go(
-                                          "/get_funding/debt-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
-                                      : getFundingModel.step == 2
-                                          ? context.go(
-                                              "/get_funding/debt-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
-                                          : getFundingModel.step == 3
-                                              ? context.go(
-                                                  "/get_funding/debt-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
-                                              : getFundingModel.step == 4
-                                                  ? context.go(
-                                                      "/get_funding/debt-step4?id=${getFundingModel.id}&&step=${getFundingModel.step}")
-                                                  : context.go(
-                                                      "/get_funding/preview-debt?id=${getFundingModel.id}");
-                            },
+                            onTapEdit: fromPage != null
+                                ? null
+                                : () {
+                                    debugPrint(
+                                        "Equity Step:${getFundingModel.step}");
+                                    equityController.resetData();
+                                    debtController.onResetData();
+                                    Navigator.pop(context);
+                                    isEquity!
+                                        ? getFundingModel.step == 1
+                                            ? context.go(
+                                                "/get_funding/equity-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                            : getFundingModel.step == 2
+                                                ? context.go(
+                                                    "/get_funding/equity-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                : getFundingModel.step == 3
+                                                    ? context.go(
+                                                        "/get_funding/equity-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                    : context.go(
+                                                        "/get_funding/preview-equity?id=${getFundingModel.id}")
+                                        : getFundingModel.step == 1
+                                            ? context.go(
+                                                "/get_funding/debt-step1?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                            : getFundingModel.step == 2
+                                                ? context.go(
+                                                    "/get_funding/debt-step2?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                : getFundingModel.step == 3
+                                                    ? context.go(
+                                                        "/get_funding/debt-step3?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                    : getFundingModel.step == 4
+                                                        ? context.go(
+                                                            "/get_funding/debt-step4?id=${getFundingModel.id}&&step=${getFundingModel.step}")
+                                                        : context.go(
+                                                            "/get_funding/preview-debt?id=${getFundingModel.id}");
+                                  },
                             onTapDelete: () {
                               if (isEquity == true) {
                                 equityController.onDeleteEquityInvestment(

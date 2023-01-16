@@ -481,15 +481,15 @@ class _MainDashboardState extends State<MainDashboard> {
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  // final url = await DynamicLinkService
-                                  //     .createDynamicLink(
-                                  //         path:
-                                  //             'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=038356614&receiveAccountName=PIZZA HUT KAMPUCHEA KROM',
-                                  //         isShort: true);
                                   final url = await DynamicLinkService
                                       .createDynamicLink(
-                                          path: 'privilege-payment/1',
+                                          path:
+                                              'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=614543119&receiveAccountName=PIZZA HUT KAMPUCHEA KROM&shopStoreId=1',
                                           isShort: true);
+                                  // final url = await DynamicLinkService
+                                  //     .createDynamicLink(
+                                  //         path: 'privilege-payment/1',
+                                  //         isShort: true);
                                   debugPrint("Event: $url");
                                 },
                                 child: const Text(

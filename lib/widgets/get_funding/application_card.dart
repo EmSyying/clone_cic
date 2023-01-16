@@ -4,7 +4,6 @@ import 'package:cicgreenloan/modules/get_funding/models/appliication_card_model.
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../Utils/helper/color.dart';
 import '../../Utils/helper/container_partern.dart';
 
 class ApplicationCard extends StatelessWidget {

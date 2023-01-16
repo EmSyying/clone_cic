@@ -160,6 +160,8 @@ final router = GoRouter(
                             state.queryParams['receiveAccountName'],
                         receiveAccountNumber:
                             state.queryParams['receiveAccountNumber'],
+                        shopStoreId: int.tryParse(
+                            state.queryParams['shopStoreId'].toString()),
                       ),
                     ),
                     GoRoute(
