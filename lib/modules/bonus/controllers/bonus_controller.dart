@@ -10,6 +10,7 @@ import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../core/flavor/flavor_configuration.dart';
 import '../../investment_module/controller/investment_controller.dart';
 import '../../ut_trading/models/detail_model.dart';
+import '../../wallet/controller/wallet_controller.dart';
 import '../models/availabale_balance_model.dart';
 import '../models/bank_list_info.dart';
 import '../models/history_model.dart';
@@ -573,6 +574,7 @@ class BonusController extends GetxController {
     return bonusSetting.value;
   }
 
+  final _walletController = Get.put(WalletController());
   Future<void> onRequestPayment(BuildContext? context) async {
     final token = await LocalData.getCurrentUser();
     isConfirm.value = false;
@@ -600,6 +602,8 @@ class BonusController extends GetxController {
               description: 'Your request payment is submitted successfully.');
 
           Future.delayed(const Duration(seconds: 3), () {
+            _walletController.fetchWalletAmount();
+            _walletController.getAllTransaction();
             fetchTransationHistory(type: "all");
             fetchPendingTransaction();
             fectchBalance();
