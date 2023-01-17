@@ -718,7 +718,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                   fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          '${FormatToK.digitNumber(amountToPay)} USD',
+                          '${FormatToK.digitNumber(unPaidAmount!)} USD',
                           style: Theme.of(context)
                               .textTheme
                               .headline2!

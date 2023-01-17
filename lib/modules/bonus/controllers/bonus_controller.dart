@@ -489,9 +489,11 @@ class BonusController extends GetxController {
           onClear();
           update();
         } else {
+          debugPrint("Subscriptionn Failed:${response.body}");
+          var responseJson = json.decode(response.body)['message'];
           customRouterSnackbar(
             title: 'Subscription Failed',
-            description: 'Please Try Again Later.',
+            description: '$responseJson',
             type: SnackType.error,
           );
         }

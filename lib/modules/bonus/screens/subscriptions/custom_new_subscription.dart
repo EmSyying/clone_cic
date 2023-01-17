@@ -14,13 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/format_number.dart';
 import '../../../../widgets/investments/slide_button.dart';
-import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 
 class CustomNewSubscription extends StatefulWidget {
@@ -70,403 +68,434 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
         return CupertinoPageScaffold(
           child: Scaffold(
             body: Obx(
-              () => _walletController.fetchWalletLoading.value
-                  ? const LinearProgressIndicator()
-                  : GestureDetector(
-                      onTap: () {
-                        FocusScopeNode currentFocus = FocusScope.of(context);
+              () => GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
 
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-                      },
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Container(
-                                color: Colors.grey[100],
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                },
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          color: Colors.grey[100],
+                          child: Column(
+                            children: [
+                              // Padding(
+                              //   padding: const EdgeInsets.only(
+                              //     left: 20.0,
+                              //     right: 20.0,
+                              //     top: 20.0,
+                              //   ),
+                              //   child: WalletTotalCard(
+                              //     amount: _walletController.walletAmount
+                              //         .value.wallet!.balanceFormat,
+                              //   ),
+                              // ),
+                              Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.only(top: 20),
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 20),
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    CustomTextFieldNew(
+                                      enable: false,
+                                      isReadOnly: true,
+                                      controller:
+                                          subscribeCon.utPriceController,
+                                      initialValue: subscribeCon.utPrice.value,
+                                      labelText: 'Price/UT *',
+                                      hintText: 'Price/UT',
+                                    ),
+                                    CustomTextFieldNew(
+                                      validateText: subscribeCon
+                                                  .subscriptionAmount.value ==
+                                              0
+                                          ? null
+                                          : subscribeCon
+                                              .valadatesubscriptionText.value,
+                                      keyboardType: TextInputType.number,
+                                      isValidate: subscribeCon
+                                          .isValidateSubscriptionAmount.value,
+                                      labelText: 'UT to Subscribe *',
+                                      hintText: 'UT to Subscribe',
+                                      initialValue: subscribeCon
+                                                  .subscriptionAmount.value !=
+                                              0
+                                          ? "${subscribeCon.subscriptionAmount.value}"
+                                          : "",
+                                      onChange: (value) {
+                                        if (value.isEmpty) {
+                                          subscribeCon
+                                              .subscriptionAmount.value = 0;
+                                          subscribeCon.diplayNewUTAmount.value =
+                                              0;
+                                          subscribeCon
+                                              .isValidateSubscriptionAmount
+                                              .value = false;
+                                        } else if (subscribeCon
+                                                .bonusSetting.value.isCicTeam ==
+                                            true) {
+                                          try {
+                                            subscribeCon
+                                                .isValidateSubscriptionAmount
+                                                .value = true;
+                                            subscribeCon.subscriptionAmount
+                                                .value = int.parse(value);
+                                            subscribeCon.diplayNewUTAmount
+                                                .value = subscribeCon
+                                                    .utSubscription
+                                                    .value
+                                                    .totalUt! +
+                                                int.parse(value);
+                                            subscribeCon
+                                                .displaysubscriptionCoast
+                                                .value = priceController.price
+                                                    .value.priceUnformat! *
+                                                double.parse(value);
+                                            subscribeCon.update();
+                                          } catch (e) {
+                                            debugPrint("$e");
+                                          }
+                                        } else {
+                                          try {
+                                            subscribeCon
+                                                .isValidateSubscriptionAmount
+                                                .value = true;
+                                            subscribeCon.subscriptionAmount
+                                                .value = int.parse(value);
+                                            subscribeCon.diplayNewUTAmount
+                                                .value = subscribeCon
+                                                    .utSubscription
+                                                    .value
+                                                    .totalUt! +
+                                                int.parse(value);
+                                            subscribeCon
+                                                .displaysubscriptionCoast
+                                                .value = priceController.price
+                                                    .value.priceUnformat! *
+                                                double.parse(value);
+                                            subscribeCon.update();
+                                          } catch (e) {
+                                            debugPrint("$e");
+                                          }
+                                          if (subscribeCon.subscriptionAmount
+                                                      .value <
+                                                  subscribeCon
+                                                      .bonusSetting
+                                                      .value
+                                                      .minUtSubscription! &&
+                                              subscribeCon.bonusSetting.value
+                                                      .isCicTeam ==
+                                                  false) {
+                                            subscribeCon
+                                                .isValidateSubscriptionAmount
+                                                .value = false;
+                                            subscribeCon
+                                                    .valadatesubscriptionText
+                                                    .value =
+                                                'Min. UT Subscription Amount: ${subscribeCon.bonusSetting.value.minUtSubscription!}';
+                                            subscribeCon.update();
+                                          } else {
+                                            try {
+                                              subscribeCon
+                                                  .isValidateSubscriptionAmount
+                                                  .value = true;
+                                              subscribeCon.subscriptionAmount
+                                                  .value = int.parse(value);
+                                              subscribeCon.diplayNewUTAmount
+                                                  .value = subscribeCon
+                                                      .utSubscription
+                                                      .value
+                                                      .totalUt! +
+                                                  int.parse(value);
+                                              subscribeCon
+                                                  .displaysubscriptionCoast
+                                                  .value = priceController.price
+                                                      .value.priceUnformat! *
+                                                  double.parse(value);
+                                              subscribeCon.update();
+                                            } catch (e) {
+                                              debugPrint("$e");
+                                            }
+                                          }
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                color: Colors.white,
+                                margin: const EdgeInsets.only(top: 15),
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 20),
                                 child: Column(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                        left: 20.0,
-                                        right: 20.0,
-                                        top: 20.0,
-                                      ),
-                                      child: WalletTotalCard(
-                                        amount: _walletController.walletAmount
-                                            .value.wallet!.balanceFormat,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      margin: const EdgeInsets.only(top: 20),
-                                      padding: const EdgeInsets.only(
-                                          top: 20, bottom: 20),
-                                      color: Colors.white,
-                                      child: Column(
+                                          left: 20, right: 20),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          CustomTextFieldNew(
-                                            enable: false,
-                                            isReadOnly: true,
-                                            controller:
-                                                subscribeCon.utPriceController,
-                                            initialValue:
-                                                subscribeCon.utPrice.value,
-                                            labelText: 'Price/UT *',
-                                            hintText: 'Price/UT',
-                                          ),
-                                          CustomTextFieldNew(
-                                            validateText: subscribeCon
-                                                        .subscriptionAmount
-                                                        .value ==
-                                                    0
-                                                ? null
-                                                : subscribeCon
-                                                    .valadatesubscriptionText
-                                                    .value,
-                                            keyboardType: TextInputType.number,
-                                            isValidate: subscribeCon
-                                                .isValidateSubscriptionAmount
-                                                .value,
-                                            labelText: 'UT to Subscribe *',
-                                            hintText: 'UT to Subscribe',
-                                            initialValue: subscribeCon
-                                                        .subscriptionAmount
-                                                        .value !=
-                                                    0
-                                                ? "${subscribeCon.subscriptionAmount.value}"
-                                                : "",
-                                            onChange: (value) {
-                                              if (value.isEmpty) {
-                                                subscribeCon.subscriptionAmount
-                                                    .value = 0;
-                                                subscribeCon.diplayNewUTAmount
-                                                    .value = 0;
-                                                subscribeCon
-                                                    .isValidateSubscriptionAmount
-                                                    .value = false;
-                                              } else if (subscribeCon
-                                                      .bonusSetting
-                                                      .value
-                                                      .isCicTeam ==
-                                                  true) {
-                                                try {
-                                                  subscribeCon
-                                                      .isValidateSubscriptionAmount
-                                                      .value = true;
-                                                  subscribeCon
-                                                      .subscriptionAmount
-                                                      .value = int.parse(value);
-                                                  subscribeCon.diplayNewUTAmount
-                                                      .value = subscribeCon
-                                                          .utSubscription
-                                                          .value
-                                                          .totalUt! +
-                                                      int.parse(value);
-                                                  subscribeCon
-                                                      .displaysubscriptionCoast
-                                                      .value = priceController
-                                                          .price
-                                                          .value
-                                                          .priceUnformat! *
-                                                      double.parse(value);
-                                                  subscribeCon.update();
-                                                } catch (e) {
-                                                  debugPrint("$e");
-                                                }
-                                              } else {
-                                                try {
-                                                  subscribeCon
-                                                      .isValidateSubscriptionAmount
-                                                      .value = true;
-                                                  subscribeCon
-                                                      .subscriptionAmount
-                                                      .value = int.parse(value);
-                                                  subscribeCon.diplayNewUTAmount
-                                                      .value = subscribeCon
-                                                          .utSubscription
-                                                          .value
-                                                          .totalUt! +
-                                                      int.parse(value);
-                                                  subscribeCon
-                                                      .displaysubscriptionCoast
-                                                      .value = priceController
-                                                          .price
-                                                          .value
-                                                          .priceUnformat! *
-                                                      double.parse(value);
-                                                  subscribeCon.update();
-                                                } catch (e) {
-                                                  debugPrint("$e");
-                                                }
-                                                if (subscribeCon
-                                                            .subscriptionAmount
-                                                            .value <
-                                                        subscribeCon
-                                                            .bonusSetting
-                                                            .value
-                                                            .minUtSubscription! &&
-                                                    subscribeCon.bonusSetting
-                                                            .value.isCicTeam ==
-                                                        false) {
-                                                  subscribeCon
-                                                      .isValidateSubscriptionAmount
-                                                      .value = false;
-                                                  subscribeCon
-                                                          .valadatesubscriptionText
-                                                          .value =
-                                                      'Min. UT Subscription Amount: ${subscribeCon.bonusSetting.value.minUtSubscription!}';
-                                                  subscribeCon.update();
-                                                } else {
-                                                  try {
-                                                    subscribeCon
-                                                        .isValidateSubscriptionAmount
-                                                        .value = true;
-                                                    subscribeCon
-                                                            .subscriptionAmount
-                                                            .value =
-                                                        int.parse(value);
-                                                    subscribeCon
-                                                        .diplayNewUTAmount
-                                                        .value = subscribeCon
-                                                            .utSubscription
-                                                            .value
-                                                            .totalUt! +
-                                                        int.parse(value);
-                                                    subscribeCon
-                                                        .displaysubscriptionCoast
-                                                        .value = priceController
-                                                            .price
-                                                            .value
-                                                            .priceUnformat! *
-                                                        double.parse(value);
-                                                    subscribeCon.update();
-                                                  } catch (e) {
-                                                    debugPrint("$e");
-                                                  }
-                                                }
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      color: Colors.white,
-                                      margin: const EdgeInsets.only(top: 15),
-                                      padding: const EdgeInsets.only(
-                                          top: 20, bottom: 20),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20, right: 20),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Text('UT Summary'),
-                                                GetBuilder<SettingController>(
-                                                  init: SettingController(),
-                                                  builder: (controller) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        onShowBottomSheet(
-                                                            icondata:
-                                                                Icons.close,
-                                                            isLoading:
-                                                                controller
-                                                                    .isloading,
-                                                            title: controller
+                                          const Text('UT Summary'),
+                                          GetBuilder<SettingController>(
+                                            init: SettingController(),
+                                            builder: (controller) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  onShowBottomSheet(
+                                                      icondata: Icons.close,
+                                                      isLoading:
+                                                          controller.isloading,
+                                                      title: controller
+                                                                  .uiSettingData
+                                                                  .utSummary !=
+                                                              null
+                                                          ? controller
+                                                              .uiSettingData
+                                                              .utSummary!
+                                                              .label
+                                                          : "",
+                                                      context: context,
+                                                      child: Column(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20,
+                                                                    vertical:
+                                                                        10),
+                                                            child: controller
                                                                         .uiSettingData
                                                                         .utSummary !=
                                                                     null
-                                                                ? controller
-                                                                    .uiSettingData
-                                                                    .utSummary!
-                                                                    .label
-                                                                : "",
-                                                            context: context,
-                                                            child: Column(
-                                                              children: [
-                                                                Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                      horizontal:
-                                                                          20,
-                                                                      vertical:
-                                                                          10),
-                                                                  child: controller
-                                                                              .uiSettingData
-                                                                              .utSummary !=
-                                                                          null
-                                                                      ? HtmlWidget(
-                                                                          "${controller.uiSettingData.utSummary!.description}",
-                                                                          textStyle: Theme.of(context)
-                                                                              .textTheme
-                                                                              .headline2!
-                                                                              .copyWith(fontWeight: FontWeight.normal, fontSize: 14),
-                                                                        )
-                                                                      : Container(),
-                                                                )
-                                                              ],
-                                                            ));
-                                                      },
-                                                      child: SvgPicture.asset(
-                                                          'assets/images/svgfile/questicon.svg'),
-                                                    );
-                                                  },
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          CustomInterestSummary(
-                                              titleDate: "Initial UT Amount",
-                                              date: "",
-                                              time:
-                                                  '${FormatNumber.formatNumberDefualt(subscribeCon.utSubscription.value.totalUt!.toInt())} UT'),
-                                          CustomInterestSummary(
-                                            titleDate: "New UT Amount",
-                                            date: "",
-                                            time: subscribeCon.diplayNewUTAmount
-                                                        .value ==
-                                                    0
-                                                ? '0 UT'
-                                                : '${FormatNumber.formatNumberDefualt(subscribeCon.diplayNewUTAmount.value)} UT',
+                                                                ? HtmlWidget(
+                                                                    "${controller.uiSettingData.utSummary!.description}",
+                                                                    textStyle: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .headline2!
+                                                                        .copyWith(
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                            fontSize: 14),
+                                                                  )
+                                                                : Container(),
+                                                          )
+                                                        ],
+                                                      ));
+                                                },
+                                                child: SvgPicture.asset(
+                                                    'assets/images/svgfile/questicon.svg'),
+                                              );
+                                            },
                                           )
                                         ],
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                      color: Colors.white,
+                                    CustomInterestSummary(
+                                        titleDate: "Initial UT Amount",
+                                        date: "",
+                                        time: subscribeCon.utSubscription.value
+                                                    .totalUt !=
+                                                null
+                                            ? '${FormatNumber.formatNumberDefualt(subscribeCon.utSubscription.value.totalUt!.toInt())} UT'
+                                            : ''),
+                                    CustomInterestSummary(
+                                      titleDate: "New UT Amount",
+                                      date: "",
+                                      time: subscribeCon
+                                                  .diplayNewUTAmount.value ==
+                                              0
+                                          ? '0 UT'
+                                          : '${FormatNumber.formatNumberDefualt(subscribeCon.diplayNewUTAmount.value)} UT',
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                color: Colors.white,
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 20),
+                                child: Column(
+                                  children: [
+                                    Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 20, bottom: 20),
-                                      child: Column(
+                                          left: 20, right: 20),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20, right: 20),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Text('Payment Summary'),
-                                                GetBuilder<SettingController>(
-                                                  init: SettingController(),
-                                                  builder: (controller) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        onShowBottomSheet(
-                                                            icondata:
-                                                                Icons.close,
-                                                            isLoading:
-                                                                controller
-                                                                    .isloading,
-                                                            title: controller
+                                          const Text('Payment Summary'),
+                                          GetBuilder<SettingController>(
+                                            init: SettingController(),
+                                            builder: (controller) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  onShowBottomSheet(
+                                                      icondata: Icons.close,
+                                                      isLoading:
+                                                          controller.isloading,
+                                                      title: controller
+                                                                  .uiSettingData
+                                                                  .paymentSummary !=
+                                                              null
+                                                          ? controller
+                                                              .uiSettingData
+                                                              .paymentSummary!
+                                                              .label
+                                                          : "",
+                                                      context: context,
+                                                      child: Column(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20,
+                                                                    vertical:
+                                                                        10),
+                                                            child: controller
                                                                         .uiSettingData
                                                                         .paymentSummary !=
                                                                     null
-                                                                ? controller
-                                                                    .uiSettingData
-                                                                    .paymentSummary!
-                                                                    .label
-                                                                : "",
-                                                            context: context,
-                                                            child: Column(
-                                                              children: [
-                                                                Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                      horizontal:
-                                                                          20,
-                                                                      vertical:
-                                                                          10),
-                                                                  child: controller
-                                                                              .uiSettingData
-                                                                              .paymentSummary !=
-                                                                          null
-                                                                      ? HtmlWidget(
-                                                                          "${controller.uiSettingData.paymentSummary!.description}",
-                                                                          textStyle: Theme.of(context)
-                                                                              .textTheme
-                                                                              .headline2!
-                                                                              .copyWith(fontWeight: FontWeight.normal, fontSize: 14),
-                                                                        )
-                                                                      : Container(),
-                                                                )
-                                                              ],
-                                                            ));
-                                                      },
-                                                      child: SvgPicture.asset(
-                                                          'assets/images/svgfile/questicon.svg'),
-                                                    );
-                                                  },
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          CustomInterestSummary(
-                                            titleDate:
-                                                "Total Subscription Cost",
-                                            date: "",
-                                            time: subscribeCon.diplayNewUTAmount
-                                                        .value ==
-                                                    0
-                                                ? "0.0 USD"
-                                                : '${FormatToK.digitNumber(subscribeCon.displaysubscriptionCoast.value)} USD',
-                                          ),
-                                          // CustomInterestSummary(
-                                          //   titleDate: "Available Balance Deducted",
-                                          //   date: "",
-                                          //   time:
-                                          //       '${FormatToK.digitNumber(subscribeCon.paymentSummary.value.availableBalanceDeducted)} USD',
-                                          // ),
-                                          // CustomInterestSummary(
-                                          //   titleDate: "Amount Paid to CiC",
-                                          //   date: "",
-                                          //   time:
-                                          //       '${FormatToK.digitNumber(subscribeCon.paymentSummary.value.amountPaidToCic)} USD',
-                                          // ),
-                                          CustomInterestSummary(
-                                            titleDate: "Last Date of Payment",
-                                            date: "",
-                                            time: subscribeCon.paymentSummary
-                                                    .value.lastDateOfPayment ??
-                                                "",
-                                          ),
+                                                                ? HtmlWidget(
+                                                                    "${controller.uiSettingData.paymentSummary!.description}",
+                                                                    textStyle: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .headline2!
+                                                                        .copyWith(
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                            fontSize: 14),
+                                                                  )
+                                                                : Container(),
+                                                          )
+                                                        ],
+                                                      ));
+                                                },
+                                                child: SvgPicture.asset(
+                                                    'assets/images/svgfile/questicon.svg'),
+                                              );
+                                            },
+                                          )
                                         ],
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        subscribeCon.isAgree.value =
-                                            !subscribeCon.isAgree.value;
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 20, top: 20, bottom: 20),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                subscribeCon.isAgree.value ==
-                                                        false
-                                                    ? SvgPicture.asset(
-                                                        'assets/images/svgfile/cicle_check.svg',
-                                                        color: Colors.grey,
-                                                      )
-                                                    : SvgPicture.asset(
-                                                        'assets/images/svgfile/circle_check-selected.svg'),
-                                                const SizedBox(width: 20),
-                                                Text(
-                                                  'I have read  and agree to',
+                                    CustomInterestSummary(
+                                      titleDate: "Total Subscription Cost",
+                                      date: "",
+                                      time: subscribeCon
+                                                  .diplayNewUTAmount.value ==
+                                              0
+                                          ? "0.0 USD"
+                                          : '${FormatToK.digitNumber(subscribeCon.displaysubscriptionCoast.value)} USD',
+                                    ),
+                                    // CustomInterestSummary(
+                                    //   titleDate: "Available Balance Deducted",
+                                    //   date: "",
+                                    //   time:
+                                    //       '${FormatToK.digitNumber(subscribeCon.paymentSummary.value.availableBalanceDeducted)} USD',
+                                    // ),
+                                    // CustomInterestSummary(
+                                    //   titleDate: "Amount Paid to CiC",
+                                    //   date: "",
+                                    //   time:
+                                    //       '${FormatToK.digitNumber(subscribeCon.paymentSummary.value.amountPaidToCic)} USD',
+                                    // ),
+                                    CustomInterestSummary(
+                                      titleDate: "Last Date of Payment",
+                                      date: "",
+                                      time: subscribeCon.paymentSummary.value
+                                              .lastDateOfPayment ??
+                                          "",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  subscribeCon.isAgree.value =
+                                      !subscribeCon.isAgree.value;
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, top: 20, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          subscribeCon.isAgree.value == false
+                                              ? SvgPicture.asset(
+                                                  'assets/images/svgfile/cicle_check.svg',
+                                                  color: Colors.grey,
+                                                )
+                                              : SvgPicture.asset(
+                                                  'assets/images/svgfile/circle_check-selected.svg'),
+                                          const SizedBox(width: 20),
+                                          Text(
+                                            'I have read  and agree to',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2!
+                                                .copyWith(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Colors.grey),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              onShowCustomCupertinoModalSheet(
+                                                  context: context,
+                                                  child: ServiceAgreement(
+                                                    serviceAgreement:
+                                                        subscribeCon
+                                                            .bonusSetting
+                                                            .value
+                                                            .serviceAgreement,
+                                                  ),
+                                                  title: 'Service Agreement',
+                                                  icon: const Icon(
+                                                      Icons.arrow_back_ios));
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5.0),
+                                              child: GestureDetector(
+                                                onTap: () async {
+                                                  await onShowCustomCupertinoModalSheet(
+                                                      context: context,
+                                                      child: ServiceAgreement(
+                                                        serviceAgreement:
+                                                            subscribeCon
+                                                                .bonusSetting
+                                                                .value
+                                                                .serviceAgreement,
+                                                      ),
+                                                      title:
+                                                          'CiC Service Agreement',
+                                                      icon: const Icon(Icons
+                                                          .arrow_back_ios));
+                                                  // context.push(
+                                                  //     '/investment/view-contract-term?fromPage=FIF');
+                                                },
+                                                child: Text(
+                                                  'CiC Serivce Agreement',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .headline2!
@@ -474,93 +503,42 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                                           fontSize: 13,
                                                           fontWeight:
                                                               FontWeight.normal,
-                                                          color: Colors.grey),
+                                                          color: AppColor
+                                                              .mainColor),
                                                 ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    onShowCustomCupertinoModalSheet(
-                                                        context: context,
-                                                        child: ServiceAgreement(
-                                                          serviceAgreement:
-                                                              subscribeCon
-                                                                  .bonusSetting
-                                                                  .value
-                                                                  .serviceAgreement,
-                                                        ),
-                                                        title:
-                                                            'Service Agreement',
-                                                        icon: const Icon(Icons
-                                                            .arrow_back_ios));
-                                                  },
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 5.0),
-                                                    child: GestureDetector(
-                                                      onTap: () async {
-                                                        await onShowCustomCupertinoModalSheet(
-                                                            context: context,
-                                                            child:
-                                                                ServiceAgreement(
-                                                              serviceAgreement:
-                                                                  subscribeCon
-                                                                      .bonusSetting
-                                                                      .value
-                                                                      .serviceAgreement,
-                                                            ),
-                                                            title:
-                                                                'CiC Service Agreement',
-                                                            icon: const Icon(Icons
-                                                                .arrow_back_ios));
-                                                        // context.push(
-                                                        //     '/investment/view-contract-term?fromPage=FIF');
-                                                      },
-                                                      child: Text(
-                                                        'CiC Serivce Agreement',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .headline2!
-                                                            .copyWith(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                color: AppColor
-                                                                    .mainColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                          SafeArea(
-                            top: false,
-                            minimum: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 20,
-                            ),
-                            child: SlideButton(
-                              callback: subscribeCon.isAgree.value == true &&
-                                      subscribeCon.subscriptionAmount.value != 0
-                                  ? () async {
-                                      await subscribeCon.onSubscription(context,
-                                          fromPage: widget.fromPage);
-                                    }
-                                  : null,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
+                    SafeArea(
+                      top: false,
+                      minimum: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20,
+                      ),
+                      child: SlideButton(
+                        callback: subscribeCon.isAgree.value == true &&
+                                subscribeCon.subscriptionAmount.value != 0
+                            ? () async {
+                                await subscribeCon.onSubscription(context,
+                                    fromPage: widget.fromPage);
+                              }
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         );
