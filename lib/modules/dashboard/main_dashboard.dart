@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/main.dart';
+import 'package:cicgreenloan/modules/news/screen/news_screen.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -614,6 +615,15 @@ class _MainDashboardState extends State<MainDashboard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const NewsScreen()));
+                      },
+                      child: const Text('test'),
+                    ),
                     if (!_settingCon.isAMMode!)
                       GestureDetector(
                         key: actionKey,
