@@ -143,7 +143,7 @@ class CustomCardAllStores extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                width: 44,
+                // width: 44,
                 height: 20,
                 decoration: BoxDecoration(
                   gradient:
@@ -156,12 +156,15 @@ class CustomCardAllStores extends StatelessWidget {
                 ),
                 //color: fromHex(privilegeShopList!.discountBgColor ?? ''),
                 child: Center(
-                  child: Text(
-                    privilegeShopList!.discountRate ?? '',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                    child: Text(
+                      privilegeShopList!.discountRate ?? '',
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                          ),
+                    ),
                   ),
                 ),
               ),

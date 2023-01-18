@@ -40,19 +40,24 @@ class PrivilegeController extends GetxController {
     } else {
       isfetcheAllStoredata(true);
     }
+    // debugPrint("Page_Store:$page");
     update();
     try {
       await apiBaseHelper
           .onNetworkRequesting(
         url:
-            'privilege/shop?page=$page?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
+            'privilege/shop?page=$page&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
         methode: METHODE.get,
         isAuthorize: true,
       )
           .then((response) {
         var responseJson = response['data'];
-        debugPrint('hany privilege have latelong:=======$responseJson');
-        shopModelList.clear();
+        // debugPrint('Page Test :$page');
+        // debugPrint('latang==== :${googleMapCon.currentLatStore.value}');
+        // debugPrint('long ===:${googleMapCon.currentLngStore.value}');
+
+        // debugPrint('hany privilege have latelong:=======$responseJson');
+        // shopModelList.clear();
         if (page == 1) {
           shopModelList.clear();
         }
