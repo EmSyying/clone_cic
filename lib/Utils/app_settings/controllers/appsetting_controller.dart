@@ -29,7 +29,7 @@ class SettingController extends GetxController {
   final settingApp = Setting().obs;
   final appSetting = Setting().obs;
   final isModeSwitchAble = false.obs;
-  // final currentIndex = 0.obs;
+  final currentIndex = 0.obs;
   Setting cicAppSetting = Setting();
   final isAutoDarkMode = true.obs;
   bool isLogin = false;
