@@ -157,7 +157,7 @@ class CustomCardAllStores extends StatelessWidget {
                 //color: fromHex(privilegeShopList!.discountBgColor ?? ''),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                    padding: const EdgeInsets.only(left: 4.0, right: 4.0),
                     child: Text(
                       privilegeShopList!.discountRate ?? '',
                       style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -206,8 +206,8 @@ class CustomCardAllStores extends StatelessWidget {
               )
             : const SizedBox.shrink(),
         Positioned(
-          left: 15,
-          top: 28,
+          left: 14,
+          top: 16,
           child: GestureDetector(
             onTap: onTapFav,
             child: Container(
