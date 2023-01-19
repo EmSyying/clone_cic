@@ -47,88 +47,83 @@ class _ItemCategoryPrivilegeScreenState
                 child: CustomShimmerAllShop(),
               )
             : priCont.shopCategoryItemList.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${priCont.shopCategoryItemList.length} Stores',
-                          style:
-                              Theme.of(context).textTheme.subtitle1!.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColor.chartLabelColor,
-                                  ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Column(
-                          children: priCont.shopCategoryItemList
-                              .asMap()
-                              .entries
-                              .map(
-                                (e) => GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            PrivilegeDetailScreen(
-                                          id: priCont
-                                              .shopCategoryItemList[e.key].id,
-                                        ),
+                ? ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        '${priCont.shopCategoryItemList.length} Stores',
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: AppColor.chartLabelColor,
+                            ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        children: priCont.shopCategoryItemList
+                            .asMap()
+                            .entries
+                            .map(
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PrivilegeDetailScreen(
+                                        id: priCont
+                                            .shopCategoryItemList[e.key].id,
                                       ),
-                                    ).then((value) {
-                                      priCont.onFetchCategoryItem(widget.id);
-                                    });
-                                    // context.push(
-                                    //     "/privilege/all-store/privilege-detail/${priCont.shopCategoryItemList[e.key].id}");
-                                  },
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 18.0),
-                                    child: CustomCardAllStores(
-                                      isFav: e.value.isFavorite!,
-                                      privilegeShopList: e.value,
-                                      onTapFav: () {
-                                        priCont
-                                            .setFavouriteStore(
-                                          id: priCont
-                                              .shopCategoryItemList[e.key].id!,
-                                          boolFav: priCont
-                                              .shopCategoryItemList[e.key]
-                                              .isFavorite!,
-                                        )
-                                            .then((value) {
-                                          if (priCont
-                                              .shopCategoryItemList[e.key]
-                                              .isFavorite!) {
-                                            priCont.shopCategoryItemList[
-                                                e
-                                                    .key] = priCont
-                                                .shopCategoryItemList[e.key]
-                                                .copyWith(isFavorite: false);
-                                          } else {
-                                            priCont.shopCategoryItemList[
-                                                    e.key] =
-                                                priCont
-                                                    .shopCategoryItemList[e.key]
-                                                    .copyWith(isFavorite: true);
-                                          }
-                                        });
-                                        priCont.shopCategoryItemList.clear;
-                                        // setState(() {});
-                                        // preCont.shopModelList.refresh();
-                                      },
                                     ),
+                                  ).then((value) {
+                                    priCont.onFetchCategoryItem(widget.id);
+                                  });
+                                  // context.push(
+                                  //     "/privilege/all-store/privilege-detail/${priCont.shopCategoryItemList[e.key].id}");
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 18.0),
+                                  child: CustomCardAllStores(
+                                    isFav: e.value.isFavorite!,
+                                    privilegeShopList: e.value,
+                                    onTapFav: () {
+                                      priCont
+                                          .setFavouriteStore(
+                                        id: priCont
+                                            .shopCategoryItemList[e.key].id!,
+                                        boolFav: priCont
+                                            .shopCategoryItemList[e.key]
+                                            .isFavorite!,
+                                      )
+                                          .then((value) {
+                                        if (priCont.shopCategoryItemList[e.key]
+                                            .isFavorite!) {
+                                          priCont.shopCategoryItemList[e.key] =
+                                              priCont
+                                                  .shopCategoryItemList[e.key]
+                                                  .copyWith(isFavorite: false);
+                                        } else {
+                                          priCont.shopCategoryItemList[e.key] =
+                                              priCont
+                                                  .shopCategoryItemList[e.key]
+                                                  .copyWith(isFavorite: true);
+                                        }
+                                      });
+                                      priCont.shopCategoryItemList.clear;
+                                      // setState(() {});
+                                      // preCont.shopModelList.refresh();
+                                    },
                                   ),
                                 ),
-                              )
-                              .toList(),
-                        ),
-                      ],
-                    ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
                   )
                 : const CustomEmptyState(
                     colors: true,

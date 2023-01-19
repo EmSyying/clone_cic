@@ -30,18 +30,20 @@ class PrivilegeController extends GetxController {
   ApiBaseHelper apiBaseHelper = ApiBaseHelper();
   final shopModel = PrivilegeShopModel().obs;
   final shopModelList = <PrivilegeShopModel>[].obs;
-  final isFavorites = false.obs;
+
   final isLoadingShopList = false.obs;
-  final isfetcheAllStoredata = false.obs;
+  final isLoadingMoreShop = false.obs;
+  String? next;
   Future<List<PrivilegeShopModel>> onFetchAllStore(int page) async {
-    // isLoadingShopList(true);
     if (page == 1) {
       isLoadingShopList(true);
+      isLoadingMoreShop(false);
     } else {
-      isfetcheAllStoredata(true);
+      isLoadingShopList(false);
+      isLoadingMoreShop(true);
     }
-    // debugPrint("Page_Store:$page");
-    update();
+    debugPrint(
+        'Success Page: $page More: ${isLoadingMoreShop.value} Shimmer: ${isLoadingShopList.value}');
     try {
       await apiBaseHelper
           .onNetworkRequesting(
@@ -50,38 +52,56 @@ class PrivilegeController extends GetxController {
         methode: METHODE.get,
         isAuthorize: true,
       )
-          .then((response) {
-        var responseJson = response['data'];
-        // debugPrint('Page Test :$page');
-        // debugPrint('latang==== :${googleMapCon.currentLatStore.value}');
-        // debugPrint('long ===:${googleMapCon.currentLngStore.value}');
+          .then(
+        (response) {
+          var responseJson = response['data'];
+          next = response['links']['next'];
+          debugPrint('Next : $next');
 
-        // debugPrint('hany privilege have latelong:=======$responseJson');
-        // shopModelList.clear();
-        if (page == 1) {
-          shopModelList.clear();
-        }
-        responseJson.map((e) {
-          shopModel.value = PrivilegeShopModel.fromJson(e);
-          // debugPrint('heloooo12345:${shopModel.value.isFavorite}');
-          shopModelList.add(shopModel.value);
-        }).toList();
-        isLoadingShopList(false);
-        isfetcheAllStoredata(false);
-      }).onError((ErrorModel errorModel, stackTrace) {
-        isLoadingShopList(false);
-        return null;
-      });
-    } catch (ex) {
-      //
+          if (page == 1) {
+            shopModelList.clear();
+          }
+          responseJson.map((e) {
+            shopModel.value = PrivilegeShopModel.fromJson(e);
+
+            shopModelList.add(shopModel.value);
+          }).toList();
+        },
+      ).onError(
+        (ErrorModel errorModel, stackTrace) {
+          isLoadingShopList(false);
+          return null;
+        },
+      );
+    } catch (_) {
     } finally {
       isLoadingShopList(false);
+      isLoadingMoreShop(false);
     }
 
     return shopModelList;
   }
 
+  ///Allstore Pagination
+
+  int shopPage = 1;
+  bool onNotification(ScrollEndNotification scrollNotification) {
+    if (scrollNotification.metrics.pixels ==
+        scrollNotification.metrics.maxScrollExtent) {
+      if (isLoadingMoreShop.value) {
+        return true; //stopFetch When Loading More
+      } else {
+        shopPage += 1;
+      }
+      if (shopPage > 1 && next != null) {
+        onFetchAllStore(shopPage);
+      }
+    }
+    return true;
+  }
+
   // Search Shop/Store======
+
   onClearSearch() {
     searchLocationList.clear();
     searchShopList.clear();
