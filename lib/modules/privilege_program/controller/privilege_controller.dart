@@ -233,7 +233,8 @@ class PrivilegeController extends GetxController {
     isLoadingCategories(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/category',
+      url:
+          'privilege/category?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
       methode: METHODE.get,
       isAuthorize: true,
     )
