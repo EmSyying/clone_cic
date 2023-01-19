@@ -2,7 +2,7 @@ import 'package:cicgreenloan/modules/event_module/screen/event_detail.dart';
 import 'package:cicgreenloan/modules/get_funding/get_funding_export.dart';
 import 'package:cicgreenloan/modules/google_map_module/google_map.dart';
 import 'package:cicgreenloan/modules/investment_module/investment_export.dart';
-import 'package:cicgreenloan/modules/news/screen/slide_detail_screen.dart';
+import 'package:cicgreenloan/modules/news/screen/news_detail_screen.dart';
 import 'package:cicgreenloan/modules/privilege_program/privilege_export.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import 'package:cicgreenloan/modules/report_module/report_export.dart';
@@ -1083,17 +1083,16 @@ final router = GoRouter(
                 ),
               ]),
           GoRoute(
-              path: '/news-screen',
-              name: 'NewsScreen',
-              builder: (context, state) =>
-                  NewsDetailScreen(key: state.pageKey),
-              // routes: [
-              //   GoRoute(
-              //     path: 'slide-news-detail-screen',
-              //     name: 'SlideNewsDetailScreen',
-              //   )
-              // ],
-              ),
+            path: '/news-screen',
+            name: 'NewsScreen',
+            builder: (context, state) => NewsDetailScreen(key: state.pageKey),
+            // routes: [
+            //   GoRoute(
+            //     path: 'slide-news-detail-screen',
+            //     name: 'SlideNewsDetailScreen',
+            //   )
+            // ],
+          ),
           GoRoute(
             path: '/qr-screen',
             name: 'QrScreen',

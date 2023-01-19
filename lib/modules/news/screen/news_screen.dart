@@ -1,5 +1,5 @@
 import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
-import 'package:cicgreenloan/modules/news/screen/slide_detail_screen.dart';
+import 'package:cicgreenloan/modules/news/screen/news_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:get/get.dart';

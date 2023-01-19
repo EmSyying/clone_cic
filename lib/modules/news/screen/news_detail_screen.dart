@@ -12,15 +12,15 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
   bool? innerBox;
   @override
   void initState() {
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.pixels >= 128) {
-    //     innerBox = true;
-    //   } else {
-    //     innerBox = false;
-    //     setState(() {});
-    //   }
-    //   debugPrint('Position : ${_scrollController.position.pixels}');
-    // });
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= 128) {
+        innerBox = true;
+      } else {
+        innerBox = false;
+        setState(() {});
+      }
+      debugPrint('Position : ${_scrollController.position.pixels}');
+    });
     super.initState();
   }
 
@@ -100,14 +100,17 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             ];
           },
           body: SingleChildScrollView(
-            child: SizedBox(
-              width: double.infinity,
+            child: Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 130, left: 20, right: 20),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           '6 Jan 2023 · ',
