@@ -122,8 +122,8 @@ class PrivilegeController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
       url: isLocation == false
-          ? 'privilege/global/search?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}&queries=$keySearch'
-          : 'privilege/global/search?origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}&queries=$keySearch&location=true',
+          ? 'privilege/global/search?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&queries=$keySearch'
+          : 'privilege/global/search?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&queries=$keySearch&location=true',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -296,7 +296,7 @@ class PrivilegeController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
       url:
-          'privilege/category?term=$keySearch&origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
+          'privilege/category?term=$keySearch&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -331,7 +331,7 @@ class PrivilegeController extends GetxController {
     apiBaseHelper
         .onNetworkRequesting(
             url:
-                'privilege/filer?location=$location&origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}&category=$categoryId',
+                'privilege/filer?location=$location&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
@@ -474,7 +474,7 @@ class PrivilegeController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
             url:
-                'privilege/shop-by?category_id=$id&origin=${googleMapCon.latitute.toString()},${googleMapCon.longtitute.toString()}',
+                'privilege/shop-by?category_id=$id&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
