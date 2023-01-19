@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/widgets/privilege/privilege_point/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,22 +18,22 @@ class CustomNumberStoresFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Container(
-        //   color: Colors.transparent,
-        //   child: Text(
-        //     titleStores ?? '',
-        //     style: Theme.of(context).textTheme.subtitle1!.copyWith(
-        //           fontWeight: FontWeight.w500,
-        //           color: AppColor.chartLabelColor,
-        //         ),
-        //   ),
-        // ),
-        CustomDropDownButton(
-          // initialIndex: 1,
-          onSelected: (v) {
-            debugPrint(v);
-          },
+        Container(
+          color: Colors.transparent,
+          child: Text(
+            titleStores ?? '',
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.chartLabelColor,
+                ),
+          ),
         ),
+        // CustomDropDownButton(
+        //   // initialIndex: 1,
+        //   onSelected: (v) {
+        //     debugPrint(v);
+        //   },
+        // ),
         const Spacer(),
         GestureDetector(
           onTap: onTapFilter,

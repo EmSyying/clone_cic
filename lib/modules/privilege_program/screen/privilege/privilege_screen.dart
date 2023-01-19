@@ -368,9 +368,9 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                         context.go(
                                             "/privilege/all-stores/filter-item");
                                       },
-                                      // titleStores: segmentedControlValue == 0
-                                      //     ? '${preController.shopModelList.length} Stores'
-                                      //     : '${preController.favshopModelList.length} Stores',
+                                      titleStores: segmentedControlValue == 0
+                                          ? '${preController.shopModelList.length} Stores'
+                                          : '${preController.favshopModelList.length} Stores',
                                     ),
                                   ),
 
