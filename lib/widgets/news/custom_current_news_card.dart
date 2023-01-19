@@ -9,7 +9,7 @@ class CustomCurrentNewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
       padding: const EdgeInsets.only(
         left: 12,
         top: 12,

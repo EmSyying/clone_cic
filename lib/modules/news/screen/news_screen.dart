@@ -10,13 +10,19 @@ import '../../../Utils/custom_indicatior.dart';
 import '../../../widgets/news/custom_breaking_new_card.dart';
 import '../../../widgets/news/custom_current_news_card.dart';
 
-class NewsScreen extends StatelessWidget {
+class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
 
   @override
+  State<NewsScreen> createState() => _NewsScreenState();
+}
+
+class _NewsScreenState extends State<NewsScreen> {
+  final settingCon = Get.put(SettingController());
+  int? currentIndex;
+
+  @override
   Widget build(BuildContext context) {
-    final settingCon = Get.put(SettingController());
-    // int? currentIndex;
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         title: 'News',
@@ -112,9 +118,10 @@ class NewsScreen extends StatelessWidget {
                     // return Container();
                   },
                   onIndexChanged: (value) {
-                    // setState(() {
-                    settingCon.currentIndex.value = value;
-                    // });
+                    setState(() {
+                      currentIndex = value;
+                    });
+                    setState(() {});
                   },
                   curve: Curves.easeIn,
                   autoplay: true,
