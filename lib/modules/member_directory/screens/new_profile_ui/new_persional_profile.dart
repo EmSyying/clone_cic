@@ -148,6 +148,7 @@ class _NewPeronalProfileState extends State<NewPeronalProfile> {
                   expandedHeight: 270,
                   elevation: 0.0,
                   flexibleSpace: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.none,
                     centerTitle: false,
                     background: Obx(
                       () => memberCon.isLoadingProfile.value
