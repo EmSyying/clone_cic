@@ -107,6 +107,7 @@ class SettingController extends GetxController {
 //fuction switch am qm
   onSwitchScreen({bool? value}) async {
     await LocalStorage.storeData(key: 'switchAMMode', value: value);
+    isAMMode = await LocalStorage.getBooleanValue(key: 'switchAMMode');
   }
 
 //fuction am qm for call to bottomNavigationBar

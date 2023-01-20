@@ -223,44 +223,71 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
   }*/
   //
   Future<void> getUser() async {
-    // await userCon.getUser();
+    await settingCon.onGetScreenMode();
     await userCon.getUser().then((user) {
+      debugPrint(
+          'USER Infor : ${user.memberType} , is AM : ${settingCon.isAMMode}');
+
+      ///Case user has 2 User Types
       if (user.memberType!.length > 1) {
         // settingCon.onSwitchScreen(value: false);
         // settingCon.onGetScreenMode();
+
+        ///Enable Switch User Types
         settingCon.isModeSwitchAble.value = true;
-        userCon.userType.value = 'qm';
 
-        settingCon.fetchSetting(userType: 'qm');
-        settingCon.fetchAppBottomBar(userType: 'qm');
-        settingCon.fetchAppSetting(
-            context: context, isSwitchSplashScreen: true, userType: 'qm');
-      } else if (user.memberType!.length == 1 &&
-          user.memberType![0].toLowerCase() == 'am') {
-        debugPrint("Hello World:2}");
-        debugPrint("AM MOdel");
-        userCon.userType.value = 'am';
+        ///Case user in QM Screen
+        if (settingCon.isAMMode == true) {
+          userCon.userType.value = 'am';
 
-        settingCon.fetchSetting(userType: 'am');
-        settingCon.onSwitchScreen(value: true);
-        settingCon.onGetScreenMode();
+          settingCon.fetchSetting(userType: 'am').then((value) {
+            debugPrint('Color = ${value.brightPrimaryColor}');
+          });
+          settingCon.fetchAppBottomBar(userType: 'am');
+          settingCon.fetchAppSetting(
+              context: context, isSwitchSplashScreen: true, userType: 'am');
+        }
+
+        ///Case user in AM Screen
+        else {
+          userCon.userType.value = 'qm';
+
+          settingCon.fetchSetting(userType: 'qm');
+          settingCon.fetchAppBottomBar(userType: 'qm');
+          settingCon.fetchAppSetting(
+              context: context, isSwitchSplashScreen: true, userType: 'qm');
+        }
+      }
+
+      ///Case Only 1 User Type
+      else if (user.memberType!.length == 1) {
         settingCon.isModeSwitchAble.value = false;
 
-        settingCon.fetchAppBottomBar(userType: 'am');
-        settingCon.fetchAppSetting(
-            context: context, isSwitchSplashScreen: true, userType: 'am');
-      } else if (user.memberType!.length == 1 &&
-          user.memberType![0].toLowerCase() == 'qm') {
-        userCon.userType.value = 'qm';
+        ///Case User is only QM Type
+        if (user.memberType?.first.toLowerCase() == 'qm') {
+          userCon.userType.value = 'qm';
 
-        settingCon.fetchSetting(userType: 'qm');
-        settingCon.onSwitchScreen(value: false);
-        settingCon.onGetScreenMode();
-        settingCon.isModeSwitchAble.value = false;
+          settingCon.fetchSetting(userType: 'qm');
+          settingCon.onSwitchScreen(value: false);
+          // settingCon.onGetScreenMode();
 
-        settingCon.fetchAppBottomBar(userType: 'qm');
-        settingCon.fetchAppSetting(
-            context: context, isSwitchSplashScreen: true, userType: 'qm');
+          settingCon.fetchAppBottomBar(userType: 'qm');
+          settingCon.fetchAppSetting(
+              context: context, isSwitchSplashScreen: true, userType: 'qm');
+        }
+
+        ///Case User is only AM
+        else {
+          userCon.userType.value = 'am';
+
+          settingCon.fetchSetting(userType: 'am');
+          settingCon.onSwitchScreen(value: true);
+          // settingCon.onGetScreenMode();
+
+          settingCon.fetchAppBottomBar(userType: 'am');
+          settingCon.fetchAppSetting(
+              context: context, isSwitchSplashScreen: true, userType: 'am');
+        }
       }
     });
     await priceCon.onHideFeatureByUser(cusController.customer.value.id);
