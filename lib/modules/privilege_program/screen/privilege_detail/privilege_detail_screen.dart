@@ -295,34 +295,50 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     right: 20,
                                     bottom: 70,
                                     child: CustomCardPoint(
+                                      isAcceptedPoint: priController
+                                          .shopDetailModel.value.pointAccepted,
                                       point: _walletController.mvpBalance.value
                                               .mvpAmountFormat ??
                                           '0.00',
-                                      onTapRedeem: () {
-                                        //context.push('/qr-screen');
-                                        priController.onClearRedeemToMVP();
-                                        priController.shopStoreId.value =
-                                            priController
-                                                .shopDetailModel.value.id!
-                                                .toInt();
-                                        if (priController.shopDetailModel.value
-                                                    .receiverAccountname !=
-                                                null &&
-                                            priController.shopDetailModel.value
-                                                    .receiverAccountnumber !=
-                                                null) {
-                                          priController
-                                                  .receiveAccountNumber.value =
-                                              priController.shopDetailModel
-                                                  .value.receiverAccountnumber!;
-                                          priController
-                                                  .receiveAccountname.value =
-                                              priController.shopDetailModel
-                                                  .value.receiverAccountname!;
-                                        }
-                                        context.push(
-                                            '/privilege/all-store/redeem-point-to-pay');
-                                      },
+                                      onTapRedeem: priController.shopDetailModel
+                                                  .value.pointAccepted ==
+                                              false
+                                          ? null
+                                          : () {
+                                              //context.push('/qr-screen');
+                                              priController
+                                                  .onClearRedeemToMVP();
+                                              priController.shopStoreId.value =
+                                                  priController
+                                                      .shopDetailModel.value.id!
+                                                      .toInt();
+                                              if (priController
+                                                          .shopDetailModel
+                                                          .value
+                                                          .receiverAccountname !=
+                                                      null &&
+                                                  priController
+                                                          .shopDetailModel
+                                                          .value
+                                                          .receiverAccountnumber !=
+                                                      null) {
+                                                priController
+                                                        .receiveAccountNumber
+                                                        .value =
+                                                    priController
+                                                        .shopDetailModel
+                                                        .value
+                                                        .receiverAccountnumber!;
+                                                priController.receiveAccountname
+                                                        .value =
+                                                    priController
+                                                        .shopDetailModel
+                                                        .value
+                                                        .receiverAccountname!;
+                                              }
+                                              context.push(
+                                                  '/privilege/all-store/redeem-point-to-pay');
+                                            },
                                       onTapBalance: () {
                                         context.push(
                                             '/privilege/all-store/point-screen');

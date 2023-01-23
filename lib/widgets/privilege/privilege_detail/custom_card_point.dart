@@ -6,11 +6,16 @@ import '../../../Utils/helper/color.dart';
 
 class CustomCardPoint extends StatelessWidget {
   final String? point;
+  final bool? isAcceptedPoint;
   final GestureDoubleTapCallback? onTapRedeem;
   final GestureDoubleTapCallback? onTapBalance;
 
   const CustomCardPoint(
-      {Key? key, this.point, this.onTapRedeem, this.onTapBalance})
+      {Key? key,
+      this.point,
+      this.onTapRedeem,
+      this.onTapBalance,
+      this.isAcceptedPoint = false})
       : super(key: key);
 
   @override
@@ -104,7 +109,9 @@ class CustomCardPoint extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: Theme.of(context).primaryColor,
+                            color: isAcceptedPoint == true
+                                ? Theme.of(context).primaryColor
+                                : const Color(0xff464646),
                           ),
                     ),
                     const SizedBox(
@@ -113,7 +120,9 @@ class CustomCardPoint extends StatelessWidget {
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 16,
-                      color: Theme.of(context).primaryColor,
+                      color: isAcceptedPoint == true
+                          ? Theme.of(context).primaryColor
+                          : const Color(0xff464646),
                     )
                   ],
                 ),
