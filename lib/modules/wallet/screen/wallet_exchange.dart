@@ -10,7 +10,7 @@ import '../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../utils/helper/numerice_format.dart';
 import '../../../utils/offline_widget.dart';
 import '../../../widgets/investments/slide_button.dart';
-import '../../../widgets/mmaccount/wallet_total_amount_card.dart';
+import '../../../widgets/privilege/custom_card_current_point.dart';
 import '../../privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
@@ -111,16 +111,31 @@ class WalletExchange extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: WalletTotalCard(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 20.0),
+                          child: CardCurrentPoints(
+                            title: 'Available Balance',
                             amount:
                                 _walletController.fetchWalletLoading.value ==
                                         true
                                     ? '--'
                                     : _walletController.walletAmount.value
-                                        .wallet?.balanceFormat,
+                                            .wallet?.balanceFormat
+                                            .toString() ??
+                                        '0.00',
                           ),
                         ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(20.0),
+                        //   child: WalletTotalCard(
+                        //     amount:
+                        //         _walletController.fetchWalletLoading.value ==
+                        //                 true
+                        //             ? '--'
+                        //             : _walletController.walletAmount.value
+                        //                 .wallet?.balanceFormat,
+                        //   ),
+                        // ),
                         Expanded(
                           child: Container(
                             width: double.infinity,

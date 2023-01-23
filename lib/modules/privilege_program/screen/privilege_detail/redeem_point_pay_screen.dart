@@ -74,10 +74,15 @@ class RedeemPointToPay extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 20.0),
-                        child: CardCurrentPoints(),
+                        child: CardCurrentPoints(
+                          title: 'MVP Balance',
+                          amount: walletController
+                                  .mvpBalance.value.mvpAmountFormat ??
+                              '0.00',
+                        ),
                       ),
                       Container(
                         width: double.infinity,
