@@ -536,8 +536,8 @@ class WalletController extends GetxController {
           'SuccessScreen',
           queryParams: {
             'title': 'Success',
-            'description': 'Exchange successfully',
-            'appbarTitle': 'MVP Exchange',
+            'description': 'Get MVP successfully',
+            'appbarTitle': 'Get MVP',
           },
           extra: {
             'onPressedButton': () {

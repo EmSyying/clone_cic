@@ -341,7 +341,7 @@ class _WalletScreenState extends State<WalletScreen>
                                             context
                                                 .push('/wallet/point-exchange');
                                           },
-                                          text: 'Exchange',
+                                          text: 'Get MVP',
                                           img:
                                               'assets/images/wallet/wallet_exchange.svg',
                                         ),

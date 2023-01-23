@@ -28,7 +28,7 @@ class WalletExchange extends StatelessWidget {
         elevation: 0,
         titleTextStyle: Theme.of(context).textTheme.headline6,
         centerTitle: true,
-        title: const Text("Exchange"),
+        title: const Text("Get MVP"),
         actions: [
           GestureDetector(
             onTap: () {
@@ -145,7 +145,7 @@ class WalletExchange extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'Amount to Exchange',
+                                            'Amount MVP to Get',
                                             style: textstyle.subtitle2
                                                 ?.copyWith(
                                                     fontSize: 14,
