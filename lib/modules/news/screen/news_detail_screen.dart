@@ -48,7 +48,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                   centerTitle: true,
                   title: innerBox == true
                       ? Text(
-                          'CiC',
+                          'Cambodian Investors Community Association (CiC) is providing',
                           style: Theme.of(context)
                               .textTheme
                               .headline2!
@@ -104,58 +104,45 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             ];
           },
           body: SingleChildScrollView(
-            child: Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 130, left: 20, right: 20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          '6 Jan 2023 · ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          '5 min read | ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'CiC News',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 130, left: 20, right: 20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        '6 Jan 2023 · ',
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        '5 min read | ',
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        'CiC News',
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 18, left: 20, right: 20),
-                    child: Text(
-                      'Cambodian Investors Community Association is providing investment platform for Cambodian Entrepreneurs in order to assist them to access to finance and to develop their business more sustainable. We are liked a door for investment opportunity for both investors who want to mobilize their resources to invest and entrepreneurs who want to find good partner for their business growth.Our members are committed to help each other for the business growth in terms of finance, management, reputation, and so on. We are liked self-help business community.',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18, left: 20, right: 20),
+                  child: Text(
+                    'Cambodian Investors Community Association is providing investment platform for Cambodian Entrepreneurs in order to assist them to access to finance and to develop their business more sustainable. We are liked a door for investment opportunity for both investors who want to mobilize their resources to invest and entrepreneurs who want to find good partner for their business growth.Our members are committed to help each other for the business growth in terms of finance, management, reputation, and so on. We are liked self-help business community.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ));
