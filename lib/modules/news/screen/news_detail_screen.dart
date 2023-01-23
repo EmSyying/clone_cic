@@ -20,7 +20,6 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         innerBox = false;
         setState(() {});
       }
-      debugPrint('Position : ${_scrollController.position.pixels}');
     });
     super.initState();
   }
@@ -32,7 +31,6 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         body: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (context, bool innerBoxIsScrolled) {
-            debugPrint('innerBox+++:$innerBoxIsScrolled');
             return [
               SliverOverlapAbsorber(
                 handle:
