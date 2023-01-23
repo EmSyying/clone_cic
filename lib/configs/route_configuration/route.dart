@@ -313,6 +313,14 @@ final router = GoRouter(
                       ),
                     ]),
 
+                /// My MVP :
+                GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'mymvp',
+                    name: 'MyMVP',
+                    builder: (context, state) => const PrivilegePointScreen(),
+                    routes: const []),
+
                 /// Investment
                 GoRoute(
                   path: 'investment/:tabName',

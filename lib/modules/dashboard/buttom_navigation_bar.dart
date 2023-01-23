@@ -16,7 +16,6 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
-import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 
 import '../../generated/l10n.dart';
@@ -456,6 +455,25 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                   menuItems: <CustomFocusedMenuItem>[
                                     CustomFocusedMenuItem(
                                         title: const Text(
+                                          "My MVP",
+                                          style: TextStyle(
+                                              color: Color(0xff0A0B09),
+                                              fontSize: 14,
+                                              fontFamily: "DM Sans",
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        trailingIcon: Image.asset(
+                                          'assets/images/morePopUp/News.png',
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                        onPressed: () async {
+                                          GoRouter.of(context).go('/mymvp');
+                                          _settingCon
+                                              .getCurrentTapBottom.value = 1;
+                                        }),
+                                    CustomFocusedMenuItem(
+                                        title: const Text(
                                           "Profile",
                                           style: TextStyle(
                                               color: Color(0xff0A0B09),
@@ -471,68 +489,6 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                         onPressed: () {
                                           GoRouter.of(context).go(settingCon
                                               .bottomMenuBarList[3].route!);
-                                        }),
-                                    CustomFocusedMenuItem(
-                                        title: const Text(
-                                          "News",
-                                          style: TextStyle(
-                                              color: Color(0xff0A0B09),
-                                              fontSize: 14,
-                                              fontFamily: "DM Sans",
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/News.png',
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                            useRootNavigator: true,
-                                            backgroundColor: Colors.transparent,
-                                            context: context,
-                                            builder: (context) {
-                                              return const CustomPopupButtonSheet(
-                                                assetImage:
-                                                    'assets/images/svgfile/underDevelopment.svg',
-                                                description:
-                                                    'This feature is under development at the moment',
-                                                title:
-                                                    'This feature not available yet',
-                                              );
-                                            },
-                                          );
-                                        }),
-                                    CustomFocusedMenuItem(
-                                        title: const Text(
-                                          "Learning",
-                                          style: TextStyle(
-                                              color: Color(0xff0A0B09),
-                                              fontSize: 14,
-                                              fontFamily: "DM Sans",
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/Learning.png',
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                            useRootNavigator: true,
-                                            backgroundColor: Colors.transparent,
-                                            context: context,
-                                            builder: (context) {
-                                              return const CustomPopupButtonSheet(
-                                                assetImage:
-                                                    'assets/images/svgfile/underDevelopment.svg',
-                                                description:
-                                                    'This feature is under development at the moment',
-                                                title:
-                                                    'This feature not available yet',
-                                              );
-                                            },
-                                          );
                                         }),
                                     CustomFocusedMenuItem(
                                         title: const Text(
