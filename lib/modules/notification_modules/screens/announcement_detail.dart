@@ -68,7 +68,7 @@ class AnnouncementDetail extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(),
+          if (notificationData!.button!.isNotEmpty) const Spacer(),
           // if (notificationData!.button!.isNotEmpty)
           //   Row(
           //     children: notificationData!.button!
