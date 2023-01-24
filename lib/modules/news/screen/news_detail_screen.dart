@@ -67,10 +67,10 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                           color: innerBox == true
                               ? Colors.transparent
                               : Colors.black26),
-                      padding: _scrollController.position.pixels >= 128
+                      padding: innerBox == true
                           ? EdgeInsets.zero
                           : const EdgeInsets.only(left: 10),
-                      margin: _scrollController.position.pixels >= 128
+                      margin: innerBox == true
                           ? EdgeInsets.zero
                           : const EdgeInsets.only(left: 20),
                       child: Icon(
