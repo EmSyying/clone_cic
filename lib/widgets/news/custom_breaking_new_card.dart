@@ -37,6 +37,8 @@ class CustomBreakingNewCard extends StatelessWidget {
                 .textTheme
                 .headline4!
                 .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
           ),
           const SizedBox(
             height: 8,
@@ -79,7 +81,8 @@ class BreakingNewsModel {
 
 List<BreakingNewsModel> breakingModelList = [
   BreakingNewsModel(
-      title: 'The Future Investment on Startups & Businesses in Cam',
+      title:
+          'The Future Investment on Startups & Businesses in CamThe Future Investment on Startups & Businesses in Cam',
       date: '6 Jan 2023',
       img:
           'https://www.tlnt.com/wp-content/uploads/sites/4/2019/09/meeting-bored-boring-long.jpg',

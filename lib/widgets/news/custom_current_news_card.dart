@@ -54,6 +54,8 @@ class CustomCurrentNewCard extends StatelessWidget {
                         .textTheme
                         .headline4!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(
                     height: 5,
@@ -94,7 +96,8 @@ class BreakingNewsModel {
 
 List<BreakingNewsModel> currentNewsList = [
   BreakingNewsModel(
-      title: 'Cambodian Investors Community Association (CiC)',
+      title:
+          'Cambodian Investors Community Association (CiC)Cambodian Investors Community Association (CiC)Cambodian Investors Community Association (CiC)Cambodian Investors Community Association (CiC)',
       date: '6 Jan 2023',
       img:
           'https://knowledge.wharton.upenn.edu/wp-content/uploads/2022/10/10.26.22-nano-tool-25-minute-meeting-600x500.jpg',

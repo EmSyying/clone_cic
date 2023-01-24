@@ -1,4 +1,4 @@
-import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
+import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:cicgreenloan/modules/news/screen/news_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
@@ -24,10 +24,8 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBarWhiteColor(
-        title: 'News',
-        context: context,
-      ),
+      appBar: CustomAppBar(
+          context: context, title: 'News', isLogo: false, isLeading: true),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
