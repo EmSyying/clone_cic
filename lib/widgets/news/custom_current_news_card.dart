@@ -12,8 +12,8 @@ class CustomCurrentNewCard extends StatelessWidget {
       margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
       padding: const EdgeInsets.only(
         left: 12,
-        top: 12,
-        bottom: 12,
+        top: 10,
+        bottom: 10,
       ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -35,8 +35,8 @@ class CustomCurrentNewCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
               ),
-              width: 100,
-              height: 100,
+              width: 80,
+              height: 80,
               child: Image.network(
                 '$img',
                 fit: BoxFit.cover,
@@ -50,10 +50,8 @@ class CustomCurrentNewCard extends StatelessWidget {
                 children: [
                   Text(
                     '$title',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontSize: 14, fontWeight: FontWeight.w500, height: 1.5),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),

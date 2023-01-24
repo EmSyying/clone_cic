@@ -9,7 +9,7 @@ class CustomBreakingNewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
+      width: 250,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
             offset: Offset.zero,
@@ -23,9 +23,13 @@ class CustomBreakingNewCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              '$img',
-              fit: BoxFit.cover,
+            child: SizedBox(
+              width: 240,
+              height: 140,
+              child: Image.network(
+                '$img',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(
