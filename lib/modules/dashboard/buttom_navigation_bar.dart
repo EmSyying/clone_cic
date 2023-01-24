@@ -41,14 +41,12 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
     BuildContext context,
   ) {
     final String location = GoRouterState.of(context).location;
-    debugPrint("Location: $location");
 
     if (_settingCon.getCurrentTapBottom.value == 3) {
       return 3;
     }
 
     if (settingCon.bottomMenuBarList.length == 4) {
-      debugPrint('4 length');
       if (location.startsWith('/profile')) {
         debugPrint("Return Home Page");
         return 3;
