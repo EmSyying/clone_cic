@@ -47,11 +47,14 @@ class CustomCurrentNewCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 15, right: 10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     '$title',
-                    style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontSize: 14, fontWeight: FontWeight.w500, height: 1.5),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
