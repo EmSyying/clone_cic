@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/main.dart';
-import 'package:cicgreenloan/modules/news/screen/news_screen.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -48,7 +47,7 @@ import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../google_map_module/controllers/google_map_controller.dart';
-import '../investment_module/screen/deposit_screen.dart';
+import '../news/screen/news_screen.dart';
 import 'main_dashboard_type_am.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -270,13 +269,9 @@ class _MainDashboardState extends State<MainDashboard> {
               cancelTitle: 'Remind me later',
               actionTitle: 'Pay Now',
               onActioned: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          DepositeScreen(id: e.value.data!.applicationId)),
-                );
+                context.pop();
+                context.push(
+                    '/investment/fixed-income-fund/deposite-screen/${e.value.data!.applicationId}');
               },
             );
 
