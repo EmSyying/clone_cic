@@ -200,8 +200,6 @@ class PriceController extends GetxController {
           var responseJson = json.decode(response.body);
 
           sharePrice.value = SharePriceData.fromJson(responseJson);
-          debugPrint(
-              "Evolution after split: ${sharePrice.value.evolutionAfter![0].price}");
         }
       });
     } finally {
