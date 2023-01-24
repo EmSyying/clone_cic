@@ -317,12 +317,24 @@ class EventController extends GetxController {
     return featureDataList;
   }
 
+  final registerMembersList = <RegisteredMember>[].obs;
+  final registeredModel = RegisteredMember().obs;
+  final registeredDataList = <RegistrationEventData>[].obs;
+  final pageNo = 1.obs;
+  final isLoadingMoreRegisteredMember = false.obs;
   Future<List<RegistrationEventData>> fetchAllRegisteredMemeber(
       String eventId) async {
+    if (pageNo.value == 1) {
+      isLoadingregisteredMember.value = true;
+      isLoadingMoreRegisteredMember.value = false;
+    } else {
+      isLoadingregisteredMember.value = false;
+      isLoadingMoreRegisteredMember.value = true;
+    }
     String url =
-        '${FlavorConfig.instance.values!.apiBaseUrl}event-registration?event_id=$eventId';
+        '${FlavorConfig.instance.values!.apiBaseUrl}event-registration?event_id=$eventId&page=${pageNo.value}';
+    debugPrint("Base Url: =====: $url");
 
-    isLoadingregisteredMember.value = true;
     try {
       await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
@@ -330,11 +342,21 @@ class EventController extends GetxController {
         'Authorization': 'Bearer $tokenKey'
       }).then((response) {
         if (response.statusCode == 200) {
-          var responseJson = json.decode(response.body)["data"];
-          registermemberList.clear();
-          responseJson.map((e) {
-            registermemberList.add(RegistrationEventData.fromJson(e));
-          }).toList();
+          var responseJson = json.decode(response.body);
+          debugPrint("Data response: $responseJson");
+          registeredModel.value = RegisteredMember.fromJson(responseJson);
+
+          // ignore: iterable_contains_unrelated_type
+          if (!registeredDataList.contains(registeredModel.value.data!)) {
+            registeredDataList.addAll(registeredModel.value.data!);
+          }
+          if (registeredModel.value.links!.next != null) {
+            debugPrint("Isloading more data: ");
+
+            isLoadingMoreRegisteredMember.value = false;
+          } else {
+            isLoadingMoreRegisteredMember.value = false;
+          }
         }
       });
     } catch (e) {
@@ -342,7 +364,7 @@ class EventController extends GetxController {
     } finally {
       isLoadingregisteredMember.value = false;
     }
-    return registermemberList;
+    return registeredDataList;
   }
 
   Future<void> onRegisterEvents({

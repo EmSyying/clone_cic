@@ -610,15 +610,15 @@ class _MainDashboardState extends State<MainDashboard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const NewsScreen()));
-                      },
-                      child: const Text('test'),
-                    ),
+                    // TextButton(
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => const NewsScreen()));
+                    //   },
+                    //   child: const Text('test'),
+                    // ),
                     if (!_settingCon.isAMMode!)
                       GestureDetector(
                         key: actionKey,
@@ -822,8 +822,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8),
-                                                        color: Theme.of(context)
-                                                            .primaryColor
+                                                        color: Colors.white
                                                             .withOpacity(0.8),
                                                       ),
                                                       child: Row(

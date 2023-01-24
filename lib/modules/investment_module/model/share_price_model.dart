@@ -2,9 +2,13 @@ class SharePriceData {
   num? totalShareOutstanding;
   num? totalNetWorth;
   List<Evolution>? evolution;
+  List<Evolution>? evolutionAfter;
 
   SharePriceData(
-      {this.totalShareOutstanding, this.totalNetWorth, this.evolution});
+      {this.totalShareOutstanding,
+      this.totalNetWorth,
+      this.evolution,
+      this.evolutionAfter});
 
   SharePriceData.fromJson(Map<String, dynamic> json) {
     totalShareOutstanding = json['total_share_outstanding'];
@@ -13,6 +17,12 @@ class SharePriceData {
       evolution = <Evolution>[];
       json['evolution'].forEach((v) {
         evolution!.add(Evolution.fromJson(v));
+      });
+    }
+    if (json['evolution_after'] != null) {
+      evolutionAfter = <Evolution>[];
+      json['evolution_after'].forEach((v) {
+        evolutionAfter!.add(Evolution.fromJson(v));
       });
     }
   }

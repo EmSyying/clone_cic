@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/configs/route_configuration/route_argument/bullet_payment_detail_arg.dart';
+import 'package:cicgreenloan/modules/wallet/screen/wallet_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -91,7 +92,7 @@ class OnMessageOpenApp {
       _notificationCon.onReadNotification(event.data['id']);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const BonusScreen()),
+        MaterialPageRoute(builder: (context) => const WalletScreen()),
       );
     } else if (event.data['status'] == 'Unmatched' ||
         event.data['type'] == 'transfer' ||

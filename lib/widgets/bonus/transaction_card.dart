@@ -6,6 +6,7 @@ import 'package:cicgreenloan/widgets/custom_showbottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../Utils/helper/color.dart';
 import '../../modules/bonus/models/history_model.dart';
@@ -214,7 +215,7 @@ class CustomTransactionCard extends StatelessWidget {
                             ),
                           ];
                           return GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               FirebaseAnalyticsHelper.sendAnalyticsEvent(
                                   'View transaction detail');
                               if (e.value.type != 'payment' &&
@@ -229,9 +230,16 @@ class CustomTransactionCard extends StatelessWidget {
                                   subscribeCon.payable.value = double.parse(
                                       e.value.view!.payable.toString());
                                 }
+
                                 //subscription partially paid
-                                onShowBottomSheet(
+                                await onShowBottomSheet(
                                   // isDismissible: false,
+                                  onDismissed: (value) async {
+                                    Future.delayed(const Duration(seconds: 1),
+                                        () {
+                                      subscribeCon.currentIndexPage.value = 0;
+                                    });
+                                  },
 
                                   context: context,
 

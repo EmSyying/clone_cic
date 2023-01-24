@@ -4,15 +4,40 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CiCLineChart extends StatelessWidget {
   final List<Evolution> dataList;
-  const CiCLineChart({Key? key, this.dataList = const []}) : super(key: key);
+  final List<Evolution> dataAfterSplit;
+  const CiCLineChart(
+      {Key? key, this.dataList = const [], this.dataAfterSplit = const []})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
         tooltipBehavior: TooltipBehavior(borderColor: Colors.red),
         plotAreaBorderColor: Colors.transparent,
         primaryXAxis: CategoryAxis(
+            plotBands: <PlotBand>[
+              PlotBand(
+                text: "1 to 9 Share Split",
+                textStyle: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+                textAngle: 0,
+                verticalTextAlignment: TextAnchor.start,
+                horizontalTextPadding: "-18%",
+                isVisible: true,
+                start: dataList.length - 1,
+                end: dataList.length - 1,
+                borderWidth: 2,
+                borderColor: Theme.of(context).primaryColor,
+              )
+            ],
             axisLine: AxisLine(color: Theme.of(context).primaryColor),
             majorGridLines: const MajorGridLines(color: Colors.transparent)),
+        // primaryXAxis: CategoryAxis(
+        //     axisLine: AxisLine(color: Theme.of(context).primaryColor),
+        //     majorGridLines: const MajorGridLines(color: Colors.transparent)),
         primaryYAxis: NumericAxis(
             axisLine: AxisLine(color: Theme.of(context).primaryColor),
             majorGridLines: const MajorGridLines(
@@ -22,8 +47,10 @@ class CiCLineChart extends StatelessWidget {
         title: ChartTitle(text: ''),
         // Enable legend
 
-        legend:
-            Legend(borderWidth: 6, isVisible: true, borderColor: Colors.red),
+        legend: Legend(
+            borderWidth: 6,
+            isVisible: true,
+            borderColor: Theme.of(context).primaryColor),
         // Enable tooltip
 
         series: <LineSeries<Evolution, String>>[
@@ -37,6 +64,21 @@ class CiCLineChart extends StatelessWidget {
                 shape: DataMarkerType.circle,
                 borderColor: Theme.of(context).primaryColor),
             dataSource: dataList,
+            xValueMapper: (Evolution sales, _) => sales.date,
+            yValueMapper: (Evolution sales, _) => sales.price,
+            // Enable data label
+            dataLabelSettings: const DataLabelSettings(isVisible: true),
+          ),
+          LineSeries<Evolution, String>(
+            isVisibleInLegend: false,
+            color: Theme.of(context).primaryColor,
+            width: 2.5,
+            markerSettings: MarkerSettings(
+                isVisible: true,
+                borderWidth: 2,
+                shape: DataMarkerType.circle,
+                borderColor: Theme.of(context).primaryColor),
+            dataSource: dataAfterSplit,
             xValueMapper: (Evolution sales, _) => sales.date,
             yValueMapper: (Evolution sales, _) => sales.price,
             // Enable data label

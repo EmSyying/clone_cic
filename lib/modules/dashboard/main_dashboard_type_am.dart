@@ -118,9 +118,10 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                           const SizedBox(
                             height: 3,
                           ),
-                          customerUser.isloading.value == true
+                          customerUser.isloading.value == true &&
+                                  customerUser.customer.value.fullName == null
                               ? const Text('...')
-                              : Text('${customerUser.customer.value.fullName}',
+                              : Text(customerUser.customer.value.fullName ?? "",
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline2!

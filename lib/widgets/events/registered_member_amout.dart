@@ -1,4 +1,5 @@
 import 'package:cicgreenloan/Utils/form_builder/custom_material_modal_sheet.dart';
+import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
 import 'package:cicgreenloan/widgets/events/register_member_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,10 +16,13 @@ class RegisterMemberAmount extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final eventCon = Get.put(EventController());
     return registerProfile!.isNotEmpty
         ? GestureDetector(
-            onTap: () {
-              onShowCustomCupertinoModalSheet(
+            onTap: () async {
+              eventCon.pageNo.value = 1;
+              await onShowCustomCupertinoModalSheet(
+                // icon: IconButton(onPressed: () {}, icon: Icon(Icons.cancel)),
                 context: context,
                 title: "Registered Members",
                 trailing: Text(

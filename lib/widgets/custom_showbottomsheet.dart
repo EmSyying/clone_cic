@@ -12,6 +12,7 @@ onShowBottomSheet(
     String? label,
     String? time,
     num? amount,
+    Function? onDismissed,
     bool? isAmountFormat = false,
     String? amountFormat,
     Widget? child,
@@ -37,7 +38,7 @@ onShowBottomSheet(
     builder: (context) {
       return isLoading!
           ? FractionallySizedBox(
-              // heightFactor: 20,
+              heightFactor: 20,
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 height: isHeight != null
@@ -215,5 +216,5 @@ onShowBottomSheet(
               ),
             );
     },
-  );
+  ).then((value) => onDismissed!(value));
 }
