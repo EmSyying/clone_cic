@@ -15,24 +15,26 @@ class CiCLineChart extends StatelessWidget {
         tooltipBehavior: TooltipBehavior(borderColor: Colors.red),
         plotAreaBorderColor: Colors.transparent,
         primaryXAxis: CategoryAxis(
-            plotBands: <PlotBand>[
-              PlotBand(
-                text: "1 to 9 Share Split",
-                textStyle: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-                textAngle: 0,
-                verticalTextAlignment: TextAnchor.start,
-                horizontalTextPadding: "-18%",
-                isVisible: true,
-                start: dataList.length - 1,
-                end: dataList.length - 1,
-                borderWidth: 2,
-                borderColor: Theme.of(context).primaryColor,
-              )
-            ],
+            plotBands: dataAfterSplit.isEmpty
+                ? []
+                : <PlotBand>[
+                    PlotBand(
+                      text: "1 to 9 Share Split",
+                      textStyle: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAngle: 0,
+                      verticalTextAlignment: TextAnchor.start,
+                      horizontalTextPadding: "-18%",
+                      isVisible: true,
+                      start: dataList.length - 1,
+                      end: dataList.length - 1,
+                      borderWidth: 2,
+                      borderColor: Theme.of(context).primaryColor,
+                    )
+                  ],
             axisLine: AxisLine(color: Theme.of(context).primaryColor),
             majorGridLines: const MajorGridLines(color: Colors.transparent)),
         // primaryXAxis: CategoryAxis(
