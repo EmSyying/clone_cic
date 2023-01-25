@@ -461,7 +461,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
                                               fontWeight: FontWeight.w500),
                                         ),
                                         trailingIcon: Image.asset(
-                                          'assets/images/morePopUp/News.png',
+                                          'assets/images/morePopUp/point.png',
                                           height: 20,
                                           width: 20,
                                         ),
