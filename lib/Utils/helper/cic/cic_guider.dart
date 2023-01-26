@@ -33,6 +33,7 @@ class CiCApp {
     required BuildContext context,
     required int itemCount,
     required GlobalKey Function(int index) key,
+    String? buttonTitle,
     String? Function(int index)? titleBuilder,
     String? Function(int index)? descriptionBuilder,
     ObjectSetting? Function(int index)? objectSettingBuilder,
@@ -336,7 +337,9 @@ class CiCApp {
                                     color: Theme.of(context).primaryColor,
                                     borderRadius: BorderRadius.circular(6)),
                                 child: Text(
-                                  i == itemCount - 1 ? 'Done' : 'Next',
+                                  i == itemCount - 1
+                                      ? (buttonTitle ?? 'Done')
+                                      : 'Next',
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!

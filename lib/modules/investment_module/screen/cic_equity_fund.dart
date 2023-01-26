@@ -63,7 +63,13 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
   @override
   void initState() {
     priceController.onFetchPrice();
-    priceController.getSharePrice();
+    priceController.getSharePrice().then((value) {
+      if (value.evolutionAfter != null && value.evolutionAfter!.isNotEmpty) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          _guidkey.showShareSplit(context);
+        });
+      }
+    });
     priceController.fetchCertificate();
     priceController.fetchOnReturnInvestment();
     priceController.getShareSubHistories();
@@ -263,6 +269,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                         children: [
                                           Expanded(
                                             child: Row(
+                                              key: _guidkey.shareSplit.key =
+                                                  GlobalKey(),
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               crossAxisAlignment:

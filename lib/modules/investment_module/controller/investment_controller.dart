@@ -186,7 +186,7 @@ class PriceController extends GetxController {
   }
 
   final isLoadingSharePrice = false.obs;
-  Future<SharePriceData>? getSharePrice() async {
+  Future<SharePriceData> getSharePrice() async {
     isLoadingSharePrice(true);
     tokenKey.value = await getCurrentLang();
     String url = '${FlavorConfig.instance.values!.apiBaseUrl}dashboard';

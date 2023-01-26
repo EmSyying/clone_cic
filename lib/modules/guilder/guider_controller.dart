@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -186,6 +187,27 @@ class CiCGuidController extends GetxController {
 
   // List<GuideModel> equityFundGuide = <GuideModel>[];
 
+  ///Show Share Split
+  GuidelineModel shareSplit = GuidelineModel(
+      title: 'Share split',
+      description:
+          "There was a Nine-for-One (9-for-1) split of CiC PLC’s Share at the end of December 2022.");
+
+  void showShareSplit(BuildContext context) {
+    CiCApp.showOverlays(
+      context: context,
+      buttonTitle: 'Confirm',
+      itemCount: 1,
+      objectSettingBuilder: (index) => ObjectSetting(
+        paddingSize: const Size(-25, 20),
+        edgeInsets: const EdgeInsets.only(left: 20),
+      ),
+      key: (index) => shareSplit.key!,
+      allowSkip: false,
+      titleBuilder: (index) => shareSplit.title,
+      descriptionBuilder: (index) => shareSplit.description,
+    );
+  }
 }
 
 class GuidelineModel {
