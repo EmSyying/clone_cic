@@ -877,6 +877,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                     children: [
                                                       Expanded(
                                                         child: Row(
+                                                          key: _guidkey
+                                                                  .shareSplit
+                                                                  .key =
+                                                              GlobalKey(),
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .start,

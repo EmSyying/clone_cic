@@ -50,7 +50,7 @@ class CustomCardAllStores extends StatelessWidget {
                 height: 84,
                 padding: const EdgeInsets.all(0.0),
                 decoration: BoxDecoration(
-                    color: AppColor.secondaryColor,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(5.0),
                     image: DecorationImage(
                       fit: BoxFit.cover,

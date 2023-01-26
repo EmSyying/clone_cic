@@ -15,26 +15,27 @@ class CiCLineChart extends StatelessWidget {
         tooltipBehavior: TooltipBehavior(borderColor: Colors.red),
         plotAreaBorderColor: Colors.transparent,
         primaryXAxis: CategoryAxis(
-            plotBands: dataAfterSplit.isEmpty
-                ? []
-                : <PlotBand>[
-                    PlotBand(
-                      text: "1 to 9 Share Split",
-                      textStyle: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      textAngle: 0,
-                      verticalTextAlignment: TextAnchor.start,
-                      horizontalTextPadding: "-18%",
-                      isVisible: true,
-                      start: dataList.length - 1,
-                      end: dataList.length - 1,
-                      borderWidth: 2,
-                      borderColor: Theme.of(context).primaryColor,
-                    )
-                  ],
+            // When Split in charts
+            // plotBands: dataAfterSplit.isEmpty
+            //     ? []
+            //     : <PlotBand>[
+            //         PlotBand(
+            //           text: "1 to 9 Share Split",
+            //           textStyle: TextStyle(
+            //             color: Theme.of(context).primaryColor,
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.w600,
+            //           ),
+            //           textAngle: 0,
+            //           verticalTextAlignment: TextAnchor.start,
+            //           horizontalTextPadding: "-18%",
+            //           isVisible: true,
+            //           start: dataList.length - 1,
+            //           end: dataList.length - 1,
+            //           borderWidth: 2,
+            //           borderColor: Theme.of(context).primaryColor,
+            //         )
+            //       ],
             axisLine: AxisLine(color: Theme.of(context).primaryColor),
             majorGridLines: const MajorGridLines(color: Colors.transparent)),
         // primaryXAxis: CategoryAxis(
@@ -71,21 +72,22 @@ class CiCLineChart extends StatelessWidget {
             // Enable data label
             dataLabelSettings: const DataLabelSettings(isVisible: true),
           ),
-          LineSeries<Evolution, String>(
-            isVisibleInLegend: false,
-            color: Theme.of(context).primaryColor,
-            width: 2.5,
-            markerSettings: MarkerSettings(
-                isVisible: true,
-                borderWidth: 2,
-                shape: DataMarkerType.circle,
-                borderColor: Theme.of(context).primaryColor),
-            dataSource: dataAfterSplit,
-            xValueMapper: (Evolution sales, _) => sales.date,
-            yValueMapper: (Evolution sales, _) => sales.price,
-            // Enable data label
-            dataLabelSettings: const DataLabelSettings(isVisible: true),
-          )
+          // When Split in chart
+          // LineSeries<Evolution, String>(
+          //   isVisibleInLegend: false,
+          //   color: Theme.of(context).primaryColor,
+          //   width: 2.5,
+          //   markerSettings: MarkerSettings(
+          //       isVisible: true,
+          //       borderWidth: 2,
+          //       shape: DataMarkerType.circle,
+          //       borderColor: Theme.of(context).primaryColor),
+          //   dataSource: dataAfterSplit,
+          //   xValueMapper: (Evolution sales, _) => sales.date,
+          //   yValueMapper: (Evolution sales, _) => sales.price,
+          //   // Enable data label
+          //   dataLabelSettings: const DataLabelSettings(isVisible: true),
+          // )
         ]);
   }
 }
