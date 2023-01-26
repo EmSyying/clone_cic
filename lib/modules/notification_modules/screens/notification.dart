@@ -513,6 +513,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                           // ignore: use_build_context_synchronously
                                                                                                           // WalletTran.transactionDetail(context, _walletController.walletTransactionDetail.value);
                                                                                                         } else if (_con.notificationList[index].data!.type == 'bonus') {
+                                                                                                          notificationIdList.add(items.id);
+                                                                                                          _con.onReadNotification(_con.notificationList[index].id!);
+                                                                                                          setState(() {
+                                                                                                            _con.notificationList[index].readAt = '';
+                                                                                                          });
                                                                                                           context.push('/wallet');
                                                                                                         } else {
                                                                                                           notificationIdList.add(items.id);
