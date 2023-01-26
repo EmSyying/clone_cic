@@ -1161,8 +1161,8 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                               isOutline: true,
                                               isDisable: false,
                                               onPressed: () {
-                                                // context.push(
-                                                //     "/ut-subscription/new-subscription?fromPage=investment");
+                                                context.push(
+                                                    '/investment/fixed-income-fund/about-fif?title=About EF&url=https://www.canva.com/design/DAFWwsIRwcY/9WlLie_SZi0dX4dbZOsazQ/view?website#4');
                                               },
                                               title: "About EF",
                                             ),
