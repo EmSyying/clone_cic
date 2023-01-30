@@ -414,7 +414,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        "${FlavorConfig.instance.values!.apiBaseUrl}service/$userType?partial=menu";
+        "https://cic.z1platform.com/api/v4beta/service/$userType?partial=menu";
     debugPrint("Switch Screen: $userType");
 
     try {
@@ -453,7 +453,7 @@ class SettingController extends GetxController {
     var token = await LocalData.getCurrentUser();
     isLoading(true);
     String url =
-        "${FlavorConfig.instance.values!.apiBaseUrl}service/$userType?partial=navigation";
+        "https://cic.z1platform.com/api/v4beta/service/$userType?partial=navigation";
 
     try {
       await http.get(Uri.parse(url), headers: {
