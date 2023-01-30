@@ -23,7 +23,8 @@ class AuthController extends GetxController {
   final phoneController = TextEditingController().obs;
   final settingController = Get.put(SettingController());
   final isLoginSuccess = false.obs;
-  final countryCode = '+855'.obs;
+  final countryCode = '855'.obs;
+
   String _phoneSubmit() {
     if (phoneController.value.text.startsWith('0')) {
       return countryCode + phoneController.value.text.substring(1);
@@ -47,7 +48,7 @@ class AuthController extends GetxController {
         fullURL: '${mainUrl}register',
         methode: METHODE.post,
         isAuthorize: false,
-        body: {'phone': _phoneSubmit()},
+        body: {'phone': "+${_phoneSubmit()}"},
       ).then((value) {
         debugPrint("Log in $value");
         checkRegisteredLoading(false);
@@ -98,7 +99,7 @@ class AuthController extends GetxController {
         methode: METHODE.post,
         isAuthorize: false,
         body: {
-          'phone': _phoneSubmit(),
+          'phone': "+${_phoneSubmit()}",
           'password': passwordController.value.text
         },
       ).then((value) async {
@@ -202,7 +203,7 @@ class AuthController extends GetxController {
       fullURL: '${mainUrl}request-otp',
       methode: METHODE.post,
       isAuthorize: false,
-      body: {'phone': _phoneSubmit()},
+      body: {'phone': "+${_phoneSubmit()}"},
     ).then((value) async {
       debugPrint("Value: $value");
       onRequestOTPLoading(false);
@@ -227,7 +228,7 @@ class AuthController extends GetxController {
           methode: METHODE.post,
           isAuthorize: false,
           body: {
-            'phone': _phoneSubmit(),
+            'phone': "+${_phoneSubmit()}",
             // 'verify_code': _otpCode,
             'type': 'reset_password',
           },

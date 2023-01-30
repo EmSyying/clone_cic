@@ -154,8 +154,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onSelect: (Country country) {
                                     setState(() {
                                       flagEmoji = country.flagEmoji;
-                                      // _authController.countryCode.value =
-                                      //     country.phoneCode;
+                                      _authController.countryCode.value =
+                                          country.phoneCode;
                                     });
                                     debugPrint(
                                         "Phone Number code: ${_authController.countryCode.value}");
