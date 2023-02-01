@@ -41,6 +41,7 @@ import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../../modules/notification_modules/screens/notification.dart';
 
+import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
 import '../../modules/qr_code/qr_code.dart';
 
 import '../../modules/ut_trading/screens/add_inquiry.dart';
@@ -1314,8 +1315,29 @@ final router = GoRouter(
           phoneNumber: state.queryParams['phoneNumber'],
         ),
       ),
+      //Payment Summery
+      GoRoute(
+        path: '/payment-summery',
+        name: 'PaymentSummeryMVP',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) {
+          return PaymentSummeryMVP(
+            key: state.pageKey,
+            totalMVP: state.queryParams['totalMVP'],
+            accountMVP: state.queryParams['accountMVP'],
+            transactionID: state.queryParams['transactionID'],
+            date: state.queryParams['date'],
+            reference: state.queryParams['reference'],
+            fromAccount: state.queryParams['fromAccount'],
+            seller: state.queryParams['seller'],
+            originalAmount: state.queryParams['originalAmount'],
+            remark: state.queryParams['remark'],
+          );
+        },
+      ),
 
       ///Success Screen
+
       GoRoute(
         path: '/success-screen',
         name: 'SuccessScreen',

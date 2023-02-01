@@ -156,6 +156,15 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     child: SvgPicture.asset("assets/images/history.svg"),
                   ),
                 ),
+                //Test Page Payment summery
+                GestureDetector(
+                  onTap: () {
+                    context.pushNamed(
+                      'PaymentSummeryMVP',
+                    );
+                  },
+                  child: const Icon(Icons.home),
+                ),
               ],
             ),
             body: Obx(
@@ -171,20 +180,20 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           children: [
                             !priCon.isLoadingSlidePri.value &&
                                     priCon.privilegeSlideList.isNotEmpty
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20, left: 20, right: 20),
-                                    child: AspectRatio(
-                                      aspectRatio: 5 / 2.3,
-                                      child: Swiper(
-                                        loop: true,
-                                        index: currentIndex,
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) {
-                                          if (priCon.privilegeSlideList[index]
-                                                  .status ==
-                                              'Display') {
-                                            return GestureDetector(
+                                ? AspectRatio(
+                                    aspectRatio: 5 / 2.3,
+                                    child: Swiper(
+                                      loop: true,
+                                      index: currentIndex,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        if (priCon.privilegeSlideList[index]
+                                                .status ==
+                                            'Display') {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 20, left: 20, right: 20),
+                                            child: GestureDetector(
                                               onTap: () {
                                                 context.go(
                                                     "/privilege/all-store/privilege-detail/${priCon.privilegeSlideList[index].shopId}");
@@ -206,22 +215,22 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                                   ],
                                                 ),
                                               ),
-                                            );
-                                          }
-                                          return Container();
-                                        },
-                                        onIndexChanged: (value) {
-                                          setState(() {
-                                            currentIndex = value;
-                                          });
-                                        },
-                                        curve: Curves.easeIn,
-                                        autoplay: true,
-                                        itemCount:
-                                            priCon.privilegeSlideList.length,
-                                        viewportFraction: 1,
-                                        scale: 0.9,
-                                      ),
+                                            ),
+                                          );
+                                        }
+                                        return Container();
+                                      },
+                                      onIndexChanged: (value) {
+                                        setState(() {
+                                          currentIndex = value;
+                                        });
+                                      },
+                                      curve: Curves.easeIn,
+                                      autoplay: true,
+                                      itemCount:
+                                          priCon.privilegeSlideList.length,
+                                      viewportFraction: 1,
+                                      scale: 0.9,
                                     ),
                                   )
                                 : const SizedBox(
