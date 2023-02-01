@@ -572,7 +572,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                   context.go(
                                       '/ut-subscription/histories-subscription?fromPage=investment');
                                 },
-                                title: "Subscription History",
+                                title: "UT Payment",
                               ),
                             ),
                             const SizedBox(width: 20.0),
@@ -1180,7 +1180,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                 context.push(
                                                     "/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription");
                                               },
-                                              title: "Subscription History",
+                                              title: "UT Payment",
                                             ),
                                           ),
                                           const SizedBox(width: 20.0),
