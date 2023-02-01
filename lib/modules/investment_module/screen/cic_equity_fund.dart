@@ -567,10 +567,12 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                 isOutline: true,
                                 isDisable: false,
                                 onPressed: () {
-                                  context.push(
-                                      '/investment/fixed-income-fund/about-fif?title=About EF&url=https://www.canva.com/design/DAFWwsIRwcY/9WlLie_SZi0dX4dbZOsazQ/view?website#4');
+                                  // context.push(
+                                  //     '/investment/fixed-income-fund/about-fif?title=About EF&url=https://www.canva.com/design/DAFWwsIRwcY/9WlLie_SZi0dX4dbZOsazQ/view?website#4');
+                                  context.go(
+                                      '/ut-subscription/histories-subscription?fromPage=investment');
                                 },
-                                title: "About EF",
+                                title: "Subscription History",
                               ),
                             ),
                             const SizedBox(width: 20.0),
@@ -1173,10 +1175,12 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                               isOutline: true,
                                               isDisable: false,
                                               onPressed: () {
+                                                // context.push(
+                                                //     '/investment/fixed-income-fund/about-fif?title=About EF&url=https://www.canva.com/design/DAFWwsIRwcY/9WlLie_SZi0dX4dbZOsazQ/view?website#4');
                                                 context.push(
-                                                    '/investment/fixed-income-fund/about-fif?title=About EF&url=https://www.canva.com/design/DAFWwsIRwcY/9WlLie_SZi0dX4dbZOsazQ/view?website#4');
+                                                    "/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription");
                                               },
-                                              title: "About EF",
+                                              title: "Subscription History",
                                             ),
                                           ),
                                           const SizedBox(width: 20.0),
