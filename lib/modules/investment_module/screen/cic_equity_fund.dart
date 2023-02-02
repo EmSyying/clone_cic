@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cicgreenloan/Utils/helper/local_storage.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/model/share_price_model.dart';
 
@@ -46,6 +47,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
 
   var f = NumberFormat('#,###.00', 'en_US');
   var n = NumberFormat('#,###', 'en_US');
+
   bool isExpandShareSubscribe = false;
   bool isExpandInvestmentReturn = false;
   final _guidkey = Get.put(CiCGuidController());
@@ -65,8 +67,15 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
     priceController.onFetchPrice();
     priceController.getSharePrice().then((value) {
       if (value.evolutionAfter != null && value.evolutionAfter!.isNotEmpty) {
-        Future.delayed(const Duration(milliseconds: 500), () {
-          _guidkey.showShareSplit(context);
+        Future.delayed(const Duration(milliseconds: 500), () async {
+          int time = 0;
+          time = await LocalStorage.getIntValue(key: 'showTwoTime');
+          if (time < 2) {
+            time = time + 1;
+            await LocalStorage.storeData(key: 'showTwoTime', value: time);
+            _guidkey.showShareSplit(context);
+          }
+          debugPrint("--------------$time");
         });
       }
     });
