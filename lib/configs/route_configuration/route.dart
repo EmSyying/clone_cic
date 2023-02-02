@@ -41,6 +41,7 @@ import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../../modules/notification_modules/screens/notification.dart';
 
+import '../../modules/privilege_program/screen/privilege/claim_discount_summery.dart';
 import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
 import '../../modules/qr_code/qr_code.dart';
 
@@ -1315,12 +1316,34 @@ final router = GoRouter(
           phoneNumber: state.queryParams['phoneNumber'],
         ),
       ),
+      //Claim Discount Summery
+      GoRoute(
+        path: '/claim-discount-summery',
+        name: 'ClaimDiscountSummery',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) {
+          final extras = state.extra as Map<String, Object?>?;
+          return ClaimDiscountSummery(
+            key: state.pageKey,
+            decription: state.queryParams['decription'],
+            rateDiscount: state.queryParams['rateDiscount'],
+            coverImage: state.queryParams['coverImage'],
+            status: state.queryParams['status'],
+            nameAcount: state.queryParams['nameAcount'],
+            merchant: state.queryParams['merchant'],
+            paymentOn: state.queryParams['paymentOn'],
+            digitsCode: state.queryParams['digitsCode'],
+            onPressedClaimDis: extras?['onPressedClaimDis'] as Function()?,
+          );
+        },
+      ),
       //Payment Summery
       GoRoute(
         path: '/payment-summery',
         name: 'PaymentSummeryMVP',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, state) {
+          final extras = state.extra as Map<String, Object?>?;
           return PaymentSummeryMVP(
             key: state.pageKey,
             totalMVP: state.queryParams['totalMVP'],
@@ -1332,6 +1355,7 @@ final router = GoRouter(
             seller: state.queryParams['seller'],
             originalAmount: state.queryParams['originalAmount'],
             remark: state.queryParams['remark'],
+            onPressed: extras?['onPressed'] as Function()?,
           );
         },
       ),
