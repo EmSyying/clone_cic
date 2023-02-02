@@ -1346,7 +1346,7 @@ final router = GoRouter(
           final extras = state.extra as Map<String, Object?>?;
           return PaymentSummeryMVP(
             key: state.pageKey,
-            totalMVP: state.queryParams['totalMVP'],
+            amount: state.queryParams['amount'],
             accountMVP: state.queryParams['accountMVP'],
             transactionID: state.queryParams['transactionID'],
             date: state.queryParams['date'],
@@ -1355,6 +1355,7 @@ final router = GoRouter(
             seller: state.queryParams['seller'],
             originalAmount: state.queryParams['originalAmount'],
             remark: state.queryParams['remark'],
+            marchant: state.queryParams['marchant'],
             onPressed: extras?['onPressed'] as Function()?,
           );
         },

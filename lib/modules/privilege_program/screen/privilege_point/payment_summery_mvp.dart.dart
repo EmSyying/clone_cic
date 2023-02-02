@@ -15,7 +15,7 @@ import '../../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 
 class PaymentSummeryMVP extends StatelessWidget {
-  final String? totalMVP;
+  final String? amount;
   final String? accountMVP;
   final String? transactionID;
   final String? date;
@@ -24,11 +24,12 @@ class PaymentSummeryMVP extends StatelessWidget {
   final String? seller;
   final String? originalAmount;
   final String? remark;
+  final String? marchant;
   final GestureTapCallback? onPressed;
 
   const PaymentSummeryMVP(
       {super.key,
-      this.totalMVP,
+      this.amount,
       this.accountMVP,
       this.transactionID,
       this.date,
@@ -37,7 +38,8 @@ class PaymentSummeryMVP extends StatelessWidget {
       this.seller,
       this.originalAmount,
       this.remark,
-      this.onPressed});
+      this.onPressed,
+      this.marchant});
   static GlobalKey printScreenKey = GlobalKey();
 
   @override
@@ -96,7 +98,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                     children: [
                                       RichText(
                                         text: TextSpan(
-                                          text: totalMVP ?? '1,000',
+                                          text: amount ?? '',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4!
@@ -122,7 +124,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                         height: 4.0,
                                       ),
                                       Text(
-                                        accountMVP ?? 'Champei spa Toul Kork',
+                                        accountMVP ?? '',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline3!
@@ -149,37 +151,42 @@ class PaymentSummeryMVP extends StatelessWidget {
                                     summeryLabel(
                                       context,
                                       label: 'Transaction ID',
-                                      value: accountMVP ?? '0002346',
+                                      value: accountMVP ?? '',
                                     ),
                                     summeryLabel(
                                       context,
                                       label: 'Date',
-                                      value: date ?? '02 Jan 2022',
+                                      value: date ?? '',
                                     ),
                                     summeryLabel(
                                       context,
                                       label: 'Reference #',
-                                      value: reference ?? '456723456754',
+                                      value: reference ?? '',
                                     ),
                                     summeryLabel(
                                       context,
                                       label: 'From account',
-                                      value: fromAccount ?? 'Kim Oan',
+                                      value: fromAccount ?? '',
                                     ),
                                     summeryLabel(
                                       context,
-                                      label: 'Seller',
-                                      value: seller ?? 'Champei Toul Kork',
+                                      label: 'Merchant',
+                                      value: marchant ?? '',
                                     ),
+                                    // summeryLabel(
+                                    //   context,
+                                    //   label: 'Seller',
+                                    //   value: seller ?? '',
+                                    // ),
                                     summeryLabel(
                                       context,
                                       label: 'Original Amount',
-                                      value: originalAmount ?? '612 MVP',
+                                      value: originalAmount ?? '',
                                     ),
                                     summeryLabel(
                                       context,
                                       label: 'Remark',
-                                      value: remark ?? 'Use at Champei Spa',
+                                      value: remark ?? '',
                                     ),
                                     const SizedBox(
                                       height: 20.0,

@@ -699,6 +699,7 @@ class PrivilegeController extends GetxController {
           'remark': remark.value
         },
       ).then((response) {
+        debugPrint("Payment :$response");
         // context.pushNamed(
         //   'SuccessScreen',
         //   queryParams: {
@@ -715,6 +716,17 @@ class PrivilegeController extends GetxController {
         // );
         context.pushNamed(
           'PaymentSummeryMVP',
+          queryParams: {
+            'amount': '${response['amount']}',
+            'accountMVP': '${response['shop_name']}',
+            'transactionID': '${response['transaction_id']}',
+            'date': '${response['date']}',
+            'reference': '${response['reference']}',
+            'fromAccount': '${response['from_account']}',
+            'marchant': '${response['merchant_account']}',
+            'originalAmount': '${response['original_amount']}',
+            'remark': '${response['remark']}',
+          },
           extra: {
             'onPressed': () {
               context.go(
