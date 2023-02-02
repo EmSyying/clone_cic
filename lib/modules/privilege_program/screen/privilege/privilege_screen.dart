@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/function/format_to_k.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_history_screen.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_payment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -156,22 +155,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     },
                     child: SvgPicture.asset("assets/images/history.svg"),
                   ),
-                ),
-                //Test Page Payment summery
-                //
-                GestureDetector(
-                  onTap: () {
-                    // context.pushNamed(
-                    //   'ClaimDiscountSummery',
-                    // );
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PrivilegePayment(
-                                  id: 18,
-                                )));
-                  },
-                  child: const Icon(Icons.home),
                 ),
               ],
             ),

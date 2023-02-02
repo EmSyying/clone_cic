@@ -549,15 +549,8 @@ class PrivilegeController extends GetxController {
         }).then((response) {
       debugPrint("4 Digits code:$response");
       debugPrint('Clicked  ${GoRouter.of(context!).location}');
-      context.pushNamed(
-        'ClaimDiscountSummery',
-        extra: {
-          'onPressedClaimDis': () {
-            context.go('/');
-          },
-        },
-      );
-      // context.push('/privilege-payment/$shopId/payment-done-screen');
+
+      context.push('/privilege-payment/$shopId/payment-done-screen');
 
       try {
         debugPrint('payment body::=====$response');
