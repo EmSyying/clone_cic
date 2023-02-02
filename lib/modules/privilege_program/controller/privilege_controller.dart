@@ -1,10 +1,12 @@
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
+import 'package:cicgreenloan/modules/privilege_program/model/payment_summary.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/option_model/option_form.dart';
+
 import '../../google_map_module/controllers/google_map_controller.dart';
 import '../model/category_model/model_categories.dart';
 import '../model/history/model_history_privilege.dart';
@@ -676,6 +678,7 @@ class PrivilegeController extends GetxController {
   }
 
   // Redeem To Submit
+  final paymentSummery = PaymentSummary().obs;
   final isRedeemToSubmitMVP = false.obs;
   Future<void> onRedeemToSubmitMVP(BuildContext context) async {
     isRedeemToSubmitMVP(true);
@@ -692,33 +695,19 @@ class PrivilegeController extends GetxController {
           'remark': remark.value
         },
       ).then((response) {
-        debugPrint("Payment :$response");
-        // context.pushNamed(
-        //   'SuccessScreen',
-        //   queryParams: {
-        //     'title': 'Success',
-        //     'description': '${response['message']}',
-        //     'appbarTitle': 'MVP Redemption',
-        //   },
-        //   extra: {
-        //     'onPressedButton': () {
-        //       context.go(
-        //           "/privilege/all-store/privilege-detail/${shopStoreId.value}");
-        //     },
-        //   },
-        // );
+        paymentSummery.value = PaymentSummary.fromJson(response);
         context.pushNamed(
           'PaymentSummeryMVP',
           queryParams: {
-            'amount': '${response['amount']}',
-            'accountMVP': '${response['shop_name']}',
-            'transactionID': '${response['transaction_id']}',
-            'date': '${response['date']}',
-            'reference': '${response['reference']}',
-            'fromAccount': '${response['from_account']}',
-            'marchant': '${response['merchant_account']}',
-            'originalAmount': '${response['original_amount']}',
-            'remark': '${response['remark']}',
+            'amount': '${paymentSummery.value.amount}',
+            'accountMVP': '${paymentSummery.value.shopName}',
+            'transactionID': '${paymentSummery.value.transactionId}',
+            'date': '${paymentSummery.value.date}',
+            'reference': '${paymentSummery.value.reference}',
+            'fromAccount': '${paymentSummery.value.fromAccount}',
+            'marchant': '${paymentSummery.value.merchantAccount}',
+            'originalAmount': '${paymentSummery.value.originalAmount}',
+            'remark': '${paymentSummery.value.remark}',
           },
           extra: {
             'onPressed': () {

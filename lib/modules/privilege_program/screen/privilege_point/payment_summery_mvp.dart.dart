@@ -8,10 +8,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_route_snackbar.dart';
+import '../../../../configs/firebase_deeplink/deeplink_service.dart';
 import '../../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 
 class PaymentSummeryMVP extends StatelessWidget {
@@ -41,6 +43,7 @@ class PaymentSummeryMVP extends StatelessWidget {
       this.onPressed,
       this.marchant});
   static GlobalKey printScreenKey = GlobalKey();
+  final bool clickedShare = true;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +154,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                     summeryLabel(
                                       context,
                                       label: 'Transaction ID',
-                                      value: accountMVP ?? '',
+                                      value: transactionID ?? '',
                                     ),
                                     summeryLabel(
                                       context,
@@ -253,7 +256,14 @@ class PaymentSummeryMVP extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          if (clickedShare) {
+                            clickedShare == false;
+                            await _sharepaymentSummery(context).then((_) {
+                              clickedShare == true;
+                            });
+                          }
+                        },
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -400,6 +410,42 @@ class PaymentSummeryMVP extends StatelessWidget {
       } else {}
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  //function share
+  Future<void> _sharepaymentSummery(BuildContext context) async {
+    try {
+      final RenderBox box = context.findRenderObject() as RenderBox;
+      RenderRepaintBoundary boundary = printScreenKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+      var image = await boundary.toImage(pixelRatio: 2);
+      var byteData = await image.toByteData(format: ImageByteFormat.png);
+      var pngBytes = byteData!.buffer.asUint8List();
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/transferqr.png');
+      await file.writeAsBytes(pngBytes);
+      final url = await DynamicLinkService.createDynamicLink(
+        path: 'summery-payment',
+        isShort: true,
+      );
+      debugPrint("Short link for summery payment: $url");
+
+      // var url = await DynamicLinkService.createDynamicLink(
+      //     path:
+      //         'wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',
+      //     title: 'Title',
+      //     description: 'ss',
+      //     image:
+      //         'https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr');
+      // debugPrint("Shot Url: $url");
+
+      Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
+          text:
+              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: $url',
+          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+    } catch (e) {
+      debugPrint("$e");
     }
   }
 }
