@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../utils/function/format_date_time.dart';
@@ -34,9 +35,12 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
   ];
   final String datetime = DateTime.now().toString();
   final _walletController = Get.put(WalletController());
+
   @override
   void initState() {
     _walletController.onFetchMyPoin();
+    _walletController.fetchWalletAmount();
+
     super.initState();
   }
 
@@ -119,46 +123,59 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    debugPrint('Worked');
-                                  },
-                                  child: Text(
-                                    'MVP Balance',
-                                    style: textStyle.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14),
+                            Obx(
+                              () => Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      debugPrint('Worked');
+                                    },
+                                    child: Text(
+                                      'MVP Balance',
+                                      style: textStyle.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  _walletController
-                                          .mvpBalance.value.mvpAmountFormat ??
-                                      '0.00',
-                                  style: textStyle.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 30),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'As of ${FormatDate.investmentDateDisplayUTPrice(datetime)}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: const Color(0xfff2f2f2)),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  _walletController.fetchWalletLoading.value ==
+                                          true
+                                      ? Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.white,
+                                          child: Container(
+                                            width: 80,
+                                            height: 15,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : Text(
+                                          _walletController.mvpBalance.value
+                                                  .mvpAmountFormat ??
+                                              '0.00',
+                                          style: textStyle.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 30),
+                                        ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'As of ${FormatDate.investmentDateDisplayUTPrice(datetime)}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                            color: const Color(0xfff2f2f2)),
+                                  ),
+                                ],
+                              ),
                             ),
                             GestureDetector(
                               onTap: () {
