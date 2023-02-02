@@ -93,7 +93,7 @@ class PaymentDoneScreen extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        '${priCont.descountRate.value} %',
+                        priCont.descountRate.value,
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               color: AppColor.statusColor['pending'],
                               fontWeight: FontWeight.w700,
