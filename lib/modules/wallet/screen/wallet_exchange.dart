@@ -16,7 +16,8 @@ import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
 
 class WalletExchange extends StatelessWidget {
-  WalletExchange({super.key});
+  final bool? isHide;
+  WalletExchange({super.key, this.isHide = false});
   final _walletController = Get.put(WalletController());
 
   @override
@@ -30,61 +31,62 @@ class WalletExchange extends StatelessWidget {
         centerTitle: true,
         title: const Text("Get MVP"),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PrivilegePointScreen()));
+          if (isHide == false)
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PrivilegePointScreen()));
 
-              // context.push('/privilege/all-store/point-screen');
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: Stack(
-                children: [
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      child: SvgPicture.asset(
-                        "assets/images/svgfile/Union.svg",
-                        width: 20.0,
-                        height: 24.0,
+                // context.push('/privilege/all-store/point-screen');
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: SvgPicture.asset(
+                          "assets/images/svgfile/Union.svg",
+                          width: 20.0,
+                          height: 24.0,
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    // left: 0.0,
-                    //right: 0.0,
-                    // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
-                    top: 5.0,
-                    child: Obx(
-                      () => Container(
-                        decoration: BoxDecoration(
-                          color: Colors.red[400],
-                          borderRadius: BorderRadius.circular(3.0),
-                        ),
-                        height: 14,
-                        child: Center(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 3.0, right: 3.0),
-                            child: Text(
-                              FormatToK.convertNumber(_walletController
-                                      .mvpBalance.value.mvpAmount ??
-                                  0.0),
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 9),
+                    Positioned(
+                      // left: 0.0,
+                      //right: 0.0,
+                      // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
+                      top: 5.0,
+                      child: Obx(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red[400],
+                            borderRadius: BorderRadius.circular(3.0),
+                          ),
+                          height: 14,
+                          child: Center(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 3.0, right: 3.0),
+                              child: Text(
+                                FormatToK.convertNumber(_walletController
+                                        .mvpBalance.value.mvpAmount ??
+                                    0.0),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 9),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )
+            )
         ],
       ),
       body: ConnectivityWidgetWrapper(

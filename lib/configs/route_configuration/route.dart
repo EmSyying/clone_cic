@@ -686,8 +686,10 @@ final router = GoRouter(
                         parentNavigatorKey: _rootNavigatorKey,
                         path: 'point-exchange',
                         name: 'WalletPointExchange',
-                        builder: (_, state) =>
-                            WalletExchange(key: state.pageKey),
+                        builder: (_, state) => WalletExchange(
+                              key: state.pageKey,
+                              isHide: state.queryParams['isHide'] == 'true',
+                            ),
                         routes: const []),
                     GoRoute(
                       name: 'DepositCard',

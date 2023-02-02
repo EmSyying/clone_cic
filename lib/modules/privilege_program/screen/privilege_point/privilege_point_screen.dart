@@ -167,13 +167,8 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                context.push('/wallet/point-exchange');
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: ((context) => WalletExchange()),
-                                //   ),
-                                // );
+                                context
+                                    .push('/wallet/point-exchange?isHide=true');
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
