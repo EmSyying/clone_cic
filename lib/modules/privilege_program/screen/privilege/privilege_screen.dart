@@ -160,7 +160,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                 GestureDetector(
                   onTap: () {
                     context.pushNamed(
-                      'PaymentSummeryMVP',
+                      'ClaimDiscountSummery',
                     );
                   },
                   child: const Icon(Icons.home),

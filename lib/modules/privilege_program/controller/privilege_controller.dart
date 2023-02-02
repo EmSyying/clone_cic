@@ -549,13 +549,8 @@ class PrivilegeController extends GetxController {
         }).then((response) {
       debugPrint("4 Digits code:$response");
       debugPrint('Clicked  ${GoRouter.of(context!).location}');
-      context.push('/privilege-payment/$shopId/payment-done-screen');
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const PaymentDoneScreen(),
-      //   ),
-      // );
+      context.pushNamed('ClaimDiscountSummery');
+      // context.push('/privilege-payment/$shopId/payment-done-screen');
 
       try {
         debugPrint('payment body::=====$response');
@@ -697,20 +692,30 @@ class PrivilegeController extends GetxController {
           'remark': remark.value
         },
       ).then((response) {
+        // context.pushNamed(
+        //   'SuccessScreen',
+        //   queryParams: {
+        //     'title': 'Success',
+        //     'description': '${response['message']}',
+        //     'appbarTitle': 'MVP Redemption',
+        //   },
+        //   extra: {
+        //     'onPressedButton': () {
+        //       context.go(
+        //           "/privilege/all-store/privilege-detail/${shopStoreId.value}");
+        //     },
+        //   },
+        // );
         context.pushNamed(
-          'SuccessScreen',
-          queryParams: {
-            'title': 'Success',
-            'description': '${response['message']}',
-            'appbarTitle': 'MVP Redemption',
-          },
+          'PaymentSummeryMVP',
           extra: {
-            'onPressedButton': () {
+            'onPressed': () {
               context.go(
                   "/privilege/all-store/privilege-detail/${shopStoreId.value}");
             },
           },
         );
+
         isRedeemToSubmitMVP(false);
         // isRedeemValidateLoading(true);
 

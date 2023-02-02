@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -25,6 +24,7 @@ class PaymentSummeryMVP extends StatelessWidget {
   final String? seller;
   final String? originalAmount;
   final String? remark;
+  final GestureTapCallback? onPressed;
 
   const PaymentSummeryMVP(
       {super.key,
@@ -36,45 +36,44 @@ class PaymentSummeryMVP extends StatelessWidget {
       this.fromAccount,
       this.seller,
       this.originalAmount,
-      this.remark});
+      this.remark,
+      this.onPressed});
   static GlobalKey printScreenKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.5,
+        title: Center(
+          child: Text(
+            'Redeem successfully',
+            style: Theme.of(context).textTheme.headline4!.copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                ),
+          ),
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    LottieBuilder.asset(
-                      "assets/images/animation/done_animation.json",
-                      height: 140,
-                      repeat: false,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                      frameRate: FrameRate(60),
-                      options: LottieOptions(enableMergePaths: true),
-                    ),
-                    Text(
-                      "Success",
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    const SizedBox(height: 20),
-                    Stack(
-                      children: [
-                        RepaintBoundary(
-                          key: printScreenKey,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 20,
+                child: RepaintBoundary(
+                  key: printScreenKey,
+                  child: Column(
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(
+                              left: 20.0,
+                              right: 20.0,
+                              top: 60.0,
                             ),
                             padding: const EdgeInsets.only(left: 20, right: 20),
                             decoration: BoxDecoration(
@@ -89,90 +88,56 @@ class PaymentSummeryMVP extends StatelessWidget {
                               ],
                             ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
+                                Container(
                                   padding: const EdgeInsets.only(
-                                      top: 20.0, bottom: 20.0),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                      top: 50.0, bottom: 34.0),
+                                  child: Column(
                                     children: [
-                                      Container(
-                                        width: 48,
-                                        height: 48,
-                                        decoration: const BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            colors: [
-                                              Color.fromARGB(235, 56, 70, 147),
-                                              Color.fromARGB(235, 53, 137, 232),
-                                            ],
-                                          ),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Center(
-                                          child: SvgPicture.asset(
-                                            'assets/images/svgfile/Union.svg',
-                                            fit: BoxFit.cover,
-                                            width: 18.9,
-                                            height: 25.65,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              text: totalMVP ?? '612',
+                                      RichText(
+                                        text: TextSpan(
+                                          text: totalMVP ?? '1,000',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 26,
+                                              ),
+                                          children: [
+                                            TextSpan(
+                                              text: ' MVP',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline4!
                                                   .copyWith(
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 18,
                                                   ),
-                                              children: [
-                                                TextSpan(
-                                                  text: ' MVP',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline4!
-                                                      .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 18,
-                                                      ),
-                                                )
-                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 4.0,
+                                      ),
+                                      Text(
+                                        accountMVP ?? 'Champei spa Toul Kork',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14.0,
+                                              color: AppColor.chartLabelColor,
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 4.0,
-                                          ),
-                                          Text(
-                                            accountMVP ?? 'Kim Oan',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline3!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12.0,
-                                                ),
-                                          ),
-                                        ],
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
                                   decoration: DottedDecoration(
-                                    strokeWidth: 2,
+                                    strokeWidth: 1,
                                     shape: Shape.line,
                                     color: const Color(0xffDBDBDB),
                                   ),
@@ -224,22 +189,47 @@ class PaymentSummeryMVP extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
-                        //PositionedBoxShapCircle shap border
-
-                        const CustomPositionedBoxShapCircle(
-                          boxShapCircleColor: true,
-                          top: 76,
-                          left: 6,
-                        ),
-                        const CustomPositionedBoxShapCircle(
-                          boxShapCircleColor: true,
-                          top: 76,
-                          right: 6,
-                        ),
-                      ],
-                    ),
-                  ],
+                          //PositionedBoxShapCircle shap border
+                          const CustomPositionedBoxShapCircle(
+                            top: 186,
+                            left: 6,
+                          ),
+                          const CustomPositionedBoxShapCircle(
+                            top: 186,
+                            right: 6,
+                          ),
+                          //IconsCover
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            top: 30,
+                            child: Container(
+                              width: 58,
+                              height: 58,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  colors: [
+                                    Color.fromARGB(235, 56, 70, 147),
+                                    Color.fromARGB(235, 53, 137, 232),
+                                  ],
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  'assets/images/svgfile/Union.svg',
+                                  fit: BoxFit.cover,
+                                  width: 25,
+                                  height: 31,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -263,15 +253,9 @@ class PaymentSummeryMVP extends StatelessWidget {
                             Container(
                               height: 40,
                               width: 40,
-                              decoration: BoxDecoration(
-                                color:
-                                    AppColor.backgroundColor.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
                               alignment: Alignment.center,
                               child: SvgPicture.asset(
                                 'assets/images/share.svg',
-                                color: AppColor.arrowforwardColor['dark'],
                               ),
                             ),
                             const SizedBox(height: 5),
@@ -281,8 +265,10 @@ class PaymentSummeryMVP extends StatelessWidget {
                                   .textTheme
                                   .headline6!
                                   .copyWith(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                             ),
                             const SizedBox(height: 15),
                           ],
@@ -302,15 +288,9 @@ class PaymentSummeryMVP extends StatelessWidget {
                             Container(
                               height: 40,
                               width: 40,
-                              decoration: BoxDecoration(
-                                color:
-                                    AppColor.backgroundColor.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
                               alignment: Alignment.center,
                               child: SvgPicture.asset(
                                 'assets/images/save.svg',
-                                color: AppColor.arrowforwardColor['dark'],
                               ),
                             ),
                             const SizedBox(height: 5),
@@ -320,8 +300,10 @@ class PaymentSummeryMVP extends StatelessWidget {
                                   .textTheme
                                   .headline6!
                                   .copyWith(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                             ),
                             const SizedBox(height: 15),
                           ],
@@ -335,13 +317,11 @@ class PaymentSummeryMVP extends StatelessWidget {
                   // loading while user sumitting updated by Chhany
                   CustomButton(
                     width: double.infinity,
-                    backgroundColor: Colors.white,
-                    colorText: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: onPressed,
+                    backgroundColor: AppColor.mainColor,
+                    colorText: AppColor.arrowforwardColor['dark'],
                     isDisable: false,
-                    isOutline: false,
+                    isOutline: true,
                     title: 'Done',
                   ),
                 ],

@@ -98,15 +98,8 @@ class PrivilegePayment extends StatelessWidget {
                                   priCon.onPaymentPrivilege(context: context);
                                 }
 
-                                debugPrint(
-                                    'submit===${priCon.privilegeAmount.value}');
-                                //  Navigator.pop(context, false);
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => const PaymentDoneScreen(),
-                                //   ),
-                                //);
+                                // debugPrint(
+                                //     'submit===${priCon.privilegeAmount.value}');
                               },
                             ),
                     ),

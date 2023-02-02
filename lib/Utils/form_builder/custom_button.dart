@@ -40,7 +40,6 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    //
     return kIsWeb
         ? SizedBox(
             height: 50,
@@ -263,9 +262,12 @@ class _CustomButtonState extends State<CustomButton> {
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
+                                      color: widget.backgroundColor ??
+                                          Colors.transparent,
                                       border: Border.all(
-                                          color: widget.backgroundColor ??
-                                              Theme.of(context).primaryColor),
+                                        color: widget.backgroundColor ??
+                                            Theme.of(context).primaryColor,
+                                      ),
                                       borderRadius: BorderRadius.circular(8)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -279,15 +281,26 @@ class _CustomButtonState extends State<CustomButton> {
                                         const SizedBox(
                                           width: 15,
                                         ),
-                                      Text(
-                                        widget.title!,
-                                        style: TextStyle(
-                                            fontFamily: 'DMSans',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                      ),
+                                      widget.colorText != null
+                                          ? Text(
+                                              widget.title!,
+                                              style: TextStyle(
+                                                fontFamily: 'DMSans',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: widget.colorText,
+                                              ),
+                                            )
+                                          : Text(
+                                              widget.title!,
+                                              style: TextStyle(
+                                                fontFamily: 'DMSans',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                            ),
                                     ],
                                   ),
                                 ),
