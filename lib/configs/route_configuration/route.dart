@@ -1322,6 +1322,7 @@ final router = GoRouter(
         name: 'ClaimDiscountSummery',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, state) {
+          final extras = state.extra as Map<String, Object?>?;
           return ClaimDiscountSummery(
             key: state.pageKey,
             decription: state.queryParams['decription'],
@@ -1332,6 +1333,7 @@ final router = GoRouter(
             merchant: state.queryParams['merchant'],
             paymentOn: state.queryParams['paymentOn'],
             digitsCode: state.queryParams['digitsCode'],
+            onPressedClaimDis: extras?['onPressedClaimDis'] as Function()?,
           );
         },
       ),

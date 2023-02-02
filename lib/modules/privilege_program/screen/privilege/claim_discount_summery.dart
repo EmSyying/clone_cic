@@ -24,6 +24,7 @@ class ClaimDiscountSummery extends StatelessWidget {
   final String? merchant;
   final String? paymentOn;
   final String? digitsCode;
+  final GestureTapCallback? onPressedClaimDis;
 
   const ClaimDiscountSummery({
     super.key,
@@ -35,6 +36,7 @@ class ClaimDiscountSummery extends StatelessWidget {
     this.paymentOn,
     this.digitsCode,
     this.coverImage,
+    this.onPressedClaimDis,
   });
   static GlobalKey printScreenKey = GlobalKey();
 
@@ -367,9 +369,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                     width: double.infinity,
                     backgroundColor: Colors.white,
                     colorText: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: onPressedClaimDis,
                     isDisable: false,
                     isOutline: false,
                     title: 'Done',
