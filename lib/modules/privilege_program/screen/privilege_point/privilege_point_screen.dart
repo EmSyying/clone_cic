@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../utils/function/format_date_time.dart';
@@ -142,25 +141,14 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  _walletController.fetchWalletLoading.value ==
-                                          true
-                                      ? Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.white,
-                                          child: Container(
-                                            width: 80,
-                                            height: 15,
-                                            color: Colors.white,
-                                          ),
-                                        )
-                                      : Text(
-                                          _walletController.mvpBalance.value
-                                                  .mvpAmountFormat ??
-                                              '0.00',
-                                          style: textStyle.copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 30),
-                                        ),
+                                  Text(
+                                    _walletController
+                                            .mvpBalance.value.mvpAmountFormat ??
+                                        '0.00',
+                                    style: textStyle.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 30),
+                                  ),
                                   const SizedBox(
                                     height: 10,
                                   ),
