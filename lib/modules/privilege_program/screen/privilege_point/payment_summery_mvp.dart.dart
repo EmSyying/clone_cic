@@ -54,7 +54,7 @@ class PaymentSummeryMVP extends StatelessWidget {
         title: Center(
           child: Text(
             'Redeem successfully',
-            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+            style: Theme.of(context).textTheme.headline4!.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 18,
                 ),
@@ -67,179 +67,187 @@ class PaymentSummeryMVP extends StatelessWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                child: RepaintBoundary(
-                  key: printScreenKey,
-                  child: Column(
-                    children: [
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                              left: 20.0,
-                              right: 20.0,
-                              top: 60.0,
-                            ),
-                            padding: const EdgeInsets.only(left: 20, right: 20),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 0.1,
-                                    offset: const Offset(0, 2),
-                                    blurRadius: 8),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 50.0, bottom: 34.0),
-                                  child: Column(
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                          text: amount ?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineMedium!
-                                              .copyWith(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 26,
-                                              ),
-                                          children: [
-                                            TextSpan(
-                                              text: ' MVP',
+                child: Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        RepaintBoundary(
+                          key: printScreenKey,
+                          child: Stack(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 60.0,
+                                ),
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(14),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.05),
+                                        spreadRadius: 0.1,
+                                        offset: const Offset(0, 2),
+                                        blurRadius: 8),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          top: 50.0, bottom: 34.0),
+                                      child: Column(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              text: amount ?? '',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headlineMedium!
+                                                  .headline4!
                                                   .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 26,
                                                   ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 4.0,
-                                      ),
-                                      Text(
-                                        accountMVP ?? '',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall!
-                                            .copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14.0,
-                                              color: AppColor.chartLabelColor,
+                                              children: [
+                                                TextSpan(
+                                                  text: ' MVP',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline4!
+                                                      .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 18,
+                                                      ),
+                                                )
+                                              ],
                                             ),
+                                          ),
+                                          const SizedBox(
+                                            height: 4.0,
+                                          ),
+                                          Text(
+                                            accountMVP ?? '',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14.0,
+                                                  color:
+                                                      AppColor.chartLabelColor,
+                                                ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  decoration: DottedDecoration(
-                                    strokeWidth: 1,
-                                    shape: Shape.line,
-                                    color: const Color(0xffDBDBDB),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    summeryLabel(
-                                      context,
-                                      label: 'Transaction ID',
-                                      value: transactionID ?? '',
                                     ),
-                                    summeryLabel(
-                                      context,
-                                      label: 'Date',
-                                      value: date ?? '',
+                                    Container(
+                                      decoration: DottedDecoration(
+                                        strokeWidth: 1,
+                                        shape: Shape.line,
+                                        color: const Color(0xffDBDBDB),
+                                      ),
                                     ),
-                                    summeryLabel(
-                                      context,
-                                      label: 'Reference #',
-                                      value: reference ?? '',
-                                    ),
-                                    summeryLabel(
-                                      context,
-                                      label: 'From account',
-                                      value: fromAccount ?? '',
-                                    ),
-                                    summeryLabel(
-                                      context,
-                                      label: 'Merchant',
-                                      value: marchant ?? '',
-                                    ),
-                                    // summeryLabel(
-                                    //   context,
-                                    //   label: 'Seller',
-                                    //   value: seller ?? '',
-                                    // ),
-                                    summeryLabel(
-                                      context,
-                                      label: 'Original Amount',
-                                      value: originalAmount ?? '',
-                                    ),
-                                    summeryLabel(
-                                      context,
-                                      label: 'Remark',
-                                      value: remark ?? '',
-                                    ),
-                                    const SizedBox(
-                                      height: 20.0,
+                                    const SizedBox(height: 15),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        summeryLabel(
+                                          context,
+                                          label: 'Transaction ID',
+                                          value: transactionID ?? '',
+                                        ),
+                                        summeryLabel(
+                                          context,
+                                          label: 'Date',
+                                          value: date ?? '',
+                                        ),
+                                        summeryLabel(
+                                          context,
+                                          label: 'Reference #',
+                                          value: reference ?? '',
+                                        ),
+                                        summeryLabel(
+                                          context,
+                                          label: 'From account',
+                                          value: fromAccount ?? '',
+                                        ),
+                                        summeryLabel(
+                                          context,
+                                          label: 'Merchant',
+                                          value: marchant ?? '',
+                                        ),
+                                        // summeryLabel(
+                                        //   context,
+                                        //   label: 'Seller',
+                                        //   value: seller ?? '',
+                                        // ),
+                                        summeryLabel(
+                                          context,
+                                          label: 'Original Amount',
+                                          value: originalAmount ?? '',
+                                        ),
+                                        summeryLabel(
+                                          context,
+                                          label: 'Remark',
+                                          value: remark ?? '',
+                                        ),
+                                        const SizedBox(
+                                          height: 20.0,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          //PositionedBoxShapCircle shap border
-                          const CustomPositionedBoxShapCircle(
-                            top: 186,
-                            left: 6,
-                          ),
-                          const CustomPositionedBoxShapCircle(
-                            top: 186,
-                            right: 6,
-                          ),
-                          //IconsCover
-                          Positioned(
-                            left: 0,
-                            right: 0,
-                            top: 30,
-                            child: Container(
-                              width: 58,
-                              height: 58,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  colors: [
-                                    Color.fromARGB(235, 56, 70, 147),
-                                    Color.fromARGB(235, 53, 137, 232),
-                                  ],
-                                ),
-                                shape: BoxShape.circle,
                               ),
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  'assets/images/svgfile/Union.svg',
-                                  fit: BoxFit.cover,
-                                  width: 25,
-                                  height: 31,
+                              //IconsCover
+                              Positioned(
+                                left: 0,
+                                right: 0,
+                                top: 30,
+                                child: Container(
+                                  width: 58,
+                                  height: 58,
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      colors: [
+                                        Color(0xff384593),
+                                        Color(0xff3588E8),
+                                      ],
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      'assets/images/svgfile/Union.svg',
+                                      fit: BoxFit.cover,
+                                      width: 25,
+                                      height: 31,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        //PositionedBoxShapCircle shap border
+                        const CustomPositionedBoxShapCircle(
+                          top: 186,
+                          left: 6,
+                        ),
+                        const CustomPositionedBoxShapCircle(
+                          top: 186,
+                          right: 6,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -280,7 +288,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                               'Share',
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleLarge!
+                                  .headline6!
                                   .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -315,7 +323,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                               'Save',
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleLarge!
+                                  .headline6!
                                   .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -357,7 +365,7 @@ class PaymentSummeryMVP extends StatelessWidget {
         children: [
           Text(
             label ?? '',
-            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+            style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: const Color(0xff464646),
@@ -366,7 +374,7 @@ class PaymentSummeryMVP extends StatelessWidget {
           const Spacer(),
           Text(
             value ?? '',
-            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+            style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 12.0,
                 ),

@@ -80,6 +80,8 @@ mixin _$PrivilegeShopModel {
   String? get discountEndDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'vat_number')
   String? get vatNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'number_shop')
+  num? get numberShop => throw _privateConstructorUsedError;
   String? get logo => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
   String? get cover => throw _privateConstructorUsedError;
@@ -159,6 +161,8 @@ abstract class $PrivilegeShopModelCopyWith<$Res> {
           String? discountEndDate,
       @JsonKey(name: 'vat_number')
           String? vatNumber,
+      @JsonKey(name: 'number_shop')
+          num? numberShop,
       String? logo,
       String? thumbnail,
       String? cover,
@@ -212,6 +216,7 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
     Object? discountStartDate = freezed,
     Object? discountEndDate = freezed,
     Object? vatNumber = freezed,
+    Object? numberShop = freezed,
     Object? logo = freezed,
     Object? thumbnail = freezed,
     Object? cover = freezed,
@@ -351,6 +356,10 @@ class _$PrivilegeShopModelCopyWithImpl<$Res, $Val extends PrivilegeShopModel>
           ? _value.vatNumber
           : vatNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      numberShop: freezed == numberShop
+          ? _value.numberShop
+          : numberShop // ignore: cast_nullable_to_non_nullable
+              as num?,
       logo: freezed == logo
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
@@ -444,6 +453,8 @@ abstract class _$$_PrivilegeShopModelCopyWith<$Res>
           String? discountEndDate,
       @JsonKey(name: 'vat_number')
           String? vatNumber,
+      @JsonKey(name: 'number_shop')
+          num? numberShop,
       String? logo,
       String? thumbnail,
       String? cover,
@@ -495,6 +506,7 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
     Object? discountStartDate = freezed,
     Object? discountEndDate = freezed,
     Object? vatNumber = freezed,
+    Object? numberShop = freezed,
     Object? logo = freezed,
     Object? thumbnail = freezed,
     Object? cover = freezed,
@@ -634,6 +646,10 @@ class __$$_PrivilegeShopModelCopyWithImpl<$Res>
           ? _value.vatNumber
           : vatNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      numberShop: freezed == numberShop
+          ? _value.numberShop
+          : numberShop // ignore: cast_nullable_to_non_nullable
+              as num?,
       logo: freezed == logo
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
@@ -722,6 +738,8 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
           this.discountEndDate,
       @JsonKey(name: 'vat_number')
           this.vatNumber,
+      @JsonKey(name: 'number_shop')
+          this.numberShop,
       this.logo,
       this.thumbnail,
       this.cover,
@@ -836,6 +854,9 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
   @JsonKey(name: 'vat_number')
   final String? vatNumber;
   @override
+  @JsonKey(name: 'number_shop')
+  final num? numberShop;
+  @override
   final String? logo;
   @override
   final String? thumbnail;
@@ -863,7 +884,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
 
   @override
   String toString() {
-    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, discountBgColorEnd: $discountBgColorEnd, pointAccepted: $pointAccepted, currentPoint: $currentPoint, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, receiverAccountname: $receiverAccountname, receiverAccountnumber: $receiverAccountnumber, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, logo: $logo, thumbnail: $thumbnail, cover: $cover, contacts: $contacts, galleries: $galleries)';
+    return 'PrivilegeShopModel(id: $id, status: $status, isOpen: $isOpen, isFavorite: $isFavorite, slogan: $slogan, discountBgColor: $discountBgColor, discountBgColorEnd: $discountBgColorEnd, pointAccepted: $pointAccepted, currentPoint: $currentPoint, shopNameInKhmer: $shopNameInKhmer, shopNameInEnglish: $shopNameInEnglish, fullAddress: $fullAddress, shopLogo: $shopLogo, discountRate: $discountRate, legalCompanyName: $legalCompanyName, businessRegistrationNumber: $businessRegistrationNumber, description: $description, productOrService: $productOrService, openingDays: $openingDays, contactName: $contactName, contactPhone: $contactPhone, contactMobile: $contactMobile, contactEmail: $contactEmail, telegramLink: $telegramLink, receiverAccountname: $receiverAccountname, receiverAccountnumber: $receiverAccountnumber, latitude: $latitude, longitude: $longitude, discountPeriod: $discountPeriod, discountCondition: $discountCondition, discountStartDate: $discountStartDate, discountEndDate: $discountEndDate, vatNumber: $vatNumber, numberShop: $numberShop, logo: $logo, thumbnail: $thumbnail, cover: $cover, contacts: $contacts, galleries: $galleries)';
   }
 
   @override
@@ -935,6 +956,8 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
                 other.discountEndDate == discountEndDate) &&
             (identical(other.vatNumber, vatNumber) ||
                 other.vatNumber == vatNumber) &&
+            (identical(other.numberShop, numberShop) ||
+                other.numberShop == numberShop) &&
             (identical(other.logo, logo) || other.logo == logo) &&
             (identical(other.thumbnail, thumbnail) ||
                 other.thumbnail == thumbnail) &&
@@ -981,6 +1004,7 @@ class _$_PrivilegeShopModel implements _PrivilegeShopModel {
         discountStartDate,
         discountEndDate,
         vatNumber,
+        numberShop,
         logo,
         thumbnail,
         cover,
@@ -1065,6 +1089,8 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
           final String? discountEndDate,
       @JsonKey(name: 'vat_number')
           final String? vatNumber,
+      @JsonKey(name: 'number_shop')
+          final num? numberShop,
       final String? logo,
       final String? thumbnail,
       final String? cover,
@@ -1167,6 +1193,9 @@ abstract class _PrivilegeShopModel implements PrivilegeShopModel {
   @override
   @JsonKey(name: 'vat_number')
   String? get vatNumber;
+  @override
+  @JsonKey(name: 'number_shop')
+  num? get numberShop;
   @override
   String? get logo;
   @override

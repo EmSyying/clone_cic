@@ -42,6 +42,7 @@ class PrivilegeShopModel with _$PrivilegeShopModel {
     @JsonKey(name: 'discount_start_date') String? discountStartDate,
     @JsonKey(name: 'discount_end_date') String? discountEndDate,
     @JsonKey(name: 'vat_number') String? vatNumber,
+    @JsonKey(name: 'number_shop') num? numberShop,
     String? logo,
     String? thumbnail,
     String? cover,

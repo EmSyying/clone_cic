@@ -369,7 +369,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                             "/privilege/all-stores/filter-item");
                                       },
                                       titleStores: segmentedControlValue == 0
-                                          ? '${preController.shopModelList.length} Stores'
+                                          ? '${preController.storeAmount} Stores'
                                           : '${preController.favshopModelList.length} Stores',
                                     ),
                                   ),

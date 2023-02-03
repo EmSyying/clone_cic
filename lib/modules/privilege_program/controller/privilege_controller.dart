@@ -36,6 +36,7 @@ class PrivilegeController extends GetxController {
   final isLoadingShopList = false.obs;
   final isLoadingMoreShop = false.obs;
   String? next;
+  final storeAmount = 0.obs;
   Future<List<PrivilegeShopModel>> onFetchAllStore(int page) async {
     if (page == 1) {
       isLoadingShopList(true);
@@ -67,6 +68,9 @@ class PrivilegeController extends GetxController {
             shopModel.value = PrivilegeShopModel.fromJson(e);
 
             shopModelList.add(shopModel.value);
+          }).toList();
+          shopModelList.map((amount) {
+            storeAmount.value = amount.numberShop!.toInt();
           }).toList();
         },
       ).onError(
