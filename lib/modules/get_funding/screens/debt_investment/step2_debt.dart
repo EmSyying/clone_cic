@@ -4,7 +4,6 @@ import 'package:cicgreenloan/modules/get_funding/models/equatable_debt_model.dar
 import 'package:cicgreenloan/Utils/helper/option_model/option_model.dart';
 import 'package:cicgreenloan/modules/get_funding/models/loan_option.dart';
 import 'package:cicgreenloan/utils/chart/custom_circle_chart_1_3.dart';
-import 'package:cicgreenloan/utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_drop_down.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_form_card.dart';
 import 'package:cicgreenloan/utils/form_builder/custom_textformfield.dart';
@@ -21,6 +20,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/container_partern.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
@@ -609,8 +609,9 @@ class _Step2DebtState extends State<Step2Debt> {
                                       horizontal: 20, vertical: 20),
                                   child: Text(
                                     'Financing Information',
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                   ),
                                 ),
                                 Expanded(

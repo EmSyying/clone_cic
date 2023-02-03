@@ -64,7 +64,7 @@ class _CompanyProfileCardState extends State<CompanyProfileCard> {
                       widget.companyName != null && widget.companyName != ""
                           ? widget.companyName![0]
                           : '',
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: Colors.white,
                           fontSize: 30,
                           fontWeight: FontWeight.w700),
@@ -75,7 +75,7 @@ class _CompanyProfileCardState extends State<CompanyProfileCard> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   widget.companyName ?? "",
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 2,
                 ),
               ),

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../Utils/helper/color.dart';
 
-class CustomDropDownButton extends StatefulWidget {
+class CustomDropDownbutton extends StatefulWidget {
   final Function(String text)? onSelected;
   final int? initialIndex;
-  const CustomDropDownButton({super.key, this.onSelected, this.initialIndex});
+  const CustomDropDownbutton({super.key, this.onSelected, this.initialIndex});
 
   @override
-  State<CustomDropDownButton> createState() => _CustomDropDownButtonState();
+  State<CustomDropDownbutton> createState() => _CustomDropDownbuttonState();
 }
 
-class _CustomDropDownButtonState extends State<CustomDropDownButton> {
+class _CustomDropDownbuttonState extends State<CustomDropDownbutton> {
   final List<String> optionDropdownStores = <String>[
     'All Stores',
     'Discount',
@@ -84,7 +84,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
       ),
     );
     overlayState = Overlay.of(context, rootOverlay: true);
-    overlayState?.insert(overlay);
+    overlayState.insert(overlay);
     // overlayState.
   }
 
@@ -109,7 +109,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         children: <Widget>[
           Text(
             optionDropdownStores[selectedIndex],
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   fontWeight: FontWeight.w500,
                   color: AppColor.chartLabelColor,
                 ),
@@ -141,7 +141,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
           children: [
             Text(
               '$title',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 14.0,
                   ),

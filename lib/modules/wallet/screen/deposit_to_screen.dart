@@ -35,7 +35,7 @@ class _DepositToScreenState extends State<DepositToScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.headline2!;
+    TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
     return Scaffold(
       backgroundColor: const Color(0xfffafafa),
       appBar: CustomAppBar(
@@ -107,13 +107,13 @@ class _DepositToScreenState extends State<DepositToScreen> {
             child: Obx(
               () => CustomButton(
                 title: 'Next',
-                onPressed: _validateButton()
+                onPressed: _validatebutton()
                     ? () {
                         context.push(
                             '/wallet/deposit-card/deposit-to-screen/mmaccount-deposit-screen');
                       }
                     : null,
-                isDisable: !_validateButton(),
+                isDisable: !_validatebutton(),
                 isOutline: false,
               ),
             )),
@@ -127,7 +127,7 @@ class _DepositToScreenState extends State<DepositToScreen> {
             textStyle.copyWith(fontSize: 46, color: AppColor.chartLabelColor),
       );
 
-  bool _validateButton() {
+  bool _validatebutton() {
     double? amount = double.tryParse(_walletController.depositAmount.value);
 
     if (amount != null && amount > 0) {

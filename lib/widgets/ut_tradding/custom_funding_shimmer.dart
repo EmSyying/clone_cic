@@ -51,7 +51,7 @@ class CustomFunShimmer extends StatelessWidget {
                   children: [
                     Text(
                       'Total UT',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(
                       height: 3,
@@ -71,7 +71,7 @@ class CustomFunShimmer extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: CustomTradingButton(
+                      child: CustomTradingbutton(
                         color: Colors.grey,
                         title: 'Buy More',
                         onTap: () {},
@@ -89,7 +89,7 @@ class CustomFunShimmer extends StatelessWidget {
                     children: [
                       Text(
                         'Total Price',
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       const SizedBox(
                         height: 3,
@@ -109,7 +109,7 @@ class CustomFunShimmer extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
-                        child: CustomTradingButton(
+                        child: CustomTradingbutton(
                           title: 'Sale Out',
                           color: Colors.grey,
                           onTap: () {},

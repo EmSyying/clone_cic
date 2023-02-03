@@ -37,7 +37,7 @@ class DocumentList extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     documentationModel!.title!,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -49,7 +49,7 @@ class DocumentList extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     documentationModel!.publishedAt!,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

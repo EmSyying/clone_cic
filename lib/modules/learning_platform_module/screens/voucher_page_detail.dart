@@ -106,7 +106,7 @@ class _VoucherPageDetailState extends State<VoucherPageDetail> {
                         horizontal: 20, vertical: 10),
                     child: Text(
                       widget.voucher!.description!,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                   const SizedBox(
@@ -121,7 +121,7 @@ class _VoucherPageDetailState extends State<VoucherPageDetail> {
                         horizontal: 20, vertical: 10),
                     child: Text(
                       widget.voucher!.howtoUse!,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                   const SizedBox(
@@ -155,7 +155,7 @@ class _VoucherPageDetailState extends State<VoucherPageDetail> {
                                     child: Text(
                                       term,
                                       style:
-                                          Theme.of(context).textTheme.bodyText1,
+                                          Theme.of(context).textTheme.bodyLarge,
                                     ),
                                   ),
                                 ],

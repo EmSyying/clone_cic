@@ -61,13 +61,13 @@ class FamilySaving extends StatelessWidget {
                     title ?? '',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     subTitle ?? '',
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   )
                 ],
               ),

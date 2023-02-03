@@ -88,7 +88,7 @@ class _TermAndConditionsState extends State<TermAndConditions> {
                       child: SvgPicture.asset(
                           'assets/images/svgfile/notfundingIcon.svg')),
                   Text(S.of(context).required,
-                      style: Theme.of(context).textTheme.headline2),
+                      style: Theme.of(context).textTheme.displayMedium),
                   const SizedBox(height: 20),
                   Row(
                     children: [
@@ -102,7 +102,7 @@ class _TermAndConditionsState extends State<TermAndConditions> {
                       ),
                       Text(
                         S.of(context).idcard,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),
@@ -121,7 +121,7 @@ class _TermAndConditionsState extends State<TermAndConditions> {
                       ),
                       Text(
                         S.of(context).residentBook,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),
@@ -140,7 +140,7 @@ class _TermAndConditionsState extends State<TermAndConditions> {
                       ),
                       Text(
                         S.of(context).familyBook,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),
@@ -159,7 +159,7 @@ class _TermAndConditionsState extends State<TermAndConditions> {
                       ),
                       Text(
                         S.of(context).salaryslip,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),
@@ -178,7 +178,7 @@ class _TermAndConditionsState extends State<TermAndConditions> {
                       ),
                       Text(
                         'Business Legal',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),

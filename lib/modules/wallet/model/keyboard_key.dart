@@ -24,7 +24,7 @@ class KeyboardKeyState extends State<KeyboardKey> {
 
     return Text(
       widget.label,
-      style: Theme.of(context).textTheme.headline2!.copyWith(
+      style: Theme.of(context).textTheme.displayMedium!.copyWith(
           color: const Color(0xff5A5A5A),
           fontSize: 30,
           fontWeight: FontWeight.w500),

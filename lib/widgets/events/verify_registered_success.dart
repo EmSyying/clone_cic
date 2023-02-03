@@ -39,7 +39,7 @@ verifyRegistrationAlert(
                     child: Center(
                       child: Text(
                         '$description',
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.displayMedium,
                         textAlign: TextAlign.center,
                       ),
                     ),

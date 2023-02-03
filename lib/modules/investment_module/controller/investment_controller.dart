@@ -306,8 +306,8 @@ class PriceController extends GetxController {
   ].obs;
 
   ///Total investment
-  final totalInvestmentButton = false.obs;
-  final showInvestmentButton = false.obs;
+  final totalInvestmentbutton = false.obs;
+  final showInvestmentbutton = false.obs;
   List<PaymentDate> paymentCardList = [
     PaymentDate(
         title: 'CiC MM Account',
@@ -324,7 +324,7 @@ class PriceController extends GetxController {
 
   ///onRefresh CiC Fixed Income Fund
   Future<void> onRefreshFIF() async {
-    totalInvestmentButton(false); //make button always close
+    totalInvestmentbutton(false); //make button always close
     await getAllChartList();
     await fetchInvestmentAccount();
     await fetchFIFConfirm();

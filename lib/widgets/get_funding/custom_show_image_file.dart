@@ -146,7 +146,8 @@ class _CustomShowImageFileState extends State<CustomShowImageFile> {
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                           ),
@@ -269,8 +270,9 @@ class _CustomShowImageFileState extends State<CustomShowImageFile> {
                                 child: Center(
                                   child: Text(
                                     S.of(context).cancel,
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                   ),
                                 ),
                               ),
@@ -408,7 +410,7 @@ class _CustomShowImageFileState extends State<CustomShowImageFile> {
                         child: Center(
                           child: Text(
                             S.of(context).cancel,
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
                       ),
@@ -480,7 +482,8 @@ class _CustomShowImageFileState extends State<CustomShowImageFile> {
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                           ),

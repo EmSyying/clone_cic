@@ -153,8 +153,9 @@ class _NotificationDetailPopupState extends State<NotificationDetailPopup> {
                                               'specific-platform'
                                           ? 'Trade with specific member'
                                           : 'Trade with CiC platform',
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
                                     ),
                                   ),
                                 ],

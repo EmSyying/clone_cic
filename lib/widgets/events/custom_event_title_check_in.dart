@@ -19,7 +19,7 @@ class CustomTitleEventCheckIn extends StatelessWidget {
         children: [
           Text(
             title ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 13,
                   color: const Color(0xff464646),
@@ -30,7 +30,7 @@ class CustomTitleEventCheckIn extends StatelessWidget {
           ),
           Text(
             descript ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 15.0,
                 ),

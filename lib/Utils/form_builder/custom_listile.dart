@@ -45,9 +45,9 @@ class UserListile extends StatelessWidget {
               style: isMainColor == true
                   ? Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyMedium!
                       .copyWith(color: Theme.of(context).primaryColor)
-                  : Theme.of(context).textTheme.bodyText2,
+                  : Theme.of(context).textTheme.bodyMedium,
             ),
             const Spacer(),
             if (trailing != null)

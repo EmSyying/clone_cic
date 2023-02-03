@@ -98,7 +98,7 @@ class _ContractWithdrawScreenState extends State<ContractWithdrawScreen> {
           'Redemption',
           style: Theme.of(context)
               .textTheme
-              .headline4!
+              .headlineMedium!
               .copyWith(fontWeight: FontWeight.w500),
         ),
         elevation: 1,

@@ -22,7 +22,7 @@ class TradingChart extends StatelessWidget {
                 'Figure in Unit Trust',
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
+                    .titleSmall!
                     .copyWith(fontWeight: FontWeight.w400),
               ),
               const Spacer(),
@@ -31,7 +31,7 @@ class TradingChart extends StatelessWidget {
                 'Sell',
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
+                    .titleSmall!
                     .copyWith(fontWeight: FontWeight.w500, fontSize: 12),
               ),
               const SizedBox(width: 10),
@@ -40,7 +40,7 @@ class TradingChart extends StatelessWidget {
                 'Buy',
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
+                    .titleSmall!
                     .copyWith(fontWeight: FontWeight.w500, fontSize: 12),
               ),
             ],

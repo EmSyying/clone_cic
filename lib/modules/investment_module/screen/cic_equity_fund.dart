@@ -143,7 +143,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                   .key = GlobalKey(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText2,
+                                              .bodyMedium,
                                         ),
                                       ],
                                     ),
@@ -204,7 +204,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline2!
+                                                                .displayMedium!
                                                                 .copyWith(
                                                                   fontSize: 10,
                                                                   color: const Color(
@@ -334,7 +334,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                             : '0.0',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline3,
+                                                            .displaySmall,
                                                       ),
                                                     ),
                                                   ],
@@ -401,7 +401,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                             : '\$0.0',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline3,
+                                                            .displaySmall,
                                                       ),
                                                     ),
                                                   ],
@@ -476,7 +476,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                         'Figure in USD',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .bodyText1!
+                                                            .bodyLarge!
                                                             .copyWith(
                                                                 color: Colors
                                                                     .grey),
@@ -718,7 +718,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                           .key = GlobalKey(),
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .bodyText2,
+                                                          .bodyMedium,
                                                     ),
                                                   ],
                                                 ),
@@ -790,7 +790,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                         "As of ${FormatDate.investmentDateDisplayUTPrice(datetime)}",
                                                                         style: Theme.of(context)
                                                                             .textTheme
-                                                                            .headline2!
+                                                                            .displayMedium!
                                                                             .copyWith(
                                                                               fontSize: 10,
                                                                               color: const Color(0XFF464646),
@@ -946,7 +946,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                     style: Theme.of(
                                                                             context)
                                                                         .textTheme
-                                                                        .headline3,
+                                                                        .displaySmall,
                                                                   ),
                                                                 ),
                                                               ],
@@ -1015,7 +1015,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                     style: Theme.of(
                                                                             context)
                                                                         .textTheme
-                                                                        .headline3,
+                                                                        .displaySmall,
                                                                   ),
                                                                 ),
                                                               ],
@@ -1086,7 +1086,7 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                     style: Theme.of(
                                                                             context)
                                                                         .textTheme
-                                                                        .bodyText1!
+                                                                        .bodyLarge!
                                                                         .copyWith(
                                                                             color:
                                                                                 Colors.grey),

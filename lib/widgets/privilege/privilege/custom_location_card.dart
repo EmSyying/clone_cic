@@ -36,14 +36,14 @@ class CustomLocationCard extends StatelessWidget {
               children: [
                 Text(
                   locatModel!.province ?? '',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
                       ),
                 ),
                 Text(
                   locatModel!.fullAdress ?? '',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.w400,
                         letterSpacing: 0.2,
                       ),

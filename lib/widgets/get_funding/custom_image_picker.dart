@@ -107,7 +107,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                         child: Center(
                           child: Text(
                             S.of(context).cancel,
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
                       ),
@@ -176,7 +176,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                           ),
@@ -258,7 +259,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
           ),
           Text(
             widget.title!,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
       ),

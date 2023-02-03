@@ -61,7 +61,7 @@ class _AcceptNotificationPopupState extends State<AcceptNotificationPopup> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: CustomConfirmButton(
+                            child: CustomConfirmbutton(
                                 onTap: () {
                                   _con.onReadNotification(
                                       widget.notificationModel!.id!);
@@ -82,7 +82,7 @@ class _AcceptNotificationPopupState extends State<AcceptNotificationPopup> {
                             width: 20,
                           ),
                           Expanded(
-                            child: CustomConfirmButton(
+                            child: CustomConfirmbutton(
                                 onTap: () {
                                   _con.onReadNotification(
                                       widget.notificationModel!.id!);

@@ -54,10 +54,10 @@ class CustomDetailSummery extends StatelessWidget {
                       Text('Investment Duration:',
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headlineSmall!
                               .copyWith(fontSize: 14)),
                       Text('$investDuration',
-                          style: Theme.of(context).textTheme.bodyText2)
+                          style: Theme.of(context).textTheme.bodyMedium)
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -87,7 +87,7 @@ class CustomDetailSummery extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     '$durationPeriod',
-                    style: Theme.of(context).textTheme.headline3!.copyWith(
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                   ),
@@ -120,12 +120,12 @@ class CustomDetailSummery extends StatelessWidget {
                         'Maturity Instruction',
                         style: Theme.of(context)
                             .textTheme
-                            .headline5!
+                            .headlineSmall!
                             .copyWith(fontSize: 14),
                       ),
                       Text(
                         maturityInstruction ?? '...',
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                     ],
@@ -138,7 +138,7 @@ class CustomDetailSummery extends StatelessWidget {
                       'Interest Rate',
                       style: Theme.of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(fontSize: 14),
                     ),
                     Row(
@@ -149,7 +149,7 @@ class CustomDetailSummery extends StatelessWidget {
                           '$annuallyInterestRate',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2!
+                              .bodyMedium!
                               .copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w700),
                         ),
@@ -167,7 +167,7 @@ class CustomDetailSummery extends StatelessWidget {
                         'Coupon Receiving \nAccount',
                         style: Theme.of(context)
                             .textTheme
-                            .headline5!
+                            .headlineSmall!
                             .copyWith(fontSize: 14),
                         maxLines: 2,
                         // overflow: TextOverflow.ellipsis,
@@ -177,7 +177,7 @@ class CustomDetailSummery extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 40),
                       child: Text(
                         '$accountBank',
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                     ),

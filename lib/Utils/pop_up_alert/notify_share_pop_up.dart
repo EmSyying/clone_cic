@@ -7,7 +7,7 @@ showNotifyPopUp(
     String? title,
     String? description,
     String? imgUrl,
-    String? secondButton,
+    String? secondbutton,
     Function? onTap}) {
   return showDialog(
     barrierDismissible: false,
@@ -44,7 +44,7 @@ showNotifyPopUp(
                     if (title != null)
                       Text(
                         title,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -52,7 +52,7 @@ showNotifyPopUp(
                       child: Center(
                         child: Text(
                           '$description',
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyMedium,
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -93,11 +93,11 @@ showNotifyPopUp(
                               ),
                             ),
                           ),
-                          if (secondButton != null)
+                          if (secondbutton != null)
                             const VerticalDivider(
                               width: 1,
                             ),
-                          secondButton != null
+                          secondbutton != null
                               ? Expanded(
                                   child: InkWell(
                                     onTap: () {
@@ -111,7 +111,7 @@ showNotifyPopUp(
                                         width: double.infinity,
                                         child: Center(
                                           child: Text(
-                                            secondButton,
+                                            secondbutton,
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 color: Theme.of(context)

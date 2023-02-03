@@ -70,15 +70,15 @@ class _MatchTradeState extends State<MatchTrade> {
                   ),
                   Text(
                     'No Share Request',
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   // Text('You can create Sell Share Request',
-                  //     style: Theme.of(context).textTheme.bodyText2),
+                  //     style: Theme.of(context).textTheme.bodyMedium),
                   // Text('by tap on button below.',
-                  //     style: Theme.of(context).textTheme.bodyText2),
+                  //     style: Theme.of(context).textTheme.bodyMedium),
                 ],
               ),
             )

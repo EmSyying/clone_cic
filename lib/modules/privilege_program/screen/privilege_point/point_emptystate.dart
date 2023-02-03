@@ -6,7 +6,7 @@ class PiointEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.headline4!;
+    TextStyle textStyle = Theme.of(context).textTheme.headlineMedium!;
     return Column(
       children: [
         Container(

@@ -20,7 +20,7 @@ class SubscriptionChart extends StatelessWidget {
               // SvgPicture.asset(''),
               Text(
                 'Figure in Unit Trust',
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: const Color(0xff464646),
                     fontWeight: FontWeight.w400),
               ),
@@ -30,7 +30,7 @@ class SubscriptionChart extends StatelessWidget {
                 'Subscribed UT',
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
+                    .titleSmall!
                     .copyWith(fontWeight: FontWeight.w500, fontSize: 12),
               )
             ],

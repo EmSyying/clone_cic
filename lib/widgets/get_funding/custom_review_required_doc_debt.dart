@@ -103,7 +103,7 @@ class _CustomRiviewRequiredDocInDebtState
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Do you have Income Statement (Monthly and yearly statement during last 3 years)?',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xff464646),
@@ -133,7 +133,7 @@ class _CustomRiviewRequiredDocInDebtState
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Do you have Balance Sheet (Monthly and yearly statement during last 3 years)?',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xff464646),
@@ -177,7 +177,7 @@ class _CustomRiviewRequiredDocInDebtState
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Do you have Cash Flow Statement (Monthly and yearly statement during last 3 years)?',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xff464646),

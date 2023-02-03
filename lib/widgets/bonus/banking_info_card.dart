@@ -34,7 +34,7 @@ class BankingInforCard extends StatelessWidget {
               children: [
                 Text(
                   'Confirm your banking information',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 SvgPicture.asset('assets/images/svgfile/questicon.svg')
               ],
@@ -47,13 +47,13 @@ class BankingInforCard extends StatelessWidget {
               children: [
                 Text(
                   'Bank Name :',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
                   bankName!,
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 14),
                 ),
               ],
@@ -66,13 +66,13 @@ class BankingInforCard extends StatelessWidget {
               children: [
                 Text(
                   'Account Name :',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
                   accountName!,
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 14),
                 ),
               ],
@@ -85,13 +85,13 @@ class BankingInforCard extends StatelessWidget {
               children: [
                 Text(
                   'Account Number :',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
                   accountNumber!,
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 14),
                 ),
               ],
@@ -130,7 +130,7 @@ class BankingInforCard extends StatelessWidget {
                       'Confirm Account',
                       style: Theme.of(context)
                           .textTheme
-                          .headline3!
+                          .displaySmall!
                           .copyWith(fontSize: 12),
                     ),
                   ),

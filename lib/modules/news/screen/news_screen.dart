@@ -70,7 +70,7 @@ class _NewsScreenState extends State<NewsScreen> {
                               'Cambodian Investors Community Association (CiC) is providing invest',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700),
@@ -102,7 +102,7 @@ class _NewsScreenState extends State<NewsScreen> {
                           //                           'Cambodian Investors Community Association (CiC) is providing invest',
                           //                           style: Theme.of(context)
                           //                               .textTheme
-                          //                               .headline6!
+                          //                               .titleLarge!
                           //                               .copyWith(
                           //                                   fontSize: 16,
                           //                                   fontWeight:
@@ -168,7 +168,7 @@ class _NewsScreenState extends State<NewsScreen> {
                   'Breaking News',
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -202,7 +202,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 padding: const EdgeInsets.only(left: 20, top: 15),
                 child: Text(
                   'Current News',
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),

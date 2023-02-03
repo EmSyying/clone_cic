@@ -24,7 +24,7 @@ class CustomTab extends StatelessWidget {
           title!,
           style: isSelect!
               ? TextStyle(color: Theme.of(context).primaryColor)
-              : Theme.of(context).textTheme.headline2,
+              : Theme.of(context).textTheme.displayMedium,
         ),
       ),
     );

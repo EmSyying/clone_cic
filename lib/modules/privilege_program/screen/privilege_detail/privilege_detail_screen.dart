@@ -125,7 +125,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                               maxLines: 1,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
@@ -277,7 +277,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                             maxLines: 2,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2!
+                                                .titleSmall!
                                                 .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   color:
@@ -411,7 +411,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                       'Service',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1!
+                                          .bodyLarge!
                                           .copyWith(
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -423,7 +423,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                       'Info',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1!
+                                          .bodyLarge!
                                           .copyWith(
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -435,7 +435,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                       'Photo',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1!
+                                          .bodyLarge!
                                           .copyWith(
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -467,7 +467,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                             ),
                           ),
 
-                          ///Bottom Button
+                          ///Bottom button
                           SafeArea(
                             top: false,
                             minimum: const EdgeInsets.only(
@@ -524,7 +524,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                               'Cancel',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .subtitle2!
+                                                  .titleSmall!
                                                   .copyWith(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w500,
@@ -574,7 +574,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
     return CupertinoActionSheetAction(
       child: Text(
         phone ?? '',
-        style: Theme.of(context).textTheme.headline3!.copyWith(
+        style: Theme.of(context).textTheme.displaySmall!.copyWith(
               fontWeight: FontWeight.w500,
               fontSize: 18.0,
               color: Theme.of(context).primaryColor,
@@ -597,7 +597,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
             children: [
               Text(
                 'Description',
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 18,
                     ),
@@ -605,7 +605,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
               const SizedBox(height: 10),
               HtmlWidget(
                 priController.shopDetailModel.value.description ?? '',
-                textStyle: Theme.of(context).textTheme.subtitle2!.copyWith(
+                textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.w400,
                       fontSize: 14,
                     ),
@@ -615,13 +615,13 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                 'Our Service',
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
+                    .titleSmall!
                     .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
               ),
               const SizedBox(height: 10),
               HtmlWidget(
                 priController.shopDetailModel.value.productOrService ?? '',
-                textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w400,
                     letterSpacing: 0.2,
                     fontSize: 14),
@@ -639,7 +639,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                 children: [
                   Text(
                     'Open Hours',
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 18,
                         ),
@@ -767,11 +767,11 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
           Text(
             titleDay ?? '',
             style: istoday
-                ? Theme.of(context).textTheme.bodyText2!.copyWith(
+                ? Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                     )
-                : Theme.of(context).textTheme.bodyText2!.copyWith(
+                : Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
           ),

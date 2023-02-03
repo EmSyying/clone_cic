@@ -24,7 +24,7 @@ class CustomResponsesInfo extends StatelessWidget {
           children: [
             Text(
               title!,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 5),
             Text(

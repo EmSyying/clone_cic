@@ -40,7 +40,7 @@ class CustomBankTransferCard extends StatelessWidget {
               Flexible(
                 child: Text(
                   bankDetail!.bankName!,
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.titleSmall,
                   softWrap: false,
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,

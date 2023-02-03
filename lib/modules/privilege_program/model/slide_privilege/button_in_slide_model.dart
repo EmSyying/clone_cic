@@ -4,13 +4,13 @@ part 'button_in_slide_model.freezed.dart';
 part 'button_in_slide_model.g.dart';
 
 @freezed
-class ButtonListModel with _$ButtonListModel {
-  factory ButtonListModel({
+class buttonListModel with _$buttonListModel {
+  factory buttonListModel({
     String? label,
     String? icon,
     String? target,
-  }) = _ButtonListModel;
+  }) = _buttonListModel;
 
-  factory ButtonListModel.fromJson(Map<String, dynamic> json) =>
-      _$ButtonListModelFromJson(json);
+  factory buttonListModel.fromJson(Map<String, dynamic> json) =>
+      _$buttonListModelFromJson(json);
 }

@@ -66,7 +66,7 @@ class CustomRecentCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                       ),
@@ -78,10 +78,11 @@ class CustomRecentCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff848F92),
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff848F92),
+                                ),
                       ),
                       const SizedBox(
                         height: 3.0,
@@ -91,11 +92,12 @@ class CustomRecentCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              fontWeight: FontWeight.w300,
-                              color: const Color(0xff464646),
-                              letterSpacing: 0.2,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontWeight: FontWeight.w300,
+                                  color: const Color(0xff464646),
+                                  letterSpacing: 0.2,
+                                ),
                       ),
                       const Spacer(),
                       // Text(
@@ -103,7 +105,7 @@ class CustomRecentCard extends StatelessWidget {
                       //   maxLines: 1,
                       //   overflow: TextOverflow.ellipsis,
                       //   softWrap: false,
-                      //   style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      //   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       //         fontWeight: FontWeight.w700,
                       //       ),
                       // ),
@@ -115,7 +117,7 @@ class CustomRecentCard extends StatelessWidget {
                 children: [
                   Text(
                     recentActivities!.code ?? '',
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontWeight: FontWeight.w300,
                           color: const Color(0xff464646),
                           letterSpacing: 0.2,
@@ -139,11 +141,13 @@ class CustomRecentCard extends StatelessWidget {
                             recentActivities!.pointAmount != null
                                 ? recentActivities!.pointAmount.toString()
                                 : "",
-                            style:
-                                Theme.of(context).textTheme.headline6!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
                           const SizedBox(
                             width: 5,
@@ -178,7 +182,7 @@ class CustomRecentCard extends StatelessWidget {
             ),
             child: Text(
               "${recentActivities!.label}",
-              style: Theme.of(context).textTheme.headline5!.copyWith(
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.w500,
                 fontSize: 8,
                 color: Colors.white,

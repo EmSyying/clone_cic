@@ -37,7 +37,7 @@ class CustomMaketTradingCar extends StatelessWidget {
         ],
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: Theme.of(context).primaryColor),
-        color:  Theme.of(context).primaryColor ,
+        color: Theme.of(context).primaryColor,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +62,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                                 DateTime.now().toString()),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white,
@@ -95,7 +95,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                                   : "Trading Closed",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .copyWith(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.white,
@@ -115,7 +115,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                                 DateTime.now().toString()),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white,
@@ -134,7 +134,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                               "$fromTime - $toTime",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .copyWith(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.white,
@@ -216,7 +216,7 @@ class CustomMaketTradingCar extends StatelessWidget {
                   children: [
                     Text(
                       "View Last Trading",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
                           fontSize: 14.0),

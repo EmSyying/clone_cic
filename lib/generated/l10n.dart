@@ -52,10 +52,10 @@ class S {
   }
 
   /// `Edit`
-  String get editButton {
+  String get editbutton {
     return Intl.message(
       'Edit',
-      name: 'editButton',
+      name: 'editbutton',
       desc: '',
       args: [],
     );
@@ -212,20 +212,20 @@ class S {
   }
 
   /// `Save`
-  String get saveButton {
+  String get savebutton {
     return Intl.message(
       'Save',
-      name: 'saveButton',
+      name: 'savebutton',
       desc: '',
       args: [],
     );
   }
 
   /// `Logout`
-  String get logoutButton {
+  String get logoutbutton {
     return Intl.message(
       'Logout',
-      name: 'logoutButton',
+      name: 'logoutbutton',
       desc: '',
       args: [],
     );
@@ -774,10 +774,10 @@ class S {
   }
 
   /// `Next`
-  String get continueButton {
+  String get continuebutton {
     return Intl.message(
       'Next',
-      name: 'continueButton',
+      name: 'continuebutton',
       desc: '',
       args: [],
     );

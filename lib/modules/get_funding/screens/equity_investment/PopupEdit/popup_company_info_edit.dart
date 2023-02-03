@@ -717,12 +717,14 @@ class _PopupCompanyInfoState extends State<PopupCompanyInfo> {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             'Which of the following legal documents that you have? (Multiple selections)',
-                            style:
-                                Theme.of(context).textTheme.bodyText2!.copyWith(
-                                      fontFamily: 'DMSans',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontFamily: 'DMSans',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                         ),
                         Padding(

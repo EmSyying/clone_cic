@@ -117,7 +117,7 @@ class CustomNewCashOut extends StatelessWidget {
                                           'Confirm your banking information',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText2!
+                                              .bodyMedium!
                                               .copyWith(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 14.0,
@@ -153,7 +153,7 @@ class CustomNewCashOut extends StatelessWidget {
                                                                   textStyle: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .headline2!
+                                                                      .displayMedium!
                                                                       .copyWith(
                                                                           fontWeight: FontWeight
                                                                               .normal,
@@ -255,7 +255,7 @@ class CustomNewCashOut extends StatelessWidget {
                                       "Cash Out Amount",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w700,
@@ -368,7 +368,7 @@ class CustomNewCashOut extends StatelessWidget {
                     //               'I have read and agreed to CIC Service Agreement',
                     //               style: Theme.of(context)
                     //                   .textTheme
-                    //                   .headline2!
+                    //                   .displayMedium!
                     //                   .copyWith(
                     //                       fontSize: 13,
                     //                       fontWeight: FontWeight.w400,
@@ -393,7 +393,7 @@ class CustomNewCashOut extends StatelessWidget {
                     //             //       'CiC Serivce Agreement',
                     //             //       style: Theme.of(context)
                     //             //           .textTheme
-                    //             //           .headline2!
+                    //             //           .displayMedium!
                     //             //           .copyWith(
                     //             //               fontSize: 13,
                     //             //               fontWeight: FontWeight.normal,

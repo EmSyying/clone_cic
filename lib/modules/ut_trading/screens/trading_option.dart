@@ -110,7 +110,7 @@ class _TradingState extends State<Trading> {
                               left: 20, right: 20, top: 30),
                           child: Text(
                             'Please Choose Trade Option',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                             textAlign: TextAlign.left,
                           ),
                         ),
@@ -197,7 +197,7 @@ class _TradingState extends State<Trading> {
                       inquiryController.selectTrade.value == 2
                           ? 'Trade with specific member(s)'
                           : 'Trade with CiC platform',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(
                       height: 3,
@@ -208,7 +208,7 @@ class _TradingState extends State<Trading> {
                         inquiryController.selectTrade.value == 2
                             ? 'You agree to buy or sell your shares with one CiC Member. After both parties submit the requests, the transaction will take place.'
                             : 'Once the market is closed, your request will be matched automatically based on the agreed Single Price Auction method. ',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.center,
                       ),
                     ),

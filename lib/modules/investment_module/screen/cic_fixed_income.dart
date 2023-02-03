@@ -319,7 +319,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                             Expanded(
                               child: CustomSavingCardList(
                                 buttonShow: InjectionHelper.investmentController
-                                    .totalInvestmentButton.value,
+                                    .totalInvestmentbutton.value,
                                 fifhiddenList: InjectionHelper
                                     .investmentController.hiddenContractList,
                                 fifAccountList: InjectionHelper
@@ -341,7 +341,7 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
                         horizontal: 20.0, vertical: 20.0),
                     child: widget.ismmaInvestFIF
                         ? buttonInvestFiF()
-                        : showAllButton(),
+                        : showAllbutton(),
                   ),
                 ],
               ),
@@ -372,13 +372,13 @@ class _CiCFixedIncomeState extends State<CiCFixedIncome> {
   //       const SizedBox(height: 20.0),
   //       Padding(
   //         padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-  //         child: showAllButton(),
+  //         child: showAllbutton(),
   //       ),
   //     ],
   //   );
   // }
 
-  showAllButton() {
+  showAllbutton() {
     return Row(
       children: [
         Expanded(

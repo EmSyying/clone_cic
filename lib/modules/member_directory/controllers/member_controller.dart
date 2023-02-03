@@ -52,7 +52,7 @@ class MemberController extends GetxController {
   final isNomoreData = false.obs;
   final currentPage = 0.obs;
   final isEmty = false.obs;
-  final isDisableDoneButton = true.obs;
+  final isDisableDonebutton = true.obs;
   final isDisableCompany = true.obs;
   final mapList = <String, List<int>>{}.obs;
   final companyData = CompanyDataModel().obs;
@@ -126,7 +126,7 @@ class MemberController extends GetxController {
   final endDate = ''.obs;
   final grade = ''.obs;
   final description = ''.obs;
-  final isButtonTapped = false.obs;
+  final isbuttonTapped = false.obs;
   // Experience Key
   final title = ''.obs;
   final employmentType = ''.obs;

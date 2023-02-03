@@ -26,7 +26,7 @@ class _ApplicationTabState extends State<ApplicationTab> {
               children: [
                 Text(
                   'Recent Applications',
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: Colors.black, fontWeight: FontWeight.w500),
                 ),
                 const Spacer(),

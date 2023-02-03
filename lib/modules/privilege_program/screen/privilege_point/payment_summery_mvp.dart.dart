@@ -54,7 +54,7 @@ class PaymentSummeryMVP extends StatelessWidget {
         title: Center(
           child: Text(
             'Redeem successfully',
-            style: Theme.of(context).textTheme.headline4!.copyWith(
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 18,
                 ),
@@ -104,7 +104,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                           text: amount ?? '',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline4!
+                                              .headlineMedium!
                                               .copyWith(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 26,
@@ -114,7 +114,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                               text: ' MVP',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline4!
+                                                  .headlineMedium!
                                                   .copyWith(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 18,
@@ -130,7 +130,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                         accountMVP ?? '',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline3!
+                                            .displaySmall!
                                             .copyWith(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 14.0,
@@ -280,7 +280,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                               'Share',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -315,7 +315,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                               'Save',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -357,7 +357,7 @@ class PaymentSummeryMVP extends StatelessWidget {
         children: [
           Text(
             label ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: const Color(0xff464646),
@@ -366,7 +366,7 @@ class PaymentSummeryMVP extends StatelessWidget {
           const Spacer(),
           Text(
             value ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 12.0,
                 ),

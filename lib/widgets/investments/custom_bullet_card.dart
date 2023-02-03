@@ -88,7 +88,7 @@ class CustomBulletPaymentCard extends StatelessWidget {
                 '$title',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2!
+                    .bodyMedium!
                     .copyWith(fontSize: 18, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 5),
@@ -102,7 +102,7 @@ class CustomBulletPaymentCard extends StatelessWidget {
                     ),
                     Text(
                       subTitle != null ? '$subTitle' : '0% annally',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),

@@ -56,12 +56,12 @@ class InvestTransactionCard extends StatelessWidget {
             children: [
               Text(
                 title ?? '...',
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 5),
               Text(
                 dateTime ?? '',
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ],
           ),
@@ -71,7 +71,7 @@ class InvestTransactionCard extends StatelessWidget {
             children: [
               Text(
                 status ?? '',
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 12,
                       color: status!.toUpperCase() == 'UNPAID' ||
                               status!.toUpperCase() == 'UNACCRUED'
@@ -84,7 +84,7 @@ class InvestTransactionCard extends StatelessWidget {
                 currency ?? '',
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
+                    .titleSmall!
                     .copyWith(fontSize: 12),
               )
             ],

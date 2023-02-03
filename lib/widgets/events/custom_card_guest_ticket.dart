@@ -28,7 +28,7 @@ class CustomCardGuestsTicket extends StatelessWidget {
             children: [
               Text(
                 guest ?? '',
-                style: Theme.of(context).textTheme.headline2!.copyWith(
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 14.0,
                       color: Colors.grey,
@@ -39,7 +39,7 @@ class CustomCardGuestsTicket extends StatelessWidget {
               ),
               Text(
                 'Name',
-                style: Theme.of(context).textTheme.headline2!.copyWith(
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontWeight: FontWeight.w500,
                       fontSize: 13,
                       color: const Color(0xff464646),
@@ -52,7 +52,7 @@ class CustomCardGuestsTicket extends StatelessWidget {
                 children: [
                   Text(
                     nameGuest ?? '',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 15.0,
                         ),
@@ -67,7 +67,7 @@ class CustomCardGuestsTicket extends StatelessWidget {
                   ),
                   Text(
                     who ?? '',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 15.0,
                         ),

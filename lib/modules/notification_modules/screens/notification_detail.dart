@@ -82,7 +82,7 @@ class _NotificationDetailPageState extends State<NotificationDetailPage> {
             padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
             child: Text(
               '${widget.notificationData!.data!.body}',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
           const SizedBox(

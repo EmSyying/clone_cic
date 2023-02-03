@@ -59,7 +59,7 @@ CustomAppBar(
                       : MediaQuery.of(context).size.width * 0.9,
                   child: Text(
                     title!,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                     // style: TextStyle(
                     //     fontFamily: 'DMSans',
                     //     fontWeight: FontWeight.bold,
@@ -109,7 +109,7 @@ CustomAppBar(
                           onTap: onTap,
                           child: Text(
                             title!,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                         )
                       : Padding(
@@ -117,7 +117,7 @@ CustomAppBar(
                           child: Center(
                             child: Text(
                               title!,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
                         ),

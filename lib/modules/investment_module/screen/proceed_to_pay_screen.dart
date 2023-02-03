@@ -45,12 +45,12 @@ class ProceedToPayScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('By submitting you agree to ',
-                  style: Theme.of(context).textTheme.headline5),
+                  style: Theme.of(context).textTheme.headlineSmall),
               Text(
                 'CiC Service Agreement',
                 style: Theme.of(context)
                     .textTheme
-                    .headline3!
+                    .displaySmall!
                     .copyWith(fontSize: 12),
               )
             ],

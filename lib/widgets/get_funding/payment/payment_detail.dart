@@ -98,7 +98,7 @@ class _PaymentDetailState extends State<PaymentDetail> {
                         children: [
                           Text(
                             S.of(context).paymentDate,
-                            style: Theme.of(context).textTheme.headline3,
+                            style: Theme.of(context).textTheme.displaySmall,
                           ),
                           const SizedBox(
                             height: 8.0,
@@ -171,7 +171,7 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).principle,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
@@ -190,7 +190,7 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).interest,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
@@ -216,7 +216,7 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).penalty,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
@@ -235,7 +235,7 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).fee,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
@@ -257,7 +257,7 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).extra,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
@@ -276,7 +276,7 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).totalAmount,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
@@ -320,13 +320,13 @@ class _PaymentDetailState extends State<PaymentDetail> {
                         children: [
                           Text(
                             '${S.of(context).id} ',
-                            style: Theme.of(context).textTheme.headline3,
+                            style: Theme.of(context).textTheme.displaySmall,
                           ),
                           const SizedBox(
                             height: 8.0,
                           ),
                           Text(widget.payment!.code!,
-                              style: Theme.of(context).textTheme.bodyText2),
+                              style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
                       Container(
@@ -391,26 +391,26 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).item,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
                             Text(widget.payment!.payOff!.item!,
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.bodyText2),
+                                style: Theme.of(context).textTheme.bodyMedium),
                             const SizedBox(
                               height: 8.0,
                             ),
                             Text(
                               S.of(context).duration,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
                             Text((widget.payment!.payOff!.duration).toString(),
-                                style: Theme.of(context).textTheme.bodyText2),
+                                style: Theme.of(context).textTheme.bodyMedium),
                           ],
                         ),
                       ),
@@ -421,25 +421,25 @@ class _PaymentDetailState extends State<PaymentDetail> {
                           children: [
                             Text(
                               S.of(context).amount,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
                             Text(widget.payment!.payOff!.amount!,
-                                style: Theme.of(context).textTheme.bodyText2),
+                                style: Theme.of(context).textTheme.bodyMedium),
                             const SizedBox(
                               height: 8.0,
                             ),
                             Text(
                               S.of(context).amountPaid,
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
                             Text(widget.payment!.payOff!.amountPaid!,
-                                style: Theme.of(context).textTheme.bodyText2),
+                                style: Theme.of(context).textTheme.bodyMedium),
                           ],
                         ),
                       ),

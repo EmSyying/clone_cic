@@ -427,7 +427,7 @@ class _CompanyPageState extends State<CompanyPage> {
                       EmptyStateProfile(
                         isEditable: false,
                         title: 'No Company yet',
-                        caption:
+                        bodySmall:
                             'Here’s where you’ll find the newest update of member profile',
                         buttonLabel: 'Add Company',
                         iconUrl: 'assets/images/emptyState.png',

@@ -561,7 +561,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                           'Company Information',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2,
+                                              .displayMedium,
                                         ),
                                       ),
                                       const SizedBox(height: 20),
@@ -1467,7 +1467,7 @@ class _Step2EquityState extends State<Step2Equity> {
                                                 'Which of the following legal documents that you have? (Multiple selections)',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .bodyText2!
+                                                    .bodyMedium!
                                                     .copyWith(
                                                       fontFamily: 'DMSans',
                                                       fontSize: 14,

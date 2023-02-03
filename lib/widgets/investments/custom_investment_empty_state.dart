@@ -30,7 +30,7 @@ class CustomInvestmentEmptyState extends StatelessWidget {
               ),
               Text(
                 title ?? '',
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(
                 height: 4.0,
@@ -40,7 +40,7 @@ class CustomInvestmentEmptyState extends StatelessWidget {
                 child: Text(
                   description ?? '',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: const Color(0xff848F92),
                       fontSize: 12,
                       fontWeight: FontWeight.w400),
@@ -58,7 +58,7 @@ class CustomInvestmentEmptyState extends StatelessWidget {
             titleLine ?? '',
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
           ),
         ),

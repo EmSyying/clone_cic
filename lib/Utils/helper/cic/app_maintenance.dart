@@ -31,7 +31,7 @@ class AppMaintenance {
                 'Under Maintenance',
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontSize: 18.0, fontWeight: FontWeight.w600),
               ),
               Center(
@@ -43,7 +43,7 @@ class AppMaintenance {
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(fontSize: 13.0, fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -58,6 +58,6 @@ class AppMaintenance {
       return topWidget;
     });
 
-    overlayState!.insert(overlayEntry);
+    overlayState.insert(overlayEntry);
   }
 }

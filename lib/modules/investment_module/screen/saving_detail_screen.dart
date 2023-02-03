@@ -61,7 +61,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
     const CustomDetailSummery(),
     const InterestSchedule()
   ];
-  bool? isMoreButton = false;
+  bool? isMorebutton = false;
   int segmentedControlValue = 0;
   bool isScrollUp = false;
   final PageController _pageViewController = PageController();
@@ -143,7 +143,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                           () => Text(
                             fifCon.fifAccountDetailModel.value.accountName ??
                                 '...',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
                         // forceElevated: innerBoxIsScrolled,
@@ -221,7 +221,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                       'Stop Contract Renewal',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .subtitle2!
+                                                          .titleSmall!
                                                           .copyWith(
                                                               fontWeight:
                                                                   FontWeight
@@ -320,7 +320,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                 'Add new account',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3!
+                                                    .displaySmall!
                                                     .copyWith(
                                                         fontSize: 16,
                                                         fontWeight:
@@ -348,7 +348,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                             "Edit Bank Account",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2!
+                                                .titleSmall!
                                                 .copyWith(
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColor.darkColor),
@@ -384,7 +384,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                               //               "Edit Coupon Receiving Date",
                               //               style: Theme.of(context)
                               //                   .textTheme
-                              //                   .subtitle2!
+                              //                   .titleSmall!
                               //                   .copyWith(
                               //                       fontWeight: FontWeight.w400,
                               //                       color: AppColor.darkColor),
@@ -450,7 +450,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                               "Principal Redemption",
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .subtitle2!
+                                                  .titleSmall!
                                                   .copyWith(
                                                       fontWeight:
                                                           FontWeight.w400,
@@ -497,7 +497,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                             "Principal History",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2!
+                                                .titleSmall!
                                                 .copyWith(
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColor.darkColor),
@@ -540,7 +540,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                               '...',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6!
+                                              .titleLarge!
                                               .copyWith(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400),
@@ -551,7 +551,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                               '...',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6!
+                                              .titleLarge!
                                               .copyWith(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500),
@@ -573,7 +573,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                 '',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6!
+                                                .titleLarge!
                                                 .copyWith(fontSize: 14),
                                           ),
                                           const SizedBox(height: 10),
@@ -589,7 +589,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                     '...',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline6!
+                                                    .titleLarge!
                                                     .copyWith(fontSize: 26),
                                               ),
                                               Padding(
@@ -601,7 +601,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                       '...',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6!
+                                                      .titleLarge!
                                                       .copyWith(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -627,7 +627,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                       '...',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .subtitle1!
+                                                      .titleMedium!
                                                       .copyWith(
                                                           color: const Color(
                                                               0xff06A200),
@@ -648,7 +648,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                 : '...',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6!
+                                                .titleLarge!
                                                 .copyWith(
                                                     fontSize: 14,
                                                     fontWeight:
@@ -674,7 +674,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                               'Investment Amount',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline6!
+                                                  .titleLarge!
                                                   .copyWith(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -702,7 +702,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                       '...',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6!
+                                                      .titleLarge!
                                                       .copyWith(
                                                           fontSize: 14,
                                                           fontWeight:
@@ -727,7 +727,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                               'Current Principal',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline6!
+                                                  .titleLarge!
                                                   .copyWith(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -756,7 +756,7 @@ class _SavingDetailScreenState extends State<SavingDetailScreen> {
                                                       "...",
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6!
+                                                      .titleLarge!
                                                       .copyWith(
                                                           fontSize: 14,
                                                           fontWeight:

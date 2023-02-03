@@ -12,7 +12,8 @@ class AboutEventDescription extends StatelessWidget {
       description != ''
           ? Container(
               margin: const EdgeInsets.only(left: 15.0, top: 20.0),
-              child: Text("$title", style: Theme.of(context).textTheme.caption),
+              child:
+                  Text("$title", style: Theme.of(context).textTheme.bodySmall),
             )
           : Container(),
       Container(
@@ -24,7 +25,7 @@ class AboutEventDescription extends StatelessWidget {
           expandText: 'Read more',
           collapseText: 'Read less',
           maxLines: 3,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
       )
     ]);

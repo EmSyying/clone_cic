@@ -36,7 +36,7 @@ class CustomCopyBank extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     'Account Name : $accountName',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         color: AppColor.chartLabelColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 12),
@@ -63,7 +63,7 @@ class CustomCopyBank extends StatelessWidget {
                     accountNumber ?? '0',
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle2!
+                        .titleSmall!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ),

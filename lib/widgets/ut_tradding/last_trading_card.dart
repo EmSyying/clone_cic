@@ -37,7 +37,7 @@ class LastTradingCard extends StatelessWidget {
                   title!,
                   style: Theme.of(context)
                       .textTheme
-                      .headline4!
+                      .headlineMedium!
                       .copyWith(fontSize: 11, fontWeight: FontWeight.w500),
                   maxLines: 2,
                   textAlign: TextAlign.center,
@@ -71,7 +71,7 @@ class LastTradingCard extends StatelessWidget {
                                 price != null ? '$price\$' : "0",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700),
@@ -80,7 +80,7 @@ class LastTradingCard extends StatelessWidget {
                                 '$price',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700),

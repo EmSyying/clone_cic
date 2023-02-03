@@ -40,7 +40,7 @@ class FeatureCard extends StatelessWidget {
                     child: Text(
                       eventData!.title!,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ),
                   Row(
@@ -61,7 +61,7 @@ class FeatureCard extends StatelessWidget {
                                   ? eventData!.hostAt.toString()
                                   : eventData!.location!,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.subtitle2),
+                              style: Theme.of(context).textTheme.titleSmall),
                         ),
                       ),
                     ],

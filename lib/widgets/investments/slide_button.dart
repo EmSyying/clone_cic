@@ -27,7 +27,7 @@ class SlideButton extends StatelessWidget {
                 'Slide to submit',
                 style: Theme.of(context)
                     .textTheme
-                    .headline3!
+                    .displaySmall!
                     .copyWith(fontSize: 16),
               ),
             ),

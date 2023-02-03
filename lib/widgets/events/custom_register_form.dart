@@ -407,8 +407,11 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                       padding: const EdgeInsets.only(left: 20, top: 20),
                       child: Text(
                         'Guests',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 18, fontWeight: FontWeight.w700),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontSize: 18, fontWeight: FontWeight.w700),
                       ),
                     ),
                     Column(
@@ -506,7 +509,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
                                   //           //   'Add More',
                                   //           //   style: Theme.of(context)
                                   //           //       .textTheme
-                                  //           //       .headline3!
+                                  //           //       .displaySmall!
                                   //           //       .copyWith(
                                   //           //           fontSize: 14,
                                   //           //           fontWeight:

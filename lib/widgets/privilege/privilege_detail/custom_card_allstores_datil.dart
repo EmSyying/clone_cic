@@ -77,7 +77,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                     onTap: () {},
                     child: Text(
                       status ?? '',
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             fontSize: 10,
                             color: status == "Closed"
                                 ? AppColor.statusColor['late']
@@ -98,7 +98,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                         ),
@@ -111,7 +111,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontWeight: FontWeight.w400,
                           letterSpacing: 0.5,
                           color: const Color(0xff848F92),
@@ -124,7 +124,7 @@ class CustomCardPrivilegeDetail extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Text(
                 discount ?? '',
-                style: Theme.of(context).textTheme.headline6!.copyWith(
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 22,
                       color: AppColor.statusColor['pending'],

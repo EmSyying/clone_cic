@@ -9,11 +9,12 @@ import 'package:get/get.dart';
 import '../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../utils/helper/numerice_format.dart';
 import '../../../utils/offline_widget.dart';
-import '../../../widgets/investments/slide_button.dart';
 import '../../../widgets/privilege/custom_card_current_point.dart';
 import '../../privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
+import 'package:slide_action/slide_action.dart';
+import '../../../widgets/investments/slide_button.dart';
 
 class WalletExchange extends StatelessWidget {
   final bool? isHide;
@@ -27,7 +28,7 @@ class WalletExchange extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        titleTextStyle: Theme.of(context).textTheme.headline6,
+        titleTextStyle: Theme.of(context).textTheme.titleLarge,
         centerTitle: true,
         title: const Text("Get MVP"),
         actions: [
@@ -163,7 +164,7 @@ class WalletExchange extends StatelessWidget {
                                         children: [
                                           Text(
                                             'Amount MVP to Get',
-                                            style: textstyle.subtitle2
+                                            style: textstyle.titleSmall
                                                 ?.copyWith(
                                                     fontSize: 14,
                                                     fontWeight:
@@ -209,7 +210,7 @@ class WalletExchange extends StatelessWidget {
                                           horizontal: 20, vertical: 5),
                                       child: Text(
                                         '1\$ = 1 MVP',
-                                        style: textstyle.subtitle2?.copyWith(
+                                        style: textstyle.titleSmall?.copyWith(
                                             color: const Color(0xffbdbdbd),
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500),
@@ -259,7 +260,7 @@ class WalletExchange extends StatelessWidget {
                                           'MVP',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle1!
+                                              .titleMedium!
                                               .copyWith(color: Colors.black38),
                                         ),
                                       ),
@@ -309,8 +310,9 @@ class WalletExchange extends StatelessWidget {
                                 children: [
                                   Text(
                                     'By submitting you agree to',
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -331,7 +333,7 @@ class WalletExchange extends StatelessWidget {
                                       padding: const EdgeInsets.only(left: 5.0),
                                       child: Text(
                                         'CiC Service Agreement',
-                                        style: textstyle.headline3!.copyWith(
+                                        style: textstyle.displaySmall!.copyWith(
                                             color: AppColor.mainColor,
                                             fontSize: 12,
                                             fontWeight: FontWeight.normal),

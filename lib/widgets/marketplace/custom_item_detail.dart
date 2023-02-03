@@ -155,7 +155,7 @@ class CustomItemDetail extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    reItem!.caption!,
+                                    reItem!.bodySmall!,
                                     style: const TextStyle(
                                         color: Color(0xffED1E26),
                                         fontFamily: 'DM Sans',
@@ -245,7 +245,8 @@ class CustomItemDetail extends StatelessWidget {
                               ),
                               Text(
                                 'Open Hour',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                               const SizedBox(
                                 height: 5,
@@ -276,7 +277,8 @@ class CustomItemDetail extends StatelessWidget {
                               ),
                               Text(
                                 'Description',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                               const SizedBox(
                                 height: 5,
@@ -285,25 +287,26 @@ class CustomItemDetail extends StatelessWidget {
                                 reItem!.description!,
                                 trimLines: 4,
                                 trimMode: TrimMode.Line,
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 'How To Redeem',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
                               Text(reItem!.redeem!,
-                                  style: Theme.of(context).textTheme.bodyText1),
+                                  style: Theme.of(context).textTheme.bodyLarge),
                               Text('2. consectetur adipiscing elit. Fix',
-                                  style: Theme.of(context).textTheme.bodyText1),
+                                  style: Theme.of(context).textTheme.bodyLarge),
                               Text(
                                 '3. sed do eiusmod tempor incididunt. Fix',
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
                           ),
@@ -442,7 +445,7 @@ class CustomItemDetail extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    neItem!.caption!,
+                                    neItem!.bodySmall!,
                                     style: const TextStyle(
                                         color: Color(0xffED1E26),
                                         fontFamily: 'DM Sans',
@@ -532,7 +535,8 @@ class CustomItemDetail extends StatelessWidget {
                               ),
                               Text(
                                 'Open Hour',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                               const SizedBox(
                                 height: 5,
@@ -563,7 +567,8 @@ class CustomItemDetail extends StatelessWidget {
                               ),
                               Text(
                                 'Description',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                               const SizedBox(
                                 height: 5,
@@ -572,25 +577,26 @@ class CustomItemDetail extends StatelessWidget {
                                 neItem!.description!,
                                 trimLines: 4,
                                 trimMode: TrimMode.Line,
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 'How To Redeem',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
                               Text(neItem!.redeem!,
-                                  style: Theme.of(context).textTheme.bodyText1),
+                                  style: Theme.of(context).textTheme.bodyLarge),
                               Text('2. consectetur adipiscing elit. Fix',
-                                  style: Theme.of(context).textTheme.bodyText1),
+                                  style: Theme.of(context).textTheme.bodyLarge),
                               Text(
                                 '3. sed do eiusmod tempor incididunt. Fix',
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
                           ),

@@ -47,7 +47,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                       'Cambodian Investors Community Association (CiC) is providing',
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                     )
                   : null,
@@ -95,7 +95,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     'Cambodian Investors Community Association (CiC) is providing investment',
                     style: Theme.of(context)
                         .textTheme
-                        .headline6!
+                        .titleLarge!
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -119,21 +119,21 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     '6 Jan 2023 · ',
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
+                        .headlineSmall!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                   Text(
                     '5 min read | ',
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
+                        .headlineSmall!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                   Text(
                     'CiC News',
                     style: Theme.of(context)
                         .textTheme
-                        .headline3!
+                        .displaySmall!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                 ],
@@ -145,7 +145,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                 'Cambodian Investors Community Association is providing investment platform for Cambodian Entrepreneurs in order to assist them to access to finance and to develop their business more sustainable. We are liked a door for investment opportunity for both investors who want to mobilize their resources to invest and entrepreneurs who want to find good partner for their business growth.Our members are committed to help each other for the business growth in terms of finance, management, reputation, and so on. We are liked self-help business community.',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
               ),
             ),

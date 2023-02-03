@@ -160,7 +160,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             'Gender',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
                         const SizedBox(

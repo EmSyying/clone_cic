@@ -111,7 +111,7 @@
 //                           Text(
 //                             'Filter',
 //                             style:
-//                                 Theme.of(context).textTheme.headline3!.copyWith(
+//                                 Theme.of(context).textTheme.displaySmall!.copyWith(
 //                                       fontWeight: FontWeight.w700,
 //                                     ),
 //                           ),
@@ -127,7 +127,7 @@
 //                         child: Text(
 //                           "${privilegCon.categoryFilterList.length} store search in",
 //                           style:
-//                               Theme.of(context).textTheme.headline5!.copyWith(
+//                               Theme.of(context).textTheme.headlineSmall!.copyWith(
 //                                     fontWeight: FontWeight.w300,
 //                                     color: const Color(0xff000000),
 //                                     letterSpacing: 0.2,
@@ -140,7 +140,7 @@
 //                         child: Text(
 //                           "\"${widget.locationName ?? ''}\"",
 //                           style:
-//                               Theme.of(context).textTheme.headline5!.copyWith(
+//                               Theme.of(context).textTheme.headlineSmall!.copyWith(
 //                                     fontWeight: FontWeight.w500,
 //                                     color: const Color(0xff000000),
 //                                     letterSpacing: 0.2,

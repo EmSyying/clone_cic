@@ -37,7 +37,7 @@ class CustomSucessScreen extends StatelessWidget {
               if (appbarTitle != null)
                 Text(
                   appbarTitle!,
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
@@ -57,7 +57,7 @@ class CustomSucessScreen extends StatelessWidget {
                   ),
               Text(
                 "$title",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: Colors.white,
                       fontSize: 35,
                       fontWeight: FontWeight.w500,
@@ -70,7 +70,7 @@ class CustomSucessScreen extends StatelessWidget {
                 child: Text(
                   description ?? "",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         color: Colors.white,
                         height: 1.5,
                         fontWeight: FontWeight.w400,
@@ -93,7 +93,7 @@ class CustomSucessScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     "Done",
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w700,
                         fontFamily: "SFProDisplayBold"),

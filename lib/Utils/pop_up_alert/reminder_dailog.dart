@@ -27,7 +27,7 @@ showReminderDailog({
       title: Text(
         title ?? '',
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+        style: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: Colors.black,
@@ -40,7 +40,7 @@ showReminderDailog({
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Text(
               content ?? '',
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
@@ -58,7 +58,7 @@ showReminderDailog({
               alignment: Alignment.center,
               child: Text(
                 actionTitle ?? 'Accept',
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
                       color: actionTitleColor ?? const Color(0xff007AFF),

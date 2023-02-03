@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomSliderButton extends StatelessWidget {
+class CustomSliderbutton extends StatelessWidget {
   ///switch width
   final double width;
 
@@ -36,7 +36,7 @@ class CustomSliderButton extends StatelessWidget {
 
   ///circle radius
   final double radius;
-  const CustomSliderButton({
+  const CustomSliderbutton({
     Key? key,
     required this.onchange,
     this.width = 50,

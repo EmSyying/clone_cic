@@ -82,7 +82,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).takePhoto,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -99,7 +99,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).openGallery,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -114,7 +114,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).cancelButton,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -143,7 +143,9 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).takePhoto,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -160,7 +162,9 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).openGallery,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -175,7 +179,9 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).cancelButton,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -205,7 +211,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                                   child: Text(S.of(context).takePhoto,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5),
+                                          .headlineSmall),
                                 ),
                               ),
                             ),
@@ -223,7 +229,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                                   child: Text(S.of(context).openGallery,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5),
+                                          .headlineSmall),
                                 ),
                               ),
                             ),
@@ -240,7 +246,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                                   child: Text(S.of(context).cancelButton,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5),
+                                          .headlineSmall),
                                 ),
                               ),
                             ),
@@ -262,7 +268,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                             },
                             child: Text(
                               S.of(context).takePhoto,
-                              style: Theme.of(context).textTheme.headline5,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           CupertinoActionSheetAction(
@@ -272,7 +278,8 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                               Navigator.pop(context);
                             },
                             child: Text(S.of(context).openGallery,
-                                style: Theme.of(context).textTheme.headline5),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall),
                           ),
                         ],
                         cancelButton: CupertinoActionSheetAction(
@@ -280,7 +287,7 @@ class _CompanyProfilePopUptState extends State<CompanyProfilePopUpt> {
                             Navigator.pop(context);
                           },
                           child: Text(S.of(context).cancelButton,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       );
                     });

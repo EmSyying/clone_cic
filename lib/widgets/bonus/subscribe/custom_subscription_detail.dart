@@ -97,7 +97,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             Text("Payment Status:",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
@@ -105,7 +105,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             Text("Payment Type:",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
@@ -113,7 +113,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             Text("UT Amount:",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
@@ -121,7 +121,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             Text("Transaction Date:",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
@@ -137,14 +137,14 @@ class CustomSubscriptionDetail extends StatelessWidget {
                               "$paymentStatus",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(fontSize: 14, color: Colors.green),
                             ),
                             const SizedBox(height: 20),
                             Text("$paymentType",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500)),
@@ -152,7 +152,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             Text("$utAmount",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500)),
@@ -160,7 +160,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                             Text("$transactionDate",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500)),
@@ -187,7 +187,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                 Text("Payment Status:",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
@@ -195,7 +195,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                 Text("Payment Type:",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
@@ -203,7 +203,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                 Text("Bank Name:",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
@@ -211,7 +211,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                 Text("Transaction Date:",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
@@ -219,7 +219,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                 Text("To account:",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
@@ -235,7 +235,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                   Text("$paymentStatus",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                               fontSize: 14,
                                               color: paymentStatus == "PAID"
@@ -245,7 +245,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                   Text("$paymentType",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500)),
@@ -253,7 +253,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                   Text("$bankName",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500)),
@@ -261,7 +261,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                   Text("$transactionDate",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500)),
@@ -270,7 +270,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     "$toAccount",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500),
@@ -301,7 +301,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     Text("Payment Status:",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600)),
@@ -309,7 +309,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     Text("Payment Type:",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600)),
@@ -317,7 +317,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     Text("Subscription ID:",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600)),
@@ -325,7 +325,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     Text("Transaction Date:",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600)),
@@ -333,7 +333,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                     Text("From:",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600)),
@@ -350,7 +350,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                       Text("$paymentStatus",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 14,
                                                   color: Colors.green)),
@@ -358,7 +358,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                       Text("$paymentType".capitalize!,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500)),
@@ -369,7 +369,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                               : "",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500)),
@@ -377,7 +377,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                       Text("$transactionDate",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500)),
@@ -385,7 +385,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                       Text(from != "" ? from! : "",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500)),
@@ -415,7 +415,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         Text("Payment Status:",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                     fontSize: 14,
                                                     fontWeight:
@@ -424,7 +424,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         Text("Payment Type:",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                     fontSize: 14,
                                                     fontWeight:
@@ -433,7 +433,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         Text("Bank Name:",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                     fontSize: 14,
                                                     fontWeight:
@@ -442,7 +442,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         Text("Transaction Date:",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                     fontSize: 14,
                                                     fontWeight:
@@ -461,7 +461,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                           Text("$paymentStatus".toUpperCase(),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline2!
+                                                  .displayMedium!
                                                   .copyWith(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -471,7 +471,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                           Text("$paymentType".capitalize!,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline2!
+                                                  .displayMedium!
                                                   .copyWith(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -481,7 +481,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                               bankName != "" ? "$bankName" : "",
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline2!
+                                                  .displayMedium!
                                                   .copyWith(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -490,7 +490,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                           Text("$transactionDate",
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline2!
+                                                  .displayMedium!
                                                   .copyWith(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -515,7 +515,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         'Subscription Status',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5!
+                                            .headlineSmall!
                                             .copyWith(
                                               fontSize: 13,
                                             ),
@@ -525,7 +525,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         'Investor ID',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5!
+                                            .headlineSmall!
                                             .copyWith(fontSize: 13),
                                       ),
                                       const SizedBox(height: 5),
@@ -533,27 +533,27 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         'Investor Name',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5!
+                                            .headlineSmall!
                                             .copyWith(fontSize: 13),
                                       ),
                                       const SizedBox(height: 20),
                                       Text('Price per UT',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
+                                              .headlineSmall!
                                               .copyWith(fontSize: 13)),
                                       const SizedBox(height: 5),
                                       Text('Subscription',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
+                                              .headlineSmall!
                                               .copyWith(fontSize: 13)),
                                       const SizedBox(height: 5),
                                       Text(
                                         'Payment Status',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5!
+                                            .headlineSmall!
                                             .copyWith(fontSize: 13),
                                       ),
                                       const SizedBox(height: 5),
@@ -563,7 +563,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                           'Last Date of Payment',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
+                                              .headlineSmall!
                                               .copyWith(fontSize: 14),
                                         ),
                                     ]),
@@ -574,7 +574,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                         '$subscriptionStatus'.toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline3!
+                                            .displaySmall!
                                             .copyWith(
                                               color: subscriptionStatus ==
                                                       'WAITING'
@@ -588,32 +588,32 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                       Text('$investID',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(fontSize: 12)),
                                       const SizedBox(height: 5),
                                       Text('$investName'.toUpperCase(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(fontSize: 12)),
                                       const SizedBox(height: 20),
                                       Text(
                                           '${FormatToK.digitNumber(pricePerUT)} USD',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(fontSize: 12)),
                                       const SizedBox(height: 5),
                                       Text('$utSubscribe UT',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(fontSize: 12)),
                                       const SizedBox(height: 5),
                                       Text('$paymentStatus',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 14,
                                                   color: paymentStatus ==
@@ -635,7 +635,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                                       Text('$datePayment',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(fontSize: 14)),
                                     ]),
                               ],
@@ -668,12 +668,12 @@ class CustomSubscriptionDetail extends StatelessWidget {
                         Text('Total Subscription Cost:',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(fontSize: 14)),
                         Text('${FormatToK.digitNumber(totalSubscription)} USD',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontSize: 14,
                                     color: unPaidAmount == 0
@@ -689,13 +689,13 @@ class CustomSubscriptionDetail extends StatelessWidget {
                           'Paid Amount:',
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headlineSmall!
                               .copyWith(fontSize: 14),
                         ),
                         Text('${FormatToK.digitNumber(paidAmount)} USD',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context).primaryColor)),
@@ -713,7 +713,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                           'Amount to pay:',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w500),
                         ),
@@ -721,7 +721,7 @@ class CustomSubscriptionDetail extends StatelessWidget {
                           '${FormatToK.digitNumber(unPaidAmount!)} USD',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,

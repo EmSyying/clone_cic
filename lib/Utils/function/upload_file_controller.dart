@@ -60,7 +60,7 @@ class UploadFileController extends GetxController {
                             S.of(context).viewImageProfile,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 18, fontWeight: FontWeight.w400),
                           ),
@@ -84,7 +84,7 @@ class UploadFileController extends GetxController {
                             S.of(context).takePhoto,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 18, fontWeight: FontWeight.w400),
                           ),
@@ -108,7 +108,7 @@ class UploadFileController extends GetxController {
                             S.of(context).openGallery,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 18, fontWeight: FontWeight.w400),
                           ),
@@ -128,12 +128,14 @@ class UploadFileController extends GetxController {
                         child: Center(
                           child: Text(
                             S.of(context).removeImage,
-                            style:
-                                Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.red,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.red,
+                                ),
                           ),
                         ),
                       ),
@@ -152,7 +154,7 @@ class UploadFileController extends GetxController {
                             S.of(context).cancelButton,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 18, fontWeight: FontWeight.w400),
                           ),
@@ -194,7 +196,7 @@ class UploadFileController extends GetxController {
                                 S.of(context).viewImageProfile,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3!
+                                    .displaySmall!
                                     .copyWith(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400),
@@ -219,7 +221,7 @@ class UploadFileController extends GetxController {
                                 S.of(context).takePhoto,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3!
+                                    .displaySmall!
                                     .copyWith(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400),
@@ -244,7 +246,7 @@ class UploadFileController extends GetxController {
                                 S.of(context).openGallery,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3!
+                                    .displaySmall!
                                     .copyWith(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400),
@@ -267,7 +269,7 @@ class UploadFileController extends GetxController {
                                 S.of(context).removeImage,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3!
+                                    .displaySmall!
                                     .copyWith(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400,
@@ -291,7 +293,7 @@ class UploadFileController extends GetxController {
                                 S.of(context).cancelButton,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3!
+                                    .displaySmall!
                                     .copyWith(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400),
@@ -328,7 +330,7 @@ class UploadFileController extends GetxController {
                           S.of(context).viewImageProfile,
                           style: Theme.of(context)
                               .textTheme
-                              .headline3!
+                              .displaySmall!
                               .copyWith(
                                   fontSize: 18, fontWeight: FontWeight.w400),
                         ),
@@ -344,7 +346,7 @@ class UploadFileController extends GetxController {
                           S.of(context).takePhoto,
                           style: Theme.of(context)
                               .textTheme
-                              .headline3!
+                              .displaySmall!
                               .copyWith(
                                   fontSize: 18, fontWeight: FontWeight.w400),
                         ),
@@ -360,7 +362,7 @@ class UploadFileController extends GetxController {
                           S.of(context).openGallery,
                           style: Theme.of(context)
                               .textTheme
-                              .headline3!
+                              .displaySmall!
                               .copyWith(
                                   fontSize: 18, fontWeight: FontWeight.w400),
                         ),
@@ -374,7 +376,7 @@ class UploadFileController extends GetxController {
                           S.of(context).removeImage,
                           style: Theme.of(context)
                               .textTheme
-                              .headline3!
+                              .displaySmall!
                               .copyWith(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
@@ -388,8 +390,11 @@ class UploadFileController extends GetxController {
                       },
                       child: Text(
                         S.of(context).cancelButton,
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontSize: 18, fontWeight: FontWeight.w400),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontSize: 18, fontWeight: FontWeight.w400),
                       ),
                     ),
                   );

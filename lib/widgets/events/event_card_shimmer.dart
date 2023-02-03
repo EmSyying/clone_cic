@@ -41,7 +41,7 @@ class EventCardShimmer extends StatelessWidget {
                       child: Text(
                         '',
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ),
                     Container(

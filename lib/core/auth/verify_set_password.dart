@@ -307,16 +307,18 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                       RichText(
                         text: TextSpan(
                           text: 'Code is Sent to ',
-                          style:
-                              Theme.of(context).textTheme.headline2!.copyWith(
-                                    fontWeight: FontWeight.w300,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
+                                fontWeight: FontWeight.w300,
+                              ),
                           children: <TextSpan>[
                             TextSpan(
                               text: '${widget.phone}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -326,7 +328,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                       ),
                       // Text(
                       //   'Code is Sent to ${widget.phone}',
-                      //   style: Theme.of(context).textTheme.headline2,
+                      //   style: Theme.of(context).textTheme.displayMedium,
                       // ),
                       const SizedBox(
                         height: 20.0,
@@ -434,7 +436,7 @@ class _VerifySetPasswordState extends State<VerifySetPassword>
                         children: [
                           Text(
                             'Don\'t receive code ?',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           AnimatedBuilder(
                               animation: controller!,

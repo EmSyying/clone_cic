@@ -27,7 +27,7 @@ class CustomAboutCIC extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 10.0),
                   child: Text(
                     aboutCICModel!.conpamyName!,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ))),
         ],
       ),

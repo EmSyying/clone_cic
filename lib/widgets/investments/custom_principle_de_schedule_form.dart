@@ -36,7 +36,7 @@ class CustomPrincipleSchedule extends StatelessWidget {
                 "${index! + 1}${index! + 1 == 1 ? "st" : ""}${index! + 1 == 2 ? "nd" : ""}${index! + 1 == 3 ? "rd" : ""}${index! + 1 > 3 ? "th" : ""} installment",
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(color: Colors.grey),
               ),
               const Spacer(),
@@ -45,10 +45,11 @@ class CustomPrincipleSchedule extends StatelessWidget {
                       onPressed: onTap,
                       child: Text(
                         "Remove",
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              color: Colors.red,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w500,
+                                ),
                       ),
                     )
                   : Container()

@@ -16,7 +16,7 @@ class PrivilegeSlideModel with _$PrivilegeSlideModel {
     @JsonKey(name: "destination") String? destination,
     @JsonKey(name: "url_target") String? urlTarget,
     @JsonKey(name: "image") String? image,
-    @JsonKey(name: 'button') ButtonListModel? buttonList,
+    @JsonKey(name: 'button') buttonListModel? buttonList,
   }) = _PrivilegeSlideModel;
 
   factory PrivilegeSlideModel.fromJson(Map<String, dynamic> json) =>

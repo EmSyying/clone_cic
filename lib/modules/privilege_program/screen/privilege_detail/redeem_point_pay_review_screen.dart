@@ -90,7 +90,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                 'MVP',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -131,7 +131,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                     priController.receiveAccountname.value,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline4!
+                                        .headlineMedium!
                                         .copyWith(
                                           fontWeight: FontWeight.w700,
                                         ),
@@ -143,7 +143,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                     priController.receiveAccountNumber.value,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
@@ -198,7 +198,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                 'Detail Summary',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 14.0,
@@ -277,7 +277,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                     children: [
                       Text(
                         'By submitting you agree to',
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -289,7 +289,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                             'CiC Service Agreement',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.normal),
@@ -311,7 +311,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
   //     children: [
   //       Text(
   //         'MVP',
-  //         style: Theme.of(context).textTheme.headline4!.copyWith(
+  //         style: Theme.of(context).textTheme.headlineMedium!.copyWith(
   //               fontWeight: FontWeight.w700,
   //             ),
   //       ),
@@ -320,7 +320,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
   //       ),
   //       Text(
   //         'Most Valuable Player',
-  //         style: Theme.of(context).textTheme.headline2!.copyWith(
+  //         style: Theme.of(context).textTheme.displayMedium!.copyWith(
   //               fontWeight: FontWeight.w400,
   //               fontSize: 12.0,
   //               color: const Color(0xff848F92),
@@ -341,7 +341,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
       children: [
         Text(
           title ?? '',
-          style: Theme.of(context).textTheme.headline2!.copyWith(
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontWeight:
                     colorTotal == true ? FontWeight.w600 : FontWeight.w400,
                 fontSize: 14.0,
@@ -353,7 +353,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
         const Spacer(),
         Text(
           '$amount MVP',
-          style: Theme.of(context).textTheme.headline4!.copyWith(
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
               fontWeight: FontWeight.w400,
               fontSize: 14.0,
               color: colorDiscount == true

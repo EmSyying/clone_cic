@@ -101,7 +101,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                         'Add Company',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline3,
+                                            .displaySmall,
                                       )
                                     ],
                                   ),
@@ -171,7 +171,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                                       'Add Company',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headline3,
+                                                          .displaySmall,
                                                     )
                                                   ],
                                                 ),
@@ -250,7 +250,7 @@ class _CompanyProfileTabState extends State<CompanyProfileTab> {
                                           );
                                         }),
                                       );
-                                      memberCon.isDisableDoneButton.value =
+                                      memberCon.isDisableDonebutton.value =
                                           false;
                                     },
                                   );

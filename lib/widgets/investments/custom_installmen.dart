@@ -19,7 +19,7 @@ class CustomInstallment extends StatelessWidget {
         children: [
           Text(
             '$title',
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 15),
           Row(
@@ -29,14 +29,14 @@ class CustomInstallment extends StatelessWidget {
                 'Date of Installment',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(fontSize: 14),
               ),
               Text(
                 '$dateOfInstall',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2!
+                    .bodyMedium!
                     .copyWith(fontSize: 12),
               )
             ],
@@ -49,14 +49,14 @@ class CustomInstallment extends StatelessWidget {
                 'Amount',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(fontSize: 14),
               ),
               Text(
                 "${FormatToK.digitNumber(num.parse(amount.toString()))} USD",
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2!
+                    .bodyMedium!
                     .copyWith(fontSize: 12, color: Colors.red),
               )
             ],

@@ -20,7 +20,7 @@ class ContactForSupport extends StatelessWidget {
           const SizedBox(height: 25),
           Text(
             "Need Help?",
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontFamily: "DMSans-Bold",
                 fontWeight: FontWeight.w700,
                 fontSize: 16),
@@ -31,7 +31,7 @@ class ContactForSupport extends StatelessWidget {
             child: Text(
               "Contact us by choosing any channel you would love to below",
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   height: 1.5,
                   fontFamily: "DMSans-Medium",
                   fontWeight: FontWeight.w500,
@@ -93,7 +93,7 @@ class ContactForSupport extends StatelessWidget {
               child: Text(
                 "I want to keep application",
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                       fontSize: 14,
                       decoration: TextDecoration.underline,

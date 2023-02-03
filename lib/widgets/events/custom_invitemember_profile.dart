@@ -28,7 +28,7 @@ class CustomInviteMemberProfile extends StatelessWidget {
             children: [
               Text(
                 profileName!,
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.displayMedium,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

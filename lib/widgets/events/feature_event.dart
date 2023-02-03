@@ -23,7 +23,7 @@ class FeatureEvent extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("$title", style: Theme.of(context).textTheme.caption),
+              Text("$title", style: Theme.of(context).textTheme.bodySmall),
               Row(
                 children: [
                   GestureDetector(

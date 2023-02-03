@@ -120,13 +120,13 @@ class _CompanyLocationPopUpState extends State<CompanyLocationPopUp> {
                         //     // print('outside');
 
                         //     if (_memberCon
-                        //             .isButtonTapped
+                        //             .isbuttonTapped
                         //             .value ==
                         //         false) {
                         //       print(
                         //           'inside');
                         //       _memberCon
-                        //           .isButtonTapped
+                        //           .isbuttonTapped
                         //           .value = true;
                         //       if (_memberCon
                         //               .personalProfile
@@ -353,7 +353,7 @@ class _CompanyLocationPopUpState extends State<CompanyLocationPopUp> {
                         //         });
 
                         //     _memberCon
-                        //         .isButtonTapped
+                        //         .isbuttonTapped
                         //         .value = false;
                         //   },
 

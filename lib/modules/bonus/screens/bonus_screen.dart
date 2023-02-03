@@ -130,7 +130,7 @@ class _BonusScreenState extends State<BonusScreen>
                                     'Available Balance',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 12,
                                             color: Colors.white70),
@@ -147,7 +147,7 @@ class _BonusScreenState extends State<BonusScreen>
                                               0),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 30,
                                                   color: Colors.white),
@@ -157,7 +157,7 @@ class _BonusScreenState extends State<BonusScreen>
                                           'USD',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontSize: 20,
                                                   color: Colors.white70,
@@ -171,7 +171,7 @@ class _BonusScreenState extends State<BonusScreen>
                                     "As of ${FormatDate.formatDateTime(datetime)}",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontSize: 12,
                                             color: Colors.white70),
@@ -196,7 +196,7 @@ class _BonusScreenState extends State<BonusScreen>
                                                     Colors.transparent,
                                                 context: context,
                                                 child:
-                                                    const CustomPopupButtonSheet(
+                                                    const CustomPopupbuttonSheet(
                                                   assetImage:
                                                       'assets/images/svgfile/underDevelopment.svg',
                                                   description:
@@ -274,7 +274,7 @@ class _BonusScreenState extends State<BonusScreen>
                         padding: const EdgeInsets.only(left: 20, bottom: 20),
                         child: Text(
                           'All Transactions',
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                       ),
                       TabBar(

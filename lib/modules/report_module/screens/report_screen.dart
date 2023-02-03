@@ -56,7 +56,7 @@ class ReportScreen extends StatelessWidget {
         isLogo: false,
         isLeading: true,
         context: context,
-        backgroundColor: context.theme.backgroundColor,
+        backgroundColor: context.theme.colorScheme.background,
         elevation: 1,
         title: settingController.isAMMode! ? 'Resource' : 'Report',
         action: [

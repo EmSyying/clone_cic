@@ -29,7 +29,7 @@ class RedeemPointToPay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.subtitle2!;
+    TextStyle textStyle = Theme.of(context).textTheme.titleSmall!;
     final walletController = Get.put(WalletController());
     final priController = Get.put(PrivilegeController());
     if (receiveAccountName != null && receiveAccountNumber != null) {
@@ -209,7 +209,7 @@ class RedeemPointToPay extends StatelessWidget {
                                     'MVP',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subtitle1!
+                                        .titleMedium!
                                         .copyWith(color: Colors.grey),
                                   ),
                                 ),

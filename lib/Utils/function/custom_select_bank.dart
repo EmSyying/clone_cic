@@ -50,21 +50,21 @@ class CustomSelectBank extends StatelessWidget {
                       '$bankName',
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                     ),
                     Text(
                       '$accountName',
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                     Text(
                       '$accountNo',
                       style: Theme.of(context)
                           .textTheme
-                          .headline3!
+                          .displaySmall!
                           .copyWith(fontSize: 13, fontWeight: FontWeight.w500),
                     ),
                   ],

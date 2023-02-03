@@ -59,19 +59,25 @@ class WalletTransactionCard extends StatelessWidget {
                   children: [
                     Text(
                       transactionModel.label ?? '',
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          overflow: TextOverflow.ellipsis),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Text(
                         transactionModel.time ?? '',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 12,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontSize: 12,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500),
                       ),
                     )
                   ],
@@ -89,7 +95,7 @@ class WalletTransactionCard extends StatelessWidget {
                       child: Text(_getStatus(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headlineSmall!
                               .copyWith(
                                   color: transactionModel.transactionType ==
                                                   'subscription' &&
@@ -107,14 +113,11 @@ class WalletTransactionCard extends StatelessWidget {
                                                       transactionModel
                                                               .status ==
                                                           'paid' ||
-                                                  transactionModel
-                                                          .transactionType ==
+                                                  transactionModel.transactionType ==
                                                       'bonus' ||
-                                                  transactionModel
-                                                          .transactionType ==
+                                                  transactionModel.transactionType ==
                                                       'cash-in' ||
-                                                  transactionModel
-                                                              .transactionType ==
+                                                  transactionModel.transactionType ==
                                                           'cash-out' &&
                                                       transactionModel.status ==
                                                           'paid' ||
@@ -133,10 +136,13 @@ class WalletTransactionCard extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Text(
                         transactionModel.pointAmount ?? "",
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 10,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w700),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontSize: 10,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w700),
                       ),
                     )
                 ],
@@ -167,7 +173,7 @@ class WalletTransactionCard extends StatelessWidget {
     return Builder(
       builder: (context) => Text(
         '${isMinus ? "-" : ''} ${transactionModel.amount}',
-        style: Theme.of(context).textTheme.headline5!.copyWith(
+        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: transactionModel.transactionType!.toLowerCase() == 'bonus' ||
                     transactionModel.transactionType!.toLowerCase() ==
                         'deposit' ||

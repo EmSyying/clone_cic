@@ -44,7 +44,7 @@ dateRangDialog({
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 20),
               child: Text(contents!,
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: AppColor.textColor, fontWeight: FontWeight.w800)),
             ),
             Obx(
@@ -102,7 +102,7 @@ dateRangDialog({
                                               e.value.label!,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline2!
+                                                  .displayMedium!
                                                   .copyWith(
                                                       fontWeight:
                                                           FontWeight.w700),
@@ -111,7 +111,7 @@ dateRangDialog({
                                               '${e.value.date}',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .bodyText1,
+                                                  .bodyLarge,
                                             ),
                                           ],
                                         ),

@@ -92,7 +92,7 @@ class OptionInvest extends StatelessWidget {
                               'USD',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(fontSize: 14, color: Colors.grey),
                             ),
                           ),
@@ -112,7 +112,7 @@ class OptionInvest extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Interest Summary',
-                            style: Theme.of(context).textTheme.headline2),
+                            style: Theme.of(context).textTheme.displayMedium),
                         TextButton(
                           onPressed: () {},
                           child: SvgPicture.asset(
@@ -151,13 +151,13 @@ class OptionInvest extends StatelessWidget {
                         children: [
                           Text(
                             'Total Interest Amount',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           Text(
                             '1,440 USD',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(color: AppColor.statusColor['late']),
                           )
                         ],
@@ -189,7 +189,7 @@ class OptionInvest extends StatelessWidget {
                             'I have read  and agree to CiC serivce agreement',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontSize: 13,
                                     fontWeight: FontWeight.normal,

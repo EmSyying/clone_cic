@@ -86,7 +86,7 @@ class NewEventCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   fontSize: 14, fontWeight: FontWeight.w700),
                         ),
@@ -111,7 +111,7 @@ class NewEventCard extends StatelessWidget {
                                     ? eventData!.hostAt.toString()
                                     : eventData!.place!,
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.subtitle2,
+                                style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ),
                           ),

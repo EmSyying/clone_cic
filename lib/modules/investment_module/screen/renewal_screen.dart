@@ -95,7 +95,7 @@ class _RenewalScreenState extends State<RenewalScreen> {
           'Re-New',
           style: Theme.of(context)
               .textTheme
-              .headline4!
+              .headlineMedium!
               .copyWith(fontWeight: FontWeight.w500),
         ),
         elevation: 1,

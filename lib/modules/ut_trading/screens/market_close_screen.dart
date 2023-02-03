@@ -42,14 +42,14 @@ class _MarketCloseScreenState extends State<MarketCloseScreen> {
           ),
           Text(
             'Market is closed',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
             'Lorem ipsum dolor sit amet, consece',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ],
       ),

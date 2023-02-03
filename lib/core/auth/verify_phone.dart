@@ -152,22 +152,23 @@ class _VerifyPhoneState extends State<VerifyPhone>
                 RichText(
                   text: TextSpan(
                     text: 'Code is Sent to ',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontWeight: FontWeight.w300,
                         ),
                     children: <TextSpan>[
                       TextSpan(
                         text: '${widget.phoneNumber}',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                       ),
                     ],
                   ),
                 ),
                 // Text(
                 //   'Code is Sent to ${widget.phoneNumber}',
-                //   style: Theme.of(context).textTheme.headline2,
+                //   style: Theme.of(context).textTheme.displayMedium,
                 // ),
                 const SizedBox(
                   height: 20.0,
@@ -239,7 +240,7 @@ class _VerifyPhoneState extends State<VerifyPhone>
                   children: [
                     Text(
                       'Don\'t receive code ?',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     Text(
                       ' Request Again',

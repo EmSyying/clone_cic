@@ -300,7 +300,6 @@ class _FIFOption1State extends State<FIFOption1> {
           ),
         );
         //Can Route here when Product not in MPD-0002
-
       }
     } else {
       debugPrint('All Form Validation = false');
@@ -521,7 +520,7 @@ class _FIFOption1State extends State<FIFOption1> {
                                       'USD',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .subtitle1!
+                                          .titleMedium!
                                           .copyWith(color: Colors.black38),
                                     ),
                                   ),
@@ -590,7 +589,7 @@ class _FIFOption1State extends State<FIFOption1> {
                                       'Month(s)',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .subtitle1!
+                                          .titleMedium!
                                           .copyWith(color: Colors.black38),
                                     ),
                                   ),
@@ -626,7 +625,7 @@ class _FIFOption1State extends State<FIFOption1> {
                                             'USD',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1!
+                                                .titleMedium!
                                                 .copyWith(
                                                     color: Colors.black38),
                                           ),

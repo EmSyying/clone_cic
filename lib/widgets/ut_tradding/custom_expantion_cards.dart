@@ -53,7 +53,8 @@ class _CustomExpansionCardsState extends State<CustomExpansionCards> {
                           padding: const EdgeInsets.only(top: 12, left: 20),
                           child: HtmlWidget(
                             widget.title!,
-                            textStyle: Theme.of(context).textTheme.headline2!,
+                            textStyle:
+                                Theme.of(context).textTheme.displayMedium!,
                           ),
                         );
                       },
@@ -63,7 +64,7 @@ class _CustomExpansionCardsState extends State<CustomExpansionCards> {
                             left: 20, right: 20, bottom: 15),
                         child: HtmlWidget(
                           widget.description!,
-                          textStyle: Theme.of(context).textTheme.subtitle2!,
+                          textStyle: Theme.of(context).textTheme.titleSmall!,
                         ),
                       ),
                     ),

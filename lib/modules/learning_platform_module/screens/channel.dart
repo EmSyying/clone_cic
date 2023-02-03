@@ -145,7 +145,8 @@ class _ChannelProfileState extends State<ChannelProfile> {
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
                                   'About this course',
-                                  style: Theme.of(context).textTheme.headline2,
+                                  style:
+                                      Theme.of(context).textTheme.displayMedium,
                                 ),
                               )
                             : Container(),
@@ -179,7 +180,7 @@ class _ChannelProfileState extends State<ChannelProfile> {
                                       .channelDetail.value.data!.description!,
                                   trimLines: 4,
                                   trimMode: TrimMode.Line,
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               )
                             : Container(),

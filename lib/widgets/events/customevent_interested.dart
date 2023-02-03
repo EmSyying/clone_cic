@@ -20,7 +20,7 @@ class CustomEventInterested extends StatelessWidget {
           alignment: Alignment.center,
           child: widget!,
         ),
-        Text(title!, style: Theme.of(context).textTheme.bodyText1)
+        Text(title!, style: Theme.of(context).textTheme.bodyLarge)
       ],
     );
   }

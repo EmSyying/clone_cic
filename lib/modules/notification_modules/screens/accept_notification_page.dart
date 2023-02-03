@@ -49,7 +49,7 @@ class _AcceptNotificationPageState extends State<AcceptNotificationPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: CustomConfirmButton(
+                            child: CustomConfirmbutton(
                                 onTap: () {
                                   // onShowCustomCupertinoModalSheet(
                                   //   context: context,
@@ -63,7 +63,7 @@ class _AcceptNotificationPageState extends State<AcceptNotificationPage> {
                             width: 20,
                           ),
                           Expanded(
-                            child: CustomConfirmButton(
+                            child: CustomConfirmbutton(
                                 onTap: () {
                                   _con.onAcceptTradeRequest(
                                       type: 'accepted',

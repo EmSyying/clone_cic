@@ -286,7 +286,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                             title:
                                                                                 Text(
                                                                               _con.notificationList[index].data!.body!,
-                                                                              style: Theme.of(context).textTheme.bodyText1,
+                                                                              style: Theme.of(context).textTheme.bodyLarge,
                                                                             ),
                                                                             actions: [
                                                                               ElevatedButton(
@@ -318,7 +318,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                               return AlertDialog(
                                                                                 title: Text(
                                                                                   _con.notificationList[index].data!.body!,
-                                                                                  style: Theme.of(context).textTheme.bodyText1,
+                                                                                  style: Theme.of(context).textTheme.bodyLarge,
                                                                                 ),
                                                                                 actions: [
                                                                                   ElevatedButton(
@@ -737,7 +737,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
               'Your Notification or Announcement will appear.',
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.displayMedium,
               textAlign: TextAlign.center,
             ),
           ),

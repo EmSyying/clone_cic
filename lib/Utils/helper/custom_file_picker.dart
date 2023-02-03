@@ -145,7 +145,7 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
                         child: Center(
                           child: Text(
                             S.of(context).cancel,
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
                       ),
@@ -241,7 +241,8 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                           ),

@@ -47,7 +47,7 @@ class CustomCheckInGuest extends StatelessWidget {
               children: [
                 Text(
                   'Guests',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 15.0,
                       ),
@@ -87,7 +87,7 @@ class CustomCheckInGuest extends StatelessWidget {
                   },
                   child: Text(
                     'Select all',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontWeight: FontWeight.w500,
                           fontSize: 13,
                           color: Theme.of(context).primaryColor,

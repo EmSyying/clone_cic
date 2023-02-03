@@ -296,7 +296,7 @@
 //               : EmptyStateProfile(
 //                   isEditable: widget.isEdiable!,
 //                   title: 'No Experience Yet',
-//                   caption:
+//                   bodySmall:
 //                       'Here��s where you’ll find the newest update of member profile',
 //                   buttonLabel: 'Add Experience',
 //                   iconUrl: 'assets/images/emptyState.png',

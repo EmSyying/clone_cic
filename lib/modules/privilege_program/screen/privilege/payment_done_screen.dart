@@ -67,11 +67,12 @@ class PaymentDoneScreen extends StatelessWidget {
                       ),
                       Text(
                         "Success",
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              color: Colors.black,
-                              fontSize: 28,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w700,
+                                ),
                       ),
                       const SizedBox(
                         height: 6.0,
@@ -81,12 +82,14 @@ class PaymentDoneScreen extends StatelessWidget {
                         child: Text(
                           priCont.messagePayment.value,
                           textAlign: TextAlign.center,
-                          style:
-                              Theme.of(context).textTheme.headline2!.copyWith(
-                                    color: Colors.black,
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
+                                color: Colors.black,
+                                height: 1.5,
+                                fontWeight: FontWeight.w400,
+                              ),
                         ),
                       ),
                       const SizedBox(
@@ -94,11 +97,12 @@ class PaymentDoneScreen extends StatelessWidget {
                       ),
                       Text(
                         priCont.descountRate.value,
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                              color: AppColor.statusColor['pending'],
-                              fontWeight: FontWeight.w700,
-                              fontSize: 37,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  color: AppColor.statusColor['pending'],
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 37,
+                                ),
                       ),
                       const CustomDasheLine(),
                       const SizedBox(
@@ -106,10 +110,11 @@ class PaymentDoneScreen extends StatelessWidget {
                       ),
                       Text(
                         '4 digits code',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
                       ),
                       const SizedBox(
                         height: 18.0,
@@ -131,12 +136,14 @@ class PaymentDoneScreen extends StatelessWidget {
                           ),
                           child: Text(
                             priCont.fourDigitsCode.value,
-                            style:
-                                Theme.of(context).textTheme.headline2!.copyWith(
-                                      color: AppColor.statusColor['pending'],
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                  color: AppColor.statusColor['pending'],
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                ),
                           ),
                         ),
                       ),

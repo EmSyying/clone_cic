@@ -61,7 +61,7 @@ class _CustomWinLoseChartState extends State<CustomWinLoseChart> {
       //     ),
       //     child: Text(
       //       '${a.y != 0 ? FormatNumber.formatNumberDefualt(a.y).toString().replaceAll('-', '') : '0'} UT',
-      //       style: Theme.of(context).textTheme.subtitle2!.copyWith(
+      //       style: Theme.of(context).textTheme.titleSmall!.copyWith(
       //             fontWeight: FontWeight.w700,
       //             color: Colors.white,
       //             fontSize: 12,
@@ -102,7 +102,7 @@ class _CustomWinLoseChartState extends State<CustomWinLoseChart> {
       //           const EdgeInsets.only(bottom: 12, left: 7, right: 7, top: 7),
       //       child: Text(
       //         '${a.y != 0 ? FormatNumber.formatNumberDefualt(a.y).toString().replaceAll('-', '') : '0'} UT',
-      //         style: Theme.of(context).textTheme.subtitle2!.copyWith(
+      //         style: Theme.of(context).textTheme.titleSmall!.copyWith(
       //               fontWeight: FontWeight.w700,
       //               color: aa.y > 0
       //                   ? Theme.of(context).primaryColor
@@ -161,7 +161,7 @@ class _CustomWinLoseChartState extends State<CustomWinLoseChart> {
         //   //     ),
         //   //     child: Text(
         //   //       '${a.y != 0 ? FormatNumber.formatNumberDefualt(a.y).toString().replaceAll('-', '') : '0'} UT',
-        //   //       style: Theme.of(context).textTheme.subtitle2!.copyWith(
+        //   //       style: Theme.of(context).textTheme.titleSmall!.copyWith(
         //   //             fontWeight: FontWeight.w700,
         //   //             color: Colors.white,
         //   //             fontSize: 12,
@@ -192,7 +192,7 @@ class _CustomWinLoseChartState extends State<CustomWinLoseChart> {
 
   TextStyle _axisLabelStyle() => Theme.of(context)
       .textTheme
-      .subtitle2!
+      .titleSmall!
       .copyWith(color: AppColor.chartLabelColor, fontSize: 10);
 
   CategoryAxis _primaryXAxis(BuildContext context) {
@@ -308,7 +308,7 @@ class _CustomWinLoseChartState extends State<CustomWinLoseChart> {
 
   DataLabelSettings _chartLabelStyle() {
     return DataLabelSettings(
-      textStyle: Theme.of(context).textTheme.subtitle2!.copyWith(
+      textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
           color: AppColor.darkColor, fontSize: 10, fontWeight: FontWeight.w700),
       isVisible: true,
     );

@@ -93,7 +93,7 @@ class _MemberDetailState extends State<MemberDetail> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).takePhoto,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -109,7 +109,7 @@ class _MemberDetailState extends State<MemberDetail> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).openGallery,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -124,7 +124,7 @@ class _MemberDetailState extends State<MemberDetail> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).cancelButton,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -152,7 +152,9 @@ class _MemberDetailState extends State<MemberDetail> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).takePhoto,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -168,7 +170,9 @@ class _MemberDetailState extends State<MemberDetail> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).openGallery,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -183,7 +187,9 @@ class _MemberDetailState extends State<MemberDetail> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).cancelButton,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -204,7 +210,7 @@ class _MemberDetailState extends State<MemberDetail> {
                         },
                         child: Text(
                           S.of(context).takePhoto,
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
                       CupertinoActionSheetAction(
@@ -213,7 +219,7 @@ class _MemberDetailState extends State<MemberDetail> {
                               .then((value) => Navigator.pop(context));
                         },
                         child: Text(S.of(context).openGallery,
-                            style: Theme.of(context).textTheme.headline5),
+                            style: Theme.of(context).textTheme.headlineSmall),
                       ),
                     ],
                     cancelButton: CupertinoActionSheetAction(
@@ -221,7 +227,7 @@ class _MemberDetailState extends State<MemberDetail> {
                         Navigator.pop(context);
                       },
                       child: Text(S.of(context).cancelButton,
-                          style: Theme.of(context).textTheme.headline5),
+                          style: Theme.of(context).textTheme.headlineSmall),
                     ),
                   );
                 });
@@ -430,7 +436,7 @@ class _MemberDetailState extends State<MemberDetail> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline2),
+                                                                .displayMedium),
                                                         Text(
                                                           _memberCon.personalProfilemember.value
                                                                           .percentage! >=
@@ -934,7 +940,7 @@ class _MemberDetailState extends State<MemberDetail> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .caption)
+                                                                .bodySmall)
                                                         : const Text(''),
                                                 _memberCon.isLoadingQRCode.value
                                                     ? Shimmer.fromColors(
@@ -978,7 +984,7 @@ class _MemberDetailState extends State<MemberDetail> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .bodyText2,
+                                                                .bodyMedium,
                                                           )
                                                         : const Text(''),
                                               ],

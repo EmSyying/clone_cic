@@ -69,14 +69,14 @@ class _MemberDisplayInfoState extends State<MemberDisplayInfo> {
                     // overflow: TextOverflow.ellipsis,
                     style: widget.isLabelNotSimple != null &&
                             widget.isLabelNotSimple!
-                        ? Theme.of(context).textTheme.bodyText2
+                        ? Theme.of(context).textTheme.bodyMedium
                         : widget.changeColorText!
                             ? const TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 14,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w400)
-                            : Theme.of(context).textTheme.bodyText2,
+                            : Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
               ],

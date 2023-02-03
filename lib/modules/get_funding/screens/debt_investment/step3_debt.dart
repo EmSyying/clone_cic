@@ -689,7 +689,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                             'Company Information',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2,
+                                                .displayMedium,
                                           ),
                                         ),
                                         const SizedBox(height: 20),
@@ -1719,7 +1719,7 @@ class _Step3DebtState extends State<Step3Debt> {
                                                   'Which of the following legal documents that you have? (Multiple selections)',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText2!
+                                                      .bodyMedium!
                                                       .copyWith(
                                                         fontFamily: 'DMSans',
                                                         fontSize: 14,

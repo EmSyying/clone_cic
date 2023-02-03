@@ -54,7 +54,7 @@ class _PayoffCardState extends State<PayoffCard> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
                       widget.title!,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

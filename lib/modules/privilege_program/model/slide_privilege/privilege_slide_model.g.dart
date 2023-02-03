@@ -20,7 +20,7 @@ _$_PrivilegeSlideModel _$$_PrivilegeSlideModelFromJson(
       image: json['image'] as String?,
       buttonList: json['button'] == null
           ? null
-          : ButtonListModel.fromJson(json['button'] as Map<String, dynamic>),
+          : buttonListModel.fromJson(json['button'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_PrivilegeSlideModelToJson(

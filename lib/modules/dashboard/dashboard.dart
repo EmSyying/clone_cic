@@ -216,7 +216,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                       elevation: 0.0,
                       title: Text(
                         'My Investment',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

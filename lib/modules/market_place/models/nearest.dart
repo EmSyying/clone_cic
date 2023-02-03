@@ -1,5 +1,5 @@
 class Nearest {
-  String? caption;
+  String? bodySmall;
   String? name;
   String? type;
   double? price;
@@ -13,7 +13,7 @@ class Nearest {
   String? status;
   Nearest(
       {this.name,
-      this.caption,
+      this.bodySmall,
       this.type,
       this.price,
       this.disPrice,
@@ -32,7 +32,7 @@ List<Nearest> nearest = [
     disPrice: 30.99,
     price: 35.99,
     type: 'Healthy & Delicouse',
-    caption: 'New',
+    bodySmall: 'New',
     photoURL:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz-eJmvQnM5YyC8UwvvIr56hMyQr0Wa6vppA&usqp=CAU',
     shopName: 'Park Cafe Toul Kork',
@@ -44,7 +44,7 @@ List<Nearest> nearest = [
     redeem: 'Lorem ipsum dolor sit amet, consectetur ',
   ),
   Nearest(
-    caption: 'Promotion',
+    bodySmall: 'Promotion',
     name: 'Burger',
     disPrice: 5.99,
     price: 8.99,
@@ -61,7 +61,7 @@ List<Nearest> nearest = [
   ),
   Nearest(
     status: 'Promotion For 2 Days',
-    caption: 'New Product',
+    bodySmall: 'New Product',
     name: 'Seafood',
     disPrice: 12.99,
     price: 23.99,
@@ -83,7 +83,7 @@ List<Nearest> nearest = [
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       redeem: 'Lorem ipsum dolor sit amet, consectetur ',
-      caption: 'Comming Soon',
+      bodySmall: 'Comming Soon',
       name: 'Seafood',
       disPrice: 10.99,
       price: 15.99,
@@ -98,7 +98,7 @@ List<Nearest> nearest = [
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       redeem: 'Lorem ipsum dolor sit amet, consectetur ',
-      caption: '50% off',
+      bodySmall: '50% off',
       name: 'Soup',
       disPrice: 10.99,
       price: 15.99,
@@ -113,7 +113,7 @@ List<Nearest> nearest = [
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       redeem: 'Lorem ipsum dolor sit amet, consectetur ',
-      caption: 'Comming soon',
+      bodySmall: 'Comming soon',
       name: 'Noodle',
       disPrice: 10.99,
       price: 15.99,
@@ -128,7 +128,7 @@ List<Nearest> nearest = [
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       redeem: 'Lorem ipsum dolor sit amet, consectetur ',
-      caption: 'New Promotion',
+      bodySmall: 'New Promotion',
       name: 'Pizza',
       disPrice: 10.99,
       price: 15.99,
@@ -143,7 +143,7 @@ List<Nearest> nearest = [
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       redeem: 'Lorem ipsum dolor sit amet, consectetur ',
-      caption: 'Promotion',
+      bodySmall: 'Promotion',
       name: 'Burger',
       disPrice: 5.99,
       price: 8.99,

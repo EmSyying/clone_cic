@@ -85,7 +85,7 @@ class CustomTextFieldNew extends StatelessWidget {
             onChanged: onChange,
             autocorrect: true,
             autovalidateMode: AutovalidateMode.always,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
 
             onSaved: onSave,
             keyboardType: keyboardType,
@@ -98,7 +98,7 @@ class CustomTextFieldNew extends StatelessWidget {
               label: RichText(
                 text: TextSpan(
                   text: labelText,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                   children: [
                     if (isRequired != null)
                       const TextSpan(
@@ -123,8 +123,8 @@ class CustomTextFieldNew extends StatelessWidget {
               //     ? '$labelText *'
               //     : labelText,
               hintText: isRequired != null && isRequired! ? hintText : hintText,
-              labelStyle: Theme.of(context).textTheme.subtitle1,
-              hintStyle: Theme.of(context).textTheme.subtitle1,
+              labelStyle: Theme.of(context).textTheme.titleMedium,
+              hintStyle: Theme.of(context).textTheme.titleMedium,
               focusedBorder: initialValue != ''
                   ? OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey[700]!),

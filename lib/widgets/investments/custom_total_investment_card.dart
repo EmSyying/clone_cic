@@ -68,7 +68,7 @@ class TotalInvestmentCard extends StatelessWidget {
                                 "Total Investment in USD",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle1!
+                                    .titleMedium!
                                     .copyWith(
                                       letterSpacing: 0.05,
                                       fontSize: 14,
@@ -95,7 +95,7 @@ class TotalInvestmentCard extends StatelessWidget {
                                 "$amount",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle2!
+                                    .titleSmall!
                                     .copyWith(
                                       letterSpacing: 0.5,
                                       fontWeight: FontWeight.w500,

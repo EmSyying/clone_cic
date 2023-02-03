@@ -37,7 +37,7 @@ class CustomMakePayment extends StatelessWidget {
             'Please choose payment option',
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
           ),
         ),

@@ -31,7 +31,7 @@ class RegisteredMemberCard extends StatelessWidget {
                   eventMember!.participantName! != ''
                       ? eventMember!.participantName!
                       : '',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

@@ -33,7 +33,7 @@ class _PastEventState extends State<PastEvent> {
                         ? const EmptyStateProfile(
                             isEditable: false,
                             title: 'No Events Yet',
-                            caption: '',
+                            bodySmall: '',
                             iconUrl: 'assets/images/emptyState.png',
                           )
                         : NewEvent(

@@ -123,7 +123,7 @@ class CustomMember extends StatelessWidget {
                           '+ ${registerNumber! - 2}',
                           style: Theme.of(context)
                               .textTheme
-                              .headline3!
+                              .displaySmall!
                               .copyWith(
                                   fontSize: 10, fontWeight: FontWeight.w700),
                         ),

@@ -51,7 +51,7 @@ class CustomViewTicket extends StatelessWidget {
                   tilePadding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   title: Text(
                     'Guests',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 15.0,
                         ),
@@ -92,7 +92,7 @@ class CustomViewTicket extends StatelessWidget {
     );
   }
 
-  Widget buildButton(
+  Widget buildbutton(
     textStyle, {
     String? text,
     Widget? icon,

@@ -404,7 +404,7 @@ class _MainDashboardState extends State<MainDashboard> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Please Update new version',
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.bodyLarge),
             actions: [
               TextButton(
                 onPressed: () {
@@ -453,7 +453,7 @@ class _MainDashboardState extends State<MainDashboard> {
           child: Scaffold(
             appBar: AppBar(
               elevation: 0,
-              backgroundColor: context.theme.backgroundColor,
+              backgroundColor: context.theme.colorScheme.background,
 //            backgroundColor:
 //                DynamicTheme.of(context).brightness == Brightness.light
 //                    ? Theme.of(context).primaryColor
@@ -837,7 +837,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline6!
+                                                                .titleLarge!
                                                                 .copyWith(
                                                                     fontSize:
                                                                         12,
@@ -925,7 +925,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                     backgroundColor: Colors.transparent,
                                     context: context,
                                     builder: (context) {
-                                      return const CustomPopupButtonSheet(
+                                      return const CustomPopupbuttonSheet(
                                         assetImage:
                                             'assets/images/svgfile/underDevelopment.svg',
                                         description:
@@ -988,7 +988,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                                     Colors.transparent,
                                                 context: context,
                                                 builder: (context) {
-                                                  return const CustomPopupButtonSheet(
+                                                  return const CustomPopupbuttonSheet(
                                                     assetImage:
                                                         'assets/images/svgfile/underDevelopment.svg',
                                                     description:
@@ -1085,7 +1085,7 @@ class _MainDashboardState extends State<MainDashboard> {
             //   padding: const EdgeInsets.symmetric(horizontal: 20),
             //   child: Text(
             //     'RECENT DOCUMENTS',
-            //     style: Theme.of(context).textTheme.headline2,
+            //     style: Theme.of(context).textTheme.displayMedium,
             //   ),
             // ),
             // SizedBox(
@@ -1163,7 +1163,7 @@ class _MainDashboardState extends State<MainDashboard> {
             //                               item.title!,
             //                               style: Theme.of(context)
             //                                   .textTheme
-            //                                   .bodyText2,
+            //                                   .bodyMedium,
             //                               maxLines: 1,
             //                               overflow: TextOverflow.ellipsis,
             //                             ),
@@ -1178,7 +1178,7 @@ class _MainDashboardState extends State<MainDashboard> {
             //                               item.publishedAt!,
             //                               style: Theme.of(context)
             //                                   .textTheme
-            //                                   .bodyText2,
+            //                                   .bodyMedium,
             //                               maxLines: 1,
             //                               overflow: TextOverflow.ellipsis,
             //                             ),

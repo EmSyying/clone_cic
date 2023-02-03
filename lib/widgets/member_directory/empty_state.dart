@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class EmptyStateProfile extends StatelessWidget {
   final String? title;
-  final String? caption;
+  final String? bodySmall;
   final String? iconUrl;
   final String? buttonLabel;
   final Function? onTap;
@@ -11,7 +11,7 @@ class EmptyStateProfile extends StatelessWidget {
   const EmptyStateProfile(
       {Key? key,
       this.title,
-      this.caption,
+      this.bodySmall,
       this.iconUrl,
       this.buttonLabel,
       this.onTap,
@@ -42,7 +42,7 @@ class EmptyStateProfile extends StatelessWidget {
                 title!,
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
+                    .headlineMedium!
                     .copyWith(fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),
@@ -54,8 +54,8 @@ class EmptyStateProfile extends StatelessWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Text(
-                  caption!,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  bodySmall!,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
             ),

@@ -49,7 +49,7 @@ class CustomQRCard extends StatelessWidget {
           //   '$userID',
           //   style: Theme.of(context)
           //       .textTheme
-          //       .headline6!
+          //       .titleLarge!
           //       .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
           // ),
           // const SizedBox(
@@ -72,14 +72,14 @@ class CustomQRCard extends StatelessWidget {
             amountQr != null && amountQr != '' ? '$amountQr USD' : '0.00 USD',
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .titleLarge!
                 .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
           ),
           Text(
             '$userName',
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .titleLarge!
                 .copyWith(fontSize: 18, fontWeight: FontWeight.w400),
           )
         ],

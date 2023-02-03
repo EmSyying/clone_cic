@@ -50,7 +50,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.headline2!;
+    TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
     return Stack(
       children: [
         Center(
@@ -124,7 +124,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                                 // errorCorrectLevel: QrErrorCorrectLevel.H,
                               )),
                           if (_walletController.recievingAmount.value.isEmpty)
-                            _amountButton(
+                            _amountbutton(
                               textStyle,
                               ontap: () {
                                 _inputAmount(context);
@@ -150,7 +150,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildButton(textStyle,
+                          _buildbutton(textStyle,
                               icon: SvgPicture.asset('assets/images/share.svg'),
                               text: 'Share', onTap: () async {
                             if (clickedShare) {
@@ -161,7 +161,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
                             }
                           }),
                           const SizedBox(width: 50),
-                          _buildButton(textStyle,
+                          _buildbutton(textStyle,
                               text: 'Save',
                               icon: SvgPicture.asset('assets/images/save.svg'),
                               onTap: () {
@@ -462,7 +462,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _amountButton(
+            _amountbutton(
               textStyle,
               ontap: () {
                 _walletController.recievingAmount('');
@@ -475,7 +475,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
               color: AppColor.primaryColor,
             ),
             const SizedBox(width: 16),
-            _amountButton(
+            _amountbutton(
               textStyle,
               ontap: () {
                 _inputAmount(context);
@@ -489,7 +489,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     );
   }
 
-  GestureDetector _amountButton(TextStyle textStyle,
+  GestureDetector _amountbutton(TextStyle textStyle,
       {GestureTapCallback? ontap, String? text, Color? color}) {
     return GestureDetector(
       onTap: ontap
@@ -512,7 +512,7 @@ class _DepositFromScreenState extends State<DepositFromScreen> {
     );
   }
 
-  Widget _buildButton(
+  Widget _buildbutton(
     textStyle, {
     String? text,
     Widget? icon,

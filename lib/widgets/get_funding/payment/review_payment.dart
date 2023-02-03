@@ -69,7 +69,7 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                               widget.paymentType == 'Pay'
                                   ? widget.payment!.payNow!.rebate!.bankName!
                                   : widget.payment!.payOff!.rebate!.bankName!,
-                              style: Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
                             const Spacer(),
                             Container(
@@ -104,8 +104,9 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                 children: [
                                   Text(
                                     S.of(context).paymentDate,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -115,7 +116,7 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                         ? widget.payment!.payNow!.rebate!.date!
                                         : widget.payment!.payOff!.rebate!.date!,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -127,8 +128,9 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                 children: [
                                   Text(
                                     S.of(context).amount,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -140,7 +142,7 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                         : widget
                                             .payment!.payOff!.rebate!.amount!,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -159,8 +161,9 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                 children: [
                                   Text(
                                     S.of(context).bank,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -172,7 +175,7 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                         : widget
                                             .payment!.payOff!.rebate!.bankName!,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -184,8 +187,9 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                 children: [
                                   Text(
                                     S.of(context).paymentStatus,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -268,15 +272,17 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                 children: [
                                   Text(
                                     'Reason',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
                                   ),
                                   const SizedBox(height: 8.0),
                                   Text(
                                     widget.payment!.payNow!.rebate!.reason!,
                                     textAlign: TextAlign.justify,
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                   ),
                                 ],
                               ),
@@ -292,15 +298,17 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                                 children: [
                                   Text(
                                     'Reason',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
                                   ),
                                   const SizedBox(height: 8.0),
                                   Text(
                                     widget.payment!.payOff!.rebate!.reason!,
                                     textAlign: TextAlign.justify,
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                   ),
                                 ],
                               ),
@@ -316,7 +324,7 @@ class _ReviewPaymentState extends State<ReviewPayment> {
                     margin: const EdgeInsets.only(left: 20),
                     child: Text(
                       'Invoice',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   Container(

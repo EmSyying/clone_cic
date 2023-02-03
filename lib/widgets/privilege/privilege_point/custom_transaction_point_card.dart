@@ -65,7 +65,7 @@ class CustomTransactionPoint extends StatelessWidget {
                                 exchangePointTransaction!.amount ?? "",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w900,
@@ -82,7 +82,7 @@ class CustomTransactionPoint extends StatelessWidget {
                             child: Text('MVP',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.grey,
@@ -98,11 +98,12 @@ class CustomTransactionPoint extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.0,
-                              color: AppColor.darkColor,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14.0,
+                                  color: AppColor.darkColor,
+                                ),
                       ),
                       const SizedBox(
                         width: 5,
@@ -110,10 +111,13 @@ class CustomTransactionPoint extends StatelessWidget {
                       const Spacer(),
                       Text(
                         exchangePointTransaction!.date ?? "",
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                            color: Colors.black45),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                                color: Colors.black45),
                       )
                     ],
                   ),

@@ -158,7 +158,7 @@ class ShareRequestedCard extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 10.0),
                   child: Text(
                     'Trading Date: $tradingDate',
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
               ],
@@ -175,7 +175,7 @@ class ShareRequestedCard extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       'Avg UT Price: USD ${FormatNumber.formatNumber(avgSharePrice!)}/UT',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 ],

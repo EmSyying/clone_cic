@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 
-class CustomRadioButton extends StatefulWidget {
+class CustomRadiobutton extends StatefulWidget {
   final ValueChanged<bool>? onSelect;
   final String? label;
   bool? selected;
   double? labelPadding = 10;
   double? contentPadding = 10;
-  CustomRadioButton(
+  CustomRadiobutton(
       {Key? key,
       @required this.onSelect,
       @required this.label,
@@ -17,10 +17,10 @@ class CustomRadioButton extends StatefulWidget {
       this.contentPadding})
       : super(key: key);
   @override
-  State<CustomRadioButton> createState() => _CustomRadioButtonState();
+  State<CustomRadiobutton> createState() => _CustomRadiobuttonState();
 }
 
-class _CustomRadioButtonState extends State<CustomRadioButton> {
+class _CustomRadiobuttonState extends State<CustomRadiobutton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -81,7 +81,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                           color: Theme.of(context).primaryColor,
                           fontSize: 14,
                         )
-                      : Theme.of(context).textTheme.bodyText2),
+                      : Theme.of(context).textTheme.bodyMedium),
             )
           ],
         ),

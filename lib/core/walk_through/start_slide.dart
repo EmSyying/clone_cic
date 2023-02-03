@@ -141,7 +141,7 @@ class _StartupSlideState extends State<StartupSlide> {
                       margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        S.of(context).continueButton,
+                        S.of(context).continuebutton,
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ),
@@ -289,7 +289,7 @@ class _ScheduleState extends State<Schedule> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       'The one-stop digital solutions for all CiC Members. CiC Plc is the community-based alternative and innovative financing solution company.',
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.titleSmall,
                       textAlign: TextAlign.center,
                     ),
                   ),

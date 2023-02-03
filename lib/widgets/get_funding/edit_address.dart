@@ -38,7 +38,7 @@ class _OnEditAddressState extends State<OnEditAddress> {
   }
 
   // Function eq = const ListEquality().equals;
-  // bool onCheckDisableButton() {
+  // bool onCheckDisablebutton() {
   //   return eq(debtCon.currentAddress.value, debtCon.fullCurrentAddress.value) &&
   //       eq(debtCon.residentAddress.value, debtCon.fullResidentAddress.value);
   // }
@@ -62,7 +62,7 @@ class _OnEditAddressState extends State<OnEditAddress> {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             'Is current address the same permanent address?',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
                         const SizedBox(height: 20),

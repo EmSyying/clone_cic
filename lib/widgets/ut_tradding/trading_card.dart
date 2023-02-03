@@ -71,14 +71,14 @@ class _InquiryCardState extends State<InquiryCard> {
                   children: [
                     Text(
                       '${widget.inquiryModel!.operation!.capitalize} Request',
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     Text(
                       widget.inquiryModel!.time!,
-                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
                           color: const Color(0XFF464646)),
@@ -122,10 +122,13 @@ class _InquiryCardState extends State<InquiryCard> {
                     children: [
                       Text(
                         'Payment :',
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontSize: 12,
-                            color: const Color(0XFF464646),
-                            fontWeight: FontWeight.w700),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                                fontSize: 12,
+                                color: const Color(0XFF464646),
+                                fontWeight: FontWeight.w700),
                       ),
                       Text(
                         widget.inquiryModel!.payment == false &&
@@ -340,10 +343,10 @@ class _InquiryCardState extends State<InquiryCard> {
                                                       return AlertDialog(
                                                         title: Text(
                                                           'Are you sure! you want to cancel ?',
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .headline2,
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .displayMedium,
                                                         ),
                                                         actions: [
                                                           ElevatedButton(
@@ -392,7 +395,7 @@ class _InquiryCardState extends State<InquiryCard> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .headline2,
+                                                                  .displayMedium,
                                                             ),
                                                             actions: [
                                                               CupertinoButton(
@@ -436,7 +439,7 @@ class _InquiryCardState extends State<InquiryCard> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .headline2,
+                                                                  .displayMedium,
                                                             ),
                                                             actions: [
                                                               ElevatedButton(

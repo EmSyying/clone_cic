@@ -65,7 +65,7 @@ customAlertLastTradingInfo({
                   title!,
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .displayMedium!
                       .copyWith(fontSize: 18),
                 ),
               ),
@@ -140,7 +140,7 @@ customAlertLastTradingInfo({
                                                 'Buy Side',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3!
+                                                    .displaySmall!
                                                     .copyWith(
                                                         color: AppColor
                                                                 .statusColor[
@@ -191,7 +191,7 @@ customAlertLastTradingInfo({
                                                 'Matching Result',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3!
+                                                    .displaySmall!
                                                     .copyWith(
                                                         color: AppColor
                                                                 .statusColor[
@@ -240,7 +240,7 @@ customAlertLastTradingInfo({
                                                 'Sell Side',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3!
+                                                    .displaySmall!
                                                     .copyWith(
                                                         color: AppColor
                                                                 .statusColor[
@@ -375,7 +375,7 @@ class _CustomLastTradingTapState extends State<CustomLastTradingTap>
                         widget.title!,
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(fontSize: 18),
                       ),
                     ),
@@ -447,7 +447,7 @@ class _CustomLastTradingTapState extends State<CustomLastTradingTap>
                             indicatorSize: TabBarIndicatorSize.label,
                             labelStyle: Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(
                                     fontSize: 13, fontWeight: FontWeight.w500),
                             tabs: [

@@ -34,7 +34,7 @@ class CustomInvesDuration extends StatelessWidget {
           duraton!,
           style: Theme.of(context)
               .textTheme
-              .headline2!
+              .displayMedium!
               .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
         )),
       ),

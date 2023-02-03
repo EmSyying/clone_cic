@@ -38,7 +38,7 @@ class CustomFormFieldSearch extends StatelessWidget {
             autofocus: false,
             decoration: InputDecoration(
               hintText: 'Search',
-              hintStyle: Theme.of(context).textTheme.headline5!.copyWith(
+              hintStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.w400,
                     letterSpacing: 0.6,
                     color: Colors.grey,

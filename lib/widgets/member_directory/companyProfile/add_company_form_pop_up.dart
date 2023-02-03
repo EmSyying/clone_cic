@@ -225,7 +225,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).takePhoto,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -242,7 +242,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).openGallery,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -257,7 +257,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                             horizontal: 100.0, vertical: 15),
                         child: Center(
                           child: Text(S.of(context).cancelButton,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ),
                       ),
                     ),
@@ -286,7 +286,9 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).takePhoto,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -303,7 +305,9 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).openGallery,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -318,7 +322,9 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                 horizontal: 100.0, vertical: 15),
                             child: Center(
                               child: Text(S.of(context).cancelButton,
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                           ),
                         ),
@@ -340,7 +346,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                         },
                         child: Text(
                           S.of(context).takePhoto,
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
                       CupertinoActionSheetAction(
@@ -350,7 +356,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                           Navigator.pop(context);
                         },
                         child: Text(S.of(context).openGallery,
-                            style: Theme.of(context).textTheme.headline5),
+                            style: Theme.of(context).textTheme.headlineSmall),
                       ),
                     ],
                     cancelButton: CupertinoActionSheetAction(
@@ -358,7 +364,7 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                         Navigator.pop(context);
                       },
                       child: Text(S.of(context).cancelButton,
-                          style: Theme.of(context).textTheme.headline5),
+                          style: Theme.of(context).textTheme.headlineSmall),
                     ),
                   );
                 });
@@ -391,7 +397,8 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 'Company Information',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                             Container()
@@ -481,7 +488,8 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 'Product and Service',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                             Container()
@@ -590,7 +598,8 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 'Contact Information',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                             Container()
@@ -736,7 +745,8 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 'Location',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                             Container()
@@ -808,7 +818,8 @@ class _AddCompanyFormPopUpState extends State<AddCompanyFormPopUp> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 'Social Link Information',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                             Container()

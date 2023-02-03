@@ -137,7 +137,7 @@ class AddressPickerWidget extends StatelessWidget {
           //             const SizedBox(width: 10),
           //             Text(
           //               'Choose $title',
-          //               style: Theme.of(context).textTheme.headline3,
+          //               style: Theme.of(context).textTheme.displaySmall,
           //             ),
           //           ],
           //         ),
@@ -187,7 +187,7 @@ class AddressPickerWidget extends StatelessWidget {
                                 'Please choose an Address',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3!
+                                    .displaySmall!
                                     .copyWith(color: Colors.red),
                               ),
                             ],

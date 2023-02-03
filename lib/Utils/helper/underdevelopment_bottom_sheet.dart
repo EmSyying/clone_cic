@@ -2,7 +2,7 @@ import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomPopupButtonSheet extends StatefulWidget {
+class CustomPopupbuttonSheet extends StatefulWidget {
   final double? imagePaddingFromTop;
   final String? title;
   final String? description;
@@ -12,7 +12,7 @@ class CustomPopupButtonSheet extends StatefulWidget {
   final String? imageUrl;
   final double? imageWidth;
   final double? imageHeight;
-  const CustomPopupButtonSheet(
+  const CustomPopupbuttonSheet(
       {Key? key,
       this.imagePaddingFromTop = 0,
       @required this.title,
@@ -26,10 +26,10 @@ class CustomPopupButtonSheet extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<CustomPopupButtonSheet> createState() => _CustomPopupButtonSheetState();
+  State<CustomPopupbuttonSheet> createState() => _CustomPopupbuttonSheetState();
 }
 
-class _CustomPopupButtonSheetState extends State<CustomPopupButtonSheet>
+class _CustomPopupbuttonSheetState extends State<CustomPopupbuttonSheet>
     with TickerProviderStateMixin {
   AnimationController? _controller;
   Animation<Offset>? _animation;

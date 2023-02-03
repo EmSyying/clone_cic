@@ -40,7 +40,7 @@ class ApplicationList extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Text(
                 listTitle ?? "No Title",
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: listTitleColor, fontFamily: 'DMSans-Medium'),
               ),
             ),

@@ -63,7 +63,7 @@ class CustomCardPoint extends StatelessWidget {
                         Text(
                           'MVP Balance',
                           style:
-                              Theme.of(context).textTheme.subtitle2!.copyWith(
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
                                     fontWeight: FontWeight.w500,
                                     color: const Color(0xff464646),
                                     fontSize: 12,
@@ -77,11 +77,13 @@ class CustomCardPoint extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
-                          style:
-                              Theme.of(context).textTheme.headline2!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
                       ],
                     )
@@ -106,13 +108,14 @@ class CustomCardPoint extends StatelessWidget {
                   children: [
                     Text(
                       'Redeem MVP',
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: isAcceptedPoint == true
-                                ? Theme.of(context).primaryColor
-                                : const Color(0xff464646),
-                          ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: isAcceptedPoint == true
+                                    ? Theme.of(context).primaryColor
+                                    : const Color(0xff464646),
+                              ),
                     ),
                     const SizedBox(
                       width: 6,

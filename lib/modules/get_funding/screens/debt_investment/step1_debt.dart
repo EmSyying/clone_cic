@@ -510,7 +510,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                 'Personal Information',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline2,
+                                                    .displayMedium,
                                               ),
                                             ),
                                             const SizedBox(height: 20),
@@ -616,7 +616,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                       'Gender',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headline2,
+                                                          .displayMedium,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 20),
@@ -818,7 +818,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                 'Address',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline2,
+                                                    .displayMedium,
                                               ),
                                             ),
                                             const SizedBox(
@@ -842,7 +842,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
-                                                              .bodyText1!
+                                                              .bodyLarge!
                                                               .copyWith(
                                                                   color: AppColor
                                                                       .mainColor),
@@ -857,7 +857,7 @@ class _Step1DebtState extends State<Step1Debt> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .bodyText1,
+                                                                .bodyLarge,
                                                           ),
                                                         ),
                                                       ],

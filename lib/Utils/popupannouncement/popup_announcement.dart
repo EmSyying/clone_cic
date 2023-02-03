@@ -84,7 +84,7 @@ class PopUpAnnouncement extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Text(notificationModel!.data!.title!,
-                      style: Theme.of(context).textTheme.caption),
+                      style: Theme.of(context).textTheme.bodySmall),
                 ),
                 Padding(
                   padding:
@@ -93,7 +93,7 @@ class PopUpAnnouncement extends StatelessWidget {
                     notificationModel!.data!.message!,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .copyWith(fontSize: 14),
                   ),
                 ),
@@ -102,7 +102,7 @@ class PopUpAnnouncement extends StatelessWidget {
                 //       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 //   child: Text(
                 //       'Real Estate & Building Technology Conference Leading in India became theepicenters of growth and Urbanization is the most prominent demographic trend.',
-                //       style: Theme.of(context).textTheme.bodyText2),
+                //       style: Theme.of(context).textTheme.bodyMedium),
                 // ),
                 const SizedBox(
                   height: 20,

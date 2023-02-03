@@ -105,7 +105,7 @@ class EventCheckInTicket extends StatelessWidget {
                                           Text('Ticket Number',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline2!
+                                                  .displayMedium!
                                                   .copyWith(
                                                     fontWeight: FontWeight.w700,
                                                     fontSize: 18.0,
@@ -114,7 +114,7 @@ class EventCheckInTicket extends StatelessWidget {
                                             '${contro.getRegisterModel.value.ticketNumber}',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline3!
+                                                .displaySmall!
                                                 .copyWith(
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 12.0,
@@ -227,7 +227,7 @@ class EventCheckInTicket extends StatelessWidget {
                           'Save',
                           style: Theme.of(context)
                               .textTheme
-                              .headline6!
+                              .titleLarge!
                               .copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w500),
                         ),

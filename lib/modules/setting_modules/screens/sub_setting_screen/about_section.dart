@@ -84,7 +84,7 @@ class _AboutSectionState extends State<AboutSection> {
                             Center(
                               child: Text(
                                 'Version ${_settingCon.appSettingVersion.value.applicationNewVersion}',
-                                style: Theme.of(context).textTheme.bodyText2,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                             const SizedBox(

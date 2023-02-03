@@ -37,7 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "commune": MessageLookupByLibrary.simpleMessage("ឃុំ/សង្កាត់"),
         "companyName": MessageLookupByLibrary.simpleMessage("ឈ្មោះក្រុមហ៊ុន"),
         "contactUs": MessageLookupByLibrary.simpleMessage("ទំនាក់ទំនង"),
-        "continueButton": MessageLookupByLibrary.simpleMessage("បន្ត"),
+        "continuebutton": MessageLookupByLibrary.simpleMessage("បន្ត"),
         "continuePhone":
             MessageLookupByLibrary.simpleMessage("ចាប់ផ្តើមជាមួយលេខទូរស័ព្ទ"),
         "currency": MessageLookupByLibrary.simpleMessage("រូបិយបណ្ណ"),
@@ -49,7 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "directory": MessageLookupByLibrary.simpleMessage("បញ្ជីឈ្មោះ"),
         "district": MessageLookupByLibrary.simpleMessage("ស្រុក/ខណ្ឌ"),
         "duration": MessageLookupByLibrary.simpleMessage("រយះពេល"),
-        "editButton": MessageLookupByLibrary.simpleMessage("កែតម្រូវ"),
+        "editbutton": MessageLookupByLibrary.simpleMessage("កែតម្រូវ"),
         "emailaddress":
             MessageLookupByLibrary.simpleMessage("អាស័យដ្ឋានអីម៉ែល"),
         "enterCompanyName":
@@ -120,7 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loanpurpos": MessageLookupByLibrary.simpleMessage("គោលបំណង"),
         "loanrequest":
             MessageLookupByLibrary.simpleMessage("ចំនួនទឹកប្រាក់កម្ចី"),
-        "logoutButton": MessageLookupByLibrary.simpleMessage("ចាកចេញ"),
+        "logoutbutton": MessageLookupByLibrary.simpleMessage("ចាកចេញ"),
         "male": MessageLookupByLibrary.simpleMessage("ប្រុស"),
         "nextPayment": MessageLookupByLibrary.simpleMessage("បង់ប្រាក់បន្ទាប់"),
         "nointernet":
@@ -171,7 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "salary": MessageLookupByLibrary.simpleMessage("ប្រាក់ខែ"),
         "salaryslip": MessageLookupByLibrary.simpleMessage(
             "ចុងសន្លឹកបើកប្រាក់ខែ/សៀវភៅធនាគារ"),
-        "saveButton": MessageLookupByLibrary.simpleMessage("រក្សាទុក"),
+        "savebutton": MessageLookupByLibrary.simpleMessage("រក្សាទុក"),
         "saveProfile": MessageLookupByLibrary.simpleMessage(
             "ព័ត៌មានត្រូវបានរក្សាទុកដោយជោគជ័យ"),
         "search": MessageLookupByLibrary.simpleMessage("ស្វែងរក"),

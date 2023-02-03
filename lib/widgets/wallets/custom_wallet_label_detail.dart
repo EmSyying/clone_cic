@@ -16,7 +16,7 @@ class CustomWalletDetail extends StatelessWidget {
           children: [
             Text(
               "$label",
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontSize: 12,
                   color: const Color(0XFF464646),
                   fontWeight: FontWeight.w400),
@@ -24,7 +24,7 @@ class CustomWalletDetail extends StatelessWidget {
             const Spacer(),
             Text(
               "$value".toUpperCase(),
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontSize: 12,
                   color: value!.toUpperCase() == "UNPAID"
                       ? Colors.red

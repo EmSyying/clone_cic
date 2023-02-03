@@ -9,7 +9,7 @@ class FIFSavingCard extends StatelessWidget {
   ///Show/hide button popupmenu
   final bool showPopUp;
 
-  ///Show Hide Textbutton
+  ///Show Hide TextButton
   final bool showHidebutton;
 
   ///Pending popupmenu style
@@ -111,7 +111,7 @@ class FIFSavingCard extends StatelessWidget {
                             '$title',
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 15,
                                     fontFamily: "DMSans-Bold",
@@ -220,7 +220,7 @@ class FIFSavingCard extends StatelessWidget {
                                 'Unhide',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle2!
+                                    .titleSmall!
                                     .copyWith(
                                         color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w400,
@@ -239,19 +239,21 @@ class FIFSavingCard extends StatelessWidget {
                             id ?? "",
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(
                                     fontSize: 15, fontWeight: FontWeight.w400),
                           ),
                           Text(
                             "$amount",
-                            style:
-                                Theme.of(context).textTheme.subtitle1!.copyWith(
-                                      fontSize: 14,
-                                      color: amountColor ?? Colors.black,
-                                      fontFamily: "DMSans-Bold",
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  fontSize: 14,
+                                  color: amountColor ?? Colors.black,
+                                  fontFamily: "DMSans-Bold",
+                                  fontWeight: FontWeight.w700,
+                                ),
                           )
                         ],
                       ),

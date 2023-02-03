@@ -77,7 +77,7 @@ class _VideoListByModuleState extends State<VideoListByModule> {
                           })
                       : Center(
                           child: EmptyStateProfile(
-                            caption: '',
+                            bodySmall: '',
                             isEditable: false,
                             title: 'No Video',
                             iconUrl: 'assets/images/emptyState.png',
@@ -124,7 +124,7 @@ class _VideoListByModuleState extends State<VideoListByModule> {
                         )
                       : Center(
                           child: EmptyStateProfile(
-                            caption: '',
+                            bodySmall: '',
                             isEditable: false,
                             title: 'No Video',
                             iconUrl: 'assets/images/emptyState.png',

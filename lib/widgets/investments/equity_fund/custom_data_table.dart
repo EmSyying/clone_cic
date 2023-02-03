@@ -48,10 +48,10 @@ class CustomDataTable extends StatelessWidget {
   }) {
     TextStyle titleStyle = Theme.of(context)
         .textTheme
-        .bodyText2!
+        .bodyMedium!
         .copyWith(fontWeight: FontWeight.w700);
     TextStyle normalStyle =
-        Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 12);
+        Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12);
     return Container(
       // color: Colors.red,
       padding: const EdgeInsets.symmetric(vertical: 20),

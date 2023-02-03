@@ -44,7 +44,7 @@ class CustomTicketCard extends StatelessWidget {
                 ),
                 Text(
                   'Ticket ${eventTicket!.ticket!.id}',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
               ],
             ),
@@ -57,7 +57,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             'Name',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff6D7174)),
@@ -66,13 +66,13 @@ class CustomTicketCard extends StatelessWidget {
             height: 5,
           ),
           Text(eventTicket!.ticket!.name!,
-              style: Theme.of(context).textTheme.headline2),
+              style: Theme.of(context).textTheme.displayMedium),
           const SizedBox(
             height: padding - 5,
           ),
           Text(
             'Event',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff6D7174)),
@@ -82,7 +82,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             eventTicket!.ticket!.event ?? "",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
@@ -90,7 +90,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             'Date',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff6D7174)),
@@ -100,7 +100,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             eventTicket!.ticket!.date ?? "",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
@@ -108,7 +108,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             "${eventTicket!.ticket!.fromTime} to ${eventTicket!.ticket!.toTime}",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
@@ -116,7 +116,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             'Location',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff6D7174)),
@@ -126,7 +126,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             eventTicket!.ticket!.location!,
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
@@ -134,8 +134,8 @@ class CustomTicketCard extends StatelessWidget {
           ),
           TextButton(
             onPressed: onViewMap,
-            child:
-                Text('View Maps', style: Theme.of(context).textTheme.headline3),
+            child: Text('View Maps',
+                style: Theme.of(context).textTheme.displaySmall),
           ),
           Divider(
             color: Colors.grey[500],
@@ -145,7 +145,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             'ID',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff6D7174)),
@@ -155,7 +155,7 @@ class CustomTicketCard extends StatelessWidget {
           ),
           Text(
             eventTicket!.ticket!.id.toString(),
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
@@ -173,7 +173,7 @@ class CustomTicketCard extends StatelessWidget {
               onPressed: onViewListing,
               child: Text(
                 'View Event Listing',
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
               ),
             ),
           ),

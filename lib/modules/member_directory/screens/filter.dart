@@ -78,7 +78,6 @@ class _FilterState extends State<Filter> {
         _memberCon.listMemberFiltered = _memberCon.listAllMember;
         //old code
         // _memberCon.fetchAllMembers(filterJson: _memberCon.mapList.toString());
-
       }
 
       // _memberCon.fetchAllMembers(
@@ -158,7 +157,7 @@ class _FilterState extends State<Filter> {
                       child: ListTile(
                         title: Text(
                           "${_filterOption.optionFormFilterList[0].display}",
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                         trailing: SizedBox(
                           width: _filterOption
@@ -216,7 +215,7 @@ class _FilterState extends State<Filter> {
                       child: ListTile(
                         title: Text(
                           "${_filterOption.optionFormFilterList[1].display}",
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                         trailing: SizedBox(
                           width: _filterOption

@@ -97,11 +97,13 @@ class ComponentCardCategory extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             softWrap: false,
-                            style:
-                                Theme.of(context).textTheme.bodyText2!.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: isHeight == false ? 12 : 14,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: isHeight == false ? 12 : 14,
+                                ),
                           ),
                         ),
                         const SizedBox(
@@ -112,7 +114,7 @@ class ComponentCardCategory extends StatelessWidget {
                                 '${countShop.toString()} Stores',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle1!
+                                    .titleMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w500,
                                       color: AppColor.chartLabelColor,

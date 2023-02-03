@@ -151,7 +151,7 @@ class DepositCard extends StatelessWidget {
     //                         '$title',
     //                         style: Theme.of(context)
     //                             .textTheme
-    //                             .bodyText2!
+    //                             .bodyMedium!
     //                             .copyWith(
     //                                 fontSize: 12, fontWeight: FontWeight.w400),
     //                       ),
@@ -162,7 +162,7 @@ class DepositCard extends StatelessWidget {
     //                         amount!,
     //                         style: Theme.of(context)
     //                             .textTheme
-    //                             .bodyText2!
+    //                             .bodyMedium!
     //                             .copyWith(
     //                                 fontSize: 18, fontWeight: FontWeight.w600),
     //                       ),
@@ -172,7 +172,7 @@ class DepositCard extends StatelessWidget {
     //   padding: const EdgeInsets.only(top: 30, bottom: 20),
     //   child: Text(
     //     'Choose payment methods',
-    //     style: Theme.of(context).textTheme.bodyText2,
+    //     style: Theme.of(context).textTheme.bodyMedium,
     //   ),
     // ),
     //                     // ListView.builder(
@@ -365,13 +365,13 @@ class DepositCard extends StatelessWidget {
     //             '$title',
     //             style: Theme.of(context)
     //                 .textTheme
-    //                 .headline4!
+    //                 .headlineMedium!
     //                 .copyWith(fontWeight: FontWeight.w700),
     //           ),
     //           const SizedBox(
     //             height: 5,
     //           ),
-    //           Text('$content', style: Theme.of(context).textTheme.headline5),
+    //           Text('$content', style: Theme.of(context).textTheme.headlineSmall),
     //           const SizedBox(
     //             height: 30,
     //           ),
@@ -390,7 +390,7 @@ class DepositCard extends StatelessWidget {
     //                   'Invest in CiC FIF',
     //                   style: Theme.of(context)
     //                       .textTheme
-    //                       .headline5!
+    //                       .headlineSmall!
     //                       .copyWith(fontSize: 14),
     //                 ),
     //               ),

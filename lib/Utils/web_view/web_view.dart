@@ -4,6 +4,8 @@ import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../helper/custom_appbar.dart';
 
@@ -19,11 +21,75 @@ class ViewWebsite extends StatefulWidget {
 }
 
 class _ViewWebsiteState extends State<ViewWebsite> {
+  late final WebViewController _controller;
   @override
   void initState() {
-    if (!kIsWeb) {
-      if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
     }
+
+    final WebViewController controller =
+        WebViewController.fromPlatformCreationParams(params);
+    // #enddocregion platform_features
+
+    controller
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            debugPrint('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            debugPrint('Page finished loading: $url');
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('''
+Page resource error:
+  code: ${error.errorCode}
+  description: ${error.description}
+  errorType: ${error.errorType}
+  isForMainFrame: ${error.isForMainFrame}
+          ''');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              debugPrint('blocking navigation to ${request.url}');
+              return NavigationDecision.prevent;
+            }
+            debugPrint('allowing navigation to ${request.url}');
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..addJavaScriptChannel(
+        'Toaster',
+        onMessageReceived: (JavaScriptMessage message) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message.message)),
+          );
+        },
+      )
+      ..loadRequest(Uri.parse('https://flutter.dev'));
+
+    // #docregion platform_features
+    if (controller.platform is AndroidWebViewController) {
+      AndroidWebViewController.enableDebugging(true);
+      (controller.platform as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
+    }
+    // #enddocregion platform_features
+
+    _controller = controller;
 
     super.initState();
   }
@@ -31,13 +97,6 @@ class _ViewWebsiteState extends State<ViewWebsite> {
   String selectedUrl = 'https://flutter.io';
 
 // ignore: prefer_collection_literals
-  final Set<JavascriptChannel> jsChannels = [
-    JavascriptChannel(
-        name: 'Print', onMessageReceived: (JavascriptMessage message) {}),
-  ].toSet();
-
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
   bool isLoading = true;
   @override
   Widget build(BuildContext context) {
@@ -46,30 +105,8 @@ class _ViewWebsiteState extends State<ViewWebsite> {
             builder: (BuildContext context) {
               return Stack(
                 children: [
-                  WebView(
-                    initialUrl: widget.url,
-                    javascriptMode: JavascriptMode.unrestricted,
-                    onWebViewCreated: (WebViewController webViewController) {
-                      _controller.complete(webViewController);
-                    },
-                    onProgress: (int progress) {},
-                    navigationDelegate: (NavigationRequest request) {
-                      if (request.url.startsWith('https://www.youtube.com/')) {
-                        return NavigationDecision.prevent;
-                      }
-
-                      return NavigationDecision.navigate;
-                    },
-                    onPageStarted: (String url) {
-                      debugPrint("star view web");
-                    },
-                    onPageFinished: (String url) {
-                      setState(() {
-                        isLoading = false;
-                      });
-                      debugPrint("star view web finished");
-                    },
-                    gestureNavigationEnabled: true,
+                  WebViewWidget(
+                    controller: _controller,
                   ),
                   isLoading ? const LinearProgressIndicator() : Stack(),
                 ],
@@ -90,32 +127,8 @@ class _ViewWebsiteState extends State<ViewWebsite> {
                 builder: (BuildContext context) {
                   return Stack(
                     children: [
-                      WebView(
-                        initialUrl: widget.url,
-                        javascriptMode: JavascriptMode.unrestricted,
-                        onWebViewCreated:
-                            (WebViewController webViewController) {
-                          _controller.complete(webViewController);
-                        },
-                        onProgress: (int progress) {},
-                        navigationDelegate: (NavigationRequest request) {
-                          if (request.url
-                              .startsWith('https://www.youtube.com/')) {
-                            return NavigationDecision.prevent;
-                          }
-
-                          return NavigationDecision.navigate;
-                        },
-                        onPageStarted: (String url) {
-                          debugPrint("star view web1");
-                        },
-                        onPageFinished: (String url) {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          debugPrint("star view web finished 1");
-                        },
-                        gestureNavigationEnabled: true,
+                      WebViewWidget(
+                        controller: _controller,
                       ),
                       isLoading ? const LinearProgressIndicator() : Stack(),
                     ],

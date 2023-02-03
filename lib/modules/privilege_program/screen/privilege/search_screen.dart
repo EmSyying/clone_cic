@@ -176,7 +176,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   'Filter',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline3!
+                                      .displaySmall!
                                       .copyWith(
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -194,7 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 "${privilegController.categoryFilterList.length} store search in",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w300,
                                       color: const Color(0xff000000),
@@ -209,7 +209,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 "\"${widget.locationName ?? ''}\"",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w500,
                                       color: const Color(0xff000000),
@@ -315,7 +315,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 'Stores',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -327,7 +327,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 'Location',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(
                                       fontWeight: FontWeight.w500,
                                     ),

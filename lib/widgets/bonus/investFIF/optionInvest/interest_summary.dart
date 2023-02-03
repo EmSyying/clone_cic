@@ -32,7 +32,7 @@ class CustomInterestSummary extends StatelessWidget {
             '$titleDate',
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .copyWith(fontWeight: FontWeight.normal, fontSize: 14),
           ),
           Expanded(
@@ -40,7 +40,7 @@ class CustomInterestSummary extends StatelessWidget {
               '$date',
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(fontWeight: FontWeight.normal, fontSize: 14),
             ),
           ),
@@ -48,7 +48,7 @@ class CustomInterestSummary extends StatelessWidget {
             '$time',
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .copyWith(fontWeight: FontWeight.normal, fontSize: 14),
           ),
         ],

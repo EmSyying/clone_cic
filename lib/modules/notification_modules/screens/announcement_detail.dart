@@ -50,7 +50,7 @@ class AnnouncementDetail extends StatelessWidget {
                     notificationData!.title ?? '',
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -61,7 +61,7 @@ class AnnouncementDetail extends StatelessWidget {
                     notificationData!.body ?? '',
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(fontWeight: FontWeight.normal),
                   ),
                 ),

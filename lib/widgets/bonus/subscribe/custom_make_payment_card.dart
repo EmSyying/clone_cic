@@ -37,7 +37,7 @@ class CustomMakePaymentCard extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               title!,
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: isDisable! ? Colors.grey[300] : null),

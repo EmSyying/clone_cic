@@ -55,10 +55,11 @@ class _ItemCategoryPrivilegeScreenState
                       ),
                       Text(
                         '${priCont.shopCategoryItemList.length} Stores',
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              fontWeight: FontWeight.w500,
-                              color: AppColor.chartLabelColor,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColor.chartLabelColor,
+                                ),
                       ),
                       const SizedBox(
                         height: 20,

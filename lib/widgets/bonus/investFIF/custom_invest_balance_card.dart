@@ -55,17 +55,20 @@ class CustomInvestBalanceCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(titleBalance!,
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white)),
                     Row(
                       children: [
                         Text(
                           FormatToK.digitNumber(currency),
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(fontSize: 19, color: Colors.white),
                         ),
                         const SizedBox(width: 10),
@@ -73,7 +76,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                           'USD',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
@@ -107,7 +110,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                                           "${controller.uiSettingData.availableBalance!.description}",
                                           textStyle: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                   fontWeight: FontWeight.normal,
                                                   fontSize: 14))
@@ -161,7 +164,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                               leftTitle!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.normal),
@@ -171,7 +174,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                               leftSubTitle!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 14,
@@ -204,7 +207,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                               rightTitle!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -215,7 +218,7 @@ class CustomInvestBalanceCard extends StatelessWidget {
                               rightSubTitle!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 14,

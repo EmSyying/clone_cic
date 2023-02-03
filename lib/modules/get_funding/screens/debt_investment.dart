@@ -102,7 +102,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                                         'No Debt Investment Yet',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline2,
+                                                            .displayMedium,
                                                       ),
                                                       const SizedBox(
                                                         height: 20,
@@ -111,7 +111,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                                         'Debt investment provides investment to potential Cambodian SMEs and Startups in all sectors. Our primary focus is to provide access to working capital to potential SMEs in various growing sectors in Cambodia.',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .subtitle2,
+                                                            .titleSmall,
                                                       )
                                                     ],
                                                   ),
@@ -134,7 +134,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                                         'Value Proposition',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline2,
+                                                            .displayMedium,
                                                       ),
                                                       const SizedBox(
                                                         height: 10,
@@ -249,7 +249,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
                                                                 style: Theme.of(
                                                                         context)
                                                                     .textTheme
-                                                                    .bodyText2,
+                                                                    .bodyMedium,
                                                               ),
                                                               const SizedBox(
                                                                 width: 10,
@@ -330,7 +330,7 @@ class _DebtInvestmentState extends State<DebtInvestment> {
             width: 10,
           ),
           Expanded(
-            child: Text(title, style: Theme.of(context).textTheme.subtitle2),
+            child: Text(title, style: Theme.of(context).textTheme.titleSmall),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:cicgreenloan/widgets/get_funding/custom_show_image_file.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
+import '../../../../../Utils/form_builder/custom_button.dart';
 import '../../../../../Utils/helper/color.dart';
 
 // ignore: must_be_immutable
@@ -65,7 +66,7 @@ class _PersonalInfoPopupState extends State<PersonalInfoPopup> {
                 padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
                 child: Text(
                   widget.label!,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
               const SizedBox(

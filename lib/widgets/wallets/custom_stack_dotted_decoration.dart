@@ -49,7 +49,7 @@ class CustomStackDottedDecoration extends StatelessWidget {
                 color: Colors.white,
                 child: Text(
                   title ?? '',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontWeight: FontWeight.w400,
                         letterSpacing: 0.28,
                         fontSize: 16.0,

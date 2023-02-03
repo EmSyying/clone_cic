@@ -51,12 +51,12 @@ class CashOutDetail extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Total Subscription Cost:',
-                                style: textStyle.headline5!
+                                style: textStyle.headlineSmall!
                                     .copyWith(fontSize: 14)),
                             Text('${FormatToK.digitNumber(1200)} USD',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 14,
                                         color: 1222 == 0
@@ -71,12 +71,12 @@ class CashOutDetail extends StatelessWidget {
                           children: [
                             Text(
                               'Paid Amount:',
-                              style:
-                                  textStyle.headline5!.copyWith(fontSize: 14),
+                              style: textStyle.headlineSmall!
+                                  .copyWith(fontSize: 14),
                             ),
                             if (12 != 0)
                               Text('${FormatToK.digitNumber(1200)} USD',
-                                  style: textStyle.headline2!.copyWith(
+                                  style: textStyle.displayMedium!.copyWith(
                                       fontSize: 14,
                                       color: Theme.of(context).primaryColor)),
                           ],
@@ -91,12 +91,12 @@ class CashOutDetail extends StatelessWidget {
                           children: [
                             Text(
                               'Amount to pay:',
-                              style: textStyle.headline2!.copyWith(
+                              style: textStyle.displayMedium!.copyWith(
                                   fontSize: 16, fontWeight: FontWeight.w500),
                             ),
                             Text(
                               '${FormatToK.digitNumber(1200)} USD',
-                              style: textStyle.headline2!.copyWith(
+                              style: textStyle.displayMedium!.copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.red),
@@ -123,13 +123,13 @@ class CashOutDetail extends StatelessWidget {
             Expanded(
                 child: Text(
               title ?? '',
-              style: textStyle.headline2!
+              style: textStyle.displayMedium!
                   .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
             )),
             Expanded(
               child: Text(
                 value ?? '',
-                style: textStyle.headline2!
+                style: textStyle.displayMedium!
                     .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ),

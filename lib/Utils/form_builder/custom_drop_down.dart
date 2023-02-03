@@ -210,7 +210,7 @@ class _CICDropdownState extends State<CICDropdown> {
                                               '${widget.label}',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline4!
+                                                  .headlineMedium!
                                                   .copyWith(
                                                       fontWeight:
                                                           FontWeight.w700),
@@ -232,7 +232,7 @@ class _CICDropdownState extends State<CICDropdown> {
                                         '${widget.label}',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline4!
+                                            .headlineMedium!
                                             .copyWith(
                                               fontWeight: FontWeight.w700,
                                             ),
@@ -362,7 +362,7 @@ class _CICDropdownState extends State<CICDropdown> {
                                                           : 'Create new company',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline1!
+                                                      .labelLarge!
                                                       .copyWith(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -421,8 +421,12 @@ class _CICDropdownState extends State<CICDropdown> {
                               children: [
                                 Text(copyData!['Name'],
                                     style: copyData == selectData
-                                        ? Theme.of(context).textTheme.subtitle1
-                                        : Theme.of(context).textTheme.subtitle1,
+                                        ? Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                        : Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
                                     overflow: TextOverflow.ellipsis),
                                 if (widget.defaultValue == null) const Spacer(),
                                 widget.isDateTimePicker != null &&
@@ -462,7 +466,7 @@ class _CICDropdownState extends State<CICDropdown> {
                                 '${widget.label}',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                         fontSize: 9,
                                         fontWeight: FontWeight.w700),
@@ -512,20 +516,20 @@ class _CICDropdownState extends State<CICDropdown> {
                                             style: copyData == selectData
                                                 ? Theme.of(context)
                                                     .textTheme
-                                                    .subtitle1
+                                                    .titleMedium
                                                 : Theme.of(context)
                                                     .textTheme
-                                                    .bodyText2,
+                                                    .bodyMedium,
                                             overflow: TextOverflow.ellipsis),
                                       )
                                     : Text('${copyData!['Name']}',
                                         style: copyData == selectData
                                             ? Theme.of(context)
                                                 .textTheme
-                                                .subtitle1
+                                                .titleMedium
                                             : Theme.of(context)
                                                 .textTheme
-                                                .bodyText2,
+                                                .bodyMedium,
                                         overflow: TextOverflow.ellipsis),
                                 if (copyData == selectData)
                                   widget.isNoRequired == false

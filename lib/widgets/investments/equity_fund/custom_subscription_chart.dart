@@ -101,7 +101,7 @@ class _UTsubscriptionChartState extends State<UTsubscriptionChart> {
                     children: [
                       Text(
                         '\$ ${a.price != 0 ? FormatNumber.formatNumberDefualt(a.price) : '0'}',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: FontWeight.w700,
                             color: Theme.of(context).primaryColor,
                             fontSize: 13),
@@ -109,7 +109,7 @@ class _UTsubscriptionChartState extends State<UTsubscriptionChart> {
                       const SizedBox(height: 5),
                       Text(
                         '${a.y != 0 ? FormatNumber.formatNumberDefualt(a.y) : '0'} UT',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColor.darkColor,
                             fontSize: 11),
@@ -129,7 +129,7 @@ class _UTsubscriptionChartState extends State<UTsubscriptionChart> {
 
   TextStyle _axisLabelStyle() => Theme.of(context)
       .textTheme
-      .subtitle2!
+      .titleSmall!
       .copyWith(color: AppColor.chartLabelColor, fontSize: 10);
 
   NumericAxis _primaryYAxis(BuildContext context) {
@@ -213,7 +213,7 @@ class _UTsubscriptionChartState extends State<UTsubscriptionChart> {
   DataLabelSettings _dataLabelSettings() {
     return DataLabelSettings(
       isVisible: true,
-      textStyle: Theme.of(context).textTheme.subtitle2!.copyWith(
+      textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
           color: AppColor.darkColor, fontSize: 10, fontWeight: FontWeight.w700),
     );
   }

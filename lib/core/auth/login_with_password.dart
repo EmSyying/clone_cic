@@ -80,7 +80,7 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                 // ),
                 // Text(S.of(context).password,
                 //     textAlign: TextAlign.center,
-                //     style: Theme.of(context).textTheme.headline2),
+                //     style: Theme.of(context).textTheme.displayMedium),
                 const SizedBox(
                   height: 50.0,
                 ),
@@ -92,7 +92,7 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(S.of(context).password,
-                            style: Theme.of(context).textTheme.bodyText1),
+                            style: Theme.of(context).textTheme.bodyLarge),
                         CupertinoTextField(
                           key: const Key("password"),
                           obscureText: true,
@@ -102,11 +102,11 @@ class _LoginWithPassWordState extends State<LoginWithPassWord> {
                             _authController.onLogin(context);
                           },
                           controller: _authController.passwordController.value,
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                           padding: const EdgeInsets.all(15.0),
                           placeholder: S.of(context).enterPassword,
                           placeholderStyle:
-                              Theme.of(context).textTheme.bodyText1,
+                              Theme.of(context).textTheme.bodyLarge,
                           decoration: BoxDecoration(
                               border: Border(
                                   bottom: BorderSide(

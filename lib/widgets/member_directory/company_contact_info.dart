@@ -36,7 +36,7 @@ class CompanyContactInFo extends StatelessWidget {
                 child: Row(
                   children: [
                     Text('Contact Information',
-                        style: Theme.of(context).textTheme.headline2),
+                        style: Theme.of(context).textTheme.displayMedium),
                     const Spacer(),
                     if (isEditable != null && isEditable!)
                       GestureDetector(

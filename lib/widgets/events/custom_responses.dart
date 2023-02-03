@@ -17,7 +17,8 @@ class CustomResponses extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-          child: Text("Responses", style: Theme.of(context).textTheme.caption),
+          child:
+              Text("Responses", style: Theme.of(context).textTheme.bodySmall),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),

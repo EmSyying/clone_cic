@@ -14,14 +14,14 @@ class CustomCashOutAndTransferAmount extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           text: amountCashOutTransfer,
-          style: Theme.of(context).textTheme.headline4!.copyWith(
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                 fontWeight: FontWeight.w700,
                 fontSize: 24,
               ),
           children: [
             TextSpan(
               text: pointTrue == false ? ' USD' : ' MVP',
-              style: Theme.of(context).textTheme.headline4!.copyWith(
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 20,
                   ),

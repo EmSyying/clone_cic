@@ -55,7 +55,7 @@ class BonusController extends GetxController {
   final accountName = ''.obs;
   final accountNumber = "".obs;
   final cashoutAmount = 0.0.obs;
-  final isEnableButton = false.obs;
+  final isEnablebutton = false.obs;
   final isVailidateBankName = true.obs;
   final isValidatebankInfo = true.obs;
   final isValidateAccountName = true.obs;

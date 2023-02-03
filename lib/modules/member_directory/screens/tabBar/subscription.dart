@@ -51,7 +51,7 @@ class _SubsciptionState extends State<Subsciption> {
               : EmptyStateProfile(
                   isEditable: false,
                   title: 'No Share yet',
-                  caption:
+                  bodySmall:
                       'Here’s where you’ll find the newest update of member profile',
                   buttonLabel: 'Add Education',
                   iconUrl: 'assets/images/emptyState.png',

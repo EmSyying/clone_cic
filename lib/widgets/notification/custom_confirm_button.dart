@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CustomConfirmButton extends StatelessWidget {
+class CustomConfirmbutton extends StatelessWidget {
   final String? title;
   final GestureTapCallback? onTap;
-  const CustomConfirmButton({Key? key, this.title, this.onTap})
+  const CustomConfirmbutton({Key? key, this.title, this.onTap})
       : super(key: key);
 
   @override

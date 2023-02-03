@@ -114,7 +114,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                             'Amount To Deposit',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 12.0,
@@ -148,7 +148,7 @@ class _MMAcountDepositScreenState extends State<MMAcountDepositScreen> {
                                         'Available Payment Account',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                               fontWeight: FontWeight.w700,
                                               fontSize: 18.0,

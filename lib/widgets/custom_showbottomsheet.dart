@@ -91,7 +91,7 @@ onShowBottomSheet(
                                   title ?? '',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(fontSize: 18),
                                 ),
                           ),
@@ -193,7 +193,7 @@ onShowBottomSheet(
                                           title ?? '',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(fontSize: 18),
                                         ),
                                   ),

@@ -29,7 +29,7 @@ class PersonalProfileTap extends StatelessWidget {
                 'About',
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(fontWeight: FontWeight.w700),
               ),
             ),
@@ -49,7 +49,7 @@ class PersonalProfileTap extends StatelessWidget {
                     '$description',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                   ),
           ),

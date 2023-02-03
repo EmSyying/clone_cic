@@ -108,7 +108,7 @@
 //     //   backgroundColor: Colors.transparent,
 //     //   context: context,
 //     //   builder: (context) {
-//     //     return CustomPopupButtonSheet(
+//     //     return CustomPopupbuttonSheet(
 //     //       assetImage: 'assets/images/svgfile/underDevelopment.svg',
 //     //       description: 'This feature is under development at the moment',
 //     //       title: 'This feature not available yet',
@@ -158,7 +158,7 @@
 //                               padding: const EdgeInsets.symmetric(vertical: 30),
 //                               child: Text(
 //                                 "Scanning will start automatically",
-//                                 style: Theme.of(context).textTheme.bodyText2,
+//                                 style: Theme.of(context).textTheme.bodyMedium,
 //                               ),
 //                             ),
 //                             Padding(
@@ -166,7 +166,7 @@
 //                                   const EdgeInsets.symmetric(horizontal: 30),
 //                               child: Text(
 //                                 "Use Scan QR to view other CiC Member's profile.",
-//                                 style: Theme.of(context).textTheme.bodyText1,
+//                                 style: Theme.of(context).textTheme.bodyLarge,
 //                                 textAlign: TextAlign.center,
 //                               ),
 //                             ),
@@ -176,7 +176,7 @@
 //                             // if (result != null)
 //                             //   Text(
 //                             //     'Format: ${result.format.formatName} Data: ${result.code}',
-//                             //     style: Theme.of(context).textTheme.bodyText1,
+//                             //     style: Theme.of(context).textTheme.bodyLarge,
 //                             //   ),
 //                             if (uri != null)
 //                               Text(
@@ -375,7 +375,7 @@
 //                                 ),
 //                               ),
 
-//                             // RaisedButton(
+//                             // Raisedbutton(
 //                             //   onPressed: () async {
 //                             //     await controller?.toggleFlash();
 //                             //     setState(() {});

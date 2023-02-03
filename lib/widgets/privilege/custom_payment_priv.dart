@@ -29,7 +29,7 @@ class CustomPaymentPrivilege extends StatelessWidget {
       children: [
         Text(
           title ?? 'Enter Amount',
-          style: Theme.of(context).textTheme.subtitle1!.copyWith(
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontWeight: FontWeight.w400,
               ),
         ),
@@ -41,7 +41,7 @@ class CustomPaymentPrivilege extends StatelessWidget {
               NumericTextFormatter(),
               FilteringTextInputFormatter.deny(RegExp(r'^0+')),
             ],
-            style: Theme.of(context).textTheme.headline5!.copyWith(
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.6,
                   fontSize: 46,
@@ -55,7 +55,7 @@ class CustomPaymentPrivilege extends StatelessWidget {
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
               hintText: hintText ?? '0.00',
-              hintStyle: Theme.of(context).textTheme.headline5!.copyWith(
+              hintStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.6,
                     fontSize: 46,
@@ -68,7 +68,7 @@ class CustomPaymentPrivilege extends StatelessWidget {
         Obx(() => privilageController.validationPayment.value
             ? Text(
                 'Please Enter amounts',
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                       color: AppColor.primaryColor,
                     ),

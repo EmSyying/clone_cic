@@ -310,7 +310,7 @@ class BulletPaymentDetail extends StatelessWidget {
                                       overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                               color: AppColor
                                                   .statusColor['pending']),
@@ -354,7 +354,7 @@ class BulletPaymentDetail extends StatelessWidget {
                 children: [
                   Text(
                     'By submitting you agree to',
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -371,8 +371,11 @@ class BulletPaymentDetail extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 5.0),
                       child: Text(
                         'CiC Service Agreement',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.normal),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontSize: 12, fontWeight: FontWeight.normal),
                       ),
                     ),
                   ),

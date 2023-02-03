@@ -28,7 +28,7 @@ class CustomImageView extends StatelessWidget {
           children: [
             Text(
               label!,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             const SizedBox(
               height: 20,

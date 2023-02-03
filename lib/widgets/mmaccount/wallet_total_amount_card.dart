@@ -20,7 +20,7 @@ class WalletTotalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.headline2!;
+    TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
     return Container(
       height: 110,
       decoration: BoxDecoration(
@@ -85,7 +85,7 @@ class WalletTotalCard extends StatelessWidget {
                                         "${controller.uiSettingData.availableBalance!.description}",
                                         textStyle: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 14))

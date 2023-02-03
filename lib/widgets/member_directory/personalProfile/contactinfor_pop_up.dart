@@ -194,7 +194,7 @@ class _ContectInfoPopUpState extends State<ContectInfoPopUp> {
                                     child: Text(
                                       'Is current address the same permanent address?',
                                       style:
-                                          Theme.of(context).textTheme.bodyText1,
+                                          Theme.of(context).textTheme.bodyLarge,
                                     ),
                                   ),
                                   const SizedBox(

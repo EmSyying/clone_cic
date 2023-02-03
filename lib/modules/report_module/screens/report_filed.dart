@@ -65,7 +65,7 @@ class _FileCategoriesReportState extends State<FileCategoriesReport> {
         isLogo: false,
         isLeading: true,
         context: context,
-        backgroundColor: context.theme.backgroundColor,
+        backgroundColor: context.theme.colorScheme.background,
         elevation: 1,
         title: widget.tabLabel,
         //'Report',

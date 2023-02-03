@@ -38,7 +38,7 @@ class CustomSubscribeHistory extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, top: 20),
                         child: Text(
                           'Transaction',
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                       ),
                       subscribeCon.isLoadingHistory.value

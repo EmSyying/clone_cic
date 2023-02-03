@@ -320,7 +320,7 @@ class _EventDetailState extends State<EventDetail> {
                                                         .value.title!,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .caption),
+                                                        .bodySmall),
                                                 const SizedBox(
                                                   height: 5.0,
                                                 ),
@@ -335,7 +335,7 @@ class _EventDetailState extends State<EventDetail> {
                                                         '${eventController.eventDetail.value.hostAt!.capitalize.toString()} Event',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline2!
+                                                            .displayMedium!
                                                             .copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
@@ -359,7 +359,7 @@ class _EventDetailState extends State<EventDetail> {
                                                         '${eventController.eventDetail.value.posted!.capitalize.toString()} Event',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline5!
+                                                            .headlineSmall!
                                                             .copyWith(
                                                                 color: eventController
                                                                             .eventDetail
@@ -440,7 +440,7 @@ class _EventDetailState extends State<EventDetail> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline3!
+                                                                .displaySmall!
                                                                 .copyWith(
                                                                   fontSize: 12,
                                                                   fontWeight:
@@ -632,7 +632,7 @@ class _EventDetailState extends State<EventDetail> {
                                                   'Details',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline2!
+                                                      .displayMedium!
                                                       .copyWith(
                                                           fontSize: 18,
                                                           fontWeight:
@@ -741,7 +741,7 @@ class _EventDetailState extends State<EventDetail> {
                                           //       trimExpandedText: 'Read less',
                                           //       style: Theme.of(context)
                                           //           .textTheme
-                                          //           .headline5!
+                                          //           .headlineSmall!
                                           //           .copyWith(
                                           //               fontSize: 14,
                                           //               fontWeight:
@@ -1201,14 +1201,14 @@ Widget _customDateDetail({
           children: [
             Text(
               '$title',
-              style: Theme.of(context!).textTheme.headline5!.copyWith(
+              style: Theme.of(context!).textTheme.headlineSmall!.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey),
             ),
             Text(
               '$content',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: textColor ?? Colors.black),

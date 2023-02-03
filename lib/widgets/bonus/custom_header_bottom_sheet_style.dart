@@ -62,8 +62,11 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
                         label ?? "",
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.w500),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ),
                     const Spacer(),
@@ -76,7 +79,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                                 : "${FormatToK.digitNumber(amount ?? 0)} USD",
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(
                                     color: type!.toLowerCase() == 'bonus' ||
                                             type!.toLowerCase() == 'cash-in' ||
@@ -103,7 +106,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                         time ?? "",
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(fontSize: 12, color: Colors.grey),
                       ),
                     ),
@@ -120,7 +123,7 @@ class CustomHeaderBottomStyle extends StatelessWidget {
                                 pointAmount ?? "",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                         fontSize: 10,
                                         color: Colors.grey,

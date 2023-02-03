@@ -2,8 +2,6 @@ import 'package:cicgreenloan/widgets/ut_tradding/sub_min_max.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../Utils/helper/color.dart';
-
 class CustomMaximumShimmer extends StatelessWidget {
   final bool? isLoading;
   final String? maximum;

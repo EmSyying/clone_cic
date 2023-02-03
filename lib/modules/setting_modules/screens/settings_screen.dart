@@ -216,7 +216,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                   ),
-                  // RaisedButton(
+                  // Raisedbutton(
                   //   onPressed: () async {
                   //     Navigator.pop(context);
                   //     removeUser('current_user');
@@ -338,7 +338,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                       ),
-                      // RaisedButton(
+                      // Raisedbutton(
                       //   onPressed: () async {
                       //     Navigator.pop(context);
                       //     removeUser('current_user');
@@ -1026,7 +1026,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           isMainColor: true,
                           icon: "assets/images/svgfile/log-out.svg",
                           labelColor: Colors.red,
-                          label: S.of(context).logoutButton,
+                          label: S.of(context).logoutbutton,
                           onTap: () {
                             // await LocalData.removePINcode('setPIN');
                             onShowDialog(context);

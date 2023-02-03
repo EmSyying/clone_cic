@@ -720,7 +720,7 @@ class _EditCompanyInfoState extends State<EditCompanyInfo> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'Which of the following legal documents that you have? (Multiple selectionsss)',
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontFamily: 'DMSans',
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

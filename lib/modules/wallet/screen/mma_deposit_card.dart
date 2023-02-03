@@ -37,7 +37,7 @@ class MMADepositCard extends StatelessWidget {
               ),
               child: Text(
                 'Please Choose',
-                style: Theme.of(context).textTheme.headline2!.copyWith(
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
               ),
@@ -58,7 +58,7 @@ class MMADepositCard extends StatelessWidget {
                                   backgroundColor: Colors.transparent,
                                   context: context,
                                   isNoAppBar: true,
-                                  child: const CustomPopupButtonSheet(
+                                  child: const CustomPopupbuttonSheet(
                                     assetImage:
                                         'assets/images/svgfile/underDevelopment.svg',
                                     description:
@@ -77,7 +77,7 @@ class MMADepositCard extends StatelessWidget {
                                   backgroundColor: Colors.transparent,
                                   context: context,
                                   builder: (context) =>
-                                      const CustomPopupButtonSheet(
+                                      const CustomPopupbuttonSheet(
                                     assetImage:
                                         'assets/images/svgfile/underDevelopment.svg',
                                     description:
@@ -112,7 +112,7 @@ class MMADepositCard extends StatelessWidget {
                                   backgroundColor: Colors.transparent,
                                   context: context,
                                   builder: (context) =>
-                                      const CustomPopupButtonSheet(
+                                      const CustomPopupbuttonSheet(
                                     assetImage:
                                         'assets/images/svgfile/underDevelopment.svg',
                                     description:

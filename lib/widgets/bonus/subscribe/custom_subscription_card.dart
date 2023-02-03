@@ -41,7 +41,7 @@ class CustomSubscriptionCard extends StatelessWidget {
                   'Total UT',
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .displayMedium!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 if (subscribeCon.utSubscription.value.unpaidUt != 0)
@@ -51,7 +51,7 @@ class CustomSubscriptionCard extends StatelessWidget {
                       'Unpaid UT',
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   )
@@ -67,14 +67,17 @@ class CustomSubscriptionCard extends StatelessWidget {
                         subscribeCon.utSubscription.value.totalUt != null
                             ? '${FormatNumber.formatNumberDefualt(subscribeCon.utSubscription.value.totalUt!)}'
                             : "0",
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w500)),
                     const SizedBox(width: 5),
                     Text(
                       'UT',
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                     )
                   ],
@@ -89,7 +92,7 @@ class CustomSubscriptionCard extends StatelessWidget {
                                 subscribeCon.utSubscription.value.unpaidUt),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -99,7 +102,7 @@ class CustomSubscriptionCard extends StatelessWidget {
                           'UT',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,

@@ -283,7 +283,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                                                     textStyle: Theme.of(
                                                                             context)
                                                                         .textTheme
-                                                                        .headline2!
+                                                                        .displayMedium!
                                                                         .copyWith(
                                                                             fontWeight:
                                                                                 FontWeight.normal,
@@ -377,7 +377,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                                                     textStyle: Theme.of(
                                                                             context)
                                                                         .textTheme
-                                                                        .headline2!
+                                                                        .displayMedium!
                                                                         .copyWith(
                                                                             fontWeight:
                                                                                 FontWeight.normal,
@@ -451,7 +451,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                             'I have read  and agree to',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                     fontSize: 13,
                                                     fontWeight:
@@ -498,7 +498,7 @@ class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
                                                   'CiC Serivce Agreement',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline2!
+                                                      .displayMedium!
                                                       .copyWith(
                                                           fontSize: 13,
                                                           fontWeight:

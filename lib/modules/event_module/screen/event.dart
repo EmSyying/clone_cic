@@ -224,7 +224,7 @@ class _EventScreenState extends State<EventScreen> {
                                             year.value.year.toString(),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2!
+                                                .titleSmall!
                                                 .copyWith(
                                                     color:
                                                         const Color(0xffffffff)
@@ -315,7 +315,7 @@ class _EventScreenState extends State<EventScreen> {
                                                               .toString(),
                                                           key: month.value.key =
                                                               GlobalKey(),
-                                                          style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
                                                               color: currentSelected ==
                                                                           month
                                                                               .key &&
@@ -669,9 +669,9 @@ class _EventScreenState extends State<EventScreen> {
 //                         Icons.arrow_forward_ios,
 //                         color: Colors.white,
 //                       ),
-//                       formatButtonTextStyle:
+//                       formatbuttonTextStyle:
 //                           const TextStyle(color: Colors.white),
-//                       formatButtonDecoration: BoxDecoration(
+//                       formatbuttonDecoration: BoxDecoration(
 //                         border: Border.all(color: Colors.white),
 //                       ),
 //                     ),

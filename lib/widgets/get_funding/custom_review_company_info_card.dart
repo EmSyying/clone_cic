@@ -210,7 +210,7 @@ class _CustomReviewCompanyInfocardState
                         horizontal: 20, vertical: 20),
                     child: Text(
                       'Which of the following legal documents that you have? (Multiple selections)',
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontFamily: 'DMSans',
                             fontSize: 14,
                             color: const Color(0xff464646),

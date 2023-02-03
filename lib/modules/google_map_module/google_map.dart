@@ -68,7 +68,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
               //     mainAxisAlignment: MainAxisAlignment.start,
               //     crossAxisAlignment: CrossAxisAlignment.start,
               //     children: [
-              //       FloatingActionButton(
+              //       FloatingActionbutton(
               //         heroTag: 'myLocation',
               //         elevation: 2,
               //         backgroundColor: Colors.white,
@@ -84,7 +84,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
               //       SizedBox(
               //         height: 10,
               //       ),
-              //       FloatingActionButton(
+              //       FloatingActionbutton(
               //         heroTag: 'direction',
               //         elevation: 2,
               //         onPressed: () => _googleMapCon.onAnimateCamera(

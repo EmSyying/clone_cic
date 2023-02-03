@@ -648,6 +648,11 @@ class _MyAppState extends State<MyApp> {
 
                     theme: ThemeData(
                       brightness: Brightness.light,
+                      accentColor: setting.brightPrimaryColor == null
+                          ? AppColor.mainColor
+                          : fromHex(
+                              setting.brightPrimaryColor.toString(),
+                            ),
                       backgroundColor: setting.brightPrimaryColor == null
                           ? AppColor.mainColor
                           : fromHex(
@@ -676,7 +681,7 @@ class _MyAppState extends State<MyApp> {
                               ),
                         centerTitle: false,
                         titleTextStyle:
-                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                            Theme.of(context).textTheme.titleSmall!.copyWith(
                                   color: Colors.white,
                                   fontSize: 20,
                                 ),
@@ -690,24 +695,37 @@ class _MyAppState extends State<MyApp> {
                                 )),
                       textTheme: TextTheme(
                         //appbar text
-                        headline6: const TextStyle(
+
+                        displayLarge: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+
+                        titleLarge: const TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 18,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                         //catatagory text
-                        caption: const TextStyle(
+                        bodySmall: const TextStyle(
                             fontFamily: 'DMSans',
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             color: Colors.black),
-                        headline5: const TextStyle(
+                        headlineSmall: const TextStyle(
                           fontFamily: 'DMSans',
                           fontSize: 12,
                           color: Color(0xff404040),
                         ),
 
-                        headline3: TextStyle(
+                        headlineLarge: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+
+                        displaySmall: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
                             color: setting.brightPrimaryColor == null
@@ -716,16 +734,13 @@ class _MyAppState extends State<MyApp> {
                                     setting.brightPrimaryColor.toString(),
                                   ),
                             fontWeight: FontWeight.w600),
-                        headline1: isLocal
-                            ? TextStyle(
-                                fontFamily: 'KhBattambang',
-                                fontSize: 27,
-                                color: setting.brightPrimaryColor == null
-                                    ? AppColor.mainColor
-                                    : fromHex(
-                                        setting.brightPrimaryColor.toString(),
-                                      ),
-                              )
+
+                        labelLarge: isLocal
+                            ? const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)
                             : TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 27,
@@ -735,47 +750,88 @@ class _MyAppState extends State<MyApp> {
                                         setting.brightPrimaryColor.toString(),
                                       ),
                               ),
-                        bodyText2: const TextStyle(
+                        bodyMedium: const TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w600),
 
-                        subtitle2: const TextStyle(
+                        titleSmall: const TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w500),
 
-                        subtitle1: const TextStyle(
+                        titleMedium: const TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
                             color: Colors.black87,
                             fontWeight: FontWeight.w500),
-                        headline2: const TextStyle(
+                        displayMedium: const TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 16,
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
-                        headline4: const TextStyle(
+                        headlineMedium: const TextStyle(
                           fontSize: 18.0,
                           color: Colors.black,
                           fontWeight: FontWeight.w900,
                           fontFamily: 'DMSans',
                         ),
 
-                        bodyText1: const TextStyle(
+                        bodyLarge: const TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 12,
                             color: Colors.black),
-                        button: const TextStyle(
+
+                        labelSmall: const TextStyle(
                             fontFamily: 'DMSans',
-                            fontSize: 16,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                        labelMedium: const TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      colorScheme: ColorScheme.fromSwatch()
-                          .copyWith(secondary: AppColor.mainColor),
+                      colorScheme: ColorScheme(
+                          onSurfaceVariant: Colors.red,
+                          background: setting.brightPrimaryColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
+                          brightness: Brightness.light,
+                          error: Colors.red,
+                          onBackground: setting.brightPrimaryColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
+                          onError: Colors.red,
+                          onPrimary: Colors.white,
+                          onSecondary: setting.brightSecondColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightSecondColor.toString(),
+                                ),
+                          onSurface: setting.brightSecondColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
+                          primary: setting.brightPrimaryColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightSecondColor.toString(),
+                                ),
+                          secondary: setting.brightSecondColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightSecondColor.toString(),
+                                ),
+                          surface: Colors.red),
                       textSelectionTheme: TextSelectionThemeData(
                         selectionColor: setting.brightPrimaryColor == null
                             ? AppColor.mainColor
@@ -797,56 +853,56 @@ class _MyAppState extends State<MyApp> {
                     //             unselectedItemColor: Colors.white60,
                     //             selectedItemColor: Colors.white),
                     //         textTheme: TextTheme(
-                    //           caption: TextStyle(
+                    //           bodySmall: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontWeight: FontWeight.bold,
                     //               fontSize: 20,
                     //               color: Colors.white),
-                    //           headline6: TextStyle(
+                    //           titleLarge: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 25,
                     //               color: Colors.white,
                     //               fontWeight: FontWeight.bold),
-                    //           headline5: TextStyle(
+                    //           headlineSmall: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 14,
                     //               color: AppColor.mainColor),
-                    //           headline3: TextStyle(
+                    //           displaySmall: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 14,
                     //               color: AppColor.mainColor),
-                    //           headline1: TextStyle(
+                    //           button: TextStyle(
                     //             fontFamily: 'DMSans',
                     //             fontSize: 27,
                     //             color: AppColor.mainColor,
                     //           ),
-                    //           bodyText2: TextStyle(
+                    //           bodyMedium: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 14,
                     //               color: Colors.white,
                     //               fontWeight: FontWeight.w600),
-                    //           subtitle1: TextStyle(
+                    //           titleMedium: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 14,
                     //               color: Colors.grey,
                     //               fontWeight: FontWeight.bold),
-                    //           subtitle2: TextStyle(
+                    //           titleSmall: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 14,
                     //               color: Colors.white,
                     //               fontWeight: FontWeight.bold),
-                    //           headline2: TextStyle(
+                    //           displayMedium: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 16,
                     //               color: Colors.white,
                     //               fontWeight: FontWeight.bold),
-                    //           headline4: TextStyle(
+                    //           headlineMedium: TextStyle(
                     //             fontSize: 18.0,
                     //             color: AppColor.mainColor,
                     //             fontWeight: FontWeight.w900,
                     //             fontFamily: 'DMSans',
                     //           ),
-                    //           bodyText1: TextStyle(
+                    //           bodyLarge: TextStyle(
                     //               fontFamily: 'DMSans',
                     //               fontSize: 12,
                     //               color: Colors.white),
@@ -884,59 +940,59 @@ ThemeData buildTheme(Brightness brightness) {
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
               unselectedItemColor: Colors.white60,
               selectedItemColor: Colors.white),
-          textTheme: const TextTheme(
-            caption: TextStyle(
+          textTheme: TextTheme(
+            bodySmall: const TextStyle(
                 fontFamily: 'DMSans',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
                 color: Colors.white),
-            headline6: TextStyle(
+            titleLarge: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 18,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
-            headline5: TextStyle(
+            headlineSmall: const TextStyle(
                 fontFamily: 'DMSans', fontSize: 12, color: Colors.white),
-            headline3: TextStyle(
+            displaySmall: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: AppColor.mainColor,
                 fontWeight: FontWeight.w600),
-            headline1: TextStyle(
+            button: const TextStyle(
               fontFamily: 'DMSans',
               fontSize: 27,
               color: AppColor.mainColor,
             ),
-            headline4: TextStyle(
+            headlineMedium: const TextStyle(
               fontSize: 18.0,
               color: Colors.white,
               fontWeight: FontWeight.w900,
               fontFamily: 'DMSans',
             ),
-            bodyText2: TextStyle(
+            bodyMedium: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.w600),
-            subtitle1: TextStyle(
+            titleMedium: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: Colors.grey,
                 fontWeight: FontWeight.bold),
-            subtitle2: TextStyle(
+            titleSmall: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
-            headline2: TextStyle(
+            displayMedium: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 16,
                 color: Colors.white,
 //                color: AppColor.textColor,
                 fontWeight: FontWeight.bold),
-            bodyText1: TextStyle(
+            bodyLarge: const TextStyle(
                 fontFamily: 'DMSans', fontSize: 12, color: Colors.white),
-            button: TextStyle(
+            labelLarge: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -954,67 +1010,67 @@ ThemeData buildTheme(Brightness brightness) {
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
               unselectedItemColor: Colors.black,
               selectedItemColor: AppColor.mainColor),
-          textTheme: const TextTheme(
+          textTheme: TextTheme(
             //appbar text
-            headline6: TextStyle(
+            titleLarge: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 18,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
             //catatagory text
-            caption: TextStyle(
+            bodySmall: const TextStyle(
                 fontFamily: 'DMSans',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
                 color: Colors.black),
-            headline5: TextStyle(
+            headlineSmall: const TextStyle(
               fontFamily: 'DMSans',
               fontSize: 12,
               color: Color(0xff404040),
             ),
 
-            headline3: TextStyle(
+            displaySmall: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: AppColor.mainColor,
                 fontWeight: FontWeight.w600),
-            headline1: TextStyle(
+            button: const TextStyle(
               fontFamily: 'DMSans',
               fontSize: 27,
               color: AppColor.mainColor,
             ),
-            bodyText2: TextStyle(
+            bodyMedium: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: Colors.black,
                 fontWeight: FontWeight.w600),
 
-            subtitle2: TextStyle(
+            titleSmall: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: Colors.black,
                 fontWeight: FontWeight.w500),
 
-            subtitle1: TextStyle(
+            titleMedium: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 14,
                 color: Colors.grey,
                 fontWeight: FontWeight.bold),
-            headline2: TextStyle(
+            displayMedium: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.bold),
-            headline4: TextStyle(
+            headlineMedium: const TextStyle(
               fontSize: 18.0,
               color: Colors.black,
               fontWeight: FontWeight.w900,
               fontFamily: 'DMSans',
             ),
 
-            bodyText1: TextStyle(
+            bodyLarge: const TextStyle(
                 fontFamily: 'DMSans', fontSize: 12, color: Colors.black),
-            button: TextStyle(
+            labelLarge: const TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

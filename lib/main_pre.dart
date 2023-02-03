@@ -23,6 +23,8 @@ Future<void> main() async {
     values: FlavorValues(
         baseUrl: "https://pre-cic.z1platform.com/",
         apiBaseUrl: "https://pre-cic.z1platform.com/api/v4/",
+        // baseUrl: "https://cic.z1platform.com/",
+        // apiBaseUrl: "https://cic.z1platform.com/api/v4/",
         androidBundleId: 'com.cambodianinvestorscorporation',
         iOSBundleName: 'com.cambodianinvestorscorporation.pre'),
   );

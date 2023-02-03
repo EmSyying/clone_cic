@@ -28,7 +28,7 @@ openDateTimePicker(
                       TextButton(
                         child: Text(
                           'Cancel',
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                         onPressed: () {
                           Navigator.pop(context);
@@ -37,7 +37,7 @@ openDateTimePicker(
                       TextButton(
                         child: Text(
                           'Done',
-                          style: Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.displaySmall,
                         ),
                         onPressed: () {
                           dateTime = date != null ? date! : selectedDate!;

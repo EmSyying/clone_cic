@@ -22,7 +22,7 @@ class CustomTitleCardInvestFIF extends StatelessWidget {
           ),
           Text(
             title ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
               shadows: [
                 Shadow(
                   offset: const Offset(0.0, 4.0),

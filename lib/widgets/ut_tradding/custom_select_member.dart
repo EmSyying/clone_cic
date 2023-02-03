@@ -99,10 +99,10 @@ class _CustomSelectMemberState extends State<CustomSelectMember> {
                               children: [
                                 Text(copyData!['Name'],
                                     style: copyData == selectData
-                                        ? Theme.of(context).textTheme.bodyText2
+                                        ? Theme.of(context).textTheme.bodyMedium
                                         : Theme.of(context)
                                             .textTheme
-                                            .bodyText2),
+                                            .bodyMedium),
                                 const Spacer(),
                                 Icon(
                                   Icons.arrow_drop_down,
@@ -167,8 +167,8 @@ class _CustomSelectMemberState extends State<CustomSelectMember> {
                                 Text(
                                   '${copyData!['Name']}',
                                   style: copyData == selectData
-                                      ? Theme.of(context).textTheme.bodyText1
-                                      : Theme.of(context).textTheme.bodyText2,
+                                      ? Theme.of(context).textTheme.bodyLarge
+                                      : Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 const Spacer(),
                                 Icon(

@@ -61,7 +61,7 @@ class CustomCardFIFDeducSelection extends StatelessWidget {
                           title ?? "",
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle2!
+                              .titleSmall!
                               .copyWith(
                                   fontFamily: "DMSans-Bold",
                                   fontSize: 14,
@@ -77,7 +77,7 @@ class CustomCardFIFDeducSelection extends StatelessWidget {
                                 overflow: TextOverflow.visible,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12,
@@ -93,7 +93,7 @@ class CustomCardFIFDeducSelection extends StatelessWidget {
                             'Explore More',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(
                                     decoration: TextDecoration.underline,
                                     fontWeight: FontWeight.w500,

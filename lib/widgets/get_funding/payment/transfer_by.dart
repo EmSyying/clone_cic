@@ -48,7 +48,7 @@ class _TransferPageState extends State<TransferPage> {
               width: 300.0,
               height: 80.0,
               child: Text(S.of(context).transferBy,
-                  style: Theme.of(context).textTheme.headline1),
+                  style: Theme.of(context).textTheme.button),
             ),
           ),
           Positioned(

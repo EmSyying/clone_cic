@@ -33,7 +33,7 @@ class CustomPopUpMenu extends StatelessWidget {
                 const SizedBox(width: 20),
                 Text(
                   title ?? "",
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: textColor ?? Colors.black),

@@ -17,7 +17,7 @@ class CustomMenu extends StatelessWidget {
           const SizedBox(width: 10),
           Text(
             title!,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
       ),

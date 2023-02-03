@@ -5,13 +5,13 @@ import '../../Utils/helper/color.dart';
 import '../../Utils/helper/container_partern.dart';
 
 // ignore: must_be_immutable
-class CustomTradingButton extends StatelessWidget {
+class CustomTradingbutton extends StatelessWidget {
   String title;
   Widget? icon;
   Color? color;
   double? height;
   final VoidCallback onTap;
-  CustomTradingButton(
+  CustomTradingbutton(
       {this.icon,
       this.color,
       this.height,

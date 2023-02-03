@@ -39,7 +39,7 @@ mixin _$PrivilegeSlideModel {
   @JsonKey(name: "image")
   String? get image => throw _privateConstructorUsedError;
   @JsonKey(name: 'button')
-  ButtonListModel? get buttonList => throw _privateConstructorUsedError;
+  buttonListModel? get buttonList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,9 +63,9 @@ abstract class $PrivilegeSlideModelCopyWith<$Res> {
       @JsonKey(name: "destination") String? destination,
       @JsonKey(name: "url_target") String? urlTarget,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: 'button') ButtonListModel? buttonList});
+      @JsonKey(name: 'button') buttonListModel? buttonList});
 
-  $ButtonListModelCopyWith<$Res>? get buttonList;
+  $buttonListModelCopyWith<$Res>? get buttonList;
 }
 
 /// @nodoc
@@ -132,18 +132,18 @@ class _$PrivilegeSlideModelCopyWithImpl<$Res, $Val extends PrivilegeSlideModel>
       buttonList: freezed == buttonList
           ? _value.buttonList
           : buttonList // ignore: cast_nullable_to_non_nullable
-              as ButtonListModel?,
+              as buttonListModel?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ButtonListModelCopyWith<$Res>? get buttonList {
+  $buttonListModelCopyWith<$Res>? get buttonList {
     if (_value.buttonList == null) {
       return null;
     }
 
-    return $ButtonListModelCopyWith<$Res>(_value.buttonList!, (value) {
+    return $buttonListModelCopyWith<$Res>(_value.buttonList!, (value) {
       return _then(_value.copyWith(buttonList: value) as $Val);
     });
   }
@@ -167,10 +167,10 @@ abstract class _$$_PrivilegeSlideModelCopyWith<$Res>
       @JsonKey(name: "destination") String? destination,
       @JsonKey(name: "url_target") String? urlTarget,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: 'button') ButtonListModel? buttonList});
+      @JsonKey(name: 'button') buttonListModel? buttonList});
 
   @override
-  $ButtonListModelCopyWith<$Res>? get buttonList;
+  $buttonListModelCopyWith<$Res>? get buttonList;
 }
 
 /// @nodoc
@@ -235,7 +235,7 @@ class __$$_PrivilegeSlideModelCopyWithImpl<$Res>
       buttonList: freezed == buttonList
           ? _value.buttonList
           : buttonList // ignore: cast_nullable_to_non_nullable
-              as ButtonListModel?,
+              as buttonListModel?,
     ));
   }
 }
@@ -287,7 +287,7 @@ class _$_PrivilegeSlideModel implements _PrivilegeSlideModel {
   final String? image;
   @override
   @JsonKey(name: 'button')
-  final ButtonListModel? buttonList;
+  final buttonListModel? buttonList;
 
   @override
   String toString() {
@@ -346,7 +346,7 @@ abstract class _PrivilegeSlideModel implements PrivilegeSlideModel {
           @JsonKey(name: "destination") final String? destination,
           @JsonKey(name: "url_target") final String? urlTarget,
           @JsonKey(name: "image") final String? image,
-          @JsonKey(name: 'button') final ButtonListModel? buttonList}) =
+          @JsonKey(name: 'button') final buttonListModel? buttonList}) =
       _$_PrivilegeSlideModel;
 
   factory _PrivilegeSlideModel.fromJson(Map<String, dynamic> json) =
@@ -381,7 +381,7 @@ abstract class _PrivilegeSlideModel implements PrivilegeSlideModel {
   String? get image;
   @override
   @JsonKey(name: 'button')
-  ButtonListModel? get buttonList;
+  buttonListModel? get buttonList;
   @override
   @JsonKey(ignore: true)
   _$$_PrivilegeSlideModelCopyWith<_$_PrivilegeSlideModel> get copyWith =>

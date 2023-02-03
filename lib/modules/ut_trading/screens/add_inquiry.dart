@@ -288,8 +288,9 @@ class _AddInquiryState extends State<AddInquiry> {
                                         left: 20.0, top: 20.0),
                                     child: Text(
                                       'Demand Information',
-                                      style:
-                                          Theme.of(context).textTheme.bodyText2,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                   ),
                                   const SizedBox(
@@ -377,9 +378,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                         description:
                                             'Your share is not sufficient to sell !');
                                   });
-                                } else if (inquirycontroller
-                                                .selectTrade.value ==
-                                            1 &&
+                                } else if (inquirycontroller.selectTrade.value == 1 &&
                                         inquirycontroller.priceShare.value <
                                             inquirycontroller.tradingSettingData
                                                 .data!.market!.minBasePrice! ||
@@ -395,12 +394,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                         description:
                                             'You can input the price between ${inquirycontroller.tradingSettingData.data!.market!.minBasePrice!} to ${inquirycontroller.tradingSettingData.data!.market!.maxBasePrice!} !');
                                   });
-                                } else if (widget.operation == 'sell' &&
-                                        inquirycontroller.qtyShare.value <
-                                            inquirycontroller
-                                                .tradingSettingData
-                                                .data!
-                                                .minNumberOfShareForSelling! ||
+                                } else if (widget.operation == 'sell' && inquirycontroller.qtyShare.value < inquirycontroller.tradingSettingData.data!.minNumberOfShareForSelling! ||
                                     widget.operation == 'buy' &&
                                         inquirycontroller.qtyShare.value <
                                             inquirycontroller
@@ -416,9 +410,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                             ? 'You have to input number of share greater then or equal to ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForSelling!} !'
                                             : 'You have to input number of share greater then or equal to ${inquirycontroller.tradingSettingData.data!.minNumberOfShareForBuying!} !');
                                   });
-                                } else if (inquirycontroller
-                                            .selectTrade.value ==
-                                        1 &&
+                                } else if (inquirycontroller.selectTrade.value == 1 &&
                                     widget.operation == 'sell' &&
                                     inquirycontroller.qtyShare.value >
                                         inquirycontroller
@@ -477,11 +469,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                                 .tradingSettingData
                                                 .data!
                                                 .maxNumberOfShareForSelling! ||
-                                    inquirycontroller.qtyShare.value <
-                                            inquirycontroller
-                                                .tradingSettingData
-                                                .data!
-                                                .minNumberOfShareForSelling! &&
+                                    inquirycontroller.qtyShare.value < inquirycontroller.tradingSettingData.data!.minNumberOfShareForSelling! &&
                                         widget.operation == 'buy' &&
                                         inquirycontroller.qtyShare.value >
                                             inquirycontroller
@@ -502,8 +490,7 @@ class _AddInquiryState extends State<AddInquiry> {
                                   });
                                 } else if (widget.operation == 'sell' &&
                                     inquirycontroller.qtyShare.value >
-                                        inquirycontroller.tradingSettingData
-                                            .data!.availableUt!) {
+                                        inquirycontroller.tradingSettingData.data!.availableUt!) {
                                   setState(() {
                                     showNotifyPopUp(
                                         context: context,

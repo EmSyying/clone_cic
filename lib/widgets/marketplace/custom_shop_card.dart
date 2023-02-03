@@ -43,7 +43,7 @@ class CustomShopCard extends StatelessWidget {
             shopModel!.shopName!,
             style: Theme.of(context)
                 .textTheme
-                .bodyText1!
+                .bodyLarge!
                 .copyWith(color: Colors.grey[500]),
           ),
         ],
@@ -84,7 +84,7 @@ class CustomShopCard extends StatelessWidget {
     //           '${shopModel!.shopName!}',
     //           style: Theme.of(context)
     //               .textTheme
-    //               .bodyText1!
+    //               .bodyLarge!
     //               .copyWith(color: Colors.grey[500]),
     //         ),
     //       ],

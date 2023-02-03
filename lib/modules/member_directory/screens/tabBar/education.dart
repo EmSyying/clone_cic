@@ -585,7 +585,7 @@
 //             : EmptyStateProfile(
 //                 isEditable: widget.isEdiable!,
 //                 title: 'No Education Yet',
-//                 caption:
+//                 bodySmall:
 //                     'Here’s where you’ll find the newest update of member profile',
 //                 buttonLabel: 'Add Education',
 //                 iconUrl: 'assets/images/emptyState.png',

@@ -196,9 +196,9 @@ class _CustomYoutubePlayState extends State<CustomYoutubePlay> {
                   _space,
                   Row(
                     children: [
-                      _loadCueButton('LOAD'),
+                      _loadCuebutton('LOAD'),
                       const SizedBox(width: 10.0),
-                      _loadCueButton('CUE'),
+                      _loadCuebutton('CUE'),
                     ],
                   ),
                   _space,
@@ -354,7 +354,7 @@ class _CustomYoutubePlayState extends State<CustomYoutubePlay> {
 
   Widget get _space => const SizedBox(height: 10);
 
-  Widget _loadCueButton(String action) {
+  Widget _loadCuebutton(String action) {
     return Expanded(
       child: MaterialButton(
         color: Colors.blueAccent,

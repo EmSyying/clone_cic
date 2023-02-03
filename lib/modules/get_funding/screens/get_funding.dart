@@ -265,7 +265,7 @@ class _ShowCaseBodyState extends State<ShowCaseBody>
                                   description: 'Need help?    x',
                                   descTextStyle: Theme.of(context)
                                       .textTheme
-                                      .headline3!
+                                      .displaySmall!
                                       .copyWith(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500),

@@ -6,13 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import '../../Utils/helper/color.dart';
 
 // ignore: must_be_immutable
-class CustomTradingButton extends StatelessWidget {
+class CustomTradingbutton extends StatelessWidget {
   String? title;
   Widget? icon;
   Color? color;
   final bool? isBuying;
   final VoidCallback? onTap;
-  CustomTradingButton(
+  CustomTradingbutton(
       {Key? key,
       this.icon,
       this.color,

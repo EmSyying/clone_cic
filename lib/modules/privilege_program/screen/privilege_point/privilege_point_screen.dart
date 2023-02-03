@@ -45,7 +45,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.headline6!;
+    TextStyle textStyle = Theme.of(context).textTheme.titleLarge!;
 
     return CupertinoScaffold(
       body: Builder(builder: (context) {
@@ -156,7 +156,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                                     'As of ${FormatDate.investmentDateDisplayUTPrice(datetime)}',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline6!
+                                        .titleLarge!
                                         .copyWith(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 12,
@@ -187,7 +187,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                                       'Get MVP',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline6!
+                                          .titleLarge!
                                           .copyWith(
                                               fontSize: 11,
                                               fontWeight: FontWeight.w500),

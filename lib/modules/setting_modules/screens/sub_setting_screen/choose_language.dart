@@ -72,7 +72,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                         ),
                       ),
                     ),
-                    Text('ខ្មែរ', style: Theme.of(context).textTheme.bodyText2)
+                    Text('ខ្មែរ', style: Theme.of(context).textTheme.bodyMedium)
                   ],
                 ),
                 const SizedBox(
@@ -103,7 +103,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                       height: 2.0,
                     ),
                     Text('English',
-                        style: Theme.of(context).textTheme.bodyText2)
+                        style: Theme.of(context).textTheme.bodyMedium)
                   ],
                 ),
               ],

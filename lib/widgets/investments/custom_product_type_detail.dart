@@ -16,16 +16,17 @@ class ProductTypeDetailText extends StatelessWidget {
       children: [
         Text(
           '$label',
-          style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 14),
+          style:
+              Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 14),
         ),
         Text(
           value ?? '',
           style: isPassive != null
-              ? Theme.of(context).textTheme.headline5!.copyWith(
+              ? Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: isPassive!.toLowerCase() == 'passive'
                       ? Colors.red
                       : Colors.green)
-              : Theme.of(context).textTheme.bodyText2!.copyWith(
+              : Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
                   color: isAmount == true ? Colors.red : Colors.black),

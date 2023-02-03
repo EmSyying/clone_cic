@@ -27,7 +27,7 @@ customNewAppBar({
     title: widgetTitle ??
         Text(
           '$title',
-          style: Theme.of(context!).textTheme.headline2!.copyWith(
+          style: Theme.of(context!).textTheme.displayMedium!.copyWith(
               fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white),
         ),
     actions: action,

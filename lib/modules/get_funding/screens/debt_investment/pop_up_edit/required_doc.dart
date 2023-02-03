@@ -81,7 +81,7 @@ class _RequiredDocState extends State<RequiredDoc> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Required Documents',
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
         const SizedBox(

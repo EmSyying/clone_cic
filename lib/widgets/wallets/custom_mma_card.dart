@@ -64,7 +64,7 @@ class CustomMMACard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title ?? '',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

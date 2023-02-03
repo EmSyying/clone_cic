@@ -14,35 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ButtonListModel _$ButtonListModelFromJson(Map<String, dynamic> json) {
-  return _ButtonListModel.fromJson(json);
+buttonListModel _$buttonListModelFromJson(Map<String, dynamic> json) {
+  return _buttonListModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ButtonListModel {
+mixin _$buttonListModel {
   String? get label => throw _privateConstructorUsedError;
   String? get icon => throw _privateConstructorUsedError;
   String? get target => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ButtonListModelCopyWith<ButtonListModel> get copyWith =>
+  $buttonListModelCopyWith<buttonListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ButtonListModelCopyWith<$Res> {
-  factory $ButtonListModelCopyWith(
-          ButtonListModel value, $Res Function(ButtonListModel) then) =
-      _$ButtonListModelCopyWithImpl<$Res, ButtonListModel>;
+abstract class $buttonListModelCopyWith<$Res> {
+  factory $buttonListModelCopyWith(
+          buttonListModel value, $Res Function(buttonListModel) then) =
+      _$buttonListModelCopyWithImpl<$Res, buttonListModel>;
   @useResult
   $Res call({String? label, String? icon, String? target});
 }
 
 /// @nodoc
-class _$ButtonListModelCopyWithImpl<$Res, $Val extends ButtonListModel>
-    implements $ButtonListModelCopyWith<$Res> {
-  _$ButtonListModelCopyWithImpl(this._value, this._then);
+class _$buttonListModelCopyWithImpl<$Res, $Val extends buttonListModel>
+    implements $buttonListModelCopyWith<$Res> {
+  _$buttonListModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -74,22 +74,22 @@ class _$ButtonListModelCopyWithImpl<$Res, $Val extends ButtonListModel>
 }
 
 /// @nodoc
-abstract class _$$_ButtonListModelCopyWith<$Res>
-    implements $ButtonListModelCopyWith<$Res> {
-  factory _$$_ButtonListModelCopyWith(
-          _$_ButtonListModel value, $Res Function(_$_ButtonListModel) then) =
-      __$$_ButtonListModelCopyWithImpl<$Res>;
+abstract class _$$_buttonListModelCopyWith<$Res>
+    implements $buttonListModelCopyWith<$Res> {
+  factory _$$_buttonListModelCopyWith(
+          _$_buttonListModel value, $Res Function(_$_buttonListModel) then) =
+      __$$_buttonListModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? label, String? icon, String? target});
 }
 
 /// @nodoc
-class __$$_ButtonListModelCopyWithImpl<$Res>
-    extends _$ButtonListModelCopyWithImpl<$Res, _$_ButtonListModel>
-    implements _$$_ButtonListModelCopyWith<$Res> {
-  __$$_ButtonListModelCopyWithImpl(
-      _$_ButtonListModel _value, $Res Function(_$_ButtonListModel) _then)
+class __$$_buttonListModelCopyWithImpl<$Res>
+    extends _$buttonListModelCopyWithImpl<$Res, _$_buttonListModel>
+    implements _$$_buttonListModelCopyWith<$Res> {
+  __$$_buttonListModelCopyWithImpl(
+      _$_buttonListModel _value, $Res Function(_$_buttonListModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_ButtonListModelCopyWithImpl<$Res>
     Object? icon = freezed,
     Object? target = freezed,
   }) {
-    return _then(_$_ButtonListModel(
+    return _then(_$_buttonListModel(
       label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
@@ -118,11 +118,11 @@ class __$$_ButtonListModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ButtonListModel implements _ButtonListModel {
-  _$_ButtonListModel({this.label, this.icon, this.target});
+class _$_buttonListModel implements _buttonListModel {
+  _$_buttonListModel({this.label, this.icon, this.target});
 
-  factory _$_ButtonListModel.fromJson(Map<String, dynamic> json) =>
-      _$$_ButtonListModelFromJson(json);
+  factory _$_buttonListModel.fromJson(Map<String, dynamic> json) =>
+      _$$_buttonListModelFromJson(json);
 
   @override
   final String? label;
@@ -133,14 +133,14 @@ class _$_ButtonListModel implements _ButtonListModel {
 
   @override
   String toString() {
-    return 'ButtonListModel(label: $label, icon: $icon, target: $target)';
+    return 'buttonListModel(label: $label, icon: $icon, target: $target)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ButtonListModel &&
+            other is _$_buttonListModel &&
             (identical(other.label, label) || other.label == label) &&
             (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.target, target) || other.target == target));
@@ -153,25 +153,25 @@ class _$_ButtonListModel implements _ButtonListModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ButtonListModelCopyWith<_$_ButtonListModel> get copyWith =>
-      __$$_ButtonListModelCopyWithImpl<_$_ButtonListModel>(this, _$identity);
+  _$$_buttonListModelCopyWith<_$_buttonListModel> get copyWith =>
+      __$$_buttonListModelCopyWithImpl<_$_buttonListModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ButtonListModelToJson(
+    return _$$_buttonListModelToJson(
       this,
     );
   }
 }
 
-abstract class _ButtonListModel implements ButtonListModel {
-  factory _ButtonListModel(
+abstract class _buttonListModel implements buttonListModel {
+  factory _buttonListModel(
       {final String? label,
       final String? icon,
-      final String? target}) = _$_ButtonListModel;
+      final String? target}) = _$_buttonListModel;
 
-  factory _ButtonListModel.fromJson(Map<String, dynamic> json) =
-      _$_ButtonListModel.fromJson;
+  factory _buttonListModel.fromJson(Map<String, dynamic> json) =
+      _$_buttonListModel.fromJson;
 
   @override
   String? get label;
@@ -181,6 +181,6 @@ abstract class _ButtonListModel implements ButtonListModel {
   String? get target;
   @override
   @JsonKey(ignore: true)
-  _$$_ButtonListModelCopyWith<_$_ButtonListModel> get copyWith =>
+  _$$_buttonListModelCopyWith<_$_buttonListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

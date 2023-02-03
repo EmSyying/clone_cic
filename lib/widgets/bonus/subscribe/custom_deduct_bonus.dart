@@ -67,7 +67,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   'Subscription Status',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500),
@@ -76,7 +76,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   '$subscriptionStatus'.toUpperCase(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w700,
@@ -90,7 +90,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   'UT to Subscribe',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500),
@@ -100,7 +100,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   'Total Subscription Cost',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500),
@@ -108,7 +108,7 @@ class CustomDeductBonus extends StatelessWidget {
                                 // SizedBox(height: 10),
                                 // Text(
                                 //   'Accumulated Payment',
-                                //   style: Theme.of(context).textTheme.headline2!.copyWith(
+                                //   style: Theme.of(context).textTheme.displayMedium!.copyWith(
                                 //       fontSize: 13, fontWeight: FontWeight.w500),
                                 // ),
                                 const SizedBox(height: 10),
@@ -116,7 +116,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   'Remaining Payment',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500),
@@ -130,7 +130,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   'Payment Status',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500),
@@ -139,7 +139,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   '$paymentStatus'.toUpperCase(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w700,
@@ -156,7 +156,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   '$subscriptionUT UT',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500),
@@ -166,7 +166,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   '${FormatToK.digitNumber(subscriptionCost)} USD',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500),
@@ -174,7 +174,7 @@ class CustomDeductBonus extends StatelessWidget {
                                 // SizedBox(height: 10),
                                 // Text(
                                 //   '$accPayment',
-                                //   style: Theme.of(context).textTheme.headline2!.copyWith(
+                                //   style: Theme.of(context).textTheme.displayMedium!.copyWith(
                                 //       fontSize: 13, fontWeight: FontWeight.w500),
                                 // ),
                                 const SizedBox(height: 10),
@@ -182,7 +182,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   '${FormatToK.digitNumber(remainingPayment)} USD',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500,
@@ -209,7 +209,7 @@ class CustomDeductBonus extends StatelessWidget {
                                 child: Text('Available payment account',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(fontWeight: FontWeight.w700)),
                               ),
                               Column(
@@ -244,7 +244,7 @@ class CustomDeductBonus extends StatelessWidget {
                                       'Confirm your payment information',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                               fontWeight: FontWeight.w700),
                                     ),
@@ -273,7 +273,7 @@ class CustomDeductBonus extends StatelessWidget {
                                                         textStyle:
                                                             Theme.of(context)
                                                                 .textTheme
-                                                                .bodyText1!,
+                                                                .bodyLarge!,
                                                       ),
                                                     )
                                                   ],
@@ -361,7 +361,7 @@ class CustomDeductBonus extends StatelessWidget {
                                   'I have read  and agree to',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 13,
                                           fontWeight: FontWeight.normal,
@@ -386,7 +386,7 @@ class CustomDeductBonus extends StatelessWidget {
                                       'CiC serivce agreement',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                               fontSize: 13,
                                               fontWeight: FontWeight.normal,

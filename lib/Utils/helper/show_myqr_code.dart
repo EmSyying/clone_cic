@@ -372,7 +372,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                           top: 10, bottom: 45, right: 30, left: 30),
                       child: Text(
                         "Use Scan QR to view other CiC Member's profile.",
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
                   ),
@@ -392,7 +392,7 @@ class _ShowMyQRCodeState extends State<ShowMyQRCode> {
                   //       ),
                   //       Text(
                   //         'Scan QR Code',
-                  //         style: Theme.of(context).textTheme.bodyText1,
+                  //         style: Theme.of(context).textTheme.bodyLarge,
                   //       ),
                   //     ],
                   //   ),

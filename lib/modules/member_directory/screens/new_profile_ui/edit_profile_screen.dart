@@ -106,11 +106,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                           child: Text(
                             'Done',
-                            // "${memberCon.isDisableDoneButton.value}",
+                            // "${memberCon.isDisableDonebutton.value}",
                             // widget.titleDone ?? "",
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
@@ -152,7 +152,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           'Change Profile Photo',
                           style: Theme.of(context)
                               .textTheme
-                              .headline3!
+                              .displaySmall!
                               .copyWith(
                                   fontSize: 14, fontWeight: FontWeight.w700),
                         ),
@@ -304,7 +304,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 '${widget.appBarTitle}',
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
+                    .headlineMedium!
                     .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
               ),
               action: [
@@ -331,7 +331,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               // widget.titleDone ?? "",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline5!
+                                  .headlineSmall!
                                   .copyWith(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
@@ -392,7 +392,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             'Change Company Logo',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w700),
                           ),

@@ -436,7 +436,7 @@ class _RequiredDocumentState extends State<RequiredDocument> {
                                               'Required Documents',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline2,
+                                                  .displayMedium,
                                             ),
                                           ),
                                           const SizedBox(

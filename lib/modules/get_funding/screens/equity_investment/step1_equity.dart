@@ -254,8 +254,9 @@ class _Step1EquiryState extends State<Step1Equiry> {
                                       horizontal: 20),
                                   child: Text(
                                     'Financing Information',
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                   ),
                                 ),
                                 const SizedBox(

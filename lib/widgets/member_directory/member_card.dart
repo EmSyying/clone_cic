@@ -52,7 +52,7 @@ class MemberCard extends StatelessWidget {
                   member!.name ?? '',
                   style: Theme.of(context)
                       .textTheme
-                      .headline2!
+                      .displayMedium!
                       .copyWith(fontWeight: FontWeight.w700),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -64,7 +64,7 @@ class MemberCard extends StatelessWidget {
                         member!.position ?? "",
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle2!
+                            .titleSmall!
                             .copyWith(color: AppColor.darkColor),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -83,7 +83,7 @@ class MemberCard extends StatelessWidget {
                 ),
                 Text(
                   member!.companyName ?? "",
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                         color: AppColor.chartLabelColor,

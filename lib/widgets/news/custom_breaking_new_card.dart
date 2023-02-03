@@ -39,7 +39,7 @@ class CustomBreakingNewCard extends StatelessWidget {
             '$title',
             style: Theme.of(context)
                 .textTheme
-                .headline4!
+                .headlineMedium!
                 .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -53,21 +53,21 @@ class CustomBreakingNewCard extends StatelessWidget {
                 '$date ',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
               ),
               Text(
                 '· $estimate | ',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
               ),
               Text(
                 'CiC News',
                 style: Theme.of(context)
                     .textTheme
-                    .headline3!
+                    .displaySmall!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
               ),
             ],

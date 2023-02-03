@@ -544,7 +544,7 @@ class EventController extends GetxController {
           } else if (registerStatus != null) {
             eventTicket.value = EventTicket();
             showNotifyPopUp(
-              secondButton: 'Register Now',
+              secondbutton: 'Register Now',
               onTap: () {
                 final EventDetailArgument argument =
                     EventDetailArgument(id: eventId);
@@ -918,7 +918,7 @@ class EventController extends GetxController {
 
         if (message.toString().contains("The zone is not available.")) {
           showNotifyPopUp(
-            secondButton: 'Go Home',
+            secondbutton: 'Go Home',
             onTap: () {
               router.go('/');
             },
@@ -937,7 +937,7 @@ class EventController extends GetxController {
           debugPrint("Error body event checkin 2");
           eventTicket.value = EventTicket();
           showNotifyPopUp(
-            secondButton: 'Register Now',
+            secondbutton: 'Register Now',
             onTap: () async {
               // guestlistmodel.value = <GuestModel>[GuestModel()];
 
@@ -959,7 +959,7 @@ class EventController extends GetxController {
           );
         } else if (message.toString().contains("The event is past.")) {
           showNotifyPopUp(
-            secondButton: 'Go Home',
+            secondbutton: 'Go Home',
             onTap: () {
               router.go('/');
             },
@@ -973,7 +973,7 @@ class EventController extends GetxController {
           isRegister(false);
         } else if (message.toString().contains("The event is not start yet.")) {
           showNotifyPopUp(
-            secondButton: 'Home Page',
+            secondbutton: 'Home Page',
             onTap: () {
               router.go('/');
             },

@@ -165,7 +165,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .bodyText2,
+                                                                  .bodyMedium,
                                                         ),
                                                         const SizedBox(
                                                           width: 10,
@@ -249,7 +249,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
             width: 10,
           ),
           Expanded(
-            child: Text(title, style: Theme.of(context).textTheme.subtitle2),
+            child: Text(title, style: Theme.of(context).textTheme.titleSmall),
           ),
         ],
       ),
@@ -273,14 +273,14 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                   children: [
                     Text(
                       'No Equity Investment Yet',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     Text(
                       'CiC Equity Investment provides growth capital of up to 1,500,000 USD to invest in SMEs and Startups in our prioritized sectors including Finance, Agri-related businesses, Service, and Technology.',
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.titleSmall,
                     )
                   ],
                 ),
@@ -295,7 +295,7 @@ class _EquityInvestmentState extends State<EquityInvestment> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Value Proposition',
-                        style: Theme.of(context).textTheme.headline2),
+                        style: Theme.of(context).textTheme.displayMedium),
                     const SizedBox(
                       height: 10,
                     ),

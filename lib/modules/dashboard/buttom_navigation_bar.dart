@@ -352,9 +352,9 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Please Update new version',
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.bodyLarge),
             actions: const [
-              // FlatButton(
+              // Flatbutton(
               //   onPressed: kIsWeb
               //       ? () {
               //           launch(

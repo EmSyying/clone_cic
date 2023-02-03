@@ -30,7 +30,7 @@ class CompanyLocationInfo extends StatelessWidget {
                 child: Row(
                   children: [
                     Text('Location',
-                        style: Theme.of(context).textTheme.headline2),
+                        style: Theme.of(context).textTheme.displayMedium),
                     const Spacer(),
                     if (isEditable != null && isEditable!)
                       GestureDetector(

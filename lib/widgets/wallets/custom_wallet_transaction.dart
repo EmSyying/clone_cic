@@ -31,7 +31,7 @@ class CustomWalletTransaction extends StatelessWidget {
                     e.date!,
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
+                        .headlineSmall!
                         .copyWith(fontSize: 11),
                   ),
                 ),

@@ -29,7 +29,7 @@ class _PlayerHeaderState extends State<PlayerHeader> {
           const SizedBox(height: 10),
           Text(
             widget.video!.module!.title!,
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.displaySmall,
             textAlign: TextAlign.start,
           ),
           const SizedBox(height: 8),
@@ -43,7 +43,7 @@ class _PlayerHeaderState extends State<PlayerHeader> {
             children: [
               Text(
                 'Trainer: ',
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(
                 widget.video!.trainer!,
@@ -119,14 +119,14 @@ class _PlayerHeaderState extends State<PlayerHeader> {
           const SizedBox(height: 10),
           Text(
             'About this course',
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           const SizedBox(height: 8),
           ReadMoreText(
             widget.video!.description!,
             trimLines: 4,
             trimMode: TrimMode.Line,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
       ),

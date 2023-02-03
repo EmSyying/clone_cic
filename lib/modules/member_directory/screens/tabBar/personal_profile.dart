@@ -150,7 +150,9 @@ class _PersonalProfileState extends State<PersonalProfile> {
                                   ),
                                 )
                               : Text('About',
-                                  style: Theme.of(context).textTheme.headline2),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium),
                         ),
                         Container(
                           margin: const EdgeInsets.only(

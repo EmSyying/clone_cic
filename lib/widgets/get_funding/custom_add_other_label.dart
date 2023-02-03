@@ -11,7 +11,7 @@ onShowAddOtherLabel({
   GestureTapCallback? onCancel,
   GestureTapCallback? onBack,
   String? title,
-  bool? isHideButton = true,
+  bool? isHidebutton = true,
   bool? isNoAppBar = true,
   bool? isSubmit = false,
 }) {
@@ -66,7 +66,7 @@ onShowAddOtherLabel({
                               '$title',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2!
+                                  .displayMedium!
                                   .copyWith(fontSize: 18),
                             ),
                           ),
@@ -85,7 +85,7 @@ onShowAddOtherLabel({
               SizedBox(
                 child: textFieldHere,
               ),
-              if (isHideButton!)
+              if (isHidebutton!)
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Row(

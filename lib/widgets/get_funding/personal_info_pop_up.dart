@@ -47,7 +47,7 @@ class _PersonalInfoPopupState extends State<PersonalInfoPopup> {
                 padding: const EdgeInsets.only(left: 20, top: 10),
                 child: Text(
                   widget.label!,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
               const SizedBox(

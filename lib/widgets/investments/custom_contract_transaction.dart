@@ -43,7 +43,7 @@ class CustomContractTransaction extends StatelessWidget {
             children: [
               Text(
                 title ?? "",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                     ),
@@ -55,14 +55,14 @@ class CustomContractTransaction extends StatelessWidget {
                 contractCode ?? date!,
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1!
+                    .titleMedium!
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
               ),
             ],
           ),
           Text(
             amount ?? '',
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontSize: 14,
                 color: color ??
                     (type != 'deduction'

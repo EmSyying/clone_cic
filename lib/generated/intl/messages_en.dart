@@ -37,7 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "commune": MessageLookupByLibrary.simpleMessage("Commune"),
         "companyName": MessageLookupByLibrary.simpleMessage("Company Name"),
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
-        "continueButton": MessageLookupByLibrary.simpleMessage("Next"),
+        "continuebutton": MessageLookupByLibrary.simpleMessage("Next"),
         "continuePhone":
             MessageLookupByLibrary.simpleMessage("Continue with Phone"),
         "currency": MessageLookupByLibrary.simpleMessage("Currency"),
@@ -49,7 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "directory": MessageLookupByLibrary.simpleMessage("Directory"),
         "district": MessageLookupByLibrary.simpleMessage("District"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
-        "editButton": MessageLookupByLibrary.simpleMessage("Edit"),
+        "editbutton": MessageLookupByLibrary.simpleMessage("Edit"),
         "emailaddress": MessageLookupByLibrary.simpleMessage("Email Address"),
         "enterCompanyName":
             MessageLookupByLibrary.simpleMessage("Enter Company Name"),
@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Loan Duration (month)"),
         "loanpurpos": MessageLookupByLibrary.simpleMessage("Loan Purpose"),
         "loanrequest": MessageLookupByLibrary.simpleMessage("Loan Request"),
-        "logoutButton": MessageLookupByLibrary.simpleMessage("Logout"),
+        "logoutbutton": MessageLookupByLibrary.simpleMessage("Logout"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
         "nextPayment": MessageLookupByLibrary.simpleMessage("Next Payment"),
         "nointernet":
@@ -171,7 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "salary": MessageLookupByLibrary.simpleMessage("Current Salary"),
         "salaryslip": MessageLookupByLibrary.simpleMessage(
             "Salary Slip / Bank Statement"),
-        "saveButton": MessageLookupByLibrary.simpleMessage("Save"),
+        "savebutton": MessageLookupByLibrary.simpleMessage("Save"),
         "saveProfile": MessageLookupByLibrary.simpleMessage(
             "Profile info saved successful"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),

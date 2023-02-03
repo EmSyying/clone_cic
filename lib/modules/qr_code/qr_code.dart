@@ -356,12 +356,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                           children: [
                             Text(
                               "Scanning will start automatically",
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             const SizedBox(height: 10),
                             Text(
                               "Scan QR to Register Event, \nScan QR to view other CiC Member's profile.",
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 10),

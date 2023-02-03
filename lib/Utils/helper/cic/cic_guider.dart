@@ -365,7 +365,7 @@ class CiCApp {
     );
     if (_allowClick) {
       _allowClick = false;
-      overlayState?.insert(overlayEntry);
+      overlayState.insert(overlayEntry);
     }
   }
 }

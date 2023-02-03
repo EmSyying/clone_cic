@@ -22,13 +22,13 @@ class CustomNumberStoresFilter extends StatelessWidget {
           color: Colors.transparent,
           child: Text(
             titleStores ?? '',
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   fontWeight: FontWeight.w500,
                   color: AppColor.chartLabelColor,
                 ),
           ),
         ),
-        // CustomDropDownButton(
+        // CustomDropDownbutton(
         //   // initialIndex: 1,
         //   onSelected: (v) {
         //     debugPrint(v);
@@ -56,7 +56,7 @@ class CustomNumberStoresFilter extends StatelessWidget {
                 ),
                 Text(
                   'Filter',
-                  style: Theme.of(context).textTheme.headline3!.copyWith(
+                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),

@@ -5,7 +5,7 @@ import '../../Utils/helper/color.dart';
 class CustomCardInvestFIF extends StatelessWidget {
   final Widget? column;
   final String? titleFIF;
-  final String? titleButton;
+  final String? titlebutton;
   final String? assetImage;
   final String? exploreMore;
   // final VoidCallback? onPressed;
@@ -15,7 +15,7 @@ class CustomCardInvestFIF extends StatelessWidget {
     Key? key,
     this.column,
     this.titleFIF,
-    this.titleButton,
+    this.titlebutton,
     this.assetImage,
     this.onTap,
     this.exploreMore,
@@ -53,7 +53,7 @@ class CustomCardInvestFIF extends StatelessWidget {
             children: [
               Text(
                 titleFIF ?? '',
-                style: Theme.of(context).textTheme.headline4!.copyWith(
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   shadows: [
                     Shadow(
                       offset: const Offset(0.0, 4.0),
@@ -83,7 +83,7 @@ class CustomCardInvestFIF extends StatelessWidget {
               //     child: Center(
               //       child: Text(
               //         exploreMore ?? '',
-              //         style: Theme.of(context).textTheme.headline2!.copyWith(
+              //         style: Theme.of(context).textTheme.displayMedium!.copyWith(
               //               fontWeight: FontWeight.w600,
               //               fontSize: 12.5,
               //               color: onTapExplore != null

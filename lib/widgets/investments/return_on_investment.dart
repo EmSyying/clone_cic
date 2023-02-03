@@ -68,7 +68,7 @@ class _ReturnOnInvestmentState extends State<ReturnOnInvestment> {
                             const SizedBox(width: 20.0),
                             Text(
                               "Return On Investment",
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             const Spacer(),
                             Padding(

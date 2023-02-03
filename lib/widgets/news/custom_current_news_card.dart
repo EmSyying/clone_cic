@@ -53,7 +53,7 @@ class CustomCurrentNewCard extends StatelessWidget {
                     '$title',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -65,18 +65,27 @@ class CustomCurrentNewCard extends StatelessWidget {
                     children: [
                       Text(
                         '$date ',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w400),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                                fontSize: 12, fontWeight: FontWeight.w400),
                       ),
                       Text(
                         '· $estimate | ',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w400),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                                fontSize: 12, fontWeight: FontWeight.w400),
                       ),
                       Text(
                         'CiC News',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w400),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontSize: 12, fontWeight: FontWeight.w400),
                       ),
                     ],
                   )

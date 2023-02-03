@@ -61,7 +61,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.subtitle2!;
+    TextStyle textStyle = Theme.of(context).textTheme.titleSmall!;
     return Scaffold(
       appBar: CustomAppBar(
           elevation: 0,
@@ -335,7 +335,7 @@ class _TransferToMMAState extends State<TransferToMMA> {
 
   //bool readAgreement = false;
 
-  // bool _validateButton() => ;
+  // bool _validatebutton() => ;
 
   // Widget _tickIcon(bool select, {double? width, Color? color}) => select
   //     ? SvgPicture.asset('assets/images/svgfile/circle_check-selected.svg',

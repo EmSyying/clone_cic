@@ -65,7 +65,7 @@ class CustomCardHistoryPri extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
-                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
                     ),
@@ -75,7 +75,7 @@ class CustomCardHistoryPri extends StatelessWidget {
                   ),
                   Text(
                     paymentDate ?? '',
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontWeight: FontWeight.w400,
                           color: const Color(0xff848F92),
                           fontSize: 10,
@@ -86,7 +86,7 @@ class CustomCardHistoryPri extends StatelessWidget {
                     children: [
                       Text(
                         amount ?? '',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: 16,
                             ),
@@ -106,12 +106,14 @@ class CustomCardHistoryPri extends StatelessWidget {
                               vertical: 2, horizontal: 12),
                           child: Text(
                             code ?? '',
-                            style:
-                                Theme.of(context).textTheme.headline2!.copyWith(
-                                      color: AppColor.statusColor['pending'],
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 10,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                  color: AppColor.statusColor['pending'],
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 10,
+                                ),
                           ),
                         ),
                       ),

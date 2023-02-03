@@ -28,7 +28,7 @@ then
     # flutter pub get
     flutter pub get
     # start build apk for production
-    flutter build apk --flavor prod -t lib/main_prod.dart
+    flutter build appbundle --flavor prod -t lib/main_prod.dart
 else   
     echo "Please select a env"
 fi

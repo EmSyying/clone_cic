@@ -53,7 +53,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                   children: [
                     Text(
                       "Claim Discount",
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -96,7 +96,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                                   "Success",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .subtitle1!
+                                      .titleMedium!
                                       .copyWith(
                                         color: Colors.black,
                                         fontSize: 20.0,
@@ -114,7 +114,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                           color: Colors.black,
                                           fontSize: 14.0,
@@ -130,7 +130,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                                     text: rateDiscount ?? '40',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                           color:
                                               AppColor.statusColor['pending'],
@@ -142,7 +142,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                                         text: ' %',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(
                                               color: AppColor
                                                   .statusColor['pending'],
@@ -196,7 +196,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                                           status ?? 'Recipient',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2!
+                                              .displayMedium!
                                               .copyWith(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 12,
@@ -207,7 +207,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                                           nameAcount ?? 'Korng Kim Oan',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline4!
+                                              .headlineMedium!
                                               .copyWith(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 14,
@@ -312,7 +312,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                               'Share',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),
@@ -350,7 +350,7 @@ class ClaimDiscountSummery extends StatelessWidget {
                               'Save',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),
@@ -395,7 +395,7 @@ class ClaimDiscountSummery extends StatelessWidget {
         children: [
           Text(
             label ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: const Color(0xff464646),
@@ -404,7 +404,7 @@ class ClaimDiscountSummery extends StatelessWidget {
           const Spacer(),
           Text(
             value ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 12.0,
                   color: colorDigits == false

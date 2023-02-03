@@ -89,7 +89,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                               widget.paymentSchedule!.paidInfo != null
                                   ? widget.paymentSchedule!.paidInfo!.bankName!
                                   : '',
-                              style: Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
                             const Spacer(),
                             Container(
@@ -120,8 +120,9 @@ class _PaymentInfoState extends State<PaymentInfo> {
                                 children: [
                                   Text(
                                     S.of(context).paymentDate,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -129,7 +130,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                                   Text(
                                     widget.paymentSchedule!.paymentDate!,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -141,8 +142,9 @@ class _PaymentInfoState extends State<PaymentInfo> {
                                 children: [
                                   Text(
                                     S.of(context).amount,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -150,7 +152,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                                   Text(
                                     widget.paymentSchedule!.totalPayment!,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -169,8 +171,9 @@ class _PaymentInfoState extends State<PaymentInfo> {
                                 children: [
                                   Text(
                                     S.of(context).bank,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -178,7 +181,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                                   Text(
                                     widget.paymentSchedule!.paidInfo!.bankName!,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
@@ -190,8 +193,9 @@ class _PaymentInfoState extends State<PaymentInfo> {
                                 children: [
                                   Text(
                                     S.of(context).paymentStatus,
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -217,7 +221,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       S.of(context).invoice,
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   Container(

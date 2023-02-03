@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../Utils/helper/color.dart';
 import '../../Utils/helper/container_partern.dart';
 
 class TradingSessionCard extends StatelessWidget {
@@ -232,7 +231,7 @@ class TradingSessionCard extends StatelessWidget {
             onTap: onTap,
             child: Text(
               'View Last Trading Info',
-              style: Theme.of(context).textTheme.headline5!.copyWith(
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
                   decoration: TextDecoration.underline),

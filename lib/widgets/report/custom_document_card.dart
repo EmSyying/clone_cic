@@ -48,7 +48,7 @@ class CustomDocumentCard extends StatelessWidget {
                     documentationModel!.title ?? '',
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2!
+                        .bodyMedium!
                         .copyWith(fontWeight: FontWeight.w500, fontSize: 16),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -62,7 +62,7 @@ class CustomDocumentCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
                   documentationModel!.publishedAt ?? '',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Colors.black54,
                       fontSize: 12,
                       fontWeight: FontWeight.w500),

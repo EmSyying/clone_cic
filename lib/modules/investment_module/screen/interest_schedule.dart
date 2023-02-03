@@ -18,7 +18,7 @@ class InterestSchedule extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20),
             child: Text(
               'All Transactions',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           Column(
@@ -30,7 +30,7 @@ class InterestSchedule extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20, top: 20),
                     child: Text(
                       FormatDate.investmentDateDisplay(e.value.paymentDate!),
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
                   InvestTransactionCard(

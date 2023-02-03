@@ -62,7 +62,7 @@ class CustomReportCatigoriesCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -72,7 +72,7 @@ class CustomReportCatigoriesCard extends StatelessWidget {
                   ),
                   Text(
                     '${item.toString()} Document',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.w400,
                           color: AppColor.chartLabelColor,
                           fontSize: 12.0,

@@ -106,7 +106,7 @@ class _PayOffSlipState extends State<PayOffSlip> {
                                     Text(S.of(context).id,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline3),
+                                            .displaySmall),
                                     const SizedBox(
                                       height: 8.0,
                                     ),
@@ -119,7 +119,7 @@ class _PayOffSlipState extends State<PayOffSlip> {
                                   child: Text(
                                     S.of(context).proccessing,
                                     style:
-                                        Theme.of(context).textTheme.headline6,
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
                               ],
@@ -135,7 +135,7 @@ class _PayOffSlipState extends State<PayOffSlip> {
                                       Text(S.of(context).item,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline3),
+                                              .displaySmall),
                                       const SizedBox(
                                         height: 8.0,
                                       ),
@@ -147,7 +147,7 @@ class _PayOffSlipState extends State<PayOffSlip> {
                                       Text(S.of(context).duration,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline3),
+                                              .displaySmall),
                                       const SizedBox(
                                         height: 8.0,
                                       ),
@@ -167,7 +167,7 @@ class _PayOffSlipState extends State<PayOffSlip> {
                                       Text(S.of(context).amount,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline3),
+                                              .displaySmall),
                                       const SizedBox(
                                         height: 8.0,
                                       ),
@@ -179,7 +179,7 @@ class _PayOffSlipState extends State<PayOffSlip> {
                                       Text(S.of(context).amountPaid,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline3),
+                                              .displaySmall),
                                       const SizedBox(
                                         height: 8.0,
                                       ),
@@ -197,7 +197,8 @@ class _PayOffSlipState extends State<PayOffSlip> {
                               ],
                             ),
                             Text(S.of(context).totalAmount,
-                                style: Theme.of(context).textTheme.headline3),
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
                             const SizedBox(
                               height: 8.0,
                             ),

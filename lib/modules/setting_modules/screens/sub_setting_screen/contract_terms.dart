@@ -104,11 +104,11 @@ class _ContractTermState extends State<ContractTerm> {
                         children: [
                           Text(
                             '${DateTime.now().year} CIC Mobile.',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Text(
                             ' All right reserved.',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ],
                       ),

@@ -61,7 +61,7 @@
 //                   //       bottom: padding - 5),
 //                   //   child: Text(
 //                   //     'Address',
-//                   //     style: Theme.of(context).textTheme.headline2,
+//                   //     style: Theme.of(context).textTheme.displayMedium,
 //                   //   ),
 //                   // ),
 //                   SizedBox(height: 20),
@@ -69,7 +69,7 @@
 //                     padding: const EdgeInsets.symmetric(horizontal: 20),
 //                     child: Text(
 //                       'Is current address the same permanent address!',
-//                       style: Theme.of(context).textTheme.bodyText1,
+//                       style: Theme.of(context).textTheme.bodyLarge,
 //                     ),
 //                   ),
 //                   SizedBox(

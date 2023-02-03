@@ -85,7 +85,7 @@ class _EasyPayState extends State<EasyPay> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       'Provide up-to-date information about CiC’s share price and its evaluation, your number of unit trust subscription and your unit trust subscription history.',
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.titleSmall,
                       textAlign: TextAlign.center,
                     ),
                   ),

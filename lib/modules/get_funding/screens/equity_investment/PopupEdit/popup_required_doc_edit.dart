@@ -381,7 +381,7 @@ class _PopupRequiredDocState extends State<PopupRequiredDoc> {
                         //   padding: const EdgeInsets.symmetric(horizontal: 20),
                         //   child: Text(
                         //     '*Do you have Article of Incorporation?',
-                        //     style: Theme.of(context).textTheme.bodyText2,
+                        //     style: Theme.of(context).textTheme.bodyMedium,
                         //   ),
                         // ),
                         // Padding(
@@ -663,7 +663,7 @@ class _PopupRequiredDocState extends State<PopupRequiredDoc> {
                         //   padding: const EdgeInsets.symmetric(horizontal: 20),
                         //   child: Text(
                         //     '*Do you have balance Sheet (Monthly and yearly statement during last 3 years?',
-                        //     style: Theme.of(context).textTheme.bodyText2,
+                        //     style: Theme.of(context).textTheme.bodyMedium,
                         //   ),
                         // ),
                         // Padding(
@@ -699,7 +699,7 @@ class _PopupRequiredDocState extends State<PopupRequiredDoc> {
                         //   padding: const EdgeInsets.symmetric(horizontal: 20),
                         //   child: Text(
                         //     '*Do you have Cash Flow Statement (Monthly and yearly statement during last 3 years)?',
-                        //     style: Theme.of(context).textTheme.bodyText2,
+                        //     style: Theme.of(context).textTheme.bodyMedium,
                         //   ),
                         // ),
                         // Padding(
@@ -735,7 +735,7 @@ class _PopupRequiredDocState extends State<PopupRequiredDoc> {
                         //   padding: const EdgeInsets.symmetric(horizontal: 20),
                         //   child: Text(
                         //     '*Do you have the financial projection (3 to 5 year)?',
-                        //     style: Theme.of(context).textTheme.bodyText2,
+                        //     style: Theme.of(context).textTheme.bodyMedium,
                         //   ),
                         // ),
                         // Padding(
@@ -787,7 +787,7 @@ class _PopupRequiredDocState extends State<PopupRequiredDoc> {
                         //   padding: const EdgeInsets.symmetric(horizontal: 20),
                         //   child: Text(
                         //     '*Do you have market study documents?',
-                        //     style: Theme.of(context).textTheme.bodyText2,
+                        //     style: Theme.of(context).textTheme.bodyMedium,
                         //   ),
                         // ),
                         // Padding(
@@ -823,7 +823,7 @@ class _PopupRequiredDocState extends State<PopupRequiredDoc> {
                         //   padding: const EdgeInsets.symmetric(horizontal: 20),
                         //   child: Text(
                         //     '*Do you have other documets necessary for business and market understanding?',
-                        //     style: Theme.of(context).textTheme.bodyText2,
+                        //     style: Theme.of(context).textTheme.bodyMedium,
                         //   ),
                         // ),
                         // Padding(

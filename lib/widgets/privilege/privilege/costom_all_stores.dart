@@ -71,7 +71,7 @@ class CustomCardAllStores extends StatelessWidget {
                         child: Text(
                           privilegeShopList!.status ?? '',
                           style:
-                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
                                     fontSize: 10,
                                     color: privilegeShopList!.status == "Closed"
                                         ? AppColor.statusColor['late']
@@ -90,7 +90,7 @@ class CustomCardAllStores extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                       ),
@@ -102,10 +102,11 @@ class CustomCardAllStores extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff848F92),
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff848F92),
+                                ),
                       ),
                       const Spacer(),
                       Row(
@@ -127,7 +128,7 @@ class CustomCardAllStores extends StatelessWidget {
                               softWrap: false,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline5!
+                                  .headlineSmall!
                                   .copyWith(
                                     fontWeight: FontWeight.w300,
                                     color: const Color(0xff464646),
@@ -160,7 +161,7 @@ class CustomCardAllStores extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 4.0, right: 4.0),
                     child: Text(
                       privilegeShopList!.discountRate ?? '',
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
                           ),
@@ -189,7 +190,7 @@ class CustomCardAllStores extends StatelessWidget {
                   ),
                   child: Text(
                     'MVP Approved',
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.w500,
                       fontSize: 8,
                       color: Colors.white,

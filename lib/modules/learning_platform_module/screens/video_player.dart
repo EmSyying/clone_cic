@@ -174,7 +174,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
                                 'More Video',
-                                style: Theme.of(context).textTheme.headline2,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -262,7 +263,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
                 //                       horizontal: 20.0),
                 //                   child: Text(
                 //                     'More Video',
-                //                     style: Theme.of(context).textTheme.headline2,
+                //                     style: Theme.of(context).textTheme.displayMedium,
                 //                   ),
                 //                 ),
                 //                 SizedBox(height: 8),

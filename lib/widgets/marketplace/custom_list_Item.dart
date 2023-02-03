@@ -25,7 +25,7 @@ class CustomItemList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Nearest to you',
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
         Container(

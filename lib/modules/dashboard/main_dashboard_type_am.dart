@@ -111,7 +111,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                             message,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(
                                     fontSize: 12, fontWeight: FontWeight.w400),
                           ),
@@ -124,7 +124,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                               : Text(customerUser.customer.value.fullName ?? "",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700,
@@ -211,7 +211,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline6!
+                                                                .titleLarge!
                                                                 .copyWith(
                                                                     fontSize:
                                                                         12,
@@ -302,7 +302,7 @@ class _MainDashBoardTypeAMState extends State<MainDashBoardTypeAM> {
                                                         Colors.transparent,
                                                     context: context,
                                                     builder: (context) {
-                                                      return const CustomPopupButtonSheet(
+                                                      return const CustomPopupbuttonSheet(
                                                         assetImage:
                                                             'assets/images/svgfile/underDevelopment.svg',
                                                         description:
@@ -425,7 +425,7 @@ customMenu({
           '$label',
           style: Theme.of(context!)
               .textTheme
-              .headline2!
+              .displayMedium!
               .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
         ),
       ],

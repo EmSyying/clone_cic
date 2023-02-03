@@ -10,7 +10,7 @@ class CardCurrentPoints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final walletController = Get.put(WalletController());
-    TextStyle textStyle = Theme.of(context).textTheme.headline2!;
+    TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
     return Stack(
       children: [
         Container(

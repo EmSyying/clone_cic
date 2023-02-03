@@ -61,7 +61,7 @@ class CustomTransactionCard extends StatelessWidget {
                       title != null ? "$title" : "",
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 14),
                     ),
                   )
@@ -79,7 +79,7 @@ class CustomTransactionCard extends StatelessWidget {
                           data.value.date!,
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headlineSmall!
                               .copyWith(fontSize: 11),
                         ),
                       ),
@@ -134,7 +134,7 @@ class CustomTransactionCard extends StatelessWidget {
                                       'Please choose payment option',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w700),
@@ -533,7 +533,7 @@ class CustomTransactionCard extends StatelessWidget {
                                             '${e.value.label}',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,
@@ -544,7 +544,7 @@ class CustomTransactionCard extends StatelessWidget {
                                             '${e.value.time}',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2!
+                                                .displayMedium!
                                                 .copyWith(
                                                     fontSize: 12,
                                                     color: Colors.grey),
@@ -569,7 +569,7 @@ class CustomTransactionCard extends StatelessWidget {
                                                         : '',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline5!
+                                                    .headlineSmall!
                                                     .copyWith(
                                                         color: e.value.type ==
                                                                         'subscription' &&
@@ -613,7 +613,7 @@ class CustomTransactionCard extends StatelessWidget {
                                                 : "",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline5!
+                                                .headlineSmall!
                                                 .copyWith(
                                                     color: e.value.type ==
                                                                 'bonus' ||

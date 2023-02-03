@@ -89,11 +89,13 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                         children: [
                           Text(
                             widget.fullName ?? '',
-                            style:
-                                Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 20,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                ),
                           ),
                           if (widget.position != null && widget.position != '')
                             const SizedBox(
@@ -113,7 +115,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                 widget.position ?? '',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(
                                       fontSize: 14,
                                     ),
@@ -128,7 +130,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                             widget.companyName ?? '',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                           ),
@@ -248,7 +250,7 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                                   widget.defaultPhoto!,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline6!
+                                      .titleLarge!
                                       .copyWith(fontSize: 30),
                                 ),
                               )

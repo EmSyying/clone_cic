@@ -53,7 +53,7 @@ class WithdrawNoticeCard extends StatelessWidget {
                           e.value.title ?? '',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2!
+                              .displayMedium!
                               .copyWith(
                                   fontWeight: FontWeight.w700,
                                   color: AppColor.statusColor['pending']),
@@ -63,7 +63,7 @@ class WithdrawNoticeCard extends StatelessWidget {
                     const SizedBox(height: 20),
                     Text(
                       e.value.description ?? '',
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -95,7 +95,7 @@ class WithdrawNoticeCard extends StatelessWidget {
                                       Text(e.value.title ?? '',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle2),
+                                              .titleSmall),
                                       const SizedBox(
                                         height: 5,
                                       ),
@@ -103,7 +103,7 @@ class WithdrawNoticeCard extends StatelessWidget {
                                         e.value.description ?? '',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5,
+                                            .headlineSmall,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                       )

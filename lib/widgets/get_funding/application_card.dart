@@ -63,7 +63,7 @@ class ApplicationCard extends StatelessWidget {
                                         : "No Company",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(
                                             fontFamily: "DMSans-Bold",
                                             fontWeight: FontWeight.w600,
@@ -87,7 +87,7 @@ class ApplicationCard extends StatelessWidget {
                                   model!.updatedAt!,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(
                                           fontWeight: FontWeight.w400,
                                           color: const Color(0xff464646)),
@@ -165,7 +165,7 @@ class ApplicationCard extends StatelessWidget {
                                             : "",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1!
+                                            .bodyLarge!
                                             .copyWith(
                                                 fontWeight: FontWeight.w400),
                                       ),
@@ -295,7 +295,7 @@ class ApplicationCard extends StatelessWidget {
                       ),
                       Text(
                         model!.updatedAt!,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),

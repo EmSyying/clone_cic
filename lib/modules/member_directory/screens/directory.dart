@@ -377,7 +377,7 @@ class _DirectoryState extends State<Directory> {
             children: [
               Text(
                 text ?? 'Information Technology',
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     fontSize: 12, color: Theme.of(context).primaryColor),
               ),
               const SizedBox(width: 5),
@@ -568,7 +568,7 @@ class _DirectoryState extends State<Directory> {
               children: [
                 Text(
                   'Loading more Data',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(width: 10),
                 const CupertinoActivityIndicator(

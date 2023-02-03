@@ -146,7 +146,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                       'Add a note to your invitation...',
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                     ),
                   ),
@@ -155,7 +155,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         "Selected",
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ),
                   SingleChildScrollView(
@@ -232,7 +232,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                                         overflow: TextOverflow.clip,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5!
+                                            .headlineSmall!
                                             .copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w500),
@@ -248,7 +248,7 @@ class _CustomInviteMemberState extends State<CustomInviteMember> {
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: Text(
                       "Suggested",
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ),
                   Expanded(

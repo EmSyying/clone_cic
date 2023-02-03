@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 4),
                     Text(
                       'CiC Mobile App',
-                      // style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      // style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       //       color: Theme.of(context).primaryColor,
                       //     )
                       style: TextStyle(
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(S.of(context).enterPhone,
-                            style: Theme.of(context).textTheme.bodyText1),
+                            style: Theme.of(context).textTheme.bodyLarge),
                         CupertinoTextField(
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           textInputAction: TextInputAction.done,
                           controller: _authController.phoneController.value,
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                           prefix: InkWell(
                             child: Text(
                               flagEmoji!,
@@ -166,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           placeholder: S.of(context).enterPhone,
                           keyboardType: TextInputType.number,
                           placeholderStyle:
-                              Theme.of(context).textTheme.bodyText1,
+                              Theme.of(context).textTheme.bodyLarge,
                           decoration: BoxDecoration(
                               border: Border(
                                   bottom: BorderSide(

@@ -90,7 +90,7 @@ class CustomCompanyTap extends StatelessWidget {
                         '$companyName',
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -98,7 +98,7 @@ class CustomCompanyTap extends StatelessWidget {
                       '$slogan',
                       style: Theme.of(context)
                           .textTheme
-                          .headline3!
+                          .displaySmall!
                           .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                   ],
@@ -145,7 +145,7 @@ class CustomCompanyTap extends StatelessWidget {
                                     "$phone",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subtitle2!
+                                        .titleSmall!
                                         .copyWith(
                                             fontWeight: FontWeight.w400,
                                             color: AppColor.darkColor),
@@ -179,7 +179,7 @@ class CustomCompanyTap extends StatelessWidget {
                                     "$email",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subtitle2!
+                                        .titleSmall!
                                         .copyWith(
                                             fontWeight: FontWeight.w400,
                                             color: AppColor.darkColor),
@@ -213,7 +213,7 @@ class CustomCompanyTap extends StatelessWidget {
                                     "$address",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subtitle2!
+                                        .titleSmall!
                                         .copyWith(
                                             fontWeight: FontWeight.w400,
                                             color: AppColor.darkColor),
@@ -247,7 +247,7 @@ class CustomCompanyTap extends StatelessWidget {
                                     "$website",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subtitle2!
+                                        .titleSmall!
                                         .copyWith(
                                             fontWeight: FontWeight.w400,
                                             color: AppColor.darkColor),
@@ -291,7 +291,7 @@ class CustomCompanyTap extends StatelessWidget {
                                     "$editCompany",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subtitle2!
+                                        .titleSmall!
                                         .copyWith(
                                           fontWeight: FontWeight.w400,
                                           color: Theme.of(context).primaryColor,
@@ -319,7 +319,7 @@ class CustomCompanyTap extends StatelessWidget {
               'About',
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(fontWeight: FontWeight.w700),
             ),
           ),
@@ -331,7 +331,7 @@ class CustomCompanyTap extends StatelessWidget {
             '$description',
             style: Theme.of(context)
                 .textTheme
-                .headline4!
+                .headlineMedium!
                 .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
           ),
         ),
@@ -342,7 +342,7 @@ class CustomCompanyTap extends StatelessWidget {
               'Product and Service',
               style: Theme.of(context)
                   .textTheme
-                  .headline2!
+                  .displayMedium!
                   .copyWith(fontWeight: FontWeight.w700),
             ),
           ),
@@ -354,7 +354,7 @@ class CustomCompanyTap extends StatelessWidget {
             '$productService',
             style: Theme.of(context)
                 .textTheme
-                .headline4!
+                .headlineMedium!
                 .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
           ),
         ),

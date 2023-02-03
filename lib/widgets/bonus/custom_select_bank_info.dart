@@ -90,7 +90,7 @@
 //                                             e.value.bankName!,
 //                                             style: Theme.of(context)
 //                                                 .textTheme
-//                                                 .headline2,
+//                                                 .displayMedium,
 //                                           ),
 //                                         ],
 //                                       ),
@@ -140,7 +140,7 @@
 //                       'Create new bank',
 //                       style: Theme.of(context)
 //                           .textTheme
-//                           .headline1!
+//                           .button!
 //                           .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
 //                     )
 //                   ],

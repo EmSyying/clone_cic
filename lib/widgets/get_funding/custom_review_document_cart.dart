@@ -65,7 +65,7 @@ class CustomReviewDocument extends StatelessWidget {
                   children: [
                     Text(
                       'National ID Card ( Front & Back )',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     SvgPicture.asset('assets/images/editIcon.svg'),
                   ],
@@ -108,7 +108,7 @@ class CustomReviewDocument extends StatelessWidget {
                   children: [
                     Text(
                       'Resident Book (Min  2MB)',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     Container(
                       color: Colors.transparent,
@@ -144,7 +144,7 @@ class CustomReviewDocument extends StatelessWidget {
                   children: [
                     Text(
                       'Business Legal',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     Container(
                       color: Colors.transparent,

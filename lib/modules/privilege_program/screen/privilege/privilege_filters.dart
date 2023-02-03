@@ -168,11 +168,13 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                           privilegeController.isShowMore.value
                               ? 'See More'
                               : 'See Less',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                              ),
                         ),
                       ),
                     ],
@@ -254,7 +256,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
   Widget customTitleText({String? titleText}) {
     return Text(
       titleText ?? '',
-      style: Theme.of(context).textTheme.headline4!.copyWith(
+      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
             fontSize: 17,
             fontWeight: FontWeight.w700,
           ),

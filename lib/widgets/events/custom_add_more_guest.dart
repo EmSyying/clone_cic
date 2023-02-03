@@ -85,7 +85,7 @@ class _CustomAddMoreGuestState extends State<CustomAddMoreGuest> {
                   'Guest',
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 GestureDetector(

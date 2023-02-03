@@ -78,7 +78,7 @@ class _AllTransactionState extends State<AllTransaction> {
                                       'Transactions',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
+                                          .displayMedium!
                                           .copyWith(fontSize: 14),
                                     ),
                                   ),

@@ -42,7 +42,7 @@ class _CustomReasonSelectState extends State<CustomReasonSelect> {
           Expanded(
             child: Text(
               widget.value!.display.toString(),
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           )
         ],

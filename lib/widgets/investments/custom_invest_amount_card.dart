@@ -49,10 +49,10 @@ class CustomInvestAmonutCard extends StatelessWidget {
                       Text(
                         '$title',
                         style: !isColors!
-                            ? Theme.of(context).textTheme.headline5
+                            ? Theme.of(context).textTheme.headlineSmall
                             : Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(color: Colors.white),
                       ),
                       Row(
@@ -61,7 +61,7 @@ class CustomInvestAmonutCard extends StatelessWidget {
                               ? Text('$investAmount',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 20,
                                           color: !isColors!
@@ -72,7 +72,7 @@ class CustomInvestAmonutCard extends StatelessWidget {
                                       num.parse(investAmount!)),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .copyWith(
                                           fontSize: 20,
                                           color: !isColors!
@@ -87,7 +87,7 @@ class CustomInvestAmonutCard extends StatelessWidget {
                               textUsd ?? 'USD',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),

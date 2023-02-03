@@ -86,7 +86,7 @@ class _UTManagementState extends State<UTManagement> {
                                     child: Text(
                                       'Video Trading',
                                       style:
-                                          Theme.of(context).textTheme.caption,
+                                          Theme.of(context).textTheme.bodySmall,
                                     ),
                                   ),
                                 if (inquiryController
@@ -121,7 +121,7 @@ class _UTManagementState extends State<UTManagement> {
                             ),
                           ),
                         ),
-                        showButton(),
+                        showbutton(),
                       ],
                     ),
             ),
@@ -131,7 +131,7 @@ class _UTManagementState extends State<UTManagement> {
     );
   }
 
-  Widget showButton() {
+  Widget showbutton() {
     return Container(
       padding: const EdgeInsets.only(top: 20),
       decoration: const BoxDecoration(

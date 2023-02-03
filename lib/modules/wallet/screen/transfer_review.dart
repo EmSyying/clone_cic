@@ -108,7 +108,7 @@ class TransferReview extends StatelessWidget {
                                 walletController.validateMessage.value,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
+                                    .headlineMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -120,7 +120,7 @@ class TransferReview extends StatelessWidget {
                                 walletController.qrRecievingPhone.text,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .displayMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16,
@@ -178,7 +178,7 @@ class TransferReview extends StatelessWidget {
                     children: [
                       Text(
                         'By submitting you agree to',
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -191,7 +191,7 @@ class TransferReview extends StatelessWidget {
                             'CiC Service Agreement',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3!
+                                .displaySmall!
                                 .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.normal),
@@ -219,7 +219,7 @@ class TransferReview extends StatelessWidget {
         children: [
           Text(
             'CiC MM Account',
-            style: Theme.of(context).textTheme.headline4!.copyWith(
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
           ),
@@ -228,7 +228,7 @@ class TransferReview extends StatelessWidget {
           ),
           Text(
             'Pay securely with CiC MM Account',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 12.0,
                   color: const Color(0xff848F92),

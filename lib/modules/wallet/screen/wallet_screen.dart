@@ -77,7 +77,7 @@ class _WalletScreenState extends State<WalletScreen>
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.headline2!;
+    TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
 
     return Stack(
       children: [
@@ -295,7 +295,7 @@ class _WalletScreenState extends State<WalletScreen>
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        _operationButton(
+                                        _operationbutton(
                                           context,
                                           _guideController.walletGuide[0].key =
                                               GlobalKey(),
@@ -307,7 +307,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           text: 'Deposit',
                                           img: 'assets/images/mma_wallet.svg',
                                         ),
-                                        _operationButton(
+                                        _operationbutton(
                                           context,
                                           _guideController.walletGuide[1].key =
                                               GlobalKey(),
@@ -319,7 +319,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           text: 'Transfer',
                                           img: 'assets/images/transfer.svg',
                                         ),
-                                        _operationButton(
+                                        _operationbutton(
                                           context,
                                           _guideController.walletGuide[2].key =
                                               GlobalKey(),
@@ -331,7 +331,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           img:
                                               'assets/images/svgfile/investfif.svg',
                                         ),
-                                        _operationButton(
+                                        _operationbutton(
                                           context,
                                           _guideController.walletGuide[3].key =
                                               GlobalKey(),
@@ -345,7 +345,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           img:
                                               'assets/images/wallet/wallet_exchange.svg',
                                         ),
-                                        /*_operationButton(
+                                        /*_operationbutton(
                                           context,
                                           _guideController.walletGuide[3].key =
                                               GlobalKey(),
@@ -387,7 +387,7 @@ class _WalletScreenState extends State<WalletScreen>
                         children: [
                           Text(
                             'All Transactions',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ],
                       ),
@@ -443,7 +443,7 @@ class _WalletScreenState extends State<WalletScreen>
       useRootNavigator: true,
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (context) => const CustomPopupButtonSheet(
+      builder: (context) => const CustomPopupbuttonSheet(
         assetImage: 'assets/images/svgfile/underDevelopment.svg',
         description: 'This feature is under development at the moment',
         title: 'This feature not available yet',
@@ -451,7 +451,7 @@ class _WalletScreenState extends State<WalletScreen>
     );
   }
 
-  Widget _operationButton(
+  Widget _operationbutton(
     BuildContext context,
     Key? key, {
     String? text,
@@ -482,7 +482,7 @@ class _WalletScreenState extends State<WalletScreen>
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               text ?? '',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                     fontSize: 12,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,

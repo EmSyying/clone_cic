@@ -27,11 +27,12 @@ class PrivilegeHistory extends StatelessWidget {
                     children: [
                       Text(
                         'Past transactions',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff848F92),
-                              fontSize: 14,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff848F92),
+                                  fontSize: 14,
+                                ),
                       ),
                       const SizedBox(
                         height: 24.0,

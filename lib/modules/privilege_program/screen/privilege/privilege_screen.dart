@@ -329,7 +329,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                             'All Stores',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1!
+                                                .bodyLarge!
                                                 .copyWith(
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -341,7 +341,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                             'Favorites',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1!
+                                                .bodyLarge!
                                                 .copyWith(
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -402,7 +402,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                           children: [
                             Text(
                               'Loading more ',
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             const SizedBox(
                               width: 10,
@@ -434,7 +434,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
           color: Colors.transparent,
           child: Text(
             categoriesTil ?? '',
-            style: Theme.of(context).textTheme.headline4!.copyWith(
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),
@@ -445,7 +445,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
           onTap: onTapSeeAll,
           child: Text(
             seeall ?? '',
-            style: Theme.of(context).textTheme.headline4!.copyWith(
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Theme.of(context).primaryColor,

@@ -137,7 +137,7 @@ class CustomSavingCardList extends StatelessWidget {
                             Navigator.pop(context);
                             if (e.value.hide! == false) {
                               ///make button close when user click hide
-                              fifController.totalInvestmentButton(true);
+                              fifController.totalInvestmentbutton(true);
                             }
                           }
                         },
@@ -153,7 +153,7 @@ class CustomSavingCardList extends StatelessWidget {
                       //   Navigator.pop(context);
                       //   if (e.value.hide! == false) {
                       //     ///make button close when user click hide
-                      //     investmentController.totalInvestmentButton(true);
+                      //     investmentController.totalInvestmentbutton(true);
                       //   }
                       // });
                     },
@@ -165,7 +165,7 @@ class CustomSavingCardList extends StatelessWidget {
                         onBack: () {
                           Navigator.pop(context);
                         },
-                        isHideButton: false,
+                        isHidebutton: false,
                         context: context,
                         title: 'Rename Title',
                         textFieldHere: GetBuilder(
@@ -260,7 +260,7 @@ class CustomSavingCardList extends StatelessWidget {
                       bottom: 5.0),
                   child: Text(
                     "Confirm Application",
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w500,
                           fontFamily: "DMSans-Medium",
                           fontSize: 14,
@@ -305,7 +305,7 @@ class CustomSavingCardList extends StatelessWidget {
                       bottom: 5.0),
                   child: Text(
                     "Pending Application",
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w500,
                           fontFamily: "DMSans-Medium",
                           fontSize: 14,
@@ -330,7 +330,7 @@ class CustomSavingCardList extends StatelessWidget {
                                 context: context,
                                 isNoAppBar: false,
                                 isSubmit: true,
-                                isHideButton: false,
+                                isHidebutton: false,
                                 // icon: const Icon(Icons.close_rounded),
                                 textFieldHere: Obx(
                                   () => Column(
@@ -449,18 +449,18 @@ class CustomSavingCardList extends StatelessWidget {
             GestureDetector(
               onTap: () async {
                 debugPrint('work');
-                if (fifController.totalInvestmentButton.value == false) {
+                if (fifController.totalInvestmentbutton.value == false) {
                   await apppincode
                       .showLockScreen(enableCancel: true, context: context)
                       .then(
                     (promise) {
                       if (promise) {
-                        fifController.totalInvestmentButton.value = true;
+                        fifController.totalInvestmentbutton.value = true;
                       }
                     },
                   );
                 } else {
-                  fifController.totalInvestmentButton.value = false;
+                  fifController.totalInvestmentbutton.value = false;
                 }
               },
               child: Container(
@@ -474,12 +474,12 @@ class CustomSavingCardList extends StatelessWidget {
                       'Hidden Contracts',
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle2!
+                          .titleSmall!
                           .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
                     ),
                     const Spacer(),
                     Icon(
-                      fifController.totalInvestmentButton.value
+                      fifController.totalInvestmentbutton.value
                           ? Icons.arrow_drop_up_rounded
                           : Icons.arrow_drop_down_rounded,
                       size: 30,
@@ -489,7 +489,7 @@ class CustomSavingCardList extends StatelessWidget {
                 ),
               ),
             ),
-          if (fifController.totalInvestmentButton.value)
+          if (fifController.totalInvestmentbutton.value)
             Column(
               children: fifhiddenList!
                   .asMap()

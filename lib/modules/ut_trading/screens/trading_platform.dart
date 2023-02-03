@@ -485,7 +485,7 @@ class _UTtradingState extends State<UTtrading>
     );
   }
 
-  void _scrollToButton(GlobalKey key) {
+  void _scrollTobutton(GlobalKey key) {
     // if (key.currentContext != null) {
     //   _scrollController.animateTo(100,
     //       duration: const Duration(milliseconds: 200), curve: Curves.linear);

@@ -96,7 +96,7 @@ class _QuickNotificationState extends State<QuickNotification> {
                       child: Text(
                         'Stay updated with CiC by getting announcements and notifications.',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ),
                   ],

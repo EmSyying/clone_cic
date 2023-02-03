@@ -45,7 +45,7 @@ class CustomOptionBonus extends StatelessWidget {
                       title!,
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 12, color: Colors.white70),
                     ),
                   )
@@ -61,7 +61,7 @@ class CustomOptionBonus extends StatelessWidget {
                       title!,
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 12),
                     ),
                   )

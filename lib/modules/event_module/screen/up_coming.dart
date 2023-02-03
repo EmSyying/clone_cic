@@ -97,7 +97,7 @@ class _UpComingState extends State<UpComing> {
                                   child: EmptyStateProfile(
                                     isEditable: false,
                                     title: 'No Events Yet',
-                                    caption: '',
+                                    bodySmall: '',
                                     iconUrl: 'assets/images/emptyState.png',
                                   ),
                                 )

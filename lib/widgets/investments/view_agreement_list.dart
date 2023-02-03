@@ -55,7 +55,7 @@ class ViewAgreementList extends StatelessWidget {
 
             title: Text(
               listAgreeMent[index].title ?? '',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           );
         },

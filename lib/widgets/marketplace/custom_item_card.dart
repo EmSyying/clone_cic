@@ -58,7 +58,7 @@ class CustomItemCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 15),
                             child: Text(
-                              nearest!.caption!.toUpperCase(),
+                              nearest!.bodySmall!.toUpperCase(),
                               style: const TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontSize: 12,
@@ -81,7 +81,7 @@ class CustomItemCard extends StatelessWidget {
                             softWrap: false,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           const SizedBox(
                             height: 4,
@@ -188,7 +188,7 @@ class CustomItemCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 15),
                             child: Text(
-                              recommendItem!.caption!.toUpperCase(),
+                              recommendItem!.bodySmall!.toUpperCase(),
                               style: const TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontSize: 12,
@@ -211,7 +211,7 @@ class CustomItemCard extends StatelessWidget {
                             softWrap: false,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           const SizedBox(
                             height: 4,

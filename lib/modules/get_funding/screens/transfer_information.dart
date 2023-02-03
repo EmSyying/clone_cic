@@ -118,8 +118,9 @@ class _TransferInformationState extends State<TransferInformation> {
                                   ),
                                   Text(
                                     'Kong Kear',
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                   ),
                                 ],
                               ),
@@ -136,8 +137,9 @@ class _TransferInformationState extends State<TransferInformation> {
                                   ),
                                   Text(
                                     '001146769',
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                   ),
                                   const SizedBox(
                                     height: 10,

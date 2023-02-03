@@ -62,7 +62,7 @@ customShowBottomSheet(
                       '$title',
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(fontSize: 18, fontWeight: FontWeight.w700),
                     ),
                   ),

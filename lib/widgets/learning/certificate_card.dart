@@ -56,7 +56,7 @@ class CertificateCard extends StatelessWidget {
                     ),
                     Text(
                       certificate!.completedDate!,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(
                       height: 5,
@@ -67,7 +67,7 @@ class CertificateCard extends StatelessWidget {
                       children: [
                         Text(
                           certificate!.duration!,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
                           width: 20,

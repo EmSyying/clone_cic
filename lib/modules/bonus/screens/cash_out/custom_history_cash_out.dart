@@ -56,7 +56,7 @@ class CustomHistoryCashOut extends StatelessWidget {
                         const EdgeInsets.only(left: 20, top: 20, bottom: 20),
                     child: Text(
                       'Transaction',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ),
                   SingleChildScrollView(

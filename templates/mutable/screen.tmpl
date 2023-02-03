@@ -52,7 +52,7 @@ class ${upperName}ScreenState extends State<${upperName}Screen> {
                 Text(currentState.errorMessage),
                 Padding(
                   padding: const EdgeInsets.only(top: 32.0),
-                  child: RaisedButton(
+                  child: Raisedbutton(
                     color: Colors.blue,
                     child: Text('reload'),
                     onPressed: _load,
@@ -70,7 +70,7 @@ class ${upperName}ScreenState extends State<${upperName}Screen> {
                   const Text('Flutter files: done'),
                   Padding(
                     padding: const EdgeInsets.only(top: 32.0),
-                    child: RaisedButton(
+                    child: Raisedbutton(
                       color: Colors.red,
                       child: Text('throw error'),
                       onPressed: () => _load(true),
