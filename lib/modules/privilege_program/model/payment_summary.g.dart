@@ -10,8 +10,8 @@ _$_PaymentSummary _$$_PaymentSummaryFromJson(Map<String, dynamic> json) =>
     _$_PaymentSummary(
       success: json['success'] as bool?,
       message: json['message'] as String?,
-      amount: json['amount'] as int?,
-      originalAmount: json['original_amount'] as int?,
+      amount: json['amount'] as num?,
+      originalAmount: json['original_amount'] as num?,
       shopName: json['shop_name'] as String?,
       transactionId: json['transaction_id'] as String?,
       date: json['date'] as String?,

@@ -58,7 +58,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               const SizedBox(
-                                height: 40,
+                                height: 20,
                               ),
                               Container(
                                 width: 74,
@@ -84,7 +84,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                               ),
                               //=======title CiC MM acount======
                               const SizedBox(
-                                height: 20,
+                                height: 10,
                               ),
                               Text(
                                 'MVP',
@@ -95,7 +95,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w700,
                                     ),
                               ),
-                              const SizedBox(height: 38),
+                              const SizedBox(height: 30),
                               //====border StackDottedDecoration=====
                               const CustomStackDottedDecoration(
                                 dottedDecorationTransfer: true,
@@ -103,7 +103,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                               ),
                               //Amount Cash Out MMA=========
                               const SizedBox(
-                                height: 24,
+                                height: 22,
                               ),
                               CustomCashOutAndTransferAmount(
                                 amountCashOutTransfer:
@@ -111,7 +111,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                 pointTrue: true,
                               ),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
                               Container(
                                 color: Colors.white,
@@ -122,7 +122,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
 
                               Column(
@@ -153,18 +153,18 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(
-                                height: 54.0,
+                                height: 30.0,
                               ),
                             ],
                           ),
                         ),
                         ////Posistion Boxshap Chircle on border dotted========
                         const CustomPositionedBoxShapCircle(
-                          top: 190,
+                          top: 156,
                           left: 6,
                         ),
                         const CustomPositionedBoxShapCircle(
-                          top: 190,
+                          top: 156,
                           right: 6,
                         ),
                       ],

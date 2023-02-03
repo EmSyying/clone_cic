@@ -25,9 +25,9 @@ mixin _$PaymentSummary {
   @JsonKey(name: "message")
   String? get message => throw _privateConstructorUsedError;
   @JsonKey(name: "amount")
-  int? get amount => throw _privateConstructorUsedError;
+  num? get amount => throw _privateConstructorUsedError;
   @JsonKey(name: "original_amount")
-  int? get originalAmount => throw _privateConstructorUsedError;
+  num? get originalAmount => throw _privateConstructorUsedError;
   @JsonKey(name: "shop_name")
   String? get shopName => throw _privateConstructorUsedError;
   @JsonKey(name: "transaction_id")
@@ -58,8 +58,8 @@ abstract class $PaymentSummaryCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "success") bool? success,
       @JsonKey(name: "message") String? message,
-      @JsonKey(name: "amount") int? amount,
-      @JsonKey(name: "original_amount") int? originalAmount,
+      @JsonKey(name: "amount") num? amount,
+      @JsonKey(name: "original_amount") num? originalAmount,
       @JsonKey(name: "shop_name") String? shopName,
       @JsonKey(name: "transaction_id") String? transactionId,
       @JsonKey(name: "date") String? date,
@@ -106,11 +106,11 @@ class _$PaymentSummaryCopyWithImpl<$Res, $Val extends PaymentSummary>
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       originalAmount: freezed == originalAmount
           ? _value.originalAmount
           : originalAmount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       shopName: freezed == shopName
           ? _value.shopName
           : shopName // ignore: cast_nullable_to_non_nullable
@@ -154,8 +154,8 @@ abstract class _$$_PaymentSummaryCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "success") bool? success,
       @JsonKey(name: "message") String? message,
-      @JsonKey(name: "amount") int? amount,
-      @JsonKey(name: "original_amount") int? originalAmount,
+      @JsonKey(name: "amount") num? amount,
+      @JsonKey(name: "original_amount") num? originalAmount,
       @JsonKey(name: "shop_name") String? shopName,
       @JsonKey(name: "transaction_id") String? transactionId,
       @JsonKey(name: "date") String? date,
@@ -200,11 +200,11 @@ class __$$_PaymentSummaryCopyWithImpl<$Res>
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       originalAmount: freezed == originalAmount
           ? _value.originalAmount
           : originalAmount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as num?,
       shopName: freezed == shopName
           ? _value.shopName
           : shopName // ignore: cast_nullable_to_non_nullable
@@ -264,10 +264,10 @@ class _$_PaymentSummary implements _PaymentSummary {
   final String? message;
   @override
   @JsonKey(name: "amount")
-  final int? amount;
+  final num? amount;
   @override
   @JsonKey(name: "original_amount")
-  final int? originalAmount;
+  final num? originalAmount;
   @override
   @JsonKey(name: "shop_name")
   final String? shopName;
@@ -353,8 +353,8 @@ abstract class _PaymentSummary implements PaymentSummary {
   factory _PaymentSummary(
       {@JsonKey(name: "success") final bool? success,
       @JsonKey(name: "message") final String? message,
-      @JsonKey(name: "amount") final int? amount,
-      @JsonKey(name: "original_amount") final int? originalAmount,
+      @JsonKey(name: "amount") final num? amount,
+      @JsonKey(name: "original_amount") final num? originalAmount,
       @JsonKey(name: "shop_name") final String? shopName,
       @JsonKey(name: "transaction_id") final String? transactionId,
       @JsonKey(name: "date") final String? date,
@@ -374,10 +374,10 @@ abstract class _PaymentSummary implements PaymentSummary {
   String? get message;
   @override
   @JsonKey(name: "amount")
-  int? get amount;
+  num? get amount;
   @override
   @JsonKey(name: "original_amount")
-  int? get originalAmount;
+  num? get originalAmount;
   @override
   @JsonKey(name: "shop_name")
   String? get shopName;

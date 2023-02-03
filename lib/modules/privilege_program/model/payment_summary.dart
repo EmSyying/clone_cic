@@ -8,8 +8,8 @@ class PaymentSummary with _$PaymentSummary {
   factory PaymentSummary({
     @JsonKey(name: "success") final bool? success,
     @JsonKey(name: "message") final String? message,
-    @JsonKey(name: "amount") final int? amount,
-    @JsonKey(name: "original_amount") final int? originalAmount,
+    @JsonKey(name: "amount") final num? amount,
+    @JsonKey(name: "original_amount") final num? originalAmount,
     @JsonKey(name: "shop_name") final String? shopName,
     @JsonKey(name: "transaction_id") final String? transactionId,
     @JsonKey(name: "date") final String? date,
