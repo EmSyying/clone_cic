@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/link.dart';
 import 'package:cicgreenloan/modules/ut_trading/models/meta.dart';

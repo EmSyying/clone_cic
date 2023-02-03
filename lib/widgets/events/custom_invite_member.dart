@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/member_controller.dart';
-import 'package:cicgreenloan/modules/member_directory/models/member.dart';
 import 'package:cicgreenloan/Utils/form_builder/custom_button.dart';
 import 'package:cicgreenloan/modules/member_directory/models/personal_profile_model.dart/personal_profile_model.dart';
 import 'package:cicgreenloan/widgets/member_directory/member_card.dart';

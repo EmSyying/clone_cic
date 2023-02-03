@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
-import '../../../../core/auth/login.dart';
 import '../../../../utils/helper/custom_appbar.dart';
 
 class PrivacyPolcy extends StatelessWidget {

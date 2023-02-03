@@ -10,7 +10,6 @@ import '../../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../utils/helper/cic/cic_guider.dart';
 import '../../../widgets/report/custom_report_catigories_card.dart';
-import '../../guilder/guider_controller.dart';
 import '../controllers/documentation_controller.dart';
 
 class ReportScreen extends StatelessWidget {
@@ -35,7 +34,7 @@ class ReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reportCon = Get.put(DocumentationController());
-    final guideController = Get.put(CiCGuidController());
+
     final settingController = Get.put(SettingController());
     reportCon.fetchCategoriesCardReport();
     // checkOverLay(context, guideController);

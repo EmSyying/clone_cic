@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../Utils/helper/color.dart';
-
 // ignore: must_be_immutable
 class CustomTradingbutton extends StatelessWidget {
   String? title;

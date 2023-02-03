@@ -1,8 +1,5 @@
 import 'package:cicgreenloan/widgets/bonus/custom_empty_state.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../controllers/member_controller.dart';
 
 class PersonalProfileTap extends StatelessWidget {
   final String? description;
@@ -15,8 +12,6 @@ class PersonalProfileTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final memberCon = Get.put(MemberController());
-
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

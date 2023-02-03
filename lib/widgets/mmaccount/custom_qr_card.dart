@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

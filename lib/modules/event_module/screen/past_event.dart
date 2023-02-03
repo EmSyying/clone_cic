@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
 import 'package:cicgreenloan/widgets/events/event_shimmer.dart';
 import 'package:cicgreenloan/widgets/events/new_event.dart';
@@ -16,7 +15,6 @@ class PastEvent extends StatefulWidget {
 
 class _PastEventState extends State<PastEvent> {
   final _eventController = Get.put(EventController());
-  final _customerController = Get.put(CustomerController());
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar_colorswhite.dart';
 
 class FilterOption extends StatefulWidget {

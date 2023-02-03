@@ -4,7 +4,6 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'dart:ui' as ui;
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
-import '../../Utils/helper/color.dart';
 import '../custom_showbottomsheet.dart';
 
 class WalletTotalCard extends StatelessWidget {

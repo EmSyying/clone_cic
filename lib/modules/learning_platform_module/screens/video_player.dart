@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/controllers/learning_controller.dart';
 import 'package:cicgreenloan/modules/learning_platform_module/models/post_data.dart';

@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
-import 'package:cicgreenloan/configs/firebase_deeplink/deeplink_service.dart';
 import 'package:cicgreenloan/modules/member_directory/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

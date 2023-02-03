@@ -1,6 +1,5 @@
 import 'package:cicgreenloan/main.dart';
 import 'package:cicgreenloan/modules/investment_module/controller/investment_controller.dart';
-import 'package:cicgreenloan/modules/google_map_module/controllers/google_map_controller.dart';
 import 'package:cicgreenloan/core/walk_through/start_slide.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +18,6 @@ class _SplashscreenState extends State<Splashscreen>
     with TickerProviderStateMixin {
   bool isLoading = true;
   bool isLogin = false;
-  final _googleMapCon = Get.put(GoogleMapsController());
 
   // final _userController = Get.put(CustomerController());
   final fifCon = Get.put(PriceController());

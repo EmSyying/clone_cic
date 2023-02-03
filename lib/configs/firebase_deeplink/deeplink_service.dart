@@ -1,4 +1,3 @@
-import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/configs/route_configuration/route.dart';
 import 'package:cicgreenloan/core/flavor/flavor_configuration.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
-import '../route_management/route_name.dart';
 
 final setPinCon = Get.put(SetPINCodeController());
 FirebaseDynamicLinks dynamiclink = FirebaseDynamicLinks.instance;

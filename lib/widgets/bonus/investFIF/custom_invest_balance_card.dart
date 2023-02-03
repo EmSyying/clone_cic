@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/container_partern.dart';
 
 class CustomInvestBalanceCard extends StatelessWidget {

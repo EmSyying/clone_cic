@@ -47,7 +47,6 @@ import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
 import '../google_map_module/controllers/google_map_controller.dart';
-import '../news/screen/news_screen.dart';
 import 'main_dashboard_type_am.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -164,24 +163,24 @@ class _MainDashboardState extends State<MainDashboard> {
     }
   }
 
-  advancedStatusCheck(NewVersion newVersion) async {
-    final status = await newVersion.getVersionStatus();
+  // advancedStatusCheck(NewVersion newVersion) async {
+  //   final status = await newVersion.getVersionStatus();
 
-    if (status!.canUpdate) {
-      newVersion.showUpdateDialog(
-        context: context,
-        versionStatus: status,
-        dialogTitle: 'Update Available',
-        dialogText:
-            'You can now update this app from ${status.localVersion} to ${status.storeVersion}',
-        updateButtonText: 'Update',
-        dismissButtonText: 'Mybe Later',
-        dismissAction: () {
-          Navigator.pop(context);
-        },
-      );
-    }
-  }
+  //   if (status!.canUpdate) {
+  //     newVersion.showUpdateDialog(
+  //       context: context,
+  //       versionStatus: status,
+  //       dialogTitle: 'Update Available',
+  //       dialogText:
+  //           'You can now update this app from ${status.localVersion} to ${status.storeVersion}',
+  //       updateButtonText: 'Update',
+  //       dismissButtonText: 'Mybe Later',
+  //       dismissAction: () {
+  //         Navigator.pop(context);
+  //       },
+  //     );
+  //   }
+  // }
 
   void hanndleTour() async {
     bool isFirstLaunch = await LocalData.showAppTou('appTour');

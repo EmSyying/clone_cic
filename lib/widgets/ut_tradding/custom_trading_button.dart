@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 
-import '../../Utils/helper/color.dart';
 import '../../Utils/helper/container_partern.dart';
 
 // ignore: must_be_immutable

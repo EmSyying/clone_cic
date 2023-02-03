@@ -19,7 +19,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/format_number.dart';
 import '../../../../widgets/investments/slide_button.dart';
-import '../../../wallet/controller/wallet_controller.dart';
 
 class CustomNewSubscription extends StatefulWidget {
   const CustomNewSubscription({Key? key, this.fromPage}) : super(key: key);
@@ -32,7 +31,7 @@ class CustomNewSubscription extends StatefulWidget {
 class _CustomNewSubscriptionState extends State<CustomNewSubscription> {
   final subscribeCon = Get.put(BonusController());
   final priceController = Get.put(PriceController());
-  final _walletController = Get.put(WalletController());
+
   final userCon = Get.put(CustomerController());
 
   bool isValidate() {

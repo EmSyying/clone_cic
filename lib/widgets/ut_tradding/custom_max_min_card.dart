@@ -1,8 +1,5 @@
 import 'package:cicgreenloan/widgets/ut_tradding/sub_min_max.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-
-import '../../Utils/helper/color.dart';
 
 class CustomMaxMinCard extends StatelessWidget {
   final bool? isLoading;

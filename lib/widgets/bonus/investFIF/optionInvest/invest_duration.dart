@@ -2,7 +2,6 @@ import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/container_partern.dart';
 
 class CustomInvesDuration extends StatelessWidget {

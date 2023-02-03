@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../Utils/helper/color.dart';
-
 class BankingInforCard extends StatelessWidget {
   final String? bankName;
   final bool? isConfirm;

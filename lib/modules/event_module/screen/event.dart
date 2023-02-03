@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:add_2_calendar/add_2_calendar.dart';
-import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/modules/event_module/controller/event_controller.dart';
