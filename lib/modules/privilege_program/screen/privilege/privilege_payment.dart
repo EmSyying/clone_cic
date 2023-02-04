@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
-import '../../../../Utils/function/convert_to_double.dart';
 import '../../../../Utils/helper/custom_loading_button.dart';
+import '../../../../Utils/helper/texfield_format_currency/format_value_onchange.dart';
 import '../../../../widgets/privilege/custom_payment_priv.dart';
 
 class PrivilegePayment extends StatelessWidget {
@@ -14,10 +14,10 @@ class PrivilegePayment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final priCon = Get.put(PrivilegeController());
+
     if (id != null) {
       priCon.shopId.value = id!;
     }
-    // priCon.onPaymentPrivilege;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -49,10 +49,11 @@ class PrivilegePayment extends StatelessWidget {
                 hintText: '0.00',
                 controller: priCon.amountcontroller.value,
                 onChanged: (value) {
-                  priCon.validatePayment(value);
-
-                  priCon.privilegeAmount.value =
-                      onConvertToDouble(value).toString();
+                  // priCon.validatePayment(value);
+                  priCon.privilegeAmount.value = value;
+                  formatValueOnchange(
+                      value: value, controller: priCon.amountcontroller.value);
+                  debugPrint("--------------${priCon.privilegeAmount.value}");
                 },
                 onSaved: (z) {},
               ),
@@ -61,7 +62,7 @@ class PrivilegePayment extends StatelessWidget {
               color: Colors.white,
               child: SafeArea(
                 top: false,
-                minimum: const EdgeInsets.all(20),
+                minimum: const EdgeInsets.all(10),
                 child: Row(
                   children: [
                     Expanded(
@@ -97,9 +98,6 @@ class PrivilegePayment extends StatelessWidget {
                                   priCon.validationPayment(false);
                                   priCon.onPaymentPrivilege(context: context);
                                 }
-
-                                // debugPrint(
-                                //     'submit===${priCon.privilegeAmount.value}');
                               },
                             ),
                     ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../Utils/helper/numerice_format.dart';
+import '../../Utils/helper/texfield_format_currency/decimal_textinput_format.dart';
 
 class CustomPaymentPrivilege extends StatelessWidget {
   final ValueChanged<String>? onChanged;
@@ -38,8 +38,9 @@ class CustomPaymentPrivilege extends StatelessWidget {
           child: TextFormField(
             inputFormatters: [
               //FilteringTextInputFormatter.digitsOnly,
-              NumericTextFormatter(),
-              FilteringTextInputFormatter.deny(RegExp(r'^0+')),
+              // NumericTextFormatter(),
+              // FilteringTextInputFormatter.deny(RegExp(r'^0+')),
+              DecimalTextInputFormatter(decimalRange: 2)
             ],
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   fontWeight: FontWeight.w700,
