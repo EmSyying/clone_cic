@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cicgreenloan/configs/route_configuration/route.dart';
+import 'package:cicgreenloan/utils/permission/ask_permision_screen.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
 import '../../configs/route_management/route_name.dart';
 import '../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../utils/helper/container_partern.dart';
+import '../../utils/permission/controller/permision_controller.dart';
 import '../../widgets/events/custom_ticket_card.dart';
 import '../event_module/controller/event_controller.dart';
 import '../event_module/models/event_data.dart';
@@ -97,8 +99,16 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
     }
   }
 
+  final _permissionController = Get.put(PermissionController());
+  @override
+  void initState() {
+    _permissionController.checkCameraPermission();
+    super.initState();
+  }
+
   @override
   void dispose() {
+    _permissionController.disposeTimer();
     cameraController.dispose();
     super.dispose();
   }
@@ -112,497 +122,525 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
       child: CupertinoScaffold(
         body: Builder(builder: (context) {
           return CupertinoPageScaffold(
-            child: Center(
-              child: Stack(
+              child: Center(
+            child: Obx(
+              () => Stack(
                 children: [
-                  Column(
-                    children: [
-                      Expanded(
-                        // flex: 3,
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
+                  _permissionController.cameraisDenied.value
+                      ? ShowPermision(
+                          lottieJson: _permissionController.cameraLottie,
+                          title: _permissionController.cameraTitle,
+                          description: _permissionController.cameraDescription,
+                        )
+                      : Column(
                           children: [
-                            Container(
-                              width: double.infinity,
-                              color: Colors.black45,
+                            Expanded(
+                              // flex: 3,
                               child: Stack(
-                                alignment: Alignment.center,
+                                alignment: Alignment.bottomCenter,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(7),
-                                    child: SizedBox(
-                                      height: width * 0.7,
-                                      width: width * 0.7,
-                                      child: MobileScanner(
-                                        allowDuplicates: false,
-                                        controller: cameraController,
-                                        onDetect: (barcode, _) async {
-                                          try {
-                                            final PendingDynamicLinkData? url =
-                                                await FirebaseDynamicLinks
-                                                    .instance
-                                                    .getDynamicLink(
-                                              Uri.parse(barcode.rawValue!),
-                                            );
-                                            debugPrint(
-                                                "Redeem to MVP QR:${barcode.rawValue}");
-                                            if (url != null) {
-                                              String links = url.link
-                                                  .toString()
-                                                  .replaceAll(
-                                                      'https://cicapp.page.link',
-                                                      '');
-                                              if (links.contains('event')) {
-                                                debugPrint("Link: $links");
-                                                int? param = int.tryParse(links
-                                                    .replaceAll('/event/', ''));
-                                                // eventCon
-                                                //     .getRegisterWithGuest(param,
-                                                //         isCheckIn: true,
-                                                //         context: context)
-                                                eventCon.eventDetail.value.id =
-                                                    param;
+                                  Container(
+                                    width: double.infinity,
+                                    color: Colors.black45,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          child: SizedBox(
+                                            height: width * 0.7,
+                                            width: width * 0.7,
+                                            child: MobileScanner(
+                                              allowDuplicates: false,
+                                              controller: cameraController,
+                                              onDetect: (barcode, _) async {
+                                                try {
+                                                  final PendingDynamicLinkData?
+                                                      url =
+                                                      await FirebaseDynamicLinks
+                                                          .instance
+                                                          .getDynamicLink(
+                                                    Uri.parse(
+                                                        barcode.rawValue!),
+                                                  );
+                                                  debugPrint(
+                                                      "Redeem to MVP QR:${barcode.rawValue}");
+                                                  if (url != null) {
+                                                    String links = url.link
+                                                        .toString()
+                                                        .replaceAll(
+                                                            'https://cicapp.page.link',
+                                                            '');
+                                                    if (links
+                                                        .contains('event')) {
+                                                      debugPrint(
+                                                          "Link: $links");
+                                                      int? param = int.tryParse(
+                                                          links.replaceAll(
+                                                              '/event/', ''));
+                                                      // eventCon
+                                                      //     .getRegisterWithGuest(param,
+                                                      //         isCheckIn: true,
+                                                      //         context: context)
+                                                      eventCon.eventDetail.value
+                                                          .id = param;
 
-                                                if (widget.pageName != null) {
-                                                  await eventCon
-                                                      .getRegisterWithGuest(
+                                                      if (widget.pageName !=
+                                                          null) {
+                                                        await eventCon
+                                                            .getRegisterWithGuest(
+                                                                param,
+                                                                isCheckIn: true,
+                                                                context:
+                                                                    context,
+                                                                fromPage: widget
+                                                                    .pageName);
+                                                      } else {
+                                                        await eventCon
+                                                            .getRegisterWithGuest(
                                                           param,
                                                           isCheckIn: true,
                                                           context: context,
-                                                          fromPage:
-                                                              widget.pageName);
-                                                } else {
-                                                  await eventCon
-                                                      .getRegisterWithGuest(
-                                                    param,
-                                                    isCheckIn: true,
-                                                    context: context,
-                                                  );
+                                                        );
+                                                      }
+                                                    } else {
+                                                      debugPrint(
+                                                          "Redeem to MVP QR1:${barcode.rawValue}");
+                                                      debugPrint(
+                                                          "Redeem to MVP QR2:$links");
+                                                      router.go(links);
+                                                    }
+
+                                                    settingCon
+                                                        .isHideBottomNavigation
+                                                        .value = false;
+                                                    settingCon.update();
+                                                  }
+                                                } catch (ex) {
+                                                  debugPrint("Ex: $ex");
                                                 }
-                                              } else {
+                                                debugPrint("is Checke Scann");
                                                 debugPrint(
-                                                    "Redeem to MVP QR1:${barcode.rawValue}");
-                                                debugPrint(
-                                                    "Redeem to MVP QR2:$links");
-                                                router.go(links);
-                                              }
+                                                    "Redeem to MVP QR:${barcode.rawValue}");
 
-                                              settingCon.isHideBottomNavigation
-                                                  .value = false;
-                                              settingCon.update();
-                                            }
-                                          } catch (ex) {
-                                            debugPrint("Ex: $ex");
-                                          }
-                                          debugPrint("is Checke Scann");
-                                          debugPrint(
-                                              "Redeem to MVP QR:${barcode.rawValue}");
+                                                // setState(() {
+                                                //   resultQR = barcode.rawValue;
+                                                //   debugPrint(
+                                                //       "QR Code Result===================== $resultQR");
 
-                                          // setState(() {
-                                          //   resultQR = barcode.rawValue;
-                                          //   debugPrint(
-                                          //       "QR Code Result===================== $resultQR");
+                                                //   ///Scan from Wallet Transfer Screen
+                                                //   if (resultQR!.contains('WALLET') &&
+                                                //       widget.pageName == 'transfer') {
+                                                //     cameraController //force stop camera when got key wallet
+                                                //         .stop()
+                                                //         .then((value) {
+                                                //       _walletController
+                                                //           .onScanTransfer(
+                                                //               resultQR ?? '');
+                                                //       Navigator.pop(context);
+                                                //     });
+                                                //   }
 
-                                          //   ///Scan from Wallet Transfer Screen
-                                          //   if (resultQR!.contains('WALLET') &&
-                                          //       widget.pageName == 'transfer') {
-                                          //     cameraController //force stop camera when got key wallet
-                                          //         .stop()
-                                          //         .then((value) {
-                                          //       _walletController
-                                          //           .onScanTransfer(
-                                          //               resultQR ?? '');
-                                          //       Navigator.pop(context);
-                                          //     });
-                                          //   }
+                                                //   ///Scan from Dashboard
+                                                //   if (resultQR!.contains('WALLET') &&
+                                                //       widget.pageName == null) {
+                                                //     cameraController //force stop camera when got key wallet
+                                                //         .stop()
+                                                //         .then(
+                                                //       (value) {
+                                                //         _walletController
+                                                //             .onScanTransfer(
+                                                //                 resultQR ?? '');
+                                                //         // Navigator.push(
+                                                //         //     context,
+                                                //         //     MaterialPageRoute(
+                                                //         //       builder: (context) =>
+                                                //         //           const TransferToMMA(),
+                                                //         //     ));
 
-                                          //   ///Scan from Dashboard
-                                          //   if (resultQR!.contains('WALLET') &&
-                                          //       widget.pageName == null) {
-                                          //     cameraController //force stop camera when got key wallet
-                                          //         .stop()
-                                          //         .then(
-                                          //       (value) {
-                                          //         _walletController
-                                          //             .onScanTransfer(
-                                          //                 resultQR ?? '');
-                                          //         // Navigator.push(
-                                          //         //     context,
-                                          //         //     MaterialPageRoute(
-                                          //         //       builder: (context) =>
-                                          //         //           const TransferToMMA(),
-                                          //         //     ));
+                                                //         context.go(
+                                                //             '/${CICRoute.i.transferToMMA().path}');
+                                                //         Future.delayed(
+                                                //             const Duration(
+                                                //                 seconds: 1), () {
+                                                //           _settingCon.selectedIndex =
+                                                //               0;
+                                                //           _settingCon
+                                                //               .onHideBottomNavigationBar(
+                                                //                   false);
+                                                //           _settingCon.update();
+                                                //         });
+                                                //       },
+                                                //     );
+                                                //   }
 
-                                          //         context.go(
-                                          //             '/${CICRoute.i.transferToMMA().path}');
-                                          //         Future.delayed(
-                                          //             const Duration(
-                                          //                 seconds: 1), () {
-                                          //           _settingCon.selectedIndex =
-                                          //               0;
-                                          //           _settingCon
-                                          //               .onHideBottomNavigationBar(
-                                          //                   false);
-                                          //           _settingCon.update();
-                                          //         });
-                                          //       },
-                                          //     );
-                                          //   }
+                                                //   ///Scan from shop payment
+                                                //   if (resultQR != null &&
+                                                //       resultQR!.contains('shop')) {
+                                                //     cameraController.stop().then(
+                                                //       (value) {
+                                                //         int shopId = int.parse(
+                                                //           resultQR!
+                                                //               .replaceAll('shop', ''),
+                                                //         );
+                                                //         context.push(
+                                                //             '/privilege-payment/$shopId');
+                                                //       },
+                                                //     );
+                                                //   }
+                                                //   // Scan to subsription
+                                                //   if (resultQR != null &&
+                                                //       resultQR!
+                                                //           .contains('subscription')) {
+                                                //     cameraController.stop().then(
+                                                //       (value) {
+                                                //         context.push(
+                                                //             "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                                                //       },
+                                                //     );
+                                                //   }
 
-                                          //   ///Scan from shop payment
-                                          //   if (resultQR != null &&
-                                          //       resultQR!.contains('shop')) {
-                                          //     cameraController.stop().then(
-                                          //       (value) {
-                                          //         int shopId = int.parse(
-                                          //           resultQR!
-                                          //               .replaceAll('shop', ''),
-                                          //         );
-                                          //         context.push(
-                                          //             '/privilege-payment/$shopId');
-                                          //       },
-                                          //     );
-                                          //   }
-                                          //   // Scan to subsription
-                                          //   if (resultQR != null &&
-                                          //       resultQR!
-                                          //           .contains('subscription')) {
-                                          //     cameraController.stop().then(
-                                          //       (value) {
-                                          //         context.push(
-                                          //             "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
-                                          //       },
-                                          //     );
-                                          //   }
-
-                                          // if (!resultQR!.contains('event') &&
-                                          //     !resultQR!
-                                          //         .contains('subsription') &&
-                                          //     !resultQR!.contains('member') &&
-                                          //     !resultQR!.contains('shop') &&
-                                          //     !resultQR!.contains('WALLET')) {
-                                          //   isInvalid = true;
-                                          // } else {
-                                          //   isInvalid = false;
-                                          // }
-                                          // });
-                                        },
+                                                // if (!resultQR!.contains('event') &&
+                                                //     !resultQR!
+                                                //         .contains('subsription') &&
+                                                //     !resultQR!.contains('member') &&
+                                                //     !resultQR!.contains('shop') &&
+                                                //     !resultQR!.contains('WALLET')) {
+                                                //   isInvalid = true;
+                                                // } else {
+                                                //   isInvalid = false;
+                                                // }
+                                                // });
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        QRScannerOverlay(
+                                          overlayColour:
+                                              Colors.red.withOpacity(0.5),
+                                        ),
+                                        Obx(
+                                          () => eventCon.isLoadingCheckIn.value
+                                              ? Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        showBarModalBottomSheet(
+                                          context: context,
+                                          builder: (contex) {
+                                            return const ShowMyQRCode();
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 170,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 10),
+                                        decoration: BoxDecoration(
+                                            color: Colors.black.withAlpha(80),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              child: SvgPicture.asset(
+                                                  'assets/images/svgfile/qrCodeIcon.svg'),
+                                            ),
+                                            const Text(
+                                              'My QR Code',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  QRScannerOverlay(
-                                    overlayColour: Colors.red.withOpacity(0.5),
-                                  ),
-                                  Obx(
-                                    () => eventCon.isLoadingCheckIn.value
-                                        ? Center(
-                                            child: CircularProgressIndicator(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                          )
-                                        : const SizedBox(),
-                                  )
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: GestureDetector(
-                                onTap: () {
-                                  showBarModalBottomSheet(
-                                    context: context,
-                                    builder: (contex) {
-                                      return const ShowMyQRCode();
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  width: 170,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.black.withAlpha(80),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: SvgPicture.asset(
-                                            'assets/images/svgfile/qrCodeIcon.svg'),
-                                      ),
-                                      const Text(
-                                        'My QR Code',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
+                            Container(
+                              padding: const EdgeInsets.all(30),
+                              width: double.infinity,
+                              color: Colors.white,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    "Scanning will start automatically",
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
                                   ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(30),
-                        width: double.infinity,
-                        color: Colors.white,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Scanning will start automatically",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              "Scan QR to Register Event, \nScan QR to view other CiC Member's profile.",
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 10),
-                            // if (uri != null)
-                            //   Text(
-                            //     'Url: $uri and param : $param',
-                            //     style: const TextStyle(color: Colors.red),
-                            //   ),
-                            if (resultQR != null && resultQR!.contains('event'))
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5),
-                                child: CustomButton(
-                                  isDisable: false,
-                                  isOutline: false,
-                                  onPressed: () async {
-                                    debugPrint("Fetch Event Dertail");
-                                    int event = int.parse(
-                                      resultQR!.replaceAll('event', ''),
-                                    );
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Scan QR to Register Event, \nScan QR to view other CiC Member's profile.",
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // if (uri != null)
+                                  //   Text(
+                                  //     'Url: $uri and param : $param',
+                                  //     style: const TextStyle(color: Colors.red),
+                                  //   ),
+                                  if (resultQR != null &&
+                                      resultQR!.contains('event'))
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 5),
+                                      child: CustomButton(
+                                        isDisable: false,
+                                        isOutline: false,
+                                        onPressed: () async {
+                                          debugPrint("Fetch Event Dertail");
+                                          int event = int.parse(
+                                            resultQR!.replaceAll('event', ''),
+                                          );
 
-                                    await eventCon
-                                        .onFetchEventTicket(event)
-                                        .then(
-                                      (EventTicket ticket) {
-                                        if (ticket.ticket != null) {
-                                          debugPrint(
-                                              'ticket ${ticket.ticket!.date}');
-                                          onShowCustomCupertinoModalSheet(
-                                            onTap: () {},
-                                            context: context,
-                                            title: 'Your Ticket',
-                                            icon:
-                                                const Icon(Icons.clear_rounded),
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    child:
-                                                        SingleChildScrollView(
-                                                      child: Column(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .all(
-                                                                    padding),
-                                                            child:
-                                                                RepaintBoundary(
-                                                              key:
-                                                                  printScreenKey,
-                                                              child:
-                                                                  CustomTicketCard(
-                                                                eventTicket:
-                                                                    ticket,
-                                                                onViewMap: () {
-                                                                  EventData eventData = EventData(
-                                                                      latitude: ticket
-                                                                          .ticket!
-                                                                          .latitude,
-                                                                      longitude: ticket
-                                                                          .ticket!
-                                                                          .longitude,
-                                                                      title: ticket
-                                                                          .ticket!
-                                                                          .event);
-
-                                                                  Navigator.pushNamed(
-                                                                      context,
-                                                                      RouteName
-                                                                          .GOOGLEMAPPAGE,
-                                                                      arguments:
-                                                                          eventData);
-                                                                },
-                                                                onViewListing:
-                                                                    () {
-                                                                  EventDetailArgument
-                                                                      argument =
-                                                                      EventDetailArgument(
-                                                                          id: event);
-                                                                  Navigator
-                                                                      .push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                const EventDetail(),
-                                                                        settings:
-                                                                            RouteSettings(arguments: argument)),
-                                                                  );
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        60,
-                                                                    vertical:
-                                                                        padding),
-                                                            child: CustomButton(
-                                                              isDisable: false,
-                                                              isOutline: true,
-                                                              title:
-                                                                  'Save ticket as image',
-                                                              onPressed: () {
-                                                                _onCaptureAndSave(
-                                                                    context);
-                                                                setState(() {});
-                                                              },
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: padding -
-                                                                  borderRaduis),
-                                                          SvgPicture.asset(
-                                                              'assets/images/svgfile/cic_logo.svg'),
-                                                          const SizedBox(
-                                                              height: padding),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
+                                          await eventCon
+                                              .onFetchEventTicket(event)
+                                              .then(
+                                            (EventTicket ticket) {
+                                              if (ticket.ticket != null) {
+                                                debugPrint(
+                                                    'ticket ${ticket.ticket!.date}');
+                                                onShowCustomCupertinoModalSheet(
+                                                  onTap: () {},
+                                                  context: context,
+                                                  title: 'Your Ticket',
+                                                  icon: const Icon(
+                                                      Icons.clear_rounded),
+                                                  child: SizedBox(
                                                     width: double.infinity,
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 0,
-                                                            right: 0,
-                                                            bottom: 20),
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            padding),
-                                                    child: CustomButton(
-                                                      title: 'Confirm',
-                                                      isDisable: false,
-                                                      isOutline: false,
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
+                                                    height: double.infinity,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Expanded(
+                                                          child:
+                                                              SingleChildScrollView(
+                                                            child: Column(
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .all(
+                                                                      padding),
+                                                                  child:
+                                                                      RepaintBoundary(
+                                                                    key:
+                                                                        printScreenKey,
+                                                                    child:
+                                                                        CustomTicketCard(
+                                                                      eventTicket:
+                                                                          ticket,
+                                                                      onViewMap:
+                                                                          () {
+                                                                        EventData eventData = EventData(
+                                                                            latitude:
+                                                                                ticket.ticket!.latitude,
+                                                                            longitude: ticket.ticket!.longitude,
+                                                                            title: ticket.ticket!.event);
+
+                                                                        Navigator.pushNamed(
+                                                                            context,
+                                                                            RouteName
+                                                                                .GOOGLEMAPPAGE,
+                                                                            arguments:
+                                                                                eventData);
+                                                                      },
+                                                                      onViewListing:
+                                                                          () {
+                                                                        EventDetailArgument
+                                                                            argument =
+                                                                            EventDetailArgument(id: event);
+                                                                        Navigator
+                                                                            .push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) => const EventDetail(),
+                                                                              settings: RouteSettings(arguments: argument)),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      horizontal:
+                                                                          60,
+                                                                      vertical:
+                                                                          padding),
+                                                                  child:
+                                                                      CustomButton(
+                                                                    isDisable:
+                                                                        false,
+                                                                    isOutline:
+                                                                        true,
+                                                                    title:
+                                                                        'Save ticket as image',
+                                                                    onPressed:
+                                                                        () {
+                                                                      _onCaptureAndSave(
+                                                                          context);
+                                                                      setState(
+                                                                          () {});
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                    height: padding -
+                                                                        borderRaduis),
+                                                                SvgPicture.asset(
+                                                                    'assets/images/svgfile/cic_logo.svg'),
+                                                                const SizedBox(
+                                                                    height:
+                                                                        padding),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width:
+                                                              double.infinity,
+                                                          margin:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 0,
+                                                                  right: 0,
+                                                                  bottom: 20),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(padding),
+                                                          child: CustomButton(
+                                                            title: 'Confirm',
+                                                            isDisable: false,
+                                                            isOutline: false,
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
+                                                );
+                                              }
+                                            },
+                                          );
+                                        },
+                                        title: 'Join Event',
+                                      ),
+                                    ),
+
+                                  ///member
+                                  // if (resultQR != null &&
+                                  //     resultQR!.contains(CiCQr.wallet.key))
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //       horizontal: 20, vertical: 5),
+                                  //   child: CustomButton(
+                                  //     isDisable: false,
+                                  //     isOutline: false,
+                                  //     onPressed: () async {
+                                  //       _walletController
+                                  //           .onScanTransfer(resultQR ?? '');
+                                  //       // debugPrint(CICRoute.i.transferToMMA().path);
+
+                                  //       context.go(
+                                  //           '/${CICRoute.i.transferToMMA().path}');
+
+                                  //       Future.delayed(const Duration(seconds: 1),
+                                  //           () {
+                                  //         _settingCon.selectedIndex = 0;
+                                  //         _settingCon
+                                  //             .onHideBottomNavigationBar(false);
+                                  //         _settingCon.update();
+                                  //       });
+
+                                  //       // Navigator.pop(context);
+                                  //     },
+                                  //     title: 'Confirm',
+                                  //   ),
+                                  // ),
+                                  if (resultQR != null &&
+                                      resultQR!.contains('member'))
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 5),
+                                      child: CustomButton(
+                                        isDisable: false,
+                                        isOutline: false,
+                                        onPressed: () async {
+                                          int userId = int.parse(resultQR!
+                                              .replaceAll('member', ''));
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  NewPeronalProfile(
+                                                isDirectory: true,
+                                                id: userId,
                                               ),
                                             ),
                                           );
-                                        }
-                                      },
-                                    );
-                                  },
-                                  title: 'Join Event',
-                                ),
-                              ),
-
-                            ///member
-                            // if (resultQR != null &&
-                            //     resultQR!.contains(CiCQr.wallet.key))
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(
-                            //       horizontal: 20, vertical: 5),
-                            //   child: CustomButton(
-                            //     isDisable: false,
-                            //     isOutline: false,
-                            //     onPressed: () async {
-                            //       _walletController
-                            //           .onScanTransfer(resultQR ?? '');
-                            //       // debugPrint(CICRoute.i.transferToMMA().path);
-
-                            //       context.go(
-                            //           '/${CICRoute.i.transferToMMA().path}');
-
-                            //       Future.delayed(const Duration(seconds: 1),
-                            //           () {
-                            //         _settingCon.selectedIndex = 0;
-                            //         _settingCon
-                            //             .onHideBottomNavigationBar(false);
-                            //         _settingCon.update();
-                            //       });
-
-                            //       // Navigator.pop(context);
-                            //     },
-                            //     title: 'Confirm',
-                            //   ),
-                            // ),
-                            if (resultQR != null &&
-                                resultQR!.contains('member'))
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5),
-                                child: CustomButton(
-                                  isDisable: false,
-                                  isOutline: false,
-                                  onPressed: () async {
-                                    int userId = int.parse(
-                                        resultQR!.replaceAll('member', ''));
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => NewPeronalProfile(
-                                          isDirectory: true,
-                                          id: userId,
-                                        ),
+                                        },
+                                        title: 'View Profile Detail',
                                       ),
-                                    );
-                                  },
-                                  title: 'View Profile Detail',
-                                ),
+                                    ),
+
+                                  // privilege shop
+
+                                  // if (resultQR != null && resultQR!.contains('shop'))
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //       horizontal: 20, vertical: 5),
+                                  //   child: CustomButton(
+                                  //     isDisable: false,
+                                  //     isOutline: false,
+                                  //     onPressed: () async {
+                                  // int shopId = int.parse(
+                                  //   resultQR!.replaceAll('shop', ''),
+                                  // );
+                                  // context.push('/privilege-payment/$shopId');
+                                  //     },
+                                  //     title: 'Enter Amount',
+                                  //   ),
+                                  // ),
+                                ],
                               ),
-
-                            // privilege shop
-
-                            // if (resultQR != null && resultQR!.contains('shop'))
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(
-                            //       horizontal: 20, vertical: 5),
-                            //   child: CustomButton(
-                            //     isDisable: false,
-                            //     isOutline: false,
-                            //     onPressed: () async {
-                            // int shopId = int.parse(
-                            //   resultQR!.replaceAll('shop', ''),
-                            // );
-                            // context.push('/privilege-payment/$shopId');
-                            //     },
-                            //     title: 'Enter Amount',
-                            //   ),
-                            // ),
+                            ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
 
                   ///appbar
                   SafeArea(
@@ -650,11 +688,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                   ),
 
                   ///invalid
-                  isInvalid ? _buildInvalidQr() : const SizedBox(),
+                  if (_permissionController.cameraisDenied.value)
+                    isInvalid ? _buildInvalidQr() : const SizedBox(),
                 ],
               ),
             ),
-          );
+          ));
         }),
       ),
     );

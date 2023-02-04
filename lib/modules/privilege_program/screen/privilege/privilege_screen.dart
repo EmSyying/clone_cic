@@ -14,6 +14,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/custom_indicatior.dart';
 import '../../../../Utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
+import '../../../../utils/permission/ask_permision_screen.dart';
+import '../../../../utils/permission/controller/permision_controller.dart';
 import '../../../../widgets/privilege/custom_row_filter.dart';
 import '../../../../widgets/privilege/custom_shimmer_categories.dart';
 import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
@@ -44,8 +46,11 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     await priCon.onFetchAllStore(priCon.shopPage);
   }
 
+  final _permissionController = Get.put(PermissionController());
+
   @override
   void initState() {
+    _permissionController.checkLocationPermission();
     _walletController.onFetchMyPoin();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -159,261 +164,291 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               ],
             ),
             body: Obx(
-              () => Stack(
-                children: [
-                  RefreshIndicator(
-                    onRefresh: onRefresh,
-                    key: refreshKey,
-                    child: NotificationListener<ScrollEndNotification>(
-                      onNotification: priCon.onNotification,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            !priCon.isLoadingSlidePri.value &&
-                                    priCon.privilegeSlideList.isNotEmpty
-                                ? AspectRatio(
-                                    aspectRatio: 5 / 2.3,
-                                    child: Swiper(
-                                      loop: true,
-                                      index: currentIndex,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        if (priCon.privilegeSlideList[index]
-                                                .status ==
-                                            'Display') {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 20, left: 20, right: 20),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                context.go(
-                                                    "/privilege/all-store/privilege-detail/${priCon.privilegeSlideList[index].shopId}");
-                                              },
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Stack(
-                                                  children: [
-                                                    Positioned.fill(
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: priCon
-                                                            .privilegeSlideList[
-                                                                index]
-                                                            .image!,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        return Container();
-                                      },
-                                      onIndexChanged: (value) {
-                                        setState(() {
-                                          currentIndex = value;
-                                        });
-                                      },
-                                      curve: Curves.easeIn,
-                                      autoplay: true,
-                                      itemCount:
-                                          priCon.privilegeSlideList.length,
-                                      viewportFraction: 1,
-                                      scale: 0.9,
-                                    ),
-                                  )
-                                : const SizedBox(
-                                    height: 180,
-                                    width: double.infinity,
-                                  ),
-
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: priCon.privilegeSlideList
-                                    .asMap()
-                                    .entries
-                                    .where((element) =>
-                                        element.value.status == 'Display')
-                                    .map((e) => CustomIndicator(
-                                          isSelect: e.key == currentIndex,
-                                        ))
-                                    .toList(),
-                              ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 0, bottom: 18, left: 20, right: 20),
-                              child: customCategTitle(
-                                categoriesTil: 'Categories',
-                                seeall: 'See All',
-                                onTapSeeAll: () {
-                                  context.push(
-                                      '/privilege/all-stores/privilege-see-all');
-                                  // context.push(
-                                  //     '/privilege/all-store/privilege-see-all');
-                                },
-                              ),
-                            ),
-                            ////Card List Categories
-                            SingleChildScrollView(
-                              padding: const EdgeInsets.only(
-                                  left: 20.0, right: 20.0),
-                              scrollDirection: Axis.horizontal,
-                              child: preController.isLoadingCategories.value
-                                  ? const CustomShimmerCategories()
-                                  : Row(
-                                      children: preController
-                                          .categoriesModelList
-                                          .asMap()
-                                          .entries
-                                          .map((cardListCat) => Padding(
-                                                padding: const EdgeInsets.only(
-                                                  top: 4.0,
-                                                  bottom: 4.0,
-                                                  right: 14.0,
-                                                ),
-                                                child: ComponentCardCategory(
-                                                  mineTye: cardListCat
-                                                      .value.mimeTypeImag,
-                                                  cardTitle:
-                                                      cardListCat.value.name,
-                                                  iconCard:
-                                                      cardListCat.value.image,
-                                                  onTapCatego: () {
-                                                    final titleName =
-                                                        cardListCat.value.name
-                                                            ?.replaceAll(
-                                                                '&', '%26');
-                                                    // priCon
-                                                    //     .onFetchCategoryItem(
-                                                    //         cardListCat.value.id)
-                                                    //     .then((value) {
-                                                    //   context.push(
-                                                    //     '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
-                                                    //   );
-                                                    // });
-                                                    context.go(
-                                                      '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}',
-                                                    );
-                                                  },
-                                                ),
-                                              ))
-                                          .toList(),
-                                    ),
-                            ),
-                            ////Tabs All Stores and Favorites======================
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20.0, top: 18.0, right: 20),
+              () => _permissionController.locationisDenied.value
+                  ? ShowPermision(
+                      lottieJson: _permissionController.locationLottie,
+                      title: _permissionController.locationTitle,
+                      description: _permissionController.locationDescription,
+                    )
+                  : Stack(
+                      children: [
+                        RefreshIndicator(
+                          onRefresh: onRefresh,
+                          key: refreshKey,
+                          child: NotificationListener<ScrollEndNotification>(
+                            onNotification: priCon.onNotification,
+                            child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  Container(
-                                    color: Colors.transparent,
-                                    width: double.infinity,
-                                    child: CupertinoSlidingSegmentedControl(
-                                      groupValue: segmentedControlValue,
-                                      backgroundColor: const Color(0xff252552)
-                                          .withOpacity(0.1),
-                                      children: <int, Widget>{
-                                        0: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'All Stores',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                  !priCon.isLoadingSlidePri.value &&
+                                          priCon.privilegeSlideList.isNotEmpty
+                                      ? AspectRatio(
+                                          aspectRatio: 5 / 2.3,
+                                          child: Swiper(
+                                            loop: true,
+                                            index: currentIndex,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              if (priCon
+                                                      .privilegeSlideList[index]
+                                                      .status ==
+                                                  'Display') {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 20,
+                                                          left: 20,
+                                                          right: 20),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      context.go(
+                                                          "/privilege/all-store/privilege-detail/${priCon.privilegeSlideList[index].shopId}");
+                                                    },
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      child: Stack(
+                                                        children: [
+                                                          Positioned.fill(
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              imageUrl: priCon
+                                                                  .privilegeSlideList[
+                                                                      index]
+                                                                  .image!,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              return Container();
+                                            },
+                                            onIndexChanged: (value) {
+                                              setState(() {
+                                                currentIndex = value;
+                                              });
+                                            },
+                                            curve: Curves.easeIn,
+                                            autoplay: true,
+                                            itemCount: priCon
+                                                .privilegeSlideList.length,
+                                            viewportFraction: 1,
+                                            scale: 0.9,
                                           ),
+                                        )
+                                      : const SizedBox(
+                                          height: 180,
+                                          width: double.infinity,
                                         ),
-                                        1: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Favorites',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ),
-                                      },
-                                      onValueChanged: (int? value) {
-                                        setState(() {
-                                          segmentedControlValue = value!;
-                                        });
-                                      },
+
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: priCon.privilegeSlideList
+                                          .asMap()
+                                          .entries
+                                          .where((element) =>
+                                              element.value.status == 'Display')
+                                          .map((e) => CustomIndicator(
+                                                isSelect: e.key == currentIndex,
+                                              ))
+                                          .toList(),
                                     ),
                                   ),
 
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 20.0, bottom: 20.0),
-                                    child: CustomNumberStoresFilter(
-                                      onTapSearch: () {
-                                        context.go(
-                                            "/privilege/all-stores/search-item");
+                                        top: 0,
+                                        bottom: 18,
+                                        left: 20,
+                                        right: 20),
+                                    child: customCategTitle(
+                                      categoriesTil: 'Categories',
+                                      seeall: 'See All',
+                                      onTapSeeAll: () {
+                                        context.push(
+                                            '/privilege/all-stores/privilege-see-all');
+                                        // context.push(
+                                        //     '/privilege/all-store/privilege-see-all');
                                       },
-                                      onTapFilter: () {
-                                        context.go(
-                                            "/privilege/all-stores/filter-item");
-                                      },
-                                      titleStores: segmentedControlValue == 0
-                                          ? '${preController.storeAmount} Stores'
-                                          : '${preController.favshopModelList.length} Stores',
+                                    ),
+                                  ),
+                                  ////Card List Categories
+                                  SingleChildScrollView(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
+                                    scrollDirection: Axis.horizontal,
+                                    child: preController
+                                            .isLoadingCategories.value
+                                        ? const CustomShimmerCategories()
+                                        : Row(
+                                            children: preController
+                                                .categoriesModelList
+                                                .asMap()
+                                                .entries
+                                                .map((cardListCat) => Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        top: 4.0,
+                                                        bottom: 4.0,
+                                                        right: 14.0,
+                                                      ),
+                                                      child:
+                                                          ComponentCardCategory(
+                                                        mineTye: cardListCat
+                                                            .value.mimeTypeImag,
+                                                        cardTitle: cardListCat
+                                                            .value.name,
+                                                        iconCard: cardListCat
+                                                            .value.image,
+                                                        onTapCatego: () {
+                                                          final titleName =
+                                                              cardListCat
+                                                                  .value.name
+                                                                  ?.replaceAll(
+                                                                      '&',
+                                                                      '%26');
+                                                          // priCon
+                                                          //     .onFetchCategoryItem(
+                                                          //         cardListCat.value.id)
+                                                          //     .then((value) {
+                                                          //   context.push(
+                                                          //     '/privilege/all-store/privilege-item-category?tabTitle=$titleName',
+                                                          //   );
+                                                          // });
+                                                          context.go(
+                                                            '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${cardListCat.value.id}',
+                                                          );
+                                                        },
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                          ),
+                                  ),
+                                  ////Tabs All Stores and Favorites======================
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, top: 18.0, right: 20),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          color: Colors.transparent,
+                                          width: double.infinity,
+                                          child:
+                                              CupertinoSlidingSegmentedControl(
+                                            groupValue: segmentedControlValue,
+                                            backgroundColor:
+                                                const Color(0xff252552)
+                                                    .withOpacity(0.1),
+                                            children: <int, Widget>{
+                                              0: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'All Stores',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ),
+                                              1: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'Favorites',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ),
+                                            },
+                                            onValueChanged: (int? value) {
+                                              setState(() {
+                                                segmentedControlValue = value!;
+                                              });
+                                            },
+                                          ),
+                                        ),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 20.0, bottom: 20.0),
+                                          child: CustomNumberStoresFilter(
+                                            onTapSearch: () {
+                                              context.go(
+                                                  "/privilege/all-stores/search-item");
+                                            },
+                                            onTapFilter: () {
+                                              context.go(
+                                                  "/privilege/all-stores/filter-item");
+                                            },
+                                            titleStores: segmentedControlValue ==
+                                                    0
+                                                ? '${preController.storeAmount} Stores'
+                                                : '${preController.favshopModelList.length} Stores',
+                                          ),
+                                        ),
+
+                                        storePages[segmentedControlValue],
+
+                                        ///end Tabs Bar================
+                                      ],
                                     ),
                                   ),
 
-                                  storePages[segmentedControlValue],
-
-                                  ///end Tabs Bar================
+                                  ///Loading Pagination
                                 ],
                               ),
                             ),
-
-                            ///Loading Pagination
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  if (priCon.isLoadingMoreShop.value)
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        width: double.infinity,
-                        color: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Loading more ',
-                              style: Theme.of(context).textTheme.bodyMedium,
+                        if (priCon.isLoadingMoreShop.value)
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              width: double.infinity,
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 3),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Loading more ',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const CupertinoActivityIndicator(),
+                                ],
+                              ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const CupertinoActivityIndicator(),
-                          ],
-                        ),
-                      ),
+                          ),
+                      ],
                     ),
-                ],
-              ),
             ),
           ),
         ),
