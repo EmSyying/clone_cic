@@ -101,7 +101,8 @@ class _CustomButtonState extends State<CustomButton> {
                                       style: widget.isCardInvestfif == false
                                           ? Theme.of(context)
                                               .textTheme
-                                              .labelLarge
+                                              .labelLarge!
+                                              .copyWith(color: Colors.white)
                                           : widget.style,
                                     ),
                             ],
@@ -158,13 +159,15 @@ class _CustomButtonState extends State<CustomButton> {
                                   child: Text(widget.title!,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .labelLarge),
+                                          .labelLarge!
+                                          .copyWith(color: Colors.grey)),
                                 ),
                               )
                             : widget.isDisable! && widget.isOutline!
                                 // ignore: deprecated_member_use
                                 ? OutlinedButton(
                                     onPressed: null,
+
                                     style: OutlinedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8),
@@ -177,7 +180,8 @@ class _CustomButtonState extends State<CustomButton> {
                                       widget.title!,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .labelLarge,
+                                          .labelLarge!
+                                          .copyWith(color: Colors.grey),
                                     ),
                                   )
                                 // ignore: deprecated_member_use
@@ -255,7 +259,8 @@ class _CustomButtonState extends State<CustomButton> {
                                         style: widget.isCardInvestfif == false
                                             ? Theme.of(context)
                                                 .textTheme
-                                                .labelLarge
+                                                .labelLarge!
+                                                .copyWith(color: Colors.white)
                                             : widget.style,
                                       ),
                               ],
@@ -323,7 +328,8 @@ class _CustomButtonState extends State<CustomButton> {
                                       widget.title!,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .labelLarge,
+                                          .labelLarge!
+                                          .copyWith(color: Colors.grey),
                                     ),
                                   )
                                 : CupertinoButton(
@@ -336,7 +342,8 @@ class _CustomButtonState extends State<CustomButton> {
                                       widget.title!,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .labelLarge,
+                                          .labelLarge!
+                                          .copyWith(color: Colors.grey),
                                     ),
                                   ),
                   )

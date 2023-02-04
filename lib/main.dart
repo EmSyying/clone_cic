@@ -735,21 +735,15 @@ class _MyAppState extends State<MyApp> {
                                   ),
                             fontWeight: FontWeight.w600),
 
-                        labelLarge: isLocal
-                            ? const TextStyle(
-                                fontFamily: 'DMSans',
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)
-                            : TextStyle(
-                                fontFamily: 'DMSans',
-                                fontSize: 27,
-                                color: setting.brightPrimaryColor == null
-                                    ? AppColor.mainColor
-                                    : fromHex(
-                                        setting.brightPrimaryColor.toString(),
-                                      ),
-                              ),
+                        labelLarge: TextStyle(
+                          fontFamily: 'DMSans',
+                          fontSize: 16,
+                          color: setting.brightPrimaryColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
+                        ),
                         bodyMedium: const TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 14,
