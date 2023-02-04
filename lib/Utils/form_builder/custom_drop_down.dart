@@ -364,6 +364,9 @@ class _CICDropdownState extends State<CICDropdown> {
                                                       .textTheme
                                                       .labelLarge!
                                                       .copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
                                                           fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.w500),
