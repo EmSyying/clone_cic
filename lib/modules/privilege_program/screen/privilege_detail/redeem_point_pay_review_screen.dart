@@ -3,13 +3,13 @@ import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/custom_appbar.dart';
 import '../../../../widgets/investments/slide_button.dart';
 import '../../../../widgets/wallets/custom_cash_out_and_transfer_amount_mma.dart';
 import '../../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 import '../../../../widgets/wallets/custom_stack_dotted_decoration.dart';
+import '../../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../../controller/privilege_controller.dart';
 
 class RedeemPointPayReviewScreen extends StatelessWidget {
@@ -281,7 +281,14 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          context.go('/service-agreement?fromPage=exchange');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ContractTerm(
+                                fromPage: 'Review Payment',
+                              ),
+                            ),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5.0),
