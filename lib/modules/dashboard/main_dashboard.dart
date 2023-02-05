@@ -816,21 +816,33 @@ class _MainDashboardState extends State<MainDashboard> {
                                                       padding: const EdgeInsets
                                                               .symmetric(
                                                           vertical: 8,
-                                                          horizontal: 8),
+                                                          horizontal: 10),
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8),
                                                         color: Colors.white
-                                                            .withOpacity(0.8),
+                                                            .withOpacity(0.7),
                                                       ),
                                                       child: Row(
                                                         children: [
-                                                          SvgPicture.network(
-                                                              '${_settingCon.slideList![index].button!.icon}'),
-                                                          const SizedBox(
-                                                            width: 10,
-                                                          ),
+                                                          // if (_settingCon
+                                                          //         .slideList![
+                                                          //             index]
+                                                          //         .button!
+                                                          //         .icon !=
+                                                          //     null)
+                                                          //   SvgPicture.network(
+                                                          //       '${_settingCon.slideList![index].button!.icon}'),
+                                                          // if (_settingCon
+                                                          //         .slideList![
+                                                          //             index]
+                                                          //         .button!
+                                                          //         .icon !=
+                                                          //     null)
+                                                          //   const SizedBox(
+                                                          //     width: 10,
+                                                          //   ),
                                                           Text(
                                                             '${_settingCon.slideList![index].button!.label}',
                                                             style: Theme.of(
@@ -838,6 +850,11 @@ class _MainDashboardState extends State<MainDashboard> {
                                                                 .textTheme
                                                                 .titleLarge!
                                                                 .copyWith(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor
+                                                                        .withOpacity(
+                                                                            0.7),
                                                                     fontSize:
                                                                         12,
                                                                     fontWeight:

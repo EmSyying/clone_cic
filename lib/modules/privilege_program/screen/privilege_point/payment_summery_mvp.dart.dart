@@ -54,7 +54,7 @@ class PaymentSummeryMVP extends StatelessWidget {
         title: Center(
           child: Text(
             'Redeem successfully',
-            style: Theme.of(context).textTheme.headline4!.copyWith(
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 18,
                 ),
@@ -65,6 +65,9 @@ class PaymentSummeryMVP extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
+            const SizedBox(
+              height: 37,
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -78,10 +81,10 @@ class PaymentSummeryMVP extends StatelessWidget {
                             children: [
                               Container(
                                 margin: const EdgeInsets.only(
-                                  left: 20.0,
-                                  right: 20.0,
-                                  top: 60.0,
-                                ),
+                                    left: 20.0,
+                                    right: 20.0,
+                                    top: 60.0,
+                                    bottom: 20),
                                 padding:
                                     const EdgeInsets.only(left: 20, right: 20),
                                 decoration: BoxDecoration(
@@ -107,7 +110,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                               text: amount ?? '',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline4!
+                                                  .headlineMedium!
                                                   .copyWith(
                                                     fontWeight: FontWeight.w700,
                                                     fontSize: 26,
@@ -117,10 +120,10 @@ class PaymentSummeryMVP extends StatelessWidget {
                                                   text: ' MVP',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline4!
+                                                      .headlineMedium!
                                                       .copyWith(
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                            FontWeight.bold,
                                                         fontSize: 18,
                                                       ),
                                                 )
@@ -134,7 +137,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                             accountMVP ?? '',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline3!
+                                                .displaySmall!
                                                 .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 14.0,
@@ -190,13 +193,14 @@ class PaymentSummeryMVP extends StatelessWidget {
                                         summeryLabel(
                                           context,
                                           label: 'Original Amount',
-                                          value: originalAmount ?? '',
+                                          value: '$originalAmount MVP',
                                         ),
-                                        summeryLabel(
-                                          context,
-                                          label: 'Remark',
-                                          value: remark ?? '',
-                                        ),
+                                        if (remark != 'null' && remark != null)
+                                          summeryLabel(
+                                            context,
+                                            label: 'Remark',
+                                            value: remark ?? '',
+                                          ),
                                         const SizedBox(
                                           height: 20.0,
                                         ),
@@ -263,7 +267,8 @@ class PaymentSummeryMVP extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      InkWell(
+                        splashColor: Colors.transparent,
                         onTap: () async {
                           if (clickedShare) {
                             clickedShare == false;
@@ -302,7 +307,8 @@ class PaymentSummeryMVP extends StatelessWidget {
                       const SizedBox(
                         width: 40.0,
                       ),
-                      GestureDetector(
+                      InkWell(
+                        splashColor: Colors.transparent,
                         onTap: () {
                           _onPaymentSummerySave();
                           debugPrint('hany test payment===');
@@ -323,7 +329,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                               'Save',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -365,7 +371,7 @@ class PaymentSummeryMVP extends StatelessWidget {
         children: [
           Text(
             label ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: const Color(0xff464646),
@@ -374,7 +380,7 @@ class PaymentSummeryMVP extends StatelessWidget {
           const Spacer(),
           Text(
             value ?? '',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 12.0,
                 ),
@@ -433,11 +439,6 @@ class PaymentSummeryMVP extends StatelessWidget {
       final directory = await getTemporaryDirectory();
       final file = File('${directory.path}/transferqr.png');
       await file.writeAsBytes(pngBytes);
-      final url = await DynamicLinkService.createDynamicLink(
-        path: 'summery-payment',
-        isShort: true,
-      );
-      debugPrint("Short link for summery payment: $url");
 
       // var url = await DynamicLinkService.createDynamicLink(
       //     path:
@@ -449,8 +450,6 @@ class PaymentSummeryMVP extends StatelessWidget {
       // debugPrint("Shot Url: $url");
 
       Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
-          text:
-              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: $url',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     } catch (e) {
       debugPrint("$e");

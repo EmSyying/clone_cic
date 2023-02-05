@@ -10,6 +10,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
+import '../../../../Utils/function/format_account_number.dart';
+import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../Utils/helper/digit_decimal_formarter.dart';
 import '../../../../widgets/privilege/custom_card_current_point.dart';
@@ -36,8 +38,9 @@ class RedeemPointToPay extends StatelessWidget {
       walletController.onFetchMyPoin();
       priController.shopStoreId.value = shopStoreId!;
       priController.receiveAccountNumber.value = receiveAccountNumber!;
-      priController.receiveAccountname.value = receiveAccountName!;
+      // priController.receiveAccountname.value = receiveAccountName!;
     }
+    priController.onRedeemToVerifyAccount(context);
 
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
@@ -100,15 +103,17 @@ class RedeemPointToPay extends StatelessWidget {
                               height: 33,
                             ),
                             CustomTextFieldNew(
+                              enable: false,
                               isValidate: priController
                                   .isRedeemToVerifyAccountValidate.value,
                               validateText: priController
                                   .isRedeemToVerifyAccountValidateMessage.value,
-                              initialValue:
-                                  priController.receiveAccountNumber.value,
                               inputFormatterList: [
-                                FilteringTextInputFormatter.digitsOnly
+                                FilteringTextInputFormatter.digitsOnly,
+                                AccountNumberFormatter(),
                               ],
+                              initialValue: FormatDate.formatAccountNumber(
+                                  priController.receiveAccountNumber.value),
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       decimal: true, signed: false),
@@ -116,7 +121,7 @@ class RedeemPointToPay extends StatelessWidget {
                               autoFocus: false,
                               labelText: 'Receiver Account Number',
                               hintText: 'Receiver Account Number',
-                              onChange: (value) {
+                              onChange: (value) async {
                                 priController.receiveAccountNumber.value =
                                     value;
                               },
@@ -155,11 +160,7 @@ class RedeemPointToPay extends StatelessWidget {
                                 ),
                               ),
                             Focus(
-                              onFocusChange: (value) {
-                                debugPrint("is Validate change:$value");
-
-                                priController.onRedeemToVerifyAccount(context);
-                              },
+                              onFocusChange: (value) {},
                               child: CustomTextFieldNew(
                                 validateText: 'You have not enought MVP',
 

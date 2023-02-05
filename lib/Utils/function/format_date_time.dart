@@ -43,6 +43,18 @@ class FormatDate {
     return outputFormat.format(inputDate);
   }
 
+  static String? formatAccountNumber(value) {
+    var bufferString = StringBuffer();
+    for (int i = 0; i < value.length; i++) {
+      bufferString.write(value[i]);
+      var nonZeroIndexValue = i + 1;
+      if (nonZeroIndexValue % 3 == 0 && nonZeroIndexValue != value.length) {
+        bufferString.write(' ');
+      }
+    }
+    return bufferString.toString();
+  }
+
   static String? eventDateTime(date) {
     var inputFormat = DateFormat('yyyy-MM-dd');
     var inputDate = inputFormat.parse(date);

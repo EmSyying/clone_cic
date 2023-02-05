@@ -699,6 +699,10 @@ class PrivilegeController extends GetxController {
           'remark': remark.value
         },
       ).then((response) {
+        receiveAccountNumber.value = '';
+        receiveAccountname.value = '';
+        amountToRedeem.value = 0.0;
+        remark.value = '';
         paymentSummery.value = PaymentSummary.fromJson(response);
         context.pushNamed(
           'PaymentSummeryMVP',
