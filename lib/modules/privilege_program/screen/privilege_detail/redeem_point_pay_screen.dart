@@ -36,9 +36,12 @@ class RedeemPointToPay extends StatelessWidget {
     final priController = Get.put(PrivilegeController());
     if (receiveAccountName != null && receiveAccountNumber != null) {
       walletController.onFetchMyPoin();
-      priController.shopStoreId.value = shopStoreId!;
+      if (shopStoreId != null) {
+        priController.shopStoreId.value = shopStoreId!;
+      }
+
       priController.receiveAccountNumber.value = receiveAccountNumber!;
-      // priController.receiveAccountname.value = receiveAccountName!;
+      priController.receiveAccountname.value = receiveAccountName!;
     }
     priController.onRedeemToVerifyAccount(context);
 

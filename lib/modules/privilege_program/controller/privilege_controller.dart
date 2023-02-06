@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../Utils/helper/option_model/option_form.dart';
 
+import '../../../utils/helper/custom_route_snackbar.dart';
 import '../../google_map_module/controllers/google_map_controller.dart';
 import '../model/category_model/model_categories.dart';
 import '../model/history/model_history_privilege.dart';
@@ -351,7 +352,7 @@ class PrivilegeController extends GetxController {
         categoryFilterList.add(shopModel.value);
         shopModelList.add(shopModel.value);
       }).toList();
-      debugPrint("categoryFilterList:${categoryFilterList.length}");
+
       isLoadingCategoryFilter(false);
     }).onError((ErrorModel errorModel, stackTrace) {
       isLoadingCategoryFilter(false);
@@ -591,7 +592,10 @@ class PrivilegeController extends GetxController {
   final isRedeemToVerifyAccountValidateMessage = ''.obs;
   final isRedeemToVerifyAccountValidate = true.obs;
   onClearRedeemToMVP() {
+    receiveAccountNumber.value = '';
+    receiveAccountname.value = '';
     amountToRedeem.value = 0.0;
+    remark.value = '';
     isRedeemToVerifyAccountValidateMessage.value = '';
     isRedeemToVerifyAccountValidate.value = true;
   }
@@ -671,6 +675,10 @@ class PrivilegeController extends GetxController {
 
         isRedeemToVerifyAccountValidate.value =
             error.bodyString['message'] ?? '';
+        customRouterSnackbar(
+            title: 'Verify Payment',
+            description: '${isRedeemToVerifyAccountValidate.value}',
+            type: SnackType.error);
         update();
       });
     } catch (e) {
@@ -699,10 +707,7 @@ class PrivilegeController extends GetxController {
           'remark': remark.value
         },
       ).then((response) {
-        receiveAccountNumber.value = '';
-        receiveAccountname.value = '';
-        amountToRedeem.value = 0.0;
-        remark.value = '';
+        onClearRedeemToMVP();
         paymentSummery.value = PaymentSummary.fromJson(response);
         context.pushNamed(
           'PaymentSummeryMVP',
