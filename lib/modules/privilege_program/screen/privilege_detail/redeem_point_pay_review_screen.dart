@@ -1,3 +1,4 @@
+import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +141,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                     height: 8.0,
                                   ),
                                   Text(
-                                    priController.receiveAccountNumber.value,
+                                    '${FormatDate.formatAccountNumber(priController.receiveAccountNumber.value)}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayMedium!

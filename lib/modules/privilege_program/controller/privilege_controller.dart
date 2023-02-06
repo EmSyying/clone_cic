@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../Utils/helper/format_Number.dart';
 import '../../../Utils/helper/option_model/option_form.dart';
 
 import '../../../utils/helper/custom_route_snackbar.dart';
@@ -712,14 +713,16 @@ class PrivilegeController extends GetxController {
         context.pushNamed(
           'PaymentSummeryMVP',
           queryParams: {
-            'amount': '${paymentSummery.value.amount}',
+            'amount':
+                '${FormatNumber.formatNumber(paymentSummery.value.amount!)}',
             'accountMVP': '${paymentSummery.value.shopName}',
             'transactionID': '${paymentSummery.value.transactionId}',
             'date': '${paymentSummery.value.date}',
             'reference': '${paymentSummery.value.reference}',
             'fromAccount': '${paymentSummery.value.fromAccount}',
             'marchant': '${paymentSummery.value.merchantAccount}',
-            'originalAmount': '${paymentSummery.value.originalAmount}',
+            'originalAmount':
+                '${FormatNumber.formatNumber(paymentSummery.value.originalAmount!)}',
             'remark': '${paymentSummery.value.remark}',
           },
           extra: {

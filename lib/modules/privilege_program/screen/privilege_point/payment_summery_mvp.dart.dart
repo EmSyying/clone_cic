@@ -293,7 +293,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                               'Share',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
