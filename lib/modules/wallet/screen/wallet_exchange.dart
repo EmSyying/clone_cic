@@ -13,7 +13,6 @@ import '../../../widgets/privilege/custom_card_current_point.dart';
 import '../../privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/wallet_controller.dart';
-import 'package:slide_action/slide_action.dart';
 import '../../../widgets/investments/slide_button.dart';
 
 class WalletExchange extends StatelessWidget {
@@ -23,6 +22,10 @@ class WalletExchange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isHide == true) {
+      _walletController.fetchWalletAmount();
+    }
+
     _walletController.onFetchMyPoin();
     final textstyle = Theme.of(context).textTheme;
     return Scaffold(
