@@ -182,20 +182,20 @@ class RedeemPointToPay extends StatelessWidget {
                                       RegExp(r'^\d+\.?\d{0,2}')),
                                 ],
                                 onChange: (value) {
-                                  if (onConvertToDouble(value) >
-                                      walletController
-                                          .mvpBalance.value.mvpAmount!) {
-                                    priController
-                                        .isValidateAmoutToRedeem.value = false;
-                                  } else {
-                                    priController
-                                        .isValidateAmoutToRedeem.value = true;
-                                  }
                                   if (value.isEmpty) {
                                     priController.amountToRedeem.value = 0.0;
                                   } else {
-                                    priController.amountToRedeem.value =
-                                        onConvertToDouble(value);
+                                    if (onConvertToDouble(value) >
+                                        walletController
+                                            .mvpBalance.value.mvpAmount!) {
+                                      priController.isValidateAmoutToRedeem
+                                          .value = false;
+                                    } else {
+                                      priController
+                                          .isValidateAmoutToRedeem.value = true;
+                                      priController.amountToRedeem.value =
+                                          onConvertToDouble(value);
+                                    }
                                   }
                                 },
 
