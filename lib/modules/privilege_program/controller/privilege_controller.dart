@@ -208,7 +208,7 @@ class PrivilegeController extends GetxController {
   final shopDetailModel = PrivilegeShopModel().obs;
   final isLoadingShopDetail = false.obs;
   Future<PrivilegeShopModel> onFetchShopDetail(num? id) async {
-    debugPrint("Privilege 1 $id");
+    debugPrint("Privilege 1 detail is work $id");
     isLoadingShopDetail(true);
     await apiBaseHelper
         .onNetworkRequesting(
@@ -222,6 +222,7 @@ class PrivilegeController extends GetxController {
       var responseJson = response['data'];
       debugPrint("Response Json Data: $responseJson");
       shopDetailModel.value = PrivilegeShopModel.fromJson(responseJson);
+      update();
       // debugPrint(
       //     "Privilege Data:${shopDetailModel.value.openingDays![0].dayName}");
 
@@ -707,6 +708,8 @@ class PrivilegeController extends GetxController {
           'remark': remark.value
         },
       ).then((response) {
+        debugPrint("MVP Respone:$response");
+
         onClearRedeemToMVP();
         paymentSummery.value = PaymentSummary.fromJson(response);
         context.pushNamed(
@@ -724,8 +727,11 @@ class PrivilegeController extends GetxController {
           },
           extra: {
             'onPressed': () {
-              context.go(
-                  "/privilege/all-store/privilege-detail/${shopStoreId.value}");
+              onFetchShopDetail(shopStoreId.value).then((value) {
+                context.go(
+                    "/privilege/all-store/privilege-detail/${shopStoreId.value}");
+              });
+              update();
             },
           },
         );
@@ -735,7 +741,7 @@ class PrivilegeController extends GetxController {
 
         update();
       }).onError((ErrorModel error, stackTrace) {
-        debugPrint("redeem Error:${error.bodyString}");
+        debugPrint("redeem Error 1:${error.bodyString}");
         isRedeemToSubmitMVP(false);
 
         update();

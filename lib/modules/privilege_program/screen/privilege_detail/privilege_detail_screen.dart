@@ -297,9 +297,9 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                     child: CustomCardPoint(
                                       isAcceptedPoint: priController
                                           .shopDetailModel.value.pointAccepted,
-                                      point: _walletController.mvpBalance.value
-                                              .mvpAmountFormat ??
-                                          '0.00',
+                                      point: priController
+                                          .shopDetailModel.value.currentPoint
+                                          .toString(),
                                       onTapRedeem: priController.shopDetailModel
                                                   .value.pointAccepted ==
                                               false
