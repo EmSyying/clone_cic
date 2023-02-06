@@ -195,7 +195,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                         summeryLabel(
                                           context,
                                           label: 'Remark',
-                                          value: remark ?? '',
+                                          value: remark ?? "",
                                         ),
                                         const SizedBox(
                                           height: 20.0,

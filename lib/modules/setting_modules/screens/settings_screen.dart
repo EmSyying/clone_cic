@@ -543,9 +543,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Scaffold(
         appBar: CustomAppBar(
           onTap: () async {
-            final url = await DynamicLinkService.createDynamicLink(
-                path: 'event/2', isShort: true);
-            debugPrint("Event: $url");
+            // final url = await DynamicLinkService.createDynamicLink(
+            //     path:
+            //         'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=656832430&receiveAccountName=Champa%20Spa&shopStoreId=20',
+            //     isShort: true);
+            final urlRedeemMVP = await DynamicLinkService.createDynamicLink(
+                path: 'privilege-payment/20', isShort: true);
+            debugPrint("Event: $urlRedeemMVP");
           },
           isLeading: true,
           isLogo: false,
