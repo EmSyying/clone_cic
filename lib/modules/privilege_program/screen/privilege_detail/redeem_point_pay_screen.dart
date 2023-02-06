@@ -41,7 +41,7 @@ class RedeemPointToPay extends StatelessWidget {
       }
 
       priController.receiveAccountNumber.value = receiveAccountNumber!;
-      priController.receiveAccountname.value = receiveAccountName!;
+      // priController.receiveAccountname.value = receiveAccountName!;
     }
     priController.onRedeemToVerifyAccount(context);
 
