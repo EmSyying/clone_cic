@@ -14,7 +14,8 @@ import '../../../wallet/controller/wallet_controller.dart';
 import 'loyalty_point_screen.dart';
 
 class PrivilegePointScreen extends StatefulWidget {
-  const PrivilegePointScreen({super.key});
+  const PrivilegePointScreen({super.key, this.fromPage});
+  final String? fromPage;
 
   @override
   State<PrivilegePointScreen> createState() => _PrivilegePointScreenState();
@@ -38,7 +39,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
   @override
   void initState() {
     _walletController.onFetchMyPoin();
-    _walletController.fetchWalletAmount();
+    // _walletController.fetchWalletAmount();
 
     super.initState();
   }
@@ -81,22 +82,6 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                 ),
               ),
             ),
-
-            ///experiment
-            // Scaffold(
-            //   backgroundColor: Colors.transparent,
-            //   appBar: AppBar(
-            //     backgroundColor: Colors.transparent,
-            //     elevation: 0,
-            //   ),
-            //   body: Obx(
-            //     () => Container(
-            //       width: double.infinity,
-            //       height: double.infinity,
-            //       alignment: Alignment.topLeft,
-            //       child:
-            //   ),
-            // ),
             Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
@@ -167,8 +152,10 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                context
-                                    .push('/wallet/point-exchange?isHide=true');
+                                _walletController.fetchWalletAmount().then(
+                                      (value) => context.push(
+                                          '/wallet/point-exchange?isHide=true'),
+                                    );
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
