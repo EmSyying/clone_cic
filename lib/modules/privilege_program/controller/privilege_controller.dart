@@ -582,9 +582,11 @@ class PrivilegeController extends GetxController {
   }
 
   // Redeem MVP
+
   final isRedeemToMVPReview = false.obs;
   final shopStoreId = 0.obs;
   final amountToRedeem = 0.0.obs;
+  final redeemAmountToPayController = TextEditingController().obs;
   final amountToRedeemDisplay = ''.obs;
   final receiveAccountNumber = ''.obs;
   final receiveAccountname = ''.obs;
@@ -597,6 +599,7 @@ class PrivilegeController extends GetxController {
     receiveAccountNumber.value = '';
     receiveAccountname.value = '';
     amountToRedeem.value = 0.0;
+    redeemAmountToPayController.value.text = '';
     remark.value = '';
     isRedeemToVerifyAccountValidateMessage.value = '';
     isRedeemToVerifyAccountValidate.value = true;
@@ -643,8 +646,12 @@ class PrivilegeController extends GetxController {
   }
 
   // Review Redeem To MVP
+
   final amountToPay = ''.obs;
   Future<void> onRedeemToMVPReview(BuildContext context) async {
+    // Convert string to int(1,500 to 1500)
+    var redeemMVPAmount =
+        redeemAmountToPayController.value.text.replaceAll(',', '');
     isRedeemToMVPReview(true);
 
     try {
@@ -654,7 +661,7 @@ class PrivilegeController extends GetxController {
         isAuthorize: true,
         body: {
           'shop_id': shopStoreId.value,
-          'amount': amountToRedeem.value,
+          'amount': redeemMVPAmount,
           'receiver_account_number': receiveAccountNumber.value,
           'remark': remark.value
         },
@@ -695,6 +702,9 @@ class PrivilegeController extends GetxController {
   final paymentSummery = PaymentSummary().obs;
   final isRedeemToSubmitMVP = false.obs;
   Future<void> onRedeemToSubmitMVP(BuildContext context) async {
+    // Convert string to int(1,500 to 1500)
+    var redeemMVPAmount =
+        redeemAmountToPayController.value.text.replaceAll(',', '');
     isRedeemToSubmitMVP(true);
 
     try {
@@ -704,7 +714,7 @@ class PrivilegeController extends GetxController {
         isAuthorize: true,
         body: {
           'shop_id': shopStoreId.value,
-          'amount': amountToRedeem.value,
+          'amount': redeemMVPAmount,
           'receiver_account_number': receiveAccountNumber.value,
           'remark': remark.value
         },

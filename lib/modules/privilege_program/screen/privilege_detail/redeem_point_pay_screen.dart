@@ -1,6 +1,8 @@
 import 'dart:io';
 
-import 'package:cicgreenloan/Utils/function/convert_to_double.dart';
+import 'package:cicgreenloan/Utils/helper/extension/string_extension.dart';
+import 'package:cicgreenloan/Utils/helper/texfield_format_currency/decimal_textinput_format.dart';
+import 'package:cicgreenloan/Utils/helper/texfield_format_currency/format_value_onchange.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +15,6 @@ import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/function/format_account_number.dart';
 import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
-import '../../../../Utils/helper/digit_decimal_formarter.dart';
 import '../../../../widgets/privilege/custom_card_current_point.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
@@ -166,29 +167,25 @@ class RedeemPointToPay extends StatelessWidget {
                               onFocusChange: (value) {},
                               child: CustomTextFieldNew(
                                 validateText: 'You have not enought MVP',
-
                                 isValidate:
                                     priController.isValidateAmoutToRedeem.value,
-
-                                initialValue:
-                                    priController.amountToRedeem.value == 0.0
-                                        ? ''
-                                        : priController.amountToRedeem.value
-                                            .toString(),
+                                initialValue: priController
+                                    .redeemAmountToPayController.value.text,
                                 keyboardType:
                                     const TextInputType.numberWithOptions(
                                         decimal: true),
-                                // controller: _walletController.qrRecievingAmount,
+                                controller: priController
+                                    .redeemAmountToPayController.value,
                                 inputFormatterList: [
-                                  DigitFormatWithDecimal(),
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+\.?\d{0,2}')),
+                                  DecimalTextInputFormatter()
                                 ],
                                 onChange: (value) {
-                                  if (value.isEmpty) {
-                                    priController.amountToRedeem.value = 0.0;
-                                  } else {
-                                    if (onConvertToDouble(value) >
+                                  if (value.isNotEmpty) {
+                                    formatValueOnchange(
+                                        value: value,
+                                        controller: priController
+                                            .redeemAmountToPayController.value);
+                                    if (double.parse(value.clean().toString()) >
                                         walletController
                                             .mvpBalance.value.mvpAmount!) {
                                       priController.isValidateAmoutToRedeem
@@ -196,12 +193,14 @@ class RedeemPointToPay extends StatelessWidget {
                                     } else {
                                       priController
                                           .isValidateAmoutToRedeem.value = true;
-                                      priController.amountToRedeem.value =
-                                          onConvertToDouble(value);
                                     }
+                                  } else {
+                                    priController.redeemAmountToPayController
+                                        .value.text = '';
                                   }
+                                  priController.redeemAmountToPayController
+                                      .refresh();
                                 },
-
                                 isRequired: true,
                                 labelText: 'Amount',
                                 hintText: 'Amount',
@@ -242,7 +241,9 @@ class RedeemPointToPay extends StatelessWidget {
                     horizontal: 20.0, vertical: 24.0),
                 child: CustomButton(
                   width: double.infinity,
-                  onPressed: priController.amountToRedeem.value != 0.0
+                  onPressed: priController.redeemAmountToPayController.value
+                              .text.isNotEmpty &&
+                          priController.isRedeemToMVPReview.value == false
                       ? () async {
                           await priController.onRedeemToMVPReview(context).then(
                               (value) => context.push(
@@ -252,7 +253,8 @@ class RedeemPointToPay extends StatelessWidget {
                   title: 'Redeem Now',
                   isDisable:
                       priController.isValidateAmoutToRedeem.value == true &&
-                              priController.amountToRedeem.value != 0.0
+                              priController.redeemAmountToPayController.value
+                                  .text.isNotEmpty
                           ? false
                           : true,
                   isOutline: false,
