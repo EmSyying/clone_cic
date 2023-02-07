@@ -56,7 +56,7 @@ class CiCLineChart extends StatelessWidget {
               textAngle: 0,
               verticalTextAlignment: TextAnchor.start,
               horizontalTextPadding: "-16%",
-              dashArray: const [2, 6],
+              // dashArray: const [2, 6],
               isVisible: true,
               start: splitIndex - 1,
               end: splitIndex - 1,
