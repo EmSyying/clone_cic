@@ -523,7 +523,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                           setState(() {
                                                                                                             _con.notificationList[index].readAt = '';
                                                                                                           });
-                                                                                                          context.go('/mymvp');
+                                                                                                          context.push('/mymvp');
                                                                                                         } else {
                                                                                                           notificationIdList.add(items.id);
                                                                                                           _con.onReadNotification(_con.notificationList[index].id!);
