@@ -336,16 +336,14 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                                         .value
                                                         .receiverAccountname!;
                                               }
-                                              _walletController
-                                                  .onFetchMyPoin()
-                                                  .then(
-                                                    (value) => context.push(
-                                                        '/privilege/all-store/redeem-point-to-pay'),
-                                                  );
+                                              context.push(
+                                                  '/privilege/all-store/redeem-point-to-pay');
+                                              _walletController.onFetchMyPoin();
                                             },
                                       onTapBalance: () {
                                         context.push(
                                             '/privilege/all-store/point-screen');
+                                        _walletController.onFetchMyPoin();
                                       },
                                     ),
                                   ),

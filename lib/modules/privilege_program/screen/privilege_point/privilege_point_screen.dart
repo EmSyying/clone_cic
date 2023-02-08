@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/recent_point_screen.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,7 +8,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../utils/function/format_date_time.dart';
-import '../../../../utils/offline_widget.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 import 'loyalty_point_screen.dart';
 
@@ -151,11 +149,11 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
-                                _walletController.fetchWalletAmount().then(
-                                      (value) => context.push(
-                                          '/wallet/point-exchange?isHide=true'),
-                                    );
+                              onTap: () async {
+                                // ignore: use_build_context_synchronously
+                                context
+                                    .push('/wallet/point-exchange?isHide=true');
+                                _walletController.fetchWalletAmount();
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
@@ -195,94 +193,83 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                   //   ),
                   // )
                 ],
-                body: ConnectivityWidgetWrapper(
-                  stacked: false,
-                  alignment: Alignment.bottomCenter,
-                  offlineWidget: Column(
-                    children: const [
+                body: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(14.0),
+                      topLeft: Radius.circular(14.0),
+                    ),
+                    color: Color(0xffFAFAFA),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          width: 50,
+                          height: 5,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey[400]),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 10),
+                        child: Text(
+                          'Transactions',
+                          style: textStyle.copyWith(
+                              color: Colors.black, fontSize: 16),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        width: double.infinity,
+                        child: CupertinoSlidingSegmentedControl(
+                            groupValue: segmentedControlValue,
+                            backgroundColor:
+                                const Color(0xff252552).withOpacity(0.1),
+                            children: const <int, Widget>{
+                              0: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text('MVP Rewards'),
+                              ),
+                              1: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text('Recent activities'),
+                              ),
+                            },
+                            onValueChanged: (int? value) {
+                              segmentedControlValue = value!;
+                              _pageViewController.animateToPage(
+                                  segmentedControlValue,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.fastOutSlowIn);
+                              setState(() {});
+                            }),
+                      ),
                       Expanded(
-                        child: OfflineWidget(),
+                        child: PageView(
+                          controller: _pageViewController,
+                          onPageChanged: (value) {
+                            // debugPrint('heloo${_pageViewController.initialPage}');
+                            if (_pageViewController.page == 0) {
+                              FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                  'Loyalty reward point');
+                            } else {
+                              FirebaseAnalyticsHelper.sendAnalyticsEvent(
+                                  'Recent activities');
+                            }
+
+                            segmentedControlValue = value;
+                            setState(() {});
+                          },
+                          children: widgets,
+                        ),
                       ),
                     ],
-                  ),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(14.0),
-                        topLeft: Radius.circular(14.0),
-                      ),
-                      color: Color(0xffFAFAFA),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            width: 50,
-                            height: 5,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey[400]),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 10),
-                          child: Text(
-                            'Transactions',
-                            style: textStyle.copyWith(
-                                color: Colors.black, fontSize: 16),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 20, bottom: 20),
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          width: double.infinity,
-                          child: CupertinoSlidingSegmentedControl(
-                              groupValue: segmentedControlValue,
-                              backgroundColor:
-                                  const Color(0xff252552).withOpacity(0.1),
-                              children: const <int, Widget>{
-                                0: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text('MVP Rewards'),
-                                ),
-                                1: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text('Recent activities'),
-                                ),
-                              },
-                              onValueChanged: (int? value) {
-                                segmentedControlValue = value!;
-                                _pageViewController.animateToPage(
-                                    segmentedControlValue,
-                                    duration: const Duration(milliseconds: 200),
-                                    curve: Curves.fastOutSlowIn);
-                                setState(() {});
-                              }),
-                        ),
-                        Expanded(
-                          child: PageView(
-                            controller: _pageViewController,
-                            onPageChanged: (value) {
-                              // debugPrint('heloo${_pageViewController.initialPage}');
-                              if (_pageViewController.page == 0) {
-                                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                    'Loyalty reward point');
-                              } else {
-                                FirebaseAnalyticsHelper.sendAnalyticsEvent(
-                                    'Recent activities');
-                              }
-
-                              segmentedControlValue = value;
-                              setState(() {});
-                            },
-                            children: widgets,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ),
