@@ -13,7 +13,7 @@ import 'package:cicgreenloan/widgets/get_funding/custom_review_financing_info_ca
 import 'package:cicgreenloan/widgets/get_funding/custom_review_required_equity.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_select_2_getfunding.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -598,425 +598,414 @@ class _PreviewEquityState extends State<PreviewEquity> {
                                 .isLoadingData.value ==
                             true
                         ? const LinearProgressIndicator()
-                        : ConnectivityWidgetWrapper(
-                            stacked: false,
-                            alignment: Alignment.bottomCenter,
-                            offlineWidget: Column(
-                              children: const [
-                                SizedBox(
-                                  height: 20,
+                        : Column(
+                            children: [
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      if (widget.id != null)
+                                        if (InjectionHelper
+                                                .equityInvestmentController
+                                                .applicationData
+                                                .value
+                                                .status ==
+                                            'Rejected')
+                                          CustomRejectReason(
+                                            isReson: true,
+                                            onEdit: () {},
+                                            title:
+                                                "Rejected Application Reason",
+                                            reason: InjectionHelper
+                                                .equityInvestmentController
+                                                .applicationData
+                                                .value
+                                                .reason!,
+                                          ),
+                                      CustomFinancingInfo(
+                                        isEditable: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .applicationData
+                                                        .value
+                                                        .status ==
+                                                    "Draft" ||
+                                                widget.id == null
+                                            ? true
+                                            : isEdit,
+                                        financingAmount: InjectionHelper
+                                            .equityInvestmentController
+                                            .financingAmoung
+                                            .value
+                                            .toString(),
+                                        date: InjectionHelper
+                                                    .equityInvestmentController
+                                                    .whenOnchangeDate
+                                                    .value !=
+                                                ""
+                                            ? InjectionHelper
+                                                .equityInvestmentController
+                                                .intendedDate
+                                                .value
+                                            : InjectionHelper
+                                                        .equityInvestmentController
+                                                        .intendedDate
+                                                        .value ==
+                                                    ""
+                                                ? ""
+                                                : FormatDate
+                                                    .formatDateTimeGetfunding(
+                                                        InjectionHelper
+                                                            .equityInvestmentController
+                                                            .intendedDate
+                                                            .value),
+                                        useOfFund: InjectionHelper
+                                            .equityInvestmentController
+                                            .useOfFund
+                                            .value,
+                                        onTap: () => ontapFinancing(context),
+                                      ),
+                                      CustomReviewCompanyInfocard(
+                                        isEditable: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .applicationData
+                                                        .value
+                                                        .status ==
+                                                    "Draft" ||
+                                                widget.id == null
+                                            ? true
+                                            : isEdit,
+                                        onTap: () {
+                                          ontapCompanyInfo(context);
+                                        },
+                                        address: InjectionHelper
+                                            .equityInvestmentController
+                                            .address
+                                            .value,
+                                        year: InjectionHelper
+                                            .equityInvestmentController
+                                            .yearOfEstablishment
+                                            .value,
+                                        typeofOrganization: InjectionHelper
+                                            .equityInvestmentController
+                                            .typeOfOrganization
+                                            .value
+                                            .display,
+                                        companyName: InjectionHelper
+                                            .equityInvestmentController
+                                            .companyName
+                                            .value,
+                                        taxIdentification: InjectionHelper
+                                            .equityInvestmentController
+                                            .taxIdentificationNumber
+                                            .value,
+                                        industry: InjectionHelper
+                                            .equityInvestmentController
+                                            .industry
+                                            .value
+                                            .display,
+                                        numberofStaff: InjectionHelper
+                                                    .equityInvestmentController
+                                                    .numberOfStaff
+                                                    .value !=
+                                                ''
+                                            ? FormatNumber.formatNumberDefualt(
+                                                    int.parse(InjectionHelper
+                                                        .equityInvestmentController
+                                                        .numberOfStaff
+                                                        .value))
+                                                .toString()
+                                            : '',
+                                        ownername: InjectionHelper
+                                            .equityInvestmentController
+                                            .ownerName
+                                            .value,
+                                        productSevice: InjectionHelper
+                                            .equityInvestmentController
+                                            .productSevice
+                                            .value,
+                                        patentDoc: InjectionHelper
+                                            .equityInvestmentController
+                                            .patentDocument
+                                            .value,
+                                        mocCertificate: InjectionHelper
+                                            .equityInvestmentController
+                                            .certificatioDoc
+                                            .value,
+                                        licenceDoc: InjectionHelper
+                                            .equityInvestmentController
+                                            .licenseDoc
+                                            .value,
+                                        memorandom: InjectionHelper
+                                            .equityInvestmentController
+                                            .memorandumDoc
+                                            .value,
+                                      ),
+                                      CustomReviewRequiredCard(
+                                        isEditable: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .applicationData
+                                                        .value
+                                                        .status ==
+                                                    "Draft" ||
+                                                widget.id == null
+                                            ? true
+                                            : isEdit,
+                                        //Part 1
+                                        numberofshare:
+                                            FormatNumber.formatNumberDefualt(
+                                                    InjectionHelper
+                                                        .equityInvestmentController
+                                                        .numberOfShareHolders
+                                                        .value)
+                                                .toString(),
+                                        numberofboard:
+                                            FormatNumber.formatNumberDefualt(
+                                                    InjectionHelper
+                                                        .equityInvestmentController
+                                                        .numberOfBoardMembers
+                                                        .value)
+                                                .toString(),
+
+                                        havetheconsensus: InjectionHelper
+                                            .equityInvestmentController
+                                            .haveTheConsenus
+                                            .value,
+
+                                        purposeEquity: InjectionHelper
+                                            .equityInvestmentController
+                                            .purposeOfFund
+                                            .value,
+
+                                        majority: InjectionHelper
+                                            .equityInvestmentController
+                                            .areYouTheMajorityShareholder
+                                            .value,
+                                        businessplan: InjectionHelper
+                                            .equityInvestmentController
+                                            .businessPlan
+                                            .value,
+                                        article: InjectionHelper
+                                            .equityInvestmentController
+                                            .articleOfIncorporation
+                                            .value,
+
+                                        // Part 2
+                                        incomingstatement: InjectionHelper
+                                            .equityInvestmentController
+                                            .incomeStatement
+                                            .value,
+                                        balancesheet: InjectionHelper
+                                            .equityInvestmentController
+                                            .balanceSheet
+                                            .value,
+                                        cashflow: InjectionHelper
+                                            .equityInvestmentController
+                                            .cashFlowStatement
+                                            .value,
+
+                                        havethefinancail: InjectionHelper
+                                            .equityInvestmentController
+                                            .havefinancial
+                                            .value,
+                                        //Part 3
+                                        marketstudy: InjectionHelper
+                                            .equityInvestmentController
+                                            .marketStudy
+                                            .value,
+
+                                        otherdoc: InjectionHelper
+                                            .equityInvestmentController
+                                            .otherDocuments
+                                            .value,
+                                        onTabFinancialProject: () {
+                                          ontapFinancialProject(context);
+                                        },
+
+                                        onTabOtherProject: () {
+                                          ontapOthersProject(context);
+                                        },
+
+                                        onTap: () {
+                                          ontapRequiredDoc(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Expanded(child: OfflineWidget()),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: SingleChildScrollView(
+                              ),
+                              if (InjectionHelper.equityInvestmentController
+                                          .applicationData.value.status ==
+                                      "Draft" ||
+                                  widget.id == null)
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 0, right: 0, bottom: 10),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 20, right: 20, top: 10),
                                     child: Column(
                                       children: [
-                                        if (widget.id != null)
-                                          if (InjectionHelper
-                                                  .equityInvestmentController
-                                                  .applicationData
-                                                  .value
-                                                  .status ==
-                                              'Rejected')
-                                            CustomRejectReason(
-                                              isReson: true,
-                                              onEdit: () {},
-                                              title:
-                                                  "Rejected Application Reason",
-                                              reason: InjectionHelper
-                                                  .equityInvestmentController
-                                                  .applicationData
-                                                  .value
-                                                  .reason!,
-                                            ),
-                                        CustomFinancingInfo(
-                                          isEditable: InjectionHelper
-                                                          .equityInvestmentController
-                                                          .applicationData
-                                                          .value
-                                                          .status ==
-                                                      "Draft" ||
-                                                  widget.id == null
-                                              ? true
-                                              : isEdit,
-                                          financingAmount: InjectionHelper
-                                              .equityInvestmentController
-                                              .financingAmoung
-                                              .value
-                                              .toString(),
-                                          date: InjectionHelper
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 10, top: 10),
+                                          child: CustomSelect2GetFunding(
+                                            isFromCreateOrUpdated: checkEqual(),
+                                            islongLabel: true,
+                                            title:
+                                                'I hereby declare that the informations provided above are correct and true.',
+                                            isSelect: !checkEqual()
+                                                ? false
+                                                : InjectionHelper
+                                                    .equityInvestmentController
+                                                    .isAgree
+                                                    .value,
+                                            ontap: () {
+                                              if (checkEqual()) {
+                                                if (InjectionHelper
+                                                    .equityInvestmentController
+                                                    .isAgree
+                                                    .value) {
+                                                  InjectionHelper
                                                       .equityInvestmentController
-                                                      .whenOnchangeDate
-                                                      .value !=
-                                                  ""
-                                              ? InjectionHelper
-                                                  .equityInvestmentController
-                                                  .intendedDate
-                                                  .value
-                                              : InjectionHelper
-                                                          .equityInvestmentController
-                                                          .intendedDate
-                                                          .value ==
-                                                      ""
-                                                  ? ""
-                                                  : FormatDate
-                                                      .formatDateTimeGetfunding(
+                                                      .isAgree
+                                                      .value = false;
+                                                } else {
+                                                  setState(() {
+                                                    InjectionHelper
+                                                        .equityInvestmentController
+                                                        .isAgree
+                                                        .value = true;
+                                                  });
+                                                }
+                                              } else {
+                                                InjectionHelper
+                                                    .equityInvestmentController
+                                                    .isAgree
+                                                    .value = false;
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: CustomButton(
+                                                  isDisable: false,
+                                                  isOutline: true,
+                                                  onPressed: widget.id !=
+                                                              null &&
                                                           InjectionHelper
-                                                              .equityInvestmentController
-                                                              .intendedDate
-                                                              .value),
-                                          useOfFund: InjectionHelper
-                                              .equityInvestmentController
-                                              .useOfFund
-                                              .value,
-                                          onTap: () => ontapFinancing(context),
-                                        ),
-                                        CustomReviewCompanyInfocard(
-                                          isEditable: InjectionHelper
-                                                          .equityInvestmentController
-                                                          .applicationData
-                                                          .value
-                                                          .status ==
-                                                      "Draft" ||
-                                                  widget.id == null
-                                              ? true
-                                              : isEdit,
-                                          onTap: () {
-                                            ontapCompanyInfo(context);
-                                          },
-                                          address: InjectionHelper
-                                              .equityInvestmentController
-                                              .address
-                                              .value,
-                                          year: InjectionHelper
-                                              .equityInvestmentController
-                                              .yearOfEstablishment
-                                              .value,
-                                          typeofOrganization: InjectionHelper
-                                              .equityInvestmentController
-                                              .typeOfOrganization
-                                              .value
-                                              .display,
-                                          companyName: InjectionHelper
-                                              .equityInvestmentController
-                                              .companyName
-                                              .value,
-                                          taxIdentification: InjectionHelper
-                                              .equityInvestmentController
-                                              .taxIdentificationNumber
-                                              .value,
-                                          industry: InjectionHelper
-                                              .equityInvestmentController
-                                              .industry
-                                              .value
-                                              .display,
-                                          numberofStaff: InjectionHelper
-                                                      .equityInvestmentController
-                                                      .numberOfStaff
-                                                      .value !=
-                                                  ''
-                                              ? FormatNumber.formatNumberDefualt(
-                                                      int.parse(InjectionHelper
-                                                          .equityInvestmentController
-                                                          .numberOfStaff
-                                                          .value))
-                                                  .toString()
-                                              : '',
-                                          ownername: InjectionHelper
-                                              .equityInvestmentController
-                                              .ownerName
-                                              .value,
-                                          productSevice: InjectionHelper
-                                              .equityInvestmentController
-                                              .productSevice
-                                              .value,
-                                          patentDoc: InjectionHelper
-                                              .equityInvestmentController
-                                              .patentDocument
-                                              .value,
-                                          mocCertificate: InjectionHelper
-                                              .equityInvestmentController
-                                              .certificatioDoc
-                                              .value,
-                                          licenceDoc: InjectionHelper
-                                              .equityInvestmentController
-                                              .licenseDoc
-                                              .value,
-                                          memorandom: InjectionHelper
-                                              .equityInvestmentController
-                                              .memorandumDoc
-                                              .value,
-                                        ),
-                                        CustomReviewRequiredCard(
-                                          isEditable: InjectionHelper
-                                                          .equityInvestmentController
-                                                          .applicationData
-                                                          .value
-                                                          .status ==
-                                                      "Draft" ||
-                                                  widget.id == null
-                                              ? true
-                                              : isEdit,
-                                          //Part 1
-                                          numberofshare:
-                                              FormatNumber.formatNumberDefualt(
-                                                      InjectionHelper
-                                                          .equityInvestmentController
-                                                          .numberOfShareHolders
-                                                          .value)
-                                                  .toString(),
-                                          numberofboard:
-                                              FormatNumber.formatNumberDefualt(
-                                                      InjectionHelper
-                                                          .equityInvestmentController
-                                                          .numberOfBoardMembers
-                                                          .value)
-                                                  .toString(),
+                                                                  .equityInvestmentController
+                                                                  .applicationData
+                                                                  .value
+                                                                  .step ==
+                                                              3
+                                                      ? () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          Navigator.pop(
+                                                              context);
+                                                        }
+                                                      : () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                  title: "Close"),
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Expanded(
+                                              child: CustomButton(
+                                                isDisable: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .isAgree
+                                                        .value
+                                                    ? false
+                                                    : true,
+                                                isOutline: false,
+                                                onPressed: InjectionHelper
+                                                        .equityInvestmentController
+                                                        .isAgree
+                                                        .value
+                                                    ? widget.id != null &&
+                                                            InjectionHelper
+                                                                    .equityInvestmentController
+                                                                    .applicationData
+                                                                    .value
+                                                                    .status ==
+                                                                "Draft"
+                                                        ? () async {
+                                                            FirebaseAnalyticsHelper
+                                                                .sendAnalyticsEvent(
+                                                                    "Equity Update Draft to Submit");
 
-                                          havetheconsensus: InjectionHelper
-                                              .equityInvestmentController
-                                              .haveTheConsenus
-                                              .value,
-
-                                          purposeEquity: InjectionHelper
-                                              .equityInvestmentController
-                                              .purposeOfFund
-                                              .value,
-
-                                          majority: InjectionHelper
-                                              .equityInvestmentController
-                                              .areYouTheMajorityShareholder
-                                              .value,
-                                          businessplan: InjectionHelper
-                                              .equityInvestmentController
-                                              .businessPlan
-                                              .value,
-                                          article: InjectionHelper
-                                              .equityInvestmentController
-                                              .articleOfIncorporation
-                                              .value,
-
-                                          // Part 2
-                                          incomingstatement: InjectionHelper
-                                              .equityInvestmentController
-                                              .incomeStatement
-                                              .value,
-                                          balancesheet: InjectionHelper
-                                              .equityInvestmentController
-                                              .balanceSheet
-                                              .value,
-                                          cashflow: InjectionHelper
-                                              .equityInvestmentController
-                                              .cashFlowStatement
-                                              .value,
-
-                                          havethefinancail: InjectionHelper
-                                              .equityInvestmentController
-                                              .havefinancial
-                                              .value,
-                                          //Part 3
-                                          marketstudy: InjectionHelper
-                                              .equityInvestmentController
-                                              .marketStudy
-                                              .value,
-
-                                          otherdoc: InjectionHelper
-                                              .equityInvestmentController
-                                              .otherDocuments
-                                              .value,
-                                          onTabFinancialProject: () {
-                                            ontapFinancialProject(context);
-                                          },
-
-                                          onTabOtherProject: () {
-                                            ontapOthersProject(context);
-                                          },
-
-                                          onTap: () {
-                                            ontapRequiredDoc(context);
-                                          },
+                                                            await InjectionHelper
+                                                                .equityInvestmentController
+                                                                .onEditEquityInvestment(
+                                                                    context:
+                                                                        context,
+                                                                    submitRequest:
+                                                                        "submitted",
+                                                                    pagenumber:
+                                                                        "update draft",
+                                                                    frompage: InjectionHelper
+                                                                        .equityInvestmentController
+                                                                        .applicationData
+                                                                        .value
+                                                                        .step!
+                                                                        .toInt(),
+                                                                    id: widget
+                                                                        .id!);
+                                                          }
+                                                        : () async {
+                                                            FirebaseAnalyticsHelper
+                                                                .sendAnalyticsEvent(
+                                                                    "Submit Equity Investment");
+                                                            await InjectionHelper.equityInvestmentController.onSubmitEquityInvestment(
+                                                                frompage: InjectionHelper
+                                                                            .equityInvestmentController
+                                                                            .applicationData
+                                                                            .value
+                                                                            .step !=
+                                                                        null
+                                                                    ? InjectionHelper
+                                                                        .equityInvestmentController
+                                                                        .applicationData
+                                                                        .value
+                                                                        .step!
+                                                                        .toInt()
+                                                                    : 0,
+                                                                context:
+                                                                    context);
+                                                          }
+                                                    : null,
+                                                title: InjectionHelper
+                                                            .equityInvestmentController
+                                                            .applicationData
+                                                            .value
+                                                            .status ==
+                                                        "Rejected"
+                                                    ? 'Re-Submit'
+                                                    : widget.id != null &&
+                                                            InjectionHelper
+                                                                    .equityInvestmentController
+                                                                    .applicationData
+                                                                    .value
+                                                                    .status!
+                                                                    .toLowerCase() ==
+                                                                'new'
+                                                        ? 'Update'
+                                                        : 'Submit',
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                if (InjectionHelper.equityInvestmentController
-                                            .applicationData.value.status ==
-                                        "Draft" ||
-                                    widget.id == null)
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 0, right: 0, bottom: 10),
-                                    child: Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 20, right: 20, top: 10),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10, top: 10),
-                                            child: CustomSelect2GetFunding(
-                                              isFromCreateOrUpdated:
-                                                  checkEqual(),
-                                              islongLabel: true,
-                                              title:
-                                                  'I hereby declare that the informations provided above are correct and true.',
-                                              isSelect: !checkEqual()
-                                                  ? false
-                                                  : InjectionHelper
-                                                      .equityInvestmentController
-                                                      .isAgree
-                                                      .value,
-                                              ontap: () {
-                                                if (checkEqual()) {
-                                                  if (InjectionHelper
-                                                      .equityInvestmentController
-                                                      .isAgree
-                                                      .value) {
-                                                    InjectionHelper
-                                                        .equityInvestmentController
-                                                        .isAgree
-                                                        .value = false;
-                                                  } else {
-                                                    setState(() {
-                                                      InjectionHelper
-                                                          .equityInvestmentController
-                                                          .isAgree
-                                                          .value = true;
-                                                    });
-                                                  }
-                                                } else {
-                                                  InjectionHelper
-                                                      .equityInvestmentController
-                                                      .isAgree
-                                                      .value = false;
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: CustomButton(
-                                                    isDisable: false,
-                                                    isOutline: true,
-                                                    onPressed: widget.id !=
-                                                                null &&
-                                                            InjectionHelper
-                                                                    .equityInvestmentController
-                                                                    .applicationData
-                                                                    .value
-                                                                    .step ==
-                                                                3
-                                                        ? () {
-                                                            Navigator.pop(
-                                                                context);
-                                                            Navigator.pop(
-                                                                context);
-                                                          }
-                                                        : () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                    title: "Close"),
-                                              ),
-                                              const SizedBox(
-                                                width: 20,
-                                              ),
-                                              Expanded(
-                                                child: CustomButton(
-                                                  isDisable: InjectionHelper
-                                                          .equityInvestmentController
-                                                          .isAgree
-                                                          .value
-                                                      ? false
-                                                      : true,
-                                                  isOutline: false,
-                                                  onPressed: InjectionHelper
-                                                          .equityInvestmentController
-                                                          .isAgree
-                                                          .value
-                                                      ? widget.id != null &&
-                                                              InjectionHelper
-                                                                      .equityInvestmentController
-                                                                      .applicationData
-                                                                      .value
-                                                                      .status ==
-                                                                  "Draft"
-                                                          ? () async {
-                                                              FirebaseAnalyticsHelper
-                                                                  .sendAnalyticsEvent(
-                                                                      "Equity Update Draft to Submit");
-
-                                                              await InjectionHelper.equityInvestmentController.onEditEquityInvestment(
-                                                                  context:
-                                                                      context,
-                                                                  submitRequest:
-                                                                      "submitted",
-                                                                  pagenumber:
-                                                                      "update draft",
-                                                                  frompage: InjectionHelper
-                                                                      .equityInvestmentController
-                                                                      .applicationData
-                                                                      .value
-                                                                      .step!
-                                                                      .toInt(),
-                                                                  id: widget
-                                                                      .id!);
-                                                            }
-                                                          : () async {
-                                                              FirebaseAnalyticsHelper
-                                                                  .sendAnalyticsEvent(
-                                                                      "Submit Equity Investment");
-                                                              await InjectionHelper.equityInvestmentController.onSubmitEquityInvestment(
-                                                                  frompage: InjectionHelper
-                                                                              .equityInvestmentController
-                                                                              .applicationData
-                                                                              .value
-                                                                              .step !=
-                                                                          null
-                                                                      ? InjectionHelper
-                                                                          .equityInvestmentController
-                                                                          .applicationData
-                                                                          .value
-                                                                          .step!
-                                                                          .toInt()
-                                                                      : 0,
-                                                                  context:
-                                                                      context);
-                                                            }
-                                                      : null,
-                                                  title: InjectionHelper
-                                                              .equityInvestmentController
-                                                              .applicationData
-                                                              .value
-                                                              .status ==
-                                                          "Rejected"
-                                                      ? 'Re-Submit'
-                                                      : widget.id != null &&
-                                                              InjectionHelper
-                                                                      .equityInvestmentController
-                                                                      .applicationData
-                                                                      .value
-                                                                      .status!
-                                                                      .toLowerCase() ==
-                                                                  'new'
-                                                          ? 'Update'
-                                                          : 'Submit',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
+                            ],
                           ),
                   ),
           ),

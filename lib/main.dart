@@ -1,10 +1,11 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unused_local_variable
 
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
+import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:cicgreenloan/Utils/pin_code_controller/set_pin_code_controller.dart';
 
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
@@ -13,7 +14,6 @@ import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controlle
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
 import 'package:cicgreenloan/Utils/app_settings/models/settings.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -32,6 +32,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'Utils/function/notification_helper.dart';
 import 'Utils/helper/color.dart';
+import 'Utils/helper/connectivity/connectivity_singleton.dart';
 import 'Utils/helper/local_storage.dart';
 import 'Utils/option_controller/option_controller.dart';
 // import 'configs/auto_route/auto_route.gr.dart';
@@ -67,6 +68,7 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     await LocalStorage.init();
+
     await Firebase.initializeApp();
 
     setPathUrlStrategy();
@@ -598,324 +600,356 @@ class _MyAppState extends State<MyApp> {
     storeBiotricType();
     // getPinCode();
     initPlatformState();
+    final settingController = Get.put(SettingController());
 
-    return ConnectivityAppWrapper(
-      app: ValueListenableBuilder(
-          valueListenable: settingCon.appSettingNofier,
-          builder: (context, Setting setting, _) {
-            return GetBuilder<SettingController>(
-              init: SettingController(),
-              initState: (_) async {
-                await settingCon.onCheckAuthentication();
+    ///Function Assign Connection:
+    void connectionChanged(dynamic hasConnection) {
+      settingController.isOnline.value = hasConnection;
+      settingController.update();
+    }
+
+    return ValueListenableBuilder(
+      valueListenable: settingCon.appSettingNofier,
+      builder: (context, Setting setting, _) {
+        return GetBuilder(
+          init: settingController,
+          initState: (_) async {
+            ///Stream Connection:
+            StreamSubscription? connectionChangeStream;
+            ConnectionStatusSingleton connectionStatus =
+                ConnectionStatusSingleton.getInstance();
+            connectionStatus.initialize();
+            connectionChangeStream =
+                connectionStatus.connectionChange.listen(connectionChanged);
+            await settingCon.onCheckAuthentication();
+          },
+          builder: (settingController) {
+            return Listener(
+              onPointerDown: (tapdown) {
+                // debugPrint(
+                //     'Is Enable Pin Code: ${controller.cicAppSetting.enablePinCode}');
+                // FocusScope.of(context).requestFocus(FocusNode());
+                LocalData.showAppTou('appTour').then((value) {});
+
+                if (settingController.cicAppSetting.enablePinCode!) {
+                  if (customerController.isLoginSuccess.value) {
+                    LocalData.showAppTou('appTour').then(
+                      (value) {
+                        if (value) {
+                          app_pin_code.timer.cancel();
+                          app_pin_code.timer = app_pin_code.startTimeout();
+                        }
+                      },
+                    );
+                  }
+                }
               },
-              builder: (controller) {
-                return Listener(
-                  onPointerDown: (tapdown) {
-                    // debugPrint(
-                    //     'Is Enable Pin Code: ${controller.cicAppSetting.enablePinCode}');
-                    // FocusScope.of(context).requestFocus(FocusNode());
-                    LocalData.showAppTou('appTour').then((value) {});
+              child: AnimatedSwitcher(
+                //Switching with has internet or no internet Widget
+                switchInCurve: Curves.fastLinearToSlowEaseIn,
+                switchOutCurve: Curves.fastOutSlowIn,
+                duration: const Duration(milliseconds: 500),
+                child: !settingController
+                        .isOnline.value //Check Screen Material App
+                    ? const MaterialApp(
+                        debugShowCheckedModeBanner: false,
+                        home: OfflineWidget(),
+                      )
+                    : MaterialApp.router(
+                        routeInformationParser: router.routeInformationParser,
+                        routeInformationProvider:
+                            router.routeInformationProvider,
+                        routerDelegate: router.routerDelegate,
+                        localizationsDelegates: const [
+                          S.delegate,
+                          CountryLocalizations.delegate,
+                          GlobalMaterialLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
+                          GlobalCupertinoLocalizations.delegate,
+                        ],
 
-                    if (controller.cicAppSetting.enablePinCode!) {
-                      if (customerController.isLoginSuccess.value) {
-                        LocalData.showAppTou('appTour').then(
-                          (value) {
-                            if (value) {
-                              app_pin_code.timer.cancel();
-                              app_pin_code.timer = app_pin_code.startTimeout();
-                            }
-                          },
-                        );
-                      }
-                    }
-                  },
-                  child: MaterialApp.router(
-                    routeInformationParser: router.routeInformationParser,
-                    routeInformationProvider: router.routeInformationProvider,
-                    routerDelegate: router.routerDelegate,
-                    localizationsDelegates: const [
-                      S.delegate,
-                      CountryLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
+                        supportedLocales: S.delegate.supportedLocales,
+                        title: 'CiC App',
 
-                    supportedLocales: S.delegate.supportedLocales,
-                    title: 'CiC App',
+                        // navigatorObservers: <NavigatorObserver>[observer],
 
-                    // navigatorObservers: <NavigatorObserver>[observer],
-
-                    theme: ThemeData(
-                      brightness: Brightness.light,
-                      accentColor: setting.brightPrimaryColor == null
-                          ? AppColor.mainColor
-                          : fromHex(
-                              setting.brightPrimaryColor.toString(),
-                            ),
-                      backgroundColor: setting.brightPrimaryColor == null
-                          ? AppColor.mainColor
-                          : fromHex(
-                              setting.brightPrimaryColor.toString(),
-                            ),
-                      primaryColor: setting.brightPrimaryColor == null
-                          ? AppColor.mainColor
-                          : fromHex(
-                              setting.brightPrimaryColor.toString(),
-                            ),
-                      secondaryHeaderColor: setting.brightSecondColor == null
-                          ? AppColor.secondaryColor
-                          : fromHex(
-                              setting.brightSecondColor.toString(),
-                            ),
-                      cardColor: setting.brightCardColor == null
-                          ? Colors.white
-                          : fromHex(
-                              setting.brightCardColor.toString(),
-                            ),
-                      appBarTheme: AppBarTheme(
-                        backgroundColor: setting.brightPrimaryColor == null
-                            ? AppColor.mainColor
-                            : fromHex(
-                                setting.brightPrimaryColor.toString(),
-                              ),
-                        centerTitle: false,
-                        titleTextStyle:
-                            Theme.of(context).textTheme.titleSmall!.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                      ),
-                      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                          unselectedItemColor: const Color(0XFF848F92),
-                          selectedItemColor: setting.brightPrimaryColor == null
+                        theme: ThemeData(
+                          brightness: Brightness.light,
+                          accentColor: setting.brightPrimaryColor == null
                               ? AppColor.mainColor
                               : fromHex(
                                   setting.brightPrimaryColor.toString(),
-                                )),
-                      textTheme: TextTheme(
-                        //appbar text
-
-                        displayLarge: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-
-                        titleLarge: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                        //catatagory text
-                        bodySmall: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.black),
-                        headlineSmall: const TextStyle(
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: Color(0xff404040),
-                        ),
-
-                        headlineLarge: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-
-                        displaySmall: TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            color: setting.brightPrimaryColor == null
+                                ),
+                          backgroundColor: setting.brightPrimaryColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
+                          primaryColor: setting.brightPrimaryColor == null
+                              ? AppColor.mainColor
+                              : fromHex(
+                                  setting.brightPrimaryColor.toString(),
+                                ),
+                          secondaryHeaderColor:
+                              setting.brightSecondColor == null
+                                  ? AppColor.secondaryColor
+                                  : fromHex(
+                                      setting.brightSecondColor.toString(),
+                                    ),
+                          cardColor: setting.brightCardColor == null
+                              ? Colors.white
+                              : fromHex(
+                                  setting.brightCardColor.toString(),
+                                ),
+                          appBarTheme: AppBarTheme(
+                            backgroundColor: setting.brightPrimaryColor == null
                                 ? AppColor.mainColor
                                 : fromHex(
                                     setting.brightPrimaryColor.toString(),
                                   ),
-                            fontWeight: FontWeight.w600),
-
-                        labelLarge: TextStyle(
-                          fontFamily: 'DMSans',
-                          fontSize: 16,
-                          color: setting.brightPrimaryColor == null
-                              ? AppColor.mainColor
-                              : fromHex(
-                                  setting.brightPrimaryColor.toString(),
+                            centerTitle: false,
+                            titleTextStyle: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize: 20,
                                 ),
+                          ),
+                          bottomNavigationBarTheme:
+                              BottomNavigationBarThemeData(
+                                  unselectedItemColor: const Color(0XFF848F92),
+                                  selectedItemColor:
+                                      setting.brightPrimaryColor == null
+                                          ? AppColor.mainColor
+                                          : fromHex(
+                                              setting.brightPrimaryColor
+                                                  .toString(),
+                                            )),
+                          textTheme: TextTheme(
+                            //appbar text
+
+                            displayLarge: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+
+                            titleLarge: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            //catatagory text
+                            bodySmall: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.black),
+                            headlineSmall: const TextStyle(
+                              fontFamily: 'DMSans',
+                              fontSize: 12,
+                              color: Color(0xff404040),
+                            ),
+
+                            headlineLarge: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+
+                            displaySmall: TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 14,
+                                color: setting.brightPrimaryColor == null
+                                    ? AppColor.mainColor
+                                    : fromHex(
+                                        setting.brightPrimaryColor.toString(),
+                                      ),
+                                fontWeight: FontWeight.w600),
+
+                            labelLarge: TextStyle(
+                              fontFamily: 'DMSans',
+                              fontSize: 16,
+                              color: setting.brightPrimaryColor == null
+                                  ? AppColor.mainColor
+                                  : fromHex(
+                                      setting.brightPrimaryColor.toString(),
+                                    ),
+                            ),
+                            bodyMedium: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600),
+
+                            titleSmall: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+
+                            titleMedium: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 14,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w500),
+                            displayMedium: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                            headlineMedium: const TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'DMSans',
+                            ),
+
+                            bodyLarge: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                color: Colors.black),
+
+                            labelSmall: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                            labelMedium: const TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          colorScheme: ColorScheme(
+                              onSurfaceVariant: Colors.red,
+                              background: setting.brightPrimaryColor == null
+                                  ? AppColor.mainColor
+                                  : fromHex(
+                                      setting.brightPrimaryColor.toString(),
+                                    ),
+                              brightness: Brightness.light,
+                              error: Colors.red,
+                              onBackground: setting.brightPrimaryColor == null
+                                  ? AppColor.mainColor
+                                  : fromHex(
+                                      setting.brightPrimaryColor.toString(),
+                                    ),
+                              onError: Colors.red,
+                              onPrimary: Colors.white,
+                              onSecondary: setting.brightSecondColor == null
+                                  ? AppColor.mainColor
+                                  : fromHex(
+                                      setting.brightSecondColor.toString(),
+                                    ),
+                              onSurface: setting.brightSecondColor == null
+                                  ? AppColor.mainColor
+                                  : fromHex(
+                                      setting.brightPrimaryColor.toString(),
+                                    ),
+                              primary: setting.brightPrimaryColor == null
+                                  ? AppColor.mainColor
+                                  : fromHex(
+                                      setting.brightSecondColor.toString(),
+                                    ),
+                              secondary: setting.brightSecondColor == null
+                                  ? AppColor.mainColor
+                                  : fromHex(
+                                      setting.brightSecondColor.toString(),
+                                    ),
+                              surface: Colors.red),
+                          textSelectionTheme: TextSelectionThemeData(
+                            selectionColor: setting.brightPrimaryColor == null
+                                ? AppColor.mainColor
+                                : fromHex(
+                                    setting.brightPrimaryColor.toString(),
+                                  ),
+                          ),
                         ),
-                        bodyMedium: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600),
 
-                        titleSmall: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500),
+                        // darkTheme: !_con.isAutoDarkMode.value
+                        //     ? null
+                        //     : ThemeData.dark().copyWith(
+                        //         backgroundColor: Color(0xffDEE8E9).withOpacity(0.1),
+                        //         primaryColor: AppColor.mainColor,
+                        //         accentColor: AppColor.mainColor,
+                        //         textSelectionColor: Colors.white,
+                        //         cardColor: Color(0xff424343),
+                        //         bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                        //             unselectedItemColor: Colors.white60,
+                        //             selectedItemColor: Colors.white),
+                        //         textTheme: TextTheme(
+                        //           bodySmall: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontWeight: FontWeight.bold,
+                        //               fontSize: 20,
+                        //               color: Colors.white),
+                        //           titleLarge: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 25,
+                        //               color: Colors.white,
+                        //               fontWeight: FontWeight.bold),
+                        //           headlineSmall: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 14,
+                        //               color: AppColor.mainColor),
+                        //           displaySmall: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 14,
+                        //               color: AppColor.mainColor),
+                        //           button: TextStyle(
+                        //             fontFamily: 'DMSans',
+                        //             fontSize: 27,
+                        //             color: AppColor.mainColor,
+                        //           ),
+                        //           bodyMedium: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 14,
+                        //               color: Colors.white,
+                        //               fontWeight: FontWeight.w600),
+                        //           titleMedium: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 14,
+                        //               color: Colors.grey,
+                        //               fontWeight: FontWeight.bold),
+                        //           titleSmall: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 14,
+                        //               color: Colors.white,
+                        //               fontWeight: FontWeight.bold),
+                        //           displayMedium: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 16,
+                        //               color: Colors.white,
+                        //               fontWeight: FontWeight.bold),
+                        //           headlineMedium: TextStyle(
+                        //             fontSize: 18.0,
+                        //             color: AppColor.mainColor,
+                        //             fontWeight: FontWeight.w900,
+                        //             fontFamily: 'DMSans',
+                        //           ),
+                        //           bodyLarge: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 12,
+                        //               color: Colors.white),
+                        //           button: TextStyle(
+                        //               fontFamily: 'DMSans',
+                        //               fontSize: 16,
+                        //               fontWeight: FontWeight.bold,
+                        //               color: Colors.white),
+                        //         ),
+                        //       ),
+                        debugShowCheckedModeBanner: false,
 
-                        titleMedium: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500),
-                        displayMedium: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                        headlineMedium: const TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w900,
-                          fontFamily: 'DMSans',
-                        ),
-
-                        bodyLarge: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 12,
-                            color: Colors.black),
-
-                        labelSmall: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                        labelMedium: const TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                        // home: Splashscreen(),
+                        // home: Splashscreen(),
                       ),
-                      colorScheme: ColorScheme(
-                          onSurfaceVariant: Colors.red,
-                          background: setting.brightPrimaryColor == null
-                              ? AppColor.mainColor
-                              : fromHex(
-                                  setting.brightPrimaryColor.toString(),
-                                ),
-                          brightness: Brightness.light,
-                          error: Colors.red,
-                          onBackground: setting.brightPrimaryColor == null
-                              ? AppColor.mainColor
-                              : fromHex(
-                                  setting.brightPrimaryColor.toString(),
-                                ),
-                          onError: Colors.red,
-                          onPrimary: Colors.white,
-                          onSecondary: setting.brightSecondColor == null
-                              ? AppColor.mainColor
-                              : fromHex(
-                                  setting.brightSecondColor.toString(),
-                                ),
-                          onSurface: setting.brightSecondColor == null
-                              ? AppColor.mainColor
-                              : fromHex(
-                                  setting.brightPrimaryColor.toString(),
-                                ),
-                          primary: setting.brightPrimaryColor == null
-                              ? AppColor.mainColor
-                              : fromHex(
-                                  setting.brightSecondColor.toString(),
-                                ),
-                          secondary: setting.brightSecondColor == null
-                              ? AppColor.mainColor
-                              : fromHex(
-                                  setting.brightSecondColor.toString(),
-                                ),
-                          surface: Colors.red),
-                      textSelectionTheme: TextSelectionThemeData(
-                        selectionColor: setting.brightPrimaryColor == null
-                            ? AppColor.mainColor
-                            : fromHex(
-                                setting.brightPrimaryColor.toString(),
-                              ),
-                      ),
-                    ),
-
-                    // darkTheme: !_con.isAutoDarkMode.value
-                    //     ? null
-                    //     : ThemeData.dark().copyWith(
-                    //         backgroundColor: Color(0xffDEE8E9).withOpacity(0.1),
-                    //         primaryColor: AppColor.mainColor,
-                    //         accentColor: AppColor.mainColor,
-                    //         textSelectionColor: Colors.white,
-                    //         cardColor: Color(0xff424343),
-                    //         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                    //             unselectedItemColor: Colors.white60,
-                    //             selectedItemColor: Colors.white),
-                    //         textTheme: TextTheme(
-                    //           bodySmall: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: 20,
-                    //               color: Colors.white),
-                    //           titleLarge: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 25,
-                    //               color: Colors.white,
-                    //               fontWeight: FontWeight.bold),
-                    //           headlineSmall: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 14,
-                    //               color: AppColor.mainColor),
-                    //           displaySmall: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 14,
-                    //               color: AppColor.mainColor),
-                    //           button: TextStyle(
-                    //             fontFamily: 'DMSans',
-                    //             fontSize: 27,
-                    //             color: AppColor.mainColor,
-                    //           ),
-                    //           bodyMedium: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 14,
-                    //               color: Colors.white,
-                    //               fontWeight: FontWeight.w600),
-                    //           titleMedium: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 14,
-                    //               color: Colors.grey,
-                    //               fontWeight: FontWeight.bold),
-                    //           titleSmall: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 14,
-                    //               color: Colors.white,
-                    //               fontWeight: FontWeight.bold),
-                    //           displayMedium: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 16,
-                    //               color: Colors.white,
-                    //               fontWeight: FontWeight.bold),
-                    //           headlineMedium: TextStyle(
-                    //             fontSize: 18.0,
-                    //             color: AppColor.mainColor,
-                    //             fontWeight: FontWeight.w900,
-                    //             fontFamily: 'DMSans',
-                    //           ),
-                    //           bodyLarge: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 12,
-                    //               color: Colors.white),
-                    //           button: TextStyle(
-                    //               fontFamily: 'DMSans',
-                    //               fontSize: 16,
-                    //               fontWeight: FontWeight.bold,
-                    //               color: Colors.white),
-                    //         ),
-                    //       ),
-                    debugShowCheckedModeBanner: false,
-
-                    // home: Splashscreen(),
-                    // home: Splashscreen(),
-                  ),
-                );
-              },
+              ),
             );
-          }),
+          },
+        );
+      },
     );
   }
 }

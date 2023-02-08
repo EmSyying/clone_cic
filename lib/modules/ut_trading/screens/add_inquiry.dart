@@ -10,7 +10,6 @@ import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
@@ -142,11 +141,7 @@ class _AddInquiryState extends State<AddInquiry> {
             title: widget.price == null && widget.numberOfShare == null
                 ? 'Create $operationType Request'
                 : 'Update ${widget.operation!.capitalize} Request'),
-        body: ConnectivityWidgetWrapper(
-          stacked: false,
-          alignment: Alignment.bottomCenter,
-          offlineWidget: const OfflineWidget(),
-          child: Obx(
+        body:  Obx(
             () => Column(
               children: [
                 Expanded(
@@ -537,7 +532,7 @@ class _AddInquiryState extends State<AddInquiry> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

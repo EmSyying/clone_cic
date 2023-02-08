@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -25,9 +27,7 @@ import 'package:url_launcher/link.dart';
 import 'package:cicgreenloan/modules/report_module/models/documentation_model.dart';
 import 'package:cicgreenloan/Utils/custom_indicatior.dart';
 import 'package:cicgreenloan/widgets/dashboard/dashboard_menu.dart';
-import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:cicgreenloan/widgets/notification/accept_notification_pop_up.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -723,521 +723,493 @@ class _MainDashboardState extends State<MainDashboard> {
       ),
     );
   }
-//  onSwitch(){
-//   return
-//   Future.delayed(const Duration(seconds: 2),(){
-//     dashboardType == 'AM'
-//                 ? const MainDashBoardTypeAM()
-//                 : Platform.isAndroid
-//                     ? UpgradeAlert(child: buildBody())
-//                     : buildBody();
-//   });
 
-// }
   Widget buildBody() {
-    return ConnectivityWidgetWrapper(
-      stacked: false,
-      alignment: Alignment.topCenter,
-      offlineWidget: Column(
-        children: const [
-          SizedBox(
-            height: 20,
-          ),
-          Expanded(child: OfflineWidget()),
-        ],
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Obx(() => !_settingCon.isLoadingSlide.value &&
-                    _settingCon.slideList!.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: AspectRatio(
-                      aspectRatio: 5 / 2.3,
-                      child: Swiper(
-                          loop:
-                              _settingCon.slideList!.length != 1 ? true : false,
-                          index: currentIndex,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            if (_settingCon.slideList![index].status ==
-                                'Display') {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Stack(
-                                  children: [
-                                    Positioned.fill(
-                                      child: CachedNetworkImage(
-                                        imageUrl: _settingCon
-                                            .slideList![index].image!,
-                                        fit: BoxFit.cover,
-                                      ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Obx(() => !_settingCon.isLoadingSlide.value &&
+                  _settingCon.slideList!.isNotEmpty
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: AspectRatio(
+                    aspectRatio: 5 / 2.3,
+                    child: Swiper(
+                        loop: _settingCon.slideList!.length != 1 ? true : false,
+                        index: currentIndex,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          if (_settingCon.slideList![index].status ==
+                              'Display') {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          _settingCon.slideList![index].image!,
+                                      fit: BoxFit.cover,
                                     ),
-                                    Positioned(
-                                      bottom: 20,
-                                      left: 25,
-                                      child: _settingCon
-                                                  .slideList![index].button !=
-                                              null
-                                          ? Row(
-                                              children: [
-                                                Link(
-                                                  uri: Uri.tryParse(
-                                                      '${_settingCon.slideList![index].button!.target}'),
-                                                  builder:
-                                                      (context, followLink) =>
-                                                          GestureDetector(
-                                                    onTap: _settingCon
-                                                                .slideList![
-                                                                    index]
-                                                                .type ==
-                                                            'Biometrics'
-                                                        ? () {
-                                                            _authenticate()
-                                                                .then((value) {
-                                                              if (authenticated) {
-                                                                LocalData
-                                                                    .storeAuthenthicationKey(
-                                                                        'authen',
-                                                                        value);
+                                  ),
+                                  Positioned(
+                                    bottom: 20,
+                                    left: 25,
+                                    child: _settingCon
+                                                .slideList![index].button !=
+                                            null
+                                        ? Row(
+                                            children: [
+                                              Link(
+                                                uri: Uri.tryParse(
+                                                    '${_settingCon.slideList![index].button!.target}'),
+                                                builder:
+                                                    (context, followLink) =>
+                                                        GestureDetector(
+                                                  onTap: _settingCon
+                                                              .slideList![index]
+                                                              .type ==
+                                                          'Biometrics'
+                                                      ? () {
+                                                          _authenticate()
+                                                              .then((value) {
+                                                            if (authenticated) {
+                                                              LocalData
+                                                                  .storeAuthenthicationKey(
+                                                                      'authen',
+                                                                      value);
 
-                                                                // if (!isOnFingerPrint)
-                                                                setState(() {});
-                                                              }
-                                                            });
-                                                            setState(() {});
-                                                          }
-                                                        : followLink,
-                                                    child: Container(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 10),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        color: Colors.white
-                                                            .withOpacity(0.7),
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          // if (_settingCon
-                                                          //         .slideList![
-                                                          //             index]
-                                                          //         .button!
-                                                          //         .icon !=
-                                                          //     null)
-                                                          //   SvgPicture.network(
-                                                          //       '${_settingCon.slideList![index].button!.icon}'),
-                                                          // if (_settingCon
-                                                          //         .slideList![
-                                                          //             index]
-                                                          //         .button!
-                                                          //         .icon !=
-                                                          //     null)
-                                                          //   const SizedBox(
-                                                          //     width: 10,
-                                                          //   ),
-                                                          Text(
-                                                            '${_settingCon.slideList![index].button!.label}',
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .titleLarge!
-                                                                .copyWith(
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .primaryColor
-                                                                        .withOpacity(
-                                                                            0.7),
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                              // if (!isOnFingerPrint)
+                                                              setState(() {});
+                                                            }
+                                                          });
+                                                          setState(() {});
+                                                        }
+                                                      : followLink,
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 8,
+                                                        horizontal: 10),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.white
+                                                          .withOpacity(0.7),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        // if (_settingCon
+                                                        //         .slideList![
+                                                        //             index]
+                                                        //         .button!
+                                                        //         .icon !=
+                                                        //     null)
+                                                        //   SvgPicture.network(
+                                                        //       '${_settingCon.slideList![index].button!.icon}'),
+                                                        // if (_settingCon
+                                                        //         .slideList![
+                                                        //             index]
+                                                        //         .button!
+                                                        //         .icon !=
+                                                        //     null)
+                                                        //   const SizedBox(
+                                                        //     width: 10,
+                                                        //   ),
+                                                        Text(
+                                                          '${_settingCon.slideList![index].button!.label}',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleLarge!
+                                                              .copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .primaryColor
+                                                                      .withOpacity(
+                                                                          0.7),
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            )
-                                          : Container(),
-                                    )
-                                  ],
-                                ),
-                              );
-                            }
-                            return Container();
-                          },
-                          onIndexChanged: (value) {
-                            setState(() {
-                              currentIndex = value;
-                            });
-                          },
-                          curve: Curves.easeIn,
-                          autoplay: true,
-                          itemCount: _settingCon.slideList!.length,
-                          viewportFraction: 1,
-                          scale: 0.9),
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: AspectRatio(
-                      aspectRatio: 5 / 2.3,
-                      child: Container(),
-                    ),
-                  )),
-            Obx(() => !_settingCon.isLoadingSlide.value &&
-                    _settingCon.slideList!.isNotEmpty
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: _settingCon.slideList!
-                        .asMap()
-                        .entries
-                        .where((element) => element.value.status == 'Display')
-                        .map((e) => CustomIndicator(
-                              isSelect: e.key == currentIndex,
-                            ))
-                        .toList(),
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      CustomIndicator(
-                        isSelect: true,
-                      )
-                    ],
-                  )),
-            const SizedBox(
-              height: 5,
-            ),
-            switchIcon == true
-                ? AspectRatio(
-                    aspectRatio: 3 / 2.70,
-                    child: GridView.count(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      childAspectRatio: 3 / 1.80,
-                      crossAxisCount: 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: _settingCon.appSettingDataList
-                          .asMap()
-                          .entries
-                          .map((e) {
-                        return CustomAssocieateMember(
-                          onTap: !e.value.active!
-                              ? () async {
-                                  await showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    builder: (context) {
-                                      return const CustomPopupbuttonSheet(
-                                        assetImage:
-                                            'assets/images/svgfile/underDevelopment.svg',
-                                        description:
-                                            'This feature is under development at the moment',
-                                        title: 'This feature not available yet',
-                                      );
-                                    },
-                                  );
-                                }
-                              : e.value.route != 'get_funding'
-                                  ? () {
-                                      FirebaseAnalyticsHelper
-                                          .setCurrentScreenName(e.value.label!);
-                                      context.go("/${e.value.route!}");
-                                    }
-                                  : () {
-                                      context.go("/${e.value.route!}");
-                                    },
-                          title: e.value.label,
-                          imageSvg: e.value.icon,
-                        );
-                      }).toList(),
-                    ),
-                  )
-                : AspectRatio(
-                    aspectRatio: 3 / 3.37,
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 10, right: 20, left: 20, bottom: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.black12,
-                              offset: Offset(1.0, 0.0),
-                              blurRadius: 4)
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        // key: key1,
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Obx(
-                              () => GridView.count(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 3 / 2.35,
-                                  children: _settingCon.appSettingDataList
-                                      .map((value) {
-                                    return DashBoardMenu(
-                                      key: value.key = GlobalKey(),
-                                      title: value.label,
-                                      onTap: !value.active!
-                                          ? () async {
-                                              await showModalBottomSheet(
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                context: context,
-                                                builder: (context) {
-                                                  return const CustomPopupbuttonSheet(
-                                                    assetImage:
-                                                        'assets/images/svgfile/underDevelopment.svg',
-                                                    description:
-                                                        'This feature is under development at the moment',
-                                                    title:
-                                                        'This feature not available yet',
-                                                  );
-                                                },
-                                              );
-                                            }
-                                          : value.route == 'directory'
-                                              ? () {
-                                                  FirebaseAnalyticsHelper
-                                                      .setCurrentScreenName(
-                                                          value.label!);
-
-                                                  context.go("/${value.route}");
-                                                }
-                                              : value.route == 'investment'
-                                                  ? () {
-                                                      FirebaseAnalyticsHelper
-                                                          .setCurrentScreenName(
-                                                              value.label!);
-
-                                                      context.go(
-                                                          "/${value.route}/cic-equity-fund");
-                                                    }
-                                                  : () {
-                                                      FirebaseAnalyticsHelper
-                                                          .setCurrentScreenName(
-                                                              value.label!);
-
-                                                      context.go(
-                                                          "/${value.route}");
-                                                    },
-                                      icon: value.icon,
-                                    );
-                                  }).toList()),
-                            ),
-
-                            // Spacer(),
-                            // AspectRatio(
-                            //   aspectRatio: 5 / 3,
-                            //   child: SvgPicture.asset(
-                            //     'assets/images/svgfile/horizontal_divider.svg',
-                            //   ),
-                            // ),
-                            // Spacer(),
-                            AspectRatio(
-                              aspectRatio: 6.20 / 7,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 3 / 0.1,
-                                    child: SvgPicture.asset(
-                                      'assets/images/svgfile/horizontal_divider.svg',
-                                    ),
-                                  ),
-                                  AspectRatio(
-                                    aspectRatio: 3 / 0.1,
-                                    child: SvgPicture.asset(
-                                      'assets/images/svgfile/horizontal_divider.svg',
-                                    ),
-                                  ),
+                                              ),
+                                            ],
+                                          )
+                                        : Container(),
+                                  )
                                 ],
                               ),
-                            ),
+                            );
+                          }
+                          return Container();
+                        },
+                        onIndexChanged: (value) {
+                          setState(() {
+                            currentIndex = value;
+                          });
+                        },
+                        curve: Curves.easeIn,
+                        autoplay: true,
+                        itemCount: _settingCon.slideList!.length,
+                        viewportFraction: 1,
+                        scale: 0.9),
+                  ),
+                )
+              : Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: AspectRatio(
+                    aspectRatio: 5 / 2.3,
+                    child: Container(),
+                  ),
+                )),
+          Obx(() => !_settingCon.isLoadingSlide.value &&
+                  _settingCon.slideList!.isNotEmpty
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: _settingCon.slideList!
+                      .asMap()
+                      .entries
+                      .where((element) => element.value.status == 'Display')
+                      .map((e) => CustomIndicator(
+                            isSelect: e.key == currentIndex,
+                          ))
+                      .toList(),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    CustomIndicator(
+                      isSelect: true,
+                    )
+                  ],
+                )),
+          const SizedBox(
+            height: 5,
+          ),
+          switchIcon == true
+              ? AspectRatio(
+                  aspectRatio: 3 / 2.70,
+                  child: GridView.count(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    childAspectRatio: 3 / 1.80,
+                    crossAxisCount: 2,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children:
+                        _settingCon.appSettingDataList.asMap().entries.map((e) {
+                      return CustomAssocieateMember(
+                        onTap: !e.value.active!
+                            ? () async {
+                                await showModalBottomSheet(
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) {
+                                    return const CustomPopupbuttonSheet(
+                                      assetImage:
+                                          'assets/images/svgfile/underDevelopment.svg',
+                                      description:
+                                          'This feature is under development at the moment',
+                                      title: 'This feature not available yet',
+                                    );
+                                  },
+                                );
+                              }
+                            : e.value.route != 'get_funding'
+                                ? () {
+                                    FirebaseAnalyticsHelper
+                                        .setCurrentScreenName(e.value.label!);
+                                    context.go("/${e.value.route!}");
+                                  }
+                                : () {
+                                    context.go("/${e.value.route!}");
+                                  },
+                        title: e.value.label,
+                        imageSvg: e.value.icon,
+                      );
+                    }).toList(),
+                  ),
+                )
+              : AspectRatio(
+                  aspectRatio: 3 / 3.37,
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                        top: 10, right: 20, left: 20, bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(1.0, 0.0),
+                            blurRadius: 4)
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      // key: key1,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Obx(
+                            () => GridView.count(
+                                physics: const NeverScrollableScrollPhysics(),
+                                crossAxisCount: 2,
+                                childAspectRatio: 3 / 2.35,
+                                children:
+                                    _settingCon.appSettingDataList.map((value) {
+                                  return DashBoardMenu(
+                                    key: value.key = GlobalKey(),
+                                    title: value.label,
+                                    onTap: !value.active!
+                                        ? () async {
+                                            await showModalBottomSheet(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (context) {
+                                                return const CustomPopupbuttonSheet(
+                                                  assetImage:
+                                                      'assets/images/svgfile/underDevelopment.svg',
+                                                  description:
+                                                      'This feature is under development at the moment',
+                                                  title:
+                                                      'This feature not available yet',
+                                                );
+                                              },
+                                            );
+                                          }
+                                        : value.route == 'directory'
+                                            ? () {
+                                                FirebaseAnalyticsHelper
+                                                    .setCurrentScreenName(
+                                                        value.label!);
 
-                            Row(
+                                                context.go("/${value.route}");
+                                              }
+                                            : value.route == 'investment'
+                                                ? () {
+                                                    FirebaseAnalyticsHelper
+                                                        .setCurrentScreenName(
+                                                            value.label!);
+
+                                                    context.go(
+                                                        "/${value.route}/cic-equity-fund");
+                                                  }
+                                                : () {
+                                                    FirebaseAnalyticsHelper
+                                                        .setCurrentScreenName(
+                                                            value.label!);
+
+                                                    context
+                                                        .go("/${value.route}");
+                                                  },
+                                    icon: value.icon,
+                                  );
+                                }).toList()),
+                          ),
+
+                          // Spacer(),
+                          // AspectRatio(
+                          //   aspectRatio: 5 / 3,
+                          //   child: SvgPicture.asset(
+                          //     'assets/images/svgfile/horizontal_divider.svg',
+                          //   ),
+                          // ),
+                          // Spacer(),
+                          AspectRatio(
+                            aspectRatio: 6.20 / 7,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                // AspectRatio(
-                                //   aspectRatio: 3 / 3.4,
-                                //   child: SvgPicture.asset(
-                                //     'assets/images/svgfile/vertical_divider.svg',
-                                //   ),
-                                // ),
                                 AspectRatio(
-                                  aspectRatio: 5.11 / 6,
+                                  aspectRatio: 3 / 0.1,
                                   child: SvgPicture.asset(
-                                    'assets/images/svgfile/vertical_divider.svg',
+                                    'assets/images/svgfile/horizontal_divider.svg',
+                                  ),
+                                ),
+                                AspectRatio(
+                                  aspectRatio: 3 / 0.1,
+                                  child: SvgPicture.asset(
+                                    'assets/images/svgfile/horizontal_divider.svg',
                                   ),
                                 ),
                               ],
                             ),
-                            // Spacer(),
-                          ],
-                        ),
+                          ),
+
+                          Row(
+                            children: [
+                              // AspectRatio(
+                              //   aspectRatio: 3 / 3.4,
+                              //   child: SvgPicture.asset(
+                              //     'assets/images/svgfile/vertical_divider.svg',
+                              //   ),
+                              // ),
+                              AspectRatio(
+                                aspectRatio: 5.11 / 6,
+                                child: SvgPicture.asset(
+                                  'assets/images/svgfile/vertical_divider.svg',
+                                ),
+                              ),
+                            ],
+                          ),
+                          // Spacer(),
+                        ],
                       ),
                     ),
                   ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   child: Text(
-            //     'RECENT DOCUMENTS',
-            //     style: Theme.of(context).textTheme.displayMedium,
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 120,
-            //   width: double.infinity,
-            //   child: FutureBuilder<List<DocumentationModel>>(
-            //     future: futureList,
-            //     builder: (BuildContext context,
-            //         AsyncSnapshot<List<DocumentationModel>> snapshot) {
-            //       if (snapshot.hasData &&
-            //           snapshot.connectionState == ConnectionState.done &&
-            //           documentCon.documentationList.isNotEmpty) {
-            //         return ListView.builder(
-            //           padding: const EdgeInsets.all(15),
-            //           scrollDirection: Axis.horizontal,
-            //           itemBuilder: (context, index) {
-            //             var item = snapshot.data![index];
-            //             return GestureDetector(
-            //               onTap: () {
-            //                 // debugPrint('item.cover${item.cover}');
-            //                 Navigator.push(
-            //                   context,
-            //                   MaterialPageRoute(
-            //                     builder: (context) => ViewReport(
-            //                       title: item.title,
-            //                       url: item.url,
-            //                       attachedFile: item.attachedFile,
-            //                     ),
-            //                   ),
-            //                 );
-            //               },
-            //               child: Container(
-            //                 margin: const EdgeInsets.only(right: 20),
-            //                 decoration: BoxDecoration(
-            //                     color: Theme.of(context).cardColor,
-            //                     borderRadius: BorderRadius.circular(10),
-            //                     boxShadow: const [
-            //                       BoxShadow(
-            //                           offset: Offset(1.0, 0.0),
-            //                           color: Colors.black12,
-            //                           blurRadius: 4)
-            //                     ]),
-            //                 width: 330,
-            //                 child: Row(
-            //                   children: [
-            //                     Container(
-            //                       margin: const EdgeInsets.only(left: 15),
-            //                       height: 60,
-            //                       width: 60,
-            //                       padding: const EdgeInsets.all(12),
-            //                       decoration: BoxDecoration(
-            //                         color: fromHex(item.color ?? '')
-            //                             .withOpacity(0.2),
-            //                         borderRadius: BorderRadius.circular(8),
-            //                       ),
-            //                       alignment: Alignment.center,
-            //                       child: SvgPicture.network(
-            //                         item.cover ?? '',
-            //                         color: item.color != null &&
-            //                                 item.color!.isNotEmpty
-            //                             ? fromHex(item.color!)
-            //                             : null,
-            //                       ),
-            //                     ),
-            //                     Expanded(
-            //                       child: Column(
-            //                         crossAxisAlignment:
-            //                             CrossAxisAlignment.start,
-            //                         mainAxisAlignment: MainAxisAlignment.center,
-            //                         children: [
-            //                           Padding(
-            //                             padding: const EdgeInsets.symmetric(
-            //                                 horizontal: 15),
-            //                             child: Text(
-            //                               item.title!,
-            //                               style: Theme.of(context)
-            //                                   .textTheme
-            //                                   .bodyMedium,
-            //                               maxLines: 1,
-            //                               overflow: TextOverflow.ellipsis,
-            //                             ),
-            //                           ),
-            //                           const SizedBox(
-            //                             height: 10,
-            //                           ),
-            //                           Padding(
-            //                             padding: const EdgeInsets.symmetric(
-            //                                 horizontal: 15),
-            //                             child: Text(
-            //                               item.publishedAt!,
-            //                               style: Theme.of(context)
-            //                                   .textTheme
-            //                                   .bodyMedium,
-            //                               maxLines: 1,
-            //                               overflow: TextOverflow.ellipsis,
-            //                             ),
-            //                           )
-            //                         ],
-            //                       ),
-            //                     ),
-            //                     Icon(
-            //                       Icons.arrow_forward_ios,
-            //                       color: Colors.grey[500],
-            //                       size: 18,
-            //                     ),
-            //                     const SizedBox(
-            //                       width: 10,
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ),
-            //             );
-            //           },
-            //           itemCount: snapshot.data!.length,
-            //         );
-            //       }
-            //       if (snapshot.connectionState == ConnectionState.waiting &&
-            //           documentCon.documentationList.isEmpty) {
-            //         return ListView.builder(
-            //           scrollDirection: Axis.horizontal,
-            //           itemBuilder: (context, index) {
-            //             return const ReportShimmer();
-            //           },
-            //           itemCount: 4,
-            //         );
-            //       }
-            //       if (snapshot.connectionState == ConnectionState.done &&
-            //           documentCon.documentationList.isEmpty) {
-            //         return Container();
-            //       }
-            //       return Container();
-            //     },
-            //   ),
-            // ),
-          ],
-        ),
+                ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Text(
+          //     'RECENT DOCUMENTS',
+          //     style: Theme.of(context).textTheme.displayMedium,
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 120,
+          //   width: double.infinity,
+          //   child: FutureBuilder<List<DocumentationModel>>(
+          //     future: futureList,
+          //     builder: (BuildContext context,
+          //         AsyncSnapshot<List<DocumentationModel>> snapshot) {
+          //       if (snapshot.hasData &&
+          //           snapshot.connectionState == ConnectionState.done &&
+          //           documentCon.documentationList.isNotEmpty) {
+          //         return ListView.builder(
+          //           padding: const EdgeInsets.all(15),
+          //           scrollDirection: Axis.horizontal,
+          //           itemBuilder: (context, index) {
+          //             var item = snapshot.data![index];
+          //             return GestureDetector(
+          //               onTap: () {
+          //                 // debugPrint('item.cover${item.cover}');
+          //                 Navigator.push(
+          //                   context,
+          //                   MaterialPageRoute(
+          //                     builder: (context) => ViewReport(
+          //                       title: item.title,
+          //                       url: item.url,
+          //                       attachedFile: item.attachedFile,
+          //                     ),
+          //                   ),
+          //                 );
+          //               },
+          //               child: Container(
+          //                 margin: const EdgeInsets.only(right: 20),
+          //                 decoration: BoxDecoration(
+          //                     color: Theme.of(context).cardColor,
+          //                     borderRadius: BorderRadius.circular(10),
+          //                     boxShadow: const [
+          //                       BoxShadow(
+          //                           offset: Offset(1.0, 0.0),
+          //                           color: Colors.black12,
+          //                           blurRadius: 4)
+          //                     ]),
+          //                 width: 330,
+          //                 child: Row(
+          //                   children: [
+          //                     Container(
+          //                       margin: const EdgeInsets.only(left: 15),
+          //                       height: 60,
+          //                       width: 60,
+          //                       padding: const EdgeInsets.all(12),
+          //                       decoration: BoxDecoration(
+          //                         color: fromHex(item.color ?? '')
+          //                             .withOpacity(0.2),
+          //                         borderRadius: BorderRadius.circular(8),
+          //                       ),
+          //                       alignment: Alignment.center,
+          //                       child: SvgPicture.network(
+          //                         item.cover ?? '',
+          //                         color: item.color != null &&
+          //                                 item.color!.isNotEmpty
+          //                             ? fromHex(item.color!)
+          //                             : null,
+          //                       ),
+          //                     ),
+          //                     Expanded(
+          //                       child: Column(
+          //                         crossAxisAlignment:
+          //                             CrossAxisAlignment.start,
+          //                         mainAxisAlignment: MainAxisAlignment.center,
+          //                         children: [
+          //                           Padding(
+          //                             padding: const EdgeInsets.symmetric(
+          //                                 horizontal: 15),
+          //                             child: Text(
+          //                               item.title!,
+          //                               style: Theme.of(context)
+          //                                   .textTheme
+          //                                   .bodyMedium,
+          //                               maxLines: 1,
+          //                               overflow: TextOverflow.ellipsis,
+          //                             ),
+          //                           ),
+          //                           const SizedBox(
+          //                             height: 10,
+          //                           ),
+          //                           Padding(
+          //                             padding: const EdgeInsets.symmetric(
+          //                                 horizontal: 15),
+          //                             child: Text(
+          //                               item.publishedAt!,
+          //                               style: Theme.of(context)
+          //                                   .textTheme
+          //                                   .bodyMedium,
+          //                               maxLines: 1,
+          //                               overflow: TextOverflow.ellipsis,
+          //                             ),
+          //                           )
+          //                         ],
+
+          //                     ),
+          //                     Icon(
+          //                       Icons.arrow_forward_ios,
+          //                       color: Colors.grey[500],
+          //                       size: 18,
+          //                     ),
+          //                     const SizedBox(
+          //                       width: 10,
+          //                     ),
+          //                   ],
+          //                 ),
+          //               ),
+          //             );
+          //           },
+          //           itemCount: snapshot.data!.length,
+          //         );
+          //       }
+          //       if (snapshot.connectionState == ConnectionState.waiting &&
+          //           documentCon.documentationList.isEmpty) {
+          //         return ListView.builder(
+          //           scrollDirection: Axis.horizontal,
+          //           itemBuilder: (context, index) {
+          //             return const ReportShimmer();
+          //           },
+          //           itemCount: 4,
+          //         );
+          //       }
+          //       if (snapshot.connectionState == ConnectionState.done &&
+          //           documentCon.documentationList.isEmpty) {
+          //         return Container();
+          //       }
+          //       return Container();
+          //     },
+          //   ),
+          // ),
+        ],
       ),
     );
   }

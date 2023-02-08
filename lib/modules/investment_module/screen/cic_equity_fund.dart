@@ -6,7 +6,7 @@ import 'package:cicgreenloan/modules/investment_module/model/share_price_model.d
 
 import 'package:cicgreenloan/modules/bonus/controllers/bonus_controller.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/certificate.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -654,78 +654,224 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                           )
                         ]),
                     backgroundColor: AppColor.backgroundColor,
-                    body: ConnectivityWidgetWrapper(
-                      stacked: false,
-                      alignment: Alignment.bottomCenter,
-                      child: Stack(
-                        children: [
-                          const SizedBox(
-                            height: double.infinity,
-                            width: double.infinity,
+                    body: Stack(
+                      children: [
+                        const SizedBox(
+                          height: double.infinity,
+                          width: double.infinity,
+                        ),
+                        SizedBox(
+                          height: 130,
+                          width: double.infinity,
+                          child: SvgPicture.asset(
+                            'assets/images/svgfile/Investment_backg.svg',
+                            color: Theme.of(context).primaryColor,
+                            fit: BoxFit.fill,
                           ),
-                          SizedBox(
-                            height: 130,
-                            width: double.infinity,
-                            child: SvgPicture.asset(
-                              'assets/images/svgfile/Investment_backg.svg',
-                              color: Theme.of(context).primaryColor,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Positioned(
-                            top: 10.0,
-                            left: 0.0,
-                            right: 0.0,
-                            bottom: 0.0,
-                            child: RefreshIndicator(
-                              key: refreshKey,
-                              onRefresh: onRefresh,
-                              child: Column(
-                                // padding: const EdgeInsets.only(bottom: 20),
-                                children: [
-                                  Expanded(
-                                      child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        CustomCard(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const SizedBox(
-                                                height: 20,
+                        ),
+                        Positioned(
+                          top: 10.0,
+                          left: 0.0,
+                          right: 0.0,
+                          bottom: 0.0,
+                          child: RefreshIndicator(
+                            key: refreshKey,
+                            onRefresh: onRefresh,
+                            child: Column(
+                              // padding: const EdgeInsets.only(bottom: 20),
+                              children: [
+                                Expanded(
+                                    child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      CustomCard(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                              child: Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/images/svgfile/shareInfo.svg',
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    'UT Information',
+                                                    key: _guidkey
+                                                        .investmentKeyNoFiF[0]
+                                                        .key = GlobalKey(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium,
+                                                  ),
+                                                ],
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20),
-                                                child: Row(
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      'assets/images/svgfile/shareInfo.svg',
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      const Text(
+                                                        'Current UT Price',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 14,
+                                                            fontFamily:
+                                                                'DMSans',
+                                                            color:
+                                                                Colors.black54),
+                                                      ),
+                                                      Obx(
+                                                        () => priceController
+                                                                    .price
+                                                                    .value
+                                                                    .price !=
+                                                                null
+                                                            ? Row(
+                                                                children: [
+                                                                  Text(
+                                                                    priceController
+                                                                        .price
+                                                                        .value
+                                                                        .price!,
+                                                                    // '\$${f.format(3022.23)}',
+
+                                                                    style: const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        fontSize:
+                                                                            22,
+                                                                        fontFamily:
+                                                                            'DMSans',
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            10.0),
+                                                                    child: Text(
+                                                                      "As of ${FormatDate.investmentDateDisplayUTPrice(datetime)}",
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .displayMedium!
+                                                                          .copyWith(
+                                                                            fontSize:
+                                                                                10,
+                                                                            color:
+                                                                                const Color(0XFF464646),
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              )
+                                                            : Container(),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  if (priceController
+                                                              .sharePrice
+                                                              .value
+                                                              .totalShareOutstanding !=
+                                                          0 &&
+                                                      priceController
+                                                              .sharePrice
+                                                              .value
+                                                              .totalShareOutstanding !=
+                                                          null)
+                                                    GestureDetector(
+                                                      onTap: () async {
+                                                        debugPrint(
+                                                            "Certification:${priceController.certificate.value.data}");
+                                                        // context.push(
+                                                        // '/investment/cic-equity-fund/certificate??title=Something&urlAttachment=${priceController.certificate.value.data}');
+
+                                                        await Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) => PDFViewer(
+                                                                title:
+                                                                    "Something",
+                                                                urlAttachment:
+                                                                    priceController
+                                                                        .certificate
+                                                                        .value
+                                                                        .data),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        key: _guidkey
+                                                            .investmentKeyNoFiF[
+                                                                1]
+                                                            .key = GlobalKey(),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 40.0,
+                                                        width: 40.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor
+                                                                    .withAlpha(
+                                                                        16)),
+                                                        child: SvgPicture.asset(
+                                                          'assets/images/svgfile/pdfcertificate.svg',
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                        ),
+                                                      ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 20,
-                                                    ),
-                                                    Text(
-                                                      'UT Information',
-                                                      key: _guidkey
-                                                          .investmentKeyNoFiF[0]
-                                                          .key = GlobalKey(),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium,
-                                                    ),
-                                                  ],
-                                                ),
+                                                ],
                                               ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            if (priceController.sharePrice.value
+                                                        .totalShareOutstanding !=
+                                                    0 &&
+                                                priceController.sharePrice.value
+                                                        .totalShareOutstanding !=
+                                                    null)
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
@@ -735,500 +881,349 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          'Current UT Price',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'DMSans',
-                                                              color: Colors
-                                                                  .black54),
-                                                        ),
-                                                        Obx(
-                                                          () => priceController
-                                                                      .price
-                                                                      .value
-                                                                      .price !=
-                                                                  null
-                                                              ? Row(
-                                                                  children: [
-                                                                    Text(
-                                                                      priceController
-                                                                          .price
-                                                                          .value
-                                                                          .price!,
-                                                                      // '\$${f.format(3022.23)}',
-
-                                                                      style: const TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              22,
-                                                                          fontFamily:
-                                                                              'DMSans',
-                                                                          color:
-                                                                              Colors.black),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          left:
-                                                                              10.0),
-                                                                      child:
-                                                                          Text(
-                                                                        "As of ${FormatDate.investmentDateDisplayUTPrice(datetime)}",
-                                                                        style: Theme.of(context)
-                                                                            .textTheme
-                                                                            .displayMedium!
-                                                                            .copyWith(
-                                                                              fontSize: 10,
-                                                                              color: const Color(0XFF464646),
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                )
-                                                              : Container(),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    if (priceController
-                                                                .sharePrice
-                                                                .value
-                                                                .totalShareOutstanding !=
-                                                            0 &&
-                                                        priceController
-                                                                .sharePrice
-                                                                .value
-                                                                .totalShareOutstanding !=
-                                                            null)
-                                                      GestureDetector(
-                                                        onTap: () async {
-                                                          debugPrint(
-                                                              "Certification:${priceController.certificate.value.data}");
-                                                          // context.push(
-                                                          // '/investment/cic-equity-fund/certificate??title=Something&urlAttachment=${priceController.certificate.value.data}');
-
-                                                          await Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) => PDFViewer(
-                                                                  title:
-                                                                      "Something",
-                                                                  urlAttachment:
-                                                                      priceController
-                                                                          .certificate
-                                                                          .value
-                                                                          .data),
-                                                            ),
-                                                          );
-                                                        },
-                                                        child: Container(
-                                                          key: _guidkey
-                                                              .investmentKeyNoFiF[
-                                                                  1]
-                                                              .key = GlobalKey(),
-                                                          alignment:
-                                                              Alignment.center,
-                                                          height: 40.0,
-                                                          width: 40.0,
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
+                                                    Expanded(
+                                                      child: Row(
+                                                        key: _guidkey.shareSplit
+                                                            .key = GlobalKey(),
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                              'assets/images/svgfile/totalShare.svg',
                                                               color: Theme.of(
                                                                       context)
-                                                                  .primaryColor
-                                                                  .withAlpha(
-                                                                      16)),
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            'assets/images/svgfile/pdfcertificate.svg',
+                                                                  .primaryColor),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Total UT',
+                                                                style: Get.theme
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .light
+                                                                    ? TextStyle(
+                                                                        color: Colors.grey[
+                                                                            500],
+                                                                        fontFamily:
+                                                                            'DMSans')
+                                                                    : const TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontFamily:
+                                                                            'DMSans'),
+                                                              ),
+                                                              Obx(
+                                                                () => Text(
+                                                                  priceController.sharePrice.value.totalShareOutstanding !=
+                                                                              0 &&
+                                                                          priceController.sharePrice.value.totalShareOutstanding !=
+                                                                              null
+                                                                      ? n.format(priceController
+                                                                          .sharePrice
+                                                                          .value
+                                                                          .totalShareOutstanding)
+                                                                      : '0.0',
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SvgPicture.asset(
+                                                      "assets/images/svgfile/investdivider.svg",
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
+                                                    Expanded(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          const SizedBox(
+                                                              width: 20.0),
+                                                          SvgPicture.asset(
+                                                            'assets/images/svgfile/totalNetworth.svg',
                                                             color: Theme.of(
                                                                     context)
                                                                 .primaryColor,
                                                           ),
-                                                        ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Total UT Price',
+                                                                style: Get.theme
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .light
+                                                                    ? TextStyle(
+                                                                        color: Colors.grey[
+                                                                            500],
+                                                                        fontFamily:
+                                                                            'DMSans')
+                                                                    : const TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontFamily:
+                                                                            'DMSans'),
+                                                              ),
+                                                              Obx(
+                                                                () => Text(
+                                                                  priceController.sharePrice.value.totalNetWorth !=
+                                                                              0 &&
+                                                                          priceController.sharePrice.value.totalNetWorth !=
+                                                                              null
+                                                                      ? '\$${f.format(priceController.sharePrice.value.totalNetWorth)}'
+                                                                      : '\$0.0',
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
                                                       ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
-                                              if (priceController
-                                                          .sharePrice
-                                                          .value
-                                                          .totalShareOutstanding !=
-                                                      0 &&
-                                                  priceController
-                                                          .sharePrice
-                                                          .value
-                                                          .totalShareOutstanding !=
-                                                      null)
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 20),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Row(
-                                                          key: _guidkey
-                                                                  .shareSplit
-                                                                  .key =
-                                                              GlobalKey(),
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                                'assets/images/svgfile/totalShare.svg',
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .primaryColor),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  'Total UT',
-                                                                  style: Get.theme
-                                                                              .brightness ==
-                                                                          Brightness
-                                                                              .light
-                                                                      ? TextStyle(
-                                                                          color: Colors.grey[
-                                                                              500],
-                                                                          fontFamily:
-                                                                              'DMSans')
-                                                                      : const TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontFamily:
-                                                                              'DMSans'),
-                                                                ),
-                                                                Obx(
-                                                                  () => Text(
-                                                                    priceController.sharePrice.value.totalShareOutstanding !=
-                                                                                0 &&
-                                                                            priceController.sharePrice.value.totalShareOutstanding !=
-                                                                                null
-                                                                        ? n.format(priceController
-                                                                            .sharePrice
-                                                                            .value
-                                                                            .totalShareOutstanding)
-                                                                        : '0.0',
-                                                                    style: Theme.of(
-                                                                            context)
-                                                                        .textTheme
-                                                                        .displaySmall,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      SvgPicture.asset(
-                                                        "assets/images/svgfile/investdivider.svg",
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                      ),
-                                                      Expanded(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            const SizedBox(
-                                                                width: 20.0),
-                                                            SvgPicture.asset(
-                                                              'assets/images/svgfile/totalNetworth.svg',
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  'Total UT Price',
-                                                                  style: Get.theme
-                                                                              .brightness ==
-                                                                          Brightness
-                                                                              .light
-                                                                      ? TextStyle(
-                                                                          color: Colors.grey[
-                                                                              500],
-                                                                          fontFamily:
-                                                                              'DMSans')
-                                                                      : const TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontFamily:
-                                                                              'DMSans'),
-                                                                ),
-                                                                Obx(
-                                                                  () => Text(
-                                                                    priceController.sharePrice.value.totalNetWorth !=
-                                                                                0 &&
-                                                                            priceController.sharePrice.value.totalNetWorth !=
-                                                                                null
-                                                                        ? '\$${f.format(priceController.sharePrice.value.totalNetWorth)}'
-                                                                        : '\$0.0',
-                                                                    style: Theme.of(
-                                                                            context)
-                                                                        .textTheme
-                                                                        .displaySmall,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              //   share price chart
+                                            //   share price chart
 
-                                              ClipRect(
-                                                child: SizedBox(
-                                                  height: 250,
-                                                  child: Stack(
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: double.infinity,
-                                                        width: double.infinity,
-                                                      ),
-                                                      Positioned(
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            const SizedBox(
-                                                              height: 10,
+                                            ClipRect(
+                                              child: SizedBox(
+                                                height: 250,
+                                                child: Stack(
+                                                  children: [
+                                                    const SizedBox(
+                                                      height: double.infinity,
+                                                      width: double.infinity,
+                                                    ),
+                                                    Positioned(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  'UT Price Evolution',
+                                                                  key: _guidkey
+                                                                          .investmentKeyNoFiF[
+                                                                              2]
+                                                                          .key =
+                                                                      GlobalKey(),
+                                                                  style: Get.theme
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .light
+                                                                      ? TextStyle(
+                                                                          color: Colors.grey[
+                                                                              500],
+                                                                          fontFamily:
+                                                                              'DMSans')
+                                                                      : const TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontFamily:
+                                                                              'DMSans'),
+                                                                ),
+                                                                Text(
+                                                                  'Figure in USD',
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .bodyLarge!
+                                                                      .copyWith(
+                                                                          color:
+                                                                              Colors.grey),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            Padding(
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      20),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    'UT Price Evolution',
-                                                                    key: _guidkey
-                                                                        .investmentKeyNoFiF[
-                                                                            2]
-                                                                        .key = GlobalKey(),
-                                                                    style: Get.theme.brightness ==
-                                                                            Brightness
-                                                                                .light
-                                                                        ? TextStyle(
-                                                                            color: Colors.grey[
-                                                                                500],
-                                                                            fontFamily:
-                                                                                'DMSans')
-                                                                        : const TextStyle(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            fontFamily: 'DMSans'),
-                                                                  ),
-                                                                  Text(
-                                                                    'Figure in USD',
-                                                                    style: Theme.of(
-                                                                            context)
-                                                                        .textTheme
-                                                                        .bodyLarge!
-                                                                        .copyWith(
-                                                                            color:
-                                                                                Colors.grey),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                        ],
                                                       ),
-                                                      Obx(
-                                                        () => priceController
-                                                                .isLoadingSharePrice
-                                                                .value
-                                                            ? Center(
-                                                                child:
-                                                                    Container(),
-                                                              )
-                                                            : priceController
-                                                                        .sharePrice
-                                                                        .value
-                                                                        .evolution !=
-                                                                    null
-                                                                ? Positioned(
-                                                                    top: 50,
-                                                                    left: 5,
-                                                                    right: 5,
-                                                                    bottom: 0,
-                                                                    child: CiCLineChart(
-                                                                        dataList: priceController
-                                                                            .sharePrice
-                                                                            .value
-                                                                            .evolution!
-                                                                            .reversed
-                                                                            .toList()),
-                                                                  )
-                                                                : Positioned(
-                                                                    top: 50,
-                                                                    left: 5,
-                                                                    right: 5,
-                                                                    bottom: 0,
-                                                                    child: CiCLineChart(
-                                                                        dataList:
-                                                                            reversList),
-                                                                  ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    Obx(
+                                                      () => priceController
+                                                              .isLoadingSharePrice
+                                                              .value
+                                                          ? Center(
+                                                              child:
+                                                                  Container(),
+                                                            )
+                                                          : priceController
+                                                                      .sharePrice
+                                                                      .value
+                                                                      .evolution !=
+                                                                  null
+                                                              ? Positioned(
+                                                                  top: 50,
+                                                                  left: 5,
+                                                                  right: 5,
+                                                                  bottom: 0,
+                                                                  child: CiCLineChart(
+                                                                      dataList: priceController
+                                                                          .sharePrice
+                                                                          .value
+                                                                          .evolution!
+                                                                          .reversed
+                                                                          .toList()),
+                                                                )
+                                                              : Positioned(
+                                                                  top: 50,
+                                                                  left: 5,
+                                                                  right: 5,
+                                                                  bottom: 0,
+                                                                  child: CiCLineChart(
+                                                                      dataList:
+                                                                          reversList),
+                                                                ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Obx(
+                                        () => priceController
+                                                .investDataList.isNotEmpty
+                                            ? const SizedBox(
+                                                height: 20,
+                                              )
+                                            : Container(),
+                                      ),
+                                      // Chhany
+                                      Obx(
+                                        () => priceController
+                                                .isInvestLoading.value
+                                            ? Center(
+                                                child: Container(),
+                                              )
+                                            : priceController
+                                                    .investDataList.isNotEmpty
+                                                ? ReturnOnInvestment(
+                                                    yearsList: priceController
+                                                        .investDataList,
+                                                  )
+                                                : Container(),
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                                if (!priceController.isLoadingSharePrice.value)
+                                  SafeArea(
+                                    top: false,
+                                    minimum: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 20,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: CustomButton(
+                                            isOutline: true,
+                                            isDisable: false,
+                                            onPressed: () {
+                                              // context.push(
+                                              //     '/investment/fixed-income-fund/about-fif?title=About EF&url=https://www.canva.com/design/DAFWwsIRwcY/9WlLie_SZi0dX4dbZOsazQ/view?website#4');
+                                              context.push(
+                                                  "/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription");
+                                            },
+                                            title: "UT Payment",
                                           ),
                                         ),
-                                        Obx(
-                                          () => priceController
-                                                  .investDataList.isNotEmpty
-                                              ? const SizedBox(
-                                                  height: 20,
-                                                )
-                                              : Container(),
-                                        ),
-                                        // Chhany
-                                        Obx(
-                                          () => priceController
-                                                  .isInvestLoading.value
-                                              ? Center(
-                                                  child: Container(),
-                                                )
-                                              : priceController
-                                                      .investDataList.isNotEmpty
-                                                  ? ReturnOnInvestment(
-                                                      yearsList: priceController
-                                                          .investDataList,
-                                                    )
-                                                  : Container(),
+                                        const SizedBox(width: 20.0),
+                                        Expanded(
+                                          child: CustomButton(
+                                            isOutline: false,
+                                            isDisable: false,
+                                            onPressed: () {
+                                              context.push(
+                                                  "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                                            },
+                                            title: "Subscribe Now",
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  )),
-                                  if (!priceController
-                                      .isLoadingSharePrice.value)
-                                    SafeArea(
-                                      top: false,
-                                      minimum: const EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                        vertical: 20,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: CustomButton(
-                                              isOutline: true,
-                                              isDisable: false,
-                                              onPressed: () {
-                                                // context.push(
-                                                //     '/investment/fixed-income-fund/about-fif?title=About EF&url=https://www.canva.com/design/DAFWwsIRwcY/9WlLie_SZi0dX4dbZOsazQ/view?website#4');
-                                                context.push(
-                                                    "/wallet/invest-fif/cic-equity-fund/ut-subscription/histories-subscription");
-                                              },
-                                              title: "UT Payment",
-                                            ),
-                                          ),
-                                          const SizedBox(width: 20.0),
-                                          Expanded(
-                                            child: CustomButton(
-                                              isOutline: false,
-                                              isDisable: false,
-                                              onPressed: () {
-                                                context.push(
-                                                    "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
-                                              },
-                                              title: "Subscribe Now",
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  // SafeArea(
-                                  //   top: false,
-                                  //   minimum: const EdgeInsets.symmetric(
-                                  //     horizontal: 20,
-                                  //     vertical: 20,
-                                  //   ),
-                                  //   child: CustomButton(
-                                  //     isOutline: false,
-                                  //     isDisable: false,
-                                  //     onPressed: () {
-                                  // context.push(
-                                  //     "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
-                                  //     },
-                                  //     title: "Subscribe Now",
-                                  //   ),
-                                  // )
-                                ],
-                              ),
+                                  ),
+                                // SafeArea(
+                                //   top: false,
+                                //   minimum: const EdgeInsets.symmetric(
+                                //     horizontal: 20,
+                                //     vertical: 20,
+                                //   ),
+                                //   child: CustomButton(
+                                //     isOutline: false,
+                                //     isDisable: false,
+                                //     onPressed: () {
+                                // context.push(
+                                //     "/wallet/invest-fif/cic-equity-fund/ut-subscription/new-subscription");
+                                //     },
+                                //     title: "Subscribe Now",
+                                //   ),
+                                // )
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

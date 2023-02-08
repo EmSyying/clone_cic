@@ -26,6 +26,9 @@ import '../models/term_and_condtion.dart';
 
 class SettingController extends GetxController {
   final _apiBaseHelper = ApiBaseHelper();
+  // Offline check variable:
+  final isOnline = true.obs;
+
   final settingApp = Setting().obs;
   final appSetting = Setting().obs;
   final isModeSwitchAble = false.obs;

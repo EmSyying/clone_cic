@@ -5,7 +5,7 @@ import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:cicgreenloan/modules/investment_module/screen/history_appbar.dart';
 import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -200,33 +200,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         body: Builder(
           builder: (context) => CupertinoPageScaffold(
             child: Scaffold(
-              backgroundColor: AppColor.backgroundColor,
-              body: ConnectivityWidgetWrapper(
-                stacked: false,
-                alignment: Alignment.bottomCenter,
-                offlineWidget: Column(
-                  children: [
-                    AppBar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      automaticallyImplyLeading:
-                          widget.isNavigator != null && widget.isNavigator!
-                              ? true
-                              : false,
-                      centerTitle: false,
-                      elevation: 0.0,
-                      title: Text(
-                        'My Investment',
-                        style: Theme.of(context).textTheme.titleLarge,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    const Expanded(
-                      child: OfflineWidget(),
-                    ),
-                  ],
-                ),
-                child: Obx(
+              backgroundColor: Color.fromRGBO(242, 242, 242, 1),
+              body:  Obx(
                   () => Stack(
                     children: [
                       const SizedBox(
@@ -399,7 +374,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

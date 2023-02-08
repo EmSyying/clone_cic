@@ -7,7 +7,6 @@ import 'package:cicgreenloan/modules/member_directory/screens/filter.dart';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -209,156 +208,142 @@ class _DirectoryState extends State<Directory> {
       child: Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: _showAppbar(),
-        body: ConnectivityWidgetWrapper(
-          stacked: false,
-          alignment: Alignment.bottomCenter,
-          offlineWidget: Column(
-            children: const [
-              Expanded(
-                child: OfflineWidget(),
-              ),
-            ],
-          ),
-          child: Obx(() => Column(
-                children: [
-                  Expanded(
-                    child: NotificationListener(
-                      onNotification: (ScrollEndNotification notification) {
-                        if (notification.metrics.pixels ==
-                            notification.metrics.maxScrollExtent) {
-                          debugPrint('IS next ${memberController.next.value}');
-                          memberController.next.value ? onGetMoreData() : null;
-                          return true;
-                        }
-                        return false;
-                      },
-                      child: RefreshIndicator(
-                        key: _refreshKey,
-                        onRefresh: onRefreshFetchMember,
-                        child: CustomScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          controller: _scrollController,
-                          slivers: [
-                            SliverAppBar(
-                              elevation: 0,
-                              automaticallyImplyLeading: false,
-                              backgroundColor: AppColor.backgroundColor,
-                              expandedHeight: 80,
-                              floating: true,
-                              flexibleSpace: FlexibleSpaceBar(
-                                collapseMode: CollapseMode.none,
-                                stretchModes: const [
-                                  StretchMode.zoomBackground
-                                ],
-                                background: _showSearchFromDirectory(),
-                              ),
+        body: Obx(() => Column(
+              children: [
+                Expanded(
+                  child: NotificationListener(
+                    onNotification: (ScrollEndNotification notification) {
+                      if (notification.metrics.pixels ==
+                          notification.metrics.maxScrollExtent) {
+                        debugPrint('IS next ${memberController.next.value}');
+                        memberController.next.value ? onGetMoreData() : null;
+                        return true;
+                      }
+                      return false;
+                    },
+                    child: RefreshIndicator(
+                      key: _refreshKey,
+                      onRefresh: onRefreshFetchMember,
+                      child: CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: _scrollController,
+                        slivers: [
+                          SliverAppBar(
+                            elevation: 0,
+                            automaticallyImplyLeading: false,
+                            backgroundColor: AppColor.backgroundColor,
+                            expandedHeight: 80,
+                            floating: true,
+                            flexibleSpace: FlexibleSpaceBar(
+                              collapseMode: CollapseMode.none,
+                              stretchModes: const [StretchMode.zoomBackground],
+                              background: _showSearchFromDirectory(),
                             ),
-                            SliverToBoxAdapter(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  memberController.fetchAllMemberLoading.value
-                                      ? _showShimmer()
-                                      : memberController.listAllMember.isEmpty
-                                          ? _showEmptyState()
-                                          : ListView(
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              shrinkWrap: true,
-                                              primary: true,
-                                              padding: EdgeInsets.only(
-                                                  bottom: 20,
-                                                  top: widget.fromPage ==
-                                                          'tradeScreen'
-                                                      ? 0
-                                                      : 5),
-                                              children: memberController
-                                                  .listAllMember
-                                                  .asMap()
-                                                  .entries
-                                                  .map(
-                                                (e) {
-                                                  return Column(
-                                                    children: [
-                                                      GestureDetector(
-                                                        onTap: widget
-                                                                    .fromPage ==
-                                                                'tradeScreen'
-                                                            ? () {
-                                                                FirebaseAnalyticsHelper
-                                                                    .sendAnalyticsEvent(
-                                                                        'Trading ${e.value.name!}');
+                          ),
+                          SliverToBoxAdapter(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                memberController.fetchAllMemberLoading.value
+                                    ? _showShimmer()
+                                    : memberController.listAllMember.isEmpty
+                                        ? _showEmptyState()
+                                        : ListView(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            primary: true,
+                                            padding: EdgeInsets.only(
+                                                bottom: 20,
+                                                top: widget.fromPage ==
+                                                        'tradeScreen'
+                                                    ? 0
+                                                    : 5),
+                                            children: memberController
+                                                .listAllMember
+                                                .asMap()
+                                                .entries
+                                                .map(
+                                              (e) {
+                                                return Column(
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: widget.fromPage ==
+                                                              'tradeScreen'
+                                                          ? () {
+                                                              FirebaseAnalyticsHelper
+                                                                  .sendAnalyticsEvent(
+                                                                      'Trading ${e.value.name!}');
 
-                                                                widget.onTap!(
-                                                                    e.value);
-                                                                Navigator.pop(
-                                                                    context);
+                                                              widget.onTap!(
+                                                                  e.value);
+                                                              Navigator.pop(
+                                                                  context);
 
-                                                                // print(item![index].name);
-                                                              }
-                                                            : () {
-                                                                FirebaseAnalyticsHelper
-                                                                    .sendAnalyticsEvent(
-                                                                        'Directory Profile ${e.value.name!}');
+                                                              // print(item![index].name);
+                                                            }
+                                                          : () {
+                                                              FirebaseAnalyticsHelper
+                                                                  .sendAnalyticsEvent(
+                                                                      'Directory Profile ${e.value.name!}');
 
-                                                                // Navigator.push(
-                                                                //   context,
-                                                                //   MaterialPageRoute(
-                                                                //     builder: (context) =>
-                                                                //         NewPeronalProfile(
-                                                                //       isDirectory:
-                                                                //           true,
-                                                                //       id: e.value.id,
-                                                                //       imgUrl: e.value
-                                                                //           .photo,
-                                                                //     ),
-                                                                //   ),
-                                                                // );
-                                                                context.go(
-                                                                    '/directory/${e.value.id}?isDirectory=true&imgUrl=${e.value.profile}');
-                                                              },
-                                                        child: Container(
-                                                          color: Colors.white,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  top: 15,
-                                                                  bottom: 15),
-                                                          child: MemberCard(
-                                                            // isSelected: false,
-                                                            member: e.value,
-                                                          ),
+                                                              // Navigator.push(
+                                                              //   context,
+                                                              //   MaterialPageRoute(
+                                                              //     builder: (context) =>
+                                                              //         NewPeronalProfile(
+                                                              //       isDirectory:
+                                                              //           true,
+                                                              //       id: e.value.id,
+                                                              //       imgUrl: e.value
+                                                              //           .photo,
+                                                              //     ),
+                                                              //   ),
+                                                              // );
+                                                              context.go(
+                                                                  '/directory/${e.value.id}?isDirectory=true&imgUrl=${e.value.profile}');
+                                                            },
+                                                      child: Container(
+                                                        color: Colors.white,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 15,
+                                                                bottom: 15),
+                                                        child: MemberCard(
+                                                          // isSelected: false,
+                                                          member: e.value,
                                                         ),
                                                       ),
+                                                    ),
 
-                                                      ///Divider
-                                                      e.key !=
-                                                              memberController
-                                                                      .listAllMember
-                                                                      .length -
-                                                                  1
-                                                          ? const Divider(
-                                                              height: 0,
-                                                              thickness: 1,
-                                                            )
-                                                          : const SizedBox()
-                                                    ],
-                                                  );
-                                                },
-                                              ).toList(),
-                                            ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                                                    ///Divider
+                                                    e.key !=
+                                                            memberController
+                                                                    .listAllMember
+                                                                    .length -
+                                                                1
+                                                        ? const Divider(
+                                                            height: 0,
+                                                            thickness: 1,
+                                                          )
+                                                        : const SizedBox()
+                                                  ],
+                                                );
+                                              },
+                                            ).toList(),
+                                          ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                  _showLoadingMore()
-                ],
-              )),
-        ),
+                ),
+                _showLoadingMore()
+              ],
+            )),
       ),
     );
   }

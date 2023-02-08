@@ -54,7 +54,6 @@ dependencies:
   chewie: ^1.0.0
   collection: ^1.16.0
   connectivity_plus: ^3.0.2
-  connectivity_wrapper: ^1.1.1
   country_picker: ^2.0.18
   cupertino_icons: ^1.0.3
   device_info_plus: ^8.0.0

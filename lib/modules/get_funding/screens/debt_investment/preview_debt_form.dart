@@ -12,7 +12,7 @@ import 'package:cicgreenloan/widgets/get_funding/custom_review_company_info_card
 import 'package:cicgreenloan/widgets/get_funding/custom_review_financing_info.dart';
 import 'package:cicgreenloan/widgets/get_funding/custom_select_2_getfunding.dart';
 import 'package:cicgreenloan/widgets/get_funding/edit_address.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -644,18 +644,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                     body: InjectionHelper
                             .debtInvestmentController.isLoadingData.value
                         ? const LinearProgressIndicator()
-                        : ConnectivityWidgetWrapper(
-                            stacked: false,
-                            alignment: Alignment.bottomCenter,
-                            offlineWidget: Column(
-                              children: const [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Expanded(child: OfflineWidget()),
-                              ],
-                            ),
-                            child: Column(
+                        :  Column(
                               children: [
                                 Expanded(
                                   child: SingleChildScrollView(
@@ -1270,7 +1259,7 @@ class _PreviewDebtFormState extends State<PreviewDebtForm> {
                   ),
           ),
         ),
-      ),
+      
     );
   }
 }

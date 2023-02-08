@@ -15,7 +15,6 @@ import 'package:cicgreenloan/widgets/learning/custom_text_shimmer.dart';
 import 'package:cicgreenloan/widgets/learning/custom_video_shimmer.dart';
 import 'package:cicgreenloan/widgets/learning/recommend_video.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -103,232 +102,213 @@ class _LearningHomeState extends State<LearningHome> {
                         const SizedBox(width: 20)
                       ],
                     ),
-              body: ConnectivityWidgetWrapper(
-                stacked: false,
-                alignment: Alignment.bottomCenter,
-                offlineWidget: Column(
-                  children: [
-                    CustomAppBar(
-                        context: context,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        elevation: 0.0,
-                        title: 'Learning'),
-                    const Expanded(child: OfflineWidget()),
-                  ],
-                ),
-                child: Stack(
-                  children: [
-                    RefreshIndicator(
-                      key: _learningCon.refreshKey,
-                      onRefresh: _learningCon.onRefresh,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Obx(() => !_learningCon.isLoadingSlide.value &&
-                                    _learningCon.slideList.isNotEmpty
-                                ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 20),
-                                    child: AspectRatio(
-                                      aspectRatio: 5 / 2.3,
-                                      child: Swiper(
-                                          loop: true,
-                                          index: currentIndex,
-                                          itemBuilder: (context, index) {
-                                            if (_learningCon
-                                                    .slideList[index].status ==
-                                                'Active') {
-                                              return ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: _learningCon
-                                                      .slideList[index].image!,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              );
-                                            }
-                                            return Container();
-                                          },
-                                          onIndexChanged: (value) {
-                                            setState(() {
-                                              currentIndex = value;
-                                            });
-                                          },
-                                          curve: Curves.easeIn,
-                                          autoplay: true,
-                                          itemCount:
-                                              _learningCon.slideList.length,
-                                          viewportFraction: 1,
-                                          scale: 0.9),
-                                    ))
-                                : const SizedBox(
-                                    height: 180,
-                                    width: double.infinity,
-                                  )),
-                            Obx(() => !_learningCon.isLoadingSlide.value
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: _learningCon.slideList
-                                        .asMap()
-                                        .entries
-                                        .where((element) =>
-                                            element.value.status == 'Display')
-                                        .map((e) => CustomIndicator(
-                                              isSelect: e.key == currentIndex,
-                                            ))
-                                        .toList(),
-                                  )
-                                : Container()),
-                            Container(
-                              margin: const EdgeInsets.all(20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.88,
-                                    height: 50,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/images/svgfile/search.svg',
-                                          height: 20,
-                                        ),
-                                        Expanded(
-                                          child: TextFormField(
-                                            onChanged: (value) {},
-                                            decoration: InputDecoration(
-                                                hintText:
-                                                    'Search By First Name , Last Name, . . . ',
-                                                hintStyle: TextStyle(
-                                                    color: Colors.grey[300]),
-                                                border: InputBorder.none,
-                                                fillColor: Colors.grey[300],
-                                                contentPadding:
-                                                    const EdgeInsets.all(10)),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // LearningProfileWidget(
-                            //   profile: 'assets/images/profile.png',
-                            //   name: 'Selena',
-                            //   title: 'Learning Profile',
-                            //   onTap: () {
-                            //     print('Go to view');
-                            //   },
-                            // ),
-
-                            Obx(
-                              () => _learningCon.isLoadingChannel.value
-                                  ? const CustomTextShimmer()
-                                  : _learningCon.channel.value.data!.isNotEmpty
-                                      ? ChannelBlock(
-                                          cardTitle: 'Channel',
-                                          channelData:
-                                              _learningCon.channel.value.data!,
-                                          onTap: (ChannelData channelData) {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ChannelProfile(
-                                                          channelId:
-                                                              channelData.id)),
+              body: Stack(
+                children: [
+                  RefreshIndicator(
+                    key: _learningCon.refreshKey,
+                    onRefresh: _learningCon.onRefresh,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(() => !_learningCon.isLoadingSlide.value &&
+                                  _learningCon.slideList.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  child: AspectRatio(
+                                    aspectRatio: 5 / 2.3,
+                                    child: Swiper(
+                                        loop: true,
+                                        index: currentIndex,
+                                        itemBuilder: (context, index) {
+                                          if (_learningCon
+                                                  .slideList[index].status ==
+                                              'Active') {
+                                            return ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: CachedNetworkImage(
+                                                imageUrl: _learningCon
+                                                    .slideList[index].image!,
+                                                fit: BoxFit.cover,
+                                              ),
                                             );
-                                          },
-                                        )
-                                      : Container(),
+                                          }
+                                          return Container();
+                                        },
+                                        onIndexChanged: (value) {
+                                          setState(() {
+                                            currentIndex = value;
+                                          });
+                                        },
+                                        curve: Curves.easeIn,
+                                        autoplay: true,
+                                        itemCount:
+                                            _learningCon.slideList.length,
+                                        viewportFraction: 1,
+                                        scale: 0.9),
+                                  ))
+                              : const SizedBox(
+                                  height: 180,
+                                  width: double.infinity,
+                                )),
+                          Obx(() => !_learningCon.isLoadingSlide.value
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: _learningCon.slideList
+                                      .asMap()
+                                      .entries
+                                      .where((element) =>
+                                          element.value.status == 'Display')
+                                      .map((e) => CustomIndicator(
+                                            isSelect: e.key == currentIndex,
+                                          ))
+                                      .toList(),
+                                )
+                              : Container()),
+                          Container(
+                            margin: const EdgeInsets.all(20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.88,
+                                  height: 50,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/svgfile/search.svg',
+                                        height: 20,
+                                      ),
+                                      Expanded(
+                                        child: TextFormField(
+                                          onChanged: (value) {},
+                                          decoration: InputDecoration(
+                                              hintText:
+                                                  'Search By First Name , Last Name, . . . ',
+                                              hintStyle: TextStyle(
+                                                  color: Colors.grey[300]),
+                                              border: InputBorder.none,
+                                              fillColor: Colors.grey[300],
+                                              contentPadding:
+                                                  const EdgeInsets.all(10)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            Obx(
-                              () => _learningCon.isLoading.value
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Shimmer.fromColors(
-                                          baseColor: Colors.grey[100]!,
-                                          highlightColor: Colors.white,
-                                          child: Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10),
-                                            height: 15,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.5,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
+                          ),
+                          // LearningProfileWidget(
+                          //   profile: 'assets/images/profile.png',
+                          //   name: 'Selena',
+                          //   title: 'Learning Profile',
+                          //   onTap: () {
+                          //     print('Go to view');
+                          //   },
+                          // ),
+
+                          Obx(
+                            () => _learningCon.isLoadingChannel.value
+                                ? const CustomTextShimmer()
+                                : _learningCon.channel.value.data!.isNotEmpty
+                                    ? ChannelBlock(
+                                        cardTitle: 'Channel',
+                                        channelData:
+                                            _learningCon.channel.value.data!,
+                                        onTap: (ChannelData channelData) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChannelProfile(
+                                                        channelId:
+                                                            channelData.id)),
+                                          );
+                                        },
+                                      )
+                                    : Container(),
+                          ),
+                          Obx(
+                            () => _learningCon.isLoading.value
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Shimmer.fromColors(
+                                        baseColor: Colors.grey[100]!,
+                                        highlightColor: Colors.white,
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                          height: 15,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.5,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
                                         ),
-                                        Shimmer.fromColors(
-                                          baseColor: Colors.grey[100]!,
-                                          highlightColor: Colors.white,
-                                          child: Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10),
-                                            height: 15,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.9,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
+                                      ),
+                                      Shimmer.fromColors(
+                                        baseColor: Colors.grey[100]!,
+                                        highlightColor: Colors.white,
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                          height: 15,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.9,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
                                         ),
-                                        const CustomVideoShimmer(),
-                                      ],
-                                    )
-                                  : _learningCon
-                                          .postModel.value.data!.isNotEmpty
-                                      ? RecommendVideo(
-                                          channelTitle: 'BIO SME',
-                                          onTapSeeAll: () {},
-                                          videoList: _learningCon
-                                              .postModel.value.data!,
-                                          onTapVideo: (VideoPost value) {
-                                            LocalData.userLogin(
-                                                'userLogin', false);
-                                            customPlayerBottomSheet(
-                                                context: context, video: value);
-                                          },
-                                        )
-                                      : Container(),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            )
-                          ],
-                        ),
+                                      ),
+                                      const CustomVideoShimmer(),
+                                    ],
+                                  )
+                                : _learningCon.postModel.value.data!.isNotEmpty
+                                    ? RecommendVideo(
+                                        channelTitle: 'BIO SME',
+                                        onTapSeeAll: () {},
+                                        videoList:
+                                            _learningCon.postModel.value.data!,
+                                        onTapVideo: (VideoPost value) {
+                                          LocalData.userLogin(
+                                              'userLogin', false);
+                                          customPlayerBottomSheet(
+                                              context: context, video: value);
+                                        },
+                                      )
+                                    : Container(),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          )
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

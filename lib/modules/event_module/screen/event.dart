@@ -8,7 +8,7 @@ import 'package:cicgreenloan/modules/event_module/screen/past_event.dart';
 import 'package:cicgreenloan/modules/event_module/screen/up_coming.dart';
 import 'package:cicgreenloan/Utils/offline_widget.dart';
 import 'package:cicgreenloan/widgets/ut_tradding/custom_tab.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -180,15 +180,7 @@ class _EventScreenState extends State<EventScreen> {
           context: context,
           isLeading: false,
         ),
-        body: ConnectivityWidgetWrapper(
-          stacked: false,
-          alignment: Alignment.bottomCenter,
-          offlineWidget: Column(
-            children: const [
-              Expanded(child: OfflineWidget()),
-            ],
-          ),
-          child: Column(
+        body:  Column(
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -501,7 +493,7 @@ class _EventScreenState extends State<EventScreen> {
           ),
         ),
       )),
-    ));
+    );
   }
 }
 
