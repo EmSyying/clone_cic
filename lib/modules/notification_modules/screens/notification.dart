@@ -495,7 +495,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                     });
                                                                                                     context.go("/notification/preview-debt?id=${_con.notificationList[index].data!.applicationId}");
                                                                                                   }
-                                                                                                : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment' || _con.notificationList[index].data!.type == 'receiver' || _con.notificationList[index].data!.type == 'transferer' || _con.notificationList[index].data!.type == 'bonus' || _con.notificationList[index].data!.type == 'exchange' || _con.notificationList[index].data!.type == 'discount-claim'
+                                                                                                : _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'cash-out' || _con.notificationList[index].data!.type == 'confirm-subscription' || _con.notificationList[index].data!.type == 'confirm-payment' || _con.notificationList[index].data!.type == 'receiver' || _con.notificationList[index].data!.type == 'transferer' || _con.notificationList[index].data!.type == 'bonus' || _con.notificationList[index].data!.type == 'exchange' || _con.notificationList[index].data!.type == 'discount-claim' || _con.notificationList[index].data!.type == 'mvp'
                                                                                                     ? () async {
                                                                                                         if (_con.notificationList[index].data!.type == 'wallet-deposit' || _con.notificationList[index].data!.type == 'transferer' || _con.notificationList[index].data!.type == 'wallet-cashout' || _con.notificationList[index].data!.type == 'exchange') {
                                                                                                           notificationIdList.add(items.id);
@@ -517,6 +517,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                                                                             _con.notificationList[index].readAt = '';
                                                                                                           });
                                                                                                           context.push('/wallet');
+                                                                                                        } else if (_con.notificationList[index].data!.type == 'mvp') {
+                                                                                                          notificationIdList.add(items.id);
+                                                                                                          _con.onReadNotification(_con.notificationList[index].id!);
+                                                                                                          setState(() {
+                                                                                                            _con.notificationList[index].readAt = '';
+                                                                                                          });
+                                                                                                          context.go('/mymvp');
                                                                                                         } else {
                                                                                                           notificationIdList.add(items.id);
                                                                                                           _con.onReadNotification(_con.notificationList[index].id!);
