@@ -336,21 +336,24 @@ class PrivilegeController extends GetxController {
 
   Future<List<PrivilegeShopModel>> onFilterByCategoriesByLocation(
       {String? location, int? categoryId}) async {
-    debugPrint("Filter is working");
+    debugPrint("Filter is ==== $location");
+    debugPrint("Category is ==== $categoryId");
+
     isLoadingCategoryFilter(true);
     apiBaseHelper
         .onNetworkRequesting(
-            url:
-                'privilege/filer?location=$location&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId',
+            url: location == null
+                ? 'privilege/filer?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId'
+                : 'privilege/filer?location=$location&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
       var responseJson = response['data'];
+
       shopModelList.clear();
       categoryFilterList.clear();
       responseJson.map((e) {
         shopModel.value = PrivilegeShopModel.fromJson(e);
-
         categoryFilterList.add(shopModel.value);
         shopModelList.add(shopModel.value);
       }).toList();
@@ -426,7 +429,7 @@ class PrivilegeController extends GetxController {
       isShowMore.value =
           response['meta']['current_page'] != response['meta']['last_page'];
       var responeJson = response['data'];
-      // locationPrivilageList.clear();
+      locationPrivilageList.clear();
       if (page == 1) {
         locationPrivilageList.clear();
       }
