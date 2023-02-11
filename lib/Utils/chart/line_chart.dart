@@ -125,28 +125,29 @@ class CiCLineChart extends StatelessWidget {
             dashArray: [10],
           ),
           plotBands: [
-            PlotBand(
-              text: "Share Split 9-1",
-              textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 12,
-                  ),
-              textAngle: 0,
-              // sizeType: DateTimeIntervalType.years,
-              verticalTextAlignment: TextAnchor.start,
-              horizontalTextPadding: "-16%",
-              // dashArray: const [2, 6],
-              isVisible: true,
+            if (dataAfterSplit.isNotEmpty)
+              PlotBand(
+                text: "Share Split 9-1",
+                textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12,
+                    ),
+                textAngle: 0,
+                // sizeType: DateTimeIntervalType.years,
+                verticalTextAlignment: TextAnchor.start,
+                horizontalTextPadding: "-16%",
+                // dashArray: const [2, 6],
+                isVisible: true,
 
-              start: splitIndex,
-              end: splitIndex,
+                start: splitIndex,
+                end: splitIndex,
 
-              // associatedAxisStart: DateTime.utc(2022),
+                // associatedAxisStart: DateTime.utc(2022),
 
-              // associatedAxisEnd: DateTime.utc(2022),
-              borderWidth: 2,
-              borderColor: Theme.of(context).primaryColor,
-            )
+                // associatedAxisEnd: DateTime.utc(2022),
+                borderWidth: 2,
+                borderColor: Theme.of(context).primaryColor,
+              )
           ],
         ),
         // primaryXAxis: NumericAxis(
