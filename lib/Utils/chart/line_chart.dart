@@ -56,20 +56,22 @@ class CiCLineChart extends StatelessWidget {
     var year = [];
     var splitIndex = 0;
     var tapIndex = 0;
-    for (var i = 0; i < dataList.length; i++) {
-      if (year.contains(dataList[i].date)) {
-        tapIndex = i;
-        debugPrint('tapIndex=$tapIndex');
-      } else {
-        year.add(dataList[i].date);
+    if (dataAfterSplit.isNotEmpty) {
+      for (var i = 0; i < dataList.length; i++) {
+        if (year.contains(dataList[i].date)) {
+          tapIndex = i;
+          debugPrint('tapIndex=$tapIndex');
+        } else {
+          year.add(dataList[i].date);
+        }
       }
-    }
-    debugPrint('$year');
-    for (var i = 0; i < year.length; i++) {
-      debugPrint('$i ${year[i]} ${dataAfterSplit[0].date}');
-      if (year[i] == dataAfterSplit[0].date) {
-        debugPrint('year${year[i]}');
-        splitIndex = i;
+      debugPrint('$year');
+      for (var i = 0; i < year.length; i++) {
+        debugPrint('$i ${year[i]} ${dataAfterSplit[0].date}');
+        if (year[i] == dataAfterSplit[0].date) {
+          debugPrint('year${year[i]}');
+          splitIndex = i;
+        }
       }
     }
 
@@ -87,16 +89,17 @@ class CiCLineChart extends StatelessWidget {
         //   print("y${args.position.dy}");
         // },
         onTrackballPositionChanging: (TrackballArgs args) {
-          // args.chartPointInfo.label = 'Custom Text';
-          debugPrint(
-              "${year[splitIndex] == args.chartPointInfo.chartDataPoint!.x}${args.chartPointInfo.chartDataPoint!.x}");
-          if (year[splitIndex]
-                  .toString()
-                  .contains(args.chartPointInfo.chartDataPoint!.x.toString()) &&
-              _isDialogShowing != true) {
-            debugPrint("args${args.chartPointInfo.chartDataPoint!.x}");
-            _isDialogShowing = true;
-            showDialogSplit(context);
+          if (dataAfterSplit.isNotEmpty) {
+            // args.chartPointInfo.label = 'Custom Text';
+            debugPrint(
+                "${year[splitIndex] == args.chartPointInfo.chartDataPoint!.x}${args.chartPointInfo.chartDataPoint!.x}");
+            if (year[splitIndex].toString().contains(
+                    args.chartPointInfo.chartDataPoint!.x.toString()) &&
+                _isDialogShowing != true) {
+              debugPrint("args${args.chartPointInfo.chartDataPoint!.x}");
+              _isDialogShowing = true;
+              showDialogSplit(context);
+            }
           }
         },
         onSelectionChanged: (SelectionArgs args) {
