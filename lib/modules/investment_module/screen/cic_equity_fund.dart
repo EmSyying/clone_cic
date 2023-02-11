@@ -517,8 +517,6 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                   .sharePrice
                                                                   .value
                                                                   .evolutionAfter!
-                                                                  .reversed
-                                                                  .toList(),
                                                         ),
                                                       )
                                                     : Positioned(
@@ -528,7 +526,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                         bottom: 0,
                                                         child: CiCLineChart(
                                                             dataList:
-                                                                reversList),
+                                                                reversList,dataAfterSplit: priceController
+                                                                        .sharePrice
+                                                                        .value
+                                                                        .evolutionAfter!),
                                                       ),
                                           ),
                                         ],
@@ -1115,13 +1116,19 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                   left: 5,
                                                                   right: 5,
                                                                   bottom: 0,
-                                                                  child: CiCLineChart(
-                                                                      dataList: priceController
-                                                                          .sharePrice
-                                                                          .value
-                                                                          .evolution!
-                                                                          .reversed
-                                                                          .toList()),
+                                                                  child:
+                                                                      CiCLineChart(
+                                                                    dataList: priceController
+                                                                        .sharePrice
+                                                                        .value
+                                                                        .evolution!
+                                                                        .reversed
+                                                                        .toList(),
+                                                                        dataAfterSplit: priceController
+                                                                        .sharePrice
+                                                                        .value
+                                                                        .evolutionAfter!,
+                                                                  ),
                                                                 )
                                                               : Positioned(
                                                                   top: 50,
@@ -1130,7 +1137,10 @@ class _CiCEquityFundState extends State<CiCEquityFund> {
                                                                   bottom: 0,
                                                                   child: CiCLineChart(
                                                                       dataList:
-                                                                          reversList),
+                                                                          reversList,dataAfterSplit: priceController
+                                                                        .sharePrice
+                                                                        .value
+                                                                        .evolutionAfter!),
                                                                 ),
                                                     ),
                                                   ],
