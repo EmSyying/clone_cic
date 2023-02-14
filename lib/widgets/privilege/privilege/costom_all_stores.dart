@@ -95,7 +95,7 @@ class CustomCardAllStores extends StatelessWidget {
                             ),
                       ),
                       const SizedBox(
-                        height: 2.0,
+                        height: 1.0,
                       ),
                       Text(
                         privilegeShopList!.slogan ?? '',
