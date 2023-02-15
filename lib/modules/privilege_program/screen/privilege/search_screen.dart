@@ -475,55 +475,60 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 20.0),
-                                        child: Column(
-                                          children: privilegController
-                                              .searchLocationList
-                                              .asMap()
-                                              .entries
-                                              .map(
-                                                (location) => GestureDetector(
-                                                  onTap: () {
-                                                    // privilegController.onSearchStores(
-                                                    //     keySearch:
-                                                    //         searchText(location));
-                                                    privilegController
-                                                        .textSearchController
-                                                        .text;
-                                                    debugPrint(
-                                                        'print textSearch hany=====:${privilegController.textSearchController.text}');
-                                                    privilegController
-                                                            .locationCode
-                                                            .value =
-                                                        location.value.code!;
-                                                    debugPrint(
-                                                        "is go to search by location");
-                                                    privilegController
-                                                        .onFilterByCategoriesByLocation(
-                                                      location:
-                                                          location.value.code,
-                                                    );
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            SearchScreen(
-                                                          locationName: location
-                                                              .value.province,
-                                                          locationCode: location
-                                                              .value.code,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: privilegController
+                                                .searchLocationList
+                                                .asMap()
+                                                .entries
+                                                .map(
+                                                  (location) => GestureDetector(
+                                                    onTap: () {
+                                                      // privilegController.onSearchStores(
+                                                      //     keySearch:
+                                                      //         searchText(location));
+                                                      privilegController
+                                                          .textSearchController
+                                                          .text;
+                                                      debugPrint(
+                                                          'print textSearch hany=====:${privilegController.textSearchController.text}');
+                                                      privilegController
+                                                              .locationCode
+                                                              .value =
+                                                          location.value.code!;
+                                                      debugPrint(
+                                                          "is go to search by location");
+                                                      privilegController
+                                                          .onFilterByCategoriesByLocation(
+                                                        location:
+                                                            location.value.code,
+                                                      );
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SearchScreen(
+                                                            locationName:
+                                                                location.value
+                                                                    .province,
+                                                            locationCode:
+                                                                location
+                                                                    .value.code,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    );
+                                                      );
 
-                                                    debugPrint(
-                                                        "is go to search by location 11:${location.value.code}");
-                                                  },
-                                                  child: CustomLocationCard(
-                                                    locatModel: location.value,
+                                                      debugPrint(
+                                                          "is go to search by location 11:${location.value.code}");
+                                                    },
+                                                    child: CustomLocationCard(
+                                                      locatModel:
+                                                          location.value,
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                              .toList(),
+                                                )
+                                                .toList(),
+                                          ),
                                         ),
                                       )
                                     : _buildEmptyState(),
