@@ -297,246 +297,240 @@ class _SearchScreenState extends State<SearchScreen> {
             )
           : showData
               ? Obx(
-                  () => SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // if (privilegController.searchShopList.isNotEmpty ||
-                        //     privilegController.searchLocationList.isNotEmpty)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                            vertical: 20.0,
-                          ),
-                          color: Colors.transparent,
-                          width: double.infinity,
-                          child: CupertinoSlidingSegmentedControl(
-                            groupValue: segmentedControlValue,
-                            backgroundColor:
-                                const Color(0xff252552).withOpacity(0.1),
-                            children: <int, Widget>{
-                              0: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  'Stores',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                              1: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  'Location',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                            },
-                            onValueChanged: (int? value) {
-                              setState(() {
-                                index = value!;
-                                debugPrint("Page View index:$value");
-                                segmentedControlValue = value;
-                                // if (value == 0) {
-                                //   privilegController.onSearchStores(keySearch: keySearch);
-                                // } else {
-                                //   privilegController.onSearchStores(
-                                //       keySearch: keySearch, isLocation: true);
-                                // }
-                                controller.animateToPage(segmentedControlValue,
-                                    duration: const Duration(milliseconds: 200),
-                                    curve: Curves.fastLinearToSlowEaseIn);
-                              });
-                            },
-                          ),
+                  () => Column(
+                    children: [
+                      // if (privilegController.searchShopList.isNotEmpty ||
+                      //     privilegController.searchLocationList.isNotEmpty)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 20.0,
                         ),
-                        Expanded(
-                          child: PageView(
-                            controller: controller,
-                            onPageChanged: (value) {
+                        color: Colors.transparent,
+                        width: double.infinity,
+                        child: CupertinoSlidingSegmentedControl(
+                          groupValue: segmentedControlValue,
+                          backgroundColor:
+                              const Color(0xff252552).withOpacity(0.1),
+                          children: <int, Widget>{
+                            0: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                'Stores',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ),
+                            1: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                'Location',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ),
+                          },
+                          onValueChanged: (int? value) {
+                            setState(() {
+                              index = value!;
+                              debugPrint("Page View index:$value");
                               segmentedControlValue = value;
-                              setState(() {});
-                            },
-                            children: [
-                              //Store/Shop
-                              privilegController.isSearchLoading.value
-                                  ? const Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 20.0,
-                                        right: 20.0,
-                                        top: 20.0,
-                                      ),
-                                      child: CustomShimmerAllShop(),
-                                    )
-                                  : privilegController.searchShopList.isNotEmpty
-                                      ? SingleChildScrollView(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20.0, right: 20.0),
-                                            child: Column(
-                                              children: privilegController
-                                                  .searchShopList
-                                                  .asMap()
-                                                  .entries
-                                                  .map(
-                                                    (e) => GestureDetector(
-                                                      onTap: () {
-                                                        // context.go(
-                                                        //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                PrivilegeDetailScreen(
-                                                              id: e.value.id,
-                                                            ),
-                                                          ),
-                                                        ).then((value) {
-                                                          searchText(
-                                                              searchChangeFov);
-                                                        });
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                bottom: 18.0),
-                                                        child:
-                                                            CustomCardAllStores(
-                                                          isFav: e.value
-                                                              .isFavorite!,
-                                                          privilegeShopList:
-                                                              e.value,
-                                                          onTapFav: () {
-                                                            privilegController
-                                                                .setFavouriteStore(
-                                                                    id: privilegController
-                                                                        .searchShopList[e
-                                                                            .key]
-                                                                        .id!,
-                                                                    boolFav: privilegController
-                                                                        .searchShopList[
-                                                                            e.key]
-                                                                        .isFavorite!)
-                                                                .then((value) {
-                                                              if (privilegController
-                                                                  .searchShopList[
-                                                                      e.key]
-                                                                  .isFavorite!) {
-                                                                privilegController
-                                                                        .searchShopList[
-                                                                    e
-                                                                        .key] = privilegController
-                                                                    .searchShopList[
-                                                                        e.key]
-                                                                    .copyWith(
-                                                                        isFavorite:
-                                                                            false);
-                                                              } else {
-                                                                privilegController
-                                                                        .searchShopList[
-                                                                    e
-                                                                        .key] = privilegController
-                                                                    .searchShopList[
-                                                                        e.key]
-                                                                    .copyWith(
-                                                                        isFavorite:
-                                                                            true);
-                                                              }
-                                                            });
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                  .toList(),
-                                            ),
-                                          ),
-                                        )
-                                      : _buildEmptyState(),
-
-                              // Location
-                              privilegController.isSearchLoading.value
-                                  ? const Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 20.0,
-                                        right: 20.0,
-                                        top: 20.0,
-                                      ),
-                                      child: CustomShimmerAllShop(),
-                                    )
-                                  : privilegController
-                                          .searchLocationList.isNotEmpty
-                                      ? Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20.0),
+                              // if (value == 0) {
+                              //   privilegController.onSearchStores(keySearch: keySearch);
+                              // } else {
+                              //   privilegController.onSearchStores(
+                              //       keySearch: keySearch, isLocation: true);
+                              // }
+                              controller.animateToPage(segmentedControlValue,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.fastLinearToSlowEaseIn);
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: PageView(
+                          controller: controller,
+                          onPageChanged: (value) {
+                            segmentedControlValue = value;
+                            setState(() {});
+                          },
+                          children: [
+                            //Store/Shop
+                            privilegController.isSearchLoading.value
+                                ? const Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 20.0,
+                                      right: 20.0,
+                                      top: 20.0,
+                                    ),
+                                    child: CustomShimmerAllShop(),
+                                  )
+                                : privilegController.searchShopList.isNotEmpty
+                                    ? SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20.0, right: 20.0),
                                           child: Column(
                                             children: privilegController
-                                                .searchLocationList
+                                                .searchShopList
                                                 .asMap()
                                                 .entries
                                                 .map(
-                                                  (location) => GestureDetector(
+                                                  (e) => GestureDetector(
                                                     onTap: () {
-                                                      // privilegController.onSearchStores(
-                                                      //     keySearch:
-                                                      //         searchText(location));
-                                                      privilegController
-                                                          .textSearchController
-                                                          .text;
-                                                      debugPrint(
-                                                          'print textSearch hany=====:${privilegController.textSearchController.text}');
-                                                      privilegController
-                                                              .locationCode
-                                                              .value =
-                                                          location.value.code!;
-                                                      debugPrint(
-                                                          "is go to search by location");
-                                                      privilegController
-                                                          .onFilterByCategoriesByLocation(
-                                                        location:
-                                                            location.value.code,
-                                                      );
+                                                      // context.go(
+                                                      //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
                                                       Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              SearchScreen(
-                                                            locationName:
-                                                                location.value
-                                                                    .province,
-                                                            locationCode:
-                                                                location
-                                                                    .value.code,
+                                                              PrivilegeDetailScreen(
+                                                            id: e.value.id,
                                                           ),
                                                         ),
-                                                      );
-
-                                                      debugPrint(
-                                                          "is go to search by location 11:${location.value.code}");
+                                                      ).then((value) {
+                                                        searchText(
+                                                            searchChangeFov);
+                                                      });
                                                     },
-                                                    child: CustomLocationCard(
-                                                      locatModel:
-                                                          location.value,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 18.0),
+                                                      child:
+                                                          CustomCardAllStores(
+                                                        isFav:
+                                                            e.value.isFavorite!,
+                                                        privilegeShopList:
+                                                            e.value,
+                                                        onTapFav: () {
+                                                          privilegController
+                                                              .setFavouriteStore(
+                                                                  id: privilegController
+                                                                      .searchShopList[
+                                                                          e.key]
+                                                                      .id!,
+                                                                  boolFav: privilegController
+                                                                      .searchShopList[
+                                                                          e.key]
+                                                                      .isFavorite!)
+                                                              .then((value) {
+                                                            if (privilegController
+                                                                .searchShopList[
+                                                                    e.key]
+                                                                .isFavorite!) {
+                                                              privilegController
+                                                                      .searchShopList[
+                                                                  e
+                                                                      .key] = privilegController
+                                                                  .searchShopList[
+                                                                      e.key]
+                                                                  .copyWith(
+                                                                      isFavorite:
+                                                                          false);
+                                                            } else {
+                                                              privilegController
+                                                                      .searchShopList[
+                                                                  e
+                                                                      .key] = privilegController
+                                                                  .searchShopList[
+                                                                      e.key]
+                                                                  .copyWith(
+                                                                      isFavorite:
+                                                                          true);
+                                                            }
+                                                          });
+                                                        },
+                                                      ),
                                                     ),
                                                   ),
                                                 )
                                                 .toList(),
                                           ),
-                                        )
-                                      : _buildEmptyState(),
-                            ],
-                          ),
+                                        ),
+                                      )
+                                    : _buildEmptyState(),
+
+                            // Location
+                            privilegController.isSearchLoading.value
+                                ? const Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 20.0,
+                                      right: 20.0,
+                                      top: 20.0,
+                                    ),
+                                    child: CustomShimmerAllShop(),
+                                  )
+                                : privilegController
+                                        .searchLocationList.isNotEmpty
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Column(
+                                          children: privilegController
+                                              .searchLocationList
+                                              .asMap()
+                                              .entries
+                                              .map(
+                                                (location) => GestureDetector(
+                                                  onTap: () {
+                                                    // privilegController.onSearchStores(
+                                                    //     keySearch:
+                                                    //         searchText(location));
+                                                    privilegController
+                                                        .textSearchController
+                                                        .text;
+                                                    debugPrint(
+                                                        'print textSearch hany=====:${privilegController.textSearchController.text}');
+                                                    privilegController
+                                                            .locationCode
+                                                            .value =
+                                                        location.value.code!;
+                                                    debugPrint(
+                                                        "is go to search by location");
+                                                    privilegController
+                                                        .onFilterByCategoriesByLocation(
+                                                      location:
+                                                          location.value.code,
+                                                    );
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SearchScreen(
+                                                          locationName: location
+                                                              .value.province,
+                                                          locationCode: location
+                                                              .value.code,
+                                                        ),
+                                                      ),
+                                                    );
+
+                                                    debugPrint(
+                                                        "is go to search by location 11:${location.value.code}");
+                                                  },
+                                                  child: CustomLocationCard(
+                                                    locatModel: location.value,
+                                                  ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                      )
+                                    : _buildEmptyState(),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 )
               : const CustomEmptyState(
