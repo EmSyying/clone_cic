@@ -422,6 +422,7 @@ class BonusController extends GetxController {
             extra: {
               'onPressedButton': () {
                 context.go('/wallet/mma-transfer/mma-cash-out/history-cashout');
+                _walletController.fetchWalletAmount();
               },
             },
           );
