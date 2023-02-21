@@ -1,5 +1,4 @@
 import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
-import 'package:cicgreenloan/modules/wallet/model/exchange_point_transaction.dart/recent_activities.dart';
 import 'package:cicgreenloan/widgets/privilege/privilege_point/custom_recent_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,18 +55,27 @@ class PrivilegeHistory extends StatelessWidget {
                                     )
                                   : CustomRecentCard(
                                       margin: const EdgeInsets.only(bottom: 15),
-                                      recentActivities: RecentActivities(
-                                          label: history.value.label,
-                                          shopName: history.value.shopName,
-                                          code: history.value.code,
-                                          description:
-                                              history.value.description,
-                                          date: history.value.paymentDate,
-                                          amount: history.value.amount,
-                                          shopLogo: history.value.thumbnail,
-                                          id: history.value.id,
-                                          pointAmount: history.value.amount),
-                                    ),
+                                      label: history.value.label,
+                                      shopName: history.value.shopName,
+                                      code: history.value.code,
+                                      description: history.value.description,
+                                      date: history.value.paymentDate,
+                                      shopLogo: history.value.thumbnail,
+                                      id: history.value.id,
+                                      pointAmount: history.value.amount
+                                      // recentActivities: RecentActivities(
+                                      //     label: history.value.label,
+                                      //     shopName: history.value.shopName,
+                                      //     code: history.value.code,
+                                      //     description:
+                                      //         history.value.description,
+                                      //     date: history.value.paymentDate,
+                                      //     amount: history.value.amount,
+                                      //     shopLogo: history.value.thumbnail,
+                                      //     id: history.value.id,
+                                      //     pointAmount: history.value.amount
+                                      // ),
+                                      ),
                             )
                             .toList(),
                       ),

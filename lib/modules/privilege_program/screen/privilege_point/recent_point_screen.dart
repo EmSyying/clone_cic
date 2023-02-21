@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/point_emptystate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../widgets/privilege/custom_shimmer_point.dart';
 import '../../../../widgets/privilege/privilege_point/custom_recent_card.dart';
@@ -31,7 +32,36 @@ class RecentPointScreen extends StatelessWidget {
                           .entries
                           .map((e) {
                     return CustomRecentCard(
-                      recentActivities: e.value,
+                      // recentActivities: e.value,
+                      onTap: () {
+                        context.pushNamed(
+                          'PaymentSummeryMVP',
+                          queryParams: {
+                            'amount': '24',
+                            'accountMVP': 'hany',
+                            'transactionID': '002',
+                            'date': '21-02-2023',
+                            'reference': 'dev',
+                            'fromAccount': '000854387',
+                            'marchant': 'test',
+                            'originalAmount': '000859837',
+                            'remark': 'Test Reddem',
+                          },
+                          extra: {
+                            'onPressed': () {
+                              Navigator.pop(context);
+                            },
+                          },
+                        );
+                      },
+                      id: e.value.id,
+                      shopLogo: e.value.shopLogo,
+                      shopName: e.value.shopName,
+                      description: e.value.description,
+                      date: e.value.date,
+                      code: e.value.code,
+                      pointAmount: e.value.pointAmount,
+                      label: e.value.label,
                     );
                   }).toList()),
                 )
@@ -43,45 +73,45 @@ class RecentPointScreen extends StatelessWidget {
   }
 }
 
-class RecentCardModel {
-  final String? title, datetime, action, image;
-  final int? price, minusPoint;
+// class RecentCardModel {
+//   final String? title, datetime, action, image;
+//   final int? price, minusPoint;
 
-  RecentCardModel(
-      {this.title,
-      this.datetime,
-      this.action,
-      this.price,
-      this.minusPoint,
-      this.image});
-}
+//   RecentCardModel(
+//       {this.title,
+//       this.datetime,
+//       this.action,
+//       this.price,
+//       this.minusPoint,
+//       this.image});
+// }
 
-List<RecentCardModel> recentCardList = [
-  RecentCardModel(
-    title: 'Champei SpaLorem Ipsum Cham ...',
-    datetime: '23 December 2022',
-    price: 540,
-    minusPoint: 500,
-    action: 'APGQ',
-    image:
-        'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
-  ),
-  RecentCardModel(
-    title: 'Champei SpaLorem Ipsum Cham ...',
-    datetime: '23 December 2022',
-    price: 540,
-    minusPoint: 500,
-    action: 'APGQ',
-    image:
-        'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
-  ),
-  RecentCardModel(
-    title: 'Champei SpaLorem Ipsum Cham ...',
-    datetime: '23 December 2022',
-    price: 540,
-    minusPoint: 500,
-    action: 'APGQ',
-    image:
-        'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
-  ),
-];
+// List<RecentCardModel> recentCardList = [
+//   RecentCardModel(
+//     title: 'Champei SpaLorem Ipsum Cham ...',
+//     datetime: '23 December 2022',
+//     price: 540,
+//     minusPoint: 500,
+//     action: 'APGQ',
+//     image:
+//         'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
+//   ),
+//   RecentCardModel(
+//     title: 'Champei SpaLorem Ipsum Cham ...',
+//     datetime: '23 December 2022',
+//     price: 540,
+//     minusPoint: 500,
+//     action: 'APGQ',
+//     image:
+//         'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
+//   ),
+//   RecentCardModel(
+//     title: 'Champei SpaLorem Ipsum Cham ...',
+//     datetime: '23 December 2022',
+//     price: 540,
+//     minusPoint: 500,
+//     action: 'APGQ',
+//     image:
+//         'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
+//   ),
+// ];

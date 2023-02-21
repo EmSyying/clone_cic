@@ -14,7 +14,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/custom_indicatior.dart';
 import '../../../../Utils/form_builder/custom_material_modal_sheet.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
-import '../../../../utils/permission/ask_permision_screen.dart';
 import '../../../../utils/permission/controller/permision_controller.dart';
 import '../../../../widgets/privilege/custom_row_filter.dart';
 import '../../../../widgets/privilege/custom_shimmer_categories.dart';
@@ -375,11 +374,11 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                         context.go(
                                             "/privilege/all-stores/filter-item");
                                       },
-                                      titleStores: priCon.segmentedControlValue
-                                                  .value ==
-                                              0
-                                          ? '${preController.storeAmount} Stores'
-                                          : '${preController.favshopModelList.length} Stores',
+                                      // titleStores: priCon.segmentedControlValue
+                                      //             .value ==
+                                      //         0
+                                      //     ? '${preController.storeAmount} Stores'
+                                      //     : '${preController.favshopModelList.length} Stores',
                                     ),
                                   ),
 
