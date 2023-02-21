@@ -16,17 +16,19 @@ import '../model/location/location.dart';
 import '../model/search_loation_list/search_location_list.dart';
 import '../model/slide_privilege/privilege_slide_model.dart';
 import '../model/stores_model/model_pre.dart';
+import '../model/stores_model/privilege_data_model.dart';
 
 class PrivilegeController extends GetxController {
   final favoritesList = <StoreModel>[].obs;
   final optionSelecList = <OptionForm>[].obs;
   final isSelectFilter = false.obs;
   final selectedCategFil = ''.obs;
+  final categoryId = 0.obs;
   final googleMapCon = Get.put(GoogleMapsController());
 //Refreshscreen====F
   Future<void> onRefreshPrivilege() async {
     await onFetchCategories();
-    await onFetchAllStore(1);
+    // await onFetchAllStore(1);
     await onFetchFavouriteStore();
   }
 
@@ -37,9 +39,12 @@ class PrivilegeController extends GetxController {
 
   final isLoadingShopList = false.obs;
   final isLoadingMoreShop = false.obs;
+  final segmentedControlValue = 0.obs;
+  final privilegeShopData = PrivilegeDataModel().obs;
   String? next;
   final storeAmount = 0.obs;
   Future<List<PrivilegeShopModel>> onFetchAllStore(int page) async {
+    debugPrint("Page Number: $page");
     if (page == 1) {
       isLoadingShopList(true);
       isLoadingMoreShop(false);
@@ -59,18 +64,13 @@ class PrivilegeController extends GetxController {
       )
           .then(
         (response) {
-          var responseJson = response['data'];
-          next = response['links']['next'];
-          debugPrint('Next : $next');
+          privilegeShopData.value = PrivilegeDataModel.fromJson(response);
 
-          if (page == 1) {
-            shopModelList.clear();
+          // ignore: iterable_contains_unrelated_type
+          if (!shopModelList.contains(privilegeShopData.value.data)) {
+            shopModelList.addAll(privilegeShopData.value.data!);
           }
-          responseJson.map((e) {
-            shopModel.value = PrivilegeShopModel.fromJson(e);
 
-            shopModelList.add(shopModel.value);
-          }).toList();
           shopModelList.map((amount) {
             storeAmount.value = amount.numberShop!.toInt();
           }).toList();
@@ -96,13 +96,13 @@ class PrivilegeController extends GetxController {
   bool onNotification(ScrollEndNotification scrollNotification) {
     if (scrollNotification.metrics.pixels ==
         scrollNotification.metrics.maxScrollExtent) {
-      if (isLoadingMoreShop.value) {
-        return true; //stopFetch When Loading More
-      } else {
-        shopPage += 1;
-      }
-      if (shopPage > 1 && next != null) {
+      if (privilegeShopData.value.links!.next != null) {
+        shopPage++;
+        isLoadingMoreShop(true);
+
         onFetchAllStore(shopPage);
+      } else {
+        isLoadingMoreShop(false);
       }
     }
     return true;
@@ -331,37 +331,60 @@ class PrivilegeController extends GetxController {
   final locationName = "".obs;
   final locationCode = "".obs;
   final isLoadingCategoryFilter = false.obs;
-  final categoryFilterModel = PrivilegeShopModel().obs;
+  final categoryFilterModel = PrivilegeDataModel().obs;
   final categoryFilterList = <PrivilegeShopModel>[].obs;
 
+  final pageNoForSearchResult = 1.obs;
+  final isLoadingResultSearch = false.obs;
+
   Future<List<PrivilegeShopModel>> onFilterByCategoriesByLocation(
-      {String? location, int? categoryId}) async {
-    debugPrint("Filter is ==== $location");
-    debugPrint("Category is ==== $categoryId");
-
-    isLoadingCategoryFilter(true);
-    apiBaseHelper
-        .onNetworkRequesting(
-            url: location == null
-                ? 'privilege/filer?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId'
-                : 'privilege/filer?location=$location&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId',
-            methode: METHODE.get,
-            isAuthorize: true)
-        .then((response) {
-      var responseJson = response['data'];
-
-      shopModelList.clear();
-      categoryFilterList.clear();
-      responseJson.map((e) {
-        shopModel.value = PrivilegeShopModel.fromJson(e);
-        categoryFilterList.add(shopModel.value);
-        shopModelList.add(shopModel.value);
-      }).toList();
-
+      {String? location, int? categoryId, int? page}) async {
+    if (page == 1) {
+      isLoadingCategoryFilter(true);
+      isLoadingResultSearch.value = false;
+    } else {
+      isLoadingResultSearch.value = true;
       isLoadingCategoryFilter(false);
-    }).onError((ErrorModel errorModel, stackTrace) {
+    }
+
+    try {
+      await apiBaseHelper
+          .onNetworkRequesting(
+              url: location == null
+                  ? 'privilege/filer?page=$page&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId'
+                  : 'privilege/filer??page=$page&location=$location&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&category=$categoryId',
+              methode: METHODE.get,
+              isAuthorize: true)
+          .then((response) {
+        var responseJson = response['data'];
+        categoryFilterModel.value = PrivilegeDataModel.fromJson(response);
+        // ignore: iterable_contains_unrelated_type
+        if (!categoryFilterList.contains(categoryFilterModel.value.data)) {
+          categoryFilterList.addAll(categoryFilterModel.value.data!);
+        }
+
+        shopModelList.clear();
+        // categoryFilterList.clear();
+        // responseJson.map((e) {
+        //   shopModel.value = PrivilegeShopModel.fromJson(e);
+        //   categoryFilterList.add(shopModel.value);
+        //   shopModelList.add(shopModel.value);
+        // }).toList();
+      }).onError((ErrorModel errorModel, stackTrace) {
+        // if (page == 1) {
+        //   isLoadingCategoryFilter(true);
+        //   isLoadingResultSearch.value = false;
+        // } else {
+        //   isLoadingResultSearch.value = true;
+        //   isLoadingCategoryFilter(false);
+        // }
+      });
+    } catch (ex) {
+      //
+    } finally {
       isLoadingCategoryFilter(false);
-    });
+      isLoadingResultSearch(false);
+    }
 
     return categoryFilterList;
   }
@@ -371,7 +394,7 @@ class PrivilegeController extends GetxController {
   final locationCodeList = <dynamic>[].obs;
   final categoriesId = 0.obs;
 
-  void onSelected({int? index, String? selectedItemCode}) {
+  void onSelected({int? index, String? selectedItemCode}) async {
     // Assign value check or not(true/fale)
     if (locationPrivilageList[index!].isSelected == false) {
       locationPrivilageList[index] =
@@ -395,7 +418,8 @@ class PrivilegeController extends GetxController {
     debugPrint('Location Req = $allLocation');
 
 // Filter by Location and Categories
-    onFilterByCategoriesByLocation(
+    categoryFilterList.clear();
+    await onFilterByCategoriesByLocation(
       location: allLocation,
       categoryId: categoriesId.value,
     );

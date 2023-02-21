@@ -20,10 +20,12 @@ Future<void> main() async {
     flavor: Flavor.PRODUCTION,
     color: Colors.deepPurpleAccent,
     values: FlavorValues(
-        baseUrl: "https://cicstaging.z1central.com/",
-        apiBaseUrl: "https://cicstaging.z1central.com/api/v4/",
+        // baseUrl: "https://cicstaging.z1central.com/",
+        // apiBaseUrl: "https://cicstaging.z1central.com/api/v4/",
         // baseUrl: "https://pre-cic.z1platform.com/",
         // apiBaseUrl: "https://pre-cic.z1platform.com/api/v4/",
+        baseUrl: "https://cic.z1platform.com/",
+        apiBaseUrl: "https://cic.z1platform.com/api/v4/",
         androidBundleId: 'com.cambodianinvestorscorporation',
         iOSBundleName: 'com.cambodianinvestorscorporation'),
   );

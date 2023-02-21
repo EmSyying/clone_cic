@@ -57,12 +57,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
       debugPrint('Privilege Inistate');
       final router = GoRouter.of(context);
       if (router.location.contains('all-stores')) {
-        segmentedControlValue = 0;
+        priCon.segmentedControlValue.value = 0;
       } else {
-        segmentedControlValue = 1;
+        priCon.segmentedControlValue.value = 1;
       }
     });
     onRefresh();
+
     priCon.onFetchCategories();
     priCon.onRefreshPrivilege();
     // _settingCon.fetchSlidePrivilege();
@@ -76,7 +77,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     const CustomCardFavoriesList(),
   ];
 
-  int segmentedControlValue = 0;
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
   File? nationalBack;
@@ -324,7 +324,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     color: Colors.transparent,
                                     width: double.infinity,
                                     child: CupertinoSlidingSegmentedControl(
-                                      groupValue: segmentedControlValue,
+                                      groupValue:
+                                          priCon.segmentedControlValue.value,
                                       backgroundColor: const Color(0xff252552)
                                           .withOpacity(0.1),
                                       children: <int, Widget>{
@@ -355,7 +356,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                       },
                                       onValueChanged: (int? value) {
                                         setState(() {
-                                          segmentedControlValue = value!;
+                                          priCon.segmentedControlValue.value =
+                                              value!;
                                         });
                                       },
                                     ),
@@ -373,13 +375,16 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                         context.go(
                                             "/privilege/all-stores/filter-item");
                                       },
-                                      titleStores: segmentedControlValue == 0
+                                      titleStores: priCon.segmentedControlValue
+                                                  .value ==
+                                              0
                                           ? '${preController.storeAmount} Stores'
                                           : '${preController.favshopModelList.length} Stores',
                                     ),
                                   ),
 
-                                  storePages[segmentedControlValue],
+                                  storePages[
+                                      priCon.segmentedControlValue.value],
 
                                   ///end Tabs Bar================
                                 ],
@@ -393,31 +398,34 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     ),
                   ),
                 ),
-                if (priCon.isLoadingMoreShop.value)
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      width: double.infinity,
-                      color: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 3),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Loading more ',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                Obx(
+                  () => priCon.isLoadingMoreShop.value
+                      ? Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            width: double.infinity,
+                            color: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 3),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Loading more ',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const CupertinoActivityIndicator(),
+                              ],
+                            ),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const CupertinoActivityIndicator(),
-                        ],
-                      ),
-                    ),
-                  ),
+                        )
+                      : Container(),
+                ),
               ],
             ),
           ),

@@ -48,8 +48,8 @@ class OfflineWidget extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: Theme.of(context).primaryColor, width: 2)),
+                    border:
+                        Border.all(color: const Color(0xff0F50A4), width: 2)),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -57,16 +57,16 @@ class OfflineWidget extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         'assets/images/svgfile/refreshIcon.svg',
-                        color: Theme.of(context).primaryColor,
+                        color: const Color(0xff0F50A4),
                       ),
                       const SizedBox(
                         width: 20,
                       ),
-                      Text(
+                      const Text(
                         'Try again',
                         style: TextStyle(
                             fontSize: 16,
-                            color: Theme.of(context).primaryColor,
+                            color: Color(0xff0F50A4),
                             fontFamily: 'DMSans'),
                       )
                     ],

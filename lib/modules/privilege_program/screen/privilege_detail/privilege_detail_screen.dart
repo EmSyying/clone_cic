@@ -205,6 +205,7 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                       : Colors.black,
                                 ),
                                 onPressed: () {
+                                  priController.segmentedControlValue.value = 0;
                                   Navigator.pop(context);
 
                                   if (priController.categoriesId.value != 0 ||

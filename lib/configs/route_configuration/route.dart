@@ -690,7 +690,15 @@ final router = GoRouter(
                               key: state.pageKey,
                               isHide: state.queryParams['isHide'] == 'true',
                             ),
-                        routes: const []),
+                        routes: [
+                          GoRoute(
+                              path: 'mvp-screen',
+                              name: 'MVPScreen',
+                              parentNavigatorKey: _rootNavigatorKey,
+                              builder: (context, state) => PrivilegePointScreen(
+                                    key: state.pageKey,
+                                  ))
+                        ]),
                     GoRoute(
                       name: 'DepositCard',
                       path: 'deposit-card',

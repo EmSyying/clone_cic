@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/function/convert_fromhex_color.dart';
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:flutter/material.dart';
@@ -50,14 +51,19 @@ class CustomCardAllStores extends StatelessWidget {
                 height: 84,
                 padding: const EdgeInsets.all(0.0),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5.0),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        privilegeShopList!.shopLogo ?? '',
-                      ),
-                    )),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5.0),
+                  // image: DecorationImage(
+                  //   fit: BoxFit.cover,
+                  //   image: NetworkImage(
+                  //     privilegeShopList!.shopLogo ?? '',
+                  //   ),
+                  // ),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: privilegeShopList!.shopLogo ?? '',
+                  errorWidget: (context, url, error) => const Text("error"),
+                ),
               ),
               Expanded(
                 child: Container(

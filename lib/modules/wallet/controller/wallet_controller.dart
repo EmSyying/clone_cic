@@ -586,6 +586,7 @@ class WalletController extends GetxController {
         debugPrint('Error : ${error.statusCode} : ${error.bodyString}');
       });
     } catch (e) {
+      isMyPoint(false);
       debugPrint("Fetch My Point:$e");
     } finally {
       isMyPoint(false);

@@ -21,7 +21,7 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
 
   @override
   void initState() {
-    priCont.onFetchAllStore(1);
+    // priCont.onFetchAllStore(1);
     priCont.onFetchShopDetail(widget.id);
 
     super.initState();
@@ -83,6 +83,16 @@ class _CustomAllStoreListState extends State<CustomAllStoreList> {
                   )
                   .toList(),
             ),
+      // :
+      // Column(
+      //     children: [
+      //       CustomCardAllStores(
+      //         isFav: true,
+      //         onTapFav: () {},
+      //         privilegeShopList: priCont.shopModelList[9],
+      //       )
+      //     ],
+      //   ),
     );
   }
 }

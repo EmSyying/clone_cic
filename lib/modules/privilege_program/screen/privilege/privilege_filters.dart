@@ -88,16 +88,20 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                               ),
                               child: ComponentCardCategory(
                                 onTapCatego: () {
+                                  privilegeController.categoryId.value =
+                                      cardListCat.value.id!;
                                   setState(() {
                                     privilegeController.selectedCategFil.value =
                                         cardListCat.value.name!;
                                   });
+                                  privilegeController.categoryFilterList
+                                      .clear();
                                   privilegeController.categoriesId.value =
                                       cardListCat.value.id!;
                                   privilegeController
                                       .onFilterByCategoriesByLocation(
-                                    categoryId: cardListCat.value.id,
-                                  );
+                                          categoryId: cardListCat.value.id,
+                                          page: 1);
                                 },
                                 selected: privilegeController
                                         .selectedCategFil.value ==
