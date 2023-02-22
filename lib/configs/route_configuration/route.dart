@@ -48,6 +48,7 @@ import '../../modules/ut_trading/screens/add_inquiry.dart';
 import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
 
+import '../../modules/wallet/screen/review_mma_transfer_screen.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
 import 'route_singleton.dart';
@@ -777,14 +778,23 @@ final router = GoRouter(
                           fromModule: 'Transfer', key: state.pageKey),
                       routes: [
                         GoRoute(
-                          path: 'mma-cash-out/:tabName',
-                          builder: (BuildContext context, GoRouterState state) {
-                            final String tabName = state.params['tabName']!;
+                            path: 'mma-cash-out/:tabName',
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final String tabName = state.params['tabName']!;
 
-                            return CashOutScreen(
-                                tabName: tabName, key: state.pageKey);
-                          },
-                        ),
+                              return CashOutScreen(
+                                  tabName: tabName, key: state.pageKey);
+                            },
+                            routes: [
+                              // Review MMATransfer Screen
+                              GoRoute(
+                                path: 'review-mma-transfer',
+                                name: 'ReviewMMATransferScreen',
+                                builder: (_, state) =>
+                                    const ReviewMMATransferScreen(),
+                              ),
+                            ]),
                       ],
                     ),
                   ],

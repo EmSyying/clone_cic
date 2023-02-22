@@ -577,6 +577,7 @@ class WalletController extends GetxController {
               url: 'mvp/balance', methode: METHODE.get, isAuthorize: true)
           .then((response) {
         mvpBalance.value = MVPBalance.fromJson(response);
+        debugPrint("MY Point:$response");
         debugPrint(
             "mvp Balance:${mvpBalance.value.mvpAmount}::${mvpBalance.value.mvpAmountFormat}");
 

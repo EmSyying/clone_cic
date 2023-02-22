@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -23,7 +24,6 @@ import '../../../../utils/helper/digit_decimal_formarter.dart';
 import '../../../../widgets/mmaccount/wallet_total_amount_card.dart';
 import '../../../member_directory/controllers/customer_controller.dart';
 import '../../../wallet/controller/wallet_controller.dart';
-import '../../../wallet/screen/review_mma_transfer_screen.dart';
 import '../../controllers/bonus_controller.dart';
 
 // ignore: must_be_immutable
@@ -276,27 +276,6 @@ class CustomNewCashOut extends StatelessWidget {
                                       DigitFormatWithDecimal(),
                                       FilteringTextInputFormatter.allow(
                                           RegExp(r'^\d+\.?\d{0,2}')),
-                                      // FilteringTextInputFormatter.allow(
-                                      //     RegExp(r"[0-9.]")),
-                                      // TextInputFormatter.withFunction(
-                                      //     (oldValue, newValue) {
-                                      //   double? number =
-                                      //       double.tryParse(newValue.text);
-                                      //   if (number != null) {
-                                      //     debugPrint('New');
-                                      //     return newValue.copyWith(
-                                      //         text: newValue.text.asInput(),
-                                      //         selection: TextSelection.collapsed(
-                                      //             offset: newValue.text
-                                      //                 .asInput()
-                                      //                 .length));
-                                      //   } else if (newValue.text.isEmpty) {
-                                      //     return const TextEditingValue();
-                                      //   } else {
-                                      //     debugPrint('Old');
-                                      //     return oldValue;
-                                      //   }
-                                      // }),
                                     ],
                                     keyboardType:
                                         const TextInputType.numberWithOptions(
@@ -340,73 +319,6 @@ class CustomNewCashOut extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     newCashOutCon.isAgree.value =
-                    //         !newCashOutCon.isAgree.value;
-                    //   },
-                    //   child: Container(
-                    //     padding: const EdgeInsets.only(
-                    //       left: 20.0,
-                    //       right: 20.0,
-                    //       bottom: 20.0,
-                    //       top: 10.0,
-                    //     ),
-                    //     child: Column(
-                    //       children: [
-                    //         Row(
-                    //           children: [
-                    //             newCashOutCon.isAgree.value == false
-                    //                 ? SvgPicture.asset(
-                    //                     'assets/images/svgfile/cicle_check.svg',
-                    //                     color: Colors.grey,
-                    //                   )
-                    //                 : SvgPicture.asset(
-                    //                     'assets/images/svgfile/circle_check-selected.svg'),
-                    //             const SizedBox(width: 10),
-                    //             Text(
-                    //               'I have read and agreed to CIC Service Agreement',
-                    //               style: Theme.of(context)
-                    //                   .textTheme
-                    //                   .displayMedium!
-                    //                   .copyWith(
-                    //                       fontSize: 13,
-                    //                       fontWeight: FontWeight.w400,
-                    //                       color: const Color(0XFF464646)),
-                    //             ),
-                    //             // GestureDetector(
-                    //             //   onTap: () {
-                    //             //     onShowCustomCupertinoModalSheet(
-                    //             //         context: context,
-                    //             //         child: ServiceAgreement(
-                    //             //           serviceAgreement: newCashOutCon
-                    //             //               .bonusSetting
-                    //             //               .value
-                    //             //               .serviceAgreement,
-                    //             //         ),
-                    //             //         title: 'Service Agreement',
-                    //             //         icon: const Icon(Icons.arrow_back_ios));
-                    //             //   },
-                    //             //   child: Padding(
-                    //             //     padding: const EdgeInsets.only(left: 5.0),
-                    //             //     child: Text(
-                    //             //       'CiC Serivce Agreement',
-                    //             //       style: Theme.of(context)
-                    //             //           .textTheme
-                    //             //           .displayMedium!
-                    //             //           .copyWith(
-                    //             //               fontSize: 13,
-                    //             //               fontWeight: FontWeight.normal,
-                    //             //               color: Theme.of(context).primaryColor),
-                    //             //     ),
-                    //             //   ),
-                    //             // ),
-                    //           ],
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                     Container(
                         color: Colors.white,
                         padding: const EdgeInsets.only(
@@ -417,18 +329,15 @@ class CustomNewCashOut extends StatelessWidget {
                                   newCashOutCon.accountNumber.value != "" &&
                                   newCashOutCon.cashoutAmount.value != 0
                               ? () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ReviewMMATransferScreen(),
-                                    ),
-                                  );
-                                  // FirebaseAnalyticsHelper
-                                  //     .sendAnalyticsEvent(
-                                  //         'submit bonus cast out');
-                                  // newCashOutCon.isAgree.value = false;
-                                  // isValidate(context);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         const ReviewMMATransferScreen(),
+                                  //   ),
+                                  // );
+                                  context.push(
+                                      '/wallet/mma-transfer/mma-cash-out/new-cash-oute/review-mma-transfer');
                                 }
                               : null,
                           isDisable: newCashOutCon.bankName.value != "" &&

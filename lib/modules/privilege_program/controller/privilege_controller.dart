@@ -746,9 +746,8 @@ class PrivilegeController extends GetxController {
           'remark': remark.value
         },
       ).then((response) {
-        debugPrint("MVP Respone:$response");
+        debugPrint("MVP Payment Response:$response");
 
-        onClearRedeemToMVP();
         paymentSummery.value = PaymentSummary.fromJson(response);
         context.pushNamed(
           'PaymentSummeryMVP',
@@ -767,6 +766,7 @@ class PrivilegeController extends GetxController {
           },
           extra: {
             'onPressed': () {
+              onClearRedeemToMVP();
               onFetchShopDetail(shopStoreId.value).then((value) {
                 context.go(
                     "/privilege/all-store/privilege-detail/${shopStoreId.value}");
@@ -781,8 +781,11 @@ class PrivilegeController extends GetxController {
 
         update();
       }).onError((ErrorModel error, stackTrace) {
-        debugPrint("redeem Error 1:${error.bodyString}");
         isRedeemToSubmitMVP(false);
+        customRouterSnackbar(
+            title: 'Redeem Failed',
+            description: error.bodyString['message'] ?? '',
+            type: SnackType.error);
 
         update();
       });

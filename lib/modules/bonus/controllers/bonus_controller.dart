@@ -117,6 +117,7 @@ class BonusController extends GetxController {
     subscriptionAmount.value = 0;
     isAgree.value = false;
     isValidateCashoutAmount.value = true;
+    update();
   }
 
   onClearBank() {
@@ -410,8 +411,6 @@ class BonusController extends GetxController {
               }))
           .then((response) {
         if (response.statusCode == 200) {
-          onClear();
-
           context.pushNamed(
             'SuccessScreen',
             queryParams: {
@@ -421,7 +420,11 @@ class BonusController extends GetxController {
             },
             extra: {
               'onPressedButton': () {
+                onClear();
+
                 context.go('/wallet/mma-transfer/mma-cash-out/history-cashout');
+                update();
+
                 _walletController.fetchWalletAmount();
               },
             },
