@@ -40,6 +40,37 @@ class CustomNumberStoresFilter extends StatelessWidget {
         ),
         const Spacer(),
         GestureDetector(
+          onTap: onTapSearch,
+          child: Container(
+            decoration: BoxDecoration(
+                color: AppColor.lightblue.withOpacity(0.06),
+                borderRadius: BorderRadius.circular(8.0)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/privilege/search.svg',
+                    color: Theme.of(context).primaryColor,
+                    width: 18.0,
+                    height: 18.0,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Search',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        GestureDetector(
           onTap: onTapFilter,
           child: Container(
             decoration: BoxDecoration(
@@ -65,27 +96,6 @@ class CustomNumberStoresFilter extends StatelessWidget {
                       ),
                 ),
               ],
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        GestureDetector(
-          onTap: onTapSearch,
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColor.lightblue.withOpacity(0.06),
-              shape: BoxShape.circle,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                'assets/images/privilege/search.svg',
-                color: Theme.of(context).primaryColor,
-                width: 18.0,
-                height: 18.0,
-              ),
             ),
           ),
         ),
