@@ -47,7 +47,7 @@ class CustomNumberStoresFilter extends StatelessWidget {
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    'assets/images/privilege/search.svg',
+                    'assets/images/svgfile/new_search.svg',
                     color: Theme.of(context).primaryColor,
                     width: 18.0,
                     height: 18.0,
@@ -73,8 +73,6 @@ class CustomNumberStoresFilter extends StatelessWidget {
             decoration: BoxDecoration(
                 color: AppColor.lightblue.withOpacity(0.06),
                 borderRadius: BorderRadius.circular(8.0)),
-            width: 87,
-            height: 34,
             padding: const EdgeInsets.symmetric(
               horizontal: 12.0,
               vertical: 7.0,
@@ -85,12 +83,6 @@ class CustomNumberStoresFilter extends StatelessWidget {
                 SvgPicture.asset(
                   'assets/images/privilege/filter_icon.svg',
                   color: Theme.of(context).primaryColor,
-                ),
-                Text(
-                  'Filter',
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
                 ),
               ],
             ),
