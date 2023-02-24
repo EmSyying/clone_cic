@@ -277,7 +277,8 @@ class _CustomUserProfileState extends State<CustomUserProfile> {
                       radius: 18,
                       backgroundColor: Colors.white,
                       child: SvgPicture.asset(
-                          'assets/images/svgfile/camera_new.svg'),
+                        'assets/images/svgfile/camera_new.svg',
+                      ),
                     ),
                   ),
                 ),

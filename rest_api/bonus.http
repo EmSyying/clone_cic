@@ -1,12 +1,12 @@
 @baseUrl = https://cicstaging.z1central.com/api/
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiODdiMWMwZmFhMWY4NmY2Mzk0YWZkOTU2ZTgxZjc3ODg2NTgyMjA0ZGQwN2ZhOTViMDczZDk0NjQzNDE4YWFlYjZiMmNkN2JjYmJjN2FiNjQiLCJpYXQiOjE2NjQzNTcwMjUuODYyNTU1LCJuYmYiOjE2NjQzNTcwMjUuODYyNTU5LCJleHAiOjE2OTU4OTMwMjUuODU0MTc2LCJzdWIiOiIxMSIsInNjb3BlcyI6WyIqIl19.T5_pszJjG6gwtJRd4KaiFGOvzieHNz0iTK98wsub65WMvmy3Jj1yNpL3sBRCucmzP1gqQMGKWPvCgEIukkqHb6s2w06jvW-7EvN5KT6kL1xByGStYSbifgulQgME_yHwp6Ii-yUiQoU1T0aAAO25kF-j5hlD4RlmyQ9S027G8KoydojPBVPtWzP0YFLaVf4euJwcJoI2LhxK4AFrVqufpdmt8yURvGcD0SDe_nwqs9kDZKcx5ZPj9uc_nIC9pSi3Z1NXJIdU5qg6G8BBRjHoMWFNTkmbNU8rGajyjvN-WBGm1APpwvTAXS8epgaKoh02G_phG0NYbccMFf0OPN7zHSLCi_KyEAkBE8blJzTR2y-alDuj6ouU40QezsC4MsBGcBUBzr6XRhqx8ABadYlsjen3QvK6unfGXSF3XqyI3IkpusFolln_S_mmtC2FKKzHoFps_F3FGzUFns6OdSTRfawHfUbRDQ8PiI8hvDFnRzAICYPAp3yTN9tk5K_gimK98kHSm0x4304bjrQAmgZ-PVYPeX2Ed_7trmkd_HF2L1g4q6osq1gYjR7LKVeVi7ktgiUOuURk7kRQB89ASuFdY5gwk8ie6thTFcR6pns223wXKsms4nlh4ohZL-mKeWnmc_b_quY-ZtFeSbopSnvIBU2e8j3zbkJicgkKoDZ4nX8
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiYTA3MjViNTVlMjE2YTQ1ZjdhNWYxNTlhYmI3ZGU0MzNiZWY5MDg0ZTk3MzllYjE4OTkxYmE4ODYyZDNhOTBmODkzNjc0NjEyMDIxMDNkMTQiLCJpYXQiOjE2NzY1MjMxMTMuNjc5NTg5LCJuYmYiOjE2NzY1MjMxMTMuNjc5NTkyLCJleHAiOjE3MDgwNTkxMTMuNjcxMDYsInN1YiI6IjgzIiwic2NvcGVzIjpbIioiXX0.h76bxJIz8xWuTE_AIfWqQYtdCWZWgy0RCzPmjb89fzWfVmO3YcIqmw5IRPvKoOPAaFZeNwWOOIc1A4AnpmasUF7TDyR2brOfgQbm4QgA7hC3fJ9Uvy3KP3Z6jUvNGlXNpw7YNnYFRPX89CvRUbv6UWXo00SpEprYNuY4ktvV_zQAdHZfQO2-9fzLs_skv177y3MGYBeGfcIRVVTrQcYgan6VgKKAZbVQ58COdHOJ6VaixqXgcTTpBDZIN1wFXEDhW3o5SHT4y5f_IHabBg4td78hTTYfpCfGS2m0esLV1wyBnnMv7dwm6ov4nPWGqzztpG6xBvstCT1VKNfo44lj_HInfTMJCqRfUDsetJQJfWR6Z7haXVHXf43YJa_0wyNrRwr96nbWJXqoLI4CrA8qLKz8TAu-5JNfXtWHtq30ntC9v6Fe_hFLIpZJLf-EtT-k6n7DKHZKbgEOm-1b2ikYdZyWK31qAu6VVL_qvidJTMWLM7z2QDAt3L9l6qBw4E1HSazohRwfLGeKyX-9-Vc6rDeIMRCTyW5qP2Dbn3cBbOZZNhwMB3MnA_RxlVr7HhItoQ58FFiXB-dWmN44bBVanxF9l2FoTaXGOv37bLzfZoGxjCWvsWSF1m82b4VITbmMWJ9CUe2v0Xq6zWTsV7tuFgRajfeBofD_WkkRYCBfTug
 POST {{baseUrl}}login
 Content-Type: application/json
 Accept: application/json
 
 {
-    "phone" : "+85569722942",
-    "password" : "@1234567Y"  
+    "phone" : "+85510305096",
+    "password" : "Admin@2022"  
 }
 
 ###
@@ -88,7 +88,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ###
-get {{baseUrl}}v3/bank-type
+get {{baseUrl}}v4/bank-type
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -240,3 +240,15 @@ Authorization: Bearer {{token}}
     "amount" : 300,
     "referal_id" : 1
 }
+
+###
+get {{baseUrl}}v4/user/wallet/transaction?deposit=1&cashout=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+get {{baseUrl}}v4/user/wallet/transaction?income=1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
