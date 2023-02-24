@@ -113,10 +113,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       ),
                     ),
                     Positioned(
-                      left: 10.0,
+                      left: 15.0,
                       //right: 0.0,
                       // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
-                      top: 5.0,
+                      top: 8.0,
                       child: Obx(
                         () => Container(
                           decoration: BoxDecoration(
