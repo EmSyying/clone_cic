@@ -43,8 +43,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   Future<void> onRefresh() async {
     debugPrint("On refresh");
     priCon.shopPage = 1;
-    setState(() => priCon.filterString.value = "");
-    await priCon.onFetchStoreData(0, priCon.shopPage);
+    // setState(() => priCon.filterString.value = "");
+    await priCon.onFetchStoreData(
+        priCon.segmentedControlValue.value, priCon.shopPage,
+        filterString: priCon.filterString.value);
     //
   }
 
@@ -386,10 +388,6 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     padding: const EdgeInsets.only(
                                         top: 20.0, bottom: 20.0),
                                     child: CustomNumberStoresFilter(
-                                      initialIndex:
-                                          priCon.filterString.value == ""
-                                              ? 0
-                                              : null,
                                       onSelected: (str) {
                                         debugPrint("str===$str");
                                         priCon.shopPage = 1;
@@ -397,21 +395,20 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                             str.toLowerCase() == "all stores"
                                                 ? ""
                                                 : str;
-                                        if (str.toLowerCase() != "all stores") {
-                                          priCon.onFetchStoreData(
-                                              priCon
-                                                  .segmentedControlValue.value,
-                                              1,
-                                              filterString:
-                                                  priCon.filterString.value);
-                                        } else {
-                                          priCon.onFetchStoreData(
-                                              priCon
-                                                  .segmentedControlValue.value,
-                                              1,
-                                              filterString:
-                                                  priCon.filterString.value);
-                                        }
+                                        // if (str.toLowerCase() != "all stores") {
+                                        //   priCon.onFetchStoreData(
+                                        //       priCon
+                                        //           .segmentedControlValue.value,
+                                        //       1,
+                                        //       filterString:
+                                        //           priCon.filterString.value);
+                                        // } else {
+                                        priCon.onFetchStoreData(
+                                            priCon.segmentedControlValue.value,
+                                            1,
+                                            filterString:
+                                                priCon.filterString.value);
+                                        // }
                                       },
                                       onTapSearch: () {
                                         context.go(
