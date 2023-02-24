@@ -6,17 +6,22 @@ import '../../Utils/helper/color.dart';
 
 class CustomNumberStoresFilter extends StatelessWidget {
   final String? titleStores;
+  final int? initialIndex;
   final GestureTapCallback? onTapFilter;
   final GestureTapCallback? onTapSearch;
+  final Function(String)? onSelected;
+
   const CustomNumberStoresFilter({
     Key? key,
     this.titleStores,
     this.onTapFilter,
     this.onTapSearch,
+    this.onSelected, this.initialIndex,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+   debugPrint("initialIndex$initialIndex");
     return Row(
       children: [
         // Container(
@@ -30,10 +35,8 @@ class CustomNumberStoresFilter extends StatelessWidget {
         //   ),
         // ),
         CustomDropDownbutton(
-          // initialIndex: 1,
-          onSelected: (v) {
-            debugPrint(v);
-          },
+          initialIndex: initialIndex,
+          onSelected: onSelected,
         ),
         const Spacer(),
         GestureDetector(

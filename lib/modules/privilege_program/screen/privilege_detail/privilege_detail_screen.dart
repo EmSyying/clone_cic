@@ -174,8 +174,14 @@ class _PrivilegeDetailScreenState extends State<PrivilegeDetailScreen> {
                                             priController.shopDetailModel.value
                                                 .copyWith(isFavorite: true);
                                       }
-                                      priController.onFetchAllStore(1);
-                                      priController.onFetchFavouriteStore();
+                                      priController.shopPage = 1;
+                                      priController.onFetchStoreData(
+                                          0, priController.shopPage);
+                                      priController.onFetchStoreData(
+                                          1, priController.shopPage);
+                                      // priController.onFetchAllStore(1);
+
+                                      // priController.onFetchFavouriteStore();
 
                                       priController.update();
                                     });

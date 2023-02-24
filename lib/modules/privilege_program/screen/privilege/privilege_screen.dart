@@ -18,8 +18,7 @@ import '../../../../utils/permission/controller/permision_controller.dart';
 import '../../../../widgets/privilege/custom_row_filter.dart';
 import '../../../../widgets/privilege/custom_shimmer_categories.dart';
 import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
-import '../../../../widgets/privilege/privilege/custom_all_store_list.dart';
-import '../../../../widgets/privilege/privilege/custom_card_favorites_list.dart';
+import '../../../../widgets/privilege/privilege/custom_store_listing.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
@@ -41,8 +40,11 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
   final _walletController = Get.put(WalletController());
 
   Future<void> onRefresh() async {
+    debugPrint("On refresh");
     priCon.shopPage = 1;
-    await priCon.onFetchAllStore(priCon.shopPage);
+    setState(() => priCon.filterString.value = "");
+    await priCon.onFetchStoreData(0, priCon.shopPage);
+    //
   }
 
   final _permissionController = Get.put(PermissionController());
@@ -61,7 +63,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
         priCon.segmentedControlValue.value = 1;
       }
     });
-    onRefresh();
+    // onRefresh();
 
     priCon.onFetchCategories();
     priCon.onRefreshPrivilege();
@@ -71,10 +73,10 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
     super.initState();
   }
 
-  List<Widget> storePages = [
-    const CustomAllStoreList(),
-    const CustomCardFavoriesList(),
-  ];
+  // List<Widget> storePages = [
+  //   const CustomAllStoreList(),
+  //   const CustomCardFavoriesList(),
+  // ];
 
   int currentIndex = 0;
   final preController = Get.put(PrivilegeController());
@@ -355,9 +357,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                       },
                                       onValueChanged: (int? value) {
                                         setState(() {
+                                          priCon.shopPage = 1;
                                           priCon.segmentedControlValue.value =
                                               value!;
                                         });
+                                        debugPrint("segmentedControlValue");
+                                        priCon.onFetchStoreData(value ?? 0, 1,
+                                            filterString:
+                                                priCon.filterString.value);
                                       },
                                     ),
                                   ),
@@ -366,6 +373,33 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     padding: const EdgeInsets.only(
                                         top: 20.0, bottom: 20.0),
                                     child: CustomNumberStoresFilter(
+                                      initialIndex:
+                                          priCon.filterString.value == ""
+                                              ? 0
+                                              : null,
+                                      onSelected: (str) {
+                                        debugPrint("str===$str");
+                                        priCon.shopPage = 1;
+                                        priCon.filterString.value =
+                                            str.toLowerCase() == "all stores"
+                                                ? ""
+                                                : str;
+                                        if (str.toLowerCase() != "all stores") {
+                                          priCon.onFetchStoreData(
+                                              priCon
+                                                  .segmentedControlValue.value,
+                                              1,
+                                              filterString:
+                                                  priCon.filterString.value);
+                                        } else {
+                                          priCon.onFetchStoreData(
+                                              priCon
+                                                  .segmentedControlValue.value,
+                                              1,
+                                              filterString:
+                                                  priCon.filterString.value);
+                                        }
+                                      },
                                       onTapSearch: () {
                                         context.go(
                                             "/privilege/all-stores/search-item");
@@ -382,8 +416,13 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                     ),
                                   ),
 
-                                  storePages[
-                                      priCon.segmentedControlValue.value],
+                                  // storePages[
+                                  //     priCon.segmentedControlValue.value],
+                                  CustomStoreListing(
+                                    index: priCon.segmentedControlValue.value,
+                                    page: 1,
+                                    filterString: priCon.filterString.value,
+                                  )
 
                                   ///end Tabs Bar================
                                 ],

@@ -29,7 +29,9 @@ class PrivilegeController extends GetxController {
   Future<void> onRefreshPrivilege() async {
     await onFetchCategories();
     // await onFetchAllStore(1);
-    await onFetchFavouriteStore();
+    // await onFetchFavouriteStore();
+    // shopPage = 1;
+    // onFetchStoreData(1, shopPage);
   }
 
   ////function getListShop======
@@ -43,52 +45,52 @@ class PrivilegeController extends GetxController {
   final privilegeShopData = PrivilegeDataModel().obs;
   String? next;
   final storeAmount = 0.obs;
-  Future<List<PrivilegeShopModel>> onFetchAllStore(int page) async {
-    debugPrint("Page Number: $page");
-    if (page == 1) {
-      isLoadingShopList(true);
-      isLoadingMoreShop(false);
-    } else {
-      isLoadingShopList(false);
-      isLoadingMoreShop(true);
-    }
-    debugPrint(
-        'Success Page: $page More: ${isLoadingMoreShop.value} Shimmer: ${isLoadingShopList.value}');
-    try {
-      await apiBaseHelper
-          .onNetworkRequesting(
-        url:
-            'privilege/shop?page=$page&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
-        methode: METHODE.get,
-        isAuthorize: true,
-      )
-          .then(
-        (response) {
-          privilegeShopData.value = PrivilegeDataModel.fromJson(response);
+  // Future<List<PrivilegeShopModel>> onFetchAllStore(int page) async {
+  //   debugPrint("Page Number: $page");
+  //   if (page == 1) {
+  //     isLoadingShopList(true);
+  //     isLoadingMoreShop(false);
+  //   } else {
+  //     isLoadingShopList(false);
+  //     isLoadingMoreShop(true);
+  //   }
+  //   debugPrint(
+  //       'Success Page: $page More: ${isLoadingMoreShop.value} Shimmer: ${isLoadingShopList.value}');
+  //   try {
+  //     await apiBaseHelper
+  //         .onNetworkRequesting(
+  //       url:
+  //           'privilege/shop?page=$page&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
+  //       methode: METHODE.get,
+  //       isAuthorize: true,
+  //     )
+  //         .then(
+  //       (response) {
+  //         privilegeShopData.value = PrivilegeDataModel.fromJson(response);
 
-          // ignore: iterable_contains_unrelated_type
-          if (!shopModelList.contains(privilegeShopData.value.data)) {
-            shopModelList.addAll(privilegeShopData.value.data!);
-          }
+  //         // ignore: iterable_contains_unrelated_type
+  //         if (!shopModelList.contains(privilegeShopData.value.data)) {
+  //           shopModelList.addAll(privilegeShopData.value.data!);
+  //         }
 
-          shopModelList.map((amount) {
-            storeAmount.value = amount.numberShop!.toInt();
-          }).toList();
-        },
-      ).onError(
-        (ErrorModel errorModel, stackTrace) {
-          isLoadingShopList(false);
-          return null;
-        },
-      );
-    } catch (_) {
-    } finally {
-      isLoadingShopList(false);
-      isLoadingMoreShop(false);
-    }
+  //         shopModelList.map((amount) {
+  //           storeAmount.value = amount.numberShop!.toInt();
+  //         }).toList();
+  //       },
+  //     ).onError(
+  //       (ErrorModel errorModel, stackTrace) {
+  //         isLoadingShopList(false);
+  //         return null;
+  //       },
+  //     );
+  //   } catch (_) {
+  //   } finally {
+  //     isLoadingShopList(false);
+  //     isLoadingMoreShop(false);
+  //   }
 
-    return shopModelList;
-  }
+  //   return shopModelList;
+  // }
 
   ///Allstore Pagination
 
@@ -99,8 +101,9 @@ class PrivilegeController extends GetxController {
       if (privilegeShopData.value.links!.next != null) {
         shopPage++;
         isLoadingMoreShop(true);
-
-        onFetchAllStore(shopPage);
+        debugPrint("Hello onnotification");
+        onFetchStoreData(segmentedControlValue.value, shopPage,
+            filterString: filterString.value);
       } else {
         isLoadingMoreShop(false);
       }
@@ -164,27 +167,92 @@ class PrivilegeController extends GetxController {
   final isLoadingFav = false.obs;
   final favshopModelList = <PrivilegeShopModel>[].obs;
 
-  Future<List<PrivilegeShopModel>> onFetchFavouriteStore() async {
-    isLoadingFav(true);
+  // Future<void> onFetchFavouriteStore() async {
+  //   isLoadingFav(true);
+
+  //   await apiBaseHelper
+  //       .onNetworkRequesting(
+  //     url: 'privilege/shop?favorite=true',
+  //     methode: METHODE.get,
+  //     isAuthorize: true,
+  //   )
+  //       .then((response) {
+  //     var responseJson = response['data'];
+  //     favshopModelList.clear();
+
+  //     responseJson.map((e) {
+  //       favshopModelList.add(PrivilegeShopModel.fromJson(e));
+  //     }).toList();
+  //     isLoadingFav(false);
+  //   }).onError((ErrorModel errorModel, stackTrace) {
+  //     isLoadingFav(false);
+  //   });
+  // }
+
+  final isLoadingStoreListing = true.obs;
+  final shopPrivilegeList = <PrivilegeShopModel>[];
+  final filterString = "".obs;
+  Future<void> onFetchStoreData(int index, int page,
+      {String filterString = ""}) async {
+    // isLoadingStoreListing(true);
+    var url = "";
+    if (page == 1) {
+      shopPrivilegeList.clear();
+      isLoadingStoreListing(true);
+      isLoadingMoreShop(false);
+    } else {
+      isLoadingStoreListing(false);
+      isLoadingMoreShop(true);
+    }
+    debugPrint("INDEX===$index");
+    switch (index) {
+      case 0:
+        url =
+            'privilege/shop?page=$page&filter=$filterString&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}';
+        break;
+      case 1:
+        url = "privilege/shop?page=$page&favorite=true&filter=$filterString";
+        break;
+      default:
+        url =
+            'privilege/shop?page=$page&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}';
+        break;
+    }
     await apiBaseHelper
         .onNetworkRequesting(
-      url: 'privilege/shop?favorite=true',
+      url: url,
       methode: METHODE.get,
       isAuthorize: true,
     )
         .then((response) {
       var responseJson = response['data'];
-      favshopModelList.clear();
+      debugPrint("responseJson$responseJson");
 
-      responseJson.map((e) {
-        favshopModelList.add(PrivilegeShopModel.fromJson(e));
+      privilegeShopData.value = PrivilegeDataModel.fromJson(response);
+
+      // ignore: iterable_contains_unrelated_type
+      if (!shopPrivilegeList.contains(privilegeShopData.value.data)) {
+        debugPrint("Hello");
+        shopPrivilegeList.addAll(privilegeShopData.value.data!);
+      }
+
+      shopPrivilegeList.map((amount) {
+        storeAmount.value = amount.numberShop!.toInt();
       }).toList();
-      isLoadingFav(false);
-    }).onError((ErrorModel errorModel, stackTrace) {
-      isLoadingFav(false);
-    });
+      // shopPrivilegeList.clear();
 
-    return favshopModelList;
+      // responseJson.map((e) {
+      //   shopPrivilegeList.add(PrivilegeShopModel.fromJson(e));
+      // }).toList();
+      debugPrint("shopPrivilegeList${shopPrivilegeList.length}");
+
+      isLoadingMoreShop(false);
+
+      isLoadingStoreListing(false);
+    }).onError((ErrorModel errorModel, stackTrace) {
+      isLoadingStoreListing(false);
+      isLoadingMoreShop(false);
+    });
   }
 
   ///function Put Set Favourite Store=====

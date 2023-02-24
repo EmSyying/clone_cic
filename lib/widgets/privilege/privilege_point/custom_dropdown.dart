@@ -101,6 +101,9 @@ class _CustomDropDownbuttonState extends State<CustomDropDownbutton> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.initialIndex != null) {
+      selectedIndex = widget.initialIndex!;
+    }
     return GestureDetector(
       onTap: () {
         _show();
