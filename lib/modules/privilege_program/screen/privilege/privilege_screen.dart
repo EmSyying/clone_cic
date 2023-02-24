@@ -105,7 +105,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         child: Container(
                           padding: const EdgeInsets.only(right: 12.0),
                           child: SvgPicture.asset(
-                            "assets/images/svgfile/icon.svg",
+                            "assets/images/svgfile/pointnew.svg",
                             width: 20.0,
                             height: 24.0,
                           ),
