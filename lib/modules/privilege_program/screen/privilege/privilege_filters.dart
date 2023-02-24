@@ -58,7 +58,9 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
             color: Colors.black,
             onPressed: () {
               privilegeController.shopPage = 1;
-              privilegeController.onFetchStoreData(0, 1);
+              privilegeController.onFetchStoreData(
+                  privilegeController.segmentedControlValue.value, 1,
+                  filterString: privilegeController.filterString.value);
               Navigator.pop(context);
             }),
       ),

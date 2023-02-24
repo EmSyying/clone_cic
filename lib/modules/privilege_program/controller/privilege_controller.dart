@@ -28,7 +28,7 @@ class PrivilegeController extends GetxController {
 //Refreshscreen====F
   Future<void> onRefreshPrivilege() async {
     await onFetchCategories();
-    // await onFetchAllStore(1);
+    await onFetchStoreData(0, shopPage, filterString: filterString.value);
     // await onFetchFavouriteStore();
     // shopPage = 1;
     // onFetchStoreData(1, shopPage);

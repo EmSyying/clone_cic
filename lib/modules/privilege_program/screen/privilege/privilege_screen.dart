@@ -391,24 +391,26 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                                       onSelected: (str) {
                                         debugPrint("str===$str");
                                         priCon.shopPage = 1;
-                                        priCon.filterString.value =
-                                            str.toLowerCase() == "all stores"
-                                                ? ""
-                                                : str;
-                                        // if (str.toLowerCase() != "all stores") {
-                                        //   priCon.onFetchStoreData(
-                                        //       priCon
-                                        //           .segmentedControlValue.value,
-                                        //       1,
-                                        //       filterString:
-                                        //           priCon.filterString.value);
-                                        // } else {
+                                        switch (str.toLowerCase()) {
+                                          case "discount":
+                                            priCon.filterString.value =
+                                                "discount";
+                                            break;
+                                          case "mvp approved":
+                                            priCon.filterString.value =
+                                                "mvp_approved";
+                                            break;
+                                          default:
+                                            priCon.filterString.value = "";
+                                            break;
+                                        }
+                                        debugPrint(
+                                            "priCon.filterString.value${priCon.filterString.value}");
                                         priCon.onFetchStoreData(
                                             priCon.segmentedControlValue.value,
                                             1,
                                             filterString:
                                                 priCon.filterString.value);
-                                        // }
                                       },
                                       onTapSearch: () {
                                         context.go(
