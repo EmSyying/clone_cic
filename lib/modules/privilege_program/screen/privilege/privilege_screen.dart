@@ -102,7 +102,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                         child: Container(
                           padding: const EdgeInsets.only(right: 12.0),
                           child: SvgPicture.asset(
-                            "assets/images/svgfile/Union.svg",
+                            "assets/images/svgfile/icon.svg",
                             width: 20.0,
                             height: 24.0,
                           ),
@@ -110,7 +110,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       ),
                     ),
                     Positioned(
-                      // left: 0.0,
+                      left: 10.0,
                       //right: 0.0,
                       // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
                       top: 5.0,
