@@ -57,7 +57,8 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                     : const Icon(Icons.arrow_back_ios),
             color: Colors.black,
             onPressed: () {
-              privilegeController.onFetchAllStore(1);
+              privilegeController.shopPage = 1;
+              privilegeController.onFetchStoreData(0, 1);
               Navigator.pop(context);
             }),
       ),
