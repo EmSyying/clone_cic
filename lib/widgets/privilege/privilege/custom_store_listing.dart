@@ -74,18 +74,45 @@ class _CustomCardFavoriesListState extends State<CustomStoreListing> {
                                   .shopPrivilegeList[e.key].isFavorite!,
                             )
                                 .then((value) {
-                              if (privillageCon
-                                  .shopPrivilegeList[e.key].isFavorite!) {
-                                privillageCon.shopPrivilegeList[e.key] =
-                                    privillageCon.shopPrivilegeList[e.key]
-                                        .copyWith(isFavorite: false);
-                                privillageCon.shopPrivilegeList.removeAt(e.key);
+                              if (privillageCon.segmentedControlValue.value ==
+                                  0) {
+                                privillageCon
+                                    .setFavouriteStore(
+                                  id: privillageCon
+                                      .shopPrivilegeList[e.key].id!,
+                                  boolFav: privillageCon
+                                      .shopPrivilegeList[e.key].isFavorite!,
+                                )
+                                    .then((value) {
+                                  if (privillageCon
+                                      .shopPrivilegeList[e.key].isFavorite!) {
+                                    privillageCon.shopPrivilegeList[e.key] =
+                                        privillageCon.shopPrivilegeList[e.key]
+                                            .copyWith(isFavorite: false);
+                                  } else {
+                                    privillageCon.shopPrivilegeList[e.key] =
+                                        privillageCon.shopPrivilegeList[e.key]
+                                            .copyWith(isFavorite: true);
+                                  }
+                                });
                               } else {
-                                privillageCon.shopPrivilegeList[e.key] =
-                                    privillageCon.shopPrivilegeList[e.key]
-                                        .copyWith(isFavorite: true);
+                                if (privillageCon
+                                    .shopPrivilegeList[e.key].isFavorite!) {
+                                  privillageCon.shopPrivilegeList[e.key] =
+                                      privillageCon.shopPrivilegeList[e.key]
+                                          .copyWith(isFavorite: false);
+                                  privillageCon.shopPrivilegeList
+                                      .removeAt(e.key);
+                                } else {
+                                  privillageCon.shopPrivilegeList[e.key] =
+                                      privillageCon.shopPrivilegeList[e.key]
+                                          .copyWith(isFavorite: true);
+                                  debugPrint(
+                                      ' privillageCon.shopPrivilegeList${privillageCon.shopPrivilegeList}');
+                                }
                               }
                             });
+                            setState(() {});
 
                             // privillageCon.favshopModelList.refresh();
 
