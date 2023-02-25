@@ -220,15 +220,20 @@ class RecentActivityDetailSummery extends StatelessWidget {
                                                       ? '${welletCont.paymentSummeryDetail.value.originalAmount}'
                                                       : "",
                                                 ),
-                                                summeryLabel(
-                                                  context,
-                                                  label: 'Remark',
-                                                  value: welletCont
-                                                          .paymentSummeryDetail
-                                                          .value
-                                                          .remark ??
-                                                      "",
-                                                ),
+                                                if (welletCont
+                                                        .paymentSummeryDetail
+                                                        .value
+                                                        .remark !=
+                                                    null)
+                                                  summeryLabel(
+                                                    context,
+                                                    label: 'Remark',
+                                                    value: welletCont
+                                                            .paymentSummeryDetail
+                                                            .value
+                                                            .remark ??
+                                                        "",
+                                                  ),
                                                 const SizedBox(
                                                   height: 20.0,
                                                 ),

@@ -75,7 +75,14 @@ class CustomRecentCard extends StatelessWidget {
                       height: 84,
                       color: const Color(0xfff4f0f0).withOpacity(0.4),
                       child: const Center(
-                        child: Text("error"),
+                        child: Text(
+                          "No Image",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
                       ),
                     ),
                   ),
