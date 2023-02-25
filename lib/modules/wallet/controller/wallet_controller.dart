@@ -6,10 +6,12 @@ import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:cicgreenloan/utils/helper/custom_success_screen.dart';
 import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../privilege_program/model/payment_summary.dart';
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/exchange_point_transaction.dart/exchange_point_transaction.dart';
 import '../model/exchange_point_transaction.dart/mvp_balance.dart';
@@ -665,5 +667,28 @@ class WalletController extends GetxController {
       update();
     }
     return recentActivitiesTransactionList;
+  }
+
+  ///Recent Activities
+  final paymentSummeryDetail = PaymentSummary().obs;
+  final isLoadingReceip = false.obs;
+  Future<void> fetchOnPaymentReceipt(int id) async {
+    isLoadingReceip(true);
+    await _apiBaseHelper
+        .onNetworkRequesting(
+      url: 'privilege/payment-receipt?payment_id=$id',
+      methode: METHODE.get,
+      isAuthorize: true,
+    )
+        .then((response) {
+      debugPrint('payment summery shop name 1 $response');
+      paymentSummeryDetail.value = PaymentSummary.fromJson(response);
+      debugPrint(
+          'payment summery shop name 2 ${paymentSummeryDetail.value.shopName}');
+      isLoadingReceip(false);
+    }).onError((ErrorModel error, stackTrace) {
+      isLoadingReceip(false);
+      debugPrint('errr====');
+    });
   }
 }

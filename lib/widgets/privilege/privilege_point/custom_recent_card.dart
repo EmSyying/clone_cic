@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -67,13 +68,14 @@ class CustomRecentCard extends StatelessWidget {
                   width: 84,
                   height: 84,
                   padding: const EdgeInsets.all(0.0),
-                  decoration: BoxDecoration(
-                    color: AppColor.secondaryColor,
-                    borderRadius: BorderRadius.circular(5.0),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        shopLogo ?? '',
+                  child: CachedNetworkImage(
+                    imageUrl: shopLogo ?? '',
+                    errorWidget: (context, url, error) => Container(
+                      width: 84,
+                      height: 84,
+                      color: const Color(0xfff4f0f0).withOpacity(0.4),
+                      child: const Center(
+                        child: Text("error"),
                       ),
                     ),
                   ),
