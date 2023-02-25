@@ -34,6 +34,7 @@ import '../google_map_module/controllers/google_map_controller.dart';
 import '../member_directory/controllers/customer_controller.dart';
 import '../member_directory/controllers/member_controller.dart';
 import '../member_directory/screens/new_profile_ui/new_persional_profile.dart';
+import '../privilege_program/controller/privilege_controller.dart';
 
 class QrCodeScreen extends StatefulWidget {
   final String? pageName;
@@ -54,6 +55,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   static GlobalKey printScreenKey = GlobalKey();
   final _settingCon = Get.put(SettingController());
   final setPinCon = Get.put(SetPINCodeController());
+  final preController = Get.put(PrivilegeController());
 
   bool isFlashOn = false;
   MobileScannerController cameraController =
@@ -199,7 +201,26 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                       );
                                                     }
                                                   } else {
-                                                    router.go(links);
+                                                    //  claim to discount
+                                                    debugPrint(
+                                                        "Claim to discount url:$links");
+                                                    if (links.contains(
+                                                        'privilege-claim')) {
+                                                      int? id = int.tryParse(
+                                                          links.replaceAll(
+                                                              '/privilege-claim/',
+                                                              ''));
+                                                      debugPrint(
+                                                          "Claim discount url:$links::$id");
+                                                      preController
+                                                          .onPaymentPrivilege(
+                                                              context: context,
+                                                              id: id)
+                                                          .then((value) =>
+                                                              router.go(links));
+                                                    } else {
+                                                      router.go(links);
+                                                    }
                                                   }
 
                                                   settingCon

@@ -47,6 +47,7 @@ class CICRoute extends MainRoute {
           ),
         ],
       );
+
   // @override
   // GoRoute serviceAgreement({required String fromWhere}) => GoRoute(
   //       path: 'service-agreement',

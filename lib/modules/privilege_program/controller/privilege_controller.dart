@@ -637,9 +637,7 @@ class PrivilegeController extends GetxController {
   final fourDigitsCode = "".obs;
   final descountRate = "".obs;
   final messagePayment = "".obs;
-  Future<void> onPaymentPrivilege({
-    BuildContext? context,
-  }) async {
+  Future<void> onPaymentPrivilege({BuildContext? context, int? id}) async {
     debugPrint("Shop Id====:${shopId.value}");
     debugPrint("Amount====:${privilegeAmount.value}");
     isPaymentLoading(true);
@@ -648,13 +646,12 @@ class PrivilegeController extends GetxController {
         methode: METHODE.post,
         isAuthorize: true,
         body: {
-          "shop_id": shopId.value,
-          "amount": privilegeAmount.value,
+          "shop_id": id,
         }).then((response) {
       debugPrint("4 Digits code:$response");
       debugPrint('Clicked  ${GoRouter.of(context!).location}');
 
-      context.push('/privilege-payment/$shopId/payment-done-screen');
+      // context.push('/privilege-payment/$shopId/payment-done-screen');
 
       try {
         debugPrint('payment body::=====$response');

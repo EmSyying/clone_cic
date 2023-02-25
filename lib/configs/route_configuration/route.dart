@@ -1403,5 +1403,12 @@ final router = GoRouter(
           );
         },
       ),
+      GoRoute(
+        path: '/privilege-claim/:id',
+        builder: (_, state) => PaymentDoneScreen(
+          key: state.pageKey,
+          id: int.tryParse(state.params['id'] ?? '0'),
+        ),
+      ),
     ],
     refreshListenable: settingCon.appSettingNofier);
