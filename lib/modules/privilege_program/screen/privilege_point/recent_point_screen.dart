@@ -14,6 +14,7 @@ class RecentPointScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final walletController = Get.put(WalletController());
     walletController.onFetchRecentActivitiesTransaction();
+
     return Obx(
       () => walletController.isRecentActivitiesTransaction.value
           ? Padding(
@@ -32,27 +33,8 @@ class RecentPointScreen extends StatelessWidget {
                           .entries
                           .map((e) {
                     return CustomRecentCard(
-                      // recentActivities: e.value,
                       onTap: () {
-                        context.pushNamed(
-                          'PaymentSummeryMVP',
-                          queryParams: {
-                            'amount': '24',
-                            'accountMVP': 'hany',
-                            'transactionID': '002',
-                            'date': '21-02-2023',
-                            'reference': 'dev',
-                            'fromAccount': '000854387',
-                            'marchant': 'test',
-                            'originalAmount': '000859837',
-                            'remark': 'Test Reddem',
-                          },
-                          extra: {
-                            'onPressed': () {
-                              Navigator.pop(context);
-                            },
-                          },
-                        );
+                        context.push('/recent-activity?id=${e.value.id}');
                       },
                       id: e.value.id,
                       shopLogo: e.value.shopLogo,

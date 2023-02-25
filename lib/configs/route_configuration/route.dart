@@ -42,6 +42,7 @@ import '../../modules/member_directory/screens/new_profile_ui/new_persional_prof
 import '../../modules/notification_modules/screens/notification.dart';
 
 import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
+import '../../modules/privilege_program/screen/privilege_point/recent_activity_detail_summery.dart';
 import '../../modules/qr_code/qr_code.dart';
 
 import '../../modules/ut_trading/screens/add_inquiry.dart';
@@ -1376,6 +1377,17 @@ final router = GoRouter(
             remark: state.queryParams['remark'],
             marchant: state.queryParams['marchant'],
             onPressed: extras?['onPressed'] as Function()?,
+          );
+        },
+      ),
+      //Recent Activity Detail summery
+      GoRoute(
+        path: '/recent-activity',
+        name: 'RecentActivityDetailSummery',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) {
+          return RecentActivityDetailSummery(
+            id: int.parse(state.queryParams['id'].toString()),
           );
         },
       ),

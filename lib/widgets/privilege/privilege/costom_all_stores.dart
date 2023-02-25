@@ -62,7 +62,21 @@ class CustomCardAllStores extends StatelessWidget {
                 ),
                 child: CachedNetworkImage(
                   imageUrl: privilegeShopList!.shopLogo ?? '',
-                  errorWidget: (context, url, error) => const Text("error"),
+                  errorWidget: (context, url, error) => Container(
+                    width: 84,
+                    height: 84,
+                    color: const Color(0xfff4f0f0).withOpacity(0.4),
+                    child: const Center(
+                      child: Text(
+                        "No Image",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
