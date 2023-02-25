@@ -224,18 +224,18 @@ class PaymentSummeryMVP extends StatelessWidget {
                                       gradient: LinearGradient(
                                         begin: Alignment.centerLeft,
                                         colors: [
-                                          Color(0xff384593),
-                                          Color(0xff3588E8),
+                                          Color.fromARGB(235, 56, 70, 147),
+                                          Color.fromARGB(235, 53, 137, 232),
                                         ],
                                       ),
                                       shape: BoxShape.circle,
                                     ),
                                     child: Center(
                                       child: SvgPicture.asset(
-                                        'assets/images/svgfile/Union.svg',
+                                        "assets/images/svgfile/pointnew.svg",
                                         fit: BoxFit.cover,
-                                        width: 25,
-                                        height: 31,
+                                        width: 38,
+                                        height: 38,
                                       ),
                                     ),
                                   ),
