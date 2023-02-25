@@ -182,7 +182,7 @@ class CustomRecentCard extends StatelessWidget {
                               width: 5,
                             ),
                             SvgPicture.asset(
-                              'assets/images/svgfile/Union.svg',
+                              'assets/images/svgfile/pointnew.svg',
                               width: 15,
                               height: 15,
                             ),

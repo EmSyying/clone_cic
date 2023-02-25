@@ -78,7 +78,7 @@ class RedeemPointPayReviewScreen extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: SvgPicture.asset(
-                                      'assets/images/svgfile/Union.svg',
+                                      "assets/images/svgfile/pointnew.svg",
                                       fit: BoxFit.cover,
                                       width: 38,
                                       height: 38,

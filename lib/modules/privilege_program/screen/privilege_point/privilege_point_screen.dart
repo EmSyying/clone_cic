@@ -74,9 +74,10 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                   ),
                 ),
                 child: SvgPicture.asset(
-                  'assets/images/svgfile/union_point.svg',
-                  // color: Colors.black12,
-                  // fit: BoxFit.fill,
+                  'assets/images/svgfile/line.svg',
+                  width: 200,
+                  height: 200,
+                  color: Colors.black12,
                 ),
               ),
             ),
@@ -164,7 +165,8 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                                 child: Row(
                                   children: [
                                     SvgPicture.asset(
-                                        'assets/images/svgfile/get_mvp.svg'),
+                                      "assets/images/svgfile/pointnew.svg",
+                                    ),
                                     const SizedBox(
                                       width: 10,
                                     ),

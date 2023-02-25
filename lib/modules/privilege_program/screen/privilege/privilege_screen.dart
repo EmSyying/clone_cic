@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cicgreenloan/Utils/function/format_to_k.dart';
 import 'package:cicgreenloan/Utils/helper/custom_appbar.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilage_store.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege/privilege_history_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/custom_indicatior.dart';
 import '../../../../Utils/form_builder/custom_material_modal_sheet.dart';
+import '../../../../Utils/function/format_to_k.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../utils/permission/controller/permision_controller.dart';
 import '../../../../widgets/privilege/custom_row_filter.dart';
@@ -99,23 +98,26 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
               action: [
                 Stack(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        context.go('/privilege/all-store/point-screen');
-                      },
-                      child: Center(
-                        child: Container(
-                          padding: const EdgeInsets.only(right: 12.0),
-                          child: SvgPicture.asset(
-                            "assets/images/svgfile/pointnew.svg",
-                            width: 20.0,
-                            height: 24.0,
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: GestureDetector(
+                        onTap: () {
+                          context.go('/privilege/all-store/point-screen');
+                        },
+                        child: Center(
+                          child: Container(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: SvgPicture.asset(
+                              "assets/images/svgfile/pointnew.svg",
+                              width: 20.0,
+                              height: 24.0,
+                            ),
                           ),
                         ),
                       ),
                     ),
                     Positioned(
-                      left: 15.0,
+                      left: 8.0,
                       //right: 0.0,
                       // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
                       top: 8.0,
@@ -146,18 +148,18 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                     ),
                   ],
                 ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PrivilageStoreScreen(),
-                          ));
-                    },
-                    child: const Text(
-                      'test',
-                      style: TextStyle(color: Colors.green),
-                    )),
+                // TextButton(
+                //     onPressed: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //             builder: (context) => const PrivilageStoreScreen(),
+                //           ));
+                //     },
+                //     child: const Text(
+                //       'test',
+                //       style: TextStyle(color: Colors.green),
+                //     )),
                 Padding(
                   padding: const EdgeInsets.only(right: 10.0),
                   child: GestureDetector(

@@ -11,24 +11,26 @@ class CardCurrentPoints extends StatelessWidget {
   Widget build(BuildContext context) {
     //final walletController = Get.put(WalletController());
     TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          height: 110,
-          alignment: Alignment.topRight,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-              colors: [
-                Color(0xff384593),
-                Color(0xff3588E8),
-              ],
-            ),
-          ),
-          child: Align(
+    return Container(
+      width: double.infinity,
+      height: 110,
+      alignment: Alignment.topRight,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.topRight,
+          colors: [
+            Color(0xff384593),
+            Color(0xff3588E8),
+          ],
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -64,18 +66,19 @@ class CardCurrentPoints extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        Positioned(
-          top: 0.0,
-          right: 0.0,
-          child: SvgPicture.asset(
-            'assets/images/svgfile/union_point.svg',
+          SvgPicture.asset(
+            'assets/images/svgfile/line.svg',
+            color: Colors.black12,
             fit: BoxFit.cover,
             width: 50.0,
-            height: 110.0,
+            height: 78.0,
+            // 'assets/images/svgfile/union_point.svg',
+            // fit: BoxFit.cover,
+            // width: 50.0,
+            // height: 110.0,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

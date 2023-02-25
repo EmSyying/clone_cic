@@ -52,7 +52,7 @@ class CustomCardPoint extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset("assets/images/point.svg"),
+                    SvgPicture.asset("assets/images/svgfile/point.svg"),
                     const SizedBox(
                       width: 14,
                     ),
