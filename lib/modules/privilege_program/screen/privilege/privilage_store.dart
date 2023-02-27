@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../widgets/privilege/trtansaction_strore.dart';
 
@@ -233,13 +234,120 @@ class PrivilageStoreScreen extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      '19 Branches',
-                      style:
-                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '19 Branches',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                               ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            showMaterialModalBottomSheet(
+                              context: context,
+                              elevation: 1,
+                              bounce: true,
+                              expand: false,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                ),
+                              ),
+                              builder: (context) {
+                                return SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.83,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              icon: const Icon(Icons.close),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 50, top: 23),
+                                            child: Text(
+                                              '4 Branches',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium,
+                                            ),
+                                          ),
+                                          const Text('')
+                                        ],
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        width: double.infinity,
+                                        height: 1,
+                                        color: Colors.grey[350],
+                                      ),
+
+                                      ///============transaction================
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 20, right: 20, top: 20),
+                                        child: TransactionStore(
+                                          title:
+                                              'LG BrandShop (Phsar Doeumkor)',
+                                          content: '100 MVP',
+                                          image:
+                                              'https://i0.wp.com/www.flutterbeads.com/wp-content/uploads/2022/01/add-image-in-flutter-hero.png?fit=2850%2C1801&ssl=1',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              // title: 'Branches',
+                              // child: const Padding(
+                              //   padding: EdgeInsets.only(
+                              //       top: 20, left: 20, right: 20),
+                              //   child: TransactionStore(
+                              //     title: 'LG BrandShop (Phsar Doeumkor)',
+                              //     content: '100 MVP',
+                              //     image:
+                              //         'https://i0.wp.com/www.flutterbeads.com/wp-content/uploads/2022/01/add-image-in-flutter-hero.png?fit=2850%2C1801&ssl=1',
+                              //   ),
+                              // ),
+                              // icon: IconButton(
+                              //   icon: const Icon(Icons.close),
+                              //   onPressed: () {
+                              //     Navigator.pop(context);
+                              //   },
+                              // )
+                            );
+                          },
+                          child: Text(
+                            'See All',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 20,
