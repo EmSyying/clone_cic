@@ -41,6 +41,7 @@ import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../../modules/notification_modules/screens/notification.dart';
 
+import '../../modules/privilege_program/screen/privilege/privilage_store.dart';
 import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
 import '../../modules/privilege_program/screen/privilege_point/recent_activity_detail_summery.dart';
 import '../../modules/qr_code/qr_code.dart';
@@ -177,12 +178,20 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
-                      name: 'pointScreen',
-                      path: 'point-screen',
-                      builder: (context, state) => PrivilegePointScreen(
-                        key: state.pageKey,
-                      ),
-                    ),
+                        name: 'pointScreen',
+                        path: 'point-screen',
+                        builder: (context, state) => PrivilegePointScreen(
+                              key: state.pageKey,
+                            ),
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: _rootNavigatorKey,
+                            path: 'privilege-store',
+                            builder: (context, state) => PrivilageStoreScreen(
+                              key: state.pageKey,
+                            ),
+                          ),
+                        ]),
                   ],
                 ),
                 GoRoute(
@@ -322,7 +331,15 @@ final router = GoRouter(
                     path: 'mymvp',
                     name: 'MyMVP',
                     builder: (context, state) => const PrivilegePointScreen(),
-                    routes: const []),
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
+                        path: 'privilege-store',
+                        builder: (context, state) => PrivilageStoreScreen(
+                          key: state.pageKey,
+                        ),
+                      ),
+                    ]),
 
                 /// Investment
                 GoRoute(
@@ -699,8 +716,19 @@ final router = GoRouter(
                               parentNavigatorKey: _rootNavigatorKey,
                               builder: (context, state) => PrivilegePointScreen(
                                     key: state.pageKey,
-                                  ))
+                                  ),
+                              routes: [
+                                GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  path: 'privilege-store',
+                                  builder: (context, state) =>
+                                      PrivilageStoreScreen(
+                                    key: state.pageKey,
+                                  ),
+                                ),
+                              ])
                         ]),
+
                     GoRoute(
                       name: 'DepositCard',
                       path: 'deposit-card',

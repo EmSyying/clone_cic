@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/payment_summary.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
+import 'package:cicgreenloan/modules/privilege_program/model/stores_model/store_branch_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,7 @@ import '../model/search_loation_list/search_location_list.dart';
 import '../model/slide_privilege/privilege_slide_model.dart';
 import '../model/stores_model/model_pre.dart';
 import '../model/stores_model/privilege_data_model.dart';
+import '../model/stores_model/store_home_data_model.dart';
 
 class PrivilegeController extends GetxController {
   final favoritesList = <StoreModel>[].obs;
@@ -24,6 +26,9 @@ class PrivilegeController extends GetxController {
   final isSelectFilter = false.obs;
   final selectedCategFil = ''.obs;
   final categoryId = 0.obs;
+  final storeHomeDataModel = StoreHomeDataModel().obs;
+  final storeBranchList = <StoreBranchModel>[].obs;
+  final numberOfBranch = "".obs;
   final googleMapCon = Get.put(GoogleMapsController());
 //Refreshscreen====F
   Future<void> onRefreshPrivilege() async {
@@ -119,6 +124,49 @@ class PrivilegeController extends GetxController {
     textSearchController.clear();
   }
 
+  Future<void> onFetchHomeStoreData() async {
+    await apiBaseHelper
+        .onNetworkRequesting(
+            isAuthorize: true,
+            methode: METHODE.get,
+            url: "privilege/store-home-page")
+        .then((value) {
+          debugPrint("Hello world1");
+      storeHomeDataModel.value = StoreHomeDataModel.fromJson(value);
+    });
+  }
+
+  Future<void> onFetchNumberOfBranch() async {
+    await apiBaseHelper
+        .onNetworkRequesting(
+            isAuthorize: true,
+            methode: METHODE.get,
+            url: "privilege/number-branches")
+        .then((value) {
+      numberOfBranch(value["number_of_branches"]);
+    });
+  }
+
+  Future<void> onFetchShopBranchItemList() async {
+    await apiBaseHelper
+        .onNetworkRequesting(
+            isAuthorize: true,
+            methode: METHODE.get,
+            url: "privilege/list-branches")
+        .then((value) {
+      storeBranchList.value.clear();
+      value["data"]
+          .map((json) =>
+              storeBranchList.value.add(StoreBranchModel.fromJson(json)))
+          .toList();
+
+      debugPrint("length===....${storeBranchList[0].mvpLogo}  ");
+      // storeBranchList.addAll();
+    }).onError((ErrorModel error, stackTrace) {
+      debugPrint("error${error.statusCode}");
+    });
+  }
+
   final searchShop = PrivilegeShopModel().obs;
   final searchShopList = <PrivilegeShopModel>[].obs;
   final searLocationModel = SearchLocationListModel().obs;
@@ -126,6 +174,7 @@ class PrivilegeController extends GetxController {
   final isSearchLoading = false.obs;
   final TextEditingController textSearchController = TextEditingController();
   //final isScreenSearch = false.obs;
+
   Future<List<PrivilegeShopModel>> onSearchStores(
       {String? keySearch, bool isLocation = false}) async {
     debugPrint("is location $isLocation");

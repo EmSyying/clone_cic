@@ -9,6 +9,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../utils/function/format_date_time.dart';
 import '../../../wallet/controller/wallet_controller.dart';
+import '../../controller/privilege_controller.dart';
 import 'loyalty_point_screen.dart';
 
 class PrivilegePointScreen extends StatefulWidget {
@@ -33,10 +34,13 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
   ];
   final String datetime = DateTime.now().toString();
   final _walletController = Get.put(WalletController());
+  final _privilegeController = Get.put(PrivilegeController());
 
   @override
   void initState() {
     _walletController.onFetchMyPoin();
+
+    _privilegeController.onFetchNumberOfBranch();
     // _walletController.fetchWalletAmount();
 
     super.initState();
@@ -44,6 +48,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Hello world!");
     TextStyle textStyle = Theme.of(context).textTheme.titleLarge!;
 
     return CupertinoScaffold(
@@ -53,11 +58,13 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
             Scaffold(
               extendBodyBehindAppBar: true,
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 centerTitle: true,
                 title: const Text('My MVP'),
                 titleTextStyle: textStyle,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
+                actions: const [],
               ),
               body: Container(
                 width: double.infinity,
@@ -86,6 +93,46 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
+                actions: [
+                  Visibility(
+                    visible: _privilegeController
+                            .storeHomeDataModel.value.numberOfShop >
+                        0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: GestureDetector(
+                        onTap: () async {
+                          // SchedulerBinding.instance.addPostFrameCallback((_) {
+                          try {
+                            var string = GoRouterState.of(context).location;
+                            debugPrint("");
+                            context.push("$string/privilege-store");
+                          } catch (e) {
+                            debugPrint("Hello ERROR$e");
+                          }
+
+                          // });
+                        },
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: SvgPicture.asset(
+                                    'assets/images/privilege/Store.svg'),
+                              ),
+                              Text(
+                                "Stores",
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
                 // title: const Text('My Point'),
               ),
               body: NestedScrollView(

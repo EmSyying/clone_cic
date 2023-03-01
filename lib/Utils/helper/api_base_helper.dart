@@ -116,7 +116,13 @@ class ApiBaseHelper extends GetConnect {
           ),
         );
       case 500:
-        break;
+        return Future.error(
+          ErrorModel(
+            statusCode: response.statusCode,
+            bodyString: json.decode(response.bodyString ?? ""),
+          ),
+        );
+
       default:
         return Future.error(
           ErrorModel(

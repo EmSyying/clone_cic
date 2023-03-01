@@ -22,6 +22,7 @@ import '../../generated/l10n.dart';
 import '../../Utils/helper/app_pin_code.dart' as app_pin_code;
 import '../../widgets/custom_menu_holder.dart';
 import '../investment_module/controller/investment_controller.dart';
+import '../privilege_program/controller/privilege_controller.dart';
 
 class PaymentSchedule extends StatefulWidget {
   final String? fromPage;
@@ -316,7 +317,7 @@ class _PaymentScheduleState extends State<PaymentSchedule> {
         }
       }
     });
-
+    Get.put(PrivilegeController()).onFetchHomeStoreData();
     getLanguage();
     // fetchAppVersion();
     _userController.isLoginSuccess(true);

@@ -4,6 +4,7 @@ import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../Utils/helper/texfield_format_currency/format_value_onchange.dart';
@@ -32,14 +33,14 @@ class WalletExchange extends StatelessWidget {
           if (isHide == false)
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PrivilegePointScreen(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const PrivilegePointScreen(),
+                //   ),
+                // );
 
-                // context.push('/privilege/all-store/point-screen');
+                context.push('/wallet/point-exchange/mvp-screen');
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 10.0),

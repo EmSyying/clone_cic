@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class TransactionStore extends StatelessWidget {
@@ -32,12 +33,21 @@ class TransactionStore extends StatelessWidget {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
+              color: Colors.grey[50],
               shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  '$image',
-                ),
+              // image: DecorationImage(
+              //   fit: BoxFit.cover,
+              //   onError: (exception, stackTrace) => {},
+              //   image: NetworkImage(
+              //     '$image',
+              //   ),
+              // ),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: '$image',
+              errorWidget: (context, url, error) => Icon(
+                Icons.error,
+                color: Colors.blue[900],
               ),
             ),
             // child: Image.network(
