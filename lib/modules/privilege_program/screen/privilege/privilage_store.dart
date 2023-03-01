@@ -250,6 +250,7 @@ class PrivilageStoreScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             showMaterialModalBottomSheet(
+                              useRootNavigator: true,
                               context: context,
                               elevation: 1,
                               bounce: true,

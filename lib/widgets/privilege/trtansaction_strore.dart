@@ -56,7 +56,7 @@ class TransactionStore extends StatelessWidget {
                     ),
               ),
               const SizedBox(
-                height: 5,
+                height: 8,
               ),
               Text(
                 '$content',

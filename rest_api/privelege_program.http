@@ -1,4 +1,5 @@
-@baseUrl = https://cicstaging.z1central.com/api/
+# @baseUrl = https://cicstaging.z1central.com/api/
+@baseUrl = https://pre-cic.z1platform.com/api/v4
 @token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZDU1M2M2MTUyOTQ1YWQyNjVhYzA1OTUwZDMzM2Y4ODBhYTAwOGU0MTg2NjM0NzJmYzNhNmE2YzFmMDA1YTg0MWZhMzNiNTI5MzBkMDU2NzQiLCJpYXQiOjE2NjI0NDkxNjMuOTY2NTIzLCJuYmYiOjE2NjI0NDkxNjMuOTY2NTI1LCJleHAiOjE2OTM5ODUxNjMuOTUyNzEzLCJzdWIiOiIxMCIsInNjb3BlcyI6WyIqIl19.QGcTdGy21xquFzx-12iOtUvbvJoHfF235FgkKWT1O9imFyBD88XZF-EpCJtxRHoZrcMCqpehp7X1HsfRYeqnFbdHjEEbZw6aqlSLBqII-c0KCVhPHDP6H5yQTr30qoZqCeMvVuOSXXtxFIZP0VU_A3n8OkAuSgqM3-c8qEnyMH56MIaqowRhm0ywk2TstUrZLpzpV58ViEMR7gY4SvmKJnxBuoxW11PMbz919zyZgXOxmsOe21x9Gq7CQGd9lw-wW9hzf7VsYsF7cnszdyeyjKnDrvelE9prYOKdtcvjauJCludI-f4Jx_PEPzxSzTmaC3IVinKISOXnnZzZTc-r7qAYDlq4gMRaUsv8ni6xeb_DcoJW0z0bD6daqsXQ-7CBaEnNzwuXmtbGIuO-HUilniogmrhhp-DxjE_px1dBlt43MR-XDmUE_he8T8t2X9DM7zjdjUrqMryGLLrJcQ0d6E3CjkOBht6EaIe84vrggQN6yh8TUrppo7cpN70B1VbqcKv4KeWk_jfgeowhi0uVA8brnJjaFlpMFgVqANWEy-NMmnJd5fqYGFBDf8HLmwTQIOtdto5DvsmKEeMxFz7u_x1hA6jJNR9nVw6cBixSUS_d0AIdWSi94uynZxnUWadMKv1-NGKCW5U6DzG5soSoiho8CuJxHmSKDizIDZxhXdM
 POST {{baseUrl}}login
 Content-Type: application/json
@@ -92,6 +93,31 @@ Authorization: Bearer {{token}}
 
 ### favorite or unfavorite
 PUT {{baseUrl}}v3/privilege/shop/3?is_favorite=true
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Shop homepage:
+GET {{baseUrl}}/privilege/store-home-page
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Shop branch
+GET {{baseUrl}}/privilege/number-branches
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Shop list branch
+GET {{baseUrl}}/privilege/list-branches
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Shop list branch
+GET {{baseUrl}}/privilege/transaction-history
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
