@@ -33,13 +33,13 @@ class ApiBaseHelper extends GetConnect {
       bool isConvertToByte = false}) async {
     final token = await LocalData.getCurrentUser();
     final fullUrl = fullURL ?? baseurl! + url!;
-    debugPrint("Full Url: $fullUrl");
+    debugPrint("Requested To URL 👉 $fullUrl");
     Map<String, String> defaultHeader = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': isAuthorize ? 'Bearer $token' : ''
     };
-    debugPrint('');
+
     try {
       switch (methode) {
         case METHODE.get:
