@@ -152,6 +152,7 @@ class PrivilegeController extends GetxController {
   }
 
   Future<void> onFetchShopBranchItemList(int page) async {
+    debugPrint("PAGE: $page");
     if (page == 1) {
       isLoadingstoreBranch(true);
       isHasStoreMoreLoading(false);
@@ -171,15 +172,16 @@ class PrivilegeController extends GetxController {
         storeBranchMetaModel.value =
             StoreBranchMetaModel.fromJson(value["meta"]);
       }
-      if(!isHasStoreMoreLoading.value){
+      if (!isHasStoreMoreLoading.value) {
         storeBranchList.value.clear();
       }
+      debugPrint("LENGTH=${storeBranchList.value.length}");
 
-      
       value["data"]
           .map((json) =>
               storeBranchList.value.add(StoreBranchModel.fromJson(json)))
           .toList();
+      debugPrint("After=${storeBranchList.value.length}");
 
       isLoadingstoreBranch(false);
       isHasStoreMoreLoading(false);
