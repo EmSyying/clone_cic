@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TransactionStore extends StatelessWidget {
   final String? title;
@@ -18,8 +19,8 @@ class TransactionStore extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             offset: const Offset(0, 0),
-            blurRadius: 5,
-            spreadRadius: 3,
+            blurRadius: 3,
+            spreadRadius: 2,
             color: Colors.grey[200]!,
           ),
         ],
@@ -32,8 +33,16 @@ class TransactionStore extends StatelessWidget {
                 const EdgeInsets.only(left: 5, top: 20, bottom: 20, right: 10),
             width: 80,
             height: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
+            clipBehavior: Clip.hardEdge,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(0.0, 0.0),
+                  blurRadius: 1,
+                )
+              ],
               shape: BoxShape.circle,
               // image: DecorationImage(
               //   fit: BoxFit.cover,
@@ -43,11 +52,24 @@ class TransactionStore extends StatelessWidget {
               //   ),
               // ),
             ),
-            child: CachedNetworkImage(
-              imageUrl: '$image',
-              errorWidget: (context, url, error) => Icon(
-                Icons.error,
-                color: Colors.blue[900],
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  // color: Colors.red,
+                  // height: 40,
+                  // width: 40,
+                  child: CachedNetworkImage(
+                    imageUrl: '$image',
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.error,
+                      color: Colors.blue[900],
+                    ),
+                    // width: 30,
+                    // height: 30,
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
             ),
             // child: Image.network(
@@ -80,5 +102,34 @@ class TransactionStore extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  static Widget buildShimer(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        height: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 0),
+              blurRadius: 3,
+              spreadRadius: 2,
+              color: Colors.grey[200]!,
+            ),
+          ],
+        ),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey[100]!,
+          highlightColor: Colors.white,
+          child: Container(
+              width: double.infinity,
+              height: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              )),
+        ));
   }
 }

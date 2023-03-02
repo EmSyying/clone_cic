@@ -1,242 +1,258 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../../../../core/flavor/flavor_configuration.dart';
 import '../../../../widgets/privilege/trtansaction_strore.dart';
 import '../../controller/privilege_controller.dart';
 
 class PrivilageStoreScreen extends StatelessWidget {
-  const PrivilageStoreScreen({super.key});
-
+  PrivilageStoreScreen({super.key});
+  bool isInit = true;
   @override
   Widget build(BuildContext context) {
     final privilegeController = Get.put(PrivilegeController());
+    if (isInit) {
+      privilegeController.storeBranchListPage.value = 1;
+      privilegeController.onFetchShopBranchItemList(
+          privilegeController.storeBranchListPage.value);
+      privilegeController.onFetchNumberOfBranch();
+      privilegeController.onFetchHomeStoreData();
+      isInit = false;
+    }
 
-    return GetBuilder(
-      initState: (_) async {
-        privilegeController.onFetchShopBranchItemList();
-        debugPrint(
-            "privilegeController${privilegeController.storeBranchList.value.length}");
-      },
-      init: privilegeController,
-      builder: (controller) => Stack(
+    return Obx(() {
+      return Stack(
         children: [
           Positioned.fill(
-              child: Align(
-            alignment: Alignment.topCenter,
-            child: Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 150, left: 20),
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xff384593),
-                        Color(0xff3588e8),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Stack(
+                children: [
+                  Container(
+                    padding:
+                        EdgeInsets.only(top: Get.height * 16 / 100, left: 20),
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xff384593),
+                          Color(0xff3588e8),
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Total MVP',
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xffDBDBDB),
+                                  ),
+                        ),
+                        Text(
+                          privilegeController.storeHomeDataModel.value.totalMvp,
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Number of Stores',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .copyWith(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                  Text(
+                                    // '19',
+                                    privilegeController
+                                        .storeHomeDataModel.value.numberOfShop
+                                        .toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                      'assets/images/svgfile/Sell icon.svg'),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'MVP In',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium!
+                                            .copyWith(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey[300],
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        // '1000',
+                                        privilegeController
+                                            .storeHomeDataModel.value.mvpIn
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium!
+                                            .copyWith(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              SvgPicture.asset(
+                                  'assets/images/svgfile/linestore.svg'),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                      'assets/images/svgfile/Sell out icon.svg'),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'MVP Out',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium!
+                                            .copyWith(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey[300],
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        // '1000',
+                                        privilegeController
+                                            .storeHomeDataModel.value.mvpOut
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium!
+                                            .copyWith(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
                       ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Total MVP',
-                        style:
-                            Theme.of(context).textTheme.labelMedium!.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xffDBDBDB),
-                                ),
-                      ),
-                      Text(
-                        privilegeController.storeHomeDataModel.value.totalMvp,
-                        style:
-                            Theme.of(context).textTheme.labelMedium!.copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Number of Stores',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .copyWith(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                                Text(
-                                  // '19',
-                                  privilegeController
-                                      .storeHomeDataModel.value.numberOfShop
-                                      .toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .copyWith(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                    'assets/images/svgfile/Sell icon.svg'),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'MVP In',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.grey[300],
-                                          ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      // '1000',
-                                      privilegeController
-                                          .storeHomeDataModel.value.mvpIn
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            SvgPicture.asset(
-                                'assets/images/svgfile/linestore.svg'),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                    'assets/images/svgfile/Sell out icon.svg'),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'MVP Out',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.grey[300],
-                                          ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      // '1000',
-                                      privilegeController
-                                          .storeHomeDataModel.value.mvpOut
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: SvgPicture.asset(
+                      'assets/images/svgfile/line.svg',
+                      width: 200,
+                      height: 200,
+                      color: Colors.black12,
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: SvgPicture.asset(
-                    'assets/images/svgfile/line.svg',
-                    width: 200,
-                    height: 200,
-                    color: Colors.black12,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          )),
+          ),
           // const Scaffold(),
+
           Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
               backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                title: const Padding(
-                  padding: EdgeInsets.only(right: 60),
-                  child: Center(
-                    child: Text('Stores'),
-                  ),
+              elevation: 0,
+              title: const Padding(
+                padding: EdgeInsets.only(right: 60),
+                child: Center(
+                  child: Text('Stores'),
                 ),
               ),
-              body: NestedScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                headerSliverBuilder: ((context, innerBoxIsScrolled) {
-                  return [
-                    const SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      elevation: 0,
-                      backgroundColor: Colors.transparent,
-                      pinned: true,
-                      // leading: Text('hee'),
-                      expandedHeight: 200,
-                      flexibleSpace: FlexibleSpaceBar(
-                        collapseMode: CollapseMode.none,
-                      ),
+            ),
+            body: NestedScrollView(
+              // physics: const NeverScrollableScrollPhysics(),
+              headerSliverBuilder: ((context, innerBoxIsScrolled) {
+                return [
+                  const SliverAppBar(
+                    automaticallyImplyLeading: false,
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    pinned: true,
+                    // leading: Text('hee'),
+                    expandedHeight: 200,
+                    flexibleSpace: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.none,
                     ),
-                  ];
-                }),
-                body: Container(
+                  ),
+                ];
+              }),
+              body: RefreshIndicator(
+                onRefresh: () async {
+                  privilegeController.storeBranchListPage.value = 1;
+                  privilegeController.onFetchShopBranchItemList(
+                      privilegeController.storeBranchListPage.value);
+                  privilegeController.onFetchNumberOfBranch();
+                  privilegeController.onFetchHomeStoreData();
+                },
+                child: Container(
                   width: double.infinity,
                   decoration: const BoxDecoration(
                       color: Colors.white,
@@ -295,7 +311,7 @@ class PrivilageStoreScreen extends StatelessWidget {
                                     return SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.83,
+                                              0.90,
                                       child: Column(
                                         children: [
                                           Row(
@@ -337,40 +353,76 @@ class PrivilageStoreScreen extends StatelessWidget {
                                           ),
 
                                           Expanded(
-                                              child: SingleChildScrollView(
-                                                  child: Column(
-                                            children: [
-                                              ...privilegeController
-                                                  .storeBranchList.value
-                                                  .asMap()
-                                                  .entries
-                                                  .map((e) => Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                top: 20,
-                                                                bottom: 18,
-                                                                left: 20,
-                                                                right: 20),
-                                                        child: GestureDetector(
-                                                          onTap: () {},
+                                              child: NotificationListener<
+                                                  ScrollEndNotification>(
+                                            onNotification: (scrollInfo) {
+                                              if (!privilegeController
+                                                      .isLoadingStoreListing
+                                                      .value &&
+                                                  scrollInfo.metrics.pixels ==
+                                                      scrollInfo.metrics
+                                                          .maxScrollExtent) {
+                                                if (privilegeController
+                                                        .storeBranchListPage
+                                                        .value <=
+                                                    privilegeController
+                                                        .storeBranchMetaModel
+                                                        .value
+                                                        .lastPage) {
+                                                  debugPrint("Hello===");
+                                                  privilegeController
+                                                      .storeBranchListPage
+                                                      .value++;
+
+                                                  // debugPrint("Hello onnotification");
+                                                  privilegeController
+                                                      .onFetchShopBranchItemList(
+                                                          privilegeController
+                                                              .storeBranchListPage
+                                                              .value);
+                                                } else {
+                                                  privilegeController
+                                                      .isHasStoreMoreLoading(
+                                                          false);
+                                                }
+                                              }
+                                              return true;
+                                            },
+                                            child: SingleChildScrollView(
+                                                child: Column(
+                                              children: [
+                                                ...privilegeController
+                                                    .storeBranchList.value
+                                                    .asMap()
+                                                    .entries
+                                                    .map((e) => Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top:
+                                                                      e.key == 0
+                                                                          ? 20
+                                                                          : 0,
+                                                                  bottom: 18,
+                                                                  left: 20,
+                                                                  right: 20),
                                                           child:
-                                                              TransactionStore(
-                                                            title: e
-                                                                .value.shopName,
-                                                            content:
-                                                                e.value.amount,
-                                                            image: FlavorConfig
-                                                                    .instance
-                                                                    .values!
-                                                                    .apiBaseUrl +
-                                                                e.value.mvpLogo,
+                                                              GestureDetector(
+                                                            onTap: () {},
+                                                            child:
+                                                                TransactionStore(
+                                                              title: e.value
+                                                                  .shopName,
+                                                              content: e
+                                                                  .value.amount,
+                                                              image: e.value
+                                                                  .shop_logo,
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ))
-                                                  .toList(),
-                                            ],
-                                          ))),
+                                                        ))
+                                                    .toList(),
+                                              ],
+                                            )),
+                                          )),
 
                                           ///============transaction================
                                           // const Padding(
@@ -425,48 +477,107 @@ class PrivilageStoreScreen extends StatelessWidget {
                         height: 20,
                       ),
                       Expanded(
-                          child: SingleChildScrollView(
-                              child: Column(
-                        children: [
-                          ...privilegeController.storeBranchList.value
-                              .asMap()
-                              .entries
-                              .map((e) => Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20,
-                                        bottom: 18,
-                                        left: 20,
-                                        right: 20),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        debugPrint("Click");
-                                      },
-                                      child: TransactionStore(
-                                        title: e.value.shopName,
-                                        content: e.value.amount,
-                                        image: FlavorConfig
-                                                .instance.values!.apiBaseUrl +
-                                            e.value.mvpLogo,
-                                      ),
+                          child: NotificationListener<ScrollEndNotification>(
+                        onNotification: (scrollInfo) {
+                          if (!privilegeController
+                                  .isLoadingStoreListing.value &&
+                              scrollInfo.metrics.pixels ==
+                                  scrollInfo.metrics.maxScrollExtent) {
+                            if (privilegeController.storeBranchListPage.value <=
+                                    privilegeController
+                                        .storeBranchMetaModel.value.lastPage &&
+                                privilegeController.storeBranchListPage.value !=
+                                    1) {
+                              debugPrint("Hello===");
+                              privilegeController.storeBranchListPage.value++;
+
+                              // debugPrint("Hello onnotification");
+                              privilegeController.onFetchShopBranchItemList(
+                                  privilegeController
+                                      .storeBranchListPage.value);
+                            } else {
+                              privilegeController.isHasStoreMoreLoading(false);
+                            }
+                          }
+                          return true;
+                        },
+                        child: SingleChildScrollView(
+                            child: Column(
+                          children: [
+                            if (privilegeController.isLoadingstoreBranch.value)
+                              for (var i = 0; i < 6; i++)
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: i == 0 ? 20 : 0,
+                                      bottom: 18,
+                                      left: 20,
+                                      right: 20),
+                                  child: TransactionStore.buildShimer(context),
+                                )
+                            else
+                              ...privilegeController.storeBranchList.value
+                                  .asMap()
+                                  .entries
+                                  .map((e) => Padding(
+                                        padding: EdgeInsets.only(
+                                            top: e.key == 0 ? 20 : 0,
+                                            bottom: 18,
+                                            left: 20,
+                                            right: 20),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            debugPrint("Click");
+                                          },
+                                          child: TransactionStore(
+                                            title: e.value.shopName,
+                                            content: e.value.amount,
+                                            image: e.value.shop_logo,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                            if (privilegeController.isHasStoreMoreLoading.value)
+                              Container(
+                                width: double.infinity,
+                                color: Colors.white,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Loading more ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
-                                  ))
-                              .toList(),
-                        ],
-                      ))),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const CupertinoActivityIndicator(),
+                                  ],
+                                ),
+                              ),
+                          ],
+                        )),
+                      )),
                     ],
                   ),
                 ),
-              )
-              // Column(
-              //   children: [
-              //     AppBar(
-              //       elevation: 0,
-              //     ),
-              //   ],
-              // ),
               ),
+            ),
+          ),
+
+          // Column(
+          //   children: [
+          //     AppBar(
+          //       elevation: 0,
+          //     ),
+          //   ],
+          // ),
         ],
-      ),
-    );
+      );
+    });
   }
 }

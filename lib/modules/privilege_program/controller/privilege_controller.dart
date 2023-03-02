@@ -27,7 +27,11 @@ class PrivilegeController extends GetxController {
   final selectedCategFil = ''.obs;
   final categoryId = 0.obs;
   final storeHomeDataModel = StoreHomeDataModel().obs;
+  final storeBranchMetaModel = StoreBranchMetaModel().obs;
   final storeBranchList = <StoreBranchModel>[].obs;
+  final isLoadingstoreBranch = false.obs;
+  final isHasStoreMoreLoading = false.obs;
+  final storeBranchListPage = 1.obs;
   final numberOfBranch = "".obs;
   final googleMapCon = Get.put(GoogleMapsController());
 //Refreshscreen====F
@@ -131,7 +135,7 @@ class PrivilegeController extends GetxController {
             methode: METHODE.get,
             url: "privilege/store-home-page")
         .then((value) {
-          debugPrint("Hello world1");
+      debugPrint("Hello world1");
       storeHomeDataModel.value = StoreHomeDataModel.fromJson(value);
     });
   }
@@ -147,22 +151,43 @@ class PrivilegeController extends GetxController {
     });
   }
 
-  Future<void> onFetchShopBranchItemList() async {
+  Future<void> onFetchShopBranchItemList(int page) async {
+    if (page == 1) {
+      isLoadingstoreBranch(true);
+      isHasStoreMoreLoading(false);
+      debugPrint("isHasStoreMoreLoading${isHasStoreMoreLoading.string}");
+    } else {
+      isLoadingstoreBranch(false);
+      isHasStoreMoreLoading(true);
+    }
+
     await apiBaseHelper
         .onNetworkRequesting(
             isAuthorize: true,
             methode: METHODE.get,
-            url: "privilege/list-branches")
+            url: "privilege/list-branches?page=$page")
         .then((value) {
-      storeBranchList.value.clear();
+      if (value["meta"] != null) {
+        storeBranchMetaModel.value =
+            StoreBranchMetaModel.fromJson(value["meta"]);
+      }
+      if(!isHasStoreMoreLoading.value){
+        storeBranchList.value.clear();
+      }
+
+      
       value["data"]
           .map((json) =>
               storeBranchList.value.add(StoreBranchModel.fromJson(json)))
           .toList();
 
-      debugPrint("length===....${storeBranchList[0].mvpLogo}  ");
+      isLoadingstoreBranch(false);
+      isHasStoreMoreLoading(false);
       // storeBranchList.addAll();
     }).onError((ErrorModel error, stackTrace) {
+      isLoadingstoreBranch(false);
+      isHasStoreMoreLoading(false);
+
       debugPrint("error${error.statusCode}");
     });
   }

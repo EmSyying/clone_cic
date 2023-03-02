@@ -41,6 +41,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
     _walletController.onFetchMyPoin();
 
     _privilegeController.onFetchNumberOfBranch();
+    _privilegeController.onFetchHomeStoreData();
     // _walletController.fetchWalletAmount();
 
     super.initState();
