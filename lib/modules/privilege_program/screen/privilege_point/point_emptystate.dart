@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class PiointEmptyState extends StatelessWidget {
   final String? title, description;
@@ -7,25 +8,27 @@ class PiointEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headlineMedium!;
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(left: 50, right: 50, top: 20),
-          width: double.infinity,
-          child: Image.asset(
-            'assets/images/emptypoint.png',
-            height: 200,
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            'assets/images/emptypoint.svg',
           ),
-        ),
-        Text(
-          '$title',
-          style: textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
-        ),
-        Text(
-          '$description',
-          style: textStyle.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-        ),
-      ],
+          Text(
+            '$title',
+            style:
+                textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+          ),
+          Text(
+            '$description',
+            style:
+                textStyle.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -41,6 +41,7 @@ import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../../modules/notification_modules/screens/notification.dart';
 
+import '../../modules/privilege_program/screen/privilege/mvp_transaction_history.dart';
 import '../../modules/privilege_program/screen/privilege/privilage_store.dart';
 import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
 import '../../modules/privilege_program/screen/privilege_point/recent_activity_detail_summery.dart';
@@ -185,12 +186,23 @@ final router = GoRouter(
                             ),
                         routes: [
                           GoRoute(
-                            parentNavigatorKey: _rootNavigatorKey,
-                            path: 'privilege-store',
-                            builder: (context, state) => PrivilageStoreScreen(
-                              key: state.pageKey,
-                            ),
-                          ),
+                              parentNavigatorKey: _rootNavigatorKey,
+                              path: 'privilege-store',
+                              builder: (context, state) => PrivilageStoreScreen(
+                                    key: state.pageKey,
+                                  ),
+                              routes: [
+                                GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  path: 'mvp-history',
+                                  builder: (_, state) => MVPTransactionHistory(
+                                    key: state.pageKey,
+                                    id: state.queryParams['id'],
+                                    shopName: state.queryParams['shopName'],
+                                    amount: state.queryParams['amount'],
+                                  ),
+                                ),
+                              ]),
                         ]),
                   ],
                 ),
@@ -333,12 +345,23 @@ final router = GoRouter(
                     builder: (context, state) => const PrivilegePointScreen(),
                     routes: [
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
-                        path: 'privilege-store',
-                        builder: (context, state) => PrivilageStoreScreen(
-                          key: state.pageKey,
-                        ),
-                      ),
+                          parentNavigatorKey: _rootNavigatorKey,
+                          path: 'privilege-store',
+                          builder: (context, state) => PrivilageStoreScreen(
+                                key: state.pageKey,
+                              ),
+                          routes: [
+                            GoRoute(
+                              parentNavigatorKey: _rootNavigatorKey,
+                              path: 'mvp-history',
+                              builder: (_, state) => MVPTransactionHistory(
+                                key: state.pageKey,
+                                id: state.queryParams['id'],
+                                shopName: state.queryParams['shopName'],
+                                amount: state.queryParams['amount'],
+                              ),
+                            ),
+                          ]),
                     ]),
 
                 /// Investment
@@ -719,13 +742,26 @@ final router = GoRouter(
                                   ),
                               routes: [
                                 GoRoute(
-                                  parentNavigatorKey: _rootNavigatorKey,
-                                  path: 'privilege-store',
-                                  builder: (context, state) =>
-                                      PrivilageStoreScreen(
-                                    key: state.pageKey,
-                                  ),
-                                ),
+                                    parentNavigatorKey: _rootNavigatorKey,
+                                    path: 'privilege-store',
+                                    builder: (context, state) =>
+                                        PrivilageStoreScreen(
+                                          key: state.pageKey,
+                                        ),
+                                    routes: [
+                                      GoRoute(
+                                        parentNavigatorKey: _rootNavigatorKey,
+                                        path: 'mvp-history',
+                                        builder: (_, state) =>
+                                            MVPTransactionHistory(
+                                          key: state.pageKey,
+                                          id: state.queryParams['id'],
+                                          shopName:
+                                              state.queryParams['shopName'],
+                                          amount: state.queryParams['amount'],
+                                        ),
+                                      ),
+                                    ]),
                               ])
                         ]),
 

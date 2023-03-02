@@ -14,6 +14,7 @@ import '../../google_map_module/controllers/google_map_controller.dart';
 import '../model/category_model/model_categories.dart';
 import '../model/history/model_history_privilege.dart';
 import '../model/location/location.dart';
+import '../model/mvp_history_model/mpv_history_model.dart';
 import '../model/search_loation_list/search_location_list.dart';
 import '../model/slide_privilege/privilege_slide_model.dart';
 import '../model/stores_model/model_pre.dart';
@@ -100,6 +101,31 @@ class PrivilegeController extends GetxController {
 
   //   return shopModelList;
   // }
+
+  ///Fetch MVP Transaction History
+  final mvpTransactionHistoryLoading = false.obs;
+  final listTransactionHistory = <MVPHistoryModel>[].obs;
+  Future<void> onFetchMVPTransactionHistory(
+      {required String id, String filter = ''}) async {
+    mvpTransactionHistoryLoading(true);
+    await apiBaseHelper
+        .onNetworkRequesting(
+            url: 'privilege/transaction-history?shop_id=$id&filter=$filter',
+            methode: METHODE.get,
+            isAuthorize: true)
+        .then((value) {
+      listTransactionHistory([]);
+
+      value['data'].map((e) {
+        listTransactionHistory.add(MVPHistoryModel.fromJson(e));
+      }).toList();
+
+      mvpTransactionHistoryLoading(false);
+    }).onError((ErrorModel error, _) {
+      debugPrint('OnFetchMVPTransactionHistory Error : ${error.bodyString}');
+      mvpTransactionHistoryLoading(false);
+    });
+  }
 
   ///Allstore Pagination
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../widgets/privilege/trtansaction_strore.dart';
@@ -421,7 +422,16 @@ class PrivilageStoreScreen extends StatelessWidget {
                                                                     right: 20),
                                                                 child:
                                                                     GestureDetector(
-                                                                  onTap: () {},
+                                                                  onTap: () {
+                                                                    try {
+                                                                      final current =
+                                                                          GoRouterState.of(context)
+                                                                              .location;
+
+                                                                      context.push(
+                                                                          "$current/mvp-history?id=${e.value.id}&shopName=${e.value.shopName}&amount=${e.value.amount}");
+                                                                    } catch (_) {}
+                                                                  },
                                                                   child:
                                                                       TransactionStore(
                                                                     title: e
@@ -590,7 +600,14 @@ class PrivilageStoreScreen extends StatelessWidget {
                                                 right: 20),
                                             child: GestureDetector(
                                               onTap: () {
-                                                debugPrint("Click");
+                                                try {
+                                                  final current =
+                                                      GoRouterState.of(context)
+                                                          .location;
+
+                                                  context.push(
+                                                      "$current/mvp-history?id=${e.value.id}&shopName=${e.value.shopName}&amount=${e.value.amount}");
+                                                } catch (_) {}
                                               },
                                               child: TransactionStore(
                                                 title: e.value.shopName,
