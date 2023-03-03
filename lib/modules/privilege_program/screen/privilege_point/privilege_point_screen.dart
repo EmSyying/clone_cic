@@ -95,39 +95,42 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 actions: [
-                  Visibility(
-                    visible: _privilegeController
-                            .storeHomeDataModel.value.numberOfShop >
-                        0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: GestureDetector(
-                        onTap: () async {
-                          // SchedulerBinding.instance.addPostFrameCallback((_) {
-                          try {
-                            var string = GoRouterState.of(context).location;
-                            debugPrint("");
-                            context.push("$string/privilege-store");
-                          } catch (e) {
-                            debugPrint("Hello ERROR$e");
-                          }
+                  Obx(
+                    () => Visibility(
+                      visible: _privilegeController
+                              .storeHomeDataModel.value.numberOfShop >
+                          0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: GestureDetector(
+                          onTap: () async {
+                            // SchedulerBinding.instance.addPostFrameCallback((_) {
+                            try {
+                              var string = GoRouterState.of(context).location;
+                              debugPrint("");
+                              context.push("$string/privilege-store");
+                            } catch (e) {
+                              debugPrint("Hello ERROR$e");
+                            }
 
-                          // });
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: SvgPicture.asset(
-                                    'assets/images/privilege/Store.svg'),
-                              ),
-                              Text(
-                                "Stores",
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                            ],
+                            // });
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: SvgPicture.asset(
+                                      'assets/images/privilege/Store.svg'),
+                                ),
+                                Text(
+                                  "Stores",
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
