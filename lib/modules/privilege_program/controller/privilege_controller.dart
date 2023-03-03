@@ -10,6 +10,7 @@ import '../../../Utils/helper/format_Number.dart';
 import '../../../Utils/helper/option_model/option_form.dart';
 
 import '../../../utils/helper/custom_route_snackbar.dart';
+import '../../../utils/helper/pagination/pagination_model.dart';
 import '../../google_map_module/controllers/google_map_controller.dart';
 import '../model/category_model/model_categories.dart';
 import '../model/history/model_history_privilege.dart';
@@ -102,28 +103,51 @@ class PrivilegeController extends GetxController {
   //   return shopModelList;
   // }
 
+
   ///Fetch MVP Transaction History
   final mvpTransactionHistoryLoading = false.obs;
+  final mvpTransactionHistoryLoadingMore = false.obs;
   final listTransactionHistory = <MVPHistoryModel>[].obs;
+
+  PaginationModel paginationModel = PaginationModel();
+
+  void _noLoading() {
+    mvpTransactionHistoryLoading(false);
+    mvpTransactionHistoryLoadingMore(false);
+  }
+
   Future<void> onFetchMVPTransactionHistory(
-      {required String id, String filter = ''}) async {
-    mvpTransactionHistoryLoading(true);
+      {required String id, String filter = '', int page = 1}) async {
+    if (page == 1) {
+      mvpTransactionHistoryLoading(true);
+      mvpTransactionHistoryLoadingMore(false);
+    } else {
+      mvpTransactionHistoryLoading(false);
+      mvpTransactionHistoryLoadingMore(true);
+    }
+
     await apiBaseHelper
         .onNetworkRequesting(
-            url: 'privilege/transaction-history?shop_id=$id&filter=$filter',
+            url:
+                'privilege/transaction-history?shop_id=$id&filter=$filter&page=$page',
             methode: METHODE.get,
             isAuthorize: true)
         .then((value) {
-      listTransactionHistory([]);
+      debugPrint('Scroll Data : $value');
+      if (page == 1) {
+        listTransactionHistory([]);
+      }
+
+      paginationModel = PaginationModel.fromJson(value['meta']);
 
       value['data'].map((e) {
         listTransactionHistory.add(MVPHistoryModel.fromJson(e));
       }).toList();
 
-      mvpTransactionHistoryLoading(false);
+      _noLoading();
     }).onError((ErrorModel error, _) {
       debugPrint('OnFetchMVPTransactionHistory Error : ${error.bodyString}');
-      mvpTransactionHistoryLoading(false);
+      _noLoading();
     });
   }
 

@@ -1,4 +1,6 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
+import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -53,13 +55,31 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
 
   int selectedIndex = 0;
 
+  int page = 1;
+
+  ///History Pagination
+  bool onScrollHistory(ScrollEndNotification scrollInfo) {
+    final currentPage = privilegeController.paginationModel.currentPage ?? 0;
+    final lastPage = privilegeController.paginationModel.lastPage ?? 0;
+    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+        currentPage < lastPage) {
+      page = page + 1;
+      debugPrint('Scroll $page');
+      privilegeController.onFetchMVPTransactionHistory(
+          id: widget.id!, filter: _getFilter(), page: page);
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelMedium;
 
     return GetBuilder(
       initState: (_) async {
-        await privilegeController.onFetchMVPTransactionHistory(id: widget.id!);
+        await privilegeController.onFetchMVPTransactionHistory(
+            id: widget.id!, filter: _getFilter(), page: 1);
       },
       init: privilegeController,
       builder: (controller) => Stack(
@@ -185,12 +205,21 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                 ],
                               ),
                               onSelected: (index) async {
-                                selectedIndex = index;
-                                privilegeController.update(['popup']);
+                                if (index == 4) {
+                                  customRouterSnackbar(
+                                    description:
+                                        'This feature is not available yet.',
+                                  );
+                                }
+                                if (index != 4 && selectedIndex != index) {
+                                  selectedIndex = index;
+                                  page = 1;
+                                  privilegeController.update(['popup']);
 
-                                await privilegeController
-                                    .onFetchMVPTransactionHistory(
-                                        id: widget.id!, filter: _getFilter());
+                                  await privilegeController
+                                      .onFetchMVPTransactionHistory(
+                                          id: widget.id!, filter: _getFilter());
+                                }
                               },
                             );
                           })
@@ -206,7 +235,7 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                           elevation: 0,
                           backgroundColor: Colors.transparent,
                           pinned: true,
-                          expandedHeight: 65,
+                          expandedHeight: 70,
                           flexibleSpace: FlexibleSpaceBar(
                             collapseMode: CollapseMode.none,
                             stretchModes: const [],
@@ -238,13 +267,15 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                   ),
                                             ),
                                             Text(
-                                              widget.shopName != null &&
-                                                      widget
-                                                          .shopName!.isNotEmpty
+                                              widget.amount != null &&
+                                                      widget.amount!.isNotEmpty
                                                   ? FormatNumber
                                                       .formatNumberDefualt(
                                                           num.tryParse(widget
-                                                                  .amount!) ??
+                                                                  .amount!
+                                                                  .replaceAll(
+                                                                      ' MVP',
+                                                                      '')) ??
                                                               0)
                                                   : '0',
                                               style: Theme.of(context)
@@ -449,44 +480,79 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                             Expanded(
                                               child: RefreshIndicator(
                                                 onRefresh: () async {
+                                                  page = 1;
                                                   privilegeController
                                                       .onFetchMVPTransactionHistory(
-                                                          id: '6',
+                                                          id: widget.id!,
                                                           filter: _getFilter());
                                                 },
-                                                child: ListView.separated(
-                                                  itemCount: privilegeController
-                                                      .listTransactionHistory
-                                                      .length,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          bottom: 20),
-                                                  itemBuilder: (_, index) {
-                                                    final transaction =
-                                                        privilegeController
-                                                                .listTransactionHistory[
-                                                            index];
-                                                    return CustomMVPTransactionHistory(
-                                                      referenceId:
-                                                          transaction.refId,
-                                                      rewardText: transaction
-                                                          .description,
-                                                      date: transaction
-                                                          .paymentDate,
-                                                      amount:
-                                                          transaction.amount,
-                                                      type: transaction
-                                                          .transactionType,
-                                                    );
-                                                  },
-                                                  separatorBuilder:
-                                                      (_, index) =>
-                                                          const Divider(
-                                                    height: 0,
+                                                child: NotificationListener<
+                                                    ScrollEndNotification>(
+                                                  onNotification:
+                                                      onScrollHistory,
+                                                  child: ListView.separated(
+                                                    physics:
+                                                        const BouncingScrollPhysics(),
+                                                    itemCount: privilegeController
+                                                        .listTransactionHistory
+                                                        .length,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 20),
+                                                    itemBuilder: (_, index) {
+                                                      final transaction =
+                                                          privilegeController
+                                                                  .listTransactionHistory[
+                                                              index];
+                                                      return CustomMVPTransactionHistory(
+                                                        referenceId:
+                                                            transaction.refId,
+                                                        rewardText: transaction
+                                                            .description,
+                                                        date: transaction
+                                                            .paymentDate,
+                                                        amount:
+                                                            transaction.amount,
+                                                        type: transaction
+                                                            .transactionType,
+                                                      );
+                                                    },
+                                                    separatorBuilder:
+                                                        (_, index) =>
+                                                            const Divider(
+                                                      height: 0,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                            if (privilegeController
+                                                .mvpTransactionHistoryLoadingMore
+                                                .value)
+                                              Container(
+                                                color: Colors.transparent,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Loading more ',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    const CupertinoActivityIndicator(),
+                                                  ],
+                                                ),
+                                              )
                                           ],
                                         ),
                             ),

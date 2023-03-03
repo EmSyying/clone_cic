@@ -50,7 +50,7 @@ class _CustomPopupButtonNewState extends State<CustomPopupButtonNew> {
             ),
           ),
           Positioned(
-            left: offset.dx - 135,
+            right: 20,
             top: offset.dy + renderBox.size.height + 10,
             child: Material(
               type: MaterialType.transparency,
@@ -73,6 +73,7 @@ class _CustomPopupButtonNewState extends State<CustomPopupButtonNew> {
                   ],
                 ),
                 child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   itemBuilder: (_, index) => GestureDetector(
