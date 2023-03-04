@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../widgets/privilege/trtansaction_strore.dart';
 import '../../controller/privilege_controller.dart';
 
 class PrivilageStoreScreen extends StatelessWidget {
-  PrivilageStoreScreen({super.key});
-  bool isInit = true;
+  const PrivilageStoreScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    bool isInit = true;
     final privilegeController = Get.put(PrivilegeController());
     if (isInit) {
       privilegeController.storeBranchListPage.value = 1;
@@ -21,6 +23,7 @@ class PrivilageStoreScreen extends StatelessWidget {
       privilegeController.onFetchHomeStoreData();
       isInit = false;
     }
+    var formatter = NumberFormat('###,000');
 
     return Obx(() {
       return Stack(
@@ -57,8 +60,14 @@ class PrivilageStoreScreen extends StatelessWidget {
                                     color: const Color(0xffDBDBDB),
                                   ),
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         Text(
-                          privilegeController.storeHomeDataModel.value.totalMvp,
+                          formatter.format(
+                            double.tryParse(privilegeController
+                                .storeHomeDataModel.value.totalMvp),
+                          ),
                           style:
                               Theme.of(context).textTheme.labelMedium!.copyWith(
                                     fontSize: 30,
@@ -84,6 +93,9 @@ class PrivilageStoreScreen extends StatelessWidget {
                                           fontSize: 10,
                                           fontWeight: FontWeight.w500,
                                         ),
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
                                   ),
                                   Text(
                                     // '19',

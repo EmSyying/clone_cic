@@ -10,7 +10,7 @@ class MVPHistoryModel with _$MVPHistoryModel {
     @JsonKey(name: "ref_id") final String? refId,
     @JsonKey(name: "description") final String? description,
     @JsonKey(name: "transaction_type") final String? transactionType,
-    @JsonKey(name: "amount") final String? amount,
+    @JsonKey(name: "amount") final double? amount,
     @JsonKey(name: "payment_date") final String? paymentDate,
   }) = _MVPHistoryModel;
   factory MVPHistoryModel.fromJson(Map<String, dynamic> json) =>

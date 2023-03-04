@@ -12,7 +12,7 @@ _$_MVPHistoryModel _$$_MVPHistoryModelFromJson(Map<String, dynamic> json) =>
       refId: json['ref_id'] as String?,
       description: json['description'] as String?,
       transactionType: json['transaction_type'] as String?,
-      amount: json['amount'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
       paymentDate: json['payment_date'] as String?,
     );
 

@@ -29,7 +29,7 @@ mixin _$MVPHistoryModel {
   @JsonKey(name: "transaction_type")
   String? get transactionType => throw _privateConstructorUsedError;
   @JsonKey(name: "amount")
-  String? get amount => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
   @JsonKey(name: "payment_date")
   String? get paymentDate => throw _privateConstructorUsedError;
 
@@ -50,7 +50,7 @@ abstract class $MVPHistoryModelCopyWith<$Res> {
       @JsonKey(name: "ref_id") String? refId,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "transaction_type") String? transactionType,
-      @JsonKey(name: "amount") String? amount,
+      @JsonKey(name: "amount") double? amount,
       @JsonKey(name: "payment_date") String? paymentDate});
 }
 
@@ -94,7 +94,7 @@ class _$MVPHistoryModelCopyWithImpl<$Res, $Val extends MVPHistoryModel>
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       paymentDate: freezed == paymentDate
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
@@ -116,7 +116,7 @@ abstract class _$$_MVPHistoryModelCopyWith<$Res>
       @JsonKey(name: "ref_id") String? refId,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "transaction_type") String? transactionType,
-      @JsonKey(name: "amount") String? amount,
+      @JsonKey(name: "amount") double? amount,
       @JsonKey(name: "payment_date") String? paymentDate});
 }
 
@@ -158,7 +158,7 @@ class __$$_MVPHistoryModelCopyWithImpl<$Res>
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       paymentDate: freezed == paymentDate
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
@@ -195,7 +195,7 @@ class _$_MVPHistoryModel implements _MVPHistoryModel {
   final String? transactionType;
   @override
   @JsonKey(name: "amount")
-  final String? amount;
+  final double? amount;
   @override
   @JsonKey(name: "payment_date")
   final String? paymentDate;
@@ -246,7 +246,7 @@ abstract class _MVPHistoryModel implements MVPHistoryModel {
           @JsonKey(name: "ref_id") final String? refId,
           @JsonKey(name: "description") final String? description,
           @JsonKey(name: "transaction_type") final String? transactionType,
-          @JsonKey(name: "amount") final String? amount,
+          @JsonKey(name: "amount") final double? amount,
           @JsonKey(name: "payment_date") final String? paymentDate}) =
       _$_MVPHistoryModel;
 
@@ -267,7 +267,7 @@ abstract class _MVPHistoryModel implements MVPHistoryModel {
   String? get transactionType;
   @override
   @JsonKey(name: "amount")
-  String? get amount;
+  double? get amount;
   @override
   @JsonKey(name: "payment_date")
   String? get paymentDate;
