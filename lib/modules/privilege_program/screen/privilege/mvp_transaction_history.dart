@@ -80,6 +80,8 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
       initState: (_) async {
         await privilegeController.onFetchMVPTransactionHistory(
             id: widget.id!, filter: _getFilter(), page: 1);
+
+        await privilegeController.fetchHistoryShopData(widget.id!);
       },
       init: privilegeController,
       builder: (controller) => Stack(
@@ -318,7 +320,7 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                 Text(
                                                   // '1000',
                                                   privilegeController
-                                                      .storeHomeDataModel
+                                                      .storeHistoryData
                                                       .value
                                                       .mvpIn
                                                       .toString(),
@@ -372,7 +374,7 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                 Text(
                                                   // '1000',
                                                   privilegeController
-                                                      .storeHomeDataModel
+                                                      .storeHistoryData
                                                       .value
                                                       .mvpOut
                                                       .toString(),
