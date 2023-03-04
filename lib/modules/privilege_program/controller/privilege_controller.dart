@@ -494,14 +494,13 @@ class PrivilegeController extends GetxController {
   ///history shop data
   final storeHistoryData = StoreHomeDataModel().obs;
   Future<void> fetchHistoryShopData(String id) async {
-    await apiBaseHelper.onNetworkRequesting(
+    await apiBaseHelper
+        .onNetworkRequesting(
       isAuthorize: true,
       methode: METHODE.get,
-      url: "privilege/transaction-history",
-      body: {
-        'id': id,
-      },
-    ).then((value) {
+      url: "privilege/transaction-home-page/$id",
+    )
+        .then((value) {
       storeHistoryData.value = StoreHomeDataModel.fromJson(value);
     }).onError(
       (ErrorModel error, _) {

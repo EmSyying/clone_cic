@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../Utils/helper/format_Number.dart';
 import '../../../../widgets/custom_overlay_button.dart';
 import '../../../../widgets/privilege/custom_mvp_transaction_history.dart';
 import '../../../../widgets/privilege/trtansaction_strore.dart';
@@ -268,26 +267,24 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                             ),
-                                            Text(
-                                              widget.amount != null &&
-                                                      widget.amount!.isNotEmpty
-                                                  ? FormatNumber
-                                                      .formatNumberDefualt(
-                                                          num.tryParse(widget
-                                                                  .amount!
-                                                                  .replaceAll(
-                                                                      ' MVP',
-                                                                      '')) ??
-                                                              0)
-                                                  : '0',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelMedium!
-                                                  .copyWith(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                            ),
+                                            Obx(
+                                              () => Text(
+                                                privilegeController
+                                                    .storeHistoryData
+                                                    .value
+                                                    .totalMvp
+                                                    .toString()
+                                                    .replaceAll(' MVP', ''),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium!
+                                                    .copyWith(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                              ),
+                                            )
                                           ],
                                         ),
                                         const Spacer(),
@@ -317,21 +314,23 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                 const SizedBox(
                                                   height: 5,
                                                 ),
-                                                Text(
-                                                  // '1000',
-                                                  privilegeController
-                                                      .storeHistoryData
-                                                      .value
-                                                      .mvpIn
-                                                      .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelMedium!
-                                                      .copyWith(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                Obx(
+                                                  () => Text(
+                                                    // '1000',
+                                                    privilegeController
+                                                        .storeHistoryData
+                                                        .value
+                                                        .mvpIn
+                                                        .toString(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelMedium!
+                                                        .copyWith(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -371,22 +370,24 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                 const SizedBox(
                                                   height: 5,
                                                 ),
-                                                Text(
-                                                  // '1000',
-                                                  privilegeController
-                                                      .storeHistoryData
-                                                      .value
-                                                      .mvpOut
-                                                      .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelMedium!
-                                                      .copyWith(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                ),
+                                                Obx(
+                                                  () => Text(
+                                                    // '1000',
+                                                    privilegeController
+                                                        .storeHistoryData
+                                                        .value
+                                                        .mvpOut
+                                                        .toString(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelMedium!
+                                                        .copyWith(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  ),
+                                                )
                                               ],
                                             ),
                                           ],

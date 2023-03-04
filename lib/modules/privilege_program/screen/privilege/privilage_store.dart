@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../widgets/privilege/trtansaction_strore.dart';
 import '../../controller/privilege_controller.dart';
@@ -23,7 +22,6 @@ class PrivilageStoreScreen extends StatelessWidget {
       privilegeController.onFetchHomeStoreData();
       isInit = false;
     }
-    var formatter = NumberFormat('###,000');
 
     return Obx(() {
       return Stack(
@@ -64,10 +62,7 @@ class PrivilageStoreScreen extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          formatter.format(
-                            double.tryParse(privilegeController
-                                .storeHomeDataModel.value.totalMvp),
-                          ),
+                          privilegeController.storeHomeDataModel.value.totalMvp,
                           style:
                               Theme.of(context).textTheme.labelMedium!.copyWith(
                                     fontSize: 30,
