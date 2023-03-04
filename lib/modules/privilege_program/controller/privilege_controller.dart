@@ -103,7 +103,6 @@ class PrivilegeController extends GetxController {
   //   return shopModelList;
   // }
 
-
   ///Fetch MVP Transaction History
   final mvpTransactionHistoryLoading = false.obs;
   final mvpTransactionHistoryLoadingMore = false.obs;
@@ -490,6 +489,25 @@ class PrivilegeController extends GetxController {
       isLoadingHistory(false);
     });
     return privilegeHistoryList;
+  }
+
+  ///history shop data
+  final storeHistoryData = StoreHomeDataModel().obs;
+  Future<void> fetchHistoryShopData(String id) async {
+    await apiBaseHelper.onNetworkRequesting(
+      isAuthorize: true,
+      methode: METHODE.get,
+      url: "privilege/transaction-history",
+      body: {
+        'id': id,
+      },
+    ).then((value) {
+      storeHistoryData.value = StoreHomeDataModel.fromJson(value);
+    }).onError(
+      (ErrorModel error, _) {
+        debugPrint('Error fetchHistoryShopData() : ${error.statusCode}');
+      },
+    );
   }
 
   /////search categories shop
