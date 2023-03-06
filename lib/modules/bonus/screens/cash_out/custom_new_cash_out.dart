@@ -343,7 +343,7 @@ class CustomNewCashOut extends StatelessWidget {
                           isDisable: newCashOutCon.bankName.value != "" &&
                                   newCashOutCon.accountNumber.value != "" &&
                                   newCashOutCon.cashoutAmount.value != 0 &&
-                                  newCashOutCon.cashoutAmount.value <
+                                  newCashOutCon.cashoutAmount.value <=
                                       _walletController
                                           .walletAmount.value.wallet!.balance!
                               ? false
