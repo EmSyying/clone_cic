@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/Utils/helper/color.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../modules/wallet/model/exchange_point_transaction.dart/exchange_point_transaction.dart';
 
@@ -133,11 +134,11 @@ class CustomTransactionPoint extends StatelessWidget {
                     dash: const [4, 4]),
               ),
               SizedBox(
-                width: cardWidth * 0.24,
-                child: Image.asset(
-                  'assets/images/union_point_card.png',
-                  width: 35,
-                  height: 35,
+                width: cardWidth * 0.20,
+                child: SvgPicture.asset(
+                  'assets/images/wallet/union_point_card.svg',
+                  width: 28,
+                  height: 28,
                 ),
               ),
             ],
