@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -12,7 +11,7 @@ class TransactionStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 100,
+      height: 80,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -28,53 +27,67 @@ class TransactionStore extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            margin:
-                const EdgeInsets.only(left: 5, top: 20, bottom: 20, right: 10),
-            width: 80,
-            height: 80,
-            clipBehavior: Clip.hardEdge,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 1,
-                )
-              ],
-              shape: BoxShape.circle,
-              // image: DecorationImage(
-              //   fit: BoxFit.cover,
-              //   onError: (exception, stackTrace) => {},
-              //   image: NetworkImage(
-              //     '$image',
-              //   ),
-              // ),
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  // color: Colors.red,
-                  // height: 40,
-                  // width: 40,
-                  child: CachedNetworkImage(
-                    imageUrl: '$image',
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.error,
-                      color: Colors.blue[900],
-                    ),
-                    // width: 30,
-                    // height: 30,
-                    fit: BoxFit.fill,
-                  ),
+          // Container(
+          //   margin:
+          //       const EdgeInsets.only(left: 5, top: 20, bottom: 20, right: 10),
+          //   width: 80,
+          //   height: 80,
+          //   clipBehavior: Clip.hardEdge,
+          //   decoration: const BoxDecoration(
+          //     color: Colors.white,
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: Colors.black26,
+          //         offset: Offset(0.0, 0.0),
+          //         blurRadius: 1,
+          //       )
+          //     ],
+          //     // shape: BoxShape.circle,
+          //     // image: DecorationImage(
+          //     //   fit: BoxFit.cover,
+          //     //   onError: (exception, stackTrace) => {},
+          //     //   image: NetworkImage(
+          //     //     '$image',
+          //     //   ),
+          //     // ),
+          //   ),
+          //   child: Center(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: SizedBox(
+          //         // color: Colors.red,
+          //         // height: 40,
+          //         // width: 40,
+          //         child: CachedNetworkImage(
+          //           imageUrl: '$image',
+          //           errorWidget: (context, url, error) => Icon(
+          //             Icons.error,
+          //             color: Colors.blue[900],
+          //           ),
+          //           // width: 30,
+          //           // height: 30,
+          //           fit: BoxFit.fill,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          //   // child: Image.network(
+          //   //   '',
+          //   // ),
+          // ),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 12, top: 16, bottom: 16, right: 14),
+            child: SizedBox(
+              height: 48,
+              width: 48,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage(
+                  image ?? "",
                 ),
               ),
             ),
-            // child: Image.network(
-            //   '',
-            // ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
