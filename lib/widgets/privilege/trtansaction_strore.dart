@@ -80,12 +80,15 @@ class TransactionStore extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '$title',
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Text(
+                  '$title',
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
               ),
               const SizedBox(
                 height: 8,

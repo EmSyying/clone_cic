@@ -267,6 +267,9 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                             ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
                                             Obx(
                                               () => Text(
                                                 privilegeController
@@ -326,7 +329,7 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                         .textTheme
                                                         .labelMedium!
                                                         .copyWith(
-                                                          fontSize: 10,
+                                                          fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -382,7 +385,7 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                         .textTheme
                                                         .labelMedium!
                                                         .copyWith(
-                                                          fontSize: 10,
+                                                          fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
