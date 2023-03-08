@@ -194,12 +194,12 @@ class CustomCardAllStores extends StatelessWidget {
         ),
         privilegeShopList!.pointAccepted == true
             ? Positioned(
-                left: 10,
-                bottom: 18,
+                right: 0,
+                bottom: 8,
                 child: Container(
-                  height: 16,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  // height: 20,
+                  // padding:
+                  //     const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -208,19 +208,25 @@ class CustomCardAllStores extends StatelessWidget {
                       ],
                     ),
                   ),
-                  child: Text(
-                    'MVP Approved',
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 8,
-                      color: Colors.white,
-                      shadows: [
-                        Shadow(
-                          offset: const Offset(0.0, 1),
-                          blurRadius: 10.0,
-                          color: Colors.black.withOpacity(0.2),
-                        ),
-                      ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0, vertical: 2.0),
+                    child: Text(
+                      'MVP Approved',
+                      textAlign: TextAlign.center,
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(0.0, 1),
+                            blurRadius: 10.0,
+                            color: Colors.black.withOpacity(0.2),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
