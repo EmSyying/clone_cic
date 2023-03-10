@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,32 +15,28 @@ import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 
-class PaymentSummeryMVP extends StatelessWidget {
-  final String? amount;
-  final String? accountMVP;
+class GiftMVPSuccessfully extends StatelessWidget {
   final String? transactionID;
   final String? date;
   final String? reference;
   final String? fromAccount;
-  final String? seller;
   final String? originalAmount;
   final String? remark;
-  final String? marchant;
+  final String? amount;
+  final String? accountName;
   final GestureTapCallback? onPressed;
-
-  const PaymentSummeryMVP(
-      {super.key,
-      this.amount,
-      this.accountMVP,
-      this.transactionID,
-      this.date,
-      this.reference,
-      this.fromAccount,
-      this.seller,
-      this.originalAmount,
-      this.remark,
-      this.onPressed,
-      this.marchant});
+  const GiftMVPSuccessfully({
+    super.key,
+    this.transactionID,
+    this.date,
+    this.reference,
+    this.fromAccount,
+    this.originalAmount,
+    this.remark,
+    this.onPressed,
+    this.amount,
+    this.accountName,
+  });
   static GlobalKey printScreenKey = GlobalKey();
   final bool clickedShare = true;
 
@@ -54,7 +50,7 @@ class PaymentSummeryMVP extends StatelessWidget {
           elevation: 0.5,
           title: Center(
             child: Text(
-              'Redeem successfully',
+              'Successfully',
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
@@ -136,7 +132,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                                               height: 4.0,
                                             ),
                                             Text(
-                                              accountMVP ?? '',
+                                              accountName ?? '',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displaySmall!
@@ -182,16 +178,6 @@ class PaymentSummeryMVP extends StatelessWidget {
                                             label: 'From account',
                                             value: fromAccount ?? '',
                                           ),
-                                          summeryLabel(
-                                            context,
-                                            label: 'Merchant',
-                                            value: marchant ?? '',
-                                          ),
-                                          // summeryLabel(
-                                          //   context,
-                                          //   label: 'Seller',
-                                          //   value: seller ?? '',
-                                          // ),
                                           summeryLabel(
                                             context,
                                             label: 'Original Amount',
@@ -275,7 +261,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                           onTap: () async {
                             if (clickedShare) {
                               clickedShare == false;
-                              await _sharepaymentSummery(context).then((_) {
+                              await _shareSucessfully(context).then((_) {
                                 clickedShare == true;
                               });
                             }
@@ -313,7 +299,7 @@ class PaymentSummeryMVP extends StatelessWidget {
                         InkWell(
                           splashColor: Colors.transparent,
                           onTap: () {
-                            _onPaymentSummerySave();
+                            _onSaveSuccessfully();
                             debugPrint('hany test payment===');
                           },
                           child: Column(
@@ -394,8 +380,28 @@ class PaymentSummeryMVP extends StatelessWidget {
     );
   }
 
+  //function share
+  Future<void> _shareSucessfully(BuildContext context) async {
+    try {
+      final RenderBox box = context.findRenderObject() as RenderBox;
+      RenderRepaintBoundary boundary = printScreenKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+      var image = await boundary.toImage(pixelRatio: 2);
+      var byteData = await image.toByteData(format: ImageByteFormat.png);
+      var pngBytes = byteData!.buffer.asUint8List();
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/transferqr.png');
+      await file.writeAsBytes(pngBytes);
+
+      Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
+          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+    } catch (e) {
+      debugPrint("$e");
+    }
+  }
+
   //Function Save
-  Future<void> _onPaymentSummerySave() async {
+  Future<void> _onSaveSuccessfully() async {
     try {
       RenderRepaintBoundary boundary = printScreenKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
@@ -416,47 +422,13 @@ class PaymentSummeryMVP extends StatelessWidget {
 
       final result = await ImageGallerySaver.saveFile(file.path,
           name: name, isReturnPathOfIOS: true);
-      // final result = await ImageGallerySaver
-      // .saveImage(
-      //   pngBytes,
-      //   name: name,
-      //   isReturnImagePathOfIOS: true,
-      // );
+
       if (result != null) {
         customRouterSnackbar(
-            description: 'Payment Summery Saved.', suffix: false, prefix: true);
+            description: 'Gift MVP Saved.', suffix: false, prefix: true);
       } else {}
     } catch (e) {
       debugPrint(e.toString());
-    }
-  }
-
-  //function share
-  Future<void> _sharepaymentSummery(BuildContext context) async {
-    try {
-      final RenderBox box = context.findRenderObject() as RenderBox;
-      RenderRepaintBoundary boundary = printScreenKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary;
-      var image = await boundary.toImage(pixelRatio: 2);
-      var byteData = await image.toByteData(format: ImageByteFormat.png);
-      var pngBytes = byteData!.buffer.asUint8List();
-      final directory = await getTemporaryDirectory();
-      final file = File('${directory.path}/transferqr.png');
-      await file.writeAsBytes(pngBytes);
-
-      // var url = await DynamicLinkService.createDynamicLink(
-      //     path:
-      //         'wallet/transfer-to-other-mmacount?receiverAccount=${_walletController.transferModel.value.phoneNumber}&receiverAmount=${_walletController.recievingAmount.value}',
-      //     title: 'Title',
-      //     description: 'ss',
-      //     image:
-      //         'https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr');
-      // debugPrint("Shot Url: $url");
-
-      Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
-          sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-    } catch (e) {
-      debugPrint("$e");
     }
   }
 }

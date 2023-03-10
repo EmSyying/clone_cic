@@ -6,7 +6,6 @@ import 'package:cicgreenloan/utils/helper/api_base_helper.dart';
 import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
 import 'package:cicgreenloan/utils/helper/custom_success_screen.dart';
 import 'package:cicgreenloan/utils/helper/extension/string_extension.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -30,6 +29,11 @@ class WalletController extends GetxController {
   final isConfirm = false.obs;
   //End
   final name = ''.obs;
+  //gift mvp
+  final receiveWalletNumber = ''.obs;
+  final isGiftMVPVerifyAccountValidate = true.obs;
+  final isGiftMVPVerifyAccountValidateMessage = ''.obs;
+  final amountgiftMVPController = TextEditingController().obs;
 
   List<MMADepositCardModel> mmacardlist = [
     MMADepositCardModel(

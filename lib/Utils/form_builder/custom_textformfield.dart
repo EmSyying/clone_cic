@@ -127,7 +127,7 @@ class CustomTextFieldNew extends StatelessWidget {
               hintStyle: Theme.of(context).textTheme.titleMedium,
               focusedBorder: initialValue != ''
                   ? OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey[700]!),
+                      borderSide: BorderSide(color: Colors.grey[500]!),
                       borderRadius: BorderRadius.circular(10),
                     )
                   : OutlineInputBorder(
@@ -145,7 +145,7 @@ class CustomTextFieldNew extends StatelessWidget {
                     ),
               enabledBorder: initialValue != ''
                   ? OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey[600]!),
+                      borderSide: BorderSide(color: Colors.grey[300]!),
                       borderRadius: BorderRadius.circular(10),
                     )
                   : OutlineInputBorder(

@@ -152,6 +152,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                     onPressed: () {
                       final state = key.currentState;
                       if (state != null) {
+                        context.push('/mymvp/gift-mvp-transfer');
                         debugPrint('isOpen:${state.isOpen}');
                         state.toggle();
                         debugPrint('isOpen:${state.isOpen}');

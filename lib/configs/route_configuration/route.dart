@@ -44,8 +44,11 @@ import '../../modules/notification_modules/screens/notification.dart';
 import '../../modules/privilege_program/screen/mvp_qr.dart';
 import '../../modules/privilege_program/screen/privilege/mvp_transaction_history.dart';
 import '../../modules/privilege_program/screen/privilege/privilage_store.dart';
+import '../../modules/privilege_program/screen/privilege_point/gift_mvp_successfully.dart';
+import '../../modules/privilege_program/screen/privilege_point/gift_mvp_transfer_screen.dart';
 import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
 import '../../modules/privilege_program/screen/privilege_point/recent_activity_detail_summery.dart';
+import '../../modules/privilege_program/screen/privilege_point/review_gift_mvp_transfer.dart';
 import '../../modules/qr_code/qr_code.dart';
 
 import '../../modules/ut_trading/screens/add_inquiry.dart';
@@ -376,6 +379,22 @@ final router = GoRouter(
                         builder: (context, state) => MvpQrScreen(
                           key: state.pageKey,
                         ),
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
+                        path: 'gift-mvp-transfer',
+                        builder: (context, state) => GiftMVPTransferScreen(
+                          key: state.pageKey,
+                        ),
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: _rootNavigatorKey,
+                            path: 'review-gift-mvp',
+                            builder: (context, state) => ReviewGiftMVPTransfer(
+                              key: state.pageKey,
+                            ),
+                          ),
+                        ],
                       ),
                     ]),
 
@@ -1422,27 +1441,27 @@ final router = GoRouter(
           phoneNumber: state.queryParams['phoneNumber'],
         ),
       ),
-      //Claim Discount Summery
-      // GoRoute(
-      //   path: '/claim-discount-summery',
-      //   name: 'ClaimDiscountSummery',
-      //   parentNavigatorKey: _rootNavigatorKey,
-      //   builder: (_, state) {
-      //     final extras = state.extra as Map<String, Object?>?;
-      //     return ClaimDiscountSummery(
-      //       key: state.pageKey,
-      //       decription: state.queryParams['decription'],
-      //       rateDiscount: state.queryParams['rateDiscount'],
-      //       coverImage: state.queryParams['coverImage'],
-      //       status: state.queryParams['status'],
-      //       nameAcount: state.queryParams['nameAcount'],
-      //       merchant: state.queryParams['merchant'],
-      //       paymentOn: state.queryParams['paymentOn'],
-      //       digitsCode: state.queryParams['digitsCode'],
-      //       onPressedClaimDis: extras?['onPressedClaimDis'] as Function()?,
-      //     );
-      //   },
-      // ),
+      //gift mvp
+      GoRoute(
+        path: '/gift_mvp_successfully',
+        name: 'GiftMVPSuccessfully',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) {
+          final extras = state.extra as Map<String, Object?>?;
+          return GiftMVPSuccessfully(
+            key: state.pageKey,
+            amount: state.queryParams['amount'],
+            accountName: state.queryParams['accountMVP'],
+            transactionID: state.queryParams['transactionID'],
+            date: state.queryParams['date'],
+            reference: state.queryParams['reference'],
+            fromAccount: state.queryParams['fromAccount'],
+            originalAmount: state.queryParams['originalAmount'],
+            remark: state.queryParams['remark'],
+            onPressed: extras?['onPressed'] as Function()?,
+          );
+        },
+      ),
       //Payment Summery
       GoRoute(
         path: '/payment-summery',
