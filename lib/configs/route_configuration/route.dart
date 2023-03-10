@@ -41,6 +41,7 @@ import '../../modules/member_directory/screens/directory.dart';
 import '../../modules/member_directory/screens/new_profile_ui/new_persional_profile.dart';
 import '../../modules/notification_modules/screens/notification.dart';
 
+import '../../modules/privilege_program/screen/mvp_qr.dart';
 import '../../modules/privilege_program/screen/privilege/mvp_transaction_history.dart';
 import '../../modules/privilege_program/screen/privilege/privilage_store.dart';
 import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
@@ -203,6 +204,13 @@ final router = GoRouter(
                                   ),
                                 ),
                               ]),
+                          GoRoute(
+                            parentNavigatorKey: _rootNavigatorKey,
+                            path: 'mvp-qr',
+                            builder: (context, state) => MvpQrScreen(
+                              key: state.pageKey,
+                            ),
+                          ),
                         ]),
                   ],
                 ),
@@ -362,6 +370,13 @@ final router = GoRouter(
                               ),
                             ),
                           ]),
+                      GoRoute(
+                        parentNavigatorKey: _rootNavigatorKey,
+                        path: 'mvp-qr',
+                        builder: (context, state) => MvpQrScreen(
+                          key: state.pageKey,
+                        ),
+                      ),
                     ]),
 
                 /// Investment
@@ -762,6 +777,13 @@ final router = GoRouter(
                                         ),
                                       ),
                                     ]),
+                                GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  path: 'mvp-qr',
+                                  builder: (context, state) => MvpQrScreen(
+                                    key: state.pageKey,
+                                  ),
+                                ),
                               ])
                         ]),
 

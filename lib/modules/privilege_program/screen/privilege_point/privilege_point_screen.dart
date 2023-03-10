@@ -1,6 +1,7 @@
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/recent_point_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -51,6 +52,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
   Widget build(BuildContext context) {
     debugPrint("Hello world!");
     TextStyle textStyle = Theme.of(context).textTheme.titleLarge!;
+    final key = GlobalObjectKey<ExpandableFabState>(context);
 
     return CupertinoScaffold(
       body: Builder(builder: (context) {
@@ -90,6 +92,74 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
               ),
             ),
             Scaffold(
+              floatingActionButtonLocation: ExpandableFab.location,
+              floatingActionButton: ExpandableFab(
+                expandedFabSize: ExpandableFabSize.regular,
+                foregroundColor: Colors.white,
+                closeButtonStyle: const ExpandableFabCloseButtonStyle(
+                    child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                )),
+                distance: 60,
+                childrenOffset: const Offset(12, 9),
+                // type: ExpandableFabType.up,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                key: key,
+                overlayStyle: ExpandableFabOverlayStyle(
+                  blur: 4,
+                ),
+                onOpen: () {
+                  debugPrint('onOpen');
+                },
+                afterOpen: () {
+                  debugPrint('afterOpen');
+                },
+                onClose: () {
+                  debugPrint('onClose');
+                },
+                afterClose: () {
+                  debugPrint('afterClose');
+                },
+                children: [
+                  FloatingActionButton.small(
+                    backgroundColor: Colors.white,
+                    heroTag: null,
+                    child: SvgPicture.asset('assets/images/qr_icon.svg'),
+                    onPressed: () {
+                      final state = key.currentState;
+                      if (state != null) {
+                        debugPrint('isOpen:${state.isOpen}');
+                        state.toggle();
+                        debugPrint('isOpen:${state.isOpen}');
+                      }
+                      try {
+                        var string = GoRouterState.of(context).location;
+                        debugPrint("");
+                        context.push("$string/mvp-qr");
+                      } catch (e) {
+                        debugPrint("Hello ERROR$e");
+                      }
+                    },
+                  ),
+                  FloatingActionButton.small(
+                    backgroundColor: Colors.white,
+                    heroTag: null,
+                    child: SvgPicture.asset('assets/images/transfer_icon.svg'),
+                    onPressed: () {
+                      final state = key.currentState;
+                      if (state != null) {
+                        debugPrint('isOpen:${state.isOpen}');
+                        state.toggle();
+                        debugPrint('isOpen:${state.isOpen}');
+                      }
+                    },
+                  ),
+                ],
+              ),
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 backgroundColor: Colors.transparent,

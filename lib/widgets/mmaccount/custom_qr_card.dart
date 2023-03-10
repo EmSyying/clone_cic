@@ -9,7 +9,13 @@ class CustomQRCard extends StatelessWidget {
   final String? amountQr;
   final String? userID;
   final String? userName;
-  const CustomQRCard({Key? key, this.amountQr, this.userID, this.userName})
+  final String assetName;
+  const CustomQRCard(
+      {Key? key,
+      this.amountQr,
+      this.userID,
+      this.userName,
+      this.assetName = "assets/images/Logo/cic_logo_x4jpg.jpg"})
       : super(key: key);
 
   @override
@@ -33,7 +39,7 @@ class CustomQRCard extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20), color: Colors.white),
             child: PrettyQr(
-              image: const AssetImage('assets/images/Logo/cic_logo_x4jpg.jpg'),
+              image: AssetImage(assetName),
               size: 200,
               data: walletController.transferModel.value.toJson(),
               roundEdges: true,
