@@ -140,22 +140,41 @@ class CustomCardAllStores extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          Expanded(
-                            child: Text(
-                              privilegeShopList!.fullAddress ?? '',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w300,
-                                    color: const Color(0xff464646),
-                                    letterSpacing: 0.2,
+                          privilegeShopList!.pointAccepted == true
+                              ? SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.33,
+                                  child: Text(
+                                    privilegeShopList!.fullAddress ?? '',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w300,
+                                          color: const Color(0xff464646),
+                                          letterSpacing: 0.2,
+                                        ),
                                   ),
-                            ),
-                          ),
+                                )
+                              : Expanded(
+                                  child: Text(
+                                    privilegeShopList!.fullAddress ?? '',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w300,
+                                          color: const Color(0xff464646),
+                                          letterSpacing: 0.2,
+                                        ),
+                                  ),
+                                ),
                         ],
                       ),
                     ],
