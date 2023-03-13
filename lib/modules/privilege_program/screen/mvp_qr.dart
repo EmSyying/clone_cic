@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,7 +21,6 @@ import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
 import '../../../Utils/helper/texfield_format_currency/decimal_textinput_format.dart';
 import '../../../Utils/helper/texfield_format_currency/format_value_onchange.dart';
-import '../../../configs/firebase_deeplink/deeplink_service.dart';
 import '../../../widgets/mmaccount/custom_qr_card.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../../wallet/controller/wallet_controller.dart';
@@ -201,7 +199,9 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                                 text: 'Share', onTap: () async {
                               if (clickedShare) {
                                 clickedShare = false;
-                                await _captureAndSharePng(context).then((_) {
+                                await _captureAndSharePng(
+                                        context, privilegeController)
+                                    .then((_) {
                                   clickedShare = true;
                                 });
                               }
@@ -346,7 +346,8 @@ class MvpQrScreenState extends State<MvpQrScreen> {
     }
   }
 
-  Future<void> _captureAndSharePng(BuildContext context) async {
+  Future<void> _captureAndSharePng(
+      BuildContext context, PrivilegeController privilegeController) async {
     try {
       final RenderBox box = context.findRenderObject() as RenderBox;
       RenderRepaintBoundary boundary = printScreenKey.currentContext!
@@ -357,15 +358,15 @@ class MvpQrScreenState extends State<MvpQrScreen> {
       final directory = await getTemporaryDirectory();
       final file = File('${directory.path}/transferqr.png');
       await file.writeAsBytes(pngBytes);
-      var path = GoRouterState.of(context).location;
-      path = path.replaceAll("/mvp-qr", "");
-      path = path.replaceFirst('/', '');
-      debugPrint("path=$path");
-      final url = await DynamicLinkService.createDynamicLink(
-          path:
-              "$path/gift-mvp-transfer?receiverAccount=${widget.accountNumber}&receiverName=${widget.accountName}&receiverAmount=${widget.amount}",
-          isShort: true);
-      debugPrint("Short link for transfer: $url");
+      // var path = GoRouterState.of(context).location;
+      // path = path.replaceAll("/mvp-qr", "");
+      // path = path.replaceFirst('/', '');
+      // debugPrint("path=$path");
+      // final url = await DynamicLinkService.createDynamicLink(
+      //     path:
+      //         "$path/gift-mvp-transfer?receiverAccount=${widget.accountNumber}&receiverName=${widget.accountName}&receiverAmount=${widget.amount}",
+      //     isShort: true);
+      // debugPrint("Short link for transfer: $url");
 
       // var url = await DynamicLinkService.createDynamicLink(
       //     path:
@@ -375,10 +376,9 @@ class MvpQrScreenState extends State<MvpQrScreen> {
       //     image:
       //         'https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr');
       // debugPrint("Shot Url: $url");
-      Share.share(
-          // [XFile('${directory.path}/transferqr.png')],
-          // text:
-          'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: $url',
+      Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
+          text:
+              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: ${privilegeController.mvpDynamicLinkModel.value.sortLink}',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     } catch (e) {
       debugPrint("$e");
