@@ -26,6 +26,7 @@ class CardCurrentPoints extends StatelessWidget {
           ],
         ),
       ),
+      clipBehavior: Clip.antiAlias,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
