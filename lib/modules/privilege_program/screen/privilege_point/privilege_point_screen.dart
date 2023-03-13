@@ -138,8 +138,9 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                       }
                       try {
                         var string = GoRouterState.of(context).location;
-                        debugPrint("");
+
                         context.push("$string/mvp-qr");
+                        _privilegeController.onGenerateDynamicLinkMVP(002428);
                       } catch (e) {
                         debugPrint("Hello ERROR$e");
                       }
@@ -151,11 +152,18 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                     child: SvgPicture.asset('assets/images/transfer_icon.svg'),
                     onPressed: () {
                       final state = key.currentState;
+
                       if (state != null) {
-                        context.push('/mymvp/gift-mvp-transfer');
                         debugPrint('isOpen:${state.isOpen}');
                         state.toggle();
                         debugPrint('isOpen:${state.isOpen}');
+                      }
+                      try {
+                        var string = GoRouterState.of(context).location;
+
+                        context.push("$string/gift-mvp-transfer");
+                      } catch (e) {
+                        debugPrint("Hello ERROR$e");
                       }
                     },
                   ),
