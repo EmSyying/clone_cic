@@ -410,9 +410,9 @@ class MvpQrScreenState extends State<MvpQrScreen> {
               ),
               CustomTextFieldNew(
                   controller: privilegeController.mvpShareAmountController,
-                  // inputFormatterList: [
-                  //   DecimalTextInputFormatter(decimalRange: 2)
-                  // ],
+                  inputFormatterList: [
+                    DecimalTextInputFormatter(decimalRange: 2)
+                  ],
                   autoFocus: true,
                   labelText: 'Set Amount',
                   isRequired: true,
@@ -427,7 +427,8 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                     privilegeController.mvpShareAmount.value = value;
                   },
                   suffixText: 'MVP',
-                  keyboardType: TextInputType.name),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true)),
               const SizedBox(height: 10),
               const Divider(
                 height: 0,
