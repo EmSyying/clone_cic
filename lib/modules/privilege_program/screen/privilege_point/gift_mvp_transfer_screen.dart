@@ -174,7 +174,14 @@ class GiftMVPTransferScreen extends StatelessWidget {
             child: CustomButton(
               width: double.infinity,
               onPressed: () {
-                context.push('/mymvp/gift-mvp-transfer/review-gift-mvp');
+                try {
+                  var string = GoRouterState.of(context).location;
+
+                  context.push("$string/review-gift-mvp");
+                } catch (e) {
+                  debugPrint("Hello ERROR$e");
+                }
+                // context.push('/mymvp/gift-mvp-transfer/review-gift-mvp');
               },
               title: 'Pay Now',
               isDisable: false,

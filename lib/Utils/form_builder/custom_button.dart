@@ -149,6 +149,8 @@ class _CustomButtonState extends State<CustomButton> {
                                 child: ElevatedButton(
                                   onPressed: null,
                                   style: ElevatedButton.styleFrom(
+                                    disabledBackgroundColor:
+                                        widget.backgroundColor!,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
@@ -160,7 +162,9 @@ class _CustomButtonState extends State<CustomButton> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
-                                          .copyWith(color: Colors.grey)),
+                                          .copyWith(
+                                              color: widget.colorText ??
+                                                  Colors.grey)),
                                 ),
                               )
                             : widget.isDisable! && widget.isOutline!
@@ -329,7 +333,9 @@ class _CustomButtonState extends State<CustomButton> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
-                                          .copyWith(color: Colors.grey),
+                                          .copyWith(
+                                              color: widget.colorText ??
+                                                  Colors.grey),
                                     ),
                                   )
                                 : CupertinoButton(

@@ -5,7 +5,6 @@ import 'package:cicgreenloan/Utils/helper/extension/string_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -21,14 +20,24 @@ import '../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../Utils/helper/color.dart';
 import '../../../Utils/helper/custom_appbar.dart';
 import '../../../Utils/helper/custom_route_snackbar.dart';
-import '../../../Utils/helper/digit_decimal_formarter.dart';
+import '../../../Utils/helper/texfield_format_currency/decimal_textinput_format.dart';
+import '../../../Utils/helper/texfield_format_currency/format_value_onchange.dart';
 import '../../../configs/firebase_deeplink/deeplink_service.dart';
 import '../../../widgets/mmaccount/custom_qr_card.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../../wallet/controller/wallet_controller.dart';
+import '../controller/privilege_controller.dart';
 
 class MvpQrScreen extends StatefulWidget {
-  const MvpQrScreen({Key? key}) : super(key: key);
+  const MvpQrScreen(
+      {Key? key,
+      this.accountNumber = "0963288307",
+      this.accountName = "Um Kithya",
+      this.amount = "5,000.99"})
+      : super(key: key);
+  final String accountNumber;
+  final String accountName;
+  final String amount;
 
   @override
   State<MvpQrScreen> createState() => MvpQrScreenState();
@@ -39,8 +48,15 @@ class MvpQrScreenState extends State<MvpQrScreen> {
 
   @override
   void dispose() {
-    _walletController.clearDeposit();
+    // clearDeposit
+    Get.put(PrivilegeController()).mvpShareAmountController.text = "";
+    Get.put(PrivilegeController()).mvpShareAmount.value = "";
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   GlobalKey qrKey = GlobalKey();
@@ -50,220 +66,243 @@ class MvpQrScreenState extends State<MvpQrScreen> {
 
   bool clickedShare = true;
 
+  bool init = true;
+
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
+    final privilegeController = Get.put(PrivilegeController());
+
     return Stack(
       children: [
         Center(
           child: RepaintBoundary(
             key: printScreenKey,
-            child:
-                // Obx(
-                //   () =>
-                const CustomQRCard(
-              assetName: 'assets/images/Logo/MVP.png',
-              userID: "1",
-              // _walletController.walletAmount.value.wallet!.accountNumber,
-              userName: "Um Kithya",
-              // _walletController.walletAmount.value.invester!.investerName,
-              amountQr: "5,000.99",
-              // _walletController.recievingAmount.value.toCurrencyAmount(),
+            child: Obx(
+              () => CustomQRCard(
+                deepLink:
+                    privilegeController.mvpDynamicLinkModel.value.sortLink,
+                assetName: 'assets/images/Logo/MVP.png',
+                userID:
+                    privilegeController.mvpDynamicLinkModel.value.accountNumber,
+                // _walletController.walletAmount.value.wallet!.accountNumber,
+                userName:
+                    privilegeController.mvpDynamicLinkModel.value.accountName,
+                // _walletController.walletAmount.value.invester!.investerName,
+                amountQr: privilegeController.mvpShareAmount.value,
+                // _walletController.recievingAmount.value.toCurrencyAmount(),
+              ),
             ),
           ),
         ),
         // ),
 
         /// Main Screen
-        Scaffold(
-          backgroundColor: const Color(0xffF5F5F5),
-          appBar: CustomAppBar(
-            elevation: 0,
-            isLeading: true,
-            context: context,
-            title: "MVP QR",
-          ),
-          body: Obx(
-            () => Column(
-              children: [
-                // const Padding(
-                //   padding: EdgeInsets.all(20.0),
-                //   child: WalletTotalCard(amount: "1000"
-                //       // _walletController
-                //       //     .walletAmount.value.wallet!.balanceFormat,
-                //       ),
-                // ),
-                // const Expanded(
-                //   flex: 1,
-                //   child: SizedBox(),
-                // ),
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 30),
-                          Text(
-                            'Show QR Code to receive payment from others.',
-                            style: textStyle.copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                            ),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 25),
-                              child: PrettyQr(
-                                elementColor: const Color(0xff0A0B09),
-                                roundEdges: true,
-                                key: qrKey,
-                                image: const AssetImage(
-                                    'assets/images/Logo/MVP.png'),
-                                data: _walletController.transferModel.value
-                                    .toJson(),
-                                size: 170,
-                                // errorCorrectLevel: QrErrorCorrectLevel.H,
-                              )),
-                          if (_walletController.recievingAmount.value.isEmpty)
-                            _amountbutton(
-                              textStyle,
-                              ontap: () {
-                                _inputAmount(context);
-                              },
-                              text: 'Set Amount',
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          _walletController.recievingAmount.value.isNotEmpty
-                              ? _hasAmount(textStyle)
-                              : const SizedBox.shrink(),
-                          // const Spacer(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                //fix overflow keyboard
-                Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildbutton(textStyle,
-                              icon: SvgPicture.asset('assets/images/share.svg'),
-                              text: 'Share', onTap: () async {
-                            if (clickedShare) {
-                              clickedShare = false;
-                              await _captureAndSharePng(context).then((_) {
-                                clickedShare = true;
-                              });
-                            }
-                          }),
-                          const SizedBox(width: 50),
-                          _buildbutton(textStyle,
-                              text: 'Save',
-                              icon: SvgPicture.asset('assets/images/save.svg'),
-                              onTap: () {
-                            setState(() {
-                              isShowPopupQRCode = true;
-                              _onCaptureAndSave();
-                            });
-                          }),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30),
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'By submitting you agree to ',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: Colors.black),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'CiC Service Agreement',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () async {
-                                      debugPrint("Click");
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ContractTerm(
-                                            fromPage: 'Review Payment',
-                                          ),
-                                        ),
-                                      );
-                                      // await onShowCustomCupertinoModalSheet(
-                                      //     context: context,
-                                      //     child: ServiceAgreement(
-                                      //       serviceAgreement:
-                                      //           Get.put(BonusController())
-                                      //                   .bonusSetting
-                                      //                   .value
-                                      //                   .serviceAgreement ??
-                                      //               "",
-                                      //     ),
-                                      //     title: 'CiC Service Agreement',
-                                      //     icon:
-                                      //         const Icon(Icons.arrow_back_ios));
-                                    }),
-                            ],
-                          ),
+        Visibility(
+          visible: true,
+          child: Scaffold(
+            backgroundColor: const Color(0xffF5F5F5),
+            appBar: CustomAppBar(
+              elevation: 0,
+              isLeading: true,
+              context: context,
+              title: "MVP QR",
+            ),
+            body: Obx(
+              () => Column(
+                children: [
+                  // const Padding(
+                  //   padding: EdgeInsets.all(20.0),
+                  //   child: WalletTotalCard(amount: "1000"
+                  //       // _walletController
+                  //       //     .walletAmount.value.wallet!.balanceFormat,
+                  //       ),
+                  // ),
+                  // const Expanded(
+                  //   flex: 1,
+                  //   child: SizedBox(),
+                  // ),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
                         ),
                       ),
-                      const SizedBox(height: 46),
-                      // SafeArea(
-                      //   top: false,
-                      //   minimum: const EdgeInsets.only(bottom: 20),
-                      //   child: RichText(
-                      //     text: TextSpan(
-                      //       text: 'By submitting you agree to ',
-                      //       style: textStyle.copyWith(fontSize: 12),
-                      //       children: [
-                      //         TextSpan(
-                      //           recognizer: TapGestureRecognizer()
-                      //             ..onTap = () {
-                      //               Navigator.push(
-                      //                 context,
-                      //                 MaterialPageRoute(
-                      //                   builder: (context) =>
-                      //                       const ContractTerm(
-                      //                     fromPage: 'agree',
-                      //                   ),
-                      //                 ),
-                      //               );
-                      //             },
-                      //           text: 'CiC Service Agreement',
-                      //           style: textStyle.copyWith(
-                      //               color: Theme.of(context).primaryColor,
-                      //               fontWeight: FontWeight.w400,
-                      //               fontSize: 12),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 50),
+                            Text(
+                              'Show QR Code to receive payment from others.',
+                              style: textStyle.copyWith(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 48,
+                                ),
+                                child: PrettyQr(
+                                  elementColor: const Color(0xff0A0B09),
+                                  roundEdges: true,
+                                  key: qrKey,
+                                  image: const AssetImage(
+                                      'assets/images/Logo/MVP.png'),
+                                  data: privilegeController
+                                          .mvpDynamicLinkModel.value.sortLink ??
+                                      "",
+                                  size: 170,
+                                  // errorCorrectLevel: QrErrorCorrectLevel.H,
+                                )),
+                            if (privilegeController
+                                .mvpShareAmount.value.isEmpty)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30),
+                                child: _amountbutton(
+                                  textStyle,
+                                  ontap: () {
+                                    _inputAmount(context, privilegeController);
+                                  },
+                                  text: 'Set Amount',
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            privilegeController.mvpShareAmount.value.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 24),
+                                    child: _hasAmount(
+                                        textStyle, privilegeController),
+                                  )
+                                : const SizedBox.shrink(),
+                            // const Spacer(),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                )
-              ],
+                  //fix overflow keyboard
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _buildbutton(textStyle,
+                                icon:
+                                    SvgPicture.asset('assets/images/share.svg'),
+                                text: 'Share', onTap: () async {
+                              if (clickedShare) {
+                                clickedShare = false;
+                                await _captureAndSharePng(context).then((_) {
+                                  clickedShare = true;
+                                });
+                              }
+                            }),
+                            const SizedBox(width: 50),
+                            _buildbutton(textStyle,
+                                text: 'Save',
+                                icon:
+                                    SvgPicture.asset('assets/images/save.svg'),
+                                onTap: () {
+                              setState(() {
+                                isShowPopupQRCode = true;
+                                _onCaptureAndSave();
+                              });
+                            }),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30),
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'By submitting you agree to ',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: Colors.black),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'CiC Service Agreement',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        debugPrint("Click");
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ContractTerm(
+                                              fromPage: 'Review Payment',
+                                            ),
+                                          ),
+                                        );
+                                        // await onShowCustomCupertinoModalSheet(
+                                        //     context: context,
+                                        //     child: ServiceAgreement(
+                                        //       serviceAgreement:
+                                        //           Get.put(BonusController())
+                                        //                   .bonusSetting
+                                        //                   .value
+                                        //                   .serviceAgreement ??
+                                        //               "",
+                                        //     ),
+                                        //     title: 'CiC Service Agreement',
+                                        //     icon:
+                                        //         const Icon(Icons.arrow_back_ios));
+                                      }),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 46),
+                        // SafeArea(
+                        //   top: false,
+                        //   minimum: const EdgeInsets.only(bottom: 20),
+                        //   child: RichText(
+                        //     text: TextSpan(
+                        //       text: 'By submitting you agree to ',
+                        //       style: textStyle.copyWith(fontSize: 12),
+                        //       children: [
+                        //         TextSpan(
+                        //           recognizer: TapGestureRecognizer()
+                        //             ..onTap = () {
+                        //               Navigator.push(
+                        //                 context,
+                        //                 MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       const ContractTerm(
+                        //                     fromPage: 'agree',
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             },
+                        //           text: 'CiC Service Agreement',
+                        //           style: textStyle.copyWith(
+                        //               color: Theme.of(context).primaryColor,
+                        //               fontWeight: FontWeight.w400,
+                        //               fontSize: 12),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -322,8 +361,10 @@ class MvpQrScreenState extends State<MvpQrScreen> {
       path = path.replaceAll("/mvp-qr", "");
       path = path.replaceFirst('/', '');
       debugPrint("path=$path");
-      final url =
-          await DynamicLinkService.createDynamicLink(path: path, isShort: true);
+      final url = await DynamicLinkService.createDynamicLink(
+          path:
+              "$path/gift-mvp-transfer?receiverAccount=${widget.accountNumber}&receiverName=${widget.accountName}&receiverAmount=${widget.amount}",
+          isShort: true);
       debugPrint("Short link for transfer: $url");
 
       // var url = await DynamicLinkService.createDynamicLink(
@@ -334,7 +375,6 @@ class MvpQrScreenState extends State<MvpQrScreen> {
       //     image:
       //         'https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr');
       // debugPrint("Shot Url: $url");
-
       Share.share(
           // [XFile('${directory.path}/transferqr.png')],
           // text:
@@ -345,7 +385,8 @@ class MvpQrScreenState extends State<MvpQrScreen> {
     }
   }
 
-  Future<void> _inputAmount(BuildContext context) async {
+  Future<void> _inputAmount(
+      BuildContext context, PrivilegeController privilegeController) async {
     await showCupertinoModalBottomSheet(
       context: context,
       barrierColor: Colors.black26,
@@ -368,45 +409,25 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                     color: Colors.grey),
               ),
               CustomTextFieldNew(
-                controller: _walletController.amountController,
-                inputFormatterList: [
-                  // FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-                  // TextInputFormatter.withFunction((oldValue, newValue) {
-                  //   double? number = double.tryParse(newValue.text);
-                  //   if (number != null) {
-                  //     debugPrint('New');
-                  //     return newValue.copyWith(
-                  //         text: newValue.text.asInput(),
-                  //         selection: TextSelection.collapsed(
-                  //             offset: newValue.text.asInput().length));
-                  //   } else if (newValue.text.isEmpty) {
-                  //     return const TextEditingValue();
-                  //   } else {
-                  //     debugPrint('Old');
-                  //     return oldValue;
-                  //   }
-                  //   // try {
-                  //   //   final text = newValue.text;
-                  //   //   if (text.isNotEmpty) double.parse(text);
-                  //   //   debugPrint('ERROR');
-                  //   //   return newValue;
-                  //   //   return oldValue;
-                  //   // }
-                  // }),
-                  DigitFormatWithDecimal(),
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                ],
-                autoFocus: true,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                labelText: 'Set Amount',
-                isRequired: true,
-                onChange: (value) {
-                  _walletController.update();
-                  // _walletController.recievingAmount(value);
-                },
-                suffixText: 'USD',
-              ),
+                  controller: privilegeController.mvpShareAmountController,
+                  // inputFormatterList: [
+                  //   DecimalTextInputFormatter(decimalRange: 2)
+                  // ],
+                  autoFocus: true,
+                  labelText: 'Set Amount',
+                  isRequired: true,
+                  onChange: (value) {
+                    debugPrint("Hello, $value");
+                    formatValueOnchange(
+                        value: value,
+                        controller:
+                            privilegeController.mvpShareAmountController);
+                    privilegeController.update();
+
+                    privilegeController.mvpShareAmount.value = value;
+                  },
+                  suffixText: 'MVP',
+                  keyboardType: TextInputType.name),
               const SizedBox(height: 10),
               const Divider(
                 height: 0,
@@ -432,7 +453,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: GetBuilder(
-                          init: WalletController(),
+                          init: privilegeController,
                           builder: (_) {
                             return CustomButton(
                               onPressed: () {
@@ -446,14 +467,24 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                                 _walletController.update();
                                 Navigator.pop(context);
                               },
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: double.tryParse(
+                                              privilegeController
+                                                  .mvpShareAmountController.text
+                                                  .clean()) !=
+                                          null &&
+                                      double.tryParse(privilegeController
+                                              .mvpShareAmountController.text
+                                              .clean())! >
+                                          0
+                                  ? Theme.of(context).primaryColor
+                                  : const Color(0xffDBDBDB),
                               colorText: Colors.white,
-                              isDisable: double.tryParse(_walletController
-                                              .amountController.text
+                              isDisable: double.tryParse(privilegeController
+                                              .mvpShareAmountController.text
                                               .clean()) !=
                                           null &&
-                                      double.tryParse(_walletController
-                                              .amountController.text
+                                      double.tryParse(privilegeController
+                                              .mvpShareAmountController.text
                                               .clean())! >
                                           0
                                   ? false
@@ -481,7 +512,8 @@ class MvpQrScreenState extends State<MvpQrScreen> {
     // if (ispop) {}
   }
 
-  Column _hasAmount(TextStyle textStyle) {
+  Column _hasAmount(
+      TextStyle textStyle, PrivilegeController privilegeController) {
     return Column(
       children: [
         Text(
@@ -493,7 +525,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
           child: RichText(
             text: TextSpan(
               text:
-                  '${_walletController.recievingAmount.value.toCurrencyAmount()} ',
+                  '${privilegeController.mvpShareAmount.value.toCurrencyAmount()} ',
               style: textStyle.copyWith(
                 fontSize: 18,
                 color: Theme.of(context).primaryColor,
@@ -501,7 +533,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
               ),
               children: [
                 TextSpan(
-                  text: 'USD',
+                  text: 'MVP',
                   style: textStyle.copyWith(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w700,
@@ -514,7 +546,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: Text(
-            "investerName",
+            privilegeController.mvpDynamicLinkModel.value.accountName ?? "",
             // _walletController.walletAmount.value.invester!.investerName!,
             style: textStyle.copyWith(fontSize: 14),
           ),
@@ -538,7 +570,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
             _amountbutton(
               textStyle,
               ontap: () {
-                _inputAmount(context);
+                _inputAmount(context, privilegeController);
               },
               text: 'Reset Amount',
               color: Theme.of(context).primaryColor,

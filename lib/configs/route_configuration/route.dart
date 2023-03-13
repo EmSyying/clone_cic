@@ -103,6 +103,22 @@ final router = GoRouter(
                   name: state.name,
                   child: const MainDashboard()),
               routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'giftmvp',
+                  builder: (context, state) => GiftMVPTransferScreen(
+                    key: state.pageKey,
+                  ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: 'review-gift-mvp',
+                      builder: (context, state) => ReviewGiftMVPTransfer(
+                        key: state.pageKey,
+                      ),
+                    ),
+                  ],
+                ),
                 CICRoute.instance.transferToMMA(fromWhere: 'HomePage'),
                 CICRoute.instance.privilagePayment(fromWhere: 'HomePage'),
                 CICRoute.instance.event(fromWhere: 'DashBoard'),

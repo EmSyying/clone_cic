@@ -1,8 +1,10 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
+import '../../configs/firebase_deeplink/deeplink_service.dart';
 import '../../modules/wallet/controller/wallet_controller.dart';
 
 class CustomQRCard extends StatelessWidget {
@@ -10,18 +12,24 @@ class CustomQRCard extends StatelessWidget {
   final String? userID;
   final String? userName;
   final String assetName;
+  final String? deepLink;
   const CustomQRCard(
       {Key? key,
       this.amountQr,
       this.userID,
       this.userName,
-      this.assetName = "assets/images/Logo/cic_logo_x4jpg.jpg"})
+      this.assetName = "assets/images/Logo/cic_logo_x4jpg.jpg",
+      this.deepLink})
       : super(key: key);
+
+
+
+
+  
 
   @override
   Widget build(BuildContext context) {
-    final walletController = Get.put(WalletController());
-
+    final walletController = Get.put(WalletController());;
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: const BoxDecoration(
@@ -41,7 +49,7 @@ class CustomQRCard extends StatelessWidget {
             child: PrettyQr(
               image: AssetImage(assetName),
               size: 200,
-              data: walletController.transferModel.value.toJson(),
+              data: deepLink ?? walletController.transferModel.value.toJson(),
               roundEdges: true,
               elementColor: Theme.of(context).primaryColor,
             ),
@@ -74,14 +82,16 @@ class CustomQRCard extends StatelessWidget {
             width: 1,
           ),
           Text(
-            amountQr != null && amountQr != '' ? '$amountQr USD' : '0.00 USD',
+         amountQr != null && amountQr != ''
+                ? '${amountQr} USD'
+                : '0.00 USD',
             style: Theme.of(context)
                 .textTheme
                 .titleLarge!
                 .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
           ),
           Text(
-            '$userName',
+            '${userName}',
             style: Theme.of(context)
                 .textTheme
                 .titleLarge!

@@ -1,7 +1,9 @@
 import 'package:cicgreenloan/Utils/helper/api_base_helper.dart';
+import 'package:cicgreenloan/modules/privilege_program/model/dynamic_link_model.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/payment_summary.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/store_branch_model.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +29,9 @@ class PrivilegeController extends GetxController {
   final optionSelecList = <OptionForm>[].obs;
   final isSelectFilter = false.obs;
   final selectedCategFil = ''.obs;
+  final mvpDynamicLinkModel = DynamicLinkModel().obs;
+  final mvpShareAmount = "".obs;
+  final mvpShareAmountController = TextEditingController();
   final categoryId = 0.obs;
   final storeHomeDataModel = StoreHomeDataModel().obs;
   final storeBranchMetaModel = StoreBranchMetaModel().obs;
@@ -186,6 +191,43 @@ class PrivilegeController extends GetxController {
         .then((value) {
       debugPrint("Hello world1");
       storeHomeDataModel.value = StoreHomeDataModel.fromJson(value);
+    });
+  }
+
+  Future<void> onGenerateDynamicLinkMVP(int walletID,
+      {int setAmount = 0}) async {
+    await apiBaseHelper
+        .onNetworkRequesting(
+            isAuthorize: true,
+            methode: METHODE.get,
+            url:
+                "privilege/generate-mvp-qr?wallet_id=$walletID&set_amount=1000")
+        .then((json) async {
+      debugPrint("ddddynnnaamiiccc$json");
+      mvpDynamicLinkModel.value = DynamicLinkModel.fromJson(json);
+      // mvpDynamicLink(value['sort_link']);
+
+      // try {
+      //   final PendingDynamicLinkData? url =
+      //       await FirebaseDynamicLinks.instance.getDynamicLink(
+      //     Uri.parse(value['sort_link']),
+      //   );
+      //   final Uri deepLink = url!.link;
+      //   debugPrint('_handleDeepLink | deeplink: $deepLink');
+      //   var navigationRoute =
+      //       Uri.decodeFull(deepLink.queryParameters['receiveAccountNumber']!);
+      //   var color =
+      //       Uri.decodeFull(deepLink.queryParameters['receiveAccountName']!);
+      //   var capacity = Uri.decodeFull(deepLink.queryParameters['setAmount']!);
+      //   debugPrint("$navigationRoute+$color+$capacity");
+      //   debugPrint("ddddynnnaamiiccc${url.link}");
+      // } catch (e) {
+      //   debugPrint("Error$e");
+      // }
+
+      // debugPrint("value------------${url!.link.toString()}");
+    }).onError((ErrorModel errorModel, stackTrace) {
+      debugPrint("errorModel${errorModel.statusCode},${errorModel.bodyString}");
     });
   }
 
