@@ -228,8 +228,27 @@ final router = GoRouter(
                             path: 'mvp-qr',
                             builder: (context, state) => MvpQrScreen(
                               key: state.pageKey,
-                              mvpID: state.queryParams["mvp-id"] !=null ? int.parse(state.queryParams["mvp-id"]!):0 ,
+                              mvpID: state.queryParams["mvp-id"] != null
+                                  ? int.parse(state.queryParams["mvp-id"]!)
+                                  : 0,
                             ),
+                          ),
+                          GoRoute(
+                            parentNavigatorKey: _rootNavigatorKey,
+                            path: 'gift-mvp-transfer',
+                            builder: (context, state) => GiftMVPTransferScreen(
+                              key: state.pageKey,
+                            ),
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: _rootNavigatorKey,
+                                path: 'review-gift-mvp',
+                                builder: (context, state) =>
+                                    ReviewGiftMVPTransfer(
+                                  key: state.pageKey,
+                                ),
+                              ),
+                            ],
                           ),
                         ]),
                   ],
@@ -395,7 +414,9 @@ final router = GoRouter(
                         path: 'mvp-qr',
                         builder: (context, state) => MvpQrScreen(
                           key: state.pageKey,
-                          mvpID: state.queryParams["mvp-id"] !=null ? int.parse(state.queryParams["mvp-id"]!):0 ,
+                          mvpID: state.queryParams["mvp-id"] != null
+                              ? int.parse(state.queryParams["mvp-id"]!)
+                              : 0,
                         ),
                       ),
                       GoRoute(
@@ -819,7 +840,10 @@ final router = GoRouter(
                                   path: 'mvp-qr',
                                   builder: (context, state) => MvpQrScreen(
                                     key: state.pageKey,
-                                    mvpID: state.queryParams["mvp-id"] !=null ? int.parse(state.queryParams["mvp-id"]!):0 ,
+                                    mvpID: state.queryParams["mvp-id"] != null
+                                        ? int.parse(
+                                            state.queryParams["mvp-id"]!)
+                                        : 0,
                                   ),
                                 ),
                               ])
