@@ -139,8 +139,14 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                       try {
                         var string = GoRouterState.of(context).location;
 
-                        context.push("$string/mvp-qr");
-                        _privilegeController.onGenerateDynamicLinkMVP(002428);
+                        if (_walletController.mvpBalance.value.mvpWalletID !=
+                            null) {
+                          context.push(
+                              "$string/mvp-qr?mvp-id=${_walletController.mvpBalance.value.mvpWalletID!.toInt()}");
+                          _privilegeController.onGenerateDynamicLinkMVP(
+                              _walletController.mvpBalance.value.mvpWalletID!
+                                  .toInt());
+                        }
                       } catch (e) {
                         debugPrint("Hello ERROR$e");
                       }

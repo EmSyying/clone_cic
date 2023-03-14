@@ -26,15 +26,11 @@ import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 import '../controller/privilege_controller.dart';
 
 class MvpQrScreen extends StatefulWidget {
-  const MvpQrScreen(
-      {Key? key,
-      this.accountNumber = "0963288307",
-      this.accountName = "Um Kithya",
-      this.amount = "5,000.99"})
-      : super(key: key);
-  final String accountNumber;
-  final String accountName;
-  final String amount;
+  const MvpQrScreen({
+    Key? key,
+    this.mvpID,
+  }) : super(key: key);
+  final int? mvpID;
 
   @override
   State<MvpQrScreen> createState() => MvpQrScreenState();
@@ -457,10 +453,12 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                                 privilegeController.mvpShareAmount.value =
                                     privilegeController
                                         .mvpShareAmountController.text;
-                                privilegeController.onGenerateDynamicLinkMVP(
-                                    002428,
-                                    setAmount: privilegeController
-                                        .mvpShareAmount.value);
+                                if (widget.mvpID != null) {
+                                  privilegeController.onGenerateDynamicLinkMVP(
+                                      widget.mvpID!,
+                                      setAmount: privilegeController
+                                          .mvpShareAmount.value);
+                                }
                                 privilegeController.update();
                                 Navigator.pop(context);
                               },
@@ -557,7 +555,10 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                 privilegeController.mvpShareAmount.value = '';
                 privilegeController.mvpShareAmountController.text =
                     privilegeController.mvpShareAmount.value;
-                privilegeController.onGenerateDynamicLinkMVP(002428);
+                 if (widget.mvpID != null) {
+                                  privilegeController.onGenerateDynamicLinkMVP(
+                                      widget.mvpID!);
+                                }
                 privilegeController.update();
               },
               text: 'Remove',

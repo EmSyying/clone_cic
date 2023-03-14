@@ -22,6 +22,8 @@ MVPBalance _$MVPBalanceFromJson(Map<String, dynamic> json) {
 mixin _$MVPBalance {
   @JsonKey(name: 'mvp_amount')
   num? get mvpAmount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mvp_wallet_id')
+  num? get mvpWalletID => throw _privateConstructorUsedError;
   @JsonKey(name: 'mvp_amount_format')
   String? get mvpAmountFormat => throw _privateConstructorUsedError;
 
@@ -39,6 +41,7 @@ abstract class $MVPBalanceCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'mvp_amount') num? mvpAmount,
+      @JsonKey(name: 'mvp_wallet_id') num? mvpWalletID,
       @JsonKey(name: 'mvp_amount_format') String? mvpAmountFormat});
 }
 
@@ -56,12 +59,17 @@ class _$MVPBalanceCopyWithImpl<$Res, $Val extends MVPBalance>
   @override
   $Res call({
     Object? mvpAmount = freezed,
+    Object? mvpWalletID = freezed,
     Object? mvpAmountFormat = freezed,
   }) {
     return _then(_value.copyWith(
       mvpAmount: freezed == mvpAmount
           ? _value.mvpAmount
           : mvpAmount // ignore: cast_nullable_to_non_nullable
+              as num?,
+      mvpWalletID: freezed == mvpWalletID
+          ? _value.mvpWalletID
+          : mvpWalletID // ignore: cast_nullable_to_non_nullable
               as num?,
       mvpAmountFormat: freezed == mvpAmountFormat
           ? _value.mvpAmountFormat
@@ -81,6 +89,7 @@ abstract class _$$_MVPBalanceCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'mvp_amount') num? mvpAmount,
+      @JsonKey(name: 'mvp_wallet_id') num? mvpWalletID,
       @JsonKey(name: 'mvp_amount_format') String? mvpAmountFormat});
 }
 
@@ -96,12 +105,17 @@ class __$$_MVPBalanceCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mvpAmount = freezed,
+    Object? mvpWalletID = freezed,
     Object? mvpAmountFormat = freezed,
   }) {
     return _then(_$_MVPBalance(
       mvpAmount: freezed == mvpAmount
           ? _value.mvpAmount
           : mvpAmount // ignore: cast_nullable_to_non_nullable
+              as num?,
+      mvpWalletID: freezed == mvpWalletID
+          ? _value.mvpWalletID
+          : mvpWalletID // ignore: cast_nullable_to_non_nullable
               as num?,
       mvpAmountFormat: freezed == mvpAmountFormat
           ? _value.mvpAmountFormat
@@ -116,6 +130,7 @@ class __$$_MVPBalanceCopyWithImpl<$Res>
 class _$_MVPBalance implements _MVPBalance {
   _$_MVPBalance(
       {@JsonKey(name: 'mvp_amount') this.mvpAmount,
+      @JsonKey(name: 'mvp_wallet_id') this.mvpWalletID,
       @JsonKey(name: 'mvp_amount_format') this.mvpAmountFormat});
 
   factory _$_MVPBalance.fromJson(Map<String, dynamic> json) =>
@@ -125,12 +140,15 @@ class _$_MVPBalance implements _MVPBalance {
   @JsonKey(name: 'mvp_amount')
   final num? mvpAmount;
   @override
+  @JsonKey(name: 'mvp_wallet_id')
+  final num? mvpWalletID;
+  @override
   @JsonKey(name: 'mvp_amount_format')
   final String? mvpAmountFormat;
 
   @override
   String toString() {
-    return 'MVPBalance(mvpAmount: $mvpAmount, mvpAmountFormat: $mvpAmountFormat)';
+    return 'MVPBalance(mvpAmount: $mvpAmount, mvpWalletID: $mvpWalletID, mvpAmountFormat: $mvpAmountFormat)';
   }
 
   @override
@@ -140,13 +158,16 @@ class _$_MVPBalance implements _MVPBalance {
             other is _$_MVPBalance &&
             (identical(other.mvpAmount, mvpAmount) ||
                 other.mvpAmount == mvpAmount) &&
+            (identical(other.mvpWalletID, mvpWalletID) ||
+                other.mvpWalletID == mvpWalletID) &&
             (identical(other.mvpAmountFormat, mvpAmountFormat) ||
                 other.mvpAmountFormat == mvpAmountFormat));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, mvpAmount, mvpAmountFormat);
+  int get hashCode =>
+      Object.hash(runtimeType, mvpAmount, mvpWalletID, mvpAmountFormat);
 
   @JsonKey(ignore: true)
   @override
@@ -165,6 +186,7 @@ class _$_MVPBalance implements _MVPBalance {
 abstract class _MVPBalance implements MVPBalance {
   factory _MVPBalance(
           {@JsonKey(name: 'mvp_amount') final num? mvpAmount,
+          @JsonKey(name: 'mvp_wallet_id') final num? mvpWalletID,
           @JsonKey(name: 'mvp_amount_format') final String? mvpAmountFormat}) =
       _$_MVPBalance;
 
@@ -174,6 +196,9 @@ abstract class _MVPBalance implements MVPBalance {
   @override
   @JsonKey(name: 'mvp_amount')
   num? get mvpAmount;
+  @override
+  @JsonKey(name: 'mvp_wallet_id')
+  num? get mvpWalletID;
   @override
   @JsonKey(name: 'mvp_amount_format')
   String? get mvpAmountFormat;
