@@ -195,13 +195,13 @@ class PrivilegeController extends GetxController {
   }
 
   Future<void> onGenerateDynamicLinkMVP(int walletID,
-      {int setAmount = 0}) async {
+      {String setAmount = ""}) async {
     await apiBaseHelper
         .onNetworkRequesting(
             isAuthorize: true,
             methode: METHODE.get,
             url:
-                "privilege/generate-mvp-qr?wallet_id=$walletID&set_amount=1000")
+                "privilege/generate-mvp-qr?wallet_id=$walletID&set_amount=$setAmount")
         .then((json) async {
       debugPrint("ddddynnnaamiiccc$json");
       mvpDynamicLinkModel.value = DynamicLinkModel.fromJson(json);

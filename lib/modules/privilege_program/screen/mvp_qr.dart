@@ -23,7 +23,6 @@ import '../../../Utils/helper/texfield_format_currency/decimal_textinput_format.
 import '../../../Utils/helper/texfield_format_currency/format_value_onchange.dart';
 import '../../../widgets/mmaccount/custom_qr_card.dart';
 import '../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
-import '../../wallet/controller/wallet_controller.dart';
 import '../controller/privilege_controller.dart';
 
 class MvpQrScreen extends StatefulWidget {
@@ -42,7 +41,7 @@ class MvpQrScreen extends StatefulWidget {
 }
 
 class MvpQrScreenState extends State<MvpQrScreen> {
-  final _walletController = Get.put(WalletController());
+  // final _walletController = Get.put(WalletController());
 
   @override
   void dispose() {
@@ -417,14 +416,12 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                   labelText: 'Set Amount',
                   isRequired: true,
                   onChange: (value) {
-                    debugPrint("Hello, $value");
+                    // debugPrint("Hello, $value");
                     formatValueOnchange(
                         value: value,
                         controller:
                             privilegeController.mvpShareAmountController);
                     privilegeController.update();
-
-                    privilegeController.mvpShareAmount.value = value;
                   },
                   suffixText: 'MVP',
                   keyboardType:
@@ -442,9 +439,8 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                       child: CustomButton(
                         onPressed: () {
                           Navigator.pop(context);
-
-                          _walletController.amountController.text =
-                              _walletController.recievingAmount.value;
+                          privilegeController.mvpShareAmountController.text =
+                              privilegeController.mvpShareAmount.value;
                         },
                         isDisable: false,
                         isOutline: true,
@@ -458,14 +454,14 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                           builder: (_) {
                             return CustomButton(
                               onPressed: () {
-                                _walletController.recievingAmount.value =
-                                    _walletController.amountController.text;
-                                _walletController.transferModel.value =
-                                    _walletController.transferModel.value
-                                        .copyWith(
-                                            amount: _walletController
-                                                .recievingAmount.value);
-                                _walletController.update();
+                                privilegeController.mvpShareAmount.value =
+                                    privilegeController
+                                        .mvpShareAmountController.text;
+                                privilegeController.onGenerateDynamicLinkMVP(
+                                    002428,
+                                    setAmount: privilegeController
+                                        .mvpShareAmount.value);
+                                privilegeController.update();
                                 Navigator.pop(context);
                               },
                               backgroundColor: double.tryParse(
@@ -503,11 +499,11 @@ class MvpQrScreenState extends State<MvpQrScreen> {
         ),
       ),
     ).then((value) {
-      _walletController.amountController.text =
-          _walletController.recievingAmount.value;
-      _walletController.transferModel.value
-          .copyWith(amount: _walletController.recievingAmount.value);
-      _walletController.update();
+      // _walletController.amountController.text =
+      //     _walletController.recievingAmount.value;
+      // _walletController.transferModel.value
+      //     .copyWith(amount: _walletController.recievingAmount.value);
+      // _walletController.update();
     });
 
     // if (ispop) {}
@@ -558,11 +554,11 @@ class MvpQrScreenState extends State<MvpQrScreen> {
             _amountbutton(
               textStyle,
               ontap: () {
-                _walletController.recievingAmount('');
-                _walletController.amountController.text = '';
-                _walletController.transferModel.value =
-                    _walletController.transferModel.value.copyWith(amount: '');
-                _walletController.update();
+                privilegeController.mvpShareAmount.value = '';
+                privilegeController.mvpShareAmountController.text =
+                    privilegeController.mvpShareAmount.value;
+                privilegeController.onGenerateDynamicLinkMVP(002428);
+                privilegeController.update();
               },
               text: 'Remove',
               color: AppColor.primaryColor,
@@ -571,6 +567,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
             _amountbutton(
               textStyle,
               ontap: () {
+                privilegeController.mvpShareAmountController.text = '';
                 _inputAmount(context, privilegeController);
               },
               text: 'Reset Amount',

@@ -241,16 +241,11 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      debugPrint('Worked');
-                                    },
-                                    child: Text(
-                                      'MVP Balance',
-                                      style: textStyle.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14),
-                                    ),
+                                  Text(
+                                    'MVP Balance',
+                                    style: textStyle.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14),
                                   ),
                                   const SizedBox(
                                     height: 10,
