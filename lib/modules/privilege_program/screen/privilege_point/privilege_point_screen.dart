@@ -167,7 +167,7 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                       try {
                         var string = GoRouterState.of(context).location;
 
-                        context.push("$string/gift-mvp-transfer");
+                        context.push("$string/gift-mvp-option");
                       } catch (e) {
                         debugPrint("Hello ERROR$e");
                       }

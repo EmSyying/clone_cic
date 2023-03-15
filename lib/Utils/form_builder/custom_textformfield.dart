@@ -28,6 +28,7 @@ class CustomTextFieldNew extends StatelessWidget {
   final bool? enable;
   final TextInputAction? textInputAction;
   final int? maxlenght;
+  final EdgeInsetsGeometry? padding;
 
   const CustomTextFieldNew({
     this.maxlenght,
@@ -57,11 +58,13 @@ class CustomTextFieldNew extends StatelessWidget {
     this.enable = true,
     this.minLines,
     this.onFieldSubmitted,
+    this.padding,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding:
+          padding ?? const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
