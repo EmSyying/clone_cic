@@ -8,7 +8,9 @@ class CustomTextFieldNew extends StatelessWidget {
   final ValueChanged<String>? onChange;
   final String? labelText;
   final String? hintText;
+  final Widget? label;
   final String? type;
+  final Widget? prefix;
   final String? suffixText;
   final FormFieldValidator<String>? validate;
   final Function? onTap;
@@ -18,16 +20,17 @@ class CustomTextFieldNew extends StatelessWidget {
   final int? maxLine;
   final int? minLines;
   final Widget? suffixIcon;
-  final bool? isRequired;
+  final bool isRequired;
   final bool? isValidate;
   final bool? isReadOnly;
   final bool? autoFocus;
   final TextEditingController? controller;
   final FocusNode? focusScope;
   final VoidCallback? onEditingComplete;
-  final bool? enable;
+  final bool enable;
   final TextInputAction? textInputAction;
   final int? maxlenght;
+  final EdgeInsetsGeometry? padding;
 
   const CustomTextFieldNew({
     this.maxlenght,
@@ -51,17 +54,19 @@ class CustomTextFieldNew extends StatelessWidget {
     this.keyboardType,
     this.maxLine,
     this.suffixIcon,
-    this.isRequired,
+    this.isRequired = false,
     this.isValidate,
     this.textInputAction,
     this.enable = true,
     this.minLines,
     this.onFieldSubmitted,
+    this.label,
+    this.prefix, this.padding,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: padding ??const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,23 +98,30 @@ class CustomTextFieldNew extends StatelessWidget {
             enabled: enable,
             readOnly: isReadOnly ?? false,
             decoration: InputDecoration(
+              prefix: prefix,
               alignLabelWithHint: true,
               //=======new updade====
-              label: RichText(
-                text: TextSpan(
-                  text: labelText,
-                  style: Theme.of(context).textTheme.titleMedium,
-                  children: [
-                    if (isRequired != null)
-                      const TextSpan(
-                        text: ' *',
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      )
-                  ],
-                ),
-              ),
+              label: label ??
+                  RichText(
+                    text: TextSpan(
+                      text: labelText,
+                      style: enable
+                          ? Theme.of(context).textTheme.titleMedium
+                          : Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.grey),
+                      children: [
+                        if (isRequired)
+                          const TextSpan(
+                            text: ' *',
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
               counterText: '',
               fillColor:
                   initialValue == '' || enable == false || isReadOnly == true
@@ -122,7 +134,7 @@ class CustomTextFieldNew extends StatelessWidget {
               // labelText: isRequired != null && isRequired!
               //     ? '$labelText *'
               //     : labelText,
-              hintText: isRequired != null && isRequired! ? hintText : hintText,
+              hintText: isRequired ? hintText : hintText,
               labelStyle: Theme.of(context).textTheme.titleMedium,
               hintStyle: Theme.of(context).textTheme.titleMedium,
               focusedBorder: initialValue != ''
