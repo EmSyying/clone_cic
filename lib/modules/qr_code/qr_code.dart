@@ -497,12 +497,24 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                           const EdgeInsets.all(
                                                               18),
                                                       decoration: BoxDecoration(
-                                                        color: Colors.black
-                                                            .withAlpha(80),
+                                                        color: cameraController
+                                                                    .torchState
+                                                                    .value ==
+                                                                TorchState.on
+                                                            ? Colors.white
+                                                            : Colors.black
+                                                                .withAlpha(80),
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: SvgPicture.asset(
-                                                          "assets/images/flash-icon.svg"),
+                                                        "assets/images/flash-icon.svg",
+                                                        color: cameraController
+                                                                    .torchState
+                                                                    .value ==
+                                                                TorchState.on
+                                                            ? Colors.black
+                                                            : null,
+                                                      ),
                                                     ),
                                                     const Text(
                                                       "Flash",
