@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:cicgreenloan/configs/route_configuration/route.dart';
-import 'package:cicgreenloan/utils/permission/ask_permision_screen.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,8 +18,8 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../Utils/app_settings/controllers/appsetting_controller.dart';
 import '../../Utils/form_builder/custom_button.dart';
 import '../../Utils/helper/custom_route_snackbar.dart';
-import '../../Utils/helper/show_myqr_code.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
+import '../../configs/route_configuration/route.dart';
 import '../../configs/route_management/route_name.dart';
 import '../../utils/form_builder/custom_material_modal_sheet.dart';
 import '../../utils/helper/container_partern.dart';
@@ -58,8 +58,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   final preController = Get.put(PrivilegeController());
 
   bool isFlashOn = false;
-  MobileScannerController cameraController =
-      MobileScannerController(facing: CameraFacing.back);
+  late MobileScannerController cameraController;
 
   //result
   String? resultQR;
@@ -103,9 +102,13 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   }
 
   final _permissionController = Get.put(PermissionController());
+  Uint8List? captureImage;
   @override
   void initState() {
     _permissionController.checkCameraPermission();
+    cameraController = MobileScannerController(
+      facing: CameraFacing.back,
+    );
     super.initState();
   }
 
@@ -138,112 +141,190 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                           children: [
                             Container(
                               width: double.infinity,
-                              color: Colors.black45,
+                              color: const Color(0xff010D10).withOpacity(0.65),
                               child: Stack(
-                                alignment: Alignment.center,
+                                alignment: Alignment.topCenter,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(7),
-                                    child: SizedBox(
-                                      height: width * 0.7,
-                                      width: width * 0.7,
-                                      child: MobileScanner(
-                                        allowDuplicates: false,
-                                        controller: cameraController,
-                                        onDetect: (barcode, _) async {
-                                          try {
-                                            setState(() {
-                                              isGenerateDynamiclink = true;
-                                            });
-                                            final PendingDynamicLinkData? url =
-                                                await FirebaseDynamicLinks
-                                                    .instance
-                                                    .getDynamicLink(
-                                              Uri.parse(barcode.rawValue!),
-                                            );
-                                            Future.delayed(
-                                                const Duration(seconds: 1), () {
-                                              setState(() {
-                                                isGenerateDynamiclink = false;
-                                                if (url != null) {
-                                                  String links = url.link
-                                                      .toString()
-                                                      .replaceAll(
-                                                          'https://cicapp.page.link',
-                                                          '');
-                                                  if (links.contains('event')) {
-                                                    debugPrint("Link: $links");
-                                                    int? param = int.tryParse(
-                                                        links.replaceAll(
-                                                            '/event/', ''));
-                                                    // eventCon
-                                                    //     .getRegisterWithGuest(param,
-                                                    //         isCheckIn: true,
-                                                    //         context: context)
-                                                    eventCon.eventDetail.value
-                                                        .id = param;
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: Get.height * 0.215),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(7),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: width * 0.7,
+                                            width: width * 0.7,
+                                            child: MobileScanner(
+                                              // allowDuplicates: true,
+                                              controller: cameraController,
+                                              onDetect: (capture) async {
+                                                debugPrint("ONDETECT**+++++++");
+                                                final List<Barcode> barcodes =
+                                                    capture.barcodes;
+                                                final image = capture.image;
+                                                setState(() {});
+                                                String rawValue = "";
+                                                for (final barcode
+                                                    in barcodes) {
+                                                  if (barcode
+                                                      .rawValue!.isNotEmpty) {
+                                                    rawValue =
+                                                        barcode.rawValue!;
+                                                  }
+                                                }
+                                                // debugPrint(
+                                                //     "Hello====******${barcode.barcodes}");
+                                                try {
+                                                  setState(() {
+                                                    isGenerateDynamiclink =
+                                                        true;
+                                                  });
+                                                  // try {
+                                                  PendingDynamicLinkData? url =
+                                                      await FirebaseDynamicLinks
+                                                          .instance
+                                                          .getDynamicLink(
+                                                    Uri.parse(rawValue),
+                                                  );
+                                                  // debugPrint("Link: ${url!.link}");
+                                                  // } catch (e) {
+                                                  //   throw "$e";
+                                                  // }
+                                                  // debugPrint("sssss${url?.link}");
+                                                  Future.delayed(
+                                                      const Duration(
+                                                          seconds: 1), () {
+                                                    setState(() {
+                                                      isGenerateDynamiclink =
+                                                          false;
+                                                      if (url != null) {
+                                                        String links = url.link
+                                                            .toString()
+                                                            .replaceAll(
+                                                                'https://cicapp.page.link',
+                                                                '');
+                                                        if (links.contains(
+                                                            'event')) {
+                                                          debugPrint(
+                                                              "Link: $links");
+                                                          int? param =
+                                                              int.tryParse(links
+                                                                  .replaceAll(
+                                                                      '/event/',
+                                                                      ''));
+                                                          // eventCon
+                                                          //     .getRegisterWithGuest(param,
+                                                          //         isCheckIn: true,
+                                                          //         context: context)
+                                                          eventCon.eventDetail
+                                                              .value.id = param;
 
-                                                    if (widget.pageName !=
-                                                        null) {
-                                                      eventCon
-                                                          .getRegisterWithGuest(
+                                                          if (widget.pageName !=
+                                                              null) {
+                                                            eventCon.getRegisterWithGuest(
+                                                                param,
+                                                                isCheckIn: true,
+                                                                context:
+                                                                    context,
+                                                                fromPage: widget
+                                                                    .pageName);
+                                                          } else {
+                                                            eventCon
+                                                                .getRegisterWithGuest(
                                                               param,
                                                               isCheckIn: true,
                                                               context: context,
-                                                              fromPage: widget
-                                                                  .pageName);
-                                                    } else {
-                                                      eventCon
-                                                          .getRegisterWithGuest(
-                                                        param,
-                                                        isCheckIn: true,
-                                                        context: context,
-                                                      );
-                                                    }
-                                                  } else {
-                                                    //  claim to discount
-                                                    debugPrint(
-                                                        "Claim to discount url:$links");
-                                                    if (links.contains(
-                                                        'privilege-claim')) {
-                                                      int? id = int.tryParse(
-                                                          links.replaceAll(
-                                                              '/privilege-claim/',
-                                                              ''));
-                                                      debugPrint(
-                                                          "Claim discount url:$links::$id");
-                                                      preController
-                                                          .onPaymentPrivilege(
-                                                              context: context,
-                                                              id: id)
-                                                          .then((value) =>
-                                                              router.go(links));
-                                                    } else {
-                                                      router.go(links);
-                                                    }
-                                                  }
+                                                            );
+                                                          }
+                                                        } else {
+                                                          //  claim to discount
+                                                          debugPrint(
+                                                              "Claim to discount url:$links");
+                                                          if (links.contains(
+                                                              'privilege-claim')) {
+                                                            int? id = int.tryParse(
+                                                                links.replaceAll(
+                                                                    '/privilege-claim/',
+                                                                    ''));
+                                                            debugPrint(
+                                                                "Claim discount url:$links::$id");
+                                                            preController
+                                                                .onPaymentPrivilege(
+                                                                    context:
+                                                                        context,
+                                                                    id: id)
+                                                                .then((value) =>
+                                                                    router.go(
+                                                                        links));
+                                                          } else {
+                                                            router.go(links);
+                                                          }
+                                                        }
+                                                        if (links.contains(
+                                                            'gift-mvp-transfer')) {
+                                                          debugPrint(
+                                                              "Link: $links");
+                                                        }
 
-                                                  settingCon
-                                                      .isHideBottomNavigation
-                                                      .value = false;
-                                                  settingCon.update();
+                                                        settingCon
+                                                            .isHideBottomNavigation
+                                                            .value = false;
+                                                        settingCon.update();
+                                                      }
+                                                    });
+                                                  });
+                                                  // debugPrint(
+                                                  //     "Redeem to MVP QR:${barcode.rawValue}");
+                                                } catch (ex) {
+                                                  setState(() {
+                                                    isGenerateDynamiclink =
+                                                        false;
+                                                  });
+                                                  debugPrint("Ex: $ex");
+                                                } finally {
+                                                  isGenerateDynamiclink = false;
                                                 }
-                                              });
-                                            });
-                                            debugPrint(
-                                                "Redeem to MVP QR:${barcode.rawValue}");
-                                          } catch (ex) {
-                                            setState(() {
-                                              isGenerateDynamiclink = false;
-                                            });
-                                            debugPrint("Ex: $ex");
-                                          } finally {
-                                            isGenerateDynamiclink = false;
-                                          }
-                                          debugPrint("is Checke Scann");
-                                          debugPrint(
-                                              "Redeem to MVP QR:${barcode.rawValue}");
-                                        },
+                                                captureImage = null;
+
+                                                // debugPrint("is Checke Scann");
+                                                // debugPrint(
+                                                //     "Redeem to MVP QR:${barcode.rawValue}");
+                                              },
+                                            ),
+                                          ),
+                                          if (captureImage != null)
+                                            Container(
+                                              height: width * 0.7,
+                                              width: width * 0.7,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                image:
+                                                    MemoryImage(captureImage!),
+                                              )),
+                                            ),
+                                          if (isGenerateDynamiclink)
+                                            Container(
+                                                width: 100,
+                                                height: 100,
+                                                padding:
+                                                    const EdgeInsets.all(30),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: Colors.white,
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                          offset:
+                                                              Offset(0.0, 1),
+                                                          blurRadius: 6,
+                                                          color: Colors.black12)
+                                                    ]),
+                                                child:
+                                                    const CircularProgressIndicator()),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -260,62 +341,237 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                           )
                                         : const SizedBox(),
                                   ),
-                                  if (isGenerateDynamiclink)
-                                    Center(
-                                      child: Container(
-                                          width: 100,
-                                          height: 100,
-                                          padding: const EdgeInsets.all(30),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: Colors.white,
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                    offset: Offset(0.0, 1),
-                                                    blurRadius: 6,
-                                                    color: Colors.black12)
-                                              ]),
-                                          child:
-                                              const CircularProgressIndicator()),
+
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child:
+                                  // ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(top: Get.height * 0.65),
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                bottom: Get.height * 0.08),
+                                            child: const Text(
+                                              "Align QR code within the frame to scan",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 40),
+                                                child: GestureDetector(
+                                                  onTap: () async {
+                                                    try {
+                                                      final ImagePicker picker =
+                                                          ImagePicker();
+                                                      // Pick an image
+                                                      final XFile? image =
+                                                          await picker
+                                                              .pickImage(
+                                                        source:
+                                                            ImageSource.gallery,
+                                                      );
+
+                                                      if (image != null) {
+                                                        captureImage =
+                                                            await File(
+                                                                    image.path)
+                                                                .readAsBytes();
+                                                        if (await cameraController
+                                                            .analyzeImage(
+                                                                image.path)) {
+                                                          // setState(() {});
+                                                          if (!mounted) return;
+                                                          // ScaffoldMessenger.of(
+                                                          //         context)
+                                                          //     .showSnackBar(
+                                                          //   SnackBar(
+                                                          //     content: const Text(
+                                                          //         'Barcode found!'),
+                                                          //     backgroundColor:
+                                                          //         Theme.of(context)
+                                                          //             .primaryColor,
+                                                          //   ),
+                                                          // );
+                                                          customRouterSnackbar(
+                                                              description:
+                                                                  "Barcode found!",
+                                                              suffix: false,
+                                                              prefix: true);
+                                                        } else {
+                                                          if (!mounted) return;
+                                                          customRouterSnackbar(
+                                                              description:
+                                                                  'No barcode found!',
+                                                              suffix: false,
+                                                              prefix: true);
+                                                          // ScaffoldMessenger.of(
+                                                          //         context)
+                                                          //     .showSnackBar(
+                                                          //   SnackBar(
+                                                          //     content: const Text(
+                                                          //         'No barcode found!'),
+                                                          //     backgroundColor:
+                                                          //         Theme.of(context)
+                                                          //             .primaryColor,
+                                                          //   ),
+                                                          // );
+                                                        }
+                                                      }
+                                                    } catch (e) {
+                                                      debugPrint("e$e");
+                                                    }
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        height: 59,
+                                                        width: 59,
+                                                        margin: const EdgeInsets
+                                                            .only(bottom: 8),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(18),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.black
+                                                              .withAlpha(80),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: SvgPicture.asset(
+                                                            "assets/images/qr.svg"),
+                                                      ),
+                                                      const Text(
+                                                        "Upload QR",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  await cameraController
+                                                      .toggleTorch();
+                                                  setState(() {});
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      height: 59,
+                                                      width: 59,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              bottom: 8),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              18),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black
+                                                            .withAlpha(80),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: SvgPicture.asset(
+                                                          "assets/images/flash-icon.svg"),
+                                                    ),
+                                                    const Text(
+                                                      "Flash",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                  ),
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: GestureDetector(
-                                onTap: () {
-                                  showBarModalBottomSheet(
-                                    context: context,
-                                    builder: (contex) {
-                                      return const ShowMyQRCode();
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  width: 170,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.black.withAlpha(80),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: SvgPicture.asset(
-                                            'assets/images/svgfile/qrCodeIcon.svg'),
-                                      ),
-                                      const Text(
-                                        'My QR Code',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
+                            Visibility(
+                              visible: false,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final ImagePicker picker = ImagePicker();
+                                    // Pick an image
+                                    final XFile? image = await picker.pickImage(
+                                      source: ImageSource.gallery,
+                                    );
+                                    if (image != null) {
+                                      if (await cameraController
+                                          .analyzeImage(image.path)) {
+                                        if (!mounted) return;
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content:
+                                                const Text('Barcode found!'),
+                                            backgroundColor:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                        );
+                                      } else {
+                                        if (!mounted) return;
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content:
+                                                const Text('No barcode found!'),
+                                            backgroundColor:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: Container(
+                                    width: 170,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.withAlpha(80),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: SvgPicture.asset(
+                                              'assets/images/svgfile/qrCodeIcon.svg'),
+                                        ),
+                                        const Text(
+                                          'My QR Code',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -323,258 +579,275 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                           ],
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(30),
-                        width: double.infinity,
-                        color: Colors.white,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Scanning will start automatically",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              "Scan QR to Register Event, \nScan QR to view other CiC Member's profile.",
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 10),
-                            // if (uri != null)
-                            //   Text(
-                            //     'Url: $uri and param : $param',
-                            //     style: const TextStyle(color: Colors.red),
-                            //   ),
-                            if (resultQR != null && resultQR!.contains('event'))
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5),
-                                child: CustomButton(
-                                  isDisable: false,
-                                  isOutline: false,
-                                  onPressed: () async {
-                                    debugPrint("Fetch Event Dertail");
-                                    int event = int.parse(
-                                      resultQR!.replaceAll('event', ''),
-                                    );
+                      Visibility(
+                        visible: false,
+                        child: Container(
+                          padding: const EdgeInsets.all(30),
+                          width: double.infinity,
+                          color: Colors.white,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Get.put(SettingController())
+                                      .isHideBottomNavigation
+                                      .value = false;
+                                  context.go('/gift-mvp-transfer');
+                                },
+                                child: Text(
+                                  "Scanning will start automatically",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "Scan QR to Register Event, \nScan QR to view other CiC Member's profile.",
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 10),
+                              // if (uri != null)
+                              //   Text(
+                              //     'Url: $uri and param : $param',
+                              //     style: const TextStyle(color: Colors.red),
+                              //   ),
+                              if (resultQR != null &&
+                                  resultQR!.contains('event'))
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  child: CustomButton(
+                                    isDisable: false,
+                                    isOutline: false,
+                                    onPressed: () async {
+                                      debugPrint("Fetch Event Dertail");
+                                      int event = int.parse(
+                                        resultQR!.replaceAll('event', ''),
+                                      );
 
-                                    await eventCon
-                                        .onFetchEventTicket(event)
-                                        .then(
-                                      (EventTicket ticket) {
-                                        if (ticket.ticket != null) {
-                                          debugPrint(
-                                              'ticket ${ticket.ticket!.date}');
-                                          onShowCustomCupertinoModalSheet(
-                                            onTap: () {},
-                                            context: context,
-                                            title: 'Your Ticket',
-                                            icon:
-                                                const Icon(Icons.clear_rounded),
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    child:
-                                                        SingleChildScrollView(
-                                                      child: Column(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .all(
-                                                                    padding),
-                                                            child:
-                                                                RepaintBoundary(
-                                                              key:
-                                                                  printScreenKey,
+                                      await eventCon
+                                          .onFetchEventTicket(event)
+                                          .then(
+                                        (EventTicket ticket) {
+                                          if (ticket.ticket != null) {
+                                            debugPrint(
+                                                'ticket ${ticket.ticket!.date}');
+                                            onShowCustomCupertinoModalSheet(
+                                              onTap: () {},
+                                              context: context,
+                                              title: 'Your Ticket',
+                                              icon: const Icon(
+                                                  Icons.clear_rounded),
+                                              child: SizedBox(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .all(
+                                                                      padding),
                                                               child:
-                                                                  CustomTicketCard(
-                                                                eventTicket:
-                                                                    ticket,
-                                                                onViewMap: () {
-                                                                  EventData eventData = EventData(
-                                                                      latitude: ticket
-                                                                          .ticket!
-                                                                          .latitude,
-                                                                      longitude: ticket
-                                                                          .ticket!
-                                                                          .longitude,
-                                                                      title: ticket
-                                                                          .ticket!
-                                                                          .event);
+                                                                  RepaintBoundary(
+                                                                key:
+                                                                    printScreenKey,
+                                                                child:
+                                                                    CustomTicketCard(
+                                                                  eventTicket:
+                                                                      ticket,
+                                                                  onViewMap:
+                                                                      () {
+                                                                    EventData eventData = EventData(
+                                                                        latitude: ticket
+                                                                            .ticket!
+                                                                            .latitude,
+                                                                        longitude: ticket
+                                                                            .ticket!
+                                                                            .longitude,
+                                                                        title: ticket
+                                                                            .ticket!
+                                                                            .event);
 
-                                                                  Navigator.pushNamed(
+                                                                    Navigator.pushNamed(
+                                                                        context,
+                                                                        RouteName
+                                                                            .GOOGLEMAPPAGE,
+                                                                        arguments:
+                                                                            eventData);
+                                                                  },
+                                                                  onViewListing:
+                                                                      () {
+                                                                    EventDetailArgument
+                                                                        argument =
+                                                                        EventDetailArgument(
+                                                                            id: event);
+                                                                    Navigator
+                                                                        .push(
                                                                       context,
-                                                                      RouteName
-                                                                          .GOOGLEMAPPAGE,
-                                                                      arguments:
-                                                                          eventData);
-                                                                },
-                                                                onViewListing:
-                                                                    () {
-                                                                  EventDetailArgument
-                                                                      argument =
-                                                                      EventDetailArgument(
-                                                                          id: event);
-                                                                  Navigator
-                                                                      .push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                const EventDetail(),
-                                                                        settings:
-                                                                            RouteSettings(arguments: argument)),
-                                                                  );
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              const EventDetail(),
+                                                                          settings:
+                                                                              RouteSettings(arguments: argument)),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      60,
+                                                                  vertical:
+                                                                      padding),
+                                                              child:
+                                                                  CustomButton(
+                                                                isDisable:
+                                                                    false,
+                                                                isOutline: true,
+                                                                title:
+                                                                    'Save ticket as image',
+                                                                onPressed: () {
+                                                                  _onCaptureAndSave(
+                                                                      context);
+                                                                  setState(
+                                                                      () {});
                                                                 },
                                                               ),
                                                             ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        60,
-                                                                    vertical:
-                                                                        padding),
-                                                            child: CustomButton(
-                                                              isDisable: false,
-                                                              isOutline: true,
-                                                              title:
-                                                                  'Save ticket as image',
-                                                              onPressed: () {
-                                                                _onCaptureAndSave(
-                                                                    context);
-                                                                setState(() {});
-                                                              },
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: padding -
-                                                                  borderRaduis),
-                                                          SvgPicture.asset(
-                                                              'assets/images/svgfile/cic_logo.svg'),
-                                                          const SizedBox(
-                                                              height: padding),
-                                                        ],
+                                                            const SizedBox(
+                                                                height: padding -
+                                                                    borderRaduis),
+                                                            SvgPicture.asset(
+                                                                'assets/images/svgfile/cic_logo.svg'),
+                                                            const SizedBox(
+                                                                height:
+                                                                    padding),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: double.infinity,
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 0,
-                                                            right: 0,
-                                                            bottom: 20),
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            padding),
-                                                    child: CustomButton(
-                                                      title: 'Confirm',
-                                                      isDisable: false,
-                                                      isOutline: false,
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
+                                                    Container(
+                                                      width: double.infinity,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              left: 0,
+                                                              right: 0,
+                                                              bottom: 20),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              padding),
+                                                      child: CustomButton(
+                                                        title: 'Confirm',
+                                                        isDisable: false,
+                                                        isOutline: false,
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    );
-                                  },
-                                  title: 'Join Event',
+                                            );
+                                          }
+                                        },
+                                      );
+                                    },
+                                    title: 'Join Event',
+                                  ),
                                 ),
-                              ),
 
-                            ///member
-                            // if (resultQR != null &&
-                            //     resultQR!.contains(CiCQr.wallet.key))
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(
-                            //       horizontal: 20, vertical: 5),
-                            //   child: CustomButton(
-                            //     isDisable: false,
-                            //     isOutline: false,
-                            //     onPressed: () async {
-                            //       _walletController
-                            //           .onScanTransfer(resultQR ?? '');
-                            //       // debugPrint(CICRoute.i.transferToMMA().path);
+                              ///member
+                              // if (resultQR != null &&
+                              //     resultQR!.contains(CiCQr.wallet.key))
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(
+                              //       horizontal: 20, vertical: 5),
+                              //   child: CustomButton(
+                              //     isDisable: false,
+                              //     isOutline: false,
+                              //     onPressed: () async {
+                              //       _walletController
+                              //           .onScanTransfer(resultQR ?? '');
+                              //       // debugPrint(CICRoute.i.transferToMMA().path);
 
-                            //       context.go(
-                            //           '/${CICRoute.i.transferToMMA().path}');
+                              //       context.go(
+                              //           '/${CICRoute.i.transferToMMA().path}');
 
-                            //       Future.delayed(const Duration(seconds: 1),
-                            //           () {
-                            //         _settingCon.selectedIndex = 0;
-                            //         _settingCon
-                            //             .onHideBottomNavigationBar(false);
-                            //         _settingCon.update();
-                            //       });
+                              //       Future.delayed(const Duration(seconds: 1),
+                              //           () {
+                              //         _settingCon.selectedIndex = 0;
+                              //         _settingCon
+                              //             .onHideBottomNavigationBar(false);
+                              //         _settingCon.update();
+                              //       });
 
-                            //       // Navigator.pop(context);
-                            //     },
-                            //     title: 'Confirm',
-                            //   ),
-                            // ),
-                            if (resultQR != null &&
-                                resultQR!.contains('member'))
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5),
-                                child: CustomButton(
-                                  isDisable: false,
-                                  isOutline: false,
-                                  onPressed: () async {
-                                    int userId = int.parse(
-                                        resultQR!.replaceAll('member', ''));
+                              //       // Navigator.pop(context);
+                              //     },
+                              //     title: 'Confirm',
+                              //   ),
+                              // ),
+                              if (resultQR != null &&
+                                  resultQR!.contains('member'))
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  child: CustomButton(
+                                    isDisable: false,
+                                    isOutline: false,
+                                    onPressed: () async {
+                                      int userId = int.parse(
+                                          resultQR!.replaceAll('member', ''));
 
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => NewPeronalProfile(
-                                          isDirectory: true,
-                                          id: userId,
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NewPeronalProfile(
+                                            isDirectory: true,
+                                            id: userId,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  title: 'View Profile Detail',
+                                      );
+                                    },
+                                    title: 'View Profile Detail',
+                                  ),
                                 ),
-                              ),
 
-                            // privilege shop
+                              // privilege shop
 
-                            // if (resultQR != null && resultQR!.contains('shop'))
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(
-                            //       horizontal: 20, vertical: 5),
-                            //   child: CustomButton(
-                            //     isDisable: false,
-                            //     isOutline: false,
-                            //     onPressed: () async {
-                            // int shopId = int.parse(
-                            //   resultQR!.replaceAll('shop', ''),
-                            // );
-                            // context.push('/privilege-payment/$shopId');
-                            //     },
-                            //     title: 'Enter Amount',
-                            //   ),
-                            // ),
-                          ],
+                              // if (resultQR != null && resultQR!.contains('shop'))
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(
+                              //       horizontal: 20, vertical: 5),
+                              //   child: CustomButton(
+                              //     isDisable: false,
+                              //     isOutline: false,
+                              //     onPressed: () async {
+                              // int shopId = int.parse(
+                              //   resultQR!.replaceAll('shop', ''),
+                              // );
+                              // context.push('/privilege-payment/$shopId');
+                              //     },
+                              //     title: 'Enter Amount',
+                              //   ),
+                              // ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -726,21 +999,25 @@ class _QRScannerOverlayState extends State<QRScannerOverlay> {
             MediaQuery.of(context).size.height < 400)
         ? 300.0
         : 320.0;
-    return Stack(children: [
-      Align(
-        alignment: Alignment.center,
-        child: CustomPaint(
-          size: const Size.fromRadius(100),
-          foregroundPainter: BorderPainter(),
 
-          // backgroundColor:Colors.red,
-          child: SizedBox(
-            width: scanArea,
-            height: scanArea,
+    return Padding(
+      padding: EdgeInsets.only(top: Get.height * 0.19),
+      child: Stack(children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: CustomPaint(
+            size: const Size.fromRadius(100),
+            foregroundPainter: BorderPainter(),
+
+            // backgroundColor:Colors.red,
+            child: SizedBox(
+              width: Get.width * 0.79,
+              height: Get.width * 0.79,
+            ),
           ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 }
 

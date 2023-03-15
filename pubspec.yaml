@@ -97,7 +97,7 @@ dependencies:
   localstorage: ^4.0.0+1
   lottie: ^2.0.0
   miniplayer: ^1.0.0+2
-  mobile_scanner: ^2.0.0
+  mobile_scanner: ^3.0.0
   modal_bottom_sheet: ^3.0.0-pre
   new_version: ^0.3.0
   number_display: ^3.0.0
