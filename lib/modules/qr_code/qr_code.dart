@@ -192,7 +192,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                         capture.rawValue!),
                                                   );
 
-                                                  // debugPrint("Link: ${url!.link}");
+                                                  debugPrint(
+                                                      "Link: ${url!.link}");
                                                   // } catch (e) {
                                                   //   throw "$e";
                                                   // }
@@ -203,80 +204,80 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                     setState(() {
                                                       isGenerateDynamiclink =
                                                           false;
-                                                      if (url != null) {
-                                                        String links = url.link
-                                                            .toString()
-                                                            .replaceAll(
-                                                                'https://cicapp.page.link',
-                                                                '');
-                                                        if (links.contains(
-                                                            'event')) {
-                                                          debugPrint(
-                                                              "Link: $links");
-                                                          int? param =
-                                                              int.tryParse(links
-                                                                  .replaceAll(
-                                                                      '/event/',
-                                                                      ''));
-                                                          // eventCon
-                                                          //     .getRegisterWithGuest(param,
-                                                          //         isCheckIn: true,
-                                                          //         context: context)
-                                                          eventCon.eventDetail
-                                                              .value.id = param;
-
-                                                          if (widget.pageName !=
-                                                              null) {
-                                                            eventCon.getRegisterWithGuest(
-                                                                param,
-                                                                isCheckIn: true,
-                                                                context:
-                                                                    context,
-                                                                fromPage: widget
-                                                                    .pageName);
-                                                          } else {
-                                                            eventCon
-                                                                .getRegisterWithGuest(
-                                                              param,
-                                                              isCheckIn: true,
-                                                              context: context,
-                                                            );
-                                                          }
-                                                        } else {
-                                                          //  claim to discount
-                                                          debugPrint(
-                                                              "Claim to discount url:$links");
-                                                          if (links.contains(
-                                                              'privilege-claim')) {
-                                                            int? id = int.tryParse(
-                                                                links.replaceAll(
-                                                                    '/privilege-claim/',
+                                                      String links = url.link
+                                                          .toString()
+                                                          .replaceAll(
+                                                              'https://cicapp.page.link',
+                                                              '');
+                                                      if (links
+                                                          .contains('event')) {
+                                                        debugPrint(
+                                                            "Link: $links");
+                                                        int? param =
+                                                            int.tryParse(links
+                                                                .replaceAll(
+                                                                    '/event/',
                                                                     ''));
-                                                            debugPrint(
-                                                                "Claim discount url:$links::$id");
-                                                            preController
-                                                                .onPaymentPrivilege(
-                                                                    context:
-                                                                        context,
-                                                                    id: id)
-                                                                .then((value) =>
-                                                                    router.go(
-                                                                        links));
-                                                          } else {
-                                                            router.go(links);
-                                                          }
-                                                        }
-                                                        if (links.contains(
-                                                            'gift-mvp-transfer')) {
-                                                          debugPrint(
-                                                              "Link: $links");
-                                                        }
+                                                        // eventCon
+                                                        //     .getRegisterWithGuest(param,
+                                                        //         isCheckIn: true,
+                                                        //         context: context)
+                                                        eventCon.eventDetail
+                                                            .value.id = param;
 
-                                                        settingCon
-                                                            .isHideBottomNavigation
-                                                            .value = false;
-                                                        settingCon.update();
+                                                        if (widget.pageName !=
+                                                            null) {
+                                                          eventCon
+                                                              .getRegisterWithGuest(
+                                                                  param,
+                                                                  isCheckIn:
+                                                                      true,
+                                                                  context:
+                                                                      context,
+                                                                  fromPage: widget
+                                                                      .pageName);
+                                                        } else {
+                                                          eventCon
+                                                              .getRegisterWithGuest(
+                                                            param,
+                                                            isCheckIn: true,
+                                                            context: context,
+                                                          );
+                                                        }
+                                                      } else {
+                                                        //  claim to discount
+                                                        debugPrint(
+                                                            "Claim to discount url:$links");
+                                                        if (links.contains(
+                                                            'privilege-claim')) {
+                                                          int? id = int.tryParse(
+                                                              links.replaceAll(
+                                                                  '/privilege-claim/',
+                                                                  ''));
+                                                          debugPrint(
+                                                              "Claim discount url:$links::$id");
+                                                          preController
+                                                              .onPaymentPrivilege(
+                                                                  context:
+                                                                      context,
+                                                                  id: id)
+                                                              .then((value) =>
+                                                                  router.go(
+                                                                      links));
+                                                        } else {
+                                                          router.go(links);
+                                                        }
                                                       }
+                                                      if (links.contains(
+                                                          'gift-mvp-transfer')) {
+                                                        debugPrint(
+                                                            "Link: $links");
+                                                      }
+
+                                                      settingCon
+                                                          .isHideBottomNavigation
+                                                          .value = false;
+                                                      settingCon.update();
                                                     });
                                                   });
                                                   // debugPrint(
@@ -395,6 +396,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                             await File(
                                                                     image.path)
                                                                 .readAsBytes();
+                                                        setState(() {});
                                                         debugPrint(
                                                             "image.path${image.path}");
                                                         // await cameraController
