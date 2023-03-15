@@ -157,23 +157,25 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                             height: width * 0.7,
                                             width: width * 0.7,
                                             child: MobileScanner(
+                                              allowDuplicates: false,
                                               // allowDuplicates: true,
                                               controller: cameraController,
-                                              onDetect: (capture) async {
-                                                debugPrint("ONDETECT**+++++++");
-                                                final List<Barcode> barcodes =
-                                                    capture.barcodes;
-                                                final image = capture.image;
-                                                setState(() {});
-                                                String rawValue = "";
-                                                for (final barcode
-                                                    in barcodes) {
-                                                  if (barcode
-                                                      .rawValue!.isNotEmpty) {
-                                                    rawValue =
-                                                        barcode.rawValue!;
-                                                  }
-                                                }
+                                              onDetect: (capture, _) async {
+                                                debugPrint(
+                                                    "ONDETECT**+++++++${capture.rawValue}");
+                                                // final List<Barcode> barcodes =
+                                                //     capture.barcodes;
+                                                // final image = capture.image;
+                                                // setState(() {});
+                                                // String rawValue = "";
+                                                // for (final barcode
+                                                //     in barcodes) {
+                                                //   if (barcode
+                                                //       .rawValue!.isNotEmpty) {
+                                                //     rawValue =
+                                                //         barcode.rawValue!;
+                                                //   }
+                                                // }
                                                 // debugPrint(
                                                 //     "Hello====******${barcode.barcodes}");
                                                 try {
@@ -186,8 +188,10 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                       await FirebaseDynamicLinks
                                                           .instance
                                                           .getDynamicLink(
-                                                    Uri.parse(rawValue),
+                                                    Uri.parse(
+                                                        capture.rawValue!),
                                                   );
+
                                                   // debugPrint("Link: ${url!.link}");
                                                   // } catch (e) {
                                                   //   throw "$e";
@@ -391,6 +395,11 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                             await File(
                                                                     image.path)
                                                                 .readAsBytes();
+                                                        debugPrint(
+                                                            "image.path${image.path}");
+                                                        // await cameraController
+                                                        //     .analyzeImage(
+                                                        //         image.path);
                                                         if (await cameraController
                                                             .analyzeImage(
                                                                 image.path)) {
@@ -414,6 +423,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                               prefix: true);
                                                         } else {
                                                           if (!mounted) return;
+                                                          captureImage = null;
+                                                          setState(() {});
                                                           customRouterSnackbar(
                                                               description:
                                                                   'No barcode found!',
