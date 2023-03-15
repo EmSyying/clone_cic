@@ -44,6 +44,7 @@ import '../../modules/notification_modules/screens/notification.dart';
 import '../../modules/privilege_program/screen/mvp_qr.dart';
 import '../../modules/privilege_program/screen/privilege/mvp_transaction_history.dart';
 import '../../modules/privilege_program/screen/privilege/privilage_store.dart';
+import '../../modules/privilege_program/screen/privilege_point/gift_mvp_option.dart';
 import '../../modules/privilege_program/screen/privilege_point/gift_mvp_successfully.dart';
 import '../../modules/privilege_program/screen/privilege_point/gift_mvp_transfer_screen.dart';
 import '../../modules/privilege_program/screen/privilege_point/payment_summery_mvp.dart.dart';
@@ -420,21 +421,31 @@ final router = GoRouter(
                         ),
                       ),
                       GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
-                        path: 'gift-mvp-transfer',
-                        builder: (context, state) => GiftMVPTransferScreen(
-                          key: state.pageKey,
-                        ),
-                        routes: [
-                          GoRoute(
-                            parentNavigatorKey: _rootNavigatorKey,
-                            path: 'review-gift-mvp',
-                            builder: (context, state) => ReviewGiftMVPTransfer(
-                              key: state.pageKey,
+                          parentNavigatorKey: _rootNavigatorKey,
+                          path: 'gift-mvp-option',
+                          builder: (context, state) => GiftMvpOption(
+                                key: state.pageKey,
+                              ),
+                          routes: [
+                            GoRoute(
+                              parentNavigatorKey: _rootNavigatorKey,
+                              path: 'gift-mvp-transfer',
+                              builder: (context, state) =>
+                                  GiftMVPTransferScreen(
+                                key: state.pageKey,
+                              ),
+                              routes: [
+                                GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  path: 'review-gift-mvp',
+                                  builder: (context, state) =>
+                                      ReviewGiftMVPTransfer(
+                                    key: state.pageKey,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
+                          ])
                     ]),
 
                 /// Investment
