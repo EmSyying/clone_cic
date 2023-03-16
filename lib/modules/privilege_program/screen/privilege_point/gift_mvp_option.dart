@@ -43,7 +43,8 @@ class GiftMvpOption extends StatelessWidget {
                 final location = GoRouterState.of(context).location;
 
                 if (index == 0) {
-                  //TODO :Kitya Route to Choose from template
+                  debugPrint('-------->>>>$location');
+                  context.push("$location/gift-mvp-template");
                 }
                 if (index == 1) {
                   context.push("$location/gift-mvp-transfer");

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/created_template_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -91,10 +90,8 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
           child:
               SvgPicture.asset('assets/images/privilege/created_template.svg'),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const CreateTemplateScreen()));
+            context.push(
+                "/mymvp/gift-mvp-option/gift-mvp-template/create-template");
           },
         ),
       ),

@@ -21,7 +21,6 @@ import '../../../../widgets/privilege/privilege/compoment_card_category.dart';
 import '../../../../widgets/privilege/privilege/custom_store_listing.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
-import '../privilege_gift_mvp/gift_mvp_form_template_screen.dart';
 
 class PrivilegeScreen extends StatefulWidget {
   final String? tabName;
@@ -496,23 +495,14 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const GiftMVPFromTemplateScreen()),
-            );
-          },
-          child: Container(
-            color: Colors.transparent,
-            child: Text(
-              categoriesTil ?? '',
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-            ),
+        Container(
+          color: Colors.transparent,
+          child: Text(
+            categoriesTil ?? '',
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
           ),
         ),
         const Spacer(),
