@@ -27,9 +27,10 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
           PopupMenuButton<int>(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
+                  Radius.circular(8),
                 ),
               ),
+
               // add icon, by default "3 dot" icon
               // icon: Icon(Icons.book)
               itemBuilder: (context) {
@@ -47,7 +48,9 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const PopupMenuDivider(),
+                  const PopupMenuDivider(
+                    height: 5,
+                  ),
                   PopupMenuItem<int>(
                     value: 1,
                     child: Row(
@@ -61,7 +64,9 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const PopupMenuDivider(),
+                  const PopupMenuDivider(
+                    height: 5,
+                  ),
                   PopupMenuItem<int>(
                     value: 2,
                     onTap: () {

@@ -67,14 +67,26 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                     .map(
                       (e) => Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
-                        child: CustomCardGiftMVPForm(
-                          id: e.id,
-                          acountName: e.accountName,
-                          accountNumber: e.accountNumber,
-                          imageAccount: e.imageAcount,
-                          onTapDeleted: () {},
-                          onTapEdit: () {},
-                          onTapHistory: () {},
+                        child: GestureDetector(
+                          onTap: () {
+                            debugPrint('ID==${e.id}');
+                            try {
+                              var string = GoRouterState.of(context).location;
+
+                              context.push("$string/choosen-template");
+                            } catch (e) {
+                              debugPrint("Hello ERROR$e");
+                            }
+                          },
+                          child: CustomCardGiftMVPForm(
+                            id: e.id,
+                            acountName: e.accountName,
+                            accountNumber: e.accountNumber,
+                            imageAccount: e.imageAcount,
+                            onTapDeleted: () {},
+                            onTapEdit: () {},
+                            onTapHistory: () {},
+                          ),
                         ),
                       ),
                     )
@@ -90,8 +102,13 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
           child:
               SvgPicture.asset('assets/images/privilege/created_template.svg'),
           onPressed: () {
-            context.push(
-                "/mymvp/gift-mvp-option/gift-mvp-template/create-template");
+            try {
+              var string = GoRouterState.of(context).location;
+
+              context.push("$string/create-template");
+            } catch (e) {
+              debugPrint("Hello ERROR$e");
+            }
           },
         ),
       ),
