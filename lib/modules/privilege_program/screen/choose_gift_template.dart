@@ -33,7 +33,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
 
               // add icon, by default "3 dot" icon
               // icon: Icon(Icons.book)
-              itemBuilder: (context) {
+              itemBuilder: (contexts) {
                 return [
                   PopupMenuItem<int>(
                     value: 0,
@@ -69,13 +69,6 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                   ),
                   PopupMenuItem<int>(
                     value: 2,
-                    onTap: () {
-                      if (Platform.isIOS) {
-                        buildAlertIos(context, txtTheme);
-                      } else {
-                        buildAlertAndroid(context, txtTheme);
-                      }
-                    },
                     child: Row(
                       children: [
                         Padding(
@@ -90,11 +83,13 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
               },
               onSelected: (value) {
                 if (value == 0) {
-                  print("My account menu is selected.");
                 } else if (value == 1) {
-                  print("Settings menu is selected.");
                 } else if (value == 2) {
-                  print("Logout menu is selected.");
+                  if (Platform.isIOS) {
+                    buildAlertIos(context, txtTheme);
+                  } else {
+                    buildAlertAndroid(context, txtTheme);
+                  }
                 }
               }),
           // child: GestureDetector(
@@ -238,7 +233,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
   }
 }
 
-void buildAlertIos(context, txtTheme) {
+void buildAlertIos(context, TextTheme txtTheme) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
