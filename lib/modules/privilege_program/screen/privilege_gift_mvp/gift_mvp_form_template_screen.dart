@@ -76,43 +76,59 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                             .map(
                               (e) => Padding(
                                 padding: const EdgeInsets.only(bottom: 16.0),
-                                child: CustomCardGiftMVPForm(
-                                    id: e.id,
-                                    acountName: e.accountName,
-                                    accountNumber: e.accountNumber,
-                                    imageAccount: e.imageAcount,
-                                    onTapDeleted: () {},
-                                    onTapEdit: () {},
-                                    onTapHistory: () async {
-                                      context.pop(context);
+                                child: GestureDetector(
+                                  onTap: () {
+                                    try {
+                                      var string =
+                                          GoRouterState.of(context).location;
 
-                                      onShowPopUpTemplateHistory(
-                                        context,
-                                        child: ListView.separated(
-                                          separatorBuilder: (context, index) =>
-                                              const Divider(
-                                            color: Colors.grey,
-                                            height: 0.5,
+                                      context.push("$string/choosen-template");
+                                    } catch (e) {
+                                      debugPrint("Hello ERROR$e");
+                                    }
+                                  },
+                                  child: CustomCardGiftMVPForm(
+                                      id: e.id,
+                                      acountName: e.accountName,
+                                      accountNumber: e.accountNumber,
+                                      imageAccount: e.imageAcount,
+                                      onTapDeleted: () {},
+                                      onTapEdit: () {},
+                                      onTapHistory: () async {
+                                        context.pop(context);
+
+                                        onShowPopUpTemplateHistory(
+                                          context,
+                                          child: ListView.separated(
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    const Divider(
+                                              color: Colors.grey,
+                                              height: 0.5,
+                                            ),
+                                            itemCount:
+                                                listTransactionHistory.length,
+                                            physics: const ScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (_, index) =>
+                                                TransactionHistoryTemplate(
+                                              title:
+                                                  listTransactionHistory[index]
+                                                      .accountName,
+                                              image:
+                                                  listTransactionHistory[index]
+                                                      .image,
+                                              dated:
+                                                  listTransactionHistory[index]
+                                                      .dated,
+                                              amount:
+                                                  listTransactionHistory[index]
+                                                      .amount,
+                                            ),
                                           ),
-                                          itemCount:
-                                              listTransactionHistory.length,
-                                          physics: const ScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemBuilder: (_, index) =>
-                                              TransactionHistoryTemplate(
-                                            title: listTransactionHistory[index]
-                                                .accountName,
-                                            image: listTransactionHistory[index]
-                                                .image,
-                                            dated: listTransactionHistory[index]
-                                                .dated,
-                                            amount:
-                                                listTransactionHistory[index]
-                                                    .amount,
-                                          ),
-                                        ),
-                                      );
-                                    }),
+                                        );
+                                      }),
+                                ),
                               ),
                             )
                             .toList(),
@@ -127,8 +143,15 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                   child: SvgPicture.asset(
                       'assets/images/privilege/created_template.svg'),
                   onPressed: () {
-                    context.push(
-                        "/mymvp/gift-mvp-option/gift-mvp-template/create-template");
+                    // context.push(
+                    //     "/mymvp/gift-mvp-option/gift-mvp-template/create-template");
+                    try {
+                      var string = GoRouterState.of(context).location;
+
+                      context.push("$string/create-template");
+                    } catch (e) {
+                      debugPrint("Hello ERROR$e");
+                    }
                   },
                 ),
               ),
