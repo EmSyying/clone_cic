@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../Utils/form_builder/custom_button.dart';
+import '../../../widgets/custom_menu_holder.dart';
 
 class ChooseGiftTemplateScreen extends StatelessWidget {
   const ChooseGiftTemplateScreen({super.key});
@@ -24,74 +25,160 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
         colorTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         action: [
-          PopupMenuButton<int>(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8),
-                ),
-              ),
-
-              // add icon, by default "3 dot" icon
-              // icon: Icon(Icons.book)
-              itemBuilder: (contexts) {
-                return [
-                  PopupMenuItem<int>(
-                    value: 0,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 13),
-                          child: SvgPicture.asset(
-                              "assets/images/transaction-history.svg"),
-                        ),
-                        const Text("Transaction History"),
-                      ],
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: CustomFocusedMenuHolder(
+              openWithTap: true,
+              blurSize: 0,
+              menuWidth: (MediaQuery.of(context).size.width * 0.6),
+              blurBackgroundColor: Colors.grey[900]!.withOpacity(0.2),
+              menuItems: [
+                CustomFocusedMenuItem(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    paddingBetweenItem: const EdgeInsets.only(right: 13),
+                    title: Text(
+                      "Transaction History",
+                      style: txtTheme.bodyMedium!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                  const PopupMenuDivider(
-                    height: 5,
-                  ),
-                  PopupMenuItem<int>(
-                    value: 1,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 13),
-                          child:
-                              SvgPicture.asset("assets/images/edit-pencil.svg"),
-                        ),
-                        const Text("Edit Template"),
-                      ],
+                    onPressed: () {},
+                    leadingIcon: SvgPicture.asset(
+                        "assets/images/transaction-history.svg")),
+                CustomFocusedMenuItem(
+                    paddingBetweenItem: const EdgeInsets.only(right: 13),
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    title: Text(
+                      "Edit Template",
+                      style: txtTheme.bodyMedium!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                  const PopupMenuDivider(
-                    height: 5,
-                  ),
-                  PopupMenuItem<int>(
-                    value: 2,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 13),
-                          child: SvgPicture.asset("assets/images/trash.svg"),
-                        ),
-                        const Text("Delete Template"),
-                      ],
+                    onPressed: () {},
+                    leadingIcon:
+                        SvgPicture.asset("assets/images/edit-pencil.svg")),
+                CustomFocusedMenuItem(
+                    paddingBetweenItem: const EdgeInsets.only(right: 13),
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    title: Text(
+                      "Delete Template",
+                      style: txtTheme.bodyMedium!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                ];
+                    onPressed: () {
+                      if (Platform.isIOS) {
+                        buildAlertIos(context, txtTheme);
+                      } else {
+                        buildAlertAndroid(context, txtTheme);
+                      }
+                    },
+                    leadingIcon: SvgPicture.asset("assets/images/trash.svg"))
+              ],
+              onPressed: () {
+                debugPrint('Hello');
               },
-              onSelected: (value) {
-                if (value == 0) {
-                } else if (value == 1) {
-                } else if (value == 2) {
-                  if (Platform.isIOS) {
-                    buildAlertIos(context, txtTheme);
-                  } else {
-                    buildAlertAndroid(context, txtTheme);
-                  }
-                }
-              }),
+              child: SvgPicture.asset("assets/images/more-vertical.svg"),
+            ),
+            // child: FocusedMenuHolder(
+            //   menuBoxDecoration: const BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.all(Radius.circular(8)),
+            //   ),
+            //   blurSize: 0,
+            //   blurBackgroundColor: Colors.grey[900]!.withOpacity(0.2),
+            //   openWithTap: true,
+            //   menuItems: <FocusedMenuItem>[
+            //     FocusedMenuItem(
+            //         title: const Text("Share"),
+            //         leadingIcon: SvgPicture.asset("assets/images/transaction-history.svg"),
+            //         onPressed: () {}),
+            //     FocusedMenuItem(
+            //         title: const Text("Share"),
+            //         trailingIcon: const Icon(Icons.share),
+            //         onPressed: () {}),
+            //     FocusedMenuItem(
+            //         title: const Text("Share"),
+            //         trailingIcon: const Icon(Icons.share),
+            //         onPressed: () {}),
+            //   ],
+            //   onPressed: () {
+            //     debugPrint('Click');
+            //   },
+            //   child: SvgPicture.asset("assets/images/more-vertical.svg"),
+            // ),
+          ),
+          // PopupMenuButton<int>(
+          //     shape: const RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.all(
+          //         Radius.circular(8),
+          //       ),
+          //     ),
+
+          //     // add icon, by default "3 dot" icon
+          //     // icon: Icon(Icons.book)
+          //     itemBuilder: (contexts) {
+          //       return [
+          //         PopupMenuItem<int>(
+          //           value: 0,
+          //           child: Row(
+          //             children: [
+          //               Padding(
+          //                 padding: const EdgeInsets.only(right: 13),
+          //                 child: SvgPicture.asset(
+          //                     "assets/images/transaction-history.svg"),
+          //               ),
+          //               const Text("Transaction History"),
+          //             ],
+          //           ),
+          //         ),
+          //         const PopupMenuDivider(
+          //           height: 5,
+          //         ),
+          //         PopupMenuItem<int>(
+          //           value: 1,
+          //           child: Row(
+          //             children: [
+          //               Padding(
+          //                 padding: const EdgeInsets.only(right: 13),
+          //                 child:
+          //                     SvgPicture.asset("assets/images/edit-pencil.svg"),
+          //               ),
+          //               const Text("Edit Template"),
+          //             ],
+          //           ),
+          //         ),
+          //         const PopupMenuDivider(
+          //           height: 5,
+          //         ),
+          //         PopupMenuItem<int>(
+          //           value: 2,
+          //           child: Row(
+          //             children: [
+          //               Padding(
+          //                 padding: const EdgeInsets.only(right: 13),
+          //                 child: SvgPicture.asset("assets/images/trash.svg"),
+          //               ),
+          //               const Text("Delete Template"),
+          //             ],
+          //           ),
+          //         ),
+          //       ];
+          //     },
+          //     onSelected: (value) {
+          //       if (value == 0) {
+          //       } else if (value == 1) {
+          //       } else if (value == 2) {
+          //         if (Platform.isIOS) {
+          //           buildAlertIos(context, txtTheme);
+          //         } else {
+          //           buildAlertAndroid(context, txtTheme);
+          //         }
+          //       }
+          //     }),
           // child: GestureDetector(
           //     onTap: () {
 
