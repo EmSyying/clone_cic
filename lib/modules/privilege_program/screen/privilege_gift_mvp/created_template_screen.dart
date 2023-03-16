@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 
@@ -173,21 +174,38 @@ class CreateTemplateScreen extends StatelessWidget {
           color: Colors.white,
           child: Column(
             children: [
-              CustomTextFieldNew(
-                keyboardType: TextInputType.number,
-                isRequired: true,
-                hintText: 'Enter receive number',
-                onChange: (phone) {},
-                isValidate: true,
-                labelText: 'Enter receive number',
+              Expanded(
+                child: Column(
+                  children: [
+                    CustomTextFieldNew(
+                      keyboardType: TextInputType.number,
+                      isRequired: true,
+                      hintText: 'Enter receive number',
+                      onChange: (phone) {},
+                      isValidate: true,
+                      labelText: 'Enter receive number',
+                    ),
+                    CustomTextFieldNew(
+                      keyboardType: TextInputType.name,
+                      hintText: 'Create Template',
+                      onChange: (phone) {},
+                      isValidate: true,
+                      labelText: 'Create Template',
+                    ),
+                  ],
+                ),
               ),
-              CustomTextFieldNew(
-                keyboardType: TextInputType.name,
-                hintText: 'Create Template',
-                onChange: (phone) {},
-                isValidate: true,
-                labelText: 'Create Template',
-                isReadOnly: true,
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 24.0),
+                child: CustomButton(
+                  width: double.infinity,
+                  onPressed: () {},
+                  title: 'Save',
+                  isDisable: false,
+                  isOutline: false,
+                ),
               ),
             ],
           ),

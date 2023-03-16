@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/transaction_history_template.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,29 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
 
                                       onShowPopUpTemplateHistory(
                                         context,
+                                        child: ListView.separated(
+                                          separatorBuilder: (context, index) =>
+                                              const Divider(
+                                            color: Colors.grey,
+                                            height: 0.5,
+                                          ),
+                                          itemCount:
+                                              listTransactionHistory.length,
+                                          physics: const ScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemBuilder: (_, index) =>
+                                              TransactionHistoryTemplate(
+                                            title: listTransactionHistory[index]
+                                                .accountName,
+                                            image: listTransactionHistory[index]
+                                                .image,
+                                            dated: listTransactionHistory[index]
+                                                .dated,
+                                            amount:
+                                                listTransactionHistory[index]
+                                                    .amount,
+                                          ),
+                                        ),
                                       );
                                     }),
                               ),
@@ -153,4 +177,43 @@ List<CardTemplateMVPModel> listAcountTemplate = [
     imageAcount: 'assets/images/svgfile/cashout.svg',
     id: 7,
   ),
+];
+
+List<CardTemplateMVPModel> listTransactionHistory = [
+  CardTemplateMVPModel(
+      accountName: 'Champei Spa Toul Kork',
+      dated: '21 Feb 2023 | 01:34:12 AM',
+      image: 'assets/images/privilege/transfer_icon.svg',
+      amount: '- 245 MVP',
+      id: 1),
+  CardTemplateMVPModel(
+      accountName: 'Champei Spa Toul Kork 1',
+      dated: '21 Feb 2023 | 01:34:12 AM',
+      image: 'assets/images/privilege/transfer_icon.svg',
+      amount: '- 245 MVP',
+      id: 2),
+  CardTemplateMVPModel(
+      accountName: 'Champei Spa Toul Kork 2',
+      dated: '21 Feb 2023 | 01:34:12 AM',
+      image: 'assets/images/privilege/transfer_icon.svg',
+      amount: '- 245 MVP',
+      id: 3),
+  CardTemplateMVPModel(
+      accountName: 'Champei Spa Toul Kork 3',
+      dated: '21 Feb 2023 | 01:34:12 AM',
+      image: 'assets/images/privilege/transfer_icon.svg',
+      amount: '- 245 MVP',
+      id: 4),
+  CardTemplateMVPModel(
+      accountName: 'Champei Spa Toul Kork 4',
+      dated: '21 Feb 2023 | 01:34:12 AM',
+      image: 'assets/images/privilege/transfer_icon.svg',
+      amount: '- 245 MVP',
+      id: 5),
+  CardTemplateMVPModel(
+      accountName: 'Champei Spa Toul Kork 5',
+      dated: '21 Feb 2023 | 01:34:12 AM',
+      image: 'assets/images/privilege/transfer_icon.svg',
+      amount: '- 245 MVP',
+      id: 6),
 ];

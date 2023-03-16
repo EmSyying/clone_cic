@@ -125,10 +125,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
               PopupMenuItem(
                 padding: const EdgeInsets.only(right: 10, left: 10),
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    onTapHistory;
-                  },
+                  onTap: onTapHistory,
                   child: Container(
                     color: Colors.transparent,
                     height: 49,
