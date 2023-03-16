@@ -83,107 +83,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
               },
               child: SvgPicture.asset("assets/images/more-vertical.svg"),
             ),
-            // child: FocusedMenuHolder(
-            //   menuBoxDecoration: const BoxDecoration(
-            //     color: Colors.white,
-            //     borderRadius: BorderRadius.all(Radius.circular(8)),
-            //   ),
-            //   blurSize: 0,
-            //   blurBackgroundColor: Colors.grey[900]!.withOpacity(0.2),
-            //   openWithTap: true,
-            //   menuItems: <FocusedMenuItem>[
-            //     FocusedMenuItem(
-            //         title: const Text("Share"),
-            //         leadingIcon: SvgPicture.asset("assets/images/transaction-history.svg"),
-            //         onPressed: () {}),
-            //     FocusedMenuItem(
-            //         title: const Text("Share"),
-            //         trailingIcon: const Icon(Icons.share),
-            //         onPressed: () {}),
-            //     FocusedMenuItem(
-            //         title: const Text("Share"),
-            //         trailingIcon: const Icon(Icons.share),
-            //         onPressed: () {}),
-            //   ],
-            //   onPressed: () {
-            //     debugPrint('Click');
-            //   },
-            //   child: SvgPicture.asset("assets/images/more-vertical.svg"),
-            // ),
           ),
-          // PopupMenuButton<int>(
-          //     shape: const RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.all(
-          //         Radius.circular(8),
-          //       ),
-          //     ),
-
-          //     // add icon, by default "3 dot" icon
-          //     // icon: Icon(Icons.book)
-          //     itemBuilder: (contexts) {
-          //       return [
-          //         PopupMenuItem<int>(
-          //           value: 0,
-          //           child: Row(
-          //             children: [
-          //               Padding(
-          //                 padding: const EdgeInsets.only(right: 13),
-          //                 child: SvgPicture.asset(
-          //                     "assets/images/transaction-history.svg"),
-          //               ),
-          //               const Text("Transaction History"),
-          //             ],
-          //           ),
-          //         ),
-          //         const PopupMenuDivider(
-          //           height: 5,
-          //         ),
-          //         PopupMenuItem<int>(
-          //           value: 1,
-          //           child: Row(
-          //             children: [
-          //               Padding(
-          //                 padding: const EdgeInsets.only(right: 13),
-          //                 child:
-          //                     SvgPicture.asset("assets/images/edit-pencil.svg"),
-          //               ),
-          //               const Text("Edit Template"),
-          //             ],
-          //           ),
-          //         ),
-          //         const PopupMenuDivider(
-          //           height: 5,
-          //         ),
-          //         PopupMenuItem<int>(
-          //           value: 2,
-          //           child: Row(
-          //             children: [
-          //               Padding(
-          //                 padding: const EdgeInsets.only(right: 13),
-          //                 child: SvgPicture.asset("assets/images/trash.svg"),
-          //               ),
-          //               const Text("Delete Template"),
-          //             ],
-          //           ),
-          //         ),
-          //       ];
-          //     },
-          //     onSelected: (value) {
-          //       if (value == 0) {
-          //       } else if (value == 1) {
-          //       } else if (value == 2) {
-          //         if (Platform.isIOS) {
-          //           buildAlertIos(context, txtTheme);
-          //         } else {
-          //           buildAlertAndroid(context, txtTheme);
-          //         }
-          //       }
-          //     }),
-          // child: GestureDetector(
-          //     onTap: () {
-
-          //     },
-          //     child: SvgPicture.asset("assets/images/more-vertical.svg")),
         ],
         leading: IconButton(
           icon: kIsWeb
@@ -484,6 +384,8 @@ class BodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController mvpBalanceTextController =
+        TextEditingController(text: " ");
     return Container(
       alignment: Alignment.topCenter,
       color: Colors.white,
@@ -491,7 +393,9 @@ class BodyWidget extends StatelessWidget {
         children: [
           CustomTextFieldNew(
             enable: false,
-            controller: TextEditingController(text: " "),
+            noDisableColor: true,
+            // isReadOnly: true,
+            controller: mvpBalanceTextController,
             prefix: RichText(
               text: TextSpan(
                 style: txtTheme.bodyMedium!.copyWith(

@@ -28,6 +28,7 @@ class CustomTextFieldNew extends StatelessWidget {
   final FocusNode? focusScope;
   final VoidCallback? onEditingComplete;
   final bool enable;
+  final bool noDisableColor;
   final TextInputAction? textInputAction;
   final int? maxlenght;
   final EdgeInsetsGeometry? padding;
@@ -61,12 +62,15 @@ class CustomTextFieldNew extends StatelessWidget {
     this.minLines,
     this.onFieldSubmitted,
     this.label,
-    this.prefix, this.padding,
+    this.prefix,
+    this.padding,
+    this.noDisableColor = false,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ??const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding:
+          padding ?? const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,8 +127,9 @@ class CustomTextFieldNew extends StatelessWidget {
                     ),
                   ),
               counterText: '',
-              fillColor:
-                  initialValue == '' || enable == false || isReadOnly == true
+              fillColor: noDisableColor
+                  ? Theme.of(context).cardColor
+                  : initialValue == '' || enable == false || isReadOnly == true
                       ? Colors.grey[100]
                       : Theme.of(context).cardColor,
               filled: true, suffixText: suffixText,
